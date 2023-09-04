@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F31C7881-7E63-4B5C-A390-A20EA6D2047C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ERPSLib</RootNamespace>
+    <AssemblyName>ERPSLib</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>ERPSLib.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>ERPSLib.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Data.SqlClient" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataLayers\Base\Access.vb" />
+    <Compile Include="DataLayers\Base\Company.vb" />
+    <Compile Include="DataLayers\Base\JournalPost.vb" />
+    <Compile Include="DataLayers\Base\Modules.vb" />
+    <Compile Include="DataLayers\Base\ModulesAccess.vb" />
+    <Compile Include="DataLayers\Base\PaymentReferences.vb" />
+    <Compile Include="DataLayers\Base\PaymentTerm.vb" />
+    <Compile Include="DataLayers\Base\Program.vb" />
+    <Compile Include="DataLayers\Base\ProgramModules.vb" />
+    <Compile Include="DataLayers\Base\Server.vb" />
+    <Compile Include="DataLayers\Base\SQL.vb" />
+    <Compile Include="DataLayers\Base\Status.vb" />
+    <Compile Include="DataLayers\Base\StatusModules.vb" />
+    <Compile Include="DataLayers\Base\UOM.vb" />
+    <Compile Include="DataLayers\Base\User.vb" />
+    <Compile Include="DataLayers\Base\UserAccess.vb" />
+    <Compile Include="DataLayers\Base\UserCompany.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SharedLib\Functions\DataSetHelper.vb" />
+    <Compile Include="SharedLib\Functions\DirectoryUtility.vb" />
+    <Compile Include="SharedLib\Functions\Encryption.vb" />
+    <Compile Include="SharedLib\Functions\Math.vb" />
+    <Compile Include="SharedLib\Functions\StringUtility.vb" />
+    <Compile Include="SharedLib\Functions\usUserApp.vb" />
+    <Compile Include="ValueObject\Base\Access.vb" />
+    <Compile Include="ValueObject\Base\Common.vb" />
+    <Compile Include="ValueObject\Base\Company.vb" />
+    <Compile Include="ValueObject\Base\CS.vb" />
+    <Compile Include="ValueObject\Base\DefaultServer.vb" />
+    <Compile Include="ValueObject\Base\JournalPost.vb" />
+    <Compile Include="ValueObject\Base\Modules.vb" />
+    <Compile Include="ValueObject\Base\ModulesAccess.vb" />
+    <Compile Include="ValueObject\Base\PaymentReferences.vb" />
+    <Compile Include="ValueObject\Base\PaymentTerm.vb" />
+    <Compile Include="ValueObject\Base\PostTax.vb" />
+    <Compile Include="ValueObject\Base\Program.vb" />
+    <Compile Include="ValueObject\Base\ProgramModules.vb" />
+    <Compile Include="ValueObject\Base\Server.vb" />
+    <Compile Include="ValueObject\Base\ServerList.vb" />
+    <Compile Include="ValueObject\Base\Status.vb" />
+    <Compile Include="ValueObject\Base\StatusModules.vb" />
+    <Compile Include="ValueObject\Base\UOM.vb" />
+    <Compile Include="ValueObject\Base\User.vb" />
+    <Compile Include="ValueObject\Base\UserAccess.vb" />
+    <Compile Include="ValueObject\Base\UserCompany.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BusinessLayers\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

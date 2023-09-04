@@ -1,0 +1,10 @@
+<configuration>
+  <CONNECTION>
+	<!-- <SERVER>localhost</SERVER> -->
+    <SERVER>202.157.186.158</SERVER>
+    <DATABASE>ERPS</DATABASE>
+	<USERID>admin1</USERID>
+	<PASSWORD>Mantul#0001</PASSWORD>
+	<STARTFROM>2020/01/01</STARTFROM>
+  </CONNECTION>
+</configuration>

@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ERPS", "ERPS\ERPS.vbproj", "{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F31C7881-7E63-4B5C-A390-A20EA6D2047C} = {F31C7881-7E63-4B5C-A390-A20EA6D2047C}
+	EndProjectSection
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ERPSLib", "ERPSLib\ERPSLib.vbproj", "{F31C7881-7E63-4B5C-A390-A20EA6D2047C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F31C7881-7E63-4B5C-A390-A20EA6D2047C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F31C7881-7E63-4B5C-A390-A20EA6D2047C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F31C7881-7E63-4B5C-A390-A20EA6D2047C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F31C7881-7E63-4B5C-A390-A20EA6D2047C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

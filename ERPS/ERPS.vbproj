@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>ERPS.My.MyApplication</StartupObject>
+    <RootNamespace>ERPS</RootNamespace>
+    <AssemblyName>ERPS</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>ERPS.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>ERPS.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v16.2.Core, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Sparkline.v16.2.Core, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGrid.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="ERPSLib" />
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Form1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.vb">
+      <DependentUpon>Form1.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\System\frmSysLogin.designer.vb">
+      <DependentUpon>frmSysLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\System\frmSysLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\SharedLib\Components\usCheckListBoxControl.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\SharedLib\Components\usComboBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\SharedLib\Components\usComboBoxEdit.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\SharedLib\Components\usNumeric.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\SharedLib\Components\usNumericDevExpress.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\SharedLib\Components\usTextBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\SharedLib\Components\usToolBar.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\SharedLib\Components\usXtraScrollTabControl.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\SharedLib\Functions\modSharedForm.vb" />
+    <Compile Include="PresentationLayers\SharedLib\Functions\modUsFolderBrowserDialog.vb" />
+    <Compile Include="PresentationLayers\SharedLib\Functions\usDefCons.vb" />
+    <Compile Include="PresentationLayers\SharedLib\Functions\usDefGrid.vb" />
+    <Compile Include="PresentationLayers\SharedLib\Functions\usDOColors.vb" />
+    <Compile Include="PresentationLayers\SharedLib\Functions\usDxExportFormat.vb" />
+    <Compile Include="PresentationLayers\SharedLib\Functions\usDXHelper.vb" />
+    <Compile Include="PresentationLayers\SharedLib\Functions\usForm.vb" />
+    <Compile Include="PresentationLayers\SharedLib\Functions\usXML.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\System\frmSysLogin.resx">
+      <DependentUpon>frmSysLogin.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PresentationLayers\Icons\Add.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Alt.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Approved.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Assign.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Calculation.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Calendar.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Calender.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Cancel.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Checked.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Close.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Computer.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Copy.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Db.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\DbImport.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Delete.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Detail.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Down.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Edit.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Email.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Excel.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Get.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\History.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Hold.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Invoice.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Misc.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\MyLogo.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\New.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Open.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Option.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Price.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Print.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Refresh.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Reject.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Save.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Sub.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Submit.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Supplier.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Track.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Unapproved.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Up.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\User.ico" />
+    <EmbeddedResource Include="PresentationLayers\Icons\Word.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PresentationLayers\Forms\Master\" />
+    <Folder Include="PresentationLayers\Forms\Transaction\" />
+    <Folder Include="PresentationLayers\Forms\View\" />
+    <Folder Include="PresentationLayers\Reports1\" />
+    <Folder Include="PresentationLayers\Reports2\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ERPSLib\ERPSLib.vbproj">
+      <Project>{f31c7881-7e63-4b5c-a390-a20ea6d2047c}</Project>
+      <Name>ERPSLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
