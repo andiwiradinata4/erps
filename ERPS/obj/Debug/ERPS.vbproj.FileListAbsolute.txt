@@ -1,1 +1,4 @@
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPS.exe.config
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPS.exe
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPS.pdb
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPSLib.dll
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPSLib.pdb

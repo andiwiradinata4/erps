@@ -79,13 +79,6 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -105,6 +98,30 @@
       <DependentUpon>frmSysLogin.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Forms\System\frmSysLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\System\frmSysMain.Designer.vb">
+      <DependentUpon>frmSysMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\System\frmSysMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\View\frmViewCompany.designer.vb">
+      <DependentUpon>frmViewCompany.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\View\frmViewCompany.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\View\frmViewProgram.designer.vb">
+      <DependentUpon>frmViewProgram.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\View\frmViewProgram.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\View\frmViewProgramCompany.designer.vb">
+      <DependentUpon>frmViewProgramCompany.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\View\frmViewProgramCompany.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationLayers\SharedLib\Components\usCheckListBoxControl.vb">
@@ -142,9 +159,6 @@
     <Compile Include="PresentationLayers\SharedLib\Functions\usXML.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -169,6 +183,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="PresentationLayers\Forms\View\frmViewCompany.resx">
+      <DependentUpon>frmViewCompany.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\View\frmViewProgram.resx">
+      <DependentUpon>frmViewProgram.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\View\frmViewProgramCompany.resx">
+      <DependentUpon>frmViewProgramCompany.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Icons\Add.ico" />
     <EmbeddedResource Include="PresentationLayers\Icons\Alt.ico" />
     <EmbeddedResource Include="PresentationLayers\Icons\Approved.ico" />
@@ -215,7 +238,6 @@
   <ItemGroup>
     <Folder Include="PresentationLayers\Forms\Master\" />
     <Folder Include="PresentationLayers\Forms\Transaction\" />
-    <Folder Include="PresentationLayers\Forms\View\" />
     <Folder Include="PresentationLayers\Reports1\" />
     <Folder Include="PresentationLayers\Reports2\" />
   </ItemGroup>

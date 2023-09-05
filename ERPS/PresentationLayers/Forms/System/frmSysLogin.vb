@@ -51,7 +51,7 @@
                     ERPSLib.UI.usUserApp.CompanyName = .pubLUdtRow.Item("CompanyName")
                     ERPSLib.UI.usUserApp.CompanyAddress = .pubLUdtRow.Item("Address")
                     ERPSLib.UI.usUserApp.CompanyInitial = .pubLUdtRow.Item("CompanyInitial")
-                    ERPSLib.UI.usUserApp.JournalPost = BL.JournalPost.GetDetail(ERPSLib.UI.usUserApp.ProgramID)
+                    'ERPSLib.UI.usUserApp.JournalPost = BL.JournalPost.GetDetail(ERPSLib.UI.usUserApp.ProgramID)
                     frmSysMain.Show()
                 End If
             End With

@@ -63,6 +63,22 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLayers\Base\Access.vb" />
+    <Compile Include="BusinessLayers\Base\Company.vb" />
+    <Compile Include="BusinessLayers\Base\JournalPost.vb" />
+    <Compile Include="BusinessLayers\Base\Modules.vb" />
+    <Compile Include="BusinessLayers\Base\ModulesAccess.vb" />
+    <Compile Include="BusinessLayers\Base\PaymentReferences.vb" />
+    <Compile Include="BusinessLayers\Base\PaymentTerm.vb" />
+    <Compile Include="BusinessLayers\Base\Program.vb" />
+    <Compile Include="BusinessLayers\Base\ProgramModules.vb" />
+    <Compile Include="BusinessLayers\Base\Server.vb" />
+    <Compile Include="BusinessLayers\Base\Status.vb" />
+    <Compile Include="BusinessLayers\Base\StatusModules.vb" />
+    <Compile Include="BusinessLayers\Base\UOM.vb" />
+    <Compile Include="BusinessLayers\Base\User.vb" />
+    <Compile Include="BusinessLayers\Base\UserAccess.vb" />
+    <Compile Include="BusinessLayers\Base\UserCompany.vb" />
     <Compile Include="DataLayers\Base\Access.vb" />
     <Compile Include="DataLayers\Base\Company.vb" />
     <Compile Include="DataLayers\Base\JournalPost.vb" />
@@ -142,9 +158,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BusinessLayers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
