@@ -4,7 +4,7 @@ Namespace VO
         Property ID As Integer
         Property Code As String
         Property Name As String
-        Property IDStatus As Integer
+        Property StatusID As Integer
     End Class 
 End Namespace
 

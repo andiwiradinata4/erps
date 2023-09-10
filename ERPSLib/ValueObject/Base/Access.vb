@@ -17,9 +17,6 @@ Namespace VO
             ResetPasswordAccess = 9
             SetupUserAccessAccess = 10
             DuplicateUserAccessAccess = 11
-            AssignAccess = 12
-            ChangePriceAccess = 13
-            ImportData = 14
         End Enum
 
     End Class 

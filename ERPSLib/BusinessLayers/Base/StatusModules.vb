@@ -1,10 +1,10 @@
 Namespace BL
     Public Class StatusModules
 
-        Public Shared Function ListDataByIDStatus(ByVal intIDStatus As VO.Status.Values) As DataTable
+        Public Shared Function ListDataByStatusID(ByVal intStatusID As VO.Status.Values) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.StatusModules.ListDataByIDStatus(sqlCon, Nothing, intIDStatus)
+                Return DL.StatusModules.ListDataByStatusID(sqlCon, Nothing, intStatusID)
             End Using
         End Function
 
@@ -15,12 +15,12 @@ Namespace BL
             End Using
         End Function
 
-        Public Shared Sub SaveDataByIDStatus(ByVal clsDataAll() As VO.StatusModules)
+        Public Shared Sub SaveDataByStatusID(ByVal clsDataAll() As VO.StatusModules)
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    DL.StatusModules.DeleteDataByIDStatus(sqlCon, sqlTrans, clsDataAll(0).IDStatus)
+                    DL.StatusModules.DeleteDataByStatusID(sqlCon, sqlTrans, clsDataAll(0).StatusID)
 
                     For Each clsItem As VO.StatusModules In clsDataAll
                         clsItem.ID = DL.StatusModules.GetMaxID(sqlCon, sqlTrans)

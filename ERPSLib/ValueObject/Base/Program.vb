@@ -6,9 +6,7 @@ Namespace VO
 
         Enum Values
             All = 0
-            TradingTBS = 1
-            RentalAlatBerat = 2
-            RentalTruk = 3
+            SteelCompany = 1
         End Enum
     End Class 
 End Namespace

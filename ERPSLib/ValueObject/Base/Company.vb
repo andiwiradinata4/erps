@@ -6,7 +6,7 @@ Namespace VO
         Property Address As String
         Property PhoneNumber As String
         Property CompanyInitial As String
-        Property IDStatus As Integer
+        Property StatusID As Integer
     End Class 
 End Namespace
 

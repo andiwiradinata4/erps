@@ -66,7 +66,7 @@ Namespace BL
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Try
-                    If DL.User.GetIDStatus(sqlCon, Nothing, strID) = VO.Status.Values.InActive Then
+                    If DL.User.GetStatusID(sqlCon, Nothing, strID) = VO.Status.Values.InActive Then
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah tidak aktif")
                     Else
                         DL.User.DeleteData(sqlCon, Nothing, strID)

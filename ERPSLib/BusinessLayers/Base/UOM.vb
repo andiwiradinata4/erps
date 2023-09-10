@@ -14,7 +14,8 @@ Namespace BL
             End Using
         End Function
 
-        Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.UOM) As VO.UOM
+        Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.UOM) As Boolean
+            Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Try
@@ -29,7 +30,7 @@ Namespace BL
                 Catch ex As Exception
                     Throw ex
                 End Try
-                Return clsData
+                Return bolReturn
             End Using
         End Function
 
@@ -44,7 +45,7 @@ Namespace BL
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Try
-                    If DL.UOM.GetIDStatus(sqlCon, Nothing, intID) = VO.Status.Values.InActive Then
+                    If DL.UOM.GetStatusID(sqlCon, Nothing, intID) = VO.Status.Values.InActive Then
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah tidak aktif")
                     Else
                         DL.UOM.DeleteData(sqlCon, Nothing, intID)

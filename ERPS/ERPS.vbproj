@@ -94,6 +94,126 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstAccess.designer.vb">
+      <DependentUpon>frmMstAccess.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstAccess.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstAccessDet.designer.vb">
+      <DependentUpon>frmMstAccessDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstAccessDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstCompany.designer.vb">
+      <DependentUpon>frmMstCompany.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstCompany.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstCompanyDet.designer.vb">
+      <DependentUpon>frmMstCompanyDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstCompanyDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstItemType.Designer.vb">
+      <DependentUpon>frmMstItemType.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstItemType.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstItemTypeDet.Designer.vb">
+      <DependentUpon>frmMstItemTypeDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstItemTypeDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstModules.designer.vb">
+      <DependentUpon>frmMstModules.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstModules.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstModulesDet.designer.vb">
+      <DependentUpon>frmMstModulesDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstModulesDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstProgram.designer.vb">
+      <DependentUpon>frmMstProgram.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstProgram.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstProgramDet.designer.vb">
+      <DependentUpon>frmMstProgramDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstProgramDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstProgramModules.designer.vb">
+      <DependentUpon>frmMstProgramModules.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstProgramModules.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstStatus.designer.vb">
+      <DependentUpon>frmMstStatus.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstStatus.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstStatusDet.designer.vb">
+      <DependentUpon>frmMstStatusDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstStatusDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstStatusModules.designer.vb">
+      <DependentUpon>frmMstStatusModules.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstStatusModules.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstUOM.designer.vb">
+      <DependentUpon>frmMstUOM.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstUOM.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstUOMDet.designer.vb">
+      <DependentUpon>frmMstUOMDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstUOMDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstUser.designer.vb">
+      <DependentUpon>frmMstUser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstUser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstUserDet.designer.vb">
+      <DependentUpon>frmMstUserDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstUserDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstUserUserAccess.designer.vb">
+      <DependentUpon>frmMstUserUserAccess.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstUserUserAccess.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstUserUserAccessDuplicate.designer.vb">
+      <DependentUpon>frmMstUserUserAccessDuplicate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstUserUserAccessDuplicate.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\System\frmSysLogin.designer.vb">
       <DependentUpon>frmSysLogin.vb</DependentUpon>
     </Compile>
@@ -166,6 +286,66 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstAccess.resx">
+      <DependentUpon>frmMstAccess.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstAccessDet.resx">
+      <DependentUpon>frmMstAccessDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstCompany.resx">
+      <DependentUpon>frmMstCompany.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstCompanyDet.resx">
+      <DependentUpon>frmMstCompanyDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstItemType.resx">
+      <DependentUpon>frmMstItemType.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstItemTypeDet.resx">
+      <DependentUpon>frmMstItemTypeDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstModules.resx">
+      <DependentUpon>frmMstModules.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstModulesDet.resx">
+      <DependentUpon>frmMstModulesDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstProgram.resx">
+      <DependentUpon>frmMstProgram.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstProgramDet.resx">
+      <DependentUpon>frmMstProgramDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstProgramModules.resx">
+      <DependentUpon>frmMstProgramModules.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstStatus.resx">
+      <DependentUpon>frmMstStatus.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstStatusDet.resx">
+      <DependentUpon>frmMstStatusDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstStatusModules.resx">
+      <DependentUpon>frmMstStatusModules.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstUOM.resx">
+      <DependentUpon>frmMstUOM.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstUOMDet.resx">
+      <DependentUpon>frmMstUOMDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstUser.resx">
+      <DependentUpon>frmMstUser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstUserDet.resx">
+      <DependentUpon>frmMstUserDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstUserUserAccess.resx">
+      <DependentUpon>frmMstUserUserAccess.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstUserUserAccessDuplicate.resx">
+      <DependentUpon>frmMstUserUserAccessDuplicate.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\System\frmSysLogin.resx">
       <DependentUpon>frmSysLogin.vb</DependentUpon>
     </EmbeddedResource>
@@ -183,6 +363,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="PresentationLayers\Forms\System\frmSysMain.resx">
+      <DependentUpon>frmSysMain.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\View\frmViewCompany.resx">
       <DependentUpon>frmViewCompany.vb</DependentUpon>
     </EmbeddedResource>
@@ -236,7 +419,6 @@
     <EmbeddedResource Include="PresentationLayers\Icons\Word.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="PresentationLayers\Forms\Master\" />
     <Folder Include="PresentationLayers\Forms\Transaction\" />
     <Folder Include="PresentationLayers\Reports1\" />
     <Folder Include="PresentationLayers\Reports2\" />

@@ -8,10 +8,10 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                    "SELECT " & vbNewLine & _
-                   "     A.ID, A.Name, A.IDStatus, B.Name AS StatusInfo, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate  " & vbNewLine & _
+                   "     A.ID, A.Name, A.StatusID, B.Name AS StatusInfo, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate  " & vbNewLine & _
                    "FROM mstPaymentReferences A " & vbNewLine & _
                    "INNER JOIN mstStatus B ON  " & vbNewLine & _
-                   "    A.IDStatus=B.ID" & vbNewLine
+                   "    A.StatusID=B.ID" & vbNewLine
 
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
@@ -28,9 +28,9 @@ Namespace DL
                    "     A.ID, A.Name " & vbNewLine & _
                    "FROM mstPaymentReferences A " & vbNewLine & _
                    "WHERE " & vbNewLine & _
-                   "    A.IDStatus=@IDStatus " & vbNewLine
+                   "    A.StatusID=@StatusID " & vbNewLine
 
-                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = VO.Status.Values.Active
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Active
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
@@ -45,14 +45,14 @@ Namespace DL
                 If bolNew Then
                     .CommandText = _
                        "INSERT INTO mstPaymentReferences " & vbNewLine & _
-                       "    (ID, Name, IDStatus, CreatedBy, CreatedDate, LogBy, LogDate)   " & vbNewLine & _
+                       "    (ID, Name, StatusID, CreatedBy, CreatedDate, LogBy, LogDate)   " & vbNewLine & _
                        "VALUES " & vbNewLine & _
-                       "    (@ID, @Name, @IDStatus, @LogBy, GETDATE(), @LogBy, GETDATE())  " & vbNewLine
+                       "    (@ID, @Name, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE())  " & vbNewLine
                 Else
                     .CommandText = _
                     "UPDATE mstPaymentReferences SET " & vbNewLine & _
                     "    Name=@Name, " & vbNewLine & _
-                    "    IDStatus=@IDStatus, " & vbNewLine & _
+                    "    StatusID=@StatusID, " & vbNewLine & _
                     "    LogInc=LogInc+1, " & vbNewLine & _
                     "    LogBy=@LogBy, " & vbNewLine & _
                     "    LogDate=GETDATE() " & vbNewLine & _
@@ -62,7 +62,7 @@ Namespace DL
 
                 .Parameters.Add("@ID", SqlDbType.Int).Value = clsData.ID
                 .Parameters.Add("@Name", SqlDbType.VarChar, 50).Value = clsData.Name
-                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = clsData.IDStatus
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
 
             End With
@@ -83,7 +83,7 @@ Namespace DL
                     .CommandType = CommandType.Text
                     .CommandText = _
                        "SELECT TOP 1 " & vbNewLine & _
-                       "    A.ID, A.Name, A.IDStatus, A.LogBy, A.LogDate  " & vbNewLine & _
+                       "    A.ID, A.Name, A.StatusID, A.LogBy, A.LogDate  " & vbNewLine & _
                        "FROM mstPaymentReferences A " & vbNewLine & _
                        "WHERE " & vbNewLine & _
                        "    ID=@ID " & vbNewLine
@@ -96,7 +96,7 @@ Namespace DL
                         .Read()
                         voReturn.ID = .Item("ID")
                         voReturn.Name = .Item("Name")
-                        voReturn.IDStatus = .Item("IDStatus")
+                        voReturn.StatusID = .Item("StatusID")
                         voReturn.LogBy = .Item("LogBy")
                         voReturn.LogDate = .Item("LogDate")
                     End If
@@ -117,12 +117,12 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "UPDATE mstPaymentReferences " & vbNewLine & _
-                    "SET IDStatus=@IDStatus " & vbNewLine & _
+                    "SET StatusID=@StatusID " & vbNewLine & _
                     "WHERE " & vbNewLine & _
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.Int).Value = intID
-                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = VO.Status.Values.InActive
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.InActive
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -208,7 +208,7 @@ Namespace DL
             Return bolExists
         End Function
 
-        Public Shared Function GetIDStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal intID As Integer) As Integer
+        Public Shared Function GetStatusID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal intID As Integer) As Integer
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim intReturn As Integer = VO.Status.Values.Active
             Try
@@ -218,7 +218,7 @@ Namespace DL
                     .CommandType = CommandType.Text
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
-                        "   IDStatus " & vbNewLine & _
+                        "   StatusID " & vbNewLine & _
                         "FROM mstPaymentReferences " & vbNewLine & _
                         "WHERE  " & vbNewLine & _
                         "   ID=@ID " & vbNewLine
@@ -229,7 +229,7 @@ Namespace DL
                 With sqlrdData
                     If .HasRows Then
                         .Read()
-                        intReturn = .Item("IDStatus")
+                        intReturn = .Item("StatusID")
                     End If
                 End With
             Catch ex As Exception

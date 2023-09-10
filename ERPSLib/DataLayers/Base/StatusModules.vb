@@ -2,7 +2,7 @@ Namespace DL
 
     Public Class StatusModules
 
-        Public Shared Function ListDataByIDStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal intIDStatus As VO.Status.Values) As DataTable
+        Public Shared Function ListDataByStatusID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal intStatusID As VO.Status.Values) As DataTable
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
                 .Connection = sqlCon
@@ -10,14 +10,14 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                    "SELECT " & vbNewLine & _
-                   "     A.ID, A.ModulesID, A.IDStatus, B.Name AS ModulesName " & vbNewLine & _
+                   "     A.ID, A.ModulesID, A.StatusID, B.Name AS ModulesName " & vbNewLine & _
                    "FROM mstStatusModules A " & vbNewLine & _
                    "INNER JOIN mstModules B ON " & vbNewLine & _
                    "    A.ModulesID=B.ID " & vbNewLine & _
                    "WHERE  " & vbNewLine & _
-                   "    A.IDStatus=@IDStatus " & vbNewLine
+                   "    A.StatusID=@StatusID " & vbNewLine
 
-                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = intIDStatus
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = intStatusID
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
@@ -30,10 +30,10 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                    "SELECT " & vbNewLine & _
-                   "     A.ID, A.ModulesID, A.IDStatus, B.Name AS StatusName  " & vbNewLine & _
+                   "     A.ID, A.ModulesID, A.StatusID, B.Name AS StatusName  " & vbNewLine & _
                    "FROM mstStatusModules A " & vbNewLine & _
                    "INNER JOIN mstStatus B ON " & vbNewLine & _
-                   "    A.IDStatus=B.ID " & vbNewLine & _
+                   "    A.StatusID=B.ID " & vbNewLine & _
                    "WHERE  " & vbNewLine & _
                    "    A.ModulesID=@ModulesID "
 
@@ -50,13 +50,13 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                    "INSERT INTO mstStatusModules " & vbNewLine & _
-                   "    (ID, ModulesID, IDStatus)   " & vbNewLine & _
+                   "    (ID, ModulesID, StatusID)   " & vbNewLine & _
                    "VALUES " & vbNewLine & _
-                   "    (@ID, @ModulesID, @IDStatus)  " & vbNewLine
+                   "    (@ID, @ModulesID, @StatusID)  " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.Int).Value = clsData.ID
                 .Parameters.Add("@ModulesID", SqlDbType.Int).Value = clsData.ModulesID
-                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = clsData.IDStatus
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -75,7 +75,7 @@ Namespace DL
                     .CommandType = CommandType.Text
                     .CommandText = _
                        "SELECT TOP 1 " & vbNewLine & _
-                       "    A.ID, A.ModulesID, A.IDStatus  " & vbNewLine & _
+                       "    A.ID, A.ModulesID, A.StatusID  " & vbNewLine & _
                        "FROM mstStatusModules A " & vbNewLine & _
                        "WHERE " & vbNewLine & _
                        "    ID=@ID " & vbNewLine
@@ -88,7 +88,7 @@ Namespace DL
                         .Read()
                         voReturn.ID = .Item("ID")
                         voReturn.ModulesID = .Item("ModulesID")
-                        voReturn.IDStatus = .Item("IDStatus")
+                        voReturn.StatusID = .Item("StatusID")
                     End If
                 End With
             Catch ex As Exception
@@ -99,7 +99,7 @@ Namespace DL
             Return voReturn
         End Function
 
-        Public Shared Sub DeleteDataByIDStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal intIDStatus As Integer)
+        Public Shared Sub DeleteDataByStatusID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal intStatusID As Integer)
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
                 .Connection = sqlCon
@@ -108,9 +108,9 @@ Namespace DL
                 .CommandText = _
                     "DELETE FROM mstStatusModules " & vbNewLine & _
                     "WHERE " & vbNewLine & _
-                    "   IDStatus=@IDStatus " & vbNewLine
+                    "   StatusID=@StatusID " & vbNewLine
 
-                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = intIDStatus
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = intStatusID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)

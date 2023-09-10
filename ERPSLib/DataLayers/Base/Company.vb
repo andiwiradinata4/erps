@@ -8,11 +8,11 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                    "SELECT " & vbNewLine & _
-                   "     A.ID AS CompanyID, A.Name AS CompanyName, A.Address, A.PhoneNumber, A.CompanyInitial, A.IDStatus, B.Name AS StatusInfo, A.CreatedBy,   " & vbNewLine & _
+                   "     A.ID AS CompanyID, A.Name AS CompanyName, A.Address, A.PhoneNumber, A.CompanyInitial, A.StatusID, B.Name AS StatusInfo, A.CreatedBy,   " & vbNewLine & _
                    "     A.CreatedDate, A.LogBy, A.LogDate  " & vbNewLine & _
                    "FROM mstCompany A " & vbNewLine & _
                    "INNER JOIN mstStatus B ON " & vbNewLine & _
-                   "    A.IDStatus=B.ID " & vbNewLine
+                   "    A.StatusID=B.ID " & vbNewLine
 
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
@@ -29,9 +29,9 @@ Namespace DL
                    "    A.ID, A.Name, A.Address, A.PhoneNumber, A.CompanyInitial " & vbNewLine & _
                    "FROM mstCompany A " & vbNewLine & _
                    "WHERE " & vbNewLine & _
-                   "    A.IDStatus=@IDStatus " & vbNewLine
+                   "    A.StatusID=@StatusID " & vbNewLine
 
-                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = VO.Status.Values.Active
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Active
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
@@ -46,10 +46,10 @@ Namespace DL
                 If bolNew Then
                     .CommandText = _
                        "INSERT INTO mstCompany " & vbNewLine & _
-                       "    (ID, Name, Address, PhoneNumber, CompanyInitial, IDStatus, CreatedBy,   " & vbNewLine & _
+                       "    (ID, Name, Address, PhoneNumber, CompanyInitial, StatusID, CreatedBy,   " & vbNewLine & _
                        "      CreatedDate, LogBy, LogDate)   " & vbNewLine & _
                        "VALUES " & vbNewLine & _
-                       "    (@ID, @Name, @Address, @PhoneNumber, @CompanyInitial, @IDStatus, @LogBy,   " & vbNewLine & _
+                       "    (@ID, @Name, @Address, @PhoneNumber, @CompanyInitial, @StatusID, @LogBy,   " & vbNewLine & _
                        "      GETDATE(), @LogBy, GETDATE())  " & vbNewLine
                 Else
                     .CommandText = _
@@ -58,7 +58,7 @@ Namespace DL
                         "    Address=@Address, " & vbNewLine & _
                         "    PhoneNumber=@PhoneNumber, " & vbNewLine & _
                         "    CompanyInitial=@CompanyInitial, " & vbNewLine & _
-                        "    IDStatus=@IDStatus, " & vbNewLine & _
+                        "    StatusID=@StatusID, " & vbNewLine & _
                         "    LogInc=LogInc+1, " & vbNewLine & _
                         "    LogBy=@LogBy, " & vbNewLine & _
                         "    LogDate=GETDATE() " & vbNewLine & _
@@ -71,7 +71,7 @@ Namespace DL
                 .Parameters.Add("@Address", SqlDbType.VarChar, 250).Value = clsData.Address
                 .Parameters.Add("@PhoneNumber", SqlDbType.VarChar, 250).Value = clsData.PhoneNumber
                 .Parameters.Add("@CompanyInitial", SqlDbType.VarChar, 3).Value = clsData.CompanyInitial
-                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = clsData.IDStatus
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
             End With
             Try
@@ -91,7 +91,7 @@ Namespace DL
                     .CommandType = CommandType.Text
                     .CommandText = _
                        "SELECT TOP 1 " & vbNewLine & _
-                       "    A.ID, A.Name, A.Address, A.PhoneNumber, A.CompanyInitial, A.IDStatus, A.LogBy,   " & vbNewLine & _
+                       "    A.ID, A.Name, A.Address, A.PhoneNumber, A.CompanyInitial, A.StatusID, A.LogBy,   " & vbNewLine & _
                        "    A.LogDate  " & vbNewLine & _
                        "FROM mstCompany A " & vbNewLine & _
                        "WHERE " & vbNewLine & _
@@ -108,7 +108,7 @@ Namespace DL
                         voReturn.Address = .Item("Address")
                         voReturn.PhoneNumber = .Item("PhoneNumber")
                         voReturn.CompanyInitial = .Item("CompanyInitial")
-                        voReturn.IDStatus = .Item("IDStatus")
+                        voReturn.StatusID = .Item("StatusID")
                         voReturn.LogBy = .Item("LogBy")
                         voReturn.LogDate = .Item("LogDate")
                     End If
@@ -129,12 +129,12 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "UPDATE mstCompany " & vbNewLine & _
-                    "SET IDStatus=@IDStatus " & vbNewLine & _
+                    "SET StatusID=@StatusID " & vbNewLine & _
                     "WHERE " & vbNewLine & _
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.Int).Value = intID
-                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = VO.Status.Values.InActive
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.InActive
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -254,7 +254,7 @@ Namespace DL
             Return bolExists
         End Function
 
-        Public Shared Function GetIDStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal intID As Integer) As Integer
+        Public Shared Function GetStatusID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal intID As Integer) As Integer
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim intReturn As Integer = VO.Status.Values.Active
             Try
@@ -264,7 +264,7 @@ Namespace DL
                     .CommandType = CommandType.Text
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
-                        "   IDStatus " & vbNewLine & _
+                        "   StatusID " & vbNewLine & _
                         "FROM mstCompany " & vbNewLine & _
                         "WHERE  " & vbNewLine & _
                         "   ID=@ID " & vbNewLine
@@ -276,7 +276,7 @@ Namespace DL
                 With sqlrdData
                     If .HasRows Then
                         .Read()
-                        intReturn = .Item("IDStatus")
+                        intReturn = .Item("StatusID")
                     End If
                 End With
             Catch ex As Exception

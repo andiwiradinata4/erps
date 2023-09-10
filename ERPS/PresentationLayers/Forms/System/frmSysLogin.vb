@@ -40,21 +40,33 @@
             ERPSLib.UI.usUserApp.ServerName = VO.DefaultServer.Server & "|" & VO.DefaultServer.Database
 
             Me.Hide()
-            Dim frmDetail As New frmViewProgramCompany
-            With frmDetail
-                .StartPosition = FormStartPosition.CenterScreen
-                .ShowDialog()
-                If .pubIsChoose Then
-                    ERPSLib.UI.usUserApp.ProgramID = .pubLUdtRow.Item("ProgramID")
-                    ERPSLib.UI.usUserApp.ProgramName = .pubLUdtRow.Item("ProgramName")
-                    ERPSLib.UI.usUserApp.CompanyID = .pubLUdtRow.Item("CompanyID")
-                    ERPSLib.UI.usUserApp.CompanyName = .pubLUdtRow.Item("CompanyName")
-                    ERPSLib.UI.usUserApp.CompanyAddress = .pubLUdtRow.Item("Address")
-                    ERPSLib.UI.usUserApp.CompanyInitial = .pubLUdtRow.Item("CompanyInitial")
-                    'ERPSLib.UI.usUserApp.JournalPost = BL.JournalPost.GetDetail(ERPSLib.UI.usUserApp.ProgramID)
-                    frmSysMain.Show()
-                End If
-            End With
+
+            If ERPSLib.UI.usUserApp.AccessList.Rows.Count = 1 Then
+                ERPSLib.UI.usUserApp.ProgramID = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("ProgramID")
+                ERPSLib.UI.usUserApp.ProgramName = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("ProgramName")
+                ERPSLib.UI.usUserApp.CompanyID = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("CompanyID")
+                ERPSLib.UI.usUserApp.CompanyName = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("CompanyName")
+                ERPSLib.UI.usUserApp.CompanyAddress = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("Address")
+                ERPSLib.UI.usUserApp.CompanyInitial = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("CompanyInitial")
+                'ERPSLib.UI.usUserApp.JournalPost = BL.JournalPost.GetDetail(ERPSLib.UI.usUserApp.ProgramID)
+                frmSysMain.Show()
+            Else
+                Dim frmDetail As New frmViewProgramCompany
+                With frmDetail
+                    .StartPosition = FormStartPosition.CenterScreen
+                    .ShowDialog()
+                    If .pubIsChoose Then
+                        ERPSLib.UI.usUserApp.ProgramID = .pubLUdtRow.Item("ProgramID")
+                        ERPSLib.UI.usUserApp.ProgramName = .pubLUdtRow.Item("ProgramName")
+                        ERPSLib.UI.usUserApp.CompanyID = .pubLUdtRow.Item("CompanyID")
+                        ERPSLib.UI.usUserApp.CompanyName = .pubLUdtRow.Item("CompanyName")
+                        ERPSLib.UI.usUserApp.CompanyAddress = .pubLUdtRow.Item("Address")
+                        ERPSLib.UI.usUserApp.CompanyInitial = .pubLUdtRow.Item("CompanyInitial")
+                        'ERPSLib.UI.usUserApp.JournalPost = BL.JournalPost.GetDetail(ERPSLib.UI.usUserApp.ProgramID)
+                        frmSysMain.Show()
+                    End If
+                End With
+            End If
         Else
             txtPassword.Focus()
             UI.usForm.frmMessageBox("User ID dan Password tidak valid!")

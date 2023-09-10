@@ -46,7 +46,7 @@ Namespace BL
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Try
-                    If DL.PaymentTerm.GetIDStatus(sqlCon, Nothing, intID) = VO.Status.Values.InActive Then
+                    If DL.PaymentTerm.GetStatusID(sqlCon, Nothing, intID) = VO.Status.Values.InActive Then
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah tidak aktif")
                     Else
                         DL.PaymentTerm.DeleteData(sqlCon, Nothing, intID)

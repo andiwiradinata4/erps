@@ -6,7 +6,7 @@ Namespace VO
         Property Name As String
         Property Password As String
         Property Position As String
-        Property IDStatus As Integer
+        Property StatusID As Integer
         Property IsSuperUser As Boolean
         Property IsFirstCreated As Boolean
     End Class 

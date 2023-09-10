@@ -3,10 +3,10 @@ Namespace VO
         Inherits Common
         Property ID As Integer
         Property ModulesID As Integer
-        Property IDStatus As Integer
+        Property StatusID As Integer
 
         Enum FilterBy
-            IDStatus = 0
+            StatusID = 0
             ModulesID = 1
         End Enum
     End Class

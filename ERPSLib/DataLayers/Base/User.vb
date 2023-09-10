@@ -9,11 +9,11 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                    "SELECT " & vbNewLine & _
-                   "     A.ID, A.StaffID, A.Name, A.Password, A.Position, A.IDStatus, B.Name AS StatusInfo, A.CreatedBy,   " & vbNewLine & _
+                   "     A.ID, A.StaffID, A.Name, A.Password, A.Position, A.StatusID, B.Name AS StatusInfo, A.CreatedBy,   " & vbNewLine & _
                    "     A.CreatedDate, A.LogBy, A.LogDate  " & vbNewLine & _
                    "FROM mstUser A " & vbNewLine & _
                    "INNER JOIN mstStatus B ON " & vbNewLine & _
-                   "    A.IDStatus=B.ID " & vbNewLine
+                   "    A.StatusID=B.ID " & vbNewLine
 
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
@@ -33,15 +33,15 @@ Namespace DL
                    "WHERE " & vbNewLine & _
                    "    A.ID=@ID " & vbNewLine & _
                    "    AND A.Password=@Password " & vbNewLine & _
-                   "    AND A.IDStatus=@IDStatus " & vbNewLine
+                   "    AND A.StatusID=@StatusID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 20).Value = strUserID
                 .Parameters.Add("@Password", SqlDbType.NVarChar).Value = strPassword
-                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = VO.Status.Values.Active
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Active
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
-        
+
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                    ByVal bolNew As Boolean, ByVal clsData As VO.User)
             Dim sqlcmdExecute As New SqlCommand
@@ -52,10 +52,10 @@ Namespace DL
                 If bolNew Then
                     .CommandText = _
                        "INSERT INTO mstUser " & vbNewLine & _
-                       "    (ID, StaffID, Name, Password, Position, IDStatus, CreatedBy,   " & vbNewLine & _
+                       "    (ID, StaffID, Name, Password, Position, StatusID, CreatedBy,   " & vbNewLine & _
                        "      CreatedDate, LogBy, LogDate, IsSuperUser, IsFirstCreated)   " & vbNewLine & _
                        "VALUES " & vbNewLine & _
-                       "    (@ID, @StaffID, @Name, @Password, @Position, @IDStatus, @LogBy,   " & vbNewLine & _
+                       "    (@ID, @StaffID, @Name, @Password, @Position, @StatusID, @LogBy,   " & vbNewLine & _
                        "      GETDATE(), @LogBy, GETDATE(), @IsSuperUser, 1)  " & vbNewLine
                 Else
                     .CommandText = _
@@ -64,7 +64,7 @@ Namespace DL
                     "    Name=@Name, " & vbNewLine & _
                     "    Password=@Password, " & vbNewLine & _
                     "    Position=@Position, " & vbNewLine & _
-                    "    IDStatus=@IDStatus, " & vbNewLine & _
+                    "    StatusID=@StatusID, " & vbNewLine & _
                     "    LogBy=@LogBy, " & vbNewLine & _
                     "    LogInc=LogInc+1, " & vbNewLine & _
                     "    LogDate=GETDATE() " & vbNewLine & _
@@ -77,7 +77,7 @@ Namespace DL
                 .Parameters.Add("@Name", SqlDbType.VarChar, 100).Value = clsData.Name
                 .Parameters.Add("@Password", SqlDbType.NVarChar).Value = clsData.Password
                 .Parameters.Add("@Position", SqlDbType.VarChar, 100).Value = clsData.Position
-                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = clsData.IDStatus
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@IsSuperUser", SqlDbType.Bit).Value = clsData.IsSuperUser
             End With
@@ -98,7 +98,7 @@ Namespace DL
                     .CommandType = CommandType.Text
                     .CommandText = _
                        "SELECT TOP 1 " & vbNewLine & _
-                       "    A.ID, A.StaffID, A.Name, A.Password, A.Position, A.IDStatus, A.LogBy,   " & vbNewLine & _
+                       "    A.ID, A.StaffID, A.Name, A.Password, A.Position, A.StatusID, A.LogBy,   " & vbNewLine & _
                        "    A.LogDate, IsSuperUser, IsFirstCreated" & vbNewLine & _
                        "FROM mstUser A " & vbNewLine & _
                        "WHERE " & vbNewLine & _
@@ -115,7 +115,7 @@ Namespace DL
                         voReturn.Name = .Item("Name")
                         voReturn.Password = .Item("Password")
                         voReturn.Position = .Item("Position")
-                        voReturn.IDStatus = .Item("IDStatus")
+                        voReturn.StatusID = .Item("StatusID")
                         voReturn.LogBy = .Item("LogBy")
                         voReturn.LogDate = .Item("LogDate")
                         voReturn.IsSuperUser = .Item("IsSuperUser")
@@ -138,12 +138,12 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "UPDATE mstUser " & vbNewLine & _
-                    "SET IDStatus=@IDStatus " & vbNewLine & _
+                    "SET StatusID=@StatusID " & vbNewLine & _
                     "WHERE " & vbNewLine & _
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 20).Value = strID
-                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = VO.Status.Values.InActive
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.InActive
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -233,7 +233,7 @@ Namespace DL
             Return bolExists
         End Function
 
-        Public Shared Function GetIDStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal intID As String) As Integer
+        Public Shared Function GetStatusID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal intID As String) As Integer
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim intReturn As Integer = VO.Status.Values.Active
             Try
@@ -243,7 +243,7 @@ Namespace DL
                     .CommandType = CommandType.Text
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
-                        "   IDStatus " & vbNewLine & _
+                        "   StatusID " & vbNewLine & _
                         "FROM mstUser " & vbNewLine & _
                         "WHERE  " & vbNewLine & _
                         "   ID=@ID " & vbNewLine
@@ -254,7 +254,7 @@ Namespace DL
                 With sqlrdData
                     If .HasRows Then
                         .Read()
-                        intReturn = .Item("IDStatus")
+                        intReturn = .Item("StatusID")
                     End If
                 End With
             Catch ex As Exception

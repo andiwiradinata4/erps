@@ -3,7 +3,7 @@ Namespace VO
         Inherits Common
         Property ID As Integer
         Property Name As String
-        Property IDStatus As Integer
+        Property StatusID As Integer
     End Class 
 End Namespace
 
