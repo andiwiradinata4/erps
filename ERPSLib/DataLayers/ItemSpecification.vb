@@ -1,5 +1,5 @@
-﻿Namespace DL 
-    Public Class ItemType
+﻿Namespace DL
+    Public Class ItemSpecification
 
         Public Shared Function ListData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction) As DataTable
             Dim sqlCmdExecute As New SqlCommand
@@ -11,7 +11,7 @@
                     "SELECT " & vbNewLine & _
                     "     A.ID, A.Description, A.StatusID, B.Name AS StatusInfo,  " & vbNewLine & _
                     "     A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine & _
-                    "FROM mstItemType A " & vbNewLine & _
+                    "FROM mstItemSpecification A " & vbNewLine & _
                     "INNER JOIN mstStatus B ON " & vbNewLine & _
                     "    A.StatusID=B.ID " & vbNewLine
 
@@ -28,7 +28,7 @@
                 .CommandText = _
                    "SELECT " & vbNewLine & _
                    "     A.ID, A.Description " & vbNewLine & _
-                   "FROM mstItemType A " & vbNewLine & _
+                   "FROM mstItemSpecification A " & vbNewLine & _
                    "WHERE A.StatusID=@StatusID " & vbNewLine
 
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Active
@@ -37,7 +37,7 @@
         End Function
 
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                   ByVal bolNew As Boolean, ByVal clsData As VO.ItemType)
+                                   ByVal bolNew As Boolean, ByVal clsData As VO.ItemSpecification)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -45,7 +45,7 @@
                 .CommandType = CommandType.Text
                 If bolNew Then
                     .CommandText = _
-                        "INSERT INTO mstItemType " & vbNewLine & _
+                        "INSERT INTO mstItemSpecification " & vbNewLine & _
                         "     (ID, Description, StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine & _
                         "VALUES " & vbNewLine & _
                         "     (@ID, @Description, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
@@ -53,7 +53,7 @@
 
                 Else
                     .CommandText = _
-                        "UPDATE mstItemType SET " & vbNewLine & _
+                        "UPDATE mstItemSpecification SET " & vbNewLine & _
                         "    Description=@Description, " & vbNewLine & _
                         "    StatusID=@StatusID, " & vbNewLine & _
                         "    LogBy=@LogBy, " & vbNewLine & _
@@ -76,9 +76,9 @@
         End Sub
 
         Public Shared Function GetDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                         ByVal intID As Integer) As VO.ItemType
+                                         ByVal intID As Integer) As VO.ItemSpecification
             Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
-            Dim voReturn As New VO.ItemType
+            Dim voReturn As New VO.ItemSpecification
             Try
                 With sqlCmdExecute
                     .Connection = sqlCon
@@ -87,7 +87,7 @@
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
                         "     A.ID, A.Description, A.StatusID, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine & _
-                        "FROM mstItemType A " & vbNewLine & _
+                        "FROM mstItemSpecification A " & vbNewLine & _
                         "WHERE " & vbNewLine & _
                         "    ID=@ID " & vbNewLine
 
@@ -122,7 +122,7 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText = _
-                    "UPDATE mstItemType " & vbNewLine & _
+                    "UPDATE mstItemSpecification " & vbNewLine & _
                     "SET StatusID=@StatusID " & vbNewLine & _
                     "WHERE " & vbNewLine & _
                     "   ID=@ID " & vbNewLine
@@ -144,7 +144,7 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText = _
-                    "DELETE mstItemType " & vbNewLine
+                    "DELETE mstItemSpecification " & vbNewLine
 
             End With
             Try
@@ -165,7 +165,7 @@
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
                         "   ID=ISNULL(MAX(ID),0) " & vbNewLine & _
-                        "FROM mstItemType " & vbNewLine
+                        "FROM mstItemSpecification " & vbNewLine
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
                 With sqlrdData
@@ -194,7 +194,7 @@
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
                         "   ID " & vbNewLine & _
-                        "FROM mstItemType " & vbNewLine & _
+                        "FROM mstItemSpecification " & vbNewLine & _
                         "WHERE  " & vbNewLine & _
                         "   Description=@Description " & vbNewLine & _
                         "   AND ID<>@ID " & vbNewLine
@@ -228,7 +228,7 @@
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
                         "   StatusID " & vbNewLine & _
-                        "FROM mstItemType " & vbNewLine & _
+                        "FROM mstItemSpecification " & vbNewLine & _
                         "WHERE  " & vbNewLine & _
                         "   ID=@ID " & vbNewLine
 
@@ -250,5 +250,4 @@
         End Function
 
     End Class
-
 End Namespace

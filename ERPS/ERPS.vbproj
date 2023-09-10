@@ -45,6 +45,9 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>PresentationLayers\Icons\MyLogo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Data.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Printing.v16.2.Core, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -116,6 +119,18 @@
       <DependentUpon>frmMstCompanyDet.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstCompanyDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstItemSpecification.Designer.vb">
+      <DependentUpon>frmMstItemSpecification.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstItemSpecification.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstItemSpecificationDet.Designer.vb">
+      <DependentUpon>frmMstItemSpecificationDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstItemSpecificationDet.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstItemType.Designer.vb">
