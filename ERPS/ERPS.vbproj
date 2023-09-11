@@ -121,6 +121,18 @@
     <Compile Include="PresentationLayers\Forms\Master\frmMstCompanyDet.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstItem.Designer.vb">
+      <DependentUpon>frmMstItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstItemDet.Designer.vb">
+      <DependentUpon>frmMstItemDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstItemDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstItemSpecification.Designer.vb">
       <DependentUpon>frmMstItemSpecification.vb</DependentUpon>
     </Compile>
@@ -229,6 +241,12 @@
     <Compile Include="PresentationLayers\Forms\Master\frmMstUserUserAccessDuplicate.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\System\frmSysChangePassword.Designer.vb">
+      <DependentUpon>frmSysChangePassword.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\System\frmSysChangePassword.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\System\frmSysLogin.designer.vb">
       <DependentUpon>frmSysLogin.vb</DependentUpon>
     </Compile>
@@ -313,6 +331,18 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstCompanyDet.resx">
       <DependentUpon>frmMstCompanyDet.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstItem.resx">
+      <DependentUpon>frmMstItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstItemDet.resx">
+      <DependentUpon>frmMstItemDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstItemSpecification.resx">
+      <DependentUpon>frmMstItemSpecification.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstItemSpecificationDet.resx">
+      <DependentUpon>frmMstItemSpecificationDet.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstItemType.resx">
       <DependentUpon>frmMstItemType.vb</DependentUpon>
     </EmbeddedResource>
@@ -360,6 +390,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstUserUserAccessDuplicate.resx">
       <DependentUpon>frmMstUserUserAccessDuplicate.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\System\frmSysChangePassword.resx">
+      <DependentUpon>frmSysChangePassword.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\System\frmSysLogin.resx">
       <DependentUpon>frmSysLogin.vb</DependentUpon>

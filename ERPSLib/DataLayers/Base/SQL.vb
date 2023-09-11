@@ -22,7 +22,7 @@
                 "DataBase=" & strDatabase & ";" &
                 "Application Name=" & strAplicationName & ";"
 
-            If strServer.Trim = "LOCALHOST" Then
+            If strServer.Trim.ToUpper = "LOCALHOST" Then
                 strSqlConnect += "Trusted_Connection=SSPI;"
             Else
                 strSqlConnect += "Trusted_Connection=FALSE;" & _

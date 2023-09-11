@@ -20,11 +20,9 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Try
-                    If bolNew Then
-                        clsData.ID = DL.ItemSpecification.GetMaxID(sqlCon, Nothing)
-                        If DL.ItemSpecification.DataExists(sqlCon, Nothing, clsData.Description, clsData.ID) Then
-                            Err.Raise(515, "", "Deskripsi " & clsData.Description & " sudah ada")
-                        End If
+                    If bolNew Then clsData.ID = DL.ItemSpecification.GetMaxID(sqlCon, Nothing)
+                    If DL.ItemSpecification.DataExists(sqlCon, Nothing, clsData.Description, clsData.ID) Then
+                        Err.Raise(515, "", "Deskripsi " & clsData.Description & " sudah ada")
                     End If
 
                     DL.ItemSpecification.SaveData(sqlCon, Nothing, bolNew, clsData)
