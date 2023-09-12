@@ -48,6 +48,9 @@
   <PropertyGroup>
     <ApplicationIcon>PresentationLayers\Icons\MyLogo.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Data.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Printing.v16.2.Core, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -109,6 +112,18 @@
     <Compile Include="PresentationLayers\Forms\Master\frmMstAccessDet.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartner.Designer.vb">
+      <DependentUpon>frmMstBusinessPartner.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartner.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerDet.Designer.vb">
+      <DependentUpon>frmMstBusinessPartnerDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstCompany.designer.vb">
       <DependentUpon>frmMstCompany.vb</DependentUpon>
     </Compile>
@@ -161,6 +176,12 @@
       <DependentUpon>frmMstModules.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstModules.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstModulesAccess.designer.vb">
+      <DependentUpon>frmMstModulesAccess.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstModulesAccess.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstModulesDet.designer.vb">
@@ -325,6 +346,12 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstAccessDet.resx">
       <DependentUpon>frmMstAccessDet.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartner.resx">
+      <DependentUpon>frmMstBusinessPartner.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerDet.resx">
+      <DependentUpon>frmMstBusinessPartnerDet.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstCompany.resx">
       <DependentUpon>frmMstCompany.vb</DependentUpon>
     </EmbeddedResource>
@@ -351,6 +378,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstModules.resx">
       <DependentUpon>frmMstModules.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstModulesAccess.resx">
+      <DependentUpon>frmMstModulesAccess.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstModulesDet.resx">
       <DependentUpon>frmMstModulesDet.vb</DependentUpon>
@@ -399,6 +429,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -448,7 +479,6 @@
     <EmbeddedResource Include="PresentationLayers\Icons\Hold.ico" />
     <EmbeddedResource Include="PresentationLayers\Icons\Invoice.ico" />
     <EmbeddedResource Include="PresentationLayers\Icons\Misc.ico" />
-    <EmbeddedResource Include="PresentationLayers\Icons\MyLogo.ico" />
     <EmbeddedResource Include="PresentationLayers\Icons\New.ico" />
     <EmbeddedResource Include="PresentationLayers\Icons\Open.ico" />
     <EmbeddedResource Include="PresentationLayers\Icons\Option.ico" />
@@ -476,6 +506,9 @@
       <Project>{f31c7881-7e63-4b5c-a390-a20ea6d2047c}</Project>
       <Name>ERPSLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PresentationLayers\Icons\MyLogo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

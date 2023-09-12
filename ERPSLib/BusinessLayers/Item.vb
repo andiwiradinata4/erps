@@ -9,7 +9,7 @@
             End Using
         End Function
 
-        Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.Item) As Integer
+        Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.Item) As Boolean
             Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection

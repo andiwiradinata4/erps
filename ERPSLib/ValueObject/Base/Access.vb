@@ -17,6 +17,7 @@ Namespace VO
             ResetPasswordAccess = 9
             SetupUserAccessAccess = 10
             DuplicateUserAccessAccess = 11
+            BankInfo = 12
         End Enum
 
     End Class 

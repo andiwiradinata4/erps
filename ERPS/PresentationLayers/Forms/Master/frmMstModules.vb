@@ -128,14 +128,14 @@ Public Class frmMstModules
     Private Sub prvAccess()
         intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
-        'Dim frmDetail As New frmMstModulesAccess
-        'With frmDetail
-        '    .pubRefID = grdView.GetRowCellValue(intPos, "ID")
-        '    .pubRefName = grdView.GetRowCellValue(intPos, "Name")
-        '    .pubFilterBy = VO.ModulesAccess.FilterBy.ModulesID
-        '    .StartPosition = FormStartPosition.CenterScreen
-        '    .ShowDialog()
-        'End With
+        Dim frmDetail As New frmMstModulesAccess
+        With frmDetail
+            .pubRefID = grdView.GetRowCellValue(intPos, "ID")
+            .pubRefName = grdView.GetRowCellValue(intPos, "Name")
+            .pubFilterBy = VO.ModulesAccess.FilterBy.ModulesID
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+        End With
     End Sub
 
     Private Sub prvUserAccess()

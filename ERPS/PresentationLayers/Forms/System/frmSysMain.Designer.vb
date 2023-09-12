@@ -47,13 +47,13 @@ Partial Class frmSysMain
         Me.mnuTransaksi = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLaporan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuPengaturan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuSettingUbahPassword = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTampilan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuWindowsVertical = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuWindowsHorizontal = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuWindowsCascade = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuWindowsCloseAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLogout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuSettingUbahPassword = New System.Windows.Forms.ToolStripMenuItem()
         Me.ssMain.SuspendLayout()
         Me.mnuMain.SuspendLayout()
         Me.SuspendLayout()
@@ -251,6 +251,12 @@ Partial Class frmSysMain
         Me.mnuPengaturan.Size = New System.Drawing.Size(80, 20)
         Me.mnuPengaturan.Text = "&Pengaturan"
         '
+        'mnuSettingUbahPassword
+        '
+        Me.mnuSettingUbahPassword.Name = "mnuSettingUbahPassword"
+        Me.mnuSettingUbahPassword.Size = New System.Drawing.Size(155, 22)
+        Me.mnuSettingUbahPassword.Text = "Ubah Password"
+        '
         'mnuTampilan
         '
         Me.mnuTampilan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuWindowsVertical, Me.mnuWindowsHorizontal, Me.mnuWindowsCascade, Me.mnuWindowsCloseAll})
@@ -261,25 +267,25 @@ Partial Class frmSysMain
         'mnuWindowsVertical
         '
         Me.mnuWindowsVertical.Name = "mnuWindowsVertical"
-        Me.mnuWindowsVertical.Size = New System.Drawing.Size(152, 22)
+        Me.mnuWindowsVertical.Size = New System.Drawing.Size(129, 22)
         Me.mnuWindowsVertical.Text = "Vertical"
         '
         'mnuWindowsHorizontal
         '
         Me.mnuWindowsHorizontal.Name = "mnuWindowsHorizontal"
-        Me.mnuWindowsHorizontal.Size = New System.Drawing.Size(152, 22)
+        Me.mnuWindowsHorizontal.Size = New System.Drawing.Size(129, 22)
         Me.mnuWindowsHorizontal.Text = "Horizontal"
         '
         'mnuWindowsCascade
         '
         Me.mnuWindowsCascade.Name = "mnuWindowsCascade"
-        Me.mnuWindowsCascade.Size = New System.Drawing.Size(152, 22)
+        Me.mnuWindowsCascade.Size = New System.Drawing.Size(129, 22)
         Me.mnuWindowsCascade.Text = "Cascade"
         '
         'mnuWindowsCloseAll
         '
         Me.mnuWindowsCloseAll.Name = "mnuWindowsCloseAll"
-        Me.mnuWindowsCloseAll.Size = New System.Drawing.Size(152, 22)
+        Me.mnuWindowsCloseAll.Size = New System.Drawing.Size(129, 22)
         Me.mnuWindowsCloseAll.Text = "Close All"
         '
         'mnuLogout
@@ -287,12 +293,6 @@ Partial Class frmSysMain
         Me.mnuLogout.Name = "mnuLogout"
         Me.mnuLogout.Size = New System.Drawing.Size(57, 20)
         Me.mnuLogout.Text = "L&ogout"
-        '
-        'mnuSettingUbahPassword
-        '
-        Me.mnuSettingUbahPassword.Name = "mnuSettingUbahPassword"
-        Me.mnuSettingUbahPassword.Size = New System.Drawing.Size(155, 22)
-        Me.mnuSettingUbahPassword.Text = "Ubah Password"
         '
         'frmSysMain
         '
@@ -306,7 +306,7 @@ Partial Class frmSysMain
         Me.IsMdiContainer = True
         Me.MainMenuStrip = Me.mnuMain
         Me.Name = "frmSysMain"
-        Me.Text = "Main"
+        Me.Text = "Enterprise Resource Planning System"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.ssMain.ResumeLayout(False)
         Me.ssMain.PerformLayout()

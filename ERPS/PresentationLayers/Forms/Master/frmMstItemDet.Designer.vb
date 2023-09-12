@@ -490,6 +490,7 @@ Partial Class frmMstItemDet
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.KeyPreview = True
         Me.Name = "frmMstItemDet"
         Me.Text = "Barang"
         Me.StatusStrip.ResumeLayout(False)

@@ -13,6 +13,7 @@
     Dim frmMainMstItemType As frmMstItemType
     Dim frmMainMstItemSpecification As frmMstItemSpecification
     Dim frmMainMstItem As frmMstItem
+    Dim frmMainBusinessPartner As frmMstBusinessPartner
 
     '# Setting
     Dim frmMainSysChangePassword As frmSysChangePassword
@@ -215,7 +216,7 @@
     End Sub
 
     Private Sub mnuMasterRekanBisnis_Click(sender As Object, e As EventArgs) Handles mnuMasterRekanBisnis.Click
-
+        UI.usForm.frmOpen(frmMainBusinessPartner, "frmMstBusinessPartner", Me)
     End Sub
 
     Private Sub mnuMasterJenisPembayaran_Click(sender As Object, e As EventArgs) Handles mnuMasterJenisPembayaran.Click

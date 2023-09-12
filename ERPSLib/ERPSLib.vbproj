@@ -79,6 +79,7 @@
     <Compile Include="BusinessLayers\Base\User.vb" />
     <Compile Include="BusinessLayers\Base\UserAccess.vb" />
     <Compile Include="BusinessLayers\Base\UserCompany.vb" />
+    <Compile Include="BusinessLayers\BusinessPartner.vb" />
     <Compile Include="BusinessLayers\Item.vb" />
     <Compile Include="BusinessLayers\ItemSpecification.vb" />
     <Compile Include="BusinessLayers\ItemType.vb" />
@@ -99,6 +100,7 @@
     <Compile Include="DataLayers\Base\User.vb" />
     <Compile Include="DataLayers\Base\UserAccess.vb" />
     <Compile Include="DataLayers\Base\UserCompany.vb" />
+    <Compile Include="DataLayers\BusinessPartner.vb" />
     <Compile Include="DataLayers\Item.vb" />
     <Compile Include="DataLayers\ItemSpecification.vb" />
     <Compile Include="DataLayers\ItemType.vb" />
@@ -144,6 +146,8 @@
     <Compile Include="ValueObject\Base\User.vb" />
     <Compile Include="ValueObject\Base\UserAccess.vb" />
     <Compile Include="ValueObject\Base\UserCompany.vb" />
+    <Compile Include="ValueObject\BusinessPartner.vb" />
+    <Compile Include="ValueObject\BusinessPartnerBankAccount.vb" />
     <Compile Include="ValueObject\Item.vb" />
     <Compile Include="ValueObject\ItemSpecification.vb" />
     <Compile Include="ValueObject\ItemType.vb" />
