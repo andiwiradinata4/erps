@@ -118,6 +118,18 @@
     <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartner.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerBankAccount.Designer.vb">
+      <DependentUpon>frmMstBusinessPartnerBankAccount.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerBankAccount.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerBankAccountDet.Designer.vb">
+      <DependentUpon>frmMstBusinessPartnerBankAccountDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerBankAccountDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerDet.Designer.vb">
       <DependentUpon>frmMstBusinessPartnerDet.vb</DependentUpon>
     </Compile>
@@ -128,6 +140,18 @@
       <DependentUpon>frmMstCompany.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstCompany.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstCompanyBankAccount.Designer.vb">
+      <DependentUpon>frmMstCompanyBankAccount.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstCompanyBankAccount.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstCompanyBankAccountDet.Designer.vb">
+      <DependentUpon>frmMstCompanyBankAccountDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstCompanyBankAccountDet.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstCompanyDet.designer.vb">
@@ -349,11 +373,23 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartner.resx">
       <DependentUpon>frmMstBusinessPartner.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerBankAccount.resx">
+      <DependentUpon>frmMstBusinessPartnerBankAccount.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerBankAccountDet.resx">
+      <DependentUpon>frmMstBusinessPartnerBankAccountDet.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerDet.resx">
       <DependentUpon>frmMstBusinessPartnerDet.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstCompany.resx">
       <DependentUpon>frmMstCompany.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstCompanyBankAccount.resx">
+      <DependentUpon>frmMstCompanyBankAccount.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstCompanyBankAccountDet.resx">
+      <DependentUpon>frmMstCompanyBankAccountDet.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstCompanyDet.resx">
       <DependentUpon>frmMstCompanyDet.vb</DependentUpon>

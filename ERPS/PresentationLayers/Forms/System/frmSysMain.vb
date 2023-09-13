@@ -219,6 +219,10 @@
         UI.usForm.frmOpen(frmMainBusinessPartner, "frmMstBusinessPartner", Me)
     End Sub
 
+    Private Sub mnuMasterAkunBankPerusahaan_Click(sender As Object, e As EventArgs) Handles mnuMasterAkunBankPerusahaan.Click
+
+    End Sub
+
     Private Sub mnuMasterJenisPembayaran_Click(sender As Object, e As EventArgs) Handles mnuMasterJenisPembayaran.Click
 
     End Sub

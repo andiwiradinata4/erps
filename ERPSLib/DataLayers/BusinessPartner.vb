@@ -269,7 +269,7 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "SELECT " & vbNewLine & _
-                    "     A.ID, A.BPID, A.AccountName, A.BankName, A.AccountNumber, A.Currency, A.StatusID, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine & _
+                    "     A.ID, A.BPID, A.AccountName, A.BankName, A.AccountNumber, A.Currency, A.StatusID, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine & _
                     "FROM mstBusinessPartnerBankAccount A " & vbNewLine & _
                     "WHERE " & vbNewLine & _
                     "    BPID=@BPID " & vbNewLine
@@ -301,8 +301,7 @@
                         "    AccountNumber=@AccountNumber, " & vbNewLine & _
                         "    Currency=@Currency, " & vbNewLine & _
                         "    StatusID=@StatusID, " & vbNewLine & _
-                        "    CreatedBy=@CreatedBy, " & vbNewLine & _
-                        "    CreatedDate=@CreatedDate, " & vbNewLine & _
+                        "    Remarks=@Remarks, " & vbNewLine & _
                         "    LogBy=@LogBy, " & vbNewLine & _
                         "    LogDate=GETDATE(), " & vbNewLine & _
                         "    LogInc=LogInc+1 " & vbNewLine & _
@@ -318,6 +317,7 @@
                 .Parameters.Add("@Currency", SqlDbType.VarChar, 100).Value = clsData.Currency
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
+                .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -336,7 +336,7 @@
                     .CommandType = CommandType.Text
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
-                        "     A.ID, A.BPID, A.AccountName, A.BankName, A.AccountNumber, A.Currency, A.StatusID, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine & _
+                        "     A.ID, A.BPID, A.AccountName, A.BankName, A.AccountNumber, A.Currency, A.StatusID, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine & _
                         "FROM mstBusinessPartnerBankAccount A " & vbNewLine & _
                         "WHERE " & vbNewLine & _
                         "    ID=@ID " & vbNewLine
@@ -353,6 +353,7 @@
                         voReturn.AccountNumber = .Item("AccountNumber")
                         voReturn.Currency = .Item("Currency")
                         voReturn.StatusID = .Item("StatusID")
+                        voReturn.Remarks = .Item("Remarks")
                         voReturn.CreatedBy = .Item("CreatedBy")
                         voReturn.CreatedDate = .Item("CreatedDate")
                         voReturn.LogBy = .Item("LogBy")
@@ -419,9 +420,9 @@
             Return intReturn
         End Function
 
-        Public Shared Function DataExistsBankAccountBankName(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                             ByVal strBankName As String, ByVal strAccountNumber As String,
-                                                             ByVal intID As Integer) As Boolean
+        Public Shared Function DataExistsBankAccount(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                     ByVal strBankName As String, ByVal strAccountNumber As String,
+                                                     ByVal intID As Integer) As Boolean
             Dim bolExists As Boolean = False
             Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Try

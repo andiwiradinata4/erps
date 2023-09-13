@@ -22,7 +22,10 @@ Namespace VO
             MasterBusinessPartner = 11
             MasterPaymentType = 12
             MasterPaymentTerm = 13
+            MasterCompanyBankAccount = 14
 
+            '# Transaction
+            TransactionOrderRequest = 15
         End Enum
 
     End Class

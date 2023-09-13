@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="BusinessLayers\Base\Access.vb" />
     <Compile Include="BusinessLayers\Base\Company.vb" />
+    <Compile Include="BusinessLayers\Base\CompanyBankAccount.vb" />
     <Compile Include="BusinessLayers\Base\JournalPost.vb" />
     <Compile Include="BusinessLayers\Base\Modules.vb" />
     <Compile Include="BusinessLayers\Base\ModulesAccess.vb" />
@@ -85,6 +86,7 @@
     <Compile Include="BusinessLayers\ItemType.vb" />
     <Compile Include="DataLayers\Base\Access.vb" />
     <Compile Include="DataLayers\Base\Company.vb" />
+    <Compile Include="DataLayers\Base\CompanyBankAccount.vb" />
     <Compile Include="DataLayers\Base\JournalPost.vb" />
     <Compile Include="DataLayers\Base\Modules.vb" />
     <Compile Include="DataLayers\Base\ModulesAccess.vb" />
@@ -104,6 +106,7 @@
     <Compile Include="DataLayers\Item.vb" />
     <Compile Include="DataLayers\ItemSpecification.vb" />
     <Compile Include="DataLayers\ItemType.vb" />
+    <Compile Include="DataLayers\OrderRequest.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -128,6 +131,7 @@
     <Compile Include="ValueObject\Base\Access.vb" />
     <Compile Include="ValueObject\Base\Common.vb" />
     <Compile Include="ValueObject\Base\Company.vb" />
+    <Compile Include="ValueObject\Base\CompanyBankAccount.vb" />
     <Compile Include="ValueObject\Base\CS.vb" />
     <Compile Include="ValueObject\Base\DefaultServer.vb" />
     <Compile Include="ValueObject\Base\JournalPost.vb" />
@@ -151,6 +155,9 @@
     <Compile Include="ValueObject\Item.vb" />
     <Compile Include="ValueObject\ItemSpecification.vb" />
     <Compile Include="ValueObject\ItemType.vb" />
+    <Compile Include="ValueObject\OrderRequest.vb" />
+    <Compile Include="ValueObject\OrderRequestDet.vb" />
+    <Compile Include="ValueObject\OrderRequestStatus.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

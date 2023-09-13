@@ -9,8 +9,8 @@ Namespace VO
             Active = 1
             InActive = 2
             Draft = 3
-            Printed = 4
-            Deleted = 5
+            Submit = 4
+            Approved = 5
         End Enum
     End Class
 End Namespace

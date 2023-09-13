@@ -68,8 +68,8 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Try
                     If bolNew Then clsData.ID = DL.BusinessPartner.GetMaxIDBankAccount(sqlCon, Nothing)
-                    If DL.BusinessPartner.DataExistsBankAccountBankName(sqlCon, Nothing, clsData.BankName, clsData.AccountNumber, clsData.ID) Then
-                        Err.Raise(515, "", "Barang dengan tipe, spec dan ukuran yang diinput sudah ada")
+                    If DL.BusinessPartner.DataExistsBankAccount(sqlCon, Nothing, clsData.BankName, clsData.AccountNumber, clsData.ID) Then
+                        Err.Raise(515, "", "Akun Bank dengan Nama Bank:" & clsData.BankName & " dan Nomor Rekening:" & clsData.AccountNumber & " telah ada")
                     End If
 
                     DL.BusinessPartner.SaveDataBankAccount(sqlCon, Nothing, bolNew, clsData)

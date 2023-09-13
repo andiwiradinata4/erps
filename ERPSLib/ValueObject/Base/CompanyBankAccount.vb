@@ -1,8 +1,7 @@
 ﻿Namespace VO
-    Public Class BusinessPartnerBankAccount
+    Public Class CompanyBankAccount
         Inherits Common
         Property ID As Integer
-        Property BPID As Integer
         Property AccountName As String
         Property BankName As String
         Property AccountNumber As String
@@ -11,3 +10,4 @@
         Property Remarks As String
     End Class
 End Namespace
+
