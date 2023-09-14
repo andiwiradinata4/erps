@@ -1,5 +1,8 @@
 ﻿Namespace DL
     Public Class OrderRequest
+
+#Region "Main"
+
         Public Shared Function ListData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                         ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable
@@ -11,9 +14,12 @@
                 .CommandText = _
                     "SELECT " & vbNewLine & _
                     "   A.ID, A.ProgramID, A.CompanyID, A.BPID, A.OrderNumber, A.OrderDate, A.ReferencesNumber, " & vbNewLine & _
-                    "   A.ItemSpecificationID, A.TotalQuantity, A.TotalWeight, A.IsDeleted, A.Remarks, A.StatusID, " & vbNewLine & _
-                    "   A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
+                    "   A.ItemSpecificationID, A.TotalQuantity, A.TotalWeight, A.IsDeleted, A.Remarks, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
+                    "   A.SubmitBy, A.SubmitDate, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, " & vbNewLine & _
+                    "   A.LogBy, A.LogDate " & vbNewLine & _
                     "FROM traOrderRequest A " & vbNewLine & _
+                    "INNER JOIN mstStatus B ON " & vbNewLine & _
+                    "   A.StatusID=B.ID " & vbNewLine & _
                     "WHERE " & vbNewLine & _
                     "   A.ProgramID=@ProgramID " & vbNewLine & _
                     "   AND A.CompanyID=@CompanyID " & vbNewLine & _
@@ -263,6 +269,304 @@
             End Try
             Return intReturn
         End Function
+
+        Public Shared Function IsDeleted(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strID As String) As Boolean
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim bolReturn As Boolean = False
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText = _
+                        "SELECT TOP 1 " & vbNewLine & _
+                        "   StatusID " & vbNewLine & _
+                        "FROM traOrderRequest " & vbNewLine & _
+                        "WHERE  " & vbNewLine & _
+                        "   ID=@ID " & vbNewLine & _
+                        "   AND IsDeleted=1 " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        bolReturn = True
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return bolReturn
+        End Function
+
+        Public Shared Sub Submit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                 ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE traOrderRequest SET " & vbNewLine & _
+                    "    StatusID=@StatusID, " & vbNewLine & _
+                    "    SubmitBy=@LogBy, " & vbNewLine & _
+                    "    SubmitDate=GETDATE() " & vbNewLine & _
+                    "WHERE   " & vbNewLine & _
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+                .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = ERPSLib.UI.usUserApp.UserID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub Unsubmit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                   ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE traOrderRequest SET " & vbNewLine & _
+                    "    StatusID=@StatusID, " & vbNewLine & _
+                    "    SubmitBy='' " & vbNewLine & _
+                    "WHERE   " & vbNewLine & _
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Draft
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub Approve(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                  ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE traOrderRequest SET " & vbNewLine & _
+                    "    StatusID=@StatusID, " & vbNewLine & _
+                    "    ApproveL1=@LogBy, " & vbNewLine & _
+                    "    ApprovedBy=@LogBy, " & vbNewLine & _
+                    "    ApprovedDate=GETDATE() " & vbNewLine & _
+                    "WHERE   " & vbNewLine & _
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
+                .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = ERPSLib.UI.usUserApp.UserID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub Unapproved(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                     ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE traOrderRequest SET " & vbNewLine & _
+                    "    StatusID=@StatusID, " & vbNewLine & _
+                    "    ApproveL1='', " & vbNewLine & _
+                    "    ApprovedBy='' " & vbNewLine & _
+                    "WHERE   " & vbNewLine & _
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+#End Region
+
+#Region "Detail"
+
+        Public Shared Function ListDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal strOrderRequestID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "SELECT " & vbNewLine & _
+                    "   A.ID, A.OrderRequestID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, " & vbNewLine & _
+                    "   D.ID AS ItemTypeID, D.Description AS ItemTypeName, A.Quantity, A.Weight, A.TotalWeight, A.POInternalQuantity, A.POInternalWeight " & vbNewLine & _
+                    "FROM traOrderRequestDet A " & vbNewLine & _
+                    "INNER JOIN mstItem B ON " & vbNewLine & _
+                    "   A.ItemID=B.ID " & vbNewLine & _
+                    "INNER JOIN mstItemSpecification C ON " & vbNewLine & _
+                    "   B.ItemSpecificationID=C.ID " & vbNewLine & _
+                    "INNER JOIN mstItemType D ON " & vbNewLine & _
+                    "   B.ItemTypeID=D.ID " & vbNewLine & _
+                    "WHERE " & vbNewLine & _
+                    "   A.OrderRequestID=@OrderRequestID " & vbNewLine
+
+                .Parameters.Add("@OrderRequestID", SqlDbType.VarChar, 100).Value = strOrderRequestID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Sub SaveDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                         ByVal clsData As VO.OrderRequestDet)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "INSERT INTO traOrderRequestDet " & vbNewLine & _
+                    "     (ID, OrderRequestID, ItemID, Quantity, Weight, TotalWeight) " & vbNewLine & _
+                    "VALUES " & vbNewLine & _
+                    "     (@ID, @OrderRequestID, @ItemID, @Quantity, @Weight, @TotalWeight) " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@OrderRequestID", SqlDbType.Int).Value = clsData.OrderRequestID
+                .Parameters.Add("@ItemID", SqlDbType.Int).Value = clsData.ItemID
+                .Parameters.Add("@Quantity", SqlDbType.Decimal).Value = clsData.Quantity
+                .Parameters.Add("@Weight", SqlDbType.Decimal).Value = clsData.Weight
+                .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                           ByVal strOrderRequestID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "DELETE FROM traOrderRequestDet     " & vbNewLine & _
+                    "WHERE " & vbNewLine & _
+                    "   OrderRequestID=@OrderRequestID" & vbNewLine
+
+                .Parameters.Add("@OrderRequestID", SqlDbType.VarChar, 100).Value = strOrderRequestID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+#End Region
+
+#Region "Status"
+
+        Public Shared Function ListDataStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal strOrderRequestID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "SELECT " & vbNewLine & _
+                    "   A.ID, A.OrderRequestID, A.Status, A.StatusBy, A.StatusDate, A.Remarks " & vbNewLine & _
+                    "FROM traOrderRequestStatus A " & vbNewLine & _
+                    "WHERE " & vbNewLine & _
+                    "   A.OrderRequestID=@OrderRequestID " & vbNewLine
+
+                .Parameters.Add("@OrderRequestID", SqlDbType.VarChar, 100).Value = strOrderRequestID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Sub SaveDataStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                         ByVal clsData As VO.OrderRequestStatus)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "INSERT INTO traOrderRequestStatus " & vbNewLine & _
+                    "   (ID, OrderRequestID, Status, StatusBy, StatusDate, Remarks) " & vbNewLine & _
+                    "VALUES " & vbNewLine & _
+                    "   (@ID, @OrderRequestID, @Status, @StatusBy, GETDATE(), @Remarks) " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 30).Value = clsData.ID
+                .Parameters.Add("@OrderRequestID", SqlDbType.VarChar, 30).Value = clsData.OrderRequestID
+                .Parameters.Add("@Status", SqlDbType.VarChar, 100).Value = clsData.Status
+                .Parameters.Add("@StatusBy", SqlDbType.VarChar, 20).Value = clsData.StatusBy
+                .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Function GetMaxIDStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal strOrderRequestID As String) As Integer
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim intReturn As Integer = 0
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText = _
+                        "SELECT TOP 1 ISNULL(RIGHT(ID,3),'000') AS ID " & vbNewLine & _
+                        "FROM traOrderRequestStatus " & vbNewLine & _
+                        "WHERE " & vbNewLine & _
+                        "   OrderRequestID=@OrderRequestID " & vbNewLine & _
+                        "ORDER BY ID DESC " & vbNewLine
+
+                    .Parameters.Add("@OrderRequestID", SqlDbType.VarChar, 100).Value = strOrderRequestID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        intReturn = .Item("ID")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return intReturn
+        End Function
+
+#End Region
 
     End Class
 End Namespace

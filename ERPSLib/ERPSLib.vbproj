@@ -84,6 +84,7 @@
     <Compile Include="BusinessLayers\Item.vb" />
     <Compile Include="BusinessLayers\ItemSpecification.vb" />
     <Compile Include="BusinessLayers\ItemType.vb" />
+    <Compile Include="BusinessLayers\OrderRequest.vb" />
     <Compile Include="DataLayers\Base\Access.vb" />
     <Compile Include="DataLayers\Base\Company.vb" />
     <Compile Include="DataLayers\Base\CompanyBankAccount.vb" />

@@ -86,7 +86,7 @@
                         "INNER JOIN mstCompany B ON " & vbNewLine & _
                         "   A.CompanyID=B.ID " & vbNewLine & _
                         "WHERE " & vbNewLine & _
-                        "   ID=@ID " & vbNewLine
+                        "   A.ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.Int).Value = intID
                 End With

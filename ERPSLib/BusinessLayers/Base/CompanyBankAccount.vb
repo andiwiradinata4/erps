@@ -14,7 +14,7 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Try
-                    If bolNew Then clsData.ID = DL.BusinessPartner.GetMaxID(sqlCon, Nothing)
+                    If bolNew Then clsData.ID = DL.CompanyBankAccount.GetMaxID(sqlCon, Nothing)
                     If DL.CompanyBankAccount.DataExists(sqlCon, Nothing, clsData.BankName, clsData.AccountNumber, clsData.ID) Then
                         Err.Raise(515, "", "Akun Bank dengan Nama Bank:" & clsData.BankName & " dan Nomor Rekening:" & clsData.AccountNumber & " telah ada")
                     End If

@@ -14,6 +14,7 @@
     Dim frmMainMstItemSpecification As frmMstItemSpecification
     Dim frmMainMstItem As frmMstItem
     Dim frmMainBusinessPartner As frmMstBusinessPartner
+    Dim frmMainMstCompanyBankAccount As frmMstCompanyBankAccount
 
     '# Setting
     Dim frmMainSysChangePassword As frmSysChangePassword
@@ -30,7 +31,7 @@
     Private Sub prvUserAccess()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Me.Refresh()
+        Application.DoEvents()
 
         '# Master
         mnuMasterProgram.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterProgram, VO.Access.Values.ViewAccess)
@@ -44,10 +45,11 @@
         mnuMasterSpesifikasiBarang.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterItemSpecification, VO.Access.Values.ViewAccess)
         mnuMasterBarang.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterItem, VO.Access.Values.ViewAccess)
         mnuMasterRekanBisnis.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterBusinessPartner, VO.Access.Values.ViewAccess)
+        mnuMasterAkunBankPerusahaan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterCompanyBankAccount, VO.Access.Values.ViewAccess)
         mnuMasterJenisPembayaran.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterPaymentType, VO.Access.Values.ViewAccess)
 
         pgMain.Value = 50
-        Me.Refresh()
+        Application.DoEvents()
 
         '# Transaction
         'If ERPSLib.UI.usUserApp.ProgramID = VO.Program.Values.TradingTBS Then
@@ -89,7 +91,7 @@
         'End If
 
         'pgMain.Value = 80
-        'Me.Refresh()
+        'Application.DoEvents()
 
         ''# Reports
         'mnuLaporanLaporanPenjualan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSales, VO.Access.Values.PrintReportAccess)
@@ -138,7 +140,7 @@
         'mnuLaporanLaporanNeraca.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.ReportBalanceSheet, VO.Access.Values.ViewAccess)
 
         'pgMain.Value = 95
-        'Me.Refresh()
+        'Application.DoEvents()
 
         ''# Settings
         'mnuSettingGenerateJurnal.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.SettingGenerateJurnal, VO.Access.Values.ViewAccess)
@@ -220,7 +222,7 @@
     End Sub
 
     Private Sub mnuMasterAkunBankPerusahaan_Click(sender As Object, e As EventArgs) Handles mnuMasterAkunBankPerusahaan.Click
-
+        UI.usForm.frmOpen(frmMainMstCompanyBankAccount, "frmMstCompanyBankAccount", Me)
     End Sub
 
     Private Sub mnuMasterJenisPembayaran_Click(sender As Object, e As EventArgs) Handles mnuMasterJenisPembayaran.Click
@@ -228,6 +230,14 @@
     End Sub
 
     Private Sub mnuMasterSyaratPembayaran_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+#End Region
+
+#Region "Transaksi"
+
+    Private Sub mnuTransaksiPenjualanPermintaan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPermintaan.Click
 
     End Sub
 

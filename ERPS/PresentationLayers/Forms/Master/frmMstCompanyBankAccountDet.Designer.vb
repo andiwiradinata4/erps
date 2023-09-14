@@ -22,18 +22,354 @@ Partial Class frmMstCompanyBankAccountDet
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMstCompanyBankAccountDet))
+        Me.ToolBar = New ERPS.usToolBar()
+        Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
+        Me.BarClose = New System.Windows.Forms.ToolBarButton()
+        Me.StatusStrip = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripEmpty = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripLogInc = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripLogBy = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.lblInfo = New System.Windows.Forms.Label()
+        Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.btnCompany = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtCompanyName = New ERPS.usTextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtAccountNumber = New ERPS.usTextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.txtRemarks = New ERPS.usTextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtCurrency = New ERPS.usTextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtAccountName = New ERPS.usTextBox()
+        Me.cboStatus = New ERPS.usComboBox()
+        Me.lblName = New System.Windows.Forms.Label()
+        Me.txtBankName = New ERPS.usTextBox()
+        Me.lblStatusID = New System.Windows.Forms.Label()
+        Me.StatusStrip.SuspendLayout()
+        Me.pnlDetail.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'ToolBar
+        '
+        Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.DropDownArrows = True
+        Me.ToolBar.Location = New System.Drawing.Point(0, 0)
+        Me.ToolBar.Name = "ToolBar"
+        Me.ToolBar.ShowToolTips = True
+        Me.ToolBar.Size = New System.Drawing.Size(511, 28)
+        Me.ToolBar.TabIndex = 0
+        Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'BarRefresh
+        '
+        Me.BarRefresh.Name = "BarRefresh"
+        Me.BarRefresh.Tag = "Save"
+        Me.BarRefresh.Text = "Simpan"
+        '
+        'BarClose
+        '
+        Me.BarClose.Name = "BarClose"
+        Me.BarClose.Tag = "Close"
+        Me.BarClose.Text = "Tutup"
+        '
+        'StatusStrip
+        '
+        Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 283)
+        Me.StatusStrip.Name = "StatusStrip"
+        Me.StatusStrip.Size = New System.Drawing.Size(511, 22)
+        Me.StatusStrip.TabIndex = 3
+        Me.StatusStrip.Text = "StatusStrip1"
+        '
+        'ToolStripEmpty
+        '
+        Me.ToolStripEmpty.Name = "ToolStripEmpty"
+        Me.ToolStripEmpty.Size = New System.Drawing.Size(388, 17)
+        Me.ToolStripEmpty.Spring = True
+        '
+        'ToolStripLogInc
+        '
+        Me.ToolStripLogInc.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.ToolStripLogInc.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.ToolStripLogInc.Name = "ToolStripLogInc"
+        Me.ToolStripLogInc.Size = New System.Drawing.Size(48, 17)
+        Me.ToolStripLogInc.Text = "Log Inc : "
+        '
+        'ToolStripLogBy
+        '
+        Me.ToolStripLogBy.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.ToolStripLogBy.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.ToolStripLogBy.Name = "ToolStripLogBy"
+        Me.ToolStripLogBy.Size = New System.Drawing.Size(48, 17)
+        Me.ToolStripLogBy.Text = "Last Log :"
+        '
+        'ToolStripStatusLabel1
+        '
+        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(0, 17)
+        '
+        'ToolStripLogDate
+        '
+        Me.ToolStripLogDate.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.ToolStripLogDate.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.ToolStripLogDate.Name = "ToolStripLogDate"
+        Me.ToolStripLogDate.Size = New System.Drawing.Size(12, 17)
+        Me.ToolStripLogDate.Text = "-"
+        '
+        'lblInfo
+        '
+        Me.lblInfo.BackColor = System.Drawing.Color.CadetBlue
+        Me.lblInfo.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblInfo.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblInfo.ForeColor = System.Drawing.Color.White
+        Me.lblInfo.Location = New System.Drawing.Point(0, 28)
+        Me.lblInfo.Name = "lblInfo"
+        Me.lblInfo.Size = New System.Drawing.Size(511, 22)
+        Me.lblInfo.TabIndex = 1
+        Me.lblInfo.Text = "« Akun Bank Perusahaan Detail"
+        Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'pnlDetail
+        '
+        Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.btnCompany)
+        Me.pnlDetail.Controls.Add(Me.Label3)
+        Me.pnlDetail.Controls.Add(Me.txtCompanyName)
+        Me.pnlDetail.Controls.Add(Me.Label2)
+        Me.pnlDetail.Controls.Add(Me.txtAccountNumber)
+        Me.pnlDetail.Controls.Add(Me.Label13)
+        Me.pnlDetail.Controls.Add(Me.txtRemarks)
+        Me.pnlDetail.Controls.Add(Me.Label4)
+        Me.pnlDetail.Controls.Add(Me.txtCurrency)
+        Me.pnlDetail.Controls.Add(Me.Label1)
+        Me.pnlDetail.Controls.Add(Me.txtAccountName)
+        Me.pnlDetail.Controls.Add(Me.cboStatus)
+        Me.pnlDetail.Controls.Add(Me.lblName)
+        Me.pnlDetail.Controls.Add(Me.txtBankName)
+        Me.pnlDetail.Controls.Add(Me.lblStatusID)
+        Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlDetail.Location = New System.Drawing.Point(0, 50)
+        Me.pnlDetail.Name = "pnlDetail"
+        Me.pnlDetail.Size = New System.Drawing.Size(511, 233)
+        Me.pnlDetail.TabIndex = 2
+        '
+        'btnCompany
+        '
+        Me.btnCompany.Image = CType(resources.GetObject("btnCompany.Image"), System.Drawing.Image)
+        Me.btnCompany.Location = New System.Drawing.Point(451, 16)
+        Me.btnCompany.Name = "btnCompany"
+        Me.btnCompany.Size = New System.Drawing.Size(23, 23)
+        Me.btnCompany.TabIndex = 1
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
+        Me.Label3.ForeColor = System.Drawing.Color.Black
+        Me.Label3.Location = New System.Drawing.Point(29, 21)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(64, 13)
+        Me.Label3.TabIndex = 119
+        Me.Label3.Text = "Perusahaan"
+        '
+        'txtCompanyName
+        '
+        Me.txtCompanyName.BackColor = System.Drawing.Color.Azure
+        Me.txtCompanyName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCompanyName.Location = New System.Drawing.Point(135, 17)
+        Me.txtCompanyName.MaxLength = 250
+        Me.txtCompanyName.Name = "txtCompanyName"
+        Me.txtCompanyName.ReadOnly = True
+        Me.txtCompanyName.Size = New System.Drawing.Size(310, 21)
+        Me.txtCompanyName.TabIndex = 0
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.ForeColor = System.Drawing.Color.Black
+        Me.Label2.Location = New System.Drawing.Point(29, 103)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(85, 13)
+        Me.Label2.TabIndex = 117
+        Me.Label2.Text = "Nomor Rekening"
+        '
+        'txtAccountNumber
+        '
+        Me.txtAccountNumber.BackColor = System.Drawing.Color.White
+        Me.txtAccountNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtAccountNumber.Location = New System.Drawing.Point(135, 99)
+        Me.txtAccountNumber.MaxLength = 250
+        Me.txtAccountNumber.Name = "txtAccountNumber"
+        Me.txtAccountNumber.Size = New System.Drawing.Size(160, 21)
+        Me.txtAccountNumber.TabIndex = 4
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.BackColor = System.Drawing.Color.Transparent
+        Me.Label13.ForeColor = System.Drawing.Color.Black
+        Me.Label13.Location = New System.Drawing.Point(29, 129)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(63, 13)
+        Me.Label13.TabIndex = 115
+        Me.Label13.Text = "Keterangan"
+        '
+        'txtRemarks
+        '
+        Me.txtRemarks.BackColor = System.Drawing.Color.White
+        Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtRemarks.Location = New System.Drawing.Point(135, 126)
+        Me.txtRemarks.MaxLength = 250
+        Me.txtRemarks.Multiline = True
+        Me.txtRemarks.Name = "txtRemarks"
+        Me.txtRemarks.Size = New System.Drawing.Size(310, 48)
+        Me.txtRemarks.TabIndex = 6
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.Transparent
+        Me.Label4.ForeColor = System.Drawing.Color.Black
+        Me.Label4.Location = New System.Drawing.Point(320, 103)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(59, 13)
+        Me.Label4.TabIndex = 101
+        Me.Label4.Text = "Mata Uang"
+        '
+        'txtCurrency
+        '
+        Me.txtCurrency.BackColor = System.Drawing.Color.White
+        Me.txtCurrency.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCurrency.Location = New System.Drawing.Point(392, 99)
+        Me.txtCurrency.MaxLength = 250
+        Me.txtCurrency.Name = "txtCurrency"
+        Me.txtCurrency.Size = New System.Drawing.Size(53, 21)
+        Me.txtCurrency.TabIndex = 5
+        Me.txtCurrency.Text = "IDR"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
+        Me.Label1.ForeColor = System.Drawing.Color.Black
+        Me.Label1.Location = New System.Drawing.Point(29, 48)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(61, 13)
+        Me.Label1.TabIndex = 95
+        Me.Label1.Text = "Nama Akun"
+        '
+        'txtAccountName
+        '
+        Me.txtAccountName.BackColor = System.Drawing.Color.White
+        Me.txtAccountName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtAccountName.Location = New System.Drawing.Point(135, 44)
+        Me.txtAccountName.MaxLength = 250
+        Me.txtAccountName.Name = "txtAccountName"
+        Me.txtAccountName.Size = New System.Drawing.Size(310, 21)
+        Me.txtAccountName.TabIndex = 2
+        '
+        'cboStatus
+        '
+        Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboStatus.Enabled = False
+        Me.cboStatus.FormattingEnabled = True
+        Me.cboStatus.Location = New System.Drawing.Point(135, 180)
+        Me.cboStatus.Name = "cboStatus"
+        Me.cboStatus.Size = New System.Drawing.Size(160, 21)
+        Me.cboStatus.TabIndex = 7
+        '
+        'lblName
+        '
+        Me.lblName.AutoSize = True
+        Me.lblName.BackColor = System.Drawing.Color.Transparent
+        Me.lblName.ForeColor = System.Drawing.Color.Black
+        Me.lblName.Location = New System.Drawing.Point(29, 75)
+        Me.lblName.Name = "lblName"
+        Me.lblName.Size = New System.Drawing.Size(60, 13)
+        Me.lblName.TabIndex = 93
+        Me.lblName.Text = "Nama Bank"
+        '
+        'txtBankName
+        '
+        Me.txtBankName.BackColor = System.Drawing.Color.White
+        Me.txtBankName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtBankName.Location = New System.Drawing.Point(135, 72)
+        Me.txtBankName.MaxLength = 250
+        Me.txtBankName.Name = "txtBankName"
+        Me.txtBankName.Size = New System.Drawing.Size(310, 21)
+        Me.txtBankName.TabIndex = 3
+        '
+        'lblStatusID
+        '
+        Me.lblStatusID.AutoSize = True
+        Me.lblStatusID.BackColor = System.Drawing.Color.Transparent
+        Me.lblStatusID.ForeColor = System.Drawing.Color.Black
+        Me.lblStatusID.Location = New System.Drawing.Point(29, 184)
+        Me.lblStatusID.Name = "lblStatusID"
+        Me.lblStatusID.Size = New System.Drawing.Size(38, 13)
+        Me.lblStatusID.TabIndex = 93
+        Me.lblStatusID.Text = "Status"
         '
         'frmMstCompanyBankAccountDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(284, 261)
+        Me.ClientSize = New System.Drawing.Size(511, 305)
+        Me.Controls.Add(Me.pnlDetail)
+        Me.Controls.Add(Me.lblInfo)
+        Me.Controls.Add(Me.StatusStrip)
+        Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.KeyPreview = True
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmMstCompanyBankAccountDet"
-        Me.Text = "frmMstCompanyBankAccountDet"
+        Me.Text = "Akun Bank Perusahaan"
+        Me.StatusStrip.ResumeLayout(False)
+        Me.StatusStrip.PerformLayout()
+        Me.pnlDetail.ResumeLayout(False)
+        Me.pnlDetail.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
+    Friend WithEvents ToolBar As ERPS.usToolBar
+    Friend WithEvents BarRefresh As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarClose As System.Windows.Forms.ToolBarButton
+    Friend WithEvents StatusStrip As System.Windows.Forms.StatusStrip
+    Friend WithEvents ToolStripEmpty As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents ToolStripLogInc As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents ToolStripLogBy As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents ToolStripLogDate As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents lblInfo As System.Windows.Forms.Label
+    Friend WithEvents pnlDetail As System.Windows.Forms.Panel
+    Friend WithEvents btnCompany As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents txtCompanyName As ERPS.usTextBox
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents txtAccountNumber As ERPS.usTextBox
+    Friend WithEvents Label13 As System.Windows.Forms.Label
+    Friend WithEvents txtRemarks As ERPS.usTextBox
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents txtCurrency As ERPS.usTextBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents txtAccountName As ERPS.usTextBox
+    Friend WithEvents cboStatus As ERPS.usComboBox
+    Friend WithEvents lblName As System.Windows.Forms.Label
+    Friend WithEvents txtBankName As ERPS.usTextBox
+    Friend WithEvents lblStatusID As System.Windows.Forms.Label
 End Class

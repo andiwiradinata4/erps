@@ -6,7 +6,7 @@
     Public pubIsChoose As Boolean = False
 
     Private Const _
-       cChoose = 0, cClose = 1
+       cChoose As Byte = 0, cClose As Byte = 1
 
     Private Sub prvSetGrid()
         UI.usForm.SetGrid(grdView, "ProgramID", "ProgramID", 100, UI.usDefGrid.gIntNum, False)

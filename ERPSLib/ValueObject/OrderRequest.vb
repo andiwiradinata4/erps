@@ -14,6 +14,11 @@
         Property TotalWeight As Decimal
         Property Remarks As String
         Property StatusID As Integer
+        Property SubmitBy As String
+        Property SubmitDate As DateTime
+        Property ApprovedL1 As String
+        Property ApprovedBy As String
+        Property ApprovedDate As DateTime
         Property Detail As List(Of VO.OrderRequestDet)
     End Class
 End Namespace

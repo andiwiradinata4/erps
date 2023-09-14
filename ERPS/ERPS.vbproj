@@ -304,6 +304,18 @@
     <Compile Include="PresentationLayers\Forms\System\frmSysMain.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\frmTraOrderRequest.Designer.vb">
+      <DependentUpon>frmTraOrderRequest.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\frmTraOrderRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\frmTraOrderRequestDet.Designer.vb">
+      <DependentUpon>frmTraOrderRequestDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\frmTraOrderRequestDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\View\frmViewCompany.designer.vb">
       <DependentUpon>frmViewCompany.vb</DependentUpon>
     </Compile>
@@ -481,6 +493,9 @@
     <EmbeddedResource Include="PresentationLayers\Forms\System\frmSysMain.resx">
       <DependentUpon>frmSysMain.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\frmTraOrderRequestDet.resx">
+      <DependentUpon>frmTraOrderRequestDet.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\View\frmViewCompany.resx">
       <DependentUpon>frmViewCompany.vb</DependentUpon>
     </EmbeddedResource>
@@ -533,7 +548,6 @@
     <EmbeddedResource Include="PresentationLayers\Icons\Word.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="PresentationLayers\Forms\Transaction\" />
     <Folder Include="PresentationLayers\Reports1\" />
     <Folder Include="PresentationLayers\Reports2\" />
   </ItemGroup>

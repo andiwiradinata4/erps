@@ -6,7 +6,7 @@
     Public pubIsLookUpGet As Boolean = False
 
     Private Const _
-       cGet = 0, cClose = 1
+       cGet As Byte = 0, cClose As Byte = 1
 
     Private Sub prvSetGrid()
         UI.usForm.SetGrid(grdView, "CompanyID", "CompanyID", 100, UI.usDefGrid.gIntNum, False)
