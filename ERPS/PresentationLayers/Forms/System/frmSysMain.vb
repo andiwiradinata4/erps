@@ -16,6 +16,9 @@
     Dim frmMainBusinessPartner As frmMstBusinessPartner
     Dim frmMainMstCompanyBankAccount As frmMstCompanyBankAccount
 
+    '# Transaction
+    Dim frmMainTraOrderRequest As frmTraOrderRequest
+
     '# Setting
     Dim frmMainSysChangePassword As frmSysChangePassword
 
@@ -52,6 +55,8 @@
         Application.DoEvents()
 
         '# Transaction
+        mnuTransaksiPenjualanPermintaan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.ViewAccess)
+
         'If ERPSLib.UI.usUserApp.ProgramID = VO.Program.Values.TradingTBS Then
         '    mnuTransaksiPenjualanJasa.Visible = False
         'ElseIf ERPSLib.UI.usUserApp.ProgramID = VO.Program.Values.RentalAlatBerat Or ERPSLib.UI.usUserApp.ProgramID = VO.Program.Values.RentalTruk Then
@@ -238,6 +243,10 @@
 #Region "Transaksi"
 
     Private Sub mnuTransaksiPenjualanPermintaan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPermintaan.Click
+        UI.usForm.frmOpen(frmMainTraOrderRequest, "frmTraOrderRequest", Me)
+    End Sub
+
+    Private Sub mnuTransaksiPembelianPesananPembelian_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianPesananPembelian.Click
 
     End Sub
 

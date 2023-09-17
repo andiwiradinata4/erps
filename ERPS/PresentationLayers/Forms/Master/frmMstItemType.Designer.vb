@@ -138,6 +138,7 @@ Partial Class frmMstItemType
         Me.Controls.Add(Me.grdMain)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.KeyPreview = True
         Me.Name = "frmMstItemType"
         Me.Text = "Jenis Barang"
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).EndInit()

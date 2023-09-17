@@ -297,6 +297,8 @@ Partial Class frmMstBusinessPartnerBankAccountDet
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.KeyPreview = True
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmMstBusinessPartnerBankAccountDet"
         Me.Text = "Akun Bank"
         Me.StatusStrip.ResumeLayout(False)

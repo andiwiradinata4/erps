@@ -26,6 +26,9 @@ Namespace VO
 
             '# Transaction
             TransactionOrderRequest = 15
+            TransactionPurchaseOrder = 16
+            TransactionPurchaseOrderCutting = 17
+            TransactionPurchaseOrderTransport = 18
         End Enum
 
     End Class

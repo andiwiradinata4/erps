@@ -1,0 +1,3 @@
+﻿Public Class frmTraPurchaseOrderDetItemOutstanding
+
+End Class

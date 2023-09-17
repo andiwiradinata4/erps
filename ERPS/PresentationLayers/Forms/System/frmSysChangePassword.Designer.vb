@@ -27,21 +27,21 @@ Partial Class frmSysChangePassword
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
-        Me.lblUserID = New System.Windows.Forms.Label()
-        Me.lblOldPassword = New System.Windows.Forms.Label()
-        Me.txtUserID = New ERPS.usTextBox()
-        Me.txtOldPassword = New ERPS.usTextBox()
-        Me.txtNewPassword = New ERPS.usTextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.chkShowConfirmPassword = New DevExpress.XtraEditors.CheckEdit()
+        Me.chkShowNewPassword = New DevExpress.XtraEditors.CheckEdit()
+        Me.chkShowOldPassword = New DevExpress.XtraEditors.CheckEdit()
         Me.txtConfirmPassword = New ERPS.usTextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.chkShowOldPassword = New DevExpress.XtraEditors.CheckEdit()
-        Me.chkShowNewPassword = New DevExpress.XtraEditors.CheckEdit()
-        Me.chkShowConfirmPassword = New DevExpress.XtraEditors.CheckEdit()
+        Me.txtNewPassword = New ERPS.usTextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtOldPassword = New ERPS.usTextBox()
+        Me.lblUserID = New System.Windows.Forms.Label()
+        Me.txtUserID = New ERPS.usTextBox()
+        Me.lblOldPassword = New System.Windows.Forms.Label()
         Me.pnlDetail.SuspendLayout()
-        CType(Me.chkShowOldPassword.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.chkShowNewPassword.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkShowConfirmPassword.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkShowNewPassword.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkShowOldPassword.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -101,70 +101,29 @@ Partial Class frmSysChangePassword
         Me.pnlDetail.Size = New System.Drawing.Size(483, 147)
         Me.pnlDetail.TabIndex = 2
         '
-        'lblUserID
+        'chkShowConfirmPassword
         '
-        Me.lblUserID.AutoSize = True
-        Me.lblUserID.BackColor = System.Drawing.Color.Transparent
-        Me.lblUserID.ForeColor = System.Drawing.Color.Black
-        Me.lblUserID.Location = New System.Drawing.Point(29, 17)
-        Me.lblUserID.Name = "lblUserID"
-        Me.lblUserID.Size = New System.Drawing.Size(43, 13)
-        Me.lblUserID.TabIndex = 93
-        Me.lblUserID.Text = "User ID"
+        Me.chkShowConfirmPassword.Location = New System.Drawing.Point(376, 95)
+        Me.chkShowConfirmPassword.Name = "chkShowConfirmPassword"
+        Me.chkShowConfirmPassword.Properties.Caption = "Lihat"
+        Me.chkShowConfirmPassword.Size = New System.Drawing.Size(58, 19)
+        Me.chkShowConfirmPassword.TabIndex = 6
         '
-        'lblOldPassword
+        'chkShowNewPassword
         '
-        Me.lblOldPassword.AutoSize = True
-        Me.lblOldPassword.BackColor = System.Drawing.Color.Transparent
-        Me.lblOldPassword.ForeColor = System.Drawing.Color.Black
-        Me.lblOldPassword.Location = New System.Drawing.Point(29, 44)
-        Me.lblOldPassword.Name = "lblOldPassword"
-        Me.lblOldPassword.Size = New System.Drawing.Size(81, 13)
-        Me.lblOldPassword.TabIndex = 93
-        Me.lblOldPassword.Text = "Password Lama"
+        Me.chkShowNewPassword.Location = New System.Drawing.Point(376, 68)
+        Me.chkShowNewPassword.Name = "chkShowNewPassword"
+        Me.chkShowNewPassword.Properties.Caption = "Lihat"
+        Me.chkShowNewPassword.Size = New System.Drawing.Size(58, 19)
+        Me.chkShowNewPassword.TabIndex = 4
         '
-        'txtUserID
+        'chkShowOldPassword
         '
-        Me.txtUserID.BackColor = System.Drawing.Color.LightYellow
-        Me.txtUserID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtUserID.Location = New System.Drawing.Point(154, 13)
-        Me.txtUserID.MaxLength = 250
-        Me.txtUserID.Name = "txtUserID"
-        Me.txtUserID.Size = New System.Drawing.Size(160, 21)
-        Me.txtUserID.TabIndex = 0
-        '
-        'txtOldPassword
-        '
-        Me.txtOldPassword.BackColor = System.Drawing.Color.White
-        Me.txtOldPassword.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtOldPassword.Location = New System.Drawing.Point(154, 40)
-        Me.txtOldPassword.MaxLength = 250
-        Me.txtOldPassword.Name = "txtOldPassword"
-        Me.txtOldPassword.Size = New System.Drawing.Size(216, 21)
-        Me.txtOldPassword.TabIndex = 1
-        Me.txtOldPassword.UseSystemPasswordChar = True
-        '
-        'txtNewPassword
-        '
-        Me.txtNewPassword.BackColor = System.Drawing.Color.White
-        Me.txtNewPassword.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtNewPassword.Location = New System.Drawing.Point(154, 67)
-        Me.txtNewPassword.MaxLength = 250
-        Me.txtNewPassword.Name = "txtNewPassword"
-        Me.txtNewPassword.Size = New System.Drawing.Size(216, 21)
-        Me.txtNewPassword.TabIndex = 3
-        Me.txtNewPassword.UseSystemPasswordChar = True
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(29, 71)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(78, 13)
-        Me.Label1.TabIndex = 95
-        Me.Label1.Text = "Password Baru"
+        Me.chkShowOldPassword.Location = New System.Drawing.Point(376, 41)
+        Me.chkShowOldPassword.Name = "chkShowOldPassword"
+        Me.chkShowOldPassword.Properties.Caption = "Lihat"
+        Me.chkShowOldPassword.Size = New System.Drawing.Size(58, 19)
+        Me.chkShowOldPassword.TabIndex = 2
         '
         'txtConfirmPassword
         '
@@ -188,29 +147,70 @@ Partial Class frmSysChangePassword
         Me.Label2.TabIndex = 97
         Me.Label2.Text = "Konfirmasi Password"
         '
-        'chkShowOldPassword
+        'txtNewPassword
         '
-        Me.chkShowOldPassword.Location = New System.Drawing.Point(376, 41)
-        Me.chkShowOldPassword.Name = "chkShowOldPassword"
-        Me.chkShowOldPassword.Properties.Caption = "Lihat"
-        Me.chkShowOldPassword.Size = New System.Drawing.Size(58, 19)
-        Me.chkShowOldPassword.TabIndex = 2
+        Me.txtNewPassword.BackColor = System.Drawing.Color.White
+        Me.txtNewPassword.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtNewPassword.Location = New System.Drawing.Point(154, 67)
+        Me.txtNewPassword.MaxLength = 250
+        Me.txtNewPassword.Name = "txtNewPassword"
+        Me.txtNewPassword.Size = New System.Drawing.Size(216, 21)
+        Me.txtNewPassword.TabIndex = 3
+        Me.txtNewPassword.UseSystemPasswordChar = True
         '
-        'chkShowNewPassword
+        'Label1
         '
-        Me.chkShowNewPassword.Location = New System.Drawing.Point(376, 68)
-        Me.chkShowNewPassword.Name = "chkShowNewPassword"
-        Me.chkShowNewPassword.Properties.Caption = "Lihat"
-        Me.chkShowNewPassword.Size = New System.Drawing.Size(58, 19)
-        Me.chkShowNewPassword.TabIndex = 4
+        Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
+        Me.Label1.ForeColor = System.Drawing.Color.Black
+        Me.Label1.Location = New System.Drawing.Point(29, 71)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(78, 13)
+        Me.Label1.TabIndex = 95
+        Me.Label1.Text = "Password Baru"
         '
-        'chkShowConfirmPassword
+        'txtOldPassword
         '
-        Me.chkShowConfirmPassword.Location = New System.Drawing.Point(376, 95)
-        Me.chkShowConfirmPassword.Name = "chkShowConfirmPassword"
-        Me.chkShowConfirmPassword.Properties.Caption = "Lihat"
-        Me.chkShowConfirmPassword.Size = New System.Drawing.Size(58, 19)
-        Me.chkShowConfirmPassword.TabIndex = 6
+        Me.txtOldPassword.BackColor = System.Drawing.Color.White
+        Me.txtOldPassword.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtOldPassword.Location = New System.Drawing.Point(154, 40)
+        Me.txtOldPassword.MaxLength = 250
+        Me.txtOldPassword.Name = "txtOldPassword"
+        Me.txtOldPassword.Size = New System.Drawing.Size(216, 21)
+        Me.txtOldPassword.TabIndex = 1
+        Me.txtOldPassword.UseSystemPasswordChar = True
+        '
+        'lblUserID
+        '
+        Me.lblUserID.AutoSize = True
+        Me.lblUserID.BackColor = System.Drawing.Color.Transparent
+        Me.lblUserID.ForeColor = System.Drawing.Color.Black
+        Me.lblUserID.Location = New System.Drawing.Point(29, 17)
+        Me.lblUserID.Name = "lblUserID"
+        Me.lblUserID.Size = New System.Drawing.Size(43, 13)
+        Me.lblUserID.TabIndex = 93
+        Me.lblUserID.Text = "User ID"
+        '
+        'txtUserID
+        '
+        Me.txtUserID.BackColor = System.Drawing.Color.LightYellow
+        Me.txtUserID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtUserID.Location = New System.Drawing.Point(154, 13)
+        Me.txtUserID.MaxLength = 250
+        Me.txtUserID.Name = "txtUserID"
+        Me.txtUserID.Size = New System.Drawing.Size(160, 21)
+        Me.txtUserID.TabIndex = 0
+        '
+        'lblOldPassword
+        '
+        Me.lblOldPassword.AutoSize = True
+        Me.lblOldPassword.BackColor = System.Drawing.Color.Transparent
+        Me.lblOldPassword.ForeColor = System.Drawing.Color.Black
+        Me.lblOldPassword.Location = New System.Drawing.Point(29, 44)
+        Me.lblOldPassword.Name = "lblOldPassword"
+        Me.lblOldPassword.Size = New System.Drawing.Size(81, 13)
+        Me.lblOldPassword.TabIndex = 93
+        Me.lblOldPassword.Text = "Password Lama"
         '
         'frmSysChangePassword
         '
@@ -221,13 +221,16 @@ Partial Class frmSysChangePassword
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.KeyPreview = True
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmSysChangePassword"
         Me.Text = "Ubah Password"
         Me.pnlDetail.ResumeLayout(False)
         Me.pnlDetail.PerformLayout()
-        CType(Me.chkShowOldPassword.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.chkShowNewPassword.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkShowConfirmPassword.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkShowNewPassword.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkShowOldPassword.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

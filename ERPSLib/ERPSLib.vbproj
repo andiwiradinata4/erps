@@ -85,6 +85,7 @@
     <Compile Include="BusinessLayers\ItemSpecification.vb" />
     <Compile Include="BusinessLayers\ItemType.vb" />
     <Compile Include="BusinessLayers\OrderRequest.vb" />
+    <Compile Include="BusinessLayers\PurchaseOrder.vb" />
     <Compile Include="DataLayers\Base\Access.vb" />
     <Compile Include="DataLayers\Base\Company.vb" />
     <Compile Include="DataLayers\Base\CompanyBankAccount.vb" />
@@ -108,6 +109,7 @@
     <Compile Include="DataLayers\ItemSpecification.vb" />
     <Compile Include="DataLayers\ItemType.vb" />
     <Compile Include="DataLayers\OrderRequest.vb" />
+    <Compile Include="DataLayers\PurchaseOrder.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -143,6 +145,7 @@
     <Compile Include="ValueObject\Base\PostTax.vb" />
     <Compile Include="ValueObject\Base\Program.vb" />
     <Compile Include="ValueObject\Base\ProgramModules.vb" />
+    <Compile Include="ValueObject\Base\Save.vb" />
     <Compile Include="ValueObject\Base\Server.vb" />
     <Compile Include="ValueObject\Base\ServerList.vb" />
     <Compile Include="ValueObject\Base\Status.vb" />
@@ -159,6 +162,10 @@
     <Compile Include="ValueObject\OrderRequest.vb" />
     <Compile Include="ValueObject\OrderRequestDet.vb" />
     <Compile Include="ValueObject\OrderRequestStatus.vb" />
+    <Compile Include="ValueObject\PurchaseOrder.vb" />
+    <Compile Include="ValueObject\PurchaseOrderDet.vb" />
+    <Compile Include="ValueObject\PurchaseOrderDetInternal.vb" />
+    <Compile Include="ValueObject\PurchaseOrderStatus.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

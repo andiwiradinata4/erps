@@ -91,7 +91,7 @@ Partial Class frmMstItemSpecificationDet
         'ToolStripEmpty
         '
         Me.ToolStripEmpty.Name = "ToolStripEmpty"
-        Me.ToolStripEmpty.Size = New System.Drawing.Size(130, 17)
+        Me.ToolStripEmpty.Size = New System.Drawing.Size(326, 17)
         Me.ToolStripEmpty.Spring = True
         '
         'ToolStripLogInc
@@ -195,6 +195,9 @@ Partial Class frmMstItemSpecificationDet
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.KeyPreview = True
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmMstItemSpecificationDet"
         Me.Text = "Spesifikasi Barang"
         Me.StatusStrip.ResumeLayout(False)

@@ -138,6 +138,7 @@ Partial Class frmMstItemSpecification
         Me.Controls.Add(Me.grdMain)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.KeyPreview = True
         Me.Name = "frmMstItemSpecification"
         Me.Text = "Spesifikasi Barang"
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).EndInit()

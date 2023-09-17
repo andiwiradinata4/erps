@@ -5,10 +5,11 @@
 #Region "Main"
 
         Public Shared Function ListData(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                        ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable
+                                        ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+                                        ByVal intStatusID As Integer) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.OrderRequest.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo)
+                Return DL.OrderRequest.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID)
             End Using
         End Function
 
@@ -26,17 +27,24 @@
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
                     If bolNew Then
-                        clsData.ID = GetNewID(sqlCon, Nothing, clsData.OrderDate, clsData.CompanyID)
+                        clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.OrderDate, clsData.CompanyID)
                         clsData.OrderNumber = clsData.ID
                     Else
                         DL.OrderRequest.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
                     End If
 
-                    If DL.OrderRequest.DataExists(sqlCon, sqlTrans, clsData.ID) Then
-                        Err.Raise(515, "", "Tidak dapat disimpan. ID " & clsData.ID & " sudah ada.")
+                    Dim intStatusID As Integer = DL.OrderRequest.GetStatusID(sqlCon, sqlTrans, clsData.ID)
+                    If intStatusID = VO.Status.Values.Submit Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di submit")
+                    ElseIf intStatusID = VO.Status.Values.Approved Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di setujui")
+                    ElseIf DL.OrderRequest.IsDeleted(sqlCon, sqlTrans, clsData.ID) Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
+                    ElseIf DL.OrderRequest.DataExists(sqlCon, sqlTrans, clsData.OrderNumber, clsData.ID) Then
+                        Err.Raise(515, "", "Tidak dapat disimpan. Nomor " & clsData.OrderNumber & " sudah ada.")
                     End If
 
-                    DL.OrderRequest.SaveData(sqlCon, Nothing, bolNew, clsData)
+                    DL.OrderRequest.SaveData(sqlCon, sqlTrans, bolNew, clsData)
 
                     '# Save Data Detail
                     Dim intCount As Integer = 1
@@ -50,13 +58,15 @@
                     '# Save Data Status
                     BL.OrderRequest.SaveDataStatus(sqlCon, sqlTrans, clsData.ID, IIf(bolNew, "BARU", "EDIT"), ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
 
+                    If clsData.Save = VO.Save.Action.SaveAndSubmit Then Submit(sqlCon, sqlTrans, clsData.ID, clsData.Remarks)
+
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
                     Throw ex
                 End Try
             End Using
-            Return clsData.ID
+            Return clsData.OrderNumber
         End Function
 
         Public Shared Function GetDetail(ByVal strID As String) As VO.OrderRequest
@@ -98,21 +108,9 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim intStatusID As Integer = DL.OrderRequest.GetStatusID(sqlCon, sqlTrans, strID)
-                    If intStatusID = VO.Status.Values.Submit Then
-                        Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan status data telah SUBMIT")
-                    ElseIf intStatusID = VO.Status.Values.Approved Then
-                        Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan status data telah APPROVED")
-                    ElseIf DL.OrderRequest.IsDeleted(sqlCon, sqlTrans, strID) Then
-                        Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan data telah dihapus")
-                    End If
-
-                    DL.OrderRequest.Submit(sqlCon, sqlTrans, strID)
-
-                    '# Save Data Status
-                    BL.OrderRequest.SaveDataStatus(sqlCon, sqlTrans, strID, "SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
-
+                    Submit(sqlCon, sqlTrans, strID, strRemarks)
                     sqlTrans.Commit()
+                    bolReturn = True
                 Catch ex As Exception
                     sqlTrans.Rollback()
                     Throw ex
@@ -120,6 +118,24 @@
             End Using
             Return bolReturn
         End Function
+
+        Public Shared Sub Submit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                 ByVal strID As String, ByVal strRemarks As String)
+            Dim bolReturn As Boolean = False
+            Dim intStatusID As Integer = DL.OrderRequest.GetStatusID(sqlCon, sqlTrans, strID)
+            If intStatusID = VO.Status.Values.Submit Then
+                Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan status data telah SUBMIT")
+            ElseIf intStatusID = VO.Status.Values.Approved Then
+                Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan status data telah APPROVED")
+            ElseIf DL.OrderRequest.IsDeleted(sqlCon, sqlTrans, strID) Then
+                Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan data telah dihapus")
+            End If
+
+            DL.OrderRequest.Submit(sqlCon, sqlTrans, strID)
+
+            '# Save Data Status
+            BL.OrderRequest.SaveDataStatus(sqlCon, sqlTrans, strID, "SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
+        End Sub
 
         Public Shared Function Unsubmit(ByVal strID As String, ByVal strRemarks As String) As Boolean
             Dim bolReturn As Boolean = False
@@ -140,64 +156,6 @@
 
                     '# Save Data Status
                     BL.OrderRequest.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
-
-                    sqlTrans.Commit()
-                Catch ex As Exception
-                    sqlTrans.Rollback()
-                    Throw ex
-                End Try
-            End Using
-            Return bolReturn
-        End Function
-
-        Public Shared Function Approve(ByVal strID As String, ByVal strRemarks As String) As Boolean
-            Dim bolReturn As Boolean = False
-            BL.Server.ServerDefault()
-            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
-                Try
-                    Dim intStatusID As Integer = DL.OrderRequest.GetStatusID(sqlCon, sqlTrans, strID)
-                    If intStatusID = VO.Status.Values.Draft Then
-                        Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data masih DRAFT")
-                    ElseIf intStatusID = VO.Status.Values.Approved Then
-                        Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data telah APPROVED")
-                    ElseIf DL.OrderRequest.IsDeleted(sqlCon, sqlTrans, strID) Then
-                        Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan data telah dihapus")
-                    End If
-
-                    DL.OrderRequest.Approve(sqlCon, sqlTrans, strID)
-
-                    '# Save Data Status
-                    BL.OrderRequest.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
-
-                    sqlTrans.Commit()
-                Catch ex As Exception
-                    sqlTrans.Rollback()
-                    Throw ex
-                End Try
-            End Using
-            Return bolReturn
-        End Function
-
-        Public Shared Function Unapprove(ByVal strID As String, ByVal strRemarks As String) As Boolean
-            Dim bolReturn As Boolean = False
-            BL.Server.ServerDefault()
-            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
-                Try
-                    Dim intStatusID As Integer = DL.OrderRequest.GetStatusID(sqlCon, sqlTrans, strID)
-                    If intStatusID = VO.Status.Values.Draft Then
-                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data masih DRAFT")
-                    ElseIf intStatusID = VO.Status.Values.Submit Then
-                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data telah SUBMIT")
-                    ElseIf DL.OrderRequest.IsDeleted(sqlCon, sqlTrans, strID) Then
-                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
-                    End If
-
-                    DL.OrderRequest.Unsubmit(sqlCon, sqlTrans, strID)
-
-                    '# Save Data Status
-                    BL.OrderRequest.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
                     sqlTrans.Commit()
                 Catch ex As Exception

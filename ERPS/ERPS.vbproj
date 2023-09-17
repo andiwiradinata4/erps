@@ -304,16 +304,46 @@
     <Compile Include="PresentationLayers\Forms\System\frmSysMain.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PresentationLayers\Forms\Transaction\frmTraOrderRequest.Designer.vb">
-      <DependentUpon>frmTraOrderRequest.vb</DependentUpon>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrder.Designer.vb">
+      <DependentUpon>frmTraPurchaseOrder.vb</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayers\Forms\Transaction\frmTraOrderRequest.vb">
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrder.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PresentationLayers\Forms\Transaction\frmTraOrderRequestDet.Designer.vb">
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderDet.Designer.vb">
+      <DependentUpon>frmTraPurchaseOrderDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderDetItem.Designer.vb">
+      <DependentUpon>frmTraPurchaseOrderDetItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderDetItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderDetItemOutstanding.Designer.vb">
+      <DependentUpon>frmTraPurchaseOrderDetItemOutstanding.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderDetItemOutstanding.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequest.Designer.vb">
+      <DependentUpon>frmTraOrderRequest.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDet.Designer.vb">
       <DependentUpon>frmTraOrderRequestDet.vb</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayers\Forms\Transaction\frmTraOrderRequestDet.vb">
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDetItem.Designer.vb">
+      <DependentUpon>frmTraOrderRequestDetItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDetItem.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Forms\View\frmViewCompany.designer.vb">
@@ -342,6 +372,18 @@
     </Compile>
     <Compile Include="PresentationLayers\SharedLib\Components\usComboBoxEdit.vb">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\SharedLib\Components\usFormRemarks.Designer.vb">
+      <DependentUpon>usFormRemarks.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\SharedLib\Components\usFormRemarks.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\SharedLib\Components\usFormSave.Designer.vb">
+      <DependentUpon>usFormSave.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\SharedLib\Components\usFormSave.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationLayers\SharedLib\Components\usNumeric.vb">
       <SubType>Component</SubType>
@@ -475,6 +517,24 @@
     <EmbeddedResource Include="PresentationLayers\Forms\System\frmSysLogin.resx">
       <DependentUpon>frmSysLogin.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrder.resx">
+      <DependentUpon>frmTraPurchaseOrder.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderDet.resx">
+      <DependentUpon>frmTraPurchaseOrderDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderDetItem.resx">
+      <DependentUpon>frmTraPurchaseOrderDetItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderDetItemOutstanding.resx">
+      <DependentUpon>frmTraPurchaseOrderDetItemOutstanding.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\SharedLib\Components\usFormRemarks.resx">
+      <DependentUpon>usFormRemarks.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\SharedLib\Components\usFormSave.resx">
+      <DependentUpon>usFormSave.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\app.manifest" />
@@ -493,8 +553,14 @@
     <EmbeddedResource Include="PresentationLayers\Forms\System\frmSysMain.resx">
       <DependentUpon>frmSysMain.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\frmTraOrderRequestDet.resx">
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequest.resx">
+      <DependentUpon>frmTraOrderRequest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDet.resx">
       <DependentUpon>frmTraOrderRequestDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDetItem.resx">
+      <DependentUpon>frmTraOrderRequestDetItem.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\View\frmViewCompany.resx">
       <DependentUpon>frmViewCompany.vb</DependentUpon>

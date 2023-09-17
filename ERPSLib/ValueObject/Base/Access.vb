@@ -17,7 +17,12 @@ Namespace VO
             ResetPasswordAccess = 9
             SetupUserAccessAccess = 10
             DuplicateUserAccessAccess = 11
-            BankInfo = 12
+            BankInfoAccess = 12
+            SubmitAccess = 13
+            CancelSubmitAccess = 14
+            ApproveAccess = 15
+            CancelApproveAccess = 16
+            ExportExcelAccess = 17
         End Enum
 
     End Class 

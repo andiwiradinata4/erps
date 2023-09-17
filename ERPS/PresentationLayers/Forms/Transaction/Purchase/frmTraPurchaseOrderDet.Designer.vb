@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmTraOrderRequest
+Partial Class frmTraPurchaseOrderDet
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,8 +22,19 @@ Partial Class frmTraOrderRequest
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container
+        Me.SuspendLayout()
+        '
+        'frmTraPurchaseOrderDet
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Text = "frmTraOrderRequest"
+        Me.ClientSize = New System.Drawing.Size(284, 261)
+        Me.KeyPreview = True
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
+        Me.Name = "frmTraPurchaseOrderDet"
+        Me.Text = "frmTraPurchaseOrderDet"
+        Me.ResumeLayout(False)
+
     End Sub
 End Class

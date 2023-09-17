@@ -126,7 +126,7 @@ Partial Class frmMstItem
         '
         'chkShowAll
         '
-        Me.chkShowAll.Location = New System.Drawing.Point(336, 41)
+        Me.chkShowAll.Location = New System.Drawing.Point(371, 45)
         Me.chkShowAll.Name = "chkShowAll"
         Me.chkShowAll.Properties.Caption = "Tampilankan Semua"
         Me.chkShowAll.Size = New System.Drawing.Size(150, 19)
@@ -135,7 +135,7 @@ Partial Class frmMstItem
         'btnClear
         '
         Me.btnClear.Image = CType(resources.GetObject("btnClear.Image"), System.Drawing.Image)
-        Me.btnClear.Location = New System.Drawing.Point(497, 67)
+        Me.btnClear.Location = New System.Drawing.Point(532, 71)
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(151, 23)
         Me.btnClear.TabIndex = 4
@@ -144,7 +144,7 @@ Partial Class frmMstItem
         'btnExecute
         '
         Me.btnExecute.Image = CType(resources.GetObject("btnExecute.Image"), System.Drawing.Image)
-        Me.btnExecute.Location = New System.Drawing.Point(335, 67)
+        Me.btnExecute.Location = New System.Drawing.Point(370, 71)
         Me.btnExecute.Name = "btnExecute"
         Me.btnExecute.Size = New System.Drawing.Size(151, 23)
         Me.btnExecute.TabIndex = 3
@@ -155,7 +155,7 @@ Partial Class frmMstItem
         Me.cboItemSpecification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboItemSpecification.Enabled = False
         Me.cboItemSpecification.FormattingEnabled = True
-        Me.cboItemSpecification.Location = New System.Drawing.Point(109, 67)
+        Me.cboItemSpecification.Location = New System.Drawing.Point(98, 71)
         Me.cboItemSpecification.Name = "cboItemSpecification"
         Me.cboItemSpecification.Size = New System.Drawing.Size(201, 21)
         Me.cboItemSpecification.TabIndex = 1
@@ -165,7 +165,7 @@ Partial Class frmMstItem
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(57, 71)
+        Me.Label3.Location = New System.Drawing.Point(46, 75)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(30, 13)
         Me.Label3.TabIndex = 101
@@ -176,7 +176,7 @@ Partial Class frmMstItem
         Me.cboItemType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboItemType.Enabled = False
         Me.cboItemType.FormattingEnabled = True
-        Me.cboItemType.Location = New System.Drawing.Point(109, 40)
+        Me.cboItemType.Location = New System.Drawing.Point(98, 44)
         Me.cboItemType.Name = "cboItemType"
         Me.cboItemType.Size = New System.Drawing.Size(201, 21)
         Me.cboItemType.TabIndex = 0
@@ -186,7 +186,7 @@ Partial Class frmMstItem
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(57, 44)
+        Me.Label2.Location = New System.Drawing.Point(46, 48)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(27, 13)
         Me.Label2.TabIndex = 99

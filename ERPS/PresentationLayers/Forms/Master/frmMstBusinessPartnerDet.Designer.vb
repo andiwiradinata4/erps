@@ -322,6 +322,8 @@ Partial Class frmMstBusinessPartnerDet
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.KeyPreview = True
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmMstBusinessPartnerDet"
         Me.Text = "Rekan Bisnis"
         Me.StatusStrip.ResumeLayout(False)

@@ -24,13 +24,13 @@ Partial Class frmSysLogin
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSysLogin))
         Me.pnlLogin = New DevExpress.XtraEditors.PanelControl()
+        Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
         Me.txtPassword = New ERPS.usTextBox()
         Me.txtUserID = New ERPS.usTextBox()
         Me.btnExit = New DevExpress.XtraEditors.SimpleButton()
         Me.labelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.btnLogin = New DevExpress.XtraEditors.SimpleButton()
         Me.labelControl2 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
         Me.simpleButton1 = New DevExpress.XtraEditors.SimpleButton()
         CType(Me.pnlLogin, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlLogin.SuspendLayout()
@@ -51,6 +51,16 @@ Partial Class frmSysLogin
         Me.pnlLogin.Name = "pnlLogin"
         Me.pnlLogin.Size = New System.Drawing.Size(296, 200)
         Me.pnlLogin.TabIndex = 3
+        '
+        'LabelControl3
+        '
+        Me.LabelControl3.Appearance.Font = New System.Drawing.Font("Tahoma", 15.0!, System.Drawing.FontStyle.Bold)
+        Me.LabelControl3.Appearance.Options.UseFont = True
+        Me.LabelControl3.Location = New System.Drawing.Point(118, 6)
+        Me.LabelControl3.Name = "LabelControl3"
+        Me.LabelControl3.Size = New System.Drawing.Size(66, 24)
+        Me.LabelControl3.TabIndex = 7
+        Me.LabelControl3.Text = "LOGIN"
         '
         'txtPassword
         '
@@ -103,16 +113,6 @@ Partial Class frmSysLogin
         Me.labelControl2.Size = New System.Drawing.Size(46, 13)
         Me.labelControl2.TabIndex = 6
         Me.labelControl2.Text = "Password"
-        '
-        'LabelControl3
-        '
-        Me.LabelControl3.Appearance.Font = New System.Drawing.Font("Tahoma", 15.0!, System.Drawing.FontStyle.Bold)
-        Me.LabelControl3.Appearance.Options.UseFont = True
-        Me.LabelControl3.Location = New System.Drawing.Point(118, 6)
-        Me.LabelControl3.Name = "LabelControl3"
-        Me.LabelControl3.Size = New System.Drawing.Size(66, 24)
-        Me.LabelControl3.TabIndex = 7
-        Me.LabelControl3.Text = "LOGIN"
         '
         'simpleButton1
         '

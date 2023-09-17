@@ -35,6 +35,8 @@ Partial Class frmTraOrderRequestDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.txtReferencesNumber = New ERPS.usTextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.txtRemarks = New ERPS.usTextBox()
         Me.cboStatus = New ERPS.usComboBox()
@@ -59,10 +61,6 @@ Partial Class frmTraOrderRequestDet
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.txtReferencesNumber = New ERPS.usTextBox()
-        Me.cboItemSpecification = New ERPS.usComboBox()
-        Me.Label6 = New System.Windows.Forms.Label()
         Me.StatusStrip.SuspendLayout()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
@@ -177,8 +175,6 @@ Partial Class frmTraOrderRequestDet
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.tpMain.Controls.Add(Me.cboItemSpecification)
-        Me.tpMain.Controls.Add(Me.Label6)
         Me.tpMain.Controls.Add(Me.Label5)
         Me.tpMain.Controls.Add(Me.txtReferencesNumber)
         Me.tpMain.Controls.Add(Me.Label13)
@@ -201,12 +197,33 @@ Partial Class frmTraOrderRequestDet
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
         '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
+        Me.Label5.ForeColor = System.Drawing.Color.Black
+        Me.Label5.Location = New System.Drawing.Point(28, 101)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(73, 13)
+        Me.Label5.TabIndex = 131
+        Me.Label5.Text = "No. Referensi"
+        '
+        'txtReferencesNumber
+        '
+        Me.txtReferencesNumber.BackColor = System.Drawing.Color.White
+        Me.txtReferencesNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtReferencesNumber.Location = New System.Drawing.Point(110, 97)
+        Me.txtReferencesNumber.MaxLength = 250
+        Me.txtReferencesNumber.Name = "txtReferencesNumber"
+        Me.txtReferencesNumber.Size = New System.Drawing.Size(249, 21)
+        Me.txtReferencesNumber.TabIndex = 5
+        '
         'Label13
         '
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(433, 74)
+        Me.Label13.Location = New System.Drawing.Point(433, 47)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 129
@@ -216,7 +233,7 @@ Partial Class frmTraOrderRequestDet
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(516, 70)
+        Me.txtRemarks.Location = New System.Drawing.Point(516, 43)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
@@ -336,7 +353,7 @@ Partial Class frmTraOrderRequestDet
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(823, 136)
+        Me.tpHistory.Size = New System.Drawing.Size(823, 152)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F2"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -361,7 +378,7 @@ Partial Class frmTraOrderRequestDet
         Me.grdStatus.Location = New System.Drawing.Point(3, 3)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(813, 126)
+        Me.grdStatus.Size = New System.Drawing.Size(813, 142)
         Me.grdStatus.TabIndex = 13
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -471,47 +488,6 @@ Partial Class frmTraOrderRequestDet
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
         '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.BackColor = System.Drawing.Color.Transparent
-        Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(28, 101)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(73, 13)
-        Me.Label5.TabIndex = 131
-        Me.Label5.Text = "No. Referensi"
-        '
-        'txtReferencesNumber
-        '
-        Me.txtReferencesNumber.BackColor = System.Drawing.Color.White
-        Me.txtReferencesNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtReferencesNumber.Location = New System.Drawing.Point(110, 97)
-        Me.txtReferencesNumber.MaxLength = 250
-        Me.txtReferencesNumber.Name = "txtReferencesNumber"
-        Me.txtReferencesNumber.Size = New System.Drawing.Size(274, 21)
-        Me.txtReferencesNumber.TabIndex = 5
-        '
-        'cboItemSpecification
-        '
-        Me.cboItemSpecification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboItemSpecification.FormattingEnabled = True
-        Me.cboItemSpecification.Location = New System.Drawing.Point(516, 43)
-        Me.cboItemSpecification.Name = "cboItemSpecification"
-        Me.cboItemSpecification.Size = New System.Drawing.Size(124, 21)
-        Me.cboItemSpecification.TabIndex = 7
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.BackColor = System.Drawing.Color.Transparent
-        Me.Label6.ForeColor = System.Drawing.Color.Black
-        Me.Label6.Location = New System.Drawing.Point(433, 47)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(30, 13)
-        Me.Label6.TabIndex = 133
-        Me.Label6.Text = "Spec"
-        '
         'frmTraOrderRequestDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -527,6 +503,8 @@ Partial Class frmTraOrderRequestDet
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.KeyPreview = True
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmTraOrderRequestDet"
         Me.Text = "Permintaan Penjualan"
         Me.StatusStrip.ResumeLayout(False)
@@ -582,6 +560,4 @@ Partial Class frmTraOrderRequestDet
     Friend WithEvents rpiValue As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents txtReferencesNumber As ERPS.usTextBox
-    Friend WithEvents cboItemSpecification As ERPS.usComboBox
-    Friend WithEvents Label6 As System.Windows.Forms.Label
 End Class

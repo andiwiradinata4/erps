@@ -195,6 +195,9 @@ Partial Class frmMstItemTypeDet
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.KeyPreview = True
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmMstItemTypeDet"
         Me.Text = "Jenis Barang"
         Me.StatusStrip.ResumeLayout(False)

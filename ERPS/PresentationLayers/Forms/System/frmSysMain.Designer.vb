@@ -43,9 +43,23 @@ Partial Class frmSysMain
         Me.mnuMasterBarang = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuMasterSep1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuMasterRekanBisnis = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuMasterJenisPembayaran = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuMasterAkunBankPerusahaan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuMasterJenisPembayaran = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksi = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPenjualan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPenjualanPermintaan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPenjualanKontrakPenjualan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPenjualanMemoPengambilan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPenjualanPengirimanPenjualan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembelian = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembelianPesananPembelian = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembelianPesananPemotongan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembelianPesananPengiriman = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembelianKonfirmasiPesanan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembelianKontrakPembelian = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembelianInstruksi = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembelianKonfirmasiPengiriman = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembelianProsesPemotonganSPK = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLaporan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuPengaturan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSettingUbahPassword = New System.Windows.Forms.ToolStripMenuItem()
@@ -55,20 +69,6 @@ Partial Class frmSysMain
         Me.mnuWindowsCascade = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuWindowsCloseAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLogout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PenjualanToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PembelianToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuTransaksiPenjualanPermintaan = New System.Windows.Forms.ToolStripMenuItem()
-        Me.KontrakToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.KonfirmasiPesananToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.KontrakToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.InstruksiToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PesananPembelianToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PesananPemotonganToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PesananPengirimanToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MemoPengambilanToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PengirimanToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.KonfirmasiPengirimanToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ProsesPemotonganSPKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ssMain.SuspendLayout()
         Me.mnuMain.SuspendLayout()
         Me.SuspendLayout()
@@ -241,24 +241,110 @@ Partial Class frmSysMain
         Me.mnuMasterRekanBisnis.Size = New System.Drawing.Size(195, 22)
         Me.mnuMasterRekanBisnis.Text = "Rekan Bisnis"
         '
-        'mnuMasterJenisPembayaran
-        '
-        Me.mnuMasterJenisPembayaran.Name = "mnuMasterJenisPembayaran"
-        Me.mnuMasterJenisPembayaran.Size = New System.Drawing.Size(195, 22)
-        Me.mnuMasterJenisPembayaran.Text = "Jenis Pembayaran"
-        '
         'mnuMasterAkunBankPerusahaan
         '
         Me.mnuMasterAkunBankPerusahaan.Name = "mnuMasterAkunBankPerusahaan"
         Me.mnuMasterAkunBankPerusahaan.Size = New System.Drawing.Size(195, 22)
         Me.mnuMasterAkunBankPerusahaan.Text = "Akun Bank Perusahaan"
         '
+        'mnuMasterJenisPembayaran
+        '
+        Me.mnuMasterJenisPembayaran.Name = "mnuMasterJenisPembayaran"
+        Me.mnuMasterJenisPembayaran.Size = New System.Drawing.Size(195, 22)
+        Me.mnuMasterJenisPembayaran.Text = "Jenis Pembayaran"
+        '
         'mnuTransaksi
         '
-        Me.mnuTransaksi.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PenjualanToolStripMenuItem, Me.PembelianToolStripMenuItem})
+        Me.mnuTransaksi.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPenjualan, Me.mnuTransaksiPembelian})
         Me.mnuTransaksi.Name = "mnuTransaksi"
         Me.mnuTransaksi.Size = New System.Drawing.Size(66, 20)
         Me.mnuTransaksi.Text = "&Transaksi"
+        '
+        'mnuTransaksiPenjualan
+        '
+        Me.mnuTransaksiPenjualan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPenjualanPermintaan, Me.mnuTransaksiPenjualanKontrakPenjualan, Me.mnuTransaksiPenjualanMemoPengambilan, Me.mnuTransaksiPenjualanPengirimanPenjualan})
+        Me.mnuTransaksiPenjualan.Name = "mnuTransaksiPenjualan"
+        Me.mnuTransaksiPenjualan.Size = New System.Drawing.Size(152, 22)
+        Me.mnuTransaksiPenjualan.Text = "Penjualan"
+        '
+        'mnuTransaksiPenjualanPermintaan
+        '
+        Me.mnuTransaksiPenjualanPermintaan.Name = "mnuTransaksiPenjualanPermintaan"
+        Me.mnuTransaksiPenjualanPermintaan.Size = New System.Drawing.Size(190, 22)
+        Me.mnuTransaksiPenjualanPermintaan.Text = "Permintaan Penjualan"
+        '
+        'mnuTransaksiPenjualanKontrakPenjualan
+        '
+        Me.mnuTransaksiPenjualanKontrakPenjualan.Name = "mnuTransaksiPenjualanKontrakPenjualan"
+        Me.mnuTransaksiPenjualanKontrakPenjualan.Size = New System.Drawing.Size(190, 22)
+        Me.mnuTransaksiPenjualanKontrakPenjualan.Text = "Kontrak Penjualan"
+        '
+        'mnuTransaksiPenjualanMemoPengambilan
+        '
+        Me.mnuTransaksiPenjualanMemoPengambilan.Name = "mnuTransaksiPenjualanMemoPengambilan"
+        Me.mnuTransaksiPenjualanMemoPengambilan.Size = New System.Drawing.Size(190, 22)
+        Me.mnuTransaksiPenjualanMemoPengambilan.Text = "Memo Pengambilan"
+        '
+        'mnuTransaksiPenjualanPengirimanPenjualan
+        '
+        Me.mnuTransaksiPenjualanPengirimanPenjualan.Name = "mnuTransaksiPenjualanPengirimanPenjualan"
+        Me.mnuTransaksiPenjualanPengirimanPenjualan.Size = New System.Drawing.Size(190, 22)
+        Me.mnuTransaksiPenjualanPengirimanPenjualan.Text = "Pengiriman Penjualan"
+        '
+        'mnuTransaksiPembelian
+        '
+        Me.mnuTransaksiPembelian.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPembelianPesananPembelian, Me.mnuTransaksiPembelianPesananPemotongan, Me.mnuTransaksiPembelianPesananPengiriman, Me.mnuTransaksiPembelianKonfirmasiPesanan, Me.mnuTransaksiPembelianKontrakPembelian, Me.mnuTransaksiPembelianInstruksi, Me.mnuTransaksiPembelianKonfirmasiPengiriman, Me.mnuTransaksiPembelianProsesPemotonganSPK})
+        Me.mnuTransaksiPembelian.Name = "mnuTransaksiPembelian"
+        Me.mnuTransaksiPembelian.Size = New System.Drawing.Size(152, 22)
+        Me.mnuTransaksiPembelian.Text = "Pembelian"
+        '
+        'mnuTransaksiPembelianPesananPembelian
+        '
+        Me.mnuTransaksiPembelianPesananPembelian.Name = "mnuTransaksiPembelianPesananPembelian"
+        Me.mnuTransaksiPembelianPesananPembelian.Size = New System.Drawing.Size(211, 22)
+        Me.mnuTransaksiPembelianPesananPembelian.Text = "Pesanan Pembelian"
+        '
+        'mnuTransaksiPembelianPesananPemotongan
+        '
+        Me.mnuTransaksiPembelianPesananPemotongan.Name = "mnuTransaksiPembelianPesananPemotongan"
+        Me.mnuTransaksiPembelianPesananPemotongan.Size = New System.Drawing.Size(211, 22)
+        Me.mnuTransaksiPembelianPesananPemotongan.Text = "Pesanan Pemotongan"
+        '
+        'mnuTransaksiPembelianPesananPengiriman
+        '
+        Me.mnuTransaksiPembelianPesananPengiriman.Name = "mnuTransaksiPembelianPesananPengiriman"
+        Me.mnuTransaksiPembelianPesananPengiriman.Size = New System.Drawing.Size(211, 22)
+        Me.mnuTransaksiPembelianPesananPengiriman.Text = "Pesanan Pengiriman"
+        '
+        'mnuTransaksiPembelianKonfirmasiPesanan
+        '
+        Me.mnuTransaksiPembelianKonfirmasiPesanan.Name = "mnuTransaksiPembelianKonfirmasiPesanan"
+        Me.mnuTransaksiPembelianKonfirmasiPesanan.Size = New System.Drawing.Size(211, 22)
+        Me.mnuTransaksiPembelianKonfirmasiPesanan.Text = "Konfirmasi Pesanan"
+        '
+        'mnuTransaksiPembelianKontrakPembelian
+        '
+        Me.mnuTransaksiPembelianKontrakPembelian.Name = "mnuTransaksiPembelianKontrakPembelian"
+        Me.mnuTransaksiPembelianKontrakPembelian.Size = New System.Drawing.Size(211, 22)
+        Me.mnuTransaksiPembelianKontrakPembelian.Text = "Kontrak Pembelian"
+        '
+        'mnuTransaksiPembelianInstruksi
+        '
+        Me.mnuTransaksiPembelianInstruksi.Name = "mnuTransaksiPembelianInstruksi"
+        Me.mnuTransaksiPembelianInstruksi.Size = New System.Drawing.Size(211, 22)
+        Me.mnuTransaksiPembelianInstruksi.Text = "Instruksi"
+        '
+        'mnuTransaksiPembelianKonfirmasiPengiriman
+        '
+        Me.mnuTransaksiPembelianKonfirmasiPengiriman.Name = "mnuTransaksiPembelianKonfirmasiPengiriman"
+        Me.mnuTransaksiPembelianKonfirmasiPengiriman.Size = New System.Drawing.Size(211, 22)
+        Me.mnuTransaksiPembelianKonfirmasiPengiriman.Text = "Konfirmasi Pengiriman"
+        '
+        'mnuTransaksiPembelianProsesPemotonganSPK
+        '
+        Me.mnuTransaksiPembelianProsesPemotonganSPK.Name = "mnuTransaksiPembelianProsesPemotonganSPK"
+        Me.mnuTransaksiPembelianProsesPemotonganSPK.Size = New System.Drawing.Size(211, 22)
+        Me.mnuTransaksiPembelianProsesPemotonganSPK.Text = "Proses Pemotongan (SPK)"
         '
         'mnuLaporan
         '
@@ -316,92 +402,6 @@ Partial Class frmSysMain
         Me.mnuLogout.Size = New System.Drawing.Size(57, 20)
         Me.mnuLogout.Text = "L&ogout"
         '
-        'PenjualanToolStripMenuItem
-        '
-        Me.PenjualanToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPenjualanPermintaan, Me.KontrakToolStripMenuItem, Me.MemoPengambilanToolStripMenuItem, Me.PengirimanToolStripMenuItem})
-        Me.PenjualanToolStripMenuItem.Name = "PenjualanToolStripMenuItem"
-        Me.PenjualanToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.PenjualanToolStripMenuItem.Text = "Penjualan"
-        '
-        'PembelianToolStripMenuItem
-        '
-        Me.PembelianToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PesananPembelianToolStripMenuItem, Me.PesananPemotonganToolStripMenuItem, Me.PesananPengirimanToolStripMenuItem, Me.KonfirmasiPesananToolStripMenuItem, Me.KontrakToolStripMenuItem1, Me.InstruksiToolStripMenuItem, Me.KonfirmasiPengirimanToolStripMenuItem, Me.ProsesPemotonganSPKToolStripMenuItem})
-        Me.PembelianToolStripMenuItem.Name = "PembelianToolStripMenuItem"
-        Me.PembelianToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.PembelianToolStripMenuItem.Text = "Pembelian"
-        '
-        'mnuTransaksiPenjualanPermintaan
-        '
-        Me.mnuTransaksiPenjualanPermintaan.Name = "mnuTransaksiPenjualanPermintaan"
-        Me.mnuTransaksiPenjualanPermintaan.Size = New System.Drawing.Size(182, 22)
-        Me.mnuTransaksiPenjualanPermintaan.Text = "Permintaan"
-        '
-        'KontrakToolStripMenuItem
-        '
-        Me.KontrakToolStripMenuItem.Name = "KontrakToolStripMenuItem"
-        Me.KontrakToolStripMenuItem.Size = New System.Drawing.Size(182, 22)
-        Me.KontrakToolStripMenuItem.Text = "Kontrak"
-        '
-        'KonfirmasiPesananToolStripMenuItem
-        '
-        Me.KonfirmasiPesananToolStripMenuItem.Name = "KonfirmasiPesananToolStripMenuItem"
-        Me.KonfirmasiPesananToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.KonfirmasiPesananToolStripMenuItem.Text = "Konfirmasi Pesanan"
-        '
-        'KontrakToolStripMenuItem1
-        '
-        Me.KontrakToolStripMenuItem1.Name = "KontrakToolStripMenuItem1"
-        Me.KontrakToolStripMenuItem1.Size = New System.Drawing.Size(211, 22)
-        Me.KontrakToolStripMenuItem1.Text = "Kontrak"
-        '
-        'InstruksiToolStripMenuItem
-        '
-        Me.InstruksiToolStripMenuItem.Name = "InstruksiToolStripMenuItem"
-        Me.InstruksiToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.InstruksiToolStripMenuItem.Text = "Instruksi"
-        '
-        'PesananPembelianToolStripMenuItem
-        '
-        Me.PesananPembelianToolStripMenuItem.Name = "PesananPembelianToolStripMenuItem"
-        Me.PesananPembelianToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.PesananPembelianToolStripMenuItem.Text = "Pesanan Pembelian"
-        '
-        'PesananPemotonganToolStripMenuItem
-        '
-        Me.PesananPemotonganToolStripMenuItem.Name = "PesananPemotonganToolStripMenuItem"
-        Me.PesananPemotonganToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.PesananPemotonganToolStripMenuItem.Text = "Pesanan Pemotongan"
-        '
-        'PesananPengirimanToolStripMenuItem
-        '
-        Me.PesananPengirimanToolStripMenuItem.Name = "PesananPengirimanToolStripMenuItem"
-        Me.PesananPengirimanToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.PesananPengirimanToolStripMenuItem.Text = "Pesanan Pengiriman"
-        '
-        'MemoPengambilanToolStripMenuItem
-        '
-        Me.MemoPengambilanToolStripMenuItem.Name = "MemoPengambilanToolStripMenuItem"
-        Me.MemoPengambilanToolStripMenuItem.Size = New System.Drawing.Size(182, 22)
-        Me.MemoPengambilanToolStripMenuItem.Text = "Memo Pengambilan"
-        '
-        'PengirimanToolStripMenuItem
-        '
-        Me.PengirimanToolStripMenuItem.Name = "PengirimanToolStripMenuItem"
-        Me.PengirimanToolStripMenuItem.Size = New System.Drawing.Size(182, 22)
-        Me.PengirimanToolStripMenuItem.Text = "Pengiriman"
-        '
-        'KonfirmasiPengirimanToolStripMenuItem
-        '
-        Me.KonfirmasiPengirimanToolStripMenuItem.Name = "KonfirmasiPengirimanToolStripMenuItem"
-        Me.KonfirmasiPengirimanToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.KonfirmasiPengirimanToolStripMenuItem.Text = "Konfirmasi Pengiriman"
-        '
-        'ProsesPemotonganSPKToolStripMenuItem
-        '
-        Me.ProsesPemotonganSPKToolStripMenuItem.Name = "ProsesPemotonganSPKToolStripMenuItem"
-        Me.ProsesPemotonganSPKToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.ProsesPemotonganSPKToolStripMenuItem.Text = "Proses Pemotongan (SPK)"
-        '
         'frmSysMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -457,18 +457,18 @@ Partial Class frmSysMain
     Friend WithEvents mnuWindowsCloseAll As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuSettingUbahPassword As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuMasterAkunBankPerusahaan As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents PenjualanToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPenjualan As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuTransaksiPenjualanPermintaan As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents KontrakToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents MemoPengambilanToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents PengirimanToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents PembelianToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents PesananPembelianToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents PesananPemotonganToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents PesananPengirimanToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents KonfirmasiPesananToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents KontrakToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents InstruksiToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents KonfirmasiPengirimanToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ProsesPemotonganSPKToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPenjualanKontrakPenjualan As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPenjualanMemoPengambilan As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPenjualanPengirimanPenjualan As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPembelian As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPembelianPesananPembelian As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPembelianPesananPemotongan As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPembelianPesananPengiriman As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPembelianKonfirmasiPesanan As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPembelianKontrakPembelian As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPembelianInstruksi As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPembelianKonfirmasiPengiriman As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPembelianProsesPemotonganSPK As System.Windows.Forms.ToolStripMenuItem
 End Class

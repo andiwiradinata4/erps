@@ -147,13 +147,14 @@
         txtItemCode.Text = ""
         txtItemName.Text = ""
         cboItemType.SelectedIndex = -1
-        txtThick.Text = ""
-        txtWidth.Text = ""
+        txtThick.Text = "0"
+        txtWidth.Text = "0"
         txtLength.Text = ""
         txtWeight.Value = 0
         cboItemSpecification.SelectedIndex = -1
         txtBasePrice.Value = 0
         cboStatus.SelectedValue = VO.Status.Values.Active
+        txtRemarks.Text = ""
         ToolStripLogInc.Text = "Jumlah Edit : -"
         ToolStripLogBy.Text = "Dibuat Oleh : -"
         ToolStripLogDate.Text = Format(Now, UI.usDefCons.DateFull)

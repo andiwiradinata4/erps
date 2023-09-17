@@ -11,6 +11,7 @@ Namespace VO
             Draft = 3
             Submit = 4
             Approved = 5
+            Deleted = 6
         End Enum
     End Class
 End Namespace
