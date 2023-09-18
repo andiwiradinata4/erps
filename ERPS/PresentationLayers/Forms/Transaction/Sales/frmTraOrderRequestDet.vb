@@ -230,15 +230,10 @@ Public Class frmTraOrderRequestDet
 
     Private Sub prvSumGrid()
         Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
-        Dim SumTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Weight", "Total Berat: {0:#,##0.0000}")
         Dim SumGrandTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
 
         If grdItemView.Columns("Quantity").SummaryText.Trim = "" Then
             grdItemView.Columns("Quantity").Summary.Add(SumTotalQuantity)
-        End If
-
-        If grdItemView.Columns("Weight").SummaryText.Trim = "" Then
-            grdItemView.Columns("Weight").Summary.Add(SumTotalWeight)
         End If
 
         If grdItemView.Columns("TotalWeight").SummaryText.Trim = "" Then

@@ -116,6 +116,12 @@ Namespace UI
                     Case usDefGrid.gString
                         .DisplayFormat.FormatType = DevExpress.Utils.FormatType.None
                         .AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near
+                    Case usDefGrid.gDateMonth
+                        .DisplayFormat.FormatString = usDefCons.DateMonth
+                        .AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near
+                    Case usDefGrid.gDateMonthYear
+                        .DisplayFormat.FormatString = usDefCons.DateMonthYear
+                        .AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near
                 End Select
 
                 .Visible = bolVisible

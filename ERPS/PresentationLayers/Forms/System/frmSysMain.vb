@@ -19,6 +19,9 @@
     '# Transaction
     Dim frmMainTraOrderRequest As frmTraOrderRequest
 
+
+    Dim frmMainTraPurchaseOrder As frmTraPurchaseOrder
+
     '# Setting
     Dim frmMainSysChangePassword As frmSysChangePassword
 
@@ -247,7 +250,7 @@
     End Sub
 
     Private Sub mnuTransaksiPembelianPesananPembelian_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianPesananPembelian.Click
-
+        UI.usForm.frmOpen(frmMainTraPurchaseOrder, "frmTraPurchaseOrder", Me)
     End Sub
 
 #End Region

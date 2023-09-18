@@ -1,19 +1,16 @@
-﻿Public Class frmTraOrderRequestDetItem
+﻿Public Class frmTraPurchaseOrderDetItemRequest
 
 #Region "Property"
 
-    Private frmParent As frmTraOrderRequestDet
+    Private frmParent As frmTraOrderRequestDetItem
     Private dtParent As New DataTable
     Private bolIsNew As Boolean = False
     Private intItemID As Integer = 0
     Private drSelected As DataRow
     Private strID As String = ""
-
-    Public WriteOnly Property pubTableParent As DataTable
-        Set(value As DataTable)
-            dtParent = value
-        End Set
-    End Property
+    Private bolIsAdd As Boolean = False
+    Private strOrderRequestID As String
+    Private strOrderRequestDetailID As String
 
     Public WriteOnly Property pubIsNew As Boolean
         Set(value As Boolean)
@@ -21,7 +18,7 @@
         End Set
     End Property
 
-    Public WriteOnly Property pubDatRowSelected As DataRow
+    Public WriteOnly Property pubDataRowSelected As DataRow
         Set(value As DataRow)
             drSelected = value
         End Set
@@ -30,6 +27,27 @@
     Public WriteOnly Property pubID As String
         Set(value As String)
             strID = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubIsAdd As Boolean
+        Set(value As Boolean)
+            bolIsAdd = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubOrderRequestID As String
+        Set(value As String)
+            strOrderRequestID = value
+        End Set
+    End Property
+
+    Public Property pubOrderRequestDetailID As String
+        Get
+            Return strOrderRequestDetailID
+        End Get
+        Set(value As String)
+            strOrderRequestDetailID = value
         End Set
     End Property
 
@@ -52,28 +70,13 @@
         End Try
     End Sub
 
-    Private Sub prvClear()
-        txtItemCode.Focus()
-        strID = ""
-        intItemID = 0
-        txtItemCode.Text = ""
-        cboItemType.SelectedIndex = -1
-        txtItemName.Text = ""
-        txtThick.Text = "0"
-        txtWidth.Text = "0"
-        txtLength.Text = "0"
-        txtWeight.Value = 0
-        cboItemSpecification.SelectedIndex = -1
-        txtQuantity.Value = 0
-        txtRemarks.Text = ""
-    End Sub
-
     Private Sub prvFillForm()
         Me.Cursor = Cursors.WaitCursor
         Try
             prvFillCombo()
+            Me.Cursor = Cursors.Default
             If bolIsNew Then
-                prvClear()
+                prvChooseItem()
             Else
                 strID = drSelected.Item("ID")
                 intItemID = drSelected.Item("ItemID")
@@ -108,6 +111,10 @@
             UI.usForm.frmMessageBox("Spesifikasi barang tidak valid")
             cboItemSpecification.Focus()
             Exit Sub
+        ElseIf txtUnitPrice.Value <= 0 Then
+            UI.usForm.frmMessageBox("Harga harus lebih besar dari 0")
+            txtUnitPrice.Focus()
+            Exit Sub
         ElseIf txtQuantity.Value <= 0 Then
             UI.usForm.frmMessageBox("Jumlah harus lebih besar dari 0")
             txtQuantity.Focus()
@@ -139,8 +146,8 @@
             dr.EndEdit()
             dtParent.Rows.Add(dr)
             dtParent.AcceptChanges()
-            frmParent.grdItemView.BestFitColumns()
-            prvClear()
+            'frmParent.grdItemView.BestFitColumns()
+            'prvClear()
         Else
             For Each dr As DataRow In dtParent.Rows
                 If dr.Item("ID") = strID Then
@@ -164,7 +171,7 @@
                     dr.Item("Remarks") = txtRemarks.Text.Trim
                     dr.EndEdit()
                     dtParent.AcceptChanges()
-                    frmParent.grdItemView.BestFitColumns()
+                    'frmParent.grdItemView.BestFitColumns()
                     Exit For
                 End If
             Next
@@ -173,13 +180,14 @@
     End Sub
 
     Private Sub prvChooseItem()
-        Dim frmDetail As New frmMstItem
+        Dim frmDetail As New frmTraPurchaseOrderDetItemOutstanding
         With frmDetail
-            .pubIsLookUp = True
+            .pubOrderRequestID = strOrderRequestID
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
             If .pubIsLookUpGet Then
-                intItemID = .pubLUdtRow.Item("ID")
+                strOrderRequestDetailID = .pubLUdtRow.Item("ID")
+                intItemID = .pubLUdtRow.Item("ItemID")
                 txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
                 cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
                 txtItemName.Text = .pubLUdtRow.Item("ItemName")
@@ -188,16 +196,23 @@
                 txtLength.Text = .pubLUdtRow.Item("Length")
                 cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
                 txtWeight.Value = .pubLUdtRow.Item("Weight")
+                txtMaxTotalWeight.Value = .pubLUdtRow.Item("TotalWeight")
                 txtQuantity.Value = 0
-                txtQuantity.Focus()
+                txtUnitPrice.Focus()
                 txtRemarks.Text = ""
             End If
         End With
     End Sub
 
+    Private Sub prvCalculate()
+        txtNettoPrice.Value = txtUnitPrice.Value - txtCuttingPrice.Value - txtTransportPrice.Value
+        txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
+        txtTotalPrice.Value = txtNettoPrice.Value * txtTotalWeight.Value
+    End Sub
+
 #Region "Form Handle"
 
-    Private Sub frmTraOrderRequestDetItem_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+    Private Sub frmTraPurchaseOrderDetItemRequest_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
         ElseIf (e.Control And e.KeyCode = Keys.S) Then
@@ -205,7 +220,7 @@
         End If
     End Sub
 
-    Private Sub frmTraOrderRequestDetItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmTraPurchaseOrderDetItemRequest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         prvFillForm()
@@ -222,10 +237,11 @@
         prvChooseItem()
     End Sub
 
-    Private Sub txtQuantity_ValueChanged(sender As Object, e As EventArgs) Handles txtQuantity.ValueChanged
-        txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
+    Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtUnitPrice.ValueChanged,
+        txtCuttingPrice.ValueChanged, txtTransportPrice.ValueChanged, txtQuantity.ValueChanged
+        prvCalculate()
     End Sub
 
 #End Region
-    
+
 End Class

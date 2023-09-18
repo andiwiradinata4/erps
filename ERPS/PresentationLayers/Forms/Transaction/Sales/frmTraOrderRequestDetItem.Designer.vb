@@ -457,6 +457,8 @@ Partial Class frmTraOrderRequestDetItem
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.KeyPreview = True
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmTraOrderRequestDetItem"
         Me.Text = "Barang"
         Me.pnlDetail.ResumeLayout(False)

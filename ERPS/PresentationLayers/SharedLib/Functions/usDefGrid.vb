@@ -13,6 +13,8 @@
         Public Shared gReal4Num As Integer = 8
         Public Shared gReal5Num As Integer = 9
         Public Shared gReal6Num As Integer = 10
+        Public Shared gDateMonth As Integer = 11
+        Public Shared gDateMonthYear As Integer = 12
     End Class
 
 End Namespace

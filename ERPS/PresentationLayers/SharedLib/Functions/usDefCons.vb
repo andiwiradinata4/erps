@@ -4,6 +4,8 @@
 
         Public Shared DateFull As String = "dd/MM/yyyy HH:mm:ss"
         Public Shared DateSmall As String = "dd/MM/yyyy"
+        Public Shared DateMonth As String = "MMMM"
+        Public Shared DateMonthYear As String = "MMMM yyyy"
         Public Shared FirstPeriod As Date = #1/1/2000#
         Public Shared LastPeriod As Date = #1/1/2025#
         Public Shared Real1Num As String = "#,##0.0"

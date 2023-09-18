@@ -30,6 +30,8 @@ Partial Class frmTraPurchaseOrder
         Me.BarSep1 = New System.Windows.Forms.ToolBarButton()
         Me.BarSubmit = New System.Windows.Forms.ToolBarButton()
         Me.BarCancelSubmit = New System.Windows.Forms.ToolBarButton()
+        Me.BarApprove = New System.Windows.Forms.ToolBarButton()
+        Me.BarCancelApprove = New System.Windows.Forms.ToolBarButton()
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
@@ -51,8 +53,6 @@ Partial Class frmTraPurchaseOrder
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.pgMain = New System.Windows.Forms.ProgressBar()
-        Me.BarApprove = New System.Windows.Forms.ToolBarButton()
-        Me.BarCancelApprove = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -105,6 +105,18 @@ Partial Class frmTraPurchaseOrder
         Me.BarCancelSubmit.Name = "BarCancelSubmit"
         Me.BarCancelSubmit.Tag = "Cancel"
         Me.BarCancelSubmit.Text = "Batal Submit"
+        '
+        'BarApprove
+        '
+        Me.BarApprove.Name = "BarApprove"
+        Me.BarApprove.Tag = "Approved"
+        Me.BarApprove.Text = "Approve"
+        '
+        'BarCancelApprove
+        '
+        Me.BarCancelApprove.Name = "BarCancelApprove"
+        Me.BarCancelApprove.Tag = "Cancel"
+        Me.BarCancelApprove.Text = "Batal Approve"
         '
         'BarSep2
         '
@@ -314,18 +326,6 @@ Partial Class frmTraPurchaseOrder
         Me.pgMain.Name = "pgMain"
         Me.pgMain.Size = New System.Drawing.Size(984, 23)
         Me.pgMain.TabIndex = 3
-        '
-        'BarApprove
-        '
-        Me.BarApprove.Name = "BarApprove"
-        Me.BarApprove.Tag = "Approved"
-        Me.BarApprove.Text = "Approve"
-        '
-        'BarCancelApprove
-        '
-        Me.BarCancelApprove.Name = "BarCancelApprove"
-        Me.BarCancelApprove.Tag = "Cancel"
-        Me.BarCancelApprove.Text = "Batal Approve"
         '
         'frmTraPurchaseOrder
         '

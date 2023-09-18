@@ -237,10 +237,21 @@
 
 #Region "Detail"
 
-        Public Shared Function ListDataDetail(ByVal strOrderRequestID As String) As DataTable
+        Public Shared Function ListDataDetail(ByVal strPOID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.OrderRequest.ListDataDetail(sqlCon, Nothing, strOrderRequestID)
+                Return DL.PurchaseOrder.ListDataDetail(sqlCon, Nothing, strPOID)
+            End Using
+        End Function
+
+#End Region
+
+#Region "Detail Internal"
+
+        Public Shared Function ListDataDetailInternal(ByVal strPOID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseOrder.ListDataDetailInternal(sqlCon, Nothing, strPOID)
             End Using
         End Function
 

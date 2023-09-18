@@ -17,9 +17,10 @@
                     "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.PONumber, A.PODate, A.POID, " & vbNewLine & _
                     "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.PersonInCharge, A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.DeliveryAddress, " & vbNewLine & _
                     "   A.Validity, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalInternalQuantity, A.TotalInternalWeight, A.TotalDPP, A.TotalPPN, " & vbNewLine & _
-                    "   A.TotalPPH, A.RoundingManual, A.TotalInternalDPP, A.TotalInternalPPN, A.TotalInternalPPH, A.IsDeleted, A.Remarks, A.StatusID, B.Name AS StatusInfo, A.SubmitBy, " & vbNewLine & _
-                    "   CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, " & vbNewLine & _
-                    "   A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
+                    "   A.TotalPPH, A.RoundingManual, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, A.TotalInternalDPP, A.TotalInternalPPN, " & vbNewLine & _
+                    "   A.TotalInternalPPH, A.TotalInternalDPP+A.TotalInternalPPN-A.TotalInternalPPh AS GrandTotalInternal, A.IsDeleted, A.Remarks, A.StatusID, " & vbNewLine & _
+                    "   B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine & _
+                    "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
                     "FROM traPurchaseOrder A " & vbNewLine & _
                     "INNER JOIN mstStatus B ON " & vbNewLine & _
                     "   A.StatusID=B.ID " & vbNewLine & _
@@ -147,13 +148,15 @@
                     .CommandType = CommandType.Text
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
-                        "   A.ID, A.ProgramID, A.CompanyID, A.PONumber, A.PODate, A.OrderRequestID, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.PersonInCharge, " & vbNewLine & _
+                        "   A.ID, A.ProgramID, A.CompanyID, A.PONumber, A.PODate, A.OrderRequestID, C.OrderNumber, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.PersonInCharge, " & vbNewLine & _
                         "   A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.DeliveryAddress, A.Validity, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalInternalQuantity, " & vbNewLine & _
                         "   A.TotalInternalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.TotalInternalDPP, A.TotalInternalPPN, A.TotalInternalPPH, A.IsDeleted, " & vbNewLine & _
                         "   A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
                         "FROM traPurchaseOrder A " & vbNewLine & _
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine & _
                         "   A.BPID=B.ID " & vbNewLine & _
+                        "INNER JOIN traOrderRequest C ON " & vbNewLine & _
+                        "   A.OrderRequestID=C.ID " & vbNewLine & _
                         "WHERE " & vbNewLine & _
                         "   A.ID=@ID " & vbNewLine
 
@@ -169,6 +172,7 @@
                         voReturn.PONumber = .Item("PONumber")
                         voReturn.PODate = .Item("PODate")
                         voReturn.OrderRequestID = .Item("OrderRequestID")
+                        voReturn.OrderNumber = .Item("OrderNumber")
                         voReturn.BPID = .Item("BPID")
                         voReturn.BPCode = .Item("BPCode")
                         voReturn.BPName = .Item("BPName")
@@ -577,7 +581,7 @@
                     "SELECT " & vbNewLine & _
                     "   A.ID, A.POID, A.OrderRequestDetailID, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine & _
-                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.CuttingPrice, A.TransportPrice, A.TotalPrice, A.SalesContractQuantity, " & vbNewLine & _
+                    "   A.Quantity, A.Weight, A.TotalWeight, E.TotalWeight-E.POInternalWeight+A.TotalWeight AS MaxTotalWeight, A.UnitPrice, A.CuttingPrice, A.TransportPrice, A.TotalPrice, A.SalesContractQuantity, " & vbNewLine & _
                     "   A.SalesContractWeight, A.Remarks " & vbNewLine & _
                     "FROM traPurchaseOrderDetInternal A " & vbNewLine & _
                     "INNER JOIN mstItem B ON " & vbNewLine & _
@@ -586,6 +590,8 @@
                     "   B.ItemSpecificationID=C.ID " & vbNewLine & _
                     "INNER JOIN mstItemType D ON " & vbNewLine & _
                     "   B.ItemTypeID=D.ID " & vbNewLine & _
+                    "INNER JOIN traOrderRequestDet E ON " & vbNewLine & _
+                    "   A.OrderRequestDetailID=E.ID " & vbNewLine & _
                     "WHERE " & vbNewLine & _
                     "   A.POID=@POID " & vbNewLine
 
