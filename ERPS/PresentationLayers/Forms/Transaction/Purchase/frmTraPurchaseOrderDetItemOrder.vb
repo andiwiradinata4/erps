@@ -1,16 +1,16 @@
-﻿Public Class frmTraPurchaseOrderDetItemRequest
+﻿Public Class frmTraPurchaseOrderDetItemOrder
 
 #Region "Property"
 
-    Private frmParent As frmTraOrderRequestDetItem
+    Private frmParent As frmTraPurchaseOrderDetItem
     Private dtParent As New DataTable
     Private bolIsNew As Boolean = False
     Private intItemID As Integer = 0
     Private drSelected As DataRow
     Private strID As String = ""
-    Private bolIsAdd As Boolean = False
     Private strOrderRequestID As String
     Private strOrderRequestDetailID As String
+    Private decCuttingPrice As Decimal, decTransportPrice As Decimal
 
     Public WriteOnly Property pubIsNew As Boolean
         Set(value As Boolean)
@@ -30,24 +30,33 @@
         End Set
     End Property
 
-    Public WriteOnly Property pubIsAdd As Boolean
-        Set(value As Boolean)
-            bolIsAdd = value
-        End Set
-    End Property
-
     Public WriteOnly Property pubOrderRequestID As String
         Set(value As String)
             strOrderRequestID = value
         End Set
     End Property
 
-    Public Property pubOrderRequestDetailID As String
-        Get
-            Return strOrderRequestDetailID
-        End Get
+    Public WriteOnly Property pubOrderRequestDetailID As String
         Set(value As String)
             strOrderRequestDetailID = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubCuttingPrice As Decimal
+        Set(value As Decimal)
+            decCuttingPrice = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubTransportPrice As Decimal
+        Set(value As Decimal)
+            decTransportPrice = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubTableParent As DataTable
+        Set(value As DataTable)
+            dtParent = value
         End Set
     End Property
 
@@ -76,18 +85,21 @@
             prvFillCombo()
             Me.Cursor = Cursors.Default
             If bolIsNew Then
-                prvChooseItem()
+                prvClear()
             Else
                 strID = drSelected.Item("ID")
                 intItemID = drSelected.Item("ItemID")
                 txtItemCode.Text = drSelected.Item("ItemCode")
                 txtItemName.Text = drSelected.Item("ItemName")
                 cboItemType.SelectedValue = drSelected.Item("ItemTypeID")
+                cboItemSpecification.SelectedValue = drSelected.Item("ItemSpecificationID")
                 txtThick.Text = drSelected.Item("Thick")
                 txtWidth.Text = drSelected.Item("Width")
                 txtLength.Text = drSelected.Item("Length")
                 txtWeight.Text = drSelected.Item("Weight")
-                cboItemSpecification.SelectedValue = drSelected.Item("ItemSpecificationID")
+                txtUnitPrice.Value = drSelected.Item("UnitPrice")
+                txtCuttingPrice.Value = drSelected.Item("CuttingPrice")
+                txtTransportPrice.Value = drSelected.Item("TransportPrice")
                 txtQuantity.Value = drSelected.Item("Quantity")
                 txtRemarks.Text = drSelected.Item("Remarks")
             End If
@@ -126,7 +138,9 @@
             dr = dtParent.NewRow
             dr.BeginEdit()
             dr.Item("ID") = Guid.NewGuid
-            dr.Item("OrderRequestID") = ""
+            dr.Item("POID") = ""
+            dr.Item("OrderRequestDetailID") = strOrderRequestDetailID
+            dr.Item("GroupID") = 0
             dr.Item("ItemID") = intItemID
             dr.Item("ItemCode") = txtItemCode.Text.Trim
             dr.Item("ItemName") = txtItemName.Text.Trim
@@ -140,19 +154,24 @@
             dr.Item("Quantity") = txtQuantity.Value
             dr.Item("Weight") = txtWeight.Value
             dr.Item("TotalWeight") = txtTotalWeight.Value
-            dr.Item("POInternalQuantity") = 0
-            dr.Item("POInternalWeight") = 0
+            dr.Item("UnitPrice") = txtUnitPrice.Value
+            dr.Item("CuttingPrice") = txtCuttingPrice.Value
+            dr.Item("TransportPrice") = txtTransportPrice.Value
+            dr.Item("TotalPrice") = txtTotalPrice.Value
+            dr.Item("CuttingQuantity") = 0
+            dr.Item("CuttingWeight") = 0
+            dr.Item("TransportQuantity") = 0
+            dr.Item("TransportWeight") = 0
             dr.Item("Remarks") = txtRemarks.Text.Trim
             dr.EndEdit()
             dtParent.Rows.Add(dr)
             dtParent.AcceptChanges()
-            'frmParent.grdItemView.BestFitColumns()
-            'prvClear()
+            frmParent.grdItemOrderView.BestFitColumns()
+            prvClear()
         Else
             For Each dr As DataRow In dtParent.Rows
                 If dr.Item("ID") = strID Then
                     dr.BeginEdit()
-                    dr.Item("OrderRequestID") = ""
                     dr.Item("ItemID") = intItemID
                     dr.Item("ItemCode") = txtItemCode.Text.Trim
                     dr.Item("ItemName") = txtItemName.Text.Trim
@@ -166,12 +185,18 @@
                     dr.Item("Quantity") = txtQuantity.Value
                     dr.Item("Weight") = txtWeight.Value
                     dr.Item("TotalWeight") = txtTotalWeight.Value
-                    dr.Item("POInternalQuantity") = 0
-                    dr.Item("POInternalWeight") = 0
+                    dr.Item("UnitPrice") = txtUnitPrice.Value
+                    dr.Item("CuttingPrice") = txtCuttingPrice.Value
+                    dr.Item("TransportPrice") = txtTransportPrice.Value
+                    dr.Item("TotalPrice") = txtTotalPrice.Value
+                    dr.Item("CuttingQuantity") = 0
+                    dr.Item("CuttingWeight") = 0
+                    dr.Item("TransportQuantity") = 0
+                    dr.Item("TransportWeight") = 0
                     dr.Item("Remarks") = txtRemarks.Text.Trim
                     dr.EndEdit()
                     dtParent.AcceptChanges()
-                    'frmParent.grdItemView.BestFitColumns()
+                    frmParent.grdItemOrderView.BestFitColumns()
                     Exit For
                 End If
             Next
@@ -180,25 +205,24 @@
     End Sub
 
     Private Sub prvChooseItem()
-        Dim frmDetail As New frmTraPurchaseOrderDetItemOutstanding
+        Dim frmDetail As New frmMstItem
         With frmDetail
-            .pubOrderRequestID = strOrderRequestID
+            .pubIsLookUp = True
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
             If .pubIsLookUpGet Then
-                strOrderRequestDetailID = .pubLUdtRow.Item("ID")
-                intItemID = .pubLUdtRow.Item("ItemID")
+                intItemID = .pubLUdtRow.Item("ID")
                 txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
                 cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
                 txtItemName.Text = .pubLUdtRow.Item("ItemName")
+                cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
                 txtThick.Text = .pubLUdtRow.Item("Thick")
                 txtWidth.Text = .pubLUdtRow.Item("Width")
                 txtLength.Text = .pubLUdtRow.Item("Length")
-                cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
                 txtWeight.Value = .pubLUdtRow.Item("Weight")
-                txtMaxTotalWeight.Value = .pubLUdtRow.Item("TotalWeight")
+                txtUnitPrice.Value = .pubLUdtRow.Item("BasePrice")
                 txtQuantity.Value = 0
-                txtUnitPrice.Focus()
+                txtQuantity.Focus()
                 txtRemarks.Text = ""
             End If
         End With
@@ -208,6 +232,24 @@
         txtNettoPrice.Value = txtUnitPrice.Value - txtCuttingPrice.Value - txtTransportPrice.Value
         txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
         txtTotalPrice.Value = txtNettoPrice.Value * txtTotalWeight.Value
+    End Sub
+
+    Private Sub prvClear()
+        strID = ""
+        intItemID = 0
+        txtItemCode.Text = ""
+        txtItemName.Text = ""
+        cboItemType.SelectedIndex = -1
+        cboItemSpecification.SelectedIndex = -1
+        txtThick.Text = ""
+        txtWidth.Text = ""
+        txtLength.Text = ""
+        txtWeight.Text = ""
+        txtUnitPrice.Value = 0
+        txtCuttingPrice.Value = decCuttingPrice
+        txtTransportPrice.Value = decTransportPrice
+        txtQuantity.Value = 0
+        txtRemarks.Text = ""
     End Sub
 
 #Region "Form Handle"

@@ -34,10 +34,10 @@
                     End If
 
                     Dim intStatusID As Integer = DL.PurchaseOrder.GetStatusID(sqlCon, sqlTrans, clsData.ID)
-                    If intStatusID = VO.Status.Values.Submit Then
+                    If intStatusID = VO.Status.Values.Approved Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di approve")
+                    ElseIf intStatusID = VO.Status.Values.Submit Then
                         Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di submit")
-                    ElseIf intStatusID = VO.Status.Values.Approved Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di setujui")
                     ElseIf DL.PurchaseOrder.IsDeleted(sqlCon, sqlTrans, clsData.ID) Then
                         Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
                     ElseIf DL.PurchaseOrder.DataExists(sqlCon, sqlTrans, clsData.PONumber, clsData.ID) Then

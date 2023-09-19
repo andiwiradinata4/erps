@@ -359,18 +359,37 @@ Public Class frmTraPurchaseOrderDet
         End With
     End Sub
 
-    Private Sub prvSumGrid()
+    Private Sub prvChooseOrderRequest()
+        If txtBPCode.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih pemasok terlebih dahulu")
+            txtBPCode.Focus()
+            Exit Sub
+        End If
 
+        Dim frmDetail As New frmTraOrderRequestOutstanding
+        With frmDetail
+            .pubIsLookup = True
+            .pubCS = pubCS
+            .ShowDialog()
+            If .pubIsLookupGet Then
+                strOrderRequestID = .pubDataRowLookupGet.Item("ID")
+                txtOrderNumber.Text = .pubDataRowLookupGet.Item("OrderNumber")
+                txtPersonInCharge.Focus()
+            End If
+        End With
+    End Sub
+
+    Private Sub prvSumGrid()
         '# Request | PO Detail Internal
         Dim SumTotalQuantityRequest As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
         Dim SumGrandTotalWeightRequest As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
 
         If grdItemRequestView.Columns("Quantity").SummaryText.Trim = "" Then
-            grdItemOrderView.Columns("Quantity").Summary.Add(SumTotalQuantityRequest)
+            grdItemRequestView.Columns("Quantity").Summary.Add(SumTotalQuantityRequest)
         End If
 
         If grdItemRequestView.Columns("TotalWeight").SummaryText.Trim = "" Then
-            grdItemOrderView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeightRequest)
+            grdItemRequestView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeightRequest)
         End If
 
         '# Order | PO Detail
@@ -384,6 +403,16 @@ Public Class frmTraPurchaseOrderDet
         If grdItemOrderView.Columns("TotalWeight").SummaryText.Trim = "" Then
             grdItemOrderView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeightOrder)
         End If
+    End Sub
+
+    Private Sub prvCalculate()
+        For Each dr As DataRow In dtItemRequest.Rows
+
+        Next
+
+        For Each dr As DataRow In dtItemOrder.Rows
+
+        Next
     End Sub
 
     Private Sub prvUserAccess()
@@ -406,7 +435,7 @@ Public Class frmTraPurchaseOrderDet
         Application.DoEvents()
         Try
             dtItemRequest = BL.PurchaseOrder.ListDataDetailInternal(pubID.Trim)
-            grdItemOrder.DataSource = dtItemRequest
+            grdItemRequest.DataSource = dtItemRequest
             prvSumGrid()
             grdItemRequestView.BestFitColumns()
         Catch ex As Exception
@@ -436,6 +465,7 @@ Public Class frmTraPurchaseOrderDet
             .pubID = ""
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
+            prvCalculate()
             prvSetButtonItemOrder()
         End With
     End Sub
@@ -458,6 +488,7 @@ Public Class frmTraPurchaseOrderDet
             .pubID = grdItemRequestView.GetRowCellValue(intPos, "ID")
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
+            prvCalculate()
             prvSetButtonItemOrder()
         End With
     End Sub
@@ -477,6 +508,7 @@ Public Class frmTraPurchaseOrderDet
             End If
         Next
         dtItemRequest.AcceptChanges()
+        prvCalculate()
         prvSetButtonItemOrder()
     End Sub
 
@@ -513,32 +545,7 @@ Public Class frmTraPurchaseOrderDet
         End Try
     End Sub
 
-    Private Sub prvAddItem()
-        Dim frmDetail As New frmTraOrderRequestDetItem
-        With frmDetail
-            .pubIsNew = True
-            .pubTableParent = dtItemOrder
-            .StartPosition = FormStartPosition.CenterScreen
-            .pubShowDialog(Me)
-            prvSetButtonItemOrder()
-        End With
-    End Sub
-
-    Private Sub prvEditItem()
-        intPos = grdItemOrderView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        Dim frmDetail As New frmTraOrderRequestDetItem
-        With frmDetail
-            .pubIsNew = False
-            .pubTableParent = dtItemOrder
-            .pubDatRowSelected = grdItemOrderView.GetDataRow(intPos)
-            .StartPosition = FormStartPosition.CenterScreen
-            .pubShowDialog(Me)
-            prvSetButtonItemOrder()
-        End With
-    End Sub
-
-    Private Sub prvDeleteItem()
+    Private Sub prvDeleteItemOrder()
         intPos = grdItemOrderView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         Dim strID As String = grdItemOrderView.GetRowCellValue(intPos, "ID")
@@ -550,7 +557,16 @@ Public Class frmTraPurchaseOrderDet
         Next
         dtItemOrder.AcceptChanges()
         grdItemOrder.DataSource = dtItemOrder
+        prvCalculate()
         prvSetButtonItemOrder()
+    End Sub
+
+#End Region
+
+#Region "Payment Term Handle"
+
+    Private Sub prvQueryPaymentTerm()
+
     End Sub
 
 #End Region
@@ -577,28 +593,70 @@ Public Class frmTraPurchaseOrderDet
 
 #Region "Form Handle"
 
-    Private Sub frmTraPurchaseOrderDet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmTraPurchaseOrderDet_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        If e.KeyCode = Keys.F1 Then
+            tcHeader.SelectedTab = tpMain
+        ElseIf e.KeyCode = Keys.F2 Then
+            tcHeader.SelectedTab = tpAmount
+        ElseIf e.KeyCode = Keys.F3 Then
+            tcHeader.SelectedTab = tpPaymentTerm
+        ElseIf e.KeyCode = Keys.F4 Then
+            tcHeader.SelectedTab = tpHistory
+        ElseIf e.KeyCode = Keys.F5 Then
+            tcDetail.SelectedTab = tpRequest
+        ElseIf e.KeyCode = Keys.F6 Then
+            tcDetail.SelectedTab = tpOrder
+        ElseIf e.KeyCode = Keys.Escape Then
+            If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
+        ElseIf (e.Control And e.KeyCode = Keys.S) Then
+            prvSave()
+        End If
+    End Sub
 
+    Private Sub frmTraPurchaseOrderDet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        UI.usForm.SetIcon(Me, "MyLogo")
+        ToolBar.SetIcon(Me)
+        ToolBarDetailRequest.SetIcon(Me)
+        ToolBarDetailOrder.SetIcon(Me)
+        prvSetTitleForm()
+        prvSetGrid()
+        prvFillForm()
+        prvQueryItemRequest()
+        prvQueryItemOrder()
+        prvQueryPaymentTerm()
+        prvQueryHistory()
+        prvUserAccess()
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
-
+        Select Case e.Button.Text.Trim
+            Case "Simpan" : prvSave()
+            Case "Tutup" : Me.Close()
+        End Select
     End Sub
 
     Private Sub btnBP_Click(sender As Object, e As EventArgs) Handles btnBP.Click
-
+        prvChooseBP()
     End Sub
 
     Private Sub btnPermintaan_Click(sender As Object, e As EventArgs) Handles btnPermintaan.Click
-
+        prvChooseOrderRequest()
     End Sub
 
     Private Sub ToolBarDetailRequest_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarDetailRequest.ButtonClick
-
+        Select Case e.Button.Text.Trim
+            Case "Tambah" : prvAddItemRequest()
+            Case "Edit" : prvEditItemRequest()
+            Case "Hapus" : prvDeleteItemRequest()
+        End Select
     End Sub
 
     Private Sub ToolBarDetailOrder_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarDetailOrder.ButtonClick
-
+        Select Case e.Button.Text.Trim
+            Case "Tambah" : prvAddItemRequest()
+            Case "Edit" : prvEditItemRequest()
+            Case "Hapus" : prvDeleteItemOrder()
+        End Select
     End Sub
 
     Private Sub ToolBarPaymentTerm_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarPaymentTerm.ButtonClick

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmTraPurchaseOrderDetItemRequest
+Partial Class frmTraPurchaseOrderDetItemOrder
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,15 +22,12 @@ Partial Class frmTraPurchaseOrderDetItemRequest
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraPurchaseOrderDetItemRequest))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraPurchaseOrderDetItemOrder))
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
-        Me.Label26 = New System.Windows.Forms.Label()
-        Me.Label27 = New System.Windows.Forms.Label()
-        Me.txtMaxTotalWeight = New ERPS.usNumeric()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.txtTotalPrice = New ERPS.usNumeric()
@@ -75,7 +72,6 @@ Partial Class frmTraPurchaseOrderDetItemRequest
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtItemName = New ERPS.usTextBox()
         Me.pnlDetail.SuspendLayout()
-        CType(Me.txtMaxTotalWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTransportPrice, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -120,15 +116,12 @@ Partial Class frmTraPurchaseOrderDetItemRequest
         Me.lblInfo.Name = "lblInfo"
         Me.lblInfo.Size = New System.Drawing.Size(662, 22)
         Me.lblInfo.TabIndex = 1
-        Me.lblInfo.Text = "« Permintaan Barang"
+        Me.lblInfo.Text = "« Pesanan"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.pnlDetail.Controls.Add(Me.Label26)
-        Me.pnlDetail.Controls.Add(Me.Label27)
-        Me.pnlDetail.Controls.Add(Me.txtMaxTotalWeight)
         Me.pnlDetail.Controls.Add(Me.Label24)
         Me.pnlDetail.Controls.Add(Me.Label25)
         Me.pnlDetail.Controls.Add(Me.txtTotalPrice)
@@ -177,42 +170,6 @@ Partial Class frmTraPurchaseOrderDetItemRequest
         Me.pnlDetail.Name = "pnlDetail"
         Me.pnlDetail.Size = New System.Drawing.Size(662, 371)
         Me.pnlDetail.TabIndex = 2
-        '
-        'Label26
-        '
-        Me.Label26.AutoSize = True
-        Me.Label26.BackColor = System.Drawing.Color.Transparent
-        Me.Label26.ForeColor = System.Drawing.Color.Black
-        Me.Label26.Location = New System.Drawing.Point(279, 242)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(19, 13)
-        Me.Label26.TabIndex = 138
-        Me.Label26.Text = "Kg"
-        '
-        'Label27
-        '
-        Me.Label27.AutoSize = True
-        Me.Label27.BackColor = System.Drawing.Color.Transparent
-        Me.Label27.ForeColor = System.Drawing.Color.Black
-        Me.Label27.Location = New System.Drawing.Point(36, 242)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(91, 13)
-        Me.Label27.TabIndex = 137
-        Me.Label27.Text = "Maks. Total Berat"
-        '
-        'txtMaxTotalWeight
-        '
-        Me.txtMaxTotalWeight.BackColor = System.Drawing.Color.Azure
-        Me.txtMaxTotalWeight.DecimalPlaces = 2
-        Me.txtMaxTotalWeight.Enabled = False
-        Me.txtMaxTotalWeight.Location = New System.Drawing.Point(138, 238)
-        Me.txtMaxTotalWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtMaxTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtMaxTotalWeight.Name = "txtMaxTotalWeight"
-        Me.txtMaxTotalWeight.Size = New System.Drawing.Size(135, 21)
-        Me.txtMaxTotalWeight.TabIndex = 9
-        Me.txtMaxTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtMaxTotalWeight.ThousandsSeparator = True
         '
         'Label24
         '
@@ -357,7 +314,7 @@ Partial Class frmTraPurchaseOrderDetItemRequest
         Me.Label17.AutoSize = True
         Me.Label17.BackColor = System.Drawing.Color.Transparent
         Me.Label17.ForeColor = System.Drawing.Color.Black
-        Me.Label17.Location = New System.Drawing.Point(279, 269)
+        Me.Label17.Location = New System.Drawing.Point(279, 242)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(19, 13)
         Me.Label17.TabIndex = 123
@@ -368,7 +325,7 @@ Partial Class frmTraPurchaseOrderDetItemRequest
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
         Me.Label14.ForeColor = System.Drawing.Color.Black
-        Me.Label14.Location = New System.Drawing.Point(36, 269)
+        Me.Label14.Location = New System.Drawing.Point(36, 242)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(36, 13)
         Me.Label14.TabIndex = 122
@@ -377,7 +334,7 @@ Partial Class frmTraPurchaseOrderDetItemRequest
         'txtUnitPrice
         '
         Me.txtUnitPrice.DecimalPlaces = 2
-        Me.txtUnitPrice.Location = New System.Drawing.Point(138, 265)
+        Me.txtUnitPrice.Location = New System.Drawing.Point(138, 238)
         Me.txtUnitPrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtUnitPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtUnitPrice.Name = "txtUnitPrice"
@@ -435,7 +392,7 @@ Partial Class frmTraPurchaseOrderDetItemRequest
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(36, 296)
+        Me.Label13.Location = New System.Drawing.Point(36, 268)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 115
@@ -445,7 +402,7 @@ Partial Class frmTraPurchaseOrderDetItemRequest
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(138, 293)
+        Me.txtRemarks.Location = New System.Drawing.Point(138, 265)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
@@ -699,7 +656,7 @@ Partial Class frmTraPurchaseOrderDetItemRequest
         Me.txtItemName.Size = New System.Drawing.Size(456, 48)
         Me.txtItemName.TabIndex = 3
         '
-        'frmTraPurchaseOrderDetItemRequest
+        'frmTraPurchaseOrderDetItemOrder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -711,11 +668,10 @@ Partial Class frmTraPurchaseOrderDetItemRequest
         Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmTraPurchaseOrderDetItemRequest"
-        Me.Text = "Permintaan Barang"
+        Me.Name = "frmTraPurchaseOrderDetItemOrder"
+        Me.Text = "Pesanan "
         Me.pnlDetail.ResumeLayout(False)
         Me.pnlDetail.PerformLayout()
-        CType(Me.txtMaxTotalWeight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTransportPrice, System.ComponentModel.ISupportInitialize).EndInit()
@@ -776,7 +732,4 @@ Partial Class frmTraPurchaseOrderDetItemRequest
     Friend WithEvents txtTotalPrice As ERPS.usNumeric
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents txtQuantity As ERPS.usNumeric
-    Friend WithEvents Label26 As System.Windows.Forms.Label
-    Friend WithEvents Label27 As System.Windows.Forms.Label
-    Friend WithEvents txtMaxTotalWeight As ERPS.usNumeric
 End Class

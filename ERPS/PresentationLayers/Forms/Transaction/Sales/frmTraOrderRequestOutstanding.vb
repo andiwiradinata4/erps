@@ -1,16 +1,45 @@
 ﻿Imports DevExpress.XtraGrid
-Public Class frmTraOrderRequest
+Public Class frmTraOrderRequestOutstanding
+
+#Region "Properties"
 
     Private intPos As Integer = 0
     Private clsData As New VO.OrderRequest
-    Private intProgramID As Integer
-    Private intCompanyID As Integer
+    Private clsCS As VO.CS
     Private dtData As New DataTable
+    Private bolIsLookup As Boolean
+    Private drLookupGet As DataRow
+    Private bolIsLookupGet As Boolean = False
+
+    Public WriteOnly Property pubCS As VO.CS
+        Set(value As VO.CS)
+            clsCS = value
+        End Set
+    End Property
+
+    Public ReadOnly Property pubDataRowLookupGet As DataRow
+        Get
+            Return drLookupGet
+        End Get
+    End Property
+
+    Public ReadOnly Property pubIsLookupGet As Boolean
+        Get
+            Return bolIsLookupGet
+        End Get
+    End Property
+
+    Public WriteOnly Property pubIsLookup As Boolean
+        Set(value As Boolean)
+            bolIsLookup = value
+        End Set
+    End Property
+
+#End Region
 
     Private Const _
-       cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
-       cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cSep2 As Byte = 6, cExportExcel As Byte = 7,
-       cSep3 As Byte = 8, cRefresh As Byte = 9, cClose As Byte = 10
+       cGet As Byte = 0, cSep1 As Byte = 1, cDetail As Byte = 2, cSep2 As Byte = 3,
+       cRefresh As Byte = 4, cClose As Byte = 5
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -47,11 +76,8 @@ Public Class frmTraOrderRequest
     Private Sub prvSetButton()
         Dim bolEnable As Boolean = IIf(grdView.RowCount > 0, True, False)
         With ToolBar.Buttons
+            .Item(cGet).Enabled = bolEnable
             .Item(cDetail).Enabled = bolEnable
-            .Item(cDelete).Enabled = bolEnable
-            .Item(cSubmit).Enabled = bolEnable
-            .Item(cCancelSubmit).Enabled = bolEnable
-            .Item(cExportExcel).Enabled = bolEnable
         End With
     End Sub
 
@@ -72,15 +98,21 @@ Public Class frmTraOrderRequest
             dtData = dtData.DefaultView.ToTable
 
             UI.usForm.FillComboBox(cboStatus, dtData, "StatusID", "StatusName")
+
+            cboStatus.SelectedValue = VO.Status.Values.Submit
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         End Try
     End Sub
 
     Private Sub prvDefaultFilter()
-        intProgramID = ERPSLib.UI.usUserApp.ProgramID
-        intCompanyID = ERPSLib.UI.usUserApp.CompanyID
-        txtCompanyName.Text = ERPSLib.UI.usUserApp.CompanyName
+        If bolIsLookup Then
+            txtCompanyName.Text = clsCS.CompanyName
+        Else
+            clsCS.ProgramID = ERPSLib.UI.usUserApp.ProgramID
+            clsCS.CompanyID = ERPSLib.UI.usUserApp.CompanyID
+            txtCompanyName.Text = ERPSLib.UI.usUserApp.CompanyName
+        End If
     End Sub
 
     Private Sub prvQuery()
@@ -88,7 +120,7 @@ Public Class frmTraOrderRequest
         pgMain.Value = 30
         Application.DoEvents()
         Try
-            dtData = BL.OrderRequest.ListData(intProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue)
+            dtData = BL.OrderRequest.ListDataOutstanding(clsCS.ProgramID, clsCS.CompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue)
             grdMain.DataSource = dtData
             pgMain.Value = 80
             Application.DoEvents()
@@ -116,12 +148,11 @@ Public Class frmTraOrderRequest
     End Sub
 
     Private Function prvGetCS() As VO.CS
-        Dim clsCS As New VO.CS
+        Dim clsReturn As New VO.CS
         clsCS.ProgramID = ERPSLib.UI.usUserApp.ProgramID
         clsCS.ProgramName = ERPSLib.UI.usUserApp.ProgramName
-        clsCS.CompanyID = intCompanyID
         clsCS.CompanyName = txtCompanyName.Text.Trim
-        Return clsCS
+        Return clsReturn
     End Function
 
     Private Function prvGetData() As VO.OrderRequest
@@ -151,15 +182,12 @@ Public Class frmTraOrderRequest
         Return clsReturn
     End Function
 
-    Private Sub prvNew()
-        prvResetProgressBar()
-        Dim frmDetail As New frmTraOrderRequestDet
-        With frmDetail
-            .pubIsNew = True
-            .pubCS = prvGetCS()
-            .StartPosition = FormStartPosition.CenterScreen
-            .pubShowDialog(Me)
-        End With
+    Private Sub prvGet()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        drLookupGet = grdView.GetDataRow(intPos)
+        bolIsLookupGet = True
+        Me.Close()
     End Sub
 
     Private Sub prvDetail()
@@ -170,111 +198,11 @@ Public Class frmTraOrderRequest
         Dim frmDetail As New frmTraOrderRequestDet
         With frmDetail
             .pubIsNew = False
-            .pubCS = prvGetCS()
+            .pubCS = clsCS
             .pubID = clsData.ID
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
         End With
-    End Sub
-
-    Private Sub prvDelete()
-        intPos = grdView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        clsData = prvGetData()
-        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        If Not UI.usForm.frmAskQuestion("Hapus Nomor " & clsData.OrderNumber & "?") Then Exit Sub
-
-        Dim frmDetail As New usFormRemarks
-        With frmDetail
-            .StartPosition = FormStartPosition.CenterParent
-            .ShowDialog()
-            If .pubIsSave Then
-                clsData.Remarks = .pubValue
-            Else
-                Exit Sub
-            End If
-        End With
-
-        Me.Cursor = Cursors.WaitCursor
-        pgMain.Value = 40
-        Application.DoEvents()
-        Try
-            BL.OrderRequest.DeleteData(clsData.ID, clsData.Remarks)
-            pgMain.Value = 100
-            Application.DoEvents()
-            UI.usForm.frmMessageBox("Hapus data berhasil.")
-            pubRefresh(grdView.GetRowCellValue(intPos, "OrderNumber"))
-        Catch ex As Exception
-            UI.usForm.frmMessageBox(ex.Message)
-        Finally
-            Me.Cursor = Cursors.Default
-            pgMain.Value = 100
-            Application.DoEvents()
-            prvResetProgressBar()
-        End Try
-    End Sub
-
-    Private Sub prvSubmit()
-        intPos = grdView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        clsData = prvGetData()
-        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        If Not UI.usForm.frmAskQuestion("Submit Nomor " & clsData.OrderNumber & "?") Then Exit Sub
-
-        Me.Cursor = Cursors.WaitCursor
-        pgMain.Value = 40
-        Application.DoEvents()
-        Try
-            BL.OrderRequest.Submit(clsData.ID, "")
-            pgMain.Value = 100
-            Application.DoEvents()
-            UI.usForm.frmMessageBox("Submit data berhasil.")
-            pubRefresh(grdView.GetRowCellValue(intPos, "OrderNumber"))
-        Catch ex As Exception
-            UI.usForm.frmMessageBox(ex.Message)
-        Finally
-            Me.Cursor = Cursors.Default
-            pgMain.Value = 100
-            Application.DoEvents()
-            prvResetProgressBar()
-        End Try
-    End Sub
-
-    Private Sub prvCancelSubmit()
-        intPos = grdView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        clsData = prvGetData()
-        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        If Not UI.usForm.frmAskQuestion("Batal Submit Nomor " & clsData.OrderNumber & "?") Then Exit Sub
-
-        Dim frmDetail As New usFormRemarks
-        With frmDetail
-            .StartPosition = FormStartPosition.CenterParent
-            .ShowDialog()
-            If .pubIsSave Then
-                clsData.Remarks = .pubValue
-            Else
-                Exit Sub
-            End If
-        End With
-
-        Me.Cursor = Cursors.WaitCursor
-        pgMain.Value = 40
-        Application.DoEvents()
-        Try
-            BL.OrderRequest.Unsubmit(clsData.ID, clsData.Remarks)
-            pgMain.Value = 100
-            Application.DoEvents()
-            UI.usForm.frmMessageBox("Batal submit data berhasil.")
-            pubRefresh(grdView.GetRowCellValue(intPos, "OrderNumber"))
-        Catch ex As Exception
-            UI.usForm.frmMessageBox(ex.Message)
-        Finally
-            Me.Cursor = Cursors.Default
-            pgMain.Value = 100
-            Application.DoEvents()
-            prvResetProgressBar()
-        End Try
     End Sub
 
     Private Sub prvClear()
@@ -290,7 +218,8 @@ Public Class frmTraOrderRequest
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
             If .pubIsLookUpGet Then
-                intCompanyID = .pubLUdtRow.Item("CompanyID")
+                clsCS.CompanyID = .pubLUdtRow.Item("CompanyID")
+                clsCS.CompanyName = .pubLUdtRow.Item("CompanyName")
                 txtCompanyName.Text = .pubLUdtRow.Item("CompanyName")
                 prvClear()
                 btnExecute.Focus()
@@ -318,28 +247,23 @@ Public Class frmTraOrderRequest
 
     Private Sub prvUserAccess()
         With ToolBar.Buttons
-            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.NewAccess)
-            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.DeleteAccess)
-            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.SubmitAccess)
-            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.CancelSubmitAccess)
-            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.ExportExcelAccess)
+            btnCompany.Visible = False
         End With
     End Sub
 
 #Region "Form Handle"
 
-    Private Sub frmTraOrderRequest_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+    Private Sub frmTraOrderRequestOutstanding_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
         End If
     End Sub
 
-    Private Sub frmTraOrderRequest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmTraOrderRequestOutstanding_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
-        prvFillCombo()
         prvSetGrid()
-        cboStatus.SelectedValue = VO.Status.Values.All
+        prvFillCombo()
         dtpDateFrom.Value = Today.Date.AddDays(-7)
         dtpDateTo.Value = Today.Date
         prvDefaultFilter()
@@ -349,25 +273,20 @@ Public Class frmTraOrderRequest
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
-        If e.Button.Name = ToolBar.Buttons(cNew).Name Then
-            prvNew()
-        ElseIf e.Button.Name = ToolBar.Buttons(cRefresh).Name Then
+        If e.Button.Name = ToolBar.Buttons(cRefresh).Name Then
             pubRefresh()
         ElseIf e.Button.Name = ToolBar.Buttons(cClose).Name Then
             Me.Close()
         ElseIf grdView.FocusedRowHandle >= 0 Then
             Select Case e.Button.Name
+                Case ToolBar.Buttons(cGet).Name : prvGet()
                 Case ToolBar.Buttons(cDetail).Name : prvDetail()
-                Case ToolBar.Buttons(cDelete).Name : prvDelete()
-                Case ToolBar.Buttons(cSubmit).Name : prvSubmit()
-                Case ToolBar.Buttons(cCancelSubmit).Name : prvCancelSubmit()
-                Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If
     End Sub
 
-    Private Sub btnCompany_Click(sender As Object, e As EventArgs) Handles btnCompany.Click
-        prvChooseCompany()
+    Private Sub grdView_DoubleClick(sender As Object, e As EventArgs) Handles grdView.DoubleClick
+        prvGet()
     End Sub
 
     Private Sub btnExecute_Click(sender As Object, e As EventArgs) Handles btnExecute.Click
@@ -376,17 +295,6 @@ Public Class frmTraOrderRequest
 
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         prvClear()
-    End Sub
-
-    Private Sub grdView_RowStyle(sender As Object, e As DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs) Handles grdView.RowStyle
-        Dim View As DevExpress.XtraGrid.Views.Grid.GridView = sender
-        If (e.RowHandle >= 0) Then
-            Dim bolIsDeleted As String = View.GetRowCellDisplayText(e.RowHandle, View.Columns("IsDeleted"))
-            If bolIsDeleted = "Checked" And e.Appearance.BackColor <> Color.Salmon Then
-                e.Appearance.BackColor = Color.Salmon
-                e.Appearance.BackColor2 = Color.SeaShell
-            End If
-        End If
     End Sub
 
 #End Region

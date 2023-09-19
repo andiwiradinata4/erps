@@ -14,7 +14,7 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "SELECT " & vbNewLine & _
-                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.PONumber, A.PODate, A.POID, " & vbNewLine & _
+                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.PONumber, A.PODate,  " & vbNewLine & _
                     "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.PersonInCharge, A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.DeliveryAddress, " & vbNewLine & _
                     "   A.Validity, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalInternalQuantity, A.TotalInternalWeight, A.TotalDPP, A.TotalPPN, " & vbNewLine & _
                     "   A.TotalPPH, A.RoundingManual, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, A.TotalInternalDPP, A.TotalInternalPPN, " & vbNewLine & _

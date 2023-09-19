@@ -43,6 +43,51 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataOutstanding(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                   ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+                                                   ByVal intStatusID As Integer) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "SELECT DISTINCT " & vbNewLine & _
+                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.OrderNumber, A.OrderDate,  	" & vbNewLine & _
+                    "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.ReferencesNumber, A.TotalQuantity, A.TotalWeight, A.IsDeleted, A.Remarks, A.StatusID,  	" & vbNewLine & _
+                    "   B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc,  	" & vbNewLine & _
+                    "   A.LogBy, A.LogDate  	" & vbNewLine & _
+                    "FROM traOrderRequest A  	" & vbNewLine & _
+                    "INNER JOIN mstStatus B ON  	" & vbNewLine & _
+                    "   A.StatusID=B.ID  	" & vbNewLine & _
+                    "INNER JOIN mstBusinessPartner C ON  	" & vbNewLine & _
+                    "   A.BPID=C.ID  	" & vbNewLine & _
+                    "INNER JOIN mstCompany MC ON  	" & vbNewLine & _
+                    "   A.CompanyID=MC.ID  	" & vbNewLine & _
+                    "INNER JOIN mstProgram MP ON  	" & vbNewLine & _
+                    "   A.ProgramID=MP.ID  	" & vbNewLine & _
+                    "INNER JOIN traOrderRequestDet ORD ON 	" & vbNewLine & _
+                    "	A.ID=ORD.OrderRequestID 	" & vbNewLine & _
+                    "WHERE 	" & vbNewLine & _
+                    "   A.ProgramID=@ProgramID " & vbNewLine & _
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine & _
+                    "   AND A.OrderDate>=@DateFrom AND A.OrderDate<=@DateTo " & vbNewLine & _
+                    "	AND ORD.TotalWeight-ORD.POInternalWeight>0 	" & vbNewLine & _
+                    "	AND A.IsDeleted=0 	" & vbNewLine & _
+                    "	AND A.SubmitBy<>''	" & vbNewLine
+
+                If intStatusID > 0 Then .CommandText += "   AND A.StatusID=@StatusID " & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
+                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = intStatusID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                    ByVal bolNew As Boolean, ByVal clsData As VO.OrderRequest)
             Dim sqlCmdExecute As New SqlCommand
@@ -395,7 +440,7 @@
         End Function
 
         Public Shared Function ListDataDetailOutstanding(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                         ByVal strOrderRequestID As String) As DataTable
+                                                               ByVal strOrderRequestID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
