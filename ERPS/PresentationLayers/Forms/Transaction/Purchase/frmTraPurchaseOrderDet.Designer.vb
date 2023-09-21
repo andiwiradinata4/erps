@@ -103,18 +103,18 @@ Partial Class frmTraPurchaseOrderDet
         Me.grdItemRequest = New DevExpress.XtraGrid.GridControl()
         Me.grdItemRequestView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.ToolBarDetailRequest = New ERPS.usToolBar()
+        Me.BarAddItemRequest = New System.Windows.Forms.ToolBarButton()
+        Me.BarDetailItemRequest = New System.Windows.Forms.ToolBarButton()
+        Me.BarDeleteItemRequest = New System.Windows.Forms.ToolBarButton()
         Me.tpOrder = New System.Windows.Forms.TabPage()
         Me.grdItemOrder = New DevExpress.XtraGrid.GridControl()
         Me.grdItemOrderView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.BarDeleteItemRequest = New System.Windows.Forms.ToolBarButton()
-        Me.BarDetailItemRequest = New System.Windows.Forms.ToolBarButton()
-        Me.BarAddItemRequest = New System.Windows.Forms.ToolBarButton()
-        Me.ToolBarDetailRequest = New ERPS.usToolBar()
-        Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.ToolBarDetailOrder = New ERPS.usToolBar()
+        Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         Me.tpAmount.SuspendLayout()
@@ -291,7 +291,7 @@ Partial Class frmTraPurchaseOrderDet
         '
         'dtpDeliveryPeriodTo
         '
-        Me.dtpDeliveryPeriodTo.CustomFormat = "MMMM"
+        Me.dtpDeliveryPeriodTo.CustomFormat = "MMMM yyyy"
         Me.dtpDeliveryPeriodTo.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpDeliveryPeriodTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpDeliveryPeriodTo.Location = New System.Drawing.Point(712, 16)
@@ -303,7 +303,7 @@ Partial Class frmTraPurchaseOrderDet
         '
         'dtpDeliveryPeriodFrom
         '
-        Me.dtpDeliveryPeriodFrom.CustomFormat = "MMMM"
+        Me.dtpDeliveryPeriodFrom.CustomFormat = "MMMM yyyy"
         Me.dtpDeliveryPeriodFrom.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpDeliveryPeriodFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpDeliveryPeriodFrom.Location = New System.Drawing.Point(572, 16)
@@ -1096,6 +1096,36 @@ Partial Class frmTraPurchaseOrderDet
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
         '
+        'ToolBarDetailRequest
+        '
+        Me.ToolBarDetailRequest.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBarDetailRequest.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemRequest, Me.BarDetailItemRequest, Me.BarDeleteItemRequest})
+        Me.ToolBarDetailRequest.DropDownArrows = True
+        Me.ToolBarDetailRequest.Location = New System.Drawing.Point(3, 3)
+        Me.ToolBarDetailRequest.Name = "ToolBarDetailRequest"
+        Me.ToolBarDetailRequest.ShowToolTips = True
+        Me.ToolBarDetailRequest.Size = New System.Drawing.Size(870, 28)
+        Me.ToolBarDetailRequest.TabIndex = 0
+        Me.ToolBarDetailRequest.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'BarAddItemRequest
+        '
+        Me.BarAddItemRequest.Name = "BarAddItemRequest"
+        Me.BarAddItemRequest.Tag = "Add"
+        Me.BarAddItemRequest.Text = "Tambah"
+        '
+        'BarDetailItemRequest
+        '
+        Me.BarDetailItemRequest.Name = "BarDetailItemRequest"
+        Me.BarDetailItemRequest.Tag = "Edit"
+        Me.BarDetailItemRequest.Text = "Edit"
+        '
+        'BarDeleteItemRequest
+        '
+        Me.BarDeleteItemRequest.Name = "BarDeleteItemRequest"
+        Me.BarDeleteItemRequest.Tag = "Delete"
+        Me.BarDeleteItemRequest.Text = "Hapus"
+        '
         'tpOrder
         '
         Me.tpOrder.Controls.Add(Me.grdItemOrder)
@@ -1153,54 +1183,6 @@ Partial Class frmTraPurchaseOrderDet
         Me.RepositoryItemTextEdit1.Name = "RepositoryItemTextEdit1"
         Me.RepositoryItemTextEdit1.NullText = "0.00"
         '
-        'BarDeleteItemRequest
-        '
-        Me.BarDeleteItemRequest.Name = "BarDeleteItemRequest"
-        Me.BarDeleteItemRequest.Tag = "Delete"
-        Me.BarDeleteItemRequest.Text = "Hapus"
-        '
-        'BarDetailItemRequest
-        '
-        Me.BarDetailItemRequest.Name = "BarDetailItemRequest"
-        Me.BarDetailItemRequest.Tag = "Edit"
-        Me.BarDetailItemRequest.Text = "Edit"
-        '
-        'BarAddItemRequest
-        '
-        Me.BarAddItemRequest.Name = "BarAddItemRequest"
-        Me.BarAddItemRequest.Tag = "Add"
-        Me.BarAddItemRequest.Text = "Tambah"
-        '
-        'ToolBarDetailRequest
-        '
-        Me.ToolBarDetailRequest.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarDetailRequest.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemRequest, Me.BarDetailItemRequest, Me.BarDeleteItemRequest})
-        Me.ToolBarDetailRequest.DropDownArrows = True
-        Me.ToolBarDetailRequest.Location = New System.Drawing.Point(3, 3)
-        Me.ToolBarDetailRequest.Name = "ToolBarDetailRequest"
-        Me.ToolBarDetailRequest.ShowToolTips = True
-        Me.ToolBarDetailRequest.Size = New System.Drawing.Size(870, 28)
-        Me.ToolBarDetailRequest.TabIndex = 0
-        Me.ToolBarDetailRequest.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
-        'BarDeleteItemOrder
-        '
-        Me.BarDeleteItemOrder.Name = "BarDeleteItemOrder"
-        Me.BarDeleteItemOrder.Tag = "Delete"
-        Me.BarDeleteItemOrder.Text = "Hapus"
-        '
-        'BarDetailItemOrder
-        '
-        Me.BarDetailItemOrder.Name = "BarDetailItemOrder"
-        Me.BarDetailItemOrder.Tag = "Edit"
-        Me.BarDetailItemOrder.Text = "Edit"
-        '
-        'BarAddItemOrder
-        '
-        Me.BarAddItemOrder.Name = "BarAddItemOrder"
-        Me.BarAddItemOrder.Tag = "Add"
-        Me.BarAddItemOrder.Text = "Tambah"
-        '
         'ToolBarDetailOrder
         '
         Me.ToolBarDetailOrder.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
@@ -1212,6 +1194,24 @@ Partial Class frmTraPurchaseOrderDet
         Me.ToolBarDetailOrder.Size = New System.Drawing.Size(870, 28)
         Me.ToolBarDetailOrder.TabIndex = 8
         Me.ToolBarDetailOrder.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'BarAddItemOrder
+        '
+        Me.BarAddItemOrder.Name = "BarAddItemOrder"
+        Me.BarAddItemOrder.Tag = "Add"
+        Me.BarAddItemOrder.Text = "Tambah"
+        '
+        'BarDetailItemOrder
+        '
+        Me.BarDetailItemOrder.Name = "BarDetailItemOrder"
+        Me.BarDetailItemOrder.Tag = "Edit"
+        Me.BarDetailItemOrder.Text = "Edit"
+        '
+        'BarDeleteItemOrder
+        '
+        Me.BarDeleteItemOrder.Name = "BarDeleteItemOrder"
+        Me.BarDeleteItemOrder.Tag = "Delete"
+        Me.BarDeleteItemOrder.Text = "Hapus"
         '
         'frmTraPurchaseOrderDet
         '

@@ -518,6 +518,48 @@
             End Try
         End Sub
 
+        Public Shared Sub CalculateTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                             ByVal strOrderRequestDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE traOrderRequestDet SET 	" & vbNewLine & _
+                    "	POInternalWeight=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(POD.TotalWeight),0) TotalWeight		" & vbNewLine & _
+                    "		FROM traPurchaseOrderDetInternal POD 	" & vbNewLine & _
+                    "		INNER JOIN traPurchaseOrder POH ON	" & vbNewLine & _
+                    "			POD.POID=POH.ID 	" & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			POD.OrderRequestDetailID=@OrderRequestDetailID 	" & vbNewLine & _
+                    "			AND POH.IsDeleted=0 	" & vbNewLine & _
+                    "	), 	" & vbNewLine & _
+                    "	POInternalQuantity=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(POD.Quantity),0) TotalQuantity " & vbNewLine & _
+                    "		FROM traPurchaseOrderDetInternal POD 	" & vbNewLine & _
+                    "		INNER JOIN traPurchaseOrder POH ON	" & vbNewLine & _
+                    "			POD.POID=POH.ID 	" & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			POD.OrderRequestDetailID=@OrderRequestDetailID 	" & vbNewLine & _
+                    "			AND POH.IsDeleted=0 	" & vbNewLine & _
+                    "	) 	" & vbNewLine & _
+                    "WHERE ID=@OrderRequestDetailID	" & vbNewLine
+
+                .Parameters.Add("@OrderRequestDetailID", SqlDbType.VarChar, 100).Value = strOrderRequestDetailID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Status"

@@ -29,8 +29,15 @@
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.PODate, clsData.CompanyID)
                         clsData.PONumber = clsData.ID
                     Else
+                        Dim dtPreviousRequest As DataTable = DL.PurchaseOrder.ListDataDetailInternal(sqlCon, sqlTrans, clsData.ID)
+
                         DL.PurchaseOrder.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
                         DL.PurchaseOrder.DeleteDataDetailInternal(sqlCon, sqlTrans, clsData.ID)
+
+                        '# Revert PO Quantity
+                        For Each dr As DataRow In dtPreviousRequest.Rows
+                            DL.OrderRequest.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("OrderRequestDetailID"))
+                        Next
                     End If
 
                     Dim intStatusID As Integer = DL.PurchaseOrder.GetStatusID(sqlCon, sqlTrans, clsData.ID)
@@ -62,6 +69,11 @@
                         clsDet.POID = clsData.ID
                         DL.PurchaseOrder.SaveDataDetailInternal(sqlCon, sqlTrans, clsDet)
                         intCount += 1
+                    Next
+
+                    '# Calculate PO Quantity
+                    For Each clsDet As VO.PurchaseOrderDetInternal In clsData.DetailInternal
+                        DL.OrderRequest.CalculateTotalUsed(sqlCon, sqlTrans, clsDet.OrderRequestDetailID)
                     Next
 
                     '# Save Data Status
@@ -99,7 +111,14 @@
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
                     End If
 
+                    Dim dtPreviousRequest As DataTable = DL.PurchaseOrder.ListDataDetailInternal(sqlCon, sqlTrans, strID)
+
                     DL.PurchaseOrder.DeleteData(sqlCon, sqlTrans, strID)
+
+                    '# Revert PO Quantity
+                    For Each dr As DataRow In dtPreviousRequest.Rows
+                        DL.OrderRequest.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("OrderRequestDetailID"))
+                    Next
 
                     '# Save Data Status
                     BL.PurchaseOrder.SaveDataStatus(sqlCon, sqlTrans, strID, "HAPUS", ERPSLib.UI.usUserApp.UserID, strRemarks)
@@ -269,7 +288,7 @@
         Public Shared Sub SaveDataStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                          ByVal strPOID As String, ByVal strStatus As String,
                                          ByVal strStatusBy As String, ByVal strRemarks As String)
-            Dim strNewID As String = strPOID & "-" & Format(DL.OrderRequest.GetMaxIDStatus(sqlCon, sqlTrans, strPOID) + 1, "000")
+            Dim strNewID As String = strPOID & "-" & Format(DL.PurchaseOrder.GetMaxIDStatus(sqlCon, sqlTrans, strPOID) + 1, "000")
             Dim clsData As New VO.PurchaseOrderStatus With
                 {
                     .ID = strNewID,

@@ -46,6 +46,12 @@ Public Class frmTraPurchaseOrderDetItem
         End Set
     End Property
 
+    Public WriteOnly Property pubOrderRequestDetailID As String
+        Set(value As String)
+            strOrderRequestDetailID = value
+        End Set
+    End Property
+
     Public WriteOnly Property pubID As String
         Set(value As String)
             strID = value
@@ -152,6 +158,7 @@ Public Class frmTraPurchaseOrderDetItem
         '# Order | PO Detail
         Dim SumTotalQuantityOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
         Dim SumGrandTotalWeightOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
+        Dim SumGrandTotalPriceOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
 
         If grdItemOrderView.Columns("Quantity").SummaryText.Trim = "" Then
             grdItemOrderView.Columns("Quantity").Summary.Add(SumTotalQuantityOrder)
@@ -159,6 +166,10 @@ Public Class frmTraPurchaseOrderDetItem
 
         If grdItemOrderView.Columns("TotalWeight").SummaryText.Trim = "" Then
             grdItemOrderView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeightOrder)
+        End If
+
+        If grdItemOrderView.Columns("TotalPrice").SummaryText.Trim = "" Then
+            grdItemOrderView.Columns("TotalPrice").Summary.Add(SumGrandTotalPriceOrder)
         End If
     End Sub
 
@@ -270,6 +281,8 @@ Public Class frmTraPurchaseOrderDetItem
         Dim frmDetail As New frmTraPurchaseOrderDetItemOutstanding
         With frmDetail
             .pubOrderRequestID = strOrderRequestID
+            .pubOrderRequestDetailID = strOrderRequestDetailID
+            .pubOrderRequestParent = dtParentRequest
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             If .pubIsLookUpGet Then
@@ -300,6 +313,13 @@ Public Class frmTraPurchaseOrderDetItem
         txtTotalPrice.Value = txtNettoPrice.Value * txtTotalWeight.Value
     End Sub
 
+    Private Sub prvToolsHandles()
+        Dim bolEnabled As Boolean = IIf(grdItemOrderView.RowCount = 0, True, False)
+        btnItem.Enabled = bolEnabled
+        txtCuttingPrice.Enabled = bolEnabled
+        txtTransportPrice.Enabled = bolEnabled
+    End Sub
+
 #Region "Order Item"
 
     Private Sub prvSetButtonItemOrder()
@@ -311,6 +331,11 @@ Public Class frmTraPurchaseOrderDetItem
     End Sub
 
     Private Sub prvAddItemOrder()
+        If intItemID = 0 Then
+            UI.usForm.frmMessageBox("Pilih permintaan barang terlebih dahulu")
+            txtItemCode.Focus()
+            Exit Sub
+        End If
         Dim frmDetail As New frmTraPurchaseOrderDetItemOrder
         With frmDetail
             .pubIsNew = True
@@ -322,6 +347,7 @@ Public Class frmTraPurchaseOrderDetItem
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButtonItemOrder()
+            prvToolsHandles()
         End With
     End Sub
 
@@ -338,6 +364,7 @@ Public Class frmTraPurchaseOrderDetItem
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButtonItemOrder()
+            prvToolsHandles()
         End With
     End Sub
 
@@ -349,6 +376,7 @@ Public Class frmTraPurchaseOrderDetItem
             If dr.Item("ID") = strID Then dr.Delete() : Exit For
         Next
         dtOrder.AcceptChanges()
+        prvToolsHandles()
     End Sub
 
 #End Region

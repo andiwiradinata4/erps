@@ -108,6 +108,8 @@
         Finally
             Me.Cursor = Cursors.Default
         End Try
+        txtCuttingPrice.Enabled = False
+        txtTransportPrice.Enabled = False
     End Sub
 
     Private Sub prvSave()
@@ -250,6 +252,7 @@
         txtTransportPrice.Value = decTransportPrice
         txtQuantity.Value = 0
         txtRemarks.Text = ""
+        txtItemCode.Focus()
     End Sub
 
 #Region "Form Handle"

@@ -6,8 +6,10 @@ Public Class frmTraPurchaseOrderDetItemOutstanding
     Private intPos As Integer = 0
     Private frmParent As frmTraPurchaseOrderDetItem
     Public pubOrderRequestID As String = ""
+    Public pubOrderRequestDetailID As String = ""
     Public pubLUdtRow As DataRow
     Public pubIsLookUpGet As Boolean = False
+    Public pubOrderRequestParent As New DataTable
 
     Public Sub pubShowDialog(ByVal frmGetParent As Form)
         frmParent = frmGetParent
@@ -50,7 +52,14 @@ Public Class frmTraPurchaseOrderDetItemOutstanding
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         Try
-            grdMain.DataSource = BL.OrderRequest.ListDataDetailOutstanding(pubOrderRequestID.Trim)
+            Dim dtData As DataTable = BL.OrderRequest.ListDataDetailOutstanding(pubOrderRequestID.Trim)
+            For Each drParent As DataRow In pubOrderRequestParent.Rows
+                For Each dr As DataRow In dtData.Rows
+                    If dr.Item("ID") = drParent.Item("OrderRequestDetailID") Then dr.Delete()
+                Next
+                dtData.AcceptChanges()
+            Next
+            grdMain.DataSource = dtData
             prvSumGrid()
             grdView.BestFitColumns()
         Catch ex As Exception

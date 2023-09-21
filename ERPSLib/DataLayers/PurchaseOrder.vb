@@ -14,7 +14,7 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "SELECT " & vbNewLine & _
-                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.PONumber, A.PODate,  " & vbNewLine & _
+                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.PONumber, A.PODate, A.OrderRequestID, ORH.OrderNumber, " & vbNewLine & _
                     "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.PersonInCharge, A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.DeliveryAddress, " & vbNewLine & _
                     "   A.Validity, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalInternalQuantity, A.TotalInternalWeight, A.TotalDPP, A.TotalPPN, " & vbNewLine & _
                     "   A.TotalPPH, A.RoundingManual, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, A.TotalInternalDPP, A.TotalInternalPPN, " & vbNewLine & _
@@ -30,6 +30,8 @@
                     "   A.CompanyID=MC.ID " & vbNewLine & _
                     "INNER JOIN mstProgram MP ON " & vbNewLine & _
                     "   A.ProgramID=MP.ID " & vbNewLine & _
+                    "INNER JOIN traOrderRequest ORH ON " & vbNewLine & _
+                    "   A.OrderRequestID=ORH.ID " & vbNewLine & _
                     "WHERE " & vbNewLine & _
                     "   A.ProgramID=@ProgramID " & vbNewLine & _
                     "   AND A.CompanyID=@CompanyID " & vbNewLine & _
@@ -257,7 +259,7 @@
                         "FROM traPurchaseOrder " & vbNewLine & _
                         "WHERE " & vbNewLine & _
                         "   LEFT(ID,@Length)=@ID " & vbNewLine & _
-                        "ORDER BY OrderDate DESC " & vbNewLine
+                        "ORDER BY CreatedDate DESC " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, strNewID.Length).Value = strNewID
                     .Parameters.Add("@Length", SqlDbType.Int).Value = strNewID.Length

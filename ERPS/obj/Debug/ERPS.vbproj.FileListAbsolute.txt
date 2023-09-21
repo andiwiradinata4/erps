@@ -40,6 +40,14 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstUserUserAccess
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstUserUserAccessDuplicate.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmSysChangePassword.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmSysLogin.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseOrder.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderDetItem.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderDetItemOutstanding.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderDetItemOrder.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestOutstanding.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.usFormRemarks.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.usFormSave.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmSysMain.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequest.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestDet.resources
@@ -52,11 +60,3 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.exe.licenses
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.pdb
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.usFormRemarks.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.usFormSave.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseOrder.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderDet.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderDetItem.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderDetItemOutstanding.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestOutstanding.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderDetItemOrder.resources
