@@ -21,8 +21,9 @@ Namespace VO
             MasterItem = 10
             MasterBusinessPartner = 11
             MasterPaymentType = 12
-            MasterPaymentTerm = 13
+            MasterPaymentTypeCategory = 13
             MasterCompanyBankAccount = 14
+            MasterPaymentMode = 19
 
             '# Transaction
             TransactionOrderRequest = 15

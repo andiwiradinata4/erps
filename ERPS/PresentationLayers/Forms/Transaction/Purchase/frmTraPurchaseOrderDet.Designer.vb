@@ -832,7 +832,7 @@ Partial Class frmTraPurchaseOrderDet
         Me.tpPaymentTerm.Name = "tpPaymentTerm"
         Me.tpPaymentTerm.Size = New System.Drawing.Size(876, 202)
         Me.tpPaymentTerm.TabIndex = 3
-        Me.tpPaymentTerm.Text = "Metode Pembayaran - F3"
+        Me.tpPaymentTerm.Text = "Syarat Pembayaran - F3"
         Me.tpPaymentTerm.UseVisualStyleBackColor = True
         '
         'grdPaymentTerm

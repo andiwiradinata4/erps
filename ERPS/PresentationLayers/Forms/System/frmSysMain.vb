@@ -15,6 +15,9 @@
     Dim frmMainMstItem As frmMstItem
     Dim frmMainBusinessPartner As frmMstBusinessPartner
     Dim frmMainMstCompanyBankAccount As frmMstCompanyBankAccount
+    Dim frmMainMstPaymentTypeCategory As frmMstPaymentTypeCategory
+    Dim frmMainMstPaymentMode As frmMstPaymentMode
+    Dim frmMainMstPaymentType As frmMstPaymentType
 
     '# Transaction
     Dim frmMainTraOrderRequest As frmTraOrderRequest
@@ -52,6 +55,8 @@
         mnuMasterBarang.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterItem, VO.Access.Values.ViewAccess)
         mnuMasterRekanBisnis.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterBusinessPartner, VO.Access.Values.ViewAccess)
         mnuMasterAkunBankPerusahaan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterCompanyBankAccount, VO.Access.Values.ViewAccess)
+        mnuMasterPaymentTypeCategory.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterPaymentTypeCategory, VO.Access.Values.ViewAccess)
+        mnuMasterMetodePembayaran.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterPaymentMode, VO.Access.Values.ViewAccess)
         mnuMasterJenisPembayaran.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterPaymentType, VO.Access.Values.ViewAccess)
 
         pgMain.Value = 50
@@ -205,6 +210,10 @@
         UI.usForm.frmOpen(frmMainMstCompany, "frmMstCompany", Me)
     End Sub
 
+    Private Sub mnuMasterPaymentTypeCategory_Click(sender As Object, e As EventArgs) Handles mnuMasterPaymentTypeCategory.Click
+        UI.usForm.frmOpen(frmMainMstPaymentTypeCategory, "frmMstPaymentTypeCategory", Me)
+    End Sub
+
     Private Sub mnuMasterKaryawan_Click(sender As Object, e As EventArgs) Handles mnuMasterKaryawan.Click
         UI.usForm.frmOpen(frmMainMstUser, "frmMstUser", Me)
     End Sub
@@ -233,12 +242,12 @@
         UI.usForm.frmOpen(frmMainMstCompanyBankAccount, "frmMstCompanyBankAccount", Me)
     End Sub
 
-    Private Sub mnuMasterJenisPembayaran_Click(sender As Object, e As EventArgs) Handles mnuMasterJenisPembayaran.Click
-
+    Private Sub mnuMasterMetodePembayaran_Click(sender As Object, e As EventArgs) Handles mnuMasterMetodePembayaran.Click
+        UI.usForm.frmOpen(frmMainMstPaymentMode, "frmMstPaymentMode", Me)
     End Sub
 
-    Private Sub mnuMasterSyaratPembayaran_Click(sender As Object, e As EventArgs)
-
+    Private Sub mnuMasterJenisPembayaran_Click(sender As Object, e As EventArgs) Handles mnuMasterJenisPembayaran.Click
+        UI.usForm.frmOpen(frmMainMstPaymentType, "frmMstPaymentType", Me)
     End Sub
 
 #End Region

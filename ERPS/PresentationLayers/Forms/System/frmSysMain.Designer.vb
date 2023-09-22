@@ -69,6 +69,8 @@ Partial Class frmSysMain
         Me.mnuWindowsCascade = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuWindowsCloseAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLogout = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuMasterPaymentTypeCategory = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuMasterMetodePembayaran = New System.Windows.Forms.ToolStripMenuItem()
         Me.ssMain.SuspendLayout()
         Me.mnuMain.SuspendLayout()
         Me.SuspendLayout()
@@ -165,7 +167,7 @@ Partial Class frmSysMain
         '
         'mnuMaster
         '
-        Me.mnuMaster.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuMasterProgram, Me.mnuMasterStatus, Me.mnuMasterModule, Me.mnuMasterAkses, Me.mnuMasterPerusahaan, Me.mnuMasterKaryawan, Me.mnuMasterSatuan, Me.mnuMasterJenisBarang, Me.mnuMasterSpesifikasiBarang, Me.mnuMasterBarang, Me.mnuMasterSep1, Me.mnuMasterRekanBisnis, Me.mnuMasterAkunBankPerusahaan, Me.mnuMasterJenisPembayaran})
+        Me.mnuMaster.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuMasterProgram, Me.mnuMasterStatus, Me.mnuMasterModule, Me.mnuMasterAkses, Me.mnuMasterPerusahaan, Me.mnuMasterKaryawan, Me.mnuMasterSatuan, Me.mnuMasterJenisBarang, Me.mnuMasterSpesifikasiBarang, Me.mnuMasterBarang, Me.mnuMasterSep1, Me.mnuMasterRekanBisnis, Me.mnuMasterAkunBankPerusahaan, Me.mnuMasterPaymentTypeCategory, Me.mnuMasterMetodePembayaran, Me.mnuMasterJenisPembayaran})
         Me.mnuMaster.Name = "mnuMaster"
         Me.mnuMaster.Size = New System.Drawing.Size(55, 20)
         Me.mnuMaster.Text = "&Master"
@@ -173,84 +175,84 @@ Partial Class frmSysMain
         'mnuMasterProgram
         '
         Me.mnuMasterProgram.Name = "mnuMasterProgram"
-        Me.mnuMasterProgram.Size = New System.Drawing.Size(195, 22)
+        Me.mnuMasterProgram.Size = New System.Drawing.Size(199, 22)
         Me.mnuMasterProgram.Text = "Program"
         '
         'mnuMasterStatus
         '
         Me.mnuMasterStatus.Name = "mnuMasterStatus"
-        Me.mnuMasterStatus.Size = New System.Drawing.Size(195, 22)
+        Me.mnuMasterStatus.Size = New System.Drawing.Size(199, 22)
         Me.mnuMasterStatus.Text = "Status"
         '
         'mnuMasterModule
         '
         Me.mnuMasterModule.Name = "mnuMasterModule"
-        Me.mnuMasterModule.Size = New System.Drawing.Size(195, 22)
+        Me.mnuMasterModule.Size = New System.Drawing.Size(199, 22)
         Me.mnuMasterModule.Text = "Module"
         '
         'mnuMasterAkses
         '
         Me.mnuMasterAkses.Name = "mnuMasterAkses"
-        Me.mnuMasterAkses.Size = New System.Drawing.Size(195, 22)
+        Me.mnuMasterAkses.Size = New System.Drawing.Size(199, 22)
         Me.mnuMasterAkses.Text = "Akses"
         '
         'mnuMasterPerusahaan
         '
         Me.mnuMasterPerusahaan.Name = "mnuMasterPerusahaan"
-        Me.mnuMasterPerusahaan.Size = New System.Drawing.Size(195, 22)
+        Me.mnuMasterPerusahaan.Size = New System.Drawing.Size(199, 22)
         Me.mnuMasterPerusahaan.Text = "Perusahaan"
         '
         'mnuMasterKaryawan
         '
         Me.mnuMasterKaryawan.Name = "mnuMasterKaryawan"
-        Me.mnuMasterKaryawan.Size = New System.Drawing.Size(195, 22)
+        Me.mnuMasterKaryawan.Size = New System.Drawing.Size(199, 22)
         Me.mnuMasterKaryawan.Text = "Karyawan"
         '
         'mnuMasterSatuan
         '
         Me.mnuMasterSatuan.Name = "mnuMasterSatuan"
-        Me.mnuMasterSatuan.Size = New System.Drawing.Size(195, 22)
+        Me.mnuMasterSatuan.Size = New System.Drawing.Size(199, 22)
         Me.mnuMasterSatuan.Text = "Satuan"
         '
         'mnuMasterJenisBarang
         '
         Me.mnuMasterJenisBarang.Name = "mnuMasterJenisBarang"
-        Me.mnuMasterJenisBarang.Size = New System.Drawing.Size(195, 22)
+        Me.mnuMasterJenisBarang.Size = New System.Drawing.Size(199, 22)
         Me.mnuMasterJenisBarang.Text = "Jenis Barang"
         '
         'mnuMasterSpesifikasiBarang
         '
         Me.mnuMasterSpesifikasiBarang.Name = "mnuMasterSpesifikasiBarang"
-        Me.mnuMasterSpesifikasiBarang.Size = New System.Drawing.Size(195, 22)
+        Me.mnuMasterSpesifikasiBarang.Size = New System.Drawing.Size(199, 22)
         Me.mnuMasterSpesifikasiBarang.Text = "Spesifikasi Barang"
         '
         'mnuMasterBarang
         '
         Me.mnuMasterBarang.Name = "mnuMasterBarang"
-        Me.mnuMasterBarang.Size = New System.Drawing.Size(195, 22)
+        Me.mnuMasterBarang.Size = New System.Drawing.Size(199, 22)
         Me.mnuMasterBarang.Text = "Barang"
         '
         'mnuMasterSep1
         '
         Me.mnuMasterSep1.Name = "mnuMasterSep1"
-        Me.mnuMasterSep1.Size = New System.Drawing.Size(192, 6)
+        Me.mnuMasterSep1.Size = New System.Drawing.Size(196, 6)
         '
         'mnuMasterRekanBisnis
         '
         Me.mnuMasterRekanBisnis.Name = "mnuMasterRekanBisnis"
-        Me.mnuMasterRekanBisnis.Size = New System.Drawing.Size(195, 22)
+        Me.mnuMasterRekanBisnis.Size = New System.Drawing.Size(199, 22)
         Me.mnuMasterRekanBisnis.Text = "Rekan Bisnis"
         '
         'mnuMasterAkunBankPerusahaan
         '
         Me.mnuMasterAkunBankPerusahaan.Name = "mnuMasterAkunBankPerusahaan"
-        Me.mnuMasterAkunBankPerusahaan.Size = New System.Drawing.Size(195, 22)
+        Me.mnuMasterAkunBankPerusahaan.Size = New System.Drawing.Size(199, 22)
         Me.mnuMasterAkunBankPerusahaan.Text = "Akun Bank Perusahaan"
         '
         'mnuMasterJenisPembayaran
         '
         Me.mnuMasterJenisPembayaran.Name = "mnuMasterJenisPembayaran"
-        Me.mnuMasterJenisPembayaran.Size = New System.Drawing.Size(195, 22)
+        Me.mnuMasterJenisPembayaran.Size = New System.Drawing.Size(199, 22)
         Me.mnuMasterJenisPembayaran.Text = "Jenis Pembayaran"
         '
         'mnuTransaksi
@@ -264,7 +266,7 @@ Partial Class frmSysMain
         '
         Me.mnuTransaksiPenjualan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPenjualanPermintaan, Me.mnuTransaksiPenjualanKontrakPenjualan, Me.mnuTransaksiPenjualanMemoPengambilan, Me.mnuTransaksiPenjualanPengirimanPenjualan})
         Me.mnuTransaksiPenjualan.Name = "mnuTransaksiPenjualan"
-        Me.mnuTransaksiPenjualan.Size = New System.Drawing.Size(152, 22)
+        Me.mnuTransaksiPenjualan.Size = New System.Drawing.Size(130, 22)
         Me.mnuTransaksiPenjualan.Text = "Penjualan"
         '
         'mnuTransaksiPenjualanPermintaan
@@ -295,7 +297,7 @@ Partial Class frmSysMain
         '
         Me.mnuTransaksiPembelian.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPembelianPesananPembelian, Me.mnuTransaksiPembelianPesananPemotongan, Me.mnuTransaksiPembelianPesananPengiriman, Me.mnuTransaksiPembelianKonfirmasiPesanan, Me.mnuTransaksiPembelianKontrakPembelian, Me.mnuTransaksiPembelianInstruksi, Me.mnuTransaksiPembelianKonfirmasiPengiriman, Me.mnuTransaksiPembelianProsesPemotonganSPK})
         Me.mnuTransaksiPembelian.Name = "mnuTransaksiPembelian"
-        Me.mnuTransaksiPembelian.Size = New System.Drawing.Size(152, 22)
+        Me.mnuTransaksiPembelian.Size = New System.Drawing.Size(130, 22)
         Me.mnuTransaksiPembelian.Text = "Pembelian"
         '
         'mnuTransaksiPembelianPesananPembelian
@@ -402,6 +404,18 @@ Partial Class frmSysMain
         Me.mnuLogout.Size = New System.Drawing.Size(57, 20)
         Me.mnuLogout.Text = "L&ogout"
         '
+        'mnuMasterPaymentTypeCategory
+        '
+        Me.mnuMasterPaymentTypeCategory.Name = "mnuMasterPaymentTypeCategory"
+        Me.mnuMasterPaymentTypeCategory.Size = New System.Drawing.Size(199, 22)
+        Me.mnuMasterPaymentTypeCategory.Text = "Payment Type Category"
+        '
+        'mnuMasterMetodePembayaran
+        '
+        Me.mnuMasterMetodePembayaran.Name = "mnuMasterMetodePembayaran"
+        Me.mnuMasterMetodePembayaran.Size = New System.Drawing.Size(199, 22)
+        Me.mnuMasterMetodePembayaran.Text = "Metode Pembayaran"
+        '
         'frmSysMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -471,4 +485,6 @@ Partial Class frmSysMain
     Friend WithEvents mnuTransaksiPembelianInstruksi As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuTransaksiPembelianKonfirmasiPengiriman As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuTransaksiPembelianProsesPemotonganSPK As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuMasterPaymentTypeCategory As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuMasterMetodePembayaran As System.Windows.Forms.ToolStripMenuItem
 End Class

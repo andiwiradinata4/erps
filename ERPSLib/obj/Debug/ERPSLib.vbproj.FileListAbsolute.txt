@@ -6,3 +6,11 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.vbproj.Generat
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.dll
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.pdb
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPSLib\bin\Debug\ERPSLib.dll
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPSLib\bin\Debug\ERPSLib.pdb
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPSLib\bin\Debug\ERPSLib.xml
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPSLib\obj\Debug\ERPSLib.Resources.resources
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPSLib\obj\Debug\ERPSLib.vbproj.GenerateResource.Cache
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPSLib\obj\Debug\ERPSLib.dll
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPSLib\obj\Debug\ERPSLib.xml
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPSLib\obj\Debug\ERPSLib.pdb

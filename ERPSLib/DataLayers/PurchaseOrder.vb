@@ -659,6 +659,95 @@
 
 #End Region
 
+#Region "Payment Term"
+
+        Public Shared Function ListDataPaymentTerm(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal strPOID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "SELECT " & vbNewLine & _
+                    "   A.ID, A.POID, A.Percentage, A.PaymentTypeID, B.Code AS PaymentTypeCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine & _
+                    "   A.Quantity, A.Weight, A.TotalWeight, E.TotalWeight-E.POInternalWeight+A.TotalWeight AS MaxTotalWeight, A.UnitPrice, A.CuttingPrice, A.TransportPrice, A.TotalPrice, A.SalesContractQuantity, " & vbNewLine & _
+                    "   A.SalesContractWeight, A.Remarks " & vbNewLine & _
+                    "FROM traPurchaseOrderPaymentTerm A " & vbNewLine & _
+                    "INNER JOIN mstPaymentType B ON " & vbNewLine & _
+                    "   A.PaymentTypeID=B.ID " & vbNewLine & _
+                    "INNER JOIN mstItemSpecification C ON " & vbNewLine & _
+                    "   B.ItemSpecificationID=C.ID " & vbNewLine & _
+                    "INNER JOIN mstItemType D ON " & vbNewLine & _
+                    "   B.ItemTypeID=D.ID " & vbNewLine & _
+                    "INNER JOIN traOrderRequestDet E ON " & vbNewLine & _
+                    "   A.OrderRequestDetailID=E.ID " & vbNewLine & _
+                    "WHERE " & vbNewLine & _
+                    "   A.POID=@POID " & vbNewLine
+
+                .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = strPOID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Sub SaveDataPaymentTerm(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                 ByVal clsData As VO.PurchaseOrderPaymentTerm)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "INSERT INTO traPurchaseOrderPaymentTerm " & vbNewLine & _
+                    "   (ID, POID, OrderRequestDetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, CuttingPrice, TransportPrice, TotalPrice, Remarks) " & vbNewLine & _
+                    "VALUES " & vbNewLine & _
+                    "   (@ID, @POID, @OrderRequestDetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @CuttingPrice, @TransportPrice, @TotalPrice, @Remarks) " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = clsData.POID
+                .Parameters.Add("@OrderRequestDetailID", SqlDbType.VarChar, 100).Value = clsData.OrderRequestDetailID
+                .Parameters.Add("@GroupID", SqlDbType.Int).Value = clsData.GroupID
+                .Parameters.Add("@ItemID", SqlDbType.Int).Value = clsData.ItemID
+                .Parameters.Add("@Quantity", SqlDbType.Decimal).Value = clsData.Quantity
+                .Parameters.Add("@Weight", SqlDbType.Decimal).Value = clsData.Weight
+                .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
+                .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = clsData.UnitPrice
+                .Parameters.Add("@CuttingPrice", SqlDbType.Decimal).Value = clsData.CuttingPrice
+                .Parameters.Add("@TransportPrice", SqlDbType.Decimal).Value = clsData.TransportPrice
+                .Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = clsData.TotalPrice
+                .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataPaymentTerm(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal strPOID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "DELETE FROM traPurchaseOrderPaymentTerm     " & vbNewLine & _
+                    "WHERE " & vbNewLine & _
+                    "   POID=@POID" & vbNewLine
+
+                .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = strPOID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+#End Region
+
 #Region "Status"
 
         Public Shared Function ListDataStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,

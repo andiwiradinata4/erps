@@ -276,6 +276,17 @@
 
 #End Region
 
+#Region "Payment Term"
+
+        Public Shared Function ListDataPaymentTerm(ByVal strPOID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseOrder.ListDataDetailInternal(sqlCon, Nothing, strPOID)
+            End Using
+        End Function
+
+#End Region
+
 #Region "Status"
 
         Public Shared Function ListDataStatus(ByVal strPOID As String) As DataTable

@@ -69,8 +69,10 @@
     <Compile Include="BusinessLayers\Base\JournalPost.vb" />
     <Compile Include="BusinessLayers\Base\Modules.vb" />
     <Compile Include="BusinessLayers\Base\ModulesAccess.vb" />
+    <Compile Include="BusinessLayers\Base\PaymentMode.vb" />
     <Compile Include="BusinessLayers\Base\PaymentReferences.vb" />
-    <Compile Include="BusinessLayers\Base\PaymentTerm.vb" />
+    <Compile Include="BusinessLayers\Base\PaymentType.vb" />
+    <Compile Include="BusinessLayers\Base\PaymentTypeCategory.vb" />
     <Compile Include="BusinessLayers\Base\Program.vb" />
     <Compile Include="BusinessLayers\Base\ProgramModules.vb" />
     <Compile Include="BusinessLayers\Base\Server.vb" />
@@ -92,8 +94,10 @@
     <Compile Include="DataLayers\Base\JournalPost.vb" />
     <Compile Include="DataLayers\Base\Modules.vb" />
     <Compile Include="DataLayers\Base\ModulesAccess.vb" />
+    <Compile Include="DataLayers\Base\PaymentMode.vb" />
     <Compile Include="DataLayers\Base\PaymentReferences.vb" />
-    <Compile Include="DataLayers\Base\PaymentTerm.vb" />
+    <Compile Include="DataLayers\Base\PaymentType.vb" />
+    <Compile Include="DataLayers\Base\PaymentTypeCategory.vb" />
     <Compile Include="DataLayers\Base\Program.vb" />
     <Compile Include="DataLayers\Base\ProgramModules.vb" />
     <Compile Include="DataLayers\Base\Server.vb" />
@@ -140,8 +144,10 @@
     <Compile Include="ValueObject\Base\JournalPost.vb" />
     <Compile Include="ValueObject\Base\Modules.vb" />
     <Compile Include="ValueObject\Base\ModulesAccess.vb" />
+    <Compile Include="ValueObject\Base\PaymentMode.vb" />
     <Compile Include="ValueObject\Base\PaymentReferences.vb" />
     <Compile Include="ValueObject\Base\PaymentTerm.vb" />
+    <Compile Include="ValueObject\Base\PaymentType.vb" />
     <Compile Include="ValueObject\Base\PostTax.vb" />
     <Compile Include="ValueObject\Base\Program.vb" />
     <Compile Include="ValueObject\Base\ProgramModules.vb" />
@@ -162,6 +168,7 @@
     <Compile Include="ValueObject\OrderRequest.vb" />
     <Compile Include="ValueObject\OrderRequestDet.vb" />
     <Compile Include="ValueObject\OrderRequestStatus.vb" />
+    <Compile Include="ValueObject\Base\PaymentTypeCategory.vb" />
     <Compile Include="ValueObject\PurchaseOrder.vb" />
     <Compile Include="ValueObject\PurchaseOrderDet.vb" />
     <Compile Include="ValueObject\PurchaseOrderDetInternal.vb" />

@@ -215,6 +215,42 @@
     <Compile Include="PresentationLayers\Forms\Master\frmMstModulesDet.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstPaymentMode.Designer.vb">
+      <DependentUpon>frmMstPaymentMode.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstPaymentMode.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstPaymentModeDet.Designer.vb">
+      <DependentUpon>frmMstPaymentModeDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstPaymentModeDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstPaymentType.Designer.vb">
+      <DependentUpon>frmMstPaymentType.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstPaymentType.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstPaymentTypeCategory.Designer.vb">
+      <DependentUpon>frmMstPaymentTypeCategory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstPaymentTypeCategory.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstPaymentTypeCategoryDet.Designer.vb">
+      <DependentUpon>frmMstPaymentTypeCategoryDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstPaymentTypeCategoryDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstPaymentTypeDet.Designer.vb">
+      <DependentUpon>frmMstPaymentTypeDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstPaymentTypeDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstProgram.designer.vb">
       <DependentUpon>frmMstProgram.vb</DependentUpon>
     </Compile>
@@ -392,6 +428,12 @@
     <Compile Include="PresentationLayers\SharedLib\Components\usComboBoxEdit.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\SharedLib\Components\usFormPaymentTerm.Designer.vb">
+      <DependentUpon>usFormPaymentTerm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\SharedLib\Components\usFormPaymentTerm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\SharedLib\Components\usFormRemarks.Designer.vb">
       <DependentUpon>usFormRemarks.vb</DependentUpon>
     </Compile>
@@ -494,6 +536,24 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstModulesDet.resx">
       <DependentUpon>frmMstModulesDet.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstPaymentMode.resx">
+      <DependentUpon>frmMstPaymentMode.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstPaymentModeDet.resx">
+      <DependentUpon>frmMstPaymentModeDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstPaymentType.resx">
+      <DependentUpon>frmMstPaymentType.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstPaymentTypeCategory.resx">
+      <DependentUpon>frmMstPaymentTypeCategory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstPaymentTypeCategoryDet.resx">
+      <DependentUpon>frmMstPaymentTypeCategoryDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstPaymentTypeDet.resx">
+      <DependentUpon>frmMstPaymentTypeDet.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstProgram.resx">
       <DependentUpon>frmMstProgram.vb</DependentUpon>
     </EmbeddedResource>
@@ -556,6 +616,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports1\frmReportPreview.resx">
       <DependentUpon>frmReportPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\SharedLib\Components\usFormPaymentTerm.resx">
+      <DependentUpon>usFormPaymentTerm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\SharedLib\Components\usFormRemarks.resx">
       <DependentUpon>usFormRemarks.vb</DependentUpon>

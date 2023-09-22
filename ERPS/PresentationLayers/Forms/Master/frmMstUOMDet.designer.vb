@@ -60,7 +60,7 @@ Partial Class frmMstUOMDet
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 228)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 210)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(449, 22)
         Me.StatusStrip.TabIndex = 0
@@ -119,7 +119,7 @@ Partial Class frmMstUOMDet
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlDetail.Location = New System.Drawing.Point(0, 50)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(449, 178)
+        Me.pnlDetail.Size = New System.Drawing.Size(449, 160)
         Me.pnlDetail.TabIndex = 2
         '
         'cboStatus
@@ -127,7 +127,7 @@ Partial Class frmMstUOMDet
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(95, 117)
+        Me.cboStatus.Location = New System.Drawing.Point(95, 109)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(160, 21)
         Me.cboStatus.TabIndex = 94
@@ -158,7 +158,7 @@ Partial Class frmMstUOMDet
         Me.lblName.AutoSize = True
         Me.lblName.BackColor = System.Drawing.Color.Transparent
         Me.lblName.ForeColor = System.Drawing.Color.Black
-        Me.lblName.Location = New System.Drawing.Point(31, 50)
+        Me.lblName.Location = New System.Drawing.Point(31, 46)
         Me.lblName.Name = "lblName"
         Me.lblName.Size = New System.Drawing.Size(34, 13)
         Me.lblName.TabIndex = 93
@@ -168,7 +168,7 @@ Partial Class frmMstUOMDet
         '
         Me.txtName.BackColor = System.Drawing.Color.White
         Me.txtName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtName.Location = New System.Drawing.Point(95, 47)
+        Me.txtName.Location = New System.Drawing.Point(95, 43)
         Me.txtName.MaxLength = 250
         Me.txtName.Multiline = True
         Me.txtName.Name = "txtName"
@@ -180,7 +180,7 @@ Partial Class frmMstUOMDet
         Me.lblStatusID.AutoSize = True
         Me.lblStatusID.BackColor = System.Drawing.Color.Transparent
         Me.lblStatusID.ForeColor = System.Drawing.Color.Black
-        Me.lblStatusID.Location = New System.Drawing.Point(31, 120)
+        Me.lblStatusID.Location = New System.Drawing.Point(31, 112)
         Me.lblStatusID.Name = "lblStatusID"
         Me.lblStatusID.Size = New System.Drawing.Size(38, 13)
         Me.lblStatusID.TabIndex = 93
@@ -214,7 +214,7 @@ Partial Class frmMstUOMDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(449, 250)
+        Me.ClientSize = New System.Drawing.Size(449, 232)
         Me.Controls.Add(Me.pnlDetail)
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)

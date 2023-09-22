@@ -8,6 +8,7 @@ Public Class frmTraPurchaseOrderDet
     Private intBPID As Integer = 0
     Private dtItemRequest As New DataTable
     Private dtItemOrder As New DataTable
+    Private dtPaymentTerm As New DataTable
     Private intPos As Integer = 0
     Private strOrderRequestID As String = ""
     Property pubID As String = ""
@@ -384,6 +385,13 @@ Public Class frmTraPurchaseOrderDet
     End Sub
 
     Private Sub prvSumGrid()
+        '# Payment Term
+        Dim SumTotalPercentagePayment As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Percentage", "Total: {0:#,##0.00}")
+
+        If grdPaymentTermView.Columns("Percentage").SummaryText.Trim = "" Then
+            grdPaymentTermView.Columns("Percentage").Summary.Add(SumTotalPercentagePayment)
+        End If
+
         '# Request | PO Detail Internal
         Dim SumTotalQuantityRequest As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
         Dim SumGrandTotalWeightRequest As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
@@ -647,8 +655,71 @@ Public Class frmTraPurchaseOrderDet
 
 #Region "Payment Term Handle"
 
-    Private Sub prvQueryPaymentTerm()
+    Private Sub prvSetButtonPaymentTerm()
+        Dim bolEnabled As Boolean = IIf(grdPaymentTermView.RowCount = 0, False, True)
+        With ToolBarPaymentTerm
+            .Buttons(cEditItem).Enabled = bolEnabled
+            .Buttons(cDeleteItem).Enabled = bolEnabled
+        End With
+    End Sub
 
+    Private Sub prvQueryPaymentTerm()
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 30
+        Application.DoEvents()
+        Try
+            dtPaymentTerm = BL.PurchaseOrder.ListDataDetailInternal(pubID.Trim)
+            grdPaymentTerm.DataSource = dtPaymentTerm
+            prvSumGrid()
+            grdItemRequestView.BestFitColumns()
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+            Me.Close()
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+            Application.DoEvents()
+            prvSetButtonPaymentTerm()
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+    Private Sub prvAddPaymentTerm()
+        Dim frmDetail As New usFormPaymentTerm
+        With frmDetail
+            .pubDataParent = dtPaymentTerm
+            .pubIsNew = True
+            .pubID = ""
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog(Me)
+            prvSetButtonPaymentTerm()
+        End With
+    End Sub
+
+    Private Sub prvEditPaymentTerm()
+        intPos = grdPaymentTermView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim frmDetail As New usFormPaymentTerm
+        With frmDetail
+            .pubDataParent = dtPaymentTerm
+            .pubIsNew = True
+            .pubID = grdPaymentTermView.GetRowCellValue(intPos, "ID")
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog(Me)
+        End With
+    End Sub
+
+    Private Sub prvDeletePaymentTerm()
+        intPos = grdPaymentTermView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdPaymentTermView.GetRowCellValue(intPos, "ID")
+        For Each dr As DataRow In dtPaymentTerm.Rows
+            If dr.Item("ID") = strID Then
+                dr.Delete()
+            End If
+        Next
+        dtPaymentTerm.AcceptChanges()
+        prvSetButtonPaymentTerm()
     End Sub
 
 #End Region
@@ -700,6 +771,7 @@ Public Class frmTraPurchaseOrderDet
         ToolBar.SetIcon(Me)
         ToolBarDetailRequest.SetIcon(Me)
         ToolBarDetailOrder.SetIcon(Me)
+        ToolBarPaymentTerm.SetIcon(Me)
         prvSetTitleForm()
         prvSetGrid()
         prvFillForm()
@@ -742,12 +814,17 @@ Public Class frmTraPurchaseOrderDet
     End Sub
 
     Private Sub ToolBarPaymentTerm_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarPaymentTerm.ButtonClick
-
+        Select Case e.Button.Text.Trim
+            Case "Tambah" : prvAddPaymentTerm()
+            Case "Edit" : prvEditPaymentTerm()
+            Case "Hapus" : prvDeletePaymentTerm()
+        End Select
     End Sub
-
-#End Region
 
     Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtPPN.ValueChanged, txtPPH.ValueChanged
         prvCalculate()
     End Sub
+
+#End Region
+
 End Class
