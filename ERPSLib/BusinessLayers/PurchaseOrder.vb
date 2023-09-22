@@ -238,7 +238,7 @@
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
                     End If
 
-                    DL.PurchaseOrder.Unsubmit(sqlCon, sqlTrans, strID)
+                    DL.PurchaseOrder.Unapprove(sqlCon, sqlTrans, strID)
 
                     '# Save Data Status
                     BL.PurchaseOrder.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)

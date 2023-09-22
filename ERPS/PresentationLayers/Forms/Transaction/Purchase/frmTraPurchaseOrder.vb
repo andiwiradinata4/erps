@@ -10,8 +10,8 @@ Public Class frmTraPurchaseOrder
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
-       cSep2 As Byte = 8, cExportExcel As Byte = 9, cSep3 As Byte = 10, cRefresh As Byte = 11,
-       cClose As Byte = 12
+       cSep2 As Byte = 8, cPrint As Byte = 9, cExportExcel As Byte = 10, cSep3 As Byte = 11, cRefresh As Byte = 12,
+       cClose As Byte = 13
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -76,6 +76,7 @@ Public Class frmTraPurchaseOrder
             .Item(cCancelSubmit).Enabled = bolEnable
             .Item(cApprove).Enabled = bolEnable
             .Item(cCancelApprove).Enabled = bolEnable
+            .Item(cPrint).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
         End With
     End Sub
@@ -322,15 +323,85 @@ Public Class frmTraPurchaseOrder
     Private Sub prvApprove()
         intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+        If Not UI.usForm.frmAskQuestion("Approve Nomor " & clsData.PONumber & "?") Then Exit Sub
 
-
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+        Application.DoEvents()
+        Try
+            BL.PurchaseOrder.Approve(clsData.ID, "")
+            pgMain.Value = 100
+            Application.DoEvents()
+            UI.usForm.frmMessageBox("Approve data berhasil.")
+            pubRefresh(grdView.GetRowCellValue(intPos, "PONumber"))
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+            Application.DoEvents()
+            prvResetProgressBar()
+        End Try
     End Sub
 
     Private Sub prvCancelApprove()
         intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+        If Not UI.usForm.frmAskQuestion("Batal Approve Nomor " & clsData.PONumber & "?") Then Exit Sub
 
+        Dim frmDetail As New usFormRemarks
+        With frmDetail
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsSave Then
+                clsData.Remarks = .pubValue
+            Else
+                Exit Sub
+            End If
+        End With
 
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+        Application.DoEvents()
+        Try
+            BL.PurchaseOrder.Unapprove(clsData.ID, clsData.Remarks)
+            pgMain.Value = 100
+            Application.DoEvents()
+            UI.usForm.frmMessageBox("Batal approve data berhasil.")
+            pubRefresh(grdView.GetRowCellValue(intPos, "PONumber"))
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+            Application.DoEvents()
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+    Private Sub prvPrint()
+
+    End Sub
+
+    Private Sub prvExportExcel()
+        Dim dxExporter As New DX.usDXHelper
+        dxExporter.DevExport(Me, grdMain, Me.Text, Me.Text, DX.usDxExportFormat.fXls, True, True, DX.usDXExportType.etDefault)
+    End Sub
+
+    Private Sub prvUserAccess()
+        With ToolBar.Buttons
+            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.NewAccess)
+            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.DeleteAccess)
+            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.SubmitAccess)
+            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.CancelSubmitAccess)
+            .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.ApproveAccess)
+            .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.CancelApproveAccess)
+            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.ExportExcelAccess)
+        End With
     End Sub
 
     Private Sub prvClear()
@@ -408,23 +479,6 @@ Public Class frmTraPurchaseOrder
         End If
     End Sub
 
-    Private Sub prvExportExcel()
-        Dim dxExporter As New DX.usDXHelper
-        dxExporter.DevExport(Me, grdMain, Me.Text, Me.Text, DX.usDxExportFormat.fXls, True, True, DX.usDXExportType.etDefault)
-    End Sub
-
-    Private Sub prvUserAccess()
-        With ToolBar.Buttons
-            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.NewAccess)
-            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.DeleteAccess)
-            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.SubmitAccess)
-            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.CancelSubmitAccess)
-            .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.ApproveAccess)
-            .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.CancelApproveAccess)
-            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.ExportExcelAccess)
-        End With
-    End Sub
-
 #Region "Form Handle"
 
     Private Sub frmTraPurchaseOrder_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -460,6 +514,7 @@ Public Class frmTraPurchaseOrder
                 Case ToolBar.Buttons(cDelete).Name : prvDelete()
                 Case ToolBar.Buttons(cSubmit).Name : prvSubmit()
                 Case ToolBar.Buttons(cCancelSubmit).Name : prvCancelSubmit()
+                Case ToolBar.Buttons(cPrint).Name : prvPrint()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If

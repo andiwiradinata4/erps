@@ -456,8 +456,8 @@
             End Try
         End Sub
 
-        Public Shared Sub Unapproved(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                     ByVal strID As String)
+        Public Shared Sub Unapprove(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                    ByVal strID As String)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon

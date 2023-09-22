@@ -53,6 +53,7 @@ Partial Class frmTraPurchaseOrder
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.pgMain = New System.Windows.Forms.ProgressBar()
+        Me.BarPrint = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -62,7 +63,7 @@ Partial Class frmTraPurchaseOrder
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarExportExcel, Me.BarSep3, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarPrint, Me.BarExportExcel, Me.BarSep3, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -327,6 +328,12 @@ Partial Class frmTraPurchaseOrder
         Me.pgMain.Size = New System.Drawing.Size(984, 23)
         Me.pgMain.TabIndex = 3
         '
+        'BarPrint
+        '
+        Me.BarPrint.Name = "BarPrint"
+        Me.BarPrint.Tag = "Print"
+        Me.BarPrint.Text = "Print"
+        '
         'frmTraPurchaseOrder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -379,4 +386,5 @@ Partial Class frmTraPurchaseOrder
     Friend WithEvents pgMain As System.Windows.Forms.ProgressBar
     Friend WithEvents BarApprove As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarCancelApprove As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarPrint As System.Windows.Forms.ToolBarButton
 End Class
