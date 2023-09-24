@@ -57,10 +57,10 @@
     Public Sub pubRefresh(Optional ByVal strSearch As String = "")
         With grdView
             If Not grdView.FocusedValue Is Nothing And strSearch = "" Then
-                strSearch = grdView.GetDataRow(grdView.FocusedRowHandle).Item("Name")
+                strSearch = grdView.GetDataRow(grdView.FocusedRowHandle).Item("Code")
             End If
             prvQuery()
-            If grdView.RowCount > 0 Then UI.usForm.GridMoveRow(grdView, "Name", strSearch)
+            If grdView.RowCount > 0 Then UI.usForm.GridMoveRow(grdView, "Code", strSearch)
         End With
     End Sub
 
@@ -106,7 +106,7 @@
         Try
             BL.BusinessPartner.DeleteData(grdView.GetRowCellValue(intPos, "ID"))
             UI.usForm.frmMessageBox("Hapus data berhasil.")
-            pubRefresh(grdView.GetRowCellValue(intPos, "Name"))
+            pubRefresh(grdView.GetRowCellValue(intPos, "Code"))
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         End Try

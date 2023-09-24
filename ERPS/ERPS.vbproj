@@ -359,6 +359,30 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrder.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderCutting.Designer.vb">
+      <DependentUpon>frmTraPurchaseOrderCutting.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderCutting.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderCuttingDet.Designer.vb">
+      <DependentUpon>frmTraPurchaseOrderCuttingDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderCuttingDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderCuttingDetItem.Designer.vb">
+      <DependentUpon>frmTraPurchaseOrderCuttingDetItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderCuttingDetItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderCuttingDetItemOutstanding.Designer.vb">
+      <DependentUpon>frmTraPurchaseOrderCuttingDetItemOutstanding.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderCuttingDetItemOutstanding.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderDet.Designer.vb">
       <DependentUpon>frmTraPurchaseOrderDet.vb</DependentUpon>
     </Compile>
@@ -616,6 +640,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrder.resx">
       <DependentUpon>frmTraPurchaseOrder.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderCutting.resx">
+      <DependentUpon>frmTraPurchaseOrderCutting.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderCuttingDet.resx">
+      <DependentUpon>frmTraPurchaseOrderCuttingDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderCuttingDetItem.resx">
+      <DependentUpon>frmTraPurchaseOrderCuttingDetItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderCuttingDetItemOutstanding.resx">
+      <DependentUpon>frmTraPurchaseOrderCuttingDetItemOutstanding.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderDet.resx">
       <DependentUpon>frmTraPurchaseOrderDet.vb</DependentUpon>

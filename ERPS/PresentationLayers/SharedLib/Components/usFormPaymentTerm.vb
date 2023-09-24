@@ -169,6 +169,14 @@
 
 #Region "Form Handle"
 
+    Private Sub usFormPaymentTerm_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        If e.KeyCode = Keys.Escape Then
+            If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
+        ElseIf (e.Control And e.KeyCode = Keys.S) Then
+            prvSave()
+        End If
+    End Sub
+
     Private Sub usFormPaymentTerm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ToolBar.SetIcon(Me)
         prvFillFom()

@@ -16,8 +16,7 @@
             Return strReturn
         End Function
 
-        Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.Item) As Boolean
-            Dim bolReturn As Boolean = False
+        Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.Item) As String
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Try
@@ -31,7 +30,7 @@
                 Catch ex As Exception
                     Throw ex
                 End Try
-                Return bolReturn
+                Return clsData.ItemCode
             End Using
         End Function
 

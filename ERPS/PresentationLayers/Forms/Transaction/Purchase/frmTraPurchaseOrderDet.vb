@@ -119,7 +119,7 @@ Public Class frmTraPurchaseOrderDet
 
     Private Sub prvFillCombo()
         Try
-            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionOrderRequest), "StatusID", "StatusName")
+            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionPurchaseOrder), "StatusID", "StatusName")
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -216,6 +216,16 @@ Public Class frmTraPurchaseOrderDet
             UI.usForm.frmMessageBox("Item Pesanan kosong. Mohon untuk diinput item terlebih dahulu")
             tcDetail.SelectedTab = tpOrder
             grdItemOrderView.Focus()
+            Exit Sub
+        ElseIf grdPaymentTermView.RowCount = 0 Then
+            UI.usForm.frmMessageBox("Syarat pembayaran kosong. Mohon untuk diinput syarat pembayaran terlebih dahulu")
+            tcHeader.SelectedTab = tpPaymentTerm
+            grdPaymentTermView.Focus()
+            Exit Sub
+        ElseIf grdPaymentTermView.Columns("Percentage").SummaryItem.SummaryValue <> 100 Then
+            UI.usForm.frmMessageBox("Total persentase syarat pembayaran harus 100%")
+            tcHeader.SelectedTab = tpPaymentTerm
+            grdPaymentTermView.Focus()
             Exit Sub
         End If
 
@@ -328,6 +338,7 @@ Public Class frmTraPurchaseOrderDet
                 prvQueryItemRequest()
                 prvQueryItemOrder()
                 prvQueryHistory()
+                prvQueryPaymentTerm()
             Else
                 Me.Close()
             End If
@@ -810,14 +821,6 @@ Public Class frmTraPurchaseOrderDet
         End Select
     End Sub
 
-    Private Sub btnBP_Click(sender As Object, e As EventArgs) Handles btnBP.Click
-        prvChooseBP()
-    End Sub
-
-    Private Sub btnPermintaan_Click(sender As Object, e As EventArgs) Handles btnPermintaan.Click
-        prvChooseOrderRequest()
-    End Sub
-
     Private Sub ToolBarDetailRequest_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarDetailRequest.ButtonClick
         Select Case e.Button.Text.Trim
             Case "Tambah" : prvAddItemRequest()
@@ -840,6 +843,14 @@ Public Class frmTraPurchaseOrderDet
             Case "Edit" : prvEditPaymentTerm()
             Case "Hapus" : prvDeletePaymentTerm()
         End Select
+    End Sub
+
+    Private Sub btnBP_Click(sender As Object, e As EventArgs) Handles btnBP.Click
+        prvChooseBP()
+    End Sub
+
+    Private Sub btnPermintaan_Click(sender As Object, e As EventArgs) Handles btnPermintaan.Click
+        prvChooseOrderRequest()
     End Sub
 
     Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtPPN.ValueChanged, txtPPH.ValueChanged

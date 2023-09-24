@@ -227,7 +227,6 @@ Public Class frmTraPurchaseOrderDetItem
                 With dr
                     If .Item("ID") = strID Then
                         .BeginEdit()
-                        .Item("ID") = Guid.NewGuid
                         .Item("POID") = ""
                         .Item("OrderRequestDetailID") = strOrderRequestDetailID
                         .Item("GroupID") = intGroupID
@@ -401,10 +400,6 @@ Public Class frmTraPurchaseOrderDetItem
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
-        'Select Case e.Button.Text.Trim
-        '    Case "Simpan" : prvSave()
-        '    Case "Tutup" : Me.Close()
-        'End Select
         Select Case e.Button.Name
             Case ToolBar.Buttons(cSave).Name : prvSave()
             Case ToolBar.Buttons(cClose).Name : Me.Close()

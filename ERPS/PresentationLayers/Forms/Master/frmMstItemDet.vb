@@ -120,16 +120,11 @@
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
 
         Try
-            BL.Item.SaveData(pubIsNew, clsData)
-            If pubIsNew Then
-                UI.usForm.frmMessageBox("Data berhasil disimpan.")
-                frmParent.pubRefresh()
-                prvClear()
-            Else
-                pubIsSave = True
-                frmParent.pubRefresh()
-                Me.Close()
-            End If
+            Dim strCode As String = BL.Item.SaveData(pubIsNew, clsData)
+            UI.usForm.frmMessageBox("Data berhasil disimpan.")
+            frmParent.pubRefresh(strCode)
+            prvClear()
+            If Not pubIsNew Then Me.Close()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         End Try

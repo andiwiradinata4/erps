@@ -88,6 +88,7 @@
     <Compile Include="BusinessLayers\ItemType.vb" />
     <Compile Include="BusinessLayers\OrderRequest.vb" />
     <Compile Include="BusinessLayers\PurchaseOrder.vb" />
+    <Compile Include="BusinessLayers\PurchaseOrderCutting.vb" />
     <Compile Include="DataLayers\Base\Access.vb" />
     <Compile Include="DataLayers\Base\Company.vb" />
     <Compile Include="DataLayers\Base\CompanyBankAccount.vb" />
@@ -114,6 +115,7 @@
     <Compile Include="DataLayers\ItemType.vb" />
     <Compile Include="DataLayers\OrderRequest.vb" />
     <Compile Include="DataLayers\PurchaseOrder.vb" />
+    <Compile Include="DataLayers\PurchaseOrderCutting.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -170,6 +172,8 @@
     <Compile Include="ValueObject\OrderRequestStatus.vb" />
     <Compile Include="ValueObject\Base\PaymentTypeCategory.vb" />
     <Compile Include="ValueObject\PurchaseOrder.vb" />
+    <Compile Include="ValueObject\PurchaseOrderCutting.vb" />
+    <Compile Include="ValueObject\PurchaseOrderCuttingDet.vb" />
     <Compile Include="ValueObject\PurchaseOrderDet.vb" />
     <Compile Include="ValueObject\PurchaseOrderDetInternal.vb" />
     <Compile Include="ValueObject\PurchaseOrderPaymentTerm.vb" />

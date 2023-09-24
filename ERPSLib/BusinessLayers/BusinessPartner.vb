@@ -18,8 +18,7 @@
             Return strReturn
         End Function
 
-        Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.BusinessPartner) As Integer
-            Dim bolReturn As Boolean = False
+        Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.BusinessPartner) As String
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Try
@@ -34,7 +33,7 @@
                     Throw ex
                 End Try
             End Using
-            Return bolReturn
+            Return clsData.Code
         End Function
 
         Public Shared Function GetDetail(ByVal intID As Integer) As VO.BusinessPartner
