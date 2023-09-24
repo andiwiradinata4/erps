@@ -6,6 +6,7 @@ Public Class frmTraPurchaseOrder
     Private intProgramID As Integer
     Private intCompanyID As Integer
     Private dtData As New DataTable
+    Private bolExport As Boolean
 
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
@@ -384,24 +385,57 @@ Public Class frmTraPurchaseOrder
     End Sub
 
     Private Sub prvPrint()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+        Application.DoEvents()
 
+        Try
+            Dim dtData As DataTable = BL.PurchaseOrder.Print(intProgramID, intCompanyID, strID)
+            Dim intStatusID As Integer = 0
+            For Each dr As DataRow In dtData.Rows
+                intStatusID = dr.Item("StatusID")
+                Exit For
+            Next
+
+            Dim crReport As New rptPurchaseOrder
+
+            '# Setup Watermark Report
+            If intStatusID <> VO.Status.Values.Approved Then
+                crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
+                crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
+                crReport.Watermark.Font = New System.Drawing.Font("Tahoma", 70.0!, System.Drawing.FontStyle.Bold)
+                crReport.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.Horizontal
+                crReport.Watermark.TextTransparency = 150
+            End If
+
+            crReport.DataSource = dtData
+            crReport.CreateDocument(True)
+            crReport.ShowPreviewMarginLines = False
+            crReport.ShowPrintMarginsWarning = False
+
+            Dim frmDetail As New frmReportPreview
+            With frmDetail
+                .docViewer.DocumentSource = crReport
+                .pgExportButton.Enabled = bolExport
+                .Text = Me.Text & " - " & VO.Reports.PrintOut
+                .WindowState = FormWindowState.Maximized
+                .Show()
+            End With
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            pgMain.Value = 100
+            Application.DoEvents()
+            prvResetProgressBar()
+        End Try
     End Sub
 
     Private Sub prvExportExcel()
         Dim dxExporter As New DX.usDXHelper
         dxExporter.DevExport(Me, grdMain, Me.Text, Me.Text, DX.usDxExportFormat.fXls, True, True, DX.usDXExportType.etDefault)
-    End Sub
-
-    Private Sub prvUserAccess()
-        With ToolBar.Buttons
-            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.NewAccess)
-            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.DeleteAccess)
-            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.SubmitAccess)
-            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.CancelSubmitAccess)
-            .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.ApproveAccess)
-            .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.CancelApproveAccess)
-            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.ExportExcelAccess)
-        End With
     End Sub
 
     Private Sub prvClear()
@@ -479,6 +513,19 @@ Public Class frmTraPurchaseOrder
         End If
     End Sub
 
+    Private Sub prvUserAccess()
+        With ToolBar.Buttons
+            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.NewAccess)
+            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.DeleteAccess)
+            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.SubmitAccess)
+            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.CancelSubmitAccess)
+            .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.ApproveAccess)
+            .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.CancelApproveAccess)
+            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.ExportExcelAccess)
+            bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.ExportReportAccess)
+        End With
+    End Sub
+
 #Region "Form Handle"
 
     Private Sub frmTraPurchaseOrder_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -514,6 +561,8 @@ Public Class frmTraPurchaseOrder
                 Case ToolBar.Buttons(cDelete).Name : prvDelete()
                 Case ToolBar.Buttons(cSubmit).Name : prvSubmit()
                 Case ToolBar.Buttons(cCancelSubmit).Name : prvCancelSubmit()
+                Case ToolBar.Buttons(cApprove).Name : prvApprove()
+                Case ToolBar.Buttons(cCancelApprove).Name : prvCancelApprove()
                 Case ToolBar.Buttons(cPrint).Name : prvPrint()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select

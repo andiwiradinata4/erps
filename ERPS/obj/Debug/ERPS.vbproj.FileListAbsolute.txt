@@ -130,3 +130,12 @@ C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmMstPaymentModeDet
 C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmMstPaymentType.resources
 C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmMstPaymentTypeDet.resources
 C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.usFormPaymentTerm.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstPaymentMode.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstPaymentModeDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstPaymentType.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstPaymentTypeCategory.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstPaymentTypeCategoryDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstPaymentTypeDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmReportPreview.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.usFormPaymentTerm.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptPurchaseOrder.resources

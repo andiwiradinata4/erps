@@ -6,9 +6,9 @@
         Property ItemName As String
         Property ItemTypeID As Integer
         Property ItemSpecificationID As Integer
-        Property Thick As String
-        Property Width As String
-        Property Length As String
+        Property Thick As Decimal
+        Property Width As Decimal
+        Property Length As Decimal
         Property Weight As Decimal
         Property UOMID As Integer
         Property BasePrice As Decimal

@@ -481,6 +481,47 @@
             End Try
         End Sub
 
+        Public Shared Function Print(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                     ByVal strID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "SELECT 	" & vbNewLine & _
+                    "	POH.ID, POH.PONumber, POH.CompanyID, MC.Name AS CompanyName, MC.Address AS CompanyAddress, MC.City AS CompanyCity, POH.ProgramID, 	" & vbNewLine & _
+                    "	MP.Name AS ProgramName, POH.PODate, POH.BPID, BP.Code AS BPCode, BP.Name AS BPName, 	" & vbNewLine & _
+                    "	POH.PersonInCharge, CAST('' AS VARCHAR(100)) AS DeliveryPeriod, POH.DeliveryPeriodFrom, 	" & vbNewLine & _
+                    "	POH.DeliveryPeriodTo, POH.DeliveryAddress, POH.Validity, POH.PPN, POH.PPH, POH.TotalWeight, POH.TotalDPP, 	" & vbNewLine & _
+                    "	POH.TotalPPN, POH.TotalPPH, POH.TotalDPP+POH.TotalPPN-POH.TotalPPH AS GrandTotal, 	" & vbNewLine & _
+                    "	POH.RoundingManual, POH.Remarks, CAST('' AS VARCHAR(300)) AS PaymentTerms, CAST('' AS VARCHAR(300)) AS PODateAndCity, 	" & vbNewLine & _
+                    "	POD.ItemID, MI.ItemCode, MI.ItemName, MI.ItemTypeID, IT.Description ItemType, 	" & vbNewLine & _
+                    "	MI.ItemSpecificationID, MIS.Description AS ItemSpec, MI.Thick AS ItemThick, 	" & vbNewLine & _
+                    "	MI.Width AS ItemWidth, MI.Length AS ItemLength, POD.Quantity, POD.Weight, 	" & vbNewLine & _
+                    "	POD.TotalWeight AS TotalWeightItem, POD.UnitPrice, POD.TotalPrice, POH.StatusID " & vbNewLine & _
+                    "FROM traPurchaseOrder POH 	" & vbNewLine & _
+                    "INNER JOIN mstCompany MC ON 	" & vbNewLine & _
+                    "	POH.CompanyID=MC.ID 	" & vbNewLine & _
+                    "INNER JOIN mstProgram MP ON 	" & vbNewLine & _
+                    "	POH.ProgramID=MP.ID 	" & vbNewLine & _
+                    "INNER JOIN traPurchaseOrderDet POD ON 	" & vbNewLine & _
+                    "	POH.ID=POD.POID 	" & vbNewLine & _
+                    "INNER JOIN mstBusinessPartner BP ON	 	" & vbNewLine & _
+                    "	POH.BPID=BP.ID 	" & vbNewLine & _
+                    "INNER JOIN mstItem MI ON 	" & vbNewLine & _
+                    "	POD.ItemID=MI.ID 	" & vbNewLine & _
+                    "INNER JOIN mstItemType IT ON 	" & vbNewLine & _
+                    "	MI.ItemTypeID=IT.ID 	" & vbNewLine & _
+                    "INNER JOIN mstItemSpecification MIS ON 	" & vbNewLine & _
+                    "	MI.ItemSpecificationID=MIS.ID 	" & vbNewLine & _
+                    "WHERE POH.ID=@ID	" & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
 #End Region
 
 #Region "Detail"
@@ -670,19 +711,13 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "SELECT " & vbNewLine & _
-                    "   A.ID, A.POID, A.Percentage, A.PaymentTypeID, B.Code AS PaymentTypeCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
-                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine & _
-                    "   A.Quantity, A.Weight, A.TotalWeight, E.TotalWeight-E.POInternalWeight+A.TotalWeight AS MaxTotalWeight, A.UnitPrice, A.CuttingPrice, A.TransportPrice, A.TotalPrice, A.SalesContractQuantity, " & vbNewLine & _
-                    "   A.SalesContractWeight, A.Remarks " & vbNewLine & _
+                    "   A.ID, A.POID, A.Percentage, A.PaymentTypeID, B.Code AS PaymentTypeCode, B.Name AS PaymentTypeName, " & vbNewLine & _
+                    "   A.PaymentModeID, C.Code AS PaymentModeCode, C.Name AS PaymentModeName, A.CreditTerm, A.Remarks " & vbNewLine & _
                     "FROM traPurchaseOrderPaymentTerm A " & vbNewLine & _
                     "INNER JOIN mstPaymentType B ON " & vbNewLine & _
                     "   A.PaymentTypeID=B.ID " & vbNewLine & _
-                    "INNER JOIN mstItemSpecification C ON " & vbNewLine & _
-                    "   B.ItemSpecificationID=C.ID " & vbNewLine & _
-                    "INNER JOIN mstItemType D ON " & vbNewLine & _
-                    "   B.ItemTypeID=D.ID " & vbNewLine & _
-                    "INNER JOIN traOrderRequestDet E ON " & vbNewLine & _
-                    "   A.OrderRequestDetailID=E.ID " & vbNewLine & _
+                    "INNER JOIN mstPaymentMode C ON " & vbNewLine & _
+                    "   A.PaymentModeID=C.ID " & vbNewLine & _
                     "WHERE " & vbNewLine & _
                     "   A.POID=@POID " & vbNewLine
 
@@ -692,7 +727,7 @@
         End Function
 
         Public Shared Sub SaveDataPaymentTerm(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                 ByVal clsData As VO.PurchaseOrderPaymentTerm)
+                                              ByVal clsData As VO.PurchaseOrderPaymentTerm)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -700,22 +735,16 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "INSERT INTO traPurchaseOrderPaymentTerm " & vbNewLine & _
-                    "   (ID, POID, OrderRequestDetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, CuttingPrice, TransportPrice, TotalPrice, Remarks) " & vbNewLine & _
+                    "   (ID, POID, Percentage, PaymentTypeID, PaymentModeID, CreditTerm, Remarks) " & vbNewLine & _
                     "VALUES " & vbNewLine & _
-                    "   (@ID, @POID, @OrderRequestDetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @CuttingPrice, @TransportPrice, @TotalPrice, @Remarks) " & vbNewLine
+                    "   (@ID, @POID, @Percentage, @PaymentTypeID, @PaymentModeID, @CreditTerm, @Remarks) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = clsData.POID
-                .Parameters.Add("@OrderRequestDetailID", SqlDbType.VarChar, 100).Value = clsData.OrderRequestDetailID
-                .Parameters.Add("@GroupID", SqlDbType.Int).Value = clsData.GroupID
-                .Parameters.Add("@ItemID", SqlDbType.Int).Value = clsData.ItemID
-                .Parameters.Add("@Quantity", SqlDbType.Decimal).Value = clsData.Quantity
-                .Parameters.Add("@Weight", SqlDbType.Decimal).Value = clsData.Weight
-                .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
-                .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = clsData.UnitPrice
-                .Parameters.Add("@CuttingPrice", SqlDbType.Decimal).Value = clsData.CuttingPrice
-                .Parameters.Add("@TransportPrice", SqlDbType.Decimal).Value = clsData.TransportPrice
-                .Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = clsData.TotalPrice
+                .Parameters.Add("@Percentage", SqlDbType.Decimal).Value = clsData.Percentage
+                .Parameters.Add("@PaymentTypeID", SqlDbType.Int).Value = clsData.PaymentTypeID
+                .Parameters.Add("@PaymentModeID", SqlDbType.Int).Value = clsData.PaymentModeID
+                .Parameters.Add("@CreditTerm", SqlDbType.Int).Value = clsData.CreditTerm
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
             End With
             Try
@@ -745,6 +774,39 @@
                 Throw ex
             End Try
         End Sub
+
+        Public Shared Function GetMaxIDPaymentTerm(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal strPOID As String) As Integer
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim intReturn As Integer = 0
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText = _
+                        "SELECT TOP 1 ISNULL(RIGHT(ID,3),'000') AS ID " & vbNewLine & _
+                        "FROM traPurchaseOrderPaymentTerm " & vbNewLine & _
+                        "WHERE " & vbNewLine & _
+                        "   POID=@POID " & vbNewLine & _
+                        "ORDER BY ID DESC " & vbNewLine
+
+                    .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = strPOID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        intReturn = .Item("ID")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return intReturn
+        End Function
 
 #End Region
 
@@ -782,7 +844,7 @@
                     "VALUES " & vbNewLine & _
                     "   (@ID, @POID, @Status, @StatusBy, GETDATE(), @Remarks) " & vbNewLine
 
-                .Parameters.Add("@ID", SqlDbType.VarChar, 30).Value = clsData.ID
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = clsData.POID
                 .Parameters.Add("@Status", SqlDbType.VarChar, 100).Value = clsData.Status
                 .Parameters.Add("@StatusBy", SqlDbType.VarChar, 20).Value = clsData.StatusBy

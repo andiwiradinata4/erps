@@ -48,9 +48,9 @@
                 txtItemCode.Text = clsData.ItemCode
                 txtItemName.Text = clsData.ItemName
                 cboItemType.SelectedValue = clsData.ItemTypeID
-                txtThick.Text = clsData.Thick
-                txtWidth.Text = clsData.Width
-                txtLength.Text = clsData.Length
+                txtThick.Value = clsData.Thick
+                txtWidth.Value = clsData.Width
+                txtLength.Value = clsData.Length
                 txtWeight.Value = clsData.Weight
                 cboItemSpecification.SelectedValue = clsData.ItemSpecificationID
                 txtBasePrice.Value = clsData.BasePrice
@@ -68,11 +68,7 @@
     End Sub
 
     Private Sub prvSave()
-        If txtItemCode.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Kode tidak boleh kosong")
-            txtItemCode.Focus()
-            Exit Sub
-        ElseIf cboItemType.SelectedIndex = -1 Then
+        If cboItemType.SelectedIndex = -1 Then
             UI.usForm.frmMessageBox("Pilih tipe terlebih dahulu")
             cboItemType.Focus()
             Exit Sub
@@ -80,17 +76,13 @@
             UI.usForm.frmMessageBox("Nama tidak boleh kosong")
             txtItemName.Focus()
             Exit Sub
-        ElseIf txtThick.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Tebal tidak boleh kosong")
+        ElseIf txtThick.Value <= 0 Then
+            UI.usForm.frmMessageBox("Tebal harus lebih besar dari 0")
             txtThick.Focus()
             Exit Sub
-        ElseIf txtWidth.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Lebar tidak boleh kosong")
+        ElseIf txtWidth.Value <= 0 Then
+            UI.usForm.frmMessageBox("Lebar harus lebih besar dari 0")
             txtWidth.Focus()
-            Exit Sub
-        ElseIf txtLength.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Panjang tidak boleh kosong")
-            txtLength.Focus()
             Exit Sub
         ElseIf txtWeight.Value <= 0 Then
             UI.usForm.frmMessageBox("Berat harus lebih besar dari 0")
@@ -117,9 +109,9 @@
         clsData.ItemCode = txtItemCode.Text.Trim
         clsData.ItemTypeID = cboItemType.SelectedValue
         clsData.ItemName = txtItemName.Text.Trim
-        clsData.Thick = txtThick.Text.Trim
-        clsData.Width = txtWidth.Text.Trim
-        clsData.Length = txtLength.Text.Trim
+        clsData.Thick = txtThick.Value
+        clsData.Width = txtWidth.Value
+        clsData.Length = txtLength.Value
         clsData.Weight = txtWeight.Value
         clsData.ItemSpecificationID = cboItemSpecification.SelectedValue
         clsData.BasePrice = txtBasePrice.Value
@@ -147,9 +139,9 @@
         txtItemCode.Text = ""
         txtItemName.Text = ""
         cboItemType.SelectedIndex = -1
-        txtThick.Text = "0"
-        txtWidth.Text = "0"
-        txtLength.Text = ""
+        txtThick.Value = 0
+        txtWidth.Value = 0
+        txtLength.Value = 0
         txtWeight.Value = 0
         cboItemSpecification.SelectedIndex = -1
         txtBasePrice.Value = 0

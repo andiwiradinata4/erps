@@ -5,7 +5,6 @@
     Private intPaymentTypeID As Integer
     Private intPaymentModeID As Integer
     Private dtParent As New DataTable
-    Private clsData As New VO.PaymentTerm
     Private bolIsNew As Boolean = False
     Private bolIsSave As Boolean = False
     Private strID As String = ""
@@ -16,12 +15,7 @@
         End Set
     End Property
 
-    Public ReadOnly Property pubGetData As VO.PaymentTerm
-        Get
-            Return clsData
-        End Get
-    End Property
-
+    
     Public WriteOnly Property pubIsNew As Boolean
         Set(value As Boolean)
             bolIsNew = value
@@ -40,8 +34,29 @@
         End Set
     End Property
 
-
 #End Region
+
+    Private Sub prvFillFom()
+        If bolIsNew Then
+            prvClear()
+        Else
+            For Each dr As DataRow In dtParent.Rows
+                If dr.Item("ID") = strID Then
+                    txtPercentage.Value = dr.Item("Percentage")
+                    intPaymentTypeID = dr.Item("PaymentTypeID")
+                    txtPaymentTypeCode.Text = dr.Item("PaymentTypeCode")
+                    txtPaymentTypeName.Text = dr.Item("PaymentTypeName")
+                    intPaymentModeID = dr.Item("PaymentModeID")
+                    txtPaymentModeCode.Text = dr.Item("PaymentModeCode")
+                    txtPaymentModeName.Text = dr.Item("PaymentModeName")
+                    txtCreditTerm.Value = dr.Item("CreditTerm")
+                    txtRemarks.Text = dr.Item("Remarks")
+                    Exit For
+                End If
+            Next
+            txtPercentage.Focus()
+        End If
+    End Sub
 
     Private Sub prvSave()
         If txtPercentage.Value <= 0 Then
@@ -56,9 +71,9 @@
             UI.usForm.frmMessageBox("Pilih jenis pembayaran terlebih dahulu")
             txtPaymentTypeCode.Focus()
             Exit Sub
-        ElseIf txtPaymentMode.Text.Trim = "" Then
+        ElseIf txtPaymentModeCode.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Pilih metode pembayaran terlebih dahulu")
-            txtPaymentMode.Focus()
+            btnPaymentMode.Focus()
             Exit Sub
         ElseIf txtCreditTerm.Value <= 0 Then
             UI.usForm.frmMessageBox("Jangka waktu kredit harus lebih besar dari 0")
@@ -77,18 +92,6 @@
             txtPercentage.Focus()
             Exit Sub
         End If
-
-        clsData = New VO.PaymentTerm
-        clsData.ID = IIf(bolIsNew, Guid.NewGuid.ToString, strID)
-        clsData.Percentage = txtPercentage.Value
-        clsData.PaymentTypeID = intPaymentTypeID
-        clsData.PaymentTypeCode = txtPaymentTypeCode.Text.Trim
-        clsData.PaymentTypeName = txtPaymentTypeName.Text.Trim
-        clsData.PaymentModeID = intPaymentModeID
-        clsData.PaymentModeCode = txtPaymentModeCode.Text.Trim
-        clsData.PaymentModeName = txtPaymentModeName.Text.Trim
-        clsData.CreditTerm = txtCreditTerm.Value
-        clsData.Remarks = txtRemarks.Text.Trim
 
         Dim drItem As DataRow
         If bolIsNew Then
@@ -115,6 +118,7 @@
         End With
         If bolIsNew Then dtParent.Rows.Add(drItem)
         dtParent.AcceptChanges()
+        prvClear()
         If Not bolIsNew Then Me.Close()
     End Sub
 
@@ -167,7 +171,7 @@
 
     Private Sub usFormPaymentTerm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ToolBar.SetIcon(Me)
-        prvClear()
+        prvFillFom()
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
@@ -181,7 +185,7 @@
         prvChoosePaymentType()
     End Sub
 
-    Private Sub txtPaymentMode_Click(sender As Object, e As EventArgs) Handles txtPaymentMode.Click
+    Private Sub txtPaymentMode_Click(sender As Object, e As EventArgs) Handles btnPaymentMode.Click
         prvChoosePaymentMode()
     End Sub
 

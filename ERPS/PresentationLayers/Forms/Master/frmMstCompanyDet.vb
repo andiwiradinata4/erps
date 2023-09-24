@@ -45,6 +45,10 @@ Public Class frmMstCompanyDet
                 clsData = BL.Company.GetDetail(pubID)
                 txtName.Text = clsData.Name
                 txtAddress.Text = clsData.Address
+                txtCountry.Text = clsData.Country
+                txtProvince.Text = clsData.Province
+                txtCity.Text = clsData.City
+                txtWarehouse.Text = clsData.Warehouse
                 txtPhoneNumber.Text = clsData.PhoneNumber
                 txtCompanyInitial.Text = clsData.CompanyInitial
                 cboStatus.SelectedValue = clsData.StatusID
@@ -80,6 +84,10 @@ Public Class frmMstCompanyDet
         clsData.ID = pubID
         clsData.Name = txtName.Text.Trim
         clsData.Address = txtAddress.Text.Trim
+        clsData.Country = txtCountry.Text.Trim
+        clsData.Province = txtProvince.Text.Trim
+        clsData.City = txtCity.Text.Trim
+        clsData.Warehouse = txtWarehouse.Text.Trim
         clsData.PhoneNumber = txtPhoneNumber.Text.Trim
         clsData.CompanyInitial = txtCompanyInitial.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
@@ -103,6 +111,10 @@ Public Class frmMstCompanyDet
     Private Sub prvClear()
         txtName.Text = ""
         txtAddress.Text = ""
+        txtCountry.Text = ""
+        txtProvince.Text = ""
+        txtCity.Text = ""
+        txtWarehouse.Text = ""
         txtPhoneNumber.Text = ""
         txtCompanyInitial.Text = ""
         cboStatus.SelectedValue = VO.Status.Values.Active

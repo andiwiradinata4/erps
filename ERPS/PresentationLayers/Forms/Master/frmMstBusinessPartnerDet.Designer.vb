@@ -261,11 +261,12 @@ Partial Class frmMstBusinessPartnerDet
         '
         'txtCode
         '
-        Me.txtCode.BackColor = System.Drawing.Color.White
+        Me.txtCode.BackColor = System.Drawing.Color.LightYellow
         Me.txtCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtCode.Location = New System.Drawing.Point(129, 16)
         Me.txtCode.MaxLength = 250
         Me.txtCode.Name = "txtCode"
+        Me.txtCode.ReadOnly = True
         Me.txtCode.Size = New System.Drawing.Size(135, 21)
         Me.txtCode.TabIndex = 0
         '

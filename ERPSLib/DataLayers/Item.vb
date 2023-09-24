@@ -79,9 +79,9 @@
                 .Parameters.Add("@ItemName", SqlDbType.VarChar, 500).Value = clsData.ItemName
                 .Parameters.Add("@ItemTypeID", SqlDbType.Int).Value = clsData.ItemTypeID
                 .Parameters.Add("@ItemSpecificationID", SqlDbType.Int).Value = clsData.ItemSpecificationID
-                .Parameters.Add("@Thick", SqlDbType.VarChar, 100).Value = clsData.Thick
-                .Parameters.Add("@Width", SqlDbType.VarChar, 100).Value = clsData.Width
-                .Parameters.Add("@Length", SqlDbType.VarChar, 100).Value = clsData.Length
+                .Parameters.Add("@Thick", SqlDbType.Decimal).Value = clsData.Thick
+                .Parameters.Add("@Width", SqlDbType.Decimal).Value = clsData.Width
+                .Parameters.Add("@Length", SqlDbType.Decimal).Value = clsData.Length
                 .Parameters.Add("@Weight", SqlDbType.Decimal).Value = clsData.Weight
                 .Parameters.Add("@BasePrice", SqlDbType.Decimal).Value = clsData.BasePrice
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
@@ -197,6 +197,41 @@
                         "SELECT TOP 1 " & vbNewLine & _
                         "   ID=ISNULL(MAX(ID),0) " & vbNewLine & _
                         "FROM mstItem " & vbNewLine
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        intReturn = .Item("ID") + 1
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return intReturn
+        End Function
+
+        Public Shared Function GetMaxItemCode(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strNewItemCode As String) As Integer
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim intReturn As Integer = 1
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText = _
+                        "SELECT TOP 1 " & vbNewLine & _
+                        "   ID=ISNULL(RIGHT(ItemCode,7),'0000000') " & vbNewLine & _
+                        "FROM mstItem " & vbNewLine & _
+                        "WHERE " & vbNewLine & _
+                        "   LEFT(ItemCode,@Length)=@ItemCode " & vbNewLine & _
+                        "ORDER BY " & vbNewLine & _
+                        "   ItemCode DESC " & vbNewLine
+
+                    .Parameters.Add("@ItemCode", SqlDbType.VarChar, strNewItemCode.Length).Value = strNewItemCode
+                    .Parameters.Add("@Length", SqlDbType.Int).Value = strNewItemCode.Length
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
                 With sqlrdData

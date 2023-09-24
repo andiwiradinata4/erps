@@ -172,7 +172,10 @@
     <Compile Include="ValueObject\PurchaseOrder.vb" />
     <Compile Include="ValueObject\PurchaseOrderDet.vb" />
     <Compile Include="ValueObject\PurchaseOrderDetInternal.vb" />
+    <Compile Include="ValueObject\PurchaseOrderPaymentTerm.vb" />
     <Compile Include="ValueObject\PurchaseOrderStatus.vb" />
+    <Compile Include="ValueObject\Reports\PurchaseOrder.vb" />
+    <Compile Include="ValueObject\Reports\Reports.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

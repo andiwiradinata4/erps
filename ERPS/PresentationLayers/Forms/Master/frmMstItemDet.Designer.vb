@@ -22,9 +22,6 @@ Partial Class frmMstItemDet
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.ToolBar = New ERPS.usToolBar()
-        Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
-        Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ToolStripEmpty = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogInc = New System.Windows.Forms.ToolStripStatusLabel()
@@ -35,60 +32,42 @@ Partial Class frmMstItemDet
         Me.pnlDetail = New System.Windows.Forms.Panel()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.txtRemarks = New ERPS.usTextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.txtBasePrice = New ERPS.usNumeric()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.txtWeight = New ERPS.usNumeric()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.txtLength = New ERPS.usTextBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.txtWidth = New ERPS.usTextBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.txtThick = New ERPS.usTextBox()
-        Me.cboItemSpecification = New ERPS.usComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.cboItemType = New ERPS.usComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblName = New System.Windows.Forms.Label()
+        Me.lblStatusID = New System.Windows.Forms.Label()
+        Me.txtLength = New ERPS.usNumeric()
+        Me.txtWidth = New ERPS.usNumeric()
+        Me.txtThick = New ERPS.usNumeric()
+        Me.txtRemarks = New ERPS.usTextBox()
+        Me.txtBasePrice = New ERPS.usNumeric()
+        Me.txtWeight = New ERPS.usNumeric()
+        Me.cboItemSpecification = New ERPS.usComboBox()
+        Me.cboItemType = New ERPS.usComboBox()
         Me.txtItemCode = New ERPS.usTextBox()
         Me.cboStatus = New ERPS.usComboBox()
-        Me.lblName = New System.Windows.Forms.Label()
         Me.txtItemName = New ERPS.usTextBox()
-        Me.lblStatusID = New System.Windows.Forms.Label()
+        Me.ToolBar = New ERPS.usToolBar()
+        Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
+        Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.StatusStrip.SuspendLayout()
         Me.pnlDetail.SuspendLayout()
+        CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtThick, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtBasePrice, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'ToolBar
-        '
-        Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarRefresh, Me.BarClose})
-        Me.ToolBar.DropDownArrows = True
-        Me.ToolBar.Location = New System.Drawing.Point(0, 0)
-        Me.ToolBar.Name = "ToolBar"
-        Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(570, 28)
-        Me.ToolBar.TabIndex = 0
-        Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
-        'BarRefresh
-        '
-        Me.BarRefresh.Name = "BarRefresh"
-        Me.BarRefresh.Tag = "Save"
-        Me.BarRefresh.Text = "Simpan"
-        '
-        'BarClose
-        '
-        Me.BarClose.Name = "BarClose"
-        Me.BarClose.Tag = "Close"
-        Me.BarClose.Text = "Tutup"
         '
         'StatusStrip
         '
@@ -96,14 +75,14 @@ Partial Class frmMstItemDet
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
         Me.StatusStrip.Location = New System.Drawing.Point(0, 336)
         Me.StatusStrip.Name = "StatusStrip"
-        Me.StatusStrip.Size = New System.Drawing.Size(570, 22)
-        Me.StatusStrip.TabIndex = 4
+        Me.StatusStrip.Size = New System.Drawing.Size(583, 22)
+        Me.StatusStrip.TabIndex = 3
         Me.StatusStrip.Text = "StatusStrip1"
         '
         'ToolStripEmpty
         '
         Me.ToolStripEmpty.Name = "ToolStripEmpty"
-        Me.ToolStripEmpty.Size = New System.Drawing.Size(447, 17)
+        Me.ToolStripEmpty.Size = New System.Drawing.Size(460, 17)
         Me.ToolStripEmpty.Spring = True
         '
         'ToolStripLogInc
@@ -149,7 +128,7 @@ Partial Class frmMstItemDet
         Me.lblInfo.ForeColor = System.Drawing.Color.White
         Me.lblInfo.Location = New System.Drawing.Point(0, 28)
         Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(570, 22)
+        Me.lblInfo.Size = New System.Drawing.Size(583, 22)
         Me.lblInfo.TabIndex = 1
         Me.lblInfo.Text = "« Barang Detail"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -157,6 +136,9 @@ Partial Class frmMstItemDet
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.txtLength)
+        Me.pnlDetail.Controls.Add(Me.txtWidth)
+        Me.pnlDetail.Controls.Add(Me.txtThick)
         Me.pnlDetail.Controls.Add(Me.Label14)
         Me.pnlDetail.Controls.Add(Me.Label13)
         Me.pnlDetail.Controls.Add(Me.txtRemarks)
@@ -169,11 +151,8 @@ Partial Class frmMstItemDet
         Me.pnlDetail.Controls.Add(Me.Label7)
         Me.pnlDetail.Controls.Add(Me.txtWeight)
         Me.pnlDetail.Controls.Add(Me.Label6)
-        Me.pnlDetail.Controls.Add(Me.txtLength)
         Me.pnlDetail.Controls.Add(Me.Label5)
-        Me.pnlDetail.Controls.Add(Me.txtWidth)
         Me.pnlDetail.Controls.Add(Me.Label4)
-        Me.pnlDetail.Controls.Add(Me.txtThick)
         Me.pnlDetail.Controls.Add(Me.cboItemSpecification)
         Me.pnlDetail.Controls.Add(Me.Label3)
         Me.pnlDetail.Controls.Add(Me.cboItemType)
@@ -187,7 +166,7 @@ Partial Class frmMstItemDet
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlDetail.Location = New System.Drawing.Point(0, 50)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(570, 286)
+        Me.pnlDetail.Size = New System.Drawing.Size(583, 286)
         Me.pnlDetail.TabIndex = 2
         '
         'Label14
@@ -195,7 +174,7 @@ Partial Class frmMstItemDet
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
         Me.Label14.ForeColor = System.Drawing.Color.Black
-        Me.Label14.Location = New System.Drawing.Point(537, 125)
+        Me.Label14.Location = New System.Drawing.Point(540, 125)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(19, 13)
         Me.Label14.TabIndex = 116
@@ -206,29 +185,18 @@ Partial Class frmMstItemDet
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(26, 206)
+        Me.Label13.Location = New System.Drawing.Point(26, 205)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 115
         Me.Label13.Text = "Keterangan"
-        '
-        'txtRemarks
-        '
-        Me.txtRemarks.BackColor = System.Drawing.Color.White
-        Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(110, 203)
-        Me.txtRemarks.MaxLength = 250
-        Me.txtRemarks.Multiline = True
-        Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(423, 48)
-        Me.txtRemarks.TabIndex = 10
         '
         'Label12
         '
         Me.Label12.AutoSize = True
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.ForeColor = System.Drawing.Color.Black
-        Me.Label12.Location = New System.Drawing.Point(251, 180)
+        Me.Label12.Location = New System.Drawing.Point(251, 179)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(19, 13)
         Me.Label12.TabIndex = 113
@@ -245,24 +213,12 @@ Partial Class frmMstItemDet
         Me.Label11.TabIndex = 112
         Me.Label11.Text = "Harga"
         '
-        'txtBasePrice
-        '
-        Me.txtBasePrice.DecimalPlaces = 2
-        Me.txtBasePrice.Location = New System.Drawing.Point(373, 121)
-        Me.txtBasePrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtBasePrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtBasePrice.Name = "txtBasePrice"
-        Me.txtBasePrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtBasePrice.TabIndex = 8
-        Me.txtBasePrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtBasePrice.ThousandsSeparator = True
-        '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.BackColor = System.Drawing.Color.Transparent
         Me.Label10.ForeColor = System.Drawing.Color.Black
-        Me.Label10.Location = New System.Drawing.Point(247, 152)
+        Me.Label10.Location = New System.Drawing.Point(251, 152)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(23, 13)
         Me.Label10.TabIndex = 110
@@ -273,7 +229,7 @@ Partial Class frmMstItemDet
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.ForeColor = System.Drawing.Color.Black
-        Me.Label9.Location = New System.Drawing.Point(247, 125)
+        Me.Label9.Location = New System.Drawing.Point(251, 125)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(23, 13)
         Me.Label9.TabIndex = 109
@@ -284,7 +240,7 @@ Partial Class frmMstItemDet
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.ForeColor = System.Drawing.Color.Black
-        Me.Label8.Location = New System.Drawing.Point(247, 98)
+        Me.Label8.Location = New System.Drawing.Point(251, 98)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(23, 13)
         Me.Label8.TabIndex = 108
@@ -295,23 +251,11 @@ Partial Class frmMstItemDet
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.ForeColor = System.Drawing.Color.Black
-        Me.Label7.Location = New System.Drawing.Point(26, 180)
+        Me.Label7.Location = New System.Drawing.Point(26, 179)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(33, 13)
         Me.Label7.TabIndex = 107
         Me.Label7.Text = "Berat"
-        '
-        'txtWeight
-        '
-        Me.txtWeight.DecimalPlaces = 4
-        Me.txtWeight.Location = New System.Drawing.Point(110, 176)
-        Me.txtWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtWeight.Name = "txtWeight"
-        Me.txtWeight.Size = New System.Drawing.Size(135, 21)
-        Me.txtWeight.TabIndex = 6
-        Me.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtWeight.ThousandsSeparator = True
         '
         'Label6
         '
@@ -324,16 +268,6 @@ Partial Class frmMstItemDet
         Me.Label6.TabIndex = 105
         Me.Label6.Text = "Panjang"
         '
-        'txtLength
-        '
-        Me.txtLength.BackColor = System.Drawing.Color.White
-        Me.txtLength.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtLength.Location = New System.Drawing.Point(110, 148)
-        Me.txtLength.MaxLength = 250
-        Me.txtLength.Name = "txtLength"
-        Me.txtLength.Size = New System.Drawing.Size(135, 21)
-        Me.txtLength.TabIndex = 5
-        '
         'Label5
         '
         Me.Label5.AutoSize = True
@@ -344,16 +278,6 @@ Partial Class frmMstItemDet
         Me.Label5.Size = New System.Drawing.Size(34, 13)
         Me.Label5.TabIndex = 103
         Me.Label5.Text = "Lebar"
-        '
-        'txtWidth
-        '
-        Me.txtWidth.BackColor = System.Drawing.Color.White
-        Me.txtWidth.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtWidth.Location = New System.Drawing.Point(110, 121)
-        Me.txtWidth.MaxLength = 250
-        Me.txtWidth.Name = "txtWidth"
-        Me.txtWidth.Size = New System.Drawing.Size(135, 21)
-        Me.txtWidth.TabIndex = 4
         '
         'Label4
         '
@@ -366,25 +290,6 @@ Partial Class frmMstItemDet
         Me.Label4.TabIndex = 101
         Me.Label4.Text = "Tebal"
         '
-        'txtThick
-        '
-        Me.txtThick.BackColor = System.Drawing.Color.White
-        Me.txtThick.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtThick.Location = New System.Drawing.Point(110, 94)
-        Me.txtThick.MaxLength = 250
-        Me.txtThick.Name = "txtThick"
-        Me.txtThick.Size = New System.Drawing.Size(135, 21)
-        Me.txtThick.TabIndex = 3
-        '
-        'cboItemSpecification
-        '
-        Me.cboItemSpecification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboItemSpecification.FormattingEnabled = True
-        Me.cboItemSpecification.Location = New System.Drawing.Point(373, 94)
-        Me.cboItemSpecification.Name = "cboItemSpecification"
-        Me.cboItemSpecification.Size = New System.Drawing.Size(160, 21)
-        Me.cboItemSpecification.TabIndex = 7
-        '
         'Label3
         '
         Me.Label3.AutoSize = True
@@ -395,15 +300,6 @@ Partial Class frmMstItemDet
         Me.Label3.Size = New System.Drawing.Size(30, 13)
         Me.Label3.TabIndex = 99
         Me.Label3.Text = "Spec"
-        '
-        'cboItemType
-        '
-        Me.cboItemType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboItemType.FormattingEnabled = True
-        Me.cboItemType.Location = New System.Drawing.Point(373, 12)
-        Me.cboItemType.Name = "cboItemType"
-        Me.cboItemType.Size = New System.Drawing.Size(160, 21)
-        Me.cboItemType.TabIndex = 1
         '
         'Label2
         '
@@ -427,26 +323,6 @@ Partial Class frmMstItemDet
         Me.Label1.TabIndex = 95
         Me.Label1.Text = "Kode Barang"
         '
-        'txtItemCode
-        '
-        Me.txtItemCode.BackColor = System.Drawing.Color.White
-        Me.txtItemCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtItemCode.Location = New System.Drawing.Point(110, 12)
-        Me.txtItemCode.MaxLength = 250
-        Me.txtItemCode.Name = "txtItemCode"
-        Me.txtItemCode.Size = New System.Drawing.Size(135, 21)
-        Me.txtItemCode.TabIndex = 0
-        '
-        'cboStatus
-        '
-        Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboStatus.Enabled = False
-        Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(373, 148)
-        Me.cboStatus.Name = "cboStatus"
-        Me.cboStatus.Size = New System.Drawing.Size(160, 21)
-        Me.cboStatus.TabIndex = 9
-        '
         'lblName
         '
         Me.lblName.AutoSize = True
@@ -457,17 +333,6 @@ Partial Class frmMstItemDet
         Me.lblName.Size = New System.Drawing.Size(71, 13)
         Me.lblName.TabIndex = 93
         Me.lblName.Text = "Nama Barang"
-        '
-        'txtItemName
-        '
-        Me.txtItemName.BackColor = System.Drawing.Color.White
-        Me.txtItemName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtItemName.Location = New System.Drawing.Point(110, 40)
-        Me.txtItemName.MaxLength = 250
-        Me.txtItemName.Multiline = True
-        Me.txtItemName.Name = "txtItemName"
-        Me.txtItemName.Size = New System.Drawing.Size(423, 48)
-        Me.txtItemName.TabIndex = 2
         '
         'lblStatusID
         '
@@ -480,11 +345,156 @@ Partial Class frmMstItemDet
         Me.lblStatusID.TabIndex = 93
         Me.lblStatusID.Text = "Status"
         '
+        'txtLength
+        '
+        Me.txtLength.DecimalPlaces = 2
+        Me.txtLength.Location = New System.Drawing.Point(110, 148)
+        Me.txtLength.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtLength.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtLength.Name = "txtLength"
+        Me.txtLength.Size = New System.Drawing.Size(135, 21)
+        Me.txtLength.TabIndex = 5
+        Me.txtLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtLength.ThousandsSeparator = True
+        '
+        'txtWidth
+        '
+        Me.txtWidth.DecimalPlaces = 2
+        Me.txtWidth.Location = New System.Drawing.Point(110, 121)
+        Me.txtWidth.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtWidth.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtWidth.Name = "txtWidth"
+        Me.txtWidth.Size = New System.Drawing.Size(135, 21)
+        Me.txtWidth.TabIndex = 4
+        Me.txtWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtWidth.ThousandsSeparator = True
+        '
+        'txtThick
+        '
+        Me.txtThick.DecimalPlaces = 2
+        Me.txtThick.Location = New System.Drawing.Point(110, 94)
+        Me.txtThick.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtThick.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtThick.Name = "txtThick"
+        Me.txtThick.Size = New System.Drawing.Size(135, 21)
+        Me.txtThick.TabIndex = 3
+        Me.txtThick.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtThick.ThousandsSeparator = True
+        '
+        'txtRemarks
+        '
+        Me.txtRemarks.BackColor = System.Drawing.Color.White
+        Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtRemarks.Location = New System.Drawing.Point(110, 202)
+        Me.txtRemarks.MaxLength = 250
+        Me.txtRemarks.Multiline = True
+        Me.txtRemarks.Name = "txtRemarks"
+        Me.txtRemarks.Size = New System.Drawing.Size(423, 48)
+        Me.txtRemarks.TabIndex = 7
+        '
+        'txtBasePrice
+        '
+        Me.txtBasePrice.DecimalPlaces = 2
+        Me.txtBasePrice.Location = New System.Drawing.Point(373, 121)
+        Me.txtBasePrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtBasePrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtBasePrice.Name = "txtBasePrice"
+        Me.txtBasePrice.Size = New System.Drawing.Size(160, 21)
+        Me.txtBasePrice.TabIndex = 9
+        Me.txtBasePrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtBasePrice.ThousandsSeparator = True
+        '
+        'txtWeight
+        '
+        Me.txtWeight.DecimalPlaces = 4
+        Me.txtWeight.Location = New System.Drawing.Point(110, 175)
+        Me.txtWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtWeight.Name = "txtWeight"
+        Me.txtWeight.Size = New System.Drawing.Size(135, 21)
+        Me.txtWeight.TabIndex = 6
+        Me.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtWeight.ThousandsSeparator = True
+        '
+        'cboItemSpecification
+        '
+        Me.cboItemSpecification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboItemSpecification.FormattingEnabled = True
+        Me.cboItemSpecification.Location = New System.Drawing.Point(373, 94)
+        Me.cboItemSpecification.Name = "cboItemSpecification"
+        Me.cboItemSpecification.Size = New System.Drawing.Size(160, 21)
+        Me.cboItemSpecification.TabIndex = 8
+        '
+        'cboItemType
+        '
+        Me.cboItemType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboItemType.FormattingEnabled = True
+        Me.cboItemType.Location = New System.Drawing.Point(373, 12)
+        Me.cboItemType.Name = "cboItemType"
+        Me.cboItemType.Size = New System.Drawing.Size(160, 21)
+        Me.cboItemType.TabIndex = 1
+        '
+        'txtItemCode
+        '
+        Me.txtItemCode.BackColor = System.Drawing.Color.LightYellow
+        Me.txtItemCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtItemCode.Location = New System.Drawing.Point(110, 12)
+        Me.txtItemCode.MaxLength = 250
+        Me.txtItemCode.Name = "txtItemCode"
+        Me.txtItemCode.ReadOnly = True
+        Me.txtItemCode.Size = New System.Drawing.Size(135, 21)
+        Me.txtItemCode.TabIndex = 0
+        '
+        'cboStatus
+        '
+        Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboStatus.Enabled = False
+        Me.cboStatus.FormattingEnabled = True
+        Me.cboStatus.Location = New System.Drawing.Point(373, 148)
+        Me.cboStatus.Name = "cboStatus"
+        Me.cboStatus.Size = New System.Drawing.Size(160, 21)
+        Me.cboStatus.TabIndex = 10
+        '
+        'txtItemName
+        '
+        Me.txtItemName.BackColor = System.Drawing.Color.White
+        Me.txtItemName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtItemName.Location = New System.Drawing.Point(110, 40)
+        Me.txtItemName.MaxLength = 250
+        Me.txtItemName.Multiline = True
+        Me.txtItemName.Name = "txtItemName"
+        Me.txtItemName.Size = New System.Drawing.Size(423, 48)
+        Me.txtItemName.TabIndex = 2
+        '
+        'ToolBar
+        '
+        Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.DropDownArrows = True
+        Me.ToolBar.Location = New System.Drawing.Point(0, 0)
+        Me.ToolBar.Name = "ToolBar"
+        Me.ToolBar.ShowToolTips = True
+        Me.ToolBar.Size = New System.Drawing.Size(583, 28)
+        Me.ToolBar.TabIndex = 0
+        Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'BarRefresh
+        '
+        Me.BarRefresh.Name = "BarRefresh"
+        Me.BarRefresh.Tag = "Save"
+        Me.BarRefresh.Text = "Simpan"
+        '
+        'BarClose
+        '
+        Me.BarClose.Name = "BarClose"
+        Me.BarClose.Tag = "Close"
+        Me.BarClose.Text = "Tutup"
+        '
         'frmMstItemDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(570, 358)
+        Me.ClientSize = New System.Drawing.Size(583, 358)
         Me.Controls.Add(Me.pnlDetail)
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.StatusStrip)
@@ -499,6 +509,9 @@ Partial Class frmMstItemDet
         Me.StatusStrip.PerformLayout()
         Me.pnlDetail.ResumeLayout(False)
         Me.pnlDetail.PerformLayout()
+        CType(Me.txtLength, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtThick, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtBasePrice, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -533,14 +546,14 @@ Partial Class frmMstItemDet
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents txtWeight As ERPS.usNumeric
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents txtLength As ERPS.usTextBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents txtWidth As ERPS.usTextBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents txtThick As ERPS.usTextBox
     Friend WithEvents cboItemSpecification As ERPS.usComboBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents cboItemType As ERPS.usComboBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label14 As System.Windows.Forms.Label
+    Friend WithEvents txtLength As ERPS.usNumeric
+    Friend WithEvents txtWidth As ERPS.usNumeric
+    Friend WithEvents txtThick As ERPS.usNumeric
 End Class

@@ -122,10 +122,10 @@ Public Class frmTraPurchaseOrderDetItem
                 txtItemCode.Text = drSelectedRequest.Item("ItemCode")
                 txtItemName.Text = drSelectedRequest.Item("ItemName")
                 cboItemSpecification.SelectedValue = drSelectedRequest.Item("ItemSpecificationID")
-                txtThick.Text = drSelectedRequest.Item("Thick")
-                txtWidth.Text = drSelectedRequest.Item("Width")
-                txtLength.Text = drSelectedRequest.Item("Length")
-                txtWeight.Text = drSelectedRequest.Item("Weight")
+                txtThick.Value = drSelectedRequest.Item("Thick")
+                txtWidth.Value = drSelectedRequest.Item("Width")
+                txtLength.Value = drSelectedRequest.Item("Length")
+                txtWeight.Value = drSelectedRequest.Item("Weight")
                 txtMaxTotalWeight.Value = drSelectedRequest.Item("MaxTotalWeight")
                 txtUnitPrice.Value = drSelectedRequest.Item("UnitPrice")
                 txtCuttingPrice.Value = drSelectedRequest.Item("CuttingPrice")
@@ -201,9 +201,9 @@ Public Class frmTraPurchaseOrderDetItem
                 .Item("ItemID") = intItemID
                 .Item("ItemCode") = txtItemCode.Text.Trim
                 .Item("ItemName") = txtItemName.Text.Trim
-                .Item("Thick") = txtThick.Text.Trim
-                .Item("Width") = txtWidth.Text.Trim
-                .Item("Length") = txtLength.Text.Trim
+                .Item("Thick") = txtThick.Value
+                .Item("Width") = txtWidth.Value
+                .Item("Length") = txtLength.Value
                 .Item("ItemSpecificationID") = cboItemSpecification.SelectedValue
                 .Item("ItemSpecificationName") = cboItemSpecification.Text.Trim
                 .Item("ItemTypeID") = cboItemType.SelectedValue
@@ -234,9 +234,9 @@ Public Class frmTraPurchaseOrderDetItem
                         .Item("ItemID") = intItemID
                         .Item("ItemCode") = txtItemCode.Text.Trim
                         .Item("ItemName") = txtItemName.Text.Trim
-                        .Item("Thick") = txtThick.Text.Trim
-                        .Item("Width") = txtWidth.Text.Trim
-                        .Item("Length") = txtLength.Text.Trim
+                        .Item("Thick") = txtThick.Value
+                        .Item("Width") = txtWidth.Value
+                        .Item("Length") = txtLength.Value
                         .Item("ItemSpecificationID") = cboItemSpecification.SelectedValue
                         .Item("ItemSpecificationName") = cboItemSpecification.Text.Trim
                         .Item("ItemTypeID") = cboItemType.SelectedValue
@@ -293,9 +293,9 @@ Public Class frmTraPurchaseOrderDetItem
                 txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
                 txtItemName.Text = .pubLUdtRow.Item("ItemName")
                 cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
-                txtThick.Text = .pubLUdtRow.Item("Thick")
-                txtWidth.Text = .pubLUdtRow.Item("Width")
-                txtLength.Text = .pubLUdtRow.Item("Length")
+                txtThick.Value = .pubLUdtRow.Item("Thick")
+                txtWidth.Value = .pubLUdtRow.Item("Width")
+                txtLength.Value = .pubLUdtRow.Item("Length")
                 txtWeight.Value = .pubLUdtRow.Item("Weight")
                 txtMaxTotalWeight.Value = .pubLUdtRow.Item("TotalWeight")
                 txtUnitPrice.Focus()

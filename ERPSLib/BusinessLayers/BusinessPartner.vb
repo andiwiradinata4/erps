@@ -11,12 +11,20 @@
             End Using
         End Function
 
+        Public Shared Function GetNewBPCode(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                            ByVal strBPName As String) As String
+            Dim strReturn As String = Left(strBPName, 1) & "-"
+            strReturn &= Format(DL.BusinessPartner.GetMaxBPCode(sqlCon, sqlTrans, strReturn), "0000000")
+            Return strReturn
+        End Function
+
         Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.BusinessPartner) As Integer
             Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Try
                     If bolNew Then clsData.ID = DL.BusinessPartner.GetMaxID(sqlCon, Nothing)
+                    If bolNew And clsData.Code.Trim = "" Then clsData.Code = GetNewBPCode(sqlCon, Nothing, clsData.Name.Trim)
                     If DL.BusinessPartner.DataExistsName(sqlCon, Nothing, clsData.Name, clsData.ID) Then
                         Err.Raise(515, "", "Tidak dapat disimpan. Nama rekan bisnis sudah ada.")
                     End If

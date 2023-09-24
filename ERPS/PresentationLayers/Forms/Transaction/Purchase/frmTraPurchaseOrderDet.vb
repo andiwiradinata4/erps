@@ -48,9 +48,9 @@ Public Class frmTraPurchaseOrderDet
         UI.usForm.SetGrid(grdItemRequestView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemRequestView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemRequestView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemRequestView, "Thick", "Tebal", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemRequestView, "Width", "Lebar", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemRequestView, "Length", "Panjang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemRequestView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemRequestView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemRequestView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdItemRequestView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemRequestView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemRequestView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
@@ -75,9 +75,9 @@ Public Class frmTraPurchaseOrderDet
         UI.usForm.SetGrid(grdItemOrderView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemOrderView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemOrderView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemOrderView, "Thick", "Tebal", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemOrderView, "Width", "Lebar", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemOrderView, "Length", "Panjang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemOrderView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemOrderView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemOrderView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdItemOrderView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemOrderView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemOrderView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
@@ -94,6 +94,19 @@ Public Class frmTraPurchaseOrderDet
         UI.usForm.SetGrid(grdItemOrderView, "TransportQuantity", "TransportQuantity", 100, UI.usDefGrid.gReal4Num, False)
         UI.usForm.SetGrid(grdItemOrderView, "TransportWeight", "TransportWeight", 100, UI.usDefGrid.gReal4Num, False)
         UI.usForm.SetGrid(grdItemOrderView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+
+        '# PO Payment Term
+        UI.usForm.SetGrid(grdPaymentTermView, "ID", "ID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdPaymentTermView, "POID", "POID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdPaymentTermView, "Percentage", "Percentage", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdPaymentTermView, "PaymentTypeID", "PaymentTypeID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdPaymentTermView, "PaymentTypeCode", "Jenis Pembayaran [Kode]", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdPaymentTermView, "PaymentTypeName", "Jenis Pembayaran [Nama]", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdPaymentTermView, "PaymentModeID", "PaymentModeID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdPaymentTermView, "PaymentModeCode", "Metode Pembayaran [Kode]", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdPaymentTermView, "PaymentModeName", "Metode Pembayaran [Nama]", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdPaymentTermView, "CreditTerm", "CreditTerm", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdPaymentTermView, "Remarks", "Remarks", 100, UI.usDefGrid.gString)
 
         '# History
         UI.usForm.SetGrid(grdStatusView, "ID", "ID", 100, UI.usDefGrid.gString, False)
@@ -223,8 +236,6 @@ Public Class frmTraPurchaseOrderDet
         For Each dr As DataRow In dtItemOrder.Rows
             listDetailOrder.Add(New ERPSLib.VO.PurchaseOrderDet With
                                 {
-                                    .ID = dr.Item("ID"),
-                                    .POID = pubID,
                                     .OrderRequestDetailID = dr.Item("OrderRequestDetailID"),
                                     .GroupID = dr.Item("GroupID"),
                                     .ItemID = dr.Item("ItemID"),
@@ -243,8 +254,6 @@ Public Class frmTraPurchaseOrderDet
         For Each dr As DataRow In dtItemRequest.Rows
             listDetailRequest.Add(New ERPSLib.VO.PurchaseOrderDetInternal With
                                   {
-                                      .ID = dr.Item("ID"),
-                                      .POID = pubID,
                                       .OrderRequestDetailID = dr.Item("OrderRequestDetailID"),
                                       .GroupID = dr.Item("GroupID"),
                                       .ItemID = dr.Item("ItemID"),
@@ -259,8 +268,19 @@ Public Class frmTraPurchaseOrderDet
                                   })
         Next
 
-        clsData = New VO.PurchaseOrder
+        Dim listPaymentTerm As New List(Of VO.PurchaseOrderPaymentTerm)
+        For Each dr As DataRow In dtPaymentTerm.Rows
+            listPaymentTerm.Add(New VO.PurchaseOrderPaymentTerm With
+                                {
+                                    .Percentage = dr.Item("Percentage"),
+                                    .PaymentTypeID = dr.Item("PaymentTypeID"),
+                                    .PaymentModeID = dr.Item("PaymentModeID"),
+                                    .CreditTerm = dr.Item("CreditTerm"),
+                                    .Remarks = dr.Item("Remarks")
+                                })
+        Next
 
+        clsData = New VO.PurchaseOrder
         clsData.ID = pubID
         clsData.ProgramID = pubCS.ProgramID
         clsData.CompanyID = pubCS.CompanyID
@@ -290,6 +310,7 @@ Public Class frmTraPurchaseOrderDet
         clsData.StatusID = cboStatus.SelectedValue
         clsData.Detail = listDetailOrder
         clsData.DetailInternal = listDetailRequest
+        clsData.PaymentTerm = listPaymentTerm
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
 
@@ -668,10 +689,10 @@ Public Class frmTraPurchaseOrderDet
         pgMain.Value = 30
         Application.DoEvents()
         Try
-            dtPaymentTerm = BL.PurchaseOrder.ListDataDetailInternal(pubID.Trim)
+            dtPaymentTerm = BL.PurchaseOrder.ListDataPaymentTerm(pubID.Trim)
             grdPaymentTerm.DataSource = dtPaymentTerm
             prvSumGrid()
-            grdItemRequestView.BestFitColumns()
+            grdPaymentTermView.BestFitColumns()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -702,7 +723,7 @@ Public Class frmTraPurchaseOrderDet
         Dim frmDetail As New usFormPaymentTerm
         With frmDetail
             .pubDataParent = dtPaymentTerm
-            .pubIsNew = True
+            .pubIsNew = False
             .pubID = grdPaymentTermView.GetRowCellValue(intPos, "ID")
             .StartPosition = FormStartPosition.CenterParent
             .ShowDialog(Me)

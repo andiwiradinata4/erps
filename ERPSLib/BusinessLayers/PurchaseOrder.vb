@@ -33,6 +33,7 @@
 
                         DL.PurchaseOrder.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
                         DL.PurchaseOrder.DeleteDataDetailInternal(sqlCon, sqlTrans, clsData.ID)
+                        DL.PurchaseOrder.DeleteDataPaymentTerm(sqlCon, sqlTrans, clsData.ID)
 
                         '# Revert PO Quantity
                         For Each dr As DataRow In dtPreviousRequest.Rows
@@ -68,6 +69,15 @@
                         clsDet.ID = clsData.ID & "-" & 2 & "-" & Format(intCount, "000")
                         clsDet.POID = clsData.ID
                         DL.PurchaseOrder.SaveDataDetailInternal(sqlCon, sqlTrans, clsDet)
+                        intCount += 1
+                    Next
+
+                    '# Save Data Payment Term
+                    intCount = 1
+                    For Each clsDet As VO.PurchaseOrderPaymentTerm In clsData.PaymentTerm
+                        clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
+                        clsDet.POID = clsData.ID
+                        DL.PurchaseOrder.SaveDataPaymentTerm(sqlCon, sqlTrans, clsDet)
                         intCount += 1
                     Next
 
@@ -252,6 +262,34 @@
             Return bolReturn
         End Function
 
+        Public Shared Function Print(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                     ByVal strID As String) As DataTable
+            BL.Server.ServerDefault()
+            Dim dtReturn As New DataTable
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                '# Get Data
+                dtReturn = DL.PurchaseOrder.Print(sqlCon, Nothing, strID)
+
+                '# Combine Payment Terms
+                Dim strPaymentTerms As String = ""
+                Dim dtPaymentTerm As DataTable = DL.PurchaseOrder.ListDataPaymentTerm(sqlCon, Nothing, strID)
+                For Each dr As DataRow In dtPaymentTerm.Rows
+                    strPaymentTerms += CInt(dr.Item("Percentage")) & "% " & dr.Item("PaymentTypeName") & " WITH " & dr.Item("PaymentModeName") & vbCrLf
+                Next
+
+                '# Combine Delivery Period
+                For Each dr As DataRow In dtReturn.Rows
+                    dr.BeginEdit()
+                    dr.Item("DeliveryPeriod") = Format(dr.Item("DeliveryPeriodFrom"), "MMMM") & " - " & Format(dr.Item("DeliveryPeriodTo"), "MMMM yyyy")
+                    dr.Item("PODateAndCity") = dr.Item("CompanyCity") & ", " & Format(dr.Item("PODate"), "dd MMMM yyyy")
+                    dr.Item("PaymentTerms") = strPaymentTerms
+                    dr.EndEdit()
+                Next
+                dtReturn.AcceptChanges()
+            End Using
+            Return dtReturn
+        End Function
+
 #End Region
 
 #Region "Detail"
@@ -281,7 +319,7 @@
         Public Shared Function ListDataPaymentTerm(ByVal strPOID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.PurchaseOrder.ListDataDetailInternal(sqlCon, Nothing, strPOID)
+                Return DL.PurchaseOrder.ListDataPaymentTerm(sqlCon, Nothing, strPOID)
             End Using
         End Function
 

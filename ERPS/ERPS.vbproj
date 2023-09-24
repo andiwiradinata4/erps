@@ -52,15 +52,27 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Charts.v16.2.Core, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.DataAccess.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v16.2.Core, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v16.2.Core, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v16.2.Core, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v16.2.Core, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v16.2.Core, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Sparkline.v16.2.Core, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v16.2.UI, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpo.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraBars.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGauges.v16.2.Core, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraPrinting.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraReports.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v16.2.Extensions, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -419,6 +431,12 @@
     <Compile Include="PresentationLayers\Reports1\frmReportPreview.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptPurchaseOrder.Designer.vb">
+      <DependentUpon>rptPurchaseOrder.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptPurchaseOrder.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\SharedLib\Components\usCheckListBoxControl.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -617,6 +635,9 @@
     <EmbeddedResource Include="PresentationLayers\Reports1\frmReportPreview.resx">
       <DependentUpon>frmReportPreview.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports2\rptPurchaseOrder.resx">
+      <DependentUpon>rptPurchaseOrder.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\SharedLib\Components\usFormPaymentTerm.resx">
       <DependentUpon>usFormPaymentTerm.vb</DependentUpon>
     </EmbeddedResource>
@@ -704,9 +725,7 @@
     <EmbeddedResource Include="PresentationLayers\Icons\User.ico" />
     <EmbeddedResource Include="PresentationLayers\Icons\Word.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PresentationLayers\Reports2\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ERPSLib\ERPSLib.vbproj">
       <Project>{f31c7881-7e63-4b5c-a390-a20ea6d2047c}</Project>

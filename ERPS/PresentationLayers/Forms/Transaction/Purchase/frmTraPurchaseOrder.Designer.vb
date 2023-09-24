@@ -33,6 +33,7 @@ Partial Class frmTraPurchaseOrder
         Me.BarApprove = New System.Windows.Forms.ToolBarButton()
         Me.BarCancelApprove = New System.Windows.Forms.ToolBarButton()
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
+        Me.BarPrint = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
@@ -50,10 +51,9 @@ Partial Class frmTraPurchaseOrder
         Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
         Me.btnExecute = New DevExpress.XtraEditors.SimpleButton()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.pgMain = New System.Windows.Forms.ProgressBar()
-        Me.BarPrint = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -123,6 +123,12 @@ Partial Class frmTraPurchaseOrder
         '
         Me.BarSep2.Name = "BarSep2"
         Me.BarSep2.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarPrint
+        '
+        Me.BarPrint.Name = "BarPrint"
+        Me.BarPrint.Tag = "Print"
+        Me.BarPrint.Text = "Print"
         '
         'BarExportExcel
         '
@@ -286,6 +292,14 @@ Partial Class frmTraPurchaseOrder
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Query berdasarkan:"
         '
+        'pgMain
+        '
+        Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.pgMain.Location = New System.Drawing.Point(0, 589)
+        Me.pgMain.Name = "pgMain"
+        Me.pgMain.Size = New System.Drawing.Size(984, 23)
+        Me.pgMain.TabIndex = 3
+        '
         'grdMain
         '
         Me.grdMain.Dock = System.Windows.Forms.DockStyle.Fill
@@ -307,7 +321,7 @@ Partial Class frmTraPurchaseOrder
         Me.grdMain.MainView = Me.grdView
         Me.grdMain.Name = "grdMain"
         Me.grdMain.Size = New System.Drawing.Size(984, 420)
-        Me.grdMain.TabIndex = 2
+        Me.grdMain.TabIndex = 4
         Me.grdMain.UseEmbeddedNavigator = True
         Me.grdMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdView})
         '
@@ -315,24 +329,10 @@ Partial Class frmTraPurchaseOrder
         '
         Me.grdView.GridControl = Me.grdMain
         Me.grdView.Name = "grdView"
-        Me.grdView.OptionsCustomization.AllowColumnMoving = False
-        Me.grdView.OptionsCustomization.AllowGroup = False
+        Me.grdView.OptionsBehavior.AutoExpandAllGroups = True
         Me.grdView.OptionsView.ColumnAutoWidth = False
         Me.grdView.OptionsView.ShowAutoFilterRow = True
-        '
-        'pgMain
-        '
-        Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pgMain.Location = New System.Drawing.Point(0, 589)
-        Me.pgMain.Name = "pgMain"
-        Me.pgMain.Size = New System.Drawing.Size(984, 23)
-        Me.pgMain.TabIndex = 3
-        '
-        'BarPrint
-        '
-        Me.BarPrint.Name = "BarPrint"
-        Me.BarPrint.Tag = "Print"
-        Me.BarPrint.Text = "Print"
+        Me.grdView.OptionsView.ShowFooter = True
         '
         'frmTraPurchaseOrder
         '
@@ -381,10 +381,10 @@ Partial Class frmTraPurchaseOrder
     Friend WithEvents btnClear As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnExecute As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents grdMain As DevExpress.XtraGrid.GridControl
-    Friend WithEvents grdView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents pgMain As System.Windows.Forms.ProgressBar
     Friend WithEvents BarApprove As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarCancelApprove As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarPrint As System.Windows.Forms.ToolBarButton
+    Friend WithEvents grdMain As DevExpress.XtraGrid.GridControl
+    Friend WithEvents grdView As DevExpress.XtraGrid.Views.Grid.GridView
 End Class

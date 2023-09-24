@@ -187,6 +187,41 @@
             Return intReturn
         End Function
 
+        Public Shared Function GetMaxBPCode(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strNewCode As String) As Integer
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim intReturn As Integer = 1
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText = _
+                        "SELECT TOP 1 " & vbNewLine & _
+                        "   ID=ISNULL(RIGHT(Code,7),'0000000') " & vbNewLine & _
+                        "FROM mstBusinessPartner " & vbNewLine & _
+                        "WHERE " & vbNewLine & _
+                        "   LEFT(Code,@Length)=@Code " & vbNewLine & _
+                        "ORDER BY " & vbNewLine & _
+                        "   Code DESC " & vbNewLine
+
+                    .Parameters.Add("@Code", SqlDbType.VarChar, strNewCode.Length).Value = strNewCode
+                    .Parameters.Add("@Length", SqlDbType.Int).Value = strNewCode.Length
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        intReturn = .Item("ID") + 1
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return intReturn
+        End Function
+
         Public Shared Function DataExistsName(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                               ByVal strName As String, ByVal intID As Integer) As Boolean
             Dim bolDataExists As Boolean = False

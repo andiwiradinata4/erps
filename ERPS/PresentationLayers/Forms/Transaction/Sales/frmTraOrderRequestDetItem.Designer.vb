@@ -43,11 +43,8 @@ Partial Class frmTraOrderRequestDetItem
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtWeight = New ERPS.usNumeric()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.txtLength = New ERPS.usTextBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.txtWidth = New ERPS.usTextBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.txtThick = New ERPS.usTextBox()
         Me.cboItemSpecification = New ERPS.usComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.cboItemType = New ERPS.usComboBox()
@@ -56,10 +53,16 @@ Partial Class frmTraOrderRequestDetItem
         Me.txtItemCode = New ERPS.usTextBox()
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtItemName = New ERPS.usTextBox()
+        Me.txtLength = New ERPS.usNumeric()
+        Me.txtWidth = New ERPS.usNumeric()
+        Me.txtThick = New ERPS.usNumeric()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtThick, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -102,6 +105,9 @@ Partial Class frmTraOrderRequestDetItem
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.txtLength)
+        Me.pnlDetail.Controls.Add(Me.txtWidth)
+        Me.pnlDetail.Controls.Add(Me.txtThick)
         Me.pnlDetail.Controls.Add(Me.Label15)
         Me.pnlDetail.Controls.Add(Me.Label16)
         Me.pnlDetail.Controls.Add(Me.txtTotalWeight)
@@ -117,11 +123,8 @@ Partial Class frmTraOrderRequestDetItem
         Me.pnlDetail.Controls.Add(Me.Label7)
         Me.pnlDetail.Controls.Add(Me.txtWeight)
         Me.pnlDetail.Controls.Add(Me.Label6)
-        Me.pnlDetail.Controls.Add(Me.txtLength)
         Me.pnlDetail.Controls.Add(Me.Label5)
-        Me.pnlDetail.Controls.Add(Me.txtWidth)
         Me.pnlDetail.Controls.Add(Me.Label4)
-        Me.pnlDetail.Controls.Add(Me.txtThick)
         Me.pnlDetail.Controls.Add(Me.cboItemSpecification)
         Me.pnlDetail.Controls.Add(Me.Label3)
         Me.pnlDetail.Controls.Add(Me.cboItemType)
@@ -305,17 +308,6 @@ Partial Class frmTraOrderRequestDetItem
         Me.Label6.TabIndex = 105
         Me.Label6.Text = "Panjang"
         '
-        'txtLength
-        '
-        Me.txtLength.BackColor = System.Drawing.Color.Azure
-        Me.txtLength.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtLength.Location = New System.Drawing.Point(110, 156)
-        Me.txtLength.MaxLength = 250
-        Me.txtLength.Name = "txtLength"
-        Me.txtLength.ReadOnly = True
-        Me.txtLength.Size = New System.Drawing.Size(135, 21)
-        Me.txtLength.TabIndex = 6
-        '
         'Label5
         '
         Me.Label5.AutoSize = True
@@ -327,17 +319,6 @@ Partial Class frmTraOrderRequestDetItem
         Me.Label5.TabIndex = 103
         Me.Label5.Text = "Lebar"
         '
-        'txtWidth
-        '
-        Me.txtWidth.BackColor = System.Drawing.Color.Azure
-        Me.txtWidth.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtWidth.Location = New System.Drawing.Point(110, 129)
-        Me.txtWidth.MaxLength = 250
-        Me.txtWidth.Name = "txtWidth"
-        Me.txtWidth.ReadOnly = True
-        Me.txtWidth.Size = New System.Drawing.Size(135, 21)
-        Me.txtWidth.TabIndex = 5
-        '
         'Label4
         '
         Me.Label4.AutoSize = True
@@ -348,17 +329,6 @@ Partial Class frmTraOrderRequestDetItem
         Me.Label4.Size = New System.Drawing.Size(33, 13)
         Me.Label4.TabIndex = 101
         Me.Label4.Text = "Tebal"
-        '
-        'txtThick
-        '
-        Me.txtThick.BackColor = System.Drawing.Color.Azure
-        Me.txtThick.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtThick.Location = New System.Drawing.Point(110, 102)
-        Me.txtThick.MaxLength = 250
-        Me.txtThick.Name = "txtThick"
-        Me.txtThick.ReadOnly = True
-        Me.txtThick.Size = New System.Drawing.Size(135, 21)
-        Me.txtThick.TabIndex = 4
         '
         'cboItemSpecification
         '
@@ -447,6 +417,48 @@ Partial Class frmTraOrderRequestDetItem
         Me.txtItemName.Size = New System.Drawing.Size(423, 48)
         Me.txtItemName.TabIndex = 3
         '
+        'txtLength
+        '
+        Me.txtLength.BackColor = System.Drawing.Color.Azure
+        Me.txtLength.DecimalPlaces = 2
+        Me.txtLength.Enabled = False
+        Me.txtLength.Location = New System.Drawing.Point(110, 156)
+        Me.txtLength.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtLength.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtLength.Name = "txtLength"
+        Me.txtLength.Size = New System.Drawing.Size(135, 21)
+        Me.txtLength.TabIndex = 6
+        Me.txtLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtLength.ThousandsSeparator = True
+        '
+        'txtWidth
+        '
+        Me.txtWidth.BackColor = System.Drawing.Color.Azure
+        Me.txtWidth.DecimalPlaces = 2
+        Me.txtWidth.Enabled = False
+        Me.txtWidth.Location = New System.Drawing.Point(110, 129)
+        Me.txtWidth.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtWidth.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtWidth.Name = "txtWidth"
+        Me.txtWidth.Size = New System.Drawing.Size(135, 21)
+        Me.txtWidth.TabIndex = 5
+        Me.txtWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtWidth.ThousandsSeparator = True
+        '
+        'txtThick
+        '
+        Me.txtThick.BackColor = System.Drawing.Color.Azure
+        Me.txtThick.DecimalPlaces = 2
+        Me.txtThick.Enabled = False
+        Me.txtThick.Location = New System.Drawing.Point(110, 102)
+        Me.txtThick.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtThick.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtThick.Name = "txtThick"
+        Me.txtThick.Size = New System.Drawing.Size(135, 21)
+        Me.txtThick.TabIndex = 4
+        Me.txtThick.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtThick.ThousandsSeparator = True
+        '
         'frmTraOrderRequestDetItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -466,6 +478,9 @@ Partial Class frmTraOrderRequestDetItem
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtLength, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtThick, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -490,11 +505,8 @@ Partial Class frmTraOrderRequestDetItem
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents txtWeight As ERPS.usNumeric
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents txtLength As ERPS.usTextBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents txtWidth As ERPS.usTextBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents txtThick As ERPS.usTextBox
     Friend WithEvents cboItemSpecification As ERPS.usComboBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents cboItemType As ERPS.usComboBox
@@ -503,4 +515,7 @@ Partial Class frmTraOrderRequestDetItem
     Friend WithEvents txtItemCode As ERPS.usTextBox
     Friend WithEvents lblName As System.Windows.Forms.Label
     Friend WithEvents txtItemName As ERPS.usTextBox
+    Friend WithEvents txtLength As ERPS.usNumeric
+    Friend WithEvents txtWidth As ERPS.usNumeric
+    Friend WithEvents txtThick As ERPS.usNumeric
 End Class

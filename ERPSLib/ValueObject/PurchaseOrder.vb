@@ -39,6 +39,7 @@
         Property ApprovedDate As DateTime
         Property Detail As List(Of VO.PurchaseOrderDet)
         Property DetailInternal As List(Of VO.PurchaseOrderDetInternal)
+        Property PaymentTerm As List(Of VO.PurchaseOrderPaymentTerm)
         Property Save As VO.Save.Action
     End Class
 End Namespace

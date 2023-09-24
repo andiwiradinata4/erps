@@ -31,6 +31,7 @@
             grdMain.DataSource = dtData
             grdView.Columns("ProgramName").GroupIndex = 0
             grdView.ExpandAllGroups()
+            grdView.BestFitColumns()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         End Try
