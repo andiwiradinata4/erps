@@ -372,9 +372,11 @@ Public Class frmTraPurchaseOrderDet
         txtTotalDPPOrder.Value = 0
         txtTotalPPNOrder.Value = 0
         txtTotalPPHOrder.Value = 0
+        txtGrandTotalOrder.Value = 0
         txtTotalDPPRequest.Value = 0
         txtTotalPPNRequest.Value = 0
         txtTotalPPHRequest.Value = 0
+        txtGrandTotalRequest.Value = 0
         txtRemarks.Text = ""
         cboStatus.SelectedValue = VO.Status.Values.Draft
         ToolStripLogInc.Text = "Jumlah Edit : -"
@@ -481,6 +483,11 @@ Public Class frmTraPurchaseOrderDet
         ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
     End Sub
 
+    Private Sub prvSetupTools()
+        Dim bolEnabled As Boolean = IIf(grdItemRequestView.RowCount = 0, True, False)
+        btnPermintaan.Enabled = bolEnabled
+    End Sub
+
 #Region "Item Request Handle"
 
     Private Sub prvSetButtonItemRequest()
@@ -500,6 +507,7 @@ Public Class frmTraPurchaseOrderDet
             grdItemRequest.DataSource = dtItemRequest
             prvSumGrid()
             grdItemRequestView.BestFitColumns()
+            prvSetupTools()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -527,6 +535,7 @@ Public Class frmTraPurchaseOrderDet
             .pubID = ""
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
+            prvSetupTools()
             prvCalculate()
             prvSetButtonItemRequest()
             prvSetButtonItemOrder()
@@ -594,6 +603,7 @@ Public Class frmTraPurchaseOrderDet
         Next
         dtItemOrder.AcceptChanges()
 
+        prvSetupTools()
         prvCalculate()
         prvSetButtonItemRequest()
         prvSetButtonItemOrder()
@@ -620,6 +630,7 @@ Public Class frmTraPurchaseOrderDet
             grdItemOrder.DataSource = dtItemOrder
             prvSumGrid()
             grdItemOrderView.BestFitColumns()
+            prvSetupTools()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -678,6 +689,7 @@ Public Class frmTraPurchaseOrderDet
             Next
             dtItemOrder.AcceptChanges()
         End If
+        prvSetupTools()
         prvCalculate()
         prvSetButtonItemRequest()
         prvSetButtonItemOrder()

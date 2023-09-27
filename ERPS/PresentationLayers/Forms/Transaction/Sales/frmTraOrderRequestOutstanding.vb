@@ -297,6 +297,10 @@ Public Class frmTraOrderRequestOutstanding
         prvClear()
     End Sub
 
+    Private Sub btnCompany_Click(sender As Object, e As EventArgs) Handles btnCompany.Click
+        prvChooseCompany()
+    End Sub
+
 #End Region
 
 End Class

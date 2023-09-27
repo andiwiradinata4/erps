@@ -296,6 +296,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         txtTotalDPP.Value = 0
         txtTotalPPN.Value = 0
         txtTotalPPH.Value = 0
+        txtGrandTotal.Value = 0
         txtRemarks.Text = ""
         cboStatus.SelectedValue = VO.Status.Values.Draft
         ToolStripLogInc.Text = "Jumlah Edit : -"
@@ -324,14 +325,14 @@ Public Class frmTraPurchaseOrderCuttingDet
             Exit Sub
         End If
 
-        Dim frmDetail As New frmTraOrderRequestOutstanding
+        Dim frmDetail As New frmTraPurchaseOrderOutstandingForCutting
         With frmDetail
             .pubIsLookup = True
             .pubCS = pubCS
             .ShowDialog()
             If .pubIsLookupGet Then
                 strPOID = .pubDataRowLookupGet.Item("ID")
-                txtPONumberReferences.Text = .pubDataRowLookupGet.Item("OrderNumber")
+                txtPONumberReferences.Text = .pubDataRowLookupGet.Item("PONumber")
                 txtPersonInCharge.Focus()
             End If
         End With
@@ -377,6 +378,11 @@ Public Class frmTraPurchaseOrderCuttingDet
         ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
     End Sub
 
+    Private Sub prvSetupTools()
+        Dim bolEnabled As Boolean = IIf(grdItemView.RowCount = 0, True, False)
+        btnPONumberReferences.Enabled = bolEnabled
+    End Sub
+
 #Region "Item Handle"
 
     Private Sub prvSetButtonItem()
@@ -396,6 +402,7 @@ Public Class frmTraPurchaseOrderCuttingDet
             grdItem.DataSource = dtItem
             prvSumGrid()
             grdItemView.BestFitColumns()
+            prvSetupTools()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -409,37 +416,38 @@ Public Class frmTraPurchaseOrderCuttingDet
     End Sub
 
     Private Sub prvAddItem()
+        If txtPONumberReferences.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih No. Pesanan Pembelian terlebih dahulu")
+            txtPONumberReferences.Focus()
+            Exit Sub
+        End If
         Dim frmDetail As New frmTraPurchaseOrderCuttingDetItem
-        'With frmDetail
-        '    .pubOrderRequestID = strOrderRequestID
-        '    .pubOrderRequestDetailID = strOrderRequestDetailID
-        '    .pubOrderRequestParent = dtParentRequest
-        '    .StartPosition = FormStartPosition.CenterParent
-        '    .pubShowDialog(Me)
-        '    If .pubIsLookUpGet Then
-        '        strOrderRequestDetailID = .pubLUdtRow.Item("ID")
-        '        strOrderRequestID = .pubLUdtRow.Item("OrderRequestID")
-        '        intItemID = .pubLUdtRow.Item("ItemID")
-        '        cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
-        '        txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
-        '        txtItemName.Text = .pubLUdtRow.Item("ItemName")
-        '        cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
-        '        txtThick.Value = .pubLUdtRow.Item("Thick")
-        '        txtWidth.Value = .pubLUdtRow.Item("Width")
-        '        txtLength.Value = .pubLUdtRow.Item("Length")
-        '        txtWeight.Value = .pubLUdtRow.Item("Weight")
-        '        txtMaxTotalWeight.Value = .pubLUdtRow.Item("TotalWeight")
-        '        txtUnitPrice.Focus()
-        '        txtCuttingPrice.Value = 0
-        '        txtTransportPrice.Value = 0
-        '        txtQuantity.Value = 0
-        '        txtRemarks.Text = ""
-        '    End If
-        'End With
+        With frmDetail
+            .pubIsNew = True
+            .pubPOID = strPOID
+            .pubTableParentItem = dtItem
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            prvSetupTools()
+            prvSetButtonItem()
+            prvCalculate()
+        End With
     End Sub
 
     Private Sub prvEditItem()
-
+        intPos = grdItemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim frmDetail As New frmTraPurchaseOrderCuttingDetItem
+        With frmDetail
+            .pubIsNew = False
+            .pubPOID = strPOID
+            .pubID = grdItemView.GetRowCellValue(intPos, "ID")
+            .pubTableParentItem = dtItem
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            prvSetButtonItem()
+            prvCalculate()
+        End With
     End Sub
 
     Private Sub prvDeleteItem()
@@ -453,6 +461,7 @@ Public Class frmTraPurchaseOrderCuttingDet
             End If
         Next
         dtItem.AcceptChanges()
+        prvSetupTools()
         prvCalculate()
         prvSetButtonItem()
     End Sub

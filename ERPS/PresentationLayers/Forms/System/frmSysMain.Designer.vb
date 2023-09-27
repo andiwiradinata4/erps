@@ -44,6 +44,8 @@ Partial Class frmSysMain
         Me.mnuMasterSep1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuMasterRekanBisnis = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuMasterAkunBankPerusahaan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuMasterPaymentTypeCategory = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuMasterMetodePembayaran = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuMasterJenisPembayaran = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksi = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPenjualan = New System.Windows.Forms.ToolStripMenuItem()
@@ -69,8 +71,6 @@ Partial Class frmSysMain
         Me.mnuWindowsCascade = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuWindowsCloseAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLogout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuMasterPaymentTypeCategory = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuMasterMetodePembayaran = New System.Windows.Forms.ToolStripMenuItem()
         Me.ssMain.SuspendLayout()
         Me.mnuMain.SuspendLayout()
         Me.SuspendLayout()
@@ -249,6 +249,18 @@ Partial Class frmSysMain
         Me.mnuMasterAkunBankPerusahaan.Size = New System.Drawing.Size(199, 22)
         Me.mnuMasterAkunBankPerusahaan.Text = "Akun Bank Perusahaan"
         '
+        'mnuMasterPaymentTypeCategory
+        '
+        Me.mnuMasterPaymentTypeCategory.Name = "mnuMasterPaymentTypeCategory"
+        Me.mnuMasterPaymentTypeCategory.Size = New System.Drawing.Size(199, 22)
+        Me.mnuMasterPaymentTypeCategory.Text = "Payment Type Category"
+        '
+        'mnuMasterMetodePembayaran
+        '
+        Me.mnuMasterMetodePembayaran.Name = "mnuMasterMetodePembayaran"
+        Me.mnuMasterMetodePembayaran.Size = New System.Drawing.Size(199, 22)
+        Me.mnuMasterMetodePembayaran.Text = "Metode Pembayaran"
+        '
         'mnuMasterJenisPembayaran
         '
         Me.mnuMasterJenisPembayaran.Name = "mnuMasterJenisPembayaran"
@@ -266,7 +278,7 @@ Partial Class frmSysMain
         '
         Me.mnuTransaksiPenjualan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPenjualanPermintaan, Me.mnuTransaksiPenjualanKontrakPenjualan, Me.mnuTransaksiPenjualanMemoPengambilan, Me.mnuTransaksiPenjualanPengirimanPenjualan})
         Me.mnuTransaksiPenjualan.Name = "mnuTransaksiPenjualan"
-        Me.mnuTransaksiPenjualan.Size = New System.Drawing.Size(130, 22)
+        Me.mnuTransaksiPenjualan.Size = New System.Drawing.Size(152, 22)
         Me.mnuTransaksiPenjualan.Text = "Penjualan"
         '
         'mnuTransaksiPenjualanPermintaan
@@ -297,7 +309,7 @@ Partial Class frmSysMain
         '
         Me.mnuTransaksiPembelian.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPembelianPesananPembelian, Me.mnuTransaksiPembelianPesananPemotongan, Me.mnuTransaksiPembelianPesananPengiriman, Me.mnuTransaksiPembelianKonfirmasiPesanan, Me.mnuTransaksiPembelianKontrakPembelian, Me.mnuTransaksiPembelianInstruksi, Me.mnuTransaksiPembelianKonfirmasiPengiriman, Me.mnuTransaksiPembelianProsesPemotonganSPK})
         Me.mnuTransaksiPembelian.Name = "mnuTransaksiPembelian"
-        Me.mnuTransaksiPembelian.Size = New System.Drawing.Size(130, 22)
+        Me.mnuTransaksiPembelian.Size = New System.Drawing.Size(152, 22)
         Me.mnuTransaksiPembelian.Text = "Pembelian"
         '
         'mnuTransaksiPembelianPesananPembelian
@@ -403,18 +415,6 @@ Partial Class frmSysMain
         Me.mnuLogout.Name = "mnuLogout"
         Me.mnuLogout.Size = New System.Drawing.Size(57, 20)
         Me.mnuLogout.Text = "L&ogout"
-        '
-        'mnuMasterPaymentTypeCategory
-        '
-        Me.mnuMasterPaymentTypeCategory.Name = "mnuMasterPaymentTypeCategory"
-        Me.mnuMasterPaymentTypeCategory.Size = New System.Drawing.Size(199, 22)
-        Me.mnuMasterPaymentTypeCategory.Text = "Payment Type Category"
-        '
-        'mnuMasterMetodePembayaran
-        '
-        Me.mnuMasterMetodePembayaran.Name = "mnuMasterMetodePembayaran"
-        Me.mnuMasterMetodePembayaran.Size = New System.Drawing.Size(199, 22)
-        Me.mnuMasterMetodePembayaran.Text = "Metode Pembayaran"
         '
         'frmSysMain
         '

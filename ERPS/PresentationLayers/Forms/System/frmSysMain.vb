@@ -20,10 +20,13 @@
     Dim frmMainMstPaymentType As frmMstPaymentType
 
     '# Transaction
+    '# Sales
     Dim frmMainTraOrderRequest As frmTraOrderRequest
 
 
+    '# Purchase
     Dim frmMainTraPurchaseOrder As frmTraPurchaseOrder
+    Dim frmMainTraPurchaseOrderCutting As frmTraPurchaseOrderCutting
 
     '# Setting
     Dim frmMainSysChangePassword As frmSysChangePassword
@@ -63,7 +66,13 @@
         Application.DoEvents()
 
         '# Transaction
+        '# Sales
         mnuTransaksiPenjualanPermintaan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.ViewAccess)
+
+        '# Purchase
+        mnuTransaksiPembelianPesananPembelian.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembelianPesananPemotongan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembelianPesananPengiriman.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderTransport, VO.Access.Values.ViewAccess)
 
         'If ERPSLib.UI.usUserApp.ProgramID = VO.Program.Values.TradingTBS Then
         '    mnuTransaksiPenjualanJasa.Visible = False
@@ -260,6 +269,10 @@
 
     Private Sub mnuTransaksiPembelianPesananPembelian_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianPesananPembelian.Click
         UI.usForm.frmOpen(frmMainTraPurchaseOrder, "frmTraPurchaseOrder", Me)
+    End Sub
+
+    Private Sub mnuTransaksiPembelianPesananPemotongan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianPesananPemotongan.Click
+        UI.usForm.frmOpen(frmMainTraPurchaseOrderCutting, "frmTraPurchaseOrderCutting", Me)
     End Sub
 
 #End Region

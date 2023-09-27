@@ -132,7 +132,7 @@
                     .CommandType = CommandType.Text
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
-                        "   A.ID, A.ProgramID, A.CompanyID, A.PONumber, A.PODate, A.POID, C.PONumberRef, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.PersonInCharge, " & vbNewLine & _
+                        "   A.ID, A.ProgramID, A.CompanyID, A.PONumber, A.PODate, A.POID, C.PONumber AS PONumberRef, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.PersonInCharge, " & vbNewLine & _
                         "   A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, " & vbNewLine & _
                         "   A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
                         "FROM traPurchaseOrderCutting A " & vbNewLine & _
@@ -511,7 +511,7 @@
                     "SELECT " & vbNewLine & _
                     "   A.ID, A.POID, A.PODetailID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine & _
-                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A.SPKQuantity, A.SPKWeight, A.Remarks " & vbNewLine & _
+                    "   A.Quantity, A.Weight, A.TotalWeight, POD.TotalWeight-POD.CuttingWeight+A.TotalWeight AS MaxTotalWeight, A.UnitPrice, A.TotalPrice, A.SPKQuantity, A.SPKWeight, A.Remarks " & vbNewLine & _
                     "FROM traPurchaseOrderCuttingDet A " & vbNewLine & _
                     "INNER JOIN mstItem B ON " & vbNewLine & _
                     "   A.ItemID=B.ID " & vbNewLine & _
@@ -519,6 +519,8 @@
                     "   B.ItemSpecificationID=C.ID " & vbNewLine & _
                     "INNER JOIN mstItemType D ON " & vbNewLine & _
                     "   B.ItemTypeID=D.ID " & vbNewLine & _
+                    "INNER JOIN traPurchaseOrderDet POD ON " & vbNewLine & _
+                    "   A.PODetailID=POD.ID " & vbNewLine & _
                     "WHERE " & vbNewLine & _
                     "   A.POID=@POID " & vbNewLine
 

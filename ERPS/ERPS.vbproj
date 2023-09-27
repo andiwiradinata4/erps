@@ -353,6 +353,18 @@
     <Compile Include="PresentationLayers\Forms\System\frmSysMain.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrder.Designer.vb">
+      <DependentUpon>frmTraConfirmationOrder.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrder.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDet.Designer.vb">
+      <DependentUpon>frmTraConfirmationOrderDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrder.Designer.vb">
       <DependentUpon>frmTraPurchaseOrder.vb</DependentUpon>
     </Compile>
@@ -405,6 +417,12 @@
       <DependentUpon>frmTraPurchaseOrderDetItemOrder.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderDetItemOrder.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderOutstandingForCutting.Designer.vb">
+      <DependentUpon>frmTraPurchaseOrderOutstandingForCutting.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderOutstandingForCutting.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequest.Designer.vb">
@@ -664,6 +682,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderDetItemOrder.resx">
       <DependentUpon>frmTraPurchaseOrderDetItemOrder.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrderOutstandingForCutting.resx">
+      <DependentUpon>frmTraPurchaseOrderOutstandingForCutting.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstanding.resx">
       <DependentUpon>frmTraOrderRequestOutstanding.vb</DependentUpon>
