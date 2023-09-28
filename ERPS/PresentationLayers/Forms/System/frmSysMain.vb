@@ -27,6 +27,7 @@
     '# Purchase
     Dim frmMainTraPurchaseOrder As frmTraPurchaseOrder
     Dim frmMainTraPurchaseOrderCutting As frmTraPurchaseOrderCutting
+    Dim frmMainTraConfirmationOrder As frmTraConfirmationOrder
 
     '# Setting
     Dim frmMainSysChangePassword As frmSysChangePassword
@@ -273,6 +274,10 @@
 
     Private Sub mnuTransaksiPembelianPesananPemotongan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianPesananPemotongan.Click
         UI.usForm.frmOpen(frmMainTraPurchaseOrderCutting, "frmTraPurchaseOrderCutting", Me)
+    End Sub
+
+    Private Sub mnuTransaksiPembelianKonfirmasiPesanan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianKonfirmasiPesanan.Click
+        UI.usForm.frmOpen(frmMainTraConfirmationOrder, "frmTraConfirmationOrder", Me)
     End Sub
 
 #End Region

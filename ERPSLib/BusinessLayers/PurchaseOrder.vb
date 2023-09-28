@@ -326,6 +326,13 @@
             End Using
         End Function
 
+        Public Shared Function ListDataDetailOutstandingConfirmationOrder(ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseOrder.ListDataDetailOutstandingConfirmationOrder(sqlCon, Nothing, intBPID)
+            End Using
+        End Function
+
 #End Region
 
 #Region "Detail Internal"

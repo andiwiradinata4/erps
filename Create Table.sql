@@ -790,6 +790,8 @@ CREATE TABLE [dbo].[traPurchaseOrderDet](
 	[CuttingWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_CuttingWeight]  DEFAULT ((0)),
 	[TransportQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_TransportQuantity]  DEFAULT ((0)),
 	[TransportWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_TransportWeight]  DEFAULT ((0)),
+	[COQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_COQuantity]  DEFAULT ((0)),
+	[COWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_COWeight]  DEFAULT ((0)),
 	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_Remarks]  DEFAULT (''),
  CONSTRAINT [PK_traPurchaseOrderDet] PRIMARY KEY CLUSTERED 
 (

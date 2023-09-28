@@ -365,6 +365,24 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDet.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItem.Designer.vb">
+      <DependentUpon>frmTraConfirmationOrderDetItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrder.Designer.vb">
+      <DependentUpon>frmTraConfirmationOrderDetItemOrder.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrder.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderOutstanding.Designer.vb">
+      <DependentUpon>frmTraConfirmationOrderDetItemOrderOutstanding.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderOutstanding.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrder.Designer.vb">
       <DependentUpon>frmTraPurchaseOrder.vb</DependentUpon>
     </Compile>
@@ -655,6 +673,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\System\frmSysLogin.resx">
       <DependentUpon>frmSysLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrder.resx">
+      <DependentUpon>frmTraConfirmationOrder.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDet.resx">
+      <DependentUpon>frmTraConfirmationOrderDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItem.resx">
+      <DependentUpon>frmTraConfirmationOrderDetItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrder.resx">
+      <DependentUpon>frmTraConfirmationOrderDetItemOrder.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderOutstanding.resx">
+      <DependentUpon>frmTraConfirmationOrderDetItemOrderOutstanding.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseOrder.resx">
       <DependentUpon>frmTraPurchaseOrder.vb</DependentUpon>

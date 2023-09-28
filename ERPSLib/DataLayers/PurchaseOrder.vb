@@ -674,6 +674,41 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailOutstandingConfirmationOrder(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                          ByVal intBPID As Integer) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "SELECT 	" & vbNewLine & _
+                    "    A.ID, A.POID, A1.PONumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, 	" & vbNewLine & _
+                    "    C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, 	" & vbNewLine & _
+                    "    D.Description AS ItemTypeName, A.UnitPrice-A.CuttingPrice-A.TransportPrice AS UnitPrice, " & vbNewLine & _
+                    "    A.Quantity-A.COQuantity AS Quantity, A.Weight, A.TotalWeight-A.COWeight AS TotalWeight, A.Remarks 	" & vbNewLine & _
+                    "FROM traPurchaseOrderDet A 	" & vbNewLine & _
+                    "INNER JOIN traPurchaseOrder A1 ON 	" & vbNewLine & _
+                    "    A.POID=A1.ID 	" & vbNewLine & _
+                    "INNER JOIN mstItem B ON 	" & vbNewLine & _
+                    "    A.ItemID=B.ID 	" & vbNewLine & _
+                    "INNER JOIN mstItemSpecification C ON 	" & vbNewLine & _
+                    "    B.ItemSpecificationID=C.ID 	" & vbNewLine & _
+                    "INNER JOIN mstItemType D ON 	" & vbNewLine & _
+                    "    B.ItemTypeID=D.ID 	" & vbNewLine & _
+                    "WHERE 	" & vbNewLine & _
+                    "    A1.IsDeleted=0 " & vbNewLine & _
+                    "    AND A1.BPID=@BPID " & vbNewLine & _
+                    "    AND A1.StatusID=@StatusID " & vbNewLine & _
+                    "    AND A.Quantity-A.COQuantity>0	" & vbNewLine & _
+                    "    AND A.TotalWeight-A.COWeight>0	" & vbNewLine
+
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                          ByVal clsData As VO.PurchaseOrderDet)
             Dim sqlCmdExecute As New SqlCommand
@@ -759,6 +794,48 @@
                     "		WHERE 	" & vbNewLine & _
                     "			POD.PODetailID=@PODetailID " & vbNewLine & _
                     "			AND POH.IsDeleted=0 	" & vbNewLine & _
+                    "	) 	" & vbNewLine & _
+                    "WHERE ID=@PODetailID	" & vbNewLine
+
+                .Parameters.Add("@PODetailID", SqlDbType.VarChar, 100).Value = strPODetailID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateCOTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal strPODetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE traPurchaseOrderDet SET 	" & vbNewLine & _
+                    "	COWeight=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(COD.TotalWeight),0) TotalWeight		" & vbNewLine & _
+                    "		FROM traConfirmationOrderDet COD 	" & vbNewLine & _
+                    "		INNER JOIN traConfirmationOrder COH ON	" & vbNewLine & _
+                    "			COD.POID=COH.ID 	" & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			COD.PODetailID=@PODetailID " & vbNewLine & _
+                    "			AND COH.IsDeleted=0 	" & vbNewLine & _
+                    "	), 	" & vbNewLine & _
+                    "	COQuantity=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(COD.Quantity),0) TotalQuantity " & vbNewLine & _
+                    "		FROM traConfirmationOrderDet COD 	" & vbNewLine & _
+                    "		INNER JOIN traConfirmationOrder COH ON	" & vbNewLine & _
+                    "			COD.POID=COH.ID 	" & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			COD.PODetailID=@PODetailID " & vbNewLine & _
+                    "			AND COH.IsDeleted=0 	" & vbNewLine & _
                     "	) 	" & vbNewLine & _
                     "WHERE ID=@PODetailID	" & vbNewLine
 
@@ -936,39 +1013,6 @@
                 Throw ex
             End Try
         End Sub
-
-        Public Shared Function GetMaxIDPaymentTerm(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                   ByVal strPOID As String) As Integer
-            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
-            Dim intReturn As Integer = 0
-            Try
-                With sqlCmdExecute
-                    .Connection = sqlCon
-                    .Transaction = sqlTrans
-                    .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 ISNULL(RIGHT(ID,3),'000') AS ID " & vbNewLine & _
-                        "FROM traPurchaseOrderPaymentTerm " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
-                        "   POID=@POID " & vbNewLine & _
-                        "ORDER BY ID DESC " & vbNewLine
-
-                    .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = strPOID
-                End With
-                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
-                With sqlrdData
-                    If .HasRows Then
-                        .Read()
-                        intReturn = .Item("ID")
-                    End If
-                End With
-            Catch ex As Exception
-                Throw ex
-            Finally
-                If Not sqlrdData Is Nothing Then sqlrdData.Close()
-            End Try
-            Return intReturn
-        End Function
 
 #End Region
 

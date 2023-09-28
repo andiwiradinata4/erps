@@ -441,7 +441,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         With frmDetail
             .pubIsNew = False
             .pubPOID = strPOID
-            .pubID = grdItemView.GetRowCellValue(intPos, "ID")
+            .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .pubTableParentItem = dtItem
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)

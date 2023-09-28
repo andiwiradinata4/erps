@@ -83,6 +83,7 @@
     <Compile Include="BusinessLayers\Base\UserAccess.vb" />
     <Compile Include="BusinessLayers\Base\UserCompany.vb" />
     <Compile Include="BusinessLayers\BusinessPartner.vb" />
+    <Compile Include="BusinessLayers\ConfirmationOrder.vb" />
     <Compile Include="BusinessLayers\Item.vb" />
     <Compile Include="BusinessLayers\ItemSpecification.vb" />
     <Compile Include="BusinessLayers\ItemType.vb" />

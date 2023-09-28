@@ -27,6 +27,23 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
+        Me.pgMain = New System.Windows.Forms.ProgressBar()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.tcDetail = New System.Windows.Forms.TabControl()
+        Me.tpItem = New System.Windows.Forms.TabPage()
+        Me.grdItem = New DevExpress.XtraGrid.GridControl()
+        Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.StatusStrip = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripEmpty = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripLogInc = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripLogBy = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolBarItem = New ERPS.usToolBar()
+        Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
         Me.Label21 = New System.Windows.Forms.Label()
@@ -34,22 +51,22 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.dtpDeliveryPeriodFrom = New System.Windows.Forms.DateTimePicker()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.txtPersonInCharge = New ERPS.usTextBox()
+        Me.txtPONumberReferences = New ERPS.usTextBox()
+        Me.txtRemarks = New ERPS.usTextBox()
+        Me.txtBPCode = New ERPS.usTextBox()
+        Me.txtBPName = New ERPS.usTextBox()
+        Me.txtPONumber = New ERPS.usTextBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.btnPONumberReferences = New DevExpress.XtraEditors.SimpleButton()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.txtPONumberReferences = New ERPS.usTextBox()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.txtRemarks = New ERPS.usTextBox()
         Me.cboStatus = New ERPS.usComboBox()
         Me.lblStatusID = New System.Windows.Forms.Label()
         Me.dtpPODate = New System.Windows.Forms.DateTimePicker()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.txtBPCode = New ERPS.usTextBox()
         Me.btnBP = New DevExpress.XtraEditors.SimpleButton()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.txtBPName = New ERPS.usTextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.txtPONumber = New ERPS.usTextBox()
         Me.tpAmount = New System.Windows.Forms.TabPage()
         Me.gboPesanan = New System.Windows.Forms.GroupBox()
         Me.Label15 = New System.Windows.Forms.Label()
@@ -77,23 +94,12 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.tpHistory = New System.Windows.Forms.TabPage()
         Me.grdStatus = New DevExpress.XtraGrid.GridControl()
         Me.grdStatusView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.pgMain = New System.Windows.Forms.ProgressBar()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.tcDetail = New System.Windows.Forms.TabControl()
-        Me.tpItem = New System.Windows.Forms.TabPage()
-        Me.grdItem = New DevExpress.XtraGrid.GridControl()
-        Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.ToolBarItem = New ERPS.usToolBar()
-        Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.StatusStrip = New System.Windows.Forms.StatusStrip()
-        Me.ToolStripEmpty = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.ToolStripLogInc = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.ToolStripLogBy = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.tcDetail.SuspendLayout()
+        Me.tpItem.SuspendLayout()
+        CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.StatusStrip.SuspendLayout()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         Me.tpAmount.SuspendLayout()
@@ -111,12 +117,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.tpHistory.SuspendLayout()
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tcDetail.SuspendLayout()
-        Me.tpItem.SuspendLayout()
-        CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -128,7 +128,7 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
         Me.ToolBar.Size = New System.Drawing.Size(884, 28)
-        Me.ToolBar.TabIndex = 1
+        Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
         'BarRefresh
@@ -152,9 +152,180 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.lblInfo.Location = New System.Drawing.Point(0, 28)
         Me.lblInfo.Name = "lblInfo"
         Me.lblInfo.Size = New System.Drawing.Size(884, 22)
-        Me.lblInfo.TabIndex = 2
+        Me.lblInfo.TabIndex = 1
         Me.lblInfo.Text = "« Pesanan Pembelian Detail"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'pgMain
+        '
+        Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.pgMain.Location = New System.Drawing.Point(0, 638)
+        Me.pgMain.Name = "pgMain"
+        Me.pgMain.Size = New System.Drawing.Size(884, 23)
+        Me.pgMain.TabIndex = 5
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.CadetBlue
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.Location = New System.Drawing.Point(0, 259)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(884, 22)
+        Me.Label1.TabIndex = 3
+        Me.Label1.Text = "« Item"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'tcDetail
+        '
+        Me.tcDetail.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
+        Me.tcDetail.Controls.Add(Me.tpItem)
+        Me.tcDetail.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tcDetail.Location = New System.Drawing.Point(0, 281)
+        Me.tcDetail.Name = "tcDetail"
+        Me.tcDetail.SelectedIndex = 0
+        Me.tcDetail.Size = New System.Drawing.Size(884, 357)
+        Me.tcDetail.TabIndex = 4
+        '
+        'tpItem
+        '
+        Me.tpItem.Controls.Add(Me.grdItem)
+        Me.tpItem.Controls.Add(Me.StatusStrip)
+        Me.tpItem.Controls.Add(Me.ToolBarItem)
+        Me.tpItem.Location = New System.Drawing.Point(4, 25)
+        Me.tpItem.Name = "tpItem"
+        Me.tpItem.Padding = New System.Windows.Forms.Padding(3)
+        Me.tpItem.Size = New System.Drawing.Size(876, 328)
+        Me.tpItem.TabIndex = 1
+        Me.tpItem.Text = "Item - F5"
+        Me.tpItem.UseVisualStyleBackColor = True
+        '
+        'grdItem
+        '
+        Me.grdItem.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdItem.EmbeddedNavigator.Buttons.Append.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.Append.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.Edit.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.Edit.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.EndEdit.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.NextPage.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.NextPage.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.Remove.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.Remove.Visible = False
+        Me.grdItem.Location = New System.Drawing.Point(3, 31)
+        Me.grdItem.MainView = Me.grdItemView
+        Me.grdItem.Name = "grdItem"
+        Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
+        Me.grdItem.Size = New System.Drawing.Size(870, 272)
+        Me.grdItem.TabIndex = 1
+        Me.grdItem.UseEmbeddedNavigator = True
+        Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
+        '
+        'grdItemView
+        '
+        Me.grdItemView.GridControl = Me.grdItem
+        Me.grdItemView.Name = "grdItemView"
+        Me.grdItemView.OptionsCustomization.AllowColumnMoving = False
+        Me.grdItemView.OptionsCustomization.AllowGroup = False
+        Me.grdItemView.OptionsView.ColumnAutoWidth = False
+        Me.grdItemView.OptionsView.ShowAutoFilterRow = True
+        Me.grdItemView.OptionsView.ShowFooter = True
+        Me.grdItemView.OptionsView.ShowGroupPanel = False
+        '
+        'RepositoryItemTextEdit1
+        '
+        Me.RepositoryItemTextEdit1.AutoHeight = False
+        Me.RepositoryItemTextEdit1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.RepositoryItemTextEdit1.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.RepositoryItemTextEdit1.Name = "RepositoryItemTextEdit1"
+        Me.RepositoryItemTextEdit1.NullText = "0.00"
+        '
+        'StatusStrip
+        '
+        Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
+        Me.StatusStrip.Location = New System.Drawing.Point(3, 303)
+        Me.StatusStrip.Name = "StatusStrip"
+        Me.StatusStrip.Size = New System.Drawing.Size(870, 22)
+        Me.StatusStrip.TabIndex = 2
+        Me.StatusStrip.Text = "StatusStrip1"
+        '
+        'ToolStripEmpty
+        '
+        Me.ToolStripEmpty.Name = "ToolStripEmpty"
+        Me.ToolStripEmpty.Size = New System.Drawing.Size(747, 17)
+        Me.ToolStripEmpty.Spring = True
+        '
+        'ToolStripLogInc
+        '
+        Me.ToolStripLogInc.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.ToolStripLogInc.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.ToolStripLogInc.Name = "ToolStripLogInc"
+        Me.ToolStripLogInc.Size = New System.Drawing.Size(48, 17)
+        Me.ToolStripLogInc.Text = "Log Inc : "
+        '
+        'ToolStripLogBy
+        '
+        Me.ToolStripLogBy.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.ToolStripLogBy.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.ToolStripLogBy.Name = "ToolStripLogBy"
+        Me.ToolStripLogBy.Size = New System.Drawing.Size(48, 17)
+        Me.ToolStripLogBy.Text = "Last Log :"
+        '
+        'ToolStripStatusLabel1
+        '
+        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(0, 17)
+        '
+        'ToolStripLogDate
+        '
+        Me.ToolStripLogDate.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.ToolStripLogDate.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.ToolStripLogDate.Name = "ToolStripLogDate"
+        Me.ToolStripLogDate.Size = New System.Drawing.Size(12, 17)
+        Me.ToolStripLogDate.Text = "-"
+        '
+        'ToolBarItem
+        '
+        Me.ToolBarItem.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBarItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder})
+        Me.ToolBarItem.DropDownArrows = True
+        Me.ToolBarItem.Location = New System.Drawing.Point(3, 3)
+        Me.ToolBarItem.Name = "ToolBarItem"
+        Me.ToolBarItem.ShowToolTips = True
+        Me.ToolBarItem.Size = New System.Drawing.Size(870, 28)
+        Me.ToolBarItem.TabIndex = 0
+        Me.ToolBarItem.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'BarAddItemOrder
+        '
+        Me.BarAddItemOrder.Name = "BarAddItemOrder"
+        Me.BarAddItemOrder.Tag = "Add"
+        Me.BarAddItemOrder.Text = "Tambah"
+        '
+        'BarDetailItemOrder
+        '
+        Me.BarDetailItemOrder.Name = "BarDetailItemOrder"
+        Me.BarDetailItemOrder.Tag = "Edit"
+        Me.BarDetailItemOrder.Text = "Edit"
+        '
+        'BarDeleteItemOrder
+        '
+        Me.BarDeleteItemOrder.Name = "BarDeleteItemOrder"
+        Me.BarDeleteItemOrder.Tag = "Delete"
+        Me.BarDeleteItemOrder.Text = "Hapus"
         '
         'tcHeader
         '
@@ -168,7 +339,7 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
         Me.tcHeader.Size = New System.Drawing.Size(884, 209)
-        Me.tcHeader.TabIndex = 3
+        Me.tcHeader.TabIndex = 6
         '
         'tpMain
         '
@@ -178,22 +349,22 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.tpMain.Controls.Add(Me.dtpDeliveryPeriodFrom)
         Me.tpMain.Controls.Add(Me.Label20)
         Me.tpMain.Controls.Add(Me.txtPersonInCharge)
+        Me.tpMain.Controls.Add(Me.txtPONumberReferences)
+        Me.tpMain.Controls.Add(Me.txtRemarks)
+        Me.tpMain.Controls.Add(Me.txtBPCode)
+        Me.tpMain.Controls.Add(Me.txtBPName)
+        Me.tpMain.Controls.Add(Me.txtPONumber)
         Me.tpMain.Controls.Add(Me.Label19)
         Me.tpMain.Controls.Add(Me.btnPONumberReferences)
         Me.tpMain.Controls.Add(Me.Label5)
-        Me.tpMain.Controls.Add(Me.txtPONumberReferences)
         Me.tpMain.Controls.Add(Me.Label13)
-        Me.tpMain.Controls.Add(Me.txtRemarks)
         Me.tpMain.Controls.Add(Me.cboStatus)
         Me.tpMain.Controls.Add(Me.lblStatusID)
         Me.tpMain.Controls.Add(Me.dtpPODate)
         Me.tpMain.Controls.Add(Me.Label4)
-        Me.tpMain.Controls.Add(Me.txtBPCode)
         Me.tpMain.Controls.Add(Me.btnBP)
         Me.tpMain.Controls.Add(Me.Label3)
-        Me.tpMain.Controls.Add(Me.txtBPName)
         Me.tpMain.Controls.Add(Me.Label2)
-        Me.tpMain.Controls.Add(Me.txtPONumber)
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
@@ -258,6 +429,61 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.txtPersonInCharge.Size = New System.Drawing.Size(249, 21)
         Me.txtPersonInCharge.TabIndex = 7
         '
+        'txtPONumberReferences
+        '
+        Me.txtPONumberReferences.BackColor = System.Drawing.Color.Azure
+        Me.txtPONumberReferences.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPONumberReferences.Location = New System.Drawing.Point(160, 97)
+        Me.txtPONumberReferences.MaxLength = 250
+        Me.txtPONumberReferences.Name = "txtPONumberReferences"
+        Me.txtPONumberReferences.ReadOnly = True
+        Me.txtPONumberReferences.Size = New System.Drawing.Size(249, 21)
+        Me.txtPONumberReferences.TabIndex = 5
+        '
+        'txtRemarks
+        '
+        Me.txtRemarks.BackColor = System.Drawing.Color.White
+        Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtRemarks.Location = New System.Drawing.Point(585, 70)
+        Me.txtRemarks.MaxLength = 250
+        Me.txtRemarks.Multiline = True
+        Me.txtRemarks.Name = "txtRemarks"
+        Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
+        Me.txtRemarks.TabIndex = 11
+        '
+        'txtBPCode
+        '
+        Me.txtBPCode.BackColor = System.Drawing.Color.Azure
+        Me.txtBPCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtBPCode.Location = New System.Drawing.Point(160, 43)
+        Me.txtBPCode.MaxLength = 250
+        Me.txtBPCode.Name = "txtBPCode"
+        Me.txtBPCode.ReadOnly = True
+        Me.txtBPCode.Size = New System.Drawing.Size(83, 21)
+        Me.txtBPCode.TabIndex = 1
+        '
+        'txtBPName
+        '
+        Me.txtBPName.BackColor = System.Drawing.Color.Azure
+        Me.txtBPName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtBPName.Location = New System.Drawing.Point(242, 43)
+        Me.txtBPName.MaxLength = 250
+        Me.txtBPName.Name = "txtBPName"
+        Me.txtBPName.ReadOnly = True
+        Me.txtBPName.Size = New System.Drawing.Size(167, 21)
+        Me.txtBPName.TabIndex = 2
+        '
+        'txtPONumber
+        '
+        Me.txtPONumber.BackColor = System.Drawing.Color.LightYellow
+        Me.txtPONumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPONumber.Location = New System.Drawing.Point(160, 16)
+        Me.txtPONumber.MaxLength = 250
+        Me.txtPONumber.Name = "txtPONumber"
+        Me.txtPONumber.ReadOnly = True
+        Me.txtPONumber.Size = New System.Drawing.Size(167, 21)
+        Me.txtPONumber.TabIndex = 0
+        '
         'Label19
         '
         Me.Label19.AutoSize = True
@@ -288,17 +514,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.Label5.TabIndex = 131
         Me.Label5.Text = "No. Pesanan Pembelian"
         '
-        'txtPONumberReferences
-        '
-        Me.txtPONumberReferences.BackColor = System.Drawing.Color.Azure
-        Me.txtPONumberReferences.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPONumberReferences.Location = New System.Drawing.Point(160, 97)
-        Me.txtPONumberReferences.MaxLength = 250
-        Me.txtPONumberReferences.Name = "txtPONumberReferences"
-        Me.txtPONumberReferences.ReadOnly = True
-        Me.txtPONumberReferences.Size = New System.Drawing.Size(249, 21)
-        Me.txtPONumberReferences.TabIndex = 5
-        '
         'Label13
         '
         Me.Label13.AutoSize = True
@@ -309,17 +524,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 129
         Me.Label13.Text = "Keterangan"
-        '
-        'txtRemarks
-        '
-        Me.txtRemarks.BackColor = System.Drawing.Color.White
-        Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(585, 70)
-        Me.txtRemarks.MaxLength = 250
-        Me.txtRemarks.Multiline = True
-        Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 11
         '
         'cboStatus
         '
@@ -364,17 +568,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.Label4.TabIndex = 124
         Me.Label4.Text = "Tanggal"
         '
-        'txtBPCode
-        '
-        Me.txtBPCode.BackColor = System.Drawing.Color.Azure
-        Me.txtBPCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtBPCode.Location = New System.Drawing.Point(160, 43)
-        Me.txtBPCode.MaxLength = 250
-        Me.txtBPCode.Name = "txtBPCode"
-        Me.txtBPCode.ReadOnly = True
-        Me.txtBPCode.Size = New System.Drawing.Size(83, 21)
-        Me.txtBPCode.TabIndex = 1
-        '
         'btnBP
         '
         Me.btnBP.Image = CType(resources.GetObject("btnBP.Image"), System.Drawing.Image)
@@ -394,17 +587,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.Label3.TabIndex = 122
         Me.Label3.Text = "Pemasok"
         '
-        'txtBPName
-        '
-        Me.txtBPName.BackColor = System.Drawing.Color.Azure
-        Me.txtBPName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtBPName.Location = New System.Drawing.Point(242, 43)
-        Me.txtBPName.MaxLength = 250
-        Me.txtBPName.Name = "txtBPName"
-        Me.txtBPName.ReadOnly = True
-        Me.txtBPName.Size = New System.Drawing.Size(167, 21)
-        Me.txtBPName.TabIndex = 2
-        '
         'Label2
         '
         Me.Label2.AutoSize = True
@@ -415,17 +597,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.Label2.Size = New System.Drawing.Size(38, 13)
         Me.Label2.TabIndex = 97
         Me.Label2.Text = "Nomor"
-        '
-        'txtPONumber
-        '
-        Me.txtPONumber.BackColor = System.Drawing.Color.LightYellow
-        Me.txtPONumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPONumber.Location = New System.Drawing.Point(160, 16)
-        Me.txtPONumber.MaxLength = 250
-        Me.txtPONumber.Name = "txtPONumber"
-        Me.txtPONumber.ReadOnly = True
-        Me.txtPONumber.Size = New System.Drawing.Size(167, 21)
-        Me.txtPONumber.TabIndex = 0
         '
         'tpAmount
         '
@@ -761,177 +932,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.grdStatusView.OptionsView.ColumnAutoWidth = False
         Me.grdStatusView.OptionsView.ShowGroupPanel = False
         '
-        'pgMain
-        '
-        Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pgMain.Location = New System.Drawing.Point(0, 638)
-        Me.pgMain.Name = "pgMain"
-        Me.pgMain.Size = New System.Drawing.Size(884, 23)
-        Me.pgMain.TabIndex = 7
-        '
-        'Label1
-        '
-        Me.Label1.BackColor = System.Drawing.Color.CadetBlue
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Label1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(0, 259)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(884, 22)
-        Me.Label1.TabIndex = 8
-        Me.Label1.Text = "« Item"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'tcDetail
-        '
-        Me.tcDetail.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
-        Me.tcDetail.Controls.Add(Me.tpItem)
-        Me.tcDetail.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tcDetail.Location = New System.Drawing.Point(0, 281)
-        Me.tcDetail.Name = "tcDetail"
-        Me.tcDetail.SelectedIndex = 0
-        Me.tcDetail.Size = New System.Drawing.Size(884, 357)
-        Me.tcDetail.TabIndex = 9
-        '
-        'tpItem
-        '
-        Me.tpItem.Controls.Add(Me.grdItem)
-        Me.tpItem.Controls.Add(Me.StatusStrip)
-        Me.tpItem.Controls.Add(Me.ToolBarItem)
-        Me.tpItem.Location = New System.Drawing.Point(4, 25)
-        Me.tpItem.Name = "tpItem"
-        Me.tpItem.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpItem.Size = New System.Drawing.Size(876, 328)
-        Me.tpItem.TabIndex = 1
-        Me.tpItem.Text = "Item - F5"
-        Me.tpItem.UseVisualStyleBackColor = True
-        '
-        'grdItem
-        '
-        Me.grdItem.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdItem.EmbeddedNavigator.Buttons.Append.Enabled = False
-        Me.grdItem.EmbeddedNavigator.Buttons.Append.Visible = False
-        Me.grdItem.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
-        Me.grdItem.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
-        Me.grdItem.EmbeddedNavigator.Buttons.Edit.Enabled = False
-        Me.grdItem.EmbeddedNavigator.Buttons.Edit.Visible = False
-        Me.grdItem.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
-        Me.grdItem.EmbeddedNavigator.Buttons.EndEdit.Visible = False
-        Me.grdItem.EmbeddedNavigator.Buttons.NextPage.Enabled = False
-        Me.grdItem.EmbeddedNavigator.Buttons.NextPage.Visible = False
-        Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
-        Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Visible = False
-        Me.grdItem.EmbeddedNavigator.Buttons.Remove.Enabled = False
-        Me.grdItem.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdItem.Location = New System.Drawing.Point(3, 31)
-        Me.grdItem.MainView = Me.grdItemView
-        Me.grdItem.Name = "grdItem"
-        Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItem.Size = New System.Drawing.Size(870, 272)
-        Me.grdItem.TabIndex = 9
-        Me.grdItem.UseEmbeddedNavigator = True
-        Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
-        '
-        'grdItemView
-        '
-        Me.grdItemView.GridControl = Me.grdItem
-        Me.grdItemView.Name = "grdItemView"
-        Me.grdItemView.OptionsCustomization.AllowColumnMoving = False
-        Me.grdItemView.OptionsCustomization.AllowGroup = False
-        Me.grdItemView.OptionsView.ColumnAutoWidth = False
-        Me.grdItemView.OptionsView.ShowAutoFilterRow = True
-        Me.grdItemView.OptionsView.ShowFooter = True
-        Me.grdItemView.OptionsView.ShowGroupPanel = False
-        '
-        'RepositoryItemTextEdit1
-        '
-        Me.RepositoryItemTextEdit1.AutoHeight = False
-        Me.RepositoryItemTextEdit1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.RepositoryItemTextEdit1.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.RepositoryItemTextEdit1.Name = "RepositoryItemTextEdit1"
-        Me.RepositoryItemTextEdit1.NullText = "0.00"
-        '
-        'ToolBarItem
-        '
-        Me.ToolBarItem.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder})
-        Me.ToolBarItem.DropDownArrows = True
-        Me.ToolBarItem.Location = New System.Drawing.Point(3, 3)
-        Me.ToolBarItem.Name = "ToolBarItem"
-        Me.ToolBarItem.ShowToolTips = True
-        Me.ToolBarItem.Size = New System.Drawing.Size(870, 28)
-        Me.ToolBarItem.TabIndex = 8
-        Me.ToolBarItem.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
-        'BarAddItemOrder
-        '
-        Me.BarAddItemOrder.Name = "BarAddItemOrder"
-        Me.BarAddItemOrder.Tag = "Add"
-        Me.BarAddItemOrder.Text = "Tambah"
-        '
-        'BarDetailItemOrder
-        '
-        Me.BarDetailItemOrder.Name = "BarDetailItemOrder"
-        Me.BarDetailItemOrder.Tag = "Edit"
-        Me.BarDetailItemOrder.Text = "Edit"
-        '
-        'BarDeleteItemOrder
-        '
-        Me.BarDeleteItemOrder.Name = "BarDeleteItemOrder"
-        Me.BarDeleteItemOrder.Tag = "Delete"
-        Me.BarDeleteItemOrder.Text = "Hapus"
-        '
-        'StatusStrip
-        '
-        Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(3, 303)
-        Me.StatusStrip.Name = "StatusStrip"
-        Me.StatusStrip.Size = New System.Drawing.Size(870, 22)
-        Me.StatusStrip.TabIndex = 10
-        Me.StatusStrip.Text = "StatusStrip1"
-        '
-        'ToolStripEmpty
-        '
-        Me.ToolStripEmpty.Name = "ToolStripEmpty"
-        Me.ToolStripEmpty.Size = New System.Drawing.Size(747, 17)
-        Me.ToolStripEmpty.Spring = True
-        '
-        'ToolStripLogInc
-        '
-        Me.ToolStripLogInc.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.ToolStripLogInc.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
-        Me.ToolStripLogInc.Name = "ToolStripLogInc"
-        Me.ToolStripLogInc.Size = New System.Drawing.Size(48, 17)
-        Me.ToolStripLogInc.Text = "Log Inc : "
-        '
-        'ToolStripLogBy
-        '
-        Me.ToolStripLogBy.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.ToolStripLogBy.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
-        Me.ToolStripLogBy.Name = "ToolStripLogBy"
-        Me.ToolStripLogBy.Size = New System.Drawing.Size(48, 17)
-        Me.ToolStripLogBy.Text = "Last Log :"
-        '
-        'ToolStripStatusLabel1
-        '
-        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(0, 17)
-        '
-        'ToolStripLogDate
-        '
-        Me.ToolStripLogDate.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.ToolStripLogDate.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
-        Me.ToolStripLogDate.Name = "ToolStripLogDate"
-        Me.ToolStripLogDate.Size = New System.Drawing.Size(12, 17)
-        Me.ToolStripLogDate.Text = "-"
-        '
         'frmTraPurchaseOrderCuttingDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -939,8 +939,8 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.ClientSize = New System.Drawing.Size(884, 661)
         Me.Controls.Add(Me.tcDetail)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.pgMain)
         Me.Controls.Add(Me.tcHeader)
+        Me.Controls.Add(Me.pgMain)
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
@@ -949,6 +949,14 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.MinimizeBox = False
         Me.Name = "frmTraPurchaseOrderCuttingDet"
         Me.Text = "Pesanan Pembelian Pemotongan"
+        Me.tcDetail.ResumeLayout(False)
+        Me.tpItem.ResumeLayout(False)
+        Me.tpItem.PerformLayout()
+        CType(Me.grdItem, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.StatusStrip.ResumeLayout(False)
+        Me.StatusStrip.PerformLayout()
         Me.tcHeader.ResumeLayout(False)
         Me.tpMain.ResumeLayout(False)
         Me.tpMain.PerformLayout()
@@ -970,14 +978,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.tpHistory.ResumeLayout(False)
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tcDetail.ResumeLayout(False)
-        Me.tpItem.ResumeLayout(False)
-        Me.tpItem.PerformLayout()
-        CType(Me.grdItem, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.StatusStrip.ResumeLayout(False)
-        Me.StatusStrip.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -986,6 +986,23 @@ Partial Class frmTraPurchaseOrderCuttingDet
     Friend WithEvents BarRefresh As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarClose As System.Windows.Forms.ToolBarButton
     Friend WithEvents lblInfo As System.Windows.Forms.Label
+    Friend WithEvents pgMain As System.Windows.Forms.ProgressBar
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents tcDetail As System.Windows.Forms.TabControl
+    Friend WithEvents tpItem As System.Windows.Forms.TabPage
+    Friend WithEvents grdItem As DevExpress.XtraGrid.GridControl
+    Friend WithEvents grdItemView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents ToolBarItem As ERPS.usToolBar
+    Friend WithEvents BarAddItemOrder As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarDetailItemOrder As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarDeleteItemOrder As System.Windows.Forms.ToolBarButton
+    Friend WithEvents StatusStrip As System.Windows.Forms.StatusStrip
+    Friend WithEvents ToolStripEmpty As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents ToolStripLogInc As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents ToolStripLogBy As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents ToolStripLogDate As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents tcHeader As System.Windows.Forms.TabControl
     Friend WithEvents tpMain As System.Windows.Forms.TabPage
     Friend WithEvents Label21 As System.Windows.Forms.Label
@@ -993,22 +1010,22 @@ Partial Class frmTraPurchaseOrderCuttingDet
     Friend WithEvents dtpDeliveryPeriodFrom As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents txtPersonInCharge As ERPS.usTextBox
+    Friend WithEvents txtPONumberReferences As ERPS.usTextBox
+    Friend WithEvents txtRemarks As ERPS.usTextBox
+    Friend WithEvents txtBPCode As ERPS.usTextBox
+    Friend WithEvents txtBPName As ERPS.usTextBox
+    Friend WithEvents txtPONumber As ERPS.usTextBox
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents btnPONumberReferences As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents txtPONumberReferences As ERPS.usTextBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents txtRemarks As ERPS.usTextBox
     Friend WithEvents cboStatus As ERPS.usComboBox
     Friend WithEvents lblStatusID As System.Windows.Forms.Label
     Friend WithEvents dtpPODate As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents txtBPCode As ERPS.usTextBox
     Friend WithEvents btnBP As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents txtBPName As ERPS.usTextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents txtPONumber As ERPS.usTextBox
     Friend WithEvents tpAmount As System.Windows.Forms.TabPage
     Friend WithEvents gboPesanan As System.Windows.Forms.GroupBox
     Friend WithEvents Label15 As System.Windows.Forms.Label
@@ -1036,21 +1053,4 @@ Partial Class frmTraPurchaseOrderCuttingDet
     Friend WithEvents tpHistory As System.Windows.Forms.TabPage
     Friend WithEvents grdStatus As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdStatusView As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents pgMain As System.Windows.Forms.ProgressBar
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents tcDetail As System.Windows.Forms.TabControl
-    Friend WithEvents tpItem As System.Windows.Forms.TabPage
-    Friend WithEvents grdItem As DevExpress.XtraGrid.GridControl
-    Friend WithEvents grdItemView As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
-    Friend WithEvents ToolBarItem As ERPS.usToolBar
-    Friend WithEvents BarAddItemOrder As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarDetailItemOrder As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarDeleteItemOrder As System.Windows.Forms.ToolBarButton
-    Friend WithEvents StatusStrip As System.Windows.Forms.StatusStrip
-    Friend WithEvents ToolStripEmpty As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents ToolStripLogInc As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents ToolStripLogBy As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents ToolStripLogDate As System.Windows.Forms.ToolStripStatusLabel
 End Class

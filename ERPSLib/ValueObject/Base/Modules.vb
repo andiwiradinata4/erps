@@ -30,6 +30,7 @@ Namespace VO
             TransactionPurchaseOrder = 16
             TransactionPurchaseOrderCutting = 17
             TransactionPurchaseOrderTransport = 18
+            TransactionConfirmationOrder = 20
         End Enum
 
     End Class

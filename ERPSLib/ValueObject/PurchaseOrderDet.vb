@@ -16,6 +16,8 @@
         Property CuttingWeight As Decimal
         Property TransportQuantity As Decimal
         Property TransportWeight As Decimal
+        Property COQuantity As Decimal
+        Property COWeight As Decimal
         Property Remarks As String
     End Class
 End Namespace

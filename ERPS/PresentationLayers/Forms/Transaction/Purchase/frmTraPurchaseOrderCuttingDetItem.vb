@@ -4,6 +4,7 @@
 
     Private frmParent As frmTraPurchaseOrderCuttingDet
     Private dtParentItem As New DataTable
+    Private drSelectedItem As DataRow
     Private bolIsNew As Boolean = False
     Private intItemID As Integer = 0
     Private strPOID As String
@@ -14,6 +15,12 @@
     Public WriteOnly Property pubTableParentItem As DataTable
         Set(value As DataTable)
             dtParentItem = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubDataRowSelected As DataRow
+        Set(value As DataRow)
+            drSelectedItem = value
         End Set
     End Property
 
@@ -32,12 +39,6 @@
     Public WriteOnly Property pubPODetailID As String
         Set(value As String)
             strPODetailID = value
-        End Set
-    End Property
-
-    Public WriteOnly Property pubID As String
-        Set(value As String)
-            strID = value
         End Set
     End Property
 
@@ -66,23 +67,21 @@
             prvFillCombo()
             Me.Cursor = Cursors.Default
             If Not bolIsNew Then
-                For Each drSelectedItem As DataRow In dtParentItem.Rows
-                    strID = drSelectedItem.Item("ID")
-                    strPODetailID = drSelectedItem.Item("PODetailID")
-                    intItemID = drSelectedItem.Item("ItemID")
-                    cboItemType.SelectedValue = drSelectedItem.Item("ItemTypeID")
-                    txtItemCode.Text = drSelectedItem.Item("ItemCode")
-                    txtItemName.Text = drSelectedItem.Item("ItemName")
-                    cboItemSpecification.SelectedValue = drSelectedItem.Item("ItemSpecificationID")
-                    txtThick.Value = drSelectedItem.Item("Thick")
-                    txtWidth.Value = drSelectedItem.Item("Width")
-                    txtLength.Value = drSelectedItem.Item("Length")
-                    txtWeight.Value = drSelectedItem.Item("Weight")
-                    txtMaxTotalWeight.Value = drSelectedItem.Item("MaxTotalWeight")
-                    txtUnitPrice.Value = drSelectedItem.Item("UnitPrice")
-                    txtQuantity.Value = drSelectedItem.Item("Quantity")
-                    txtRemarks.Text = drSelectedItem.Item("Remarks")
-                Next
+                strID = drSelectedItem.Item("ID")
+                strPODetailID = drSelectedItem.Item("PODetailID")
+                intItemID = drSelectedItem.Item("ItemID")
+                cboItemType.SelectedValue = drSelectedItem.Item("ItemTypeID")
+                txtItemCode.Text = drSelectedItem.Item("ItemCode")
+                txtItemName.Text = drSelectedItem.Item("ItemName")
+                cboItemSpecification.SelectedValue = drSelectedItem.Item("ItemSpecificationID")
+                txtThick.Value = drSelectedItem.Item("Thick")
+                txtWidth.Value = drSelectedItem.Item("Width")
+                txtLength.Value = drSelectedItem.Item("Length")
+                txtWeight.Value = drSelectedItem.Item("Weight")
+                txtMaxTotalWeight.Value = drSelectedItem.Item("MaxTotalWeight")
+                txtUnitPrice.Value = drSelectedItem.Item("UnitPrice")
+                txtQuantity.Value = drSelectedItem.Item("Quantity")
+                txtRemarks.Text = drSelectedItem.Item("Remarks")
             End If
             prvCalculate()
         Catch ex As Exception
@@ -172,6 +171,7 @@
     End Sub
 
     Private Sub prvClear()
+        strID = ""
         txtItemCode.Focus()
         strPODetailID = ""
         intItemID = 0

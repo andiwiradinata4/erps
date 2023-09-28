@@ -144,3 +144,14 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.exe.licenses
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.pdb
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderCutting.resources
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderCuttingDet.resources
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderCuttingDetItem.resources
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderCuttingDetItemOutstanding.resources
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderOutstandingForCutting.resources
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.rptPurchaseOrder.resources
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrder.resources
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDet.resources
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItem.resources
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrder.resources
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderOutstanding.resources

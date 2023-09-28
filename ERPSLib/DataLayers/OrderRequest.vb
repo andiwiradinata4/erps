@@ -450,7 +450,7 @@
                     "SELECT " & vbNewLine & _
                     "   A.ID, A.OrderRequestID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, " & vbNewLine & _
-                    "   D.Description AS ItemTypeName, A.Quantity-A.PPOInternalQuantity AS Quantity, A.Weight, " & vbNewLine & _
+                    "   D.Description AS ItemTypeName, A.Quantity-A.POInternalQuantity AS Quantity, A.Weight, " & vbNewLine & _
                     "   A.TotalWeight-A.POInternalWeight AS TotalWeight, A.POInternalQuantity, A.POInternalWeight, A.Remarks " & vbNewLine & _
                     "FROM traOrderRequestDet A " & vbNewLine & _
                     "INNER JOIN mstItem B ON " & vbNewLine & _
