@@ -392,6 +392,11 @@ Public Class frmTraPurchaseContractDet
     End Sub
 
     Private Sub prvAddItem()
+        If txtBPCode.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih Pemasok terlebih dahulu")
+            txtBPCode.Focus()
+            Exit Sub
+        End If
         Dim frmDetail As New frmTraPurchaseContractDetItem
         With frmDetail
             .pubIsNew = True
