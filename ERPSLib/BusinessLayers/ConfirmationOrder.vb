@@ -15,7 +15,7 @@
         Public Shared Function GetNewID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer, ByVal intProgramID As Integer) As String
             Dim clsCompany As VO.Company = DL.Company.GetDetail(sqlCon, sqlTrans, intCompanyID)
-            Dim strNewID As String = "CO" & Format(dtmTransDate, "yyyyMMdd") & "-" & clsCompany.CompanyInitial & "-" & "A" & "-" & Format(intProgramID, "00") & "-"
+            Dim strNewID As String = "CO" & Format(dtmTransDate, "yyyyMMdd") & "-" & clsCompany.CompanyInitial & "-" & Format(intProgramID, "00") & "-"
             strNewID &= Format(DL.ConfirmationOrder.GetMaxID(sqlCon, sqlTrans, strNewID) + 1, "0000")
             Return strNewID
         End Function
@@ -194,6 +194,20 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.ConfirmationOrder.ListDataDetail(sqlCon, Nothing, strCOID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailOutstandingPurchaseContract(ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ConfirmationOrder.ListDataDetailOutstandingPurchaseContract(sqlCon, Nothing, intBPID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailOutstandingSalesContract(ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ConfirmationOrder.ListDataDetailOutstandingSalesContract(sqlCon, Nothing, intBPID)
             End Using
         End Function
 

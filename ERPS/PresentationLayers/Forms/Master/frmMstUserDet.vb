@@ -83,11 +83,7 @@ Public Class frmMstUserDet
     End Sub
 
     Private Sub prvSave()
-        If pubIsNew And txtID.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("User ID belum diinput")
-            txtID.Focus()
-            Exit Sub
-        ElseIf txtName.Text.Trim = "" Then
+        If txtName.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Nama belum diinput")
             txtName.Focus()
             Exit Sub

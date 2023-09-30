@@ -28,6 +28,7 @@
     Dim frmMainTraPurchaseOrder As frmTraPurchaseOrder
     Dim frmMainTraPurchaseOrderCutting As frmTraPurchaseOrderCutting
     Dim frmMainTraConfirmationOrder As frmTraConfirmationOrder
+    Dim frmMainTraPurchaseContract As frmTraPurchaseContract
 
     '# Setting
     Dim frmMainSysChangePassword As frmSysChangePassword
@@ -69,18 +70,19 @@
         '# Transaction
         '# Sales
         mnuTransaksiPenjualanPermintaan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.ViewAccess)
+        mnuTransaksiPenjualanKontrakPenjualan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.ViewAccess)
+        mnuTransaksiPenjualanMemoPengambilan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPickupMemo, VO.Access.Values.ViewAccess)
+        mnuTransaksiPenjualanPengirimanPenjualan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesDelivery, VO.Access.Values.ViewAccess)
 
         '# Purchase
         mnuTransaksiPembelianPesananPembelian.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.ViewAccess)
         mnuTransaksiPembelianPesananPemotongan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.ViewAccess)
         mnuTransaksiPembelianPesananPengiriman.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderTransport, VO.Access.Values.ViewAccess)
-
-        'If ERPSLib.UI.usUserApp.ProgramID = VO.Program.Values.TradingTBS Then
-        '    mnuTransaksiPenjualanJasa.Visible = False
-        'ElseIf ERPSLib.UI.usUserApp.ProgramID = VO.Program.Values.RentalAlatBerat Or ERPSLib.UI.usUserApp.ProgramID = VO.Program.Values.RentalTruk Then
-        '    mnuTransaksiPenjualan.Visible = False
-        '    mnuTransaksiPembelian.Visible = False
-        'End If
+        mnuTransaksiPembelianKontrakPembelian.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembelianInstruksi.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionInstructionLetter, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembelianKonfirmasiPesanan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionConfirmationOrder, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembelianKonfirmasiPengiriman.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionConfirmationDelivery, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembelianProsesPemotonganSPK.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCuttingProcess, VO.Access.Values.ViewAccess)
 
         'mnuTransaksiPenjualanPanjar.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesDownPayment, VO.Access.Values.ViewAccess)
         'mnuTransaksiPenjualanPenjualan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSales, VO.Access.Values.ViewAccess)
@@ -278,6 +280,34 @@
 
     Private Sub mnuTransaksiPembelianKonfirmasiPesanan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianKonfirmasiPesanan.Click
         UI.usForm.frmOpen(frmMainTraConfirmationOrder, "frmTraConfirmationOrder", Me)
+    End Sub
+
+    Private Sub mnuTransaksiPembelianKontrakPembelian_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianKontrakPembelian.Click
+        UI.usForm.frmOpen(frmMainTraPurchaseContract, "frmTraPurchaseContract", Me)
+    End Sub
+
+    Private Sub mnuTransaksiPembelianInstruksi_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianInstruksi.Click
+
+    End Sub
+
+    Private Sub mnuTransaksiPembelianKonfirmasiPengiriman_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianKonfirmasiPengiriman.Click
+
+    End Sub
+
+    Private Sub mnuTransaksiPembelianProsesPemotonganSPK_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianProsesPemotonganSPK.Click
+
+    End Sub
+
+    Private Sub mnuTransaksiPenjualanKontrakPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanKontrakPenjualan.Click
+
+    End Sub
+
+    Private Sub mnuTransaksiPenjualanMemoPengambilan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanMemoPengambilan.Click
+
+    End Sub
+
+    Private Sub mnuTransaksiPenjualanPengirimanPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPengirimanPenjualan.Click
+
     End Sub
 
 #End Region

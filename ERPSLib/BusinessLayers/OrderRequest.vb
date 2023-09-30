@@ -23,9 +23,9 @@
         End Function
 
         Public Shared Function GetNewID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                        ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer) As String
+                                        ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer, ByVal intProgramID As Integer) As String
             Dim clsCompany As VO.Company = DL.Company.GetDetail(sqlCon, sqlTrans, intCompanyID)
-            Dim strNewID As String = "OR" & Format(dtmTransDate, "yyyyMMdd") & "-" & clsCompany.CompanyInitial & "-"
+            Dim strNewID As String = "OR" & Format(dtmTransDate, "yyyyMMdd") & "-" & clsCompany.CompanyInitial & "-" & Format(intProgramID, "00") & "-"
             strNewID &= Format(DL.OrderRequest.GetMaxID(sqlCon, sqlTrans, strNewID) + 1, "0000")
             Return strNewID
         End Function
@@ -36,7 +36,7 @@
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
                     If bolNew Then
-                        clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.OrderDate, clsData.CompanyID)
+                        clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.OrderDate, clsData.CompanyID, clsData.ProgramID)
                         clsData.OrderNumber = clsData.ID
                     Else
                         DL.OrderRequest.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)

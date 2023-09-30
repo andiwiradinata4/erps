@@ -658,6 +658,8 @@
                     "    D.Description AS ItemTypeName, A.CuttingPrice AS UnitPrice, A.Quantity-A.CuttingQuantity AS Quantity, A.Weight, " & vbNewLine & _
                     "    A.TotalWeight-A.CuttingWeight AS TotalWeight, A.Remarks 	" & vbNewLine & _
                     "FROM traPurchaseOrderDet A 	" & vbNewLine & _
+                    "INNER JOIN traPurchaseOrder A1 ON 	" & vbNewLine & _
+                    "    A.POID=A1.ID 	" & vbNewLine & _
                     "INNER JOIN mstItem B ON 	" & vbNewLine & _
                     "    A.ItemID=B.ID 	" & vbNewLine & _
                     "INNER JOIN mstItemSpecification C ON 	" & vbNewLine & _
@@ -666,9 +668,11 @@
                     "    B.ItemTypeID=D.ID 	" & vbNewLine & _
                     "WHERE 	" & vbNewLine & _
                     "    A.POID=@POID 	" & vbNewLine & _
-                    "    AND A.Quantity-A.CuttingQuantity>0 	" & vbNewLine & _
-                    "    AND A.TotalWeight-A.CuttingWeight>0	" & vbNewLine
+                    "    AND A1.StatusID=@StatusID " & vbNewLine & _
+                    "    AND A.Quantity-A.CuttingQuantity>0 " & vbNewLine & _
+                    "    AND A.TotalWeight-A.CuttingWeight>0 " & vbNewLine
 
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
                 .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = strPOID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
@@ -821,7 +825,7 @@
                     "			ISNULL(SUM(COD.TotalWeight),0) TotalWeight		" & vbNewLine & _
                     "		FROM traConfirmationOrderDet COD 	" & vbNewLine & _
                     "		INNER JOIN traConfirmationOrder COH ON	" & vbNewLine & _
-                    "			COD.POID=COH.ID 	" & vbNewLine & _
+                    "			COD.COID=COH.ID 	" & vbNewLine & _
                     "		WHERE 	" & vbNewLine & _
                     "			COD.PODetailID=@PODetailID " & vbNewLine & _
                     "			AND COH.IsDeleted=0 	" & vbNewLine & _
@@ -832,7 +836,7 @@
                     "			ISNULL(SUM(COD.Quantity),0) TotalQuantity " & vbNewLine & _
                     "		FROM traConfirmationOrderDet COD 	" & vbNewLine & _
                     "		INNER JOIN traConfirmationOrder COH ON	" & vbNewLine & _
-                    "			COD.POID=COH.ID 	" & vbNewLine & _
+                    "			COD.COID=COH.ID 	" & vbNewLine & _
                     "		WHERE 	" & vbNewLine & _
                     "			COD.PODetailID=@PODetailID " & vbNewLine & _
                     "			AND COH.IsDeleted=0 	" & vbNewLine & _

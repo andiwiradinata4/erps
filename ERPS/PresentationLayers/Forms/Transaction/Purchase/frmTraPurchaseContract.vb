@@ -1,8 +1,8 @@
 ﻿Imports DevExpress.XtraGrid
-Public Class frmTraPurchaseOrderCutting
+Public Class frmTraPurchaseContract
 
     Private intPos As Integer = 0
-    Private clsData As New VO.PurchaseOrderCutting
+    Private clsData As New VO.PurchaseContract
     Private intProgramID As Integer
     Private intCompanyID As Integer
     Private dtData As New DataTable
@@ -25,16 +25,15 @@ Public Class frmTraPurchaseOrderCutting
         UI.usForm.SetGrid(grdView, "ProgramName", "ProgramName", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "CompanyID", "CompanyID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "CompanyName", "CompanyName", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdView, "PONumber", "Nomor", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "PODate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
-        UI.usForm.SetGrid(grdView, "POID", "POID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdView, "PONumberRef", "No. Pesanan Pembelian", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "PCNumber", "Nomor", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "PCDate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "BPCode", "Kode Pelanggan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "BPName", "Nama Pelanggan", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "PersonInCharge", "PIC", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "DeliveryPeriodFrom", "Periode Dari", 100, UI.usDefGrid.gDateMonthYear)
         UI.usForm.SetGrid(grdView, "DeliveryPeriodTo", "Periode Sampai", 100, UI.usDefGrid.gDateMonthYear)
+        UI.usForm.SetGrid(grdView, "AllowanceProduction", "AllowanceProduction", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "Franco", "Franco", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "TotalQuantity", "Total Quantity", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "PPN", "PPN", 100, UI.usDefGrid.gReal2Num)
@@ -76,7 +75,7 @@ Public Class frmTraPurchaseOrderCutting
 
     Private Sub prvFillCombo()
         Try
-            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionPurchaseOrderCutting)
+            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionPurchaseContract)
             Dim dr As DataRow
             dr = dtData.NewRow
             With dr
@@ -107,7 +106,7 @@ Public Class frmTraPurchaseOrderCutting
         pgMain.Value = 30
         Application.DoEvents()
         Try
-            dtData = BL.PurchaseOrderCutting.ListData(intProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue)
+            dtData = BL.PurchaseContract.ListData(intProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue)
             grdMain.DataSource = dtData
             pgMain.Value = 80
             Application.DoEvents()
@@ -127,10 +126,10 @@ Public Class frmTraPurchaseOrderCutting
     Public Sub pubRefresh(Optional ByVal strSearch As String = "")
         With grdView
             If Not grdView.FocusedValue Is Nothing And strSearch = "" Then
-                strSearch = grdView.GetDataRow(grdView.FocusedRowHandle).Item("PONumber")
+                strSearch = grdView.GetDataRow(grdView.FocusedRowHandle).Item("PCNumber")
             End If
             prvQuery()
-            If grdView.RowCount > 0 Then UI.usForm.GridMoveRow(grdView, "PONumber", strSearch)
+            If grdView.RowCount > 0 Then UI.usForm.GridMoveRow(grdView, "PCNumber", strSearch)
         End With
     End Sub
 
@@ -143,21 +142,22 @@ Public Class frmTraPurchaseOrderCutting
         Return clsCS
     End Function
 
-    Private Function prvGetData() As VO.PurchaseOrderCutting
-        Dim clsReturn As New VO.PurchaseOrderCutting
+    Private Function prvGetData() As VO.PurchaseContract
+        Dim clsReturn As New VO.PurchaseContract
         clsReturn.ID = grdView.GetRowCellValue(intPos, "ID")
         clsReturn.ProgramID = grdView.GetRowCellValue(intPos, "ProgramID")
         clsReturn.ProgramName = grdView.GetRowCellValue(intPos, "ProgramName")
         clsReturn.CompanyID = grdView.GetRowCellValue(intPos, "CompanyID")
         clsReturn.CompanyName = grdView.GetRowCellValue(intPos, "CompanyName")
-        clsReturn.PONumber = grdView.GetRowCellValue(intPos, "PONumber")
-        clsReturn.PODate = grdView.GetRowCellValue(intPos, "PODate")
-        clsReturn.POID = grdView.GetRowCellValue(intPos, "POID")
+        clsReturn.PCNumber = grdView.GetRowCellValue(intPos, "PCNumber")
+        clsReturn.PCDate = grdView.GetRowCellValue(intPos, "PCDate")
         clsReturn.BPID = grdView.GetRowCellValue(intPos, "BPID")
         clsReturn.BPCode = grdView.GetRowCellValue(intPos, "BPCode")
         clsReturn.BPName = grdView.GetRowCellValue(intPos, "BPName")
         clsReturn.DeliveryPeriodFrom = grdView.GetRowCellValue(intPos, "DeliveryPeriodFrom")
         clsReturn.DeliveryPeriodTo = grdView.GetRowCellValue(intPos, "DeliveryPeriodTo")
+        clsReturn.AllowanceProduction = grdView.GetRowCellValue(intPos, "AllowanceProduction")
+        clsReturn.Franco = grdView.GetRowCellValue(intPos, "Franco")
         clsReturn.TotalQuantity = grdView.GetRowCellValue(intPos, "TotalQuantity")
         clsReturn.TotalWeight = grdView.GetRowCellValue(intPos, "TotalWeight")
         clsReturn.PPN = grdView.GetRowCellValue(intPos, "PPN")
@@ -181,7 +181,7 @@ Public Class frmTraPurchaseOrderCutting
 
     Private Sub prvNew()
         prvResetProgressBar()
-        Dim frmDetail As New frmTraPurchaseOrderCuttingDet
+        Dim frmDetail As New frmTraPurchaseContractDet
         With frmDetail
             .pubIsNew = True
             .pubCS = prvGetCS()
@@ -195,7 +195,7 @@ Public Class frmTraPurchaseOrderCutting
         intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         clsData = prvGetData()
-        Dim frmDetail As New frmTraPurchaseOrderCuttingDet
+        Dim frmDetail As New frmTraPurchaseContractDet
         With frmDetail
             .pubIsNew = False
             .pubCS = prvGetCS()
@@ -210,7 +210,7 @@ Public Class frmTraPurchaseOrderCutting
         If intPos < 0 Then Exit Sub
         clsData = prvGetData()
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        If Not UI.usForm.frmAskQuestion("Hapus Nomor " & clsData.PONumber & "?") Then Exit Sub
+        If Not UI.usForm.frmAskQuestion("Hapus Nomor " & clsData.PCNumber & "?") Then Exit Sub
 
         Dim frmDetail As New usFormRemarks
         With frmDetail
@@ -227,11 +227,11 @@ Public Class frmTraPurchaseOrderCutting
         pgMain.Value = 40
         Application.DoEvents()
         Try
-            BL.PurchaseOrderCutting.DeleteData(clsData.ID, clsData.Remarks)
+            BL.PurchaseContract.DeleteData(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
             Application.DoEvents()
             UI.usForm.frmMessageBox("Hapus data berhasil.")
-            pubRefresh(grdView.GetRowCellValue(intPos, "PONumber"))
+            pubRefresh(grdView.GetRowCellValue(intPos, "PCNumber"))
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally
@@ -247,17 +247,17 @@ Public Class frmTraPurchaseOrderCutting
         If intPos < 0 Then Exit Sub
         clsData = prvGetData()
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        If Not UI.usForm.frmAskQuestion("Submit Nomor " & clsData.PONumber & "?") Then Exit Sub
+        If Not UI.usForm.frmAskQuestion("Submit Nomor " & clsData.PCNumber & "?") Then Exit Sub
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
         Application.DoEvents()
         Try
-            BL.PurchaseOrderCutting.Submit(clsData.ID, "")
+            BL.PurchaseContract.Submit(clsData.ID, "")
             pgMain.Value = 100
             Application.DoEvents()
             UI.usForm.frmMessageBox("Submit data berhasil.")
-            pubRefresh(grdView.GetRowCellValue(intPos, "PONumber"))
+            pubRefresh(grdView.GetRowCellValue(intPos, "PCNumber"))
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally
@@ -273,7 +273,7 @@ Public Class frmTraPurchaseOrderCutting
         If intPos < 0 Then Exit Sub
         clsData = prvGetData()
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        If Not UI.usForm.frmAskQuestion("Batal Submit Nomor " & clsData.PONumber & "?") Then Exit Sub
+        If Not UI.usForm.frmAskQuestion("Batal Submit Nomor " & clsData.PCNumber & "?") Then Exit Sub
 
         Dim frmDetail As New usFormRemarks
         With frmDetail
@@ -290,11 +290,11 @@ Public Class frmTraPurchaseOrderCutting
         pgMain.Value = 40
         Application.DoEvents()
         Try
-            BL.PurchaseOrderCutting.Unsubmit(clsData.ID, clsData.Remarks)
+            BL.PurchaseContract.Unsubmit(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
             Application.DoEvents()
             UI.usForm.frmMessageBox("Batal submit data berhasil.")
-            pubRefresh(grdView.GetRowCellValue(intPos, "PONumber"))
+            pubRefresh(grdView.GetRowCellValue(intPos, "PCNumber"))
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally
@@ -310,17 +310,17 @@ Public Class frmTraPurchaseOrderCutting
         If intPos < 0 Then Exit Sub
         clsData = prvGetData()
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        If Not UI.usForm.frmAskQuestion("Approve Nomor " & clsData.PONumber & "?") Then Exit Sub
+        If Not UI.usForm.frmAskQuestion("Approve Nomor " & clsData.PCNumber & "?") Then Exit Sub
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
         Application.DoEvents()
         Try
-            BL.PurchaseOrderCutting.Approve(clsData.ID, "")
+            BL.PurchaseContract.Approve(clsData.ID, "")
             pgMain.Value = 100
             Application.DoEvents()
             UI.usForm.frmMessageBox("Approve data berhasil.")
-            pubRefresh(grdView.GetRowCellValue(intPos, "PONumber"))
+            pubRefresh(grdView.GetRowCellValue(intPos, "PCNumber"))
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally
@@ -336,7 +336,7 @@ Public Class frmTraPurchaseOrderCutting
         If intPos < 0 Then Exit Sub
         clsData = prvGetData()
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        If Not UI.usForm.frmAskQuestion("Batal Approve Nomor " & clsData.PONumber & "?") Then Exit Sub
+        If Not UI.usForm.frmAskQuestion("Batal Approve Nomor " & clsData.PCNumber & "?") Then Exit Sub
 
         Dim frmDetail As New usFormRemarks
         With frmDetail
@@ -353,11 +353,11 @@ Public Class frmTraPurchaseOrderCutting
         pgMain.Value = 40
         Application.DoEvents()
         Try
-            BL.PurchaseOrderCutting.Unapprove(clsData.ID, clsData.Remarks)
+            BL.PurchaseContract.Unapprove(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
             Application.DoEvents()
             UI.usForm.frmMessageBox("Batal approve data berhasil.")
-            pubRefresh(grdView.GetRowCellValue(intPos, "PONumber"))
+            pubRefresh(grdView.GetRowCellValue(intPos, "PCNumber"))
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally
@@ -377,37 +377,37 @@ Public Class frmTraPurchaseOrderCutting
         Application.DoEvents()
 
         Try
-            Dim dtData As DataTable = BL.PurchaseOrderCutting.Print(intProgramID, intCompanyID, strID)
-            Dim intStatusID As Integer = 0
-            For Each dr As DataRow In dtData.Rows
-                intStatusID = dr.Item("StatusID")
-                Exit For
-            Next
+            'Dim dtData As DataTable = BL.PurchaseContract.Print(intProgramID, intCompanyID, strID)
+            'Dim intStatusID As Integer = 0
+            'For Each dr As DataRow In dtData.Rows
+            '    intStatusID = dr.Item("StatusID")
+            '    Exit For
+            'Next
 
-            Dim crReport As New rptPurchaseOrder
+            'Dim crReport As New rptPurchaseContract
 
-            '# Setup Watermark Report
-            If intStatusID <> VO.Status.Values.Approved Then
-                crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
-                crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
-                crReport.Watermark.Font = New System.Drawing.Font("Tahoma", 70.0!, System.Drawing.FontStyle.Bold)
-                crReport.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.Horizontal
-                crReport.Watermark.TextTransparency = 150
-            End If
+            ''# Setup Watermark Report
+            'If intStatusID <> VO.Status.Values.Approved Then
+            '    crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
+            '    crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
+            '    crReport.Watermark.Font = New System.Drawing.Font("Tahoma", 70.0!, System.Drawing.FontStyle.Bold)
+            '    crReport.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.Horizontal
+            '    crReport.Watermark.TextTransparency = 150
+            'End If
 
-            crReport.DataSource = dtData
-            crReport.CreateDocument(True)
-            crReport.ShowPreviewMarginLines = False
-            crReport.ShowPrintMarginsWarning = False
+            'crReport.DataSource = dtData
+            'crReport.CreateDocument(True)
+            'crReport.ShowPreviewMarginLines = False
+            'crReport.ShowPrintMarginsWarning = False
 
-            Dim frmDetail As New frmReportPreview
-            With frmDetail
-                .docViewer.DocumentSource = crReport
-                .pgExportButton.Enabled = bolExport
-                .Text = Me.Text & " - " & VO.Reports.PrintOut
-                .WindowState = FormWindowState.Maximized
-                .Show()
-            End With
+            'Dim frmDetail As New frmReportPreview
+            'With frmDetail
+            '    .docViewer.DocumentSource = crReport
+            '    .pgExportButton.Enabled = bolExport
+            '    .Text = Me.Text & " - " & VO.Reports.PrintOut
+            '    .WindowState = FormWindowState.Maximized
+            '    .Show()
+            'End With
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally
@@ -478,27 +478,27 @@ Public Class frmTraPurchaseOrderCutting
 
     Private Sub prvUserAccess()
         With ToolBar.Buttons
-            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.NewAccess)
-            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.DeleteAccess)
-            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.SubmitAccess)
-            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.CancelSubmitAccess)
-            .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.ApproveAccess)
-            .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.CancelApproveAccess)
-            .Item(cPrint).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.PrintReportAccess)
-            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.ExportExcelAccess)
-            bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.ExportReportAccess)
+            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.NewAccess)
+            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.DeleteAccess)
+            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.SubmitAccess)
+            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.CancelSubmitAccess)
+            .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.ApproveAccess)
+            .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.CancelApproveAccess)
+            .Item(cPrint).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.PrintReportAccess)
+            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.ExportExcelAccess)
+            bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.ExportReportAccess)
         End With
     End Sub
 
 #Region "Form Handle"
 
-    Private Sub frmTraPurchaseOrderCutting_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+    Private Sub frmTraPurchaseContract_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
         End If
     End Sub
 
-    Private Sub frmTraPurchaseOrderCutting_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmTraPurchaseContract_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         prvFillCombo()

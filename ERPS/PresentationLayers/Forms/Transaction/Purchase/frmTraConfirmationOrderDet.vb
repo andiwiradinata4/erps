@@ -45,7 +45,7 @@ Public Class frmTraConfirmationOrderDet
         UI.usForm.SetGrid(grdItemView, "PONumber", "Nomor Pesanan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "PODetailID", "PODetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "DeliveryAddress", "Alamat Pengiriman", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
@@ -197,6 +197,7 @@ Public Class frmTraConfirmationOrderDet
                                 {
                                     .PODetailID = dr.Item("PODetailID"),
                                     .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                                    .DeliveryAddress = dr.Item("DeliveryAddress"),
                                     .ItemID = dr.Item("ItemID"),
                                     .Quantity = dr.Item("Quantity"),
                                     .Weight = dr.Item("Weight"),
@@ -333,6 +334,8 @@ Public Class frmTraConfirmationOrderDet
         If grdItemView.Columns("TotalPrice").SummaryText.Trim = "" Then
             grdItemView.Columns("TotalPrice").Summary.Add(SumGrandTotalPrice)
         End If
+
+        If grdItemView.GroupCount > 0 Then grdItemView.ExpandAllGroups()
     End Sub
 
     Private Sub prvCalculate()

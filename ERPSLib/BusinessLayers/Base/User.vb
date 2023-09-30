@@ -16,7 +16,7 @@ Namespace BL
         End Function
 
         Private Shared Function GetNewID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
-            Dim strReturn As String = "S" & Format(Now, "yyMMdd")
+            Dim strReturn As String = "S" & Format(Now, "yyyyMMdd")
             strReturn = strReturn & Format(DL.User.GetMaxID(sqlCon, sqlTrans, strReturn), "000")
             Return strReturn
         End Function
@@ -28,6 +28,7 @@ Namespace BL
                 Try
                     If bolNew Then
                         clsData.StaffID = GetNewID(sqlCon, sqlTrans)
+                        If clsData.ID.Trim = "" Then clsData.ID = clsData.StaffID
                         If DL.User.DataExists(sqlCon, sqlTrans, clsData.ID) Then
                             Err.Raise(515, "", "User ID sudah ada sebelumnya")
                         End If

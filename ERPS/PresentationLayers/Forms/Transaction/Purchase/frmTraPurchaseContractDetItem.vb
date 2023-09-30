@@ -1,16 +1,22 @@
-﻿Public Class frmTraPurchaseOrderCuttingDetItem
+﻿Public Class frmTraPurchaseContractDetItem
 
 #Region "Property"
 
-    Private frmParent As frmTraPurchaseOrderCuttingDet
+    Private frmParent As frmTraPurchaseContractDet
+    Private intBPID As Integer = 0
     Private dtParentItem As New DataTable
-    Private drSelectedItem As DataRow
     Private bolIsNew As Boolean = False
     Private intItemID As Integer = 0
-    Private strPOID As String
-    Private strPODetailID As String
+    Private drSelectedItem As DataRow
+    Private strCODetailID As String
     Private strID As String = ""
     Private intPos As Integer = 0
+
+    Public WriteOnly Property pubBPID As Integer
+        Set(value As Integer)
+            intBPID = value
+        End Set
+    End Property
 
     Public WriteOnly Property pubTableParentItem As DataTable
         Set(value As DataTable)
@@ -30,15 +36,9 @@
         End Set
     End Property
 
-    Public WriteOnly Property pubPOID As String
+    Public WriteOnly Property pubID As String
         Set(value As String)
-            strPOID = value
-        End Set
-    End Property
-
-    Public WriteOnly Property pubPODetailID As String
-        Set(value As String)
-            strPODetailID = value
+            strID = value
         End Set
     End Property
 
@@ -68,7 +68,9 @@
             Me.Cursor = Cursors.Default
             If Not bolIsNew Then
                 strID = drSelectedItem.Item("ID")
-                strPODetailID = drSelectedItem.Item("PODetailID")
+                txtCONumber.Text = drSelectedItem.Item("CONumber")
+                txtOrderNumberSupplier.Text = drSelectedItem.Item("OrderNumberSupplier")
+                strCODetailID = drSelectedItem.Item("CODetailID")
                 intItemID = drSelectedItem.Item("ItemID")
                 cboItemType.SelectedValue = drSelectedItem.Item("ItemTypeID")
                 txtItemCode.Text = drSelectedItem.Item("ItemCode")
@@ -93,7 +95,11 @@
     End Sub
 
     Private Sub prvSave()
-        If txtItemCode.Text.Trim = "" Then
+        If txtCONumber.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih barang terlebih dahulu")
+            txtCONumber.Focus()
+            Exit Sub
+        ElseIf txtItemCode.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Pilih barang terlebih dahulu")
             txtItemCode.Focus()
             Exit Sub
@@ -113,8 +119,10 @@
             With drItem
                 .BeginEdit()
                 .Item("ID") = Guid.NewGuid
-                .Item("POID") = ""
-                .Item("PODetailID") = strPODetailID
+                .Item("PCID") = ""
+                .Item("CONumber") = txtCONumber.Text.Trim
+                .Item("CODetailID") = strCODetailID
+                .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
                 .Item("ItemID") = intItemID
                 .Item("ItemCode") = txtItemCode.Text.Trim
                 .Item("ItemName") = txtItemName.Text.Trim
@@ -131,8 +139,6 @@
                 .Item("MaxTotalWeight") = txtMaxTotalWeight.Value
                 .Item("UnitPrice") = txtUnitPrice.Value
                 .Item("TotalPrice") = txtTotalPrice.Value
-                .Item("SPKQuantity") = 0
-                .Item("SPKWeight") = 0
                 .Item("Remarks") = txtRemarks.Text.Trim
                 .EndEdit()
             End With
@@ -142,8 +148,10 @@
                 With dr
                     If .Item("ID") = strID Then
                         .BeginEdit()
-                        .Item("POID") = ""
-                        .Item("PODetailID") = strPODetailID
+                        .Item("PCID") = ""
+                        .Item("CONumber") = txtCONumber.Text.Trim
+                        .Item("CODetailID") = strCODetailID
+                        .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
                         .Item("ItemID") = intItemID
                         .Item("ItemCode") = txtItemCode.Text.Trim
                         .Item("ItemName") = txtItemName.Text.Trim
@@ -160,8 +168,6 @@
                         .Item("MaxTotalWeight") = txtMaxTotalWeight.Value
                         .Item("UnitPrice") = txtUnitPrice.Value
                         .Item("TotalPrice") = txtTotalPrice.Value
-                        .Item("SPKQuantity") = 0
-                        .Item("SPKWeight") = 0
                         .Item("Remarks") = txtRemarks.Text.Trim
                         .EndEdit()
                     End If
@@ -176,8 +182,10 @@
 
     Private Sub prvClear()
         strID = ""
-        txtItemCode.Focus()
-        strPODetailID = ""
+        txtCONumber.Text = ""
+        txtCONumber.Focus()
+        strCODetailID = ""
+        txtOrderNumberSupplier.Text = ""
         intItemID = 0
         txtItemCode.Text = ""
         txtItemName.Text = ""
@@ -196,16 +204,16 @@
     End Sub
 
     Private Sub prvChooseItem()
-        Dim frmDetail As New frmTraPurchaseOrderCuttingDetItemOutstanding
+        Dim frmDetail As New frmTraPurchaseContractDetItemOutstanding
         With frmDetail
-            .pubPOID = strPOID
-            .pubPODetailID = strPODetailID
             .pubParentItem = dtParentItem
+            .pubBPID = intBPID
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             If .pubIsLookUpGet Then
-                strPODetailID = .pubLUdtRow.Item("ID")
-                strPOID = .pubLUdtRow.Item("POID")
+                txtCONumber.Text = .pubLUdtRow.Item("CONumber")
+                strCODetailID = .pubLUdtRow.Item("ID")
+                txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
                 intItemID = .pubLUdtRow.Item("ItemID")
                 cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
                 txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
@@ -231,7 +239,7 @@
 
 #Region "Form Handle"
 
-    Private Sub frmTraPurchaseOrderCuttingDetItem_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+    Private Sub frmTraPurchaseContractDetItem_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
         ElseIf (e.Control And e.KeyCode = Keys.S) Then
@@ -239,7 +247,7 @@
         End If
     End Sub
 
-    Private Sub frmTraPurchaseOrderCuttingDetItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmTraPurchaseContractDetItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         prvFillForm()
@@ -252,7 +260,7 @@
         End Select
     End Sub
 
-    Private Sub btnItem_Click(sender As Object, e As EventArgs) Handles btnItem.Click
+    Private Sub btnCO_Click(sender As Object, e As EventArgs) Handles btnCO.Click
         prvChooseItem()
     End Sub
 
@@ -261,5 +269,5 @@
     End Sub
 
 #End Region
-
+    
 End Class

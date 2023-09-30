@@ -1,10 +1,10 @@
 ﻿Imports DevExpress.XtraGrid
-Public Class frmTraConfirmationOrderDetItemOrderOutstanding
+Public Class frmTraPurchaseContractDetItemOutstanding
 
 #Region "Property"
 
     Private intPos As Integer = 0
-    Private frmParent As frmTraConfirmationOrderDetItemOrder
+    Private frmParent As frmTraPurchaseContractDetItem
     Private intBPID As Integer = 0
     Public pubLUdtRow As DataRow
     Public pubIsLookUpGet As Boolean = False
@@ -28,8 +28,10 @@ Public Class frmTraConfirmationOrderDetItemOrderOutstanding
 
     Private Sub prvSetGrid()
         UI.usForm.SetGrid(grdView, "ID", "ID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdView, "POID", "POID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdView, "PONumber", "Nomor Pesanan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "COID", "COID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "CONumber", "Nomor Konfirmasi", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "DeliveryAddress", "Alamat Pengiriman", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
@@ -57,10 +59,10 @@ Public Class frmTraConfirmationOrderDetItemOrderOutstanding
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         Try
-            Dim dtData As DataTable = BL.PurchaseOrder.ListDataDetailOutstandingConfirmationOrder(intBPID)
+            Dim dtData As DataTable = BL.ConfirmationOrder.ListDataDetailOutstandingPurchaseContract(intBPID)
             For Each drParent As DataRow In pubParentItem.Rows
                 For Each dr As DataRow In dtData.Rows
-                    If dr.Item("ID") = drParent.Item("PODetailID") Then dr.Delete()
+                    If dr.Item("ID") = drParent.Item("CODetailID") Then dr.Delete()
                 Next
                 dtData.AcceptChanges()
             Next
@@ -99,13 +101,13 @@ Public Class frmTraConfirmationOrderDetItemOrderOutstanding
 
 #Region "Form Handle"
 
-    Private Sub frmTraConfirmationOrderDetItemOrderOutstanding_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+    Private Sub frmTraPurchaseContractDetItemOutstanding_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
         End If
     End Sub
 
-    Private Sub frmTraConfirmationOrderDetItemOrderOutstanding_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmTraPurchaseContractDetItemOutstanding_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         prvSetGrid()

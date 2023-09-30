@@ -73,7 +73,7 @@ Namespace DL
                 End If
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 20).Value = clsData.ID
-                .Parameters.Add("@StaffID", SqlDbType.VarChar, 10).Value = clsData.StaffID
+                .Parameters.Add("@StaffID", SqlDbType.VarChar, 20).Value = clsData.StaffID
                 .Parameters.Add("@Name", SqlDbType.VarChar, 100).Value = clsData.Name
                 .Parameters.Add("@Password", SqlDbType.NVarChar).Value = clsData.Password
                 .Parameters.Add("@Position", SqlDbType.VarChar, 100).Value = clsData.Position
@@ -182,9 +182,10 @@ Namespace DL
                         "   ID=ISNULL(RIGHT(MAX(StaffID),3),0) " & vbNewLine & _
                         "FROM mstUser " & vbNewLine & _
                         "WHERE  " & vbNewLine & _
-                        "   LEFT(StaffID,7)=@StaffID " & vbNewLine
+                        "   LEFT(StaffID,@Length)=@StaffID " & vbNewLine
 
-                    .Parameters.Add("@StaffID", SqlDbType.VarChar, 7).Value = strID
+                    .Parameters.Add("@StaffID", SqlDbType.VarChar, strID.Length).Value = strID
+                    .Parameters.Add("@Length", SqlDbType.Int).Value = strID.Length
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
                 With sqlrdData

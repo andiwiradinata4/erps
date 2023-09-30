@@ -157,6 +157,7 @@
         prvSetButton
         prvUserAccess()
         chkShowAll.Checked = True
+        btnExecute.Focus()
         If Not pubIsLookUp Then Me.WindowState = FormWindowState.Maximized
     End Sub
 
