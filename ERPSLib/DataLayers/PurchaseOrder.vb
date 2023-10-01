@@ -941,6 +941,48 @@
             End Try
         End Sub
 
+        Public Shared Sub CalculateSCTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal strPODetailInternalID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE traPurchaseOrderDetInternal SET 	" & vbNewLine & _
+                    "	SalesContractWeight=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(SCD.TotalWeight),0) TotalWeight		" & vbNewLine & _
+                    "		FROM traSalesContractDet SCD 	" & vbNewLine & _
+                    "		INNER JOIN traSalesContract SCH ON	" & vbNewLine & _
+                    "			SCD.SCID=SCH.ID 	" & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			SCD.PODetailInternalID=@PODetailInternalID " & vbNewLine & _
+                    "			AND SCH.IsDeleted=0 	" & vbNewLine & _
+                    "	), 	" & vbNewLine & _
+                    "	SalesContractQuantity=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(SCD.Quantity),0) TotalQuantity " & vbNewLine & _
+                    "		FROM traSalesContractDet SCD 	" & vbNewLine & _
+                    "		INNER JOIN traSalesContract SCH ON	" & vbNewLine & _
+                    "			SCD.SCID=SCH.ID 	" & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			SCD.PODetailInternalID=@PODetailInternalID " & vbNewLine & _
+                    "			AND SCH.IsDeleted=0 	" & vbNewLine & _
+                    "	) 	" & vbNewLine & _
+                    "WHERE ID=@PODetailInternalID	" & vbNewLine
+
+                .Parameters.Add("@PODetailInternalID", SqlDbType.VarChar, 100).Value = strPODetailInternalID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Payment Term"

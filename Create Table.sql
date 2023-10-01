@@ -1306,4 +1306,169 @@ GO
 SET ANSI_PADDING OFF
 GO
 
+GO
+
+/****** Object:  Table [dbo].[traSalesContract]    Script Date: 07/09/2023 17:54:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traSalesContract](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContract_ID]  DEFAULT (''),
+	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traSalesContract_ProgramID]  DEFAULT ((0)),
+	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traSalesContract_CompanyID]  DEFAULT ((0)),
+	[SCNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContract_SCNumber]  DEFAULT (('')),
+	[SCDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_SCDate]  DEFAULT (getdate()),
+	[BPID] [int] NOT NULL CONSTRAINT [DF_traSalesContract_BPID]  DEFAULT ((0)),
+	[DeliveryPeriodFrom] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_DeliveryPeriodFrom]  DEFAULT (getdate()),
+	[DeliveryPeriodTo] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_DeliveryPeriodTo]  DEFAULT (getdate()),
+	[AllowanceProduction] [decimal](18,2) NOT NULL CONSTRAINT [DF_traSalesContract_AllowanceProduction]  DEFAULT ((0)),
+	[Franco] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_Franco]  DEFAULT (''),
+	[DelegationSeller] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_DelegationSeller]  DEFAULT (''),
+	[DelegationPositionSeller] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_DelegationPositionSeller]  DEFAULT (''),
+	[DelegationBuyer] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_DelegationBuyer]  DEFAULT (''),
+	[DelegationPositionBuyer] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_DelegationPositionBuyer]  DEFAULT (''),
+	[PPN] [decimal](18,2) NOT NULL CONSTRAINT [DF_traSalesContract_PPN]  DEFAULT ((0)),
+	[PPH] [decimal](18,2) NOT NULL CONSTRAINT [DF_traSalesContract_PPH]  DEFAULT ((0)),
+	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_TotalQuantity]  DEFAULT ((0)),
+	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_TotalWeight]  DEFAULT ((0)),
+	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_TotalDPP]  DEFAULT ((0)),
+	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_TotalPPN]  DEFAULT ((0)),
+	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_TotalPPH]  DEFAULT ((0)),
+	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_RoundingManual]  DEFAULT ((0)),
+	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traSalesContract_IsDeleted]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_Remarks]  DEFAULT (''),
+	[StatusID] [int] NOT NULL CONSTRAINT [DF_traSalesContract_StatusID]  DEFAULT ((0)),
+	[CompanyBankAccountID] [int] NOT NULL CONSTRAINT [DF_traSalesContract_CompanyBankAccountID]  DEFAULT ((0)),
+	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContract_SubmitBy]  DEFAULT (''),
+	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_SubmitDate]  DEFAULT (getdate()),
+	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContract_ApproveL1]  DEFAULT (''),
+	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_ApproveL1Date]  DEFAULT (getdate()),
+	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContract_ApprovedBy]  DEFAULT (''),
+	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_ApprovedDate]  DEFAULT (getdate()),
+	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContract_CreatedBy]  DEFAULT ('SYSTEM'),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_CreatedDate]  DEFAULT (getdate()),
+	[LogInc] [int] NOT NULL CONSTRAINT [DF_traSalesContract_LogInc]  DEFAULT ((0)),
+	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContract_LogBy]  DEFAULT ('SYSTEM'),
+	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_LogDate]  DEFAULT (getdate()),
+	[DPAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_DPAmount]  DEFAULT ((0)),
+	[ReceiveAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_ReceiveAmount]  DEFAULT ((0)),
+ CONSTRAINT [PK_traSalesContract] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traSalesContractDet]    Script Date: 07/09/2023 17:54:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traSalesContractDet](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDet_ID]  DEFAULT (''),
+	[SCID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDet_SCID]  DEFAULT (''),
+	[PODetailInternalID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDet_PODetailInternalID]  DEFAULT (''),
+	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDet_OrderNumberSupplier]  DEFAULT (''),
+	[ItemID] [int] NOT NULL CONSTRAINT [DF_traSalesContractDet_ItemID]  DEFAULT ((0)),
+	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_Quantity]  DEFAULT ((0)),
+	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_Weight]  DEFAULT ((0)),
+	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_TotalWeight]  DEFAULT ((0)),
+	[UnitPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_UnitPrice]  DEFAULT ((0)),
+	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_TotalPrice]  DEFAULT ((0)),
+	[DCQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_DCQuantity]  DEFAULT ((0)),
+	[DCWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_DCWeight]  DEFAULT ((0)),
+	[CuttingQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_CuttingQuantity]  DEFAULT ((0)),
+	[CuttingWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_CuttingWeight]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContractDet_Remarks]  DEFAULT (''),
+ CONSTRAINT [PK_traSalesContractDet] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traSalesContractPaymentTerm]    Script Date: 07/09/2023 18:08:21 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traSalesContractPaymentTerm](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_ID]  DEFAULT (''),
+	[SCID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_SCID]  DEFAULT (''),
+	[Percentage] [decimal](18,2) NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_Percentage]  DEFAULT ((0)),
+	[PaymentTypeID] [int] NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_PaymentTypeID]  DEFAULT ((0)),
+	[PaymentModeID] [int] NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_PaymentModeID]  DEFAULT ((0)),
+	[CreditTerm] [int] NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_CreditTerm]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_Remarks]  DEFAULT ((0)),
+ CONSTRAINT [PK_traSalesContractPaymentTerm] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traSalesContractStatus]    Script Date: 07/09/2023 18:08:21 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traSalesContractStatus](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractStatus_ID]  DEFAULT (''),
+	[SCID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractStatus_SCID]  DEFAULT (''),
+	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractStatus_Status]  DEFAULT ((0)),
+	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContractStatus_StatusBy]  DEFAULT ((0)),
+	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContractStatus_StatusDate]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContractStatus_Remarks]  DEFAULT ((0)),
+ CONSTRAINT [PK_traSalesContractStatus] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+
 

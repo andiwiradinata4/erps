@@ -91,6 +91,7 @@
     <Compile Include="BusinessLayers\PurchaseContract.vb" />
     <Compile Include="BusinessLayers\PurchaseOrder.vb" />
     <Compile Include="BusinessLayers\PurchaseOrderCutting.vb" />
+    <Compile Include="BusinessLayers\SalesContract.vb" />
     <Compile Include="DataLayers\Base\Access.vb" />
     <Compile Include="DataLayers\Base\Company.vb" />
     <Compile Include="DataLayers\Base\CompanyBankAccount.vb" />
@@ -120,6 +121,7 @@
     <Compile Include="DataLayers\PurchaseContract.vb" />
     <Compile Include="DataLayers\PurchaseOrder.vb" />
     <Compile Include="DataLayers\PurchaseOrderCutting.vb" />
+    <Compile Include="DataLayers\SalesContract.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -192,6 +194,10 @@
     <Compile Include="ValueObject\PurchaseContractPaymentTerm.vb" />
     <Compile Include="ValueObject\Reports\PurchaseOrder.vb" />
     <Compile Include="ValueObject\Reports\Reports.vb" />
+    <Compile Include="ValueObject\SalesContract.vb" />
+    <Compile Include="ValueObject\SalesContractDet.vb" />
+    <Compile Include="ValueObject\SalesContractPaymentTerm.vb" />
+    <Compile Include="ValueObject\SalesContractStatus.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
