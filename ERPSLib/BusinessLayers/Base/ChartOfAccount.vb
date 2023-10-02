@@ -1,0 +1,89 @@
+Namespace BL
+    Public Class ChartOfAccount
+
+        Public Shared Function ListData(ByVal enumFilterGroup As VO.ChartOfAccount.FilterGroup, ByVal intCompanyID As Integer, ByVal intProgramID As Integer, ByVal intIDStatus As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ChartOfAccount.ListData(sqlCon, Nothing, enumFilterGroup, intCompanyID, intProgramID, intIDStatus)
+            End Using
+        End Function
+
+        Public Shared Function ListDataAll() As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ChartOfAccount.ListDataAll(sqlCon, Nothing)
+            End Using
+        End Function
+
+        Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.ChartOfAccount) As Integer
+            BL.Server.ServerDefault()
+            Try
+                Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                    If bolNew Then
+                        clsData.ID = DL.ChartOfAccount.GetMaxID(sqlCon, Nothing)
+                        If DL.ChartOfAccount.DataExists(sqlCon, Nothing, clsData.ID) Then
+                            Err.Raise(515, "", "ID sudah ada sebelumnya")
+                        End If
+                    End If
+
+                    If DL.ChartOfAccount.CodeExists(sqlCon, Nothing, clsData.Code, clsData.ID) Then
+                        Err.Raise(515, "", "Kode akun sudah ada sebelumnya")
+                    End If
+
+                    DL.ChartOfAccount.SaveData(sqlCon, Nothing, bolNew, clsData)
+                End Using
+            Catch ex As Exception
+                Throw ex
+            End Try
+            Return clsData.ID
+        End Function
+
+        Public Shared Sub SaveDataAll(ByVal strServer As String, ByVal strDBMS As String, ByVal strUserID As String, ByVal strPassword As String, _
+                                      ByVal clsData As VO.ChartOfAccount)
+            BL.Server.SetServer(strServer, strDBMS, strUserID, strPassword)
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                DL.ChartOfAccount.SaveDataAll(sqlCon, Nothing, clsData)
+            End Using
+        End Sub
+
+        Public Shared Function GetDetail(ByVal intID As Integer) As VO.ChartOfAccount
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ChartOfAccount.GetDetail(sqlCon, Nothing, intID)
+            End Using
+        End Function
+
+        Public Shared Function GetDetail(ByVal strCode As String) As VO.ChartOfAccount
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ChartOfAccount.GetDetail(sqlCon, Nothing, strCode)
+            End Using
+        End Function
+
+        Public Shared Sub DeleteData(ByVal intID As Integer)
+            BL.Server.ServerDefault()
+            Try
+                Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                    If DL.ChartOfAccount.GetIDStatus(sqlCon, Nothing, intID) = VO.Status.Values.InActive Then
+                        Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah tidak aktif")
+                    Else
+                        DL.ChartOfAccount.DeleteData(sqlCon, Nothing, intID)
+                    End If
+                End Using
+            Catch ex As Exception
+                Throw ex
+            Finally
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataAll(ByVal strServer As String, ByVal strDBMS As String, ByVal strUserID As String, ByVal strPassword As String)
+            BL.Server.SetServer(strServer, strDBMS, strUserID, strPassword)
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                DL.ChartOfAccount.DeleteDataAll(sqlCon, Nothing)
+            End Using
+        End Sub
+
+    End Class
+
+End Namespace
+

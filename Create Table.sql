@@ -593,6 +593,96 @@ SET ANSI_PADDING OFF
 GO
 
 GO
+/****** Object:  Table [dbo].[mstChartOfAccount]    Script Date: 9/22/2022 7:57:59 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[mstChartOfAccount](
+	[ID] [int] NOT NULL CONSTRAINT [DF_traChartOfAccount_ID]  DEFAULT ((0)),
+	[AccountGroupID] [int] NOT NULL CONSTRAINT [DF_traChartOfAccount_AccountGroupID]  DEFAULT ((0)),
+	[Code] [varchar](10) NOT NULL CONSTRAINT [DF_traChartOfAccount_Code]  DEFAULT (''),
+	[Name] [varchar](100) NOT NULL CONSTRAINT [DF_traChartOfAccount_Name]  DEFAULT (''),
+	[FirstBalance] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traChartOfAccount_FirstBalance]  DEFAULT ((0)),
+	[FirstBalanceDate] [datetime] NOT NULL CONSTRAINT [DF_traChartOfAccount_FirstBalanceDate]  DEFAULT ('2000/01/01'),
+	[StatusID] [int] NOT NULL CONSTRAINT [DF_traChartOfAccount_StatusID]  DEFAULT ((0)),
+	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traChartOfAccount_CreatedBy]  DEFAULT (''),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traChartOfAccount_CreatedDate]  DEFAULT (GETDATE()),
+	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traChartOfAccount_LogBy]  DEFAULT (''),
+	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traChartOfAccount_LogDate]  DEFAULT (GETDATE()),
+	[LogInc] [int] NOT NULL CONSTRAINT [DF_traChartOfAccount_LogInc]  DEFAULT ((0)),
+	[Initial] [varchar](10) NOT NULL CONSTRAINT [DF_traChartOfAccount_Initial]  DEFAULT (''),
+ CONSTRAINT [PK_mstChartOfAccount] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+/****** Object:  Table [dbo].[mstChartOfAccountAssign]    Script Date: 9/22/2022 7:57:59 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[mstChartOfAccountAssign](
+	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traChartOfAccountAssign_CompanyID]  DEFAULT ((0)),
+	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traChartOfAccountAssign_ProgramID]  DEFAULT ((0)),
+	[ID] [int] NOT NULL CONSTRAINT [DF_traChartOfAccountAssign_ID]  DEFAULT ((0)),
+	[COAID] [int] NOT NULL CONSTRAINT [DF_traChartOfAccountAssign_COAID]  DEFAULT ((0)),
+	[FirstBalance] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traChartOfAccountAssign_FirstBalance]  DEFAULT ((0)),
+	[FirstBalanceDate] [datetime] NOT NULL CONSTRAINT [DF_traChartOfAccountAssign_FirstBalanceDate]  DEFAULT ('2000/01/01'),
+ CONSTRAINT [PK_mstChartOfAccountAssign] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+/****** Object:  Table [dbo].[mstChartOfAccountGroup]    Script Date: 9/22/2022 7:57:59 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[mstChartOfAccountGroup](
+	[ID] [int] NOT NULL CONSTRAINT [DF_traChartOfAccountGroup_ID]  DEFAULT ((0)),
+	[Name] [varchar](100) NOT NULL CONSTRAINT [DF_traChartOfAccountGroup_Name]  DEFAULT (''),
+	[COAType] [int] NOT NULL CONSTRAINT [DF_traChartOfAccountGroup_COAType]  DEFAULT ((0)),
+	[StatusID] [int] NOT NULL CONSTRAINT [DF_traChartOfAccountGroup_StatusID]  DEFAULT ((0)),
+	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traChartOfAccountGroup_CreatedBy]  DEFAULT (''),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traChartOfAccountGroup_CreatedDate]  DEFAULT (GETDATE()),
+	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traChartOfAccountGroup_LogBy]  DEFAULT (''),
+	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traChartOfAccountGroup_LogDate]  DEFAULT (GETDATE()),
+	[LogInc] [int] NULL CONSTRAINT [DF_traChartOfAccountGroup_LogInc]  DEFAULT ((0)),
+	[AliasName] [varchar](100) NOT NULL CONSTRAINT [DF_traChartOfAccountGroup_AliasName] DEFAULT (''),
+ CONSTRAINT [PK_mstChartOfAccountGroup] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+/****** Object:  Table [dbo].[mstChartOfAccountType]    Script Date: 9/22/2022 7:57:59 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[mstChartOfAccountType](
+	[ID] [int] NOT NULL CONSTRAINT [DF_traChartOfAccountType_ID] DEFAULT ((0)),
+	[Name] [varchar](100) NOT NULL CONSTRAINT [DF_traChartOfAccountType_Name] DEFAULT (''),
+	[StatusID] [int] NOT NULL CONSTRAINT [DF_traChartOfAccountType_StatusID] DEFAULT ((0)),
+	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traChartOfAccountType_CreatedBy] DEFAULT (''),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traChartOfAccountType_CreatedDate] DEFAULT (GETDATE()),
+	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traChartOfAccountType_LogBy] DEFAULT (''),
+	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traChartOfAccountType_LogDate] DEFAULT (GETDATE()),
+	[LogInc] [int] NULL CONSTRAINT [DF_traChartOfAccountType_LogInc] DEFAULT ((0)),
+ CONSTRAINT [PK_mstChartOfAccountType] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+GO
 
 /****** Object:  Table [dbo].[traOrderRequest]    Script Date: 07/09/2023 17:54:26 ******/
 SET ANSI_NULLS ON

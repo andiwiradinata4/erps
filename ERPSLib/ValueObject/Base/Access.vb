@@ -23,6 +23,7 @@ Namespace VO
             ApproveAccess = 15
             CancelApproveAccess = 16
             ExportExcelAccess = 17
+            AssignAccess = 18
         End Enum
 
     End Class 

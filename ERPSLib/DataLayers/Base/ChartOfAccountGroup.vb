@@ -1,5 +1,5 @@
 Namespace DL
-    Public Class Access
+    Public Class ChartOfAccountGroup
 
         Public Shared Function ListData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction) As DataTable
             Dim sqlcmdExecute As New SqlCommand
@@ -9,16 +9,37 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                    "SELECT " & vbNewLine & _
-                   "     CAST(0 AS BIT) AS Pick, A.ID, A.Name, A.IsDeleted, A.CreatedBy, A.CreatedDate, A.LogBy,   " & vbNewLine & _
-                   "     A.LogDate, A.LogInc  " & vbNewLine & _
-                   "FROM mstAccess A " & vbNewLine
+                   "     A.ID, A.Name, A.AliasName, C.Name AS Tipe, A.IDStatus,B.Name AS StatusInfo,  A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate  " & vbNewLine & _
+                   "FROM mstChartOfAccountGroup A " & vbNewLine & _
+                   "INNER JOIN mstStatus B  ON  " & vbNewLine & _
+                   "    A.IDStatus=B.ID" & vbNewLine & _
+                   "INNER JOIN mstChartOfAccountType C  ON  " & vbNewLine & _
+                   "    A.COAType=C.ID" & vbNewLine
 
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataForCombo(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                   "SELECT " & vbNewLine & _
+                   "     A.ID, A.Name " & vbNewLine & _
+                   "FROM mstChartOfAccountGroup A " & vbNewLine & _
+                   "WHERE " & vbNewLine & _
+                   "    A.IDStatus=@IDStatus" & vbNewLine
+
+                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = VO.Status.Values.Active
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+        
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                   ByVal bolNew As Boolean, ByVal clsData As VO.Access)
+                                   ByVal bolNew As Boolean, ByVal clsData As VO.ChartOfAccountGroup)
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
                 .Connection = sqlCon
@@ -26,16 +47,17 @@ Namespace DL
                 .CommandType = CommandType.Text
                 If bolNew Then
                     .CommandText = _
-                       "INSERT INTO mstAccess " & vbNewLine & _
-                       "    (ID, Name, CreatedBy, CreatedDate, LogBy,   " & vbNewLine & _
-                       "      LogDate)   " & vbNewLine & _
+                       "INSERT INTO mstChartOfAccountGroup " & vbNewLine & _
+                       "    (ID, Name, AliasName, COAType, IDStatus, CreatedBy, CreatedDate, LogBy, LogDate)   " & vbNewLine & _
                        "VALUES " & vbNewLine & _
-                       "    (@ID, @Name, @LogBy, GETDATE(), @LogBy,   " & vbNewLine & _
-                       "      GETDATE())  " & vbNewLine
+                       "    (@ID, @Name, @AliasName, @COAType, @IDStatus, @LogBy, GETDATE(), @LogBy, GETDATE())  " & vbNewLine
                 Else
                     .CommandText = _
-                    "UPDATE mstAccess SET " & vbNewLine & _
+                    "UPDATE mstChartOfAccountGroup SET " & vbNewLine & _
                     "    Name=@Name, " & vbNewLine & _
+                    "    AliasName=@AliasName, " & vbNewLine & _
+                    "    COAType=@COAType, " & vbNewLine & _
+                    "    IDStatus=@IDStatus, " & vbNewLine & _
                     "    LogInc=LogInc+1, " & vbNewLine & _
                     "    LogBy=@LogBy, " & vbNewLine & _
                     "    LogDate=GETDATE() " & vbNewLine & _
@@ -44,7 +66,10 @@ Namespace DL
                 End If
 
                 .Parameters.Add("@ID", SqlDbType.Int).Value = clsData.ID
-                .Parameters.Add("@Name", SqlDbType.VarChar, 50).Value = clsData.Name
+                .Parameters.Add("@Name", SqlDbType.VarChar, 100).Value = clsData.Name
+                .Parameters.Add("@AliasName", SqlDbType.VarChar, 100).Value = clsData.AliasName
+                .Parameters.Add("@COAType", SqlDbType.Int).Value = clsData.COAType
+                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = clsData.IDStatus
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
             End With
             Try
@@ -54,23 +79,24 @@ Namespace DL
             End Try
         End Sub
 
-        Public Shared Sub SaveDataAll(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal clsData As VO.Access)
+        Public Shared Sub SaveDataAll(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                      ByVal clsData As VO.ChartOfAccountGroup)
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText = _
-                   "INSERT INTO mstAccess " & vbNewLine & _
-                   "    (ID, Name, IsDeleted, CreatedBy, CreatedDate, LogBy,   " & vbNewLine & _
-                   "     LogDate, LogInc)   " & vbNewLine & _
+                   "INSERT INTO mstChartOfAccountGroup " & vbNewLine & _
+                   "    (ID, Name, AliasName, COAType, IDStatus, CreatedBy, CreatedDate, LogBy, LogDate, LogInc)   " & vbNewLine & _
                    "VALUES " & vbNewLine & _
-                   "    (@ID, @Name, @IsDeleted, @CreatedBy, @CreatedDate, @LogBy,   " & vbNewLine & _
-                   "     @LogDate, @LogInc)  " & vbNewLine
+                   "    (@ID, @Name, @AliasName, @COAType, @IDStatus, @LogBy, @CreatedDate, @LogBy, @LogDate, @LogInc)  " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.Int).Value = clsData.ID
-                .Parameters.Add("@Name", SqlDbType.VarChar, 50).Value = clsData.Name
-                .Parameters.Add("@IsDeleted", SqlDbType.Bit).Value = clsData.IsDeleted
+                .Parameters.Add("@Name", SqlDbType.VarChar, 100).Value = clsData.Name
+                .Parameters.Add("@AliasName", SqlDbType.VarChar, 100).Value = clsData.AliasName
+                .Parameters.Add("@COAType", SqlDbType.Int).Value = clsData.COAType
+                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = clsData.IDStatus
                 .Parameters.Add("@CreatedBy", SqlDbType.VarChar, 20).Value = clsData.CreatedBy
                 .Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = clsData.CreatedDate
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
@@ -85,9 +111,9 @@ Namespace DL
         End Sub
 
         Public Shared Function GetDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                         ByVal intID As Integer) As VO.Access
+                                         ByVal intID As Integer) As VO.ChartOfAccountGroup
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
-            Dim voReturn As New VO.Access
+            Dim voReturn As New VO.ChartOfAccountGroup
             Try
                 With sqlcmdExecute
                     .Connection = sqlCon
@@ -95,8 +121,8 @@ Namespace DL
                     .CommandType = CommandType.Text
                     .CommandText = _
                        "SELECT TOP 1 " & vbNewLine & _
-                       "    A.ID, A.Name, A.IsDeleted, A.LogBy, A.LogDate  " & vbNewLine & _
-                       "FROM mstAccess A " & vbNewLine & _
+                       "    A.ID, A.Name, A.AliasName, A.COAType, A.IDStatus, A.LogBy, A.LogDate  " & vbNewLine & _
+                       "FROM mstChartOfAccountGroup A " & vbNewLine & _
                        "WHERE " & vbNewLine & _
                        "    ID=@ID " & vbNewLine
 
@@ -108,7 +134,9 @@ Namespace DL
                         .Read()
                         voReturn.ID = .Item("ID")
                         voReturn.Name = .Item("Name")
-                        voReturn.IsDeleted = .Item("IsDeleted")
+                        voReturn.COAType = .Item("COAType")
+                        voReturn.AliasName = .Item("AliasName")
+                        voReturn.IDStatus = .Item("IDStatus")
                         voReturn.LogBy = .Item("LogBy")
                         voReturn.LogDate = .Item("LogDate")
                     End If
@@ -129,29 +157,13 @@ Namespace DL
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText = _
-                    "UPDATE mstAccess " & vbNewLine & _
-                    "SET IsDeleted=1 " & vbNewLine & _
+                    "UPDATE mstChartOfAccountGroup " & vbNewLine & _
+                    "SET IDStatus=@IDStatus " & vbNewLine & _
                     "WHERE " & vbNewLine & _
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.Int).Value = intID
-            End With
-            Try
-                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
-            Catch ex As SqlException
-                Throw ex
-            End Try
-        End Sub
-
-        Public Shared Sub DeleteDataAll(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
-            Dim sqlcmdExecute As New SqlCommand
-            With sqlcmdExecute
-                .Connection = sqlCon
-                .Transaction = sqlTrans
-                .CommandType = CommandType.Text
-                .CommandText = _
-                    "DELETE mstAccess " & vbNewLine
-
+                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = VO.Status.Values.InActive
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -171,7 +183,7 @@ Namespace DL
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
                         "   ID=ISNULL(MAX(ID),0) " & vbNewLine & _
-                        "FROM mstAccess " & vbNewLine
+                        "FROM mstChartOfAccountGroup " & vbNewLine
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
                 With sqlrdData
@@ -188,7 +200,8 @@ Namespace DL
             Return intReturn
         End Function
 
-        Public Shared Function DataExists(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal intID As Integer) As Boolean
+        Public Shared Function DataExists(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal intID As Integer) As Boolean
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim bolExists As Boolean = False
             Try
@@ -199,7 +212,7 @@ Namespace DL
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
                         "   ID " & vbNewLine & _
-                        "FROM mstAccess " & vbNewLine & _
+                        "FROM mstChartOfAccountGroup " & vbNewLine & _
                         "WHERE  " & vbNewLine & _
                         "   ID=@ID " & vbNewLine
 
@@ -220,9 +233,10 @@ Namespace DL
             Return bolExists
         End Function
 
-        Public Shared Function IsDeleted(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal intID As Integer) As Boolean
+        Public Shared Function GetIDStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                           ByVal intID As Integer) As Integer
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
-            Dim bolIsDeleted As Integer = False
+            Dim intReturn As Integer = VO.Status.Values.Active
             Try
                 With sqlcmdExecute
                     .Connection = sqlCon
@@ -230,19 +244,18 @@ Namespace DL
                     .CommandType = CommandType.Text
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
-                        "   IsDeleted " & vbNewLine & _
-                        "FROM mstAccess " & vbNewLine & _
+                        "   IDStatus " & vbNewLine & _
+                        "FROM mstChartOfAccountGroup " & vbNewLine & _
                         "WHERE  " & vbNewLine & _
                         "   ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.Int).Value = intID
-                    If SQL.bolUseTrans Then .Transaction = SQL.sqlTrans
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
                 With sqlrdData
                     If .HasRows Then
                         .Read()
-                        bolIsDeleted = .Item("IsDeleted")
+                        intReturn = .Item("IDStatus")
                     End If
                 End With
             Catch ex As Exception
@@ -250,10 +263,27 @@ Namespace DL
             Finally
                 If Not sqlrdData Is Nothing Then sqlrdData.Close()
             End Try
-            Return bolIsDeleted
+            Return intReturn
         End Function
 
-    End Class
+        Public Shared Sub DeleteDataAll(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "DELETE mstChartOfAccountGroup " & vbNewLine
+
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
+
+    End Class 
 
 End Namespace
 

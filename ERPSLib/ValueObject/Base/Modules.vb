@@ -24,6 +24,7 @@ Namespace VO
             MasterPaymentTypeCategory = 13
             MasterCompanyBankAccount = 14
             MasterPaymentMode = 19
+            MasterChartOfAccount = 28
 
             '# Transaction
             TransactionOrderRequest = 15
