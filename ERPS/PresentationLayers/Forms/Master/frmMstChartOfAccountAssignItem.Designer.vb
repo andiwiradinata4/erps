@@ -28,16 +28,16 @@ Partial Class frmMstChartOfAccountAssignItem
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.dtpFirstBalanceDate = New System.Windows.Forms.DateTimePicker()
+        Me.txtFirstBalance = New ERPS.usNumeric()
+        Me.btnCompany = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnProgram = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.lblStatusID = New System.Windows.Forms.Label()
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtCompanyName = New ERPS.usTextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtProgramName = New ERPS.usTextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.btnProgram = New DevExpress.XtraEditors.SimpleButton()
-        Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
-        Me.txtFirstBalance = New ERPS.usNumeric()
-        Me.dtpFirstBalanceDate = New System.Windows.Forms.DateTimePicker()
         Me.Panel1.SuspendLayout()
         CType(Me.txtFirstBalance, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -84,7 +84,7 @@ Partial Class frmMstChartOfAccountAssignItem
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel1.Controls.Add(Me.dtpFirstBalanceDate)
         Me.Panel1.Controls.Add(Me.txtFirstBalance)
-        Me.Panel1.Controls.Add(Me.SimpleButton1)
+        Me.Panel1.Controls.Add(Me.btnCompany)
         Me.Panel1.Controls.Add(Me.btnProgram)
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.lblStatusID)
@@ -97,6 +97,56 @@ Partial Class frmMstChartOfAccountAssignItem
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(509, 122)
         Me.Panel1.TabIndex = 2
+        '
+        'dtpFirstBalanceDate
+        '
+        Me.dtpFirstBalanceDate.CustomFormat = "dd/MM/yyyy"
+        Me.dtpFirstBalanceDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpFirstBalanceDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpFirstBalanceDate.Location = New System.Drawing.Point(349, 71)
+        Me.dtpFirstBalanceDate.Name = "dtpFirstBalanceDate"
+        Me.dtpFirstBalanceDate.Size = New System.Drawing.Size(101, 21)
+        Me.dtpFirstBalanceDate.TabIndex = 5
+        Me.dtpFirstBalanceDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
+        '
+        'txtFirstBalance
+        '
+        Me.txtFirstBalance.DecimalPlaces = 2
+        Me.txtFirstBalance.Location = New System.Drawing.Point(91, 71)
+        Me.txtFirstBalance.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtFirstBalance.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtFirstBalance.Name = "txtFirstBalance"
+        Me.txtFirstBalance.Size = New System.Drawing.Size(160, 21)
+        Me.txtFirstBalance.TabIndex = 4
+        Me.txtFirstBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtFirstBalance.ThousandsSeparator = True
+        '
+        'btnCompany
+        '
+        Me.btnCompany.Image = CType(resources.GetObject("btnCompany.Image"), System.Drawing.Image)
+        Me.btnCompany.Location = New System.Drawing.Point(456, 43)
+        Me.btnCompany.Name = "btnCompany"
+        Me.btnCompany.Size = New System.Drawing.Size(23, 23)
+        Me.btnCompany.TabIndex = 3
+        '
+        'btnProgram
+        '
+        Me.btnProgram.Image = CType(resources.GetObject("btnProgram.Image"), System.Drawing.Image)
+        Me.btnProgram.Location = New System.Drawing.Point(456, 16)
+        Me.btnProgram.Name = "btnProgram"
+        Me.btnProgram.Size = New System.Drawing.Size(23, 23)
+        Me.btnProgram.TabIndex = 1
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.ForeColor = System.Drawing.Color.Black
+        Me.Label2.Location = New System.Drawing.Point(284, 75)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(59, 13)
+        Me.Label2.TabIndex = 102
+        Me.Label2.Text = "Pertanggal"
         '
         'lblStatusID
         '
@@ -153,56 +203,6 @@ Partial Class frmMstChartOfAccountAssignItem
         Me.txtProgramName.Size = New System.Drawing.Size(359, 21)
         Me.txtProgramName.TabIndex = 0
         '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(284, 75)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(59, 13)
-        Me.Label2.TabIndex = 102
-        Me.Label2.Text = "Pertanggal"
-        '
-        'btnProgram
-        '
-        Me.btnProgram.Image = CType(resources.GetObject("btnProgram.Image"), System.Drawing.Image)
-        Me.btnProgram.Location = New System.Drawing.Point(456, 16)
-        Me.btnProgram.Name = "btnProgram"
-        Me.btnProgram.Size = New System.Drawing.Size(23, 23)
-        Me.btnProgram.TabIndex = 1
-        '
-        'SimpleButton1
-        '
-        Me.SimpleButton1.Image = CType(resources.GetObject("SimpleButton1.Image"), System.Drawing.Image)
-        Me.SimpleButton1.Location = New System.Drawing.Point(456, 43)
-        Me.SimpleButton1.Name = "SimpleButton1"
-        Me.SimpleButton1.Size = New System.Drawing.Size(23, 23)
-        Me.SimpleButton1.TabIndex = 3
-        '
-        'txtFirstBalance
-        '
-        Me.txtFirstBalance.DecimalPlaces = 2
-        Me.txtFirstBalance.Location = New System.Drawing.Point(91, 71)
-        Me.txtFirstBalance.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtFirstBalance.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtFirstBalance.Name = "txtFirstBalance"
-        Me.txtFirstBalance.Size = New System.Drawing.Size(160, 21)
-        Me.txtFirstBalance.TabIndex = 4
-        Me.txtFirstBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtFirstBalance.ThousandsSeparator = True
-        '
-        'dtpFirstBalanceDate
-        '
-        Me.dtpFirstBalanceDate.CustomFormat = "dd/MM/yyyy"
-        Me.dtpFirstBalanceDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtpFirstBalanceDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFirstBalanceDate.Location = New System.Drawing.Point(349, 71)
-        Me.dtpFirstBalanceDate.Name = "dtpFirstBalanceDate"
-        Me.dtpFirstBalanceDate.Size = New System.Drawing.Size(101, 21)
-        Me.dtpFirstBalanceDate.TabIndex = 5
-        Me.dtpFirstBalanceDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
-        '
         'frmMstChartOfAccountAssignItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -236,7 +236,7 @@ Partial Class frmMstChartOfAccountAssignItem
     Friend WithEvents txtProgramName As ERPS.usTextBox
     Friend WithEvents btnProgram As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents SimpleButton1 As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btnCompany As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents txtFirstBalance As ERPS.usNumeric
     Friend WithEvents dtpFirstBalanceDate As System.Windows.Forms.DateTimePicker
 End Class

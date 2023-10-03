@@ -9,10 +9,10 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                    "SELECT " & vbNewLine & _
-                   "     A.ID, A.Name, A.AliasName, C.Name AS Tipe, A.IDStatus,B.Name AS StatusInfo,  A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate  " & vbNewLine & _
+                   "     A.ID, A.Name, A.AliasName, C.Name AS Tipe, A.StatusID,B.Name AS StatusInfo,  A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate  " & vbNewLine & _
                    "FROM mstChartOfAccountGroup A " & vbNewLine & _
                    "INNER JOIN mstStatus B  ON  " & vbNewLine & _
-                   "    A.IDStatus=B.ID" & vbNewLine & _
+                   "    A.StatusID=B.ID" & vbNewLine & _
                    "INNER JOIN mstChartOfAccountType C  ON  " & vbNewLine & _
                    "    A.COAType=C.ID" & vbNewLine
 
@@ -31,13 +31,13 @@ Namespace DL
                    "     A.ID, A.Name " & vbNewLine & _
                    "FROM mstChartOfAccountGroup A " & vbNewLine & _
                    "WHERE " & vbNewLine & _
-                   "    A.IDStatus=@IDStatus" & vbNewLine
+                   "    A.StatusID=@StatusID" & vbNewLine
 
-                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = VO.Status.Values.Active
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Active
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
-        
+
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                    ByVal bolNew As Boolean, ByVal clsData As VO.ChartOfAccountGroup)
             Dim sqlcmdExecute As New SqlCommand
@@ -48,16 +48,16 @@ Namespace DL
                 If bolNew Then
                     .CommandText = _
                        "INSERT INTO mstChartOfAccountGroup " & vbNewLine & _
-                       "    (ID, Name, AliasName, COAType, IDStatus, CreatedBy, CreatedDate, LogBy, LogDate)   " & vbNewLine & _
+                       "    (ID, Name, AliasName, COAType, StatusID, CreatedBy, CreatedDate, LogBy, LogDate)   " & vbNewLine & _
                        "VALUES " & vbNewLine & _
-                       "    (@ID, @Name, @AliasName, @COAType, @IDStatus, @LogBy, GETDATE(), @LogBy, GETDATE())  " & vbNewLine
+                       "    (@ID, @Name, @AliasName, @COAType, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE())  " & vbNewLine
                 Else
                     .CommandText = _
                     "UPDATE mstChartOfAccountGroup SET " & vbNewLine & _
                     "    Name=@Name, " & vbNewLine & _
                     "    AliasName=@AliasName, " & vbNewLine & _
                     "    COAType=@COAType, " & vbNewLine & _
-                    "    IDStatus=@IDStatus, " & vbNewLine & _
+                    "    StatusID=@StatusID, " & vbNewLine & _
                     "    LogInc=LogInc+1, " & vbNewLine & _
                     "    LogBy=@LogBy, " & vbNewLine & _
                     "    LogDate=GETDATE() " & vbNewLine & _
@@ -69,7 +69,7 @@ Namespace DL
                 .Parameters.Add("@Name", SqlDbType.VarChar, 100).Value = clsData.Name
                 .Parameters.Add("@AliasName", SqlDbType.VarChar, 100).Value = clsData.AliasName
                 .Parameters.Add("@COAType", SqlDbType.Int).Value = clsData.COAType
-                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = clsData.IDStatus
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
             End With
             Try
@@ -88,15 +88,15 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                    "INSERT INTO mstChartOfAccountGroup " & vbNewLine & _
-                   "    (ID, Name, AliasName, COAType, IDStatus, CreatedBy, CreatedDate, LogBy, LogDate, LogInc)   " & vbNewLine & _
+                   "    (ID, Name, AliasName, COAType, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, LogInc)   " & vbNewLine & _
                    "VALUES " & vbNewLine & _
-                   "    (@ID, @Name, @AliasName, @COAType, @IDStatus, @LogBy, @CreatedDate, @LogBy, @LogDate, @LogInc)  " & vbNewLine
+                   "    (@ID, @Name, @AliasName, @COAType, @StatusID, @LogBy, @CreatedDate, @LogBy, @LogDate, @LogInc)  " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.Int).Value = clsData.ID
                 .Parameters.Add("@Name", SqlDbType.VarChar, 100).Value = clsData.Name
                 .Parameters.Add("@AliasName", SqlDbType.VarChar, 100).Value = clsData.AliasName
                 .Parameters.Add("@COAType", SqlDbType.Int).Value = clsData.COAType
-                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = clsData.IDStatus
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@CreatedBy", SqlDbType.VarChar, 20).Value = clsData.CreatedBy
                 .Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = clsData.CreatedDate
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
@@ -121,7 +121,7 @@ Namespace DL
                     .CommandType = CommandType.Text
                     .CommandText = _
                        "SELECT TOP 1 " & vbNewLine & _
-                       "    A.ID, A.Name, A.AliasName, A.COAType, A.IDStatus, A.LogBy, A.LogDate  " & vbNewLine & _
+                       "    A.ID, A.Name, A.AliasName, A.COAType, A.StatusID, A.LogBy, A.LogDate  " & vbNewLine & _
                        "FROM mstChartOfAccountGroup A " & vbNewLine & _
                        "WHERE " & vbNewLine & _
                        "    ID=@ID " & vbNewLine
@@ -136,7 +136,7 @@ Namespace DL
                         voReturn.Name = .Item("Name")
                         voReturn.COAType = .Item("COAType")
                         voReturn.AliasName = .Item("AliasName")
-                        voReturn.IDStatus = .Item("IDStatus")
+                        voReturn.StatusID = .Item("StatusID")
                         voReturn.LogBy = .Item("LogBy")
                         voReturn.LogDate = .Item("LogDate")
                     End If
@@ -158,12 +158,12 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "UPDATE mstChartOfAccountGroup " & vbNewLine & _
-                    "SET IDStatus=@IDStatus " & vbNewLine & _
+                    "SET StatusID=@StatusID " & vbNewLine & _
                     "WHERE " & vbNewLine & _
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.Int).Value = intID
-                .Parameters.Add("@IDStatus", SqlDbType.Int).Value = VO.Status.Values.InActive
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.InActive
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -233,7 +233,7 @@ Namespace DL
             Return bolExists
         End Function
 
-        Public Shared Function GetIDStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+        Public Shared Function GetStatusID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                            ByVal intID As Integer) As Integer
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim intReturn As Integer = VO.Status.Values.Active
@@ -244,7 +244,7 @@ Namespace DL
                     .CommandType = CommandType.Text
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
-                        "   IDStatus " & vbNewLine & _
+                        "   StatusID " & vbNewLine & _
                         "FROM mstChartOfAccountGroup " & vbNewLine & _
                         "WHERE  " & vbNewLine & _
                         "   ID=@ID " & vbNewLine
@@ -255,7 +255,7 @@ Namespace DL
                 With sqlrdData
                     If .HasRows Then
                         .Read()
-                        intReturn = .Item("IDStatus")
+                        intReturn = .Item("StatusID")
                     End If
                 End With
             Catch ex As Exception

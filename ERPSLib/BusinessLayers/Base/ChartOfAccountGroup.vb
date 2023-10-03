@@ -53,7 +53,7 @@ Namespace BL
             BL.Server.ServerDefault()
             Try
                 Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                    If DL.ChartOfAccountGroup.GetIDStatus(sqlCon, Nothing, intID) = VO.Status.Values.InActive Then
+                    If DL.ChartOfAccountGroup.GetStatusID(sqlCon, Nothing, intID) = VO.Status.Values.InActive Then
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah tidak aktif")
                     Else
                         DL.ChartOfAccountGroup.DeleteData(sqlCon, Nothing, intID)

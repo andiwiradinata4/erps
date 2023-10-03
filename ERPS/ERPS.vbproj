@@ -131,6 +131,18 @@
     <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartner.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerAssign.Designer.vb">
+      <DependentUpon>frmMstBusinessPartnerAssign.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerAssign.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerAssignItem.Designer.vb">
+      <DependentUpon>frmMstBusinessPartnerAssignItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerAssignItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerBankAccount.Designer.vb">
       <DependentUpon>frmMstBusinessPartnerBankAccount.vb</DependentUpon>
     </Compile>
@@ -171,6 +183,30 @@
       <DependentUpon>frmMstChartOfAccountDet.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstChartOfAccountDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstChartOfAccountGroup.Designer.vb">
+      <DependentUpon>frmMstChartOfAccountGroup.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstChartOfAccountGroup.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstChartOfAccountGroupDet.Designer.vb">
+      <DependentUpon>frmMstChartOfAccountGroupDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstChartOfAccountGroupDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstChartOfAccountType.Designer.vb">
+      <DependentUpon>frmMstChartOfAccountType.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstChartOfAccountType.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstChartOfAccountTypeDet.Designer.vb">
+      <DependentUpon>frmMstChartOfAccountTypeDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstChartOfAccountTypeDet.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstCompany.designer.vb">
@@ -638,6 +674,12 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartner.resx">
       <DependentUpon>frmMstBusinessPartner.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerAssign.resx">
+      <DependentUpon>frmMstBusinessPartnerAssign.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerAssignItem.resx">
+      <DependentUpon>frmMstBusinessPartnerAssignItem.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerBankAccount.resx">
       <DependentUpon>frmMstBusinessPartnerBankAccount.vb</DependentUpon>
     </EmbeddedResource>
@@ -658,6 +700,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstChartOfAccountDet.resx">
       <DependentUpon>frmMstChartOfAccountDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstChartOfAccountGroup.resx">
+      <DependentUpon>frmMstChartOfAccountGroup.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstChartOfAccountGroupDet.resx">
+      <DependentUpon>frmMstChartOfAccountGroupDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstChartOfAccountType.resx">
+      <DependentUpon>frmMstChartOfAccountType.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstChartOfAccountTypeDet.resx">
+      <DependentUpon>frmMstChartOfAccountTypeDet.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstCompany.resx">
       <DependentUpon>frmMstCompany.vb</DependentUpon>

@@ -181,6 +181,7 @@
     <Compile Include="ValueObject\Base\UserAccess.vb" />
     <Compile Include="ValueObject\Base\UserCompany.vb" />
     <Compile Include="ValueObject\BusinessPartner.vb" />
+    <Compile Include="ValueObject\BusinessPartnerAssign.vb" />
     <Compile Include="ValueObject\BusinessPartnerBankAccount.vb" />
     <Compile Include="ValueObject\ConfirmationOrder.vb" />
     <Compile Include="ValueObject\ConfirmationOrderDet.vb" />

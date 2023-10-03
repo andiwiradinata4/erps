@@ -1,10 +1,10 @@
 Namespace BL
     Public Class ChartOfAccount
 
-        Public Shared Function ListData(ByVal enumFilterGroup As VO.ChartOfAccount.FilterGroup, ByVal intCompanyID As Integer, ByVal intProgramID As Integer, ByVal intIDStatus As Integer) As DataTable
+        Public Shared Function ListData(ByVal enumFilterGroup As VO.ChartOfAccount.FilterGroup, ByVal intCompanyID As Integer, ByVal intProgramID As Integer, ByVal intStatusID As Integer) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.ChartOfAccount.ListData(sqlCon, Nothing, enumFilterGroup, intCompanyID, intProgramID, intIDStatus)
+                Return DL.ChartOfAccount.ListData(sqlCon, Nothing, enumFilterGroup, intCompanyID, intProgramID, intStatusID)
             End Using
         End Function
 
@@ -64,7 +64,7 @@ Namespace BL
             BL.Server.ServerDefault()
             Try
                 Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                    If DL.ChartOfAccount.GetIDStatus(sqlCon, Nothing, intID) = VO.Status.Values.InActive Then
+                    If DL.ChartOfAccount.GetStatusID(sqlCon, Nothing, intID) = VO.Status.Values.InActive Then
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah tidak aktif")
                     Else
                         DL.ChartOfAccount.DeleteData(sqlCon, Nothing, intID)

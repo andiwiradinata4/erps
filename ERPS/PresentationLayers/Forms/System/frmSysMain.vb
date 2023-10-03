@@ -10,6 +10,9 @@
     Dim frmMainMstCompany As frmMstCompany
     Dim frmMainMstUser As frmMstUser
     Dim frmMainMstUOM As frmMstUOM
+    Dim frmMainMstChartOfAccountType As frmMstChartOfAccountType
+    Dim frmMainMstChartOfAccountGroup As frmMstChartOfAccountGroup
+    Dim frmMainMstChartOfAccount As frmMstChartOfAccount
     Dim frmMainMstItemType As frmMstItemType
     Dim frmMainMstItemSpecification As frmMstItemSpecification
     Dim frmMainMstItem As frmMstItem
@@ -54,7 +57,9 @@
         mnuMasterAkses.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterAccess, VO.Access.Values.ViewAccess)
         mnuMasterPerusahaan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterCompany, VO.Access.Values.ViewAccess)
         mnuMasterKaryawan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterUser, VO.Access.Values.ViewAccess)
-        mnuMasterSatuan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterUOM, VO.Access.Values.ViewAccess)
+        mnuMasterTipeAkunPerkiraan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterChartOfAccountType, VO.Access.Values.ViewAccess)
+        mnuMasterGroupAkunPerkiraan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterChartOfAccountGroup, VO.Access.Values.ViewAccess)
+        mnuMasterAkunPerkiraan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterChartOfAccount, VO.Access.Values.ViewAccess)
         mnuMasterJenisBarang.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterItemType, VO.Access.Values.ViewAccess)
         mnuMasterSpesifikasiBarang.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterItemSpecification, VO.Access.Values.ViewAccess)
         mnuMasterBarang.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterItem, VO.Access.Values.ViewAccess)
@@ -232,6 +237,18 @@
 
     Private Sub mnuMasterSatuan_Click(sender As Object, e As EventArgs) Handles mnuMasterSatuan.Click
         UI.usForm.frmOpen(frmMainMstUOM, "frmMstUOM", Me)
+    End Sub
+
+    Private Sub mnuMasterTipeAkunPerkiraan_Click(sender As Object, e As EventArgs) Handles mnuMasterTipeAkunPerkiraan.Click
+        UI.usForm.frmOpen(frmMainMstChartOfAccountType, "frmMstChartOfAccountType", Me)
+    End Sub
+
+    Private Sub mnuMasterGroupAkunPerkiraan_Click(sender As Object, e As EventArgs) Handles mnuMasterGroupAkunPerkiraan.Click
+        UI.usForm.frmOpen(frmMainMstChartOfAccountGroup, "frmMstChartOfAccountGroup", Me)
+    End Sub
+
+    Private Sub mnuMasterAkunPerkiraan_Click(sender As Object, e As EventArgs) Handles mnuMasterAkunPerkiraan.Click
+        UI.usForm.frmOpen(frmMainMstChartOfAccount, "frmMstChartOfAccount", Me)
     End Sub
 
     Private Sub mnuMasterJenisBarang_Click(sender As Object, e As EventArgs) Handles mnuMasterJenisBarang.Click

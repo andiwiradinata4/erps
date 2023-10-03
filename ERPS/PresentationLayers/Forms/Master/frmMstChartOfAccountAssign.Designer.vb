@@ -31,7 +31,7 @@ Partial Class frmMstChartOfAccountAssign
         Me.txtName = New ERPS.usTextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtCode = New ERPS.usTextBox()
-        Me.ToolBarItem = New ERPS.usToolBar()
+        Me.ToolBarDet = New ERPS.usToolBar()
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
@@ -136,17 +136,17 @@ Partial Class frmMstChartOfAccountAssign
         Me.txtCode.Size = New System.Drawing.Size(110, 21)
         Me.txtCode.TabIndex = 0
         '
-        'ToolBarItem
+        'ToolBarDet
         '
-        Me.ToolBarItem.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder})
-        Me.ToolBarItem.DropDownArrows = True
-        Me.ToolBarItem.Location = New System.Drawing.Point(0, 144)
-        Me.ToolBarItem.Name = "ToolBarItem"
-        Me.ToolBarItem.ShowToolTips = True
-        Me.ToolBarItem.Size = New System.Drawing.Size(613, 28)
-        Me.ToolBarItem.TabIndex = 3
-        Me.ToolBarItem.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        Me.ToolBarDet.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBarDet.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder})
+        Me.ToolBarDet.DropDownArrows = True
+        Me.ToolBarDet.Location = New System.Drawing.Point(0, 144)
+        Me.ToolBarDet.Name = "ToolBarDet"
+        Me.ToolBarDet.ShowToolTips = True
+        Me.ToolBarDet.Size = New System.Drawing.Size(613, 28)
+        Me.ToolBarDet.TabIndex = 3
+        Me.ToolBarDet.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
         'BarAddItemOrder
         '
@@ -207,7 +207,7 @@ Partial Class frmMstChartOfAccountAssign
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(613, 399)
         Me.Controls.Add(Me.grdMain)
-        Me.Controls.Add(Me.ToolBarItem)
+        Me.Controls.Add(Me.ToolBarDet)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
@@ -234,7 +234,7 @@ Partial Class frmMstChartOfAccountAssign
     Friend WithEvents txtName As ERPS.usTextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtCode As ERPS.usTextBox
-    Friend WithEvents ToolBarItem As ERPS.usToolBar
+    Friend WithEvents ToolBarDet As ERPS.usToolBar
     Friend WithEvents BarAddItemOrder As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarDetailItemOrder As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarDeleteItemOrder As System.Windows.Forms.ToolBarButton

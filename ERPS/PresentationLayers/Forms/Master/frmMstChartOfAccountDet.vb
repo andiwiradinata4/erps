@@ -16,7 +16,7 @@
 #End Region
 
     Private Const _
-       cSave = 0, cClose = 1
+       cSave As Byte = 0, cClose As Byte = 1
 
     Private Sub prvSetTitleForm()
         If pubIsNew Then
@@ -28,7 +28,7 @@
 
     Private Sub prvFillStatus()
         Try
-            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.MasterChartOfAccount), "IDStatus", "StatusName")
+            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.MasterChartOfAccount), "StatusID", "StatusName")
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         End Try
@@ -58,7 +58,7 @@
                 txtCode.Text = clsData.Code
                 cboChartOfAccountGroup.SelectedValue = clsData.AccountGroupID
                 txtName.Text = clsData.Name
-                cboStatus.SelectedValue = clsData.IDStatus
+                cboStatus.SelectedValue = clsData.StatusID
                 txtInitial.Text = clsData.Initial
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
@@ -98,15 +98,15 @@
         clsData.FirstBalanceDate = "2000/01/01"
         clsData.AccountGroupID = cboChartOfAccountGroup.SelectedValue
         clsData.AccountGroupName = cboChartOfAccountGroup.Text.Trim
-        clsData.IDStatus = cboStatus.SelectedValue
+        clsData.StatusID = cboStatus.SelectedValue
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Initial = txtInitial.Text.Trim
 
         Try
             BL.ChartOfAccount.SaveData(pubIsNew, clsData)
+            frmParent.pubRefresh(clsData.Code)
             If pubIsNew Then
                 UI.usForm.frmMessageBox("Data berhasil disimpan.")
-                frmParent.pubRefresh(clsData.Code)
                 prvClear()
             Else
                 pubIsSave = True

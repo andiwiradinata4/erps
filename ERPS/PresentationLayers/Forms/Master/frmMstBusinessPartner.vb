@@ -4,11 +4,11 @@
     Public pubIsLookUp As Boolean = False
     Public pubIsLookUpGet As Boolean = False
     Private dtData As New DataTable
+    Private intPos As Integer = 0
 
     Private Const _
-       cGet As Byte = 0, cSep1 As Byte = 1, cNew As Byte = 2, cDetail As Byte = 3, _
-       cDelete As Byte = 4, cBankAccount As Byte = 5, cSep2 As Byte = 6, cRefresh As Byte = 7,
-       cClose As Byte = 8
+       cGet As Byte = 0, cSep1 As Byte = 1, cNew As Byte = 2, cDetail As Byte = 3, cDelete As Byte = 4, cSep2 As Byte = 5,
+       cBankAccount As Byte = 6, cAssign As Byte = 7, cSep3 As Byte = 8, cRefresh As Byte = 9, cClose As Byte = 10
 
     Private Sub prvSetTitleForm()
         If pubIsLookUp Then
@@ -41,6 +41,7 @@
             .Item(cDetail).Enabled = bolEnable
             .Item(cDelete).Enabled = bolEnable
             .Item(cBankAccount).Enabled = bolEnable
+            .Item(cAssign).Enabled = bolEnable
         End With
     End Sub
 
@@ -64,8 +65,16 @@
         End With
     End Sub
 
+    Private Function prvGetData() As VO.BusinessPartner
+        Dim clsReturn As New VO.BusinessPartner
+        clsReturn.ID = grdView.GetRowCellValue(intPos, "ID")
+        clsReturn.Code = grdView.GetRowCellValue(intPos, "Code")
+        clsReturn.Name = grdView.GetRowCellValue(intPos, "Name")
+        Return clsReturn
+    End Function
+
     Private Sub prvGet()
-        Dim intPos As Integer = grdView.FocusedRowHandle
+        intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         If Not pubIsLookUp Then Exit Sub
         If grdView.GetRowCellValue(intPos, "StatusID") = VO.Status.Values.InActive Then
@@ -88,7 +97,7 @@
     End Sub
 
     Private Sub prvDetail()
-        Dim intPos As Integer = grdView.FocusedRowHandle
+        intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         Dim frmDetail As New frmMstBusinessPartnerDet
         With frmDetail
@@ -100,7 +109,7 @@
     End Sub
 
     Private Sub prvDelete()
-        Dim intPos As Integer = grdView.FocusedRowHandle
+        intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         If Not UI.usForm.frmAskQuestion("Hapus data  " & grdView.GetRowCellValue(intPos, "Name") & "?") Then Exit Sub
         Try
@@ -113,13 +122,24 @@
     End Sub
 
     Private Sub prvBankAccount()
-        Dim intPos As Integer = grdView.FocusedRowHandle
+        intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         Dim frmDetail As New frmMstBusinessPartnerBankAccount
         With frmDetail
             .pubBPID = grdView.GetRowCellValue(intPos, "ID")
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
+        End With
+    End Sub
+
+    Private Sub prvAssign()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim frmDetail As New frmMstBusinessPartnerAssign
+        With frmDetail
+            .pubClsData = prvGetData()
+            .StartPosition = FormStartPosition.CenterScreen
+            .pubShowDialog(Me)
         End With
     End Sub
 
@@ -135,6 +155,7 @@
             .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterBusinessPartner, VO.Access.Values.NewAccess)
             .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterBusinessPartner, VO.Access.Values.DeleteAccess)
             .Item(cBankAccount).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterBusinessPartner, VO.Access.Values.BankInfoAccess)
+            .Item(cAssign).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterBusinessPartner, VO.Access.Values.AssignAccess)
         End With
     End Sub
 
@@ -169,6 +190,7 @@
                 Case ToolBar.Buttons(cDetail).Name : prvDetail()
                 Case ToolBar.Buttons(cDelete).Name : prvDelete()
                 Case ToolBar.Buttons(cBankAccount).Name : prvBankAccount()
+                Case ToolBar.Buttons(cAssign).Name : prvAssign()
             End Select
         End If
     End Sub

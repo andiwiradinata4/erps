@@ -470,6 +470,25 @@ GO
 
 GO
 
+/****** Object:  Table [dbo].[mstBusinessPartnerAssign]    Script Date: 9/22/2022 7:57:59 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[mstBusinessPartnerAssign](
+	[CompanyID] [int] NOT NULL CONSTRAINT [DF_tramstBusinessPartnerAssignAssign_CompanyID]  DEFAULT ((0)),
+	[ProgramID] [int] NOT NULL CONSTRAINT [DF_tramstBusinessPartnerAssignAssign_ProgramID]  DEFAULT ((0)),
+	[ID] [int] NOT NULL CONSTRAINT [DF_tramstBusinessPartnerAssignAssign_ID]  DEFAULT ((0)),
+	[BPID] [int] NOT NULL CONSTRAINT [DF_tramstBusinessPartnerAssignAssign_BPID]  DEFAULT ((0)),
+	[FirstBalance] [decimal](18, 2) NOT NULL CONSTRAINT [DF_tramstBusinessPartnerAssignAssign_FirstBalance]  DEFAULT ((0)),
+	[FirstBalanceDate] [datetime] NOT NULL CONSTRAINT [DF_tramstBusinessPartnerAssignAssign_FirstBalanceDate]  DEFAULT ('2000/01/01'),
+ CONSTRAINT [PK_mstBusinessPartnerAssign] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 /****** Object:  Table [dbo].[mstBusinessPartnerBankAccount]    Script Date: 07/09/2023 17:43:08 ******/
 SET ANSI_NULLS ON
 GO

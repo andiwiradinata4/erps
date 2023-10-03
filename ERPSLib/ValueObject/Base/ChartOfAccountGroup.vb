@@ -5,7 +5,7 @@ Namespace VO
         Property Name As String
         Property COAType As Integer
         Property AliasName As String
-        Property IDStatus As Integer
+        Property StatusID As Integer
 
         Enum Values
             All = 0

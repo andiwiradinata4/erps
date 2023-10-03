@@ -8,7 +8,7 @@ Namespace VO
         Property Name As String
         Property FirstBalance As Decimal
         Property FirstBalanceDate As DateTime
-        Property IDStatus As Integer
+        Property StatusID As Integer
         Property Initial As String
 
         Enum FilterGroup

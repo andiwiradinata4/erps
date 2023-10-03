@@ -111,6 +111,54 @@
 
 #End Region
 
+#Region "Assign"
+
+        Public Shared Function ListDataAssign(ByVal intCOAID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.BusinessPartner.ListDataAssign(sqlCon, Nothing, intCOAID)
+            End Using
+        End Function
+
+        Public Shared Function SaveDataAssign(ByVal intCOAID As Integer, ByVal clsDataAll() As VO.BusinessPartnerAssign) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    DL.BusinessPartner.DeleteDataAssign(sqlCon, sqlTrans, intCOAID)
+
+                    For Each clsItem As VO.BusinessPartnerAssign In clsDataAll
+                        clsItem.ID = DL.BusinessPartner.GetMaxIDAssign(sqlCon, sqlTrans)
+                        DL.BusinessPartner.SaveDataAssign(sqlCon, sqlTrans, clsItem)
+                    Next
+
+                    sqlTrans.Commit()
+                    bolReturn = True
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Sub SaveDataAllAssign(ByVal strServer As String, ByVal strDBMS As String, ByVal strUserID As String, ByVal strPassword As String, _
+                                            ByVal clsData As VO.BusinessPartnerAssign)
+            BL.Server.SetServer(strServer, strDBMS, strUserID, strPassword)
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                DL.BusinessPartner.SaveDataAssign(sqlCon, Nothing, clsData)
+            End Using
+        End Sub
+
+        Public Shared Sub DeleteDataAllAssign(ByVal strServer As String, ByVal strDBMS As String, ByVal strUserID As String, ByVal strPassword As String)
+            BL.Server.SetServer(strServer, strDBMS, strUserID, strPassword)
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                DL.BusinessPartner.DeleteDataAllAssign(sqlCon, Nothing)
+            End Using
+        End Sub
+
+#End Region
+
     End Class
 
 End Namespace

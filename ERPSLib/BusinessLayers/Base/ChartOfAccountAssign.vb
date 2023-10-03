@@ -44,6 +44,7 @@ Namespace BL
                 DL.ChartOfAccountAssign.DeleteDataAll(sqlCon, Nothing)
             End Using
         End Sub
+
     End Class
 
 End Namespace
