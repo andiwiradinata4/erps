@@ -489,6 +489,58 @@ CREATE TABLE [dbo].[mstBusinessPartnerAssign](
 ) ON [PRIMARY]
 GO
 
+GO
+
+/****** Object:  Table [dbo].[mstBusinessPartnerAPBalance]    Script Date: 9/22/2022 7:57:59 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[mstBusinessPartnerAPBalance](
+	[CompanyID] [int] NOT NULL CONSTRAINT [DF_tramstBusinessPartnerAPBalance_CompanyID]  DEFAULT ((0)),
+	[ProgramID] [int] NOT NULL CONSTRAINT [DF_tramstBusinessPartnerAPBalance_ProgramID]  DEFAULT ((0)),
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_tramstBusinessPartnerAPBalance_ID]  DEFAULT (''),
+	[BPID] [int] NOT NULL CONSTRAINT [DF_tramstBusinessPartnerAPBalance_BPID]  DEFAULT ((0)),
+	[InvoiceNumber] [varchar](100) NOT NULL CONSTRAINT [DF_tramstBusinessPartnerAPBalance_InvoiceNumber]  DEFAULT (''),
+	[InvoiceDate] [datetime] NOT NULL CONSTRAINT [DF_tramstBusinessPartnerAPBalance_InvoiceDate]  DEFAULT ('2000/01/01'),
+	[TotalDPP] [decimal](18, 2) NOT NULL CONSTRAINT [DF_tramstBusinessPartnerAPBalance_TotalDPP]  DEFAULT ((0)),
+	[TotalPPN] [decimal](18, 2) NOT NULL CONSTRAINT [DF_tramstBusinessPartnerAPBalance_TotalPPN]  DEFAULT ((0)),
+	[TotalPPH] [decimal](18, 2) NOT NULL CONSTRAINT [DF_tramstBusinessPartnerAPBalance_TotalPPH]  DEFAULT ((0)),
+	[TotalPaymentDP] [decimal](18, 2) NOT NULL CONSTRAINT [DF_tramstBusinessPartnerAPBalance_TotalPaymentDP]  DEFAULT ((0)),
+	[TotalPayment] [decimal](18, 2) NOT NULL CONSTRAINT [DF_tramstBusinessPartnerAPBalance_TotalPayment]  DEFAULT ((0)),
+ CONSTRAINT [PK_mstBusinessPartnerAPBalance] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+GO
+
+/****** Object:  Table [dbo].[mstBusinessPartnerARBalance]    Script Date: 9/22/2022 7:57:59 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[mstBusinessPartnerARBalance](
+	[CompanyID] [int] NOT NULL CONSTRAINT [DF_tramstBusinessPartnerARBalance_CompanyID]  DEFAULT ((0)),
+	[ProgramID] [int] NOT NULL CONSTRAINT [DF_tramstBusinessPartnerARBalance_ProgramID]  DEFAULT ((0)),
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_tramstBusinessPartnerARBalance_ID]  DEFAULT (''),
+	[BPID] [int] NOT NULL CONSTRAINT [DF_tramstBusinessPartnerARBalance_BPID]  DEFAULT ((0)),
+	[InvoiceNumber] [varchar](100) NOT NULL CONSTRAINT [DF_tramstBusinessPartnerARBalance_InvoiceNumber]  DEFAULT (''),
+	[InvoiceDate] [datetime] NOT NULL CONSTRAINT [DF_tramstBusinessPartnerARBalance_InvoiceDate]  DEFAULT ('2000/01/01'),
+	[TotalDPP] [decimal](18, 2) NOT NULL CONSTRAINT [DF_tramstBusinessPartnerARBalance_TotalDPP]  DEFAULT ((0)),
+	[TotalPPN] [decimal](18, 2) NOT NULL CONSTRAINT [DF_tramstBusinessPartnerARBalance_TotalPPN]  DEFAULT ((0)),
+	[TotalPPH] [decimal](18, 2) NOT NULL CONSTRAINT [DF_tramstBusinessPartnerARBalance_TotalPPH]  DEFAULT ((0)),
+	[TotalPaymentDP] [decimal](18, 2) NOT NULL CONSTRAINT [DF_tramstBusinessPartnerARBalance_TotalPaymentDP]  DEFAULT ((0)),
+	[TotalPayment] [decimal](18, 2) NOT NULL CONSTRAINT [DF_tramstBusinessPartnerARBalance_TotalPayment]  DEFAULT ((0)),
+ CONSTRAINT [PK_mstBusinessPartnerARBalance] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 /****** Object:  Table [dbo].[mstBusinessPartnerBankAccount]    Script Date: 07/09/2023 17:43:08 ******/
 SET ANSI_NULLS ON
 GO
