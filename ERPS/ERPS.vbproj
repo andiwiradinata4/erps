@@ -413,6 +413,24 @@
     <Compile Include="PresentationLayers\Forms\System\frmSysMain.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournal.Designer.vb">
+      <DependentUpon>frmTraJournal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournal.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournalDet.Designer.vb">
+      <DependentUpon>frmTraJournalDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournalDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournalDetItem.Designer.vb">
+      <DependentUpon>frmTraJournalDetItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournalDetItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrder.Designer.vb">
       <DependentUpon>frmTraConfirmationOrder.vb</DependentUpon>
     </Compile>
@@ -811,6 +829,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\System\frmSysLogin.resx">
       <DependentUpon>frmSysLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournal.resx">
+      <DependentUpon>frmTraJournal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournalDet.resx">
+      <DependentUpon>frmTraJournalDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournalDetItem.resx">
+      <DependentUpon>frmTraJournalDetItem.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrder.resx">
       <DependentUpon>frmTraConfirmationOrder.vb</DependentUpon>

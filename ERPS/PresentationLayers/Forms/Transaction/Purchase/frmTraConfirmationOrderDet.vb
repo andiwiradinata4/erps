@@ -36,6 +36,7 @@ Public Class frmTraConfirmationOrderDet
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
         Me.Cursor = Cursors.Default
+        Application.DoEvents()
     End Sub
 
     Private Sub prvSetGrid()

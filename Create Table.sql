@@ -1578,6 +1578,154 @@ GO
 SET ANSI_PADDING OFF
 GO
 
+GO
 
+/****** Object:  Table [dbo].[traBukuBesar]    Script Date: 10/4/2023 6:09:09 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traBukuBesar](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traBukuBesar_ID]  DEFAULT (''),
+	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traBukuBesar_CompanyID]  DEFAULT ((0)),
+	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traBukuBesar_ProgramID]  DEFAULT ((0)),
+	[TransactionDate] [datetime] NOT NULL CONSTRAINT [DF_traBukuBesar_TransactionDate]  DEFAULT (getdate()),
+	[ReferencesID] [varchar](100) NOT NULL CONSTRAINT [DF_traBukuBesar_ReferencesID]  DEFAULT (''),
+	[COAIDParent] [int] NOT NULL CONSTRAINT [DF_traBukuBesar_COAIDParent]  DEFAULT ((0)),
+	[COAIDChild] [int] NOT NULL CONSTRAINT [DF_traBukuBesar_COAIDChild]  DEFAULT ((0)),
+	[DebitAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traBukuBesar_DebitAmount]  DEFAULT ((0)),
+	[CreditAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traBukuBesar_CreditAmount]  DEFAULT ((0)),
+	[Balance] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traBukuBesar_Balance]  DEFAULT ((0)),
+	[Remarks] [varchar](500) NOT NULL CONSTRAINT [DF_traBukuBesar_Remarks]  DEFAULT (''),
+	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traBukuBesar_CreatedBy]  DEFAULT ('SYSTEM'),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traBukuBesar_CreatedDate]  DEFAULT (getdate()),
+	[ReferencesNo] [varchar](100) NULL CONSTRAINT [DF_traBukuBesar_ReferencesNo]  DEFAULT (''),
+	[IsClosedPeriod] [bit] NOT NULL CONSTRAINT [DF_traBukuBesar_IsClosedPeriod]  DEFAULT ((0)),
+	[ClosedPeriodBy] [varchar](20) NOT NULL CONSTRAINT [DF_traBukuBesar_ClosedPeriodBy]  DEFAULT (''),
+	[ClosedPeriodDate] [datetime] NOT NULL CONSTRAINT [DF_traBukuBesar_ClosedPeriodDate]  DEFAULT (getdate()),
+ CONSTRAINT [PK_traBukuBesar] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traJournal]    Script Date: 10/4/2023 6:57:26 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traJournal](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traJournal_ID]  DEFAULT (''),
+	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traJournal_CompanyID]  DEFAULT ((0)),
+	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traJournal_ProgramID]  DEFAULT ((0)),
+	[JournalNo] [varchar](100) NOT NULL CONSTRAINT [DF_traJournal_JournalNo]  DEFAULT (''),
+	[ReferencesID] [varchar](100) NOT NULL CONSTRAINT [DF_traJournal_ReferencesID]  DEFAULT (''),
+	[JournalDate] [datetime] NOT NULL CONSTRAINT [DF_traJournal_JournalDate]  DEFAULT (getdate()),
+	[TotalAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traJournal_TotalAmount]  DEFAULT ((0)),
+	[IsAutoGenerate] [bit] NOT NULL CONSTRAINT [DF_traJournal_IsAutoGenerate]  DEFAULT ((0)),
+	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traJournal_SubmitBy]  DEFAULT (''),
+	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traJournal_SubmitDate]  DEFAULT (getdate()),
+	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traJournal_ApproveL1]  DEFAULT (''),
+	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traJournal_ApproveL1Date]  DEFAULT (getdate()),
+	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traJournal_ApprovedBy]  DEFAULT (''),
+	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traJournal_ApprovedDate]  DEFAULT (getdate()),
+	[IsClosedPeriod] [bit] NOT NULL CONSTRAINT [DF_traJournal_IsClosedPeriod]  DEFAULT ((0)),
+	[ClosedPeriodBy] [varchar](20) NOT NULL CONSTRAINT [DF_traJournal_ClosedPeriodBy]  DEFAULT (''),
+	[ClosedPeriodDate] [datetime] NOT NULL CONSTRAINT [DF_traJournal_ClosedPeriodDate]  DEFAULT (getdate()),
+	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traJournal_IsDeleted]  DEFAULT ((0)),
+	[Remarks] [varchar](500) NOT NULL CONSTRAINT [DF_traJournal_Remarks]  DEFAULT (''),
+	[StatusID] [int] NOT NULL CONSTRAINT [DF_traJournal_StatusID]  DEFAULT ((0)),
+	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traJournal_CreatedBy]  DEFAULT ('SYSTEM'),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traJournal_CreatedDate]  DEFAULT (getdate()),
+	[LogInc] [int] NOT NULL CONSTRAINT [DF_traJournal_LogInc]  DEFAULT ((0)),
+	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traJournal_LogBy]  DEFAULT ('SYSTEM'),
+	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traJournal_LogDate]  DEFAULT (getdate()),
+	[Initial] [varchar](10) NOT NULL CONSTRAINT [DF_traJournal_Initial]  DEFAULT (''),
+ CONSTRAINT [PK_traJournal] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traJournalDet]    Script Date: 10/4/2023 7:01:05 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traJournalDet](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traJournalDet_ID]  DEFAULT (''),
+	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traJournalDet_JournalID]  DEFAULT (''),
+	[COAID] [int] NOT NULL CONSTRAINT [DF_traJournalDet_COAID]  DEFAULT ((0)),
+	[DebitAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traJournalDet_DebitAmount]  DEFAULT ((0)),
+	[CreditAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traJournalDet_CreditAmount]  DEFAULT ((0)),
+	[Remarks] [varchar](500) NOT NULL CONSTRAINT [DF_traJournalDet_Remarks]  DEFAULT (''),
+ CONSTRAINT [PK_traJournalDet] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+GO
+
+/****** Object:  Table [dbo].[traJournalStatus]    Script Date: 10/4/2023 7:02:07 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traJournalStatus](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traJournalStatus_ID]  DEFAULT (''),
+	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traJournalStatus_JournalID]  DEFAULT (''),
+	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traJournalStatus_Status]  DEFAULT ((0)),
+	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traJournalStatus_StatusBy]  DEFAULT ((0)),
+	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traJournalStatus_StatusDate]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traJournalStatus_Remarks]  DEFAULT ((0)),
+ CONSTRAINT [PK_traJournalStatus] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
 
 

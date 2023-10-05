@@ -33,6 +33,9 @@
     Dim frmMainTraConfirmationOrder As frmTraConfirmationOrder
     Dim frmMainTraPurchaseContract As frmTraPurchaseContract
 
+    '# Pembukuan
+    Dim frmMainTraJournal As frmTraJournal
+
     '# Setting
     Dim frmMainSysChangePassword As frmSysChangePassword
 
@@ -88,6 +91,12 @@
         mnuTransaksiPembelianKonfirmasiPesanan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionConfirmationOrder, VO.Access.Values.ViewAccess)
         mnuTransaksiPembelianKonfirmasiPengiriman.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionConfirmationDelivery, VO.Access.Values.ViewAccess)
         mnuTransaksiPembelianProsesPemotonganSPK.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCuttingProcess, VO.Access.Values.ViewAccess)
+
+        '# Pembukuan
+        mnuTransaksiPembukuanJurnalUmum.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionJournal, VO.Access.Values.ViewAccess)
+
+
+
 
         'mnuTransaksiPenjualanPanjar.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesDownPayment, VO.Access.Values.ViewAccess)
         'mnuTransaksiPenjualanPenjualan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSales, VO.Access.Values.ViewAccess)
@@ -326,6 +335,14 @@
     Private Sub mnuTransaksiPenjualanPengirimanPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPengirimanPenjualan.Click
 
     End Sub
+
+#Region "Pembukuan"
+
+    Private Sub mnuTransaksiPembukuanJurnalUmum_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanJurnalUmum.Click
+        UI.usForm.frmOpen(frmMainTraJournal, "frmTraJournal", Me)
+    End Sub
+
+#End Region
 
 #End Region
 
