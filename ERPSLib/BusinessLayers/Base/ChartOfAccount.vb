@@ -83,6 +83,44 @@ Namespace BL
             End Using
         End Sub
 
+        Public Shared Sub SyncFromVPS()
+            BL.Server.SetServer(VO.DefaultServer.VPS, VO.DefaultServer.Database, UI.usUserApp.UserID, VO.DefaultServer.Password)
+            Dim dtCOA As New DataTable
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                dtCOA = DL.ChartOfAccount.ListDataAll(sqlCon, Nothing)
+            End Using
+
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                DL.ChartOfAccount.DeleteDataAll(sqlCon, sqlTrans)
+                Try
+                    For Each dr As DataRow In dtCOA.Rows
+                        DL.ChartOfAccount.SaveData(sqlCon, sqlTrans, True, New VO.ChartOfAccount With
+                                                                           {
+                                                                               .ID = dr.Item("ID"),
+                                                                               .AccountGroupID = dr.Item("AccountGroupID"),
+                                                                               .Code = dr.Item("Code"),
+                                                                               .Name = dr.Item("Name"),
+                                                                               .FirstBalance = dr.Item("FirstBalance"),
+                                                                               .FirstBalanceDate = dr.Item("FirstBalanceDate"),
+                                                                               .StatusID = dr.Item("StatusID"),
+                                                                               .CreatedBy = dr.Item("CreatedBy"),
+                                                                               .CreatedDate = dr.Item("CreatedDate"),
+                                                                               .LogBy = dr.Item("LogBy"),
+                                                                               .LogDate = dr.Item("LogDate"),
+                                                                               .LogInc = dr.Item("LogInc"),
+                                                                               .Initial = dr.Item("Initial")
+                                                                           })
+                    Next
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                End Try
+            End Using
+        End Sub
+
+
     End Class
 
 End Namespace

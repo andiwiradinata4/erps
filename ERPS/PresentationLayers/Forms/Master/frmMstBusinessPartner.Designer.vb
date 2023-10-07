@@ -28,14 +28,17 @@ Partial Class frmMstBusinessPartner
         Me.BarNew = New System.Windows.Forms.ToolBarButton()
         Me.BarDetail = New System.Windows.Forms.ToolBarButton()
         Me.BarDelete = New System.Windows.Forms.ToolBarButton()
-        Me.BarBankAccount = New System.Windows.Forms.ToolBarButton()
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
+        Me.BarBankAccount = New System.Windows.Forms.ToolBarButton()
+        Me.BarAssign = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
+        Me.BarSetupARBalance = New System.Windows.Forms.ToolBarButton()
+        Me.BarSetupAPBalance = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
-        Me.BarAssign = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -43,7 +46,7 @@ Partial Class frmMstBusinessPartner
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarGet, Me.BarSep1, Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep2, Me.BarBankAccount, Me.BarAssign, Me.BarSep3, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarGet, Me.BarSep1, Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep2, Me.BarBankAccount, Me.BarAssign, Me.BarSep3, Me.BarSetupARBalance, Me.BarSetupAPBalance, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -81,16 +84,44 @@ Partial Class frmMstBusinessPartner
         Me.BarDelete.Tag = "Delete"
         Me.BarDelete.Text = "Hapus"
         '
+        'BarSep2
+        '
+        Me.BarSep2.Name = "BarSep2"
+        Me.BarSep2.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
         'BarBankAccount
         '
         Me.BarBankAccount.Name = "BarBankAccount"
         Me.BarBankAccount.Tag = "Approved"
         Me.BarBankAccount.Text = "Akun Bank"
         '
-        'BarSep2
+        'BarAssign
         '
-        Me.BarSep2.Name = "BarSep2"
-        Me.BarSep2.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        Me.BarAssign.Name = "BarAssign"
+        Me.BarAssign.Tag = "Submit"
+        Me.BarAssign.Text = "Assign"
+        '
+        'BarSep3
+        '
+        Me.BarSep3.Name = "BarSep3"
+        Me.BarSep3.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarSetupARBalance
+        '
+        Me.BarSetupARBalance.Name = "BarSetupARBalance"
+        Me.BarSetupARBalance.Tag = "Invoice"
+        Me.BarSetupARBalance.Text = "Setup Saldo Piutang"
+        '
+        'BarSetupAPBalance
+        '
+        Me.BarSetupAPBalance.Name = "BarSetupAPBalance"
+        Me.BarSetupAPBalance.Tag = "Alt"
+        Me.BarSetupAPBalance.Text = "Setup Saldo Hutang"
+        '
+        'BarSep4
+        '
+        Me.BarSep4.Name = "BarSep4"
+        Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
         'BarRefresh
         '
@@ -139,17 +170,6 @@ Partial Class frmMstBusinessPartner
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowGroupPanel = False
         '
-        'BarSep3
-        '
-        Me.BarSep3.Name = "BarSep3"
-        Me.BarSep3.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
-        '
-        'BarAssign
-        '
-        Me.BarAssign.Name = "BarAssign"
-        Me.BarAssign.Tag = "Submit"
-        Me.BarAssign.Text = "Assign"
-        '
         'frmMstBusinessPartner
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -181,4 +201,7 @@ Partial Class frmMstBusinessPartner
     Friend WithEvents BarBankAccount As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarAssign As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarSep3 As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarSetupARBalance As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarSetupAPBalance As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarSep4 As System.Windows.Forms.ToolBarButton
 End Class

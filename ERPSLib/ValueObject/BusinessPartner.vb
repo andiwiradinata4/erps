@@ -11,5 +11,7 @@
         Property ARBalance As Decimal
         Property StatusID As Integer
         Property Remarks As String
+        Property JournalIDForAPBalance As String
+        Property JournalIDForARBalance As String
     End Class
 End Namespace

@@ -8,7 +8,8 @@
 
     Private Const _
        cGet As Byte = 0, cSep1 As Byte = 1, cNew As Byte = 2, cDetail As Byte = 3, cDelete As Byte = 4, cSep2 As Byte = 5,
-       cBankAccount As Byte = 6, cAssign As Byte = 7, cSep3 As Byte = 8, cRefresh As Byte = 9, cClose As Byte = 10
+       cBankAccount As Byte = 6, cAssign As Byte = 7, cSep3 As Byte = 8, cSetupARBalance As Byte = 9, cSetupAPBalance As Byte = 10,
+       cSep4 As Byte = 11, cRefresh As Byte = 12, cClose As Byte = 13
 
     Private Sub prvSetTitleForm()
         If pubIsLookUp Then
@@ -42,6 +43,8 @@
             .Item(cDelete).Enabled = bolEnable
             .Item(cBankAccount).Enabled = bolEnable
             .Item(cAssign).Enabled = bolEnable
+            .Item(cSetupARBalance).Enabled = bolEnable
+            .Item(cSetupAPBalance).Enabled = bolEnable
         End With
     End Sub
 
@@ -143,6 +146,28 @@
         End With
     End Sub
 
+    Private Sub prvSetupARBalance()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim frmDetail As New frmMstBusinessPartnerSetupBalanceAR
+        With frmDetail
+            .pubClsData = prvGetData()
+            .StartPosition = FormStartPosition.CenterScreen
+            .pubShowDialog(Me)
+        End With
+    End Sub
+
+    Private Sub prvSetupAPBalance()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim frmDetail As New frmMstBusinessPartnerSetupBalanceAP
+        With frmDetail
+            .pubClsData = prvGetData()
+            .StartPosition = FormStartPosition.CenterScreen
+            .pubShowDialog(Me)
+        End With
+    End Sub
+
     Private Sub prvClear()
         grdMain.DataSource = Nothing
         grdView.Columns.Clear()
@@ -191,6 +216,8 @@
                 Case ToolBar.Buttons(cDelete).Name : prvDelete()
                 Case ToolBar.Buttons(cBankAccount).Name : prvBankAccount()
                 Case ToolBar.Buttons(cAssign).Name : prvAssign()
+                Case ToolBar.Buttons(cSetupARBalance).Name : prvSetupARBalance()
+                Case ToolBar.Buttons(cSetupAPBalance).Name : prvSetupAPBalance()
             End Select
         End If
     End Sub

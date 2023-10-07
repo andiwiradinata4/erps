@@ -11,7 +11,7 @@
 
     Private Const _
        cGet As Byte = 0, cSep1 As Byte = 1, cNew As Byte = 2, cDetail As Byte = 3, cDelete As Byte = 4, cSep2 As Byte = 5,
-       cAssign As Byte = 6, cSep3 As Byte = 7, cRefresh As Byte = 8, cClose As Byte = 9
+       cAssign As Byte = 6, cSync As Byte = 7, cSep3 As Byte = 8, cRefresh As Byte = 9, cClose As Byte = 10
 
     Private Sub prvSetTitleForm()
         If pubIsLookUp Then
@@ -143,11 +143,21 @@
         End With
     End Sub
 
+    Private Sub prvSync()
+        Try
+            BL.ChartOfAccount.SyncFromVPS()
+            pubRefresh()
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message, "Sync From VPS")
+        End Try
+    End Sub
+
     Private Sub prvUserAccess()
         With ToolBar.Buttons
             .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterChartOfAccount, VO.Access.Values.NewAccess)
             .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterChartOfAccount, VO.Access.Values.DeleteAccess)
             .Item(cAssign).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterChartOfAccount, VO.Access.Values.AssignAccess)
+            .Item(cSync).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterChartOfAccount, -1)
         End With
     End Sub
 
@@ -176,6 +186,8 @@
             prvNew()
         ElseIf e.Button.Name = ToolBar.Buttons(cRefresh).Name Then
             pubRefresh()
+        ElseIf e.Button.Name = ToolBar.Buttons(cSync).Name Then
+            prvSync()
         ElseIf grdView.FocusedRowHandle >= 0 Then
             Select Case e.Button.Name
                 Case ToolBar.Buttons(cGet).Name : prvGet()

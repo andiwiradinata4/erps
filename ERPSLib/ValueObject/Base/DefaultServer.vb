@@ -8,5 +8,6 @@
         Public Shared ComputerName As String
         Public Shared InitialID As String
         Public Shared StartFrom As DateTime
+        Public Shared VPS As String
     End Class
 End Namespace

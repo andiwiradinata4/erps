@@ -73,7 +73,7 @@ SELECT [ID]
       ,[LogDate]
       ,[LogInc]
       ,[Initial]
-  FROM [dbo].[mstChartOfAccount]
+FROM [dbo].[mstChartOfAccount]
                     </a>.Value
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)

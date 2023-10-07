@@ -88,6 +88,8 @@
     <Compile Include="BusinessLayers\Base\UserCompany.vb" />
     <Compile Include="BusinessLayers\BukuBesar.vb" />
     <Compile Include="BusinessLayers\BusinessPartner.vb" />
+    <Compile Include="BusinessLayers\BusinessPartnerAPBalance.vb" />
+    <Compile Include="BusinessLayers\BusinessPartnerARBalance.vb" />
     <Compile Include="BusinessLayers\ConfirmationOrder.vb" />
     <Compile Include="BusinessLayers\Item.vb" />
     <Compile Include="BusinessLayers\ItemSpecification.vb" />
@@ -124,6 +126,8 @@
     <Compile Include="DataLayers\Base\UserCompany.vb" />
     <Compile Include="DataLayers\BukuBesar.vb" />
     <Compile Include="DataLayers\BusinessPartner.vb" />
+    <Compile Include="DataLayers\BusinessPartnerAPBalance.vb" />
+    <Compile Include="DataLayers\BusinessPartnerARBalance.vb" />
     <Compile Include="DataLayers\ConfirmationOrder.vb" />
     <Compile Include="DataLayers\Item.vb" />
     <Compile Include="DataLayers\ItemSpecification.vb" />
@@ -186,6 +190,8 @@
     <Compile Include="ValueObject\Base\UserCompany.vb" />
     <Compile Include="ValueObject\BukuBesar.vb" />
     <Compile Include="ValueObject\BusinessPartner.vb" />
+    <Compile Include="ValueObject\BusinessPartnerAPBalance.vb" />
+    <Compile Include="ValueObject\BusinessPartnerARBalance.vb" />
     <Compile Include="ValueObject\BusinessPartnerAssign.vb" />
     <Compile Include="ValueObject\BusinessPartnerBankAccount.vb" />
     <Compile Include="ValueObject\ConfirmationOrder.vb" />

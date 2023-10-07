@@ -12,10 +12,11 @@
         Dim xmlHandle As New usXML(strXML)
         With xmlHandle
             VO.DefaultServer.Server = .GetConfigInfo("CONNECTION", "SERVER", ".").Item(1)
-            VO.DefaultServer.Database = .GetConfigInfo("CONNECTION", "DATABASE", "TMS1").Item(1)
+            VO.DefaultServer.Database = .GetConfigInfo("CONNECTION", "DATABASE", "ERPS").Item(1)
             VO.DefaultServer.UserID = .GetConfigInfo("CONNECTION", "USERID", "").Item(1)
             VO.DefaultServer.Password = .GetConfigInfo("CONNECTION", "PASSWORD", "").Item(1)
             VO.DefaultServer.StartFrom = .GetConfigInfo("CONNECTION", "STARTFROM", "2021/01/01").Item(1)
+            VO.DefaultServer.VPS = .GetConfigInfo("CONNECTION", "VPS", "localhost").Item(1)
         End With
     End Sub
 

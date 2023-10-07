@@ -150,6 +150,8 @@
     Private Sub frmMstBusinessPartnerAssignItem_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
+        ElseIf (e.Control And e.KeyCode = Keys.S) Then
+            prvSave()
         End If
     End Sub
 

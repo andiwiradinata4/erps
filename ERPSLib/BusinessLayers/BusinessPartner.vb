@@ -1,5 +1,4 @@
 ﻿Namespace BL
-
     Public Class BusinessPartner
 
 #Region "Main"
@@ -68,7 +67,7 @@
                 Return DL.BusinessPartner.ListDataBankAccount(sqlCon, Nothing, intBPID)
             End Using
         End Function
-        
+
         Public Shared Function SaveDataBankAccount(ByVal bolNew As Boolean, ByVal clsData As VO.BusinessPartnerBankAccount) As Boolean
             Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
@@ -160,5 +159,4 @@
 #End Region
 
     End Class
-
 End Namespace

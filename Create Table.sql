@@ -450,6 +450,8 @@ CREATE TABLE [dbo].[mstBusinessPartner](
 	[PICPhoneNumber] [varchar](100) NOT NULL CONSTRAINT [DF_mstBusinessPartner_PICPhoneNumber]  DEFAULT (''),
 	[APBalance] [decimal](18, 2) NOT NULL CONSTRAINT [DF_mstBusinessPartner_APBalance]  DEFAULT ((0)),
 	[ARBalance] [decimal](18, 2) NOT NULL CONSTRAINT [DF_mstBusinessPartner_ARBalance]  DEFAULT ((0)),
+	[JournalIDForAPBalance] [varchar](100) NOT NULL CONSTRAINT [DF_mstBusinessPartner_JournalIDForAPBalance]  DEFAULT (''),
+	[JournalIDForARBalance] [varchar](100) NOT NULL CONSTRAINT [DF_mstBusinessPartner_JournalIDForARBalance]  DEFAULT (''),
 	[StatusID] [int] NOT NULL CONSTRAINT [DF_mstBusinessPartner_StatusID]  DEFAULT ((0)),
 	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_mstBusinessPartner_Remarks]  DEFAULT (''),
 	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_mstBusinessPartner_CreatedBy]  DEFAULT ('SYSTEM'),

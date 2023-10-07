@@ -161,6 +161,30 @@
     <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerDet.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerSetupBalanceAP.Designer.vb">
+      <DependentUpon>frmMstBusinessPartnerSetupBalanceAP.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerSetupBalanceAP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerSetupBalanceAPDet.Designer.vb">
+      <DependentUpon>frmMstBusinessPartnerSetupBalanceAPDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerSetupBalanceAPDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerSetupBalanceAR.Designer.vb">
+      <DependentUpon>frmMstBusinessPartnerSetupBalanceAR.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerSetupBalanceAR.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerSetupBalanceARDet.Designer.vb">
+      <DependentUpon>frmMstBusinessPartnerSetupBalanceARDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerSetupBalanceARDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstChartOfAccount.Designer.vb">
       <DependentUpon>frmMstChartOfAccount.vb</DependentUpon>
     </Compile>
@@ -706,6 +730,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerDet.resx">
       <DependentUpon>frmMstBusinessPartnerDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerSetupBalanceAP.resx">
+      <DependentUpon>frmMstBusinessPartnerSetupBalanceAP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerSetupBalanceAPDet.resx">
+      <DependentUpon>frmMstBusinessPartnerSetupBalanceAPDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerSetupBalanceAR.resx">
+      <DependentUpon>frmMstBusinessPartnerSetupBalanceAR.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerSetupBalanceARDet.resx">
+      <DependentUpon>frmMstBusinessPartnerSetupBalanceARDet.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstChartOfAccount.resx">
       <DependentUpon>frmMstChartOfAccount.vb</DependentUpon>

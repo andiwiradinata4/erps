@@ -83,10 +83,11 @@
                     .CommandType = CommandType.Text
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
-                        "     A.ID, A.Code, A.Name, A.Address, A.PICName, A.PICPhoneNumber, A.APBalance, A.ARBalance, A.StatusID, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine & _
+                        "   A.ID, A.Code, A.Name, A.Address, A.PICName, A.PICPhoneNumber, " & vbNewLine & _
+                        "   A.APBalance, A.ARBalance, A.StatusID, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc, A.JournalIDForARBalance, A.JournalIDForAPBalance " & vbNewLine & _
                         "FROM mstBusinessPartner A " & vbNewLine & _
                         "WHERE " & vbNewLine & _
-                        "    ID=@ID " & vbNewLine
+                        "   ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.Int).Value = intID
                 End With
@@ -109,6 +110,8 @@
                         voReturn.LogBy = .Item("LogBy")
                         voReturn.LogDate = .Item("LogDate")
                         voReturn.LogInc = .Item("LogInc")
+                        voReturn.JournalIDForARBalance = .Item("JournalIDForARBalance")
+                        voReturn.JournalIDForAPBalance = .Item("JournalIDForAPBalance")
                     End If
                 End With
             Catch ex As Exception
@@ -290,6 +293,54 @@
             End Try
             Return intReturn
         End Function
+
+        Public Shared Sub UpdateJournalIDForARBalance(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                      ByVal intID As Integer, ByVal strJournalID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE mstBusinessPartner " & vbNewLine & _
+                    "SET JournalIDForARBalance=@JournalID " & vbNewLine & _
+                    "WHERE " & vbNewLine & _
+                    "   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.Int).Value = intID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.InActive
+                .Parameters.Add("@JournalID", SqlDbType.VarChar, 100).Value = strJournalID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub UpdateJournalIDForAPBalance(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                      ByVal intID As Integer, ByVal strJournalID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE mstBusinessPartner " & vbNewLine & _
+                    "SET JournalIDForAPBalance=@JournalID " & vbNewLine & _
+                    "WHERE " & vbNewLine & _
+                    "   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.Int).Value = intID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.InActive
+                .Parameters.Add("@JournalID", SqlDbType.VarChar, 100).Value = strJournalID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
 
 #End Region
 
