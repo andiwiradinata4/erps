@@ -24,6 +24,8 @@ Namespace VO
             CancelApproveAccess = 16
             ExportExcelAccess = 17
             AssignAccess = 18
+            PaymentAccess = 19
+            TaxInvoiceNumberAccess = 20
         End Enum
 
     End Class 

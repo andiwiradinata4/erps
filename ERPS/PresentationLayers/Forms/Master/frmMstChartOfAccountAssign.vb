@@ -26,8 +26,8 @@
         UI.usForm.SetGrid(grdView, "ProgramName", "Program", 250, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "CompanyID", "Company ID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "CompanyName", "Perusahaan", 250, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "FirstBalance", "Saldo Awal", 250, UI.usDefGrid.gReal2Num, True, False)
-        UI.usForm.SetGrid(grdView, "FirstBalanceDate", "Pertanggal", 250, UI.usDefGrid.gSmallDate, True, False)
+        UI.usForm.SetGrid(grdView, "FirstBalance", "Saldo Awal", 250, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdView, "FirstBalanceDate", "Pertanggal", 250, UI.usDefGrid.gSmallDate, False)
     End Sub
 
     Private Sub prvFillForm()

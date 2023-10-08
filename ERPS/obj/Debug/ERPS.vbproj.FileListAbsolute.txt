@@ -206,3 +206,10 @@ C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractD
 C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemOutstanding.resources
 C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmMstBusinessPartnerSetupBalanceAP.resources
 C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmMstBusinessPartnerSetupBalanceAPDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstBusinessPartnerSetupBalanceAP.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstBusinessPartnerSetupBalanceAPDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstBusinessPartnerSetupBalanceAR.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstBusinessPartnerSetupBalanceARDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstChartOfAccountHistory.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptBukuBesarVer00.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptBukuBesarVer00.resources

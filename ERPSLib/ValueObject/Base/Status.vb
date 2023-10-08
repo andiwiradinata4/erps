@@ -12,6 +12,7 @@ Namespace VO
             Submit = 4
             Approved = 5
             Deleted = 6
+            Payment = 7
         End Enum
     End Class
 End Namespace

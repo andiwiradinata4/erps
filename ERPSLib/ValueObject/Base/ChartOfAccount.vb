@@ -15,6 +15,7 @@ Namespace VO
             All
             CashOrBank
             Expense
+            ViewOnly
         End Enum
 
         Enum DefaultTransaction

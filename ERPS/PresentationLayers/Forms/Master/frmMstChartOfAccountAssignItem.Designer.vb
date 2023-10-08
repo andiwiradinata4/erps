@@ -95,7 +95,7 @@ Partial Class frmMstChartOfAccountAssignItem
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 50)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(509, 122)
+        Me.Panel1.Size = New System.Drawing.Size(509, 102)
         Me.Panel1.TabIndex = 2
         '
         'dtpFirstBalanceDate
@@ -108,6 +108,7 @@ Partial Class frmMstChartOfAccountAssignItem
         Me.dtpFirstBalanceDate.Size = New System.Drawing.Size(101, 21)
         Me.dtpFirstBalanceDate.TabIndex = 5
         Me.dtpFirstBalanceDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
+        Me.dtpFirstBalanceDate.Visible = False
         '
         'txtFirstBalance
         '
@@ -120,6 +121,7 @@ Partial Class frmMstChartOfAccountAssignItem
         Me.txtFirstBalance.TabIndex = 4
         Me.txtFirstBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtFirstBalance.ThousandsSeparator = True
+        Me.txtFirstBalance.Visible = False
         '
         'btnCompany
         '
@@ -147,6 +149,7 @@ Partial Class frmMstChartOfAccountAssignItem
         Me.Label2.Size = New System.Drawing.Size(59, 13)
         Me.Label2.TabIndex = 102
         Me.Label2.Text = "Pertanggal"
+        Me.Label2.Visible = False
         '
         'lblStatusID
         '
@@ -158,6 +161,7 @@ Partial Class frmMstChartOfAccountAssignItem
         Me.lblStatusID.Size = New System.Drawing.Size(59, 13)
         Me.lblStatusID.TabIndex = 101
         Me.lblStatusID.Text = "Saldo Awal"
+        Me.lblStatusID.Visible = False
         '
         'lblName
         '
@@ -207,7 +211,7 @@ Partial Class frmMstChartOfAccountAssignItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(509, 172)
+        Me.ClientSize = New System.Drawing.Size(509, 152)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)

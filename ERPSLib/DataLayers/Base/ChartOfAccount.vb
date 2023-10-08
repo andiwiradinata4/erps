@@ -79,6 +79,39 @@ FROM [dbo].[mstChartOfAccount]
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataHistory(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                               ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+                                               ByVal intCOAID As Integer) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "SELECT " & vbNewLine & _
+                    "   BB.ReferencesID, BB.TransactionDate, COAG.COAType, COAP.ID, COAP.Name, BB.DebitAmount, BB.CreditAmount, BB.Remarks 	" & vbNewLine & _
+                    "FROM traBukuBesar BB 	 	" & vbNewLine & _
+                    "INNER JOIN mstChartOfAccount COAP ON 	 	" & vbNewLine & _
+                    "   BB.COAIDParent=COAP.ID 	 	" & vbNewLine & _
+                    "INNER JOIN mstChartOfAccountGroup COAG ON 	 	" & vbNewLine & _
+                    "   COAP.AccountGroupID=COAG.ID 	" & vbNewLine & _
+                    "WHERE 	" & vbNewLine & _
+                    "	BB.ProgramID=@ProgramID 	" & vbNewLine & _
+                    "	AND BB.CompanyID=@CompanyID 	" & vbNewLine & _
+                    "	AND BB.TransactionDate>=@DateFrom AND BB.TransactionDate<=@DateTo " & vbNewLine & _
+                    "	AND BB.COAIDParent=@COAID	" & vbNewLine & _
+                    "ORDER BY BB.ReferencesID ASC	" & vbNewLine
+
+                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom.Date
+                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo.AddHours(23).AddMinutes(59).AddSeconds(59)
+                .Parameters.Add("@COAID", SqlDbType.Int).Value = intCOAID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                    ByVal bolNew As Boolean, ByVal clsData As VO.ChartOfAccount)
             Dim sqlcmdExecute As New SqlCommand

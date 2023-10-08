@@ -3,15 +3,43 @@ Namespace BL
 
         Public Shared Function ListData(ByVal enumFilterGroup As VO.ChartOfAccount.FilterGroup, ByVal intCompanyID As Integer, ByVal intProgramID As Integer, ByVal intStatusID As Integer) As DataTable
             BL.Server.ServerDefault()
+            Dim dtReturn As New DataTable
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.ChartOfAccount.ListData(sqlCon, Nothing, enumFilterGroup, intCompanyID, intProgramID, intStatusID)
+                dtReturn = DL.ChartOfAccount.ListData(sqlCon, Nothing, enumFilterGroup, intCompanyID, intProgramID, intStatusID)
+
+                '# Dont Get / Calculate Balance if for using View Lookup only
+                If enumFilterGroup <> VO.ChartOfAccount.FilterGroup.ViewOnly Then
+                    Dim dtLastBalance As DataTable = DL.Reports.GetBukuBesarLastBalance(sqlCon, Nothing, Now.AddMonths(12), 0, ERPSLib.UI.usUserApp.ProgramID, ERPSLib.UI.usUserApp.CompanyID)
+
+                    For Each dr As DataRow In dtReturn.Rows
+                        For Each drBalance As DataRow In dtLastBalance.Rows
+                            If dr.Item("ID") = drBalance.Item("ID") Then
+                                dr.BeginEdit()
+                                dr.Item("Balance") = drBalance.Item("Amount")
+                                dr.EndEdit()
+                                Exit For
+                            End If
+                        Next
+                    Next
+                    dtReturn.AcceptChanges()
+                End If
             End Using
+            Return dtReturn
         End Function
 
         Public Shared Function ListDataAll() As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.ChartOfAccount.ListDataAll(sqlCon, Nothing)
+            End Using
+        End Function
+
+        Public Shared Function ListDataHistory(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                               ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+                                               ByVal intCOAID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ChartOfAccount.ListDataHistory(sqlCon, Nothing, intCompanyID, intProgramID, dtmDateFrom.Date, dtmDateTo.Date, intCOAID)
             End Using
         End Function
 

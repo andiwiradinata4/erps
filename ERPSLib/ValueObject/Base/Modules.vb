@@ -42,6 +42,11 @@ Namespace VO
             TransactionPickupMemo = 26
             TransactionSalesDelivery = 27
             TransactionJournal = 31
+            TransactionAccountReceivable = 33
+            TransactionAccountPayable = 34
+
+            '# Reports
+            ReportBukuBesar = 32
         End Enum
 
     End Class

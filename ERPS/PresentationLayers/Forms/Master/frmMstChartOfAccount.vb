@@ -11,7 +11,7 @@
 
     Private Const _
        cGet As Byte = 0, cSep1 As Byte = 1, cNew As Byte = 2, cDetail As Byte = 3, cDelete As Byte = 4, cSep2 As Byte = 5,
-       cAssign As Byte = 6, cSync As Byte = 7, cSep3 As Byte = 8, cRefresh As Byte = 9, cClose As Byte = 10
+       cHistory As Byte = 6, cAssign As Byte = 7, cSync As Byte = 8, cSep3 As Byte = 9, cRefresh As Byte = 10, cClose As Byte = 11
 
     Private Sub prvSetTitleForm()
         If pubIsLookUp Then
@@ -27,7 +27,7 @@
         UI.usForm.SetGrid(grdView, "GroupAccount", "Group", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "Code", "Kode Akun", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "Name", "Nama Akun", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "Balance", "Saldo", 100, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdView, "Balance", "Saldo", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "StatusID", "StatusID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "CreatedBy", "Dibuat Oleh", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "CreatedDate", "Tanggal Buat", 100, UI.usDefGrid.gFullDate)
@@ -53,7 +53,7 @@
     Private Sub prvQuery()
         Try
             dtData = BL.ChartOfAccount.ListData(pubFilterGroup, pubCompanyID, pubProgramID, VO.Status.Values.All)
-            grdMain.DataSource = BL.ChartOfAccount.ListData(pubFilterGroup, pubCompanyID, pubProgramID, VO.Status.Values.All)
+            grdMain.DataSource = dtData
             grdView.Columns("TypeAccount").GroupIndex = 0
             grdView.Columns("GroupAccount").GroupIndex = 1
             grdView.ExpandAllGroups()
@@ -152,12 +152,24 @@
         End Try
     End Sub
 
+    Private Sub prvHistory()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim frmDetail As New frmMstChartOfAccountHistory
+        With frmDetail
+            .pubClsData = prvGetData()
+            .StartPosition = FormStartPosition.CenterScreen
+            .pubShowDialog(Me)
+        End With
+    End Sub
+
     Private Sub prvUserAccess()
         With ToolBar.Buttons
             .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterChartOfAccount, VO.Access.Values.NewAccess)
             .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterChartOfAccount, VO.Access.Values.DeleteAccess)
             .Item(cAssign).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterChartOfAccount, VO.Access.Values.AssignAccess)
             .Item(cSync).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterChartOfAccount, -1)
+            .Item(cHistory).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterChartOfAccount, VO.Access.Values.HistoryAccess)
         End With
     End Sub
 
@@ -191,6 +203,7 @@
         ElseIf grdView.FocusedRowHandle >= 0 Then
             Select Case e.Button.Name
                 Case ToolBar.Buttons(cGet).Name : prvGet()
+                Case ToolBar.Buttons(cHistory).Name : prvHistory()
                 Case ToolBar.Buttons(cAssign).Name : prvAssign()
                 Case ToolBar.Buttons(cDetail).Name : prvDetail()
                 Case ToolBar.Buttons(cDelete).Name : prvDelete()

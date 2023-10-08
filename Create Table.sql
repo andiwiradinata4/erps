@@ -1782,4 +1782,120 @@ GO
 SET ANSI_PADDING OFF
 GO
 
+GO
+
+/****** Object:  Table [dbo].[traAccountReceivable]    Script Date: 10/4/2023 6:57:26 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traAccountReceivable](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountReceivable_ID]  DEFAULT (''),
+	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traAccountReceivable_CompanyID]  DEFAULT ((0)),
+	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traAccountReceivable_ProgramID]  DEFAULT ((0)),
+	[ARNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountReceivable_ARNumber]  DEFAULT (''),
+	[BPID] [int] NOT NULL CONSTRAINT [DF_traAccountReceivable_BPID]  DEFAULT ((0)),
+	[CoAIDOfIncomePayment] [int] NOT NULL CONSTRAINT [DF_traAccountReceivable_CoAIDOfIncomePayment]  DEFAULT ((0)),
+	[Modules] [varchar](250) NOT NULL CONSTRAINT [DF_traAccountReceivable_Modules]  DEFAULT (''),
+	[ReferencesID] [varchar](250) NOT NULL CONSTRAINT [DF_traAccountReceivable_ReferencesID]  DEFAULT (''),
+	[ReferencesNote] [varchar](250) NOT NULL CONSTRAINT [DF_traAccountReceivable_ReferencesNote]  DEFAULT (''),
+	[ARDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountReceivable_ARDate]  DEFAULT (getdate()),
+	[TotalAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountReceivable_TotalAmount]  DEFAULT ((0)),
+	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountReceivable_JournalID]  DEFAULT (''),
+	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountReceivable_SubmitBy]  DEFAULT (''),
+	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountReceivable_SubmitDate]  DEFAULT (getdate()),
+	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountReceivable_ApproveL1]  DEFAULT (''),
+	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traAccountReceivable_ApproveL1Date]  DEFAULT (getdate()),
+	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountReceivable_ApprovedBy]  DEFAULT (''),
+	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountReceivable_ApprovedDate]  DEFAULT (getdate()),
+	[PaymentBy] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountReceivable_PaymentBy]  DEFAULT (''),
+	[PaymentDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountReceivable_PaymentDate]  DEFAULT (getdate()),
+	[TaxInvoiceNumber] [varchar](250) NOT NULL CONSTRAINT [DF_traAccountReceivable_TaxInvoiceNumber]  DEFAULT (''),
+	[IsClosedPeriod] [bit] NOT NULL CONSTRAINT [DF_traAccountReceivable_IsClosedPeriod]  DEFAULT ((0)),
+	[ClosedPeriodBy] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountReceivable_ClosedPeriodBy]  DEFAULT (''),
+	[ClosedPeriodDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountReceivable_ClosedPeriodDate]  DEFAULT (getdate()),
+	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traAccountReceivable_IsDeleted]  DEFAULT ((0)),
+	[Remarks] [varchar](500) NOT NULL CONSTRAINT [DF_traAccountReceivable_Remarks]  DEFAULT (''),
+	[StatusID] [int] NOT NULL CONSTRAINT [DF_traAccountReceivable_StatusID]  DEFAULT ((0)),
+	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountReceivable_CreatedBy]  DEFAULT ('SYSTEM'),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountReceivable_CreatedDate]  DEFAULT (getdate()),
+	[LogInc] [int] NOT NULL CONSTRAINT [DF_traAccountReceivable_LogInc]  DEFAULT ((0)),
+	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountReceivable_LogBy]  DEFAULT ('SYSTEM'),
+	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountReceivable_LogDate]  DEFAULT (getdate())
+ CONSTRAINT [PK_traAccountReceivable] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traAccountReceivableDet]    Script Date: 10/4/2023 7:01:05 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traAccountReceivableDet](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountReceivableDet_ID]  DEFAULT (''),
+	[ARID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountReceivableDet_ARID]  DEFAULT (''),
+	[SalesID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountReceivableDet_SalesID]  DEFAULT (''),
+	[Amount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountReceivableDet_Amount]  DEFAULT ((0)),
+	[Remarks] [varchar](500) NOT NULL CONSTRAINT [DF_traAccountReceivableDet_Remarks]  DEFAULT (''),
+ CONSTRAINT [PK_traAccountReceivableDet] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+GO
+
+/****** Object:  Table [dbo].[traAccountReceivableStatus]    Script Date: 10/4/2023 7:02:07 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traAccountReceivableStatus](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountReceivableStatus_ID]  DEFAULT (''),
+	[ARID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountReceivableStatus_ARID]  DEFAULT (''),
+	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountReceivableStatus_Status]  DEFAULT ((0)),
+	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountReceivableStatus_StatusBy]  DEFAULT ((0)),
+	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountReceivableStatus_StatusDate]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traAccountReceivableStatus_Remarks]  DEFAULT ((0)),
+ CONSTRAINT [PK_traAccountReceivableStatus] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+
 

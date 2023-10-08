@@ -258,6 +258,7 @@ Namespace BL
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
+                    Throw ex
                 End Try
             End Using
             Return bolReturn
@@ -361,7 +362,7 @@ Namespace BL
                             .COAIDChild = drC.Item("CoAID"),
                             .DebitAmount = IIf(drC.Item("CreditAmount") = 0, drC.Item("DebitAmount"), drC.Item("CreditAmount")),
                             .CreditAmount = 0,
-                            .Remarks = drC.Item("CoAName"),
+                            .Remarks = IIf(drC.Item("Remarks") = "", drP.Item("Remarks"), drC.Item("Remarks")),
                             .LogBy = ERPSLib.UI.usUserApp.UserID,
                             .ReferencesNo = drP.Item("JournalNo")
                         }
@@ -378,7 +379,7 @@ Namespace BL
                             .COAIDChild = drP.Item("CoAID"),
                             .DebitAmount = 0,
                             .CreditAmount = IIf(drC.Item("CreditAmount") = 0, drC.Item("DebitAmount"), drC.Item("CreditAmount")),
-                            .Remarks = drP.Item("CoAName"),
+                            .Remarks = IIf(drC.Item("Remarks") = "", drP.Item("Remarks"), drC.Item("Remarks")),
                             .LogBy = ERPSLib.UI.usUserApp.UserID,
                             .ReferencesNo = drC.Item("JournalNo")
                         }

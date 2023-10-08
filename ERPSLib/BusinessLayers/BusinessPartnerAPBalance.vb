@@ -54,7 +54,7 @@
                                                  .CoAID = VO.Journal.Value.HutangUsaha,
                                                  .DebitAmount = 0,
                                                  .CreditAmount = decAmount,
-                                                 .Remarks = clsData.InvoiceNumber
+                                                 .Remarks = "SETUP SALDO - " & clsData.InvoiceNumber
                                              })
                     Next
 
@@ -78,7 +78,7 @@
                             .TotalAmount = decTotal,
                             .IsAutoGenerate = True,
                             .StatusID = VO.Status.Values.Draft,
-                            .Remarks = "",
+                            .Remarks = "SETUP SALDO " & clsBusinessPartner.Code & " | " & clsBusinessPartner.Name,
                             .LogBy = ERPSLib.UI.usUserApp.UserID,
                             .Initial = "",
                             .Detail = clsJournalDetail,

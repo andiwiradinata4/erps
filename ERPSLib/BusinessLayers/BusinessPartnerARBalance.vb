@@ -54,7 +54,7 @@
                                                  .CoAID = VO.Journal.Value.PiutangUsaha,
                                                  .DebitAmount = decAmount,
                                                  .CreditAmount = 0,
-                                                 .Remarks = clsData.InvoiceNumber
+                                                 .Remarks = "SETUP SALDO - " & clsData.InvoiceNumber
                                              })
                     Next
 

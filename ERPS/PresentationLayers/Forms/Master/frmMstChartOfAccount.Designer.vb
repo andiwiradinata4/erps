@@ -30,12 +30,13 @@ Partial Class frmMstChartOfAccount
         Me.BarDelete = New System.Windows.Forms.ToolBarButton()
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
         Me.BarAssign = New System.Windows.Forms.ToolBarButton()
+        Me.BarSync = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.BarSync = New System.Windows.Forms.ToolBarButton()
+        Me.BarHistory = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -43,7 +44,7 @@ Partial Class frmMstChartOfAccount
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarGet, Me.BarSep1, Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep2, Me.BarAssign, Me.BarSync, Me.BarSep3, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarGet, Me.BarSep1, Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep2, Me.BarHistory, Me.BarAssign, Me.BarSync, Me.BarSep3, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -91,6 +92,12 @@ Partial Class frmMstChartOfAccount
         Me.BarAssign.Name = "BarAssign"
         Me.BarAssign.Tag = "Submit"
         Me.BarAssign.Text = "Assign"
+        '
+        'BarSync
+        '
+        Me.BarSync.Name = "BarSync"
+        Me.BarSync.Tag = "Hold"
+        Me.BarSync.Text = "Sync from VPS"
         '
         'BarSep3
         '
@@ -143,11 +150,11 @@ Partial Class frmMstChartOfAccount
         Me.grdView.OptionsView.ColumnAutoWidth = False
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         '
-        'BarSync
+        'BarHistory
         '
-        Me.BarSync.Name = "BarSync"
-        Me.BarSync.Tag = "Hold"
-        Me.BarSync.Text = "Sync from VPS"
+        Me.BarHistory.Name = "BarHistory"
+        Me.BarHistory.Tag = "History"
+        Me.BarHistory.Text = "History"
         '
         'frmMstChartOfAccount
         '
@@ -180,4 +187,5 @@ Partial Class frmMstChartOfAccount
     Friend WithEvents grdMain As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents BarSync As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarHistory As System.Windows.Forms.ToolBarButton
 End Class

@@ -221,6 +221,12 @@
     <Compile Include="PresentationLayers\Forms\Master\frmMstChartOfAccountGroupDet.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstChartOfAccountHistory.Designer.vb">
+      <DependentUpon>frmMstChartOfAccountHistory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstChartOfAccountHistory.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstChartOfAccountType.Designer.vb">
       <DependentUpon>frmMstChartOfAccountType.vb</DependentUpon>
     </Compile>
@@ -437,6 +443,18 @@
     <Compile Include="PresentationLayers\Forms\System\frmSysMain.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountReceivable.Designer.vb">
+      <DependentUpon>frmTraAccountReceivable.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountReceivable.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountReceivableDet.Designer.vb">
+      <DependentUpon>frmTraAccountReceivableDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountReceivableDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournal.Designer.vb">
       <DependentUpon>frmTraJournal.vb</DependentUpon>
     </Compile>
@@ -641,6 +659,18 @@
     <Compile Include="PresentationLayers\Reports1\frmReportPreview.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Reports1\frmRptBukuBesarVer00.Designer.vb">
+      <DependentUpon>frmRptBukuBesarVer00.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports1\frmRptBukuBesarVer00.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptBukuBesarVer00.Designer.vb">
+      <DependentUpon>rptBukuBesarVer00.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptBukuBesarVer00.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Reports2\rptPurchaseOrder.Designer.vb">
       <DependentUpon>rptPurchaseOrder.vb</DependentUpon>
     </Compile>
@@ -761,6 +791,9 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstChartOfAccountGroupDet.resx">
       <DependentUpon>frmMstChartOfAccountGroupDet.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstChartOfAccountHistory.resx">
+      <DependentUpon>frmMstChartOfAccountHistory.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstChartOfAccountType.resx">
       <DependentUpon>frmMstChartOfAccountType.vb</DependentUpon>
     </EmbeddedResource>
@@ -866,6 +899,12 @@
     <EmbeddedResource Include="PresentationLayers\Forms\System\frmSysLogin.resx">
       <DependentUpon>frmSysLogin.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountReceivable.resx">
+      <DependentUpon>frmTraAccountReceivable.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountReceivableDet.resx">
+      <DependentUpon>frmTraAccountReceivableDet.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournal.resx">
       <DependentUpon>frmTraJournal.vb</DependentUpon>
     </EmbeddedResource>
@@ -949,6 +988,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports1\frmReportPreview.resx">
       <DependentUpon>frmReportPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports1\frmRptBukuBesarVer00.resx">
+      <DependentUpon>frmRptBukuBesarVer00.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports2\rptBukuBesarVer00.resx">
+      <DependentUpon>rptBukuBesarVer00.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptPurchaseOrder.resx">
       <DependentUpon>rptPurchaseOrder.vb</DependentUpon>
