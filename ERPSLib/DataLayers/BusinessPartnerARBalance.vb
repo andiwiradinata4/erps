@@ -37,7 +37,7 @@
                 .CommandText = _
                    "SELECT " & vbNewLine & _
                    "    CAST(0 AS BIT) AS Pick, A.ID AS SalesID, A.InvoiceNumber, A.InvoiceDate, " & vbNewLine & _
-                   "    A.TotalDPP+A.TotalPPN-A.TotalPPH AS SalesAmount, CAST(0 AS DECIMAL(18,2)) AS PaymentAmount, " & vbNewLine & _
+                   "    A.TotalDPP+A.TotalPPN-A.TotalPPH AS SalesAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine & _
                    "    A.TotalDPP+A.TotalPPN-A.TotalPPH-A.TotalPaymentDP-A.TotalPayment AS MaxPaymentAmount, " & vbNewLine & _
                    "    CAST('' AS VARCHAR(500)) AS Remarks " & vbNewLine & _
                    "FROM mstBusinessPartnerARBalance A " & vbNewLine & _
@@ -272,17 +272,17 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText = _
-                    "UPDATE traOrderRequestDet SET 	" & vbNewLine & _
+                    "UPDATE mstBusinessPartnerARBalance SET 	" & vbNewLine & _
                     "	TotalPayment=	" & vbNewLine & _
                     "	(	" & vbNewLine & _
                     "		SELECT	" & vbNewLine & _
-                    "			ISNULL(SUM(A.Amount),0) TotalPayment		" & vbNewLine & _
+                    "			ISNULL(SUM(ARD.Amount),0) TotalPayment		" & vbNewLine & _
                     "		FROM traAccountReceivableDet ARD 	" & vbNewLine & _
                     "		INNER JOIN traAccountReceivable ARH ON	" & vbNewLine & _
                     "			ARD.ARID=ARH.ID 	" & vbNewLine & _
                     "			AND ARH.Modules=@Modules " & vbNewLine & _
                     "		WHERE 	" & vbNewLine & _
-                    "			ARD.ARID=@ID 	" & vbNewLine & _
+                    "			ARD.SalesID=@ID 	" & vbNewLine & _
                     "			AND ARH.IsDeleted=0 	" & vbNewLine & _
                     "	) " & vbNewLine & _
                     "WHERE ID=@ID " & vbNewLine

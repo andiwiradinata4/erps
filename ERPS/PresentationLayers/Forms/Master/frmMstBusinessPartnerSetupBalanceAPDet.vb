@@ -110,6 +110,8 @@
                 .Item("TotalPPN") = 0
                 .Item("TotalPPH") = 0
                 .Item("InvoiceDate") = dtpInvoiceDate.Value
+                .Item("TotalPaymentDP") = 0
+                .Item("TotalPayment") = 0
                 .EndEdit()
             End With
             pubDtItem.Rows.Add(drNew)
@@ -136,6 +138,8 @@
                         .Item("InvoiceNumber") = txtInvoiceNumber.Text.Trim
                         .Item("TotalDPP") = txtTotalDPP.Value
                         .Item("InvoiceDate") = dtpInvoiceDate.Value
+                        .Item("TotalPaymentDP") = 0
+                        .Item("TotalPayment") = 0
                         .EndEdit()
                     End With
                     Exit For

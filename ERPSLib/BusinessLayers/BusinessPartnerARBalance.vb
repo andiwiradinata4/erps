@@ -8,6 +8,14 @@
             End Using
         End Function
 
+        Public Shared Function ListDataOutstanding(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                   ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.BusinessPartnerARBalance.ListDataOutstanding(sqlCon, Nothing, intCompanyID, intProgramID, intBPID)
+            End Using
+        End Function
+
         Public Shared Function GetNewID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                         ByVal intBPID As Integer) As String
@@ -72,8 +80,8 @@
                             .ProgramID = clsDataAll.First.ProgramID,
                             .CompanyID = clsDataAll.First.CompanyID,
                             .ID = clsBusinessPartner.JournalIDForARBalance.Trim,
-                            .JournalNo = IIf(bolNew, Now, PrevJournal.JournalNo),
-                            .ReferencesID = IIf(bolNew, Now, PrevJournal.ReferencesID),
+                            .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                            .ReferencesID = IIf(bolNew, "", PrevJournal.ReferencesID),
                             .JournalDate = IIf(bolNew, Now, PrevJournal.JournalDate),
                             .TotalAmount = decTotal,
                             .IsAutoGenerate = True,

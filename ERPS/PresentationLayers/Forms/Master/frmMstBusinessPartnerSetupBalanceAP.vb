@@ -52,7 +52,7 @@ Public Class frmMstBusinessPartnerSetupBalanceAP
         UI.usForm.SetGrid(grdItemView, "TotalPPN", "TotalPPN", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemView, "TotalPPH", "TotalPPH", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemView, "TotalPaymentDP", "TotalPaymentDP", 100, UI.usDefGrid.gReal2Num, False)
-        UI.usForm.SetGrid(grdItemView, "TotalPayment", "TotalPayment", 100, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdItemView, "TotalPayment", "TotalPayment", 100, UI.usDefGrid.gReal2Num)
     End Sub
 
     Private Sub prvFillForm()
@@ -149,6 +149,11 @@ Public Class frmMstBusinessPartnerSetupBalanceAP
     Private Sub prvEdit()
         intPos = grdItemView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
+        If grdItemView.GetRowCellValue(intPos, "TotalPaymentDP") + grdItemView.GetRowCellValue(intPos, "TotalPayment") > 0 Then
+            UI.usForm.frmMessageBox("No. Invoice tidak dapat diedit karena sudah terjadi pembayaran")
+            Exit Sub
+        End If
+
         Dim frmDetail As New frmMstBusinessPartnerSetupBalanceAPDet
         With frmDetail
             .pubIsNew = False
@@ -163,6 +168,11 @@ Public Class frmMstBusinessPartnerSetupBalanceAP
     Private Sub prvDelete()
         intPos = grdItemView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
+        If grdItemView.GetRowCellValue(intPos, "TotalPaymentDP") + grdItemView.GetRowCellValue(intPos, "TotalPayment") > 0 Then
+            UI.usForm.frmMessageBox("No. Invoice tidak dapat dihapus karena sudah terjadi pembayaran")
+            Exit Sub
+        End If
+
         Dim strID As String = grdItemView.GetRowCellValue(intPos, "ID")
         For Each dr As DataRow In dtItem.Rows
             If dr.Item("ID") = strID.Trim Then

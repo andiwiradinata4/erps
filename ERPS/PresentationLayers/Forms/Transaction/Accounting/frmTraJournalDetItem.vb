@@ -72,6 +72,7 @@
             txtCoAName.Text = drSelected.Item("CoAName")
             cboPosition.SelectedIndex = IIf(drSelected.Item("DebitAmount") > 0, 0, 1)
             txtAmount.Value = IIf(drSelected.Item("DebitAmount") > 0, drSelected.Item("DebitAmount"), drSelected.Item("CreditAmount"))
+            txtRemarks.Text = drSelected.Item("Remarks")
         End If
     End Sub
 

@@ -35,6 +35,7 @@
 
     '## Pembukuan
     Dim frmMainTraJournal As frmTraJournal
+    Dim frmMainTraAccountReceivable As frmTraAccountReceivable
 
 
     '# Laporan
@@ -352,7 +353,7 @@
     End Sub
 
     Private Sub mnuTransaksiPembukuanPelunasanSaldoAwal_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPelunasanSaldoAwal.Click
-
+        UI.usForm.frmOpen(frmMainTraAccountReceivable, "frmTraAccountReceivable", Me)
     End Sub
 
     Private Sub mnuTransaksiPembukuanPembayaranSaldoAwal_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPembayaranSaldoAwal.Click

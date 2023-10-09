@@ -66,7 +66,7 @@
                         "    ARDate, TotalAmount, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine & _
                         "VALUES " & vbNewLine & _
                         "   (@ID, @CompanyID, @ProgramID, @ARNumber, @BPID, @CoAIDOfIncomePayment, @Modules, @ReferencesID, @ReferencesNote, @ARDate, " & vbNewLine & _
-                        "    @TotalAmount, @Remarks, @StatusID, @CreatedBy, @CreatedDate, @LogBy, GETDATE()) " & vbNewLine
+                        "    @TotalAmount, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
                 Else
                     .CommandText = _
                         "UPDATE traAccountReceivable SET " & vbNewLine & _
@@ -82,8 +82,6 @@
                         "    TotalAmount=@TotalAmount, " & vbNewLine & _
                         "    Remarks=@Remarks, " & vbNewLine & _
                         "    StatusID=@StatusID, " & vbNewLine & _
-                        "    CreatedBy=@CreatedBy, " & vbNewLine & _
-                        "    CreatedDate=@CreatedDate, " & vbNewLine & _
                         "    LogInc=LogInc+1, " & vbNewLine & _
                         "    LogBy=@LogBy, " & vbNewLine & _
                         "    LogDate=GETDATE() " & vbNewLine & _
@@ -104,8 +102,6 @@
                 .Parameters.Add("@TotalAmount", SqlDbType.Decimal).Value = clsData.TotalAmount
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 500).Value = clsData.Remarks
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
-                .Parameters.Add("@CreatedBy", SqlDbType.VarChar, 20).Value = clsData.CreatedBy
-                .Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = clsData.CreatedDate
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
             End With
             Try
@@ -129,9 +125,7 @@
                         "   A.ID, A.CompanyID, MC.Name AS CompanyName, A.ProgramID, MP.Name AS ProgramName, A.ARNumber, A.BPID, " & vbNewLine & _
                         "   C.Code AS BPCode, C.Name AS BPName, A.CoAIDOfIncomePayment, COA.Code AS CoACodeOfIncomePayment, COA.Name AS CoANameOfIncomePayment, " & vbNewLine & _
                         "   A.Modules, A.ReferencesID, A.ReferencesNote, A.ARDate, A.TotalAmount, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
-                        "   A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine & _
-                        "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.PaymentBy, " & vbNewLine & _
-                        "   CASE WHEN A.PaymentBy = '' THEN NULL ELSE A.PaymentDate END AS PaymentDate, A.TaxInvoiceNumber, " & vbNewLine & _
+                        "   A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.PaymentBy, A.PaymentDate, A.TaxInvoiceNumber, " & vbNewLine & _
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine & _
                         "   A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
                         "FROM traAccountReceivable A " & vbNewLine & _
@@ -215,6 +209,7 @@
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Deleted
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -574,7 +569,7 @@
                     "INNER JOIN mstBusinessPartnerARBalance B ON " & vbNewLine & _
                     "   A.SalesID=B.ID " & vbNewLine & _
                     "WHERE " & vbNewLine & _
-                    "   A.ID=@ID " & vbNewLine
+                    "   A.ARID=@ARID " & vbNewLine
 
                 .Parameters.Add("@ARID", SqlDbType.VarChar, 100).Value = strARID
             End With
@@ -592,20 +587,20 @@
                 .CommandText = _
                     "SELECT " & vbNewLine & _
                     "   CAST (1 AS BIT) AS Pick, A.SalesID, B.InvoiceNumber, B.InvoiceDate, " & vbNewLine & _
-                    "   B.TotalDPP+B.TotalPPN-B.TotalPPH AS SalesAmount, A.Amount AS PaymentAmount, " & vbNewLine & _
+                    "   B.TotalDPP+B.TotalPPN-B.TotalPPH AS SalesAmount, A.Amount AS Amount, " & vbNewLine & _
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH-B.TotalPaymentDP-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine & _
                     "   A.Remarks " & vbNewLine & _
                     "FROM traAccountReceivableDet A " & vbNewLine & _
                     "INNER JOIN mstBusinessPartnerARBalance B ON " & vbNewLine & _
                     "   A.SalesID=B.ID " & vbNewLine & _
                     "WHERE " & vbNewLine & _
-                    "   A.ID=@ID " & vbNewLine
+                    "   A.ARID=@ARID " & vbNewLine
 
-                .CommandText = _
+                .CommandText += _
                     "UNION ALL " & vbNewLine & _
                     "SELECT " & vbNewLine & _
                     "   CAST(0 AS BIT) AS Pick, A.ID AS SalesID, A.InvoiceNumber, A.InvoiceDate, " & vbNewLine & _
-                    "   A.TotalDPP+A.TotalPPN-A.TotalPPH AS SalesAmount, CAST(0 AS DECIMAL(18,2)) AS PaymentAmount, " & vbNewLine & _
+                    "   A.TotalDPP+A.TotalPPN-A.TotalPPH AS SalesAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine & _
                     "   A.TotalDPP+A.TotalPPN-A.TotalPPH-A.TotalPaymentDP-A.TotalPayment AS MaxPaymentAmount, " & vbNewLine & _
                     "   CAST('' AS VARCHAR(500)) AS Remarks " & vbNewLine & _
                     "FROM mstBusinessPartnerARBalance A " & vbNewLine & _
@@ -620,7 +615,7 @@
                     "   AND A.TotalDPP+A.TotalPPN-A.TotalPPH-A.TotalPaymentDP-A.TotalPayment>0 " & vbNewLine & _
                     "   AND A.ID NOT IN " & vbNewLine & _
                     "       ( " & vbNewLine & _
-                    "           SELECT ARD.ID 	" & vbNewLine & _
+                    "           SELECT ARD.SalesID 	" & vbNewLine & _
                     "           FROM traAccountReceivableDet ARD 	" & vbNewLine & _
                     "           INNER JOIN traAccountReceivable ARH ON 	" & vbNewLine & _
                     "	        ARD.ARID=ARH.ID		" & vbNewLine & _
@@ -629,6 +624,7 @@
                     "	            AND ARH.ProgramID=@ProgramID 	" & vbNewLine & _
                     "	            AND ARH.BPID=@BPID " & vbNewLine & _
                     "	            AND ARH.IsDeleted=0	" & vbNewLine & _
+                    "	            AND ARH.ID=@ARID " & vbNewLine & _
                     "       ) " & vbNewLine
 
                 .Parameters.Add("@ARID", SqlDbType.VarChar, 100).Value = strARID

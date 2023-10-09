@@ -14,7 +14,7 @@
 
         Public Shared Function GetNewID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer,
-                                        ByVal intProgramID As Integer, ByVal Modules As String) As String
+                                        ByVal intProgramID As Integer, ByVal strModules As String) As String
             Dim clsCompany As VO.Company = DL.Company.GetDetail(sqlCon, sqlTrans, intCompanyID)
             Dim strNewID As String = "AR" & Format(dtmTransDate, "yyyyMMdd") & "-" & clsCompany.CompanyInitial & "-" & Format(intProgramID, "00") & "-" & strModules & "-"
             strNewID &= Format(DL.AccountReceivable.GetMaxID(sqlCon, sqlTrans, strNewID) + 1, "0000")
@@ -234,6 +234,56 @@
                     '# Save Data Status
                     BL.AccountReceivable.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
+
+
+                    Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
+                    Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
+                    Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
+
+                    '# Generate Journal
+                    Dim clsJournalDetail As New List(Of VO.JournalDet)
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = clsData.CoAIDOfIncomePayment,
+                                             .DebitAmount = clsData.TotalAmount,
+                                             .CreditAmount = 0,
+                                             .Remarks = "PELUNASAN SALDO - " & clsData.ARNumber
+                                         })
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = VO.Journal.Value.PiutangUsaha,
+                                             .DebitAmount = 0,
+                                             .CreditAmount = clsData.TotalAmount,
+                                             .Remarks = "PELUNASAN SALDO - " & clsData.ARNumber
+                                         })
+
+                    Dim clsJournal As New VO.Journal With
+                        {
+                            .ProgramID = clsData.ProgramID,
+                            .CompanyID = clsData.CompanyID,
+                            .ID = PrevJournal.ID,
+                            .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                            .ReferencesID = clsData.ReferencesID,
+                            .JournalDate = IIf(bolNew, Now, PrevJournal.JournalDate),
+                            .TotalAmount = clsData.TotalAmount,
+                            .IsAutoGenerate = True,
+                            .StatusID = VO.Status.Values.Draft,
+                            .Remarks = clsData.Remarks,
+                            .LogBy = ERPSLib.UI.usUserApp.UserID,
+                            .Initial = "",
+                            .Detail = clsJournalDetail,
+                            .Save = VO.Save.Action.SaveAndSubmit
+                        }
+
+                    '# Save Journal
+                    Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
+
+                    '# Approve Journal
+                    BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
+
+                    '# Update Journal ID in Business Partners
+                    DL.AccountReceivable.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
+
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -260,6 +310,16 @@
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
                     End If
 
+
+                    Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
+
+                    '# Cancel Approve Journal
+                    BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+
+                    '# Cancel Submit Journal
+                    BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+
+                    '# Unapprove Account Receivable
                     DL.AccountReceivable.Unapprove(sqlCon, sqlTrans, strID)
 
                     '# Save Data Status
