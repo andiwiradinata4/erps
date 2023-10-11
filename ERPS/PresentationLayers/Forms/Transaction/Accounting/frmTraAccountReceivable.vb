@@ -9,7 +9,8 @@ Public Class frmTraAccountReceivable
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
-       cSep2 As Byte = 8, cExportExcel As Byte = 9, cSep3 As Byte = 10, cRefresh As Byte = 11, cClose As Byte = 12
+       cSep2 As Byte = 8, cSetPaymentDate As Byte = 9, cDeletePaymentDate As Byte = 10, cSetTaxInvoiceNumber As Byte = 11,
+       cSep3 As Byte = 12, cExportExcel As Byte = 13, cSep4 As Byte = 14, cRefresh As Byte = 15, cClose As Byte = 16
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -32,7 +33,7 @@ Public Class frmTraAccountReceivable
         UI.usForm.SetGrid(grdView, "CoANameOfIncomePayment", "Nama Akun", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "Modules", "Modules", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "ReferencesID", "No. Referensi", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "TotalAmount", "Total Jurnal", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "TotalAmount", "Total Bayar", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "PaymentBy", "Dibayar Oleh", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PaymentDate", "Tanggal Bayar", 100, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdView, "TaxInvoiceNumber", "No. Faktur Pajak", 100, UI.usDefGrid.gString)
@@ -61,6 +62,9 @@ Public Class frmTraAccountReceivable
             .Item(cCancelSubmit).Enabled = bolEnable
             .Item(cApprove).Enabled = bolEnable
             .Item(cCancelApprove).Enabled = bolEnable
+            .Item(cSetPaymentDate).Enabled = bolEnable
+            .Item(cDeletePaymentDate).Enabled = bolEnable
+            .Item(cSetTaxInvoiceNumber).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
         End With
     End Sub
@@ -346,6 +350,122 @@ Public Class frmTraAccountReceivable
         End Try
     End Sub
 
+    Private Sub prvSetupPaymentDate()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+
+        Dim frmDetail As New frmTraAccountSetPaymentDate
+        With frmDetail
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsSave Then
+                clsData.PaymentDate = .pubPaymentDate
+                clsData.PaymentBy = ERPSLib.UI.usUserApp.UserID
+                clsData.Remarks = .pubRemarks
+            Else
+                Exit Sub
+            End If
+        End With
+
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+        Application.DoEvents()
+        Try
+            BL.AccountReceivable.SetupPayment(clsData.ID, clsData.PaymentDate, clsData.Remarks)
+            pgMain.Value = 100
+            Application.DoEvents()
+            UI.usForm.frmMessageBox("Setup tanggal pembayaran berhasil.")
+            pubRefresh(grdView.GetRowCellValue(intPos, "ARNumber"))
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+            Application.DoEvents()
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+    Private Sub prvSetupCancelPaymentDate()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+
+        If Not UI.usForm.frmAskQuestion("Hapus Tanggal Pembayaran Nomor " & clsData.ARNumber & "?") Then Exit Sub
+
+        Dim frmDetail As New usFormRemarks
+        With frmDetail
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsSave Then
+                clsData.Remarks = .pubValue
+            Else
+                Exit Sub
+            End If
+        End With
+
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+        Application.DoEvents()
+        Try
+            BL.AccountReceivable.SetupCancelPayment(clsData.ID, clsData.Remarks)
+            pgMain.Value = 100
+            Application.DoEvents()
+            UI.usForm.frmMessageBox("Hapus tanggal pembayaran berhasil.")
+            pubRefresh(grdView.GetRowCellValue(intPos, "ARNumber"))
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+            Application.DoEvents()
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+    Private Sub prvSetupTaxInvoiceNumber()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+
+        Dim frmDetail As New frmTraAccountSetTaxInvoiceNumber
+        With frmDetail
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsSave Then
+                clsData.TaxInvoiceNumber = .pubTaxInvoiceNumber
+                clsData.Remarks = .pubRemarks
+            Else
+                Exit Sub
+            End If
+        End With
+
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+        Application.DoEvents()
+        Try
+            BL.AccountReceivable.UpdateTaxInvoiceNumber(clsData.ID, clsData.TaxInvoiceNumber, clsData.Remarks)
+            pgMain.Value = 100
+            Application.DoEvents()
+            UI.usForm.frmMessageBox("Update nomor faktur pajak berhasil.")
+            pubRefresh(grdView.GetRowCellValue(intPos, "ARNumber"))
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+            Application.DoEvents()
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+    Private Sub prvExportExcel()
+        Dim dxExporter As New DX.usDXHelper
+        dxExporter.DevExport(Me, grdMain, Me.Text, Me.Text, DX.usDxExportFormat.fXls, True, True, DX.usDXExportType.etDefault)
+    End Sub
+
     Private Sub prvClear()
         grdMain.DataSource = Nothing
         grdView.Columns.Clear()
@@ -368,7 +488,7 @@ Public Class frmTraAccountReceivable
     End Sub
 
     Private Sub prvSumGrid()
-        Dim SumTotalAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalAmount", "Total Jurnal: {0:#,##0.00}")
+        Dim SumTotalAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalAmount", "Total Bayar: {0:#,##0.00}")
         If grdView.Columns("TotalAmount").SummaryText.Trim = "" Then
             grdView.Columns("TotalAmount").Summary.Add(SumTotalAmount)
         End If
@@ -379,11 +499,6 @@ Public Class frmTraAccountReceivable
             .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountReceivable, VO.Access.Values.NewAccess)
             .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountReceivable, VO.Access.Values.DeleteAccess)
         End With
-    End Sub
-
-    Private Sub prvExportExcel()
-        Dim dxExporter As New DX.usDXHelper
-        dxExporter.DevExport(Me, grdMain, Me.Text, Me.Text, DX.usDxExportFormat.fXls, True, True, DX.usDXExportType.etDefault)
     End Sub
 
 #Region "Form Handle"
@@ -423,6 +538,9 @@ Public Class frmTraAccountReceivable
                 Case ToolBar.Buttons(cCancelSubmit).Name : prvCancelSubmit()
                 Case ToolBar.Buttons(cApprove).Name : prvApprove()
                 Case ToolBar.Buttons(cCancelApprove).Name : prvCancelApprove()
+                Case ToolBar.Buttons(cSetPaymentDate).Name : prvSetupPaymentDate()
+                Case ToolBar.Buttons(cDeletePaymentDate).Name : prvSetupCancelPaymentDate()
+                Case ToolBar.Buttons(cSetTaxInvoiceNumber).Name : prvSetupTaxInvoiceNumber()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If

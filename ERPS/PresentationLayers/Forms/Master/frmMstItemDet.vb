@@ -92,10 +92,10 @@
             UI.usForm.frmMessageBox("Pilih spec terlebih dahulu")
             cboItemSpecification.Focus()
             Exit Sub
-        ElseIf txtBasePrice.Value <= 0 Then
-            UI.usForm.frmMessageBox("Harga harus lebih besar dari 0")
-            txtBasePrice.Focus()
-            Exit Sub
+            'ElseIf txtBasePrice.Value <= 0 Then
+            '    UI.usForm.frmMessageBox("Harga harus lebih besar dari 0")
+            '    txtBasePrice.Focus()
+            '    Exit Sub
         ElseIf cboStatus.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Status kosong. Mohon untuk tutup form dan buka kembali")
             cboStatus.Focus()

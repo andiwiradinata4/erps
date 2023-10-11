@@ -2,6 +2,7 @@
     Public Class BusinessPartnerAPBalance
 
         Public Shared Function ListData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                        ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
                                         ByVal intBPID As Integer) As DataTable
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
@@ -21,6 +22,38 @@
                    "WHERE  " & vbNewLine & _
                    "    A.BPID=@BPID " & vbNewLine
 
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataOutstanding(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                   ByVal intBPID As Integer) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                   "SELECT " & vbNewLine & _
+                   "    CAST(0 AS BIT) AS Pick, A.ID AS PurchaseID, A.InvoiceNumber, A.InvoiceDate, " & vbNewLine & _
+                   "    A.TotalDPP+A.TotalPPN-A.TotalPPH AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine & _
+                   "    (A.TotalDPP+A.TotalPPN-A.TotalPPH)-(A.TotalPaymentDP+A.TotalPayment) AS MaxPaymentAmount, " & vbNewLine & _
+                   "    CAST('' AS VARCHAR(500)) AS Remarks " & vbNewLine & _
+                   "FROM mstBusinessPartnerAPBalance A " & vbNewLine & _
+                   "INNER JOIN mstCompany MC ON " & vbNewLine & _
+                   "    A.CompanyID=MC.ID " & vbNewLine & _
+                   "INNER JOIN mstProgram MP ON " & vbNewLine & _
+                   "    A.ProgramID=MP.ID " & vbNewLine & _
+                   "WHERE  " & vbNewLine & _
+                   "    A.BPID=@BPID " & vbNewLine & _
+                   "    AND A.CompanyID=@CompanyID " & vbNewLine & _
+                   "    AND A.ProgramID=@ProgramID " & vbNewLine & _
+                   "    AND A.TotalDPP+A.TotalPPN-A.TotalPPH-A.TotalPaymentDP-A.TotalPayment>0 " & vbNewLine
+
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
@@ -92,7 +125,7 @@
                        "    A.TotalPPN, A.TotalPPH, A.TotalPaymentDP, A.TotalPayment  " & vbNewLine & _
                        "FROM mstBusinessPartnerAPBalance A " & vbNewLine & _
                        "WHERE " & vbNewLine & _
-                       "    ID=@ID " & vbNewLine
+                       "    A.ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 End With
@@ -152,7 +185,8 @@
                 .CommandText = _
                     "DELETE FROM mstBusinessPartnerAPBalance " & vbNewLine & _
                     "WHERE " & vbNewLine & _
-                    "   BPID=@BPID " & vbNewLine
+                    "   BPID=@BPID " & vbNewLine & _
+                    "   AND TotalPaymentDP+TotalPayment=0 " & vbNewLine
 
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
             End With
@@ -231,6 +265,39 @@
             End Try
             Return bolExists
         End Function
+
+        Public Shared Sub CalculateTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                             ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE mstBusinessPartnerAPBalance SET 	" & vbNewLine & _
+                    "	TotalPayment=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(APD.Amount),0) TotalPayment		" & vbNewLine & _
+                    "		FROM traAccountPayableDet APD 	" & vbNewLine & _
+                    "		INNER JOIN traAccountPayable APH ON	" & vbNewLine & _
+                    "			APD.APID=APH.ID 	" & vbNewLine & _
+                    "			AND APH.Modules=@Modules " & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			APD.PurchaseID=@ID 	" & vbNewLine & _
+                    "			AND APH.IsDeleted=0 	" & vbNewLine & _
+                    "	) " & vbNewLine & _
+                    "WHERE ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = "SB"
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
 
     End Class
 End Namespace

@@ -33,8 +33,11 @@ Partial Class frmTraAccountReceivable
         Me.BarApprove = New System.Windows.Forms.ToolBarButton()
         Me.BarCancelApprove = New System.Windows.Forms.ToolBarButton()
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
-        Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
+        Me.BarSetPaymentDate = New System.Windows.Forms.ToolBarButton()
+        Me.BarSetTaxInvoiceNumber = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
+        Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
@@ -53,6 +56,7 @@ Partial Class frmTraAccountReceivable
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.BarDeletePaymentDate = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -62,12 +66,12 @@ Partial Class frmTraAccountReceivable
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarExportExcel, Me.BarSep3, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarSetPaymentDate, Me.BarDeletePaymentDate, Me.BarSetTaxInvoiceNumber, Me.BarSep3, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(984, 28)
+        Me.ToolBar.Size = New System.Drawing.Size(984, 72)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -123,16 +127,33 @@ Partial Class frmTraAccountReceivable
         Me.BarSep2.Name = "BarSep2"
         Me.BarSep2.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
+        'BarSetPaymentDate
+        '
+        Me.BarSetPaymentDate.Name = "BarSetPaymentDate"
+        Me.BarSetPaymentDate.Tag = "Hold"
+        Me.BarSetPaymentDate.Text = "Set Tanggal Pembayaran"
+        '
+        'BarSetTaxInvoiceNumber
+        '
+        Me.BarSetTaxInvoiceNumber.Name = "BarSetTaxInvoiceNumber"
+        Me.BarSetTaxInvoiceNumber.Tag = "Checked"
+        Me.BarSetTaxInvoiceNumber.Text = "Set Nomor Faktur Pajak"
+        '
+        'BarSep3
+        '
+        Me.BarSep3.Name = "BarSep3"
+        Me.BarSep3.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
         'BarExportExcel
         '
         Me.BarExportExcel.Name = "BarExportExcel"
         Me.BarExportExcel.Tag = "Excel"
         Me.BarExportExcel.Text = "Export Excel"
         '
-        'BarSep3
+        'BarSep4
         '
-        Me.BarSep3.Name = "BarSep3"
-        Me.BarSep3.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        Me.BarSep4.Name = "BarSep4"
+        Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
         'BarRefresh
         '
@@ -161,7 +182,7 @@ Partial Class frmTraAccountReceivable
         Me.PanelControl1.Controls.Add(Me.btnExecute)
         Me.PanelControl1.Controls.Add(Me.Label1)
         Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelControl1.Location = New System.Drawing.Point(0, 28)
+        Me.PanelControl1.Location = New System.Drawing.Point(0, 72)
         Me.PanelControl1.Name = "PanelControl1"
         Me.PanelControl1.Size = New System.Drawing.Size(984, 141)
         Me.PanelControl1.TabIndex = 1
@@ -310,10 +331,10 @@ Partial Class frmTraAccountReceivable
         Me.grdMain.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdMain.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdMain.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdMain.Location = New System.Drawing.Point(0, 169)
+        Me.grdMain.Location = New System.Drawing.Point(0, 213)
         Me.grdMain.MainView = Me.grdView
         Me.grdMain.Name = "grdMain"
-        Me.grdMain.Size = New System.Drawing.Size(984, 420)
+        Me.grdMain.Size = New System.Drawing.Size(984, 376)
         Me.grdMain.TabIndex = 2
         Me.grdMain.UseEmbeddedNavigator = True
         Me.grdMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdView})
@@ -326,6 +347,12 @@ Partial Class frmTraAccountReceivable
         Me.grdView.OptionsView.ColumnAutoWidth = False
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
+        '
+        'BarDeletePaymentDate
+        '
+        Me.BarDeletePaymentDate.Name = "BarDeletePaymentDate"
+        Me.BarDeletePaymentDate.Tag = "Cancel"
+        Me.BarDeletePaymentDate.Text = "Hapus Tanggal Bayar"
         '
         'frmTraAccountReceivable
         '
@@ -379,4 +406,8 @@ Partial Class frmTraAccountReceivable
     Friend WithEvents pgMain As System.Windows.Forms.ProgressBar
     Friend WithEvents grdMain As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents BarSetPaymentDate As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarSetTaxInvoiceNumber As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarSep4 As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarDeletePaymentDate As System.Windows.Forms.ToolBarButton
 End Class

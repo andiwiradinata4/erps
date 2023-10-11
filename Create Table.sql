@@ -1896,6 +1896,231 @@ GO
 SET ANSI_PADDING OFF
 GO
 
+GO
+
+/****** Object:  Table [dbo].[traAccountPayable]    Script Date: 10/4/2023 6:57:26 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traAccountPayable](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountPayable_ID]  DEFAULT (''),
+	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traAccountPayable_CompanyID]  DEFAULT ((0)),
+	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traAccountPayable_ProgramID]  DEFAULT ((0)),
+	[APNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountPayable_APNumber]  DEFAULT (''),
+	[BPID] [int] NOT NULL CONSTRAINT [DF_traAccountPayable_BPID]  DEFAULT ((0)),
+	[CoAIDOfOutgoingPayment] [int] NOT NULL CONSTRAINT [DF_traAccountPayable_CoAIDOfOutgoingPayment]  DEFAULT ((0)),
+	[Modules] [varchar](250) NOT NULL CONSTRAINT [DF_traAccountPayable_Modules]  DEFAULT (''),
+	[ReferencesID] [varchar](250) NOT NULL CONSTRAINT [DF_traAccountPayable_ReferencesID]  DEFAULT (''),
+	[ReferencesNote] [varchar](250) NOT NULL CONSTRAINT [DF_traAccountPayable_ReferencesNote]  DEFAULT (''),
+	[APDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountPayable_APDate]  DEFAULT (getdate()),
+	[TotalAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountPayable_TotalAmount]  DEFAULT ((0)),
+	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountPayable_JournalID]  DEFAULT (''),
+	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountPayable_SubmitBy]  DEFAULT (''),
+	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountPayable_SubmitDate]  DEFAULT (getdate()),
+	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountPayable_ApproveL1]  DEFAULT (''),
+	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traAccountPayable_ApproveL1Date]  DEFAULT (getdate()),
+	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountPayable_ApprovedBy]  DEFAULT (''),
+	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountPayable_ApprovedDate]  DEFAULT (getdate()),
+	[PaymentBy] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountPayable_PaymentBy]  DEFAULT (''),
+	[PaymentDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountPayable_PaymentDate]  DEFAULT (getdate()),
+	[TaxInvoiceNumber] [varchar](250) NOT NULL CONSTRAINT [DF_traAccountPayable_TaxInvoiceNumber]  DEFAULT (''),
+	[IsClosedPeriod] [bit] NOT NULL CONSTRAINT [DF_traAccountPayable_IsClosedPeriod]  DEFAULT ((0)),
+	[ClosedPeriodBy] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountPayable_ClosedPeriodBy]  DEFAULT (''),
+	[ClosedPeriodDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountPayable_ClosedPeriodDate]  DEFAULT (getdate()),
+	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traAccountPayable_IsDeleted]  DEFAULT ((0)),
+	[Remarks] [varchar](500) NOT NULL CONSTRAINT [DF_traAccountPayable_Remarks]  DEFAULT (''),
+	[StatusID] [int] NOT NULL CONSTRAINT [DF_traAccountPayable_StatusID]  DEFAULT ((0)),
+	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountPayable_CreatedBy]  DEFAULT ('SYSTEM'),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountPayable_CreatedDate]  DEFAULT (getdate()),
+	[LogInc] [int] NOT NULL CONSTRAINT [DF_traAccountPayable_LogInc]  DEFAULT ((0)),
+	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountPayable_LogBy]  DEFAULT ('SYSTEM'),
+	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountPayable_LogDate]  DEFAULT (getdate())
+ CONSTRAINT [PK_traAccountPayable] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traAccountPayableDet]    Script Date: 10/4/2023 7:01:05 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traAccountPayableDet](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountPayableDet_ID]  DEFAULT (''),
+	[APID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountPayableDet_APID]  DEFAULT (''),
+	[PurchaseID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountPayableDet_PurchaseID]  DEFAULT (''),
+	[Amount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountPayableDet_Amount]  DEFAULT ((0)),
+	[Remarks] [varchar](500) NOT NULL CONSTRAINT [DF_traAccountPayableDet_Remarks]  DEFAULT (''),
+ CONSTRAINT [PK_traAccountPayableDet] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+GO
+
+/****** Object:  Table [dbo].[traAccountPayableStatus]    Script Date: 10/4/2023 7:02:07 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traAccountPayableStatus](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountPayableStatus_ID]  DEFAULT (''),
+	[APID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountPayableStatus_APID]  DEFAULT (''),
+	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountPayableStatus_Status]  DEFAULT ((0)),
+	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountPayableStatus_StatusBy]  DEFAULT ((0)),
+	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountPayableStatus_StatusDate]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traAccountPayableStatus_Remarks]  DEFAULT ((0)),
+ CONSTRAINT [PK_traAccountPayableStatus] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traCost]    Script Date: 10/4/2023 6:57:26 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traCost](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traCost_ID]  DEFAULT (''),
+	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traCost_CompanyID]  DEFAULT ((0)),
+	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traCost_ProgramID]  DEFAULT ((0)),
+	[CostNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traCost_CostNumber]  DEFAULT (''),
+	[CoAID] [int] NOT NULL CONSTRAINT [DF_traCost_CoAID]  DEFAULT ((0)),
+	[ReferencesID] [varchar](250) NOT NULL CONSTRAINT [DF_traCost_ReferencesID]  DEFAULT (''),
+	[ReferencesNote] [varchar](250) NOT NULL CONSTRAINT [DF_traCost_ReferencesNote]  DEFAULT (''),
+	[CostDate] [datetime] NOT NULL CONSTRAINT [DF_traCost_CostDate]  DEFAULT (getdate()),
+	[TotalAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traCost_TotalAmount]  DEFAULT ((0)),
+	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traCost_JournalID]  DEFAULT (''),
+	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traCost_SubmitBy]  DEFAULT (''),
+	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traCost_SubmitDate]  DEFAULT (getdate()),
+	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traCost_ApproveL1]  DEFAULT (''),
+	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traCost_ApproveL1Date]  DEFAULT (getdate()),
+	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traCost_ApprovedBy]  DEFAULT (''),
+	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traCost_ApprovedDate]  DEFAULT (getdate()),
+	[PaymentBy] [varchar](20) NOT NULL CONSTRAINT [DF_traCost_PaymentBy]  DEFAULT (''),
+	[PaymentDate] [datetime] NOT NULL CONSTRAINT [DF_traCost_PaymentDate]  DEFAULT (getdate()),
+	[TaxInvoiceNumber] [varchar](250) NOT NULL CONSTRAINT [DF_traCost_TaxInvoiceNumber]  DEFAULT (''),
+	[IsClosedPeriod] [bit] NOT NULL CONSTRAINT [DF_traCost_IsClosedPeriod]  DEFAULT ((0)),
+	[ClosedPeriodBy] [varchar](20) NOT NULL CONSTRAINT [DF_traCost_ClosedPeriodBy]  DEFAULT (''),
+	[ClosedPeriodDate] [datetime] NOT NULL CONSTRAINT [DF_traCost_ClosedPeriodDate]  DEFAULT (getdate()),
+	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traCost_IsDeleted]  DEFAULT ((0)),
+	[Remarks] [varchar](500) NOT NULL CONSTRAINT [DF_traCost_Remarks]  DEFAULT (''),
+	[StatusID] [int] NOT NULL CONSTRAINT [DF_traCost_StatusID]  DEFAULT ((0)),
+	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traCost_CreatedBy]  DEFAULT ('SYSTEM'),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traCost_CreatedDate]  DEFAULT (getdate()),
+	[LogInc] [int] NOT NULL CONSTRAINT [DF_traCost_LogInc]  DEFAULT ((0)),
+	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traCost_LogBy]  DEFAULT ('SYSTEM'),
+	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traCost_LogDate]  DEFAULT (getdate())
+ CONSTRAINT [PK_traCost] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traCostDet]    Script Date: 10/4/2023 7:01:05 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traCostDet](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traCostDet_ID]  DEFAULT (''),
+	[CostID] [varchar](100) NOT NULL CONSTRAINT [DF_traCostDet_CostID]  DEFAULT (''),
+	[COAID] [varchar](100) NOT NULL CONSTRAINT [DF_traCostDet_COAID]  DEFAULT (''),
+	[Amount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traCostDet_Amount]  DEFAULT ((0)),
+	[Remarks] [varchar](500) NOT NULL CONSTRAINT [DF_traCostDet_Remarks]  DEFAULT (''),
+ CONSTRAINT [PK_traCostDet] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+GO
+
+/****** Object:  Table [dbo].[traCostStatus]    Script Date: 10/4/2023 7:02:07 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traCostStatus](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traCostStatus_ID]  DEFAULT (''),
+	[CostID] [varchar](100) NOT NULL CONSTRAINT [DF_traCostStatus_CostID]  DEFAULT (''),
+	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traCostStatus_Status]  DEFAULT ((0)),
+	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traCostStatus_StatusBy]  DEFAULT ((0)),
+	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traCostStatus_StatusDate]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traCostStatus_Remarks]  DEFAULT ((0)),
+ CONSTRAINT [PK_traCostStatus] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
 
 
 

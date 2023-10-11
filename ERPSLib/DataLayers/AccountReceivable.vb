@@ -488,13 +488,15 @@
                 .CommandText = _
                     "UPDATE traAccountReceivable SET " & vbNewLine & _
                     "    PaymentBy=@PaymentBy, " & vbNewLine & _
-                    "    PaymentDate=@PaymentDate " & vbNewLine & _
+                    "    PaymentDate=@PaymentDate, " & vbNewLine & _
+                    "    StatusID=@StatusID " & vbNewLine & _
                     "WHERE   " & vbNewLine & _
                     "    ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@PaymentBy", SqlDbType.VarChar, 20).Value = UI.usUserApp.UserID
                 .Parameters.Add("@PaymentDate", SqlDbType.DateTime).Value = dtmPaymentDate
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Payment
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -512,11 +514,13 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "UPDATE traAccountReceivable SET " & vbNewLine & _
-                    "    PaymentBy='' " & vbNewLine & _
+                    "    PaymentBy='', " & vbNewLine & _
+                    "    StatusID=@StatusID " & vbNewLine & _
                     "WHERE   " & vbNewLine & _
                     "    ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

@@ -251,6 +251,7 @@ Public Class frmTraAccountReceivableDet
             .pubIsLookUp = True
             .pubCompanyID = pubCS.CompanyID
             .pubProgramID = pubCS.ProgramID
+            .pubFilterGroup = VO.ChartOfAccount.FilterGroup.CashOrBank
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
             If .pubIsLookUpGet Then

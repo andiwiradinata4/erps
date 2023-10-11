@@ -263,7 +263,7 @@
                             .CompanyID = clsData.CompanyID,
                             .ID = PrevJournal.ID,
                             .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
-                            .ReferencesID = clsData.ReferencesID,
+                            .ReferencesID = clsData.ID,
                             .JournalDate = IIf(bolNew, Now, PrevJournal.JournalDate),
                             .TotalAmount = clsData.TotalAmount,
                             .IsAutoGenerate = True,

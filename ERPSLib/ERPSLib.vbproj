@@ -63,6 +63,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLayers\AccountPayable.vb" />
     <Compile Include="BusinessLayers\AccountReceivable.vb" />
     <Compile Include="BusinessLayers\Base\Access.vb" />
     <Compile Include="BusinessLayers\Base\ChartOfAccount.vb" />
@@ -92,6 +93,7 @@
     <Compile Include="BusinessLayers\BusinessPartnerAPBalance.vb" />
     <Compile Include="BusinessLayers\BusinessPartnerARBalance.vb" />
     <Compile Include="BusinessLayers\ConfirmationOrder.vb" />
+    <Compile Include="BusinessLayers\Cost.vb" />
     <Compile Include="BusinessLayers\Item.vb" />
     <Compile Include="BusinessLayers\ItemSpecification.vb" />
     <Compile Include="BusinessLayers\ItemType.vb" />
@@ -102,6 +104,7 @@
     <Compile Include="BusinessLayers\PurchaseOrderCutting.vb" />
     <Compile Include="BusinessLayers\Reports.vb" />
     <Compile Include="BusinessLayers\SalesContract.vb" />
+    <Compile Include="DataLayers\AccountPayable.vb" />
     <Compile Include="DataLayers\AccountReceivable.vb" />
     <Compile Include="DataLayers\Base\Access.vb" />
     <Compile Include="DataLayers\Base\ChartOfAccount.vb" />
@@ -132,6 +135,7 @@
     <Compile Include="DataLayers\BusinessPartnerAPBalance.vb" />
     <Compile Include="DataLayers\BusinessPartnerARBalance.vb" />
     <Compile Include="DataLayers\ConfirmationOrder.vb" />
+    <Compile Include="DataLayers\Cost.vb" />
     <Compile Include="DataLayers\Item.vb" />
     <Compile Include="DataLayers\ItemSpecification.vb" />
     <Compile Include="DataLayers\ItemType.vb" />
@@ -163,6 +167,9 @@
     <Compile Include="SharedLib\Functions\Math.vb" />
     <Compile Include="SharedLib\Functions\StringUtility.vb" />
     <Compile Include="SharedLib\Functions\usUserApp.vb" />
+    <Compile Include="ValueObject\AccountPayable.vb" />
+    <Compile Include="ValueObject\AccountPayableDet.vb" />
+    <Compile Include="ValueObject\AccountPayableStatus.vb" />
     <Compile Include="ValueObject\AccountReceivable.vb" />
     <Compile Include="ValueObject\AccountReceivableDet.vb" />
     <Compile Include="ValueObject\AccountReceivableStatus.vb" />
@@ -205,6 +212,9 @@
     <Compile Include="ValueObject\ConfirmationOrderDet.vb" />
     <Compile Include="ValueObject\ConfirmationOrderPaymentTerm.vb" />
     <Compile Include="ValueObject\ConfirmationOrderStatus.vb" />
+    <Compile Include="ValueObject\Cost.vb" />
+    <Compile Include="ValueObject\CostDet.vb" />
+    <Compile Include="ValueObject\CostStatus.vb" />
     <Compile Include="ValueObject\Item.vb" />
     <Compile Include="ValueObject\ItemSpecification.vb" />
     <Compile Include="ValueObject\ItemType.vb" />

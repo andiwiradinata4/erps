@@ -36,6 +36,8 @@
     '## Pembukuan
     Dim frmMainTraJournal As frmTraJournal
     Dim frmMainTraAccountReceivable As frmTraAccountReceivable
+    Dim frmMainTraAccountPayable As frmTraAccountPayable
+    Dim frmMainTraAccountCost As frmTraCost
 
 
     '# Laporan
@@ -102,6 +104,9 @@
 
         '## Pembukuan
         mnuTransaksiPembukuanJurnalUmum.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionJournal, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembukuanPelunasanSaldoAwal.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountReceivable, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembukuanPembayaranSaldoAwal.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountPayable, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembukuanPembayaranBiaya.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCost, VO.Access.Values.ViewAccess)
 
         '# Laporan
         '## Pembukuan
@@ -357,7 +362,11 @@
     End Sub
 
     Private Sub mnuTransaksiPembukuanPembayaranSaldoAwal_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPembayaranSaldoAwal.Click
+        UI.usForm.frmOpen(frmMainTraAccountPayable, "frmTraAccountPayable", Me)
+    End Sub
 
+    Private Sub mnuTransaksiPembukuanPembayaranBiaya_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPembayaranBiaya.Click
+        UI.usForm.frmOpen(frmMainTraAccountCost, "frmTraAccountCost", Me)
     End Sub
 
 #End Region

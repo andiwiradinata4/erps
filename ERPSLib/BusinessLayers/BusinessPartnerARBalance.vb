@@ -1,10 +1,11 @@
 ﻿Namespace BL
     Public Class BusinessPartnerARBalance
 
-        Public Shared Function ListData(ByVal intBPID As Integer) As DataTable
+        Public Shared Function ListData(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                        ByVal intBPID As Integer) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.BusinessPartnerARBalance.ListData(sqlCon, Nothing, intBPID)
+                Return DL.BusinessPartnerARBalance.ListData(sqlCon, Nothing, intCompanyID, intProgramID, intBPID)
             End Using
         End Function
 
@@ -40,21 +41,23 @@
                         DL.BusinessPartnerARBalance.DeleteData(sqlCon, sqlTrans, clsDataAll.First.BPID)
 
                         '# Cancel Approve Journal
-                        BL.Journal.Unapprove(clsBusinessPartner.JournalIDForARBalance.Trim, "")
+                        BL.Journal.Unapprove(sqlCon, sqlTrans, clsBusinessPartner.JournalIDForARBalance.Trim, "")
 
                         '# Cancel Submit Journal
-                        BL.Journal.Unsubmit(clsBusinessPartner.JournalIDForARBalance.Trim, "")
+                        BL.Journal.Unsubmit(sqlCon, sqlTrans, clsBusinessPartner.JournalIDForARBalance.Trim, "")
                     End If
 
                     Dim decTotal As Decimal = 0, decAmount As Decimal = 0
                     Dim clsJournalDetail As New List(Of VO.JournalDet)
+                    Dim strAllInvoiceNumber As String = ""
                     For Each clsData As VO.BusinessPartnerARBalance In clsDataAll
-                        clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.ProgramID, clsData.CompanyID, clsData.BPID)
-                        If DL.BusinessPartnerARBalance.DataExists(sqlCon, sqlTrans, clsData.ID) Then
+                        Dim bolNotyetPayment As Boolean = IIf(clsData.TotalPaymentDP + clsData.TotalPayment = 0, True, False)
+                        If bolNotyetPayment Then clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.ProgramID, clsData.CompanyID, clsData.BPID)
+                        If DL.BusinessPartnerARBalance.DataExists(sqlCon, sqlTrans, clsData.ID) And bolNotyetPayment Then
                             Err.Raise(515, "", "Tidak dapat disimpan. ID " & clsData.ID & " telah digunakan")
                         End If
 
-                        DL.BusinessPartnerARBalance.SaveData(sqlCon, sqlTrans, True, clsData)
+                        DL.BusinessPartnerARBalance.SaveData(sqlCon, sqlTrans, bolNotyetPayment, clsData)
                         decAmount = clsData.TotalDPP + clsData.TotalPPN - clsData.TotalPPH
                         decTotal += decAmount
                         clsJournalDetail.Add(New VO.JournalDet With
@@ -64,6 +67,7 @@
                                                  .CreditAmount = 0,
                                                  .Remarks = "SETUP SALDO - " & clsData.InvoiceNumber
                                              })
+                        strAllInvoiceNumber += clsData.InvoiceNumber & ", "
                     Next
 
                     clsJournalDetail.Add(New VO.JournalDet With
@@ -71,7 +75,7 @@
                                              .CoAID = VO.Journal.Value.ModalUsaha,
                                              .DebitAmount = 0,
                                              .CreditAmount = decTotal,
-                                             .Remarks = ""
+                                             .Remarks = "SETUP SALDO - " & strAllInvoiceNumber.Substring(0, strAllInvoiceNumber.Length - 2)
                                          })
 
                     Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsBusinessPartner.JournalIDForARBalance)

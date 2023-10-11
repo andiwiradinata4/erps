@@ -67,6 +67,8 @@ Partial Class frmSysMain
         Me.mnuTransaksiPembelianKonfirmasiPengiriman = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembelianProsesPemotonganSPK = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembukuanPelunasanSaldoAwal = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembukuanPembayaranSaldoAwal = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuanJurnalUmum = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLaporan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLaporanPembukuan = New System.Windows.Forms.ToolStripMenuItem()
@@ -79,8 +81,7 @@ Partial Class frmSysMain
         Me.mnuWindowsCascade = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuWindowsCloseAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLogout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuTransaksiPembukuanPelunasanSaldoAwal = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuTransaksiPembukuanPembayaranSaldoAwal = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembukuanPembayaranBiaya = New System.Windows.Forms.ToolStripMenuItem()
         Me.ssMain.SuspendLayout()
         Me.mnuMain.SuspendLayout()
         Me.SuspendLayout()
@@ -395,10 +396,22 @@ Partial Class frmSysMain
         '
         'mnuTransaksiPembukuan
         '
-        Me.mnuTransaksiPembukuan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPembukuanPelunasanSaldoAwal, Me.mnuTransaksiPembukuanPembayaranSaldoAwal, Me.mnuTransaksiPembukuanJurnalUmum})
+        Me.mnuTransaksiPembukuan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPembukuanPembayaranBiaya, Me.mnuTransaksiPembukuanPelunasanSaldoAwal, Me.mnuTransaksiPembukuanPembayaranSaldoAwal, Me.mnuTransaksiPembukuanJurnalUmum})
         Me.mnuTransaksiPembukuan.Name = "mnuTransaksiPembukuan"
         Me.mnuTransaksiPembukuan.Size = New System.Drawing.Size(152, 22)
         Me.mnuTransaksiPembukuan.Text = "Pembukuan"
+        '
+        'mnuTransaksiPembukuanPelunasanSaldoAwal
+        '
+        Me.mnuTransaksiPembukuanPelunasanSaldoAwal.Name = "mnuTransaksiPembukuanPelunasanSaldoAwal"
+        Me.mnuTransaksiPembukuanPelunasanSaldoAwal.Size = New System.Drawing.Size(201, 22)
+        Me.mnuTransaksiPembukuanPelunasanSaldoAwal.Text = "Pelunasan Saldo Awal"
+        '
+        'mnuTransaksiPembukuanPembayaranSaldoAwal
+        '
+        Me.mnuTransaksiPembukuanPembayaranSaldoAwal.Name = "mnuTransaksiPembukuanPembayaranSaldoAwal"
+        Me.mnuTransaksiPembukuanPembayaranSaldoAwal.Size = New System.Drawing.Size(201, 22)
+        Me.mnuTransaksiPembukuanPembayaranSaldoAwal.Text = "Pembayaran Saldo Awal"
         '
         'mnuTransaksiPembukuanJurnalUmum
         '
@@ -417,7 +430,7 @@ Partial Class frmSysMain
         '
         Me.mnuLaporanPembukuan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuLaporanPembukuanBukuBesar})
         Me.mnuLaporanPembukuan.Name = "mnuLaporanPembukuan"
-        Me.mnuLaporanPembukuan.Size = New System.Drawing.Size(152, 22)
+        Me.mnuLaporanPembukuan.Size = New System.Drawing.Size(138, 22)
         Me.mnuLaporanPembukuan.Text = "Pembukuan"
         '
         'mnuLaporanPembukuanBukuBesar
@@ -476,17 +489,11 @@ Partial Class frmSysMain
         Me.mnuLogout.Size = New System.Drawing.Size(57, 20)
         Me.mnuLogout.Text = "L&ogout"
         '
-        'mnuTransaksiPembukuanPelunasanSaldoAwal
+        'mnuTransaksiPembukuanPembayaranBiaya
         '
-        Me.mnuTransaksiPembukuanPelunasanSaldoAwal.Name = "mnuTransaksiPembukuanPelunasanSaldoAwal"
-        Me.mnuTransaksiPembukuanPelunasanSaldoAwal.Size = New System.Drawing.Size(201, 22)
-        Me.mnuTransaksiPembukuanPelunasanSaldoAwal.Text = "Pelunasan Saldo Awal"
-        '
-        'mnuTransaksiPembukuanPembayaranSaldoAwal
-        '
-        Me.mnuTransaksiPembukuanPembayaranSaldoAwal.Name = "mnuTransaksiPembukuanPembayaranSaldoAwal"
-        Me.mnuTransaksiPembukuanPembayaranSaldoAwal.Size = New System.Drawing.Size(201, 22)
-        Me.mnuTransaksiPembukuanPembayaranSaldoAwal.Text = "Pembayaran Saldo Awal"
+        Me.mnuTransaksiPembukuanPembayaranBiaya.Name = "mnuTransaksiPembukuanPembayaranBiaya"
+        Me.mnuTransaksiPembukuanPembayaranBiaya.Size = New System.Drawing.Size(201, 22)
+        Me.mnuTransaksiPembukuanPembayaranBiaya.Text = "Pembayaran Biaya"
         '
         'frmSysMain
         '
@@ -569,4 +576,5 @@ Partial Class frmSysMain
     Friend WithEvents mnuLaporanPembukuanBukuBesar As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuTransaksiPembukuanPelunasanSaldoAwal As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuTransaksiPembukuanPembayaranSaldoAwal As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPembukuanPembayaranBiaya As System.Windows.Forms.ToolStripMenuItem
 End Class

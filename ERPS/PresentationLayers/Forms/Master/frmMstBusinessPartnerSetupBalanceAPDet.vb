@@ -7,6 +7,7 @@
     Private intCompanyID As Integer
     Private intPos As Integer = 0
     Private strID As String
+    Private decTotalPaymentDP As Decimal, decTotalPayment As Decimal
     Property pubDtItem As New DataTable
     Property pubSelectedRow As DataRow
     Property pubIsNew As Boolean = False
@@ -39,6 +40,8 @@
             txtInvoiceNumber.Text = pubSelectedRow.Item("InvoiceNumber")
             dtpInvoiceDate.Value = pubSelectedRow.Item("InvoiceDate")
             txtTotalDPP.Value = pubSelectedRow.Item("TotalDPP")
+            decTotalPaymentDP = pubSelectedRow.Item("TotalPaymentDP")
+            decTotalPayment = pubSelectedRow.Item("TotalPayment")
         End If
     End Sub
 
@@ -83,6 +86,10 @@
             Exit Sub
         ElseIf txtTotalDPP.Value <= 0 Then
             UI.usForm.frmMessageBox("Total invoice harus lebih besar dari 0")
+            txtTotalDPP.Focus()
+            Exit Sub
+        ElseIf txtTotalDPP.Value < decTotalPaymentDP + decTotalPayment Then
+            UI.usForm.frmMessageBox("Total invoice harus lebih besar dari total pembayaran terakhir yaitu " & Format(decTotalPaymentDP + decTotalPayment, UI.usDefCons.Real2Num))
             txtTotalDPP.Focus()
             Exit Sub
         End If
@@ -138,8 +145,8 @@
                         .Item("InvoiceNumber") = txtInvoiceNumber.Text.Trim
                         .Item("TotalDPP") = txtTotalDPP.Value
                         .Item("InvoiceDate") = dtpInvoiceDate.Value
-                        .Item("TotalPaymentDP") = 0
-                        .Item("TotalPayment") = 0
+                        .Item("TotalPaymentDP") = decTotalPaymentDP
+                        .Item("TotalPayment") = decTotalPayment
                         .EndEdit()
                     End With
                     Exit For

@@ -44,6 +44,7 @@ Namespace VO
             TransactionJournal = 31
             TransactionAccountReceivable = 33
             TransactionAccountPayable = 34
+            TransactionCost = 35
 
             '# Reports
             ReportBukuBesar = 32

@@ -51,7 +51,7 @@ Partial Class frmTraJournalDetItem
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(446, 28)
+        Me.ToolBar.Size = New System.Drawing.Size(468, 28)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -75,7 +75,7 @@ Partial Class frmTraJournalDetItem
         Me.lblInfo.ForeColor = System.Drawing.Color.White
         Me.lblInfo.Location = New System.Drawing.Point(0, 28)
         Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(446, 22)
+        Me.lblInfo.Size = New System.Drawing.Size(468, 22)
         Me.lblInfo.TabIndex = 1
         Me.lblInfo.Text = "« Item"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -97,7 +97,7 @@ Partial Class frmTraJournalDetItem
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlDetail.Location = New System.Drawing.Point(0, 50)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(446, 208)
+        Me.pnlDetail.Size = New System.Drawing.Size(468, 208)
         Me.pnlDetail.TabIndex = 2
         '
         'cboPosition
@@ -221,7 +221,7 @@ Partial Class frmTraJournalDetItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(446, 258)
+        Me.ClientSize = New System.Drawing.Size(468, 258)
         Me.Controls.Add(Me.pnlDetail)
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)

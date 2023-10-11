@@ -1,10 +1,19 @@
 ﻿Namespace BL
     Public Class BusinessPartnerAPBalance
 
-        Public Shared Function ListData(ByVal intBPID As Integer) As DataTable
+        Public Shared Function ListData(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                        ByVal intBPID As Integer) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.BusinessPartnerAPBalance.ListData(sqlCon, Nothing, intBPID)
+                Return DL.BusinessPartnerAPBalance.ListData(sqlCon, Nothing, intCompanyID, intProgramID, intBPID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataOutstanding(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                   ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.BusinessPartnerAPBalance.ListDataOutstanding(sqlCon, Nothing, intCompanyID, intProgramID, intBPID)
             End Using
         End Function
 
@@ -32,21 +41,23 @@
                         DL.BusinessPartnerAPBalance.DeleteData(sqlCon, sqlTrans, clsDataAll.First.BPID)
 
                         '# Cancel Approve Journal
-                        BL.Journal.Unapprove(clsBusinessPartner.JournalIDForAPBalance.Trim, "")
+                        BL.Journal.Unapprove(sqlCon, sqlTrans, clsBusinessPartner.JournalIDForAPBalance.Trim, "")
 
                         '# Cancel Submit Journal
-                        BL.Journal.Unsubmit(clsBusinessPartner.JournalIDForAPBalance.Trim, "")
+                        BL.Journal.Unsubmit(sqlCon, sqlTrans, clsBusinessPartner.JournalIDForAPBalance.Trim, "")
                     End If
 
                     Dim decTotal As Decimal = 0, decAmount As Decimal = 0
                     Dim clsJournalDetail As New List(Of VO.JournalDet)
+                    Dim strAllInvoiceNumber As String = ""
                     For Each clsData As VO.BusinessPartnerAPBalance In clsDataAll
-                        clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.ProgramID, clsData.CompanyID, clsData.BPID)
-                        If DL.BusinessPartnerAPBalance.DataExists(sqlCon, sqlTrans, clsData.ID) Then
+                        Dim bolNotyetPayment As Boolean = IIf(clsData.TotalPaymentDP + clsData.TotalPayment = 0, True, False)
+                        If bolNotyetPayment Then clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.ProgramID, clsData.CompanyID, clsData.BPID)
+                        If DL.BusinessPartnerAPBalance.DataExists(sqlCon, sqlTrans, clsData.ID) And bolNotyetPayment Then
                             Err.Raise(515, "", "Tidak dapat disimpan. ID " & clsData.ID & " telah digunakan")
                         End If
-
-                        DL.BusinessPartnerAPBalance.SaveData(sqlCon, sqlTrans, True, clsData)
+                        
+                        DL.BusinessPartnerAPBalance.SaveData(sqlCon, sqlTrans, bolNotyetPayment, clsData)
                         decAmount = clsData.TotalDPP + clsData.TotalPPN - clsData.TotalPPH
                         decTotal += decAmount
                         clsJournalDetail.Add(New VO.JournalDet With
@@ -56,6 +67,7 @@
                                                  .CreditAmount = decAmount,
                                                  .Remarks = "SETUP SALDO - " & clsData.InvoiceNumber
                                              })
+                        strAllInvoiceNumber += clsData.InvoiceNumber & ", "
                     Next
 
                     clsJournalDetail.Add(New VO.JournalDet With
@@ -63,22 +75,22 @@
                                              .CoAID = VO.Journal.Value.ModalUsaha,
                                              .DebitAmount = decTotal,
                                              .CreditAmount = 0,
-                                             .Remarks = ""
+                                             .Remarks = "SETUP SALDO - " & strAllInvoiceNumber.Substring(0, strAllInvoiceNumber.Length - 2)
                                          })
-
+                    
                     Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsBusinessPartner.JournalIDForAPBalance)
                     Dim clsJournal As New VO.Journal With
                         {
                             .ProgramID = clsDataAll.First.ProgramID,
                             .CompanyID = clsDataAll.First.CompanyID,
                             .ID = clsBusinessPartner.JournalIDForAPBalance.Trim,
-                            .JournalNo = IIf(bolNew, Now, PrevJournal.JournalNo),
-                            .ReferencesID = IIf(bolNew, Now, PrevJournal.ReferencesID),
+                            .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                            .ReferencesID = IIf(bolNew, "", PrevJournal.ReferencesID),
                             .JournalDate = IIf(bolNew, Now, PrevJournal.JournalDate),
                             .TotalAmount = decTotal,
                             .IsAutoGenerate = True,
                             .StatusID = VO.Status.Values.Draft,
-                            .Remarks = "SETUP SALDO " & clsBusinessPartner.Code & " | " & clsBusinessPartner.Name,
+                            .Remarks = "",
                             .LogBy = ERPSLib.UI.usUserApp.UserID,
                             .Initial = "",
                             .Detail = clsJournalDetail,

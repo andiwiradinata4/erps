@@ -2,6 +2,7 @@
     Public Class BusinessPartnerARBalance
 
         Public Shared Function ListData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                        ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
                                         ByVal intBPID As Integer) As DataTable
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
@@ -38,7 +39,7 @@
                    "SELECT " & vbNewLine & _
                    "    CAST(0 AS BIT) AS Pick, A.ID AS SalesID, A.InvoiceNumber, A.InvoiceDate, " & vbNewLine & _
                    "    A.TotalDPP+A.TotalPPN-A.TotalPPH AS SalesAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine & _
-                   "    A.TotalDPP+A.TotalPPN-A.TotalPPH-A.TotalPaymentDP-A.TotalPayment AS MaxPaymentAmount, " & vbNewLine & _
+                   "    (A.TotalDPP+A.TotalPPN-A.TotalPPH)-(A.TotalPaymentDP+A.TotalPayment) AS MaxPaymentAmount, " & vbNewLine & _
                    "    CAST('' AS VARCHAR(500)) AS Remarks " & vbNewLine & _
                    "FROM mstBusinessPartnerARBalance A " & vbNewLine & _
                    "INNER JOIN mstCompany MC ON " & vbNewLine & _
@@ -124,7 +125,7 @@
                        "    A.TotalPPN, A.TotalPPH, A.TotalPaymentDP, A.TotalPayment  " & vbNewLine & _
                        "FROM mstBusinessPartnerARBalance A " & vbNewLine & _
                        "WHERE " & vbNewLine & _
-                       "    ID=@ID " & vbNewLine
+                       "    A.ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 End With
@@ -184,7 +185,8 @@
                 .CommandText = _
                     "DELETE FROM mstBusinessPartnerARBalance " & vbNewLine & _
                     "WHERE " & vbNewLine & _
-                    "   BPID=@BPID " & vbNewLine
+                    "   BPID=@BPID " & vbNewLine & _
+                    "   AND TotalPaymentDP+TotalPayment=0 " & vbNewLine
 
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
             End With

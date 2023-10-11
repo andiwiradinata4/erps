@@ -46,40 +46,28 @@ Partial Class frmMstBusinessPartnerSetupBalanceAPDet
         '
         'ToolBar
         '
-        Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        resources.ApplyResources(Me.ToolBar, "ToolBar")
         Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarRefresh, Me.BarClose})
-        Me.ToolBar.DropDownArrows = True
-        Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
-        Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(574, 28)
-        Me.ToolBar.TabIndex = 0
-        Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
         'BarRefresh
         '
         Me.BarRefresh.Name = "BarRefresh"
         Me.BarRefresh.Tag = "Save"
-        Me.BarRefresh.Text = "Simpan"
+        resources.ApplyResources(Me.BarRefresh, "BarRefresh")
         '
         'BarClose
         '
         Me.BarClose.Name = "BarClose"
         Me.BarClose.Tag = "Close"
-        Me.BarClose.Text = "Tutup"
+        resources.ApplyResources(Me.BarClose, "BarClose")
         '
         'lblInfo
         '
         Me.lblInfo.BackColor = System.Drawing.Color.CadetBlue
-        Me.lblInfo.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblInfo.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        resources.ApplyResources(Me.lblInfo, "lblInfo")
         Me.lblInfo.ForeColor = System.Drawing.Color.White
-        Me.lblInfo.Location = New System.Drawing.Point(0, 28)
         Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(574, 22)
-        Me.lblInfo.TabIndex = 1
-        Me.lblInfo.Text = "« Item"
-        Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel1
         '
@@ -96,151 +84,105 @@ Partial Class frmMstBusinessPartnerSetupBalanceAPDet
         Me.Panel1.Controls.Add(Me.txtCompanyName)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.txtProgramName)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(0, 50)
+        resources.ApplyResources(Me.Panel1, "Panel1")
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(574, 148)
-        Me.Panel1.TabIndex = 2
         '
         'Label3
         '
-        Me.Label3.AutoSize = True
+        resources.ApplyResources(Me.Label3, "Label3")
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(18, 75)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(62, 13)
-        Me.Label3.TabIndex = 104
-        Me.Label3.Text = "No. Invoice"
         '
         'txtInvoiceNumber
         '
         Me.txtInvoiceNumber.BackColor = System.Drawing.Color.White
         Me.txtInvoiceNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtInvoiceNumber.Location = New System.Drawing.Point(101, 71)
-        Me.txtInvoiceNumber.MaxLength = 250
+        resources.ApplyResources(Me.txtInvoiceNumber, "txtInvoiceNumber")
         Me.txtInvoiceNumber.Name = "txtInvoiceNumber"
-        Me.txtInvoiceNumber.Size = New System.Drawing.Size(413, 21)
-        Me.txtInvoiceNumber.TabIndex = 4
         '
         'dtpInvoiceDate
         '
-        Me.dtpInvoiceDate.CustomFormat = "dd/MM/yyyy"
-        Me.dtpInvoiceDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        resources.ApplyResources(Me.dtpInvoiceDate, "dtpInvoiceDate")
         Me.dtpInvoiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpInvoiceDate.Location = New System.Drawing.Point(413, 98)
         Me.dtpInvoiceDate.Name = "dtpInvoiceDate"
-        Me.dtpInvoiceDate.Size = New System.Drawing.Size(101, 21)
-        Me.dtpInvoiceDate.TabIndex = 6
         Me.dtpInvoiceDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
         'txtTotalDPP
         '
         Me.txtTotalDPP.DecimalPlaces = 2
-        Me.txtTotalDPP.Location = New System.Drawing.Point(101, 98)
+        resources.ApplyResources(Me.txtTotalDPP, "txtTotalDPP")
         Me.txtTotalDPP.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalDPP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalDPP.Name = "txtTotalDPP"
-        Me.txtTotalDPP.Size = New System.Drawing.Size(187, 21)
-        Me.txtTotalDPP.TabIndex = 5
-        Me.txtTotalDPP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalDPP.ThousandsSeparator = True
         '
         'btnCompany
         '
         Me.btnCompany.Image = CType(resources.GetObject("btnCompany.Image"), System.Drawing.Image)
-        Me.btnCompany.Location = New System.Drawing.Point(521, 43)
+        resources.ApplyResources(Me.btnCompany, "btnCompany")
         Me.btnCompany.Name = "btnCompany"
-        Me.btnCompany.Size = New System.Drawing.Size(23, 23)
-        Me.btnCompany.TabIndex = 3
         '
         'btnProgram
         '
         Me.btnProgram.Image = CType(resources.GetObject("btnProgram.Image"), System.Drawing.Image)
-        Me.btnProgram.Location = New System.Drawing.Point(521, 16)
+        resources.ApplyResources(Me.btnProgram, "btnProgram")
         Me.btnProgram.Name = "btnProgram"
-        Me.btnProgram.Size = New System.Drawing.Size(23, 23)
-        Me.btnProgram.TabIndex = 1
         '
         'Label2
         '
-        Me.Label2.AutoSize = True
+        resources.ApplyResources(Me.Label2, "Label2")
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(323, 102)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(83, 13)
-        Me.Label2.TabIndex = 102
-        Me.Label2.Text = "Tanggal Invoice"
         '
         'lblStatusID
         '
-        Me.lblStatusID.AutoSize = True
+        resources.ApplyResources(Me.lblStatusID, "lblStatusID")
         Me.lblStatusID.BackColor = System.Drawing.Color.Transparent
         Me.lblStatusID.ForeColor = System.Drawing.Color.Black
-        Me.lblStatusID.Location = New System.Drawing.Point(18, 102)
         Me.lblStatusID.Name = "lblStatusID"
-        Me.lblStatusID.Size = New System.Drawing.Size(69, 13)
-        Me.lblStatusID.TabIndex = 101
-        Me.lblStatusID.Text = "Total Invoice"
         '
         'lblName
         '
-        Me.lblName.AutoSize = True
+        resources.ApplyResources(Me.lblName, "lblName")
         Me.lblName.BackColor = System.Drawing.Color.Transparent
         Me.lblName.ForeColor = System.Drawing.Color.Black
-        Me.lblName.Location = New System.Drawing.Point(18, 48)
         Me.lblName.Name = "lblName"
-        Me.lblName.Size = New System.Drawing.Size(64, 13)
-        Me.lblName.TabIndex = 99
-        Me.lblName.Text = "Perusahaan"
         '
         'txtCompanyName
         '
         Me.txtCompanyName.BackColor = System.Drawing.Color.LightYellow
         Me.txtCompanyName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCompanyName.Location = New System.Drawing.Point(101, 44)
-        Me.txtCompanyName.MaxLength = 250
+        resources.ApplyResources(Me.txtCompanyName, "txtCompanyName")
         Me.txtCompanyName.Name = "txtCompanyName"
         Me.txtCompanyName.ReadOnly = True
-        Me.txtCompanyName.Size = New System.Drawing.Size(413, 21)
-        Me.txtCompanyName.TabIndex = 2
         '
         'Label1
         '
-        Me.Label1.AutoSize = True
+        resources.ApplyResources(Me.Label1, "Label1")
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(18, 21)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(47, 13)
-        Me.Label1.TabIndex = 97
-        Me.Label1.Text = "Program"
         '
         'txtProgramName
         '
         Me.txtProgramName.BackColor = System.Drawing.Color.LightYellow
         Me.txtProgramName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtProgramName.Location = New System.Drawing.Point(101, 17)
-        Me.txtProgramName.MaxLength = 250
+        resources.ApplyResources(Me.txtProgramName, "txtProgramName")
         Me.txtProgramName.Name = "txtProgramName"
         Me.txtProgramName.ReadOnly = True
-        Me.txtProgramName.Size = New System.Drawing.Size(413, 21)
-        Me.txtProgramName.TabIndex = 0
         '
-        'frmMstBusinessPartnerSetupBalanceAP
+        'frmMstBusinessPartnerSetupBalanceAPDet
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        resources.ApplyResources(Me, "$this")
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(574, 198)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
-        Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmMstBusinessPartnerSetupBalanceAP"
-        Me.Text = "Item"
+        Me.Name = "frmMstBusinessPartnerSetupBalanceAPDet"
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.txtTotalDPP, System.ComponentModel.ISupportInitialize).EndInit()

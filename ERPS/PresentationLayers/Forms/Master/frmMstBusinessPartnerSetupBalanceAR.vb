@@ -63,7 +63,7 @@ Public Class frmMstBusinessPartnerSetupBalanceAR
             txtCode.Text = clsData.Code
             txtName.Text = clsData.Name
 
-            dtItem = BL.BusinessPartnerARBalance.ListData(clsData.ID)
+            dtItem = BL.BusinessPartnerARBalance.ListData(ERPSLib.UI.usUserApp.CompanyID, ERPSLib.UI.usUserApp.ProgramID, clsData.ID)
             grdItem.DataSource = dtItem
             prvSumGrid()
 
@@ -102,7 +102,8 @@ Public Class frmMstBusinessPartnerSetupBalanceAR
                                      .InvoiceDate = dr.Item("InvoiceDate"),
                                      .TotalDPP = dr.Item("TotalDPP"),
                                      .TotalPPN = dr.Item("TotalPPN"),
-                                     .TotalPPH = dr.Item("TotalPPH")
+                                     .TotalPaymentDP = dr.Item("TotalPaymentDP"),
+                                     .TotalPayment = dr.Item("TotalPayment")
                                 })
         Next
 
@@ -149,11 +150,6 @@ Public Class frmMstBusinessPartnerSetupBalanceAR
     Private Sub prvEdit()
         intPos = grdItemView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
-        If grdItemView.GetRowCellValue(intPos, "TotalPaymentDP") + grdItemView.GetRowCellValue(intPos, "TotalPayment") > 0 Then
-            UI.usForm.frmMessageBox("No. Invoice tidak dapat diedit karena sudah terjadi pembayaran")
-            Exit Sub
-        End If
-
         Dim frmDetail As New frmMstBusinessPartnerSetupBalanceARDet
         With frmDetail
             .pubIsNew = False
@@ -169,7 +165,7 @@ Public Class frmMstBusinessPartnerSetupBalanceAR
         intPos = grdItemView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         If grdItemView.GetRowCellValue(intPos, "TotalPaymentDP") + grdItemView.GetRowCellValue(intPos, "TotalPayment") > 0 Then
-            UI.usForm.frmMessageBox("No. Invoice tidak dapat dihapus karena sudah terjadi pembayaran")
+            UI.usForm.frmMessageBox("No. Invoice " & grdItemView.GetRowCellValue(intPos, "InvoiceNumber") & " tidak dapat dihapus karena sudah terjadi pembayaran")
             Exit Sub
         End If
 

@@ -195,7 +195,6 @@ Namespace BL
 
         Public Shared Sub Submit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                  ByVal strID As String, ByVal strRemarks As String)
-            Dim bolReturn As Boolean = False
             Dim intStatusID As Integer = DL.Journal.GetStatusID(sqlCon, sqlTrans, strID)
             If intStatusID = VO.Status.Values.Submit Then
                 Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan status data telah SUBMIT")
@@ -216,37 +215,35 @@ Namespace BL
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
-                Unsubmit(sqlCon, sqlTrans, strID, strRemarks)
+                Try
+                    Unsubmit(sqlCon, sqlTrans, strID, strRemarks)
+                    sqlTrans.Commit()
+                    bolReturn = True
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
             End Using
             Return bolReturn
         End Function
 
-        Public Shared Function Unsubmit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                        ByVal strID As String, ByVal strRemarks As String) As Boolean
-            Dim bolReturn As Boolean = False
+        Public Shared Sub Unsubmit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                        ByVal strID As String, ByVal strRemarks As String)
             BL.Server.ServerDefault()
-            Try
-                Dim intStatusID As Integer = DL.Journal.GetStatusID(sqlCon, sqlTrans, strID)
-                If intStatusID = VO.Status.Values.Draft Then
-                    Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah DRAFT")
-                ElseIf intStatusID = VO.Status.Values.Approved Then
-                    Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah APPROVED")
-                ElseIf DL.Journal.IsDeleted(sqlCon, sqlTrans, strID) Then
-                    Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
-                End If
+            Dim intStatusID As Integer = DL.Journal.GetStatusID(sqlCon, sqlTrans, strID)
+            If intStatusID = VO.Status.Values.Draft Then
+                Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah DRAFT")
+            ElseIf intStatusID = VO.Status.Values.Approved Then
+                Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah APPROVED")
+            ElseIf DL.Journal.IsDeleted(sqlCon, sqlTrans, strID) Then
+                Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
+            End If
 
-                DL.Journal.Unsubmit(sqlCon, sqlTrans, strID)
+            DL.Journal.Unsubmit(sqlCon, sqlTrans, strID)
 
-                '# Save Data Status
-                BL.Journal.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
-
-                sqlTrans.Commit()
-            Catch ex As Exception
-                sqlTrans.Rollback()
-                Throw ex
-            End Try
-            Return bolReturn
-        End Function
+            '# Save Data Status
+            BL.Journal.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
+        End Sub
 
         Public Shared Function Approve(ByVal strID As String, ByVal strRemarks As String) As Boolean
             Dim bolReturn As Boolean = False
@@ -256,6 +253,7 @@ Namespace BL
                 Try
                     Approve(sqlCon, sqlTrans, strID, strRemarks)
                     sqlTrans.Commit()
+                    bolReturn = True
                 Catch ex As Exception
                     sqlTrans.Rollback()
                     Throw ex
@@ -264,73 +262,64 @@ Namespace BL
             Return bolReturn
         End Function
 
-        Public Shared Function Approve(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                       ByVal strID As String, ByVal strRemarks As String) As Boolean
-            Dim bolReturn As Boolean = False
-            Try
-                Dim intStatusID As Integer = DL.Journal.GetStatusID(sqlCon, sqlTrans, strID)
-                If intStatusID = VO.Status.Values.Draft Then
-                    Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data masih DRAFT")
-                ElseIf intStatusID = VO.Status.Values.Approved Then
-                    Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data telah APPROVED")
-                ElseIf DL.Journal.IsDeleted(sqlCon, sqlTrans, strID) Then
-                    Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan data telah dihapus")
-                End If
+        Public Shared Sub Approve(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                       ByVal strID As String, ByVal strRemarks As String)
+            Dim intStatusID As Integer = DL.Journal.GetStatusID(sqlCon, sqlTrans, strID)
+            If intStatusID = VO.Status.Values.Draft Then
+                Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data masih DRAFT")
+            ElseIf intStatusID = VO.Status.Values.Approved Then
+                Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data telah APPROVED")
+            ElseIf DL.Journal.IsDeleted(sqlCon, sqlTrans, strID) Then
+                Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan data telah dihapus")
+            End If
 
-                DL.Journal.Approve(sqlCon, sqlTrans, strID)
+            DL.Journal.Approve(sqlCon, sqlTrans, strID)
 
-                '# Save Data Status
-                BL.Journal.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
+            '# Save Data Status
+            BL.Journal.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
-                '# Generate Buku Besar
-                Dim clsData As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, strID)
-                GenerateBukuBesar(sqlCon, sqlTrans, clsData)
-
-            Catch ex As Exception
-                Throw ex
-            End Try
-            Return bolReturn
-        End Function
+            '# Generate Buku Besar
+            Dim clsData As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, strID)
+            GenerateBukuBesar(sqlCon, sqlTrans, clsData)
+        End Sub
 
         Public Shared Function Unapprove(ByVal strID As String, ByVal strRemarks As String) As Boolean
             Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
-                Unapprove(sqlCon, sqlTrans, strID, strRemarks)
+                Try
+                    Unapprove(sqlCon, sqlTrans, strID, strRemarks)
+                    sqlTrans.Commit()
+                    bolReturn = True
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
             End Using
             Return bolReturn
         End Function
 
-        Public Shared Function Unapprove(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                         ByVal strID As String, ByVal strRemarks As String) As Boolean
-            Dim bolReturn As Boolean = False
+        Public Shared Sub Unapprove(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                         ByVal strID As String, ByVal strRemarks As String)
             BL.Server.ServerDefault()
-            Try
-                Dim intStatusID As Integer = DL.Journal.GetStatusID(sqlCon, sqlTrans, strID)
-                If intStatusID = VO.Status.Values.Draft Then
-                    Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data masih DRAFT")
-                ElseIf intStatusID = VO.Status.Values.Submit Then
-                    Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data telah SUBMIT")
-                ElseIf DL.Journal.IsDeleted(sqlCon, sqlTrans, strID) Then
-                    Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
-                End If
+            Dim intStatusID As Integer = DL.Journal.GetStatusID(sqlCon, sqlTrans, strID)
+            If intStatusID = VO.Status.Values.Draft Then
+                Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data masih DRAFT")
+            ElseIf intStatusID = VO.Status.Values.Submit Then
+                Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data telah SUBMIT")
+            ElseIf DL.Journal.IsDeleted(sqlCon, sqlTrans, strID) Then
+                Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
+            End If
 
-                DL.Journal.Unapprove(sqlCon, sqlTrans, strID)
+            DL.Journal.Unapprove(sqlCon, sqlTrans, strID)
 
-                '# Save Data Status
-                BL.Journal.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
+            '# Save Data Status
+            BL.Journal.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
-                '# Delete Buku Besar
-                DL.BukuBesar.DeleteDataByRefrencesID(sqlCon, sqlTrans, strID)
-
-                sqlTrans.Commit()
-            Catch ex As Exception
-                sqlTrans.Rollback()
-                Throw ex
-            End Try
-            Return bolReturn
-        End Function
+            '# Delete Buku Besar
+            DL.BukuBesar.DeleteDataByRefrencesID(sqlCon, sqlTrans, strID)
+        End Sub
 
         Public Shared Sub GenerateBukuBesar(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                             ByVal clsData As VO.Journal)

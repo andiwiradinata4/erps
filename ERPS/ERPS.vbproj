@@ -443,6 +443,42 @@
     <Compile Include="PresentationLayers\Forms\System\frmSysMain.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraCost.Designer.vb">
+      <DependentUpon>frmTraCost.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraCost.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraCostDet.Designer.vb">
+      <DependentUpon>frmTraCostDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraCostDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraCostDetItem.Designer.vb">
+      <DependentUpon>frmTraCostDetItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraCostDetItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountPayable.Designer.vb">
+      <DependentUpon>frmTraAccountPayable.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountPayable.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountPayableDet.Designer.vb">
+      <DependentUpon>frmTraAccountPayableDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountPayableDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetPaymentDate.Designer.vb">
+      <DependentUpon>frmTraAccountSetPaymentDate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetPaymentDate.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountReceivable.Designer.vb">
       <DependentUpon>frmTraAccountReceivable.vb</DependentUpon>
     </Compile>
@@ -453,6 +489,12 @@
       <DependentUpon>frmTraAccountReceivableDet.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountReceivableDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetTaxInvoiceNumber.Designer.vb">
+      <DependentUpon>frmTraAccountSetTaxInvoiceNumber.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetTaxInvoiceNumber.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournal.Designer.vb">
@@ -764,6 +806,9 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerSetupBalanceAP.resx">
       <DependentUpon>frmMstBusinessPartnerSetupBalanceAP.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerSetupBalanceAPDet.aa.resx">
+      <DependentUpon>frmMstBusinessPartnerSetupBalanceAPDet.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerSetupBalanceAPDet.resx">
       <DependentUpon>frmMstBusinessPartnerSetupBalanceAPDet.vb</DependentUpon>
     </EmbeddedResource>
@@ -899,11 +944,32 @@
     <EmbeddedResource Include="PresentationLayers\Forms\System\frmSysLogin.resx">
       <DependentUpon>frmSysLogin.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraCost.resx">
+      <DependentUpon>frmTraCost.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountPayable.resx">
+      <DependentUpon>frmTraAccountPayable.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountPayableDet.resx">
+      <DependentUpon>frmTraAccountPayableDet.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountReceivable.resx">
       <DependentUpon>frmTraAccountReceivable.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountReceivableDet.resx">
       <DependentUpon>frmTraAccountReceivableDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetPaymentDate.resx">
+      <DependentUpon>frmTraAccountSetPaymentDate.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetTaxInvoiceNumber.resx">
+      <DependentUpon>frmTraAccountSetTaxInvoiceNumber.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraCostDet.resx">
+      <DependentUpon>frmTraCostDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraCostDetItem.resx">
+      <DependentUpon>frmTraCostDetItem.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournal.resx">
       <DependentUpon>frmTraJournal.vb</DependentUpon>
