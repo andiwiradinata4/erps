@@ -7,13 +7,19 @@ Public Class frmTraAccountReceivableDet
     Private clsData As VO.AccountReceivable
     Private intBPID As Integer = 0
     Private intCoAIDOfIncomePayment As Integer = 0
-    Private strModules As String = "SB"
+    Private strModules As String = ""
     Private dtItem As New DataTable
     Private intPos As Integer = 0
     Private bolValid As Boolean = True
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
+
+    Public WriteOnly Property pubModules As String
+        Set(value As String)
+            strModules = value
+        End Set
+    End Property
 
     Public Sub pubShowDialog(ByVal frmGetParent As Form)
         frmParent = frmGetParent
@@ -99,6 +105,10 @@ Public Class frmTraAccountReceivableDet
 
                 dtpARDate.Enabled = False
             End If
+            If strModules.Trim = "SDM" Then chkManual.Checked = True Else chkManual.Checked = False
+            txtTotalAmount.Enabled = chkManual.Checked
+            txtTotalAmount.BackColor = Color.White
+            ToolBarDetail.Enabled = Not chkManual.Checked
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -132,7 +142,7 @@ Public Class frmTraAccountReceivableDet
             tcHeader.SelectedTab = tpMain
             cboStatus.Focus()
             Exit Sub
-        ElseIf grdItemView.RowCount = 0 Then
+        ElseIf grdItemView.RowCount = 0 And chkManual.Checked = False Then
             UI.usForm.frmMessageBox("Item kosong. Mohon untuk diinput item terlebih dahulu")
             tcHeader.SelectedTab = tpMain
             grdItemView.Focus()
@@ -219,7 +229,6 @@ Public Class frmTraAccountReceivableDet
         intCoAIDOfIncomePayment = 0
         txtCoACodeOfIncomePayment.Text = ""
         txtCoANameOfIncomePayment.Text = ""
-        strModules = "SB"
         txtReferencesID.Text = ""
         dtpARDate.Value = Now
         txtTotalAmount.Value = 0
@@ -282,13 +291,15 @@ Public Class frmTraAccountReceivableDet
             pgMain.Value = 30
             Application.DoEvents()
             Me.Cursor = Cursors.WaitCursor
-            If pubIsNew Then
-                dtItem = BL.BusinessPartnerARBalance.ListDataOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID)
-            Else
-                If clsData.IsDeleted Then
-                    dtItem = BL.AccountReceivable.ListDataDetailForSetupBalance(pubID)
+            If strModules = "SB" Then
+                If pubIsNew Then
+                    dtItem = BL.BusinessPartnerARBalance.ListDataOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID)
                 Else
-                    dtItem = BL.AccountReceivable.ListDataDetailForSetupBalanceWithOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID, pubID)
+                    If clsData.IsDeleted Then
+                        dtItem = BL.AccountReceivable.ListDataDetailForSetupBalance(pubID)
+                    Else
+                        dtItem = BL.AccountReceivable.ListDataDetailForSetupBalanceWithOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID, pubID)
+                    End If
                 End If
             End If
             grdItem.DataSource = dtItem

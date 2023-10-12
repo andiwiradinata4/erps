@@ -7,13 +7,19 @@ Public Class frmTraAccountPayableDet
     Private clsData As VO.AccountPayable
     Private intBPID As Integer = 0
     Private intCoAIDOfOutgoingPayment As Integer = 0
-    Private strModules As String = "SB"
+    Private strModules As String = ""
     Private dtItem As New DataTable
     Private intPos As Integer = 0
     Private bolValid As Boolean = True
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
+
+    Public WriteOnly Property pubModules As String
+        Set(value As String)
+            strModules = value
+        End Set
+    End Property
 
     Public Sub pubShowDialog(ByVal frmGetParent As Form)
         frmParent = frmGetParent
@@ -99,6 +105,10 @@ Public Class frmTraAccountPayableDet
 
                 dtpAPDate.Enabled = False
             End If
+            If strModules.Trim = "PDM" Then chkManual.Checked = True Else chkManual.Checked = False
+            txtTotalAmount.Enabled = chkManual.Checked
+            txtTotalAmount.BackColor = Color.White
+            ToolBarDetail.Enabled = Not chkManual.Checked
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -132,7 +142,7 @@ Public Class frmTraAccountPayableDet
             tcHeader.SelectedTab = tpMain
             cboStatus.Focus()
             Exit Sub
-        ElseIf grdItemView.RowCount = 0 Then
+        ElseIf grdItemView.RowCount = 0 And chkManual.Checked = False Then
             UI.usForm.frmMessageBox("Item kosong. Mohon untuk diinput item terlebih dahulu")
             tcHeader.SelectedTab = tpMain
             grdItemView.Focus()
@@ -219,7 +229,6 @@ Public Class frmTraAccountPayableDet
         intCoAIDOfOutgoingPayment = 0
         txtCoACodeOfOutgoingPayment.Text = ""
         txtCoANameOfOutgoingPayment.Text = ""
-        strModules = "SB"
         txtReferencesID.Text = ""
         dtpAPDate.Value = Now
         txtTotalAmount.Value = 0
@@ -282,13 +291,15 @@ Public Class frmTraAccountPayableDet
             pgMain.Value = 30
             Application.DoEvents()
             Me.Cursor = Cursors.WaitCursor
-            If pubIsNew Then
-                dtItem = BL.BusinessPartnerAPBalance.ListDataOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID)
-            Else
-                If clsData.IsDeleted Then
-                    dtItem = BL.AccountPayable.ListDataDetailForSetupBalance(pubID)
+            If strModules.Trim = "PB" Then
+                If pubIsNew Then
+                    dtItem = BL.BusinessPartnerAPBalance.ListDataOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID)
                 Else
-                    dtItem = BL.AccountPayable.ListDataDetailForSetupBalanceWithOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID, pubID)
+                    If clsData.IsDeleted Then
+                        dtItem = BL.AccountPayable.ListDataDetailForSetupBalance(pubID)
+                    Else
+                        dtItem = BL.AccountPayable.ListDataDetailForSetupBalanceWithOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID, pubID)
+                    End If
                 End If
             End If
             grdItem.DataSource = dtItem

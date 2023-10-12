@@ -5,10 +5,10 @@
 
         Public Shared Function ListData(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                         ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
-                                        ByVal intStatusID As Integer) As DataTable
+                                        ByVal intStatusID As Integer, ByVal strModules As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.AccountReceivable.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID)
+                Return DL.AccountReceivable.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID, strModules)
             End Using
         End Function
 

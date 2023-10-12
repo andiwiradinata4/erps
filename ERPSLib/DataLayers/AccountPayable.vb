@@ -5,7 +5,8 @@
 
         Public Shared Function ListData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal intCompanyID As Integer, ByVal intProgramID As Integer, _
-                                        ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime, ByVal intStatusID As Integer) As DataTable
+                                        ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+                                        ByVal intStatusID As Integer, ByVal strModules As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -35,6 +36,7 @@
                     "WHERE  " & vbNewLine & _
                     "   A.CompanyID=@CompanyID " & vbNewLine & _
                     "   AND A.ProgramID=@ProgramID " & vbNewLine & _
+                    "   AND A.Modules=@Modules " & vbNewLine & _
                     "   AND A.APDate>=@DateFrom AND A.APDate<=@DateTo " & vbNewLine
 
                 If intStatusID <> VO.Status.Values.All Then
@@ -48,6 +50,7 @@
                 .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
                 .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = intStatusID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = strModules
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function

@@ -5,6 +5,13 @@ Public Class frmTraAccountPayable
     Private clsData As New VO.AccountPayable
     Private intCompanyID As Integer
     Private dtData As New DataTable
+    Private strModules As String = ""
+
+    Public WriteOnly Property pubModules As String
+        Set(value As String)
+            strModules = value
+        End Set
+    End Property
 
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
@@ -105,7 +112,7 @@ Public Class frmTraAccountPayable
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
         Try
-            dtData = BL.AccountPayable.ListData(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue)
+            dtData = BL.AccountPayable.ListData(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue, strModules)
             grdMain.DataSource = dtData
             prvSumGrid()
             grdView.BestFitColumns()
@@ -166,6 +173,8 @@ Public Class frmTraAccountPayable
         With frmDetail
             .pubIsNew = True
             .pubCS = prvGetCS()
+            .pubModules = strModules
+            .Text = Me.Text
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
         End With
@@ -181,6 +190,8 @@ Public Class frmTraAccountPayable
             .pubIsNew = False
             .pubCS = prvGetCS()
             .pubID = clsData.ID
+            .pubModules = strModules
+            .Text = Me.Text
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
         End With
@@ -520,6 +531,11 @@ Public Class frmTraAccountPayable
         prvDefaultFilter()
         prvQuery()
         prvUserAccess()
+        If strModules = "PB" Then
+            Me.Text = "Pembayaran Saldo"
+        ElseIf strModules = "PDM" Then
+            Me.Text = "Panjar Pembelian [Manual]"
+        End If
         Me.WindowState = FormWindowState.Maximized
     End Sub
 

@@ -29,6 +29,8 @@ Partial Class frmTraAccountReceivableDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.txtTotalAmount = New ERPS.usNumeric()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtReferencesID = New ERPS.usTextBox()
         Me.txtCoACodeOfIncomePayment = New ERPS.usTextBox()
@@ -58,24 +60,24 @@ Partial Class frmTraAccountReceivableDet
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.txtTotalAmount = New ERPS.usNumeric()
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ToolStripEmpty = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogInc = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogBy = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.chkManual = New DevExpress.XtraEditors.CheckEdit()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
+        CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpHistory.SuspendLayout()
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip.SuspendLayout()
+        CType(Me.chkManual.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -130,6 +132,7 @@ Partial Class frmTraAccountReceivableDet
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.chkManual)
         Me.tpMain.Controls.Add(Me.txtTotalAmount)
         Me.tpMain.Controls.Add(Me.Label7)
         Me.tpMain.Controls.Add(Me.Label4)
@@ -157,6 +160,31 @@ Partial Class frmTraAccountReceivableDet
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'txtTotalAmount
+        '
+        Me.txtTotalAmount.BackColor = System.Drawing.Color.LightYellow
+        Me.txtTotalAmount.DecimalPlaces = 2
+        Me.txtTotalAmount.Enabled = False
+        Me.txtTotalAmount.Location = New System.Drawing.Point(130, 124)
+        Me.txtTotalAmount.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalAmount.Name = "txtTotalAmount"
+        Me.txtTotalAmount.Size = New System.Drawing.Size(249, 21)
+        Me.txtTotalAmount.TabIndex = 8
+        Me.txtTotalAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalAmount.ThousandsSeparator = True
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.BackColor = System.Drawing.Color.Transparent
+        Me.Label7.ForeColor = System.Drawing.Color.Black
+        Me.Label7.Location = New System.Drawing.Point(28, 128)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(62, 13)
+        Me.Label7.TabIndex = 140
+        Me.Label7.Text = "Total Bayar"
         '
         'Label4
         '
@@ -355,7 +383,7 @@ Partial Class frmTraAccountReceivableDet
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(851, 145)
+        Me.tpHistory.Size = New System.Drawing.Size(851, 167)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F2"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -380,7 +408,7 @@ Partial Class frmTraAccountReceivableDet
         Me.grdStatus.Location = New System.Drawing.Point(3, 3)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(841, 135)
+        Me.grdStatus.Size = New System.Drawing.Size(841, 157)
         Me.grdStatus.TabIndex = 13
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -482,31 +510,6 @@ Partial Class frmTraAccountReceivableDet
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
         '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.BackColor = System.Drawing.Color.Transparent
-        Me.Label7.ForeColor = System.Drawing.Color.Black
-        Me.Label7.Location = New System.Drawing.Point(28, 128)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(62, 13)
-        Me.Label7.TabIndex = 140
-        Me.Label7.Text = "Total Bayar"
-        '
-        'txtTotalAmount
-        '
-        Me.txtTotalAmount.BackColor = System.Drawing.Color.LightYellow
-        Me.txtTotalAmount.DecimalPlaces = 2
-        Me.txtTotalAmount.Enabled = False
-        Me.txtTotalAmount.Location = New System.Drawing.Point(130, 124)
-        Me.txtTotalAmount.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtTotalAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalAmount.Name = "txtTotalAmount"
-        Me.txtTotalAmount.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalAmount.TabIndex = 8
-        Me.txtTotalAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalAmount.ThousandsSeparator = True
-        '
         'StatusStrip
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -558,6 +561,15 @@ Partial Class frmTraAccountReceivableDet
         Me.ToolStripLogDate.Size = New System.Drawing.Size(12, 17)
         Me.ToolStripLogDate.Text = "-"
         '
+        'chkManual
+        '
+        Me.chkManual.Enabled = False
+        Me.chkManual.Location = New System.Drawing.Point(385, 125)
+        Me.chkManual.Name = "chkManual"
+        Me.chkManual.Properties.Caption = "Manual?"
+        Me.chkManual.Size = New System.Drawing.Size(75, 19)
+        Me.chkManual.TabIndex = 141
+        '
         'frmTraAccountReceivableDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -580,15 +592,16 @@ Partial Class frmTraAccountReceivableDet
         Me.tcHeader.ResumeLayout(False)
         Me.tpMain.ResumeLayout(False)
         Me.tpMain.PerformLayout()
+        CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpHistory.ResumeLayout(False)
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip.ResumeLayout(False)
         Me.StatusStrip.PerformLayout()
+        CType(Me.chkManual.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -636,4 +649,5 @@ Partial Class frmTraAccountReceivableDet
     Friend WithEvents ToolStripLogBy As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents ToolStripLogDate As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents chkManual As DevExpress.XtraEditors.CheckEdit
 End Class

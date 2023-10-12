@@ -66,6 +66,7 @@ Partial Class frmTraAccountPayableDet
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.chkManual = New DevExpress.XtraEditors.CheckEdit()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -76,6 +77,7 @@ Partial Class frmTraAccountPayableDet
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkManual.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -130,6 +132,7 @@ Partial Class frmTraAccountPayableDet
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.chkManual)
         Me.tpMain.Controls.Add(Me.txtTotalAmount)
         Me.tpMain.Controls.Add(Me.Label7)
         Me.tpMain.Controls.Add(Me.Label4)
@@ -558,6 +561,15 @@ Partial Class frmTraAccountPayableDet
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
         '
+        'chkManual
+        '
+        Me.chkManual.Enabled = False
+        Me.chkManual.Location = New System.Drawing.Point(387, 125)
+        Me.chkManual.Name = "chkManual"
+        Me.chkManual.Properties.Caption = "Manual?"
+        Me.chkManual.Size = New System.Drawing.Size(75, 19)
+        Me.chkManual.TabIndex = 142
+        '
         'frmTraAccountPayableDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -589,6 +601,7 @@ Partial Class frmTraAccountPayableDet
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkManual.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -636,4 +649,5 @@ Partial Class frmTraAccountPayableDet
     Friend WithEvents grdItem As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdItemView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents rpiValue As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents chkManual As DevExpress.XtraEditors.CheckEdit
 End Class

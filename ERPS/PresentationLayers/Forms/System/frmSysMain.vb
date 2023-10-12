@@ -353,20 +353,111 @@
 
 #Region "Pembukuan"
 
-    Private Sub mnuTransaksiPembukuanJurnalUmum_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanJurnalUmum.Click
-        UI.usForm.frmOpen(frmMainTraJournal, "frmTraJournal", Me)
-    End Sub
-
     Private Sub mnuTransaksiPembukuanPelunasanSaldoAwal_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPelunasanSaldoAwal.Click
-        UI.usForm.frmOpen(frmMainTraAccountReceivable, "frmTraAccountReceivable", Me)
+        'UI.usForm.frmOpen(frmMainTraAccountReceivable, "frmTraAccountReceivable", Me)
+        'frmMainTraAccountReceivable = New frmTraAccountReceivable
+        'frmMainTraAccountReceivable.pubModules = "SB"
+        'frmMainTraAccountReceivable.Show()
+        'frmMainTraAccountReceivable.MdiParent = Me
+
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraAccountReceivable"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraAccountReceivable) Then
+            If Not frmMainTraAccountReceivable.IsDisposed Then
+                frmMainTraAccountReceivable.WindowState = FormWindowState.Normal
+                frmMainTraAccountReceivable.BringToFront()
+                frmMainTraAccountReceivable.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraAccountReceivable = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraAccountReceivable.MdiParent = Me
+                frmMainTraAccountReceivable.pubModules = "SB"
+                frmMainTraAccountReceivable.Show()
+            End If
+        Else
+            frmMainTraAccountReceivable = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraAccountReceivable.MdiParent = Me
+            frmMainTraAccountReceivable.pubModules = "SB"
+            frmMainTraAccountReceivable.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
     End Sub
 
     Private Sub mnuTransaksiPembukuanPembayaranSaldoAwal_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPembayaranSaldoAwal.Click
-        UI.usForm.frmOpen(frmMainTraAccountPayable, "frmTraAccountPayable", Me)
+        'UI.usForm.frmOpen(frmMainTraAccountPayable, "frmTraAccountPayable", Me)
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraAccountPayable"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraAccountPayable) Then
+            If Not frmMainTraAccountPayable.IsDisposed Then
+                frmMainTraAccountPayable.WindowState = FormWindowState.Normal
+                frmMainTraAccountPayable.BringToFront()
+                frmMainTraAccountPayable.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraAccountPayable = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraAccountPayable.MdiParent = Me
+                frmMainTraAccountPayable.pubModules = "SB"
+                frmMainTraAccountPayable.Show()
+            End If
+        Else
+            frmMainTraAccountPayable = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraAccountPayable.MdiParent = Me
+            frmMainTraAccountPayable.pubModules = "SB"
+            frmMainTraAccountPayable.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
+    End Sub
+
+    Private Sub mnuTransaksiPembukuanPanjarPenjualanManual_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPanjarPenjualanManual.Click
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraAccountReceivable"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraAccountReceivable) Then
+            If Not frmMainTraAccountReceivable.IsDisposed Then
+                frmMainTraAccountReceivable.WindowState = FormWindowState.Normal
+                frmMainTraAccountReceivable.BringToFront()
+                frmMainTraAccountReceivable.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraAccountReceivable = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraAccountReceivable.MdiParent = Me
+                frmMainTraAccountReceivable.pubModules = "SDM"
+                frmMainTraAccountReceivable.Show()
+            End If
+        Else
+            frmMainTraAccountReceivable = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraAccountReceivable.MdiParent = Me
+            frmMainTraAccountReceivable.pubModules = "SDM"
+            frmMainTraAccountReceivable.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
+    End Sub
+
+    Private Sub mnuTransaksiPembukuanPanjarPembelianManual_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPanjarPembelianManual.Click
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraAccountPayable"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraAccountPayable) Then
+            If Not frmMainTraAccountPayable.IsDisposed Then
+                frmMainTraAccountPayable.WindowState = FormWindowState.Normal
+                frmMainTraAccountPayable.BringToFront()
+                frmMainTraAccountPayable.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraAccountPayable = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraAccountPayable.MdiParent = Me
+                frmMainTraAccountPayable.pubModules = "PDM"
+                frmMainTraAccountPayable.Show()
+            End If
+        Else
+            frmMainTraAccountPayable = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraAccountPayable.MdiParent = Me
+            frmMainTraAccountPayable.pubModules = "PDM"
+            frmMainTraAccountPayable.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
     End Sub
 
     Private Sub mnuTransaksiPembukuanPembayaranBiaya_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPembayaranBiaya.Click
         UI.usForm.frmOpen(frmMainTraCost, "frmTraCost", Me)
+    End Sub
+
+    Private Sub mnuTransaksiPembukuanJurnalUmum_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanJurnalUmum.Click
+        UI.usForm.frmOpen(frmMainTraJournal, "frmTraJournal", Me)
     End Sub
 
 #End Region

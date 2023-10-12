@@ -67,9 +67,9 @@ Partial Class frmSysMain
         Me.mnuTransaksiPembelianKonfirmasiPengiriman = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembelianProsesPemotonganSPK = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuan = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuTransaksiPembukuanPembayaranBiaya = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuanPelunasanSaldoAwal = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuanPembayaranSaldoAwal = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembukuanPembayaranBiaya = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuanJurnalUmum = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLaporan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLaporanPembukuan = New System.Windows.Forms.ToolStripMenuItem()
@@ -82,6 +82,10 @@ Partial Class frmSysMain
         Me.mnuWindowsCascade = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuWindowsCloseAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLogout = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembukuanPanjarPenjualanManual = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembukuanPanjarPembelianManual = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.ssMain.SuspendLayout()
         Me.mnuMain.SuspendLayout()
         Me.SuspendLayout()
@@ -396,33 +400,33 @@ Partial Class frmSysMain
         '
         'mnuTransaksiPembukuan
         '
-        Me.mnuTransaksiPembukuan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPembukuanPelunasanSaldoAwal, Me.mnuTransaksiPembukuanPembayaranSaldoAwal, Me.mnuTransaksiPembukuanPembayaranBiaya, Me.mnuTransaksiPembukuanJurnalUmum})
+        Me.mnuTransaksiPembukuan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPembukuanPelunasanSaldoAwal, Me.mnuTransaksiPembukuanPembayaranSaldoAwal, Me.ToolStripSeparator1, Me.mnuTransaksiPembukuanPanjarPenjualanManual, Me.mnuTransaksiPembukuanPanjarPembelianManual, Me.ToolStripSeparator2, Me.mnuTransaksiPembukuanPembayaranBiaya, Me.mnuTransaksiPembukuanJurnalUmum})
         Me.mnuTransaksiPembukuan.Name = "mnuTransaksiPembukuan"
         Me.mnuTransaksiPembukuan.Size = New System.Drawing.Size(152, 22)
         Me.mnuTransaksiPembukuan.Text = "Pembukuan"
         '
-        'mnuTransaksiPembukuanPembayaranBiaya
-        '
-        Me.mnuTransaksiPembukuanPembayaranBiaya.Name = "mnuTransaksiPembukuanPembayaranBiaya"
-        Me.mnuTransaksiPembukuanPembayaranBiaya.Size = New System.Drawing.Size(201, 22)
-        Me.mnuTransaksiPembukuanPembayaranBiaya.Text = "Pembayaran Biaya"
-        '
         'mnuTransaksiPembukuanPelunasanSaldoAwal
         '
         Me.mnuTransaksiPembukuanPelunasanSaldoAwal.Name = "mnuTransaksiPembukuanPelunasanSaldoAwal"
-        Me.mnuTransaksiPembukuanPelunasanSaldoAwal.Size = New System.Drawing.Size(201, 22)
+        Me.mnuTransaksiPembukuanPelunasanSaldoAwal.Size = New System.Drawing.Size(209, 22)
         Me.mnuTransaksiPembukuanPelunasanSaldoAwal.Text = "Pelunasan Saldo Awal"
         '
         'mnuTransaksiPembukuanPembayaranSaldoAwal
         '
         Me.mnuTransaksiPembukuanPembayaranSaldoAwal.Name = "mnuTransaksiPembukuanPembayaranSaldoAwal"
-        Me.mnuTransaksiPembukuanPembayaranSaldoAwal.Size = New System.Drawing.Size(201, 22)
+        Me.mnuTransaksiPembukuanPembayaranSaldoAwal.Size = New System.Drawing.Size(209, 22)
         Me.mnuTransaksiPembukuanPembayaranSaldoAwal.Text = "Pembayaran Saldo Awal"
+        '
+        'mnuTransaksiPembukuanPembayaranBiaya
+        '
+        Me.mnuTransaksiPembukuanPembayaranBiaya.Name = "mnuTransaksiPembukuanPembayaranBiaya"
+        Me.mnuTransaksiPembukuanPembayaranBiaya.Size = New System.Drawing.Size(209, 22)
+        Me.mnuTransaksiPembukuanPembayaranBiaya.Text = "Pembayaran Biaya"
         '
         'mnuTransaksiPembukuanJurnalUmum
         '
         Me.mnuTransaksiPembukuanJurnalUmum.Name = "mnuTransaksiPembukuanJurnalUmum"
-        Me.mnuTransaksiPembukuanJurnalUmum.Size = New System.Drawing.Size(201, 22)
+        Me.mnuTransaksiPembukuanJurnalUmum.Size = New System.Drawing.Size(209, 22)
         Me.mnuTransaksiPembukuanJurnalUmum.Text = "Jurnal Umum"
         '
         'mnuLaporan
@@ -494,6 +498,28 @@ Partial Class frmSysMain
         Me.mnuLogout.Name = "mnuLogout"
         Me.mnuLogout.Size = New System.Drawing.Size(57, 20)
         Me.mnuLogout.Text = "L&ogout"
+        '
+        'mnuTransaksiPembukuanPanjarPenjualanManual
+        '
+        Me.mnuTransaksiPembukuanPanjarPenjualanManual.Name = "mnuTransaksiPembukuanPanjarPenjualanManual"
+        Me.mnuTransaksiPembukuanPanjarPenjualanManual.Size = New System.Drawing.Size(209, 22)
+        Me.mnuTransaksiPembukuanPanjarPenjualanManual.Text = "Panjar Penjualan Manual"
+        '
+        'mnuTransaksiPembukuanPanjarPembelianManual
+        '
+        Me.mnuTransaksiPembukuanPanjarPembelianManual.Name = "mnuTransaksiPembukuanPanjarPembelianManual"
+        Me.mnuTransaksiPembukuanPanjarPembelianManual.Size = New System.Drawing.Size(209, 22)
+        Me.mnuTransaksiPembukuanPanjarPembelianManual.Text = "Panjar Pembelian Manual"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(206, 6)
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(206, 6)
         '
         'frmSysMain
         '
@@ -577,4 +603,8 @@ Partial Class frmSysMain
     Friend WithEvents mnuTransaksiPembukuanPelunasanSaldoAwal As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuTransaksiPembukuanPembayaranSaldoAwal As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuTransaksiPembukuanPembayaranBiaya As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents mnuTransaksiPembukuanPanjarPenjualanManual As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPembukuanPanjarPembelianManual As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
 End Class
