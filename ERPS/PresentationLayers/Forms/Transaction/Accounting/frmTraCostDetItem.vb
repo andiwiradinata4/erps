@@ -61,7 +61,7 @@
             intCoAID = drSelected.Item("CoAID")
             txtCoACode.Text = drSelected.Item("CoACode")
             txtCoAName.Text = drSelected.Item("CoAName")
-            txtAmount.Value = IIf(drSelected.Item("DebitAmount") > 0, drSelected.Item("DebitAmount"), drSelected.Item("CreditAmount"))
+            txtAmount.Value = drSelected.Item("Amount")
             txtRemarks.Text = drSelected.Item("Remarks")
         End If
     End Sub
@@ -86,6 +86,7 @@
             dr.Item("CoAID") = intCoAID
             dr.Item("CoACode") = txtCoACode.Text.Trim
             dr.Item("CoAName") = txtCoAName.Text.Trim
+            dr.Item("Amount") = txtAmount.Value
             dr.Item("Remarks") = txtRemarks.Text.Trim
             dr.EndEdit()
             dtParent.Rows.Add(dr)
@@ -100,6 +101,7 @@
                     dr.Item("CoAID") = intCoAID
                     dr.Item("CoACode") = txtCoACode.Text.Trim
                     dr.Item("CoAName") = txtCoAName.Text.Trim
+                    dr.Item("Amount") = txtAmount.Value
                     dr.Item("Remarks") = txtRemarks.Text.Trim
                     dr.EndEdit()
                     frmParent.grdItemView.BestFitColumns()
@@ -116,6 +118,7 @@
             .pubIsLookUp = True
             .pubCompanyID = pubCS.CompanyID
             .pubProgramID = pubCS.ProgramID
+            .pubFilterGroup = VO.ChartOfAccount.FilterGroup.Expense
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
             If .pubIsLookUpGet Then

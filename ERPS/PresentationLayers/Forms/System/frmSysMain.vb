@@ -37,7 +37,7 @@
     Dim frmMainTraJournal As frmTraJournal
     Dim frmMainTraAccountReceivable As frmTraAccountReceivable
     Dim frmMainTraAccountPayable As frmTraAccountPayable
-    Dim frmMainTraAccountCost As frmTraCost
+    Dim frmMainTraCost As frmTraCost
 
 
     '# Laporan
@@ -366,7 +366,7 @@
     End Sub
 
     Private Sub mnuTransaksiPembukuanPembayaranBiaya_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPembayaranBiaya.Click
-        UI.usForm.frmOpen(frmMainTraAccountCost, "frmTraAccountCost", Me)
+        UI.usForm.frmOpen(frmMainTraCost, "frmTraCost", Me)
     End Sub
 
 #End Region

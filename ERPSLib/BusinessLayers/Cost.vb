@@ -51,7 +51,7 @@
                     '# Save Data Detail
                     Dim intCount As Integer = 1
                     For Each clsDet As VO.CostDet In clsData.Detail
-                        clsDet.ID = clsData.ID & "-" & 1 & "-" & Format(intCount, "000")
+                        clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
                         clsDet.CostID = clsData.ID
                         DL.Cost.SaveDataDetail(sqlCon, sqlTrans, clsDet)
                         intCount += 1

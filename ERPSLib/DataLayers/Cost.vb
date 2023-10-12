@@ -42,8 +42,8 @@
 
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
-                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
-                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
+                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom.Date
+                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo.AddHours(23).AddMinutes(59).AddSeconds(59)
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = intStatusID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
@@ -551,7 +551,7 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "SELECT " & vbNewLine & _
-                    "   A.ID, A.COAID, B.Code AS COACode, B.Name AS COAName, A.Amount, A.Remarks " & vbNewLine & _
+                    "   A.ID, A.CostID, A.COAID, B.Code AS COACode, B.Name AS COAName, A.Amount, A.Remarks " & vbNewLine & _
                     "FROM traCostDet A " & vbNewLine & _
                     "INNER JOIN mstChartOfAccount B ON " & vbNewLine & _
                     "   A.COAID=B.ID " & vbNewLine & _

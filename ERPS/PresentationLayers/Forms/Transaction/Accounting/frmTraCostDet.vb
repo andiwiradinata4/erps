@@ -41,10 +41,11 @@ Public Class frmTraCostDet
     End Sub
 
     Private Sub prvSetGrid()
+        UI.usForm.SetGrid(grdItemView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "CostID", "CostID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemView, "CoAID", "CoAID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdItemView, "CoACode", "Kode Akun", 200, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemView, "CoAName", "Nama Akun", 200, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "COAID", "CoAID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "COACode", "Kode Akun", 200, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "COAName", "Nama Akun", 200, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "Amount", "Harga", 180, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 200, UI.usDefGrid.gString)
 
@@ -88,6 +89,8 @@ Public Class frmTraCostDet
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
+
+                dtpCostDate.Enabled = False
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -153,6 +156,7 @@ Public Class frmTraCostDet
         clsData.CostNumber = txtCostNumber.Text.Trim
         clsData.CoAID = intCoAID
         clsData.ReferencesID = txtReferencesID.Text.Trim
+        clsData.ReferencesNote = ""
         clsData.TotalAmount = txtTotalAmount.Value
         clsData.CostDate = dtpCostDate.Value
         clsData.StatusID = cboStatus.SelectedValue
@@ -201,6 +205,24 @@ Public Class frmTraCostDet
         ToolStripLogInc.Text = "Jumlah Edit : -"
         ToolStripLogBy.Text = "Dibuat Oleh : -"
         ToolStripLogDate.Text = Format(Now, UI.usDefCons.DateFull)
+    End Sub
+
+    Private Sub prvChooseCOA()
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .pubCompanyID = pubCS.CompanyID
+            .pubProgramID = pubCS.ProgramID
+            .pubFilterGroup = VO.ChartOfAccount.FilterGroup.CashOrBank
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAID = .pubLUdtRow.Item("ID")
+                txtCoACode.Text = .pubLUdtRow.Item("Code")
+                txtCoAName.Text = .pubLUdtRow.Item("Name")
+                txtReferencesID.Focus()
+            End If
+        End With
     End Sub
 
     Private Sub prvUserAccess()
@@ -256,6 +278,7 @@ Public Class frmTraCostDet
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButton()
+            prvCalculate()
         End With
     End Sub
 
@@ -271,6 +294,7 @@ Public Class frmTraCostDet
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButton()
+            prvCalculate()
         End With
     End Sub
 
@@ -351,6 +375,10 @@ Public Class frmTraCostDet
             Case "Edit" : prvEdit()
             Case "Hapus" : prvDelete()
         End Select
+    End Sub
+
+    Private Sub btnCoA_Click(sender As Object, e As EventArgs) Handles btnCoA.Click
+        prvChooseCOA()
     End Sub
 
 #End Region
