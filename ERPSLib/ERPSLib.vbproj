@@ -98,12 +98,9 @@
     <Compile Include="BusinessLayers\ItemSpecification.vb" />
     <Compile Include="BusinessLayers\ItemType.vb" />
     <Compile Include="BusinessLayers\Journal.vb" />
-    <Compile Include="BusinessLayers\OrderRequest.vb" />
     <Compile Include="BusinessLayers\PurchaseContract.vb" />
     <Compile Include="BusinessLayers\PurchaseOrder.vb" />
-    <Compile Include="BusinessLayers\PurchaseOrderCutting.vb" />
     <Compile Include="BusinessLayers\Reports.vb" />
-    <Compile Include="BusinessLayers\SalesContract.vb" />
     <Compile Include="DataLayers\AccountPayable.vb" />
     <Compile Include="DataLayers\AccountReceivable.vb" />
     <Compile Include="DataLayers\Base\Access.vb" />
@@ -140,12 +137,10 @@
     <Compile Include="DataLayers\ItemSpecification.vb" />
     <Compile Include="DataLayers\ItemType.vb" />
     <Compile Include="DataLayers\Journal.vb" />
-    <Compile Include="DataLayers\OrderRequest.vb" />
     <Compile Include="DataLayers\PurchaseContract.vb" />
     <Compile Include="DataLayers\PurchaseOrder.vb" />
     <Compile Include="DataLayers\PurchaseOrderCutting.vb" />
     <Compile Include="DataLayers\Reports.vb" />
-    <Compile Include="DataLayers\SalesContract.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

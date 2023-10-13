@@ -33,9 +33,9 @@ Partial Class frmTraPurchaseContract
         Me.BarApprove = New System.Windows.Forms.ToolBarButton()
         Me.BarCancelApprove = New System.Windows.Forms.ToolBarButton()
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarPrint = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
-        Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
@@ -124,6 +124,11 @@ Partial Class frmTraPurchaseContract
         Me.BarSep2.Name = "BarSep2"
         Me.BarSep2.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
+        'BarSep3
+        '
+        Me.BarSep3.Name = "BarSep3"
+        Me.BarSep3.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
         'BarPrint
         '
         Me.BarPrint.Name = "BarPrint"
@@ -135,11 +140,6 @@ Partial Class frmTraPurchaseContract
         Me.BarExportExcel.Name = "BarExportExcel"
         Me.BarExportExcel.Tag = "Excel"
         Me.BarExportExcel.Text = "Export Excel"
-        '
-        'BarSep3
-        '
-        Me.BarSep3.Name = "BarSep3"
-        Me.BarSep3.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
         'BarRefresh
         '

@@ -130,8 +130,8 @@ Partial Class frmTraConfirmationOrderDet
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(884, 28)
-        Me.ToolBar.TabIndex = 2
+        Me.ToolBar.Size = New System.Drawing.Size(890, 28)
+        Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
         'BarRefresh
@@ -154,8 +154,8 @@ Partial Class frmTraConfirmationOrderDet
         Me.lblInfo.ForeColor = System.Drawing.Color.White
         Me.lblInfo.Location = New System.Drawing.Point(0, 28)
         Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(884, 22)
-        Me.lblInfo.TabIndex = 3
+        Me.lblInfo.Size = New System.Drawing.Size(890, 22)
+        Me.lblInfo.TabIndex = 1
         Me.lblInfo.Text = "« Pesanan Pembelian Detail"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -165,10 +165,10 @@ Partial Class frmTraConfirmationOrderDet
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(0, 259)
+        Me.Label1.Location = New System.Drawing.Point(0, 252)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(884, 22)
-        Me.Label1.TabIndex = 9
+        Me.Label1.Size = New System.Drawing.Size(890, 22)
+        Me.Label1.TabIndex = 3
         Me.Label1.Text = "« Item"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -177,7 +177,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.pgMain.Location = New System.Drawing.Point(0, 638)
         Me.pgMain.Name = "pgMain"
-        Me.pgMain.Size = New System.Drawing.Size(884, 23)
+        Me.pgMain.Size = New System.Drawing.Size(890, 23)
         Me.pgMain.TabIndex = 10
         '
         'tcDetail
@@ -185,11 +185,11 @@ Partial Class frmTraConfirmationOrderDet
         Me.tcDetail.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tcDetail.Controls.Add(Me.tpItem)
         Me.tcDetail.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tcDetail.Location = New System.Drawing.Point(0, 281)
+        Me.tcDetail.Location = New System.Drawing.Point(0, 274)
         Me.tcDetail.Name = "tcDetail"
         Me.tcDetail.SelectedIndex = 0
-        Me.tcDetail.Size = New System.Drawing.Size(884, 357)
-        Me.tcDetail.TabIndex = 11
+        Me.tcDetail.Size = New System.Drawing.Size(890, 364)
+        Me.tcDetail.TabIndex = 4
         '
         'tpItem
         '
@@ -199,7 +199,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.tpItem.Location = New System.Drawing.Point(4, 25)
         Me.tpItem.Name = "tpItem"
         Me.tpItem.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpItem.Size = New System.Drawing.Size(876, 328)
+        Me.tpItem.Size = New System.Drawing.Size(882, 335)
         Me.tpItem.TabIndex = 1
         Me.tpItem.Text = "Item - F5"
         Me.tpItem.UseVisualStyleBackColor = True
@@ -225,8 +225,8 @@ Partial Class frmTraConfirmationOrderDet
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItem.Size = New System.Drawing.Size(870, 272)
-        Me.grdItem.TabIndex = 9
+        Me.grdItem.Size = New System.Drawing.Size(876, 279)
+        Me.grdItem.TabIndex = 1
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
         '
@@ -252,16 +252,16 @@ Partial Class frmTraConfirmationOrderDet
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(3, 303)
+        Me.StatusStrip.Location = New System.Drawing.Point(3, 310)
         Me.StatusStrip.Name = "StatusStrip"
-        Me.StatusStrip.Size = New System.Drawing.Size(870, 22)
+        Me.StatusStrip.Size = New System.Drawing.Size(876, 22)
         Me.StatusStrip.TabIndex = 10
         Me.StatusStrip.Text = "StatusStrip1"
         '
         'ToolStripEmpty
         '
         Me.ToolStripEmpty.Name = "ToolStripEmpty"
-        Me.ToolStripEmpty.Size = New System.Drawing.Size(747, 17)
+        Me.ToolStripEmpty.Size = New System.Drawing.Size(753, 17)
         Me.ToolStripEmpty.Spring = True
         '
         'ToolStripLogInc
@@ -307,8 +307,8 @@ Partial Class frmTraConfirmationOrderDet
         Me.ToolBarItem.Location = New System.Drawing.Point(3, 3)
         Me.ToolBarItem.Name = "ToolBarItem"
         Me.ToolBarItem.ShowToolTips = True
-        Me.ToolBarItem.Size = New System.Drawing.Size(870, 28)
-        Me.ToolBarItem.TabIndex = 8
+        Me.ToolBarItem.Size = New System.Drawing.Size(876, 28)
+        Me.ToolBarItem.TabIndex = 0
         Me.ToolBarItem.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
         'BarAddItemOrder
@@ -348,8 +348,8 @@ Partial Class frmTraConfirmationOrderDet
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(884, 209)
-        Me.tcHeader.TabIndex = 12
+        Me.tcHeader.Size = New System.Drawing.Size(890, 202)
+        Me.tcHeader.TabIndex = 2
         '
         'tpMain
         '
@@ -376,7 +376,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(876, 180)
+        Me.tpMain.Size = New System.Drawing.Size(882, 173)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
@@ -386,7 +386,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.ForeColor = System.Drawing.Color.Black
-        Me.Label9.Location = New System.Drawing.Point(240, 128)
+        Me.Label9.Location = New System.Drawing.Point(274, 101)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(18, 13)
         Me.Label9.TabIndex = 139
@@ -395,12 +395,12 @@ Partial Class frmTraConfirmationOrderDet
         'txtAllowanceProduction
         '
         Me.txtAllowanceProduction.DecimalPlaces = 2
-        Me.txtAllowanceProduction.Location = New System.Drawing.Point(160, 124)
+        Me.txtAllowanceProduction.Location = New System.Drawing.Point(160, 97)
         Me.txtAllowanceProduction.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtAllowanceProduction.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtAllowanceProduction.Name = "txtAllowanceProduction"
-        Me.txtAllowanceProduction.Size = New System.Drawing.Size(77, 21)
-        Me.txtAllowanceProduction.TabIndex = 7
+        Me.txtAllowanceProduction.Size = New System.Drawing.Size(109, 21)
+        Me.txtAllowanceProduction.TabIndex = 5
         Me.txtAllowanceProduction.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtAllowanceProduction.ThousandsSeparator = True
         '
@@ -409,7 +409,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.Label21.AutoSize = True
         Me.Label21.BackColor = System.Drawing.Color.Transparent
         Me.Label21.ForeColor = System.Drawing.Color.Black
-        Me.Label21.Location = New System.Drawing.Point(278, 101)
+        Me.Label21.Location = New System.Drawing.Point(278, 128)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(11, 13)
         Me.Label21.TabIndex = 137
@@ -420,11 +420,11 @@ Partial Class frmTraConfirmationOrderDet
         Me.dtpDeliveryPeriodTo.CustomFormat = "MMMM yyyy"
         Me.dtpDeliveryPeriodTo.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpDeliveryPeriodTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpDeliveryPeriodTo.Location = New System.Drawing.Point(300, 97)
+        Me.dtpDeliveryPeriodTo.Location = New System.Drawing.Point(300, 124)
         Me.dtpDeliveryPeriodTo.Name = "dtpDeliveryPeriodTo"
         Me.dtpDeliveryPeriodTo.ShowUpDown = True
         Me.dtpDeliveryPeriodTo.Size = New System.Drawing.Size(109, 21)
-        Me.dtpDeliveryPeriodTo.TabIndex = 6
+        Me.dtpDeliveryPeriodTo.TabIndex = 7
         Me.dtpDeliveryPeriodTo.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
         'dtpDeliveryPeriodFrom
@@ -432,11 +432,11 @@ Partial Class frmTraConfirmationOrderDet
         Me.dtpDeliveryPeriodFrom.CustomFormat = "MMMM yyyy"
         Me.dtpDeliveryPeriodFrom.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpDeliveryPeriodFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpDeliveryPeriodFrom.Location = New System.Drawing.Point(160, 97)
+        Me.dtpDeliveryPeriodFrom.Location = New System.Drawing.Point(160, 124)
         Me.dtpDeliveryPeriodFrom.Name = "dtpDeliveryPeriodFrom"
         Me.dtpDeliveryPeriodFrom.ShowUpDown = True
         Me.dtpDeliveryPeriodFrom.Size = New System.Drawing.Size(109, 21)
-        Me.dtpDeliveryPeriodFrom.TabIndex = 5
+        Me.dtpDeliveryPeriodFrom.TabIndex = 6
         Me.dtpDeliveryPeriodFrom.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
         'Label20
@@ -444,7 +444,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.Label20.AutoSize = True
         Me.Label20.BackColor = System.Drawing.Color.Transparent
         Me.Label20.ForeColor = System.Drawing.Color.Black
-        Me.Label20.Location = New System.Drawing.Point(28, 101)
+        Me.Label20.Location = New System.Drawing.Point(28, 128)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(98, 13)
         Me.Label20.TabIndex = 135
@@ -455,7 +455,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.Label19.AutoSize = True
         Me.Label19.BackColor = System.Drawing.Color.Transparent
         Me.Label19.ForeColor = System.Drawing.Color.Black
-        Me.Label19.Location = New System.Drawing.Point(28, 128)
+        Me.Label19.Location = New System.Drawing.Point(28, 101)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(109, 13)
         Me.Label19.TabIndex = 132
@@ -466,7 +466,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(487, 47)
+        Me.Label13.Location = New System.Drawing.Point(506, 47)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 129
@@ -476,7 +476,7 @@ Partial Class frmTraConfirmationOrderDet
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(600, 43)
+        Me.txtRemarks.Location = New System.Drawing.Point(586, 43)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
@@ -488,7 +488,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(600, 16)
+        Me.cboStatus.Location = New System.Drawing.Point(586, 16)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(109, 21)
         Me.cboStatus.TabIndex = 8
@@ -498,7 +498,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(487, 20)
+        Me.Label5.Location = New System.Drawing.Point(506, 20)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(38, 13)
         Me.Label5.TabIndex = 128
@@ -511,7 +511,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.dtpCODate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpCODate.Location = New System.Drawing.Point(160, 70)
         Me.dtpCODate.Name = "dtpCODate"
-        Me.dtpCODate.Size = New System.Drawing.Size(105, 21)
+        Me.dtpCODate.Size = New System.Drawing.Size(109, 21)
         Me.dtpCODate.TabIndex = 4
         Me.dtpCODate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
@@ -601,7 +601,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.tpAmount.Controls.Add(Me.txtPPN)
         Me.tpAmount.Location = New System.Drawing.Point(4, 25)
         Me.tpAmount.Name = "tpAmount"
-        Me.tpAmount.Size = New System.Drawing.Size(876, 180)
+        Me.tpAmount.Size = New System.Drawing.Size(924, 173)
         Me.tpAmount.TabIndex = 2
         Me.tpAmount.Text = "Harga - F2"
         Me.tpAmount.UseVisualStyleBackColor = True
@@ -798,7 +798,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.tpPaymentTerm.Controls.Add(Me.ToolBarPaymentTerm)
         Me.tpPaymentTerm.Location = New System.Drawing.Point(4, 25)
         Me.tpPaymentTerm.Name = "tpPaymentTerm"
-        Me.tpPaymentTerm.Size = New System.Drawing.Size(876, 180)
+        Me.tpPaymentTerm.Size = New System.Drawing.Size(924, 151)
         Me.tpPaymentTerm.TabIndex = 3
         Me.tpPaymentTerm.Text = "Syarat Pembayaran - F3"
         Me.tpPaymentTerm.UseVisualStyleBackColor = True
@@ -824,7 +824,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.grdPaymentTerm.MainView = Me.grdPaymentTermView
         Me.grdPaymentTerm.Name = "grdPaymentTerm"
         Me.grdPaymentTerm.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit2})
-        Me.grdPaymentTerm.Size = New System.Drawing.Size(872, 148)
+        Me.grdPaymentTerm.Size = New System.Drawing.Size(920, 119)
         Me.grdPaymentTerm.TabIndex = 2
         Me.grdPaymentTerm.UseEmbeddedNavigator = True
         Me.grdPaymentTerm.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdPaymentTermView})
@@ -855,7 +855,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.ToolBarPaymentTerm.Location = New System.Drawing.Point(0, 0)
         Me.ToolBarPaymentTerm.Name = "ToolBarPaymentTerm"
         Me.ToolBarPaymentTerm.ShowToolTips = True
-        Me.ToolBarPaymentTerm.Size = New System.Drawing.Size(872, 28)
+        Me.ToolBarPaymentTerm.Size = New System.Drawing.Size(920, 28)
         Me.ToolBarPaymentTerm.TabIndex = 1
         Me.ToolBarPaymentTerm.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -884,7 +884,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(876, 180)
+        Me.tpHistory.Size = New System.Drawing.Size(924, 151)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F4"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -909,7 +909,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.grdStatus.Location = New System.Drawing.Point(3, 3)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(866, 170)
+        Me.grdStatus.Size = New System.Drawing.Size(914, 141)
         Me.grdStatus.TabIndex = 13
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -927,7 +927,7 @@ Partial Class frmTraConfirmationOrderDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(884, 661)
+        Me.ClientSize = New System.Drawing.Size(890, 661)
         Me.Controls.Add(Me.tcDetail)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.tcHeader)

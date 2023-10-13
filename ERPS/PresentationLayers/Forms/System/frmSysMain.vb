@@ -24,12 +24,12 @@
 
     '# Transaction
     '## Sales
-    Dim frmMainTraOrderRequest As frmTraOrderRequest
+    'Dim frmMainTraOrderRequest As frmTraOrderRequest
 
 
     '## Purchase
     Dim frmMainTraPurchaseOrder As frmTraPurchaseOrder
-    Dim frmMainTraPurchaseOrderCutting As frmTraPurchaseOrderCutting
+    'Dim frmMainTraPurchaseOrderCutting As frmTraPurchaseOrderCutting
     Dim frmMainTraConfirmationOrder As frmTraConfirmationOrder
     Dim frmMainTraPurchaseContract As frmTraPurchaseContract
 
@@ -308,7 +308,7 @@
 #Region "Transaksi"
 
     Private Sub mnuTransaksiPenjualanPermintaan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPermintaan.Click
-        UI.usForm.frmOpen(frmMainTraOrderRequest, "frmTraOrderRequest", Me)
+        'UI.usForm.frmOpen(frmMainTraOrderRequest, "frmTraOrderRequest", Me)
     End Sub
 
     Private Sub mnuTransaksiPembelianPesananPembelian_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianPesananPembelian.Click
@@ -316,7 +316,7 @@
     End Sub
 
     Private Sub mnuTransaksiPembelianPesananPemotongan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianPesananPemotongan.Click
-        UI.usForm.frmOpen(frmMainTraPurchaseOrderCutting, "frmTraPurchaseOrderCutting", Me)
+        'UI.usForm.frmOpen(frmMainTraPurchaseOrderCutting, "frmTraPurchaseOrderCutting", Me)
     End Sub
 
     Private Sub mnuTransaksiPembelianKonfirmasiPesanan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianKonfirmasiPesanan.Click
@@ -394,13 +394,13 @@
             Else
                 frmMainTraAccountPayable = Activator.CreateInstance(Type.GetType(s_fT))
                 frmMainTraAccountPayable.MdiParent = Me
-                frmMainTraAccountPayable.pubModules = "SB"
+                frmMainTraAccountPayable.pubModules = "PB"
                 frmMainTraAccountPayable.Show()
             End If
         Else
             frmMainTraAccountPayable = Activator.CreateInstance(Type.GetType(s_fT))
             frmMainTraAccountPayable.MdiParent = Me
-            frmMainTraAccountPayable.pubModules = "SB"
+            frmMainTraAccountPayable.pubModules = "PB"
             frmMainTraAccountPayable.Show()
         End If
         Me.Cursor = Cursors.Arrow
@@ -447,6 +447,33 @@
             frmMainTraAccountPayable = Activator.CreateInstance(Type.GetType(s_fT))
             frmMainTraAccountPayable.MdiParent = Me
             frmMainTraAccountPayable.pubModules = "PDM"
+            frmMainTraAccountPayable.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
+    End Sub
+
+    Private Sub mnuTransaksiPembukuanPanjarPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPanjarPenjualan.Click
+
+    End Sub
+
+    Private Sub mnuTransaksiPembukuanPanjarPembelian_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPanjarPembelian.Click
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraAccountPayable"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraAccountPayable) Then
+            If Not frmMainTraAccountPayable.IsDisposed Then
+                frmMainTraAccountPayable.WindowState = FormWindowState.Normal
+                frmMainTraAccountPayable.BringToFront()
+                frmMainTraAccountPayable.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraAccountPayable = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraAccountPayable.MdiParent = Me
+                frmMainTraAccountPayable.pubModules = "PDP"
+                frmMainTraAccountPayable.Show()
+            End If
+        Else
+            frmMainTraAccountPayable = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraAccountPayable.MdiParent = Me
+            frmMainTraAccountPayable.pubModules = "PDP"
             frmMainTraAccountPayable.Show()
         End If
         Me.Cursor = Cursors.Arrow

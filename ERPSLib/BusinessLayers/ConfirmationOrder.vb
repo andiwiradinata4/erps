@@ -54,7 +54,7 @@
                     '# Save Data Detail
                     Dim intCount As Integer = 1
                     For Each clsDet As VO.ConfirmationOrderDet In clsData.Detail
-                        clsDet.ID = clsData.ID & "-" & 1 & "-" & Format(intCount, "000")
+                        clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
                         clsDet.COID = clsData.ID
                         DL.ConfirmationOrder.SaveDataDetail(sqlCon, sqlTrans, clsDet)
                         intCount += 1

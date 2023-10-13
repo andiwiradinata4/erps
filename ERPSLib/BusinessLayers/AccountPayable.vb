@@ -33,8 +33,10 @@
                         Dim dtItem As New DataTable
 
                         '# For Setup Balance
-                        If clsData.Modules.Trim = "SB" Then
+                        If clsData.Modules.Trim = "PB" Then
                             dtItem = DL.AccountPayable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, clsData.ID)
+                        ElseIf clsData.Modules.Trim = "PDP" Then
+                            dtItem = DL.AccountPayable.ListDataDetailForDownPaymentPurchaseContract(sqlCon, sqlTrans, clsData.ID)
                         End If
 
                         DL.AccountPayable.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
@@ -42,8 +44,10 @@
                         '# Revert Payment Amount
                         For Each dr As DataRow In dtItem.Rows
                             '# For Setup Balance
-                            If clsData.Modules = "SB" Then
+                            If clsData.Modules.Trim = "PB" Then
                                 DL.BusinessPartnerAPBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                            ElseIf clsData.Modules.Trim = "PDP" Then
+                                DL.PurchaseContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
                             End If
                         Next
                     End If
@@ -75,8 +79,10 @@
                     '# Calculate Payment Amount
                     For Each clsDet As VO.AccountPayableDet In clsData.Detail
                         '# For Setup Balance
-                        If clsData.Modules = "SB" Then
+                        If clsData.Modules = "PB" Then
                             DL.BusinessPartnerAPBalance.CalculateTotalUsed(sqlCon, sqlTrans, clsDet.PurchaseID)
+                        ElseIf clsData.Modules.Trim = "PDP" Then
+                            DL.PurchaseContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.PurchaseID)
                         End If
                     Next
 
@@ -242,19 +248,28 @@
 
                     '# Generate Journal
                     Dim clsJournalDetail As New List(Of VO.JournalDet)
+                    Dim strJournalDetailRemarks As String = ""
+                    If clsData.Modules.Trim = "PDP" Then
+                        strJournalDetailRemarks = "PEMBAYARAN PANJAR PEMBELIAN - " & clsData.APNumber
+                    ElseIf clsData.Modules.Trim = "PDM" Then
+                        strJournalDetailRemarks = "PEMBAYARAN PANJAR PEMBELIAN [MANUAL] - " & clsData.APNumber
+                    ElseIf clsData.Modules.Trim = "PB" Then
+                        strJournalDetailRemarks = "PEMBAYARAN SALDO - " & clsData.APNumber
+                    End If
+
                     clsJournalDetail.Add(New VO.JournalDet With
                                          {
                                              .CoAID = VO.Journal.Value.HutangUsaha,
                                              .DebitAmount = clsData.TotalAmount,
                                              .CreditAmount = 0,
-                                             .Remarks = "PEMBAYARAN SALDO - " & clsData.APNumber
+                                             .Remarks = strJournalDetailRemarks
                                          })
                     clsJournalDetail.Add(New VO.JournalDet With
                                          {
                                              .CoAID = clsData.CoAIDOfOutgoingPayment,
                                              .DebitAmount = 0,
                                              .CreditAmount = clsData.TotalAmount,
-                                             .Remarks = "PEMBAYARAN SALDO - " & clsData.APNumber
+                                             .Remarks = strJournalDetailRemarks
                                          })
 
                     Dim clsJournal As New VO.Journal With
@@ -433,6 +448,21 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.AccountPayable.ListDataDetailForSetupBalanceWithOutstanding(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailForDownPaymentPurchaseContract(ByVal strAPID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.AccountPayable.ListDataDetailForDownPaymentPurchaseContract(sqlCon, Nothing, strAPID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailForDownPaymentPurchaseContractWithOutstanding(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                            ByVal intBPID As Integer, ByVal strAPID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.AccountPayable.ListDataDetailForDownPaymentPurchaseContractWithOutstanding(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID)
             End Using
         End Function
 

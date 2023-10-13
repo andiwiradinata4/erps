@@ -114,9 +114,7 @@
             txtQuantity.Focus()
             Exit Sub
         ElseIf txtMaxTotalWeight.Value < txtTotalWeight.Value Then
-            UI.usForm.frmMessageBox("Total Berat tidak boleh melebihi Maks. Total Berat")
-            txtQuantity.Focus()
-            Exit Sub
+            If Not UI.usForm.frmAskQuestion("Total Berat melebihi Maks. Total Berat, Apakah anda yakin ingin melanjutkannya?") Then Exit Sub
         End If
 
         '# Item Handle
@@ -207,7 +205,7 @@
         cboItemType.SelectedIndex = -1
         cboItemSpecification.SelectedIndex = -1
         txtThick.Value = 0
-        txtWeight.Value = 0
+        txtWidth.Value = 0
         txtLength.Value = 0
         txtWeight.Value = 0
         txtMaxTotalWeight.Value = 0

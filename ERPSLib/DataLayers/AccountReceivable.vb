@@ -569,7 +569,7 @@
                 .CommandText = _
                     "SELECT " & vbNewLine & _
                     "   CAST (1 AS BIT) AS Pick, A.SalesID, B.InvoiceNumber, B.InvoiceDate, " & vbNewLine & _
-                    "   B.TotalDPP+B.TotalPPN-B.TotalPPH AS SalesAmount, A.Amount AS PaymentAmount, " & vbNewLine & _
+                    "   B.TotalDPP+B.TotalPPN-B.TotalPPH AS SalesAmount, A.Amount, " & vbNewLine & _
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH-B.TotalPaymentDP-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine & _
                     "   A.Remarks " & vbNewLine & _
                     "FROM traAccountReceivableDet A " & vbNewLine & _
@@ -594,7 +594,7 @@
                 .CommandText = _
                     "SELECT " & vbNewLine & _
                     "   CAST (1 AS BIT) AS Pick, A.SalesID, B.InvoiceNumber, B.InvoiceDate, " & vbNewLine & _
-                    "   B.TotalDPP+B.TotalPPN-B.TotalPPH AS SalesAmount, A.Amount AS Amount, " & vbNewLine & _
+                    "   B.TotalDPP+B.TotalPPN-B.TotalPPH AS SalesAmount, A.Amount, " & vbNewLine & _
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH-B.TotalPaymentDP-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine & _
                     "   A.Remarks " & vbNewLine & _
                     "FROM traAccountReceivableDet A " & vbNewLine & _

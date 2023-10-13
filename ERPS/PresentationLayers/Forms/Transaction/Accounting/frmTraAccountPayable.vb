@@ -535,6 +535,8 @@ Public Class frmTraAccountPayable
             Me.Text = "Pembayaran Saldo"
         ElseIf strModules = "PDM" Then
             Me.Text = "Panjar Pembelian [Manual]"
+        ElseIf strModules = "PDP" Then
+            Me.Text = "Panjar Pembelian"
         End If
         Me.WindowState = FormWindowState.Maximized
     End Sub

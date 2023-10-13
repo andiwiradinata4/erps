@@ -290,12 +290,12 @@
             End Using
         End Function
 
-        Public Shared Function ListDataDetailOutstandingCuttingOrder(ByVal strPOID As String) As DataTable
-            BL.Server.ServerDefault()
-            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.PurchaseOrder.ListDataDetailOutstandingCuttingOrder(sqlCon, Nothing, strPOID)
-            End Using
-        End Function
+        'Public Shared Function ListDataDetailOutstandingCuttingOrder(ByVal strPOID As String) As DataTable
+        '    BL.Server.ServerDefault()
+        '    Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+        '        Return DL.PurchaseOrder.ListDataDetailOutstandingCuttingOrder(sqlCon, Nothing, strPOID)
+        '    End Using
+        'End Function
 
         Public Shared Function ListDataDetailOutstandingConfirmationOrder(ByVal intBPID As Integer) As DataTable
             BL.Server.ServerDefault()

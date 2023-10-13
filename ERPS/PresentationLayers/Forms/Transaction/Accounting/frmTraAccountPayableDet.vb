@@ -301,8 +301,19 @@ Public Class frmTraAccountPayableDet
                         dtItem = BL.AccountPayable.ListDataDetailForSetupBalanceWithOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID, pubID)
                     End If
                 End If
+            ElseIf strModules.Trim = "PDP" Then
+                If pubIsNew Then
+                    dtItem = BL.PurchaseContract.ListDataOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID)
+                Else
+                    If clsData.IsDeleted Then
+                        dtItem = BL.AccountPayable.ListDataDetailForDownPaymentPurchaseContract(pubID)
+                    Else
+                        dtItem = BL.AccountPayable.ListDataDetailForDownPaymentPurchaseContractWithOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID, pubID)
+                    End If
+                End If
             End If
             grdItem.DataSource = dtItem
+            grdItemView.BestFitColumns()
             pgMain.Value = 100
             Application.DoEvents()
         Catch ex As Exception
