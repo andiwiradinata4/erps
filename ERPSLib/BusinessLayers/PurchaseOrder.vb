@@ -12,23 +12,23 @@
             End Using
         End Function
 
-        Public Shared Function ListDataOutstandingForCutting(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                             ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
-                                                             ByVal intStatusID As Integer) As DataTable
-            BL.Server.ServerDefault()
-            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.PurchaseOrder.ListDataOutstandingForCutting(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID)
-            End Using
-        End Function
+        'Public Shared Function ListDataOutstandingForCutting(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+        '                                                     ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+        '                                                     ByVal intStatusID As Integer) As DataTable
+        '    BL.Server.ServerDefault()
+        '    Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+        '        Return DL.PurchaseOrder.ListDataOutstandingForCutting(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID)
+        '    End Using
+        'End Function
 
-        Public Shared Function ListDataOutstandingForTransport(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                               ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
-                                                               ByVal intStatusID As Integer) As DataTable
-            BL.Server.ServerDefault()
-            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.PurchaseOrder.ListDataOutstandingForTransport(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID)
-            End Using
-        End Function
+        'Public Shared Function ListDataOutstandingForTransport(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+        '                                                       ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+        '                                                       ByVal intStatusID As Integer) As DataTable
+        '    BL.Server.ServerDefault()
+        '    Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+        '        Return DL.PurchaseOrder.ListDataOutstandingForTransport(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID)
+        '    End Using
+        'End Function
 
         Public Shared Function GetNewID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer, ByVal intProgramID As Integer) As String
@@ -47,16 +47,8 @@
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.PODate, clsData.CompanyID, clsData.ProgramID)
                         clsData.PONumber = clsData.ID
                     Else
-                        Dim dtPreviousRequest As DataTable = DL.PurchaseOrder.ListDataDetailInternal(sqlCon, sqlTrans, clsData.ID)
-
                         DL.PurchaseOrder.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
-                        DL.PurchaseOrder.DeleteDataDetailInternal(sqlCon, sqlTrans, clsData.ID)
                         DL.PurchaseOrder.DeleteDataPaymentTerm(sqlCon, sqlTrans, clsData.ID)
-
-                        '# Revert PO Quantity
-                        For Each dr As DataRow In dtPreviousRequest.Rows
-                            DL.OrderRequest.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("OrderRequestDetailID"))
-                        Next
                     End If
 
                     Dim intStatusID As Integer = DL.PurchaseOrder.GetStatusID(sqlCon, sqlTrans, clsData.ID)
@@ -81,15 +73,6 @@
                         intCount += 1
                     Next
 
-                    '# Save Data Detail Internal
-                    intCount = 1
-                    For Each clsDet As VO.PurchaseOrderDetInternal In clsData.DetailInternal
-                        clsDet.ID = clsData.ID & "-" & 2 & "-" & Format(intCount, "000")
-                        clsDet.POID = clsData.ID
-                        DL.PurchaseOrder.SaveDataDetailInternal(sqlCon, sqlTrans, clsDet)
-                        intCount += 1
-                    Next
-
                     '# Save Data Payment Term
                     intCount = 1
                     For Each clsDet As VO.PurchaseOrderPaymentTerm In clsData.PaymentTerm
@@ -97,11 +80,6 @@
                         clsDet.POID = clsData.ID
                         DL.PurchaseOrder.SaveDataPaymentTerm(sqlCon, sqlTrans, clsDet)
                         intCount += 1
-                    Next
-
-                    '# Calculate PO Quantity
-                    For Each clsDet As VO.PurchaseOrderDetInternal In clsData.DetailInternal
-                        DL.OrderRequest.CalculateTotalUsed(sqlCon, sqlTrans, clsDet.OrderRequestDetailID)
                     Next
 
                     '# Save Data Status
@@ -139,14 +117,7 @@
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
                     End If
 
-                    Dim dtPreviousRequest As DataTable = DL.PurchaseOrder.ListDataDetailInternal(sqlCon, sqlTrans, strID)
-
                     DL.PurchaseOrder.DeleteData(sqlCon, sqlTrans, strID)
-
-                    '# Revert PO Quantity
-                    For Each dr As DataRow In dtPreviousRequest.Rows
-                        DL.OrderRequest.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("OrderRequestDetailID"))
-                    Next
 
                     '# Save Data Status
                     BL.PurchaseOrder.SaveDataStatus(sqlCon, sqlTrans, strID, "HAPUS", ERPSLib.UI.usUserApp.UserID, strRemarks)
@@ -335,16 +306,16 @@
 
 #End Region
 
-#Region "Detail Internal"
+        '#Region "Detail Internal"
 
-        Public Shared Function ListDataDetailInternal(ByVal strPOID As String) As DataTable
-            BL.Server.ServerDefault()
-            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.PurchaseOrder.ListDataDetailInternal(sqlCon, Nothing, strPOID)
-            End Using
-        End Function
+        '        Public Shared Function ListDataDetailInternal(ByVal strPOID As String) As DataTable
+        '            BL.Server.ServerDefault()
+        '            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+        '                Return DL.PurchaseOrder.ListDataDetailInternal(sqlCon, Nothing, strPOID)
+        '            End Using
+        '        End Function
 
-#End Region
+        '#End Region
 
 #Region "Payment Term"
 

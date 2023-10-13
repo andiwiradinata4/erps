@@ -40,38 +40,9 @@ Public Class frmTraPurchaseOrderDet
     End Sub
 
     Private Sub prvSetGrid()
-        '# PO Detail Internal
-        UI.usForm.SetGrid(grdItemRequestView, "ID", "ID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemRequestView, "POID", "POID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemRequestView, "OrderRequestDetailID", "OrderRequestDetailID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemRequestView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdItemRequestView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdItemRequestView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemRequestView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemRequestView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemRequestView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdItemRequestView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdItemRequestView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdItemRequestView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemRequestView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdItemRequestView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemRequestView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
-        UI.usForm.SetGrid(grdItemRequestView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
-        UI.usForm.SetGrid(grdItemRequestView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemRequestView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemRequestView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemRequestView, "CuttingPrice", "Harga Cutting", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemRequestView, "TransportPrice", "Harga Transport", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemRequestView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemRequestView, "SalesContractQuantity", "SalesContractQuantity", 100, UI.usDefGrid.gReal4Num, False)
-        UI.usForm.SetGrid(grdItemRequestView, "SalesContractWeight", "SalesContractWeight", 100, UI.usDefGrid.gReal4Num, False)
-        UI.usForm.SetGrid(grdItemRequestView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
-
         '# PO Detail
         UI.usForm.SetGrid(grdItemOrderView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemOrderView, "POID", "POID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemOrderView, "OrderRequestDetailID", "OrderRequestDetailID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemOrderView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdItemOrderView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemOrderView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemOrderView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
@@ -86,13 +57,7 @@ Public Class frmTraPurchaseOrderDet
         UI.usForm.SetGrid(grdItemOrderView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdItemOrderView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemOrderView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemOrderView, "CuttingPrice", "Harga Cutting", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemOrderView, "TransportPrice", "Harga Transport", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemOrderView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemOrderView, "CuttingQuantity", "CuttingQuantity", 100, UI.usDefGrid.gReal4Num, False)
-        UI.usForm.SetGrid(grdItemOrderView, "CuttingWeight", "CuttingWeight", 100, UI.usDefGrid.gReal4Num, False)
-        UI.usForm.SetGrid(grdItemOrderView, "TransportQuantity", "TransportQuantity", 100, UI.usDefGrid.gReal4Num, False)
-        UI.usForm.SetGrid(grdItemOrderView, "TransportWeight", "TransportWeight", 100, UI.usDefGrid.gReal4Num, False)
         UI.usForm.SetGrid(grdItemOrderView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
 
         '# PO Payment Term
@@ -142,8 +107,6 @@ Public Class frmTraPurchaseOrderDet
                 txtBPCode.Text = clsData.BPCode
                 txtBPName.Text = clsData.BPName
                 dtpPODate.Value = clsData.PODate
-                strOrderRequestID = clsData.OrderRequestID
-                txtOrderNumber.Text = clsData.OrderNumber
 
                 txtPersonInCharge.Text = clsData.PersonInCharge
                 dtpDeliveryPeriodFrom.Value = clsData.DeliveryPeriodFrom
@@ -155,9 +118,6 @@ Public Class frmTraPurchaseOrderDet
                 txtTotalDPPOrder.Value = clsData.TotalDPP
                 txtTotalPPNOrder.Value = clsData.TotalPPN
                 txtTotalPPHOrder.Value = clsData.TotalPPH
-                txtTotalDPPRequest.Value = clsData.TotalInternalDPP
-                txtTotalPPNRequest.Value = clsData.TotalInternalPPN
-                txtTotalPPHRequest.Value = clsData.TotalInternalPPH
                 cboStatus.SelectedValue = clsData.StatusID
                 txtRemarks.Text = clsData.Remarks
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
@@ -166,7 +126,6 @@ Public Class frmTraPurchaseOrderDet
 
                 dtpPODate.Enabled = False
 
-                txtGrandTotalRequest.Value = txtTotalDPPRequest.Value + txtTotalPPNRequest.Value - txtTotalPPHRequest.Value
                 txtGrandTotalOrder.Value = txtTotalDPPOrder.Value + txtTotalPPNOrder.Value - txtTotalPPHOrder.Value
             End If
         Catch ex As Exception
@@ -207,14 +166,9 @@ Public Class frmTraPurchaseOrderDet
             tcHeader.SelectedTab = tpMain
             dtpDeliveryPeriodFrom.Focus()
             Exit Sub
-        ElseIf grdItemRequestView.RowCount = 0 Then
-            UI.usForm.frmMessageBox("Item Permintaan kosong. Mohon untuk diinput item terlebih dahulu")
-            tcDetail.SelectedTab = tpRequest
-            grdItemRequestView.Focus()
-            Exit Sub
         ElseIf grdItemOrderView.RowCount = 0 Then
             UI.usForm.frmMessageBox("Item Pesanan kosong. Mohon untuk diinput item terlebih dahulu")
-            tcDetail.SelectedTab = tpOrder
+            tcDetail.SelectedTab = tpItem
             grdItemOrderView.Focus()
             Exit Sub
         ElseIf grdPaymentTermView.RowCount = 0 Then
@@ -246,36 +200,14 @@ Public Class frmTraPurchaseOrderDet
         For Each dr As DataRow In dtItemOrder.Rows
             listDetailOrder.Add(New ERPSLib.VO.PurchaseOrderDet With
                                 {
-                                    .OrderRequestDetailID = dr.Item("OrderRequestDetailID"),
-                                    .GroupID = dr.Item("GroupID"),
                                     .ItemID = dr.Item("ItemID"),
                                     .Quantity = dr.Item("Quantity"),
                                     .Weight = dr.Item("Weight"),
                                     .TotalWeight = dr.Item("TotalWeight"),
                                     .UnitPrice = dr.Item("UnitPrice"),
-                                    .CuttingPrice = dr.Item("CuttingPrice"),
-                                    .TransportPrice = dr.Item("TransportPrice"),
                                     .TotalPrice = dr.Item("TotalPrice"),
                                     .Remarks = dr.Item("Remarks")
                                 })
-        Next
-
-        Dim listDetailRequest As New List(Of VO.PurchaseOrderDetInternal)
-        For Each dr As DataRow In dtItemRequest.Rows
-            listDetailRequest.Add(New ERPSLib.VO.PurchaseOrderDetInternal With
-                                  {
-                                      .OrderRequestDetailID = dr.Item("OrderRequestDetailID"),
-                                      .GroupID = dr.Item("GroupID"),
-                                      .ItemID = dr.Item("ItemID"),
-                                      .Quantity = dr.Item("Quantity"),
-                                      .Weight = dr.Item("Weight"),
-                                      .TotalWeight = dr.Item("TotalWeight"),
-                                      .UnitPrice = dr.Item("UnitPrice"),
-                                      .CuttingPrice = dr.Item("CuttingPrice"),
-                                      .TransportPrice = dr.Item("TransportPrice"),
-                                      .TotalPrice = dr.Item("TotalPrice"),
-                                      .Remarks = dr.Item("Remarks")
-                                  })
         Next
 
         Dim listPaymentTerm As New List(Of VO.PurchaseOrderPaymentTerm)
@@ -296,7 +228,6 @@ Public Class frmTraPurchaseOrderDet
         clsData.CompanyID = pubCS.CompanyID
         clsData.PONumber = txtPONumber.Text.Trim
         clsData.PODate = dtpPODate.Value.Date
-        clsData.OrderRequestID = strOrderRequestID.Trim
         clsData.BPID = intBPID
         clsData.PersonInCharge = txtPersonInCharge.Text.Trim
         clsData.DeliveryPeriodFrom = dtpDeliveryPeriodFrom.Value.Date
@@ -307,19 +238,13 @@ Public Class frmTraPurchaseOrderDet
         clsData.PPH = txtPPH.Value
         clsData.TotalQuantity = grdItemOrderView.Columns("Quantity").SummaryItem.SummaryValue
         clsData.TotalWeight = grdItemOrderView.Columns("TotalWeight").SummaryItem.SummaryValue
-        clsData.TotalInternalQuantity = grdItemRequestView.Columns("Quantity").SummaryItem.SummaryValue
-        clsData.TotalInternalWeight = grdItemRequestView.Columns("TotalWeight").SummaryItem.SummaryValue
         clsData.TotalDPP = txtTotalDPPOrder.Value
         clsData.TotalPPN = txtTotalPPNOrder.Value
         clsData.TotalPPH = txtTotalPPHOrder.Value
         clsData.RoundingManual = 0
-        clsData.TotalInternalDPP = txtTotalDPPRequest.Value
-        clsData.TotalInternalPPN = txtTotalPPNRequest.Value
-        clsData.TotalInternalPPH = txtTotalPPHRequest.Value
         clsData.Remarks = txtRemarks.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
         clsData.Detail = listDetailOrder
-        clsData.DetailInternal = listDetailRequest
         clsData.PaymentTerm = listPaymentTerm
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
@@ -373,10 +298,6 @@ Public Class frmTraPurchaseOrderDet
         txtTotalPPNOrder.Value = 0
         txtTotalPPHOrder.Value = 0
         txtGrandTotalOrder.Value = 0
-        txtTotalDPPRequest.Value = 0
-        txtTotalPPNRequest.Value = 0
-        txtTotalPPHRequest.Value = 0
-        txtGrandTotalRequest.Value = 0
         txtRemarks.Text = ""
         cboStatus.SelectedValue = VO.Status.Values.Draft
         ToolStripLogInc.Text = "Jumlah Edit : -"
@@ -426,23 +347,6 @@ Public Class frmTraPurchaseOrderDet
             grdPaymentTermView.Columns("Percentage").Summary.Add(SumTotalPercentagePayment)
         End If
 
-        '# Request | PO Detail Internal
-        Dim SumTotalQuantityRequest As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
-        Dim SumGrandTotalWeightRequest As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
-        Dim SumGrandTotalPriceRequest As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
-
-        If grdItemRequestView.Columns("Quantity").SummaryText.Trim = "" Then
-            grdItemRequestView.Columns("Quantity").Summary.Add(SumTotalQuantityRequest)
-        End If
-
-        If grdItemRequestView.Columns("TotalWeight").SummaryText.Trim = "" Then
-            grdItemRequestView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeightRequest)
-        End If
-
-        If grdItemRequestView.Columns("TotalPrice").SummaryText.Trim = "" Then
-            grdItemRequestView.Columns("TotalPrice").Summary.Add(SumGrandTotalPriceRequest)
-        End If
-
         '# Order | PO Detail
         Dim SumTotalQuantityOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
         Dim SumGrandTotalWeightOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
@@ -462,14 +366,6 @@ Public Class frmTraPurchaseOrderDet
     End Sub
 
     Private Sub prvCalculate()
-        txtTotalDPPRequest.Value = 0
-        For Each dr As DataRow In dtItemRequest.Rows
-            txtTotalDPPRequest.Value += dr.Item("TotalPrice")
-        Next
-        txtTotalPPNRequest.Value = txtTotalDPPRequest.Value * (txtPPN.Value / 100)
-        txtTotalPPHRequest.Value = txtTotalDPPRequest.Value * (txtPPH.Value / 100)
-        txtGrandTotalRequest.Value = txtTotalDPPRequest.Value + txtTotalPPNRequest.Value - txtTotalPPHRequest.Value
-
         txtTotalDPPOrder.Value = 0
         For Each dr As DataRow In dtItemOrder.Rows
             txtTotalDPPOrder.Value += dr.Item("TotalPrice")
@@ -482,134 +378,6 @@ Public Class frmTraPurchaseOrderDet
     Private Sub prvUserAccess()
         ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
     End Sub
-
-    Private Sub prvSetupTools()
-        Dim bolEnabled As Boolean = IIf(grdItemRequestView.RowCount = 0, True, False)
-        btnPermintaan.Enabled = bolEnabled
-    End Sub
-
-#Region "Item Request Handle"
-
-    Private Sub prvSetButtonItemRequest()
-        Dim bolEnabled As Boolean = IIf(grdItemRequestView.RowCount = 0, False, True)
-        With ToolBarDetailRequest
-            .Buttons(cEditItem).Enabled = bolEnabled
-            .Buttons(cDeleteItem).Enabled = bolEnabled
-        End With
-    End Sub
-
-    Private Sub prvQueryItemRequest()
-        Me.Cursor = Cursors.WaitCursor
-        pgMain.Value = 30
-        Application.DoEvents()
-        Try
-            dtItemRequest = BL.PurchaseOrder.ListDataDetailInternal(pubID.Trim)
-            grdItemRequest.DataSource = dtItemRequest
-            prvSumGrid()
-            grdItemRequestView.BestFitColumns()
-            prvSetupTools()
-        Catch ex As Exception
-            UI.usForm.frmMessageBox(ex.Message)
-            Me.Close()
-        Finally
-            Me.Cursor = Cursors.Default
-            pgMain.Value = 100
-            Application.DoEvents()
-            prvSetButtonItemRequest()
-            prvResetProgressBar()
-        End Try
-    End Sub
-
-    Private Sub prvAddItemRequest()
-        If txtOrderNumber.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih No. Permintaan terlebih dahulu")
-            txtOrderNumber.Focus()
-            Exit Sub
-        End If
-        Dim frmDetail As New frmTraPurchaseOrderDetItem
-        With frmDetail
-            .pubTableParentOrder = dtItemOrder
-            .pubTableParentRequest = dtItemRequest
-            .pubIsNew = True
-            .pubOrderRequestID = strOrderRequestID
-            .pubID = ""
-            .StartPosition = FormStartPosition.CenterScreen
-            .pubShowDialog(Me)
-            prvSetupTools()
-            prvCalculate()
-            prvSetButtonItemRequest()
-            prvSetButtonItemOrder()
-        End With
-    End Sub
-
-    Private Sub prvEditItemRequest()
-        intPos = grdItemRequestView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        If txtOrderNumber.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih No. Permintaan terlebih dahulu")
-            txtOrderNumber.Focus()
-            Exit Sub
-        End If
-        Dim frmDetail As New frmTraPurchaseOrderDetItem
-        With frmDetail
-            .pubTableParentOrder = dtItemOrder
-            .pubTableParentRequest = dtItemRequest
-            .pubIsNew = False
-            .pubOrderRequestID = strOrderRequestID
-            .pubSelectedRequest = grdItemRequestView.GetDataRow(intPos)
-            .pubID = grdItemRequestView.GetRowCellValue(intPos, "ID")
-            .StartPosition = FormStartPosition.CenterScreen
-            .pubShowDialog(Me)
-            prvCalculate()
-            prvSetButtonItemRequest()
-            prvSetButtonItemOrder()
-        End With
-    End Sub
-
-    Private Sub prvDeleteItemRequest()
-        intPos = grdItemRequestView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        Dim intGroupID As Integer = grdItemRequestView.GetRowCellValue(intPos, "GroupID")
-        For Each dr As DataRow In dtItemRequest.Rows
-            If dr.Item("GroupID") = intGroupID Then
-                dr.Delete()
-            End If
-        Next
-        dtItemRequest.AcceptChanges()
-
-        For Each dr As DataRow In dtItemOrder.Rows
-            If dr.Item("GroupID") = intGroupID Then
-                dr.Delete()
-            End If
-        Next
-        dtItemOrder.AcceptChanges()
-
-        '# Reorder GroupID
-        For Each dr As DataRow In dtItemRequest.Rows
-            If dr.Item("GroupID") > intGroupID Then
-                dr.BeginEdit()
-                dr.Item("GroupID") = dr.Item("GroupID") - 1
-                dr.EndEdit()
-            End If
-        Next
-        dtItemRequest.AcceptChanges()
-
-        For Each dr As DataRow In dtItemOrder.Rows
-            If dr.Item("GroupID") > intGroupID Then
-                dr.BeginEdit()
-                dr.Item("GroupID") = dr.Item("GroupID") - 1
-                dr.EndEdit()
-            End If
-        Next
-        dtItemOrder.AcceptChanges()
-
-        prvSetupTools()
-        prvCalculate()
-        prvSetButtonItemRequest()
-        prvSetButtonItemOrder()
-    End Sub
-
-#End Region
 
 #Region "Item Order Handle"
 
@@ -630,7 +398,6 @@ Public Class frmTraPurchaseOrderDet
             grdItemOrder.DataSource = dtItemOrder
             prvSumGrid()
             grdItemOrderView.BestFitColumns()
-            prvSetupTools()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -655,43 +422,7 @@ Public Class frmTraPurchaseOrderDet
             End If
         Next
         dtItemOrder.AcceptChanges()
-
-        '# Check Group ID is Exists
-        Dim bolExists = False
-        For Each dr As DataRow In dtItemOrder.Rows
-            If dr.Item("GroupID") = intGroupID Then bolExists = True : Exit For
-        Next
-
-        If Not bolExists Then
-            For Each dr As DataRow In dtItemRequest.Rows
-                If dr.Item("GroupID") = intGroupID Then
-                    dr.Delete()
-                End If
-            Next
-            dtItemRequest.AcceptChanges()
-
-            '# Reorder GroupID
-            For Each dr As DataRow In dtItemRequest.Rows
-                If dr.Item("GroupID") > intGroupID Then
-                    dr.BeginEdit()
-                    dr.Item("GroupID") = dr.Item("GroupID") - 1
-                    dr.EndEdit()
-                End If
-            Next
-            dtItemRequest.AcceptChanges()
-
-            For Each dr As DataRow In dtItemOrder.Rows
-                If dr.Item("GroupID") > intGroupID Then
-                    dr.BeginEdit()
-                    dr.Item("GroupID") = dr.Item("GroupID") - 1
-                    dr.EndEdit()
-                End If
-            Next
-            dtItemOrder.AcceptChanges()
-        End If
-        prvSetupTools()
         prvCalculate()
-        prvSetButtonItemRequest()
         prvSetButtonItemOrder()
     End Sub
 
@@ -800,9 +531,7 @@ Public Class frmTraPurchaseOrderDet
         ElseIf e.KeyCode = Keys.F4 Then
             tcHeader.SelectedTab = tpHistory
         ElseIf e.KeyCode = Keys.F5 Then
-            tcDetail.SelectedTab = tpRequest
-        ElseIf e.KeyCode = Keys.F6 Then
-            tcDetail.SelectedTab = tpOrder
+            tcDetail.SelectedTab = tpItem
         ElseIf e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
         ElseIf (e.Control And e.KeyCode = Keys.S) Then
@@ -813,13 +542,11 @@ Public Class frmTraPurchaseOrderDet
     Private Sub frmTraPurchaseOrderDet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
-        ToolBarDetailRequest.SetIcon(Me)
         ToolBarDetailOrder.SetIcon(Me)
         ToolBarPaymentTerm.SetIcon(Me)
         prvSetTitleForm()
         prvSetGrid()
         prvFillForm()
-        prvQueryItemRequest()
         prvQueryItemOrder()
         prvQueryPaymentTerm()
         prvQueryHistory()
@@ -830,14 +557,6 @@ Public Class frmTraPurchaseOrderDet
         Select Case e.Button.Text.Trim
             Case "Simpan" : prvSave()
             Case "Tutup" : Me.Close()
-        End Select
-    End Sub
-
-    Private Sub ToolBarDetailRequest_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarDetailRequest.ButtonClick
-        Select Case e.Button.Text.Trim
-            Case "Tambah" : prvAddItemRequest()
-            Case "Edit" : prvEditItemRequest()
-            Case "Hapus" : prvDeleteItemRequest()
         End Select
     End Sub
 

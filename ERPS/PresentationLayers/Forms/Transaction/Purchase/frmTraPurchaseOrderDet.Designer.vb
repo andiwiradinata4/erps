@@ -64,15 +64,6 @@ Partial Class frmTraPurchaseOrderDet
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.txtTotalPPNOrder = New ERPS.usNumeric()
-        Me.Permintaan = New System.Windows.Forms.GroupBox()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.txtGrandTotalRequest = New ERPS.usNumeric()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.txtTotalPPHRequest = New ERPS.usNumeric()
-        Me.txtTotalDPPRequest = New ERPS.usNumeric()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.txtTotalPPNRequest = New ERPS.usNumeric()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.txtPPH = New ERPS.usNumeric()
@@ -99,15 +90,7 @@ Partial Class frmTraPurchaseOrderDet
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tcDetail = New System.Windows.Forms.TabControl()
-        Me.tpRequest = New System.Windows.Forms.TabPage()
-        Me.grdItemRequest = New DevExpress.XtraGrid.GridControl()
-        Me.grdItemRequestView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.ToolBarDetailRequest = New ERPS.usToolBar()
-        Me.BarAddItemRequest = New System.Windows.Forms.ToolBarButton()
-        Me.BarDetailItemRequest = New System.Windows.Forms.ToolBarButton()
-        Me.BarDeleteItemRequest = New System.Windows.Forms.ToolBarButton()
-        Me.tpOrder = New System.Windows.Forms.TabPage()
+        Me.tpItem = New System.Windows.Forms.TabPage()
         Me.grdItemOrder = New DevExpress.XtraGrid.GridControl()
         Me.grdItemOrderView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
@@ -123,11 +106,6 @@ Partial Class frmTraPurchaseOrderDet
         CType(Me.txtTotalPPHOrder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalDPPOrder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPPNOrder, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Permintaan.SuspendLayout()
-        CType(Me.txtGrandTotalRequest, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtTotalPPHRequest, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtTotalDPPRequest, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtTotalPPNRequest, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtPPN, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpPaymentTerm.SuspendLayout()
@@ -139,11 +117,7 @@ Partial Class frmTraPurchaseOrderDet
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip.SuspendLayout()
         Me.tcDetail.SuspendLayout()
-        Me.tpRequest.SuspendLayout()
-        CType(Me.grdItemRequest, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdItemRequestView, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tpOrder.SuspendLayout()
+        Me.tpItem.SuspendLayout()
         CType(Me.grdItemOrder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemOrderView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -507,7 +481,6 @@ Partial Class frmTraPurchaseOrderDet
         '
         Me.tpAmount.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.tpAmount.Controls.Add(Me.gboPesanan)
-        Me.tpAmount.Controls.Add(Me.Permintaan)
         Me.tpAmount.Controls.Add(Me.Label7)
         Me.tpAmount.Controls.Add(Me.Label8)
         Me.tpAmount.Controls.Add(Me.txtPPH)
@@ -531,12 +504,12 @@ Partial Class frmTraPurchaseOrderDet
         Me.gboPesanan.Controls.Add(Me.Label17)
         Me.gboPesanan.Controls.Add(Me.Label18)
         Me.gboPesanan.Controls.Add(Me.txtTotalPPNOrder)
-        Me.gboPesanan.Location = New System.Drawing.Point(381, 13)
+        Me.gboPesanan.Location = New System.Drawing.Point(36, 23)
         Me.gboPesanan.Name = "gboPesanan"
         Me.gboPesanan.Size = New System.Drawing.Size(334, 138)
         Me.gboPesanan.TabIndex = 1
         Me.gboPesanan.TabStop = False
-        Me.gboPesanan.Text = "Pesanan"
+        Me.gboPesanan.Text = "Total Pesanan"
         '
         'Label15
         '
@@ -638,129 +611,12 @@ Partial Class frmTraPurchaseOrderDet
         Me.txtTotalPPNOrder.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPPNOrder.ThousandsSeparator = True
         '
-        'Permintaan
-        '
-        Me.Permintaan.Controls.Add(Me.Label14)
-        Me.Permintaan.Controls.Add(Me.txtGrandTotalRequest)
-        Me.Permintaan.Controls.Add(Me.Label12)
-        Me.Permintaan.Controls.Add(Me.txtTotalPPHRequest)
-        Me.Permintaan.Controls.Add(Me.txtTotalDPPRequest)
-        Me.Permintaan.Controls.Add(Me.Label10)
-        Me.Permintaan.Controls.Add(Me.Label9)
-        Me.Permintaan.Controls.Add(Me.txtTotalPPNRequest)
-        Me.Permintaan.Location = New System.Drawing.Point(23, 13)
-        Me.Permintaan.Name = "Permintaan"
-        Me.Permintaan.Size = New System.Drawing.Size(334, 138)
-        Me.Permintaan.TabIndex = 0
-        Me.Permintaan.TabStop = False
-        Me.Permintaan.Text = "Permintaan"
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.ForeColor = System.Drawing.Color.Black
-        Me.Label14.Location = New System.Drawing.Point(19, 108)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(63, 13)
-        Me.Label14.TabIndex = 125
-        Me.Label14.Text = "Grand Total"
-        '
-        'txtGrandTotalRequest
-        '
-        Me.txtGrandTotalRequest.BackColor = System.Drawing.Color.LightYellow
-        Me.txtGrandTotalRequest.DecimalPlaces = 2
-        Me.txtGrandTotalRequest.Enabled = False
-        Me.txtGrandTotalRequest.Location = New System.Drawing.Point(115, 104)
-        Me.txtGrandTotalRequest.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtGrandTotalRequest.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtGrandTotalRequest.Name = "txtGrandTotalRequest"
-        Me.txtGrandTotalRequest.Size = New System.Drawing.Size(186, 21)
-        Me.txtGrandTotalRequest.TabIndex = 3
-        Me.txtGrandTotalRequest.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtGrandTotalRequest.ThousandsSeparator = True
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.BackColor = System.Drawing.Color.Transparent
-        Me.Label12.ForeColor = System.Drawing.Color.Black
-        Me.Label12.Location = New System.Drawing.Point(19, 81)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(52, 13)
-        Me.Label12.TabIndex = 123
-        Me.Label12.Text = "Total PPh"
-        '
-        'txtTotalPPHRequest
-        '
-        Me.txtTotalPPHRequest.BackColor = System.Drawing.Color.LightYellow
-        Me.txtTotalPPHRequest.DecimalPlaces = 2
-        Me.txtTotalPPHRequest.Enabled = False
-        Me.txtTotalPPHRequest.Location = New System.Drawing.Point(115, 77)
-        Me.txtTotalPPHRequest.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtTotalPPHRequest.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalPPHRequest.Name = "txtTotalPPHRequest"
-        Me.txtTotalPPHRequest.Size = New System.Drawing.Size(186, 21)
-        Me.txtTotalPPHRequest.TabIndex = 2
-        Me.txtTotalPPHRequest.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalPPHRequest.ThousandsSeparator = True
-        '
-        'txtTotalDPPRequest
-        '
-        Me.txtTotalDPPRequest.BackColor = System.Drawing.Color.LightYellow
-        Me.txtTotalDPPRequest.DecimalPlaces = 2
-        Me.txtTotalDPPRequest.Enabled = False
-        Me.txtTotalDPPRequest.Location = New System.Drawing.Point(115, 23)
-        Me.txtTotalDPPRequest.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtTotalDPPRequest.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalDPPRequest.Name = "txtTotalDPPRequest"
-        Me.txtTotalDPPRequest.Size = New System.Drawing.Size(186, 21)
-        Me.txtTotalDPPRequest.TabIndex = 0
-        Me.txtTotalDPPRequest.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalDPPRequest.ThousandsSeparator = True
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.BackColor = System.Drawing.Color.Transparent
-        Me.Label10.ForeColor = System.Drawing.Color.Black
-        Me.Label10.Location = New System.Drawing.Point(19, 54)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(53, 13)
-        Me.Label10.TabIndex = 121
-        Me.Label10.Text = "Total PPN"
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.BackColor = System.Drawing.Color.Transparent
-        Me.Label9.ForeColor = System.Drawing.Color.Black
-        Me.Label9.Location = New System.Drawing.Point(19, 27)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(53, 13)
-        Me.Label9.TabIndex = 119
-        Me.Label9.Text = "Total DPP"
-        '
-        'txtTotalPPNRequest
-        '
-        Me.txtTotalPPNRequest.BackColor = System.Drawing.Color.LightYellow
-        Me.txtTotalPPNRequest.DecimalPlaces = 2
-        Me.txtTotalPPNRequest.Enabled = False
-        Me.txtTotalPPNRequest.Location = New System.Drawing.Point(115, 50)
-        Me.txtTotalPPNRequest.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtTotalPPNRequest.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalPPNRequest.Name = "txtTotalPPNRequest"
-        Me.txtTotalPPNRequest.Size = New System.Drawing.Size(186, 21)
-        Me.txtTotalPPNRequest.TabIndex = 1
-        Me.txtTotalPPNRequest.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalPPNRequest.ThousandsSeparator = True
-        '
         'Label7
         '
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.ForeColor = System.Drawing.Color.Black
-        Me.Label7.Location = New System.Drawing.Point(815, 94)
+        Me.Label7.Location = New System.Drawing.Point(470, 104)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(18, 13)
         Me.Label7.TabIndex = 117
@@ -771,7 +627,7 @@ Partial Class frmTraPurchaseOrderDet
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.ForeColor = System.Drawing.Color.Black
-        Me.Label8.Location = New System.Drawing.Point(735, 72)
+        Me.Label8.Location = New System.Drawing.Point(390, 82)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(25, 13)
         Me.Label8.TabIndex = 116
@@ -780,7 +636,7 @@ Partial Class frmTraPurchaseOrderDet
         'txtPPH
         '
         Me.txtPPH.DecimalPlaces = 2
-        Me.txtPPH.Location = New System.Drawing.Point(735, 90)
+        Me.txtPPH.Location = New System.Drawing.Point(390, 100)
         Me.txtPPH.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtPPH.Name = "txtPPH"
@@ -794,7 +650,7 @@ Partial Class frmTraPurchaseOrderDet
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.ForeColor = System.Drawing.Color.Black
-        Me.Label6.Location = New System.Drawing.Point(815, 40)
+        Me.Label6.Location = New System.Drawing.Point(470, 50)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(18, 13)
         Me.Label6.TabIndex = 114
@@ -805,7 +661,7 @@ Partial Class frmTraPurchaseOrderDet
         Me.Label11.AutoSize = True
         Me.Label11.BackColor = System.Drawing.Color.Transparent
         Me.Label11.ForeColor = System.Drawing.Color.Black
-        Me.Label11.Location = New System.Drawing.Point(735, 17)
+        Me.Label11.Location = New System.Drawing.Point(390, 27)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(26, 13)
         Me.Label11.TabIndex = 113
@@ -814,7 +670,7 @@ Partial Class frmTraPurchaseOrderDet
         'txtPPN
         '
         Me.txtPPN.DecimalPlaces = 2
-        Me.txtPPN.Location = New System.Drawing.Point(735, 36)
+        Me.txtPPN.Location = New System.Drawing.Point(390, 46)
         Me.txtPPN.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtPPN.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtPPN.Name = "txtPPN"
@@ -1030,8 +886,7 @@ Partial Class frmTraPurchaseOrderDet
         'tcDetail
         '
         Me.tcDetail.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
-        Me.tcDetail.Controls.Add(Me.tpRequest)
-        Me.tcDetail.Controls.Add(Me.tpOrder)
+        Me.tcDetail.Controls.Add(Me.tpItem)
         Me.tcDetail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tcDetail.Location = New System.Drawing.Point(0, 303)
         Me.tcDetail.Name = "tcDetail"
@@ -1039,104 +894,17 @@ Partial Class frmTraPurchaseOrderDet
         Me.tcDetail.Size = New System.Drawing.Size(884, 313)
         Me.tcDetail.TabIndex = 4
         '
-        'tpRequest
+        'tpItem
         '
-        Me.tpRequest.Controls.Add(Me.grdItemRequest)
-        Me.tpRequest.Controls.Add(Me.ToolBarDetailRequest)
-        Me.tpRequest.Location = New System.Drawing.Point(4, 25)
-        Me.tpRequest.Name = "tpRequest"
-        Me.tpRequest.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpRequest.Size = New System.Drawing.Size(876, 284)
-        Me.tpRequest.TabIndex = 0
-        Me.tpRequest.Text = "Permintaan - F5"
-        Me.tpRequest.UseVisualStyleBackColor = True
-        '
-        'grdItemRequest
-        '
-        Me.grdItemRequest.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdItemRequest.EmbeddedNavigator.Buttons.Append.Enabled = False
-        Me.grdItemRequest.EmbeddedNavigator.Buttons.Append.Visible = False
-        Me.grdItemRequest.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
-        Me.grdItemRequest.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
-        Me.grdItemRequest.EmbeddedNavigator.Buttons.Edit.Enabled = False
-        Me.grdItemRequest.EmbeddedNavigator.Buttons.Edit.Visible = False
-        Me.grdItemRequest.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
-        Me.grdItemRequest.EmbeddedNavigator.Buttons.EndEdit.Visible = False
-        Me.grdItemRequest.EmbeddedNavigator.Buttons.NextPage.Enabled = False
-        Me.grdItemRequest.EmbeddedNavigator.Buttons.NextPage.Visible = False
-        Me.grdItemRequest.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
-        Me.grdItemRequest.EmbeddedNavigator.Buttons.PrevPage.Visible = False
-        Me.grdItemRequest.EmbeddedNavigator.Buttons.Remove.Enabled = False
-        Me.grdItemRequest.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdItemRequest.Location = New System.Drawing.Point(3, 31)
-        Me.grdItemRequest.MainView = Me.grdItemRequestView
-        Me.grdItemRequest.Name = "grdItemRequest"
-        Me.grdItemRequest.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
-        Me.grdItemRequest.Size = New System.Drawing.Size(870, 250)
-        Me.grdItemRequest.TabIndex = 1
-        Me.grdItemRequest.UseEmbeddedNavigator = True
-        Me.grdItemRequest.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemRequestView})
-        '
-        'grdItemRequestView
-        '
-        Me.grdItemRequestView.GridControl = Me.grdItemRequest
-        Me.grdItemRequestView.Name = "grdItemRequestView"
-        Me.grdItemRequestView.OptionsCustomization.AllowColumnMoving = False
-        Me.grdItemRequestView.OptionsCustomization.AllowGroup = False
-        Me.grdItemRequestView.OptionsView.ColumnAutoWidth = False
-        Me.grdItemRequestView.OptionsView.ShowAutoFilterRow = True
-        Me.grdItemRequestView.OptionsView.ShowFooter = True
-        Me.grdItemRequestView.OptionsView.ShowGroupPanel = False
-        '
-        'rpiValue
-        '
-        Me.rpiValue.AutoHeight = False
-        Me.rpiValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.rpiValue.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.rpiValue.Name = "rpiValue"
-        Me.rpiValue.NullText = "0.00"
-        '
-        'ToolBarDetailRequest
-        '
-        Me.ToolBarDetailRequest.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarDetailRequest.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemRequest, Me.BarDetailItemRequest, Me.BarDeleteItemRequest})
-        Me.ToolBarDetailRequest.DropDownArrows = True
-        Me.ToolBarDetailRequest.Location = New System.Drawing.Point(3, 3)
-        Me.ToolBarDetailRequest.Name = "ToolBarDetailRequest"
-        Me.ToolBarDetailRequest.ShowToolTips = True
-        Me.ToolBarDetailRequest.Size = New System.Drawing.Size(870, 28)
-        Me.ToolBarDetailRequest.TabIndex = 0
-        Me.ToolBarDetailRequest.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
-        'BarAddItemRequest
-        '
-        Me.BarAddItemRequest.Name = "BarAddItemRequest"
-        Me.BarAddItemRequest.Tag = "Add"
-        Me.BarAddItemRequest.Text = "Tambah"
-        '
-        'BarDetailItemRequest
-        '
-        Me.BarDetailItemRequest.Name = "BarDetailItemRequest"
-        Me.BarDetailItemRequest.Tag = "Edit"
-        Me.BarDetailItemRequest.Text = "Edit"
-        '
-        'BarDeleteItemRequest
-        '
-        Me.BarDeleteItemRequest.Name = "BarDeleteItemRequest"
-        Me.BarDeleteItemRequest.Tag = "Delete"
-        Me.BarDeleteItemRequest.Text = "Hapus"
-        '
-        'tpOrder
-        '
-        Me.tpOrder.Controls.Add(Me.grdItemOrder)
-        Me.tpOrder.Controls.Add(Me.ToolBarDetailOrder)
-        Me.tpOrder.Location = New System.Drawing.Point(4, 25)
-        Me.tpOrder.Name = "tpOrder"
-        Me.tpOrder.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpOrder.Size = New System.Drawing.Size(876, 284)
-        Me.tpOrder.TabIndex = 1
-        Me.tpOrder.Text = "Pesanan - F6"
-        Me.tpOrder.UseVisualStyleBackColor = True
+        Me.tpItem.Controls.Add(Me.grdItemOrder)
+        Me.tpItem.Controls.Add(Me.ToolBarDetailOrder)
+        Me.tpItem.Location = New System.Drawing.Point(4, 25)
+        Me.tpItem.Name = "tpItem"
+        Me.tpItem.Padding = New System.Windows.Forms.Padding(3)
+        Me.tpItem.Size = New System.Drawing.Size(876, 284)
+        Me.tpItem.TabIndex = 1
+        Me.tpItem.Text = "Item - F5"
+        Me.tpItem.UseVisualStyleBackColor = True
         '
         'grdItemOrder
         '
@@ -1242,12 +1010,6 @@ Partial Class frmTraPurchaseOrderDet
         CType(Me.txtTotalPPHOrder, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalDPPOrder, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalPPNOrder, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Permintaan.ResumeLayout(False)
-        Me.Permintaan.PerformLayout()
-        CType(Me.txtGrandTotalRequest, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtTotalPPHRequest, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtTotalDPPRequest, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtTotalPPNRequest, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtPPN, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpPaymentTerm.ResumeLayout(False)
@@ -1261,13 +1023,8 @@ Partial Class frmTraPurchaseOrderDet
         Me.StatusStrip.ResumeLayout(False)
         Me.StatusStrip.PerformLayout()
         Me.tcDetail.ResumeLayout(False)
-        Me.tpRequest.ResumeLayout(False)
-        Me.tpRequest.PerformLayout()
-        CType(Me.grdItemRequest, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdItemRequestView, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tpOrder.ResumeLayout(False)
-        Me.tpOrder.PerformLayout()
+        Me.tpItem.ResumeLayout(False)
+        Me.tpItem.PerformLayout()
         CType(Me.grdItemOrder, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItemOrderView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1308,12 +1065,8 @@ Partial Class frmTraPurchaseOrderDet
     Friend WithEvents ToolStripLogDate As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents btnPermintaan As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents tcDetail As System.Windows.Forms.TabControl
-    Friend WithEvents tpRequest As System.Windows.Forms.TabPage
-    Friend WithEvents tpOrder As System.Windows.Forms.TabPage
+    Friend WithEvents tpItem As System.Windows.Forms.TabPage
     Friend WithEvents tpAmount As System.Windows.Forms.TabPage
-    Friend WithEvents grdItemRequest As DevExpress.XtraGrid.GridControl
-    Friend WithEvents grdItemRequestView As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents rpiValue As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents grdItemOrder As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdItemOrderView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
@@ -1327,15 +1080,6 @@ Partial Class frmTraPurchaseOrderDet
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents Label18 As System.Windows.Forms.Label
     Friend WithEvents txtTotalPPNOrder As ERPS.usNumeric
-    Friend WithEvents Permintaan As System.Windows.Forms.GroupBox
-    Friend WithEvents Label14 As System.Windows.Forms.Label
-    Friend WithEvents txtGrandTotalRequest As ERPS.usNumeric
-    Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents txtTotalPPHRequest As ERPS.usNumeric
-    Friend WithEvents txtTotalDPPRequest As ERPS.usNumeric
-    Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents txtTotalPPNRequest As ERPS.usNumeric
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents txtPPH As ERPS.usNumeric
@@ -1359,10 +1103,6 @@ Partial Class frmTraPurchaseOrderDet
     Friend WithEvents dtpDeliveryPeriodTo As System.Windows.Forms.DateTimePicker
     Friend WithEvents dtpDeliveryPeriodFrom As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label20 As System.Windows.Forms.Label
-    Friend WithEvents ToolBarDetailRequest As ERPS.usToolBar
-    Friend WithEvents BarAddItemRequest As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarDetailItemRequest As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarDeleteItemRequest As System.Windows.Forms.ToolBarButton
     Friend WithEvents ToolBarDetailOrder As ERPS.usToolBar
     Friend WithEvents BarAddItemOrder As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarDetailItemOrder As System.Windows.Forms.ToolBarButton

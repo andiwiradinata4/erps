@@ -27,8 +27,6 @@ Public Class frmTraPurchaseOrder
         UI.usForm.SetGrid(grdView, "CompanyName", "CompanyName", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "PONumber", "Nomor", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PODate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
-        UI.usForm.SetGrid(grdView, "OrderRequestID", "OrderRequestID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdView, "OrderNumber", "No. Permintaan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "BPCode", "Kode Pelanggan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "BPName", "Nama Pelanggan", 100, UI.usDefGrid.gString)
@@ -39,8 +37,6 @@ Public Class frmTraPurchaseOrder
         UI.usForm.SetGrid(grdView, "Validity", "Validity", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "TotalQuantity", "Total Quantity", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "TotalInternalQuantity", "TotalInternalQuantity", 100, UI.usDefGrid.gReal2Num, False)
-        UI.usForm.SetGrid(grdView, "TotalInternalWeight", "TotalInternalWeight", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdView, "PPN", "PPN", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "PPH", "PPH", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalDPP", "Total DPP [Pesanan]", 100, UI.usDefGrid.gReal2Num)
@@ -48,10 +44,6 @@ Public Class frmTraPurchaseOrder
         UI.usForm.SetGrid(grdView, "TotalPPH", "Total PPh [Pesanan]", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "GrandTotal", "Grand Total [Pesanan]", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "RoundingManual", "RoundingManual", 100, UI.usDefGrid.gReal2Num, False)
-        UI.usForm.SetGrid(grdView, "TotalInternalDPP", "Total DPP [Permintaan]", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "TotalInternalPPN", "Total PPN [Permintaan]", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "TotalInternalPPH", "Total PPh [Permintaan]", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "GrandTotalInternal", "Grand Total [Permintaan]", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "SubmitBy", "Disubmit Oleh", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "SubmitDate", "Tanggal Disubmit", 100, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdView, "ApprovedBy", "Diapprove Oleh", 100, UI.usDefGrid.gString)
@@ -160,7 +152,6 @@ Public Class frmTraPurchaseOrder
         clsReturn.CompanyName = grdView.GetRowCellValue(intPos, "CompanyName")
         clsReturn.PONumber = grdView.GetRowCellValue(intPos, "PONumber")
         clsReturn.PODate = grdView.GetRowCellValue(intPos, "PODate")
-        clsReturn.OrderRequestID = grdView.GetRowCellValue(intPos, "OrderRequestID")
         clsReturn.BPID = grdView.GetRowCellValue(intPos, "BPID")
         clsReturn.BPCode = grdView.GetRowCellValue(intPos, "BPCode")
         clsReturn.BPName = grdView.GetRowCellValue(intPos, "BPName")
@@ -170,8 +161,6 @@ Public Class frmTraPurchaseOrder
         clsReturn.Validity = grdView.GetRowCellValue(intPos, "Validity")
         clsReturn.TotalQuantity = grdView.GetRowCellValue(intPos, "TotalQuantity")
         clsReturn.TotalWeight = grdView.GetRowCellValue(intPos, "TotalWeight")
-        clsReturn.TotalInternalQuantity = grdView.GetRowCellValue(intPos, "TotalInternalQuantity")
-        clsReturn.TotalInternalWeight = grdView.GetRowCellValue(intPos, "TotalInternalWeight")
         clsReturn.PPN = grdView.GetRowCellValue(intPos, "PPN")
         clsReturn.PPH = grdView.GetRowCellValue(intPos, "PPH")
         clsReturn.TotalDPP = grdView.GetRowCellValue(intPos, "TotalDPP")
@@ -179,10 +168,6 @@ Public Class frmTraPurchaseOrder
         clsReturn.TotalPPH = grdView.GetRowCellValue(intPos, "TotalPPH")
         clsReturn.GrandTotal = grdView.GetRowCellValue(intPos, "GrandTotal")
         clsReturn.RoundingManual = grdView.GetRowCellValue(intPos, "RoundingManual")
-        clsReturn.TotalInternalDPP = grdView.GetRowCellValue(intPos, "TotalInternalDPP")
-        clsReturn.TotalInternalPPN = grdView.GetRowCellValue(intPos, "TotalInternalPPN")
-        clsReturn.TotalInternalPPH = grdView.GetRowCellValue(intPos, "TotalInternalPPH")
-        clsReturn.GrandTotalInternal = grdView.GetRowCellValue(intPos, "GrandTotalInternal")
         clsReturn.IsDeleted = grdView.GetRowCellValue(intPos, "IsDeleted")
         clsReturn.Remarks = grdView.GetRowCellValue(intPos, "Remarks")
         clsReturn.StatusID = grdView.GetRowCellValue(intPos, "IDStatus")
@@ -489,27 +474,6 @@ Public Class frmTraPurchaseOrder
 
         If grdView.Columns("GrandTotal").SummaryText.Trim = "" Then
             grdView.Columns("GrandTotal").Summary.Add(SumGrandTotal)
-        End If
-
-        Dim SumTotalDPPInternal As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalInternalDPP", "[Permintaan] Total DPP: {0:#,##0.00}")
-        Dim SumTotalPPNInternal As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalInternalPPN", "[Permintaan] Total PPN: {0:#,##0.00}")
-        Dim SumTotalPPHInternal As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalInternalPPH", "[Permintaan] Total PPh: {0:#,##0.00}")
-        Dim SumGrandTotalInternal As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "GrandTotalInternal", "[Permintaan] Grand Total: {0:#,##0.00}")
-
-        If grdView.Columns("TotalInternalDPP").SummaryText.Trim = "" Then
-            grdView.Columns("TotalInternalDPP").Summary.Add(SumTotalDPPInternal)
-        End If
-
-        If grdView.Columns("TotalInternalPPN").SummaryText.Trim = "" Then
-            grdView.Columns("TotalInternalPPN").Summary.Add(SumTotalPPNInternal)
-        End If
-
-        If grdView.Columns("TotalInternalPPH").SummaryText.Trim = "" Then
-            grdView.Columns("TotalInternalPPH").Summary.Add(SumTotalPPHInternal)
-        End If
-
-        If grdView.Columns("GrandTotalInternal").SummaryText.Trim = "" Then
-            grdView.Columns("GrandTotalInternal").Summary.Add(SumGrandTotalInternal)
         End If
     End Sub
 

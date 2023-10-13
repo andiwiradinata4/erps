@@ -2,7 +2,7 @@
 
 #Region "Property"
 
-    Private frmParent As frmTraPurchaseOrderDetItem
+    Private frmParent As frmTraPurchaseOrderDetItemVer00
     Private dtParent As New DataTable
     Private bolIsNew As Boolean = False
     Private intItemID As Integer = 0

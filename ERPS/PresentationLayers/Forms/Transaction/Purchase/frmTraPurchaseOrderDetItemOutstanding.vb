@@ -4,7 +4,7 @@ Public Class frmTraPurchaseOrderDetItemOutstanding
 #Region "Property"
 
     Private intPos As Integer = 0
-    Private frmParent As frmTraPurchaseOrderDetItem
+    Private frmParent As frmTraPurchaseOrderDetItemVer00
     Public pubOrderRequestID As String = ""
     Public pubOrderRequestDetailID As String = ""
     Public pubLUdtRow As DataRow
