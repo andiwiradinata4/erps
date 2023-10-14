@@ -476,7 +476,7 @@
                     "   A.ID, A.OrderRequestID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, " & vbNewLine & _
                     "   D.Description AS ItemTypeName, A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, " & vbNewLine & _
-                    "   A.COQuantity, A.COWeight, A.Remarks " & vbNewLine & _
+                    "   A.Remarks " & vbNewLine & _
                     "FROM traOrderRequestDet A " & vbNewLine & _
                     "INNER JOIN mstItem B ON " & vbNewLine & _
                     "   A.ItemID=B.ID " & vbNewLine & _
