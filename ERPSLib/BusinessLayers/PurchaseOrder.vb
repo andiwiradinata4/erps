@@ -235,6 +235,8 @@
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data telah SUBMIT")
                     ElseIf DL.PurchaseOrder.IsDeleted(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
+                    ElseIf DL.PurchaseOrder.IsAlreadyConfirmationOrder(sqlCon, sqlTrans, strID) Then
+                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses Konfirmasi Pesanan")
                     End If
 
                     DL.PurchaseOrder.Unapprove(sqlCon, sqlTrans, strID)

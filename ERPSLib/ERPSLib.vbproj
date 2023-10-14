@@ -137,6 +137,7 @@
     <Compile Include="DataLayers\ItemSpecification.vb" />
     <Compile Include="DataLayers\ItemType.vb" />
     <Compile Include="DataLayers\Journal.vb" />
+    <Compile Include="DataLayers\OrderRequest.vb" />
     <Compile Include="DataLayers\PurchaseContract.vb" />
     <Compile Include="DataLayers\PurchaseOrder.vb" />
     <Compile Include="DataLayers\PurchaseOrderCutting.vb" />

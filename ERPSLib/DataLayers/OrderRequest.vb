@@ -15,7 +15,8 @@
                 .CommandText = _
                     "SELECT " & vbNewLine & _
                     "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.OrderNumber, A.OrderDate, " & vbNewLine & _
-                    "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.ReferencesNumber, A.TotalQuantity, A.TotalWeight, A.IsDeleted, A.Remarks, A.StatusID, " & vbNewLine & _
+                    "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.ReferencesNumber, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, " & vbNewLine & _
+                    "   A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, A.IsDeleted, A.Remarks, A.StatusID, " & vbNewLine & _
                     "   B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc, " & vbNewLine & _
                     "   A.LogBy, A.LogDate " & vbNewLine & _
                     "FROM traOrderRequest A " & vbNewLine & _
@@ -43,50 +44,50 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
-        Public Shared Function ListDataOutstanding(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                   ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                   ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
-                                                   ByVal intStatusID As Integer) As DataTable
-            Dim sqlCmdExecute As New SqlCommand
-            With sqlCmdExecute
-                .Connection = sqlCon
-                .Transaction = sqlTrans
-                .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT DISTINCT " & vbNewLine & _
-                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.OrderNumber, A.OrderDate,  	" & vbNewLine & _
-                    "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.ReferencesNumber, A.TotalQuantity, A.TotalWeight, A.IsDeleted, A.Remarks, A.StatusID,  	" & vbNewLine & _
-                    "   B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc,  	" & vbNewLine & _
-                    "   A.LogBy, A.LogDate  	" & vbNewLine & _
-                    "FROM traOrderRequest A  	" & vbNewLine & _
-                    "INNER JOIN mstStatus B ON  	" & vbNewLine & _
-                    "   A.StatusID=B.ID  	" & vbNewLine & _
-                    "INNER JOIN mstBusinessPartner C ON  	" & vbNewLine & _
-                    "   A.BPID=C.ID  	" & vbNewLine & _
-                    "INNER JOIN mstCompany MC ON  	" & vbNewLine & _
-                    "   A.CompanyID=MC.ID  	" & vbNewLine & _
-                    "INNER JOIN mstProgram MP ON  	" & vbNewLine & _
-                    "   A.ProgramID=MP.ID  	" & vbNewLine & _
-                    "INNER JOIN traOrderRequestDet ORD ON 	" & vbNewLine & _
-                    "	A.ID=ORD.OrderRequestID 	" & vbNewLine & _
-                    "WHERE 	" & vbNewLine & _
-                    "   A.ProgramID=@ProgramID " & vbNewLine & _
-                    "   AND A.CompanyID=@CompanyID " & vbNewLine & _
-                    "   AND A.OrderDate>=@DateFrom AND A.OrderDate<=@DateTo " & vbNewLine & _
-                    "	AND ORD.TotalWeight-ORD.POInternalWeight>0 	" & vbNewLine & _
-                    "	AND A.IsDeleted=0 	" & vbNewLine & _
-                    "	AND A.SubmitBy<>''	" & vbNewLine
+        'Public Shared Function ListDataOutstanding(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+        '                                           ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+        '                                           ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+        '                                           ByVal intStatusID As Integer) As DataTable
+        '    Dim sqlCmdExecute As New SqlCommand
+        '    With sqlCmdExecute
+        '        .Connection = sqlCon
+        '        .Transaction = sqlTrans
+        '        .CommandType = CommandType.Text
+        '        .CommandText = _
+        '            "SELECT DISTINCT " & vbNewLine & _
+        '            "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.OrderNumber, A.OrderDate,  	" & vbNewLine & _
+        '            "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.ReferencesNumber, A.TotalQuantity, A.TotalWeight, A.IsDeleted, A.Remarks, A.StatusID,  	" & vbNewLine & _
+        '            "   B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc,  	" & vbNewLine & _
+        '            "   A.LogBy, A.LogDate  	" & vbNewLine & _
+        '            "FROM traOrderRequest A  	" & vbNewLine & _
+        '            "INNER JOIN mstStatus B ON  	" & vbNewLine & _
+        '            "   A.StatusID=B.ID  	" & vbNewLine & _
+        '            "INNER JOIN mstBusinessPartner C ON  	" & vbNewLine & _
+        '            "   A.BPID=C.ID  	" & vbNewLine & _
+        '            "INNER JOIN mstCompany MC ON  	" & vbNewLine & _
+        '            "   A.CompanyID=MC.ID  	" & vbNewLine & _
+        '            "INNER JOIN mstProgram MP ON  	" & vbNewLine & _
+        '            "   A.ProgramID=MP.ID  	" & vbNewLine & _
+        '            "INNER JOIN traOrderRequestDet ORD ON 	" & vbNewLine & _
+        '            "	A.ID=ORD.OrderRequestID 	" & vbNewLine & _
+        '            "WHERE 	" & vbNewLine & _
+        '            "   A.ProgramID=@ProgramID " & vbNewLine & _
+        '            "   AND A.CompanyID=@CompanyID " & vbNewLine & _
+        '            "   AND A.OrderDate>=@DateFrom AND A.OrderDate<=@DateTo " & vbNewLine & _
+        '            "	AND ORD.TotalWeight-ORD.POInternalWeight>0 	" & vbNewLine & _
+        '            "	AND A.IsDeleted=0 	" & vbNewLine & _
+        '            "	AND A.SubmitBy<>''	" & vbNewLine
 
-                If intStatusID > 0 Then .CommandText += "   AND A.StatusID=@StatusID " & vbNewLine
+        '        If intStatusID > 0 Then .CommandText += "   AND A.StatusID=@StatusID " & vbNewLine
 
-                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
-                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
-                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
-                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
-                .Parameters.Add("@StatusID", SqlDbType.Int).Value = intStatusID
-            End With
-            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
-        End Function
+        '        .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+        '        .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+        '        .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
+        '        .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
+        '        .Parameters.Add("@StatusID", SqlDbType.Int).Value = intStatusID
+        '    End With
+        '    Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        'End Function
 
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                    ByVal bolNew As Boolean, ByVal clsData As VO.OrderRequest)
@@ -98,13 +99,13 @@
                 If bolNew Then
                     .CommandText = _
                         "INSERT INTO traOrderRequest " & vbNewLine & _
-                        "   (ID, ProgramID, CompanyID, BPID, OrderNumber, OrderDate, ReferencesNumber, " & vbNewLine & _
-                        "    TotalQuantity, TotalWeight, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, " & vbNewLine & _
-                        "    LogDate) " & vbNewLine & _
+                        "   (ID, ProgramID, CompanyID, BPID, OrderNumber, OrderDate, ReferencesNumber, PPN, PPH, " & vbNewLine & _
+                        "    TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, RoundingManual, " & vbNewLine & _
+                        "    Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine & _
                         "VALUES " & vbNewLine & _
-                        "   (@ID, @ProgramID, @CompanyID, @BPID, @OrderNumber, @OrderDate, @ReferencesNumber, " & vbNewLine & _
-                        "    @TotalQuantity, @TotalWeight, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, " & vbNewLine & _
-                        "    GETDATE()) " & vbNewLine
+                        "   (@ID, @ProgramID, @CompanyID, @BPID, @OrderNumber, @OrderDate, @ReferencesNumber, @PPN, @PPH, " & vbNewLine & _
+                        "    @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @RoundingManual, " & vbNewLine & _
+                        "    @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
                 Else
                     .CommandText = _
                         "UPDATE traOrderRequest SET " & vbNewLine & _
@@ -114,8 +115,14 @@
                         "    OrderNumber=@OrderNumber, " & vbNewLine & _
                         "    OrderDate=@OrderDate, " & vbNewLine & _
                         "    ReferencesNumber=@ReferencesNumber, " & vbNewLine & _
+                        "    PPN=@PPN, " & vbNewLine & _
+                        "    PPH=@PPH, " & vbNewLine & _
                         "    TotalQuantity=@TotalQuantity, " & vbNewLine & _
                         "    TotalWeight=@TotalWeight, " & vbNewLine & _
+                        "    TotalDPP=@TotalDPP, " & vbNewLine & _
+                        "    TotalPPN=@TotalPPN, " & vbNewLine & _
+                        "    TotalPPH=@TotalPPH, " & vbNewLine & _
+                        "    RoundingManual=@RoundingManual, " & vbNewLine & _
                         "    Remarks=@Remarks, " & vbNewLine & _
                         "    StatusID=@StatusID, " & vbNewLine & _
                         "    LogInc=LogInc+1, " & vbNewLine & _
@@ -132,8 +139,14 @@
                 .Parameters.Add("@OrderNumber", SqlDbType.VarChar, 100).Value = clsData.OrderNumber
                 .Parameters.Add("@OrderDate", SqlDbType.DateTime).Value = clsData.OrderDate
                 .Parameters.Add("@ReferencesNumber", SqlDbType.VarChar, 250).Value = clsData.ReferencesNumber
+                .Parameters.Add("@PPN", SqlDbType.Decimal).Value = clsData.PPN
+                .Parameters.Add("@PPH", SqlDbType.Decimal).Value = clsData.PPH
                 .Parameters.Add("@TotalQuantity", SqlDbType.Decimal).Value = clsData.TotalQuantity
                 .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
+                .Parameters.Add("@TotalDPP", SqlDbType.Decimal).Value = clsData.TotalDPP
+                .Parameters.Add("@TotalPPN", SqlDbType.Decimal).Value = clsData.TotalPPN
+                .Parameters.Add("@TotalPPH", SqlDbType.Decimal).Value = clsData.TotalPPH
+                .Parameters.Add("@RoundingManual", SqlDbType.Decimal).Value = clsData.RoundingManual
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
@@ -156,8 +169,8 @@
                     .CommandType = CommandType.Text
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
-                        "   A.ID, A.ProgramID, A.CompanyID, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.OrderNumber, A.OrderDate, A.ReferencesNumber, A.TotalQuantity, " & vbNewLine & _
-                        "   A.TotalWeight, A.IsDeleted, A.Remarks, A.StatusID, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
+                        "   A.ID, A.ProgramID, A.CompanyID, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.OrderNumber, A.OrderDate, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, " & vbNewLine & _
+                        "   A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.StatusID, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
                         "FROM traOrderRequest A " & vbNewLine & _
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine & _
                         "   A.BPID=B.ID " & vbNewLine & _
@@ -179,8 +192,14 @@
                         voReturn.OrderNumber = .Item("OrderNumber")
                         voReturn.OrderDate = .Item("OrderDate")
                         voReturn.ReferencesNumber = .Item("ReferencesNumber")
+                        voReturn.PPN = .Item("PPN")
+                        voReturn.PPH = .Item("PPH")
                         voReturn.TotalQuantity = .Item("TotalQuantity")
                         voReturn.TotalWeight = .Item("TotalWeight")
+                        voReturn.TotalDPP = .Item("TotalDPP")
+                        voReturn.TotalPPN = .Item("TotalPPN")
+                        voReturn.TotalPPH = .Item("TotalPPH")
+                        voReturn.RoundingManual = .Item("RoundingManual")
                         voReturn.IsDeleted = .Item("IsDeleted")
                         voReturn.Remarks = .Item("Remarks")
                         voReturn.StatusID = .Item("StatusID")
@@ -422,8 +441,8 @@
                     "SELECT " & vbNewLine & _
                     "   A.ID, A.OrderRequestID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, " & vbNewLine & _
-                    "   D.Description AS ItemTypeName, A.Quantity, A.Weight, A.TotalWeight, A.POInternalQuantity, " & vbNewLine & _
-                    "   A.POInternalWeight, A.Remarks " & vbNewLine & _
+                    "   D.Description AS ItemTypeName, A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, " & vbNewLine & _
+                    "   A.COQuantity, A.COWeight, A.Remarks " & vbNewLine & _
                     "FROM traOrderRequestDet A " & vbNewLine & _
                     "INNER JOIN mstItem B ON " & vbNewLine & _
                     "   A.ItemID=B.ID " & vbNewLine & _
@@ -439,35 +458,35 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
-        Public Shared Function ListDataDetailOutstanding(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                         ByVal strOrderRequestID As String) As DataTable
-            Dim sqlCmdExecute As New SqlCommand
-            With sqlCmdExecute
-                .Connection = sqlCon
-                .Transaction = sqlTrans
-                .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "   A.ID, A.OrderRequestID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
-                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, " & vbNewLine & _
-                    "   D.Description AS ItemTypeName, A.Quantity-A.POInternalQuantity AS Quantity, A.Weight, " & vbNewLine & _
-                    "   A.TotalWeight-A.POInternalWeight AS TotalWeight, A.POInternalQuantity, A.POInternalWeight, A.Remarks " & vbNewLine & _
-                    "FROM traOrderRequestDet A " & vbNewLine & _
-                    "INNER JOIN mstItem B ON " & vbNewLine & _
-                    "   A.ItemID=B.ID " & vbNewLine & _
-                    "INNER JOIN mstItemSpecification C ON " & vbNewLine & _
-                    "   B.ItemSpecificationID=C.ID " & vbNewLine & _
-                    "INNER JOIN mstItemType D ON " & vbNewLine & _
-                    "   B.ItemTypeID=D.ID " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
-                    "   A.OrderRequestID=@OrderRequestID " & vbNewLine & _
-                    "   AND A.Quantity-A.POInternalQuantity>0 " & vbNewLine & _
-                    "   AND A.TotalWeight-A.POInternalWeight>0 " & vbNewLine
+        'Public Shared Function ListDataDetailOutstanding(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+        '                                                 ByVal strOrderRequestID As String) As DataTable
+        '    Dim sqlCmdExecute As New SqlCommand
+        '    With sqlCmdExecute
+        '        .Connection = sqlCon
+        '        .Transaction = sqlTrans
+        '        .CommandType = CommandType.Text
+        '        .CommandText = _
+        '            "SELECT " & vbNewLine & _
+        '            "   A.ID, A.OrderRequestID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
+        '            "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, " & vbNewLine & _
+        '            "   D.Description AS ItemTypeName, A.Quantity-A.POInternalQuantity AS Quantity, A.Weight, " & vbNewLine & _
+        '            "   A.TotalWeight-A.POInternalWeight AS TotalWeight, A.POInternalQuantity, A.POInternalWeight, A.Remarks " & vbNewLine & _
+        '            "FROM traOrderRequestDet A " & vbNewLine & _
+        '            "INNER JOIN mstItem B ON " & vbNewLine & _
+        '            "   A.ItemID=B.ID " & vbNewLine & _
+        '            "INNER JOIN mstItemSpecification C ON " & vbNewLine & _
+        '            "   B.ItemSpecificationID=C.ID " & vbNewLine & _
+        '            "INNER JOIN mstItemType D ON " & vbNewLine & _
+        '            "   B.ItemTypeID=D.ID " & vbNewLine & _
+        '            "WHERE " & vbNewLine & _
+        '            "   A.OrderRequestID=@OrderRequestID " & vbNewLine & _
+        '            "   AND A.Quantity-A.POInternalQuantity>0 " & vbNewLine & _
+        '            "   AND A.TotalWeight-A.POInternalWeight>0 " & vbNewLine
 
-                .Parameters.Add("@OrderRequestID", SqlDbType.VarChar, 100).Value = strOrderRequestID
-            End With
-            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
-        End Function
+        '        .Parameters.Add("@OrderRequestID", SqlDbType.VarChar, 100).Value = strOrderRequestID
+        '    End With
+        '    Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        'End Function
 
         Public Shared Sub SaveDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                          ByVal clsData As VO.OrderRequestDet)
@@ -478,9 +497,9 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "INSERT INTO traOrderRequestDet " & vbNewLine & _
-                    "     (ID, OrderRequestID, ItemID, Quantity, Weight, TotalWeight, Remarks) " & vbNewLine & _
+                    "     (ID, OrderRequestID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks) " & vbNewLine & _
                     "VALUES " & vbNewLine & _
-                    "     (@ID, @OrderRequestID, @ItemID, @Quantity, @Weight, @TotalWeight, @Remarks) " & vbNewLine
+                    "     (@ID, @OrderRequestID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@OrderRequestID", SqlDbType.VarChar, 100).Value = clsData.OrderRequestID
@@ -488,6 +507,8 @@
                 .Parameters.Add("@Quantity", SqlDbType.Decimal).Value = clsData.Quantity
                 .Parameters.Add("@Weight", SqlDbType.Decimal).Value = clsData.Weight
                 .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
+                .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = clsData.UnitPrice
+                .Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = clsData.TotalPrice
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
             End With
             Try
@@ -527,7 +548,7 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "UPDATE traOrderRequestDet SET 	" & vbNewLine & _
-                    "	POInternalWeight=	" & vbNewLine & _
+                    "	COWeight=	" & vbNewLine & _
                     "	(	" & vbNewLine & _
                     "		SELECT	" & vbNewLine & _
                     "			ISNULL(SUM(POD.TotalWeight),0) TotalWeight		" & vbNewLine & _
@@ -538,7 +559,7 @@
                     "			POD.OrderRequestDetailID=@OrderRequestDetailID 	" & vbNewLine & _
                     "			AND POH.IsDeleted=0 	" & vbNewLine & _
                     "	), 	" & vbNewLine & _
-                    "	POInternalQuantity=	" & vbNewLine & _
+                    "	COQuantity=	" & vbNewLine & _
                     "	(	" & vbNewLine & _
                     "		SELECT	" & vbNewLine & _
                     "			ISNULL(SUM(POD.Quantity),0) TotalQuantity " & vbNewLine & _

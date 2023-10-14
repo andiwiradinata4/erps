@@ -444,6 +444,40 @@
             Return bolReturn
         End Function
 
+        Public Shared Function IsAlreadyConfirmationOrder(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strID As String) As Boolean
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim bolReturn As Boolean = False
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText = _
+                        "SELECT TOP 1 " & vbNewLine & _
+                        "   SUM(COQuantity) AS COQuantity, SUM(COWeight) AS COWeight " & vbNewLine & _
+                        "FROM traPurchaseOrderDet " & vbNewLine & _
+                        "WHERE  " & vbNewLine & _
+                        "   POID=@ID " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        If .Item("COQuantity") > 0 Or .Item("COWeight") > 0 Then
+                            bolReturn = True
+                        End If
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return bolReturn
+        End Function
+
         Public Shared Sub Submit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                  ByVal strID As String)
             Dim sqlCmdExecute As New SqlCommand

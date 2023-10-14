@@ -343,6 +343,40 @@
             Return bolReturn
         End Function
 
+        Public Shared Function IsAlreadyPurchaseContract(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strID As String) As Boolean
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim bolReturn As Boolean = False
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText = _
+                        "SELECT TOP 1 " & vbNewLine & _
+                        "   SUM(PCQuantity) AS PCQuantity, SUM(PCWeight) AS PCWeight " & vbNewLine & _
+                        "FROM traConfirmationOrderDet " & vbNewLine & _
+                        "WHERE  " & vbNewLine & _
+                        "   COID=@ID " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        If .Item("PCQuantity") > 0 Or .Item("PCWeight") > 0 Then
+                            bolReturn = True
+                        End If
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return bolReturn
+        End Function
+
         Public Shared Sub Submit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                  ByVal strID As String)
             Dim sqlCmdExecute As New SqlCommand

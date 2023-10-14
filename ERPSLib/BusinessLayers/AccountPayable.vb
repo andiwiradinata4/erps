@@ -33,10 +33,11 @@
                         Dim dtItem As New DataTable
 
                         '# For Setup Balance
-                        If clsData.Modules.Trim = "PB" Then
+                        If clsData.Modules.Trim = VO.AccountPayable.PurchaseBalance Then
                             dtItem = DL.AccountPayable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, clsData.ID)
-                        ElseIf clsData.Modules.Trim = "PDP" Then
-                            dtItem = DL.AccountPayable.ListDataDetailForDownPaymentPurchaseContract(sqlCon, sqlTrans, clsData.ID)
+                        ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPayment Or
+                            clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
+                            dtItem = DL.AccountPayable.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
                         End If
 
                         DL.AccountPayable.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
@@ -44,10 +45,12 @@
                         '# Revert Payment Amount
                         For Each dr As DataRow In dtItem.Rows
                             '# For Setup Balance
-                            If clsData.Modules.Trim = "PB" Then
+                            If clsData.Modules.Trim = VO.AccountPayable.PurchaseBalance Then
                                 DL.BusinessPartnerAPBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("PurchaseID"))
-                            ElseIf clsData.Modules.Trim = "PDP" Then
+                            ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPayment Then
                                 DL.PurchaseContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                            ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
+                                DL.PurchaseContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
                             End If
                         Next
                     End If
@@ -79,10 +82,12 @@
                     '# Calculate Payment Amount
                     For Each clsDet As VO.AccountPayableDet In clsData.Detail
                         '# For Setup Balance
-                        If clsData.Modules = "PB" Then
+                        If clsData.Modules = VO.AccountPayable.PurchaseBalance Then
                             DL.BusinessPartnerAPBalance.CalculateTotalUsed(sqlCon, sqlTrans, clsDet.PurchaseID)
-                        ElseIf clsData.Modules.Trim = "PDP" Then
+                        ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPayment Then
                             DL.PurchaseContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.PurchaseID)
+                        ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
+                            DL.PurchaseContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.PurchaseID)
                         End If
                     Next
 
@@ -240,8 +245,6 @@
                     '# Save Data Status
                     BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
-
-
                     Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
                     Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
                     Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
@@ -249,12 +252,14 @@
                     '# Generate Journal
                     Dim clsJournalDetail As New List(Of VO.JournalDet)
                     Dim strJournalDetailRemarks As String = ""
-                    If clsData.Modules.Trim = "PDP" Then
+                    If clsData.Modules.Trim = VO.AccountPayable.DownPayment Then
                         strJournalDetailRemarks = "PEMBAYARAN PANJAR PEMBELIAN - " & clsData.APNumber
-                    ElseIf clsData.Modules.Trim = "PDM" Then
+                    ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentManual Then
                         strJournalDetailRemarks = "PEMBAYARAN PANJAR PEMBELIAN [MANUAL] - " & clsData.APNumber
-                    ElseIf clsData.Modules.Trim = "PB" Then
+                    ElseIf clsData.Modules.Trim = VO.AccountPayable.PurchaseBalance Then
                         strJournalDetailRemarks = "PEMBAYARAN SALDO - " & clsData.APNumber
+                    ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
+                        strJournalDetailRemarks = "PEMBAYARAN HUTANG PEMBELIAN - " & clsData.APNumber
                     End If
 
                     clsJournalDetail.Add(New VO.JournalDet With
@@ -296,7 +301,7 @@
                     '# Approve Journal
                     BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
 
-                    '# Update Journal ID in Business Partners
+                    '# Update Journal ID in Account Payable
                     DL.AccountPayable.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
 
                     sqlTrans.Commit()
@@ -324,7 +329,6 @@
                     ElseIf DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
                     End If
-
 
                     Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
 
@@ -454,7 +458,7 @@
         Public Shared Function ListDataDetailForDownPaymentPurchaseContract(ByVal strAPID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.AccountPayable.ListDataDetailForDownPaymentPurchaseContract(sqlCon, Nothing, strAPID)
+                Return DL.AccountPayable.ListDataDetail(sqlCon, Nothing, strAPID)
             End Using
         End Function
 
@@ -462,7 +466,7 @@
                                                                             ByVal intBPID As Integer, ByVal strAPID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.AccountPayable.ListDataDetailForDownPaymentPurchaseContractWithOutstanding(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID)
+                Return DL.AccountPayable.ListDataDetailWithOutstanding(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID)
             End Using
         End Function
 

@@ -531,12 +531,14 @@ Public Class frmTraAccountPayable
         prvDefaultFilter()
         prvQuery()
         prvUserAccess()
-        If strModules = "PB" Then
+        If strModules = VO.AccountPayable.PurchaseBalance Then
             Me.Text = "Pembayaran Saldo"
-        ElseIf strModules = "PDM" Then
+        ElseIf strModules = VO.AccountPayable.DownPaymentManual Then
             Me.Text = "Panjar Pembelian [Manual]"
-        ElseIf strModules = "PDP" Then
+        ElseIf strModules = VO.AccountPayable.DownPayment Then
             Me.Text = "Panjar Pembelian"
+        ElseIf strModules = VO.AccountPayable.ReceivePayment Then
+            Me.Text = "Pembayaran Hutang Pembelian"
         End If
         Me.WindowState = FormWindowState.Maximized
     End Sub

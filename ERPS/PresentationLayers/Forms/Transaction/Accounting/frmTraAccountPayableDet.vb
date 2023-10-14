@@ -105,7 +105,7 @@ Public Class frmTraAccountPayableDet
 
                 dtpAPDate.Enabled = False
             End If
-            If strModules.Trim = "PDM" Then chkManual.Checked = True Else chkManual.Checked = False
+            If strModules.Trim = VO.AccountPayable.DownPaymentManual Then chkManual.Checked = True Else chkManual.Checked = False
             txtTotalAmount.Enabled = chkManual.Checked
             txtTotalAmount.BackColor = Color.White
             ToolBarDetail.Enabled = Not chkManual.Checked
@@ -291,7 +291,7 @@ Public Class frmTraAccountPayableDet
             pgMain.Value = 30
             Application.DoEvents()
             Me.Cursor = Cursors.WaitCursor
-            If strModules.Trim = "PB" Then
+            If strModules.Trim = VO.AccountPayable.PurchaseBalance Then
                 If pubIsNew Then
                     dtItem = BL.BusinessPartnerAPBalance.ListDataOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID)
                 Else
@@ -301,7 +301,8 @@ Public Class frmTraAccountPayableDet
                         dtItem = BL.AccountPayable.ListDataDetailForSetupBalanceWithOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID, pubID)
                     End If
                 End If
-            ElseIf strModules.Trim = "PDP" Then
+            ElseIf strModules.Trim = VO.AccountPayable.DownPayment Or
+                strModules.Trim = VO.AccountPayable.ReceivePayment Then
                 If pubIsNew Then
                     dtItem = BL.PurchaseContract.ListDataOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID)
                 Else
@@ -311,6 +312,8 @@ Public Class frmTraAccountPayableDet
                         dtItem = BL.AccountPayable.ListDataDetailForDownPaymentPurchaseContractWithOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID, pubID)
                     End If
                 End If
+            ElseIf strModules.Trim = VO.AccountPayable.ReceivePayment Then
+
             End If
             grdItem.DataSource = dtItem
             grdItemView.BestFitColumns()

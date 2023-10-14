@@ -45,6 +45,7 @@ Public Class frmTraPurchaseContract
         UI.usForm.SetGrid(grdView, "RoundingManual", "RoundingManual", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdView, "DPAmount", "Total Panjar", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "ReceiveAmount", "Total Pembayaran", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "OutstandingPayment", "Sisa Hutang", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "SubmitBy", "Disubmit Oleh", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "SubmitDate", "Tanggal Disubmit", 100, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdView, "ApprovedBy", "Diapprove Oleh", 100, UI.usDefGrid.gString)
@@ -452,6 +453,9 @@ Public Class frmTraPurchaseContract
         Dim SumTotalPPN As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPN", "Total PPN: {0:#,##0.00}")
         Dim SumTotalPPH As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPH", "Total PPh: {0:#,##0.00}")
         Dim SumGrandTotal As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "GrandTotal", "Grand Total: {0:#,##0.00}")
+        Dim SumDPAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DPAmount", "Total Panjar: {0:#,##0.00}")
+        Dim SumReceiveAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ReceiveAmount", "Total Pembayaran: {0:#,##0.00}")
+        Dim SumOutstandingPayment As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "OutstandingPayment", "Sisa Hutang: {0:#,##0.00}")
 
         If grdView.Columns("TotalQuantity").SummaryText.Trim = "" Then
             grdView.Columns("TotalQuantity").Summary.Add(SumTotalQuantity)
@@ -476,6 +480,19 @@ Public Class frmTraPurchaseContract
         If grdView.Columns("GrandTotal").SummaryText.Trim = "" Then
             grdView.Columns("GrandTotal").Summary.Add(SumGrandTotal)
         End If
+
+        If grdView.Columns("DPAmount").SummaryText.Trim = "" Then
+            grdView.Columns("DPAmount").Summary.Add(SumDPAmount)
+        End If
+
+        If grdView.Columns("ReceiveAmount").SummaryText.Trim = "" Then
+            grdView.Columns("ReceiveAmount").Summary.Add(SumReceiveAmount)
+        End If
+
+        If grdView.Columns("OutstandingPayment").SummaryText.Trim = "" Then
+            grdView.Columns("OutstandingPayment").Summary.Add(SumOutstandingPayment)
+        End If
+        grdView.BestFitColumns()
     End Sub
 
     Private Sub prvUserAccess()

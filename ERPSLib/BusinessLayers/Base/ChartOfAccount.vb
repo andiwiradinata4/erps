@@ -45,24 +45,41 @@ Namespace BL
 
         Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.ChartOfAccount) As Integer
             BL.Server.ServerDefault()
-            Try
-                Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
                     If bolNew Then
-                        clsData.ID = DL.ChartOfAccount.GetMaxID(sqlCon, Nothing)
-                        If DL.ChartOfAccount.DataExists(sqlCon, Nothing, clsData.ID) Then
+                        clsData.ID = DL.ChartOfAccount.GetMaxID(sqlCon, sqlTrans)
+                        If DL.ChartOfAccount.DataExists(sqlCon, sqlTrans, clsData.ID) Then
                             Err.Raise(515, "", "ID sudah ada sebelumnya")
                         End If
                     End If
 
-                    If DL.ChartOfAccount.CodeExists(sqlCon, Nothing, clsData.Code, clsData.ID) Then
+                    If DL.ChartOfAccount.CodeExists(sqlCon, sqlTrans, clsData.Code, clsData.ID) Then
                         Err.Raise(515, "", "Kode akun sudah ada sebelumnya")
                     End If
 
-                    DL.ChartOfAccount.SaveData(sqlCon, Nothing, bolNew, clsData)
-                End Using
-            Catch ex As Exception
-                Throw ex
-            End Try
+                    DL.ChartOfAccount.SaveData(sqlCon, sqlTrans, bolNew, clsData)
+
+                    If bolNew Then
+                        Dim clsAssign As New List(Of VO.ChartOfAccountAssign)
+                        clsAssign.Add(New VO.ChartOfAccountAssign With
+                            {
+                                .COAID = clsData.ID,
+                                .CompanyID = UI.usUserApp.CompanyID,
+                                .ProgramID = UI.usUserApp.ProgramID,
+                                .FirstBalance = 0,
+                                .FirstBalanceDate = "2000/01/01"
+                            })
+                        BL.ChartOfAccountAssign.SaveData(sqlCon, sqlTrans, clsData.ID, clsAssign)
+                    End If
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+
             Return clsData.ID
         End Function
 

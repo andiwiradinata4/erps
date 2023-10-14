@@ -63,6 +63,8 @@
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
+
+                If clsData.StatusID = VO.Status.Values.InActive Then cboStatus.Enabled = True
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)

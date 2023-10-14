@@ -30,6 +30,5 @@
         Property StatusID As Integer
         Property Detail As New List(Of VO.AccountReceivableDet)
         Property Save As VO.Save.Action
-
     End Class
 End Namespace

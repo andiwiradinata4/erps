@@ -8,8 +8,14 @@
         Property BPCode As String
         Property BPName As String
         Property ReferencesNumber As String
+        Property PPN As Decimal
+        Property PPH As Decimal
         Property TotalQuantity As Decimal
         Property TotalWeight As Decimal
+        Property TotalDPP As Decimal
+        Property TotalPPN As Decimal
+        Property TotalPPH As Decimal
+        Property RoundingManual As Decimal
         Property Remarks As String
         Property StatusID As Integer
         Property SubmitBy As String

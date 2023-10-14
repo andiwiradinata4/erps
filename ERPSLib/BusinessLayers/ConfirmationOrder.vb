@@ -170,6 +170,8 @@
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah DRAFT")
                     ElseIf DL.ConfirmationOrder.IsDeleted(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
+                    ElseIf DL.ConfirmationOrder.IsAlreadyPurchaseContract(sqlCon, sqlTrans, strID) Then
+                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dilanjutkan proses Kontrak Pembelian")
                     End If
 
                     DL.ConfirmationOrder.Unsubmit(sqlCon, sqlTrans, strID)

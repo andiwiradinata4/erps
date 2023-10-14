@@ -757,870 +757,6 @@ GO
 
 GO
 
-/****** Object:  Table [dbo].[traOrderRequest]    Script Date: 07/09/2023 17:54:26 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traOrderRequest](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequest_ID]  DEFAULT (''),
-	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traOrderRequest_ProgramID]  DEFAULT ((0)),
-	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traOrderRequest_CompanyID]  DEFAULT ((0)),
-	[OrderNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequest_OrderNumber]  DEFAULT (('')),
-	[OrderDate] [datetime] NOT NULL CONSTRAINT [DF_traOrderRequest_OrderDate]  DEFAULT (getdate()),
-	[BPID] [int] NOT NULL CONSTRAINT [DF_traOrderRequest_BPID]  DEFAULT ((0)),
-	[ReferencesNumber] [varchar](250) NOT NULL CONSTRAINT [DF_traOrderRequest_ReferencesNumber]  DEFAULT (('')),
-	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequest_TotalQuantity]  DEFAULT ((0)),
-	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequest_TotalWeight]  DEFAULT ((0)),
-	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traOrderRequest_IsDeleted]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traOrderRequest_Remarks]  DEFAULT (''),
-	[StatusID] [int] NOT NULL CONSTRAINT [DF_traOrderRequest_StatusID]  DEFAULT ((0)),
-	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traOrderRequest_SubmitBy]  DEFAULT (''),
-	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traOrderRequest_SubmitDate]  DEFAULT (getdate()),
-	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traOrderRequest_CreatedBy]  DEFAULT ('SYSTEM'),
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traOrderRequest_CreatedDate]  DEFAULT (getdate()),
-	[LogInc] [int] NOT NULL CONSTRAINT [DF_traOrderRequest_LogInc]  DEFAULT ((0)),
-	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traOrderRequest_LogBy]  DEFAULT ('SYSTEM'),
-	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traOrderRequest_LogDate]  DEFAULT (getdate()),
- CONSTRAINT [PK_traOrderRequest] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traOrderRequestDet]    Script Date: 07/09/2023 17:54:26 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traOrderRequestDet](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDet_ID]  DEFAULT (''),
-	[OrderRequestID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDet_OrderRequestID]  DEFAULT (''),
-	[ItemID] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDet_ItemID]  DEFAULT ((0)),
-	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traOrderRequestDet_Quantity]  DEFAULT ((0)),
-	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traOrderRequestDet_Weight]  DEFAULT ((0)),
-	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traOrderRequestDet_TotalWeight]  DEFAULT ((0)),
-	[POInternalQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traOrderRequestDet_POInternalQuantity]  DEFAULT ((0)),
-	[POInternalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traOrderRequestDet_POInternalWeight]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traOrderRequestDet_Remarks]  DEFAULT (''),
- CONSTRAINT [PK_traOrderRequestDet] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traOrderRequestStatus]    Script Date: 07/09/2023 18:08:21 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traOrderRequestStatus](
-	[ID] [varchar](30) NOT NULL CONSTRAINT [DF_traOrderRequestStatus_ID]  DEFAULT (''),
-	[OrderRequestID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestStatus_OrderRequestID]  DEFAULT (''),
-	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestStatus_Status]  DEFAULT ((0)),
-	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traOrderRequestStatus_StatusBy]  DEFAULT ((0)),
-	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traOrderRequestStatus_StatusDate]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traOrderRequestStatus_Remarks]  DEFAULT ((0)),
- CONSTRAINT [PK_traOrderRequestStatus] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traPurchaseOrder]    Script Date: 07/09/2023 17:54:26 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traPurchaseOrder](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrder_ID]  DEFAULT (''),
-	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrder_ProgramID]  DEFAULT ((0)),
-	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrder_CompanyID]  DEFAULT ((0)),
-	[PONumber] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrder_PONumber]  DEFAULT (('')),
-	[PODate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrder_PODate]  DEFAULT (getdate()),
-	[BPID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrder_BPID]  DEFAULT ((0)),
-	[PersonInCharge] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrder_PersonInCharge]  DEFAULT (''),
-	[DeliveryPeriodFrom] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrder_DeliveryPeriodFrom]  DEFAULT (getdate()),
-	[DeliveryPeriodTo] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrder_DeliveryPeriodTo]  DEFAULT (getdate()),
-	[DeliveryAddress] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrder_DeliveryAddress]  DEFAULT (('')),
-	[Validity] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrder_Validity]  DEFAULT (('')),
-	[PPN] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseOrder_PPN]  DEFAULT ((0)),
-	[PPH] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseOrder_PPH]  DEFAULT ((0)),
-	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrder_TotalQuantity]  DEFAULT ((0)),
-	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrder_TotalWeight]  DEFAULT ((0)),
-	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrder_TotalDPP]  DEFAULT ((0)),
-	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrder_TotalPPN]  DEFAULT ((0)),
-	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrder_TotalPPH]  DEFAULT ((0)),
-	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrder_RoundingManual]  DEFAULT ((0)),
-	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traPurchaseOrder_IsDeleted]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrder_Remarks]  DEFAULT (''),
-	[StatusID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrder_StatusID]  DEFAULT ((0)),
-	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrder_SubmitBy]  DEFAULT (''),
-	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrder_SubmitDate]  DEFAULT (getdate()),
-	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrder_ApproveL1]  DEFAULT (''),
-	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrder_ApproveL1Date]  DEFAULT (getdate()),
-	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrder_ApprovedBy]  DEFAULT (''),
-	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrder_ApprovedDate]  DEFAULT (getdate()),
-	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrder_CreatedBy]  DEFAULT ('SYSTEM'),
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrder_CreatedDate]  DEFAULT (getdate()),
-	[LogInc] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrder_LogInc]  DEFAULT ((0)),
-	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrder_LogBy]  DEFAULT ('SYSTEM'),
-	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrder_LogDate]  DEFAULT (getdate()),
- CONSTRAINT [PK_traPurchaseOrder] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traPurchaseOrderDet]    Script Date: 07/09/2023 17:54:26 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traPurchaseOrderDet](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_ID]  DEFAULT (''),
-	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_POID]  DEFAULT (''),
-	[ItemID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_ItemID]  DEFAULT ((0)),
-	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_Quantity]  DEFAULT ((0)),
-	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_Weight]  DEFAULT ((0)),
-	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_TotalWeight]  DEFAULT ((0)),
-	[UnitPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_UnitPrice]  DEFAULT ((0)),
-	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_TotalPrice]  DEFAULT ((0)),
-	[COQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_COQuantity]  DEFAULT ((0)),
-	[COWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_COWeight]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_Remarks]  DEFAULT (''),
- CONSTRAINT [PK_traPurchaseOrderDet] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-
---GO
-
---/****** Object:  Table [dbo].[traPurchaseOrderDetInternal]    Script Date: 07/09/2023 17:54:26 ******/
---SET ANSI_NULLS ON
---GO
-
---SET QUOTED_IDENTIFIER ON
---GO
-
---SET ANSI_PADDING ON
---GO
-
---CREATE TABLE [dbo].[traPurchaseOrderDetInternal](
---	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_ID]  DEFAULT (''),
---	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_POID]  DEFAULT (''),
---	[OrderRequestDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_OrderRequestDetailID]  DEFAULT (''),
---	[GroupID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_GroupID]  DEFAULT ((0)),
---	[ItemID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_ItemID]  DEFAULT ((0)),
---	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_Quantity]  DEFAULT ((0)),
---	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_Weight]  DEFAULT ((0)),
---	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_TotalWeight]  DEFAULT ((0)),
---	[UnitPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_UnitPrice]  DEFAULT ((0)),
---	[CuttingPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_CuttingPrice]  DEFAULT ((0)),
---	[TransportPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_TransportPrice]  DEFAULT ((0)),
---	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_TotalPrice]  DEFAULT ((0)),
---	[SalesContractQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_SalesContractQuantity]  DEFAULT ((0)),
---	[SalesContractWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_SalesContractWeight]  DEFAULT ((0)),
---	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_Remarks]  DEFAULT (''),
--- CONSTRAINT [PK_traPurchaseOrderDetInternal] PRIMARY KEY CLUSTERED 
---(
---	[ID] ASC
---)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
---) ON [PRIMARY]
-
---GO
-
---SET ANSI_PADDING OFF
---GO
-
-GO
-
-/****** Object:  Table [dbo].[traPurchaseOrderPaymentTerm]    Script Date: 07/09/2023 18:08:21 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traPurchaseOrderPaymentTerm](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderPaymentTerm_ID]  DEFAULT (''),
-	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderPaymentTerm_POID]  DEFAULT (''),
-	[Percentage] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseOrderPaymentTerm_Percentage]  DEFAULT ((0)),
-	[PaymentTypeID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderPaymentTerm_PaymentTypeID]  DEFAULT ((0)),
-	[PaymentModeID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderPaymentTerm_PaymentModeID]  DEFAULT ((0)),
-	[CreditTerm] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderPaymentTerm_CreditTerm]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrderPaymentTerm_Remarks]  DEFAULT ((0)),
- CONSTRAINT [PK_traPurchaseOrderPaymentTerm] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traPurchaseOrderStatus]    Script Date: 07/09/2023 18:08:21 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traPurchaseOrderStatus](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderStatus_ID]  DEFAULT (''),
-	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderStatus_OrderRequestID]  DEFAULT (''),
-	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderStatus_Status]  DEFAULT ((0)),
-	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrderStatus_StatusBy]  DEFAULT ((0)),
-	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderStatus_StatusDate]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrderStatus_Remarks]  DEFAULT ((0)),
- CONSTRAINT [PK_traPurchaseOrderStatus] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-
-GO
-
-/****** Object:  Table [dbo].[traPurchaseOrderCutting]    Script Date: 07/09/2023 17:54:26 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traPurchaseOrderCutting](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_ID]  DEFAULT (''),
-	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_ProgramID]  DEFAULT ((0)),
-	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_CompanyID]  DEFAULT ((0)),
-	[PONumber] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_PONumber]  DEFAULT (('')),
-	[PODate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_PODate]  DEFAULT (getdate()),
-	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_POID]  DEFAULT (''),
-	[BPID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_BPID]  DEFAULT ((0)),
-	[PersonInCharge] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_PersonInCharge]  DEFAULT (''),
-	[DeliveryPeriodFrom] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_DeliveryPeriodFrom]  DEFAULT (getdate()),
-	[DeliveryPeriodTo] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_DeliveryPeriodTo]  DEFAULT (getdate()),
-	[PPN] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_PPN]  DEFAULT ((0)),
-	[PPH] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_PPH]  DEFAULT ((0)),
-	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_TotalQuantity]  DEFAULT ((0)),
-	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_TotalWeight]  DEFAULT ((0)),
-	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_TotalDPP]  DEFAULT ((0)),
-	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_TotalPPN]  DEFAULT ((0)),
-	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_TotalPPH]  DEFAULT ((0)),
-	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_RoundingManual]  DEFAULT ((0)),
-	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_IsDeleted]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_Remarks]  DEFAULT (''),
-	[StatusID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_StatusID]  DEFAULT ((0)),
-	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_SubmitBy]  DEFAULT (''),
-	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_SubmitDate]  DEFAULT (getdate()),
-	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_ApproveL1]  DEFAULT (''),
-	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_ApproveL1Date]  DEFAULT (getdate()),
-	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_ApprovedBy]  DEFAULT (''),
-	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_ApprovedDate]  DEFAULT (getdate()),
-	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_CreatedBy]  DEFAULT ('SYSTEM'),
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_CreatedDate]  DEFAULT (getdate()),
-	[LogInc] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_LogInc]  DEFAULT ((0)),
-	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_LogBy]  DEFAULT ('SYSTEM'),
-	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_LogDate]  DEFAULT (getdate()),
- CONSTRAINT [PK_traPurchaseOrderCutting] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traPurchaseOrderCuttingDet]    Script Date: 07/09/2023 17:54:26 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traPurchaseOrderCuttingDet](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_ID]  DEFAULT (''),
-	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_POID]  DEFAULT (''),
-	[PODetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_PODetailID]  DEFAULT (''),
-	[ItemID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_ItemID]  DEFAULT ((0)),
-	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_Quantity]  DEFAULT ((0)),
-	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_Weight]  DEFAULT ((0)),
-	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_TotalWeight]  DEFAULT ((0)),
-	[UnitPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_UnitPrice]  DEFAULT ((0)),
-	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_TotalPrice]  DEFAULT ((0)),
-	[SPKQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_SPKQuantity]  DEFAULT ((0)),
-	[SPKWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_SPKWeight]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_Remarks]  DEFAULT (''),
- CONSTRAINT [PK_traPurchaseOrderCuttingDet] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traConfirmationOrder]    Script Date: 07/09/2023 17:54:26 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traConfirmationOrder](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrder_ID]  DEFAULT (''),
-	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrder_ProgramID]  DEFAULT ((0)),
-	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrder_CompanyID]  DEFAULT ((0)),
-	[CONumber] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrder_CONumber]  DEFAULT (('')),
-	[CODate] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationOrder_CODate]  DEFAULT (getdate()),
-	[BPID] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrder_BPID]  DEFAULT ((0)),
-	[DeliveryPeriodFrom] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationOrder_DeliveryPeriodFrom]  DEFAULT (getdate()),
-	[DeliveryPeriodTo] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationOrder_DeliveryPeriodTo]  DEFAULT (getdate()),
-	[AllowanceProduction] [decimal](18,2) NOT NULL CONSTRAINT [DF_traConfirmationOrder_AllowanceProduction]  DEFAULT ((0)),
-	[PPN] [decimal](18,2) NOT NULL CONSTRAINT [DF_traConfirmationOrder_PPN]  DEFAULT ((0)),
-	[PPH] [decimal](18,2) NOT NULL CONSTRAINT [DF_traConfirmationOrder_PPH]  DEFAULT ((0)),
-	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationOrder_TotalQuantity]  DEFAULT ((0)),
-	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationOrder_TotalWeight]  DEFAULT ((0)),
-	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationOrder_TotalDPP]  DEFAULT ((0)),
-	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationOrder_TotalPPN]  DEFAULT ((0)),
-	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationOrder_TotalPPH]  DEFAULT ((0)),
-	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationOrder_RoundingManual]  DEFAULT ((0)),
-	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traConfirmationOrder_IsDeleted]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traConfirmationOrder_Remarks]  DEFAULT (''),
-	[StatusID] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrder_StatusID]  DEFAULT ((0)),
-	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traConfirmationOrder_SubmitBy]  DEFAULT (''),
-	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationOrder_SubmitDate]  DEFAULT (getdate()),
-	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traConfirmationOrder_CreatedBy]  DEFAULT ('SYSTEM'),
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationOrder_CreatedDate]  DEFAULT (getdate()),
-	[LogInc] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrder_LogInc]  DEFAULT ((0)),
-	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traConfirmationOrder_LogBy]  DEFAULT ('SYSTEM'),
-	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationOrder_LogDate]  DEFAULT (getdate()),
- CONSTRAINT [PK_traConfirmationOrder] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traConfirmationOrderDet]    Script Date: 07/09/2023 17:54:26 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traConfirmationOrderDet](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_ID]  DEFAULT (''),
-	[COID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_COID]  DEFAULT (''),
-	[PODetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_PODetailID]  DEFAULT (''),
-	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_OrderNumberSupplier]  DEFAULT (''),
-	[DeliveryAddress] [varchar](1000) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_DeliveryAddress]  DEFAULT (''),
-	[ItemID] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_ItemID]  DEFAULT ((0)),
-	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_Quantity]  DEFAULT ((0)),
-	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_Weight]  DEFAULT ((0)),
-	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_TotalWeight]  DEFAULT ((0)),
-	[UnitPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_UnitPrice]  DEFAULT ((0)),
-	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_TotalPrice]  DEFAULT ((0)),
-	[PCQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_PCQuantity]  DEFAULT ((0)),
-	[PCWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_PCWeight]  DEFAULT ((0)),
-	[DCQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_DCQuantity]  DEFAULT ((0)),
-	[DCWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_DCWeight]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_Remarks]  DEFAULT (''),
- CONSTRAINT [PK_traConfirmationOrderDet] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traConfirmationOrderPaymentTerm]    Script Date: 07/09/2023 18:08:21 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traConfirmationOrderPaymentTerm](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderPaymentTerm_ID]  DEFAULT (''),
-	[COID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderPaymentTerm_COID]  DEFAULT (''),
-	[Percentage] [decimal](18,2) NOT NULL CONSTRAINT [DF_traConfirmationOrderPaymentTerm_Percentage]  DEFAULT ((0)),
-	[PaymentTypeID] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrderPaymentTerm_PaymentTypeID]  DEFAULT ((0)),
-	[PaymentModeID] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrderPaymentTerm_PaymentModeID]  DEFAULT ((0)),
-	[CreditTerm] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrderPaymentTerm_CreditTerm]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traConfirmationOrderPaymentTerm_Remarks]  DEFAULT ((0)),
- CONSTRAINT [PK_traConfirmationOrderPaymentTerm] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traConfirmationOrderStatus]    Script Date: 07/09/2023 18:08:21 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traConfirmationOrderStatus](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderStatus_ID]  DEFAULT (''),
-	[COID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderStatus_COID]  DEFAULT (''),
-	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderStatus_Status]  DEFAULT ((0)),
-	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traConfirmationOrderStatus_StatusBy]  DEFAULT ((0)),
-	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationOrderStatus_StatusDate]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traConfirmationOrderStatus_Remarks]  DEFAULT ((0)),
- CONSTRAINT [PK_traConfirmationOrderStatus] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traPurchaseContract]    Script Date: 07/09/2023 17:54:26 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traPurchaseContract](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContract_ID]  DEFAULT (''),
-	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traPurchaseContract_ProgramID]  DEFAULT ((0)),
-	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traPurchaseContract_CompanyID]  DEFAULT ((0)),
-	[PCNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContract_PCNumber]  DEFAULT (('')),
-	[PCDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContract_PCDate]  DEFAULT (getdate()),
-	[BPID] [int] NOT NULL CONSTRAINT [DF_traPurchaseContract_BPID]  DEFAULT ((0)),
-	[DeliveryPeriodFrom] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContract_DeliveryPeriodFrom]  DEFAULT (getdate()),
-	[DeliveryPeriodTo] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContract_DeliveryPeriodTo]  DEFAULT (getdate()),
-	[AllowanceProduction] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseContract_AllowanceProduction]  DEFAULT ((0)),
-	[Franco] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseContract_Franco]  DEFAULT (''),
-	[PPN] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseContract_PPN]  DEFAULT ((0)),
-	[PPH] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseContract_PPH]  DEFAULT ((0)),
-	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseContract_TotalQuantity]  DEFAULT ((0)),
-	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseContract_TotalWeight]  DEFAULT ((0)),
-	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseContract_TotalDPP]  DEFAULT ((0)),
-	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseContract_TotalPPN]  DEFAULT ((0)),
-	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseContract_TotalPPH]  DEFAULT ((0)),
-	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseContract_RoundingManual]  DEFAULT ((0)),
-	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traPurchaseContract_IsDeleted]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseContract_Remarks]  DEFAULT (''),
-	[StatusID] [int] NOT NULL CONSTRAINT [DF_traPurchaseContract_StatusID]  DEFAULT ((0)),
-	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseContract_SubmitBy]  DEFAULT (''),
-	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContract_SubmitDate]  DEFAULT (getdate()),
-	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseContract_ApproveL1]  DEFAULT (''),
-	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContract_ApproveL1Date]  DEFAULT (getdate()),
-	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseContract_ApprovedBy]  DEFAULT (''),
-	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContract_ApprovedDate]  DEFAULT (getdate()),
-	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseContract_CreatedBy]  DEFAULT ('SYSTEM'),
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContract_CreatedDate]  DEFAULT (getdate()),
-	[LogInc] [int] NOT NULL CONSTRAINT [DF_traPurchaseContract_LogInc]  DEFAULT ((0)),
-	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseContract_LogBy]  DEFAULT ('SYSTEM'),
-	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContract_LogDate]  DEFAULT (getdate()),
-	[DPAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseContract_DPAmount]  DEFAULT ((0)),
-	[ReceiveAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseContract_ReceiveAmount]  DEFAULT ((0)),
- CONSTRAINT [PK_traPurchaseContract] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traPurchaseContractDet]    Script Date: 07/09/2023 17:54:26 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traPurchaseContractDet](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_ID]  DEFAULT (''),
-	[PCID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_PCID]  DEFAULT (''),
-	[CODetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_CODetailID]  DEFAULT (''),
-	[ItemID] [int] NOT NULL CONSTRAINT [DF_traPurchaseContractDet_ItemID]  DEFAULT ((0)),
-	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_Quantity]  DEFAULT ((0)),
-	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_Weight]  DEFAULT ((0)),
-	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_TotalWeight]  DEFAULT ((0)),
-	[UnitPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_UnitPrice]  DEFAULT ((0)),
-	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_TotalPrice]  DEFAULT ((0)),
-	[DCQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_DCQuantity]  DEFAULT ((0)),
-	[DCWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_DCWeight]  DEFAULT ((0)),
-	[CuttingQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_CuttingQuantity]  DEFAULT ((0)),
-	[CuttingWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_CuttingWeight]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_Remarks]  DEFAULT (''),
- CONSTRAINT [PK_traPurchaseContractDet] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traPurchaseContractPaymentTerm]    Script Date: 07/09/2023 18:08:21 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traPurchaseContractPaymentTerm](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContractPaymentTerm_ID]  DEFAULT (''),
-	[PCID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContractPaymentTerm_PCID]  DEFAULT (''),
-	[Percentage] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseContractPaymentTerm_Percentage]  DEFAULT ((0)),
-	[PaymentTypeID] [int] NOT NULL CONSTRAINT [DF_traPurchaseContractPaymentTerm_PaymentTypeID]  DEFAULT ((0)),
-	[PaymentModeID] [int] NOT NULL CONSTRAINT [DF_traPurchaseContractPaymentTerm_PaymentModeID]  DEFAULT ((0)),
-	[CreditTerm] [int] NOT NULL CONSTRAINT [DF_traPurchaseContractPaymentTerm_CreditTerm]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseContractPaymentTerm_Remarks]  DEFAULT ((0)),
- CONSTRAINT [PK_traPurchaseContractPaymentTerm] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traPurchaseContractStatus]    Script Date: 07/09/2023 18:08:21 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traPurchaseContractStatus](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContractStatus_ID]  DEFAULT (''),
-	[PCID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContractStatus_PCID]  DEFAULT (''),
-	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContractStatus_Status]  DEFAULT ((0)),
-	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseContractStatus_StatusBy]  DEFAULT ((0)),
-	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContractStatus_StatusDate]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseContractStatus_Remarks]  DEFAULT ((0)),
- CONSTRAINT [PK_traPurchaseContractStatus] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traSalesContract]    Script Date: 07/09/2023 17:54:26 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traSalesContract](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContract_ID]  DEFAULT (''),
-	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traSalesContract_ProgramID]  DEFAULT ((0)),
-	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traSalesContract_CompanyID]  DEFAULT ((0)),
-	[SCNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContract_SCNumber]  DEFAULT (('')),
-	[SCDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_SCDate]  DEFAULT (getdate()),
-	[BPID] [int] NOT NULL CONSTRAINT [DF_traSalesContract_BPID]  DEFAULT ((0)),
-	[DeliveryPeriodFrom] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_DeliveryPeriodFrom]  DEFAULT (getdate()),
-	[DeliveryPeriodTo] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_DeliveryPeriodTo]  DEFAULT (getdate()),
-	[AllowanceProduction] [decimal](18,2) NOT NULL CONSTRAINT [DF_traSalesContract_AllowanceProduction]  DEFAULT ((0)),
-	[Franco] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_Franco]  DEFAULT (''),
-	[DelegationSeller] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_DelegationSeller]  DEFAULT (''),
-	[DelegationPositionSeller] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_DelegationPositionSeller]  DEFAULT (''),
-	[DelegationBuyer] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_DelegationBuyer]  DEFAULT (''),
-	[DelegationPositionBuyer] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_DelegationPositionBuyer]  DEFAULT (''),
-	[PPN] [decimal](18,2) NOT NULL CONSTRAINT [DF_traSalesContract_PPN]  DEFAULT ((0)),
-	[PPH] [decimal](18,2) NOT NULL CONSTRAINT [DF_traSalesContract_PPH]  DEFAULT ((0)),
-	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_TotalQuantity]  DEFAULT ((0)),
-	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_TotalWeight]  DEFAULT ((0)),
-	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_TotalDPP]  DEFAULT ((0)),
-	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_TotalPPN]  DEFAULT ((0)),
-	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_TotalPPH]  DEFAULT ((0)),
-	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_RoundingManual]  DEFAULT ((0)),
-	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traSalesContract_IsDeleted]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_Remarks]  DEFAULT (''),
-	[StatusID] [int] NOT NULL CONSTRAINT [DF_traSalesContract_StatusID]  DEFAULT ((0)),
-	[CompanyBankAccountID] [int] NOT NULL CONSTRAINT [DF_traSalesContract_CompanyBankAccountID]  DEFAULT ((0)),
-	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContract_SubmitBy]  DEFAULT (''),
-	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_SubmitDate]  DEFAULT (getdate()),
-	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContract_ApproveL1]  DEFAULT (''),
-	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_ApproveL1Date]  DEFAULT (getdate()),
-	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContract_ApprovedBy]  DEFAULT (''),
-	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_ApprovedDate]  DEFAULT (getdate()),
-	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContract_CreatedBy]  DEFAULT ('SYSTEM'),
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_CreatedDate]  DEFAULT (getdate()),
-	[LogInc] [int] NOT NULL CONSTRAINT [DF_traSalesContract_LogInc]  DEFAULT ((0)),
-	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContract_LogBy]  DEFAULT ('SYSTEM'),
-	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_LogDate]  DEFAULT (getdate()),
-	[DPAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_DPAmount]  DEFAULT ((0)),
-	[ReceiveAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_ReceiveAmount]  DEFAULT ((0)),
- CONSTRAINT [PK_traSalesContract] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traSalesContractDet]    Script Date: 07/09/2023 17:54:26 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traSalesContractDet](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDet_ID]  DEFAULT (''),
-	[SCID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDet_SCID]  DEFAULT (''),
-	[PODetailInternalID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDet_PODetailInternalID]  DEFAULT (''),
-	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDet_OrderNumberSupplier]  DEFAULT (''),
-	[ItemID] [int] NOT NULL CONSTRAINT [DF_traSalesContractDet_ItemID]  DEFAULT ((0)),
-	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_Quantity]  DEFAULT ((0)),
-	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_Weight]  DEFAULT ((0)),
-	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_TotalWeight]  DEFAULT ((0)),
-	[UnitPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_UnitPrice]  DEFAULT ((0)),
-	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_TotalPrice]  DEFAULT ((0)),
-	[DCQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_DCQuantity]  DEFAULT ((0)),
-	[DCWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_DCWeight]  DEFAULT ((0)),
-	[CuttingQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_CuttingQuantity]  DEFAULT ((0)),
-	[CuttingWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_CuttingWeight]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContractDet_Remarks]  DEFAULT (''),
- CONSTRAINT [PK_traSalesContractDet] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traSalesContractPaymentTerm]    Script Date: 07/09/2023 18:08:21 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traSalesContractPaymentTerm](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_ID]  DEFAULT (''),
-	[SCID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_SCID]  DEFAULT (''),
-	[Percentage] [decimal](18,2) NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_Percentage]  DEFAULT ((0)),
-	[PaymentTypeID] [int] NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_PaymentTypeID]  DEFAULT ((0)),
-	[PaymentModeID] [int] NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_PaymentModeID]  DEFAULT ((0)),
-	[CreditTerm] [int] NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_CreditTerm]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_Remarks]  DEFAULT ((0)),
- CONSTRAINT [PK_traSalesContractPaymentTerm] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
-/****** Object:  Table [dbo].[traSalesContractStatus]    Script Date: 07/09/2023 18:08:21 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[traSalesContractStatus](
-	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractStatus_ID]  DEFAULT (''),
-	[SCID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractStatus_SCID]  DEFAULT (''),
-	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractStatus_Status]  DEFAULT ((0)),
-	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContractStatus_StatusBy]  DEFAULT ((0)),
-	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContractStatus_StatusDate]  DEFAULT ((0)),
-	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContractStatus_Remarks]  DEFAULT ((0)),
- CONSTRAINT [PK_traSalesContractStatus] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-GO
-
 /****** Object:  Table [dbo].[traBukuBesar]    Script Date: 10/4/2023 6:09:09 PM ******/
 SET ANSI_NULLS ON
 GO
@@ -2111,5 +1247,875 @@ GO
 SET ANSI_PADDING OFF
 GO
 
+GO
+
+/****** Object:  Table [dbo].[traPurchaseOrder]    Script Date: 07/09/2023 17:54:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traPurchaseOrder](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrder_ID]  DEFAULT (''),
+	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrder_ProgramID]  DEFAULT ((0)),
+	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrder_CompanyID]  DEFAULT ((0)),
+	[PONumber] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrder_PONumber]  DEFAULT (('')),
+	[PODate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrder_PODate]  DEFAULT (getdate()),
+	[BPID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrder_BPID]  DEFAULT ((0)),
+	[PersonInCharge] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrder_PersonInCharge]  DEFAULT (''),
+	[DeliveryPeriodFrom] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrder_DeliveryPeriodFrom]  DEFAULT (getdate()),
+	[DeliveryPeriodTo] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrder_DeliveryPeriodTo]  DEFAULT (getdate()),
+	[DeliveryAddress] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrder_DeliveryAddress]  DEFAULT (('')),
+	[Validity] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrder_Validity]  DEFAULT (('')),
+	[PPN] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseOrder_PPN]  DEFAULT ((0)),
+	[PPH] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseOrder_PPH]  DEFAULT ((0)),
+	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrder_TotalQuantity]  DEFAULT ((0)),
+	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrder_TotalWeight]  DEFAULT ((0)),
+	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrder_TotalDPP]  DEFAULT ((0)),
+	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrder_TotalPPN]  DEFAULT ((0)),
+	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrder_TotalPPH]  DEFAULT ((0)),
+	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrder_RoundingManual]  DEFAULT ((0)),
+	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traPurchaseOrder_IsDeleted]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrder_Remarks]  DEFAULT (''),
+	[StatusID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrder_StatusID]  DEFAULT ((0)),
+	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrder_SubmitBy]  DEFAULT (''),
+	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrder_SubmitDate]  DEFAULT (getdate()),
+	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrder_ApproveL1]  DEFAULT (''),
+	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrder_ApproveL1Date]  DEFAULT (getdate()),
+	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrder_ApprovedBy]  DEFAULT (''),
+	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrder_ApprovedDate]  DEFAULT (getdate()),
+	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrder_CreatedBy]  DEFAULT ('SYSTEM'),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrder_CreatedDate]  DEFAULT (getdate()),
+	[LogInc] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrder_LogInc]  DEFAULT ((0)),
+	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrder_LogBy]  DEFAULT ('SYSTEM'),
+	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrder_LogDate]  DEFAULT (getdate()),
+ CONSTRAINT [PK_traPurchaseOrder] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traPurchaseOrderDet]    Script Date: 07/09/2023 17:54:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traPurchaseOrderDet](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_ID]  DEFAULT (''),
+	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_POID]  DEFAULT (''),
+	[ItemID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_ItemID]  DEFAULT ((0)),
+	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_Quantity]  DEFAULT ((0)),
+	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_Weight]  DEFAULT ((0)),
+	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_TotalWeight]  DEFAULT ((0)),
+	[UnitPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_UnitPrice]  DEFAULT ((0)),
+	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_TotalPrice]  DEFAULT ((0)),
+	[COQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_COQuantity]  DEFAULT ((0)),
+	[COWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_COWeight]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrderDet_Remarks]  DEFAULT (''),
+ CONSTRAINT [PK_traPurchaseOrderDet] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
 
 
+--GO
+
+--/****** Object:  Table [dbo].[traPurchaseOrderDetInternal]    Script Date: 07/09/2023 17:54:26 ******/
+--SET ANSI_NULLS ON
+--GO
+
+--SET QUOTED_IDENTIFIER ON
+--GO
+
+--SET ANSI_PADDING ON
+--GO
+
+--CREATE TABLE [dbo].[traPurchaseOrderDetInternal](
+--	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_ID]  DEFAULT (''),
+--	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_POID]  DEFAULT (''),
+--	[OrderRequestDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_OrderRequestDetailID]  DEFAULT (''),
+--	[GroupID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_GroupID]  DEFAULT ((0)),
+--	[ItemID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_ItemID]  DEFAULT ((0)),
+--	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_Quantity]  DEFAULT ((0)),
+--	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_Weight]  DEFAULT ((0)),
+--	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_TotalWeight]  DEFAULT ((0)),
+--	[UnitPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_UnitPrice]  DEFAULT ((0)),
+--	[CuttingPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_CuttingPrice]  DEFAULT ((0)),
+--	[TransportPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_TransportPrice]  DEFAULT ((0)),
+--	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_TotalPrice]  DEFAULT ((0)),
+--	[SalesContractQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_SalesContractQuantity]  DEFAULT ((0)),
+--	[SalesContractWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_SalesContractWeight]  DEFAULT ((0)),
+--	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrderDetInternal_Remarks]  DEFAULT (''),
+-- CONSTRAINT [PK_traPurchaseOrderDetInternal] PRIMARY KEY CLUSTERED 
+--(
+--	[ID] ASC
+--)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+--) ON [PRIMARY]
+
+--GO
+
+--SET ANSI_PADDING OFF
+--GO
+
+GO
+
+/****** Object:  Table [dbo].[traPurchaseOrderPaymentTerm]    Script Date: 07/09/2023 18:08:21 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traPurchaseOrderPaymentTerm](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderPaymentTerm_ID]  DEFAULT (''),
+	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderPaymentTerm_POID]  DEFAULT (''),
+	[Percentage] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseOrderPaymentTerm_Percentage]  DEFAULT ((0)),
+	[PaymentTypeID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderPaymentTerm_PaymentTypeID]  DEFAULT ((0)),
+	[PaymentModeID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderPaymentTerm_PaymentModeID]  DEFAULT ((0)),
+	[CreditTerm] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderPaymentTerm_CreditTerm]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrderPaymentTerm_Remarks]  DEFAULT ((0)),
+ CONSTRAINT [PK_traPurchaseOrderPaymentTerm] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traPurchaseOrderStatus]    Script Date: 07/09/2023 18:08:21 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traPurchaseOrderStatus](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderStatus_ID]  DEFAULT (''),
+	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderStatus_OrderRequestID]  DEFAULT (''),
+	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderStatus_Status]  DEFAULT ((0)),
+	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrderStatus_StatusBy]  DEFAULT ((0)),
+	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderStatus_StatusDate]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrderStatus_Remarks]  DEFAULT ((0)),
+ CONSTRAINT [PK_traPurchaseOrderStatus] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+--GO
+
+--/****** Object:  Table [dbo].[traPurchaseOrderCutting]    Script Date: 07/09/2023 17:54:26 ******/
+--SET ANSI_NULLS ON
+--GO
+
+--SET QUOTED_IDENTIFIER ON
+--GO
+
+--SET ANSI_PADDING ON
+--GO
+
+--CREATE TABLE [dbo].[traPurchaseOrderCutting](
+--	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_ID]  DEFAULT (''),
+--	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_ProgramID]  DEFAULT ((0)),
+--	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_CompanyID]  DEFAULT ((0)),
+--	[PONumber] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_PONumber]  DEFAULT (('')),
+--	[PODate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_PODate]  DEFAULT (getdate()),
+--	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_POID]  DEFAULT (''),
+--	[BPID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_BPID]  DEFAULT ((0)),
+--	[PersonInCharge] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_PersonInCharge]  DEFAULT (''),
+--	[DeliveryPeriodFrom] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_DeliveryPeriodFrom]  DEFAULT (getdate()),
+--	[DeliveryPeriodTo] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_DeliveryPeriodTo]  DEFAULT (getdate()),
+--	[PPN] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_PPN]  DEFAULT ((0)),
+--	[PPH] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_PPH]  DEFAULT ((0)),
+--	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_TotalQuantity]  DEFAULT ((0)),
+--	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_TotalWeight]  DEFAULT ((0)),
+--	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_TotalDPP]  DEFAULT ((0)),
+--	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_TotalPPN]  DEFAULT ((0)),
+--	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_TotalPPH]  DEFAULT ((0)),
+--	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_RoundingManual]  DEFAULT ((0)),
+--	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_IsDeleted]  DEFAULT ((0)),
+--	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_Remarks]  DEFAULT (''),
+--	[StatusID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_StatusID]  DEFAULT ((0)),
+--	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_SubmitBy]  DEFAULT (''),
+--	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_SubmitDate]  DEFAULT (getdate()),
+--	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_ApproveL1]  DEFAULT (''),
+--	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_ApproveL1Date]  DEFAULT (getdate()),
+--	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_ApprovedBy]  DEFAULT (''),
+--	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_ApprovedDate]  DEFAULT (getdate()),
+--	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_CreatedBy]  DEFAULT ('SYSTEM'),
+--	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_CreatedDate]  DEFAULT (getdate()),
+--	[LogInc] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_LogInc]  DEFAULT ((0)),
+--	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_LogBy]  DEFAULT ('SYSTEM'),
+--	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseOrderCutting_LogDate]  DEFAULT (getdate()),
+-- CONSTRAINT [PK_traPurchaseOrderCutting] PRIMARY KEY CLUSTERED 
+--(
+--	[ID] ASC
+--)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+--) ON [PRIMARY]
+
+--GO
+
+--SET ANSI_PADDING OFF
+--GO
+
+--GO
+
+--/****** Object:  Table [dbo].[traPurchaseOrderCuttingDet]    Script Date: 07/09/2023 17:54:26 ******/
+--SET ANSI_NULLS ON
+--GO
+
+--SET QUOTED_IDENTIFIER ON
+--GO
+
+--SET ANSI_PADDING ON
+--GO
+
+--CREATE TABLE [dbo].[traPurchaseOrderCuttingDet](
+--	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_ID]  DEFAULT (''),
+--	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_POID]  DEFAULT (''),
+--	[PODetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_PODetailID]  DEFAULT (''),
+--	[ItemID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_ItemID]  DEFAULT ((0)),
+--	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_Quantity]  DEFAULT ((0)),
+--	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_Weight]  DEFAULT ((0)),
+--	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_TotalWeight]  DEFAULT ((0)),
+--	[UnitPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_UnitPrice]  DEFAULT ((0)),
+--	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_TotalPrice]  DEFAULT ((0)),
+--	[SPKQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_SPKQuantity]  DEFAULT ((0)),
+--	[SPKWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_SPKWeight]  DEFAULT ((0)),
+--	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDet_Remarks]  DEFAULT (''),
+-- CONSTRAINT [PK_traPurchaseOrderCuttingDet] PRIMARY KEY CLUSTERED 
+--(
+--	[ID] ASC
+--)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+--) ON [PRIMARY]
+
+--GO
+
+--SET ANSI_PADDING OFF
+--GO
+
+GO
+
+/****** Object:  Table [dbo].[traConfirmationOrder]    Script Date: 07/09/2023 17:54:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traConfirmationOrder](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrder_ID]  DEFAULT (''),
+	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrder_ProgramID]  DEFAULT ((0)),
+	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrder_CompanyID]  DEFAULT ((0)),
+	[CONumber] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrder_CONumber]  DEFAULT (('')),
+	[CODate] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationOrder_CODate]  DEFAULT (getdate()),
+	[BPID] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrder_BPID]  DEFAULT ((0)),
+	[DeliveryPeriodFrom] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationOrder_DeliveryPeriodFrom]  DEFAULT (getdate()),
+	[DeliveryPeriodTo] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationOrder_DeliveryPeriodTo]  DEFAULT (getdate()),
+	[AllowanceProduction] [decimal](18,2) NOT NULL CONSTRAINT [DF_traConfirmationOrder_AllowanceProduction]  DEFAULT ((0)),
+	[PPN] [decimal](18,2) NOT NULL CONSTRAINT [DF_traConfirmationOrder_PPN]  DEFAULT ((0)),
+	[PPH] [decimal](18,2) NOT NULL CONSTRAINT [DF_traConfirmationOrder_PPH]  DEFAULT ((0)),
+	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationOrder_TotalQuantity]  DEFAULT ((0)),
+	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationOrder_TotalWeight]  DEFAULT ((0)),
+	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationOrder_TotalDPP]  DEFAULT ((0)),
+	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationOrder_TotalPPN]  DEFAULT ((0)),
+	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationOrder_TotalPPH]  DEFAULT ((0)),
+	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationOrder_RoundingManual]  DEFAULT ((0)),
+	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traConfirmationOrder_IsDeleted]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traConfirmationOrder_Remarks]  DEFAULT (''),
+	[StatusID] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrder_StatusID]  DEFAULT ((0)),
+	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traConfirmationOrder_SubmitBy]  DEFAULT (''),
+	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationOrder_SubmitDate]  DEFAULT (getdate()),
+	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traConfirmationOrder_CreatedBy]  DEFAULT ('SYSTEM'),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationOrder_CreatedDate]  DEFAULT (getdate()),
+	[LogInc] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrder_LogInc]  DEFAULT ((0)),
+	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traConfirmationOrder_LogBy]  DEFAULT ('SYSTEM'),
+	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationOrder_LogDate]  DEFAULT (getdate()),
+ CONSTRAINT [PK_traConfirmationOrder] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traConfirmationOrderDet]    Script Date: 07/09/2023 17:54:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traConfirmationOrderDet](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_ID]  DEFAULT (''),
+	[COID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_COID]  DEFAULT (''),
+	[PODetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_PODetailID]  DEFAULT (''),
+	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_OrderNumberSupplier]  DEFAULT (''),
+	[DeliveryAddress] [varchar](1000) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_DeliveryAddress]  DEFAULT (''),
+	[ItemID] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_ItemID]  DEFAULT ((0)),
+	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_Quantity]  DEFAULT ((0)),
+	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_Weight]  DEFAULT ((0)),
+	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_TotalWeight]  DEFAULT ((0)),
+	[UnitPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_UnitPrice]  DEFAULT ((0)),
+	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_TotalPrice]  DEFAULT ((0)),
+	[PCQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_PCQuantity]  DEFAULT ((0)),
+	[PCWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_PCWeight]  DEFAULT ((0)),
+	[DCQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_DCQuantity]  DEFAULT ((0)),
+	[DCWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_DCWeight]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traConfirmationOrderDet_Remarks]  DEFAULT (''),
+ CONSTRAINT [PK_traConfirmationOrderDet] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traConfirmationOrderPaymentTerm]    Script Date: 07/09/2023 18:08:21 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traConfirmationOrderPaymentTerm](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderPaymentTerm_ID]  DEFAULT (''),
+	[COID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderPaymentTerm_COID]  DEFAULT (''),
+	[Percentage] [decimal](18,2) NOT NULL CONSTRAINT [DF_traConfirmationOrderPaymentTerm_Percentage]  DEFAULT ((0)),
+	[PaymentTypeID] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrderPaymentTerm_PaymentTypeID]  DEFAULT ((0)),
+	[PaymentModeID] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrderPaymentTerm_PaymentModeID]  DEFAULT ((0)),
+	[CreditTerm] [int] NOT NULL CONSTRAINT [DF_traConfirmationOrderPaymentTerm_CreditTerm]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traConfirmationOrderPaymentTerm_Remarks]  DEFAULT ((0)),
+ CONSTRAINT [PK_traConfirmationOrderPaymentTerm] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traConfirmationOrderStatus]    Script Date: 07/09/2023 18:08:21 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traConfirmationOrderStatus](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderStatus_ID]  DEFAULT (''),
+	[COID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderStatus_COID]  DEFAULT (''),
+	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationOrderStatus_Status]  DEFAULT ((0)),
+	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traConfirmationOrderStatus_StatusBy]  DEFAULT ((0)),
+	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationOrderStatus_StatusDate]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traConfirmationOrderStatus_Remarks]  DEFAULT ((0)),
+ CONSTRAINT [PK_traConfirmationOrderStatus] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traPurchaseContract]    Script Date: 07/09/2023 17:54:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traPurchaseContract](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContract_ID]  DEFAULT (''),
+	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traPurchaseContract_ProgramID]  DEFAULT ((0)),
+	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traPurchaseContract_CompanyID]  DEFAULT ((0)),
+	[PCNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContract_PCNumber]  DEFAULT (('')),
+	[PCDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContract_PCDate]  DEFAULT (getdate()),
+	[BPID] [int] NOT NULL CONSTRAINT [DF_traPurchaseContract_BPID]  DEFAULT ((0)),
+	[DeliveryPeriodFrom] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContract_DeliveryPeriodFrom]  DEFAULT (getdate()),
+	[DeliveryPeriodTo] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContract_DeliveryPeriodTo]  DEFAULT (getdate()),
+	[AllowanceProduction] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseContract_AllowanceProduction]  DEFAULT ((0)),
+	[Franco] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseContract_Franco]  DEFAULT (''),
+	[PPN] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseContract_PPN]  DEFAULT ((0)),
+	[PPH] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseContract_PPH]  DEFAULT ((0)),
+	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseContract_TotalQuantity]  DEFAULT ((0)),
+	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseContract_TotalWeight]  DEFAULT ((0)),
+	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseContract_TotalDPP]  DEFAULT ((0)),
+	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseContract_TotalPPN]  DEFAULT ((0)),
+	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseContract_TotalPPH]  DEFAULT ((0)),
+	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseContract_RoundingManual]  DEFAULT ((0)),
+	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traPurchaseContract_IsDeleted]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseContract_Remarks]  DEFAULT (''),
+	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContract_JournalID]  DEFAULT (''),
+	[StatusID] [int] NOT NULL CONSTRAINT [DF_traPurchaseContract_StatusID]  DEFAULT ((0)),
+	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseContract_SubmitBy]  DEFAULT (''),
+	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContract_SubmitDate]  DEFAULT (getdate()),
+	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseContract_ApproveL1]  DEFAULT (''),
+	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContract_ApproveL1Date]  DEFAULT (getdate()),
+	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseContract_ApprovedBy]  DEFAULT (''),
+	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContract_ApprovedDate]  DEFAULT (getdate()),
+	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseContract_CreatedBy]  DEFAULT ('SYSTEM'),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContract_CreatedDate]  DEFAULT (getdate()),
+	[LogInc] [int] NOT NULL CONSTRAINT [DF_traPurchaseContract_LogInc]  DEFAULT ((0)),
+	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseContract_LogBy]  DEFAULT ('SYSTEM'),
+	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContract_LogDate]  DEFAULT (getdate()),
+	[DPAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseContract_DPAmount]  DEFAULT ((0)),
+	[ReceiveAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traPurchaseContract_ReceiveAmount]  DEFAULT ((0)),
+ CONSTRAINT [PK_traPurchaseContract] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traPurchaseContractDet]    Script Date: 07/09/2023 17:54:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traPurchaseContractDet](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_ID]  DEFAULT (''),
+	[PCID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_PCID]  DEFAULT (''),
+	[CODetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_CODetailID]  DEFAULT (''),
+	[ItemID] [int] NOT NULL CONSTRAINT [DF_traPurchaseContractDet_ItemID]  DEFAULT ((0)),
+	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_Quantity]  DEFAULT ((0)),
+	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_Weight]  DEFAULT ((0)),
+	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_TotalWeight]  DEFAULT ((0)),
+	[UnitPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_UnitPrice]  DEFAULT ((0)),
+	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_TotalPrice]  DEFAULT ((0)),
+	[DCQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_DCQuantity]  DEFAULT ((0)),
+	[DCWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_DCWeight]  DEFAULT ((0)),
+	[CuttingQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_CuttingQuantity]  DEFAULT ((0)),
+	[CuttingWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_CuttingWeight]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_Remarks]  DEFAULT (''),
+ CONSTRAINT [PK_traPurchaseContractDet] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traPurchaseContractPaymentTerm]    Script Date: 07/09/2023 18:08:21 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traPurchaseContractPaymentTerm](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContractPaymentTerm_ID]  DEFAULT (''),
+	[PCID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContractPaymentTerm_PCID]  DEFAULT (''),
+	[Percentage] [decimal](18,2) NOT NULL CONSTRAINT [DF_traPurchaseContractPaymentTerm_Percentage]  DEFAULT ((0)),
+	[PaymentTypeID] [int] NOT NULL CONSTRAINT [DF_traPurchaseContractPaymentTerm_PaymentTypeID]  DEFAULT ((0)),
+	[PaymentModeID] [int] NOT NULL CONSTRAINT [DF_traPurchaseContractPaymentTerm_PaymentModeID]  DEFAULT ((0)),
+	[CreditTerm] [int] NOT NULL CONSTRAINT [DF_traPurchaseContractPaymentTerm_CreditTerm]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseContractPaymentTerm_Remarks]  DEFAULT ((0)),
+ CONSTRAINT [PK_traPurchaseContractPaymentTerm] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traPurchaseContractStatus]    Script Date: 07/09/2023 18:08:21 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traPurchaseContractStatus](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContractStatus_ID]  DEFAULT (''),
+	[PCID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContractStatus_PCID]  DEFAULT (''),
+	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseContractStatus_Status]  DEFAULT ((0)),
+	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traPurchaseContractStatus_StatusBy]  DEFAULT ((0)),
+	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traPurchaseContractStatus_StatusDate]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseContractStatus_Remarks]  DEFAULT ((0)),
+ CONSTRAINT [PK_traPurchaseContractStatus] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traOrderRequest]    Script Date: 07/09/2023 17:54:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traOrderRequest](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequest_ID]  DEFAULT (''),
+	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traOrderRequest_ProgramID]  DEFAULT ((0)),
+	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traOrderRequest_CompanyID]  DEFAULT ((0)),
+	[OrderNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequest_OrderNumber]  DEFAULT (('')),
+	[OrderDate] [datetime] NOT NULL CONSTRAINT [DF_traOrderRequest_OrderDate]  DEFAULT (getdate()),
+	[BPID] [int] NOT NULL CONSTRAINT [DF_traOrderRequest_BPID]  DEFAULT ((0)),
+	[ReferencesNumber] [varchar](250) NOT NULL CONSTRAINT [DF_traOrderRequest_ReferencesNumber]  DEFAULT (('')),
+	[PPN] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traOrderRequest_PPN]  DEFAULT ((0)),
+	[PPH] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traOrderRequest_PPH]  DEFAULT ((0)),
+	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequest_TotalQuantity]  DEFAULT ((0)),
+	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequest_TotalWeight]  DEFAULT ((0)),
+	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequest_TotalDPP]  DEFAULT ((0)),
+	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequest_TotalPPN]  DEFAULT ((0)),
+	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequest_TotalPPH]  DEFAULT ((0)),
+	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequest_RoundingManual]  DEFAULT ((0)),
+	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traOrderRequest_IsDeleted]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traOrderRequest_Remarks]  DEFAULT (''),
+	[StatusID] [int] NOT NULL CONSTRAINT [DF_traOrderRequest_StatusID]  DEFAULT ((0)),
+	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traOrderRequest_SubmitBy]  DEFAULT (''),
+	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traOrderRequest_SubmitDate]  DEFAULT (getdate()),
+	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traOrderRequest_CreatedBy]  DEFAULT ('SYSTEM'),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traOrderRequest_CreatedDate]  DEFAULT (getdate()),
+	[LogInc] [int] NOT NULL CONSTRAINT [DF_traOrderRequest_LogInc]  DEFAULT ((0)),
+	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traOrderRequest_LogBy]  DEFAULT ('SYSTEM'),
+	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traOrderRequest_LogDate]  DEFAULT (getdate()),
+ CONSTRAINT [PK_traOrderRequest] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traOrderRequestDet]    Script Date: 07/09/2023 17:54:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traOrderRequestDet](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDet_ID]  DEFAULT (''),
+	[OrderRequestID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDet_OrderRequestID]  DEFAULT (''),
+	[ItemID] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDet_ItemID]  DEFAULT ((0)),
+	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traOrderRequestDet_Quantity]  DEFAULT ((0)),
+	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traOrderRequestDet_Weight]  DEFAULT ((0)),
+	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traOrderRequestDet_TotalWeight]  DEFAULT ((0)),
+	[UnitPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traOrderRequestDet_UnitPrice]  DEFAULT ((0)),
+	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traOrderRequestDet_TotalPrice]  DEFAULT ((0)),
+	[COQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traOrderRequestDet_COQuantity]  DEFAULT ((0)),
+	[COWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traOrderRequestDet_COWeight]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traOrderRequestDet_Remarks]  DEFAULT (''),
+ CONSTRAINT [PK_traOrderRequestDet] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traOrderRequestStatus]    Script Date: 07/09/2023 18:08:21 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traOrderRequestStatus](
+	[ID] [varchar](30) NOT NULL CONSTRAINT [DF_traOrderRequestStatus_ID]  DEFAULT (''),
+	[OrderRequestID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestStatus_OrderRequestID]  DEFAULT (''),
+	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestStatus_Status]  DEFAULT ((0)),
+	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traOrderRequestStatus_StatusBy]  DEFAULT ((0)),
+	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traOrderRequestStatus_StatusDate]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traOrderRequestStatus_Remarks]  DEFAULT ((0)),
+ CONSTRAINT [PK_traOrderRequestStatus] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traSalesContract]    Script Date: 07/09/2023 17:54:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traSalesContract](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContract_ID]  DEFAULT (''),
+	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traSalesContract_ProgramID]  DEFAULT ((0)),
+	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traSalesContract_CompanyID]  DEFAULT ((0)),
+	[SCNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContract_SCNumber]  DEFAULT (('')),
+	[SCDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_SCDate]  DEFAULT (getdate()),
+	[BPID] [int] NOT NULL CONSTRAINT [DF_traSalesContract_BPID]  DEFAULT ((0)),
+	[DeliveryPeriodFrom] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_DeliveryPeriodFrom]  DEFAULT (getdate()),
+	[DeliveryPeriodTo] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_DeliveryPeriodTo]  DEFAULT (getdate()),
+	[AllowanceProduction] [decimal](18,2) NOT NULL CONSTRAINT [DF_traSalesContract_AllowanceProduction]  DEFAULT ((0)),
+	[Franco] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_Franco]  DEFAULT (''),
+	[DelegationSeller] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_DelegationSeller]  DEFAULT (''),
+	[DelegationPositionSeller] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_DelegationPositionSeller]  DEFAULT (''),
+	[DelegationBuyer] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_DelegationBuyer]  DEFAULT (''),
+	[DelegationPositionBuyer] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_DelegationPositionBuyer]  DEFAULT (''),
+	[PPN] [decimal](18,2) NOT NULL CONSTRAINT [DF_traSalesContract_PPN]  DEFAULT ((0)),
+	[PPH] [decimal](18,2) NOT NULL CONSTRAINT [DF_traSalesContract_PPH]  DEFAULT ((0)),
+	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_TotalQuantity]  DEFAULT ((0)),
+	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_TotalWeight]  DEFAULT ((0)),
+	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_TotalDPP]  DEFAULT ((0)),
+	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_TotalPPN]  DEFAULT ((0)),
+	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_TotalPPH]  DEFAULT ((0)),
+	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_RoundingManual]  DEFAULT ((0)),
+	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traSalesContract_IsDeleted]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_Remarks]  DEFAULT (''),
+	[StatusID] [int] NOT NULL CONSTRAINT [DF_traSalesContract_StatusID]  DEFAULT ((0)),
+	[CompanyBankAccountID] [int] NOT NULL CONSTRAINT [DF_traSalesContract_CompanyBankAccountID]  DEFAULT ((0)),
+	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContract_SubmitBy]  DEFAULT (''),
+	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_SubmitDate]  DEFAULT (getdate()),
+	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContract_ApproveL1]  DEFAULT (''),
+	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_ApproveL1Date]  DEFAULT (getdate()),
+	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContract_ApprovedBy]  DEFAULT (''),
+	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_ApprovedDate]  DEFAULT (getdate()),
+	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContract_CreatedBy]  DEFAULT ('SYSTEM'),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_CreatedDate]  DEFAULT (getdate()),
+	[LogInc] [int] NOT NULL CONSTRAINT [DF_traSalesContract_LogInc]  DEFAULT ((0)),
+	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContract_LogBy]  DEFAULT ('SYSTEM'),
+	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContract_LogDate]  DEFAULT (getdate()),
+	[DPAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_DPAmount]  DEFAULT ((0)),
+	[ReceiveAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_ReceiveAmount]  DEFAULT ((0)),
+ CONSTRAINT [PK_traSalesContract] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traSalesContractDet]    Script Date: 07/09/2023 17:54:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traSalesContractDet](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDet_ID]  DEFAULT (''),
+	[SCID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDet_SCID]  DEFAULT (''),
+	[PODetailInternalID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDet_PODetailInternalID]  DEFAULT (''),
+	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDet_OrderNumberSupplier]  DEFAULT (''),
+	[ItemID] [int] NOT NULL CONSTRAINT [DF_traSalesContractDet_ItemID]  DEFAULT ((0)),
+	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_Quantity]  DEFAULT ((0)),
+	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_Weight]  DEFAULT ((0)),
+	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_TotalWeight]  DEFAULT ((0)),
+	[UnitPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_UnitPrice]  DEFAULT ((0)),
+	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_TotalPrice]  DEFAULT ((0)),
+	[DCQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_DCQuantity]  DEFAULT ((0)),
+	[DCWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_DCWeight]  DEFAULT ((0)),
+	[CuttingQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_CuttingQuantity]  DEFAULT ((0)),
+	[CuttingWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_CuttingWeight]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContractDet_Remarks]  DEFAULT (''),
+ CONSTRAINT [PK_traSalesContractDet] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traSalesContractPaymentTerm]    Script Date: 07/09/2023 18:08:21 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traSalesContractPaymentTerm](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_ID]  DEFAULT (''),
+	[SCID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_SCID]  DEFAULT (''),
+	[Percentage] [decimal](18,2) NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_Percentage]  DEFAULT ((0)),
+	[PaymentTypeID] [int] NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_PaymentTypeID]  DEFAULT ((0)),
+	[PaymentModeID] [int] NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_PaymentModeID]  DEFAULT ((0)),
+	[CreditTerm] [int] NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_CreditTerm]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContractPaymentTerm_Remarks]  DEFAULT ((0)),
+ CONSTRAINT [PK_traSalesContractPaymentTerm] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traSalesContractStatus]    Script Date: 07/09/2023 18:08:21 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traSalesContractStatus](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractStatus_ID]  DEFAULT (''),
+	[SCID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractStatus_SCID]  DEFAULT (''),
+	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractStatus_Status]  DEFAULT ((0)),
+	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContractStatus_StatusBy]  DEFAULT ((0)),
+	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesContractStatus_StatusDate]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContractStatus_Remarks]  DEFAULT ((0)),
+ CONSTRAINT [PK_traSalesContractStatus] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO

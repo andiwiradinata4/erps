@@ -34,10 +34,18 @@
     Dim frmMainTraPurchaseContract As frmTraPurchaseContract
 
     '## Pembukuan
-    Dim frmMainTraJournal As frmTraJournal
+    Dim frmMainTraAccountReceivableSetupBalance As frmTraAccountReceivable
+    Dim frmMainTraAccountReceivableDPManual As frmTraAccountReceivable
     Dim frmMainTraAccountReceivable As frmTraAccountReceivable
-    Dim frmMainTraAccountPayable As frmTraAccountPayable
+
+    Dim frmMainTraAccountPayableSetupBalance As frmTraAccountPayable
+    Dim frmMainTraAccountPayableDPManual As frmTraAccountPayable
+    Dim frmMainTraAccountPayableDP As frmTraAccountPayable
+    Dim frmMainTraAccountPayableReceivePayment As frmTraAccountPayable
+
+
     Dim frmMainTraCost As frmTraCost
+    Dim frmMainTraJournal As frmTraJournal
 
 
     '# Laporan
@@ -354,30 +362,24 @@
 #Region "Pembukuan"
 
     Private Sub mnuTransaksiPembukuanPelunasanSaldoAwal_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPelunasanSaldoAwal.Click
-        'UI.usForm.frmOpen(frmMainTraAccountReceivable, "frmTraAccountReceivable", Me)
-        'frmMainTraAccountReceivable = New frmTraAccountReceivable
-        'frmMainTraAccountReceivable.pubModules = "SB"
-        'frmMainTraAccountReceivable.Show()
-        'frmMainTraAccountReceivable.MdiParent = Me
-
         Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraAccountReceivable"
         Me.Cursor = Cursors.WaitCursor
-        If Not IsNothing(frmMainTraAccountReceivable) Then
-            If Not frmMainTraAccountReceivable.IsDisposed Then
-                frmMainTraAccountReceivable.WindowState = FormWindowState.Normal
-                frmMainTraAccountReceivable.BringToFront()
-                frmMainTraAccountReceivable.WindowState = FormWindowState.Maximized
+        If Not IsNothing(frmMainTraAccountReceivableSetupBalance) Then
+            If Not frmMainTraAccountReceivableSetupBalance.IsDisposed Then
+                frmMainTraAccountReceivableSetupBalance.WindowState = FormWindowState.Normal
+                frmMainTraAccountReceivableSetupBalance.BringToFront()
+                frmMainTraAccountReceivableSetupBalance.WindowState = FormWindowState.Maximized
             Else
-                frmMainTraAccountReceivable = Activator.CreateInstance(Type.GetType(s_fT))
-                frmMainTraAccountReceivable.MdiParent = Me
-                frmMainTraAccountReceivable.pubModules = "SB"
-                frmMainTraAccountReceivable.Show()
+                frmMainTraAccountReceivableSetupBalance = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraAccountReceivableSetupBalance.MdiParent = Me
+                frmMainTraAccountReceivableSetupBalance.pubModules = "SB"
+                frmMainTraAccountReceivableSetupBalance.Show()
             End If
         Else
-            frmMainTraAccountReceivable = Activator.CreateInstance(Type.GetType(s_fT))
-            frmMainTraAccountReceivable.MdiParent = Me
-            frmMainTraAccountReceivable.pubModules = "SB"
-            frmMainTraAccountReceivable.Show()
+            frmMainTraAccountReceivableSetupBalance = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraAccountReceivableSetupBalance.MdiParent = Me
+            frmMainTraAccountReceivableSetupBalance.pubModules = "SB"
+            frmMainTraAccountReceivableSetupBalance.Show()
         End If
         Me.Cursor = Cursors.Arrow
     End Sub
@@ -386,22 +388,22 @@
         'UI.usForm.frmOpen(frmMainTraAccountPayable, "frmTraAccountPayable", Me)
         Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraAccountPayable"
         Me.Cursor = Cursors.WaitCursor
-        If Not IsNothing(frmMainTraAccountPayable) Then
-            If Not frmMainTraAccountPayable.IsDisposed Then
-                frmMainTraAccountPayable.WindowState = FormWindowState.Normal
-                frmMainTraAccountPayable.BringToFront()
-                frmMainTraAccountPayable.WindowState = FormWindowState.Maximized
+        If Not IsNothing(frmMainTraAccountPayableSetupBalance) Then
+            If Not frmMainTraAccountPayableSetupBalance.IsDisposed Then
+                frmMainTraAccountPayableSetupBalance.WindowState = FormWindowState.Normal
+                frmMainTraAccountPayableSetupBalance.BringToFront()
+                frmMainTraAccountPayableSetupBalance.WindowState = FormWindowState.Maximized
             Else
-                frmMainTraAccountPayable = Activator.CreateInstance(Type.GetType(s_fT))
-                frmMainTraAccountPayable.MdiParent = Me
-                frmMainTraAccountPayable.pubModules = "PB"
-                frmMainTraAccountPayable.Show()
+                frmMainTraAccountPayableSetupBalance = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraAccountPayableSetupBalance.MdiParent = Me
+                frmMainTraAccountPayableSetupBalance.pubModules = VO.AccountPayable.PurchaseBalance
+                frmMainTraAccountPayableSetupBalance.Show()
             End If
         Else
-            frmMainTraAccountPayable = Activator.CreateInstance(Type.GetType(s_fT))
-            frmMainTraAccountPayable.MdiParent = Me
-            frmMainTraAccountPayable.pubModules = "PB"
-            frmMainTraAccountPayable.Show()
+            frmMainTraAccountPayableSetupBalance = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraAccountPayableSetupBalance.MdiParent = Me
+            frmMainTraAccountPayableSetupBalance.pubModules = VO.AccountPayable.PurchaseBalance
+            frmMainTraAccountPayableSetupBalance.Show()
         End If
         Me.Cursor = Cursors.Arrow
     End Sub
@@ -409,22 +411,22 @@
     Private Sub mnuTransaksiPembukuanPanjarPenjualanManual_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPanjarPenjualanManual.Click
         Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraAccountReceivable"
         Me.Cursor = Cursors.WaitCursor
-        If Not IsNothing(frmMainTraAccountReceivable) Then
-            If Not frmMainTraAccountReceivable.IsDisposed Then
-                frmMainTraAccountReceivable.WindowState = FormWindowState.Normal
-                frmMainTraAccountReceivable.BringToFront()
-                frmMainTraAccountReceivable.WindowState = FormWindowState.Maximized
+        If Not IsNothing(frmMainTraAccountReceivableDPManual) Then
+            If Not frmMainTraAccountReceivableDPManual.IsDisposed Then
+                frmMainTraAccountReceivableDPManual.WindowState = FormWindowState.Normal
+                frmMainTraAccountReceivableDPManual.BringToFront()
+                frmMainTraAccountReceivableDPManual.WindowState = FormWindowState.Maximized
             Else
-                frmMainTraAccountReceivable = Activator.CreateInstance(Type.GetType(s_fT))
-                frmMainTraAccountReceivable.MdiParent = Me
-                frmMainTraAccountReceivable.pubModules = "SDM"
-                frmMainTraAccountReceivable.Show()
+                frmMainTraAccountReceivableDPManual = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraAccountReceivableDPManual.MdiParent = Me
+                frmMainTraAccountReceivableDPManual.pubModules = "SDM"
+                frmMainTraAccountReceivableDPManual.Show()
             End If
         Else
-            frmMainTraAccountReceivable = Activator.CreateInstance(Type.GetType(s_fT))
-            frmMainTraAccountReceivable.MdiParent = Me
-            frmMainTraAccountReceivable.pubModules = "SDM"
-            frmMainTraAccountReceivable.Show()
+            frmMainTraAccountReceivableDPManual = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraAccountReceivableDPManual.MdiParent = Me
+            frmMainTraAccountReceivableDPManual.pubModules = "SDM"
+            frmMainTraAccountReceivableDPManual.Show()
         End If
         Me.Cursor = Cursors.Arrow
     End Sub
@@ -432,22 +434,22 @@
     Private Sub mnuTransaksiPembukuanPanjarPembelianManual_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPanjarPembelianManual.Click
         Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraAccountPayable"
         Me.Cursor = Cursors.WaitCursor
-        If Not IsNothing(frmMainTraAccountPayable) Then
-            If Not frmMainTraAccountPayable.IsDisposed Then
-                frmMainTraAccountPayable.WindowState = FormWindowState.Normal
-                frmMainTraAccountPayable.BringToFront()
-                frmMainTraAccountPayable.WindowState = FormWindowState.Maximized
+        If Not IsNothing(frmMainTraAccountPayableDPManual) Then
+            If Not frmMainTraAccountPayableDPManual.IsDisposed Then
+                frmMainTraAccountPayableDPManual.WindowState = FormWindowState.Normal
+                frmMainTraAccountPayableDPManual.BringToFront()
+                frmMainTraAccountPayableDPManual.WindowState = FormWindowState.Maximized
             Else
-                frmMainTraAccountPayable = Activator.CreateInstance(Type.GetType(s_fT))
-                frmMainTraAccountPayable.MdiParent = Me
-                frmMainTraAccountPayable.pubModules = "PDM"
-                frmMainTraAccountPayable.Show()
+                frmMainTraAccountPayableDPManual = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraAccountPayableDPManual.MdiParent = Me
+                frmMainTraAccountPayableDPManual.pubModules = VO.AccountPayable.DownPaymentManual
+                frmMainTraAccountPayableDPManual.Show()
             End If
         Else
-            frmMainTraAccountPayable = Activator.CreateInstance(Type.GetType(s_fT))
-            frmMainTraAccountPayable.MdiParent = Me
-            frmMainTraAccountPayable.pubModules = "PDM"
-            frmMainTraAccountPayable.Show()
+            frmMainTraAccountPayableDPManual = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraAccountPayableDPManual.MdiParent = Me
+            frmMainTraAccountPayableDPManual.pubModules = VO.AccountPayable.DownPaymentManual
+            frmMainTraAccountPayableDPManual.Show()
         End If
         Me.Cursor = Cursors.Arrow
     End Sub
@@ -459,22 +461,49 @@
     Private Sub mnuTransaksiPembukuanPanjarPembelian_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPanjarPembelian.Click
         Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraAccountPayable"
         Me.Cursor = Cursors.WaitCursor
-        If Not IsNothing(frmMainTraAccountPayable) Then
-            If Not frmMainTraAccountPayable.IsDisposed Then
-                frmMainTraAccountPayable.WindowState = FormWindowState.Normal
-                frmMainTraAccountPayable.BringToFront()
-                frmMainTraAccountPayable.WindowState = FormWindowState.Maximized
+        If Not IsNothing(frmMainTraAccountPayableDP) Then
+            If Not frmMainTraAccountPayableDP.IsDisposed Then
+                frmMainTraAccountPayableDP.WindowState = FormWindowState.Normal
+                frmMainTraAccountPayableDP.BringToFront()
+                frmMainTraAccountPayableDP.WindowState = FormWindowState.Maximized
             Else
-                frmMainTraAccountPayable = Activator.CreateInstance(Type.GetType(s_fT))
-                frmMainTraAccountPayable.MdiParent = Me
-                frmMainTraAccountPayable.pubModules = "PDP"
-                frmMainTraAccountPayable.Show()
+                frmMainTraAccountPayableDP = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraAccountPayableDP.MdiParent = Me
+                frmMainTraAccountPayableDP.pubModules = VO.AccountPayable.DownPayment
+                frmMainTraAccountPayableDP.Show()
             End If
         Else
-            frmMainTraAccountPayable = Activator.CreateInstance(Type.GetType(s_fT))
-            frmMainTraAccountPayable.MdiParent = Me
-            frmMainTraAccountPayable.pubModules = "PDP"
-            frmMainTraAccountPayable.Show()
+            frmMainTraAccountPayableDP = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraAccountPayableDP.MdiParent = Me
+            frmMainTraAccountPayableDP.pubModules = VO.AccountPayable.DownPayment
+            frmMainTraAccountPayableDP.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
+    End Sub
+
+    Private Sub mnuTransaksiPembukuanPelunasanPiutangPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPelunasanPiutangPenjualan.Click
+
+    End Sub
+
+    Private Sub mnuTransaksiPembukuanPembayaranHutangPembelian_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPembayaranHutangPembelian.Click
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraAccountPayable"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraAccountPayableReceivePayment) Then
+            If Not frmMainTraAccountPayableReceivePayment.IsDisposed Then
+                frmMainTraAccountPayableReceivePayment.WindowState = FormWindowState.Normal
+                frmMainTraAccountPayableReceivePayment.BringToFront()
+                frmMainTraAccountPayableReceivePayment.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraAccountPayableReceivePayment = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraAccountPayableReceivePayment.MdiParent = Me
+                frmMainTraAccountPayableReceivePayment.pubModules = VO.AccountPayable.ReceivePayment
+                frmMainTraAccountPayableReceivePayment.Show()
+            End If
+        Else
+            frmMainTraAccountPayableReceivePayment = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraAccountPayableReceivePayment.MdiParent = Me
+            frmMainTraAccountPayableReceivePayment.pubModules = VO.AccountPayable.ReceivePayment
+            frmMainTraAccountPayableReceivePayment.Show()
         End If
         Me.Cursor = Cursors.Arrow
     End Sub

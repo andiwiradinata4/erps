@@ -30,5 +30,11 @@
         Property StatusID As Integer
         Property Detail As New List(Of VO.AccountPayableDet)
         Property Save As VO.Save.Action
+
+        Public Const PurchaseBalance As String = "PB"
+        Public Const DownPaymentManual As String = "PDM"
+        Public Const DownPayment As String = "PDP"
+        Public Const ReceivePayment As String = "PI"
+
     End Class
 End Namespace

@@ -70,7 +70,7 @@
         If Not UI.usForm.frmAskQuestion("Simpan data?") Then Exit Sub
 
         Dim clsData As New VO.ChartOfAccountAssign
-        Dim clsDataAll(grdView.RowCount - 1) As VO.ChartOfAccountAssign
+        Dim clsDataAll As New List(Of VO.ChartOfAccountAssign)
         With grdView
             For i As Integer = 0 To .RowCount - 1
                 clsData = New VO.ChartOfAccountAssign
@@ -79,7 +79,7 @@
                 clsData.CompanyID = .GetRowCellValue(i, "CompanyID")
                 clsData.FirstBalance = .GetRowCellValue(i, "FirstBalance")
                 clsData.FirstBalanceDate = .GetRowCellValue(i, "FirstBalanceDate")
-                clsDataAll(i) = clsData
+                clsDataAll.Add(clsData)
             Next
         End With
 

@@ -8,25 +8,39 @@ Namespace BL
             End Using
         End Function
 
-        Public Shared Function SaveData(ByVal intCOAID As Integer, ByVal clsDataAll() As VO.ChartOfAccountAssign) As Boolean
+        Public Shared Function SaveData(ByVal intCOAID As Integer, ByVal clsDataAll As List(Of VO.ChartOfAccountAssign)) As Boolean
             Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    DL.ChartOfAccountAssign.DeleteData(sqlCon, sqlTrans, intCOAID)
-
-                    For Each clsItem As VO.ChartOfAccountAssign In clsDataAll
-                        clsItem.ID = DL.ChartOfAccountAssign.GetMaxID(sqlCon, sqlTrans)
-                        DL.ChartOfAccountAssign.SaveData(sqlCon, sqlTrans, clsItem)
-                    Next
+                    bolReturn = SaveData(sqlCon, sqlTrans, intCOAID, clsDataAll)
 
                     sqlTrans.Commit()
                     bolReturn = True
                 Catch ex As Exception
                     sqlTrans.Rollback()
+                    Throw ex
                 End Try
             End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                        ByVal intCOAID As Integer, ByVal clsDataAll As List(Of VO.ChartOfAccountAssign)) As Boolean
+            Dim bolReturn As Boolean = False
+            Try
+                DL.ChartOfAccountAssign.DeleteData(sqlCon, sqlTrans, intCOAID)
+
+                For Each clsItem As VO.ChartOfAccountAssign In clsDataAll
+                    clsItem.ID = DL.ChartOfAccountAssign.GetMaxID(sqlCon, sqlTrans)
+                    DL.ChartOfAccountAssign.SaveData(sqlCon, sqlTrans, clsItem)
+                Next
+
+                bolReturn = True
+            Catch ex As Exception
+                Throw ex
+            End Try
             Return bolReturn
         End Function
 

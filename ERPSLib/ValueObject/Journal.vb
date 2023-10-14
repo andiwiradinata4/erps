@@ -39,6 +39,7 @@ Namespace VO
             PanjarPembelian = 12
             PanjarPenjualan = 13
             Penjualan = 14
+            Pembelian = 23
         End Enum
 
 
