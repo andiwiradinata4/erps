@@ -401,6 +401,7 @@ Public Class frmTraConfirmationOrderDet
             .pubIsNew = True
             .pubBPID = intBPID
             .pubTableParentItem = dtItem
+            .pubCS = pubCS
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -418,6 +419,7 @@ Public Class frmTraConfirmationOrderDet
             .pubBPID = intBPID
             .pubOrderNumberSupplier = grdItemView.GetRowCellValue(intPos, "OrderNumberSupplier")
             .pubTableParentItem = dtItem
+            .pubCS = pubCS
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()

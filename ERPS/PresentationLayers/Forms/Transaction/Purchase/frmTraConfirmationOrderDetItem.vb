@@ -13,6 +13,7 @@ Public Class frmTraConfirmationOrderDetItem
     Private strOrderNumberSupplier As String = ""
     Private intPos As Integer = 0
     Private dtItem As New DataTable
+    Private clsCS As VO.CS
 
     Public WriteOnly Property pubTableParentItem As DataTable
         Set(value As DataTable)
@@ -35,6 +36,12 @@ Public Class frmTraConfirmationOrderDetItem
     Public WriteOnly Property pubOrderNumberSupplier As String
         Set(value As String)
             strOrderNumberSupplier = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubCS As VO.CS
+        Set(value As VO.CS)
+            clsCS = value
         End Set
     End Property
 
@@ -231,6 +238,7 @@ Public Class frmTraConfirmationOrderDetItem
             .pubIsNew = True
             .pubBPID = intBPID
             .pubTableItem = dtItem
+            .pubCS = clsCS
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -245,6 +253,7 @@ Public Class frmTraConfirmationOrderDetItem
             .pubIsNew = False
             .pubBPID = intBPID
             .pubTableItem = dtItem
+            .pubCS = clsCS
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)

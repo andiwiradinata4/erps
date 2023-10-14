@@ -53,8 +53,8 @@ Public Class frmTraOrderRequestDet
         UI.usForm.SetGrid(grdItemView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemView, "POInternalQuantity", "POInternalQuantity", 100, UI.usDefGrid.gReal4Num, False)
-        UI.usForm.SetGrid(grdItemView, "POInternalWeight", "POInternalWeight", 100, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
 
         '# History
@@ -92,6 +92,11 @@ Public Class frmTraOrderRequestDet
                 txtBPName.Text = clsData.BPName
                 dtpOrderDate.Value = clsData.OrderDate
                 txtReferencesNumber.Text = clsData.ReferencesNumber
+                txtPPN.Value = clsData.PPN
+                txtPPH.Value = clsData.PPH
+                txtTotalDPP.Value = clsData.TotalDPP
+                txtTotalPPN.Value = clsData.TotalPPN
+                txtTotalPPH.Value = clsData.TotalPPH
                 cboStatus.SelectedValue = clsData.StatusID
                 txtRemarks.Text = clsData.Remarks
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
@@ -99,6 +104,7 @@ Public Class frmTraOrderRequestDet
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
 
                 dtpOrderDate.Enabled = False
+                txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -153,6 +159,8 @@ Public Class frmTraOrderRequestDet
                                .Quantity = dr.Item("Quantity"),
                                .Weight = dr.Item("Weight"),
                                .TotalWeight = dr.Item("TotalWeight"),
+                               .UnitPrice = dr.Item("UnitPrice"),
+                               .TotalPrice = dr.Item("TotalPrice"),
                                .Remarks = dr.Item("Remarks")
                            })
         Next
@@ -165,8 +173,14 @@ Public Class frmTraOrderRequestDet
         clsData.OrderNumber = txtOrderNumber.Text.Trim
         clsData.OrderDate = dtpOrderDate.Value.Date
         clsData.ReferencesNumber = txtReferencesNumber.Text.Trim
+        clsData.PPN = txtPPN.Value
+        clsData.PPH = txtPPH.Value
         clsData.TotalQuantity = grdItemView.Columns("Quantity").SummaryItem.SummaryValue
         clsData.TotalWeight = grdItemView.Columns("TotalWeight").SummaryItem.SummaryValue
+        clsData.TotalDPP = txtTotalDPP.Value
+        clsData.TotalPPN = txtTotalPPN.Value
+        clsData.TotalPPH = txtTotalPPH.Value
+        clsData.RoundingManual = 0
         clsData.Remarks = txtRemarks.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
         clsData.Detail = listDetail
@@ -207,6 +221,12 @@ Public Class frmTraOrderRequestDet
         txtBPName.Text = ""
         dtpOrderDate.Value = Now
         txtReferencesNumber.Text = ""
+        txtPPN.Value = 0
+        txtPPH.Value = 0
+        txtTotalDPP.Value = 0
+        txtTotalPPN.Value = 0
+        txtTotalPPH.Value = 0
+        txtGrandTotal.Value = 0
         txtRemarks.Text = ""
         cboStatus.SelectedValue = VO.Status.Values.Draft
         ToolStripLogInc.Text = "Jumlah Edit : -"
@@ -231,6 +251,7 @@ Public Class frmTraOrderRequestDet
     Private Sub prvSumGrid()
         Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
         Dim SumGrandTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
+        Dim SumGrandTotalPrice As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
 
         If grdItemView.Columns("Quantity").SummaryText.Trim = "" Then
             grdItemView.Columns("Quantity").Summary.Add(SumTotalQuantity)
@@ -239,6 +260,20 @@ Public Class frmTraOrderRequestDet
         If grdItemView.Columns("TotalWeight").SummaryText.Trim = "" Then
             grdItemView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeight)
         End If
+
+        If grdItemView.Columns("TotalPrice").SummaryText.Trim = "" Then
+            grdItemView.Columns("TotalPrice").Summary.Add(SumGrandTotalPrice)
+        End If
+    End Sub
+
+    Public Sub prvCalculate()
+        txtTotalDPP.Value = 0
+        For Each dr As DataRow In dtItem.Rows
+            txtTotalDPP.Value += dr.Item("TotalPrice")
+        Next
+        txtTotalPPN.Value = ERPSLib.SharedLib.Math.Round(txtTotalDPP.Value * (txtPPN.Value / 100), 2)
+        txtTotalPPH.Value = ERPSLib.SharedLib.Math.Round(txtTotalDPP.Value * (txtPPH.Value / 100), 2)
+        txtGrandTotal.Value = ERPSLib.SharedLib.Math.Round(txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value, 2)
     End Sub
 
     Private Sub prvUserAccess()
@@ -344,6 +379,8 @@ Public Class frmTraOrderRequestDet
         If e.KeyCode = Keys.F1 Then
             tcHeader.SelectedTab = tpMain
         ElseIf e.KeyCode = Keys.F2 Then
+            tcHeader.SelectedTab = tpPrice
+        ElseIf e.KeyCode = Keys.F3 Then
             tcHeader.SelectedTab = tpHistory
         ElseIf e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
@@ -381,6 +418,10 @@ Public Class frmTraOrderRequestDet
 
     Private Sub btnBP_Click(sender As Object, e As EventArgs) Handles btnBP.Click
         prvChooseBP()
+    End Sub
+
+    Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtPPN.ValueChanged, txtPPH.ValueChanged
+        prvCalculate()
     End Sub
 
 #End Region

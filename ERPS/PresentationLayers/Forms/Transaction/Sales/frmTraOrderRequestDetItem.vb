@@ -63,8 +63,11 @@
         txtWidth.Value = 0
         txtLength.Value = 0
         txtWeight.Value = 0
+        txtUnitPrice.Value = 0
         cboItemSpecification.SelectedIndex = -1
         txtQuantity.Value = 0
+        txtTotalWeight.Value = 0
+        txtTotalPrice.Value = 0
         txtRemarks.Text = ""
     End Sub
 
@@ -84,8 +87,11 @@
                 txtWidth.Value = drSelected.Item("Width")
                 txtLength.Value = drSelected.Item("Length")
                 txtWeight.Value = drSelected.Item("Weight")
+                txtUnitPrice.Value = drSelected.Item("UnitPrice")
                 cboItemSpecification.SelectedValue = drSelected.Item("ItemSpecificationID")
                 txtQuantity.Value = drSelected.Item("Quantity")
+                txtTotalWeight.Value = drSelected.Item("TotalWeight")
+                txtTotalPrice.Value = drSelected.Item("TotalPrice")
                 txtRemarks.Text = drSelected.Item("Remarks")
             End If
         Catch ex As Exception
@@ -133,14 +139,15 @@
             dr.Item("Quantity") = txtQuantity.Value
             dr.Item("Weight") = txtWeight.Value
             dr.Item("TotalWeight") = txtTotalWeight.Value
-            dr.Item("POInternalQuantity") = 0
-            dr.Item("POInternalWeight") = 0
+            dr.Item("UnitPrice") = txtUnitPrice.Value
+            dr.Item("TotalPrice") = txtTotalPrice.Value
             dr.Item("Remarks") = txtRemarks.Text.Trim
             dr.EndEdit()
             dtParent.Rows.Add(dr)
             dtParent.AcceptChanges()
             frmParent.grdItemView.BestFitColumns()
             prvClear()
+            frmParent.prvCalculate()
         Else
             For Each dr As DataRow In dtParent.Rows
                 If dr.Item("ID") = strID Then
@@ -159,8 +166,8 @@
                     dr.Item("Quantity") = txtQuantity.Value
                     dr.Item("Weight") = txtWeight.Value
                     dr.Item("TotalWeight") = txtTotalWeight.Value
-                    dr.Item("POInternalQuantity") = 0
-                    dr.Item("POInternalWeight") = 0
+                    dr.Item("UnitPrice") = txtUnitPrice.Value
+                    dr.Item("TotalPrice") = txtTotalPrice.Value
                     dr.Item("Remarks") = txtRemarks.Text.Trim
                     dr.EndEdit()
                     dtParent.AcceptChanges()
@@ -168,6 +175,7 @@
                     Exit For
                 End If
             Next
+            frmParent.prvCalculate()
             Me.Close()
         End If
     End Sub
@@ -188,11 +196,17 @@
                 txtLength.Value = .pubLUdtRow.Item("Length")
                 cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
                 txtWeight.Value = .pubLUdtRow.Item("Weight")
+                txtUnitPrice.Value = .pubLUdtRow.Item("BasePrice")
                 txtQuantity.Value = 0
-                txtQuantity.Focus()
+                txtUnitPrice.Focus()
                 txtRemarks.Text = ""
             End If
         End With
+    End Sub
+
+    Private Sub prvCalculate()
+        txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
+        txtTotalPrice.Value = txtTotalWeight.Value * txtUnitPrice.Value
     End Sub
 
 #Region "Form Handle"
@@ -222,8 +236,8 @@
         prvChooseItem()
     End Sub
 
-    Private Sub txtQuantity_ValueChanged(sender As Object, e As EventArgs) Handles txtQuantity.ValueChanged
-        txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
+    Private Sub txtNumeric_ValueChanged(sender As Object, e As EventArgs) Handles txtQuantity.ValueChanged, txtUnitPrice.ValueChanged
+        prvCalculate()
     End Sub
 
 #End Region

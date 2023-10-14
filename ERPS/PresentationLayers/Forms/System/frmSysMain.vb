@@ -24,7 +24,7 @@
 
     '# Transaction
     '## Sales
-    'Dim frmMainTraOrderRequest As frmTraOrderRequest
+    Dim frmMainTraOrderRequest As frmTraOrderRequest
 
 
     '## Purchase
@@ -95,7 +95,7 @@
 
         '# Transaction
         '## Sales
-        mnuTransaksiPenjualanPermintaan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.ViewAccess)
+        mnuTransaksiPenjualanPermintaanPenjualan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.ViewAccess)
         mnuTransaksiPenjualanKontrakPenjualan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.ViewAccess)
         mnuTransaksiPenjualanMemoPengambilan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPickupMemo, VO.Access.Values.ViewAccess)
         mnuTransaksiPenjualanPengirimanPenjualan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesDelivery, VO.Access.Values.ViewAccess)
@@ -315,16 +315,19 @@
 
 #Region "Transaksi"
 
-    Private Sub mnuTransaksiPenjualanPermintaan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPermintaan.Click
-        'UI.usForm.frmOpen(frmMainTraOrderRequest, "frmTraOrderRequest", Me)
+
+#Region "Sales"
+
+    Private Sub mnuTransaksiPenjualanPermintaanPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPermintaanPenjualan.Click
+        UI.usForm.frmOpen(frmMainTraOrderRequest, "frmTraOrderRequest", Me)
     End Sub
+
+#End Region
+
+#Region "Purchase"
 
     Private Sub mnuTransaksiPembelianPesananPembelian_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianPesananPembelian.Click
         UI.usForm.frmOpen(frmMainTraPurchaseOrder, "frmTraPurchaseOrder", Me)
-    End Sub
-
-    Private Sub mnuTransaksiPembelianPesananPemotongan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianPesananPemotongan.Click
-        'UI.usForm.frmOpen(frmMainTraPurchaseOrderCutting, "frmTraPurchaseOrderCutting", Me)
     End Sub
 
     Private Sub mnuTransaksiPembelianKonfirmasiPesanan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianKonfirmasiPesanan.Click
@@ -335,29 +338,7 @@
         UI.usForm.frmOpen(frmMainTraPurchaseContract, "frmTraPurchaseContract", Me)
     End Sub
 
-    Private Sub mnuTransaksiPembelianInstruksi_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianInstruksi.Click
-
-    End Sub
-
-    Private Sub mnuTransaksiPembelianKonfirmasiPengiriman_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianKonfirmasiPengiriman.Click
-
-    End Sub
-
-    Private Sub mnuTransaksiPembelianProsesPemotonganSPK_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianProsesPemotonganSPK.Click
-
-    End Sub
-
-    Private Sub mnuTransaksiPenjualanKontrakPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanKontrakPenjualan.Click
-
-    End Sub
-
-    Private Sub mnuTransaksiPenjualanMemoPengambilan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanMemoPengambilan.Click
-
-    End Sub
-
-    Private Sub mnuTransaksiPenjualanPengirimanPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPengirimanPenjualan.Click
-
-    End Sub
+#End Region
 
 #Region "Pembukuan"
 

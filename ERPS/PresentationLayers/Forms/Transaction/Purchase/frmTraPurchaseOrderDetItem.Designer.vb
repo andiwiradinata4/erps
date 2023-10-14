@@ -185,7 +185,7 @@ Partial Class frmTraPurchaseOrderDetItem
         Me.txtTotalPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPrice.Name = "txtTotalPrice"
         Me.txtTotalPrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalPrice.TabIndex = 13
+        Me.txtTotalPrice.TabIndex = 12
         Me.txtTotalPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPrice.ThousandsSeparator = True
         '
@@ -297,7 +297,7 @@ Partial Class frmTraPurchaseOrderDetItem
         Me.txtTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalWeight.Name = "txtTotalWeight"
         Me.txtTotalWeight.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalWeight.TabIndex = 12
+        Me.txtTotalWeight.TabIndex = 11
         Me.txtTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalWeight.ThousandsSeparator = True
         '
@@ -329,7 +329,7 @@ Partial Class frmTraPurchaseOrderDetItem
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(433, 48)
-        Me.txtRemarks.TabIndex = 9
+        Me.txtRemarks.TabIndex = 13
         '
         'Label12
         '
@@ -361,7 +361,7 @@ Partial Class frmTraPurchaseOrderDetItem
         Me.txtQuantity.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtQuantity.Name = "txtQuantity"
         Me.txtQuantity.Size = New System.Drawing.Size(160, 21)
-        Me.txtQuantity.TabIndex = 11
+        Me.txtQuantity.TabIndex = 10
         Me.txtQuantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtQuantity.ThousandsSeparator = True
         '
@@ -464,7 +464,7 @@ Partial Class frmTraPurchaseOrderDetItem
         Me.cboItemSpecification.Location = New System.Drawing.Point(383, 102)
         Me.cboItemSpecification.Name = "cboItemSpecification"
         Me.cboItemSpecification.Size = New System.Drawing.Size(160, 21)
-        Me.cboItemSpecification.TabIndex = 10
+        Me.cboItemSpecification.TabIndex = 9
         '
         'Label3
         '

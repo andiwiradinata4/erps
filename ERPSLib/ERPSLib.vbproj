@@ -98,6 +98,7 @@
     <Compile Include="BusinessLayers\ItemSpecification.vb" />
     <Compile Include="BusinessLayers\ItemType.vb" />
     <Compile Include="BusinessLayers\Journal.vb" />
+    <Compile Include="BusinessLayers\OrderRequest.vb" />
     <Compile Include="BusinessLayers\PurchaseContract.vb" />
     <Compile Include="BusinessLayers\PurchaseOrder.vb" />
     <Compile Include="BusinessLayers\Reports.vb" />

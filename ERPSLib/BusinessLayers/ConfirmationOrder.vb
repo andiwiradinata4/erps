@@ -199,17 +199,19 @@
             End Using
         End Function
 
-        Public Shared Function ListDataDetailOutstandingPurchaseContract(ByVal intBPID As Integer) As DataTable
+        Public Shared Function ListDataDetailOutstandingPurchaseContract(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                         ByVal intBPID As Integer) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.ConfirmationOrder.ListDataDetailOutstandingPurchaseContract(sqlCon, Nothing, intBPID)
+                Return DL.ConfirmationOrder.ListDataDetailOutstandingPurchaseContract(sqlCon, Nothing, intProgramID, intCompanyID, intBPID)
             End Using
         End Function
 
-        Public Shared Function ListDataDetailOutstandingSalesContract(ByVal intBPID As Integer) As DataTable
+        Public Shared Function ListDataDetailOutstandingSalesContract(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                      ByVal intBPID As Integer) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.ConfirmationOrder.ListDataDetailOutstandingSalesContract(sqlCon, Nothing, intBPID)
+                Return DL.ConfirmationOrder.ListDataDetailOutstandingSalesContract(sqlCon, Nothing, intProgramID, intCompanyID)
             End Using
         End Function
 

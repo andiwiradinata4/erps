@@ -688,6 +688,7 @@
         'End Function
 
         Public Shared Function ListDataDetailOutstandingConfirmationOrder(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                          ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                                                           ByVal intBPID As Integer) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
@@ -710,12 +711,16 @@
                     "INNER JOIN mstItemType D ON 	" & vbNewLine & _
                     "   B.ItemTypeID=D.ID 	" & vbNewLine & _
                     "WHERE 	" & vbNewLine & _
-                    "   A1.IsDeleted=0 " & vbNewLine & _
+                    "   A1.ProgramID=@ProgramID " & vbNewLine & _
+                    "   AND A1.CompanyID=@CompanyID " & vbNewLine & _
+                    "   AND A1.IsDeleted=0 " & vbNewLine & _
                     "   AND A1.BPID=@BPID " & vbNewLine & _
                     "   AND A1.StatusID=@StatusID " & vbNewLine & _
                     "   AND A.Quantity-A.COQuantity>0	" & vbNewLine & _
                     "   AND A.TotalWeight-A.COWeight>0	" & vbNewLine
 
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
             End With

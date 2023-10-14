@@ -426,6 +426,40 @@
             End Try
         End Sub
 
+        Public Shared Function IsAlreadyConfirmationRequest(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                            ByVal strID As String) As Boolean
+            Dim bolDataExists As Boolean = False
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText = _
+                        "SELECT TOP 1 " & vbNewLine & _
+                        "   SUM(COQuantity) AS COQuantity, SUM(COWeight) AS COWeight " & vbNewLine & _
+                        "FROM traOrderRequestDet " & vbNewLine & _
+                        "WHERE  " & vbNewLine & _
+                        "   AND OrderRequestID=@ID " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = sqlCmdExecute.ExecuteReader(CommandBehavior.SingleRow)
+                With sqlrdData
+                    If .HasRows Then
+                        If .Item("COQuantity") > 0 Or .Item("COWeight") > 0 Then
+                            bolDataExists = True
+                        End If
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return bolDataExists
+        End Function
+
 #End Region
 
 #Region "Detail"

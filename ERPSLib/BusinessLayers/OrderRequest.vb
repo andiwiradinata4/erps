@@ -13,14 +13,14 @@
             End Using
         End Function
 
-        Public Shared Function ListDataOutstanding(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                   ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
-                                                   ByVal intStatusID As Integer) As DataTable
-            BL.Server.ServerDefault()
-            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.OrderRequest.ListDataOutstanding(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID)
-            End Using
-        End Function
+        'Public Shared Function ListDataOutstanding(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+        '                                           ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+        '                                           ByVal intStatusID As Integer) As DataTable
+        '    BL.Server.ServerDefault()
+        '    Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+        '        Return DL.OrderRequest.ListDataOutstanding(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID)
+        '    End Using
+        'End Function
 
         Public Shared Function GetNewID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer, ByVal intProgramID As Integer) As String
@@ -159,6 +159,8 @@
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah APPROVED")
                     ElseIf DL.OrderRequest.IsDeleted(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
+                    ElseIf DL.OrderRequest.IsAlreadyConfirmationRequest(sqlCon, sqlTrans, strID) Then
+                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dilanjutkan proses Konfirmasi Permintaan")
                     End If
 
                     DL.OrderRequest.Unsubmit(sqlCon, sqlTrans, strID)
@@ -186,12 +188,12 @@
             End Using
         End Function
 
-        Public Shared Function ListDataDetailOutstanding(ByVal strOrderRequestID As String) As DataTable
-            BL.Server.ServerDefault()
-            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.OrderRequest.ListDataDetailOutstanding(sqlCon, Nothing, strOrderRequestID)
-            End Using
-        End Function
+        'Public Shared Function ListDataDetailOutstanding(ByVal strOrderRequestID As String) As DataTable
+        '    BL.Server.ServerDefault()
+        '    Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+        '        Return DL.OrderRequest.ListDataDetailOutstanding(sqlCon, Nothing, strOrderRequestID)
+        '    End Using
+        'End Function
 
 #End Region
 

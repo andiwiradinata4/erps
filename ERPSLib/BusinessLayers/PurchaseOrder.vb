@@ -299,10 +299,11 @@
         '    End Using
         'End Function
 
-        Public Shared Function ListDataDetailOutstandingConfirmationOrder(ByVal intBPID As Integer) As DataTable
+        Public Shared Function ListDataDetailOutstandingConfirmationOrder(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                          ByVal intBPID As Integer) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.PurchaseOrder.ListDataDetailOutstandingConfirmationOrder(sqlCon, Nothing, intBPID)
+                Return DL.PurchaseOrder.ListDataDetailOutstandingConfirmationOrder(sqlCon, Nothing, intProgramID, intCompanyID, intBPID)
             End Using
         End Function
 

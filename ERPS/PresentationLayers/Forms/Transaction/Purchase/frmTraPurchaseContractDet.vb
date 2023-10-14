@@ -400,6 +400,7 @@ Public Class frmTraPurchaseContractDet
         Dim frmDetail As New frmTraPurchaseContractDetItem
         With frmDetail
             .pubIsNew = True
+            .pubCS = pubCS
             .pubBPID = intBPID
             .pubTableParentItem = dtItem
             .StartPosition = FormStartPosition.CenterParent
@@ -416,6 +417,7 @@ Public Class frmTraPurchaseContractDet
         Dim frmDetail As New frmTraPurchaseContractDetItem
         With frmDetail
             .pubIsNew = False
+            .pubCS = pubCS
             .pubBPID = intBPID
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .pubTableParentItem = dtItem

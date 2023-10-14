@@ -12,6 +12,7 @@
     Private strPODetailID As String
     Private strID As String = ""
     Private intPos As Integer = 0
+    Private clsCS As VO.CS
 
     Public WriteOnly Property pubBPID As Integer
         Set(value As Integer)
@@ -46,6 +47,12 @@
     Public WriteOnly Property pubID As String
         Set(value As String)
             strID = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubCS As VO.CS
+        Set(value As VO.CS)
+            clsCS = value
         End Set
     End Property
 
@@ -221,6 +228,7 @@
         With frmDetail
             .pubParentItem = frmParent.pubGetAllData
             .pubBPID = intBPID
+            .pubCS = clsCS
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             If .pubIsLookUpGet Then
