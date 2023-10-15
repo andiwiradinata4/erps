@@ -517,10 +517,10 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "SELECT 	" & vbNewLine & _
-                    "   COD.ID, COD.COID, COH.CONumber, COD.OrderNumberSupplier, COD.ItemID, B.ItemCode, 	" & vbNewLine & _
-                    "	B.ItemName, B.Thick, B.Width, B.Length, C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, 	" & vbNewLine & _
-                    "	D.ID AS ItemTypeID, D.Description AS ItemTypeName, COD.Quantity, COD.Weight, COD.TotalWeight, COD.UnitPrice, 	" & vbNewLine & _
-                    "	COD.TotalPrice, COD.TotalWeight-COD.SCWeight AS MaxTotalWeight 	" & vbNewLine & _
+                    "   COD.ID, COD.COID, COH.CONumber, COD.OrderNumberSupplier, COD.ItemID, B.ItemCode, " & vbNewLine & _
+                    "	B.ItemName, B.Thick, B.Width, B.Length, C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, " & vbNewLine & _
+                    "	D.ID AS ItemTypeID, D.Description AS ItemTypeName, COD.Quantity-COD.SCQuantity AS Quantity, " & vbNewLine & _
+                    "   COD.Weight, COD.TotalWeight-COD.SCWeight AS TotalWeight, COD.UnitPrice, COD.TotalPrice, COD.TotalWeight-COD.SCWeight AS MaxTotalWeight 	" & vbNewLine & _
                     "FROM traConfirmationOrderDet COD 	" & vbNewLine & _
                     "INNER JOIN traConfirmationOrder COH ON 	" & vbNewLine & _
                     "	COD.COID=COH.ID 	" & vbNewLine & _
@@ -632,6 +632,48 @@
                     "		WHERE 	" & vbNewLine & _
                     "			PCD.CODetailID=@CODetailID 	" & vbNewLine & _
                     "			AND PCH.IsDeleted=0 	" & vbNewLine & _
+                    "	) 	" & vbNewLine & _
+                    "WHERE ID=@CODetailID	" & vbNewLine
+
+                .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateSCTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal strCODetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE traConfirmationOrderDet SET 	" & vbNewLine & _
+                    "	SCWeight=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(SCD.TotalWeight),0) TotalWeight " & vbNewLine & _
+                    "		FROM traSalesContractDetConfirmationOrder SCD 	" & vbNewLine & _
+                    "		INNER JOIN traSalesContract SCH ON	" & vbNewLine & _
+                    "			SCD.SCID=SCH.ID 	" & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			SCD.CODetailID=@CODetailID 	" & vbNewLine & _
+                    "			AND SCH.IsDeleted=0 	" & vbNewLine & _
+                    "	), 	" & vbNewLine & _
+                    "	SCQuantity=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(SCD.Quantity),0) TotalQuantity " & vbNewLine & _
+                    "		FROM traSalesContractDetConfirmationOrder SCD 	" & vbNewLine & _
+                    "		INNER JOIN traSalesContract SCH ON	" & vbNewLine & _
+                    "			SCD.SCID=SCH.ID 	" & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			SCD.CODetailID=@CODetailID 	" & vbNewLine & _
+                    "			AND SCH.IsDeleted=0 	" & vbNewLine & _
                     "	) 	" & vbNewLine & _
                     "WHERE ID=@CODetailID	" & vbNewLine
 

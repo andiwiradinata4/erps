@@ -227,7 +227,7 @@
                     Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
 
                     '# Generate Journal
-                    Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.TotalPPN - clsData.TotalPPH
+                    Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.TotalPPN - clsData.TotalPPH + clsData.RoundingManual
                     Dim clsJournalDetail As New List(Of VO.JournalDet)
 
                     clsJournalDetail.Add(New VO.JournalDet With

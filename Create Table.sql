@@ -1959,6 +1959,7 @@ CREATE TABLE [dbo].[traSalesContract](
 	[COTotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContract_COTotalDPP]  DEFAULT ((0)),
 	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traSalesContract_IsDeleted]  DEFAULT ((0)),
 	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContract_Remarks]  DEFAULT (''),
+	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContract_JournalID]  DEFAULT (''),
 	[StatusID] [int] NOT NULL CONSTRAINT [DF_traSalesContract_StatusID]  DEFAULT ((0)),
 	[CompanyBankAccountID] [int] NOT NULL CONSTRAINT [DF_traSalesContract_CompanyBankAccountID]  DEFAULT ((0)),
 	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesContract_SubmitBy]  DEFAULT (''),

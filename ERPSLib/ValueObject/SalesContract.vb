@@ -27,6 +27,10 @@
         Property Remarks As String
         Property StatusID As Integer
         Property CompanyBankAccountID As Integer
+        Property AccountName As String
+        Property BankName As String
+        Property AccountNumber As String
+        Property CurrencyBank As String
         Property SubmitBy As String
         Property SubmitDate As DateTime
         Property ApproveL1 As String
@@ -36,6 +40,7 @@
         Property DPAmount As Decimal
         Property ReceiveAmount As Decimal
         Property Detail As List(Of VO.SalesContractDet)
+        Property DetailConfirmationOrder As List(Of VO.SalesContractDetConfirmationOrder)
         Property PaymentTerm As List(Of VO.SalesContractPaymentTerm)
         Property Save As VO.Save.Action
     End Class

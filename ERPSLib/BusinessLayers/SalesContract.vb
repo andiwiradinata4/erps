@@ -30,13 +30,20 @@
                         clsData.SCNumber = clsData.ID
                     Else
                         Dim dtItem As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
+                        Dim dtItemCO As DataTable = DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, clsData.ID)
 
                         DL.SalesContract.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
+                        DL.SalesContract.DeleteDataDetailCO(sqlCon, sqlTrans, clsData.ID)
                         DL.SalesContract.DeleteDataPaymentTerm(sqlCon, sqlTrans, clsData.ID)
 
-                        '# Revert SC Quantity
+                        '# Revert SC Quantity in Order Request
                         For Each dr As DataRow In dtItem.Rows
-                            DL.PurchaseOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("PODetailInternalID"))
+                            DL.OrderRequest.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("ORDetailID"))
+                        Next
+
+                        '# Revert SC Quantity in Confirmation Order
+                        For Each dr As DataRow In dtItem.Rows
+                            DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
                         Next
                     End If
 
@@ -62,6 +69,15 @@
                         intCount += 1
                     Next
 
+                    '# Save Data Detail Confirmation Order
+                    intCount = 1
+                    For Each clsDet As VO.SalesContractDetConfirmationOrder In clsData.DetailConfirmationOrder
+                        clsDet.ID = clsData.ID & "-" & 2 & "-" & Format(intCount, "000")
+                        clsDet.SCID = clsData.ID
+                        DL.SalesContract.SaveDataDetailCO(sqlCon, sqlTrans, clsDet)
+                        intCount += 1
+                    Next
+
                     '# Save Data Payment Term
                     intCount = 1
                     For Each clsDet As VO.SalesContractPaymentTerm In clsData.PaymentTerm
@@ -71,9 +87,14 @@
                         intCount += 1
                     Next
 
-                    '# Calculate SC Quantity
+                    '# Calculate SC Quantity in Order Request
                     For Each clsDet As VO.SalesContractDet In clsData.Detail
-                        DL.PurchaseOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, clsDet.PODetailInternalID)
+                        DL.OrderRequest.CalculateTotalUsed(sqlCon, sqlTrans, clsDet.ORDetailID)
+                    Next
+
+                    '# Calculate SC Quantity in Confirmation Order
+                    For Each clsDet As VO.SalesContractDetConfirmationOrder In clsData.DetailConfirmationOrder
+                        DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, clsDet.CODetailID)
                     Next
 
                     '# Save Data Status
@@ -112,12 +133,18 @@
                     End If
 
                     Dim dtItem As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, strID)
+                    Dim dtItemCO As DataTable = DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, strID)
 
                     DL.SalesContract.DeleteData(sqlCon, sqlTrans, strID)
-
-                    '# Revert SC Quantity
+                    
+                    '# Revert SC Quantity in Order Request
                     For Each dr As DataRow In dtItem.Rows
-                        DL.PurchaseOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("PODetailInternalID"))
+                        DL.OrderRequest.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("ORDetailID"))
+                    Next
+
+                    '# Revert SC Quantity in Confirmation Order
+                    For Each dr As DataRow In dtItem.Rows
+                        DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
                     Next
 
                     '# Save Data Status
@@ -214,6 +241,56 @@
                     '# Save Data Status
                     BL.SalesContract.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
+                    Dim clsData As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, sqlTrans, strID)
+                    Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
+                    Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
+
+                    '# Generate Journal
+                    Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.TotalPPN - clsData.TotalPPH + clsData.RoundingManual
+                    Dim clsJournalDetail As New List(Of VO.JournalDet)
+
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = VO.Journal.Value.PiutangUsaha,
+                                             .DebitAmount = decTotalAmount,
+                                             .CreditAmount = 0,
+                                             .Remarks = "KONTRAK PENJUALAN - " & clsData.SCNumber
+                                         })
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = VO.Journal.Value.Penjualan,
+                                             .DebitAmount = 0,
+                                             .CreditAmount = decTotalAmount,
+                                             .Remarks = "KONTRAK PENJUALAN - " & clsData.SCNumber
+                                         })
+
+                    Dim clsJournal As New VO.Journal With
+                        {
+                            .ProgramID = clsData.ProgramID,
+                            .CompanyID = clsData.CompanyID,
+                            .ID = PrevJournal.ID,
+                            .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                            .ReferencesID = clsData.ID,
+                            .JournalDate = IIf(bolNew, Now, PrevJournal.JournalDate),
+                            .TotalAmount = decTotalAmount,
+                            .IsAutoGenerate = True,
+                            .StatusID = VO.Status.Values.Draft,
+                            .Remarks = clsData.Remarks,
+                            .LogBy = ERPSLib.UI.usUserApp.UserID,
+                            .Initial = "",
+                            .Detail = clsJournalDetail,
+                            .Save = VO.Save.Action.SaveAndSubmit
+                        }
+
+                    '# Save Journal
+                    Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
+
+                    '# Approve Journal
+                    BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
+
+                    '# Update Journal ID in Purchase Contract
+                    DL.SalesContract.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
+
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -236,7 +313,17 @@
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data telah SUBMIT")
                     ElseIf DL.SalesContract.IsDeleted(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
+                    ElseIf DL.SalesContract.IsAlreadyPayment(sqlCon, sqlTrans, strID) Then
+                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses pembayaran")
                     End If
+
+                    Dim clsData As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, sqlTrans, strID)
+
+                    '# Cancel Approve Journal
+                    BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+
+                    '# Cancel Submit Journal
+                    BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
 
                     DL.SalesContract.Unapprove(sqlCon, sqlTrans, strID)
 
@@ -260,6 +347,17 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.SalesContract.ListDataDetail(sqlCon, Nothing, strSCID)
+            End Using
+        End Function
+
+#End Region
+
+#Region "Detail Confirmation Order"
+
+        Public Shared Function ListDataDetailCO(ByVal strSCID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.SalesContract.ListDataDetailCO(sqlCon, Nothing, strSCID)
             End Using
         End Function
 

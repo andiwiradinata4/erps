@@ -716,6 +716,7 @@
                     "   AND A1.IsDeleted=0 " & vbNewLine & _
                     "   AND A1.BPID=@BPID " & vbNewLine & _
                     "   AND A1.StatusID=@StatusID " & vbNewLine & _
+                    "   AND A1.ApprovedBy<>'' " & vbNewLine & _
                     "   AND A.Quantity-A.COQuantity>0	" & vbNewLine & _
                     "   AND A.TotalWeight-A.COWeight>0	" & vbNewLine
 

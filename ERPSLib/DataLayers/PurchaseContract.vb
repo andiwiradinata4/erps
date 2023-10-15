@@ -586,7 +586,7 @@
                     .CommandType = CommandType.Text
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
-                        "   StatusID " & vbNewLine & _
+                        "   ID " & vbNewLine & _
                         "FROM traPurchaseContract " & vbNewLine & _
                         "WHERE  " & vbNewLine & _
                         "   ID=@ID " & vbNewLine & _

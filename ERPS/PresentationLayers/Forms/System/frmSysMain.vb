@@ -25,7 +25,7 @@
     '# Transaction
     '## Sales
     Dim frmMainTraOrderRequest As frmTraOrderRequest
-
+    Dim frmMainTraSalesContract As frmTraSalesContract
 
     '## Purchase
     Dim frmMainTraPurchaseOrder As frmTraPurchaseOrder
@@ -320,6 +320,10 @@
 
     Private Sub mnuTransaksiPenjualanPermintaanPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPermintaanPenjualan.Click
         UI.usForm.frmOpen(frmMainTraOrderRequest, "frmTraOrderRequest", Me)
+    End Sub
+
+    Private Sub mnuTransaksiPenjualanKontrakPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanKontrakPenjualan.Click
+        UI.usForm.frmOpen(frmMainTraSalesContract, "frmTraSalesContract", Me)
     End Sub
 
 #End Region

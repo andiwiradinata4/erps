@@ -54,7 +54,9 @@ Partial Class frmSysMain
         Me.mnuTransaksi = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPenjualan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPenjualanPermintaanPenjualan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPenjualanKonfirmasiPermintaan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPenjualanKontrakPenjualan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPenjualanSep1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuTransaksiPenjualanMemoPengambilan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPenjualanPengirimanPenjualan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembelian = New System.Windows.Forms.ToolStripMenuItem()
@@ -93,8 +95,6 @@ Partial Class frmSysMain
         Me.mnuWindowsCascade = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuWindowsCloseAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLogout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuTransaksiPenjualanKonfirmasiPermintaan = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuTransaksiPenjualanSep1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ssMain.SuspendLayout()
         Me.mnuMain.SuspendLayout()
         Me.SuspendLayout()
@@ -334,11 +334,22 @@ Partial Class frmSysMain
         Me.mnuTransaksiPenjualanPermintaanPenjualan.Size = New System.Drawing.Size(195, 22)
         Me.mnuTransaksiPenjualanPermintaanPenjualan.Text = "Permintaan Penjualan"
         '
+        'mnuTransaksiPenjualanKonfirmasiPermintaan
+        '
+        Me.mnuTransaksiPenjualanKonfirmasiPermintaan.Name = "mnuTransaksiPenjualanKonfirmasiPermintaan"
+        Me.mnuTransaksiPenjualanKonfirmasiPermintaan.Size = New System.Drawing.Size(195, 22)
+        Me.mnuTransaksiPenjualanKonfirmasiPermintaan.Text = "Konfirmasi Permintaan"
+        '
         'mnuTransaksiPenjualanKontrakPenjualan
         '
         Me.mnuTransaksiPenjualanKontrakPenjualan.Name = "mnuTransaksiPenjualanKontrakPenjualan"
         Me.mnuTransaksiPenjualanKontrakPenjualan.Size = New System.Drawing.Size(195, 22)
         Me.mnuTransaksiPenjualanKontrakPenjualan.Text = "Kontrak Penjualan"
+        '
+        'mnuTransaksiPenjualanSep1
+        '
+        Me.mnuTransaksiPenjualanSep1.Name = "mnuTransaksiPenjualanSep1"
+        Me.mnuTransaksiPenjualanSep1.Size = New System.Drawing.Size(192, 6)
         '
         'mnuTransaksiPenjualanMemoPengambilan
         '
@@ -568,17 +579,6 @@ Partial Class frmSysMain
         Me.mnuLogout.Name = "mnuLogout"
         Me.mnuLogout.Size = New System.Drawing.Size(57, 20)
         Me.mnuLogout.Text = "L&ogout"
-        '
-        'mnuTransaksiPenjualanKonfirmasiPermintaan
-        '
-        Me.mnuTransaksiPenjualanKonfirmasiPermintaan.Name = "mnuTransaksiPenjualanKonfirmasiPermintaan"
-        Me.mnuTransaksiPenjualanKonfirmasiPermintaan.Size = New System.Drawing.Size(195, 22)
-        Me.mnuTransaksiPenjualanKonfirmasiPermintaan.Text = "Konfirmasi Permintaan"
-        '
-        'mnuTransaksiPenjualanSep1
-        '
-        Me.mnuTransaksiPenjualanSep1.Name = "mnuTransaksiPenjualanSep1"
-        Me.mnuTransaksiPenjualanSep1.Size = New System.Drawing.Size(192, 6)
         '
         'frmSysMain
         '

@@ -102,6 +102,7 @@
     <Compile Include="BusinessLayers\PurchaseContract.vb" />
     <Compile Include="BusinessLayers\PurchaseOrder.vb" />
     <Compile Include="BusinessLayers\Reports.vb" />
+    <Compile Include="BusinessLayers\SalesContract.vb" />
     <Compile Include="DataLayers\AccountPayable.vb" />
     <Compile Include="DataLayers\AccountReceivable.vb" />
     <Compile Include="DataLayers\Base\Access.vb" />
@@ -143,6 +144,7 @@
     <Compile Include="DataLayers\PurchaseOrder.vb" />
     <Compile Include="DataLayers\PurchaseOrderCutting.vb" />
     <Compile Include="DataLayers\Reports.vb" />
+    <Compile Include="DataLayers\SalesContract.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -238,6 +240,7 @@
     <Compile Include="ValueObject\Reports\rptBukuBesarVer00.vb" />
     <Compile Include="ValueObject\SalesContract.vb" />
     <Compile Include="ValueObject\SalesContractDet.vb" />
+    <Compile Include="ValueObject\SalesContractDetConfirmationOrder.vb" />
     <Compile Include="ValueObject\SalesContractPaymentTerm.vb" />
     <Compile Include="ValueObject\SalesContractStatus.vb" />
   </ItemGroup>
