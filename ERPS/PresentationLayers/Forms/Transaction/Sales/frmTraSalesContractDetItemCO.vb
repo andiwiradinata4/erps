@@ -4,6 +4,7 @@
 
     Private frmParent As frmTraSalesContractDetItem
     Private dtParent As New DataTable
+    Private dtParentAll As New DataTable
     Private bolIsNew As Boolean = False
     Private intItemID As Integer = 0
     Private drSelected As DataRow
@@ -32,6 +33,12 @@
     Public WriteOnly Property pubTableParent As DataTable
         Set(value As DataTable)
             dtParent = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubTableParentAll As DataTable
+        Set(value As DataTable)
+            dtParentAll = value
         End Set
     End Property
 
@@ -71,6 +78,7 @@
                 strID = drSelected.Item("ID")
                 strCODetailID = drSelected.Item("CODetailID")
                 txtCONumber.Text = drSelected.Item("CONumber")
+                txtOrderNumberSupplier.Text = drSelected.Item("OrderNumberSupplier")
                 intItemID = drSelected.Item("ItemID")
                 txtItemCode.Text = drSelected.Item("ItemCode")
                 txtItemName.Text = drSelected.Item("ItemName")
@@ -80,6 +88,7 @@
                 txtWidth.Value = drSelected.Item("Width")
                 txtLength.Value = drSelected.Item("Length")
                 txtWeight.Value = drSelected.Item("Weight")
+                txtMaxTotalWeight.Value = drSelected.Item("MaxTotalWeight")
                 txtUnitPrice.Value = drSelected.Item("UnitPrice")
                 txtQuantity.Value = drSelected.Item("Quantity")
                 txtRemarks.Text = drSelected.Item("Remarks")
@@ -237,6 +246,7 @@
         txtWeight.Value = 0
         txtUnitPrice.Value = 0
         txtQuantity.Value = 0
+        txtMaxTotalWeight.Value = 0
         txtRemarks.Text = ""
         txtItemCode.Focus()
     End Sub

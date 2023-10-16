@@ -76,6 +76,8 @@ Public Class frmTraSalesContractDetItem
         UI.usForm.SetGrid(grdItemCOView, "CODetailID", "CODetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemCOView, "OrderRequestDetailID", "OrderRequestDetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemCOView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemCOView, "CONumber", "Nomor Konfirmasi", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemCOView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemCOView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemCOView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemCOView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
@@ -89,6 +91,7 @@ Public Class frmTraSalesContractDetItem
         UI.usForm.SetGrid(grdItemCOView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdItemCOView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdItemCOView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemCOView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemCOView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemCOView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemCOView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
@@ -110,7 +113,7 @@ Public Class frmTraSalesContractDetItem
     End Sub
 
     Private Sub prvSumGrid()
-        '# Order | PO Detail
+        '# Confirmation Order
         Dim SumTotalQuantityOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
         Dim SumGrandTotalWeightOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
         Dim SumGrandTotalPriceOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
@@ -126,6 +129,7 @@ Public Class frmTraSalesContractDetItem
         If grdItemCOView.Columns("TotalPrice").SummaryText.Trim = "" Then
             grdItemCOView.Columns("TotalPrice").Summary.Add(SumGrandTotalPriceOrder)
         End If
+        grdItemCOView.BestFitColumns()
     End Sub
 
     Private Sub prvFillForm()
@@ -134,7 +138,9 @@ Public Class frmTraSalesContractDetItem
             prvFillCombo()
             dtCO = dtCOItemParent.Clone
             Me.Cursor = Cursors.Default
-            If Not bolIsNew Then
+            If bolIsNew Then
+                prvClear()
+            Else
                 strID = drSelectedItem.Item("ID")
                 strORDetailID = drSelectedItem.Item("ORDetailID")
                 txtRequestNumber.Text = drSelectedItem.Item("RequestNumber")
@@ -184,6 +190,10 @@ Public Class frmTraSalesContractDetItem
             UI.usForm.frmMessageBox("Jumlah harus lebih besar dari 0")
             txtQuantity.Focus()
             Exit Sub
+        ElseIf grdItemCOView.RowCount = 0 Then
+            UI.usForm.frmMessageBox("Pilih konfirmasi pesanan terlebih dahulu")
+            grdItemCOView.Focus()
+            Exit Sub
         ElseIf txtMaxTotalWeight.Value < txtTotalWeight.Value Then
             If Not UI.usForm.frmAskQuestion("Total Berat melebihi Maks. Total Berat, Apakah anda yakin ingin melanjutkannya?") Then Exit Sub
         End If
@@ -224,7 +234,7 @@ Public Class frmTraSalesContractDetItem
                 With dr
                     If .Item("ID") = strID Then
                         .BeginEdit()
-                        .Item("COID") = ""
+                        .Item("SCID") = ""
                         .Item("ORDetailID") = strORDetailID
                         .Item("RequestNumber") = txtRequestNumber.Text.Trim
                         .Item("GroupID") = intGroupID
@@ -347,10 +357,6 @@ Public Class frmTraSalesContractDetItem
             UI.usForm.frmMessageBox("Pilih permintaan barang terlebih dahulu")
             txtItemCode.Focus()
             Exit Sub
-        ElseIf grdItemCOView.RowCount = 0 Then
-            UI.usForm.frmMessageBox("Pilih konfirmasi pesanan terlebih dahulu")
-            grdItemCOView.Focus()
-            Exit Sub
         End If
 
         Dim dtAllCO As DataTable = dtCO.Clone
@@ -360,7 +366,8 @@ Public Class frmTraSalesContractDetItem
         Dim frmDetail As New frmTraSalesContractDetItemCO
         With frmDetail
             .pubIsNew = True
-            .pubTableParent = dtAllCO
+            .pubTableParent = dtCO
+            .pubTableParentAll = dtAllCO
             .pubCS = clsCS
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
@@ -380,8 +387,10 @@ Public Class frmTraSalesContractDetItem
         Dim frmDetail As New frmTraSalesContractDetItemCO
         With frmDetail
             .pubIsNew = False
-            .pubTableParent = dtAllCO
+            .pubTableParent = dtCO
+            .pubTableParentAll = dtAllCO
             .pubCS = clsCS
+            .pubDataRowSelected = grdItemCOView.GetDataRow(intPos)
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButtonItemConfirmationOrder()
@@ -415,6 +424,7 @@ Public Class frmTraSalesContractDetItem
     Private Sub frmTraSalesContractDetItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
+        ToolBarItemCO.SetIcon(Me)
         prvSetGrid()
         prvFillForm()
         prvQuery()

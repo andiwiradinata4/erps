@@ -42,7 +42,7 @@
                         Next
 
                         '# Revert SC Quantity in Confirmation Order
-                        For Each dr As DataRow In dtItem.Rows
+                        For Each dr As DataRow In dtItemCO.Rows
                             DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
                         Next
                     End If
@@ -136,7 +136,7 @@
                     Dim dtItemCO As DataTable = DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, strID)
 
                     DL.SalesContract.DeleteData(sqlCon, sqlTrans, strID)
-                    
+
                     '# Revert SC Quantity in Order Request
                     For Each dr As DataRow In dtItem.Rows
                         DL.OrderRequest.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("ORDetailID"))
@@ -337,6 +337,77 @@
                 End Try
             End Using
             Return bolReturn
+        End Function
+
+        Public Shared Function PrintVer00(ByVal strID As String) As DataTable
+            BL.Server.ServerDefault()
+            Dim dtReturn As New DataTable
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                dtReturn = DL.SalesContract.PrintVer00(sqlCon, Nothing, strID)
+
+                '# Combine AllItemName
+                Dim strItemTypeAndSpec As String = ""
+                Dim strAllItemTypeAndSpec As String = ""
+                For Each dr As DataRow In dtReturn.Rows
+                    If dr.Item("ItemTypeAndSpec") <> strItemTypeAndSpec Then
+                        strItemTypeAndSpec = dr.Item("ItemTypeAndSpec")
+                        If strAllItemTypeAndSpec.Trim <> "" Then strAllItemTypeAndSpec += ", "
+                        strAllItemTypeAndSpec = strItemTypeAndSpec
+                    End If
+                Next
+
+                '# Combine Payment Terms
+                Dim strPaymentTerms As String = ""
+                Dim dtPaymentTerm As DataTable = DL.SalesContract.ListDataPaymentTerm(sqlCon, Nothing, strID)
+                Dim intMaxCreditTerms As Integer = 0
+                For Each dr As DataRow In dtPaymentTerm.Rows
+                    strPaymentTerms += CInt(dr.Item("Percentage")) & "% " & dr.Item("PaymentTypeName") & " BY: " & dr.Item("PaymentModeName") & vbCrLf
+                    If intMaxCreditTerms < dr.Item("CreditTerm") Then intMaxCreditTerms = dr.Item("CreditTerm")
+                Next
+
+                '# Combine All References Number
+                Dim strReferencesNumber As String = ""
+                Dim strAllReferencesNumber As String = ""
+                For Each dr As DataRow In dtReturn.Rows
+                    If dr.Item("ReferencesNumber") <> strReferencesNumber Then
+                        strReferencesNumber = dr.Item("ReferencesNumber")
+                        If strAllReferencesNumber.Trim <> "" Then strAllReferencesNumber += ", "
+                        strAllReferencesNumber = strReferencesNumber
+                    End If
+                Next
+
+                '# Combine All References Number
+                Dim strOrderNumberSupplier As String = ""
+                Dim strAllOrderNumberSupplier As String = ""
+                For Each dr As DataRow In dtReturn.Rows
+                    If dr.Item("OrderNumberSupplier") <> strOrderNumberSupplier Then
+                        strOrderNumberSupplier = dr.Item("OrderNumberSupplier")
+                        If strAllOrderNumberSupplier.Trim <> "" Then strAllOrderNumberSupplier += ", "
+                        strAllOrderNumberSupplier = strOrderNumberSupplier
+                    End If
+                Next
+
+                For Each dr As DataRow In dtReturn.Rows
+                    dr.BeginEdit()
+                    dr.Item("SCDateAndCity") = dr.Item("CompanyCity") & ", " & Format(dr.Item("SCDate"), "dd MMMM yyyy")
+                    dr.Item("SellerParty") = "Berkedudukan di " & dr.Item("CompanyAddress") & " dalam hal ini diwakili " &
+                        dr.Item("DelegationSeller") & " : " & dr.Item("DelegationPositionSeller") & ", dari dan oleh sebab itu bertindak untuk dan atas nama " & dr.Item("CompanyName") & ", selanjutnya disebut sebagai PENJUAL"
+                    dr.Item("BuyerParty") = "Berkedudukan di " & dr.Item("DeliveryAddress") & " dalam hal ini diwakili " &
+                                            dr.Item("DelegationBuyer") & " : " & dr.Item("DelegationPositionBuyer") & ", dari dan oleh sebab itu bertindak untuk dan atas nama " & dr.Item("BPName") & ", selanjutnya disebut sebagai PEMBELI"
+
+                    dr.Item("AllItemName") = strAllItemTypeAndSpec
+                    dr.Item("PaymentTerms") = strPaymentTerms
+                    dr.Item("DeliveryPeriod") = Format(dr.Item("DeliveryPeriodFrom"), "MMMM") & " - " & Format(dr.Item("DeliveryPeriodTo"), "MMMM yyyy")
+                    dr.Item("AllReferencesNumber") = strAllReferencesNumber
+                    dr.Item("MaxCreditTerms") = intMaxCreditTerms
+                    dr.Item("AllOrderNumberSupplier") = strAllOrderNumberSupplier
+                    dr.Item("NumericToString") = SharedLib.Math.NumberToString(dr.Item("GrandTotal"))
+                    dr.EndEdit()
+                Next
+                dtReturn.AcceptChanges()
+            End Using
+
+            Return dtReturn
         End Function
 
 #End Region

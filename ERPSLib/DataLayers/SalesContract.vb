@@ -151,7 +151,7 @@
                         "FROM traSalesContract A " & vbNewLine & _
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine & _
                         "   A.BPID=B.ID " & vbNewLine & _
-                        "INNER JOIN mstBusinessPartnerBankAccount C ON " & vbNewLine & _
+                        "INNER JOIN mstCompanyBankAccount C ON " & vbNewLine & _
                         "   A.CompanyBankAccountID=C.ID " & vbNewLine & _
                         "WHERE " & vbNewLine & _
                         "   A.ID=@ID " & vbNewLine
@@ -601,6 +601,56 @@
             Return bolReturn
         End Function
 
+        Public Shared Function PrintVer00(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal strID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "SELECT 	" & vbNewLine & _
+                    "	SCH.CompanyID, MC.Name AS CompanyName, MC.Address AS CompanyAddress, MC.City AS CompanyCity, MC.Province AS CompanyProvince, 	" & vbNewLine & _
+                    "	SCH.BPID, BP.Code AS BPCode, BP.Name AS BPName, SCH.SCDate, SCH.SCNumber, SCH.DelegationSeller, SCH.DelegationPositionSeller, 	" & vbNewLine & _
+                    "	CAST('' AS VARCHAR(1000)) AS SCDateAndCity, SCH.DelegationBuyer, SCH.DelegationPositionBuyer, CAST('' AS VARCHAR(1000)) AS AllItemName, SCH.TotalWeight, " & vbNewLine & _
+                    "	SCH.TotalQuantity, SCH.TotalDPP + SCH.TotalPPN - SCH.TotalPPH + SCH.RoundingManual AS GrandTotal, SCH.PPN, CAST('' AS VARCHAR(1000)) AS PaymentTerms, 	" & vbNewLine & _
+                    "	CAST('' AS VARCHAR(1000)) AS DeliveryPeriod, SCH.DeliveryPeriodFrom, SCH.DeliveryPeriodTo, SCH.Franco, ORH.ReferencesNumber, 	" & vbNewLine & _
+                    "	CAST('' AS VARCHAR(1000)) AS AllReferencesNumber, SCH.AllowanceProduction, CAST(0 AS INT) AS MaxCreditTerms, BP.Address AS DeliveryAddress, 	" & vbNewLine & _
+                    "	SCDCO.GroupID, COD.OrderNumberSupplier, CAST('' AS VARCHAR(1000)) AS AllOrderNumberSupplier, SCD.ItemID, IT.Description + ' ' + MIS.Description AS ItemTypeAndSpec, 	" & vbNewLine & _
+                    "	MIS.Description AS ItemSpec, MI.Thick, MI.Width, MI.Length, SCD.Weight, SCD.Quantity, SCD.TotalWeight, SCD.UnitPrice, SCD.TotalPrice, (SCD.TotalPrice*SCH.PPN/100) AS TotalPPNItem, 	" & vbNewLine & _
+                    "	SCD.TotalPrice + (SCD.TotalPrice*SCH.PPN/100) AS TotalPriceIncPPN, CAST('' AS VARCHAR(1000)) AS NumericToString, CAST('' AS VARCHAR(5000)) AS SellerParty, CAST('' AS VARCHAR(5000)) AS BuyerParty " & vbNewLine & _
+                    "FROM traSalesContract SCH 	" & vbNewLine & _
+                    "INNER JOIN mstCompany MC ON 	" & vbNewLine & _
+                    "	SCH.CompanyID=MC.ID 	" & vbNewLine & _
+                    "INNER JOIN mstBusinessPartner BP ON 	" & vbNewLine & _
+                    "	SCH.BPID=BP.ID 	" & vbNewLine & _
+                    "INNER JOIN traSalesContractDet SCD ON 	" & vbNewLine & _
+                    "	SCH.ID=SCD.SCID 	" & vbNewLine & _
+                    "INNER JOIN traOrderRequestDet ORD ON 	" & vbNewLine & _
+                    "	SCD.ORDetailID=ORD.ID 	" & vbNewLine & _
+                    "INNER JOIN traOrderRequest ORH ON 	" & vbNewLine & _
+                    "	ORD.OrderRequestID=ORH.ID 	" & vbNewLine & _
+                    "INNER JOIN traSalesContractDetConfirmationOrder SCDCO ON 	" & vbNewLine & _
+                    "	SCD.SCID=SCDCO.SCID 	" & vbNewLine & _
+                    "	AND SCD.GroupID=SCDCO.GroupID 	" & vbNewLine & _
+                    "INNER JOIN traConfirmationOrderDet COD ON 	" & vbNewLine & _
+                    "	SCDCO.CODetailID=COD.ID 	" & vbNewLine & _
+                    "INNER JOIN mstItem MI ON 	" & vbNewLine & _
+                    "	SCD.ItemID=MI.ID 	" & vbNewLine & _
+                    "INNER JOIN mstItemType IT ON 	 	" & vbNewLine & _
+                    "    MI.ItemTypeID=IT.ID 	 	" & vbNewLine & _
+                    "INNER JOIN mstItemSpecification MIS ON 	 	" & vbNewLine & _
+                    "    MI.ItemSpecificationID=MIS.ID 	 	" & vbNewLine & _
+                    "WHERE 	" & vbNewLine & _
+                    "	SCH.ID=@ID 	" & vbNewLine & _
+                    "ORDER BY 	" & vbNewLine & _
+                    "	COD.OrderNumberSupplier, ORH.ReferencesNumber, MI.Thick, MI.Width, MI.Length, SCD.Weight	" & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
 #End Region
 
 #Region "Detail"
@@ -735,14 +785,13 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "INSERT INTO traSalesContractDetConfirmationOrder " & vbNewLine & _
-                    "   (ID, SCID, CODetailID, OrderRequestDetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks) " & vbNewLine & _
+                    "   (ID, SCID, CODetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks) " & vbNewLine & _
                     "VALUES " & vbNewLine & _
-                    "   (@ID, @SCID, @CODetailID, @OrderRequestDetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks) " & vbNewLine
+                    "   (@ID, @SCID, @CODetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = clsData.SCID
                 .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = clsData.CODetailID
-                .Parameters.Add("@OrderRequestDetailID", SqlDbType.VarChar, 100).Value = clsData.OrderRequestDetailID
                 .Parameters.Add("@GroupID", SqlDbType.Int).Value = clsData.GroupID
                 .Parameters.Add("@ItemID", SqlDbType.Int).Value = clsData.ItemID
                 .Parameters.Add("@Quantity", SqlDbType.Decimal).Value = clsData.Quantity

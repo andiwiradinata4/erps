@@ -265,7 +265,7 @@
                 Dim strPaymentTerms As String = ""
                 Dim dtPaymentTerm As DataTable = DL.PurchaseOrder.ListDataPaymentTerm(sqlCon, Nothing, strID)
                 For Each dr As DataRow In dtPaymentTerm.Rows
-                    strPaymentTerms += CInt(dr.Item("Percentage")) & "% " & dr.Item("PaymentTypeName") & " WITH " & dr.Item("PaymentModeName") & vbCrLf
+                    strPaymentTerms += CInt(dr.Item("Percentage")) & "% " & dr.Item("PaymentTypeName") & " BY: " & dr.Item("PaymentModeName") & vbCrLf
                 Next
 
                 '# Combine Delivery Period

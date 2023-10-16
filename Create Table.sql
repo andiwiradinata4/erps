@@ -2039,7 +2039,6 @@ CREATE TABLE [dbo].[traSalesContractDetConfirmationOrder](
 	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrder_ID]  DEFAULT (''),
 	[SCID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrder_SCID]  DEFAULT (''),
 	[CODetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrder_CODetailID]  DEFAULT (''),
-	[OrderRequestDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrder_OrderRequestDetailID]  DEFAULT (''),
 	[GroupID] [int] NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrder_GroupID]  DEFAULT ((0)),
 	[ItemID] [int] NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrder_ItemID]  DEFAULT ((0)),
 	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrder_Quantity]  DEFAULT ((0)),

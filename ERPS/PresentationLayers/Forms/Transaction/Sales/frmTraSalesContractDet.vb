@@ -88,6 +88,7 @@ Public Class frmTraSalesContractDet
         UI.usForm.SetGrid(grdItemCOView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemCOView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemCOView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        grdItemCOView.Columns("GroupID").GroupIndex = 0
 
         '# PO Payment Term
         UI.usForm.SetGrid(grdPaymentTermView, "ID", "ID", 100, UI.usDefGrid.gString, False)
@@ -145,6 +146,7 @@ Public Class frmTraSalesContractDet
                 txtTotalDPP.Value = clsData.TotalDPP
                 txtTotalPPN.Value = clsData.TotalPPN
                 txtTotalPPH.Value = clsData.TotalPPH
+                intCompanyBankAccountID = clsData.CompanyBankAccountID
                 txtAccountName.Text = clsData.AccountName
                 txtBankName.Text = clsData.BankName
                 txtAccountNumber.Text = clsData.AccountNumber
@@ -262,11 +264,10 @@ Public Class frmTraSalesContractDet
         Next
 
         Dim listDetailConfirmationOrder As New List(Of VO.SalesContractDetConfirmationOrder)
-        For Each dr As DataRow In dtItem.Rows
+        For Each dr As DataRow In dtItemConfirmationOrder.Rows
             listDetailConfirmationOrder.Add(New ERPSLib.VO.SalesContractDetConfirmationOrder With
                                 {
                                     .CODetailID = dr.Item("CODetailID"),
-                                    .OrderRequestDetailID = dr.Item("OrderRequestDetailID"),
                                     .GroupID = dr.Item("GroupID"),
                                     .ItemID = dr.Item("ItemID"),
                                     .Quantity = dr.Item("Quantity"),
@@ -334,6 +335,7 @@ Public Class frmTraSalesContractDet
             If pubIsNew Then
                 prvClear()
                 prvQueryItem()
+                prvQueryItemConfirmationOrder()
                 prvQueryHistory()
                 prvQueryPaymentTerm()
             Else
@@ -437,7 +439,7 @@ Public Class frmTraSalesContractDet
         If grdItemView.Columns("TotalPrice").SummaryText.Trim = "" Then
             grdItemView.Columns("TotalPrice").Summary.Add(SumGrandTotalPrice)
         End If
-
+        grdItemView.BestFitColumns()
 
         '# Item ConfirmationOrder
         Dim SumTotalQuantityConfirmationOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
@@ -455,6 +457,7 @@ Public Class frmTraSalesContractDet
         If grdItemCOView.Columns("TotalPrice").SummaryText.Trim = "" Then
             grdItemCOView.Columns("TotalPrice").Summary.Add(SumGrandTotalPriceConfirmationOrder)
         End If
+        grdItemCOView.BestFitColumns()
     End Sub
 
     Private Sub prvCalculate()
@@ -474,6 +477,7 @@ Public Class frmTraSalesContractDet
     Private Sub prvSetupTools()
         Dim bolEnabled As Boolean = IIf(grdItemView.RowCount = 0, True, False)
         btnBP.Enabled = bolEnabled
+        grdItemCOView.ExpandAllGroups()
     End Sub
 
 #Region "Item Handle"
@@ -539,6 +543,7 @@ Public Class frmTraSalesContractDet
             .pubBPID = intBPID
             .pubTableItem = dtItem
             .pubTableCOItemParent = dtItemConfirmationOrder
+            .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -562,6 +567,26 @@ Public Class frmTraSalesContractDet
         '# Delete Item Confirmation Order
         For Each dr As DataRow In dtItemConfirmationOrder.Rows
             If dr.Item("GroupID") = intGroupID Then dr.Delete()
+        Next
+        dtItemConfirmationOrder.AcceptChanges()
+
+        '# Update Group ID Item
+        For Each dr As DataRow In dtItem.Rows
+            If dr.Item("GroupID") > intGroupID Then
+                dr.BeginEdit()
+                dr.Item("GroupID") = dr.Item("GroupID") - 1
+                dr.EndEdit()
+            End If
+        Next
+        dtItem.AcceptChanges()
+
+        '# Update Group ID Confirmation Order
+        For Each dr As DataRow In dtItemConfirmationOrder.Rows
+            If dr.Item("GroupID") > intGroupID Then
+                dr.BeginEdit()
+                dr.Item("GroupID") = dr.Item("GroupID") - 1
+                dr.EndEdit()
+            End If
         Next
         dtItemConfirmationOrder.AcceptChanges()
 
@@ -753,6 +778,10 @@ Public Class frmTraSalesContractDet
 
     Private Sub btnBP_Click(sender As Object, e As EventArgs) Handles btnBP.Click
         prvChooseBP()
+    End Sub
+
+    Private Sub btnCompanyBankAccount_Click(sender As Object, e As EventArgs) Handles btnCompanyBankAccount.Click
+        prvChooseCompanyBankAccount()
     End Sub
 
     Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtPPN.ValueChanged, txtPPH.ValueChanged
