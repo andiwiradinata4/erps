@@ -45,6 +45,11 @@
 
                         '# Cancel Submit Journal
                         BL.Journal.Unsubmit(sqlCon, sqlTrans, clsBusinessPartner.JournalIDForAPBalance.Trim, "")
+
+                        '# Delete Journal
+                        If clsDataAll.Count = 0 And clsBusinessPartner.JournalIDForAPBalance.Trim <> "" Then
+                            BL.Journal.DeleteData(sqlCon, sqlTrans, clsBusinessPartner.JournalIDForAPBalance, "HAPUS SEMUA INVOICE")
+                        End If
                     End If
 
                     Dim decTotal As Decimal = 0, decAmount As Decimal = 0
@@ -70,41 +75,46 @@
                         strAllInvoiceNumber += clsData.InvoiceNumber & ", "
                     Next
 
-                    clsJournalDetail.Add(New VO.JournalDet With
-                                         {
-                                             .CoAID = VO.Journal.Value.ModalUsaha,
-                                             .DebitAmount = decTotal,
-                                             .CreditAmount = 0,
-                                             .Remarks = "SETUP SALDO - " & strAllInvoiceNumber.Substring(0, strAllInvoiceNumber.Length - 2)
-                                         })
-                    
-                    Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsBusinessPartner.JournalIDForAPBalance)
-                    Dim clsJournal As New VO.Journal With
-                        {
-                            .ProgramID = clsDataAll.First.ProgramID,
-                            .CompanyID = clsDataAll.First.CompanyID,
-                            .ID = clsBusinessPartner.JournalIDForAPBalance.Trim,
-                            .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
-                            .ReferencesID = IIf(bolNew, "", PrevJournal.ReferencesID),
-                            .JournalDate = IIf(bolNew, Now, PrevJournal.JournalDate),
-                            .TotalAmount = decTotal,
-                            .IsAutoGenerate = True,
-                            .StatusID = VO.Status.Values.Draft,
-                            .Remarks = "",
-                            .LogBy = ERPSLib.UI.usUserApp.UserID,
-                            .Initial = "",
-                            .Detail = clsJournalDetail,
-                            .Save = VO.Save.Action.SaveAndSubmit
-                        }
+                    If clsDataAll.Count > 0 Then
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                             {
+                                                 .CoAID = VO.Journal.Value.ModalUsaha,
+                                                 .DebitAmount = decTotal,
+                                                 .CreditAmount = 0,
+                                                 .Remarks = "SETUP SALDO - " & strAllInvoiceNumber.Substring(0, strAllInvoiceNumber.Length - 2)
+                                             })
 
-                    '# Save Journal
-                    Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
+                        Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsBusinessPartner.JournalIDForAPBalance)
+                        Dim clsJournal As New VO.Journal With
+                            {
+                                .ProgramID = clsDataAll.First.ProgramID,
+                                .CompanyID = clsDataAll.First.CompanyID,
+                                .ID = clsBusinessPartner.JournalIDForAPBalance.Trim,
+                                .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                                .ReferencesID = IIf(bolNew, "", PrevJournal.ReferencesID),
+                                .JournalDate = IIf(bolNew, Now, PrevJournal.JournalDate),
+                                .TotalAmount = decTotal,
+                                .IsAutoGenerate = True,
+                                .StatusID = VO.Status.Values.Draft,
+                                .Remarks = "",
+                                .LogBy = ERPSLib.UI.usUserApp.UserID,
+                                .Initial = "",
+                                .Detail = clsJournalDetail,
+                                .Save = VO.Save.Action.SaveAndSubmit
+                            }
 
-                    '# Approve Journal
-                    BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
+                        '# Save Journal
+                        Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
 
-                    '# Update Journal ID in Business Partners
-                    DL.BusinessPartner.UpdateJournalIDForAPBalance(sqlCon, sqlTrans, clsDataAll.First.BPID, strJournalID)
+                        '# Approve Journal
+                        BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
+
+                        '# Update Journal ID in Business Partners
+                        DL.BusinessPartner.UpdateJournalIDForAPBalance(sqlCon, sqlTrans, clsDataAll.First.BPID, strJournalID)
+                    Else
+                        '# Update Journal ID in Business Partners
+                        DL.BusinessPartner.UpdateJournalIDForAPBalance(sqlCon, sqlTrans, clsDataAll.First.BPID, "")
+                    End If
 
                     sqlTrans.Commit()
                     bolReturn = True

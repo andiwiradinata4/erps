@@ -290,7 +290,7 @@
                     "WHERE ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
-                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = "SB"
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.PurchaseBalance
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
