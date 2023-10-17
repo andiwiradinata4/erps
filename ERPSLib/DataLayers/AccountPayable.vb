@@ -651,7 +651,7 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "SELECT " & vbNewLine & _
-                    "   CAST (1 AS BIT) AS Pick, A.PurchaseID, B.PCNumber AS InvoiceNumber, B.PCNumber AS InvoiceDate, " & vbNewLine & _
+                    "   CAST (1 AS BIT) AS Pick, A.PurchaseID, B.PCNumber AS InvoiceNumber, B.PCDate AS InvoiceDate, " & vbNewLine & _
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual AS PurchaseAmount, A.Amount, " & vbNewLine & _
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual-B.DPAmount-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, " & vbNewLine & _
                     "   A.Remarks " & vbNewLine & _
@@ -676,7 +676,7 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "SELECT " & vbNewLine & _
-                    "   CAST (1 AS BIT) AS Pick, A.PurchaseID, B.PCNumber AS InvoiceNumber, B.PCNumber AS InvoiceDate, " & vbNewLine & _
+                    "   CAST (1 AS BIT) AS Pick, A.PurchaseID, B.PCNumber AS InvoiceNumber, B.PCDate AS InvoiceDate, " & vbNewLine & _
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual AS PurchaseAmount, A.Amount, " & vbNewLine & _
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual-B.DPAmount-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, " & vbNewLine & _
                     "   A.Remarks " & vbNewLine & _

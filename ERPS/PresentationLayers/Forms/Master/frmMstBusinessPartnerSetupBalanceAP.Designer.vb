@@ -150,7 +150,7 @@ Partial Class frmMstBusinessPartnerSetupBalanceAP
         Me.lblInfo.Name = "lblInfo"
         Me.lblInfo.Size = New System.Drawing.Size(592, 22)
         Me.lblInfo.TabIndex = 3
-        Me.lblInfo.Text = "« Saldo Piutang"
+        Me.lblInfo.Text = "« Saldo Hutang"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ToolBarDetail

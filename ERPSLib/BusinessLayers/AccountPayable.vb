@@ -455,15 +455,15 @@
             End Using
         End Function
 
-        Public Shared Function ListDataDetailForDownPaymentPurchaseContract(ByVal strAPID As String) As DataTable
+        Public Shared Function ListDataDetail(ByVal strAPID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.AccountPayable.ListDataDetail(sqlCon, Nothing, strAPID)
             End Using
         End Function
 
-        Public Shared Function ListDataDetailForDownPaymentPurchaseContractWithOutstanding(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
-                                                                            ByVal intBPID As Integer, ByVal strAPID As String) As DataTable
+        Public Shared Function ListDataDetailWithOutstanding(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                             ByVal intBPID As Integer, ByVal strAPID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.AccountPayable.ListDataDetailWithOutstanding(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID)

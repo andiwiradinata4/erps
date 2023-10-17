@@ -307,13 +307,11 @@ Public Class frmTraAccountPayableDet
                     dtItem = BL.PurchaseContract.ListDataOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID)
                 Else
                     If clsData.IsDeleted Then
-                        dtItem = BL.AccountPayable.ListDataDetailForDownPaymentPurchaseContract(pubID)
+                        dtItem = BL.AccountPayable.ListDataDetail(pubID)
                     Else
-                        dtItem = BL.AccountPayable.ListDataDetailForDownPaymentPurchaseContractWithOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID, pubID)
+                        dtItem = BL.AccountPayable.ListDataDetailWithOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID, pubID)
                     End If
                 End If
-            ElseIf strModules.Trim = VO.AccountPayable.ReceivePayment Then
-
             End If
             grdItem.DataSource = dtItem
             grdItemView.BestFitColumns()

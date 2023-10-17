@@ -301,8 +301,20 @@ Public Class frmTraAccountReceivableDet
                         dtItem = BL.AccountReceivable.ListDataDetailForSetupBalanceWithOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID, pubID)
                     End If
                 End If
+            ElseIf strModules.Trim = VO.AccountReceivable.DownPayment Or
+                strModules.Trim = VO.AccountReceivable.ReceivePayment Then
+                If pubIsNew Then
+                    dtItem = BL.SalesContract.ListDataOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID)
+                Else
+                    If clsData.IsDeleted Then
+                        dtItem = BL.AccountReceivable.ListDataDetail(pubID)
+                    Else
+                        dtItem = BL.AccountReceivable.ListDataDetailWithOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID, pubID)
+                    End If
+                End If
             End If
             grdItem.DataSource = dtItem
+            grdItemView.BestFitColumns()
             pgMain.Value = 100
             Application.DoEvents()
         Catch ex As Exception
