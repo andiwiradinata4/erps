@@ -36,6 +36,7 @@
     '## Pembukuan
     Dim frmMainTraAccountReceivableSetupBalance As frmTraAccountReceivable
     Dim frmMainTraAccountReceivableDPManual As frmTraAccountReceivable
+    Dim frmMainTraAccountReceivableDP As frmTraAccountReceivable
     Dim frmMainTraAccountReceivable As frmTraAccountReceivable
 
     Dim frmMainTraAccountPayableSetupBalance As frmTraAccountPayable
@@ -440,7 +441,26 @@
     End Sub
 
     Private Sub mnuTransaksiPembukuanPanjarPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPanjarPenjualan.Click
-
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraAccountReceivable"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraAccountReceivableDP) Then
+            If Not frmMainTraAccountReceivableDP.IsDisposed Then
+                frmMainTraAccountReceivableDP.WindowState = FormWindowState.Normal
+                frmMainTraAccountReceivableDP.BringToFront()
+                frmMainTraAccountReceivableDP.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraAccountReceivableDP = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraAccountReceivableDP.MdiParent = Me
+                frmMainTraAccountReceivableDP.pubModules = VO.AccountReceivable.DownPayment
+                frmMainTraAccountReceivableDP.Show()
+            End If
+        Else
+            frmMainTraAccountReceivableDP = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraAccountReceivableDP.MdiParent = Me
+            frmMainTraAccountReceivableDP.pubModules = VO.AccountReceivable.DownPayment
+            frmMainTraAccountReceivableDP.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
     End Sub
 
     Private Sub mnuTransaksiPembukuanPanjarPembelian_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPanjarPembelian.Click

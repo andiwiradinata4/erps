@@ -291,7 +291,7 @@ Public Class frmTraAccountReceivableDet
             pgMain.Value = 30
             Application.DoEvents()
             Me.Cursor = Cursors.WaitCursor
-            If strModules = "SB" Then
+            If strModules = VO.AccountReceivable.SalesBalance Then
                 If pubIsNew Then
                     dtItem = BL.BusinessPartnerARBalance.ListDataOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID)
                 Else
