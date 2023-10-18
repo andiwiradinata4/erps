@@ -41,10 +41,19 @@ Namespace VO
             TransactionSalesContract = 25
             TransactionPickupMemo = 26
             TransactionSalesDelivery = 27
+            
+
+            '## Pembukuan
             TransactionJournal = 31
-            TransactionAccountReceivable = 33
-            TransactionAccountPayable = 34
+            TransactionAccountReceivableBalance = 33
+            TransactionAccountPayableBalance = 34
             TransactionCost = 35
+            TransactionPurchaseDPManual = 36
+            TransactionSalesDPManual = 37
+            TransactionPurchaseDP = 38
+            TransactionSalesDP = 39
+            TransactionAccountReceivable = 40
+            TransactionAccountPayable = 41
 
             '# Reports
             ReportBukuBesar = 32

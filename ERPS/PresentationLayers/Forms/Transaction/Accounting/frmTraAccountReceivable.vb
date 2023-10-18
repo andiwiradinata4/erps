@@ -78,7 +78,7 @@ Public Class frmTraAccountReceivable
 
     Private Sub prvFillCombo()
         Try
-            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionAccountReceivable)
+            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionAccountReceivableBalance)
             Dim dr As DataRow
             dr = dtData.NewRow
             With dr
@@ -507,8 +507,8 @@ Public Class frmTraAccountReceivable
 
     Private Sub prvUserAccess()
         With ToolBar.Buttons
-            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountReceivable, VO.Access.Values.NewAccess)
-            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountReceivable, VO.Access.Values.DeleteAccess)
+            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountReceivableBalance, VO.Access.Values.NewAccess)
+            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountReceivableBalance, VO.Access.Values.DeleteAccess)
         End With
     End Sub
 
@@ -531,10 +531,14 @@ Public Class frmTraAccountReceivable
         prvDefaultFilter()
         prvQuery()
         prvUserAccess()
-        If strModules = "SB" Then
+        If strModules = VO.AccountReceivable.SalesBalance Then
             Me.Text = "Pelunasan Saldo"
-        ElseIf strModules = "SDM" Then
+        ElseIf strModules = VO.AccountReceivable.DownPaymentManual Then
             Me.Text = "Panjar Penjualan [Manual]"
+        ElseIf strModules = VO.AccountReceivable.DownPayment Then
+            Me.Text = "Panjar Penjualan"
+        ElseIf strModules = VO.AccountReceivable.ReceivePayment Then
+            Me.Text = "Pelunasan Piutang Penjualan"
         End If
         Me.WindowState = FormWindowState.Maximized
     End Sub

@@ -83,6 +83,7 @@
         mnuMasterPaymentTypeCategory.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterPaymentTypeCategory, VO.Access.Values.ViewAccess)
         mnuMasterMetodePembayaran.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterPaymentMode, VO.Access.Values.ViewAccess)
         mnuMasterJenisPembayaran.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterPaymentType, VO.Access.Values.ViewAccess)
+        mnuMasterSatuan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterUOM, VO.Access.Values.ViewAccess)
 
         mnuMasterAkunPerkiraan.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterChartOfAccount, VO.Access.Values.ViewAccess)
         mnuMasterJenisBarang.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterItemType, VO.Access.Values.ViewAccess)
@@ -96,26 +97,33 @@
 
         '# Transaction
         '## Sales
-        mnuTransaksiPenjualanPermintaanPenjualan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.ViewAccess)
-        mnuTransaksiPenjualanKontrakPenjualan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.ViewAccess)
+        mnuTransaksiPenjualanPermintaanPenjualan.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.ViewAccess)
+        mnuTransaksiPenjualanKontrakPenjualan.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.ViewAccess)
         mnuTransaksiPenjualanMemoPengambilan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPickupMemo, VO.Access.Values.ViewAccess)
         mnuTransaksiPenjualanPengirimanPenjualan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesDelivery, VO.Access.Values.ViewAccess)
 
         '## Purchase
-        mnuTransaksiPembelianPesananPembelian.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembelianPesananPembelian.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembelianKonfirmasiPesanan.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionConfirmationOrder, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembelianKontrakPembelian.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.ViewAccess)
+
         mnuTransaksiPembelianPesananPemotongan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.ViewAccess)
         mnuTransaksiPembelianPesananPengiriman.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderTransport, VO.Access.Values.ViewAccess)
-        mnuTransaksiPembelianKontrakPembelian.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.ViewAccess)
         mnuTransaksiPembelianInstruksi.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionInstructionLetter, VO.Access.Values.ViewAccess)
-        mnuTransaksiPembelianKonfirmasiPesanan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionConfirmationOrder, VO.Access.Values.ViewAccess)
         mnuTransaksiPembelianKonfirmasiPengiriman.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionConfirmationDelivery, VO.Access.Values.ViewAccess)
         mnuTransaksiPembelianProsesPemotonganSPK.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCuttingProcess, VO.Access.Values.ViewAccess)
 
         '## Pembukuan
-        mnuTransaksiPembukuanJurnalUmum.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionJournal, VO.Access.Values.ViewAccess)
-        mnuTransaksiPembukuanPelunasanSaldoAwal.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountReceivable, VO.Access.Values.ViewAccess)
-        mnuTransaksiPembukuanPembayaranSaldoAwal.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountPayable, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembukuanPelunasanSaldoAwal.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountReceivableBalance, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembukuanPembayaranSaldoAwal.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountPayableBalance, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembukuanPanjarPenjualanManual.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesDPManual, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembukuanPanjarPembelianManual.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseDPManual, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembukuanPanjarPenjualan.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesDP, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembukuanPanjarPembelian.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseDP, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembukuanPelunasanPiutangPenjualan.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountReceivable, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembukuanPembayaranHutangPembelian.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountPayable, VO.Access.Values.ViewAccess)
         mnuTransaksiPembukuanPembayaranBiaya.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCost, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembukuanJurnalUmum.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionJournal, VO.Access.Values.ViewAccess)
 
         '# Laporan
         '## Pembukuan
@@ -487,7 +495,26 @@
     End Sub
 
     Private Sub mnuTransaksiPembukuanPelunasanPiutangPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPelunasanPiutangPenjualan.Click
-
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraAccountReceivable"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraAccountReceivable) Then
+            If Not frmMainTraAccountReceivable.IsDisposed Then
+                frmMainTraAccountReceivable.WindowState = FormWindowState.Normal
+                frmMainTraAccountReceivable.BringToFront()
+                frmMainTraAccountReceivable.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraAccountReceivable = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraAccountReceivable.MdiParent = Me
+                frmMainTraAccountReceivable.pubModules = VO.AccountReceivable.ReceivePayment
+                frmMainTraAccountReceivable.Show()
+            End If
+        Else
+            frmMainTraAccountReceivable = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraAccountReceivable.MdiParent = Me
+            frmMainTraAccountReceivable.pubModules = VO.AccountReceivable.ReceivePayment
+            frmMainTraAccountReceivable.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
     End Sub
 
     Private Sub mnuTransaksiPembukuanPembayaranHutangPembelian_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPembayaranHutangPembelian.Click

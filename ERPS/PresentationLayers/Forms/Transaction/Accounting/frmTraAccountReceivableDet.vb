@@ -68,7 +68,7 @@ Public Class frmTraAccountReceivableDet
 
     Private Sub prvFillCombo()
         Try
-            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionAccountReceivable), "StatusID", "StatusName")
+            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionAccountReceivableBalance), "StatusID", "StatusName")
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -273,7 +273,7 @@ Public Class frmTraAccountReceivableDet
     End Sub
 
     Private Sub prvUserAccess()
-        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountReceivable, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
+        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountReceivableBalance, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
     End Sub
 
 #Region "Item Handle"

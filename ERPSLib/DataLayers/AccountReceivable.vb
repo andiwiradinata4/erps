@@ -458,6 +458,72 @@
             End Try
         End Sub
 
+        Public Shared Sub CalculateTotalUsedDownPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                        ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE traSalesContract SET 	" & vbNewLine & _
+                    "	DPAmount=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(ARD.Amount),0) TotalPayment		" & vbNewLine & _
+                    "		FROM traAccountReceivableDet ARD 	" & vbNewLine & _
+                    "		INNER JOIN traAccountReceivable ARH ON	" & vbNewLine & _
+                    "			ARD.ARID=ARH.ID 	" & vbNewLine & _
+                    "			AND ARH.Modules=@Modules " & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			ARD.SalesID=@ID 	" & vbNewLine & _
+                    "			AND ARH.IsDeleted=0 	" & vbNewLine & _
+                    "	) " & vbNewLine & _
+                    "WHERE ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountReceivable.DownPayment
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateTotalUsedReceivePayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                           ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE traSalesContract SET 	" & vbNewLine & _
+                    "	ReceiveAmount=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(ARD.Amount),0) TotalPayment		" & vbNewLine & _
+                    "		FROM traAccountReceivableDet ARD 	" & vbNewLine & _
+                    "		INNER JOIN traAccountReceivable ARH ON	" & vbNewLine & _
+                    "			ARD.ARID=ARH.ID 	" & vbNewLine & _
+                    "			AND ARH.Modules=@Modules " & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			ARD.SalesID=@ID 	" & vbNewLine & _
+                    "			AND ARH.IsDeleted=0 	" & vbNewLine & _
+                    "	) " & vbNewLine & _
+                    "WHERE ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountReceivable.ReceivePayment
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
         Public Shared Sub UpdateJournalID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                           ByVal strID As String, ByVal strJournalID As String)
             Dim sqlCmdExecute As New SqlCommand
@@ -643,7 +709,7 @@
         End Function
 
         Public Shared Function ListDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                              ByVal strAPID As String) As DataTable
+                                              ByVal strARID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -655,20 +721,20 @@
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual AS SalesAmount, A.Amount, " & vbNewLine & _
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual-B.DPAmount-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, " & vbNewLine & _
                     "   A.Remarks " & vbNewLine & _
-                    "FROM traAccountPayableDet A " & vbNewLine & _
+                    "FROM traAccountReceivableDet A " & vbNewLine & _
                     "INNER JOIN traSalesContract B ON " & vbNewLine & _
                     "   A.SalesID=B.ID " & vbNewLine & _
                     "WHERE " & vbNewLine & _
-                    "   A.APID=@APID " & vbNewLine
+                    "   A.ARID=@ARID " & vbNewLine
 
-                .Parameters.Add("@APID", SqlDbType.VarChar, 100).Value = strAPID
+                .Parameters.Add("@ARID", SqlDbType.VarChar, 100).Value = strARID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
         Public Shared Function ListDataDetailWithOutstanding(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                              ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
-                                                             ByVal intBPID As Integer, ByVal strAPID As String) As DataTable
+                                                             ByVal intBPID As Integer, ByVal strARID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -680,11 +746,11 @@
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual AS SalesAmount, A.Amount, " & vbNewLine & _
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual-B.DPAmount-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, " & vbNewLine & _
                     "   A.Remarks " & vbNewLine & _
-                    "FROM traAccountPayableDet A " & vbNewLine & _
+                    "FROM traAccountReceivableDet A " & vbNewLine & _
                     "INNER JOIN traSalesContract B ON " & vbNewLine & _
                     "   A.SalesID=B.ID " & vbNewLine & _
                     "WHERE " & vbNewLine & _
-                    "   A.APID=@APID " & vbNewLine
+                    "   A.ARID=@ARID " & vbNewLine
 
                 .CommandText += _
                     "UNION ALL " & vbNewLine & _
@@ -707,18 +773,18 @@
                     "   AND A.ID NOT IN " & vbNewLine & _
                     "       ( " & vbNewLine & _
                     "           SELECT ARD.SalesID 	" & vbNewLine & _
-                    "           FROM traAccountPayableDet ARD 	" & vbNewLine & _
-                    "           INNER JOIN traAccountPayable ARH ON 	" & vbNewLine & _
-                    "	        ARD.APID=ARH.ID		" & vbNewLine & _
+                    "           FROM traAccountReceivableDet ARD 	" & vbNewLine & _
+                    "           INNER JOIN traAccountReceivable ARH ON 	" & vbNewLine & _
+                    "	        ARD.ARID=ARH.ID		" & vbNewLine & _
                     "           WHERE 	" & vbNewLine & _
                     "               ARH.CompanyID=@CompanyID 	" & vbNewLine & _
                     "	            AND ARH.ProgramID=@ProgramID 	" & vbNewLine & _
                     "	            AND ARH.BPID=@BPID " & vbNewLine & _
                     "	            AND ARH.IsDeleted=0	" & vbNewLine & _
-                    "	            AND ARH.ID=@APID " & vbNewLine & _
+                    "	            AND ARH.ID=@ARID " & vbNewLine & _
                     "       ) " & vbNewLine
 
-                .Parameters.Add("@APID", SqlDbType.VarChar, 100).Value = strAPID
+                .Parameters.Add("@ARID", SqlDbType.VarChar, 100).Value = strARID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID

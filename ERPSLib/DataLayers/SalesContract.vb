@@ -524,7 +524,7 @@
                     "	DPAmount=	" & vbNewLine & _
                     "	(	" & vbNewLine & _
                     "		SELECT	" & vbNewLine & _
-                    "			ISNULL(SUM(APD.Amount),0) TotalPayment		" & vbNewLine & _
+                    "			ISNULL(SUM(ARD.Amount),0) TotalPayment		" & vbNewLine & _
                     "		FROM traAccountReceivableDet ARD 	" & vbNewLine & _
                     "		INNER JOIN traAccountReceivable ARH ON	" & vbNewLine & _
                     "			ARD.ARID=ARH.ID 	" & vbNewLine & _
@@ -557,7 +557,7 @@
                     "	ReceiveAmount=	" & vbNewLine & _
                     "	(	" & vbNewLine & _
                     "		SELECT	" & vbNewLine & _
-                    "			ISNULL(SUM(APD.Amount),0) TotalPayment		" & vbNewLine & _
+                    "			ISNULL(SUM(ARD.Amount),0) TotalPayment		" & vbNewLine & _
                     "		FROM traAccountReceivableDet ARD 	" & vbNewLine & _
                     "		INNER JOIN traAccountReceivable ARH ON	" & vbNewLine & _
                     "			ARD.ARID=ARH.ID 	" & vbNewLine & _

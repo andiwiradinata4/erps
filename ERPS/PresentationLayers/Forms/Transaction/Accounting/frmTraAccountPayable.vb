@@ -78,7 +78,7 @@ Public Class frmTraAccountPayable
 
     Private Sub prvFillCombo()
         Try
-            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionAccountPayable)
+            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionAccountPayableBalance)
             Dim dr As DataRow
             dr = dtData.NewRow
             With dr
@@ -507,8 +507,8 @@ Public Class frmTraAccountPayable
 
     Private Sub prvUserAccess()
         With ToolBar.Buttons
-            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountPayable, VO.Access.Values.NewAccess)
-            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountPayable, VO.Access.Values.DeleteAccess)
+            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountPayableBalance, VO.Access.Values.NewAccess)
+            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountPayableBalance, VO.Access.Values.DeleteAccess)
         End With
     End Sub
 

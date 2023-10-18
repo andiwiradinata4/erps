@@ -33,8 +33,11 @@
                         Dim dtItem As New DataTable
 
                         '# For Setup Balance
-                        If clsData.Modules.Trim = "SB" Then
+                        If clsData.Modules.Trim = VO.AccountReceivable.SalesBalance Then
                             dtItem = DL.AccountReceivable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, clsData.ID)
+                        ElseIf clsData.Modules.Trim = VO.AccountReceivable.DownPayment Or
+                            clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then
+                            dtItem = DL.AccountReceivable.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
                         End If
 
                         DL.AccountReceivable.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
@@ -42,8 +45,12 @@
                         '# Revert Payment Amount
                         For Each dr As DataRow In dtItem.Rows
                             '# For Setup Balance
-                            If clsData.Modules = "SB" Then
+                            If clsData.Modules.Trim = VO.AccountReceivable.SalesBalance Then
                                 DL.BusinessPartnerARBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("SalesID"))
+                            ElseIf clsData.Modules.Trim = VO.AccountReceivable.DownPayment Then
+                                DL.SalesContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("SalesID"))
+                            ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then
+                                DL.SalesContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("SalesID"))
                             End If
                         Next
                     End If
@@ -75,8 +82,12 @@
                     '# Calculate Payment Amount
                     For Each clsDet As VO.AccountReceivableDet In clsData.Detail
                         '# For Setup Balance
-                        If clsData.Modules = "SB" Then
+                        If clsData.Modules = VO.AccountReceivable.SalesBalance Then
                             DL.BusinessPartnerARBalance.CalculateTotalUsed(sqlCon, sqlTrans, clsDet.SalesID)
+                        ElseIf clsData.Modules.Trim = VO.AccountReceivable.DownPayment Then
+                            DL.SalesContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.SalesID)
+                        ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then
+                            DL.SalesContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.SalesID)
                         End If
                     Next
 
@@ -120,8 +131,11 @@
                     Dim dtItem As New DataTable
 
                     '# For Setup Balance
-                    If strModules.Trim = "SB" Then
+                    If strModules.Trim = VO.AccountReceivable.SalesBalance Then
                         dtItem = DL.AccountReceivable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, strID)
+                    ElseIf strModules.Trim = VO.AccountReceivable.DownPayment Or
+                        strModules.Trim = VO.AccountReceivable.ReceivePayment Then
+                        dtItem = DL.AccountReceivable.ListDataDetail(sqlCon, sqlTrans, strID)
                     End If
 
                     DL.AccountReceivable.DeleteData(sqlCon, sqlTrans, strID)
@@ -129,8 +143,12 @@
                     '# Revert Payment Amount
                     For Each dr As DataRow In dtItem.Rows
                         '# For Setup Balance
-                        If strModules = "SB" Then
+                        If strModules.Trim = VO.AccountReceivable.SalesBalance Then
                             DL.BusinessPartnerARBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("SalesID"))
+                        ElseIf strModules.Trim = VO.AccountReceivable.DownPayment Then
+                            DL.SalesContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("SalesID"))
+                        ElseIf strModules.Trim = VO.AccountReceivable.ReceivePayment Then
+                            DL.SalesContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("SalesID"))
                         End If
                     Next
 
@@ -264,7 +282,7 @@
                             .ID = PrevJournal.ID,
                             .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
                             .ReferencesID = clsData.ID,
-                            .JournalDate = IIf(bolNew, Now, PrevJournal.JournalDate),
+                            .JournalDate = IIf(bolNew, clsData.ARDate, PrevJournal.JournalDate),
                             .TotalAmount = clsData.TotalAmount,
                             .IsAutoGenerate = True,
                             .StatusID = VO.Status.Values.Draft,

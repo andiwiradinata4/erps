@@ -131,8 +131,11 @@
                     Dim dtItem As New DataTable
 
                     '# For Setup Balance
-                    If strModules.Trim = "SB" Then
+                    If strModules.Trim = VO.AccountPayable.PurchaseBalance Then
                         dtItem = DL.AccountPayable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, strID)
+                    ElseIf strModules.Trim = VO.AccountPayable.DownPayment Or
+                        strModules.Trim = VO.AccountPayable.ReceivePayment Then
+                        dtItem = DL.AccountPayable.ListDataDetail(sqlCon, sqlTrans, strID)
                     End If
 
                     DL.AccountPayable.DeleteData(sqlCon, sqlTrans, strID)
@@ -140,8 +143,12 @@
                     '# Revert Payment Amount
                     For Each dr As DataRow In dtItem.Rows
                         '# For Setup Balance
-                        If strModules = "SB" Then
+                        If strModules.Trim = VO.AccountPayable.PurchaseBalance Then
                             DL.BusinessPartnerAPBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                        ElseIf strModules.Trim = VO.AccountPayable.DownPayment Then
+                            DL.PurchaseContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                        ElseIf strModules.Trim = VO.AccountPayable.ReceivePayment Then
+                            DL.PurchaseContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
                         End If
                     Next
 
@@ -284,7 +291,7 @@
                             .ID = PrevJournal.ID,
                             .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
                             .ReferencesID = clsData.ID,
-                            .JournalDate = IIf(bolNew, Now, PrevJournal.JournalDate),
+                            .JournalDate = IIf(bolNew, clsData.APDate, PrevJournal.JournalDate),
                             .TotalAmount = clsData.TotalAmount,
                             .IsAutoGenerate = True,
                             .StatusID = VO.Status.Values.Draft,
