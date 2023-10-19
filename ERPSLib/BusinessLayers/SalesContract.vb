@@ -369,7 +369,8 @@
                 Dim dtPaymentTerm As DataTable = DL.SalesContract.ListDataPaymentTerm(sqlCon, Nothing, strID)
                 Dim intMaxCreditTerms As Integer = 0
                 For Each dr As DataRow In dtPaymentTerm.Rows
-                    strPaymentTerms += CInt(dr.Item("Percentage")) & "% " & dr.Item("PaymentTypeName") & " BY: " & dr.Item("PaymentModeName") & vbCrLf
+                    If strPaymentTerms.Trim <> "" Then strPaymentTerms += ", "
+                    strPaymentTerms += CInt(dr.Item("Percentage")) & "% " & dr.Item("PaymentTypeName") & " BY " & dr.Item("PaymentModeName")
                     If intMaxCreditTerms < dr.Item("CreditTerm") Then intMaxCreditTerms = dr.Item("CreditTerm")
                 Next
 
@@ -397,12 +398,7 @@
 
                 For Each dr As DataRow In dtReturn.Rows
                     dr.BeginEdit()
-                    dr.Item("SCDateAndCity") = dr.Item("CompanyCity") & ", " & Format(dr.Item("SCDate"), "dd MMMM yyyy")
-                    dr.Item("SellerParty") = "Berkedudukan di " & dr.Item("CompanyAddress") & " dalam hal ini diwakili " &
-                        dr.Item("DelegationSeller") & " : " & dr.Item("DelegationPositionSeller") & ", dari dan oleh sebab itu bertindak untuk dan atas nama " & dr.Item("CompanyName") & ", selanjutnya disebut sebagai PENJUAL"
-                    dr.Item("BuyerParty") = "Berkedudukan di " & dr.Item("DeliveryAddress") & " dalam hal ini diwakili " &
-                                            dr.Item("DelegationBuyer") & " : " & dr.Item("DelegationPositionBuyer") & ", dari dan oleh sebab itu bertindak untuk dan atas nama " & dr.Item("BPName") & ", selanjutnya disebut sebagai PEMBELI"
-
+                    dr.Item("SCDateAndSubDistrict") = dr.Item("CompanySubDistrict") & ", " & Format(dr.Item("SCDate"), "dd MMMM yyyy")
                     dr.Item("AllItemName") = strAllItemTypeAndSpec
                     dr.Item("PaymentTerms") = strPaymentTerms
                     dr.Item("DeliveryPeriod") = Format(dr.Item("DeliveryPeriodFrom"), "MMMM") & " - " & Format(dr.Item("DeliveryPeriodTo"), "MMMM yyyy")

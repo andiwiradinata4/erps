@@ -8,7 +8,7 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                    "SELECT " & vbNewLine & _
-                   "    A.ID AS CompanyID, A.Name AS CompanyName, A.Address, A.Country, A.Province, A.City, A.Warehouse, " & vbNewLine & _
+                   "    A.ID AS CompanyID, A.Name AS CompanyName, A.Address, A.Country, A.Province, A.City, A.SubDistrict, A.Area, A.DirectorName, A.Warehouse, " & vbNewLine & _
                    "    A.PhoneNumber, A.CompanyInitial, A.StatusID, B.Name AS StatusInfo, A.CreatedBy,   " & vbNewLine & _
                    "    A.CreatedDate, A.LogBy, A.LogDate  " & vbNewLine & _
                    "FROM mstCompany A " & vbNewLine & _
@@ -27,7 +27,7 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                    "SELECT " & vbNewLine & _
-                   "    A.ID, A.Name, A.Address, A.Country, A.Province, A.City, A.Warehouse, A.PhoneNumber, A.CompanyInitial " & vbNewLine & _
+                   "    A.ID, A.Name, A.Address, A.Country, A.Province, A.City, A.SubDistrict, A.Area, A.DirectorName, A.Warehouse, A.PhoneNumber, A.CompanyInitial " & vbNewLine & _
                    "FROM mstCompany A " & vbNewLine & _
                    "WHERE " & vbNewLine & _
                    "    A.StatusID=@StatusID " & vbNewLine
@@ -47,10 +47,10 @@ Namespace DL
                 If bolNew Then
                     .CommandText = _
                        "INSERT INTO mstCompany " & vbNewLine & _
-                       "    (ID, Name, Address, Country, Province, City, Warehouse, PhoneNumber, CompanyInitial, StatusID, CreatedBy,   " & vbNewLine & _
+                       "    (ID, Name, Address, Country, Province, City, SubDistrict, Area, DirectorName, Warehouse, PhoneNumber, CompanyInitial, StatusID, CreatedBy,   " & vbNewLine & _
                        "      CreatedDate, LogBy, LogDate)   " & vbNewLine & _
                        "VALUES " & vbNewLine & _
-                       "    (@ID, @Name, @Address, @Country, @Province, @City, @Warehouse, @PhoneNumber, @CompanyInitial, @StatusID, @LogBy,   " & vbNewLine & _
+                       "    (@ID, @Name, @Address, @Country, @Province, @City, @SubDistrict, @Area, @DirectorName, @Warehouse, @PhoneNumber, @CompanyInitial, @StatusID, @LogBy,   " & vbNewLine & _
                        "      GETDATE(), @LogBy, GETDATE())  " & vbNewLine
                 Else
                     .CommandText = _
@@ -60,6 +60,9 @@ Namespace DL
                         "    Country=@Country, " & vbNewLine & _
                         "    Province=@Province, " & vbNewLine & _
                         "    City=@City, " & vbNewLine & _
+                        "    SubDistrict=@SubDistrict, " & vbNewLine & _
+                        "    Area=@Area, " & vbNewLine & _
+                        "    DirectorName=@DirectorName, " & vbNewLine & _
                         "    Warehouse=@Warehouse, " & vbNewLine & _
                         "    PhoneNumber=@PhoneNumber, " & vbNewLine & _
                         "    CompanyInitial=@CompanyInitial, " & vbNewLine & _
@@ -77,6 +80,9 @@ Namespace DL
                 .Parameters.Add("@Country", SqlDbType.VarChar, 250).Value = clsData.Country
                 .Parameters.Add("@Province", SqlDbType.VarChar, 250).Value = clsData.Province
                 .Parameters.Add("@City", SqlDbType.VarChar, 250).Value = clsData.City
+                .Parameters.Add("@SubDistrict", SqlDbType.VarChar, 250).Value = clsData.SubDistrict
+                .Parameters.Add("@Area", SqlDbType.VarChar, 250).Value = clsData.Area
+                .Parameters.Add("@DirectorName", SqlDbType.VarChar, 250).Value = clsData.DirectorName
                 .Parameters.Add("@Warehouse", SqlDbType.VarChar, 250).Value = clsData.Warehouse
                 .Parameters.Add("@PhoneNumber", SqlDbType.VarChar, 250).Value = clsData.PhoneNumber
                 .Parameters.Add("@CompanyInitial", SqlDbType.VarChar, 3).Value = clsData.CompanyInitial
@@ -100,7 +106,7 @@ Namespace DL
                     .CommandType = CommandType.Text
                     .CommandText = _
                        "SELECT TOP 1 " & vbNewLine & _
-                       "    A.ID, A.Name, A.Address, A.Country, A.Province, A.City, A.Warehouse, A.PhoneNumber, A.CompanyInitial, A.StatusID, A.LogBy,   " & vbNewLine & _
+                       "    A.ID, A.Name, A.Address, A.Country, A.Province, A.City, A.SubDistrict, A.Area, A.DirectorName, A.Warehouse, A.PhoneNumber, A.CompanyInitial, A.StatusID, A.LogBy,   " & vbNewLine & _
                        "    A.LogDate  " & vbNewLine & _
                        "FROM mstCompany A " & vbNewLine & _
                        "WHERE " & vbNewLine & _
@@ -118,6 +124,9 @@ Namespace DL
                         voReturn.Country = .Item("Country")
                         voReturn.Province = .Item("Province")
                         voReturn.City = .Item("City")
+                        voReturn.SubDistrict = .Item("SubDistrict")
+                        voReturn.Area = .Item("Area")
+                        voReturn.DirectorName = .Item("DirectorName")
                         voReturn.Warehouse = .Item("Warehouse")
                         voReturn.PhoneNumber = .Item("PhoneNumber")
                         voReturn.CompanyInitial = .Item("CompanyInitial")

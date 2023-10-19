@@ -48,6 +48,9 @@ Public Class frmMstCompanyDet
                 txtCountry.Text = clsData.Country
                 txtProvince.Text = clsData.Province
                 txtCity.Text = clsData.City
+                txtSubDistrict.Text = clsData.SubDistrict
+                txtArea.Text = clsData.Area
+                txtDirectorName.Text = clsData.DirectorName
                 txtWarehouse.Text = clsData.Warehouse
                 txtPhoneNumber.Text = clsData.PhoneNumber
                 txtCompanyInitial.Text = clsData.CompanyInitial
@@ -87,6 +90,9 @@ Public Class frmMstCompanyDet
         clsData.Country = txtCountry.Text.Trim
         clsData.Province = txtProvince.Text.Trim
         clsData.City = txtCity.Text.Trim
+        clsData.SubDistrict = txtSubDistrict.Text.Trim
+        clsData.Area = txtArea.Text.Trim
+        clsData.DirectorName = txtDirectorName.Text.Trim
         clsData.Warehouse = txtWarehouse.Text.Trim
         clsData.PhoneNumber = txtPhoneNumber.Text.Trim
         clsData.CompanyInitial = txtCompanyInitial.Text.Trim
@@ -114,6 +120,9 @@ Public Class frmMstCompanyDet
         txtCountry.Text = ""
         txtProvince.Text = ""
         txtCity.Text = ""
+        txtSubDistrict.Text = ""
+        txtArea.Text = ""
+        txtDirectorName.Text = ""
         txtWarehouse.Text = ""
         txtPhoneNumber.Text = ""
         txtCompanyInitial.Text = ""

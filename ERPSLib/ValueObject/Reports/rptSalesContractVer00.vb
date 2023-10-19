@@ -16,7 +16,7 @@
         Property DelegationPositionSeller As String
         Property DelegationBuyer As String
         Property DelegationPositionBuyer As String
-        Property SCDateAndCity As String
+        Property SCDateAndSubDistrict As String
         Property PPN As Decimal
         Property PPH As Decimal
         Property TotalQuantity As Decimal
@@ -38,8 +38,8 @@
         Property AllReferencesNumber As String
         Property MaxCreditTerms As Integer
         Property AllOrderNumberSupplier As String
-        Property SellerParty As String
-        Property BuyerParty As String
+        Property CompanySubDistrict As String
+        Property CompanyDirectorName As String
         Property NumericToString As String
 
         '# Items

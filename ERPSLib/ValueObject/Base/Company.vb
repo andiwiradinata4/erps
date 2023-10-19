@@ -7,6 +7,9 @@ Namespace VO
         Property Country As String
         Property Province As String
         Property City As String
+        Property SubDistrict As String
+        Property Area As String
+        Property DirectorName As String
         Property Warehouse As String
         Property PhoneNumber As String
         Property CompanyInitial As String
