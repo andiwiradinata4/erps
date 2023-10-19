@@ -635,6 +635,7 @@
         End Function
 
         Public Shared Function PrintVer00(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                           ByVal strID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
@@ -651,7 +652,8 @@
                     "	CAST('' AS VARCHAR(1000)) AS AllReferencesNumber, SCH.AllowanceProduction, CAST(0 AS INT) AS MaxCreditTerms, BP.Address AS DeliveryAddress, 	" & vbNewLine & _
                     "	SCDCO.GroupID, COD.OrderNumberSupplier, CAST('' AS VARCHAR(1000)) AS AllOrderNumberSupplier, SCD.ItemID, IT.Description + ' ' + MIS.Description AS ItemTypeAndSpec, 	" & vbNewLine & _
                     "	MIS.Description AS ItemSpec, MI.Thick, MI.Width, MI.Length, SCD.Weight, SCD.Quantity, SCD.TotalWeight, SCD.UnitPrice, SCD.TotalPrice, (SCD.TotalPrice*SCH.PPN/100) AS TotalPPNItem, 	" & vbNewLine & _
-                    "	SCD.TotalPrice + (SCD.TotalPrice*SCH.PPN/100) AS TotalPriceIncPPN, CAST('' AS VARCHAR(1000)) AS NumericToString, CAST('' AS VARCHAR(5000)) AS SellerParty, CAST('' AS VARCHAR(5000)) AS BuyerParty " & vbNewLine & _
+                    "	SCD.TotalPrice + (SCD.TotalPrice*SCH.PPN/100) AS TotalPriceIncPPN, CAST('' AS VARCHAR(1000)) AS NumericToString, CAST('' AS VARCHAR(5000)) AS SellerParty, CAST('' AS VARCHAR(5000)) AS BuyerParty, " & vbNewLine & _
+                    "   SCH.StatusID " & vbNewLine & _
                     "FROM traSalesContract SCH 	" & vbNewLine & _
                     "INNER JOIN mstCompany MC ON 	" & vbNewLine & _
                     "	SCH.CompanyID=MC.ID 	" & vbNewLine & _
@@ -675,11 +677,15 @@
                     "INNER JOIN mstItemSpecification MIS ON 	 	" & vbNewLine & _
                     "    MI.ItemSpecificationID=MIS.ID 	 	" & vbNewLine & _
                     "WHERE 	" & vbNewLine & _
-                    "	SCH.ID=@ID 	" & vbNewLine & _
+                    "	SCH.ProgramID=@ProgramID " & vbNewLine & _
+                    "	AND SCH.CompanyID=@CompanyID " & vbNewLine & _
+                    "	AND SCH.ID=@ID 	" & vbNewLine & _
                     "ORDER BY 	" & vbNewLine & _
                     "	COD.OrderNumberSupplier, ORH.ReferencesNumber, MI.Thick, MI.Width, MI.Length, SCD.Weight	" & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function

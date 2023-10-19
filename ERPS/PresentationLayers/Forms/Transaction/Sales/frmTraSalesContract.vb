@@ -1,4 +1,6 @@
 ﻿Imports DevExpress.XtraGrid
+Imports DevExpress.XtraReports.UI
+
 Public Class frmTraSalesContract
 
     Private intPos As Integer = 0
@@ -388,37 +390,37 @@ Public Class frmTraSalesContract
         Application.DoEvents()
 
         Try
-            'Dim dtData As DataTable = BL.SalesContract.Print(intProgramID, intCompanyID, strID)
-            'Dim intStatusID As Integer = 0
-            'For Each dr As DataRow In dtData.Rows
-            '    intStatusID = dr.Item("StatusID")
-            '    Exit For
-            'Next
+            Dim dtData As DataTable = BL.SalesContract.PrintVer00(intProgramID, intCompanyID, strID)
+            Dim intStatusID As Integer = 0
+            For Each dr As DataRow In dtData.Rows
+                intStatusID = dr.Item("StatusID")
+                Exit For
+            Next
 
-            'Dim crReport As New rptSalesContract
+            Dim crReport As New rptSalesContractVer00
 
-            ''# Setup Watermark Report
-            'If intStatusID <> VO.Status.Values.Approved Then
-            '    crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
-            '    crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
-            '    crReport.Watermark.Font = New System.Drawing.Font("Tahoma", 70.0!, System.Drawing.FontStyle.Bold)
-            '    crReport.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.Horizontal
-            '    crReport.Watermark.TextTransparency = 150
-            'End If
+            '# Setup Watermark Report
+            If intStatusID <> VO.Status.Values.Approved Then
+                crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
+                crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
+                crReport.Watermark.Font = New System.Drawing.Font("Tahoma", 70.0!, System.Drawing.FontStyle.Bold)
+                crReport.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.Horizontal
+                crReport.Watermark.TextTransparency = 150
+            End If
 
-            'crReport.DataSource = dtData
-            'crReport.CreateDocument(True)
-            'crReport.ShowPreviewMarginLines = False
-            'crReport.ShowPrintMarginsWarning = False
+            crReport.DataSource = dtData
+            crReport.CreateDocument(True)
+            crReport.ShowPreviewMarginLines = False
+            crReport.ShowPrintMarginsWarning = False
 
-            'Dim frmDetail As New frmReportPreview
-            'With frmDetail
-            '    .docViewer.DocumentSource = crReport
-            '    .pgExportButton.Enabled = bolExport
-            '    .Text = Me.Text & " - " & VO.Reports.PrintOut
-            '    .WindowState = FormWindowState.Maximized
-            '    .Show()
-            'End With
+            Dim frmDetail As New frmReportPreview
+            With frmDetail
+                .docViewer.DocumentSource = crReport
+                .pgExportButton.Enabled = bolExport
+                .Text = Me.Text & " - " & VO.Reports.PrintOut
+                .WindowState = FormWindowState.Maximized
+                .Show()
+            End With
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally

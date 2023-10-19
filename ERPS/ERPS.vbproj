@@ -686,9 +686,7 @@
     <Compile Include="PresentationLayers\Reports2\rptSalesContractVer00.Designer.vb">
       <DependentUpon>rptSalesContractVer00.vb</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayers\Reports2\rptSalesContractVer00.vb">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptSalesContractVer00.vb" />
     <Compile Include="PresentationLayers\SharedLib\Components\usCheckListBoxControl.vb">
       <SubType>Component</SubType>
     </Compile>

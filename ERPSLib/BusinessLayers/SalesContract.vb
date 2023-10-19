@@ -347,11 +347,11 @@
             Return bolReturn
         End Function
 
-        Public Shared Function PrintVer00(ByVal strID As String) As DataTable
+        Public Shared Function PrintVer00(ByVal intProgramID As Integer, ByVal intCompanyID As Integer, ByVal strID As String) As DataTable
             BL.Server.ServerDefault()
             Dim dtReturn As New DataTable
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                dtReturn = DL.SalesContract.PrintVer00(sqlCon, Nothing, strID)
+                dtReturn = DL.SalesContract.PrintVer00(sqlCon, Nothing, intProgramID, intCompanyID, strID)
 
                 '# Combine AllItemName
                 Dim strItemTypeAndSpec As String = ""
