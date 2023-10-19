@@ -46,10 +46,13 @@ Partial Public Class rptSalesContractVer00
         Me.rtxBuyerParty = New DevExpress.XtraReports.UI.XRRichText()
         Me.XrLabel12 = New DevExpress.XtraReports.UI.XRLabel()
         Me.shTerm1 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel81 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel14 = New DevExpress.XtraReports.UI.XRLabel()
         Me.shTerm2 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel82 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel15 = New DevExpress.XtraReports.UI.XRLabel()
         Me.shTerm3 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel83 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel16 = New DevExpress.XtraReports.UI.XRLabel()
         Me.shItem = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel56 = New DevExpress.XtraReports.UI.XRLabel()
@@ -98,40 +101,47 @@ Partial Public Class rptSalesContractVer00
         Me.XrLabel39 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel38 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel37 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.shTerm4 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel67 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel68 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel65 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel66 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel64 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel62 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel63 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel60 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel61 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel59 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel57 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel58 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.shTerm5 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel72 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel71 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel70 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel69 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.shSign = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel79 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel80 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel77 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel78 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel76 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel75 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel74 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel73 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter = New DevExpress.XtraReports.UI.ReportFooterBand()
         Me.PageFooter = New DevExpress.XtraReports.UI.PageFooterBand()
         Me.FilteringUIContext1 = New DevExpress.Utils.Filtering.FilteringUIContext(Me.components)
-        Me.shTerm4 = New DevExpress.XtraReports.UI.SubBand()
-        Me.XrLabel57 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel58 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel59 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel60 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel61 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel62 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel63 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel64 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel65 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel66 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel67 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel68 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.shTerm5 = New DevExpress.XtraReports.UI.SubBand()
-        Me.XrLabel69 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel70 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel71 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel72 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.shSign = New DevExpress.XtraReports.UI.SubBand()
-        Me.XrLabel73 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel74 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel75 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel76 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel77 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel78 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel79 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel80 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel81 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel82 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel83 = New DevExpress.XtraReports.UI.XRLabel()
         Me.SalesContractVer00 = New DevExpress.DataAccess.ObjectBinding.ObjectDataSource(Me.components)
+        Me.shDetailHeader = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel84 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel85 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel86 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel87 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel88 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.shHeaderDate = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel89 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel90 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel91 = New DevExpress.XtraReports.UI.XRLabel()
         CType(Me.XrRichText4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrRichText2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.rtxSellerParty, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -247,7 +257,7 @@ Partial Public Class rptSalesContractVer00
         Me.PageHeader.Dpi = 100.0!
         Me.PageHeader.HeightF = 40.00002!
         Me.PageHeader.Name = "PageHeader"
-        Me.PageHeader.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.shSellerParty, Me.shBuyerParty, Me.shTerm1, Me.shTerm2, Me.shTerm3, Me.shItem, Me.shItem2, Me.shTerm4, Me.shTerm5, Me.shSign})
+        Me.PageHeader.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.shSellerParty, Me.shBuyerParty, Me.shTerm1, Me.shTerm2, Me.shTerm3, Me.shItem, Me.shItem2, Me.shTerm4, Me.shTerm5, Me.shSign, Me.shDetailHeader, Me.shHeaderDate})
         '
         'XrLabel8
         '
@@ -436,6 +446,17 @@ Partial Public Class rptSalesContractVer00
         Me.shTerm1.HeightF = 50.0!
         Me.shTerm1.Name = "shTerm1"
         '
+        'XrLabel81
+        '
+        Me.XrLabel81.Dpi = 100.0!
+        Me.XrLabel81.LocationFloat = New DevExpress.Utils.PointFloat(0.00006103516!, 20.0!)
+        Me.XrLabel81.Multiline = True
+        Me.XrLabel81.Name = "XrLabel81"
+        Me.XrLabel81.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel81.SizeF = New System.Drawing.SizeF(767.0!, 30.0!)
+        Me.XrLabel81.StylePriority.UseFont = False
+        Me.XrLabel81.Text = "ekspor."
+        '
         'XrLabel14
         '
         Me.XrLabel14.Dpi = 100.0!
@@ -455,6 +476,17 @@ Partial Public Class rptSalesContractVer00
         Me.shTerm2.HeightF = 50.0!
         Me.shTerm2.Name = "shTerm2"
         '
+        'XrLabel82
+        '
+        Me.XrLabel82.Dpi = 100.0!
+        Me.XrLabel82.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 20.0!)
+        Me.XrLabel82.Multiline = True
+        Me.XrLabel82.Name = "XrLabel82"
+        Me.XrLabel82.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel82.SizeF = New System.Drawing.SizeF(767.0!, 30.0!)
+        Me.XrLabel82.Text = "penyerahan dari PENJUAL atas barang hasil produksi PENJUAL (selanjutnya disebut B" & _
+    "arang)."
+        '
         'XrLabel15
         '
         Me.XrLabel15.Dpi = 100.0!
@@ -472,6 +504,16 @@ Partial Public Class rptSalesContractVer00
         Me.shTerm3.Dpi = 100.0!
         Me.shTerm3.HeightF = 50.0!
         Me.shTerm3.Name = "shTerm3"
+        '
+        'XrLabel83
+        '
+        Me.XrLabel83.Dpi = 100.0!
+        Me.XrLabel83.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 20.0!)
+        Me.XrLabel83.Multiline = True
+        Me.XrLabel83.Name = "XrLabel83"
+        Me.XrLabel83.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel83.SizeF = New System.Drawing.SizeF(767.0!, 30.0!)
+        Me.XrLabel83.Text = "dengan ketentuan sebagai berikut:"
         '
         'XrLabel16
         '
@@ -1007,18 +1049,6 @@ Partial Public Class rptSalesContractVer00
         Me.XrLabel37.Text = "Waktu Penyerahan"
         Me.XrLabel37.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
-        'ReportFooter
-        '
-        Me.ReportFooter.Dpi = 100.0!
-        Me.ReportFooter.HeightF = 0.0!
-        Me.ReportFooter.Name = "ReportFooter"
-        '
-        'PageFooter
-        '
-        Me.PageFooter.Dpi = 100.0!
-        Me.PageFooter.HeightF = 10.0!
-        Me.PageFooter.Name = "PageFooter"
-        '
         'shTerm4
         '
         Me.shTerm4.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel67, Me.XrLabel68, Me.XrLabel65, Me.XrLabel66, Me.XrLabel64, Me.XrLabel62, Me.XrLabel63, Me.XrLabel60, Me.XrLabel61, Me.XrLabel59, Me.XrLabel57, Me.XrLabel58})
@@ -1026,39 +1056,82 @@ Partial Public Class rptSalesContractVer00
         Me.shTerm4.HeightF = 141.7918!
         Me.shTerm4.Name = "shTerm4"
         '
-        'XrLabel57
+        'XrLabel67
         '
-        Me.XrLabel57.Dpi = 100.0!
-        Me.XrLabel57.LocationFloat = New DevExpress.Utils.PointFloat(20.00003!, 13.45832!)
-        Me.XrLabel57.Name = "XrLabel57"
-        Me.XrLabel57.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel57.SizeF = New System.Drawing.SizeF(746.9966!, 20.0!)
-        Me.XrLabel57.StylePriority.UseTextAlignment = False
-        Me.XrLabel57.Text = "Untuk Product Non-Prime plate dan KP-OR, semua spesifikasi produk disamaratakan m" & _
-    "enjadi ""Commercial"", tidak dapat diklaim dan tidak memiliki"
-        Me.XrLabel57.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        Me.XrLabel67.Dpi = 100.0!
+        Me.XrLabel67.LocationFloat = New DevExpress.Utils.PointFloat(20.00229!, 113.4584!)
+        Me.XrLabel67.Name = "XrLabel67"
+        Me.XrLabel67.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel67.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
+        Me.XrLabel67.StylePriority.UseTextAlignment = False
+        Me.XrLabel67.Text = "Harga tidak dapat dirubah setelah tandatangan kontrak"
+        Me.XrLabel67.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
-        'XrLabel58
+        'XrLabel68
         '
-        Me.XrLabel58.Dpi = 100.0!
-        Me.XrLabel58.LocationFloat = New DevExpress.Utils.PointFloat(0.000333786!, 13.45833!)
-        Me.XrLabel58.Name = "XrLabel58"
-        Me.XrLabel58.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel58.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
-        Me.XrLabel58.StylePriority.UseTextAlignment = False
-        Me.XrLabel58.Text = "1)"
-        Me.XrLabel58.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        Me.XrLabel68.Dpi = 100.0!
+        Me.XrLabel68.LocationFloat = New DevExpress.Utils.PointFloat(0.002593994!, 113.4584!)
+        Me.XrLabel68.Name = "XrLabel68"
+        Me.XrLabel68.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel68.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
+        Me.XrLabel68.StylePriority.UseTextAlignment = False
+        Me.XrLabel68.Text = "5)"
+        Me.XrLabel68.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
-        'XrLabel59
+        'XrLabel65
         '
-        Me.XrLabel59.Dpi = 100.0!
-        Me.XrLabel59.LocationFloat = New DevExpress.Utils.PointFloat(20.00366!, 33.45832!)
-        Me.XrLabel59.Name = "XrLabel59"
-        Me.XrLabel59.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel59.SizeF = New System.Drawing.SizeF(746.9966!, 20.0!)
-        Me.XrLabel59.StylePriority.UseTextAlignment = False
-        Me.XrLabel59.Text = "Mill Test Certificate"
-        Me.XrLabel59.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        Me.XrLabel65.Dpi = 100.0!
+        Me.XrLabel65.LocationFloat = New DevExpress.Utils.PointFloat(0.001831055!, 93.45835!)
+        Me.XrLabel65.Name = "XrLabel65"
+        Me.XrLabel65.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel65.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
+        Me.XrLabel65.StylePriority.UseTextAlignment = False
+        Me.XrLabel65.Text = "4)"
+        Me.XrLabel65.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel66
+        '
+        Me.XrLabel66.Dpi = 100.0!
+        Me.XrLabel66.LocationFloat = New DevExpress.Utils.PointFloat(20.00152!, 93.45843!)
+        Me.XrLabel66.Name = "XrLabel66"
+        Me.XrLabel66.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel66.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
+        Me.XrLabel66.StylePriority.UseTextAlignment = False
+        Me.XrLabel66.Text = "Pembayaran Pelunasan maksimal 2 Minggu dari pemberitahuan hasil produksi selesai"
+        Me.XrLabel66.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel64
+        '
+        Me.XrLabel64.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AllowanceProduction", "{0:n0} %")})
+        Me.XrLabel64.Dpi = 100.0!
+        Me.XrLabel64.LocationFloat = New DevExpress.Utils.PointFloat(275.3315!, 73.45835!)
+        Me.XrLabel64.Name = "XrLabel64"
+        Me.XrLabel64.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel64.SizeF = New System.Drawing.SizeF(491.6652!, 20.0!)
+        Me.XrLabel64.StylePriority.UseTextAlignment = False
+        Me.XrLabel64.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel62
+        '
+        Me.XrLabel62.Dpi = 100.0!
+        Me.XrLabel62.LocationFloat = New DevExpress.Utils.PointFloat(20.00152!, 73.45835!)
+        Me.XrLabel62.Name = "XrLabel62"
+        Me.XrLabel62.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel62.SizeF = New System.Drawing.SizeF(255.33!, 20.0!)
+        Me.XrLabel62.StylePriority.UseTextAlignment = False
+        Me.XrLabel62.Text = "Order ini akan dikenakan allowance produksi +/- "
+        Me.XrLabel62.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel63
+        '
+        Me.XrLabel63.Dpi = 100.0!
+        Me.XrLabel63.LocationFloat = New DevExpress.Utils.PointFloat(0.001831055!, 73.45831!)
+        Me.XrLabel63.Name = "XrLabel63"
+        Me.XrLabel63.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel63.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
+        Me.XrLabel63.StylePriority.UseTextAlignment = False
+        Me.XrLabel63.Text = "3)"
+        Me.XrLabel63.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
         'XrLabel60
         '
@@ -1083,82 +1156,39 @@ Partial Public Class rptSalesContractVer00
     "ohon dikirimkan kembali melalui email"
         Me.XrLabel61.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
-        'XrLabel62
+        'XrLabel59
         '
-        Me.XrLabel62.Dpi = 100.0!
-        Me.XrLabel62.LocationFloat = New DevExpress.Utils.PointFloat(20.00152!, 73.45835!)
-        Me.XrLabel62.Name = "XrLabel62"
-        Me.XrLabel62.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel62.SizeF = New System.Drawing.SizeF(255.33!, 20.0!)
-        Me.XrLabel62.StylePriority.UseTextAlignment = False
-        Me.XrLabel62.Text = "Order ini akan dikenakan allowance produksi +/- "
-        Me.XrLabel62.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        Me.XrLabel59.Dpi = 100.0!
+        Me.XrLabel59.LocationFloat = New DevExpress.Utils.PointFloat(20.00366!, 33.45832!)
+        Me.XrLabel59.Name = "XrLabel59"
+        Me.XrLabel59.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel59.SizeF = New System.Drawing.SizeF(746.9966!, 20.0!)
+        Me.XrLabel59.StylePriority.UseTextAlignment = False
+        Me.XrLabel59.Text = "Mill Test Certificate"
+        Me.XrLabel59.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
-        'XrLabel63
+        'XrLabel57
         '
-        Me.XrLabel63.Dpi = 100.0!
-        Me.XrLabel63.LocationFloat = New DevExpress.Utils.PointFloat(0.001831055!, 73.45831!)
-        Me.XrLabel63.Name = "XrLabel63"
-        Me.XrLabel63.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel63.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
-        Me.XrLabel63.StylePriority.UseTextAlignment = False
-        Me.XrLabel63.Text = "3)"
-        Me.XrLabel63.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        Me.XrLabel57.Dpi = 100.0!
+        Me.XrLabel57.LocationFloat = New DevExpress.Utils.PointFloat(20.00003!, 13.45832!)
+        Me.XrLabel57.Name = "XrLabel57"
+        Me.XrLabel57.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel57.SizeF = New System.Drawing.SizeF(746.9966!, 20.0!)
+        Me.XrLabel57.StylePriority.UseTextAlignment = False
+        Me.XrLabel57.Text = "Untuk Product Non-Prime plate dan KP-OR, semua spesifikasi produk disamaratakan m" & _
+    "enjadi ""Commercial"", tidak dapat diklaim dan tidak memiliki"
+        Me.XrLabel57.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
-        'XrLabel64
+        'XrLabel58
         '
-        Me.XrLabel64.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AllowanceProduction", "{0:n0} %")})
-        Me.XrLabel64.Dpi = 100.0!
-        Me.XrLabel64.LocationFloat = New DevExpress.Utils.PointFloat(275.3315!, 73.45835!)
-        Me.XrLabel64.Name = "XrLabel64"
-        Me.XrLabel64.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel64.SizeF = New System.Drawing.SizeF(491.6652!, 20.0!)
-        Me.XrLabel64.StylePriority.UseTextAlignment = False
-        Me.XrLabel64.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel65
-        '
-        Me.XrLabel65.Dpi = 100.0!
-        Me.XrLabel65.LocationFloat = New DevExpress.Utils.PointFloat(0.001831055!, 93.45835!)
-        Me.XrLabel65.Name = "XrLabel65"
-        Me.XrLabel65.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel65.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
-        Me.XrLabel65.StylePriority.UseTextAlignment = False
-        Me.XrLabel65.Text = "4)"
-        Me.XrLabel65.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel66
-        '
-        Me.XrLabel66.Dpi = 100.0!
-        Me.XrLabel66.LocationFloat = New DevExpress.Utils.PointFloat(20.00152!, 93.45843!)
-        Me.XrLabel66.Name = "XrLabel66"
-        Me.XrLabel66.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel66.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
-        Me.XrLabel66.StylePriority.UseTextAlignment = False
-        Me.XrLabel66.Text = "Pembayaran Pelunasan maksimal 2 Minggu dari pemberitahuan hasil produksi selesai"
-        Me.XrLabel66.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel67
-        '
-        Me.XrLabel67.Dpi = 100.0!
-        Me.XrLabel67.LocationFloat = New DevExpress.Utils.PointFloat(20.00229!, 113.4584!)
-        Me.XrLabel67.Name = "XrLabel67"
-        Me.XrLabel67.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel67.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
-        Me.XrLabel67.StylePriority.UseTextAlignment = False
-        Me.XrLabel67.Text = "Harga tidak dapat dirubah setelah tandatangan kontrak"
-        Me.XrLabel67.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel68
-        '
-        Me.XrLabel68.Dpi = 100.0!
-        Me.XrLabel68.LocationFloat = New DevExpress.Utils.PointFloat(0.002593994!, 113.4584!)
-        Me.XrLabel68.Name = "XrLabel68"
-        Me.XrLabel68.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel68.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
-        Me.XrLabel68.StylePriority.UseTextAlignment = False
-        Me.XrLabel68.Text = "5)"
-        Me.XrLabel68.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        Me.XrLabel58.Dpi = 100.0!
+        Me.XrLabel58.LocationFloat = New DevExpress.Utils.PointFloat(0.000333786!, 13.45833!)
+        Me.XrLabel58.Name = "XrLabel58"
+        Me.XrLabel58.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel58.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
+        Me.XrLabel58.StylePriority.UseTextAlignment = False
+        Me.XrLabel58.Text = "1)"
+        Me.XrLabel58.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
         'shTerm5
         '
@@ -1167,28 +1197,16 @@ Partial Public Class rptSalesContractVer00
         Me.shTerm5.HeightF = 87.5!
         Me.shTerm5.Name = "shTerm5"
         '
-        'XrLabel69
+        'XrLabel72
         '
-        Me.XrLabel69.Dpi = 100.0!
-        Me.XrLabel69.LocationFloat = New DevExpress.Utils.PointFloat(0.002590815!, 0.0!)
-        Me.XrLabel69.Name = "XrLabel69"
-        Me.XrLabel69.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel69.SizeF = New System.Drawing.SizeF(766.9977!, 20.0!)
-        Me.XrLabel69.StylePriority.UseTextAlignment = False
-        Me.XrLabel69.Text = "Lampiran yang termuat dalam Kontrak merupakan bagian yang tidak dapat terpisahkan" & _
-    " dari Kontrak sehingga seluruhnya mengikat Kedua "
-        Me.XrLabel69.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel70
-        '
-        Me.XrLabel70.Dpi = 100.0!
-        Me.XrLabel70.LocationFloat = New DevExpress.Utils.PointFloat(0.00112915!, 20.0!)
-        Me.XrLabel70.Name = "XrLabel70"
-        Me.XrLabel70.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel70.SizeF = New System.Drawing.SizeF(766.9977!, 20.0!)
-        Me.XrLabel70.StylePriority.UseTextAlignment = False
-        Me.XrLabel70.Text = "belah pihak."
-        Me.XrLabel70.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        Me.XrLabel72.Dpi = 100.0!
+        Me.XrLabel72.LocationFloat = New DevExpress.Utils.PointFloat(0.00112915!, 60.0!)
+        Me.XrLabel72.Name = "XrLabel72"
+        Me.XrLabel72.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel72.SizeF = New System.Drawing.SizeF(766.9977!, 20.0!)
+        Me.XrLabel72.StylePriority.UseTextAlignment = False
+        Me.XrLabel72.Text = "ditandatangani pada tanggal tersebut pada awal Kontrak."
+        Me.XrLabel72.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
         'XrLabel71
         '
@@ -1202,16 +1220,28 @@ Partial Public Class rptSalesContractVer00
     "-masing mempunyai kekuatan hukum yang sama serta "
         Me.XrLabel71.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
-        'XrLabel72
+        'XrLabel70
         '
-        Me.XrLabel72.Dpi = 100.0!
-        Me.XrLabel72.LocationFloat = New DevExpress.Utils.PointFloat(0.00112915!, 60.0!)
-        Me.XrLabel72.Name = "XrLabel72"
-        Me.XrLabel72.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel72.SizeF = New System.Drawing.SizeF(766.9977!, 20.0!)
-        Me.XrLabel72.StylePriority.UseTextAlignment = False
-        Me.XrLabel72.Text = "ditandatangani pada tanggal tersebut pada awal Kontrak."
-        Me.XrLabel72.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        Me.XrLabel70.Dpi = 100.0!
+        Me.XrLabel70.LocationFloat = New DevExpress.Utils.PointFloat(0.00112915!, 20.0!)
+        Me.XrLabel70.Name = "XrLabel70"
+        Me.XrLabel70.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel70.SizeF = New System.Drawing.SizeF(766.9977!, 20.0!)
+        Me.XrLabel70.StylePriority.UseTextAlignment = False
+        Me.XrLabel70.Text = "belah pihak."
+        Me.XrLabel70.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel69
+        '
+        Me.XrLabel69.Dpi = 100.0!
+        Me.XrLabel69.LocationFloat = New DevExpress.Utils.PointFloat(0.002590815!, 0.0!)
+        Me.XrLabel69.Name = "XrLabel69"
+        Me.XrLabel69.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel69.SizeF = New System.Drawing.SizeF(766.9977!, 20.0!)
+        Me.XrLabel69.StylePriority.UseTextAlignment = False
+        Me.XrLabel69.Text = "Lampiran yang termuat dalam Kontrak merupakan bagian yang tidak dapat terpisahkan" & _
+    " dari Kontrak sehingga seluruhnya mengikat Kedua "
+        Me.XrLabel69.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
         'shSign
         '
@@ -1219,90 +1249,6 @@ Partial Public Class rptSalesContractVer00
         Me.shSign.Dpi = 100.0!
         Me.shSign.HeightF = 162.9167!
         Me.shSign.Name = "shSign"
-        '
-        'XrLabel73
-        '
-        Me.XrLabel73.Dpi = 100.0!
-        Me.XrLabel73.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel73.LocationFloat = New DevExpress.Utils.PointFloat(20.00366!, 0.0!)
-        Me.XrLabel73.Name = "XrLabel73"
-        Me.XrLabel73.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel73.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
-        Me.XrLabel73.StylePriority.UseFont = False
-        Me.XrLabel73.StylePriority.UsePadding = False
-        Me.XrLabel73.StylePriority.UseTextAlignment = False
-        Me.XrLabel73.Text = "PIHAK PEMBELI"
-        Me.XrLabel73.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
-        '
-        'XrLabel74
-        '
-        Me.XrLabel74.Dpi = 100.0!
-        Me.XrLabel74.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel74.LocationFloat = New DevExpress.Utils.PointFloat(436.1667!, 0.0!)
-        Me.XrLabel74.Name = "XrLabel74"
-        Me.XrLabel74.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel74.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
-        Me.XrLabel74.StylePriority.UseFont = False
-        Me.XrLabel74.StylePriority.UsePadding = False
-        Me.XrLabel74.StylePriority.UseTextAlignment = False
-        Me.XrLabel74.Text = "PIHAK PENJUAL"
-        Me.XrLabel74.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
-        '
-        'XrLabel75
-        '
-        Me.XrLabel75.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CompanyName")})
-        Me.XrLabel75.Dpi = 100.0!
-        Me.XrLabel75.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel75.LocationFloat = New DevExpress.Utils.PointFloat(436.163!, 19.99995!)
-        Me.XrLabel75.Name = "XrLabel75"
-        Me.XrLabel75.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel75.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
-        Me.XrLabel75.StylePriority.UseFont = False
-        Me.XrLabel75.StylePriority.UsePadding = False
-        Me.XrLabel75.StylePriority.UseTextAlignment = False
-        Me.XrLabel75.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
-        '
-        'XrLabel76
-        '
-        Me.XrLabel76.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BPName")})
-        Me.XrLabel76.Dpi = 100.0!
-        Me.XrLabel76.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel76.LocationFloat = New DevExpress.Utils.PointFloat(20.00626!, 20.00001!)
-        Me.XrLabel76.Name = "XrLabel76"
-        Me.XrLabel76.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel76.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
-        Me.XrLabel76.StylePriority.UseFont = False
-        Me.XrLabel76.StylePriority.UsePadding = False
-        Me.XrLabel76.StylePriority.UseTextAlignment = False
-        Me.XrLabel76.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
-        '
-        'XrLabel77
-        '
-        Me.XrLabel77.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DelegationBuyer")})
-        Me.XrLabel77.Dpi = 100.0!
-        Me.XrLabel77.Font = New System.Drawing.Font("Tahoma", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle))
-        Me.XrLabel77.LocationFloat = New DevExpress.Utils.PointFloat(19.9971!, 122.9167!)
-        Me.XrLabel77.Name = "XrLabel77"
-        Me.XrLabel77.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel77.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
-        Me.XrLabel77.StylePriority.UseFont = False
-        Me.XrLabel77.StylePriority.UsePadding = False
-        Me.XrLabel77.StylePriority.UseTextAlignment = False
-        Me.XrLabel77.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
-        '
-        'XrLabel78
-        '
-        Me.XrLabel78.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DelegationPositionBuyer")})
-        Me.XrLabel78.Dpi = 100.0!
-        Me.XrLabel78.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel78.LocationFloat = New DevExpress.Utils.PointFloat(19.99971!, 142.9167!)
-        Me.XrLabel78.Name = "XrLabel78"
-        Me.XrLabel78.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel78.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
-        Me.XrLabel78.StylePriority.UseFont = False
-        Me.XrLabel78.StylePriority.UsePadding = False
-        Me.XrLabel78.StylePriority.UseTextAlignment = False
-        Me.XrLabel78.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         '
         'XrLabel79
         '
@@ -1332,42 +1278,231 @@ Partial Public Class rptSalesContractVer00
         Me.XrLabel80.Text = "DIRECTOR"
         Me.XrLabel80.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         '
-        'XrLabel81
+        'XrLabel77
         '
-        Me.XrLabel81.Dpi = 100.0!
-        Me.XrLabel81.LocationFloat = New DevExpress.Utils.PointFloat(0.00006103516!, 20.0!)
-        Me.XrLabel81.Multiline = True
-        Me.XrLabel81.Name = "XrLabel81"
-        Me.XrLabel81.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel81.SizeF = New System.Drawing.SizeF(767.0!, 30.0!)
-        Me.XrLabel81.StylePriority.UseFont = False
-        Me.XrLabel81.Text = "ekspor."
+        Me.XrLabel77.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DelegationBuyer")})
+        Me.XrLabel77.Dpi = 100.0!
+        Me.XrLabel77.Font = New System.Drawing.Font("Tahoma", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle))
+        Me.XrLabel77.LocationFloat = New DevExpress.Utils.PointFloat(19.9971!, 122.9167!)
+        Me.XrLabel77.Name = "XrLabel77"
+        Me.XrLabel77.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel77.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
+        Me.XrLabel77.StylePriority.UseFont = False
+        Me.XrLabel77.StylePriority.UsePadding = False
+        Me.XrLabel77.StylePriority.UseTextAlignment = False
+        Me.XrLabel77.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         '
-        'XrLabel82
+        'XrLabel78
         '
-        Me.XrLabel82.Dpi = 100.0!
-        Me.XrLabel82.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 20.0!)
-        Me.XrLabel82.Multiline = True
-        Me.XrLabel82.Name = "XrLabel82"
-        Me.XrLabel82.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel82.SizeF = New System.Drawing.SizeF(767.0!, 30.0!)
-        Me.XrLabel82.Text = "penyerahan dari PENJUAL atas barang hasil produksi PENJUAL (selanjutnya disebut B" & _
-    "arang)."
+        Me.XrLabel78.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DelegationPositionBuyer")})
+        Me.XrLabel78.Dpi = 100.0!
+        Me.XrLabel78.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel78.LocationFloat = New DevExpress.Utils.PointFloat(19.99971!, 142.9167!)
+        Me.XrLabel78.Name = "XrLabel78"
+        Me.XrLabel78.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel78.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
+        Me.XrLabel78.StylePriority.UseFont = False
+        Me.XrLabel78.StylePriority.UsePadding = False
+        Me.XrLabel78.StylePriority.UseTextAlignment = False
+        Me.XrLabel78.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         '
-        'XrLabel83
+        'XrLabel76
         '
-        Me.XrLabel83.Dpi = 100.0!
-        Me.XrLabel83.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 20.0!)
-        Me.XrLabel83.Multiline = True
-        Me.XrLabel83.Name = "XrLabel83"
-        Me.XrLabel83.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel83.SizeF = New System.Drawing.SizeF(767.0!, 30.0!)
-        Me.XrLabel83.Text = "dengan ketentuan sebagai berikut:"
+        Me.XrLabel76.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BPName")})
+        Me.XrLabel76.Dpi = 100.0!
+        Me.XrLabel76.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel76.LocationFloat = New DevExpress.Utils.PointFloat(20.00626!, 20.00001!)
+        Me.XrLabel76.Name = "XrLabel76"
+        Me.XrLabel76.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel76.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
+        Me.XrLabel76.StylePriority.UseFont = False
+        Me.XrLabel76.StylePriority.UsePadding = False
+        Me.XrLabel76.StylePriority.UseTextAlignment = False
+        Me.XrLabel76.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel75
+        '
+        Me.XrLabel75.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CompanyName")})
+        Me.XrLabel75.Dpi = 100.0!
+        Me.XrLabel75.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel75.LocationFloat = New DevExpress.Utils.PointFloat(436.163!, 19.99995!)
+        Me.XrLabel75.Name = "XrLabel75"
+        Me.XrLabel75.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel75.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
+        Me.XrLabel75.StylePriority.UseFont = False
+        Me.XrLabel75.StylePriority.UsePadding = False
+        Me.XrLabel75.StylePriority.UseTextAlignment = False
+        Me.XrLabel75.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel74
+        '
+        Me.XrLabel74.Dpi = 100.0!
+        Me.XrLabel74.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel74.LocationFloat = New DevExpress.Utils.PointFloat(436.1667!, 0.0!)
+        Me.XrLabel74.Name = "XrLabel74"
+        Me.XrLabel74.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel74.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
+        Me.XrLabel74.StylePriority.UseFont = False
+        Me.XrLabel74.StylePriority.UsePadding = False
+        Me.XrLabel74.StylePriority.UseTextAlignment = False
+        Me.XrLabel74.Text = "PIHAK PENJUAL"
+        Me.XrLabel74.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel73
+        '
+        Me.XrLabel73.Dpi = 100.0!
+        Me.XrLabel73.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel73.LocationFloat = New DevExpress.Utils.PointFloat(20.00366!, 0.0!)
+        Me.XrLabel73.Name = "XrLabel73"
+        Me.XrLabel73.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel73.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
+        Me.XrLabel73.StylePriority.UseFont = False
+        Me.XrLabel73.StylePriority.UsePadding = False
+        Me.XrLabel73.StylePriority.UseTextAlignment = False
+        Me.XrLabel73.Text = "PIHAK PEMBELI"
+        Me.XrLabel73.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'ReportFooter
+        '
+        Me.ReportFooter.Dpi = 100.0!
+        Me.ReportFooter.HeightF = 0.0!
+        Me.ReportFooter.Name = "ReportFooter"
+        '
+        'PageFooter
+        '
+        Me.PageFooter.Dpi = 100.0!
+        Me.PageFooter.HeightF = 10.0!
+        Me.PageFooter.Name = "PageFooter"
         '
         'SalesContractVer00
         '
         Me.SalesContractVer00.DataSource = GetType(ERPSLib.VO.rptSalesContractVer00)
         Me.SalesContractVer00.Name = "SalesContractVer00"
+        '
+        'shDetailHeader
+        '
+        Me.shDetailHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel88, Me.XrLabel87, Me.XrLabel86, Me.XrLabel85, Me.XrLabel84})
+        Me.shDetailHeader.Dpi = 100.0!
+        Me.shDetailHeader.HeightF = 50.00005!
+        Me.shDetailHeader.Name = "shDetailHeader"
+        '
+        'XrLabel84
+        '
+        Me.XrLabel84.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BPName")})
+        Me.XrLabel84.Dpi = 100.0!
+        Me.XrLabel84.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel84.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 9.999974!)
+        Me.XrLabel84.Name = "XrLabel84"
+        Me.XrLabel84.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel84.SizeF = New System.Drawing.SizeF(319.9971!, 20.0!)
+        Me.XrLabel84.StylePriority.UseFont = False
+        Me.XrLabel84.StylePriority.UsePadding = False
+        Me.XrLabel84.StylePriority.UseTextAlignment = False
+        Me.XrLabel84.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel85
+        '
+        Me.XrLabel85.Dpi = 100.0!
+        Me.XrLabel85.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel85.LocationFloat = New DevExpress.Utils.PointFloat(319.9971!, 9.999974!)
+        Me.XrLabel85.Name = "XrLabel85"
+        Me.XrLabel85.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel85.SizeF = New System.Drawing.SizeF(153.6659!, 20.0!)
+        Me.XrLabel85.StylePriority.UseFont = False
+        Me.XrLabel85.StylePriority.UsePadding = False
+        Me.XrLabel85.StylePriority.UseTextAlignment = False
+        Me.XrLabel85.Text = "LAMPIRAN KONTRAK"
+        Me.XrLabel85.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        '
+        'XrLabel86
+        '
+        Me.XrLabel86.Dpi = 100.0!
+        Me.XrLabel86.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel86.LocationFloat = New DevExpress.Utils.PointFloat(473.663!, 9.999974!)
+        Me.XrLabel86.Name = "XrLabel86"
+        Me.XrLabel86.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel86.SizeF = New System.Drawing.SizeF(15.625!, 20.0!)
+        Me.XrLabel86.StylePriority.UseFont = False
+        Me.XrLabel86.StylePriority.UseTextAlignment = False
+        Me.XrLabel86.Text = ":"
+        Me.XrLabel86.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel87
+        '
+        Me.XrLabel87.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "SCNumber")})
+        Me.XrLabel87.Dpi = 100.0!
+        Me.XrLabel87.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel87.LocationFloat = New DevExpress.Utils.PointFloat(489.288!, 9.999974!)
+        Me.XrLabel87.Name = "XrLabel87"
+        Me.XrLabel87.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel87.SizeF = New System.Drawing.SizeF(277.7086!, 20.0!)
+        Me.XrLabel87.StylePriority.UseFont = False
+        Me.XrLabel87.StylePriority.UsePadding = False
+        Me.XrLabel87.StylePriority.UseTextAlignment = False
+        Me.XrLabel87.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel88
+        '
+        Me.XrLabel88.Borders = DevExpress.XtraPrinting.BorderSide.Right
+        Me.XrLabel88.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AllOrderNumberSupplier")})
+        Me.XrLabel88.Dpi = 100.0!
+        Me.XrLabel88.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel88.LocationFloat = New DevExpress.Utils.PointFloat(489.288!, 30.00005!)
+        Me.XrLabel88.Name = "XrLabel88"
+        Me.XrLabel88.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel88.SizeF = New System.Drawing.SizeF(277.7084!, 20.0!)
+        Me.XrLabel88.StylePriority.UseBorders = False
+        Me.XrLabel88.StylePriority.UseFont = False
+        Me.XrLabel88.StylePriority.UseTextAlignment = False
+        Me.XrLabel88.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'shHeaderDate
+        '
+        Me.shHeaderDate.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel91, Me.XrLabel90, Me.XrLabel89})
+        Me.shHeaderDate.Dpi = 100.0!
+        Me.shHeaderDate.HeightF = 100.0!
+        Me.shHeaderDate.Name = "shHeaderDate"
+        '
+        'XrLabel89
+        '
+        Me.XrLabel89.Dpi = 100.0!
+        Me.XrLabel89.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel89.LocationFloat = New DevExpress.Utils.PointFloat(319.9971!, 0.0!)
+        Me.XrLabel89.Name = "XrLabel89"
+        Me.XrLabel89.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel89.SizeF = New System.Drawing.SizeF(153.6659!, 20.0!)
+        Me.XrLabel89.StylePriority.UseFont = False
+        Me.XrLabel89.StylePriority.UsePadding = False
+        Me.XrLabel89.StylePriority.UseTextAlignment = False
+        Me.XrLabel89.Text = "TANGGAL KONTRAK"
+        Me.XrLabel89.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        '
+        'XrLabel90
+        '
+        Me.XrLabel90.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "SCDate", "{0:dd MMMM yy}")})
+        Me.XrLabel90.Dpi = 100.0!
+        Me.XrLabel90.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel90.LocationFloat = New DevExpress.Utils.PointFloat(489.2917!, 0.0!)
+        Me.XrLabel90.Name = "XrLabel90"
+        Me.XrLabel90.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel90.SizeF = New System.Drawing.SizeF(277.7086!, 20.0!)
+        Me.XrLabel90.StylePriority.UseFont = False
+        Me.XrLabel90.StylePriority.UsePadding = False
+        Me.XrLabel90.StylePriority.UseTextAlignment = False
+        Me.XrLabel90.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel91
+        '
+        Me.XrLabel91.Dpi = 100.0!
+        Me.XrLabel91.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel91.LocationFloat = New DevExpress.Utils.PointFloat(473.6667!, 0.0!)
+        Me.XrLabel91.Name = "XrLabel91"
+        Me.XrLabel91.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel91.SizeF = New System.Drawing.SizeF(15.625!, 20.0!)
+        Me.XrLabel91.StylePriority.UseFont = False
+        Me.XrLabel91.StylePriority.UseTextAlignment = False
+        Me.XrLabel91.Text = ":"
+        Me.XrLabel91.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         '
         'rptSalesContractVer00
         '
@@ -1507,4 +1642,14 @@ Partial Public Class rptSalesContractVer00
     Friend WithEvents XrLabel81 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel82 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel83 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents shDetailHeader As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents XrLabel87 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel86 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel85 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel84 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel88 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents shHeaderDate As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents XrLabel91 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel90 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel89 As DevExpress.XtraReports.UI.XRLabel
 End Class
