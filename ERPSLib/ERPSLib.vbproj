@@ -101,6 +101,7 @@
     <Compile Include="BusinessLayers\OrderRequest.vb" />
     <Compile Include="BusinessLayers\PurchaseContract.vb" />
     <Compile Include="BusinessLayers\PurchaseOrder.vb" />
+    <Compile Include="BusinessLayers\PurchaseOrderCutting.vb" />
     <Compile Include="BusinessLayers\Receive.vb" />
     <Compile Include="BusinessLayers\Reports.vb" />
     <Compile Include="BusinessLayers\SalesContract.vb" />

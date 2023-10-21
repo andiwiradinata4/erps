@@ -12,24 +12,6 @@
             End Using
         End Function
 
-        'Public Shared Function ListDataOutstandingForCutting(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-        '                                                     ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
-        '                                                     ByVal intStatusID As Integer) As DataTable
-        '    BL.Server.ServerDefault()
-        '    Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-        '        Return DL.PurchaseOrder.ListDataOutstandingForCutting(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID)
-        '    End Using
-        'End Function
-
-        'Public Shared Function ListDataOutstandingForTransport(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-        '                                                       ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
-        '                                                       ByVal intStatusID As Integer) As DataTable
-        '    BL.Server.ServerDefault()
-        '    Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-        '        Return DL.PurchaseOrder.ListDataOutstandingForTransport(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID)
-        '    End Using
-        'End Function
-
         Public Shared Function GetNewID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer, ByVal intProgramID As Integer) As String
             Dim clsCompany As VO.Company = DL.Company.GetDetail(sqlCon, sqlTrans, intCompanyID)
@@ -67,7 +49,7 @@
                     '# Save Data Detail
                     Dim intCount As Integer = 1
                     For Each clsDet As VO.PurchaseOrderDet In clsData.Detail
-                        clsDet.ID = clsData.ID & "-" & 1 & "-" & Format(intCount, "000")
+                        clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
                         clsDet.POID = clsData.ID
                         DL.PurchaseOrder.SaveDataDetail(sqlCon, sqlTrans, clsDet)
                         intCount += 1
@@ -308,17 +290,6 @@
         End Function
 
 #End Region
-
-        '#Region "Detail Internal"
-
-        '        Public Shared Function ListDataDetailInternal(ByVal strPOID As String) As DataTable
-        '            BL.Server.ServerDefault()
-        '            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-        '                Return DL.PurchaseOrder.ListDataDetailInternal(sqlCon, Nothing, strPOID)
-        '            End Using
-        '        End Function
-
-        '#End Region
 
 #Region "Payment Term"
 

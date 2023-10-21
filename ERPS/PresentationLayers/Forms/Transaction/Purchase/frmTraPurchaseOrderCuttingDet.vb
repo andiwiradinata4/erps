@@ -9,7 +9,6 @@ Public Class frmTraPurchaseOrderCuttingDet
     Private dtItem As New DataTable
     Private dtPaymentTerm As New DataTable
     Private intPos As Integer = 0
-    Private strPOID As String = ""
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
@@ -42,7 +41,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         '# PO Detail
         UI.usForm.SetGrid(grdItemView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "POID", "POID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemView, "PODetailID", "PODetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "PCDetailID", "PCDetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
@@ -56,11 +55,8 @@ Public Class frmTraPurchaseOrderCuttingDet
         UI.usForm.SetGrid(grdItemView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemView, "SPKQuantity", "SPKQuantity", 100, UI.usDefGrid.gReal4Num, False)
-        UI.usForm.SetGrid(grdItemView, "SPKWeight", "SPKWeight", 100, UI.usDefGrid.gReal4Num, False)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
 
         '# PO Payment Term
@@ -78,7 +74,7 @@ Public Class frmTraPurchaseOrderCuttingDet
 
         '# History
         UI.usForm.SetGrid(grdStatusView, "ID", "ID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdStatusView, "POID", "POID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdStatusView, "OrderRequestID", "OrderRequestID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdStatusView, "Status", "Status", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdStatusView, "StatusBy", "Oleh", 200, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdStatusView, "StatusDate", "Tanggal", 180, UI.usDefGrid.gFullDate)
@@ -110,12 +106,10 @@ Public Class frmTraPurchaseOrderCuttingDet
                 txtBPCode.Text = clsData.BPCode
                 txtBPName.Text = clsData.BPName
                 dtpPODate.Value = clsData.PODate
-                strPOID = clsData.POID
-                txtPONumberReferences.Text = clsData.PONumberRef
-
                 txtPersonInCharge.Text = clsData.PersonInCharge
                 dtpDeliveryPeriodFrom.Value = clsData.DeliveryPeriodFrom
                 dtpDeliveryPeriodTo.Value = clsData.DeliveryPeriodTo
+                txtDeliveryAddress.Text = clsData.DeliveryAddress
                 txtPPN.Value = clsData.PPN
                 txtPPH.Value = clsData.PPH
                 txtTotalDPP.Value = clsData.TotalDPP
@@ -153,11 +147,6 @@ Public Class frmTraPurchaseOrderCuttingDet
             tcHeader.SelectedTab = tpMain
             cboStatus.Focus()
             Exit Sub
-        ElseIf txtPONumberReferences.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih nomor permintaan terlebih dahulu")
-            tcHeader.SelectedTab = tpMain
-            txtPONumberReferences.Focus()
-            Exit Sub
         ElseIf txtPersonInCharge.Text.Trim = "" Then
             UI.usForm.frmMessageBox("PIC tidak boleh kosong")
             tcHeader.SelectedTab = tpMain
@@ -169,7 +158,7 @@ Public Class frmTraPurchaseOrderCuttingDet
             dtpDeliveryPeriodFrom.Focus()
             Exit Sub
         ElseIf grdItemView.RowCount = 0 Then
-            UI.usForm.frmMessageBox("Item kosong. Mohon untuk diinput item terlebih dahulu")
+            UI.usForm.frmMessageBox("Item Pesanan kosong. Mohon untuk diinput item terlebih dahulu")
             tcDetail.SelectedTab = tpItem
             grdItemView.Focus()
             Exit Sub
@@ -198,11 +187,11 @@ Public Class frmTraPurchaseOrderCuttingDet
         pgMain.Value = 30
         Application.DoEvents()
 
-        Dim listDetailOrder As New List(Of VO.PurchaseOrderCuttingDet)
+        Dim listDetail As New List(Of VO.PurchaseOrderCuttingDet)
         For Each dr As DataRow In dtItem.Rows
-            listDetailOrder.Add(New ERPSLib.VO.PurchaseOrderCuttingDet With
+            listDetail.Add(New ERPSLib.VO.PurchaseOrderCuttingDet With
                                 {
-                                    .PODetailID = dr.Item("PODetailID"),
+                                    .PCDetailID = dr.Item("PCDetailID"),
                                     .ItemID = dr.Item("ItemID"),
                                     .Quantity = dr.Item("Quantity"),
                                     .Weight = dr.Item("Weight"),
@@ -231,11 +220,11 @@ Public Class frmTraPurchaseOrderCuttingDet
         clsData.CompanyID = pubCS.CompanyID
         clsData.PONumber = txtPONumber.Text.Trim
         clsData.PODate = dtpPODate.Value.Date
-        clsData.POID = strPOID.Trim
         clsData.BPID = intBPID
         clsData.PersonInCharge = txtPersonInCharge.Text.Trim
         clsData.DeliveryPeriodFrom = dtpDeliveryPeriodFrom.Value.Date
         clsData.DeliveryPeriodTo = dtpDeliveryPeriodTo.Value.Date
+        clsData.DeliveryAddress = txtDeliveryAddress.Text.Trim
         clsData.PPN = txtPPN.Value
         clsData.PPH = txtPPH.Value
         clsData.TotalQuantity = grdItemView.Columns("Quantity").SummaryItem.SummaryValue
@@ -246,7 +235,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         clsData.RoundingManual = 0
         clsData.Remarks = txtRemarks.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
-        clsData.Detail = listDetailOrder
+        clsData.Detail = listDetail
         clsData.PaymentTerm = listPaymentTerm
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
@@ -286,11 +275,10 @@ Public Class frmTraPurchaseOrderCuttingDet
         txtBPCode.Text = ""
         txtBPName.Text = ""
         dtpPODate.Value = Now
-        strPOID = ""
-        txtPONumberReferences.Text = ""
         txtPersonInCharge.Text = ""
         dtpDeliveryPeriodFrom.Value = Now
         dtpDeliveryPeriodTo.Value = Now
+        txtDeliveryAddress.Text = ""
         txtPPN.Value = 0
         txtPPH.Value = 0
         txtTotalDPP.Value = 0
@@ -318,26 +306,6 @@ Public Class frmTraPurchaseOrderCuttingDet
         End With
     End Sub
 
-    Private Sub prvChoosePONumberReferences()
-        If txtBPCode.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih pemasok terlebih dahulu")
-            txtBPCode.Focus()
-            Exit Sub
-        End If
-
-        Dim frmDetail As New frmTraPurchaseOrderOutstandingForCutting
-        With frmDetail
-            .pubIsLookup = True
-            .pubCS = pubCS
-            .ShowDialog()
-            If .pubIsLookupGet Then
-                strPOID = .pubDataRowLookupGet.Item("ID")
-                txtPONumberReferences.Text = .pubDataRowLookupGet.Item("PONumber")
-                txtPersonInCharge.Focus()
-            End If
-        End With
-    End Sub
-
     Private Sub prvSumGrid()
         '# Payment Term
         Dim SumTotalPercentagePayment As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Percentage", "Total: {0:#,##0.00}")
@@ -346,7 +314,7 @@ Public Class frmTraPurchaseOrderCuttingDet
             grdPaymentTermView.Columns("Percentage").Summary.Add(SumTotalPercentagePayment)
         End If
 
-        '# Item
+        '# PO Detail
         Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
         Dim SumGrandTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
         Dim SumGrandTotalPrice As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
@@ -364,7 +332,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         End If
     End Sub
 
-    Private Sub prvCalculate()
+    Public Sub prvCalculate()
         txtTotalDPP.Value = 0
         For Each dr As DataRow In dtItem.Rows
             txtTotalDPP.Value += dr.Item("TotalPrice")
@@ -378,16 +346,11 @@ Public Class frmTraPurchaseOrderCuttingDet
         ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
     End Sub
 
-    Private Sub prvSetupTools()
-        Dim bolEnabled As Boolean = IIf(grdItemView.RowCount = 0, True, False)
-        btnPONumberReferences.Enabled = bolEnabled
-    End Sub
-
 #Region "Item Handle"
 
     Private Sub prvSetButtonItem()
         Dim bolEnabled As Boolean = IIf(grdItemView.RowCount = 0, False, True)
-        With ToolBarItem
+        With ToolBarDetail
             .Buttons(cEditItem).Enabled = bolEnabled
             .Buttons(cDeleteItem).Enabled = bolEnabled
         End With
@@ -402,7 +365,6 @@ Public Class frmTraPurchaseOrderCuttingDet
             grdItem.DataSource = dtItem
             prvSumGrid()
             grdItemView.BestFitColumns()
-            prvSetupTools()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -416,21 +378,13 @@ Public Class frmTraPurchaseOrderCuttingDet
     End Sub
 
     Private Sub prvAddItem()
-        If txtPONumberReferences.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih No. Pesanan Pembelian terlebih dahulu")
-            txtPONumberReferences.Focus()
-            Exit Sub
-        End If
         Dim frmDetail As New frmTraPurchaseOrderCuttingDetItem
         With frmDetail
             .pubIsNew = True
-            .pubPOID = strPOID
-            .pubTableParentItem = dtItem
-            .StartPosition = FormStartPosition.CenterParent
+            .pubTableParent = dtItem
+            .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
-            prvSetupTools()
             prvSetButtonItem()
-            prvCalculate()
         End With
     End Sub
 
@@ -440,13 +394,11 @@ Public Class frmTraPurchaseOrderCuttingDet
         Dim frmDetail As New frmTraPurchaseOrderCuttingDetItem
         With frmDetail
             .pubIsNew = False
-            .pubPOID = strPOID
-            .pubDataRowSelected = grdItemView.GetDataRow(intPos)
-            .pubTableParentItem = dtItem
-            .StartPosition = FormStartPosition.CenterParent
+            .pubTableParent = dtItem
+            .pubDatRowSelected = grdItemView.GetDataRow(intPos)
+            .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButtonItem()
-            prvCalculate()
         End With
     End Sub
 
@@ -461,7 +413,6 @@ Public Class frmTraPurchaseOrderCuttingDet
             End If
         Next
         dtItem.AcceptChanges()
-        prvSetupTools()
         prvCalculate()
         prvSetButtonItem()
     End Sub
@@ -561,7 +512,7 @@ Public Class frmTraPurchaseOrderCuttingDet
 
 #Region "Form Handle"
 
-    Private Sub frmTraPurchaseOrderCuttingDet_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+    Private Sub frmTraPurchaseOrderCuttingCuttingDet_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.F1 Then
             tcHeader.SelectedTab = tpMain
         ElseIf e.KeyCode = Keys.F2 Then
@@ -579,10 +530,10 @@ Public Class frmTraPurchaseOrderCuttingDet
         End If
     End Sub
 
-    Private Sub frmTraPurchaseOrderCuttingDet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmTraPurchaseOrderCuttingCuttingDet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
-        ToolBarItem.SetIcon(Me)
+        ToolBarDetail.SetIcon(Me)
         ToolBarPaymentTerm.SetIcon(Me)
         prvSetTitleForm()
         prvSetGrid()
@@ -600,7 +551,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         End Select
     End Sub
 
-    Private Sub ToolBarItem_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarItem.ButtonClick
+    Private Sub ToolBarDetail_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarDetail.ButtonClick
         Select Case e.Button.Text.Trim
             Case "Tambah" : prvAddItem()
             Case "Edit" : prvEditItem()
@@ -618,10 +569,6 @@ Public Class frmTraPurchaseOrderCuttingDet
 
     Private Sub btnBP_Click(sender As Object, e As EventArgs) Handles btnBP.Click
         prvChooseBP()
-    End Sub
-
-    Private Sub btnPONumberReferences_Click(sender As Object, e As EventArgs) Handles btnPONumberReferences.Click
-        prvChoosePONumberReferences()
     End Sub
 
     Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtPPN.ValueChanged, txtPPH.ValueChanged

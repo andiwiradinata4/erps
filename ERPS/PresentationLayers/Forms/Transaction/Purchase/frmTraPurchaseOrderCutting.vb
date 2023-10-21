@@ -27,14 +27,13 @@ Public Class frmTraPurchaseOrderCutting
         UI.usForm.SetGrid(grdView, "CompanyName", "CompanyName", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "PONumber", "Nomor", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PODate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
-        UI.usForm.SetGrid(grdView, "POID", "POID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdView, "PONumberRef", "No. Pesanan Pembelian", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "BPCode", "Kode Pelanggan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "BPName", "Nama Pelanggan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PersonInCharge", "PIC", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "DeliveryPeriodFrom", "Periode Dari", 100, UI.usDefGrid.gDateMonthYear)
         UI.usForm.SetGrid(grdView, "DeliveryPeriodTo", "Periode Sampai", 100, UI.usDefGrid.gDateMonthYear)
+        UI.usForm.SetGrid(grdView, "DeliveryAddress", "Alamat Pengiriman", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "TotalQuantity", "Total Quantity", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "PPN", "PPN", 100, UI.usDefGrid.gReal2Num)
@@ -152,12 +151,12 @@ Public Class frmTraPurchaseOrderCutting
         clsReturn.CompanyName = grdView.GetRowCellValue(intPos, "CompanyName")
         clsReturn.PONumber = grdView.GetRowCellValue(intPos, "PONumber")
         clsReturn.PODate = grdView.GetRowCellValue(intPos, "PODate")
-        clsReturn.POID = grdView.GetRowCellValue(intPos, "POID")
         clsReturn.BPID = grdView.GetRowCellValue(intPos, "BPID")
         clsReturn.BPCode = grdView.GetRowCellValue(intPos, "BPCode")
         clsReturn.BPName = grdView.GetRowCellValue(intPos, "BPName")
         clsReturn.DeliveryPeriodFrom = grdView.GetRowCellValue(intPos, "DeliveryPeriodFrom")
         clsReturn.DeliveryPeriodTo = grdView.GetRowCellValue(intPos, "DeliveryPeriodTo")
+        clsReturn.DeliveryAddress = grdView.GetRowCellValue(intPos, "DeliveryAddress")
         clsReturn.TotalQuantity = grdView.GetRowCellValue(intPos, "TotalQuantity")
         clsReturn.TotalWeight = grdView.GetRowCellValue(intPos, "TotalWeight")
         clsReturn.PPN = grdView.GetRowCellValue(intPos, "PPN")
@@ -369,52 +368,52 @@ Public Class frmTraPurchaseOrderCutting
     End Sub
 
     Private Sub prvPrint()
-        intPos = grdView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
-        Me.Cursor = Cursors.WaitCursor
-        pgMain.Value = 40
-        Application.DoEvents()
+        'intPos = grdView.FocusedRowHandle
+        'If intPos < 0 Then Exit Sub
+        'Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
+        'Me.Cursor = Cursors.WaitCursor
+        'pgMain.Value = 40
+        'Application.DoEvents()
 
-        Try
-            Dim dtData As DataTable = BL.PurchaseOrderCutting.Print(intProgramID, intCompanyID, strID)
-            Dim intStatusID As Integer = 0
-            For Each dr As DataRow In dtData.Rows
-                intStatusID = dr.Item("StatusID")
-                Exit For
-            Next
+        'Try
+        '    Dim dtData As DataTable = BL.PurchaseOrderCutting.Print(intProgramID, intCompanyID, strID)
+        '    Dim intStatusID As Integer = 0
+        '    For Each dr As DataRow In dtData.Rows
+        '        intStatusID = dr.Item("StatusID")
+        '        Exit For
+        '    Next
 
-            Dim crReport As New rptPurchaseOrder
+        '    Dim crReport As New rptPurchaseOrderCutting
 
-            '# Setup Watermark Report
-            If intStatusID <> VO.Status.Values.Approved Then
-                crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
-                crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
-                crReport.Watermark.Font = New System.Drawing.Font("Tahoma", 70.0!, System.Drawing.FontStyle.Bold)
-                crReport.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.Horizontal
-                crReport.Watermark.TextTransparency = 150
-            End If
+        '    '# Setup Watermark Report
+        '    If intStatusID <> VO.Status.Values.Approved Then
+        '        crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
+        '        crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
+        '        crReport.Watermark.Font = New System.Drawing.Font("Tahoma", 70.0!, System.Drawing.FontStyle.Bold)
+        '        crReport.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.Horizontal
+        '        crReport.Watermark.TextTransparency = 150
+        '    End If
 
-            crReport.DataSource = dtData
-            crReport.CreateDocument(True)
-            crReport.ShowPreviewMarginLines = False
-            crReport.ShowPrintMarginsWarning = False
+        '    crReport.DataSource = dtData
+        '    crReport.CreateDocument(True)
+        '    crReport.ShowPreviewMarginLines = False
+        '    crReport.ShowPrintMarginsWarning = False
 
-            Dim frmDetail As New frmReportPreview
-            With frmDetail
-                .docViewer.DocumentSource = crReport
-                .pgExportButton.Enabled = bolExport
-                .Text = Me.Text & " - " & VO.Reports.PrintOut
-                .WindowState = FormWindowState.Maximized
-                .Show()
-            End With
-        Catch ex As Exception
-            UI.usForm.frmMessageBox(ex.Message)
-        Finally
-            pgMain.Value = 100
-            Application.DoEvents()
-            prvResetProgressBar()
-        End Try
+        '    Dim frmDetail As New frmReportPreview
+        '    With frmDetail
+        '        .docViewer.DocumentSource = crReport
+        '        .pgExportButton.Enabled = bolExport
+        '        .Text = Me.Text & " - " & VO.Reports.PrintOut
+        '        .WindowState = FormWindowState.Maximized
+        '        .Show()
+        '    End With
+        'Catch ex As Exception
+        '    UI.usForm.frmMessageBox(ex.Message)
+        'Finally
+        '    pgMain.Value = 100
+        '    Application.DoEvents()
+        '    prvResetProgressBar()
+        'End Try
     End Sub
 
     Private Sub prvExportExcel()
@@ -446,10 +445,10 @@ Public Class frmTraPurchaseOrderCutting
     Private Sub prvSumGrid()
         Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalQuantity", "Total Quantity: {0:#,##0.00}")
         Dim SumTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat: {0:#,##0.00}")
-        Dim SumTotalDPP As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalDPP", "Total DPP: {0:#,##0.00}")
-        Dim SumTotalPPN As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPN", "Total PPN: {0:#,##0.00}")
-        Dim SumTotalPPH As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPH", "Total PPh: {0:#,##0.00}")
-        Dim SumGrandTotal As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "GrandTotal", "Grand Total: {0:#,##0.00}")
+        Dim SumTotalDPP As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalDPP", "[Pesanan] Total DPP: {0:#,##0.00}")
+        Dim SumTotalPPN As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPN", "[Pesanan] Total PPN: {0:#,##0.00}")
+        Dim SumTotalPPH As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPH", "[Pesanan] Total PPh: {0:#,##0.00}")
+        Dim SumGrandTotal As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "GrandTotal", "[Pesanan] Grand Total: {0:#,##0.00}")
 
         If grdView.Columns("TotalQuantity").SummaryText.Trim = "" Then
             grdView.Columns("TotalQuantity").Summary.Add(SumTotalQuantity)
@@ -492,13 +491,13 @@ Public Class frmTraPurchaseOrderCutting
 
 #Region "Form Handle"
 
-    Private Sub frmTraPurchaseOrderCutting_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+    Private Sub frmTraPurchaseOrderCuttingCutting_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
         End If
     End Sub
 
-    Private Sub frmTraPurchaseOrderCutting_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmTraPurchaseOrderCuttingCutting_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         prvFillCombo()

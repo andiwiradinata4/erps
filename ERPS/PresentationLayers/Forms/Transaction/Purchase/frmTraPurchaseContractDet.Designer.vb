@@ -344,9 +344,9 @@ Partial Class frmTraPurchaseContractDet
         Me.Label5.ForeColor = System.Drawing.Color.Black
         Me.Label5.Location = New System.Drawing.Point(472, 20)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(98, 13)
+        Me.Label5.Size = New System.Drawing.Size(109, 13)
         Me.Label5.TabIndex = 131
-        Me.Label5.Text = "Allowance Produksi"
+        Me.Label5.Text = "Allowance Production"
         '
         'Label13
         '

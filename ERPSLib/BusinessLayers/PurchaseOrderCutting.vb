@@ -29,15 +29,8 @@
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.PODate, clsData.CompanyID, clsData.ProgramID)
                         clsData.PONumber = clsData.ID
                     Else
-                        Dim dtPreviousItem As DataTable = DL.PurchaseOrderCutting.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
-
                         DL.PurchaseOrderCutting.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
                         DL.PurchaseOrder.DeleteDataPaymentTerm(sqlCon, sqlTrans, clsData.ID)
-
-                        '# Revert PO Cutting Quantity
-                        For Each dr As DataRow In dtPreviousItem.Rows
-                            DL.PurchaseOrder.CalculateCuttingTotalUsed(sqlCon, sqlTrans, dr.Item("PODetailID"))
-                        Next
                     End If
 
                     Dim intStatusID As Integer = DL.PurchaseOrderCutting.GetStatusID(sqlCon, sqlTrans, clsData.ID)
@@ -69,11 +62,6 @@
                         clsDet.POID = clsData.ID
                         DL.PurchaseOrder.SaveDataPaymentTerm(sqlCon, sqlTrans, clsDet)
                         intCount += 1
-                    Next
-
-                    '# Calculate PO Quantity
-                    For Each clsDet As VO.PurchaseOrderCuttingDet In clsData.Detail
-                        DL.PurchaseOrder.CalculateCuttingTotalUsed(sqlCon, sqlTrans, clsDet.PODetailID)
                     Next
 
                     '# Save Data Status
@@ -111,14 +99,7 @@
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
                     End If
 
-                    Dim dtPreviousItem As DataTable = DL.PurchaseOrderCutting.ListDataDetail(sqlCon, sqlTrans, strID)
-
                     DL.PurchaseOrderCutting.DeleteData(sqlCon, sqlTrans, strID)
-                    
-                    '# Revert PO Cutting Quantity
-                    For Each dr As DataRow In dtPreviousItem.Rows
-                        DL.PurchaseOrder.CalculateCuttingTotalUsed(sqlCon, sqlTrans, dr.Item("PODetailID"))
-                    Next
 
                     '# Save Data Status
                     BL.PurchaseOrder.SaveDataStatus(sqlCon, sqlTrans, strID, "HAPUS", ERPSLib.UI.usUserApp.UserID, strRemarks)
@@ -236,6 +217,8 @@
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data telah SUBMIT")
                     ElseIf DL.PurchaseOrderCutting.IsDeleted(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
+                    ElseIf DL.PurchaseOrderCutting.IsAlreadyDone(sqlCon, sqlTrans, strID) Then
+                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses Pemotongan")
                     End If
 
                     DL.PurchaseOrderCutting.Unapprove(sqlCon, sqlTrans, strID)
@@ -264,7 +247,7 @@
                 Dim strPaymentTerms As String = ""
                 Dim dtPaymentTerm As DataTable = DL.PurchaseOrder.ListDataPaymentTerm(sqlCon, Nothing, strID)
                 For Each dr As DataRow In dtPaymentTerm.Rows
-                    strPaymentTerms += CInt(dr.Item("Percentage")) & "% " & dr.Item("PaymentTypeName") & " WITH " & dr.Item("PaymentModeName") & vbCrLf
+                    strPaymentTerms += CInt(dr.Item("Percentage")) & "% " & dr.Item("PaymentTypeName") & " BY: " & dr.Item("PaymentModeName") & vbCrLf
                 Next
 
                 '# Combine Delivery Period
@@ -290,6 +273,21 @@
                 Return DL.PurchaseOrderCutting.ListDataDetail(sqlCon, Nothing, strPOID)
             End Using
         End Function
+
+        'Public Shared Function ListDataDetailOutstandingCuttingOrder(ByVal strPOID As String) As DataTable
+        '    BL.Server.ServerDefault()
+        '    Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+        '        Return DL.PurchaseOrderCutting.ListDataDetailOutstandingCuttingOrder(sqlCon, Nothing, strPOID)
+        '    End Using
+        'End Function
+
+        'Public Shared Function ListDataDetailOutstandingConfirmationOrder(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+        '                                                                  ByVal intBPID As Integer) As DataTable
+        '    BL.Server.ServerDefault()
+        '    Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+        '        Return DL.PurchaseOrderCutting.ListDataDetailOutstandingConfirmationOrder(sqlCon, Nothing, intProgramID, intCompanyID, intBPID)
+        '    End Using
+        'End Function
 
 #End Region
 

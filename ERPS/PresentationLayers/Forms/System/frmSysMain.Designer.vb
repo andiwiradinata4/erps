@@ -62,6 +62,7 @@ Partial Class frmSysMain
         Me.mnuTransaksiPembelianPesananPembelian = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembelianKonfirmasiPesanan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembelianKontrakPembelian = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembelianPenerimaanPembelian = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembelianSep1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuTransaksiPembelianPesananPemotongan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembelianPesananPengiriman = New System.Windows.Forms.ToolStripMenuItem()
@@ -94,7 +95,6 @@ Partial Class frmSysMain
         Me.mnuWindowsCascade = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuWindowsCloseAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLogout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuTransaksiPembelianPenerimaanPembelian = New System.Windows.Forms.ToolStripMenuItem()
         Me.ssMain.SuspendLayout()
         Me.mnuMain.SuspendLayout()
         Me.SuspendLayout()
@@ -382,6 +382,12 @@ Partial Class frmSysMain
         Me.mnuTransaksiPembelianKontrakPembelian.Size = New System.Drawing.Size(211, 22)
         Me.mnuTransaksiPembelianKontrakPembelian.Text = "Kontrak Pembelian"
         '
+        'mnuTransaksiPembelianPenerimaanPembelian
+        '
+        Me.mnuTransaksiPembelianPenerimaanPembelian.Name = "mnuTransaksiPembelianPenerimaanPembelian"
+        Me.mnuTransaksiPembelianPenerimaanPembelian.Size = New System.Drawing.Size(211, 22)
+        Me.mnuTransaksiPembelianPenerimaanPembelian.Text = "Penerimaan Pembelian"
+        '
         'mnuTransaksiPembelianSep1
         '
         Me.mnuTransaksiPembelianSep1.Name = "mnuTransaksiPembelianSep1"
@@ -573,12 +579,6 @@ Partial Class frmSysMain
         Me.mnuLogout.Name = "mnuLogout"
         Me.mnuLogout.Size = New System.Drawing.Size(57, 20)
         Me.mnuLogout.Text = "L&ogout"
-        '
-        'mnuTransaksiPembelianPenerimaanPembelian
-        '
-        Me.mnuTransaksiPembelianPenerimaanPembelian.Name = "mnuTransaksiPembelianPenerimaanPembelian"
-        Me.mnuTransaksiPembelianPenerimaanPembelian.Size = New System.Drawing.Size(211, 22)
-        Me.mnuTransaksiPembelianPenerimaanPembelian.Text = "Penerimaan Pembelian"
         '
         'frmSysMain
         '

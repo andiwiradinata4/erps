@@ -252,11 +252,11 @@
         End Select
     End Sub
 
-    Private Sub btnItem_Click(sender As Object, e As EventArgs) Handles btnItem.Click
+    Private Sub btnItem_Click(sender As Object, e As EventArgs)
         prvChooseItem()
     End Sub
 
-    Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtUnitPrice.ValueChanged, txtQuantity.ValueChanged
+    Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs)
         prvCalculate()
     End Sub
 

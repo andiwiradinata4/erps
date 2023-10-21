@@ -4,14 +4,13 @@
         Property ID As String
         Property PONumber As String
         Property PODate As DateTime
-        Property POID As String
-        Property PONumberRef As String
         Property BPID As Integer
         Property BPCode As String
         Property BPName As String
         Property PersonInCharge As String
         Property DeliveryPeriodFrom As DateTime
         Property DeliveryPeriodTo As DateTime
+        Property DeliveryAddress As String
         Property PPN As Decimal
         Property PPH As Decimal
         Property TotalQuantity As Decimal

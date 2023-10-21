@@ -32,7 +32,7 @@
     'Dim frmMainTraPurchaseOrderCutting As frmTraPurchaseOrderCutting
     Dim frmMainTraConfirmationOrder As frmTraConfirmationOrder
     Dim frmMainTraPurchaseContract As frmTraPurchaseContract
-    Dim frmMainTraPurchaseReceive As frmTraReceive
+    Dim frmMainTraReceive As frmTraReceive
 
     '## Pembukuan
     Dim frmMainTraAccountReceivableSetupBalance As frmTraAccountReceivable
@@ -326,7 +326,6 @@
 
 #Region "Transaksi"
 
-
 #Region "Sales"
 
     Private Sub mnuTransaksiPenjualanPermintaanPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPermintaanPenjualan.Click
@@ -354,7 +353,11 @@
     End Sub
 
     Private Sub mnuTransaksiPembelianPenerimaanPembelian_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianPenerimaanPembelian.Click
-        UI.usForm.frmOpen(frmMainTraPurchaseReceive, "frmTraReceive", Me)
+        UI.usForm.frmOpen(frmMainTraReceive, "frmTraReceive", Me)
+    End Sub
+
+    Private Sub mnuTransaksiPembelianPesananPemotongan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianPesananPemotongan.Click
+
     End Sub
 
 #End Region

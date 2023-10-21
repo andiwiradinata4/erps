@@ -426,8 +426,8 @@
             End Try
         End Sub
 
-        Public Shared Function IsAlreadyConfirmationRequest(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                            ByVal strID As String) As Boolean
+        Public Shared Function IsAlreadySalesContract(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                      ByVal strID As String) As Boolean
             Dim bolDataExists As Boolean = False
             Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Try
@@ -436,18 +436,19 @@
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
                     .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   SUM(COQuantity) AS COQuantity, SUM(COWeight) AS COWeight " & vbNewLine & _
+                        "SELECT " & vbNewLine & _
+                        "   SUM(SCQuantity) AS SCQuantity, SUM(SCWeight) AS SCWeight " & vbNewLine & _
                         "FROM traOrderRequestDet " & vbNewLine & _
                         "WHERE  " & vbNewLine & _
-                        "   AND OrderRequestID=@ID " & vbNewLine
+                        "   OrderRequestID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 End With
-                sqlrdData = sqlCmdExecute.ExecuteReader(CommandBehavior.SingleRow)
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
                 With sqlrdData
                     If .HasRows Then
-                        If .Item("COQuantity") > 0 Or .Item("COWeight") > 0 Then
+                        .Read()
+                        If .Item("SCQuantity") > 0 Or .Item("SCWeight") > 0 Then
                             bolDataExists = True
                         End If
                     End If
