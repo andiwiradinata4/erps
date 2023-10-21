@@ -644,6 +644,46 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailOutstandingReceive(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                ByVal intBPID As Integer) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = <a>
+SELECT  
+    PCD.ID, PCD.PCID, PCH.PCNumber, PCD.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  
+    C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  
+    PCD.Quantity-PCD.DCQuantity AS Quantity, PCD.Weight, PCD.TotalWeight-PCD.DCWeight AS TotalWeight, PCD.UnitPrice, PCD.TotalPrice 
+FROM traPurchaseContractDet PCD  
+INNER JOIN traPurchaseContract PCH ON  
+    PCD.PCID=PCH.ID  
+INNER JOIN mstItem B ON  
+    PCD.ItemID=B.ID  
+INNER JOIN mstItemSpecification C ON  
+    B.ItemSpecificationID=C.ID  
+INNER JOIN mstItemType D ON  
+    B.ItemTypeID=D.ID  
+WHERE  
+    PCH.IsDeleted=0 
+	AND PCH.ProgramID=@ProgramID 
+	AND PCH.CompanyID=@CompanyID 
+    AND PCH.StatusID=@StatusID  
+	AND PCH.BPID=@BPID 
+    AND PCD.TotalWeight-PCD.DCWeight>0
+    AND PCD.Quantity-PCD.DCQuantity>0
+</a>.Value
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                          ByVal clsData As VO.PurchaseContractDet)
             Dim sqlCmdExecute As New SqlCommand
@@ -688,6 +728,48 @@
                     "   PCID=@PCID" & vbNewLine
 
                 .Parameters.Add("@PCID", SqlDbType.VarChar, 100).Value = strPCID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateDCTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal strPCDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE traPurchaseContractDet SET 	" & vbNewLine & _
+                    "	DCWeight=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(RVD.TotalWeight),0) TotalWeight		" & vbNewLine & _
+                    "		FROM traReceiveDet RVD 	" & vbNewLine & _
+                    "		INNER JOIN traReceive RVH ON	" & vbNewLine & _
+                    "			RVD.ReceiveID=RVH.ID 	" & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			RVD.PCDetailID=@PCDetailID 	" & vbNewLine & _
+                    "			AND RVH.IsDeleted=0 	" & vbNewLine & _
+                    "	), 	" & vbNewLine & _
+                    "	DCQuantity=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(RVD.Quantity),0) TotalQuantity " & vbNewLine & _
+                    "		FROM traReceiveDet RVD 	" & vbNewLine & _
+                    "		INNER JOIN traReceive RVH ON	" & vbNewLine & _
+                    "			RVD.ReceiveID=RVH.ID 	" & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			RVD.PCDetailID=@PCDetailID 	" & vbNewLine & _
+                    "			AND RVH.IsDeleted=0 	" & vbNewLine & _
+                    "	) 	" & vbNewLine & _
+                    "WHERE ID=@PCDetailID	" & vbNewLine
+
+                .Parameters.Add("@PCDetailID", SqlDbType.VarChar, 100).Value = strPCDetailID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

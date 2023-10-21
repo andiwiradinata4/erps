@@ -2121,3 +2121,118 @@ GO
 
 SET ANSI_PADDING OFF
 GO
+
+GO
+
+/****** Object:  Table [dbo].[traReceive]    Script Date: 07/09/2023 17:54:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traReceive](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traReceive_ID]  DEFAULT (''),
+	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traReceive_ProgramID]  DEFAULT ((0)),
+	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traReceive_CompanyID]  DEFAULT ((0)),
+	[ReceiveNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traReceive_ReceiveNumber]  DEFAULT (('')),
+	[ReceiveDate] [datetime] NOT NULL CONSTRAINT [DF_traReceive_ReceiveDate]  DEFAULT (getdate()),
+	[BPID] [int] NOT NULL CONSTRAINT [DF_traReceive_BPID]  DEFAULT ((0)),
+	[PlatNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traReceive_PlatNumber]  DEFAULT (('')),
+	[Driver] [varchar](100) NOT NULL CONSTRAINT [DF_traReceive_Driver]  DEFAULT (('')),
+	[ReferencesNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traReceive_ReferencesNumber]  DEFAULT (('')),
+	[PPN] [decimal](18,2) NOT NULL CONSTRAINT [DF_traReceive_PPN]  DEFAULT ((0)),
+	[PPH] [decimal](18,2) NOT NULL CONSTRAINT [DF_traReceive_PPH]  DEFAULT ((0)),
+	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traReceive_TotalQuantity]  DEFAULT ((0)),
+	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traReceive_TotalWeight]  DEFAULT ((0)),
+	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traReceive_TotalDPP]  DEFAULT ((0)),
+	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traReceive_TotalPPN]  DEFAULT ((0)),
+	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traReceive_TotalPPH]  DEFAULT ((0)),
+	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traReceive_RoundingManual]  DEFAULT ((0)),
+	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traReceive_IsDeleted]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traReceive_Remarks]  DEFAULT (''),
+	[StatusID] [int] NOT NULL CONSTRAINT [DF_traReceive_StatusID]  DEFAULT ((0)),
+	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traReceive_SubmitBy]  DEFAULT (''),
+	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traReceive_SubmitDate]  DEFAULT (getdate()),
+	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traReceive_CreatedBy]  DEFAULT ('SYSTEM'),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traReceive_CreatedDate]  DEFAULT (getdate()),
+	[LogInc] [int] NOT NULL CONSTRAINT [DF_traReceive_LogInc]  DEFAULT ((0)),
+	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traReceive_LogBy]  DEFAULT ('SYSTEM'),
+	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traReceive_LogDate]  DEFAULT (getdate()),
+ CONSTRAINT [PK_traReceive] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traReceiveDet]    Script Date: 07/09/2023 17:54:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traReceiveDet](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traReceiveDet_ID]  DEFAULT (''),
+	[ReceiveID] [varchar](100) NOT NULL CONSTRAINT [DF_traReceiveDet_ReceiveID]  DEFAULT (''),
+	[PCDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traReceiveDet_PCDetailID]  DEFAULT (''),
+	[ItemID] [int] NOT NULL CONSTRAINT [DF_traReceiveDet_ItemID]  DEFAULT ((0)),
+	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traReceiveDet_Quantity]  DEFAULT ((0)),
+	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traReceiveDet_Weight]  DEFAULT ((0)),
+	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traReceiveDet_TotalWeight]  DEFAULT ((0)),
+	[UnitPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traReceiveDet_UnitPrice]  DEFAULT ((0)),
+	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traReceiveDet_TotalPrice]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traReceiveDet_Remarks]  DEFAULT (''),
+ CONSTRAINT [PK_traReceiveDet] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traReceiveStatus]    Script Date: 07/09/2023 18:08:21 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traReceiveStatus](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traReceiveStatus_ID]  DEFAULT (''),
+	[ReceiveID] [varchar](100) NOT NULL CONSTRAINT [DF_traReceiveStatus_ReceiveID]  DEFAULT (''),
+	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traReceiveStatus_Status]  DEFAULT ((0)),
+	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traReceiveStatus_StatusBy]  DEFAULT ((0)),
+	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traReceiveStatus_StatusDate]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traReceiveStatus_Remarks]  DEFAULT ((0)),
+ CONSTRAINT [PK_traReceiveStatus] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO

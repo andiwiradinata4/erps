@@ -64,7 +64,7 @@
                     '# Save Data Detail
                     Dim intCount As Integer = 1
                     For Each clsDet As VO.PurchaseContractDet In clsData.Detail
-                        clsDet.ID = clsData.ID & "-" & 1 & "-" & Format(intCount, "000")
+                        clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
                         clsDet.PCID = clsData.ID
                         DL.PurchaseContract.SaveDataDetail(sqlCon, sqlTrans, clsDet)
                         intCount += 1
@@ -328,6 +328,14 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.PurchaseContract.ListDataDetail(sqlCon, Nothing, strPCID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailOutstandingReceive(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseContract.ListDataDetailOutstandingReceive(sqlCon, Nothing, intProgramID, intCompanyID, intBPID)
             End Using
         End Function
 

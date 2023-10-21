@@ -101,6 +101,7 @@
     <Compile Include="BusinessLayers\OrderRequest.vb" />
     <Compile Include="BusinessLayers\PurchaseContract.vb" />
     <Compile Include="BusinessLayers\PurchaseOrder.vb" />
+    <Compile Include="BusinessLayers\Receive.vb" />
     <Compile Include="BusinessLayers\Reports.vb" />
     <Compile Include="BusinessLayers\SalesContract.vb" />
     <Compile Include="DataLayers\AccountPayable.vb" />
@@ -143,6 +144,7 @@
     <Compile Include="DataLayers\PurchaseContract.vb" />
     <Compile Include="DataLayers\PurchaseOrder.vb" />
     <Compile Include="DataLayers\PurchaseOrderCutting.vb" />
+    <Compile Include="DataLayers\Receive.vb" />
     <Compile Include="DataLayers\Reports.vb" />
     <Compile Include="DataLayers\SalesContract.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -235,6 +237,9 @@
     <Compile Include="ValueObject\PurchaseOrderPaymentTerm.vb" />
     <Compile Include="ValueObject\PurchaseOrderStatus.vb" />
     <Compile Include="ValueObject\PurchaseContractPaymentTerm.vb" />
+    <Compile Include="ValueObject\Receive.vb" />
+    <Compile Include="ValueObject\ReceiveDet.vb" />
+    <Compile Include="ValueObject\ReceiveStatus.vb" />
     <Compile Include="ValueObject\Reports\PurchaseOrder.vb" />
     <Compile Include="ValueObject\Reports\Reports.vb" />
     <Compile Include="ValueObject\Reports\rptBukuBesarVer00.vb" />

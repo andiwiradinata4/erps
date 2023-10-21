@@ -230,3 +230,7 @@ C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractD
 C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItem.resources
 C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCO.resources
 C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.rptSalesContractVer00.resources
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraReceive.resources
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraReceiveDet.resources
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraReceiveDetItem.resources
+C:\My Project\Desktop\Toni Jkt\TBU\erps\ERPS\obj\Debug\ERPS.frmTraReceiveDetItemOutstanding.resources

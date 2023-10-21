@@ -41,7 +41,7 @@ Namespace VO
             TransactionSalesContract = 25
             TransactionPickupMemo = 26
             TransactionSalesDelivery = 27
-            
+            TransactionReceive = 42
 
             '## Pembukuan
             TransactionJournal = 31

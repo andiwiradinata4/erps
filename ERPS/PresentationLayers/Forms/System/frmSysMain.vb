@@ -32,6 +32,7 @@
     'Dim frmMainTraPurchaseOrderCutting As frmTraPurchaseOrderCutting
     Dim frmMainTraConfirmationOrder As frmTraConfirmationOrder
     Dim frmMainTraPurchaseContract As frmTraPurchaseContract
+    Dim frmMainTraPurchaseReceive As frmTraReceive
 
     '## Pembukuan
     Dim frmMainTraAccountReceivableSetupBalance As frmTraAccountReceivable
@@ -106,6 +107,7 @@
         mnuTransaksiPembelianPesananPembelian.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrder, VO.Access.Values.ViewAccess)
         mnuTransaksiPembelianKonfirmasiPesanan.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionConfirmationOrder, VO.Access.Values.ViewAccess)
         mnuTransaksiPembelianKontrakPembelian.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembelianPenerimaanPembelian.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionReceive, VO.Access.Values.ViewAccess)
 
         mnuTransaksiPembelianPesananPemotongan.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.ViewAccess)
         mnuTransaksiPembelianPesananPengiriman.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderTransport, VO.Access.Values.ViewAccess)
@@ -349,6 +351,10 @@
 
     Private Sub mnuTransaksiPembelianKontrakPembelian_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianKontrakPembelian.Click
         UI.usForm.frmOpen(frmMainTraPurchaseContract, "frmTraPurchaseContract", Me)
+    End Sub
+
+    Private Sub mnuTransaksiPembelianPenerimaanPembelian_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianPenerimaanPembelian.Click
+        UI.usForm.frmOpen(frmMainTraPurchaseReceive, "frmTraReceive", Me)
     End Sub
 
 #End Region
