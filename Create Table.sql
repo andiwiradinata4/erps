@@ -2475,3 +2475,158 @@ GO
 
 SET ANSI_PADDING OFF
 GO
+
+GO
+
+/****** Object:  Table [dbo].[traDelivery]    Script Date: 07/09/2023 17:54:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traDelivery](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traDelivery_ID]  DEFAULT (''),
+	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traDelivery_ProgramID]  DEFAULT ((0)),
+	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traDelivery_CompanyID]  DEFAULT ((0)),
+	[DeliveryNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traDelivery_DeliveryNumber]  DEFAULT (('')),
+	[DeliveryDate] [datetime] NOT NULL CONSTRAINT [DF_traDelivery_DeliveryDate]  DEFAULT (getdate()),
+	[BPID] [int] NOT NULL CONSTRAINT [DF_traDelivery_BPID]  DEFAULT ((0)),
+	[SCID] [varchar](100) NOT NULL CONSTRAINT [DF_traDelivery_SCID]  DEFAULT (('')),
+	[PlatNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traDelivery_PlatNumber]  DEFAULT (('')),
+	[Driver] [varchar](100) NOT NULL CONSTRAINT [DF_traDelivery_Driver]  DEFAULT (('')),
+	[ReferencesNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traDelivery_ReferencesNumber]  DEFAULT (('')),
+	[PPN] [decimal](18,2) NOT NULL CONSTRAINT [DF_traDelivery_PPN]  DEFAULT ((0)),
+	[PPH] [decimal](18,2) NOT NULL CONSTRAINT [DF_traDelivery_PPH]  DEFAULT ((0)),
+	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDelivery_TotalQuantity]  DEFAULT ((0)),
+	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDelivery_TotalWeight]  DEFAULT ((0)),
+	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDelivery_TotalDPP]  DEFAULT ((0)),
+	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDelivery_TotalPPN]  DEFAULT ((0)),
+	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDelivery_TotalPPH]  DEFAULT ((0)),
+	[TotalDPPTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDelivery_TotalDPPTransport]  DEFAULT ((0)),
+	[TotalPPNTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDelivery_TotalPPNTransport]  DEFAULT ((0)),
+	[TotalPPHTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDelivery_TotalPPHTransport]  DEFAULT ((0)),
+	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDelivery_RoundingManual]  DEFAULT ((0)),
+	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traDelivery_IsDeleted]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traDelivery_Remarks]  DEFAULT (''),
+	[StatusID] [int] NOT NULL CONSTRAINT [DF_traDelivery_StatusID]  DEFAULT ((0)),
+	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traDelivery_SubmitBy]  DEFAULT (''),
+	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traDelivery_SubmitDate]  DEFAULT (getdate()),
+	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traDelivery_CreatedBy]  DEFAULT ('SYSTEM'),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traDelivery_CreatedDate]  DEFAULT (getdate()),
+	[LogInc] [int] NOT NULL CONSTRAINT [DF_traDelivery_LogInc]  DEFAULT ((0)),
+	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traDelivery_LogBy]  DEFAULT ('SYSTEM'),
+	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traDelivery_LogDate]  DEFAULT (getdate()),
+ CONSTRAINT [PK_traDelivery] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traDeliveryDet]    Script Date: 07/09/2023 17:54:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traDeliveryDet](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryDet_ID]  DEFAULT (''),
+	[DeliveryID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryDet_DeliveryID]  DEFAULT (''),
+	[SCDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryDet_SCDetailID]  DEFAULT (''),
+	[GroupID] [int] NOT NULL CONSTRAINT [DF_traDeliveryDet_GroupID]  DEFAULT ((0)),
+	[ItemID] [int] NOT NULL CONSTRAINT [DF_traDeliveryDet_ItemID]  DEFAULT ((0)),
+	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traDeliveryDet_Quantity]  DEFAULT ((0)),
+	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traDeliveryDet_Weight]  DEFAULT ((0)),
+	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traDeliveryDet_TotalWeight]  DEFAULT ((0)),
+	[UnitPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traDeliveryDet_UnitPrice]  DEFAULT ((0)),
+	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traDeliveryDet_TotalPrice]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traDeliveryDet_Remarks]  DEFAULT (''),
+ CONSTRAINT [PK_traDeliveryDet] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traDeliveryDetTransport]    Script Date: 07/09/2023 17:54:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traDeliveryDetTransport](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryDetTransport_ID]  DEFAULT (''),
+	[DeliveryID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryDetTransport_DeliveryID]  DEFAULT (''),
+	[GroupID] [int] NOT NULL CONSTRAINT [DF_traDeliveryDetTransport_GroupID]  DEFAULT ((0)),
+	[PODetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryDetTransport_PODetailID]  DEFAULT (''),
+	[ItemID] [int] NOT NULL CONSTRAINT [DF_traDeliveryDetTransport_ItemID]  DEFAULT ((0)),
+	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traDeliveryDetTransport_Quantity]  DEFAULT ((0)),
+	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traDeliveryDetTransport_Weight]  DEFAULT ((0)),
+	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traDeliveryDetTransport_TotalWeight]  DEFAULT ((0)),
+	[UnitPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traDeliveryDetTransport_UnitPrice]  DEFAULT ((0)),
+	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traDeliveryDetTransport_TotalPrice]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traDeliveryDetTransport_Remarks]  DEFAULT (''),
+ CONSTRAINT [PK_traDeliveryDetTransport] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+GO
+
+/****** Object:  Table [dbo].[traDeliveryStatus]    Script Date: 07/09/2023 18:08:21 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[traDeliveryStatus](
+	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryStatus_ID]  DEFAULT (''),
+	[DeliveryID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryStatus_DeliveryID]  DEFAULT (''),
+	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryStatus_Status]  DEFAULT ((0)),
+	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traDeliveryStatus_StatusBy]  DEFAULT ((0)),
+	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traDeliveryStatus_StatusDate]  DEFAULT ((0)),
+	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traDeliveryStatus_Remarks]  DEFAULT ((0)),
+ CONSTRAINT [PK_traDeliveryStatus] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
