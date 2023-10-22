@@ -94,6 +94,7 @@
     <Compile Include="BusinessLayers\BusinessPartnerARBalance.vb" />
     <Compile Include="BusinessLayers\ConfirmationOrder.vb" />
     <Compile Include="BusinessLayers\Cost.vb" />
+    <Compile Include="BusinessLayers\Cutting.vb" />
     <Compile Include="BusinessLayers\Item.vb" />
     <Compile Include="BusinessLayers\ItemSpecification.vb" />
     <Compile Include="BusinessLayers\ItemType.vb" />
@@ -102,6 +103,7 @@
     <Compile Include="BusinessLayers\PurchaseContract.vb" />
     <Compile Include="BusinessLayers\PurchaseOrder.vb" />
     <Compile Include="BusinessLayers\PurchaseOrderCutting.vb" />
+    <Compile Include="BusinessLayers\PurchaseOrderTransport.vb" />
     <Compile Include="BusinessLayers\Receive.vb" />
     <Compile Include="BusinessLayers\Reports.vb" />
     <Compile Include="BusinessLayers\SalesContract.vb" />
@@ -137,6 +139,7 @@
     <Compile Include="DataLayers\BusinessPartnerARBalance.vb" />
     <Compile Include="DataLayers\ConfirmationOrder.vb" />
     <Compile Include="DataLayers\Cost.vb" />
+    <Compile Include="DataLayers\Cutting.vb" />
     <Compile Include="DataLayers\Item.vb" />
     <Compile Include="DataLayers\ItemSpecification.vb" />
     <Compile Include="DataLayers\ItemType.vb" />
@@ -145,6 +148,7 @@
     <Compile Include="DataLayers\PurchaseContract.vb" />
     <Compile Include="DataLayers\PurchaseOrder.vb" />
     <Compile Include="DataLayers\PurchaseOrderCutting.vb" />
+    <Compile Include="DataLayers\PurchaseOrderTransport.vb" />
     <Compile Include="DataLayers\Receive.vb" />
     <Compile Include="DataLayers\Reports.vb" />
     <Compile Include="DataLayers\SalesContract.vb" />
@@ -217,6 +221,10 @@
     <Compile Include="ValueObject\Cost.vb" />
     <Compile Include="ValueObject\CostDet.vb" />
     <Compile Include="ValueObject\CostStatus.vb" />
+    <Compile Include="ValueObject\Cutting.vb" />
+    <Compile Include="ValueObject\CuttingDet.vb" />
+    <Compile Include="ValueObject\CuttingDetResult.vb" />
+    <Compile Include="ValueObject\CuttingStatus.vb" />
     <Compile Include="ValueObject\Item.vb" />
     <Compile Include="ValueObject\ItemSpecification.vb" />
     <Compile Include="ValueObject\ItemType.vb" />
@@ -238,6 +246,8 @@
     <Compile Include="ValueObject\PurchaseOrderPaymentTerm.vb" />
     <Compile Include="ValueObject\PurchaseOrderStatus.vb" />
     <Compile Include="ValueObject\PurchaseContractPaymentTerm.vb" />
+    <Compile Include="ValueObject\PurchaseOrderTransport.vb" />
+    <Compile Include="ValueObject\PurchaseOrderTransportDet.vb" />
     <Compile Include="ValueObject\Receive.vb" />
     <Compile Include="ValueObject\ReceiveDet.vb" />
     <Compile Include="ValueObject\ReceiveStatus.vb" />

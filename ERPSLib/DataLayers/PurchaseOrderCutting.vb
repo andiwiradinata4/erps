@@ -45,6 +45,39 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataOutstanding(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                   ByVal intBPID As Integer) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "SELECT " & vbNewLine & _
+                    "   CAST(0 AS BIT) AS Pick, A.ID AS PurchaseID, A.PONumber AS InvoiceNumber, A.PODate AS InvoiceDate, " & vbNewLine & _
+                    "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine & _
+                    "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual-A.DPAmount-A.ReceiveAmount AS MaxPaymentAmount, " & vbNewLine & _
+                    "   CAST('' AS VARCHAR(500)) AS Remarks " & vbNewLine & _
+                    "FROM traPurchaseOrderCutting A " & vbNewLine & _
+                    "INNER JOIN mstCompany MC ON " & vbNewLine & _
+                    "   A.CompanyID=MC.ID " & vbNewLine & _
+                    "INNER JOIN mstProgram MP ON " & vbNewLine & _
+                    "   A.ProgramID=MP.ID " & vbNewLine & _
+                    "WHERE  " & vbNewLine & _
+                    "   A.BPID=@BPID " & vbNewLine & _
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine & _
+                    "   AND A.ProgramID=@ProgramID " & vbNewLine & _
+                    "   AND A.ApprovedBy<>'' " & vbNewLine & _
+                    "   AND A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual-A.DPAmount-A.ReceiveAmount>0 " & vbNewLine
+
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                    ByVal bolNew As Boolean, ByVal clsData As VO.PurchaseOrderCutting)
             Dim sqlCmdExecute As New SqlCommand
@@ -135,7 +168,7 @@
                         "SELECT TOP 1 " & vbNewLine & _
                         "   A.ID, A.ProgramID, A.CompanyID, A.PONumber, A.PODate, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.PersonInCharge, " & vbNewLine & _
                         "   A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.DeliveryAddress, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, " & vbNewLine & _
-                        "   A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, " & vbNewLine & _
+                        "   A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.JournalID, A.StatusID, A.SubmitBy, A.SubmitDate, " & vbNewLine & _
                         "   A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
                         "FROM traPurchaseOrderCutting A " & vbNewLine & _
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine & _
@@ -171,6 +204,7 @@
                         voReturn.RoundingManual = .Item("RoundingManual")
                         voReturn.IsDeleted = .Item("IsDeleted")
                         voReturn.Remarks = .Item("Remarks")
+                        voReturn.JournalID = .Item("JournalID")
                         voReturn.StatusID = .Item("StatusID")
                         voReturn.SubmitBy = .Item("SubmitBy")
                         voReturn.SubmitDate = .Item("SubmitDate")
@@ -488,6 +522,72 @@
             End Try
         End Sub
 
+        Public Shared Sub CalculateTotalUsedDownPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                        ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE traPurchaseOrderCutting SET 	" & vbNewLine & _
+                    "	DPAmount=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(APD.Amount),0) TotalPayment		" & vbNewLine & _
+                    "		FROM traAccountPayableDet APD 	" & vbNewLine & _
+                    "		INNER JOIN traAccountPayable APH ON	" & vbNewLine & _
+                    "			APD.APID=APH.ID 	" & vbNewLine & _
+                    "			AND APH.Modules=@Modules " & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			APD.PurchaseID=@ID 	" & vbNewLine & _
+                    "			AND APH.IsDeleted=0 	" & vbNewLine & _
+                    "	) " & vbNewLine & _
+                    "WHERE ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.DownPaymentCutting
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateTotalUsedReceivePayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                           ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE traPurchaseOrderCutting SET 	" & vbNewLine & _
+                    "	ReceiveAmount=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(APD.Amount),0) TotalPayment		" & vbNewLine & _
+                    "		FROM traAccountPayableDet APD 	" & vbNewLine & _
+                    "		INNER JOIN traAccountPayable APH ON	" & vbNewLine & _
+                    "			APD.APID=APH.ID 	" & vbNewLine & _
+                    "			AND APH.Modules=@Modules " & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			APD.PurchaseID=@ID 	" & vbNewLine & _
+                    "			AND APH.IsDeleted=0 	" & vbNewLine & _
+                    "	) " & vbNewLine & _
+                    "WHERE ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePaymentCutting
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
         Public Shared Function Print(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                      ByVal strID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
@@ -529,6 +629,29 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Sub UpdateJournalID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal strID As String, ByVal strJournalID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE traPurchaseOrderCutting SET " & vbNewLine & _
+                    "    JournalID=@JournalID " & vbNewLine & _
+                    "WHERE   " & vbNewLine & _
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@JournalID", SqlDbType.VarChar, 100).Value = strJournalID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail"
@@ -542,10 +665,14 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "SELECT " & vbNewLine & _
-                    "   A.ID, A.POID, A.PCDetailID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
+                    "   A.ID, A.POID, A.PCDetailID, A2.PCNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine & _
-                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A.Remarks " & vbNewLine & _
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.CuttingWeight AS MaxTotalWeight, A.Remarks " & vbNewLine & _
                     "FROM traPurchaseOrderCuttingDet A " & vbNewLine & _
+                    "INNER JOIN traPurchaseContractDet A1 ON " & vbNewLine & _
+                    "   A.PCDetailID=A1.ID " & vbNewLine & _
+                    "INNER JOIN traPurchaseContract A2 ON " & vbNewLine & _
+                    "   A1.PCID=A2.ID " & vbNewLine & _
                     "INNER JOIN mstItem B ON " & vbNewLine & _
                     "   A.ItemID=B.ID " & vbNewLine & _
                     "INNER JOIN mstItemSpecification C ON " & vbNewLine & _
@@ -573,7 +700,7 @@
                     "   A.ID, A.POID, A1.PONumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, 	" & vbNewLine & _
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, 	" & vbNewLine & _
                     "   D.Description AS ItemTypeName, A.UnitPrice, A.Quantity-A.DoneQuantity AS Quantity, A.Weight, " & vbNewLine & _
-                    "   A.TotalWeight-A.DoneWeight AS TotalWeight, A.Remarks 	" & vbNewLine & _
+                    "   A.TotalWeight-A.DoneWeight AS TotalWeight, A.TotalWeight-A.DoneWeight AS MaxTotalWeight, A.Remarks 	" & vbNewLine & _
                     "FROM traPurchaseOrderCuttingDet A 	" & vbNewLine & _
                     "INNER JOIN traPurchaseOrderCutting A1 ON 	" & vbNewLine & _
                     "   A.POID=A1.ID 	" & vbNewLine & _
@@ -662,24 +789,24 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "UPDATE traPurchaseOrderCuttingDet SET 	" & vbNewLine & _
-                    "	COWeight=	" & vbNewLine & _
+                    "	DoneWeight=	" & vbNewLine & _
                     "	(	" & vbNewLine & _
                     "		SELECT	" & vbNewLine & _
                     "			ISNULL(SUM(COD.TotalWeight),0) TotalWeight		" & vbNewLine & _
-                    "		FROM traConfirmationOrderDet COD 	" & vbNewLine & _
-                    "		INNER JOIN traConfirmationOrder COH ON	" & vbNewLine & _
-                    "			COD.COID=COH.ID 	" & vbNewLine & _
+                    "		FROM traCuttingDet COD 	" & vbNewLine & _
+                    "		INNER JOIN traCutting COH ON	" & vbNewLine & _
+                    "			COD.CuttingID=COH.ID 	" & vbNewLine & _
                     "		WHERE 	" & vbNewLine & _
                     "			COD.PODetailID=@PODetailID " & vbNewLine & _
                     "			AND COH.IsDeleted=0 	" & vbNewLine & _
                     "	), 	" & vbNewLine & _
-                    "	COQuantity=	" & vbNewLine & _
+                    "	DoneQuantity=	" & vbNewLine & _
                     "	(	" & vbNewLine & _
                     "		SELECT	" & vbNewLine & _
                     "			ISNULL(SUM(COD.Quantity),0) TotalQuantity " & vbNewLine & _
-                    "		FROM traConfirmationOrderDet COD 	" & vbNewLine & _
-                    "		INNER JOIN traConfirmationOrder COH ON	" & vbNewLine & _
-                    "			COD.COID=COH.ID 	" & vbNewLine & _
+                    "		FROM traCuttingDet COD 	" & vbNewLine & _
+                    "		INNER JOIN traCutting COH ON	" & vbNewLine & _
+                    "			COD.CuttingID=COH.ID 	" & vbNewLine & _
                     "		WHERE 	" & vbNewLine & _
                     "			COD.PODetailID=@PODetailID " & vbNewLine & _
                     "			AND COH.IsDeleted=0 	" & vbNewLine & _

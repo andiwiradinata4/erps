@@ -12,6 +12,14 @@
             End Using
         End Function
 
+        Public Shared Function ListDataOutstanding(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                   ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseOrderCutting.ListDataOutstanding(sqlCon, Nothing, intCompanyID, intProgramID, intBPID)
+            End Using
+        End Function
+
         Public Shared Function GetNewID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer, ByVal intProgramID As Integer) As String
             Dim clsCompany As VO.Company = DL.Company.GetDetail(sqlCon, sqlTrans, intCompanyID)
@@ -29,8 +37,15 @@
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.PODate, clsData.CompanyID, clsData.ProgramID)
                         clsData.PONumber = clsData.ID
                     Else
+                        Dim dtItem As DataTable = DL.PurchaseOrderCutting.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
+
                         DL.PurchaseOrderCutting.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
                         DL.PurchaseOrder.DeleteDataPaymentTerm(sqlCon, sqlTrans, clsData.ID)
+
+                        '# Revert Cutting Quantity
+                        For Each dr As DataRow In dtItem.Rows
+                            DL.PurchaseContract.CalculateCuttingTotalUsed(sqlCon, sqlTrans, dr.Item("PCDetailID"))
+                        Next
                     End If
 
                     Dim intStatusID As Integer = DL.PurchaseOrderCutting.GetStatusID(sqlCon, sqlTrans, clsData.ID)
@@ -62,6 +77,11 @@
                         clsDet.POID = clsData.ID
                         DL.PurchaseOrder.SaveDataPaymentTerm(sqlCon, sqlTrans, clsDet)
                         intCount += 1
+                    Next
+
+                    '# Calculate DC Quantity
+                    For Each clsDet As VO.PurchaseOrderCuttingDet In clsData.Detail
+                        DL.PurchaseContract.CalculateCuttingTotalUsed(sqlCon, sqlTrans, clsDet.PCDetailID)
                     Next
 
                     '# Save Data Status
@@ -101,8 +121,16 @@
 
                     DL.PurchaseOrderCutting.DeleteData(sqlCon, sqlTrans, strID)
 
+                    Dim dtItem As DataTable = DL.PurchaseOrderCutting.ListDataDetail(sqlCon, sqlTrans, strID)
+
+                    '# Revert Cutting Quantity
+                    For Each dr As DataRow In dtItem.Rows
+                        DL.PurchaseContract.CalculateCuttingTotalUsed(sqlCon, sqlTrans, dr.Item("PCDetailID"))
+                    Next
+
                     '# Save Data Status
                     BL.PurchaseOrder.SaveDataStatus(sqlCon, sqlTrans, strID, "HAPUS", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -195,6 +223,56 @@
                     '# Save Data Status
                     BL.PurchaseOrder.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
+                    Dim clsData As VO.PurchaseOrderCutting = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, strID)
+                    Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
+                    Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
+
+                    '# Generate Journal
+                    Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.TotalPPN - clsData.TotalPPH + clsData.RoundingManual
+                    Dim clsJournalDetail As New List(Of VO.JournalDet)
+
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = VO.Journal.Value.Pembelian,
+                                             .DebitAmount = decTotalAmount,
+                                             .CreditAmount = 0,
+                                             .Remarks = "PESANAN PEMBELIAN PEMOTONGAN - " & clsData.PONumber
+                                         })
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = VO.Journal.Value.HutangUsaha,
+                                             .DebitAmount = 0,
+                                             .CreditAmount = decTotalAmount,
+                                             .Remarks = "PESANAN PEMBELIAN PEMOTONGAN - " & clsData.PONumber
+                                         })
+
+                    Dim clsJournal As New VO.Journal With
+                        {
+                            .ProgramID = clsData.ProgramID,
+                            .CompanyID = clsData.CompanyID,
+                            .ID = PrevJournal.ID,
+                            .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                            .ReferencesID = clsData.ID,
+                            .JournalDate = IIf(bolNew, Now, PrevJournal.JournalDate),
+                            .TotalAmount = decTotalAmount,
+                            .IsAutoGenerate = True,
+                            .StatusID = VO.Status.Values.Draft,
+                            .Remarks = clsData.Remarks,
+                            .LogBy = ERPSLib.UI.usUserApp.UserID,
+                            .Initial = "",
+                            .Detail = clsJournalDetail,
+                            .Save = VO.Save.Action.SaveAndSubmit
+                        }
+
+                    '# Save Journal
+                    Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
+
+                    '# Approve Journal
+                    BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
+
+                    '# Update Journal ID in Purchase Order Cutting
+                    DL.PurchaseOrderCutting.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
+
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -220,6 +298,14 @@
                     ElseIf DL.PurchaseOrderCutting.IsAlreadyDone(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses Pemotongan")
                     End If
+
+                    Dim clsData As VO.PurchaseOrderCutting = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, strID)
+
+                    '# Cancel Approve Journal
+                    BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+
+                    '# Cancel Submit Journal
+                    BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
 
                     DL.PurchaseOrderCutting.Unapprove(sqlCon, sqlTrans, strID)
 
@@ -274,20 +360,13 @@
             End Using
         End Function
 
-        'Public Shared Function ListDataDetailOutstandingCuttingOrder(ByVal strPOID As String) As DataTable
-        '    BL.Server.ServerDefault()
-        '    Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-        '        Return DL.PurchaseOrderCutting.ListDataDetailOutstandingCuttingOrder(sqlCon, Nothing, strPOID)
-        '    End Using
-        'End Function
-
-        'Public Shared Function ListDataDetailOutstandingConfirmationOrder(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-        '                                                                  ByVal intBPID As Integer) As DataTable
-        '    BL.Server.ServerDefault()
-        '    Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-        '        Return DL.PurchaseOrderCutting.ListDataDetailOutstandingConfirmationOrder(sqlCon, Nothing, intProgramID, intCompanyID, intBPID)
-        '    End Using
-        'End Function
+        Public Shared Function ListDataDetailOutstandingDone(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                             ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseOrderCutting.ListDataDetailOutstandingDone(sqlCon, Nothing, intProgramID, intCompanyID, intBPID)
+            End Using
+        End Function
 
 #End Region
 

@@ -312,6 +312,28 @@ Public Class frmTraAccountPayableDet
                         dtItem = BL.AccountPayable.ListDataDetailWithOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID, pubID)
                     End If
                 End If
+            ElseIf strModules.Trim = VO.AccountPayable.DownPaymentCutting Or
+                strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                If pubIsNew Then
+                    dtItem = BL.PurchaseOrderCutting.ListDataOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID)
+                Else
+                    If clsData.IsDeleted Then
+                        dtItem = BL.AccountPayable.ListDataDetail(pubID)
+                    Else
+                        dtItem = BL.AccountPayable.ListDataDetailWithOutstandingPurchaseOrderCutting(pubCS.CompanyID, pubCS.ProgramID, intBPID, pubID)
+                    End If
+                End If
+            ElseIf strModules.Trim = VO.AccountPayable.DownPaymentTransport Or
+                strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                If pubIsNew Then
+                    dtItem = BL.PurchaseOrderTransport.ListDataOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID)
+                Else
+                    If clsData.IsDeleted Then
+                        dtItem = BL.AccountPayable.ListDataDetail(pubID)
+                    Else
+                        dtItem = BL.AccountPayable.ListDataDetailWithOutstandingPurchaseOrderTransport(pubCS.CompanyID, pubCS.ProgramID, intBPID, pubID)
+                    End If
+                End If
             End If
             grdItem.DataSource = dtItem
             grdItemView.BestFitColumns()
@@ -411,7 +433,7 @@ Public Class frmTraAccountPayableDet
     Private Sub ToolBarDetail_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarDetail.ButtonClick
         Select Case e.Button.Text.Trim
             Case "Centang Semua" : prvChangeCheckedValue(True)
-            Case "Hapus Semua Centangan" : prvChangeCheckedValue(False)
+            Case "Tidak Centang Semua" : prvChangeCheckedValue(False)
         End Select
     End Sub
 

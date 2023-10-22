@@ -5,11 +5,23 @@ Public Class frmTraPurchaseOrderCuttingDetItemOutstanding
 
     Private intPos As Integer = 0
     Private frmParent As frmTraPurchaseOrderCuttingDetItem
-    Public pubPOID As String = ""
-    Public pubPODetailID As String = ""
+    Private intBPID As Integer = 0
+    Private clsCS As VO.CS
     Public pubLUdtRow As DataRow
     Public pubIsLookUpGet As Boolean = False
     Public pubParentItem As New DataTable
+
+    Public WriteOnly Property pubBPID As Integer
+        Set(value As Integer)
+            intBPID = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubCS As VO.CS
+        Set(value As VO.CS)
+            clsCS = value
+        End Set
+    End Property
 
     Public Sub pubShowDialog(ByVal frmGetParent As Form)
         frmParent = frmGetParent
@@ -23,7 +35,8 @@ Public Class frmTraPurchaseOrderCuttingDetItemOutstanding
 
     Private Sub prvSetGrid()
         UI.usForm.SetGrid(grdView, "ID", "ID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdView, "POID", "POID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "PCID", "PCID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "PCNumber", "Nomor Kontrak", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
@@ -51,10 +64,10 @@ Public Class frmTraPurchaseOrderCuttingDetItemOutstanding
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         Try
-            Dim dtData As DataTable = BL.PurchaseOrder.ListDataDetailOutstandingCuttingOrder(pubPOID.Trim)
+            Dim dtData As DataTable = BL.PurchaseContract.ListDataDetailOutstandingCutting(clsCS.ProgramID, clsCS.CompanyID, intBPID)
             For Each drParent As DataRow In pubParentItem.Rows
                 For Each dr As DataRow In dtData.Rows
-                    If dr.Item("ID") = drParent.Item("PODetailID") Then dr.Delete()
+                    If dr.Item("ID") = drParent.Item("PCDetailID") Then dr.Delete()
                 Next
                 dtData.AcceptChanges()
             Next

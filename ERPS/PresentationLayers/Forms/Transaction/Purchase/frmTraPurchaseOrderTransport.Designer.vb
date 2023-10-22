@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmTraPurchaseOrderOutstandingForCutting
+Partial Class frmTraPurchaseOrderTransport
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,12 +22,20 @@ Partial Class frmTraPurchaseOrderOutstandingForCutting
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraPurchaseOrderOutstandingForCutting))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraPurchaseOrderTransport))
         Me.ToolBar = New ERPS.usToolBar()
-        Me.BarGet = New System.Windows.Forms.ToolBarButton()
-        Me.BarSep1 = New System.Windows.Forms.ToolBarButton()
+        Me.BarNew = New System.Windows.Forms.ToolBarButton()
         Me.BarDetail = New System.Windows.Forms.ToolBarButton()
+        Me.BarDelete = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep1 = New System.Windows.Forms.ToolBarButton()
+        Me.BarSubmit = New System.Windows.Forms.ToolBarButton()
+        Me.BarCancelSubmit = New System.Windows.Forms.ToolBarButton()
+        Me.BarApprove = New System.Windows.Forms.ToolBarButton()
+        Me.BarCancelApprove = New System.Windows.Forms.ToolBarButton()
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
+        Me.BarPrint = New System.Windows.Forms.ToolBarButton()
+        Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
@@ -55,7 +63,7 @@ Partial Class frmTraPurchaseOrderOutstandingForCutting
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarGet, Me.BarSep1, Me.BarDetail, Me.BarSep2, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarPrint, Me.BarExportExcel, Me.BarSep3, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -64,16 +72,11 @@ Partial Class frmTraPurchaseOrderOutstandingForCutting
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
-        'BarGet
+        'BarNew
         '
-        Me.BarGet.Name = "BarGet"
-        Me.BarGet.Tag = "Get"
-        Me.BarGet.Text = "Ambil"
-        '
-        'BarSep1
-        '
-        Me.BarSep1.Name = "BarSep1"
-        Me.BarSep1.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        Me.BarNew.Name = "BarNew"
+        Me.BarNew.Tag = "New"
+        Me.BarNew.Text = "Baru"
         '
         'BarDetail
         '
@@ -81,10 +84,62 @@ Partial Class frmTraPurchaseOrderOutstandingForCutting
         Me.BarDetail.Tag = "Detail"
         Me.BarDetail.Text = "Edit"
         '
+        'BarDelete
+        '
+        Me.BarDelete.Name = "BarDelete"
+        Me.BarDelete.Tag = "Delete"
+        Me.BarDelete.Text = "Hapus"
+        '
+        'BarSep1
+        '
+        Me.BarSep1.Name = "BarSep1"
+        Me.BarSep1.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarSubmit
+        '
+        Me.BarSubmit.Name = "BarSubmit"
+        Me.BarSubmit.Tag = "Submit"
+        Me.BarSubmit.Text = "Submit"
+        '
+        'BarCancelSubmit
+        '
+        Me.BarCancelSubmit.Name = "BarCancelSubmit"
+        Me.BarCancelSubmit.Tag = "Cancel"
+        Me.BarCancelSubmit.Text = "Batal Submit"
+        '
+        'BarApprove
+        '
+        Me.BarApprove.Name = "BarApprove"
+        Me.BarApprove.Tag = "Approved"
+        Me.BarApprove.Text = "Approve"
+        '
+        'BarCancelApprove
+        '
+        Me.BarCancelApprove.Name = "BarCancelApprove"
+        Me.BarCancelApprove.Tag = "Cancel"
+        Me.BarCancelApprove.Text = "Batal Approve"
+        '
         'BarSep2
         '
         Me.BarSep2.Name = "BarSep2"
         Me.BarSep2.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarPrint
+        '
+        Me.BarPrint.Name = "BarPrint"
+        Me.BarPrint.Tag = "Print"
+        Me.BarPrint.Text = "Print"
+        '
+        'BarExportExcel
+        '
+        Me.BarExportExcel.Name = "BarExportExcel"
+        Me.BarExportExcel.Tag = "Excel"
+        Me.BarExportExcel.Text = "Export Excel"
+        '
+        'BarSep3
+        '
+        Me.BarSep3.Name = "BarSep3"
+        Me.BarSep3.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
         'BarRefresh
         '
@@ -121,7 +176,6 @@ Partial Class frmTraPurchaseOrderOutstandingForCutting
         'cboStatus
         '
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
         Me.cboStatus.Location = New System.Drawing.Point(125, 97)
         Me.cboStatus.Name = "cboStatus"
@@ -275,12 +329,12 @@ Partial Class frmTraPurchaseOrderOutstandingForCutting
         '
         Me.grdView.GridControl = Me.grdMain
         Me.grdView.Name = "grdView"
-        Me.grdView.OptionsCustomization.AllowColumnMoving = False
-        Me.grdView.OptionsCustomization.AllowGroup = False
+        Me.grdView.OptionsBehavior.AutoExpandAllGroups = True
         Me.grdView.OptionsView.ColumnAutoWidth = False
         Me.grdView.OptionsView.ShowAutoFilterRow = True
+        Me.grdView.OptionsView.ShowFooter = True
         '
-        'frmTraPurchaseOrderOutstandingForCutting
+        'frmTraPurchaseOrderTransport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -290,8 +344,9 @@ Partial Class frmTraPurchaseOrderOutstandingForCutting
         Me.Controls.Add(Me.PanelControl1)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.Name = "frmTraPurchaseOrderOutstandingForCutting"
-        Me.Text = "Pesanan Pembelian"
+        Me.KeyPreview = True
+        Me.Name = "frmTraPurchaseOrderTransport"
+        Me.Text = "Pesanan Transport / Expedisi"
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl1.ResumeLayout(False)
         Me.PanelControl1.PerformLayout()
@@ -302,10 +357,18 @@ Partial Class frmTraPurchaseOrderOutstandingForCutting
 
     End Sub
     Friend WithEvents ToolBar As ERPS.usToolBar
-    Friend WithEvents BarGet As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarSep1 As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarNew As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarDetail As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarDelete As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarSep1 As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarSubmit As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarCancelSubmit As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarApprove As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarCancelApprove As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarSep2 As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarPrint As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarExportExcel As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarSep3 As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarRefresh As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarClose As System.Windows.Forms.ToolBarButton
     Friend WithEvents PanelControl1 As DevExpress.XtraEditors.PanelControl

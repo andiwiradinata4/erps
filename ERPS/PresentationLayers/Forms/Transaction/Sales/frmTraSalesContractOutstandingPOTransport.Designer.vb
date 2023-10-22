@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmTraSalesContractDetItemOutstanding
+Partial Class frmTraSalesContractOutstandingPOTransport
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -90,7 +90,7 @@ Partial Class frmTraSalesContractDetItemOutstanding
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
-        'frmTraSalesContractDetItemOutstanding
+        'frmTraSalesContractOutstandingPOTransport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -99,10 +99,8 @@ Partial Class frmTraSalesContractDetItemOutstanding
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.KeyPreview = True
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
-        Me.Name = "frmTraSalesContractDetItemOutstanding"
-        Me.Text = "Pesanan"
+        Me.Name = "frmTraSalesContractOutstandingPOTransport"
+        Me.Text = "Kontrak Penjualan"
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

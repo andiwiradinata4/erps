@@ -260,6 +260,7 @@ Public Class frmTraConfirmationOrderDet
                 prvQueryItem()
                 prvQueryHistory()
                 prvQueryPaymentTerm()
+                prvSetupTools()
             Else
                 Me.Close()
             End If

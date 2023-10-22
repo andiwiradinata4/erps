@@ -12,6 +12,14 @@
             End Using
         End Function
 
+        Public Shared Function ListDataOustandingPOTransport(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                             ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.SalesContract.ListDataOustandingPOTransport(sqlCon, Nothing, intProgramID, intCompanyID, intBPID)
+            End Using
+        End Function
+
         Public Shared Function ListDataOutstanding(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
                                                    ByVal intBPID As Integer) As DataTable
             BL.Server.ServerDefault()
@@ -422,6 +430,14 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.SalesContract.ListDataDetail(sqlCon, Nothing, strSCID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailOutstandingTransport(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                  ByVal strSCID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.SalesContract.ListDataDetailOutstandingTransport(sqlCon, Nothing, intProgramID, intCompanyID, strSCID)
             End Using
         End Function
 

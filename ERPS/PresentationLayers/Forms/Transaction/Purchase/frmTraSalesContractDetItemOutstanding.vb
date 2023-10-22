@@ -1,3 +1,0 @@
-﻿Public Class frmTraSalesContractDetItemOutstanding
-
-End Class

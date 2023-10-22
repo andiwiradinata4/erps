@@ -199,7 +199,7 @@
     Private Sub prvChooseItem()
         Dim frmDetail As New frmTraConfirmationOrderOutstandingSalesContract
         With frmDetail
-            .pubParentItem = dtParent
+            .pubParentItem = dtParentAll
             .pubCS = clsCS
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)

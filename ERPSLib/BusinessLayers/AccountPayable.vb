@@ -36,7 +36,11 @@
                         If clsData.Modules.Trim = VO.AccountPayable.PurchaseBalance Then
                             dtItem = DL.AccountPayable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, clsData.ID)
                         ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPayment Or
-                            clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
+                            clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Or
+                            clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Or
+                            clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Or
+                            clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Or
+                            clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
                             dtItem = DL.AccountPayable.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
                         End If
 
@@ -51,6 +55,14 @@
                                 DL.PurchaseContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
                             ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
                                 DL.PurchaseContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                            ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then
+                                DL.PurchaseOrderCutting.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                            ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                                DL.PurchaseOrderCutting.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                            ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Then
+                                DL.PurchaseOrderTransport.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                            ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                                DL.PurchaseOrderTransport.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
                             End If
                         Next
                     End If
@@ -88,6 +100,14 @@
                             DL.PurchaseContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.PurchaseID)
                         ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
                             DL.PurchaseContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.PurchaseID)
+                        ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then
+                            DL.PurchaseOrderCutting.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.PurchaseID)
+                        ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                            DL.PurchaseOrderCutting.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.PurchaseID)
+                        ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Then
+                            DL.PurchaseOrderTransport.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.PurchaseID)
+                        ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                            DL.PurchaseOrderTransport.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.PurchaseID)
                         End If
                     Next
 
@@ -134,7 +154,11 @@
                     If strModules.Trim = VO.AccountPayable.PurchaseBalance Then
                         dtItem = DL.AccountPayable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, strID)
                     ElseIf strModules.Trim = VO.AccountPayable.DownPayment Or
-                        strModules.Trim = VO.AccountPayable.ReceivePayment Then
+                        strModules.Trim = VO.AccountPayable.ReceivePayment Or
+                        strModules.Trim = VO.AccountPayable.DownPaymentCutting Or
+                        strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Or
+                        strModules.Trim = VO.AccountPayable.DownPaymentTransport Or
+                        strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
                         dtItem = DL.AccountPayable.ListDataDetail(sqlCon, sqlTrans, strID)
                     End If
 
@@ -149,6 +173,14 @@
                             DL.PurchaseContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
                         ElseIf strModules.Trim = VO.AccountPayable.ReceivePayment Then
                             DL.PurchaseContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                        ElseIf strModules.Trim = VO.AccountPayable.DownPaymentCutting Then
+                            DL.PurchaseOrderCutting.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                        ElseIf strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                            DL.PurchaseOrderCutting.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                        ElseIf strModules.Trim = VO.AccountPayable.DownPaymentTransport Then
+                            DL.PurchaseOrderTransport.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                        ElseIf strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                            DL.PurchaseOrderTransport.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
                         End If
                     Next
 
@@ -267,6 +299,14 @@
                         strJournalDetailRemarks = "PEMBAYARAN SALDO - " & clsData.APNumber
                     ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
                         strJournalDetailRemarks = "PEMBAYARAN HUTANG PEMBELIAN - " & clsData.APNumber
+                    ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then
+                        strJournalDetailRemarks = "PEMBAYARAN PANJAR PESANAN PEMOTONGAN - " & clsData.APNumber
+                    ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                        strJournalDetailRemarks = "PEMBAYARAN HUTANG PESANAN PEMOTONGAN - " & clsData.APNumber
+                    ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Then
+                        strJournalDetailRemarks = "PEMBAYARAN PANJAR PESANAN PENGIRIMAN - " & clsData.APNumber
+                    ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                        strJournalDetailRemarks = "PEMBAYARAN HUTANG PESANAN PENGIRIMAN - " & clsData.APNumber
                     End If
 
                     clsJournalDetail.Add(New VO.JournalDet With
@@ -474,6 +514,22 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.AccountPayable.ListDataDetailWithOutstanding(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailWithOutstandingPurchaseOrderCutting(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                                 ByVal intBPID As Integer, ByVal strAPID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.AccountPayable.ListDataDetailWithOutstandingPurchaseOrderCutting(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailWithOutstandingPurchaseOrderTransport(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                                   ByVal intBPID As Integer, ByVal strAPID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.AccountPayable.ListDataDetailWithOutstandingPurchaseOrderTransport(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID)
             End Using
         End Function
 

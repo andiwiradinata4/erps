@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmTraSalesContract
+Partial Class frmTraCutting
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,7 +22,7 @@ Partial Class frmTraSalesContract
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraSalesContract))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraCutting))
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarNew = New System.Windows.Forms.ToolBarButton()
         Me.BarDetail = New System.Windows.Forms.ToolBarButton()
@@ -30,10 +30,7 @@ Partial Class frmTraSalesContract
         Me.BarSep1 = New System.Windows.Forms.ToolBarButton()
         Me.BarSubmit = New System.Windows.Forms.ToolBarButton()
         Me.BarCancelSubmit = New System.Windows.Forms.ToolBarButton()
-        Me.BarApprove = New System.Windows.Forms.ToolBarButton()
-        Me.BarCancelApprove = New System.Windows.Forms.ToolBarButton()
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
-        Me.BarPrint = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
@@ -63,7 +60,7 @@ Partial Class frmTraSalesContract
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarPrint, Me.BarExportExcel, Me.BarSep3, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarSep2, Me.BarExportExcel, Me.BarSep3, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -107,28 +104,10 @@ Partial Class frmTraSalesContract
         Me.BarCancelSubmit.Tag = "Cancel"
         Me.BarCancelSubmit.Text = "Batal Submit"
         '
-        'BarApprove
-        '
-        Me.BarApprove.Name = "BarApprove"
-        Me.BarApprove.Tag = "Approved"
-        Me.BarApprove.Text = "Approve"
-        '
-        'BarCancelApprove
-        '
-        Me.BarCancelApprove.Name = "BarCancelApprove"
-        Me.BarCancelApprove.Tag = "Cancel"
-        Me.BarCancelApprove.Text = "Batal Approve"
-        '
         'BarSep2
         '
         Me.BarSep2.Name = "BarSep2"
         Me.BarSep2.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
-        '
-        'BarPrint
-        '
-        Me.BarPrint.Name = "BarPrint"
-        Me.BarPrint.Tag = "Print"
-        Me.BarPrint.Text = "Print"
         '
         'BarExportExcel
         '
@@ -334,7 +313,7 @@ Partial Class frmTraSalesContract
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
-        'frmTraSalesContract
+        'frmTraCutting
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -345,8 +324,8 @@ Partial Class frmTraSalesContract
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.KeyPreview = True
-        Me.Name = "frmTraSalesContract"
-        Me.Text = "Kontrak Penjualan"
+        Me.Name = "frmTraCutting"
+        Me.Text = "Proses Pemotongan"
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl1.ResumeLayout(False)
         Me.PanelControl1.PerformLayout()
@@ -363,10 +342,7 @@ Partial Class frmTraSalesContract
     Friend WithEvents BarSep1 As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarSubmit As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarCancelSubmit As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarApprove As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarCancelApprove As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarSep2 As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarPrint As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarExportExcel As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarSep3 As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarRefresh As System.Windows.Forms.ToolBarButton

@@ -65,10 +65,11 @@ Partial Class frmSysMain
         Me.mnuTransaksiPembelianPenerimaanPembelian = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembelianSep1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuTransaksiPembelianPesananPemotongan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembelianProsesPemotongan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembelianSep2 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuTransaksiPembelianPesananPengiriman = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembelianInstruksi = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembelianKonfirmasiPengiriman = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuTransaksiPembelianProsesPemotonganSPK = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuanPelunasanSaldoAwal = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuanPembayaranSaldoAwal = New System.Windows.Forms.ToolStripMenuItem()
@@ -82,6 +83,9 @@ Partial Class frmSysMain
         Me.mnuTransaksiPembukuanPelunasanPiutangPenjualan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuanPembayaranHutangPembelian = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuanSep4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.mnuTransaksiPembukuanPanjarPesananPemotongan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembukuanPembayaranHutangPesananPemotongan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembukuanSep5 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuTransaksiPembukuanPembayaranBiaya = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuanJurnalUmum = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLaporan = New System.Windows.Forms.ToolStripMenuItem()
@@ -95,6 +99,9 @@ Partial Class frmSysMain
         Me.mnuWindowsCascade = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuWindowsCloseAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLogout = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.mnuTransaksiPembukuanPanjarPesananPengiriman = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembukuanPembayaranHutangPesananPengiriman = New System.Windows.Forms.ToolStripMenuItem()
         Me.ssMain.SuspendLayout()
         Me.mnuMain.SuspendLayout()
         Me.SuspendLayout()
@@ -359,7 +366,7 @@ Partial Class frmSysMain
         '
         'mnuTransaksiPembelian
         '
-        Me.mnuTransaksiPembelian.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPembelianPesananPembelian, Me.mnuTransaksiPembelianKonfirmasiPesanan, Me.mnuTransaksiPembelianKontrakPembelian, Me.mnuTransaksiPembelianPenerimaanPembelian, Me.mnuTransaksiPembelianSep1, Me.mnuTransaksiPembelianPesananPemotongan, Me.mnuTransaksiPembelianPesananPengiriman, Me.mnuTransaksiPembelianInstruksi, Me.mnuTransaksiPembelianKonfirmasiPengiriman, Me.mnuTransaksiPembelianProsesPemotonganSPK})
+        Me.mnuTransaksiPembelian.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPembelianPesananPembelian, Me.mnuTransaksiPembelianKonfirmasiPesanan, Me.mnuTransaksiPembelianKontrakPembelian, Me.mnuTransaksiPembelianPenerimaanPembelian, Me.mnuTransaksiPembelianSep1, Me.mnuTransaksiPembelianPesananPemotongan, Me.mnuTransaksiPembelianProsesPemotongan, Me.mnuTransaksiPembelianSep2, Me.mnuTransaksiPembelianPesananPengiriman, Me.mnuTransaksiPembelianInstruksi, Me.mnuTransaksiPembelianKonfirmasiPengiriman})
         Me.mnuTransaksiPembelian.Name = "mnuTransaksiPembelian"
         Me.mnuTransaksiPembelian.Size = New System.Drawing.Size(152, 22)
         Me.mnuTransaksiPembelian.Text = "Pembelian"
@@ -367,65 +374,70 @@ Partial Class frmSysMain
         'mnuTransaksiPembelianPesananPembelian
         '
         Me.mnuTransaksiPembelianPesananPembelian.Name = "mnuTransaksiPembelianPesananPembelian"
-        Me.mnuTransaksiPembelianPesananPembelian.Size = New System.Drawing.Size(211, 22)
+        Me.mnuTransaksiPembelianPesananPembelian.Size = New System.Drawing.Size(196, 22)
         Me.mnuTransaksiPembelianPesananPembelian.Text = "Pesanan Pembelian"
         '
         'mnuTransaksiPembelianKonfirmasiPesanan
         '
         Me.mnuTransaksiPembelianKonfirmasiPesanan.Name = "mnuTransaksiPembelianKonfirmasiPesanan"
-        Me.mnuTransaksiPembelianKonfirmasiPesanan.Size = New System.Drawing.Size(211, 22)
+        Me.mnuTransaksiPembelianKonfirmasiPesanan.Size = New System.Drawing.Size(196, 22)
         Me.mnuTransaksiPembelianKonfirmasiPesanan.Text = "Konfirmasi Pesanan"
         '
         'mnuTransaksiPembelianKontrakPembelian
         '
         Me.mnuTransaksiPembelianKontrakPembelian.Name = "mnuTransaksiPembelianKontrakPembelian"
-        Me.mnuTransaksiPembelianKontrakPembelian.Size = New System.Drawing.Size(211, 22)
+        Me.mnuTransaksiPembelianKontrakPembelian.Size = New System.Drawing.Size(196, 22)
         Me.mnuTransaksiPembelianKontrakPembelian.Text = "Kontrak Pembelian"
         '
         'mnuTransaksiPembelianPenerimaanPembelian
         '
         Me.mnuTransaksiPembelianPenerimaanPembelian.Name = "mnuTransaksiPembelianPenerimaanPembelian"
-        Me.mnuTransaksiPembelianPenerimaanPembelian.Size = New System.Drawing.Size(211, 22)
+        Me.mnuTransaksiPembelianPenerimaanPembelian.Size = New System.Drawing.Size(196, 22)
         Me.mnuTransaksiPembelianPenerimaanPembelian.Text = "Penerimaan Pembelian"
         '
         'mnuTransaksiPembelianSep1
         '
         Me.mnuTransaksiPembelianSep1.Name = "mnuTransaksiPembelianSep1"
-        Me.mnuTransaksiPembelianSep1.Size = New System.Drawing.Size(208, 6)
+        Me.mnuTransaksiPembelianSep1.Size = New System.Drawing.Size(193, 6)
         '
         'mnuTransaksiPembelianPesananPemotongan
         '
         Me.mnuTransaksiPembelianPesananPemotongan.Name = "mnuTransaksiPembelianPesananPemotongan"
-        Me.mnuTransaksiPembelianPesananPemotongan.Size = New System.Drawing.Size(211, 22)
+        Me.mnuTransaksiPembelianPesananPemotongan.Size = New System.Drawing.Size(196, 22)
         Me.mnuTransaksiPembelianPesananPemotongan.Text = "Pesanan Pemotongan"
+        '
+        'mnuTransaksiPembelianProsesPemotongan
+        '
+        Me.mnuTransaksiPembelianProsesPemotongan.Name = "mnuTransaksiPembelianProsesPemotongan"
+        Me.mnuTransaksiPembelianProsesPemotongan.Size = New System.Drawing.Size(196, 22)
+        Me.mnuTransaksiPembelianProsesPemotongan.Text = "Proses Pemotongan"
+        '
+        'mnuTransaksiPembelianSep2
+        '
+        Me.mnuTransaksiPembelianSep2.Name = "mnuTransaksiPembelianSep2"
+        Me.mnuTransaksiPembelianSep2.Size = New System.Drawing.Size(193, 6)
         '
         'mnuTransaksiPembelianPesananPengiriman
         '
         Me.mnuTransaksiPembelianPesananPengiriman.Name = "mnuTransaksiPembelianPesananPengiriman"
-        Me.mnuTransaksiPembelianPesananPengiriman.Size = New System.Drawing.Size(211, 22)
+        Me.mnuTransaksiPembelianPesananPengiriman.Size = New System.Drawing.Size(196, 22)
         Me.mnuTransaksiPembelianPesananPengiriman.Text = "Pesanan Pengiriman"
         '
         'mnuTransaksiPembelianInstruksi
         '
         Me.mnuTransaksiPembelianInstruksi.Name = "mnuTransaksiPembelianInstruksi"
-        Me.mnuTransaksiPembelianInstruksi.Size = New System.Drawing.Size(211, 22)
+        Me.mnuTransaksiPembelianInstruksi.Size = New System.Drawing.Size(196, 22)
         Me.mnuTransaksiPembelianInstruksi.Text = "Instruksi"
         '
         'mnuTransaksiPembelianKonfirmasiPengiriman
         '
         Me.mnuTransaksiPembelianKonfirmasiPengiriman.Name = "mnuTransaksiPembelianKonfirmasiPengiriman"
-        Me.mnuTransaksiPembelianKonfirmasiPengiriman.Size = New System.Drawing.Size(211, 22)
+        Me.mnuTransaksiPembelianKonfirmasiPengiriman.Size = New System.Drawing.Size(196, 22)
         Me.mnuTransaksiPembelianKonfirmasiPengiriman.Text = "Konfirmasi Pengiriman"
-        '
-        'mnuTransaksiPembelianProsesPemotonganSPK
-        '
-        Me.mnuTransaksiPembelianProsesPemotonganSPK.Name = "mnuTransaksiPembelianProsesPemotonganSPK"
-        Me.mnuTransaksiPembelianProsesPemotonganSPK.Size = New System.Drawing.Size(211, 22)
-        Me.mnuTransaksiPembelianProsesPemotonganSPK.Text = "Proses Pemotongan (SPK)"
         '
         'mnuTransaksiPembukuan
         '
-        Me.mnuTransaksiPembukuan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPembukuanPelunasanSaldoAwal, Me.mnuTransaksiPembukuanPembayaranSaldoAwal, Me.mnuTransaksiPembukuanSep1, Me.mnuTransaksiPembukuanPanjarPenjualanManual, Me.mnuTransaksiPembukuanPanjarPembelianManual, Me.mnuTransaksiPembukuanSep2, Me.mnuTransaksiPembukuanPanjarPenjualan, Me.mnuTransaksiPembukuanPanjarPembelian, Me.mnuTransaksiPembukuanSep3, Me.mnuTransaksiPembukuanPelunasanPiutangPenjualan, Me.mnuTransaksiPembukuanPembayaranHutangPembelian, Me.mnuTransaksiPembukuanSep4, Me.mnuTransaksiPembukuanPembayaranBiaya, Me.mnuTransaksiPembukuanJurnalUmum})
+        Me.mnuTransaksiPembukuan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPembukuanPelunasanSaldoAwal, Me.mnuTransaksiPembukuanPembayaranSaldoAwal, Me.mnuTransaksiPembukuanSep1, Me.mnuTransaksiPembukuanPanjarPenjualanManual, Me.mnuTransaksiPembukuanPanjarPembelianManual, Me.mnuTransaksiPembukuanSep2, Me.mnuTransaksiPembukuanPanjarPenjualan, Me.mnuTransaksiPembukuanPanjarPembelian, Me.mnuTransaksiPembukuanSep3, Me.mnuTransaksiPembukuanPelunasanPiutangPenjualan, Me.mnuTransaksiPembukuanPembayaranHutangPembelian, Me.mnuTransaksiPembukuanSep4, Me.mnuTransaksiPembukuanPanjarPesananPemotongan, Me.mnuTransaksiPembukuanPembayaranHutangPesananPemotongan, Me.mnuTransaksiPembukuanSep5, Me.mnuTransaksiPembukuanPanjarPesananPengiriman, Me.mnuTransaksiPembukuanPembayaranHutangPesananPengiriman, Me.ToolStripSeparator1, Me.mnuTransaksiPembukuanPembayaranBiaya, Me.mnuTransaksiPembukuanJurnalUmum})
         Me.mnuTransaksiPembukuan.Name = "mnuTransaksiPembukuan"
         Me.mnuTransaksiPembukuan.Size = New System.Drawing.Size(152, 22)
         Me.mnuTransaksiPembukuan.Text = "Pembukuan"
@@ -433,81 +445,98 @@ Partial Class frmSysMain
         'mnuTransaksiPembukuanPelunasanSaldoAwal
         '
         Me.mnuTransaksiPembukuanPelunasanSaldoAwal.Name = "mnuTransaksiPembukuanPelunasanSaldoAwal"
-        Me.mnuTransaksiPembukuanPelunasanSaldoAwal.Size = New System.Drawing.Size(242, 22)
+        Me.mnuTransaksiPembukuanPelunasanSaldoAwal.Size = New System.Drawing.Size(302, 22)
         Me.mnuTransaksiPembukuanPelunasanSaldoAwal.Text = "Pelunasan Saldo Awal"
         '
         'mnuTransaksiPembukuanPembayaranSaldoAwal
         '
         Me.mnuTransaksiPembukuanPembayaranSaldoAwal.Name = "mnuTransaksiPembukuanPembayaranSaldoAwal"
-        Me.mnuTransaksiPembukuanPembayaranSaldoAwal.Size = New System.Drawing.Size(242, 22)
+        Me.mnuTransaksiPembukuanPembayaranSaldoAwal.Size = New System.Drawing.Size(302, 22)
         Me.mnuTransaksiPembukuanPembayaranSaldoAwal.Text = "Pembayaran Saldo Awal"
         '
         'mnuTransaksiPembukuanSep1
         '
         Me.mnuTransaksiPembukuanSep1.Name = "mnuTransaksiPembukuanSep1"
-        Me.mnuTransaksiPembukuanSep1.Size = New System.Drawing.Size(239, 6)
+        Me.mnuTransaksiPembukuanSep1.Size = New System.Drawing.Size(299, 6)
         '
         'mnuTransaksiPembukuanPanjarPenjualanManual
         '
         Me.mnuTransaksiPembukuanPanjarPenjualanManual.Name = "mnuTransaksiPembukuanPanjarPenjualanManual"
-        Me.mnuTransaksiPembukuanPanjarPenjualanManual.Size = New System.Drawing.Size(242, 22)
+        Me.mnuTransaksiPembukuanPanjarPenjualanManual.Size = New System.Drawing.Size(302, 22)
         Me.mnuTransaksiPembukuanPanjarPenjualanManual.Text = "Panjar Penjualan Manual"
         '
         'mnuTransaksiPembukuanPanjarPembelianManual
         '
         Me.mnuTransaksiPembukuanPanjarPembelianManual.Name = "mnuTransaksiPembukuanPanjarPembelianManual"
-        Me.mnuTransaksiPembukuanPanjarPembelianManual.Size = New System.Drawing.Size(242, 22)
+        Me.mnuTransaksiPembukuanPanjarPembelianManual.Size = New System.Drawing.Size(302, 22)
         Me.mnuTransaksiPembukuanPanjarPembelianManual.Text = "Panjar Pembelian Manual"
         '
         'mnuTransaksiPembukuanSep2
         '
         Me.mnuTransaksiPembukuanSep2.Name = "mnuTransaksiPembukuanSep2"
-        Me.mnuTransaksiPembukuanSep2.Size = New System.Drawing.Size(239, 6)
+        Me.mnuTransaksiPembukuanSep2.Size = New System.Drawing.Size(299, 6)
         '
         'mnuTransaksiPembukuanPanjarPenjualan
         '
         Me.mnuTransaksiPembukuanPanjarPenjualan.Name = "mnuTransaksiPembukuanPanjarPenjualan"
-        Me.mnuTransaksiPembukuanPanjarPenjualan.Size = New System.Drawing.Size(242, 22)
+        Me.mnuTransaksiPembukuanPanjarPenjualan.Size = New System.Drawing.Size(302, 22)
         Me.mnuTransaksiPembukuanPanjarPenjualan.Text = "Panjar Penjualan"
         '
         'mnuTransaksiPembukuanPanjarPembelian
         '
         Me.mnuTransaksiPembukuanPanjarPembelian.Name = "mnuTransaksiPembukuanPanjarPembelian"
-        Me.mnuTransaksiPembukuanPanjarPembelian.Size = New System.Drawing.Size(242, 22)
+        Me.mnuTransaksiPembukuanPanjarPembelian.Size = New System.Drawing.Size(302, 22)
         Me.mnuTransaksiPembukuanPanjarPembelian.Text = "Panjar Pembelian"
         '
         'mnuTransaksiPembukuanSep3
         '
         Me.mnuTransaksiPembukuanSep3.Name = "mnuTransaksiPembukuanSep3"
-        Me.mnuTransaksiPembukuanSep3.Size = New System.Drawing.Size(239, 6)
+        Me.mnuTransaksiPembukuanSep3.Size = New System.Drawing.Size(299, 6)
         '
         'mnuTransaksiPembukuanPelunasanPiutangPenjualan
         '
         Me.mnuTransaksiPembukuanPelunasanPiutangPenjualan.Name = "mnuTransaksiPembukuanPelunasanPiutangPenjualan"
-        Me.mnuTransaksiPembukuanPelunasanPiutangPenjualan.Size = New System.Drawing.Size(242, 22)
+        Me.mnuTransaksiPembukuanPelunasanPiutangPenjualan.Size = New System.Drawing.Size(302, 22)
         Me.mnuTransaksiPembukuanPelunasanPiutangPenjualan.Text = "Pelunasan Piutang Penjualan"
         '
         'mnuTransaksiPembukuanPembayaranHutangPembelian
         '
         Me.mnuTransaksiPembukuanPembayaranHutangPembelian.Name = "mnuTransaksiPembukuanPembayaranHutangPembelian"
-        Me.mnuTransaksiPembukuanPembayaranHutangPembelian.Size = New System.Drawing.Size(242, 22)
+        Me.mnuTransaksiPembukuanPembayaranHutangPembelian.Size = New System.Drawing.Size(302, 22)
         Me.mnuTransaksiPembukuanPembayaranHutangPembelian.Text = "Pembayaran Hutang Pembelian"
         '
         'mnuTransaksiPembukuanSep4
         '
         Me.mnuTransaksiPembukuanSep4.Name = "mnuTransaksiPembukuanSep4"
-        Me.mnuTransaksiPembukuanSep4.Size = New System.Drawing.Size(239, 6)
+        Me.mnuTransaksiPembukuanSep4.Size = New System.Drawing.Size(299, 6)
+        '
+        'mnuTransaksiPembukuanPanjarPesananPemotongan
+        '
+        Me.mnuTransaksiPembukuanPanjarPesananPemotongan.Name = "mnuTransaksiPembukuanPanjarPesananPemotongan"
+        Me.mnuTransaksiPembukuanPanjarPesananPemotongan.Size = New System.Drawing.Size(302, 22)
+        Me.mnuTransaksiPembukuanPanjarPesananPemotongan.Text = "Panjar Pesanan Pemotongan"
+        '
+        'mnuTransaksiPembukuanPembayaranHutangPesananPemotongan
+        '
+        Me.mnuTransaksiPembukuanPembayaranHutangPesananPemotongan.Name = "mnuTransaksiPembukuanPembayaranHutangPesananPemotongan"
+        Me.mnuTransaksiPembukuanPembayaranHutangPesananPemotongan.Size = New System.Drawing.Size(302, 22)
+        Me.mnuTransaksiPembukuanPembayaranHutangPesananPemotongan.Text = "Pembayaran Hutang Pesanan Pemotongan"
+        '
+        'mnuTransaksiPembukuanSep5
+        '
+        Me.mnuTransaksiPembukuanSep5.Name = "mnuTransaksiPembukuanSep5"
+        Me.mnuTransaksiPembukuanSep5.Size = New System.Drawing.Size(299, 6)
         '
         'mnuTransaksiPembukuanPembayaranBiaya
         '
         Me.mnuTransaksiPembukuanPembayaranBiaya.Name = "mnuTransaksiPembukuanPembayaranBiaya"
-        Me.mnuTransaksiPembukuanPembayaranBiaya.Size = New System.Drawing.Size(242, 22)
+        Me.mnuTransaksiPembukuanPembayaranBiaya.Size = New System.Drawing.Size(302, 22)
         Me.mnuTransaksiPembukuanPembayaranBiaya.Text = "Pembayaran Biaya"
         '
         'mnuTransaksiPembukuanJurnalUmum
         '
         Me.mnuTransaksiPembukuanJurnalUmum.Name = "mnuTransaksiPembukuanJurnalUmum"
-        Me.mnuTransaksiPembukuanJurnalUmum.Size = New System.Drawing.Size(242, 22)
+        Me.mnuTransaksiPembukuanJurnalUmum.Size = New System.Drawing.Size(302, 22)
         Me.mnuTransaksiPembukuanJurnalUmum.Text = "Jurnal Umum"
         '
         'mnuLaporan
@@ -580,6 +609,23 @@ Partial Class frmSysMain
         Me.mnuLogout.Size = New System.Drawing.Size(57, 20)
         Me.mnuLogout.Text = "L&ogout"
         '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(299, 6)
+        '
+        'mnuTransaksiPembukuanPanjarPesananPengiriman
+        '
+        Me.mnuTransaksiPembukuanPanjarPesananPengiriman.Name = "mnuTransaksiPembukuanPanjarPesananPengiriman"
+        Me.mnuTransaksiPembukuanPanjarPesananPengiriman.Size = New System.Drawing.Size(302, 22)
+        Me.mnuTransaksiPembukuanPanjarPesananPengiriman.Text = "Panjar Pesanan Pengiriman"
+        '
+        'mnuTransaksiPembukuanPembayaranHutangPesananPengiriman
+        '
+        Me.mnuTransaksiPembukuanPembayaranHutangPesananPengiriman.Name = "mnuTransaksiPembukuanPembayaranHutangPesananPengiriman"
+        Me.mnuTransaksiPembukuanPembayaranHutangPesananPengiriman.Size = New System.Drawing.Size(302, 22)
+        Me.mnuTransaksiPembukuanPembayaranHutangPesananPengiriman.Text = "Pembayaran Hutang Pesanan Pengiriman"
+        '
         'frmSysMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -648,7 +694,7 @@ Partial Class frmSysMain
     Friend WithEvents mnuTransaksiPembelianKontrakPembelian As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuTransaksiPembelianInstruksi As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuTransaksiPembelianKonfirmasiPengiriman As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mnuTransaksiPembelianProsesPemotonganSPK As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPembelianProsesPemotongan As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuMasterPaymentTypeCategory As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuMasterMetodePembayaran As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuMasterTipeAkunPerkiraan As System.Windows.Forms.ToolStripMenuItem
@@ -675,4 +721,11 @@ Partial Class frmSysMain
     Friend WithEvents mnuTransaksiPembukuanSep4 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents mnuTransaksiPenjualanSep1 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents mnuTransaksiPembelianPenerimaanPembelian As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPembelianSep2 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents mnuTransaksiPembukuanPanjarPesananPemotongan As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPembukuanPembayaranHutangPesananPemotongan As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPembukuanSep5 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents mnuTransaksiPembukuanPanjarPesananPengiriman As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTransaksiPembukuanPembayaranHutangPesananPengiriman As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
 End Class

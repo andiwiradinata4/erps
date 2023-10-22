@@ -1,0 +1,526 @@
+﻿Imports DevExpress.XtraGrid
+Public Class frmTraCuttingDet
+
+#Region "Property"
+
+    Private frmParent As frmTraCutting
+    Private clsData As VO.Cutting
+    Private intBPID As Integer = 0
+    Private dtItem As New DataTable
+    Private dtItemResult As New DataTable
+    Private intPos As Integer = 0
+    Property pubID As String = ""
+    Property pubIsNew As Boolean = False
+    Property pubCS As New VO.CS
+
+    Public Sub pubShowDialog(ByVal frmGetParent As Form)
+        frmParent = frmGetParent
+        Me.ShowDialog()
+    End Sub
+
+#End Region
+
+    Private Const _
+       cSave As Byte = 0, cClose As Byte = 1, _
+       cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2
+
+    Private Sub prvSetTitleForm()
+        If pubIsNew Then
+            Me.Text += " [baru] "
+        Else
+            Me.Text += " [edit] "
+        End If
+    End Sub
+
+    Private Sub prvResetProgressBar()
+        pgMain.Value = 0
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub prvSetGrid()
+        '# Cutting Detail
+        UI.usForm.SetGrid(grdItemView, "ID", "ID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "CuttingID", "CuttingID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "PODetailID", "PODetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemView, "PONumber", "Nomor Pesanan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+
+        '# Cutting Detail Result
+        UI.usForm.SetGrid(grdItemResultView, "ID", "ID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemResultView, "CuttingID", "CuttingID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemResultView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemResultView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemResultView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemResultView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemResultView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemResultView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemResultView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemResultView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemResultView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemResultView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemResultView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemResultView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemResultView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemResultView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemResultView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        grdItemResultView.Columns("GroupID").GroupIndex = 0
+
+        '# History
+        UI.usForm.SetGrid(grdStatusView, "ID", "ID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdStatusView, "CuttingID", "CuttingID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdStatusView, "Status", "Status", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdStatusView, "StatusBy", "Oleh", 200, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdStatusView, "StatusDate", "Tanggal", 180, UI.usDefGrid.gFullDate)
+        UI.usForm.SetGrid(grdStatusView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+    End Sub
+
+    Private Sub prvFillCombo()
+        Try
+            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionCuttingProcess), "StatusID", "StatusName")
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+            Me.Close()
+        End Try
+    End Sub
+
+    Private Sub prvFillForm()
+        pgMain.Value = 30
+        Application.DoEvents()
+        Me.Cursor = Cursors.WaitCursor
+        prvFillCombo()
+        Try
+            If pubIsNew Then
+                prvClear()
+            Else
+                clsData = New VO.Cutting
+                clsData = BL.Cutting.GetDetail(pubID)
+                txtCuttingNumber.Text = clsData.CuttingNumber
+                intBPID = clsData.BPID
+                txtBPCode.Text = clsData.BPCode
+                txtBPName.Text = clsData.BPName
+                dtpCuttingDate.Value = clsData.CuttingDate
+                txtReferencesNumber.Text = clsData.ReferencesNumber
+                cboStatus.SelectedValue = clsData.StatusID
+                txtRemarks.Text = clsData.Remarks
+                ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
+                ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
+                ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
+
+                dtpCuttingDate.Enabled = False
+            End If
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+            Me.Close()
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+            Application.DoEvents()
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+    Private Sub prvSave()
+        ToolBar.Focus()
+        If txtBPCode.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih pemasok terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtBPCode.Focus()
+            Exit Sub
+        ElseIf cboStatus.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Status kosong. Mohon untuk tutup form dan buka kembali")
+            tcHeader.SelectedTab = tpMain
+            cboStatus.Focus()
+            Exit Sub
+        ElseIf grdItemView.RowCount = 0 Then
+            UI.usForm.frmMessageBox("Item kosong. Mohon untuk diinput item terlebih dahulu")
+            tcDetail.SelectedTab = tpItem
+            grdItemView.Focus()
+            Exit Sub
+        ElseIf grdItemResultView.RowCount = 0 Then
+            UI.usForm.frmMessageBox("Item kosong. Mohon untuk diinput item terlebih dahulu")
+            tcDetail.SelectedTab = tpItemResult
+            grdItemResultView.Focus()
+            Exit Sub
+        End If
+
+        Dim frmDetail As New usFormSave
+        Dim intSave As VO.Save.Action
+        With frmDetail
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsSave Then intSave = .pubValue
+            If intSave = VO.Save.Action.CancelSave Then Exit Sub
+        End With
+
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 30
+        Application.DoEvents()
+
+        Dim listDetail As New List(Of VO.CuttingDet)
+        For Each dr As DataRow In dtItem.Rows
+            listDetail.Add(New ERPSLib.VO.CuttingDet With
+                           {
+                               .PODetailID = dr.Item("PODetailID"),
+                               .GroupID = dr.Item("GroupID"),
+                               .ItemID = dr.Item("ItemID"),
+                               .Quantity = dr.Item("Quantity"),
+                               .Weight = dr.Item("Weight"),
+                               .TotalWeight = dr.Item("TotalWeight"),
+                               .Remarks = dr.Item("Remarks")
+                           })
+        Next
+
+        Dim listDetailResult As New List(Of VO.CuttingDetResult)
+        For Each dr As DataRow In dtItemResult.Rows
+            listDetailResult.Add(New ERPSLib.VO.CuttingDetResult With
+                                {
+                                    .GroupID = dr.Item("GroupID"),
+                                    .ItemID = dr.Item("ItemID"),
+                                    .Quantity = dr.Item("Quantity"),
+                                    .Weight = dr.Item("Weight"),
+                                    .TotalWeight = dr.Item("TotalWeight"),
+                                    .Remarks = dr.Item("Remarks")
+                                })
+        Next
+
+        clsData = New VO.Cutting
+        clsData.ID = pubID
+        clsData.ProgramID = pubCS.ProgramID
+        clsData.CompanyID = pubCS.CompanyID
+        clsData.CuttingNumber = txtCuttingNumber.Text.Trim
+        clsData.CuttingDate = dtpCuttingDate.Value.Date
+        clsData.BPID = intBPID
+        clsData.ReferencesNumber = txtReferencesNumber.Text.Trim
+        clsData.TotalQuantity = grdItemView.Columns("Quantity").SummaryItem.SummaryValue
+        clsData.TotalWeight = grdItemView.Columns("TotalWeight").SummaryItem.SummaryValue
+        clsData.Remarks = txtRemarks.Text.Trim
+        clsData.StatusID = cboStatus.SelectedValue
+        clsData.Detail = listDetail
+        clsData.DetailResult = listDetailResult
+        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+        clsData.Save = intSave
+
+        pgMain.Value = 60
+        Application.DoEvents()
+
+        Try
+            Dim strCuttingNumber As String = BL.Cutting.SaveData(pubIsNew, clsData)
+            UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strCuttingNumber)
+            pgMain.Value = 80
+            Application.DoEvents()
+            frmParent.pubRefresh(strCuttingNumber)
+            If pubIsNew Then
+                prvClear()
+                prvQueryItem()
+                prvQueryItemResult()
+                prvQueryHistory()
+                prvSetupTools()
+            Else
+                Me.Close()
+            End If
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            pgMain.Value = 100
+            Application.DoEvents()
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+    Private Sub prvClear()
+        txtBPCode.Focus()
+        tcHeader.SelectedTab = tpMain
+        pubID = ""
+        txtCuttingNumber.Text = ""
+        intBPID = 0
+        txtBPCode.Text = ""
+        txtBPName.Text = ""
+        dtpCuttingDate.Value = Now
+        txtReferencesNumber.Text = ""
+        txtRemarks.Text = ""
+        cboStatus.SelectedValue = VO.Status.Values.Draft
+        ToolStripLogInc.Text = "Jumlah Edit : -"
+        ToolStripLogBy.Text = "Dibuat Oleh : -"
+        ToolStripLogDate.Text = Format(Now, UI.usDefCons.DateFull)
+    End Sub
+
+    Private Sub prvChooseBP()
+        Dim frmDetail As New frmMstBusinessPartner
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intBPID = .pubLUdtRow.Item("ID")
+                txtBPCode.Text = .pubLUdtRow.Item("Code")
+                txtBPName.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub prvSumGrid()
+        '# Item
+        Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
+        Dim SumGrandTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
+
+        If grdItemView.Columns("Quantity").SummaryText.Trim = "" Then
+            grdItemView.Columns("Quantity").Summary.Add(SumTotalQuantity)
+        End If
+
+        If grdItemView.Columns("TotalWeight").SummaryText.Trim = "" Then
+            grdItemView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeight)
+        End If
+        grdItemView.BestFitColumns()
+
+        '# Item Result
+        Dim SumTotalQuantityResult As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
+        Dim SumGrandTotalWeightResult As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
+
+        If grdItemResultView.Columns("Quantity").SummaryText.Trim = "" Then
+            grdItemResultView.Columns("Quantity").Summary.Add(SumTotalQuantityResult)
+        End If
+
+        If grdItemResultView.Columns("TotalWeight").SummaryText.Trim = "" Then
+            grdItemResultView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeightResult)
+        End If
+        grdItemResultView.BestFitColumns()
+    End Sub
+
+    Private Sub prvUserAccess()
+        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCuttingProcess, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
+    End Sub
+
+    Private Sub prvSetupTools()
+        Dim bolEnabled As Boolean = IIf(grdItemView.RowCount = 0, True, False)
+        btnBP.Enabled = bolEnabled
+        grdItemResultView.ExpandAllGroups()
+    End Sub
+
+#Region "Item Handle"
+
+    Private Sub prvSetButtonItem()
+        Dim bolEnabled As Boolean = IIf(grdItemView.RowCount = 0, False, True)
+        With ToolBarItem
+            .Buttons(cEditItem).Enabled = bolEnabled
+            .Buttons(cDeleteItem).Enabled = bolEnabled
+        End With
+    End Sub
+
+    Private Sub prvQueryItem()
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 30
+        Application.DoEvents()
+        Try
+            dtItem = BL.Cutting.ListDataDetail(pubID.Trim)
+            grdItem.DataSource = dtItem
+            prvSumGrid()
+            grdItemView.BestFitColumns()
+            prvSetupTools()
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+            Me.Close()
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+            Application.DoEvents()
+            prvSetButtonItem()
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+    Private Sub prvAddItem()
+        If txtBPCode.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih Pemasok terlebih dahulu")
+            txtBPCode.Focus()
+            Exit Sub
+        End If
+        Dim frmDetail As New frmTraCuttingDetItem
+        With frmDetail
+            .pubIsNew = True
+            .pubCS = pubCS
+            .pubBPID = intBPID
+            .pubTableItem = dtItem
+            .pubTableItemResultParent = dtItemResult
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            prvSetButtonItem()
+            prvSetupTools()
+        End With
+    End Sub
+
+    Private Sub prvEditItem()
+        intPos = grdItemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim frmDetail As New frmTraCuttingDetItem
+        With frmDetail
+            .pubIsNew = False
+            .pubCS = pubCS
+            .pubBPID = intBPID
+            .pubTableItem = dtItem
+            .pubTableItemResultParent = dtItemResult
+            .pubDataRowSelected = grdItemView.GetDataRow(intPos)
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            prvSetButtonItem()
+            prvSetupTools()
+        End With
+    End Sub
+
+    Private Sub prvDeleteItem()
+        intPos = grdItemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdItemView.GetRowCellValue(intPos, "ID")
+        Dim intGroupID As Integer = grdItemView.GetRowCellValue(intPos, "GroupID")
+
+        '# Delete Item
+        For Each dr As DataRow In dtItem.Rows
+            If dr.Item("ID") = strID Then dr.Delete() : Exit For
+        Next
+        dtItem.AcceptChanges()
+
+        '# Delete Item Result
+        For Each dr As DataRow In dtItemResult.Rows
+            If dr.Item("GroupID") = intGroupID Then dr.Delete()
+        Next
+        dtItemResult.AcceptChanges()
+
+        '# Update Group ID Item
+        For Each dr As DataRow In dtItem.Rows
+            If dr.Item("GroupID") > intGroupID Then
+                dr.BeginEdit()
+                dr.Item("GroupID") = dr.Item("GroupID") - 1
+                dr.EndEdit()
+            End If
+        Next
+        dtItem.AcceptChanges()
+
+        '# Update Group ID Result
+        For Each dr As DataRow In dtItemResult.Rows
+            If dr.Item("GroupID") > intGroupID Then
+                dr.BeginEdit()
+                dr.Item("GroupID") = dr.Item("GroupID") - 1
+                dr.EndEdit()
+            End If
+        Next
+        dtItemResult.AcceptChanges()
+
+        prvSetButtonItem()
+        prvSetupTools()
+    End Sub
+
+#End Region
+
+#Region "Item Result Handle"
+
+    Private Sub prvQueryItemResult()
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 30
+        Application.DoEvents()
+        Try
+            dtItemResult = BL.Cutting.ListDataDetailResult(pubID.Trim)
+            grdItemResult.DataSource = dtItemResult
+            prvSumGrid()
+            grdItemView.BestFitColumns()
+            prvSetupTools()
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+            Me.Close()
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+            Application.DoEvents()
+            prvSetButtonItem()
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+#End Region
+
+#Region "History Handle"
+
+    Private Sub prvQueryHistory()
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 30
+        Application.DoEvents()
+        Try
+            grdStatus.DataSource = BL.Cutting.ListDataStatus(pubID.Trim)
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+            Application.DoEvents()
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+#End Region
+
+#Region "Form Handle"
+
+    Private Sub frmTraCuttingDet_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        If e.KeyCode = Keys.F1 Then
+            tcHeader.SelectedTab = tpMain
+        ElseIf e.KeyCode = Keys.F2 Then
+            tcHeader.SelectedTab = tpHistory
+        ElseIf e.KeyCode = Keys.F3 Then
+            tcDetail.SelectedTab = tpItem
+        ElseIf e.KeyCode = Keys.F4 Then
+            tcDetail.SelectedTab = tpItemResult
+        ElseIf e.KeyCode = Keys.Escape Then
+            If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
+        ElseIf (e.Control And e.KeyCode = Keys.S) Then
+            prvSave()
+        End If
+    End Sub
+
+    Private Sub frmTraCuttingDet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        UI.usForm.SetIcon(Me, "MyLogo")
+        ToolBar.SetIcon(Me)
+        ToolBarItem.SetIcon(Me)
+        prvSetTitleForm()
+        prvSetGrid()
+        prvFillForm()
+        prvQueryItem()
+        prvQueryItemResult()
+        prvQueryHistory()
+        prvUserAccess()
+    End Sub
+
+    Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
+        Select Case e.Button.Text.Trim
+            Case "Simpan" : prvSave()
+            Case "Tutup" : Me.Close()
+        End Select
+    End Sub
+
+    Private Sub ToolBarItem_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarItem.ButtonClick
+        Select Case e.Button.Text.Trim
+            Case "Tambah" : prvAddItem()
+            Case "Edit" : prvEditItem()
+            Case "Hapus" : prvDeleteItem()
+        End Select
+    End Sub
+
+    Private Sub btnBP_Click(sender As Object, e As EventArgs) Handles btnBP.Click
+        prvChooseBP()
+    End Sub
+
+#End Region
+
+End Class

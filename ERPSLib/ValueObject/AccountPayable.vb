@@ -35,6 +35,9 @@
         Public Const DownPaymentManual As String = "PDM"
         Public Const DownPayment As String = "PDP"
         Public Const ReceivePayment As String = "PI"
-
+        Public Const DownPaymentCutting As String = "CDP"
+        Public Const ReceivePaymentCutting As String = "CI"
+        Public Const DownPaymentTransport As String = "TDP"
+        Public Const ReceivePaymentTransport As String = "TI"
     End Class
 End Namespace

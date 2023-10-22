@@ -46,6 +46,47 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataOustandingPOTransport(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                             ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                             ByVal intBPID As Integer) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "SELECT DISTINCT " & vbNewLine & _
+                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.SCNumber, A.SCDate, " & vbNewLine & _
+                    "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.AllowanceProduction, A.Franco, " & vbNewLine & _
+                    "   A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine & _
+                    "   A.Remarks, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
+                    "FROM traSalesContract A " & vbNewLine & _
+                    "INNER JOIN traSalesContractDet A1 ON " & vbNewLine & _
+                    "   A.ID=A1.SCID " & vbNewLine & _
+                    "INNER JOIN mstStatus B ON " & vbNewLine & _
+                    "   A.StatusID=B.ID " & vbNewLine & _
+                    "INNER JOIN mstBusinessPartner C ON " & vbNewLine & _
+                    "   A.BPID=C.ID " & vbNewLine & _
+                    "INNER JOIN mstCompany MC ON " & vbNewLine & _
+                    "   A.CompanyID=MC.ID " & vbNewLine & _
+                    "INNER JOIN mstProgram MP ON " & vbNewLine & _
+                    "   A.ProgramID=MP.ID " & vbNewLine & _
+                    "WHERE " & vbNewLine & _
+                    "   A.ProgramID=@ProgramID " & vbNewLine & _
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine & _
+                    "   AND A.BPID=@BPID " & vbNewLine & _
+                    "   AND A1.Quantity-A1.POTransportQuantity>0" & vbNewLine & _
+                    "   AND A1.TotalWeight-A1.POTransportWeight>0" & vbNewLine & _
+                    "   AND A.StatusID=@StatusID " & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Function ListDataOutstanding(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                    ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
                                                    ByVal intBPID As Integer) As DataTable
@@ -724,6 +765,42 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailOutstandingTransport(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                  ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                  ByVal strSCID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "SELECT	" & vbNewLine & _
+                    "   A.ID, A.SCID, A1.SCNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  	" & vbNewLine & _
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  	" & vbNewLine & _
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.TotalWeight-A.POTransportWeight AS MaxTotalWeight, A.Remarks  	" & vbNewLine & _
+                    "FROM traSalesContractDet A  	" & vbNewLine & _
+                    "INNER JOIN traSalesContract A1 ON  	" & vbNewLine & _
+                    "   A.SCID=A1.ID  	" & vbNewLine & _
+                    "INNER JOIN mstItem B ON  	" & vbNewLine & _
+                    "   A.ItemID=B.ID  	" & vbNewLine & _
+                    "INNER JOIN mstItemSpecification C ON  	" & vbNewLine & _
+                    "   B.ItemSpecificationID=C.ID  	" & vbNewLine & _
+                    "INNER JOIN mstItemType D ON  	" & vbNewLine & _
+                    "   B.ItemTypeID=D.ID  	" & vbNewLine & _
+                    "WHERE  	" & vbNewLine & _
+                    "   A1.ProgramID=@ProgramID " & vbNewLine & _
+                    "   AND A1.CompanyID=@CompanyID " & vbNewLine & _
+                    "   AND A.SCID=@SCID	" & vbNewLine & _
+                    "   AND A.Quantity-A.POTransportQuantity>0 " & vbNewLine & _
+                    "   AND A.TotalWeight-A.POTransportWeight>0 " & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = strSCID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                          ByVal clsData As VO.SalesContractDet)
             Dim sqlCmdExecute As New SqlCommand
@@ -771,6 +848,48 @@
                     "   SCID=@SCID" & vbNewLine
 
                 .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = strSCID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateTransportTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                      ByVal strSCDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE traSalesContractDet SET 	" & vbNewLine & _
+                    "	POTransportWeight=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(POD.TotalWeight),0) TotalWeight " & vbNewLine & _
+                    "		FROM traPurchaseOrderTransportDet POD 	" & vbNewLine & _
+                    "		INNER JOIN traPurchaseOrderTransport POH ON	" & vbNewLine & _
+                    "			POD.POID=POH.ID 	" & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			POD.SCDetailID=@SCDetailID 	" & vbNewLine & _
+                    "			AND POH.IsDeleted=0 	" & vbNewLine & _
+                    "	), 	" & vbNewLine & _
+                    "	POTransportQuantity=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(POD.Quantity),0) TotalQuantity " & vbNewLine & _
+                    "		FROM traPurchaseOrderTransportDet POD 	" & vbNewLine & _
+                    "		INNER JOIN traPurchaseOrderTransport POH ON	" & vbNewLine & _
+                    "			POD.POID=POH.ID 	" & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			POD.SCDetailID=@SCDetailID 	" & vbNewLine & _
+                    "			AND POH.IsDeleted=0 	" & vbNewLine & _
+                    "	) 	" & vbNewLine & _
+                    "WHERE ID=@SCDetailID	" & vbNewLine
+
+                .Parameters.Add("@SCDetailID", SqlDbType.VarChar, 100).Value = strSCDetailID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

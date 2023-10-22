@@ -262,6 +262,7 @@ Public Class frmTraPurchaseContractDet
                 prvQueryItem()
                 prvQueryHistory()
                 prvQueryPaymentTerm()
+                prvSetupTools()
             Else
                 Me.Close()
             End If

@@ -90,7 +90,7 @@ Partial Class frmTraOrderRequestOutstandingItem
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
-        'frmTraOrderRequestOutstanding
+        'frmTraOrderRequestOutstandingItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -98,7 +98,8 @@ Partial Class frmTraOrderRequestOutstandingItem
         Me.Controls.Add(Me.grdMain)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.Name = "frmTraOrderRequestOutstanding"
+        Me.KeyPreview = True
+        Me.Name = "frmTraOrderRequestOutstandingItem"
         Me.Text = "Permintaan Penjualan"
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).EndInit()

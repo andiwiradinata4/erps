@@ -43,6 +43,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         UI.usForm.SetGrid(grdItemView, "POID", "POID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "PCDetailID", "PCDetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "PCNumber", "Nomor Kontrak", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
@@ -55,6 +56,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         UI.usForm.SetGrid(grdItemView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
@@ -254,6 +256,7 @@ Public Class frmTraPurchaseOrderCuttingDet
                 prvQueryItem()
                 prvQueryHistory()
                 prvQueryPaymentTerm()
+                prvSetupTools()
             Else
                 Me.Close()
             End If
@@ -346,6 +349,11 @@ Public Class frmTraPurchaseOrderCuttingDet
         ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
     End Sub
 
+    Private Sub prvSetupTools()
+        Dim bolEnabled As Boolean = IIf(grdItemView.RowCount = 0, True, False)
+        btnBP.Enabled = bolEnabled
+    End Sub
+
 #Region "Item Handle"
 
     Private Sub prvSetButtonItem()
@@ -378,13 +386,22 @@ Public Class frmTraPurchaseOrderCuttingDet
     End Sub
 
     Private Sub prvAddItem()
+        If txtBPCode.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih Pemasok terlebih dahulu")
+            txtBPCode.Focus()
+            Exit Sub
+        End If
         Dim frmDetail As New frmTraPurchaseOrderCuttingDetItem
         With frmDetail
             .pubIsNew = True
-            .pubTableParent = dtItem
-            .StartPosition = FormStartPosition.CenterScreen
+            .pubCS = pubCS
+            .pubBPID = intBPID
+            .pubTableParentItem = dtItem
+            .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
+            prvCalculate()
+            prvSetupTools()
         End With
     End Sub
 
@@ -394,11 +411,15 @@ Public Class frmTraPurchaseOrderCuttingDet
         Dim frmDetail As New frmTraPurchaseOrderCuttingDetItem
         With frmDetail
             .pubIsNew = False
-            .pubTableParent = dtItem
-            .pubDatRowSelected = grdItemView.GetDataRow(intPos)
-            .StartPosition = FormStartPosition.CenterScreen
+            .pubCS = pubCS
+            .pubBPID = intBPID
+            .pubDataRowSelected = grdItemView.GetDataRow(intPos)
+            .pubTableParentItem = dtItem
+            .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
+            prvCalculate()
+            prvSetupTools()
         End With
     End Sub
 
@@ -415,6 +436,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         dtItem.AcceptChanges()
         prvCalculate()
         prvSetButtonItem()
+        prvSetupTools()
     End Sub
 
 #End Region

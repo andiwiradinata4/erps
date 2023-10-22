@@ -40,7 +40,7 @@ Public Class frmTraSalesContractDet
     End Sub
 
     Private Sub prvSetGrid()
-        '# PO Detail
+        '# SC Detail
         UI.usForm.SetGrid(grdItemView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "SCID", "SCID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "ORDetailID", "ORDetailID", 100, UI.usDefGrid.gString, False)
@@ -207,6 +207,11 @@ Public Class frmTraSalesContractDet
             tcDetail.SelectedTab = tpItem
             grdItemView.Focus()
             Exit Sub
+        ElseIf grdItemCOView.RowCount = 0 Then
+            UI.usForm.frmMessageBox("Item kosong. Mohon untuk diinput item terlebih dahulu")
+            tcDetail.SelectedTab = tpConfirmationOrder
+            grdItemCOView.Focus()
+            Exit Sub
         ElseIf grdPaymentTermView.RowCount = 0 Then
             UI.usForm.frmMessageBox("Syarat pembayaran kosong. Mohon untuk diinput syarat pembayaran terlebih dahulu")
             tcHeader.SelectedTab = tpPaymentTerm
@@ -338,6 +343,7 @@ Public Class frmTraSalesContractDet
                 prvQueryItemConfirmationOrder()
                 prvQueryHistory()
                 prvQueryPaymentTerm()
+                prvSetupTools()
             Else
                 Me.Close()
             End If

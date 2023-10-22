@@ -1,0 +1,30 @@
+USE ERPS 
+
+SELECT 
+	POD.POID, POH.PONumber, POH.PODate, POD.ItemID, POD.Quantity, POD.TotalWeight, POD.TotalPrice, 
+	COD.COID, COH.CONumber, COH.CODate, COD.ItemID, COD.Quantity, COD.TotalWeight, COD.TotalPrice, 
+	PCD.PCID, PCH.PCNumber, PCH.PCDate, PCD.ItemID, PCD.Quantity, PCD.TotalWeight, PCD.TotalPrice,
+	RVD.ReceiveID, RVH.ReceiveNumber, RVH.ReceiveDate, RVD.ItemID, RVD.Quantity, RVD.TotalWeight, RVD.TotalPrice,
+	APD.APID, APH.APNumber, APH.APDate, APD.PurchaseID, APD.Amount 
+	
+FROM traPurchaseOrder POH 
+INNER JOIN traPurchaseOrderDet POD ON 
+	POH.ID=POD.POID 
+INNER JOIN traConfirmationOrderDet COD ON 
+	POD.ID=COD.PODetailID 
+INNER JOIN traConfirmationOrder COH ON 
+	COD.COID=COH.ID 
+INNER JOIN traPurchaseContractDet PCD ON 
+	COD.ID=PCD.CODetailID 
+INNER JOIN traPurchaseContract PCH ON 
+	PCD.PCID=PCH.ID 
+INNER JOIN traReceiveDet RVD ON 
+	PCD.ID=RVD.PCDetailID 
+INNER JOIN traReceive RVH ON 
+	RVD.ReceiveID=RVH.ID 
+INNER JOIN traAccountPayableDet APD ON 
+	PCH.ID=APD.PurchaseID 
+INNER JOIN traAccountPayable APH ON 
+	APD.APID=APH.ID 
+
+

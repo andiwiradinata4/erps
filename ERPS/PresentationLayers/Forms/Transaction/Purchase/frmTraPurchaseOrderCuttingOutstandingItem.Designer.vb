@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmTraPurchaseOrderDetItemOutstanding
+Partial Class frmTraPurchaseOrderCuttingOutstandingItem
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -90,7 +90,7 @@ Partial Class frmTraPurchaseOrderDetItemOutstanding
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
-        'frmTraPurchaseOrderDetItemOutstanding
+        'frmTraPurchaseOrderCuttingOutstandingItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -98,10 +98,9 @@ Partial Class frmTraPurchaseOrderDetItemOutstanding
         Me.Controls.Add(Me.grdMain)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
-        Me.Name = "frmTraPurchaseOrderDetItemOutstanding"
-        Me.Text = "Permintaan Penjualan"
+        Me.KeyPreview = True
+        Me.Name = "frmTraPurchaseOrderCuttingOutstandingItem"
+        Me.Text = "Pesanan Pemotongan"
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

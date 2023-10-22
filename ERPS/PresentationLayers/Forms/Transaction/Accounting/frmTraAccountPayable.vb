@@ -539,6 +539,14 @@ Public Class frmTraAccountPayable
             Me.Text = "Panjar Pembelian"
         ElseIf strModules = VO.AccountPayable.ReceivePayment Then
             Me.Text = "Pembayaran Hutang Pembelian"
+        ElseIf strModules = VO.AccountPayable.DownPaymentCutting Then
+            Me.Text = "Panjar Pesanan Pemotongan"
+        ElseIf strModules = VO.AccountPayable.ReceivePaymentCutting Then
+            Me.Text = "Pembayaran Hutang Pesanan Pemotongan"
+        ElseIf strModules = VO.AccountPayable.DownPaymentTransport Then
+            Me.Text = "Panjar Pesanan Pengiriman"
+        ElseIf strModules = VO.AccountPayable.ReceivePaymentTransport Then
+            Me.Text = "Pembayaran Hutang Pesanan Pengiriman"
         End If
         Me.WindowState = FormWindowState.Maximized
     End Sub

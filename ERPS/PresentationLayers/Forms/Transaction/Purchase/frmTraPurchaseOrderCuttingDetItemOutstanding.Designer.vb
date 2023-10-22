@@ -102,7 +102,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItemOutstanding
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmTraPurchaseOrderCuttingDetItemOutstanding"
-        Me.Text = "Pesanan Pembelian"
+        Me.Text = "Kontrak Pembelian"
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

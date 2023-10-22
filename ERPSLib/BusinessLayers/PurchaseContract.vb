@@ -339,6 +339,14 @@
             End Using
         End Function
 
+        Public Shared Function ListDataDetailOutstandingCutting(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseContract.ListDataDetailOutstandingCutting(sqlCon, Nothing, intProgramID, intCompanyID, intBPID)
+            End Using
+        End Function
+
 #End Region
 
 #Region "Payment Term"

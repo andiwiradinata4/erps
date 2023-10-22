@@ -28,8 +28,8 @@ Public Class frmTraPurchaseOrderCutting
         UI.usForm.SetGrid(grdView, "PONumber", "Nomor", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PODate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdView, "BPCode", "Kode Pelanggan", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "BPName", "Nama Pelanggan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "BPCode", "Kode Pemasok", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "BPName", "Nama Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PersonInCharge", "PIC", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "DeliveryPeriodFrom", "Periode Dari", 100, UI.usDefGrid.gDateMonthYear)
         UI.usForm.SetGrid(grdView, "DeliveryPeriodTo", "Periode Sampai", 100, UI.usDefGrid.gDateMonthYear)
@@ -445,10 +445,10 @@ Public Class frmTraPurchaseOrderCutting
     Private Sub prvSumGrid()
         Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalQuantity", "Total Quantity: {0:#,##0.00}")
         Dim SumTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat: {0:#,##0.00}")
-        Dim SumTotalDPP As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalDPP", "[Pesanan] Total DPP: {0:#,##0.00}")
-        Dim SumTotalPPN As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPN", "[Pesanan] Total PPN: {0:#,##0.00}")
-        Dim SumTotalPPH As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPH", "[Pesanan] Total PPh: {0:#,##0.00}")
-        Dim SumGrandTotal As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "GrandTotal", "[Pesanan] Grand Total: {0:#,##0.00}")
+        Dim SumTotalDPP As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalDPP", "Total DPP: {0:#,##0.00}")
+        Dim SumTotalPPN As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPN", "Total PPN: {0:#,##0.00}")
+        Dim SumTotalPPH As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPH", "Total PPh: {0:#,##0.00}")
+        Dim SumGrandTotal As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "GrandTotal", "Grand Total: {0:#,##0.00}")
 
         If grdView.Columns("TotalQuantity").SummaryText.Trim = "" Then
             grdView.Columns("TotalQuantity").Summary.Add(SumTotalQuantity)
@@ -486,6 +486,7 @@ Public Class frmTraPurchaseOrderCutting
             .Item(cPrint).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.PrintReportAccess)
             .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.ExportExcelAccess)
             bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.ExportReportAccess)
+            .Item(cPrint).Visible = False
         End With
     End Sub
 

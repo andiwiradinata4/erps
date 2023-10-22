@@ -684,6 +684,44 @@ WHERE
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailOutstandingCutting(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                ByVal intBPID As Integer) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = <a>
+SELECT  
+    PCD.ID, PCD.PCID, PCH.PCNumber, PCD.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  
+    C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  
+    PCD.Quantity-PCD.CuttingQuantity AS Quantity, PCD.Weight, PCD.TotalWeight-PCD.CuttingWeight AS TotalWeight, PCD.UnitPrice, PCD.TotalPrice 
+FROM traPurchaseContractDet PCD  
+INNER JOIN traPurchaseContract PCH ON  
+    PCD.PCID=PCH.ID  
+INNER JOIN mstItem B ON  
+    PCD.ItemID=B.ID  
+INNER JOIN mstItemSpecification C ON  
+    B.ItemSpecificationID=C.ID  
+INNER JOIN mstItemType D ON  
+    B.ItemTypeID=D.ID  
+WHERE  
+    PCH.IsDeleted=0 
+	AND PCH.ProgramID=@ProgramID 
+	AND PCH.CompanyID=@CompanyID 
+    AND PCH.StatusID=@StatusID  
+    AND PCD.TotalWeight-PCD.CuttingWeight>0
+    AND PCD.Quantity-PCD.CuttingQuantity>0
+</a>.Value
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                          ByVal clsData As VO.PurchaseContractDet)
             Dim sqlCmdExecute As New SqlCommand
@@ -766,6 +804,48 @@ WHERE
                     "		WHERE 	" & vbNewLine & _
                     "			RVD.PCDetailID=@PCDetailID 	" & vbNewLine & _
                     "			AND RVH.IsDeleted=0 	" & vbNewLine & _
+                    "	) 	" & vbNewLine & _
+                    "WHERE ID=@PCDetailID	" & vbNewLine
+
+                .Parameters.Add("@PCDetailID", SqlDbType.VarChar, 100).Value = strPCDetailID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateCuttingTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                    ByVal strPCDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE traPurchaseContractDet SET 	" & vbNewLine & _
+                    "	CuttingWeight=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(POD.TotalWeight),0) TotalWeight " & vbNewLine & _
+                    "		FROM traPurchaseOrderCuttingDet POD 	" & vbNewLine & _
+                    "		INNER JOIN traPurchaseOrderCutting POH ON	" & vbNewLine & _
+                    "			POD.POID=POH.ID 	" & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			POD.PCDetailID=@PCDetailID 	" & vbNewLine & _
+                    "			AND POH.IsDeleted=0 	" & vbNewLine & _
+                    "	), 	" & vbNewLine & _
+                    "	CuttingQuantity=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(POD.Quantity),0) TotalQuantity " & vbNewLine & _
+                    "		FROM traPurchaseOrderCuttingDet POD 	" & vbNewLine & _
+                    "		INNER JOIN traPurchaseOrderCutting POH ON	" & vbNewLine & _
+                    "			POD.POID=POH.ID 	" & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			POD.PCDetailID=@PCDetailID 	" & vbNewLine & _
+                    "			AND POH.IsDeleted=0 	" & vbNewLine & _
                     "	) 	" & vbNewLine & _
                     "WHERE ID=@PCDetailID	" & vbNewLine
 

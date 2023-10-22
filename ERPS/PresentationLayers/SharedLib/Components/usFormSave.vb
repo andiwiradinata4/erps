@@ -28,6 +28,13 @@
             Exit Sub
         End If
 
+        If rdCancelSave.Checked Then
+            intValue = VO.Save.Action.CancelSave
+            bolIsSave = False
+            Me.Close()
+            Exit Sub
+        End If
+
         If Not UI.usForm.frmAskQuestion("Simpan data?") Then Exit Sub
 
         If rdSaveAsDraft.Checked Then
