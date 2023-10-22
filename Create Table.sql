@@ -106,7 +106,7 @@ SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[mstModules](
 	[ID] [int] NOT NULL CONSTRAINT [DF_mstModules_ID]  DEFAULT ((0)),
-	[Name] [varchar](50) NOT NULL CONSTRAINT [DF_mstModules_Name]  DEFAULT (''),
+	[Name] [varchar](150) NOT NULL CONSTRAINT [DF_mstModules_Name]  DEFAULT (''),
 	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_mstModules_IsDeleted]  DEFAULT ((0)),
 	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_mstModules_CreatedBy]  DEFAULT ('SYSTEM'),
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_mstModules_CreatedDate]  DEFAULT (getdate()),

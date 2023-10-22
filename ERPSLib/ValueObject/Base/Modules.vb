@@ -54,6 +54,10 @@ Namespace VO
             TransactionSalesDP = 39
             TransactionAccountReceivable = 40
             TransactionAccountPayable = 41
+            TransactionPurchaseDPCutting = 43
+            TransactionAccountPayableCutting = 44
+            TransactionPurchaseDPTransport = 45
+            TransactionAccountPayableTransport = 46
 
             '# Reports
             ReportBukuBesar = 32

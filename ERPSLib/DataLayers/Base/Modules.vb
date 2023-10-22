@@ -61,7 +61,7 @@ Namespace DL
                 End If
 
                 .Parameters.Add("@ID", SqlDbType.Int).Value = clsData.ID
-                .Parameters.Add("@Name", SqlDbType.VarChar, 50).Value = clsData.Name
+                .Parameters.Add("@Name", SqlDbType.VarChar, 150).Value = clsData.Name
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
             End With
             Try

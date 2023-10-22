@@ -26,6 +26,7 @@ Namespace VO
             AssignAccess = 18
             PaymentAccess = 19
             TaxInvoiceNumberAccess = 20
+            CancelPaymentAccess = 21
         End Enum
 
     End Class 
