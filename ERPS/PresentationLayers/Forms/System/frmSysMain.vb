@@ -347,6 +347,10 @@
         UI.usForm.frmOpen(frmMainTraSalesContract, "frmTraSalesContract", Me)
     End Sub
 
+    Private Sub mnuTransaksiPenjualanPengirimanPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPengirimanPenjualan.Click
+
+    End Sub
+
 #End Region
 
 #Region "Purchase"

@@ -51,6 +51,16 @@ Partial Class frmTraSalesContractDet
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.tpAmount = New System.Windows.Forms.TabPage()
+        Me.gboCompanyBankAccount = New System.Windows.Forms.GroupBox()
+        Me.txtCurrencyBank = New ERPS.usTextBox()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.txtBankName = New ERPS.usTextBox()
+        Me.txtAccountNumber = New ERPS.usTextBox()
+        Me.txtAccountName = New ERPS.usTextBox()
+        Me.btnCompanyBankAccount = New DevExpress.XtraEditors.SimpleButton()
         Me.gboPesanan = New System.Windows.Forms.GroupBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.txtGrandTotal = New ERPS.usNumeric()
@@ -74,6 +84,17 @@ Partial Class frmTraSalesContractDet
         Me.BarAddPayment = New System.Windows.Forms.ToolBarButton()
         Me.BarEditPayment = New System.Windows.Forms.ToolBarButton()
         Me.BarDeletePayment = New System.Windows.Forms.ToolBarButton()
+        Me.tpAdditionalInformation = New System.Windows.Forms.TabPage()
+        Me.DelegationSeller = New System.Windows.Forms.GroupBox()
+        Me.txtDelegationPositionSeller = New ERPS.usTextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.txtDelegationSeller = New ERPS.usTextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.gboDelegationBuyer = New System.Windows.Forms.GroupBox()
+        Me.txtDelegationPositionBuyer = New ERPS.usTextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.txtDelegationBuyer = New ERPS.usTextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.tpHistory = New System.Windows.Forms.TabPage()
         Me.grdStatus = New DevExpress.XtraGrid.GridControl()
         Me.grdStatusView = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -98,32 +119,11 @@ Partial Class frmTraSalesContractDet
         Me.grdItemCO = New DevExpress.XtraGrid.GridControl()
         Me.grdItemCOView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit3 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.tpAdditionalInformation = New System.Windows.Forms.TabPage()
-        Me.gboDelegationBuyer = New System.Windows.Forms.GroupBox()
-        Me.txtDelegationPositionBuyer = New ERPS.usTextBox()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.txtDelegationBuyer = New ERPS.usTextBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.DelegationSeller = New System.Windows.Forms.GroupBox()
-        Me.txtDelegationPositionSeller = New ERPS.usTextBox()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.txtDelegationSeller = New ERPS.usTextBox()
-        Me.Label22 = New System.Windows.Forms.Label()
-        Me.txtAccountNumber = New ERPS.usTextBox()
-        Me.txtBankName = New ERPS.usTextBox()
-        Me.btnCompanyBankAccount = New DevExpress.XtraEditors.SimpleButton()
-        Me.txtAccountName = New ERPS.usTextBox()
-        Me.Label23 = New System.Windows.Forms.Label()
-        Me.gboCompanyBankAccount = New System.Windows.Forms.GroupBox()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.Label26 = New System.Windows.Forms.Label()
-        Me.Label27 = New System.Windows.Forms.Label()
-        Me.txtCurrencyBank = New ERPS.usTextBox()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         CType(Me.txtAllowanceProduction, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpAmount.SuspendLayout()
+        Me.gboCompanyBankAccount.SuspendLayout()
         Me.gboPesanan.SuspendLayout()
         CType(Me.txtGrandTotal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -135,6 +135,9 @@ Partial Class frmTraSalesContractDet
         CType(Me.grdPaymentTerm, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdPaymentTermView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tpAdditionalInformation.SuspendLayout()
+        Me.DelegationSeller.SuspendLayout()
+        Me.gboDelegationBuyer.SuspendLayout()
         Me.tpHistory.SuspendLayout()
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -148,10 +151,6 @@ Partial Class frmTraSalesContractDet
         CType(Me.grdItemCO, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tpAdditionalInformation.SuspendLayout()
-        Me.gboDelegationBuyer.SuspendLayout()
-        Me.DelegationSeller.SuspendLayout()
-        Me.gboCompanyBankAccount.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -471,7 +470,6 @@ Partial Class frmTraSalesContractDet
         '
         Me.tpAmount.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.tpAmount.Controls.Add(Me.gboCompanyBankAccount)
-        Me.tpAmount.Controls.Add(Me.Label23)
         Me.tpAmount.Controls.Add(Me.gboPesanan)
         Me.tpAmount.Controls.Add(Me.Label7)
         Me.tpAmount.Controls.Add(Me.Label8)
@@ -485,6 +483,120 @@ Partial Class frmTraSalesContractDet
         Me.tpAmount.TabIndex = 2
         Me.tpAmount.Text = "Harga - F2"
         Me.tpAmount.UseVisualStyleBackColor = True
+        '
+        'gboCompanyBankAccount
+        '
+        Me.gboCompanyBankAccount.Controls.Add(Me.txtCurrencyBank)
+        Me.gboCompanyBankAccount.Controls.Add(Me.Label27)
+        Me.gboCompanyBankAccount.Controls.Add(Me.Label26)
+        Me.gboCompanyBankAccount.Controls.Add(Me.Label25)
+        Me.gboCompanyBankAccount.Controls.Add(Me.Label24)
+        Me.gboCompanyBankAccount.Controls.Add(Me.txtBankName)
+        Me.gboCompanyBankAccount.Controls.Add(Me.txtAccountNumber)
+        Me.gboCompanyBankAccount.Controls.Add(Me.txtAccountName)
+        Me.gboCompanyBankAccount.Controls.Add(Me.btnCompanyBankAccount)
+        Me.gboCompanyBankAccount.Location = New System.Drawing.Point(508, 17)
+        Me.gboCompanyBankAccount.Name = "gboCompanyBankAccount"
+        Me.gboCompanyBankAccount.Size = New System.Drawing.Size(388, 139)
+        Me.gboCompanyBankAccount.TabIndex = 3
+        Me.gboCompanyBankAccount.TabStop = False
+        Me.gboCompanyBankAccount.Text = "Akun Bank Perusahaan"
+        '
+        'txtCurrencyBank
+        '
+        Me.txtCurrencyBank.BackColor = System.Drawing.Color.Azure
+        Me.txtCurrencyBank.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCurrencyBank.Location = New System.Drawing.Point(98, 107)
+        Me.txtCurrencyBank.MaxLength = 250
+        Me.txtCurrencyBank.Name = "txtCurrencyBank"
+        Me.txtCurrencyBank.ReadOnly = True
+        Me.txtCurrencyBank.Size = New System.Drawing.Size(198, 21)
+        Me.txtCurrencyBank.TabIndex = 4
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.BackColor = System.Drawing.Color.Transparent
+        Me.Label27.ForeColor = System.Drawing.Color.Black
+        Me.Label27.Location = New System.Drawing.Point(21, 111)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(59, 13)
+        Me.Label27.TabIndex = 156
+        Me.Label27.Text = "Mata Uang"
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.BackColor = System.Drawing.Color.Transparent
+        Me.Label26.ForeColor = System.Drawing.Color.Black
+        Me.Label26.Location = New System.Drawing.Point(21, 84)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(71, 13)
+        Me.Label26.TabIndex = 155
+        Me.Label26.Text = "No. Rekening"
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.BackColor = System.Drawing.Color.Transparent
+        Me.Label25.ForeColor = System.Drawing.Color.Black
+        Me.Label25.Location = New System.Drawing.Point(21, 57)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(60, 13)
+        Me.Label25.TabIndex = 154
+        Me.Label25.Text = "Nama Bank"
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.BackColor = System.Drawing.Color.Transparent
+        Me.Label24.ForeColor = System.Drawing.Color.Black
+        Me.Label24.Location = New System.Drawing.Point(21, 30)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(61, 13)
+        Me.Label24.TabIndex = 153
+        Me.Label24.Text = "Nama Akun"
+        '
+        'txtBankName
+        '
+        Me.txtBankName.BackColor = System.Drawing.Color.Azure
+        Me.txtBankName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtBankName.Location = New System.Drawing.Point(98, 53)
+        Me.txtBankName.MaxLength = 250
+        Me.txtBankName.Name = "txtBankName"
+        Me.txtBankName.ReadOnly = True
+        Me.txtBankName.Size = New System.Drawing.Size(275, 21)
+        Me.txtBankName.TabIndex = 2
+        '
+        'txtAccountNumber
+        '
+        Me.txtAccountNumber.BackColor = System.Drawing.Color.Azure
+        Me.txtAccountNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtAccountNumber.Location = New System.Drawing.Point(98, 80)
+        Me.txtAccountNumber.MaxLength = 250
+        Me.txtAccountNumber.Name = "txtAccountNumber"
+        Me.txtAccountNumber.ReadOnly = True
+        Me.txtAccountNumber.Size = New System.Drawing.Size(275, 21)
+        Me.txtAccountNumber.TabIndex = 3
+        '
+        'txtAccountName
+        '
+        Me.txtAccountName.BackColor = System.Drawing.Color.Azure
+        Me.txtAccountName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtAccountName.Location = New System.Drawing.Point(98, 26)
+        Me.txtAccountName.MaxLength = 250
+        Me.txtAccountName.Name = "txtAccountName"
+        Me.txtAccountName.ReadOnly = True
+        Me.txtAccountName.Size = New System.Drawing.Size(198, 21)
+        Me.txtAccountName.TabIndex = 0
+        '
+        'btnCompanyBankAccount
+        '
+        Me.btnCompanyBankAccount.Image = CType(resources.GetObject("btnCompanyBankAccount.Image"), System.Drawing.Image)
+        Me.btnCompanyBankAccount.Location = New System.Drawing.Point(302, 25)
+        Me.btnCompanyBankAccount.Name = "btnCompanyBankAccount"
+        Me.btnCompanyBankAccount.Size = New System.Drawing.Size(23, 23)
+        Me.btnCompanyBankAccount.TabIndex = 1
         '
         'gboPesanan
         '
@@ -757,6 +869,128 @@ Partial Class frmTraSalesContractDet
         Me.BarDeletePayment.Tag = "Delete"
         Me.BarDeletePayment.Text = "Hapus"
         '
+        'tpAdditionalInformation
+        '
+        Me.tpAdditionalInformation.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpAdditionalInformation.Controls.Add(Me.DelegationSeller)
+        Me.tpAdditionalInformation.Controls.Add(Me.gboDelegationBuyer)
+        Me.tpAdditionalInformation.Location = New System.Drawing.Point(4, 25)
+        Me.tpAdditionalInformation.Name = "tpAdditionalInformation"
+        Me.tpAdditionalInformation.Size = New System.Drawing.Size(917, 177)
+        Me.tpAdditionalInformation.TabIndex = 4
+        Me.tpAdditionalInformation.Text = "Informasi Tambahan - F4"
+        Me.tpAdditionalInformation.UseVisualStyleBackColor = True
+        '
+        'DelegationSeller
+        '
+        Me.DelegationSeller.Controls.Add(Me.txtDelegationPositionSeller)
+        Me.DelegationSeller.Controls.Add(Me.Label14)
+        Me.DelegationSeller.Controls.Add(Me.txtDelegationSeller)
+        Me.DelegationSeller.Controls.Add(Me.Label22)
+        Me.DelegationSeller.Location = New System.Drawing.Point(317, 16)
+        Me.DelegationSeller.Name = "DelegationSeller"
+        Me.DelegationSeller.Size = New System.Drawing.Size(288, 102)
+        Me.DelegationSeller.TabIndex = 1
+        Me.DelegationSeller.TabStop = False
+        Me.DelegationSeller.Text = "Pihak Penjual"
+        '
+        'txtDelegationPositionSeller
+        '
+        Me.txtDelegationPositionSeller.BackColor = System.Drawing.Color.White
+        Me.txtDelegationPositionSeller.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtDelegationPositionSeller.Location = New System.Drawing.Point(73, 55)
+        Me.txtDelegationPositionSeller.MaxLength = 250
+        Me.txtDelegationPositionSeller.Name = "txtDelegationPositionSeller"
+        Me.txtDelegationPositionSeller.Size = New System.Drawing.Size(194, 21)
+        Me.txtDelegationPositionSeller.TabIndex = 1
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.BackColor = System.Drawing.Color.Transparent
+        Me.Label14.ForeColor = System.Drawing.Color.Black
+        Me.Label14.Location = New System.Drawing.Point(19, 59)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(33, 13)
+        Me.Label14.TabIndex = 136
+        Me.Label14.Text = "Posisi"
+        '
+        'txtDelegationSeller
+        '
+        Me.txtDelegationSeller.BackColor = System.Drawing.Color.White
+        Me.txtDelegationSeller.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtDelegationSeller.Location = New System.Drawing.Point(73, 28)
+        Me.txtDelegationSeller.MaxLength = 250
+        Me.txtDelegationSeller.Name = "txtDelegationSeller"
+        Me.txtDelegationSeller.Size = New System.Drawing.Size(194, 21)
+        Me.txtDelegationSeller.TabIndex = 0
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.BackColor = System.Drawing.Color.Transparent
+        Me.Label22.ForeColor = System.Drawing.Color.Black
+        Me.Label22.Location = New System.Drawing.Point(19, 32)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(34, 13)
+        Me.Label22.TabIndex = 134
+        Me.Label22.Text = "Nama"
+        '
+        'gboDelegationBuyer
+        '
+        Me.gboDelegationBuyer.Controls.Add(Me.txtDelegationPositionBuyer)
+        Me.gboDelegationBuyer.Controls.Add(Me.Label12)
+        Me.gboDelegationBuyer.Controls.Add(Me.txtDelegationBuyer)
+        Me.gboDelegationBuyer.Controls.Add(Me.Label10)
+        Me.gboDelegationBuyer.Location = New System.Drawing.Point(17, 16)
+        Me.gboDelegationBuyer.Name = "gboDelegationBuyer"
+        Me.gboDelegationBuyer.Size = New System.Drawing.Size(288, 102)
+        Me.gboDelegationBuyer.TabIndex = 0
+        Me.gboDelegationBuyer.TabStop = False
+        Me.gboDelegationBuyer.Text = "Pihak Pembeli"
+        '
+        'txtDelegationPositionBuyer
+        '
+        Me.txtDelegationPositionBuyer.BackColor = System.Drawing.Color.White
+        Me.txtDelegationPositionBuyer.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtDelegationPositionBuyer.Location = New System.Drawing.Point(73, 55)
+        Me.txtDelegationPositionBuyer.MaxLength = 250
+        Me.txtDelegationPositionBuyer.Name = "txtDelegationPositionBuyer"
+        Me.txtDelegationPositionBuyer.Size = New System.Drawing.Size(194, 21)
+        Me.txtDelegationPositionBuyer.TabIndex = 1
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.BackColor = System.Drawing.Color.Transparent
+        Me.Label12.ForeColor = System.Drawing.Color.Black
+        Me.Label12.Location = New System.Drawing.Point(19, 59)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(33, 13)
+        Me.Label12.TabIndex = 136
+        Me.Label12.Text = "Posisi"
+        '
+        'txtDelegationBuyer
+        '
+        Me.txtDelegationBuyer.BackColor = System.Drawing.Color.White
+        Me.txtDelegationBuyer.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtDelegationBuyer.Location = New System.Drawing.Point(73, 27)
+        Me.txtDelegationBuyer.MaxLength = 250
+        Me.txtDelegationBuyer.Name = "txtDelegationBuyer"
+        Me.txtDelegationBuyer.Size = New System.Drawing.Size(194, 21)
+        Me.txtDelegationBuyer.TabIndex = 0
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.BackColor = System.Drawing.Color.Transparent
+        Me.Label10.ForeColor = System.Drawing.Color.Black
+        Me.Label10.Location = New System.Drawing.Point(19, 31)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(34, 13)
+        Me.Label10.TabIndex = 134
+        Me.Label10.Text = "Nama"
+        '
         'tpHistory
         '
         Me.tpHistory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
@@ -846,7 +1080,7 @@ Partial Class frmTraSalesContractDet
         Me.tpItem.Padding = New System.Windows.Forms.Padding(3)
         Me.tpItem.Size = New System.Drawing.Size(917, 331)
         Me.tpItem.TabIndex = 1
-        Me.tpItem.Text = "Item - F5"
+        Me.tpItem.Text = "Item - F6"
         Me.tpItem.UseVisualStyleBackColor = True
         '
         'grdItem
@@ -980,9 +1214,9 @@ Partial Class frmTraSalesContractDet
         Me.tpConfirmationOrder.Controls.Add(Me.grdItemCO)
         Me.tpConfirmationOrder.Location = New System.Drawing.Point(4, 25)
         Me.tpConfirmationOrder.Name = "tpConfirmationOrder"
-        Me.tpConfirmationOrder.Size = New System.Drawing.Size(876, 328)
+        Me.tpConfirmationOrder.Size = New System.Drawing.Size(917, 331)
         Me.tpConfirmationOrder.TabIndex = 2
-        Me.tpConfirmationOrder.Text = "Konfirmasi Pesanan - F6"
+        Me.tpConfirmationOrder.Text = "Konfirmasi Pesanan - F7"
         Me.tpConfirmationOrder.UseVisualStyleBackColor = True
         '
         'grdItemCO
@@ -1006,7 +1240,7 @@ Partial Class frmTraSalesContractDet
         Me.grdItemCO.MainView = Me.grdItemCOView
         Me.grdItemCO.Name = "grdItemCO"
         Me.grdItemCO.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit3})
-        Me.grdItemCO.Size = New System.Drawing.Size(876, 328)
+        Me.grdItemCO.Size = New System.Drawing.Size(917, 331)
         Me.grdItemCO.TabIndex = 2
         Me.grdItemCO.UseEmbeddedNavigator = True
         Me.grdItemCO.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemCOView})
@@ -1029,253 +1263,6 @@ Partial Class frmTraSalesContractDet
         Me.RepositoryItemTextEdit3.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.RepositoryItemTextEdit3.Name = "RepositoryItemTextEdit3"
         Me.RepositoryItemTextEdit3.NullText = "0.00"
-        '
-        'tpAdditionalInformation
-        '
-        Me.tpAdditionalInformation.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.tpAdditionalInformation.Controls.Add(Me.DelegationSeller)
-        Me.tpAdditionalInformation.Controls.Add(Me.gboDelegationBuyer)
-        Me.tpAdditionalInformation.Location = New System.Drawing.Point(4, 25)
-        Me.tpAdditionalInformation.Name = "tpAdditionalInformation"
-        Me.tpAdditionalInformation.Size = New System.Drawing.Size(917, 177)
-        Me.tpAdditionalInformation.TabIndex = 4
-        Me.tpAdditionalInformation.Text = "Informasi Tambahan - F4"
-        Me.tpAdditionalInformation.UseVisualStyleBackColor = True
-        '
-        'gboDelegationBuyer
-        '
-        Me.gboDelegationBuyer.Controls.Add(Me.txtDelegationPositionBuyer)
-        Me.gboDelegationBuyer.Controls.Add(Me.Label12)
-        Me.gboDelegationBuyer.Controls.Add(Me.txtDelegationBuyer)
-        Me.gboDelegationBuyer.Controls.Add(Me.Label10)
-        Me.gboDelegationBuyer.Location = New System.Drawing.Point(17, 16)
-        Me.gboDelegationBuyer.Name = "gboDelegationBuyer"
-        Me.gboDelegationBuyer.Size = New System.Drawing.Size(288, 102)
-        Me.gboDelegationBuyer.TabIndex = 0
-        Me.gboDelegationBuyer.TabStop = False
-        Me.gboDelegationBuyer.Text = "Pihak Pembeli"
-        '
-        'txtDelegationPositionBuyer
-        '
-        Me.txtDelegationPositionBuyer.BackColor = System.Drawing.Color.White
-        Me.txtDelegationPositionBuyer.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtDelegationPositionBuyer.Location = New System.Drawing.Point(73, 55)
-        Me.txtDelegationPositionBuyer.MaxLength = 250
-        Me.txtDelegationPositionBuyer.Name = "txtDelegationPositionBuyer"
-        Me.txtDelegationPositionBuyer.Size = New System.Drawing.Size(194, 21)
-        Me.txtDelegationPositionBuyer.TabIndex = 1
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.BackColor = System.Drawing.Color.Transparent
-        Me.Label12.ForeColor = System.Drawing.Color.Black
-        Me.Label12.Location = New System.Drawing.Point(19, 59)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(33, 13)
-        Me.Label12.TabIndex = 136
-        Me.Label12.Text = "Posisi"
-        '
-        'txtDelegationBuyer
-        '
-        Me.txtDelegationBuyer.BackColor = System.Drawing.Color.White
-        Me.txtDelegationBuyer.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtDelegationBuyer.Location = New System.Drawing.Point(73, 27)
-        Me.txtDelegationBuyer.MaxLength = 250
-        Me.txtDelegationBuyer.Name = "txtDelegationBuyer"
-        Me.txtDelegationBuyer.Size = New System.Drawing.Size(194, 21)
-        Me.txtDelegationBuyer.TabIndex = 0
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.BackColor = System.Drawing.Color.Transparent
-        Me.Label10.ForeColor = System.Drawing.Color.Black
-        Me.Label10.Location = New System.Drawing.Point(19, 31)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(34, 13)
-        Me.Label10.TabIndex = 134
-        Me.Label10.Text = "Nama"
-        '
-        'DelegationSeller
-        '
-        Me.DelegationSeller.Controls.Add(Me.txtDelegationPositionSeller)
-        Me.DelegationSeller.Controls.Add(Me.Label14)
-        Me.DelegationSeller.Controls.Add(Me.txtDelegationSeller)
-        Me.DelegationSeller.Controls.Add(Me.Label22)
-        Me.DelegationSeller.Location = New System.Drawing.Point(317, 16)
-        Me.DelegationSeller.Name = "DelegationSeller"
-        Me.DelegationSeller.Size = New System.Drawing.Size(288, 102)
-        Me.DelegationSeller.TabIndex = 1
-        Me.DelegationSeller.TabStop = False
-        Me.DelegationSeller.Text = "Pihak Penjual"
-        '
-        'txtDelegationPositionSeller
-        '
-        Me.txtDelegationPositionSeller.BackColor = System.Drawing.Color.White
-        Me.txtDelegationPositionSeller.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtDelegationPositionSeller.Location = New System.Drawing.Point(73, 55)
-        Me.txtDelegationPositionSeller.MaxLength = 250
-        Me.txtDelegationPositionSeller.Name = "txtDelegationPositionSeller"
-        Me.txtDelegationPositionSeller.Size = New System.Drawing.Size(194, 21)
-        Me.txtDelegationPositionSeller.TabIndex = 1
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.ForeColor = System.Drawing.Color.Black
-        Me.Label14.Location = New System.Drawing.Point(19, 59)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(33, 13)
-        Me.Label14.TabIndex = 136
-        Me.Label14.Text = "Posisi"
-        '
-        'txtDelegationSeller
-        '
-        Me.txtDelegationSeller.BackColor = System.Drawing.Color.White
-        Me.txtDelegationSeller.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtDelegationSeller.Location = New System.Drawing.Point(73, 28)
-        Me.txtDelegationSeller.MaxLength = 250
-        Me.txtDelegationSeller.Name = "txtDelegationSeller"
-        Me.txtDelegationSeller.Size = New System.Drawing.Size(194, 21)
-        Me.txtDelegationSeller.TabIndex = 0
-        '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.BackColor = System.Drawing.Color.Transparent
-        Me.Label22.ForeColor = System.Drawing.Color.Black
-        Me.Label22.Location = New System.Drawing.Point(19, 32)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(34, 13)
-        Me.Label22.TabIndex = 134
-        Me.Label22.Text = "Nama"
-        '
-        'txtAccountNumber
-        '
-        Me.txtAccountNumber.BackColor = System.Drawing.Color.Azure
-        Me.txtAccountNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtAccountNumber.Location = New System.Drawing.Point(98, 80)
-        Me.txtAccountNumber.MaxLength = 250
-        Me.txtAccountNumber.Name = "txtAccountNumber"
-        Me.txtAccountNumber.ReadOnly = True
-        Me.txtAccountNumber.Size = New System.Drawing.Size(275, 21)
-        Me.txtAccountNumber.TabIndex = 3
-        '
-        'txtBankName
-        '
-        Me.txtBankName.BackColor = System.Drawing.Color.Azure
-        Me.txtBankName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtBankName.Location = New System.Drawing.Point(98, 53)
-        Me.txtBankName.MaxLength = 250
-        Me.txtBankName.Name = "txtBankName"
-        Me.txtBankName.ReadOnly = True
-        Me.txtBankName.Size = New System.Drawing.Size(275, 21)
-        Me.txtBankName.TabIndex = 2
-        '
-        'btnCompanyBankAccount
-        '
-        Me.btnCompanyBankAccount.Image = CType(resources.GetObject("btnCompanyBankAccount.Image"), System.Drawing.Image)
-        Me.btnCompanyBankAccount.Location = New System.Drawing.Point(302, 25)
-        Me.btnCompanyBankAccount.Name = "btnCompanyBankAccount"
-        Me.btnCompanyBankAccount.Size = New System.Drawing.Size(23, 23)
-        Me.btnCompanyBankAccount.TabIndex = 1
-        '
-        'txtAccountName
-        '
-        Me.txtAccountName.BackColor = System.Drawing.Color.Azure
-        Me.txtAccountName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtAccountName.Location = New System.Drawing.Point(98, 26)
-        Me.txtAccountName.MaxLength = 250
-        Me.txtAccountName.Name = "txtAccountName"
-        Me.txtAccountName.ReadOnly = True
-        Me.txtAccountName.Size = New System.Drawing.Size(198, 21)
-        Me.txtAccountName.TabIndex = 0
-        '
-        'Label23
-        '
-        Me.Label23.AutoSize = True
-        Me.Label23.BackColor = System.Drawing.Color.Transparent
-        Me.Label23.ForeColor = System.Drawing.Color.Black
-        Me.Label23.Location = New System.Drawing.Point(586, 74)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(117, 13)
-        Me.Label23.TabIndex = 151
-        Me.Label23.Text = "Akun Bank Perusahaan"
-        '
-        'gboCompanyBankAccount
-        '
-        Me.gboCompanyBankAccount.Controls.Add(Me.txtCurrencyBank)
-        Me.gboCompanyBankAccount.Controls.Add(Me.Label27)
-        Me.gboCompanyBankAccount.Controls.Add(Me.Label26)
-        Me.gboCompanyBankAccount.Controls.Add(Me.Label25)
-        Me.gboCompanyBankAccount.Controls.Add(Me.Label24)
-        Me.gboCompanyBankAccount.Controls.Add(Me.txtBankName)
-        Me.gboCompanyBankAccount.Controls.Add(Me.txtAccountNumber)
-        Me.gboCompanyBankAccount.Controls.Add(Me.txtAccountName)
-        Me.gboCompanyBankAccount.Controls.Add(Me.btnCompanyBankAccount)
-        Me.gboCompanyBankAccount.Location = New System.Drawing.Point(515, 17)
-        Me.gboCompanyBankAccount.Name = "gboCompanyBankAccount"
-        Me.gboCompanyBankAccount.Size = New System.Drawing.Size(388, 139)
-        Me.gboCompanyBankAccount.TabIndex = 3
-        Me.gboCompanyBankAccount.TabStop = False
-        Me.gboCompanyBankAccount.Text = "Akun Bank Perusahaan"
-        '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.BackColor = System.Drawing.Color.Transparent
-        Me.Label24.ForeColor = System.Drawing.Color.Black
-        Me.Label24.Location = New System.Drawing.Point(21, 30)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(61, 13)
-        Me.Label24.TabIndex = 153
-        Me.Label24.Text = "Nama Akun"
-        '
-        'Label25
-        '
-        Me.Label25.AutoSize = True
-        Me.Label25.BackColor = System.Drawing.Color.Transparent
-        Me.Label25.ForeColor = System.Drawing.Color.Black
-        Me.Label25.Location = New System.Drawing.Point(21, 57)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(60, 13)
-        Me.Label25.TabIndex = 154
-        Me.Label25.Text = "Nama Bank"
-        '
-        'Label26
-        '
-        Me.Label26.AutoSize = True
-        Me.Label26.BackColor = System.Drawing.Color.Transparent
-        Me.Label26.ForeColor = System.Drawing.Color.Black
-        Me.Label26.Location = New System.Drawing.Point(21, 84)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(71, 13)
-        Me.Label26.TabIndex = 155
-        Me.Label26.Text = "No. Rekening"
-        '
-        'Label27
-        '
-        Me.Label27.AutoSize = True
-        Me.Label27.BackColor = System.Drawing.Color.Transparent
-        Me.Label27.ForeColor = System.Drawing.Color.Black
-        Me.Label27.Location = New System.Drawing.Point(21, 111)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(59, 13)
-        Me.Label27.TabIndex = 156
-        Me.Label27.Text = "Mata Uang"
-        '
-        'txtCurrencyBank
-        '
-        Me.txtCurrencyBank.BackColor = System.Drawing.Color.Azure
-        Me.txtCurrencyBank.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCurrencyBank.Location = New System.Drawing.Point(98, 107)
-        Me.txtCurrencyBank.MaxLength = 250
-        Me.txtCurrencyBank.Name = "txtCurrencyBank"
-        Me.txtCurrencyBank.ReadOnly = True
-        Me.txtCurrencyBank.Size = New System.Drawing.Size(198, 21)
-        Me.txtCurrencyBank.TabIndex = 4
         '
         'frmTraSalesContractDet
         '
@@ -1300,6 +1287,8 @@ Partial Class frmTraSalesContractDet
         CType(Me.txtAllowanceProduction, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpAmount.ResumeLayout(False)
         Me.tpAmount.PerformLayout()
+        Me.gboCompanyBankAccount.ResumeLayout(False)
+        Me.gboCompanyBankAccount.PerformLayout()
         Me.gboPesanan.ResumeLayout(False)
         Me.gboPesanan.PerformLayout()
         CType(Me.txtGrandTotal, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1313,6 +1302,11 @@ Partial Class frmTraSalesContractDet
         CType(Me.grdPaymentTerm, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdPaymentTermView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tpAdditionalInformation.ResumeLayout(False)
+        Me.DelegationSeller.ResumeLayout(False)
+        Me.DelegationSeller.PerformLayout()
+        Me.gboDelegationBuyer.ResumeLayout(False)
+        Me.gboDelegationBuyer.PerformLayout()
         Me.tpHistory.ResumeLayout(False)
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1328,13 +1322,6 @@ Partial Class frmTraSalesContractDet
         CType(Me.grdItemCO, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItemCOView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tpAdditionalInformation.ResumeLayout(False)
-        Me.gboDelegationBuyer.ResumeLayout(False)
-        Me.gboDelegationBuyer.PerformLayout()
-        Me.DelegationSeller.ResumeLayout(False)
-        Me.DelegationSeller.PerformLayout()
-        Me.gboCompanyBankAccount.ResumeLayout(False)
-        Me.gboCompanyBankAccount.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1435,5 +1422,4 @@ Partial Class frmTraSalesContractDet
     Friend WithEvents txtAccountNumber As ERPS.usTextBox
     Friend WithEvents txtAccountName As ERPS.usTextBox
     Friend WithEvents btnCompanyBankAccount As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents Label23 As System.Windows.Forms.Label
 End Class

@@ -306,7 +306,7 @@
                     .Parameters.Add("@PONumber", SqlDbType.VarChar, 100).Value = strPONumber
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 End With
-                sqlrdData = sqlCmdExecute.ExecuteReader(CommandBehavior.SingleRow)
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
                 With sqlrdData
                     If .HasRows Then
                         bolDataExists = True

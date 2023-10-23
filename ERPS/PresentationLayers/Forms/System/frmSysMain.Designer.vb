@@ -86,6 +86,9 @@ Partial Class frmSysMain
         Me.mnuTransaksiPembukuanPanjarPesananPemotongan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuanPembayaranHutangPesananPemotongan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuanSep5 = New System.Windows.Forms.ToolStripSeparator()
+        Me.mnuTransaksiPembukuanPanjarPesananPengiriman = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembukuanPembayaranHutangPesananPengiriman = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuTransaksiPembukuanPembayaranBiaya = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuanJurnalUmum = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLaporan = New System.Windows.Forms.ToolStripMenuItem()
@@ -99,9 +102,6 @@ Partial Class frmSysMain
         Me.mnuWindowsCascade = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuWindowsCloseAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLogout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.mnuTransaksiPembukuanPanjarPesananPengiriman = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuTransaksiPembukuanPembayaranHutangPesananPengiriman = New System.Windows.Forms.ToolStripMenuItem()
         Me.ssMain.SuspendLayout()
         Me.mnuMain.SuspendLayout()
         Me.SuspendLayout()
@@ -330,7 +330,7 @@ Partial Class frmSysMain
         '
         'mnuTransaksiPenjualan
         '
-        Me.mnuTransaksiPenjualan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPenjualanPermintaanPenjualan, Me.mnuTransaksiPenjualanKontrakPenjualan, Me.mnuTransaksiPenjualanSep1, Me.mnuTransaksiPenjualanMemoPengambilan, Me.mnuTransaksiPenjualanPengirimanPenjualan})
+        Me.mnuTransaksiPenjualan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPenjualanPermintaanPenjualan, Me.mnuTransaksiPenjualanKontrakPenjualan, Me.mnuTransaksiPenjualanPengirimanPenjualan, Me.mnuTransaksiPenjualanSep1, Me.mnuTransaksiPenjualanMemoPengambilan})
         Me.mnuTransaksiPenjualan.Name = "mnuTransaksiPenjualan"
         Me.mnuTransaksiPenjualan.Size = New System.Drawing.Size(152, 22)
         Me.mnuTransaksiPenjualan.Text = "Penjualan"
@@ -527,6 +527,23 @@ Partial Class frmSysMain
         Me.mnuTransaksiPembukuanSep5.Name = "mnuTransaksiPembukuanSep5"
         Me.mnuTransaksiPembukuanSep5.Size = New System.Drawing.Size(299, 6)
         '
+        'mnuTransaksiPembukuanPanjarPesananPengiriman
+        '
+        Me.mnuTransaksiPembukuanPanjarPesananPengiriman.Name = "mnuTransaksiPembukuanPanjarPesananPengiriman"
+        Me.mnuTransaksiPembukuanPanjarPesananPengiriman.Size = New System.Drawing.Size(302, 22)
+        Me.mnuTransaksiPembukuanPanjarPesananPengiriman.Text = "Panjar Pesanan Pengiriman"
+        '
+        'mnuTransaksiPembukuanPembayaranHutangPesananPengiriman
+        '
+        Me.mnuTransaksiPembukuanPembayaranHutangPesananPengiriman.Name = "mnuTransaksiPembukuanPembayaranHutangPesananPengiriman"
+        Me.mnuTransaksiPembukuanPembayaranHutangPesananPengiriman.Size = New System.Drawing.Size(302, 22)
+        Me.mnuTransaksiPembukuanPembayaranHutangPesananPengiriman.Text = "Pembayaran Hutang Pesanan Pengiriman"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(299, 6)
+        '
         'mnuTransaksiPembukuanPembayaranBiaya
         '
         Me.mnuTransaksiPembukuanPembayaranBiaya.Name = "mnuTransaksiPembukuanPembayaranBiaya"
@@ -608,23 +625,6 @@ Partial Class frmSysMain
         Me.mnuLogout.Name = "mnuLogout"
         Me.mnuLogout.Size = New System.Drawing.Size(57, 20)
         Me.mnuLogout.Text = "L&ogout"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(299, 6)
-        '
-        'mnuTransaksiPembukuanPanjarPesananPengiriman
-        '
-        Me.mnuTransaksiPembukuanPanjarPesananPengiriman.Name = "mnuTransaksiPembukuanPanjarPesananPengiriman"
-        Me.mnuTransaksiPembukuanPanjarPesananPengiriman.Size = New System.Drawing.Size(302, 22)
-        Me.mnuTransaksiPembukuanPanjarPesananPengiriman.Text = "Panjar Pesanan Pengiriman"
-        '
-        'mnuTransaksiPembukuanPembayaranHutangPesananPengiriman
-        '
-        Me.mnuTransaksiPembukuanPembayaranHutangPesananPengiriman.Name = "mnuTransaksiPembukuanPembayaranHutangPesananPengiriman"
-        Me.mnuTransaksiPembukuanPembayaranHutangPesananPengiriman.Size = New System.Drawing.Size(302, 22)
-        Me.mnuTransaksiPembukuanPembayaranHutangPesananPengiriman.Text = "Pembayaran Hutang Pesanan Pengiriman"
         '
         'frmSysMain
         '

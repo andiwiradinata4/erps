@@ -129,19 +129,19 @@
                     .CommandType = CommandType.Text
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
-                        "    A.ID, A.ProgramID, A.CompanyID, A.ReceiveNumber, A.ReceiveDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.PlatNumber,   " & vbNewLine & _
-                        "    A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight,   " & vbNewLine & _
-                        "    A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks,   " & vbNewLine & _
-                        "    A.StatusID, A.SubmitBy, A.SubmitDate, A.LogBy, A.LogDate  " & vbNewLine & _
+                        "   A.ID, A.ProgramID, A.CompanyID, A.ReceiveNumber, A.ReceiveDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.PlatNumber,   " & vbNewLine & _
+                        "   A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight,   " & vbNewLine & _
+                        "   A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks,   " & vbNewLine & _
+                        "   A.StatusID, A.SubmitBy, A.SubmitDate, A.LogBy, A.LogDate  " & vbNewLine & _
                         "FROM traReceive A " & vbNewLine & _
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine & _
-                        "    A.BPID=B.ID " & vbNewLine & _
+                        "   A.BPID=B.ID " & vbNewLine & _
                         "WHERE " & vbNewLine & _
-                        "    A.ID=@ID " & vbNewLine
+                        "   A.ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 End With
-                sqlrdData = sqlcmdExecute.ExecuteReader(CommandBehavior.SingleRow)
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
                 With sqlrdData
                     If .HasRows Then
                         .Read()
@@ -260,7 +260,7 @@
                     .Parameters.Add("@ReceiveNumber", SqlDbType.VarChar, 100).Value = strReceiveNumber
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 End With
-                sqlrdData = sqlCmdExecute.ExecuteReader(CommandBehavior.SingleRow)
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
                 With sqlrdData
                     If .HasRows Then
                         bolDataExists = True

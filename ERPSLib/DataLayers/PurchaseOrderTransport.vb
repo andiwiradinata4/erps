@@ -323,7 +323,7 @@
                     .Parameters.Add("@PONumber", SqlDbType.VarChar, 100).Value = strPONumber
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 End With
-                sqlrdData = sqlCmdExecute.ExecuteReader(CommandBehavior.SingleRow)
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
                 With sqlrdData
                     If .HasRows Then
                         bolDataExists = True
@@ -746,6 +746,48 @@
                     "   POID=@POID" & vbNewLine
 
                 .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = strPOID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateDoneTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                 ByVal strPODetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "UPDATE traPurchaseOrderTransportDet SET 	" & vbNewLine & _
+                    "	DoneWeight=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(DD.TotalWeight),0) TotalWeight   " & vbNewLine & _
+                    "		FROM traDeliveryDetTransport DD 	" & vbNewLine & _
+                    "		INNER JOIN traDelivery DH ON	" & vbNewLine & _
+                    "			DD.DeliveryID=DH.ID 	" & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			DD.PODetailID=@PODetailID 	" & vbNewLine & _
+                    "			AND DH.IsDeleted=0 	" & vbNewLine & _
+                    "	), 	" & vbNewLine & _
+                    "	DoneQuantity=	" & vbNewLine & _
+                    "	(	" & vbNewLine & _
+                    "		SELECT	" & vbNewLine & _
+                    "			ISNULL(SUM(DD.Quantity),0) TotalQuantity    " & vbNewLine & _
+                    "		FROM traDeliveryDetTransport DD 	" & vbNewLine & _
+                    "		INNER JOIN traDelivery DH ON	" & vbNewLine & _
+                    "			DD.DeliveryID=DH.ID 	" & vbNewLine & _
+                    "		WHERE 	" & vbNewLine & _
+                    "			DD.PODetailID=@PODetailID 	" & vbNewLine & _
+                    "			AND DH.IsDeleted=0 	" & vbNewLine & _
+                    "	) 	" & vbNewLine & _
+                    "WHERE ID=@PODetailID	" & vbNewLine
+
+                .Parameters.Add("@PODetailID", SqlDbType.VarChar, 100).Value = strPODetailID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
