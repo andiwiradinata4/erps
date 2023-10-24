@@ -854,7 +854,7 @@
                     "SELECT	" & vbNewLine & _
                     "   A.ID, A.SCID, A1.SCNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  	" & vbNewLine & _
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  	" & vbNewLine & _
-                    "   A.Quantity, A.Weight, A.TotalWeight, A.TotalWeight-A.DCWeight AS MaxTotalWeight, A.Remarks  	" & vbNewLine & _
+                    "   A.UnitPrice, A.Quantity, A.Weight, A.TotalWeight-A.DCWeight AS TotalWeight, A.TotalWeight-A.DCWeight AS MaxTotalWeight, A.Remarks  	" & vbNewLine & _
                     "FROM traSalesContractDet A  	" & vbNewLine & _
                     "INNER JOIN traSalesContract A1 ON  	" & vbNewLine & _
                     "   A.SCID=A1.ID  	" & vbNewLine & _

@@ -7,7 +7,7 @@ Public Class frmTraDeliveryDetItem
     Private bolIsNew As Boolean = False
     Private strID As String = ""
     Private strSCDetailID As String
-    Private intBPID As Integer = 0
+    Private strSCID As String = ""
     Private intItemID As Integer = 0
     Private intPos As Integer = 0
     Private intGroupID As Integer = 0
@@ -17,9 +17,9 @@ Public Class frmTraDeliveryDetItem
     Private drSelectedItem As DataRow
     Private dtTransport As New DataTable
 
-    Public WriteOnly Property pubBPID As Integer
-        Set(value As Integer)
-            intBPID = value
+    Public WriteOnly Property pubSCID As String
+        Set(value As String)
+            strSCID = value
         End Set
     End Property
 
@@ -74,7 +74,7 @@ Public Class frmTraDeliveryDetItem
         UI.usForm.SetGrid(grdItemTransportView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemTransportView, "DeliveryID", "DeliveryID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemTransportView, "PODetailID", "PODetailID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemTransportView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemTransportView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemTransportView, "PONumber", "Nomor Pesanan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemTransportView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemTransportView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
@@ -184,7 +184,7 @@ Public Class frmTraDeliveryDetItem
             txtQuantity.Focus()
             Exit Sub
         ElseIf grdItemTransportView.RowCount = 0 Then
-            UI.usForm.frmMessageBox("Pilih konfirmasi pesanan terlebih dahulu")
+            UI.usForm.frmMessageBox("Pilih pesanan pengiriman terlebih dahulu")
             grdItemTransportView.Focus()
             Exit Sub
         ElseIf txtMaxTotalWeight.Value < txtTotalWeight.Value Then
@@ -198,7 +198,6 @@ Public Class frmTraDeliveryDetItem
             With drItem
                 .BeginEdit()
                 .Item("ID") = Guid.NewGuid
-                .Item("SCID") = ""
                 .Item("SCDetailID") = strSCDetailID
                 .Item("SCNumber") = ""
                 .Item("GroupID") = intGroupID
@@ -227,7 +226,6 @@ Public Class frmTraDeliveryDetItem
                 With dr
                     If .Item("ID") = strID Then
                         .BeginEdit()
-                        .Item("SCID") = ""
                         .Item("SCDetailID") = strSCDetailID
                         .Item("SCNumber") = ""
                         .Item("GroupID") = intGroupID
@@ -299,7 +297,7 @@ Public Class frmTraDeliveryDetItem
         Dim frmDetail As New frmTraSalesContractOutstandingDeliveryItem
         With frmDetail
             .pubParentItem = dtItem
-            .pubBPID = intBPID
+            .pubSCID = strSCID
             .pubCS = clsCS
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
@@ -354,9 +352,10 @@ Public Class frmTraDeliveryDetItem
         dtAllTransport.Merge(dtTransport)
         dtAllTransport.Merge(dtTransportItemParent)
 
-        Dim frmDetail As New frmTraSalesContractDetItemCO
+        Dim frmDetail As New frmTraDeliveryDetItemTransport
         With frmDetail
             .pubIsNew = True
+            .pubSCDetailID = strSCDetailID
             .pubTableParent = dtTransport
             .pubTableParentAll = dtAllTransport
             .pubCS = clsCS
@@ -375,9 +374,10 @@ Public Class frmTraDeliveryDetItem
         dtAllTransport.Merge(dtTransport)
         dtAllTransport.Merge(dtTransportItemParent)
 
-        Dim frmDetail As New frmTraSalesContractDetItemCO
+        Dim frmDetail As New frmTraDeliveryDetItemTransport
         With frmDetail
             .pubIsNew = False
+            .pubSCDetailID = strSCDetailID
             .pubTableParent = dtTransport
             .pubTableParentAll = dtAllTransport
             .pubCS = clsCS

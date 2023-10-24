@@ -360,6 +360,13 @@
             End Using
         End Function
 
+        Public Shared Function ListDataDetailOutstandingDelivery(ByVal intProgramID As Integer, ByVal intCompanyID As Integer, ByVal strSCDetailID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseOrderTransport.ListDataDetailOutstandingDelivery(sqlCon, Nothing, intProgramID, intCompanyID, strSCDetailID)
+            End Using
+        End Function
+
 #End Region
 
     End Class

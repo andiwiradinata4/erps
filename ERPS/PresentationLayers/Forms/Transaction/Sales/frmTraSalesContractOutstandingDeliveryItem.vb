@@ -6,7 +6,7 @@ Public Class frmTraSalesContractOutstandingDeliveryItem
     Private frmParent As frmTraDeliveryDetItem
     Private intPos As Integer = 0
     Private clsCS As VO.CS
-    Private intBPID As Integer
+    Private strSCID As String
     Private dtData As New DataTable
     Private drLookupGet As DataRow
     Private bolIsLookupGet As Boolean = False
@@ -18,9 +18,9 @@ Public Class frmTraSalesContractOutstandingDeliveryItem
         End Set
     End Property
 
-    Public WriteOnly Property pubBPID As Integer
-        Set(value As Integer)
-            intBPID = value
+    Public WriteOnly Property pubSCID As String
+        Set(value As String)
+            strSCID = value
         End Set
     End Property
 
@@ -83,7 +83,7 @@ Public Class frmTraSalesContractOutstandingDeliveryItem
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         Try
-            dtData = BL.SalesContract.ListDataDetailOutstandingDelivery(clsCS.ProgramID, clsCS.CompanyID, intBPID)
+            dtData = BL.SalesContract.ListDataDetailOutstandingDelivery(clsCS.ProgramID, clsCS.CompanyID, strSCID)
             For Each drParent As DataRow In dtParent.Rows
                 For Each dr As DataRow In dtData.Rows
                     If drParent.Item("SCDetailID") = dr.Item("ID") Then dr.Delete()

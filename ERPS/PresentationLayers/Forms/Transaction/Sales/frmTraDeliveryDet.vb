@@ -242,6 +242,7 @@ Public Class frmTraDeliveryDet
         clsData.DeliveryNumber = txtDeliveryNumber.Text.Trim
         clsData.DeliveryDate = dtpDeliveryDate.Value.Date
         clsData.BPID = intBPID
+        clsData.SCID = strSCID
         clsData.ReferencesNumber = txtReferencesNumber.Text.Trim
         clsData.PlatNumber = txtPlatNumber.Text.Trim
         clsData.Driver = txtDriver.Text.Trim
@@ -308,6 +309,10 @@ Public Class frmTraDeliveryDet
         txtTotalPPN.Value = 0
         txtTotalPPH.Value = 0
         txtGrandTotal.Value = 0
+        txtTotalDPPTransport.Value = 0
+        txtTotalPPNTransport.Value = 0
+        txtTotalPPHTransport.Value = 0
+        txtGrandTotalTransport.Value = 0
         txtRemarks.Text = ""
         cboStatus.SelectedValue = VO.Status.Values.Draft
         ToolStripLogInc.Text = "Jumlah Edit : -"
@@ -454,7 +459,7 @@ Public Class frmTraDeliveryDet
         With frmDetail
             .pubIsNew = True
             .pubCS = pubCS
-            .pubBPID = intBPID
+            .pubSCID = strSCID
             .pubTableItem = dtItem
             .pubTableTransportItemParent = dtItemTransport
             .StartPosition = FormStartPosition.CenterParent
@@ -472,7 +477,7 @@ Public Class frmTraDeliveryDet
         With frmDetail
             .pubIsNew = False
             .pubCS = pubCS
-            .pubBPID = intBPID
+            .pubSCID = strSCID
             .pubTableItem = dtItem
             .pubTableTransportItemParent = dtItemTransport
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
@@ -604,6 +609,7 @@ Public Class frmTraDeliveryDet
         prvFillForm()
         prvQueryItem()
         prvQueryItemTransport()
+        prvCalculate()
         prvQueryHistory()
         prvUserAccess()
     End Sub

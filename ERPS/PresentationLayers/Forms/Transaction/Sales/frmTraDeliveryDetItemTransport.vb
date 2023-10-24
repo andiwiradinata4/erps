@@ -9,6 +9,7 @@
     Private intItemID As Integer = 0
     Private drSelected As DataRow
     Private strID As String = ""
+    Private strSCDetailID As String
     Private strPODetailID As String
     Private clsCS As VO.CS
 
@@ -21,6 +22,12 @@
     Public WriteOnly Property pubDataRowSelected As DataRow
         Set(value As DataRow)
             drSelected = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubSCDetailID As String
+        Set(value As String)
+            strSCDetailID = value
         End Set
     End Property
 
@@ -194,32 +201,33 @@
     End Sub
 
     Private Sub prvChooseItem()
-        'Dim frmDetail As New frmTraConfirmationOrderOutstandingSalesContract
-        'With frmDetail
-        '    .pubParentItem = dtParentAll
-        '    .pubCS = clsCS
-        '    .StartPosition = FormStartPosition.CenterParent
-        '    .pubShowDialog(Me)
-        '    If .pubIsLookUpGet Then
-        '        txtPONumber.Text = .pubLUdtRow.Item("PONumber")
-        '        strPODetailID = .pubLUdtRow.Item("ID")
-        '        txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
-        '        intItemID = .pubLUdtRow.Item("ItemID")
-        '        cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
-        '        txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
-        '        txtItemName.Text = .pubLUdtRow.Item("ItemName")
-        '        cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
-        '        txtThick.Value = .pubLUdtRow.Item("Thick")
-        '        txtWidth.Value = .pubLUdtRow.Item("Width")
-        '        txtLength.Value = .pubLUdtRow.Item("Length")
-        '        txtWeight.Value = .pubLUdtRow.Item("Weight")
-        '        txtMaxTotalWeight.Value = .pubLUdtRow.Item("TotalWeight")
-        '        txtUnitPrice.Value = .pubLUdtRow.Item("UnitPrice")
-        '        txtQuantity.Value = .pubLUdtRow.Item("Quantity")
-        '        txtQuantity.Focus()
-        '        txtRemarks.Text = ""
-        '    End If
-        'End With
+        dtParentAll.Merge(dtParent)
+        Dim frmDetail As New frmTraDeliveryDetItemTransportOutstanding
+        With frmDetail
+            .pubSCDetailID = strSCDetailID
+            .pubParentItem = dtParentAll
+            .pubCS = clsCS
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            If .pubIsLookUpGet Then
+                txtPONumber.Text = .pubLUdtRow.Item("PONumber")
+                strPODetailID = .pubLUdtRow.Item("ID")
+                intItemID = .pubLUdtRow.Item("ItemID")
+                cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
+                txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
+                txtItemName.Text = .pubLUdtRow.Item("ItemName")
+                cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
+                txtThick.Value = .pubLUdtRow.Item("Thick")
+                txtWidth.Value = .pubLUdtRow.Item("Width")
+                txtLength.Value = .pubLUdtRow.Item("Length")
+                txtWeight.Value = .pubLUdtRow.Item("Weight")
+                txtMaxTotalWeight.Value = .pubLUdtRow.Item("MaxTotalWeight")
+                txtUnitPrice.Value = .pubLUdtRow.Item("UnitPrice")
+                txtQuantity.Value = .pubLUdtRow.Item("Quantity")
+                txtQuantity.Focus()
+                txtRemarks.Text = ""
+            End If
+        End With
     End Sub
 
     Private Sub prvCalculate()

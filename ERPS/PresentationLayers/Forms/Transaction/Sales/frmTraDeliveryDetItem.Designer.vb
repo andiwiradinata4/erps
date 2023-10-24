@@ -611,7 +611,7 @@ Partial Class frmTraDeliveryDetItem
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(652, 22)
         Me.Label5.TabIndex = 3
-        Me.Label5.Text = "« Pesanan Transport"
+        Me.Label5.Text = "« Pesanan Pengiriman"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ToolBarItemTransport
