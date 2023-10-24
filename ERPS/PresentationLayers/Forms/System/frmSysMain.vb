@@ -58,6 +58,8 @@
 
 
     '# Laporan
+    Dim frmMainRptMonitoringProductTransactionVer00 As frmRptMonitoringProductTransactionVer00
+
     '## Pembukuan
     Dim frmMainRptBukuBesarVer00 As frmRptBukuBesarVer00
 
@@ -140,6 +142,8 @@
         mnuTransaksiPembukuanJurnalUmum.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionJournal, VO.Access.Values.ViewAccess)
 
         '# Laporan
+        mnuLaporanTransaksiBarang.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, -1, ERPSLib.VO.Modules.Values.ReportBukuBesar, VO.Access.Values.ViewAccess)
+
         '## Pembukuan
         mnuLaporanPembukuanBukuBesar.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, ERPSLib.VO.Modules.Values.ReportBukuBesar, VO.Access.Values.ViewAccess)
 
@@ -677,6 +681,10 @@
 #End Region
 
 #Region "Laporan"
+
+    Private Sub mnuLaporanTransaksiBarang_Click(sender As Object, e As EventArgs) Handles mnuLaporanTransaksiBarang.Click
+        UI.usForm.frmOpen(frmMainRptMonitoringProductTransactionVer00, "frmRptMonitoringProductTransactionVer00", Me)
+    End Sub
 
     Private Sub mnuLaporanPembukuanBukuBesar_Click(sender As Object, e As EventArgs) Handles mnuLaporanPembukuanBukuBesar.Click
         UI.usForm.frmOpen(frmMainRptBukuBesarVer00, "frmRptBukuBesarVer00", Me)

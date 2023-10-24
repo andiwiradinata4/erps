@@ -58,17 +58,17 @@ Partial Public Class rptBukuBesarVer00
         Me.XrLabel23 = New DevExpress.XtraReports.UI.XRLabel()
         Me.xrLblAccountCode = New DevExpress.XtraReports.UI.XRLabel()
         Me.Detail = New DevExpress.XtraReports.UI.DetailBand()
+        Me.XrLabel11 = New DevExpress.XtraReports.UI.XRLabel()
         Me.PageHeader = New DevExpress.XtraReports.UI.PageHeaderBand()
         Me.XrLabel18 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ghCode = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.gfCode = New DevExpress.XtraReports.UI.GroupFooterBand()
+        Me.XrLabel25 = New DevExpress.XtraReports.UI.XRLabel()
         Me.TopMargin = New DevExpress.XtraReports.UI.TopMarginBand()
         Me.ReportHeader = New DevExpress.XtraReports.UI.ReportHeaderBand()
-        Me.XrLabel11 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel25 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.BottomMargin = New DevExpress.XtraReports.UI.BottomMarginBand()
-        Me.FilterPeriod = New DevExpress.XtraReports.Parameters.Parameter()
         Me.xrPeriod = New DevExpress.XtraReports.UI.XRLabel()
+        Me.FilterPeriod = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.BottomMargin = New DevExpress.XtraReports.UI.BottomMarginBand()
         Me.ObjectDataSource1 = New DevExpress.DataAccess.ObjectBinding.ObjectDataSource(Me.components)
         CType(Me.ObjectDataSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -583,6 +583,23 @@ Partial Public Class rptBukuBesarVer00
         Me.Detail.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
         Me.Detail.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
+        'XrLabel11
+        '
+        Me.XrLabel11.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrLabel11.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Remarks")})
+        Me.XrLabel11.Dpi = 100.0!
+        Me.XrLabel11.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.XrLabel11.LocationFloat = New DevExpress.Utils.PointFloat(222.7916!, 0.0!)
+        Me.XrLabel11.Multiline = True
+        Me.XrLabel11.Name = "XrLabel11"
+        Me.XrLabel11.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 2, 0, 0, 100.0!)
+        Me.XrLabel11.SizeF = New System.Drawing.SizeF(415.4585!, 25.0!)
+        Me.XrLabel11.StylePriority.UseBorders = False
+        Me.XrLabel11.StylePriority.UseFont = False
+        Me.XrLabel11.StylePriority.UsePadding = False
+        Me.XrLabel11.StylePriority.UseTextAlignment = False
+        Me.XrLabel11.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
         'PageHeader
         '
         Me.PageHeader.Dpi = 100.0!
@@ -622,38 +639,6 @@ Partial Public Class rptBukuBesarVer00
         Me.gfCode.KeepTogether = True
         Me.gfCode.Name = "gfCode"
         '
-        'TopMargin
-        '
-        Me.TopMargin.Dpi = 100.0!
-        Me.TopMargin.HeightF = 20.0!
-        Me.TopMargin.Name = "TopMargin"
-        Me.TopMargin.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
-        Me.TopMargin.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'ReportHeader
-        '
-        Me.ReportHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.xrPeriod, Me.xrTitle, Me.xrCompanyName})
-        Me.ReportHeader.Dpi = 100.0!
-        Me.ReportHeader.HeightF = 120.0!
-        Me.ReportHeader.Name = "ReportHeader"
-        '
-        'XrLabel11
-        '
-        Me.XrLabel11.Borders = DevExpress.XtraPrinting.BorderSide.None
-        Me.XrLabel11.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Remarks")})
-        Me.XrLabel11.Dpi = 100.0!
-        Me.XrLabel11.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.XrLabel11.LocationFloat = New DevExpress.Utils.PointFloat(222.7916!, 0.0!)
-        Me.XrLabel11.Multiline = True
-        Me.XrLabel11.Name = "XrLabel11"
-        Me.XrLabel11.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 2, 0, 0, 100.0!)
-        Me.XrLabel11.SizeF = New System.Drawing.SizeF(415.4585!, 25.0!)
-        Me.XrLabel11.StylePriority.UseBorders = False
-        Me.XrLabel11.StylePriority.UseFont = False
-        Me.XrLabel11.StylePriority.UsePadding = False
-        Me.XrLabel11.StylePriority.UseTextAlignment = False
-        Me.XrLabel11.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
         'XrLabel25
         '
         Me.XrLabel25.Borders = DevExpress.XtraPrinting.BorderSide.None
@@ -670,18 +655,20 @@ Partial Public Class rptBukuBesarVer00
         Me.XrLabel25.StylePriority.UseTextAlignment = False
         Me.XrLabel25.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
-        'BottomMargin
+        'TopMargin
         '
-        Me.BottomMargin.Dpi = 100.0!
-        Me.BottomMargin.HeightF = 20.0!
-        Me.BottomMargin.Name = "BottomMargin"
-        Me.BottomMargin.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
-        Me.BottomMargin.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        Me.TopMargin.Dpi = 100.0!
+        Me.TopMargin.HeightF = 20.0!
+        Me.TopMargin.Name = "TopMargin"
+        Me.TopMargin.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
+        Me.TopMargin.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
-        'FilterPeriod
+        'ReportHeader
         '
-        Me.FilterPeriod.Description = "FilterPeriod"
-        Me.FilterPeriod.Name = "FilterPeriod"
+        Me.ReportHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.xrPeriod, Me.xrTitle, Me.xrCompanyName})
+        Me.ReportHeader.Dpi = 100.0!
+        Me.ReportHeader.HeightF = 120.0!
+        Me.ReportHeader.Name = "ReportHeader"
         '
         'xrPeriod
         '
@@ -695,6 +682,19 @@ Partial Public Class rptBukuBesarVer00
         Me.xrPeriod.StylePriority.UseFont = False
         Me.xrPeriod.StylePriority.UseTextAlignment = False
         Me.xrPeriod.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'FilterPeriod
+        '
+        Me.FilterPeriod.Description = "FilterPeriod"
+        Me.FilterPeriod.Name = "FilterPeriod"
+        '
+        'BottomMargin
+        '
+        Me.BottomMargin.Dpi = 100.0!
+        Me.BottomMargin.HeightF = 20.0!
+        Me.BottomMargin.Name = "BottomMargin"
+        Me.BottomMargin.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
+        Me.BottomMargin.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
         'ObjectDataSource1
         '

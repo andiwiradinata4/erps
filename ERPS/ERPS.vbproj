@@ -821,10 +821,22 @@
     <Compile Include="PresentationLayers\Reports1\frmRptBukuBesarVer00.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Reports1\frmRptMonitoringProductTransactionVer00.Designer.vb">
+      <DependentUpon>frmRptMonitoringProductTransactionVer00.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports1\frmRptMonitoringProductTransactionVer00.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Reports2\rptBukuBesarVer00.Designer.vb">
       <DependentUpon>rptBukuBesarVer00.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Reports2\rptBukuBesarVer00.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptMonitoringProductTransaction.Designer.vb">
+      <DependentUpon>rptMonitoringProductTransaction.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptMonitoringProductTransaction.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Reports2\rptPurchaseOrder.Designer.vb">
@@ -1244,8 +1256,14 @@
     <EmbeddedResource Include="PresentationLayers\Reports1\frmRptBukuBesarVer00.resx">
       <DependentUpon>frmRptBukuBesarVer00.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports1\frmRptMonitoringProductTransactionVer00.resx">
+      <DependentUpon>frmRptMonitoringProductTransactionVer00.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptBukuBesarVer00.resx">
       <DependentUpon>rptBukuBesarVer00.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports2\rptMonitoringProductTransaction.resx">
+      <DependentUpon>rptMonitoringProductTransaction.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptPurchaseOrder.resx">
       <DependentUpon>rptPurchaseOrder.vb</DependentUpon>

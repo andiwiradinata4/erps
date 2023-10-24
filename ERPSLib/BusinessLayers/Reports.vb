@@ -2,6 +2,15 @@
 
     Public Class Reports
 
+        Public Shared Function MonitoringProductTransactionReportVer00(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                       ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable
+            dtmDateTo = dtmDateTo.AddHours(23).AddMinutes(59).AddSeconds(59)
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.Reports.MonitoringProductTransactionReportVer00(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo)
+            End Using
+        End Function
+
         Public Shared Function BukuBesarLastBalance(ByVal dtmDateFrom As DateTime, ByVal intCoAID As Integer, ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As Decimal
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection

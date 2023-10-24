@@ -1,6 +1,106 @@
 ﻿Namespace DL
     Public Class Reports
 
+        Public Shared Function MonitoringProductTransactionReportVer00(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                       ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                       ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+"SELECT  " & vbNewLine & _
+"	POH.PONumber, POH.PODate, POH.BPID, BP.Name AS SupplierName,  " & vbNewLine & _
+"	POD.ItemID, MI.ItemName AS POItemName, POD.TotalWeight AS POItemWeight, POD.UnitPrice AS POItemUnitPrice, POD.TotalPrice AS POItemTotalPrice,  " & vbNewLine & _
+"	(POD.TotalPrice*POH.PPN/100) AS POItemTotalPPN, POD.TotalPrice+(POD.TotalPrice*POH.PPN/100) AS POItemSubTotal, " & vbNewLine & _
+"	0 AS CategoryID, 'PEMBELIAN' AS CategoryName,  " & vbNewLine & _
+"	PCH.PCNumber AS CategoryNumber, PCH.PCDate AS CategoryDate, BPC.Name AS BPName, " & vbNewLine & _
+"	PCD.ItemID, MIPC.ItemName AS CategoryItemName, PCD.TotalWeight AS CategoryItemWeight, PCD.UnitPrice AS CategoryItemUnitPrice, PCD.TotalPrice AS CategoryItemTotalPrice,  " & vbNewLine & _
+"	(PCD.TotalPrice*PCH.PPN/100) AS CategoryItemTotalPPN, PCD.TotalPrice+(PCD.TotalPrice*PCH.PPN/100) AS CategoryItemSubTotal,  " & vbNewLine & _
+"	PCD.DCWeight AS CategoryDeliveryWeight, PCH.DPAmount+PCH.ReceiveAmount AS CategoryTotalPayment  " & vbNewLine & _
+" " & vbNewLine & _
+"FROM traPurchaseOrder POH  " & vbNewLine & _
+"INNER JOIN mstBusinessPartner BP ON  " & vbNewLine & _
+"	POH.BPID=BP.ID  " & vbNewLine & _
+"INNER JOIN traPurchaseOrderDet POD ON  " & vbNewLine & _
+"	POH.ID=POD.POID  " & vbNewLine & _
+"INNER JOIN mstItem MI ON " & vbNewLine & _
+"	POD.ItemID=MI.ID " & vbNewLine & _
+"INNER JOIN traConfirmationOrderDet COD ON  " & vbNewLine & _
+"	POD.ID=COD.PODetailID  " & vbNewLine & _
+"INNER JOIN traConfirmationOrder COH ON  " & vbNewLine & _
+"	COD.COID=COH.ID  " & vbNewLine & _
+"	AND COH.IsDeleted=0  " & vbNewLine & _
+"INNER JOIN traPurchaseContractDet PCD ON  " & vbNewLine & _
+"	COD.ID=PCD.CODetailID  " & vbNewLine & _
+"INNER JOIN mstItem MIPC ON " & vbNewLine & _
+"	PCD.ItemID=MIPC.ID " & vbNewLine & _
+"INNER JOIN traPurchaseContract PCH ON  " & vbNewLine & _
+"	PCD.PCID=PCH.ID  " & vbNewLine & _
+"	AND PCH.IsDeleted=0  " & vbNewLine & _
+"INNER JOIN mstBusinessPartner BPC ON  " & vbNewLine & _
+"	PCH.BPID=BPC.ID  " & vbNewLine & _
+"WHERE  " & vbNewLine & _
+"	POH.IsDeleted=0  " & vbNewLine & _
+"	AND POH.StatusID=@StatusID  " & vbNewLine & _
+"	AND POH.ProgramID=@ProgramID  " & vbNewLine & _
+"	AND POH.CompanyID=@CompanyID  " & vbNewLine & _
+"	AND POH.PODate>=@DateFrom AND POH.PODate<=@DateTo  " & vbNewLine & _
+"UNION ALL  " & vbNewLine & _
+"SELECT  " & vbNewLine & _
+"	POH.PONumber, POH.PODate, POH.BPID, BP.Name AS SupplierName,  " & vbNewLine & _
+"	POD.ItemID, MI.ItemName AS POItemName, POD.TotalWeight AS POItemWeight, POD.UnitPrice AS POItemUnitPrice, POD.TotalPrice AS POItemTotalPrice,  " & vbNewLine & _
+"	(POD.TotalPrice*POH.PPN/100) AS POItemTotalPPN, POD.TotalPrice+(POD.TotalPrice*POH.PPN/100) AS POItemSubTotal, " & vbNewLine & _
+"	1 AS CategoryID, 'PENJUALAN' AS CategoryName,  " & vbNewLine & _
+"	SCD.CategoryNumber, SCD.CategoryDate, SCD.BPName, SCD.ItemID, SCD.CategoryItemName, SCD.CategoryItemWeight, SCD.CategoryItemUnitPrice, SCD.CategoryItemTotalPrice, " & vbNewLine & _
+"	SCD.CategoryItemTotalPPN, SCD.CategoryItemSubTotal, SCD.CategoryDeliveryWeight, SCD.CategoryTotalPayment  " & vbNewLine & _
+"FROM traPurchaseOrder POH  " & vbNewLine & _
+"INNER JOIN mstBusinessPartner BP ON  " & vbNewLine & _
+"	POH.BPID=BP.ID  " & vbNewLine & _
+"INNER JOIN traPurchaseOrderDet POD ON  " & vbNewLine & _
+"	POH.ID=POD.POID  " & vbNewLine & _
+"INNER JOIN mstItem MI ON " & vbNewLine & _
+"	POD.ItemID=MI.ID " & vbNewLine & _
+"INNER JOIN traConfirmationOrderDet COD ON  " & vbNewLine & _
+"	POD.ID=COD.PODetailID  " & vbNewLine & _
+"INNER JOIN  " & vbNewLine & _
+"( " & vbNewLine & _
+"	SELECT  " & vbNewLine & _
+"		SCDCO.CODetailID, SCH.SCNumber AS CategoryNumber, SCH.SCDate AS CategoryDate, BPC.Name AS BPName,  " & vbNewLine & _
+"		SCD.ItemID, MISC.ItemName AS CategoryItemName, SCD.TotalWeight AS CategoryItemWeight, SCD.UnitPrice AS CategoryItemUnitPrice, SCD.TotalPrice AS CategoryItemTotalPrice,  " & vbNewLine & _
+"		(SCD.TotalPrice*SCH.PPN/100) AS CategoryItemTotalPPN, SCD.TotalPrice+(SCD.TotalPrice*SCH.PPN/100) AS CategoryItemSubTotal, " & vbNewLine & _
+"		SCD.DCWeight AS CategoryDeliveryWeight, SCH.DPAmount+SCH.ReceiveAmount AS CategoryTotalPayment  " & vbNewLine & _
+"	FROM traSalesContractDetConfirmationOrder SCDCO  " & vbNewLine & _
+"	INNER JOIN traSalesContractDet SCD ON  " & vbNewLine & _
+"		SCDCO.SCID=SCD.SCID  " & vbNewLine & _
+"		AND SCDCO.GroupID=SCD.GroupID  " & vbNewLine & _
+"	INNER JOIN mstItem MISC ON " & vbNewLine & _
+"		SCD.ItemID=MISC.ID " & vbNewLine & _
+"	INNER JOIN traSalesContract SCH ON  " & vbNewLine & _
+"		SCD.SCID=SCH.ID  " & vbNewLine & _
+"	    AND SCH.IsDeleted=0  " & vbNewLine & _
+"	INNER JOIN mstBusinessPartner BPC ON  " & vbNewLine & _
+"		SCH.BPID=BPC.ID  " & vbNewLine & _
+") SCD ON  " & vbNewLine & _
+"	COD.ID=SCD.CODetailID  " & vbNewLine & _
+"WHERE  " & vbNewLine & _
+"	POH.IsDeleted=0  " & vbNewLine & _
+"	AND POH.StatusID=@StatusID  " & vbNewLine & _
+"	AND POH.ProgramID=@ProgramID  " & vbNewLine & _
+"	AND POH.CompanyID=@CompanyID  " & vbNewLine & _
+"	AND POH.PODate>=@DateFrom AND POH.PODate<=@DateTo  " & vbNewLine & _
+"ORDER BY CategoryID, PONumber, PODate" & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
+                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
         Public Shared Function GetBukuBesarLastBalance(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                        ByVal dtmDateFrom As DateTime, ByVal intCoAID As Integer,
                                                        ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As DataTable
