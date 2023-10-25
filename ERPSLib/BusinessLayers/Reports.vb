@@ -6,9 +6,13 @@
                                                                        ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable
             dtmDateTo = dtmDateTo.AddHours(23).AddMinutes(59).AddSeconds(59)
             BL.Server.ServerDefault()
+            Dim dtReturn As New DataTable
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.Reports.MonitoringProductTransactionReportVer00(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo)
+                dtReturn = DL.Reports.MonitoringProductTransactionReportVer00(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo)
             End Using
+            dtReturn.DefaultView.Sort = "PONumber, CategoryID, PODate ASC"
+            dtReturn = dtReturn.DefaultView.ToTable
+            Return dtReturn
         End Function
 
         Public Shared Function BukuBesarLastBalance(ByVal dtmDateFrom As DateTime, ByVal intCoAID As Integer, ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As Decimal

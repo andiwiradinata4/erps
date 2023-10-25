@@ -31,7 +31,7 @@
 
         Me.Cursor = Cursors.WaitCursor
         Try
-            Dim crReport As New rptMonitoringProductTransaction
+            Dim crReport As New rptMonitoringProductTransactionVer00
             crReport.DataSource = BL.Reports.MonitoringProductTransactionReportVer00(ERPSLib.UI.usUserApp.ProgramID, ERPSLib.UI.usUserApp.CompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
             With crReport
                 .Parameters.Item("FilterPeriod").Value = strFilterDate

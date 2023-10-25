@@ -1,0 +1,3 @@
+﻿Public Class rptMonitoringProductTransactionVer00
+
+End Class

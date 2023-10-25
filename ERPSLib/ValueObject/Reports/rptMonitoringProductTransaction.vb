@@ -21,6 +21,7 @@
         Property CategoryItemTotalPrice As Decimal
         Property CategoryItemTotalPPN As Decimal
         Property CategoryItemSubTotal As Decimal
+        Property CategoryDeliveryWeight As Decimal
         Property CategoryTotalPayment As Decimal
 
     End Class

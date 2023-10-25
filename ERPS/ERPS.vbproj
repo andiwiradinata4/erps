@@ -833,10 +833,10 @@
     <Compile Include="PresentationLayers\Reports2\rptBukuBesarVer00.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PresentationLayers\Reports2\rptMonitoringProductTransaction.Designer.vb">
-      <DependentUpon>rptMonitoringProductTransaction.vb</DependentUpon>
+    <Compile Include="PresentationLayers\Reports2\rptMonitoringProductTransactionVer00.Designer.vb">
+      <DependentUpon>rptMonitoringProductTransactionVer00.vb</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayers\Reports2\rptMonitoringProductTransaction.vb">
+    <Compile Include="PresentationLayers\Reports2\rptMonitoringProductTransactionVer00.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Reports2\rptPurchaseOrder.Designer.vb">
@@ -1262,8 +1262,8 @@
     <EmbeddedResource Include="PresentationLayers\Reports2\rptBukuBesarVer00.resx">
       <DependentUpon>rptBukuBesarVer00.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PresentationLayers\Reports2\rptMonitoringProductTransaction.resx">
-      <DependentUpon>rptMonitoringProductTransaction.vb</DependentUpon>
+    <EmbeddedResource Include="PresentationLayers\Reports2\rptMonitoringProductTransactionVer00.resx">
+      <DependentUpon>rptMonitoringProductTransactionVer00.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptPurchaseOrder.resx">
       <DependentUpon>rptPurchaseOrder.vb</DependentUpon>

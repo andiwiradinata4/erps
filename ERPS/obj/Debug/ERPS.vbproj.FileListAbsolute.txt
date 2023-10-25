@@ -259,5 +259,5 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryDetIte
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractOutstandingDelivery.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractOutstandingDeliveryItem.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryDetItemTransportOutstanding.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptMonitoringProductTransaction.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptMonitoringProductTransactionVer00.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptMonitoringProductTransactionVer00.resources
