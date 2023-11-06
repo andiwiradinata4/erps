@@ -372,6 +372,7 @@ Public Class frmTraAccountPayableDet
             Next
             ToolBarDetail.Focus()
             prvCalculate()
+            .BestFitColumns()
         End With
     End Sub
 

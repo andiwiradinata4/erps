@@ -350,6 +350,7 @@ Public Class frmTraAccountReceivableDet
             Next
             ToolBarDetail.Focus()
             prvCalculate()
+            .BestFitColumns()
         End With
     End Sub
 
@@ -411,7 +412,7 @@ Public Class frmTraAccountReceivableDet
     Private Sub ToolBarDetail_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarDetail.ButtonClick
         Select Case e.Button.Text.Trim
             Case "Centang Semua" : prvChangeCheckedValue(True)
-            Case "Hapus Semua Centangan" : prvChangeCheckedValue(False)
+            Case "Tidak Centang Semua" : prvChangeCheckedValue(False)
         End Select
     End Sub
 
