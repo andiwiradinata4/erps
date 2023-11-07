@@ -8,6 +8,7 @@ Public Class frmTraAccountPayableDet
     Private intBPID As Integer = 0
     Private intCoAIDOfOutgoingPayment As Integer = 0
     Private strModules As String = ""
+    Private intModuleID As Integer = 0
     Private dtItem As New DataTable
     Private intPos As Integer = 0
     Private bolValid As Boolean = True
@@ -272,8 +273,28 @@ Public Class frmTraAccountPayableDet
         End With
     End Sub
 
+    Private Sub prvGetModuleID()
+        If strModules = VO.AccountPayable.PurchaseBalance Then
+            intModuleID = VO.Modules.Values.TransactionAccountPayableBalance
+        ElseIf strModules = VO.AccountPayable.DownPaymentManual Then
+            intModuleID = VO.Modules.Values.TransactionPurchaseDPManual
+        ElseIf strModules = VO.AccountPayable.DownPayment Then
+            intModuleID = VO.Modules.Values.TransactionPurchaseDP
+        ElseIf strModules = VO.AccountPayable.ReceivePayment Then
+            intModuleID = VO.Modules.Values.TransactionAccountPayable
+        ElseIf strModules = VO.AccountPayable.DownPaymentCutting Then
+            intModuleID = VO.Modules.Values.TransactionPurchaseDPCutting
+        ElseIf strModules = VO.AccountPayable.ReceivePaymentCutting Then
+            intModuleID = VO.Modules.Values.TransactionAccountPayableCutting
+        ElseIf strModules = VO.AccountPayable.DownPaymentTransport Then
+            intModuleID = VO.Modules.Values.TransactionPurchaseDPTransport
+        ElseIf strModules = VO.AccountPayable.ReceivePaymentTransport Then
+            intModuleID = VO.Modules.Values.TransactionAccountPayableTransport
+        End If
+    End Sub
+
     Private Sub prvUserAccess()
-        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountPayableBalance, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
+        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
     End Sub
 
 #Region "Item Handle"
@@ -413,6 +434,7 @@ Public Class frmTraAccountPayableDet
     End Sub
 
     Private Sub frmTraAccountPayableDet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        prvGetModuleID()
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         ToolBarDetail.SetIcon(Me)

@@ -8,6 +8,7 @@ Public Class frmTraAccountReceivableDet
     Private intBPID As Integer = 0
     Private intCoAIDOfIncomePayment As Integer = 0
     Private strModules As String = ""
+    Private intModuleID As Integer = 0
     Private dtItem As New DataTable
     Private intPos As Integer = 0
     Private bolValid As Boolean = True
@@ -68,7 +69,7 @@ Public Class frmTraAccountReceivableDet
 
     Private Sub prvFillCombo()
         Try
-            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionAccountReceivableBalance), "StatusID", "StatusName")
+            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(intModuleID), "StatusID", "StatusName")
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -272,8 +273,20 @@ Public Class frmTraAccountReceivableDet
         End With
     End Sub
 
+    Private Sub prvGetModuleID()
+        If strModules = VO.AccountReceivable.SalesBalance Then
+            intModuleID = VO.Modules.Values.TransactionAccountReceivableBalance
+        ElseIf strModules = VO.AccountReceivable.DownPaymentManual Then
+            intModuleID = VO.Modules.Values.TransactionSalesDPManual
+        ElseIf strModules = VO.AccountReceivable.DownPayment Then
+            intModuleID = VO.Modules.Values.TransactionSalesDP
+        ElseIf strModules = VO.AccountReceivable.ReceivePayment Then
+            intModuleID = VO.Modules.Values.TransactionAccountReceivable
+        End If
+    End Sub
+
     Private Sub prvUserAccess()
-        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountReceivableBalance, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
+        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
     End Sub
 
 #Region "Item Handle"
@@ -391,6 +404,7 @@ Public Class frmTraAccountReceivableDet
     End Sub
 
     Private Sub frmTraAccountReceivableDet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        prvGetModuleID()
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         ToolBarDetail.SetIcon(Me)
