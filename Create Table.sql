@@ -451,6 +451,7 @@ CREATE TABLE [dbo].[mstBusinessPartner](
 	[Address] [varchar](500) NOT NULL CONSTRAINT [DF_mstBusinessPartner_Address]  DEFAULT (''),
 	[PICName] [varchar](150) NOT NULL CONSTRAINT [DF_mstBusinessPartner_PICName]  DEFAULT (''),
 	[PICPhoneNumber] [varchar](100) NOT NULL CONSTRAINT [DF_mstBusinessPartner_PICPhoneNumber]  DEFAULT (''),
+	[Initial] [varchar](150) NOT NULL CONSTRAINT [DF_mstBusinessPartner_Initial]  DEFAULT (''),
 	[APBalance] [decimal](18, 2) NOT NULL CONSTRAINT [DF_mstBusinessPartner_APBalance]  DEFAULT ((0)),
 	[ARBalance] [decimal](18, 2) NOT NULL CONSTRAINT [DF_mstBusinessPartner_ARBalance]  DEFAULT ((0)),
 	[JournalIDForAPBalance] [varchar](100) NOT NULL CONSTRAINT [DF_mstBusinessPartner_JournalIDForAPBalance]  DEFAULT (''),
@@ -643,6 +644,7 @@ GO
 CREATE TABLE [dbo].[mstItem](
 	[ID] [int] NOT NULL CONSTRAINT [DF_mstItem_ID]  DEFAULT ((0)),
 	[ItemCode] [varchar](100) NOT NULL CONSTRAINT [DF_mstItem_ItemCode]  DEFAULT (''),
+	[ItemCodeExternal] [varchar](150) NOT NULL CONSTRAINT [DF_mstItem_ItemCodeExternal]  DEFAULT (''),
 	[ItemName] [varchar](500) NOT NULL CONSTRAINT [DF_mstItem_ItemName]  DEFAULT (''),
 	[ItemTypeID] [int] NOT NULL CONSTRAINT [DF_mstItem_ItemTypeID]  DEFAULT ((0)),
 	[ItemSpecificationID] [int] NOT NULL CONSTRAINT [DF_mstItem_ItemSpecificationID]  DEFAULT ((0)),

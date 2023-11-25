@@ -21,6 +21,28 @@
             Return strNewID
         End Function
 
+        Public Shared Function GetNewNo(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                        ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer, ByVal intProgramID As Integer) As String
+            Dim strNewID As String = Format(dtmTransDate, "yy") & "/"
+            Select Case dtmTransDate.Month
+                Case 1 : strNewID &= "I"
+                Case 2 : strNewID &= "II"
+                Case 3 : strNewID &= "III"
+                Case 4 : strNewID &= "IV"
+                Case 5 : strNewID &= "V"
+                Case 6 : strNewID &= "VI"
+                Case 7 : strNewID &= "VII"
+                Case 8 : strNewID &= "VIII"
+                Case 9 : strNewID &= "IX"
+                Case 10 : strNewID &= "X"
+                Case 11 : strNewID &= "XI"
+                Case 12 : strNewID &= "XII"
+            End Select
+            strNewID &= "/"
+            strNewID &= Format(DL.AccountPayable.GetMaxNo(sqlCon, sqlTrans, dtmTransDate.Year, intCompanyID, intProgramID) + 1, "0000")
+            Return strNewID
+        End Function
+
         Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.AccountPayable) As String
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
@@ -28,7 +50,7 @@
                 Try
                     If bolNew Then
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.APDate, clsData.CompanyID, clsData.ProgramID, clsData.Modules)
-                        clsData.APNumber = clsData.ID
+                        clsData.APNumber = GetNewNo(sqlCon, sqlTrans, clsData.APDate, clsData.CompanyID, clsData.ProgramID)
                     Else
                         Dim dtItem As New DataTable
 

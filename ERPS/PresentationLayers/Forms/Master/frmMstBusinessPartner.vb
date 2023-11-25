@@ -21,6 +21,7 @@
         UI.usForm.SetGrid(grdView, "ID", "ID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "Code", "Kode Rekan Bisnis", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "Name", "Nama Rekan Bisnis", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "Initial", "Inisial", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "Address", "Alamat", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PICName", "Nama PIC", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PICPhoneNumber", "No. HP PIC", 100, UI.usDefGrid.gString)

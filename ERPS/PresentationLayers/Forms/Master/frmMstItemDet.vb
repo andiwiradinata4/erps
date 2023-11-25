@@ -46,6 +46,7 @@
                 clsData = New VO.Item
                 clsData = BL.Item.GetDetail(pubID)
                 txtItemCode.Text = clsData.ItemCode
+                txtItemCodeExternal.Text = clsData.ItemCodeExternal
                 txtItemName.Text = clsData.ItemName
                 cboItemType.SelectedValue = clsData.ItemTypeID
                 txtThick.Value = clsData.Thick
@@ -107,6 +108,7 @@
         clsData = New VO.Item
         clsData.ID = pubID
         clsData.ItemCode = txtItemCode.Text.Trim
+        clsData.ItemCodeExternal = txtItemCodeExternal.Text.Trim
         clsData.ItemTypeID = cboItemType.SelectedValue
         clsData.ItemName = txtItemName.Text.Trim
         clsData.Thick = txtThick.Value
@@ -132,6 +134,7 @@
 
     Private Sub prvClear()
         txtItemCode.Text = ""
+        txtItemCodeExternal.Text = ""
         txtItemName.Text = ""
         cboItemType.SelectedIndex = -1
         txtThick.Value = 0

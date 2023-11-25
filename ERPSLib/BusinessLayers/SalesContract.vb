@@ -44,6 +44,34 @@
             Return strNewID
         End Function
 
+        Public Shared Function GetNewNo(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                        ByVal dtmTransDate As DateTime, ByVal intBPID As Integer,
+                                        ByVal intCompanyID As Integer, ByVal intProgramID As Integer) As String
+            Dim clsCompany As VO.Company = DL.Company.GetDetail(sqlCon, sqlTrans, intCompanyID)
+            Dim clsBP As VO.BusinessPartner = DL.BusinessPartner.GetDetail(sqlCon, sqlTrans, intBPID)
+            If clsBP.Initial.Trim = "" Then
+                Err.Raise(515, "", "Inisial Rekan Bisnis tidak boleh kosong. Mohon ditentukan Inisial Rekan Bisnis terlebih dahulu")
+            End If
+            Dim strNewID As String = Format(DL.SalesContract.GetMaxNo(sqlCon, sqlTrans, dtmTransDate.Year, intCompanyID, intProgramID) + 1, "000")
+            strNewID &= "/" & clsCompany.CompanyInitial & "/"
+            Select Case dtmTransDate.Month
+                Case 1 : strNewID &= "I"
+                Case 2 : strNewID &= "II"
+                Case 3 : strNewID &= "III"
+                Case 4 : strNewID &= "IV"
+                Case 5 : strNewID &= "V"
+                Case 6 : strNewID &= "VI"
+                Case 7 : strNewID &= "VII"
+                Case 8 : strNewID &= "VIII"
+                Case 9 : strNewID &= "IX"
+                Case 10 : strNewID &= "X"
+                Case 11 : strNewID &= "XI"
+                Case 12 : strNewID &= "XII"
+            End Select
+            strNewID &= "/" & Format(dtmTransDate, "yy") & "/" & clsBP.Initial
+            Return strNewID
+        End Function
+
         Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.SalesContract) As String
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
@@ -51,7 +79,7 @@
                 Try
                     If bolNew Then
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.SCDate, clsData.CompanyID, clsData.ProgramID)
-                        clsData.SCNumber = clsData.ID
+                        clsData.SCNumber = GetNewNo(sqlCon, sqlTrans, clsData.SCDate, clsData.BPID, clsData.CompanyID, clsData.ProgramID)
                     Else
                         Dim dtItem As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
                         Dim dtItemCO As DataTable = DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, clsData.ID)

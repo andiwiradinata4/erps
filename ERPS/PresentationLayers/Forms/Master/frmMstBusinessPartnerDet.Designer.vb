@@ -33,6 +33,8 @@ Partial Class frmMstBusinessPartnerDet
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtInitial = New ERPS.usTextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtAddress = New ERPS.usTextBox()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -142,6 +144,8 @@ Partial Class frmMstBusinessPartnerDet
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.Label3)
+        Me.pnlDetail.Controls.Add(Me.txtInitial)
         Me.pnlDetail.Controls.Add(Me.Label2)
         Me.pnlDetail.Controls.Add(Me.txtAddress)
         Me.pnlDetail.Controls.Add(Me.Label13)
@@ -161,6 +165,27 @@ Partial Class frmMstBusinessPartnerDet
         Me.pnlDetail.Name = "pnlDetail"
         Me.pnlDetail.Size = New System.Drawing.Size(592, 316)
         Me.pnlDetail.TabIndex = 2
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
+        Me.Label3.ForeColor = System.Drawing.Color.Black
+        Me.Label3.Location = New System.Drawing.Point(366, 19)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(34, 13)
+        Me.Label3.TabIndex = 119
+        Me.Label3.Text = "Inisial"
+        '
+        'txtInitial
+        '
+        Me.txtInitial.BackColor = System.Drawing.Color.White
+        Me.txtInitial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtInitial.Location = New System.Drawing.Point(410, 16)
+        Me.txtInitial.MaxLength = 250
+        Me.txtInitial.Name = "txtInitial"
+        Me.txtInitial.Size = New System.Drawing.Size(142, 21)
+        Me.txtInitial.TabIndex = 1
         '
         'Label2
         '
@@ -182,7 +207,7 @@ Partial Class frmMstBusinessPartnerDet
         Me.txtAddress.Multiline = True
         Me.txtAddress.Name = "txtAddress"
         Me.txtAddress.Size = New System.Drawing.Size(423, 76)
-        Me.txtAddress.TabIndex = 2
+        Me.txtAddress.TabIndex = 3
         '
         'Label13
         '
@@ -204,7 +229,7 @@ Partial Class frmMstBusinessPartnerDet
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(423, 48)
-        Me.txtRemarks.TabIndex = 5
+        Me.txtRemarks.TabIndex = 6
         '
         'Label5
         '
@@ -225,7 +250,7 @@ Partial Class frmMstBusinessPartnerDet
         Me.txtPICPhoneNumber.MaxLength = 250
         Me.txtPICPhoneNumber.Name = "txtPICPhoneNumber"
         Me.txtPICPhoneNumber.Size = New System.Drawing.Size(423, 21)
-        Me.txtPICPhoneNumber.TabIndex = 4
+        Me.txtPICPhoneNumber.TabIndex = 5
         '
         'Label4
         '
@@ -246,7 +271,7 @@ Partial Class frmMstBusinessPartnerDet
         Me.txtPICName.MaxLength = 250
         Me.txtPICName.Name = "txtPICName"
         Me.txtPICName.Size = New System.Drawing.Size(423, 21)
-        Me.txtPICName.TabIndex = 3
+        Me.txtPICName.TabIndex = 4
         '
         'Label1
         '
@@ -278,7 +303,7 @@ Partial Class frmMstBusinessPartnerDet
         Me.cboStatus.Location = New System.Drawing.Point(129, 261)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(160, 21)
-        Me.cboStatus.TabIndex = 6
+        Me.cboStatus.TabIndex = 7
         '
         'lblName
         '
@@ -299,7 +324,7 @@ Partial Class frmMstBusinessPartnerDet
         Me.txtName.MaxLength = 250
         Me.txtName.Name = "txtName"
         Me.txtName.Size = New System.Drawing.Size(423, 21)
-        Me.txtName.TabIndex = 1
+        Me.txtName.TabIndex = 2
         '
         'lblStatusID
         '
@@ -360,4 +385,6 @@ Partial Class frmMstBusinessPartnerDet
     Friend WithEvents lblName As System.Windows.Forms.Label
     Friend WithEvents txtName As ERPS.usTextBox
     Friend WithEvents lblStatusID As System.Windows.Forms.Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents txtInitial As usTextBox
 End Class

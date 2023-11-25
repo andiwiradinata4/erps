@@ -45,6 +45,7 @@
                 clsData = BL.BusinessPartner.GetDetail(pubID)
                 txtCode.Text = clsData.Code
                 txtName.Text = clsData.Name
+                txtInitial.Text = clsData.Initial
                 txtAddress.Text = clsData.Address
                 txtPICName.Text = clsData.PICName
                 txtPICPhoneNumber.Text = clsData.PICPhoneNumber
@@ -67,6 +68,10 @@
             UI.usForm.frmMessageBox("Nama tidak boleh kosong")
             txtName.Focus()
             Exit Sub
+        ElseIf txtInitial.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Inisial tidak boleh kosong")
+            txtInitial.Focus()
+            Exit Sub
         ElseIf cboStatus.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Status kosong. Mohon untuk tutup form dan buka kembali")
             cboStatus.Focus()
@@ -79,6 +84,7 @@
         clsData.ID = pubID
         clsData.Code = txtCode.Text.Trim
         clsData.Name = txtName.Text.Trim
+        clsData.Initial = txtInitial.Text.Trim
         clsData.Address = txtAddress.Text.Trim
         clsData.PICName = txtPICName.Text.Trim
         clsData.PICPhoneNumber = txtPICPhoneNumber.Text.Trim
@@ -100,6 +106,7 @@
     Private Sub prvClear()
         txtCode.Text = ""
         txtName.Text = ""
+        txtInitial.Text = ""
         txtAddress.Text = ""
         txtPICName.Text = ""
         txtPICPhoneNumber.Text = ""

@@ -8,19 +8,19 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "   ComboID=CAST(A.ID AS VARCHAR(100)), A.ID, A.ItemCode, A.ItemName, " & vbNewLine & _
-                    "   A.ItemTypeID, C.Description AS ItemTypeName, A.ItemSpecificationID, D.Description AS ItemSpecificationName, " & vbNewLine & _
-                    "   A.Thick, A.Width, A.Length, A.Weight, A.BasePrice, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
-                    "   A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine & _
-                    "FROM mstItem A " & vbNewLine & _
-                    "INNER JOIN mstStatus B ON " & vbNewLine & _
-                    "   A.StatusID=B.ID " & vbNewLine & _
-                    "INNER JOIN mstItemType C ON " & vbNewLine & _
-                    "   A.ItemTypeID=C.ID " & vbNewLine & _
-                    "INNER JOIN mstItemSpecification D ON " & vbNewLine & _
-                    "   A.ItemSpecificationID=D.ID " & vbNewLine & _
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   ComboID=CAST(A.ID AS VARCHAR(100)), A.ID, A.ItemCode, A.ItemCodeExternal, A.ItemName, " & vbNewLine &
+                    "   A.ItemTypeID, C.Description AS ItemTypeName, A.ItemSpecificationID, D.Description AS ItemSpecificationName, " & vbNewLine &
+                    "   A.Thick, A.Width, A.Length, A.Weight, A.BasePrice, A.StatusID, B.Name AS StatusInfo, " & vbNewLine &
+                    "   A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine &
+                    "FROM mstItem A " & vbNewLine &
+                    "INNER JOIN mstStatus B ON " & vbNewLine &
+                    "   A.StatusID=B.ID " & vbNewLine &
+                    "INNER JOIN mstItemType C ON " & vbNewLine &
+                    "   A.ItemTypeID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification D ON " & vbNewLine &
+                    "   A.ItemSpecificationID=D.ID " & vbNewLine &
                     "WHERE 1=1" & vbNewLine
 
                 If Not bolShowAll Then
@@ -47,35 +47,37 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 If bolNew Then
-                    .CommandText = _
-                        "INSERT INTO mstItem " & vbNewLine & _
-                        "     (ID, ItemCode, ItemName, ItemTypeID, ItemSpecificationID, Thick, Width, Length, Weight, BasePrice, StatusID, Remarks, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine & _
-                        "VALUES " & vbNewLine & _
-                        "     (@ID, @ItemCode, @ItemName, @ItemTypeID, @ItemSpecificationID, @Thick, @Width, @Length, @Weight, @BasePrice, @StatusID, @Remarks, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
+                    .CommandText =
+                        "INSERT INTO mstItem " & vbNewLine &
+                        "     (ID, ItemCode, ItemCodeExternal, ItemName, ItemTypeID, ItemSpecificationID, Thick, Width, Length, Weight, BasePrice, StatusID, Remarks, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine &
+                        "VALUES " & vbNewLine &
+                        "     (@ID, @ItemCode, @ItemCodeExternal, @ItemName, @ItemTypeID, @ItemSpecificationID, @Thick, @Width, @Length, @Weight, @BasePrice, @StatusID, @Remarks, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
 
                 Else
-                    .CommandText = _
-                        "UPDATE mstItem SET " & vbNewLine & _
-                        "    ItemCode=@ItemCode, " & vbNewLine & _
-                        "    ItemName=@ItemName, " & vbNewLine & _
-                        "    ItemTypeID=@ItemTypeID, " & vbNewLine & _
-                        "    ItemSpecificationID=@ItemSpecificationID, " & vbNewLine & _
-                        "    Thick=@Thick, " & vbNewLine & _
-                        "    Width=@Width, " & vbNewLine & _
-                        "    Length=@Length, " & vbNewLine & _
-                        "    Weight=@Weight, " & vbNewLine & _
-                        "    BasePrice=@BasePrice, " & vbNewLine & _
-                        "    StatusID=@StatusID, " & vbNewLine & _
-                        "    Remarks=@Remarks, " & vbNewLine & _
-                        "    LogBy=@LogBy, " & vbNewLine & _
-                        "    LogDate=GETDATE(), " & vbNewLine & _
-                        "    LogInc=LogInc+1 " & vbNewLine & _
-                        "WHERE   " & vbNewLine & _
+                    .CommandText =
+                        "UPDATE mstItem SET " & vbNewLine &
+                        "    ItemCode=@ItemCode, " & vbNewLine &
+                        "    ItemCodeExternal=@ItemCodeExternal, " & vbNewLine &
+                        "    ItemName=@ItemName, " & vbNewLine &
+                        "    ItemTypeID=@ItemTypeID, " & vbNewLine &
+                        "    ItemSpecificationID=@ItemSpecificationID, " & vbNewLine &
+                        "    Thick=@Thick, " & vbNewLine &
+                        "    Width=@Width, " & vbNewLine &
+                        "    Length=@Length, " & vbNewLine &
+                        "    Weight=@Weight, " & vbNewLine &
+                        "    BasePrice=@BasePrice, " & vbNewLine &
+                        "    StatusID=@StatusID, " & vbNewLine &
+                        "    Remarks=@Remarks, " & vbNewLine &
+                        "    LogBy=@LogBy, " & vbNewLine &
+                        "    LogDate=GETDATE(), " & vbNewLine &
+                        "    LogInc=LogInc+1 " & vbNewLine &
+                        "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
 
                 .Parameters.Add("@ID", SqlDbType.Int).Value = clsData.ID
                 .Parameters.Add("@ItemCode", SqlDbType.VarChar, 100).Value = clsData.ItemCode
+                .Parameters.Add("@ItemCodeExternal", SqlDbType.VarChar, 150).Value = clsData.ItemCodeExternal
                 .Parameters.Add("@ItemName", SqlDbType.VarChar, 500).Value = clsData.ItemName
                 .Parameters.Add("@ItemTypeID", SqlDbType.Int).Value = clsData.ItemTypeID
                 .Parameters.Add("@ItemSpecificationID", SqlDbType.Int).Value = clsData.ItemSpecificationID
@@ -104,14 +106,14 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   A.ID, A.ItemCode, A.ItemName, A.ItemTypeID, A.ItemSpecificationID, " & vbNewLine & _
-                        "   A.Thick, A.Width, A.Length, A.Weight, A.BasePrice, A.StatusID, " & vbNewLine & _
-                        "   A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine & _
-                        "FROM mstItem A " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
-                        "   ID=@ID " & vbNewLine
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   A.ID, A.ItemCode, A.ItemCodeExternal, A.ItemName, A.ItemTypeID, A.ItemSpecificationID, " & vbNewLine &
+                        "   A.Thick, A.Width, A.Length, A.Weight, A.BasePrice, A.StatusID, " & vbNewLine &
+                        "   A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine &
+                        "FROM mstItem A " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   A.ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.Int).Value = intID
                 End With
@@ -121,6 +123,7 @@
                         .Read()
                         voReturn.ID = .Item("ID")
                         voReturn.ItemCode = .Item("ItemCode")
+                        voReturn.ItemCodeExternal = .Item("ItemCodeExternal")
                         voReturn.ItemName = .Item("ItemName")
                         voReturn.ItemTypeID = .Item("ItemTypeID")
                         voReturn.ItemSpecificationID = .Item("ItemSpecificationID")

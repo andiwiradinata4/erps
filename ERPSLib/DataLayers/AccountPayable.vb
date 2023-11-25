@@ -256,6 +256,42 @@
             Return intReturn
         End Function
 
+        Public Shared Function GetMaxNo(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                        ByVal intYear As Integer, ByVal intCompanyID As Integer, ByVal intProgramID As Integer) As Integer
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim intReturn As Integer = 0
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT COUNT(*) AS Total " & vbNewLine &
+                        "FROM traAccountPayable " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   YEAR(APDate)=@Year " & vbNewLine &
+                        "   AND ProgramID=@ProgramID " & vbNewLine &
+                        "   AND CompanyID=@CompanyID " & vbNewLine
+
+                    .Parameters.Add("@Year", SqlDbType.Int).Value = intYear
+                    .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                    .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        intReturn = .Item("Total")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return intReturn
+        End Function
+
         Public Shared Function DataExists(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                           ByVal strAPNumber As String, ByVal strID As String) As Boolean
             Dim bolDataExists As Boolean = False

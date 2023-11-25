@@ -11,7 +11,7 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "SELECT " & vbNewLine & _
-                    "   A.ID, A.Code, A.Name, A.Address, A.PICName, A.PICPhoneNumber, A.APBalance, A.ARBalance, " & vbNewLine & _
+                    "   A.ID, A.Code, A.Name, A.Address, A.PICName, A.PICPhoneNumber, A.Initial, A.APBalance, A.ARBalance, " & vbNewLine & _
                     "   A.StatusID, B.Name AS StatusInfo, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine & _
                     "FROM mstBusinessPartner A " & vbNewLine & _
                     "INNER JOIN mstStatus B ON " & vbNewLine & _
@@ -31,9 +31,9 @@
                 If bolNew Then
                     .CommandText = _
                         "INSERT INTO mstBusinessPartner " & vbNewLine & _
-                        "     (ID, Code, Name, Address, PICName, PICPhoneNumber, APBalance, ARBalance, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine & _
+                        "     (ID, Code, Name, Address, PICName, PICPhoneNumber, APBalance, ARBalance, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, Initial) " & vbNewLine & _
                         "VALUES " & vbNewLine & _
-                        "     (@ID, @Code, @Name, @Address, @PICName, @PICPhoneNumber, @APBalance, @ARBalance, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
+                        "     (@ID, @Code, @Name, @Address, @PICName, @PICPhoneNumber, @APBalance, @ARBalance, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @Initial) " & vbNewLine
                 Else
                     .CommandText = _
                         "UPDATE mstBusinessPartner SET " & vbNewLine & _
@@ -48,7 +48,8 @@
                         "    Remarks=@Remarks, " & vbNewLine & _
                         "    LogBy=@LogBy, " & vbNewLine & _
                         "    LogDate=GETDATE(), " & vbNewLine & _
-                        "    LogInc=LogInc+1 " & vbNewLine & _
+                        "    LogInc=LogInc+1, " & vbNewLine & _
+                        "    Initial=@Initial " & vbNewLine & _
                         "WHERE   " & vbNewLine & _
                         "    ID=@ID " & vbNewLine
                 End If
@@ -64,6 +65,7 @@
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
+                .Parameters.Add("@Initial", SqlDbType.VarChar, 150).Value = clsData.Initial
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -84,7 +86,7 @@
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
                         "   A.ID, A.Code, A.Name, A.Address, A.PICName, A.PICPhoneNumber, " & vbNewLine & _
-                        "   A.APBalance, A.ARBalance, A.StatusID, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc, A.JournalIDForARBalance, A.JournalIDForAPBalance " & vbNewLine & _
+                        "   A.APBalance, A.ARBalance, A.StatusID, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc, A.JournalIDForARBalance, A.JournalIDForAPBalance, A.Initial " & vbNewLine & _
                         "FROM mstBusinessPartner A " & vbNewLine & _
                         "WHERE " & vbNewLine & _
                         "   ID=@ID " & vbNewLine
@@ -112,6 +114,7 @@
                         voReturn.LogInc = .Item("LogInc")
                         voReturn.JournalIDForARBalance = .Item("JournalIDForARBalance")
                         voReturn.JournalIDForAPBalance = .Item("JournalIDForAPBalance")
+                        voReturn.Initial = .Item("Initial")
                     End If
                 End With
             Catch ex As Exception

@@ -3,6 +3,7 @@
         Inherits Common
         Property ID As Integer
         Property ItemCode As String
+        Property ItemCodeExternal As String
         Property ItemName As String
         Property ItemTypeID As Integer
         Property ItemSpecificationID As Integer

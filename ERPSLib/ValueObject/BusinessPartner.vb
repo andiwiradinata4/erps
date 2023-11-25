@@ -13,5 +13,6 @@
         Property Remarks As String
         Property JournalIDForAPBalance As String
         Property JournalIDForARBalance As String
+        Property Initial As String
     End Class
 End Namespace
