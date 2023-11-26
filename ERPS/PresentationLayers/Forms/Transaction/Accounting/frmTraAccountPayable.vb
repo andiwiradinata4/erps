@@ -506,25 +506,7 @@ Public Class frmTraAccountPayable
     End Sub
 
     Private Sub prvUserAccess()
-        Dim intModules As Integer = 0
-        If strModules = VO.AccountPayable.PurchaseBalance Then
-            intModules = VO.Modules.Values.TransactionAccountPayableBalance
-        ElseIf strModules = VO.AccountPayable.DownPaymentManual Then
-            intModules = VO.Modules.Values.TransactionPurchaseDPManual
-        ElseIf strModules = VO.AccountPayable.DownPayment Then
-            intModules = VO.Modules.Values.TransactionPurchaseDP
-        ElseIf strModules = VO.AccountPayable.ReceivePayment Then
-            intModules = VO.Modules.Values.TransactionAccountPayable
-        ElseIf strModules = VO.AccountPayable.DownPaymentCutting Then
-            intModules = VO.Modules.Values.TransactionPurchaseDPCutting
-        ElseIf strModules = VO.AccountPayable.ReceivePaymentCutting Then
-            intModules = VO.Modules.Values.TransactionAccountPayableCutting
-        ElseIf strModules = VO.AccountPayable.DownPaymentTransport Then
-            intModules = VO.Modules.Values.TransactionPurchaseDPTransport
-        ElseIf strModules = VO.AccountPayable.ReceivePaymentTransport Then
-            intModules = VO.Modules.Values.TransactionAccountPayableTransport
-        End If
-
+        Dim intModules As Integer = VO.Common.GetModuleID(strModules)
         With ToolBar.Buttons
             .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.NewAccess)
             .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.DeleteAccess)
@@ -557,23 +539,7 @@ Public Class frmTraAccountPayable
         prvDefaultFilter()
         prvQuery()
         prvUserAccess()
-        If strModules = VO.AccountPayable.PurchaseBalance Then
-            Me.Text = "Pembayaran Saldo"
-        ElseIf strModules = VO.AccountPayable.DownPaymentManual Then
-            Me.Text = "Panjar Pembelian [Manual]"
-        ElseIf strModules = VO.AccountPayable.DownPayment Then
-            Me.Text = "Panjar Pembelian"
-        ElseIf strModules = VO.AccountPayable.ReceivePayment Then
-            Me.Text = "Pembayaran Hutang Pembelian"
-        ElseIf strModules = VO.AccountPayable.DownPaymentCutting Then
-            Me.Text = "Panjar Pesanan Pemotongan"
-        ElseIf strModules = VO.AccountPayable.ReceivePaymentCutting Then
-            Me.Text = "Pembayaran Hutang Pesanan Pemotongan"
-        ElseIf strModules = VO.AccountPayable.DownPaymentTransport Then
-            Me.Text = "Panjar Pesanan Pengiriman"
-        ElseIf strModules = VO.AccountPayable.ReceivePaymentTransport Then
-            Me.Text = "Pembayaran Hutang Pesanan Pengiriman"
-        End If
+        Me.Text = VO.Common.GetPaymentText(strModules)
         Me.WindowState = FormWindowState.Maximized
     End Sub
 

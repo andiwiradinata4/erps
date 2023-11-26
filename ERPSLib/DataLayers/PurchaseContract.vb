@@ -166,7 +166,7 @@
                         "SELECT TOP 1 " & vbNewLine & _
                         "   A.ID, A.ProgramID, A.CompanyID, A.PCNumber, A.PCDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.AllowanceProduction, A.Franco, " & vbNewLine & _
                         "   A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.JournalID, A.StatusID, A.SubmitBy, A.SubmitDate, A.ApproveL1, " & vbNewLine & _
-                        "   A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.ReceiveAmount " & vbNewLine & _
+                        "   A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.ReceiveAmount, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual " & vbNewLine & _
                         "FROM traPurchaseContract A " & vbNewLine & _
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine & _
                         "   A.BPID=B.ID " & vbNewLine & _
@@ -216,6 +216,7 @@
                         voReturn.LogDate = .Item("LogDate")
                         voReturn.DPAmount = .Item("DPAmount")
                         voReturn.ReceiveAmount = .Item("ReceiveAmount")
+                        voReturn.GrandTotal = .Item("GrandTotal")
                     End If
                 End With
             Catch ex As Exception

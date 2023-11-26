@@ -60,7 +60,7 @@ Public Class frmTraAccountReceivableDet
 
         '# History
         UI.usForm.SetGrid(grdStatusView, "ID", "ID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdStatusView, "OrderRequestID", "OrderRequestID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdStatusView, "ARID", "ARID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdStatusView, "Status", "Status", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdStatusView, "StatusBy", "Oleh", 200, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdStatusView, "StatusDate", "Tanggal", 180, UI.usDefGrid.gFullDate)
@@ -274,15 +274,7 @@ Public Class frmTraAccountReceivableDet
     End Sub
 
     Private Sub prvGetModuleID()
-        If strModules = VO.AccountReceivable.SalesBalance Then
-            intModuleID = VO.Modules.Values.TransactionAccountReceivableBalance
-        ElseIf strModules = VO.AccountReceivable.DownPaymentManual Then
-            intModuleID = VO.Modules.Values.TransactionSalesDPManual
-        ElseIf strModules = VO.AccountReceivable.DownPayment Then
-            intModuleID = VO.Modules.Values.TransactionSalesDP
-        ElseIf strModules = VO.AccountReceivable.ReceivePayment Then
-            intModuleID = VO.Modules.Values.TransactionAccountReceivable
-        End If
+        intModuleID = VO.Common.GetModuleID(strModules)
     End Sub
 
     Private Sub prvUserAccess()

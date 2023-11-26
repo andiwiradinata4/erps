@@ -60,7 +60,7 @@ Public Class frmTraAccountPayableDet
 
         '# History
         UI.usForm.SetGrid(grdStatusView, "ID", "ID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdStatusView, "OrderRequestID", "OrderRequestID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdStatusView, "APID", "APID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdStatusView, "Status", "Status", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdStatusView, "StatusBy", "Oleh", 200, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdStatusView, "StatusDate", "Tanggal", 180, UI.usDefGrid.gFullDate)
@@ -274,23 +274,7 @@ Public Class frmTraAccountPayableDet
     End Sub
 
     Private Sub prvGetModuleID()
-        If strModules = VO.AccountPayable.PurchaseBalance Then
-            intModuleID = VO.Modules.Values.TransactionAccountPayableBalance
-        ElseIf strModules = VO.AccountPayable.DownPaymentManual Then
-            intModuleID = VO.Modules.Values.TransactionPurchaseDPManual
-        ElseIf strModules = VO.AccountPayable.DownPayment Then
-            intModuleID = VO.Modules.Values.TransactionPurchaseDP
-        ElseIf strModules = VO.AccountPayable.ReceivePayment Then
-            intModuleID = VO.Modules.Values.TransactionAccountPayable
-        ElseIf strModules = VO.AccountPayable.DownPaymentCutting Then
-            intModuleID = VO.Modules.Values.TransactionPurchaseDPCutting
-        ElseIf strModules = VO.AccountPayable.ReceivePaymentCutting Then
-            intModuleID = VO.Modules.Values.TransactionAccountPayableCutting
-        ElseIf strModules = VO.AccountPayable.DownPaymentTransport Then
-            intModuleID = VO.Modules.Values.TransactionPurchaseDPTransport
-        ElseIf strModules = VO.AccountPayable.ReceivePaymentTransport Then
-            intModuleID = VO.Modules.Values.TransactionAccountPayableTransport
-        End If
+        intModuleID = VO.Common.GetModuleID(strModules)
     End Sub
 
     Private Sub prvUserAccess()

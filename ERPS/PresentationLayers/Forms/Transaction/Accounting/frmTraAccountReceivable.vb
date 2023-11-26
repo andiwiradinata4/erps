@@ -506,17 +506,7 @@ Public Class frmTraAccountReceivable
     End Sub
 
     Private Sub prvUserAccess()
-        Dim intModules As Integer = 0
-        If strModules = VO.AccountReceivable.SalesBalance Then
-            intModules = VO.Modules.Values.TransactionAccountReceivableBalance
-        ElseIf strModules = VO.AccountReceivable.DownPaymentManual Then
-            intModules = VO.Modules.Values.TransactionSalesDPManual
-        ElseIf strModules = VO.AccountReceivable.DownPayment Then
-            intModules = VO.Modules.Values.TransactionSalesDP
-        ElseIf strModules = VO.AccountReceivable.ReceivePayment Then
-            intModules = VO.Modules.Values.TransactionAccountReceivable
-        End If
-
+        Dim intModules As Integer = VO.Common.GetModuleID(strModules)
         With ToolBar.Buttons
             .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.NewAccess)
             .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.DeleteAccess)
@@ -549,15 +539,7 @@ Public Class frmTraAccountReceivable
         prvDefaultFilter()
         prvQuery()
         prvUserAccess()
-        If strModules = VO.AccountReceivable.SalesBalance Then
-            Me.Text = "Pelunasan Saldo"
-        ElseIf strModules = VO.AccountReceivable.DownPaymentManual Then
-            Me.Text = "Panjar Penjualan [Manual]"
-        ElseIf strModules = VO.AccountReceivable.DownPayment Then
-            Me.Text = "Panjar Penjualan"
-        ElseIf strModules = VO.AccountReceivable.ReceivePayment Then
-            Me.Text = "Pelunasan Piutang Penjualan"
-        End If
+        Me.Text = VO.Common.GetPaymentText(strModules)
         Me.WindowState = FormWindowState.Maximized
     End Sub
 

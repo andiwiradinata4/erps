@@ -1228,7 +1228,9 @@ Partial Public Class rptConfirmationOrderVer00
         '
         Me.XrTableRow6.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell25, Me.XrTableCell30, Me.XrTableCell36, Me.XrTableCell37, Me.XrTableCell38, Me.XrTableCell39, Me.XrTableCell40, Me.XrTableCell41})
         Me.XrTableRow6.Dpi = 100.0!
+        Me.XrTableRow6.Font = New System.Drawing.Font("Tahoma", 7.0!, System.Drawing.FontStyle.Bold)
         Me.XrTableRow6.Name = "XrTableRow6"
+        Me.XrTableRow6.StylePriority.UseFont = False
         Me.XrTableRow6.Weight = 1.0R
         '
         'XrTableCell25

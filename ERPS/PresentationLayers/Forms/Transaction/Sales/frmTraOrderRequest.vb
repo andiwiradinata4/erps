@@ -155,7 +155,7 @@ Public Class frmTraOrderRequest
         clsReturn.RoundingManual = grdView.GetRowCellValue(intPos, "RoundingManual")
         clsReturn.IsDeleted = grdView.GetRowCellValue(intPos, "IsDeleted")
         clsReturn.Remarks = grdView.GetRowCellValue(intPos, "Remarks")
-        clsReturn.StatusID = grdView.GetRowCellValue(intPos, "IDStatus")
+        clsReturn.StatusID = grdView.GetRowCellValue(intPos, "StatusID")
         clsReturn.CreatedBy = grdView.GetRowCellValue(intPos, "CreatedBy")
         clsReturn.CreatedDate = grdView.GetRowCellValue(intPos, "CreatedDate")
         clsReturn.LogBy = grdView.GetRowCellValue(intPos, "LogBy")

@@ -17,6 +17,94 @@
         Property LogDate As DateTime
         Property IsDeleted As Boolean
         Property JournalID As String
+
+        Public Shared Function GetPaymentText(ByVal strModules As String) As String
+            If strModules = VO.AccountPayable.PurchaseBalance Then
+                Return "Pembayaran Saldo"
+            ElseIf strModules = VO.AccountPayable.DownPaymentManual Then
+                Return "Panjar Pembelian [Manual]"
+            ElseIf strModules = VO.AccountPayable.DownPayment Then
+                Return "Panjar Pembelian"
+            ElseIf strModules = VO.AccountPayable.ReceivePayment Then
+                Return "Pembayaran Hutang Pembelian"
+            ElseIf strModules = VO.AccountPayable.DownPaymentCutting Then
+                Return "Panjar Pesanan Pemotongan"
+            ElseIf strModules = VO.AccountPayable.ReceivePaymentCutting Then
+                Return "Pembayaran Hutang Pesanan Pemotongan"
+            ElseIf strModules = VO.AccountPayable.DownPaymentTransport Then
+                Return "Panjar Pesanan Pengiriman"
+            ElseIf strModules = VO.AccountPayable.ReceivePaymentTransport Then
+                Return "Pembayaran Hutang Pesanan Pengiriman"
+            ElseIf strModules = VO.AccountReceivable.SalesBalance Then
+                Return "Pelunasan Saldo"
+            ElseIf strModules = VO.AccountReceivable.DownPaymentManual Then
+                Return "Panjar Penjualan [Manual]"
+            ElseIf strModules = VO.AccountReceivable.DownPayment Then
+                Return "Panjar Penjualan"
+            ElseIf strModules = VO.AccountReceivable.ReceivePayment Then
+                Return "Pelunasan Piutang Penjualan"
+            End If
+            Return ""
+        End Function
+
+        Public Shared Function GetModuleID(ByVal strModules As String) As Integer
+            If strModules = VO.AccountPayable.PurchaseBalance Then
+                Return VO.Modules.Values.TransactionAccountPayableBalance
+            ElseIf strModules = VO.AccountPayable.DownPaymentManual Then
+                Return VO.Modules.Values.TransactionPurchaseDPManual
+            ElseIf strModules = VO.AccountPayable.DownPayment Then
+                Return VO.Modules.Values.TransactionPurchaseDP
+            ElseIf strModules = VO.AccountPayable.ReceivePayment Then
+                Return VO.Modules.Values.TransactionAccountPayable
+            ElseIf strModules = VO.AccountPayable.DownPaymentCutting Then
+                Return VO.Modules.Values.TransactionPurchaseDPCutting
+            ElseIf strModules = VO.AccountPayable.ReceivePaymentCutting Then
+                Return VO.Modules.Values.TransactionAccountPayableCutting
+            ElseIf strModules = VO.AccountPayable.DownPaymentTransport Then
+                Return VO.Modules.Values.TransactionPurchaseDPTransport
+            ElseIf strModules = VO.AccountPayable.ReceivePaymentTransport Then
+                Return VO.Modules.Values.TransactionAccountPayableTransport
+            ElseIf strModules = VO.AccountReceivable.SalesBalance Then
+                Return VO.Modules.Values.TransactionAccountReceivableBalance
+            ElseIf strModules = VO.AccountReceivable.DownPaymentManual Then
+                Return VO.Modules.Values.TransactionSalesDPManual
+            ElseIf strModules = VO.AccountReceivable.DownPayment Then
+                Return VO.Modules.Values.TransactionSalesDP
+            ElseIf strModules = VO.AccountReceivable.ReceivePayment Then
+                Return VO.Modules.Values.TransactionAccountReceivable
+            End If
+            Return 0
+        End Function
+
+        Public Shared Function GetPaymentType(ByVal strModules As String) As String
+            If strModules = VO.AccountPayable.PurchaseBalance Then
+                Return "Pelunasan"
+            ElseIf strModules = VO.AccountPayable.DownPaymentManual Then
+                Return "Down Payment"
+            ElseIf strModules = VO.AccountPayable.DownPayment Then
+                Return "Down Payment"
+            ElseIf strModules = VO.AccountPayable.ReceivePayment Then
+                Return "Pelunasan"
+            ElseIf strModules = VO.AccountPayable.DownPaymentCutting Then
+                Return "Down Payment"
+            ElseIf strModules = VO.AccountPayable.ReceivePaymentCutting Then
+                Return "Pelunasan"
+            ElseIf strModules = VO.AccountPayable.DownPaymentTransport Then
+                Return "Down Payment"
+            ElseIf strModules = VO.AccountPayable.ReceivePaymentTransport Then
+                Return "Pelunasan"
+            ElseIf strModules = VO.AccountReceivable.SalesBalance Then
+                Return "Pelunasan"
+            ElseIf strModules = VO.AccountReceivable.DownPaymentManual Then
+                Return "Down Payment"
+            ElseIf strModules = VO.AccountReceivable.DownPayment Then
+                Return "Down Payment"
+            ElseIf strModules = VO.AccountReceivable.ReceivePayment Then
+                Return "Pelunasan"
+            End If
+            Return ""
+        End Function
+
     End Class
 End Namespace
 

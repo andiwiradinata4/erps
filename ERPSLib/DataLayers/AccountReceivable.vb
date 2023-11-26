@@ -6,7 +6,8 @@
         Public Shared Function ListData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal intCompanyID As Integer, ByVal intProgramID As Integer, _
                                         ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
-                                        ByVal intStatusID As Integer, ByVal strModules As String) As DataTable
+                                        ByVal intStatusID As Integer, ByVal strModules As String,
+                                        ByVal intBPID As Integer, ByVal strReferencesID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -21,7 +22,7 @@
                     "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.PaymentBy, " & vbNewLine & _
                     "   CASE WHEN A.PaymentBy = '' THEN NULL ELSE A.PaymentDate END AS PaymentDate, A.TaxInvoiceNumber, " & vbNewLine & _
                     "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine & _
-                    "   A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
+                    "   A.LogInc, A.LogBy, A.LogDate, A.ARNumber AS TransNumber, A.ARDate AS TransDate, A.CoAIDOfIncomePayment AS CoAID, COA.Code AS CoACode, COA.Name AS CoAName  " & vbNewLine & _
                     "FROM traAccountReceivable A " & vbNewLine & _
                     "INNER JOIN mstStatus B ON " & vbNewLine & _
                     "   A.StatusID=B.ID " & vbNewLine & _
@@ -40,7 +41,15 @@
                     "   AND A.ARDate>=@DateFrom AND A.ARDate<=@DateTo " & vbNewLine
 
                 If intStatusID <> VO.Status.Values.All Then
-                    .CommandText += "    AND A.StatusID=@StatusID" & vbNewLine
+                    .CommandText += "    AND A.StatusID=@StatusID " & vbNewLine
+                End If
+
+                If intBPID <> 0 Then
+                    .CommandText += "    AND A.BPID=@BPID " & vbNewLine
+                End If
+
+                If strReferencesID.Trim <> "" Then
+                    .CommandText += "   AND A.ID IN (SELECT ARID FROM traAccountReceivableDet WHERE SalesID=@ReferencesID)"
                 End If
 
                 .CommandText += "ORDER BY A.ARDate, A.ID ASC " & vbNewLine
@@ -51,6 +60,8 @@
                 .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = intStatusID
                 .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = strModules
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+                .Parameters.Add("@ReferencesID", SqlDbType.VarChar, 100).Value = strReferencesID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
@@ -66,10 +77,10 @@
                     .CommandText = _
                         "INSERT INTO traAccountReceivable " & vbNewLine & _
                         "   (ID, CompanyID, ProgramID, ARNumber, BPID, CoAIDOfIncomePayment, Modules, ReferencesID, ReferencesNote, " & vbNewLine & _
-                        "    ARDate, TotalAmount, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine & _
+                        "    ARDate, TotalAmount, Percentage, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine & _
                         "VALUES " & vbNewLine & _
-                        "   (@ID, @CompanyID, @ProgramID, @ARNumber, @BPID, @CoAIDOfIncomePayment, @Modules, @ReferencesID, @ReferencesNote, @ARDate, " & vbNewLine & _
-                        "    @TotalAmount, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
+                        "   (@ID, @CompanyID, @ProgramID, @ARNumber, @BPID, @CoAIDOfIncomePayment, @Modules, @ReferencesID, @ReferencesNote, " & vbNewLine & _
+                        "    @ARDate, @TotalAmount, @Percentage, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
                 Else
                     .CommandText = _
                         "UPDATE traAccountReceivable SET " & vbNewLine & _
@@ -83,6 +94,7 @@
                         "    ReferencesNote=@ReferencesNote, " & vbNewLine & _
                         "    ARDate=@ARDate, " & vbNewLine & _
                         "    TotalAmount=@TotalAmount, " & vbNewLine & _
+                        "    Percentage=@Percentage, " & vbNewLine & _
                         "    Remarks=@Remarks, " & vbNewLine & _
                         "    StatusID=@StatusID, " & vbNewLine & _
                         "    LogInc=LogInc+1, " & vbNewLine & _
@@ -103,6 +115,7 @@
                 .Parameters.Add("@ReferencesNote", SqlDbType.VarChar, 250).Value = clsData.ReferencesNote
                 .Parameters.Add("@ARDate", SqlDbType.DateTime).Value = clsData.ARDate
                 .Parameters.Add("@TotalAmount", SqlDbType.Decimal).Value = clsData.TotalAmount
+                .Parameters.Add("@Percentage", SqlDbType.Decimal).Value = clsData.Percentage
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 500).Value = clsData.Remarks
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
@@ -127,7 +140,7 @@
                         "SELECT TOP 1 " & vbNewLine & _
                         "   A.ID, A.CompanyID, MC.Name AS CompanyName, A.ProgramID, MP.Name AS ProgramName, A.ARNumber, A.BPID, " & vbNewLine & _
                         "   C.Code AS BPCode, C.Name AS BPName, A.CoAIDOfIncomePayment, COA.Code AS CoACodeOfIncomePayment, COA.Name AS CoANameOfIncomePayment, " & vbNewLine & _
-                        "   A.Modules, A.ReferencesID, A.ReferencesNote, A.ARDate, A.TotalAmount, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
+                        "   A.Modules, A.ReferencesID, A.ReferencesNote, A.ARDate, A.TotalAmount, A.Percentage, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
                         "   A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.PaymentBy, A.PaymentDate, A.TaxInvoiceNumber, " & vbNewLine & _
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine & _
                         "   A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
@@ -166,6 +179,7 @@
                         voReturn.ReferencesNote = .Item("ReferencesNote")
                         voReturn.ARDate = .Item("ARDate")
                         voReturn.TotalAmount = .Item("TotalAmount")
+                        voReturn.Percentage = .Item("Percentage")
                         voReturn.JournalID = .Item("JournalID")
                         voReturn.SubmitBy = .Item("SubmitBy")
                         voReturn.SubmitDate = .Item("SubmitDate")

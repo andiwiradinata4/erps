@@ -935,6 +935,7 @@ CREATE TABLE [dbo].[traAccountReceivable](
 	[ARDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountReceivable_ARDate]  DEFAULT (getdate()),
 	[TotalAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountReceivable_TotalAmount]  DEFAULT ((0)),
 	[TotalAmountDPAllocate] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountReceivable_TotalAmountDPAllocate]  DEFAULT ((0)),
+	[Percentage] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traAccountReceivable_Percentage]  DEFAULT ((0)),
 	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountReceivable_JournalID]  DEFAULT (''),
 	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountReceivable_SubmitBy]  DEFAULT (''),
 	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountReceivable_SubmitDate]  DEFAULT (getdate()),
@@ -1050,6 +1051,7 @@ CREATE TABLE [dbo].[traAccountPayable](
 	[APDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountPayable_APDate]  DEFAULT (getdate()),
 	[TotalAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountPayable_TotalAmount]  DEFAULT ((0)),
 	[TotalAmountDPAllocate] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountPayable_TotalAmountDPAllocate]  DEFAULT ((0)),
+	[Percentage] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traAccountPayable_Percentage]  DEFAULT ((0)),
 	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountPayable_JournalID]  DEFAULT (''),
 	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traAccountPayable_SubmitBy]  DEFAULT (''),
 	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountPayable_SubmitDate]  DEFAULT (getdate()),
@@ -1644,6 +1646,7 @@ CREATE TABLE [dbo].[traPurchaseContractDet](
 	[DCWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_DCWeight]  DEFAULT ((0)),
 	[CuttingQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_CuttingQuantity]  DEFAULT ((0)),
 	[CuttingWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_CuttingWeight]  DEFAULT ((0)),
+	[ReceiveAmount] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_ReceiveAmount]  DEFAULT ((0)),
 	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseContractDet_Remarks]  DEFAULT (''),
  CONSTRAINT [PK_traPurchaseContractDet] PRIMARY KEY CLUSTERED 
 (
@@ -1925,6 +1928,7 @@ CREATE TABLE [dbo].[traSalesContractDet](
 	[DCWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_DCWeight]  DEFAULT ((0)),
 	[POTransportQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_POTransportQuantity]  DEFAULT ((0)),
 	[POTransportWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_POTransportWeight]  DEFAULT ((0)),
+	[ReceiveAmount] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesContractDet_ReceiveAmount]  DEFAULT ((0)),
 	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContractDet_Remarks]  DEFAULT (''),
  CONSTRAINT [PK_traSalesContractDet] PRIMARY KEY CLUSTERED 
 (

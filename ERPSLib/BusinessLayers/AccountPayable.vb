@@ -8,7 +8,7 @@
                                         ByVal intStatusID As Integer, ByVal strModules As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.AccountPayable.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID, strModules)
+                Return DL.AccountPayable.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID, strModules, 0, "")
             End Using
         End Function
 
@@ -44,106 +44,116 @@
         End Function
 
         Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.AccountPayable) As String
+            Dim strReturn As String = ""
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    If bolNew Then
-                        clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.APDate, clsData.CompanyID, clsData.ProgramID, clsData.Modules)
-                        clsData.APNumber = GetNewNo(sqlCon, sqlTrans, clsData.APDate, clsData.CompanyID, clsData.ProgramID)
-                    Else
-                        Dim dtItem As New DataTable
-
-                        '# For Setup Balance
-                        If clsData.Modules.Trim = VO.AccountPayable.PurchaseBalance Then
-                            dtItem = DL.AccountPayable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, clsData.ID)
-                        ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPayment Or
-                            clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Or
-                            clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Or
-                            clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Or
-                            clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Or
-                            clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
-                            dtItem = DL.AccountPayable.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
-                        End If
-
-                        DL.AccountPayable.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
-
-                        '# Revert Payment Amount
-                        For Each dr As DataRow In dtItem.Rows
-                            '# For Setup Balance
-                            If clsData.Modules.Trim = VO.AccountPayable.PurchaseBalance Then
-                                DL.BusinessPartnerAPBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("PurchaseID"))
-                            ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPayment Then
-                                DL.PurchaseContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
-                            ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
-                                DL.PurchaseContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
-                            ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then
-                                DL.PurchaseOrderCutting.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
-                            ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
-                                DL.PurchaseOrderCutting.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
-                            ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Then
-                                DL.PurchaseOrderTransport.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
-                            ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
-                                DL.PurchaseOrderTransport.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
-                            End If
-                        Next
-                    End If
-
-                    Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, clsData.ID)
-                    If intStatusID = VO.Status.Values.Approved Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di approve")
-                    ElseIf intStatusID = VO.Status.Values.Submit Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di submit")
-                    ElseIf intStatusID = VO.Status.Values.Payment Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan status data telah DIBAYAR")
-                    ElseIf DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, clsData.ID) Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
-                    ElseIf DL.AccountPayable.DataExists(sqlCon, sqlTrans, clsData.APNumber, clsData.ID) Then
-                        Err.Raise(515, "", "Tidak dapat disimpan. Nomor " & clsData.APNumber & " sudah ada.")
-                    End If
-
-                    DL.AccountPayable.SaveData(sqlCon, sqlTrans, bolNew, clsData)
-
-                    '# Save Data Detail
-                    Dim intCount As Integer = 1
-                    For Each clsDet As VO.AccountPayableDet In clsData.Detail
-                        clsDet.ID = clsData.ID & "-" & 1 & "-" & Format(intCount, "000")
-                        clsDet.APID = clsData.ID
-                        DL.AccountPayable.SaveDataDetail(sqlCon, sqlTrans, clsDet)
-                        intCount += 1
-                    Next
-
-                    '# Calculate Payment Amount
-                    For Each clsDet As VO.AccountPayableDet In clsData.Detail
-                        '# For Setup Balance
-                        If clsData.Modules = VO.AccountPayable.PurchaseBalance Then
-                            DL.BusinessPartnerAPBalance.CalculateTotalUsed(sqlCon, sqlTrans, clsDet.PurchaseID)
-                        ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPayment Then
-                            DL.PurchaseContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.PurchaseID)
-                        ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
-                            DL.PurchaseContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.PurchaseID)
-                        ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then
-                            DL.PurchaseOrderCutting.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.PurchaseID)
-                        ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
-                            DL.PurchaseOrderCutting.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.PurchaseID)
-                        ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Then
-                            DL.PurchaseOrderTransport.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.PurchaseID)
-                        ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
-                            DL.PurchaseOrderTransport.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.PurchaseID)
-                        End If
-                    Next
-
-                    '# Save Data Status
-                    BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, clsData.ID, IIf(bolNew, "BARU", "EDIT"), ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
-
-                    If clsData.Save = VO.Save.Action.SaveAndSubmit Then Submit(sqlCon, sqlTrans, clsData.ID, clsData.Remarks)
-
+                    strReturn = SaveData(sqlCon, sqlTrans, bolNew, clsData)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
                     Throw ex
                 End Try
             End Using
+            Return strReturn
+        End Function
+
+        Public Shared Function SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                        ByVal bolNew As Boolean, ByVal clsData As VO.AccountPayable) As String
+            Try
+                If bolNew Then
+                    clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.APDate, clsData.CompanyID, clsData.ProgramID, clsData.Modules)
+                    clsData.APNumber = GetNewNo(sqlCon, sqlTrans, clsData.APDate, clsData.CompanyID, clsData.ProgramID)
+                Else
+                    Dim dtItem As New DataTable
+
+                    '# For Setup Balance
+                    If clsData.Modules.Trim = VO.AccountPayable.PurchaseBalance Then
+                        dtItem = DL.AccountPayable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, clsData.ID)
+                    ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPayment Or
+                        clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Or
+                        clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Or
+                        clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Or
+                        clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Or
+                        clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                        dtItem = DL.AccountPayable.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
+                    End If
+
+                    DL.AccountPayable.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
+
+                    '# Revert Payment Amount
+                    For Each dr As DataRow In dtItem.Rows
+                        '# For Setup Balance
+                        If clsData.Modules.Trim = VO.AccountPayable.PurchaseBalance Then
+                            DL.BusinessPartnerAPBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                        ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPayment Then
+                            DL.PurchaseContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                        ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
+                            DL.PurchaseContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                        ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then
+                            DL.PurchaseOrderCutting.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                        ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                            DL.PurchaseOrderCutting.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                        ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Then
+                            DL.PurchaseOrderTransport.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                        ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                            DL.PurchaseOrderTransport.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                        End If
+                    Next
+                End If
+
+                Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, clsData.ID)
+                If intStatusID = VO.Status.Values.Approved Then
+                    Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di approve")
+                ElseIf intStatusID = VO.Status.Values.Submit Then
+                    Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di submit")
+                ElseIf intStatusID = VO.Status.Values.Payment Then
+                    Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan status data telah DIBAYAR")
+                ElseIf DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, clsData.ID) Then
+                    Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
+                ElseIf DL.AccountPayable.DataExists(sqlCon, sqlTrans, clsData.APNumber, clsData.ID) Then
+                    Err.Raise(515, "", "Tidak dapat disimpan. Nomor " & clsData.APNumber & " sudah ada.")
+                End If
+
+                DL.AccountPayable.SaveData(sqlCon, sqlTrans, bolNew, clsData)
+
+                '# Save Data Detail
+                Dim intCount As Integer = 1
+                For Each clsDet As VO.AccountPayableDet In clsData.Detail
+                    clsDet.ID = clsData.ID & "-" & 1 & "-" & Format(intCount, "000")
+                    clsDet.APID = clsData.ID
+                    DL.AccountPayable.SaveDataDetail(sqlCon, sqlTrans, clsDet)
+                    intCount += 1
+                Next
+
+                '# Calculate Payment Amount
+                For Each clsDet As VO.AccountPayableDet In clsData.Detail
+                    '# For Setup Balance
+                    If clsData.Modules = VO.AccountPayable.PurchaseBalance Then
+                        DL.BusinessPartnerAPBalance.CalculateTotalUsed(sqlCon, sqlTrans, clsDet.PurchaseID)
+                    ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPayment Then
+                        DL.PurchaseContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.PurchaseID)
+                    ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
+                        DL.PurchaseContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.PurchaseID)
+                    ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then
+                        DL.PurchaseOrderCutting.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.PurchaseID)
+                    ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                        DL.PurchaseOrderCutting.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.PurchaseID)
+                    ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Then
+                        DL.PurchaseOrderTransport.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.PurchaseID)
+                    ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                        DL.PurchaseOrderTransport.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.PurchaseID)
+                    End If
+                Next
+
+                '# Save Data Status
+                BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, clsData.ID, IIf(bolNew, "BARU", "EDIT"), ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
+
+                If clsData.Save = VO.Save.Action.SaveAndSubmit Then Submit(sqlCon, sqlTrans, clsData.ID, clsData.Remarks)
+            Catch ex As Exception
+                Throw ex
+            End Try
             Return clsData.APNumber
         End Function
 
@@ -159,55 +169,7 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
-                    If intStatusID = VO.Status.Values.Submit Then
-                        Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah di submit")
-                    ElseIf intStatusID = VO.Status.Values.Approved Then
-                        Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah di setujui")
-                    ElseIf intStatusID = VO.Status.Values.Payment Then
-                        Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan status data telah DIBAYAR")
-                    ElseIf DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, strID) Then
-                        Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
-                    End If
-
-                    Dim dtItem As New DataTable
-
-                    '# For Setup Balance
-                    If strModules.Trim = VO.AccountPayable.PurchaseBalance Then
-                        dtItem = DL.AccountPayable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, strID)
-                    ElseIf strModules.Trim = VO.AccountPayable.DownPayment Or
-                        strModules.Trim = VO.AccountPayable.ReceivePayment Or
-                        strModules.Trim = VO.AccountPayable.DownPaymentCutting Or
-                        strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Or
-                        strModules.Trim = VO.AccountPayable.DownPaymentTransport Or
-                        strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
-                        dtItem = DL.AccountPayable.ListDataDetail(sqlCon, sqlTrans, strID)
-                    End If
-
-                    DL.AccountPayable.DeleteData(sqlCon, sqlTrans, strID)
-
-                    '# Revert Payment Amount
-                    For Each dr As DataRow In dtItem.Rows
-                        '# For Setup Balance
-                        If strModules.Trim = VO.AccountPayable.PurchaseBalance Then
-                            DL.BusinessPartnerAPBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("PurchaseID"))
-                        ElseIf strModules.Trim = VO.AccountPayable.DownPayment Then
-                            DL.PurchaseContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
-                        ElseIf strModules.Trim = VO.AccountPayable.ReceivePayment Then
-                            DL.PurchaseContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
-                        ElseIf strModules.Trim = VO.AccountPayable.DownPaymentCutting Then
-                            DL.PurchaseOrderCutting.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
-                        ElseIf strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
-                            DL.PurchaseOrderCutting.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
-                        ElseIf strModules.Trim = VO.AccountPayable.DownPaymentTransport Then
-                            DL.PurchaseOrderTransport.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
-                        ElseIf strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
-                            DL.PurchaseOrderTransport.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
-                        End If
-                    Next
-
-                    '# Save Data Status
-                    BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "HAPUS", ERPSLib.UI.usUserApp.UserID, strRemarks)
+                    DeleteData(sqlCon, sqlTrans, strID, strModules, strRemarks)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -216,15 +178,71 @@
             End Using
         End Sub
 
+        Public Shared Sub DeleteData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                     ByVal strID As String, ByVal strModules As String, ByVal strRemarks As String)
+            Try
+                Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
+                If intStatusID = VO.Status.Values.Submit Then
+                    Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah di submit")
+                ElseIf intStatusID = VO.Status.Values.Approved Then
+                    Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah di setujui")
+                ElseIf intStatusID = VO.Status.Values.Payment Then
+                    Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan status data telah DIBAYAR")
+                ElseIf DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, strID) Then
+                    Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
+                End If
+
+                Dim dtItem As New DataTable
+
+                '# For Setup Balance
+                If strModules.Trim = VO.AccountPayable.PurchaseBalance Then
+                    dtItem = DL.AccountPayable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, strID)
+                ElseIf strModules.Trim = VO.AccountPayable.DownPayment Or
+                    strModules.Trim = VO.AccountPayable.ReceivePayment Or
+                    strModules.Trim = VO.AccountPayable.DownPaymentCutting Or
+                    strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Or
+                    strModules.Trim = VO.AccountPayable.DownPaymentTransport Or
+                    strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                    dtItem = DL.AccountPayable.ListDataDetail(sqlCon, sqlTrans, strID)
+                End If
+
+                DL.AccountPayable.DeleteData(sqlCon, sqlTrans, strID)
+
+                '# Revert Payment Amount
+                For Each dr As DataRow In dtItem.Rows
+                    '# For Setup Balance
+                    If strModules.Trim = VO.AccountPayable.PurchaseBalance Then
+                        DL.BusinessPartnerAPBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                    ElseIf strModules.Trim = VO.AccountPayable.DownPayment Then
+                        DL.PurchaseContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                    ElseIf strModules.Trim = VO.AccountPayable.ReceivePayment Then
+                        DL.PurchaseContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                    ElseIf strModules.Trim = VO.AccountPayable.DownPaymentCutting Then
+                        DL.PurchaseOrderCutting.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                    ElseIf strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                        DL.PurchaseOrderCutting.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                    ElseIf strModules.Trim = VO.AccountPayable.DownPaymentTransport Then
+                        DL.PurchaseOrderTransport.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                    ElseIf strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                        DL.PurchaseOrderTransport.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                    End If
+                Next
+
+                '# Save Data Status
+                BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "HAPUS", ERPSLib.UI.usUserApp.UserID, strRemarks)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
         Public Shared Function Submit(ByVal strID As String, ByVal strRemarks As String) As Boolean
             Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Submit(sqlCon, sqlTrans, strID, strRemarks)
+                    bolReturn = Submit(sqlCon, sqlTrans, strID, strRemarks)
                     sqlTrans.Commit()
-                    bolReturn = True
                 Catch ex As Exception
                     sqlTrans.Rollback()
                     Throw ex
@@ -233,8 +251,8 @@
             Return bolReturn
         End Function
 
-        Public Shared Sub Submit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                 ByVal strID As String, ByVal strRemarks As String)
+        Public Shared Function Submit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                      ByVal strID As String, ByVal strRemarks As String)
             Dim bolReturn As Boolean = False
             Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
             If intStatusID = VO.Status.Values.Submit Then
@@ -251,7 +269,9 @@
 
             '# Save Data Status
             BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
-        End Sub
+            bolReturn = True
+            Return bolReturn
+        End Function
 
         Public Shared Function Unsubmit(ByVal strID As String, ByVal strRemarks As String) As Boolean
             Dim bolReturn As Boolean = False
@@ -259,28 +279,40 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
-                    If intStatusID = VO.Status.Values.Draft Then
-                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah DRAFT")
-                    ElseIf intStatusID = VO.Status.Values.Approved Then
-                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah APPROVED")
-                    ElseIf intStatusID = VO.Status.Values.Payment Then
-                        Err.Raise(515, "", "Data tidak dapat di Batal submit. Dikarenakan status data telah DIBAYAR")
-                    ElseIf DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, strID) Then
-                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
-                    End If
-
-                    DL.AccountPayable.Unsubmit(sqlCon, sqlTrans, strID)
-
-                    '# Save Data Status
-                    BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
-
+                    bolReturn = Unsubmit(sqlCon, sqlTrans, strID, strRemarks)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
                     Throw ex
                 End Try
             End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function Unsubmit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                        ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+
+            Try
+                Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
+                If intStatusID = VO.Status.Values.Draft Then
+                    Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah DRAFT")
+                ElseIf intStatusID = VO.Status.Values.Approved Then
+                    Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah APPROVED")
+                ElseIf intStatusID = VO.Status.Values.Payment Then
+                    Err.Raise(515, "", "Data tidak dapat di Batal submit. Dikarenakan status data telah DIBAYAR")
+                ElseIf DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, strID) Then
+                    Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
+                End If
+
+                DL.AccountPayable.Unsubmit(sqlCon, sqlTrans, strID)
+
+                '# Save Data Status
+                BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
+                bolReturn = True
+            Catch ex As Exception
+                Throw ex
+            End Try
             Return bolReturn
         End Function
 
@@ -290,89 +322,7 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
-                    If intStatusID = VO.Status.Values.Draft Then
-                        Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data masih DRAFT")
-                    ElseIf intStatusID = VO.Status.Values.Approved Then
-                        Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data telah APPROVED")
-                    ElseIf intStatusID = VO.Status.Values.Payment Then
-                        Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data telah DIBAYAR")
-                    ElseIf DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, strID) Then
-                        Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan data telah dihapus")
-                    End If
-
-                    DL.AccountPayable.Approve(sqlCon, sqlTrans, strID)
-
-                    '# Save Data Status
-                    BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
-
-                    Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
-                    Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
-                    Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
-
-                    '# Generate Journal
-                    Dim clsJournalDetail As New List(Of VO.JournalDet)
-                    Dim strJournalDetailRemarks As String = ""
-                    If clsData.Modules.Trim = VO.AccountPayable.DownPayment Then
-                        strJournalDetailRemarks = "PEMBAYARAN PANJAR PEMBELIAN - " & clsData.APNumber
-                    ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentManual Then
-                        strJournalDetailRemarks = "PEMBAYARAN PANJAR PEMBELIAN [MANUAL] - " & clsData.APNumber
-                    ElseIf clsData.Modules.Trim = VO.AccountPayable.PurchaseBalance Then
-                        strJournalDetailRemarks = "PEMBAYARAN SALDO - " & clsData.APNumber
-                    ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
-                        strJournalDetailRemarks = "PEMBAYARAN HUTANG PEMBELIAN - " & clsData.APNumber
-                    ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then
-                        strJournalDetailRemarks = "PEMBAYARAN PANJAR PESANAN PEMOTONGAN - " & clsData.APNumber
-                    ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
-                        strJournalDetailRemarks = "PEMBAYARAN HUTANG PESANAN PEMOTONGAN - " & clsData.APNumber
-                    ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Then
-                        strJournalDetailRemarks = "PEMBAYARAN PANJAR PESANAN PENGIRIMAN - " & clsData.APNumber
-                    ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
-                        strJournalDetailRemarks = "PEMBAYARAN HUTANG PESANAN PENGIRIMAN - " & clsData.APNumber
-                    End If
-
-                    clsJournalDetail.Add(New VO.JournalDet With
-                                         {
-                                             .CoAID = VO.Journal.Value.HutangUsaha,
-                                             .DebitAmount = clsData.TotalAmount,
-                                             .CreditAmount = 0,
-                                             .Remarks = strJournalDetailRemarks
-                                         })
-                    clsJournalDetail.Add(New VO.JournalDet With
-                                         {
-                                             .CoAID = clsData.CoAIDOfOutgoingPayment,
-                                             .DebitAmount = 0,
-                                             .CreditAmount = clsData.TotalAmount,
-                                             .Remarks = strJournalDetailRemarks
-                                         })
-
-                    Dim clsJournal As New VO.Journal With
-                        {
-                            .ProgramID = clsData.ProgramID,
-                            .CompanyID = clsData.CompanyID,
-                            .ID = PrevJournal.ID,
-                            .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
-                            .ReferencesID = clsData.ID,
-                            .JournalDate = IIf(bolNew, clsData.APDate, PrevJournal.JournalDate),
-                            .TotalAmount = clsData.TotalAmount,
-                            .IsAutoGenerate = True,
-                            .StatusID = VO.Status.Values.Draft,
-                            .Remarks = clsData.Remarks,
-                            .LogBy = ERPSLib.UI.usUserApp.UserID,
-                            .Initial = "",
-                            .Detail = clsJournalDetail,
-                            .Save = VO.Save.Action.SaveAndSubmit
-                        }
-
-                    '# Save Journal
-                    Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
-
-                    '# Approve Journal
-                    BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
-
-                    '# Update Journal ID in Account Payable
-                    DL.AccountPayable.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
-
+                    bolReturn = Approve(sqlCon, sqlTrans, strID, strRemarks)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -382,43 +332,147 @@
             Return bolReturn
         End Function
 
+        Public Shared Function Approve(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                       ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            Try
+                Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
+                If intStatusID = VO.Status.Values.Draft Then
+                    Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data masih DRAFT")
+                ElseIf intStatusID = VO.Status.Values.Approved Then
+                    Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data telah APPROVED")
+                ElseIf intStatusID = VO.Status.Values.Payment Then
+                    Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data telah DIBAYAR")
+                ElseIf DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, strID) Then
+                    Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan data telah dihapus")
+                End If
+
+                DL.AccountPayable.Approve(sqlCon, sqlTrans, strID)
+
+                '# Save Data Status
+                BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+                Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
+                Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
+                Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
+
+                '# Generate Journal
+                Dim clsJournalDetail As New List(Of VO.JournalDet)
+                Dim strJournalDetailRemarks As String = ""
+                If clsData.Modules.Trim = VO.AccountPayable.DownPayment Then
+                    strJournalDetailRemarks = "PEMBAYARAN PANJAR PEMBELIAN - " & clsData.APNumber
+                ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentManual Then
+                    strJournalDetailRemarks = "PEMBAYARAN PANJAR PEMBELIAN [MANUAL] - " & clsData.APNumber
+                ElseIf clsData.Modules.Trim = VO.AccountPayable.PurchaseBalance Then
+                    strJournalDetailRemarks = "PEMBAYARAN SALDO - " & clsData.APNumber
+                ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
+                    strJournalDetailRemarks = "PEMBAYARAN HUTANG PEMBELIAN - " & clsData.APNumber
+                ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then
+                    strJournalDetailRemarks = "PEMBAYARAN PANJAR PESANAN PEMOTONGAN - " & clsData.APNumber
+                ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                    strJournalDetailRemarks = "PEMBAYARAN HUTANG PESANAN PEMOTONGAN - " & clsData.APNumber
+                ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Then
+                    strJournalDetailRemarks = "PEMBAYARAN PANJAR PESANAN PENGIRIMAN - " & clsData.APNumber
+                ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                    strJournalDetailRemarks = "PEMBAYARAN HUTANG PESANAN PENGIRIMAN - " & clsData.APNumber
+                End If
+
+                clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = VO.Journal.Value.HutangUsaha,
+                                         .DebitAmount = clsData.TotalAmount,
+                                         .CreditAmount = 0,
+                                         .Remarks = strJournalDetailRemarks
+                                     })
+                clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = clsData.CoAIDOfOutgoingPayment,
+                                         .DebitAmount = 0,
+                                         .CreditAmount = clsData.TotalAmount,
+                                         .Remarks = strJournalDetailRemarks
+                                     })
+
+                Dim clsJournal As New VO.Journal With
+                    {
+                        .ProgramID = clsData.ProgramID,
+                        .CompanyID = clsData.CompanyID,
+                        .ID = PrevJournal.ID,
+                        .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                        .ReferencesID = clsData.ID,
+                        .JournalDate = IIf(bolNew, clsData.APDate, PrevJournal.JournalDate),
+                        .TotalAmount = clsData.TotalAmount,
+                        .IsAutoGenerate = True,
+                        .StatusID = VO.Status.Values.Draft,
+                        .Remarks = clsData.Remarks,
+                        .LogBy = ERPSLib.UI.usUserApp.UserID,
+                        .Initial = "",
+                        .Detail = clsJournalDetail,
+                        .Save = VO.Save.Action.SaveAndSubmit
+                    }
+
+                '# Save Journal
+                Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
+
+                '# Approve Journal
+                BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
+
+                '# Update Journal ID in Account Payable
+                DL.AccountPayable.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
+                bolReturn = True
+            Catch ex As Exception
+                Throw ex
+            End Try
+            Return bolReturn
+        End Function
+
         Public Shared Function Unapprove(ByVal strID As String, ByVal strRemarks As String) As Boolean
             Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
-                    If intStatusID = VO.Status.Values.Draft Then
-                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data masih DRAFT")
-                    ElseIf intStatusID = VO.Status.Values.Submit Then
-                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data telah SUBMIT")
-                    ElseIf intStatusID = VO.Status.Values.Payment Then
-                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data telah DIBAYAR")
-                    ElseIf DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, strID) Then
-                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
-                    End If
-
-                    Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
-
-                    '# Cancel Approve Journal
-                    BL.Journal.Unapprove(clsData.JournalID.Trim, "")
-
-                    '# Cancel Submit Journal
-                    BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
-
-                    '# Unapprove Account Receivable
-                    DL.AccountPayable.Unapprove(sqlCon, sqlTrans, strID)
-
-                    '# Save Data Status
-                    BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
-
+                    Unapprove(sqlCon, sqlTrans, strID, strRemarks)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
                     Throw ex
                 End Try
             End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function Unapprove(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                         ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            Try
+                Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
+                If intStatusID = VO.Status.Values.Draft Then
+                    Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data masih DRAFT")
+                ElseIf intStatusID = VO.Status.Values.Submit Then
+                    Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data telah SUBMIT")
+                ElseIf intStatusID = VO.Status.Values.Payment Then
+                    Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data telah DIBAYAR")
+                ElseIf DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, strID) Then
+                    Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
+                End If
+
+                Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
+
+                '# Cancel Approve Journal
+                BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+
+                '# Cancel Submit Journal
+                BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+
+                '# Unapprove Account Receivable
+                DL.AccountPayable.Unapprove(sqlCon, sqlTrans, strID)
+
+                '# Save Data Status
+                BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
+                bolReturn = True
+            Catch ex As Exception
+                Throw ex
+            End Try
             Return bolReturn
         End Function
 
@@ -429,20 +483,7 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
-                    If DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, strID) Then
-                        Err.Raise(515, "", "Data tidak dapat di Proses Pembayaran. Dikarenakan data telah dihapus")
-                    ElseIf intStatusID = VO.Status.Values.Payment Then
-                        Err.Raise(515, "", "Data tidak dapat di Proses Pembayaran. Dikarenakan status data telah DIBAYAR")
-                    ElseIf intStatusID <> VO.Status.Values.Approved Then
-                        Err.Raise(515, "", "Data tidak dapat di Proses Pembayaran. Dikarenakan status data harus disetujui terlebih dahulu")
-                    End If
-
-                    DL.AccountPayable.SetupPayment(sqlCon, sqlTrans, strID, dtmPaymentDate)
-
-                    '# Save Data Status
-                    BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "PROSES PEMBAYARAN", ERPSLib.UI.usUserApp.UserID, strRemarks)
-
+                    bolReturn = SetupPayment(sqlCon, sqlTrans, strID, dtmPaymentDate, strRemarks)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -452,30 +493,67 @@
             Return bolReturn
         End Function
 
+        Public Shared Function SetupPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                            ByVal strID As String, ByVal dtmPaymentDate As DateTime,
+                                            ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            Try
+                Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
+                If DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, strID) Then
+                    Err.Raise(515, "", "Data tidak dapat di Proses Pembayaran. Dikarenakan data telah dihapus")
+                ElseIf intStatusID = VO.Status.Values.Payment Then
+                    Err.Raise(515, "", "Data tidak dapat di Proses Pembayaran. Dikarenakan status data telah DIBAYAR")
+                ElseIf intStatusID <> VO.Status.Values.Approved Then
+                    Err.Raise(515, "", "Data tidak dapat di Proses Pembayaran. Dikarenakan status data harus disetujui terlebih dahulu")
+                End If
+
+                DL.AccountPayable.SetupPayment(sqlCon, sqlTrans, strID, dtmPaymentDate)
+
+                '# Save Data Status
+                BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "PROSES PEMBAYARAN", ERPSLib.UI.usUserApp.UserID, strRemarks)
+                bolReturn = True
+            Catch ex As Exception
+                Throw ex
+            End Try
+            Return bolReturn
+        End Function
+
         Public Shared Function SetupCancelPayment(ByVal strID As String, ByVal strRemarks As String) As Boolean
             Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
-                    If DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, strID) Then
-                        Err.Raise(515, "", "Data tidak dapat di Proses Batal Pembayaran. Dikarenakan data telah dihapus")
-                    ElseIf intStatusID <> VO.Status.Values.Payment Then
-                        Err.Raise(515, "", "Data tidak dapat di Proses Batal Pembayaran. Dikarenakan data belum pernah diproses BAYAR")
-                    End If
-
-                    DL.AccountPayable.SetupCancelPayment(sqlCon, sqlTrans, strID)
-
-                    '# Save Data Status
-                    BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL PROSES PEMBAYARAN", ERPSLib.UI.usUserApp.UserID, strRemarks)
-
+                    bolReturn = SetupCancelPayment(sqlCon, sqlTrans, strID, strRemarks)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
                     Throw ex
                 End Try
             End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function SetupCancelPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                  ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            Try
+                Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
+                If DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, strID) Then
+                    Err.Raise(515, "", "Data tidak dapat di Proses Batal Pembayaran. Dikarenakan data telah dihapus")
+                ElseIf intStatusID <> VO.Status.Values.Payment Then
+                    Err.Raise(515, "", "Data tidak dapat di Proses Batal Pembayaran. Dikarenakan data belum pernah diproses BAYAR")
+                End If
+
+                DL.AccountPayable.SetupCancelPayment(sqlCon, sqlTrans, strID)
+
+                '# Save Data Status
+                BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL PROSES PEMBAYARAN", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+                bolReturn = True
+            Catch ex As Exception
+                Throw ex
+            End Try
             Return bolReturn
         End Function
 
@@ -486,22 +564,34 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
-                    If DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, strID) Then
-                        Err.Raise(515, "", "Data tidak dapat di Proses. Dikarenakan data telah dihapus")
-                    End If
-
-                    DL.AccountPayable.UpdateTaxInvoiceNumber(sqlCon, sqlTrans, strID, strTaxInvoiceNumber)
-
-                    '# Save Data Status
-                    BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "UPDATE NOMOR FAKTUR PAJAK", ERPSLib.UI.usUserApp.UserID, strRemarks)
-
+                    bolReturn = UpdateTaxInvoiceNumber(sqlCon, sqlTrans, strID, strTaxInvoiceNumber, strRemarks)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
                     Throw ex
                 End Try
             End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function UpdateTaxInvoiceNumber(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                      ByVal strID As String, ByVal strTaxInvoiceNumber As String,
+                                                      ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            Try
+                Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
+                If DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, strID) Then
+                    Err.Raise(515, "", "Data tidak dapat di Proses. Dikarenakan data telah dihapus")
+                End If
+
+                DL.AccountPayable.UpdateTaxInvoiceNumber(sqlCon, sqlTrans, strID, strTaxInvoiceNumber)
+
+                '# Save Data Status
+                BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "UPDATE NOMOR FAKTUR PAJAK", ERPSLib.UI.usUserApp.UserID, strRemarks)
+                bolReturn = True
+            Catch ex As Exception
+                Throw ex
+            End Try
             Return bolReturn
         End Function
 

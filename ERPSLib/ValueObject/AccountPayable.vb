@@ -14,6 +14,7 @@
         Property ReferencesNote As String
         Property APDate As DateTime
         Property TotalAmount As Decimal
+        Property Percentage As Decimal
         Property SubmitBy As String
         Property SubmitDate As DateTime
         Property ApproveL1 As String
