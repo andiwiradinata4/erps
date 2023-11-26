@@ -8,6 +8,7 @@
         Property BPID As Integer
         Property BPCode As String
         Property BPName As String
+        Property BPPIC As String
         Property PPN As Decimal
         Property PPH As Decimal
         Property CompanyBankAccountID As Integer

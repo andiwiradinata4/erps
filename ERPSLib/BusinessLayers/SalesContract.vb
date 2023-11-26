@@ -404,7 +404,7 @@
                     If dr.Item("ItemTypeAndSpec") <> strItemTypeAndSpec Then
                         strItemTypeAndSpec = dr.Item("ItemTypeAndSpec")
                         If strAllItemTypeAndSpec.Trim <> "" Then strAllItemTypeAndSpec += ", "
-                        strAllItemTypeAndSpec = strItemTypeAndSpec
+                        strAllItemTypeAndSpec += strItemTypeAndSpec
                     End If
                 Next
 
@@ -425,7 +425,7 @@
                     If dr.Item("ReferencesNumber") <> strReferencesNumber Then
                         strReferencesNumber = dr.Item("ReferencesNumber")
                         If strAllReferencesNumber.Trim <> "" Then strAllReferencesNumber += ", "
-                        strAllReferencesNumber = strReferencesNumber
+                        strAllReferencesNumber += strReferencesNumber
                     End If
                 Next
 
@@ -436,7 +436,7 @@
                     If dr.Item("OrderNumberSupplier") <> strOrderNumberSupplier Then
                         strOrderNumberSupplier = dr.Item("OrderNumberSupplier")
                         If strAllOrderNumberSupplier.Trim <> "" Then strAllOrderNumberSupplier += ", "
-                        strAllOrderNumberSupplier = strOrderNumberSupplier
+                        strAllOrderNumberSupplier += strOrderNumberSupplier
                     End If
                 Next
 
@@ -448,6 +448,47 @@
                     dr.Item("DeliveryPeriod") = Format(dr.Item("DeliveryPeriodFrom"), "MMMM") & " - " & Format(dr.Item("DeliveryPeriodTo"), "MMMM yyyy")
                     dr.Item("AllReferencesNumber") = strAllReferencesNumber
                     dr.Item("MaxCreditTerms") = intMaxCreditTerms
+                    dr.Item("AllOrderNumberSupplier") = strAllOrderNumberSupplier
+                    dr.Item("NumericToString") = SharedLib.Math.NumberToString(dr.Item("GrandTotal"))
+                    dr.EndEdit()
+                Next
+                dtReturn.AcceptChanges()
+            End Using
+
+            Return dtReturn
+        End Function
+
+        Public Shared Function PrintSCCOVer00(ByVal intProgramID As Integer, ByVal intCompanyID As Integer, ByVal strID As String) As DataTable
+            BL.Server.ServerDefault()
+            Dim dtReturn As New DataTable
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                dtReturn = DL.SalesContract.PrintSCCOVer00(sqlCon, Nothing, intProgramID, intCompanyID, strID)
+
+                '# Combine AllItemName
+                Dim strItemType As String = ""
+                Dim strAllItemType As String = ""
+                For Each dr As DataRow In dtReturn.Rows
+                    If dr.Item("ItemTypeName") <> strItemType Then
+                        strItemType = dr.Item("ItemTypeName")
+                        If strAllItemType.Trim <> "" Then strAllItemType += ", "
+                        strAllItemType = strItemType
+                    End If
+                Next
+
+                '# Combine All References Number
+                Dim strOrderNumberSupplier As String = ""
+                Dim strAllOrderNumberSupplier As String = ""
+                For Each dr As DataRow In dtReturn.Rows
+                    If dr.Item("OrderNumberSupplier") <> strOrderNumberSupplier Then
+                        strOrderNumberSupplier = dr.Item("OrderNumberSupplier")
+                        If strAllOrderNumberSupplier.Trim <> "" Then strAllOrderNumberSupplier += ", "
+                        strAllOrderNumberSupplier += strOrderNumberSupplier
+                    End If
+                Next
+
+                For Each dr As DataRow In dtReturn.Rows
+                    dr.BeginEdit()
+                    dr.Item("AllItemName") = strAllItemType
                     dr.Item("AllOrderNumberSupplier") = strAllOrderNumberSupplier
                     dr.Item("NumericToString") = SharedLib.Math.NumberToString(dr.Item("GrandTotal"))
                     dr.EndEdit()

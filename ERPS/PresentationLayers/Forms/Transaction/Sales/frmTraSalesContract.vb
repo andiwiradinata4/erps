@@ -408,8 +408,59 @@ Public Class frmTraSalesContract
                 crReport.Watermark.TextTransparency = 150
             End If
 
+            Dim dtDataco As DataTable = BL.SalesContract.PrintSCCOVer00(intProgramID, intCompanyID, strID)
+
             crReport.DataSource = dtData
             crReport.CreateDocument(True)
+            crReport.ShowPreviewMarginLines = False
+            crReport.ShowPrintMarginsWarning = False
+
+            Dim frmDetail As New frmReportPreview
+            With frmDetail
+                .docViewer.DocumentSource = crReport
+                .pgExportButton.Enabled = bolExport
+                .Text = Me.Text & " - " & VO.Reports.PrintOut
+                .WindowState = FormWindowState.Maximized
+                .Show()
+            End With
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            pgMain.Value = 100
+            Application.DoEvents()
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+    Private Sub prvPrintSCCO()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+        Application.DoEvents()
+
+        Try
+            Dim dtData As DataTable = BL.SalesContract.PrintSCCOVer00(intProgramID, intCompanyID, strID)
+            Dim intStatusID As Integer = 0
+            For Each dr As DataRow In dtData.Rows
+                intStatusID = dr.Item("StatusID")
+                Exit For
+            Next
+
+            Dim crReport As New rptConfirmationOrderVer00
+
+            '# Setup Watermark Report
+            If intStatusID <> VO.Status.Values.Approved Then
+                crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
+                crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
+                crReport.Watermark.Font = New System.Drawing.Font("Tahoma", 70.0!, System.Drawing.FontStyle.Bold)
+                crReport.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.Horizontal
+                crReport.Watermark.TextTransparency = 150
+            End If
+
+            crReport.DataSource = dtData
+            crReport.CreateCustomDocument()
             crReport.ShowPreviewMarginLines = False
             crReport.ShowPrintMarginsWarning = False
 
@@ -556,7 +607,7 @@ Public Class frmTraSalesContract
                 Case ToolBar.Buttons(cCancelSubmit).Name : prvCancelSubmit()
                 Case ToolBar.Buttons(cApprove).Name : prvApprove()
                 Case ToolBar.Buttons(cCancelApprove).Name : prvCancelApprove()
-                Case ToolBar.Buttons(cPrint).Name : prvPrint()
+                Case ToolBar.Buttons(cPrint).Name : prvPrintSCCO() : prvPrint()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If

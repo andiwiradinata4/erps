@@ -404,3 +404,4 @@ C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.frmMstBusinessPartnerSet
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.vbproj.GenerateResource.Cache
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.exe.licenses
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\aa\ERPS.resources.dll
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptConfirmationOrderVer00.resources
