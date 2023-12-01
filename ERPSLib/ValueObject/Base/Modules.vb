@@ -61,6 +61,7 @@ Namespace VO
 
             '# Reports
             ReportBukuBesar = 32
+            ReportTransaksiBarang = 47
         End Enum
 
     End Class

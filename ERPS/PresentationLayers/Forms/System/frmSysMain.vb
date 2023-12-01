@@ -142,7 +142,7 @@
         mnuTransaksiPembukuanJurnalUmum.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionJournal, VO.Access.Values.ViewAccess)
 
         '# Laporan
-        mnuLaporanTransaksiBarang.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, -1, ERPSLib.VO.Modules.Values.ReportBukuBesar, VO.Access.Values.ViewAccess)
+        mnuLaporanTransaksiBarang.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, ERPSLib.VO.Modules.Values.ReportTransaksiBarang, VO.Access.Values.ViewAccess)
 
         '## Pembukuan
         mnuLaporanPembukuanBukuBesar.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, ERPSLib.VO.Modules.Values.ReportBukuBesar, VO.Access.Values.ViewAccess)
