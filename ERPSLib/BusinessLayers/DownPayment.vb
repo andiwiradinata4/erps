@@ -20,6 +20,7 @@
 
         Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsDataDP As VO.DownPayment) As String
             BL.Server.ServerDefault()
+            Dim strDPNumber As String = ""
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
@@ -65,6 +66,8 @@
                         If clsReferences.DPAmount + clsReferences.ReceiveAmount > clsReferences.GrandTotal Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Grand Total Transaksi")
                         End If
+
+                        strDPNumber = clsData.ARNumber
                     Else
                         Dim clsReferences As VO.PurchaseContract = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, clsDataDP.ReferencesID)
                         If clsReferences.StatusID <> VO.Status.Values.Approved Then
@@ -107,6 +110,7 @@
                         If clsReferences.DPAmount + clsReferences.ReceiveAmount > clsReferences.GrandTotal Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Grand Total Transaksi")
                         End If
+                        strDPNumber = clsData.APNumber
                     End If
 
                     sqlTrans.Commit()
@@ -115,7 +119,7 @@
                     Throw ex
                 End Try
             End Using
-            Return clsDataDP.DPNumber
+            Return strDPNumber
         End Function
 
         Public Shared Function GetDetail(ByVal strID As String, ByVal enumDPType As VO.DownPayment.DPTypeValue) As VO.DownPayment

@@ -129,7 +129,6 @@ C:\My Project\Desktop\Toni JKT\erps\ERPS\bin\Debug\aa\ERPS.resources.dll
 C:\My Project\Desktop\Toni JKT\erps\ERPS\bin\Debug\ERPSLib.dll
 C:\My Project\Desktop\Toni JKT\erps\ERPS\bin\Debug\ERPSLib.pdb
 C:\My Project\Desktop\Toni JKT\erps\ERPS\bin\Debug\ERPSLib.xml
-C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.vbprojResolveAssemblyReference.cache
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.Resources.resources
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.frmMstAccess.resources
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.frmMstAccessDet.resources
@@ -408,3 +407,10 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\aa\ERPS.resources.dll
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.pdb
+C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.vbproj.AssemblyReference.cache
+C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.frmTraDownPayment.resources
+C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.frmTraDownPaymentDet.resources
+C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.rptConfirmationOrderVer00.resources
+C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.rptProformaInvoice.resources
+C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.vbproj.CoreCompileInputs.cache
+C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.vbproj.CopyComplete

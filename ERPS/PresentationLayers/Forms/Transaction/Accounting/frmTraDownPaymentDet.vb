@@ -125,17 +125,7 @@
 
                 dtpDPDate.Enabled = False
             End If
-
-            If enumDPType = VO.DownPayment.DPTypeValue.Sales Then
-                Dim clsReferences As VO.SalesContract = BL.SalesContract.GetDetail(strReferencesID)
-                txtGrandTotalContract.Value = clsReferences.GrandTotal
-                txtTotalPayment.Value = clsReferences.DPAmount + clsReferences.ReceiveAmount
-            Else
-                Dim clsReferences As VO.PurchaseContract = BL.PurchaseContract.GetDetail(strReferencesID)
-                txtGrandTotalContract.Value = clsReferences.GrandTotal
-                txtTotalPayment.Value = clsReferences.DPAmount + clsReferences.ReceiveAmount
-            End If
-            txtOutstandingPayment.Value = txtGrandTotalContract.Value - txtTotalPayment.Value
+            prvGetAmount()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -145,6 +135,19 @@
             Application.DoEvents()
             prvResetProgressBar()
         End Try
+    End Sub
+
+    Private Sub prvGetAmount()
+        If enumDPType = VO.DownPayment.DPTypeValue.Sales Then
+            Dim clsReferences As VO.SalesContract = BL.SalesContract.GetDetail(strReferencesID)
+            txtGrandTotalContract.Value = clsReferences.GrandTotal
+            txtTotalPayment.Value = clsReferences.DPAmount + clsReferences.ReceiveAmount
+        Else
+            Dim clsReferences As VO.PurchaseContract = BL.PurchaseContract.GetDetail(strReferencesID)
+            txtGrandTotalContract.Value = clsReferences.GrandTotal
+            txtTotalPayment.Value = clsReferences.DPAmount + clsReferences.ReceiveAmount
+        End If
+        txtOutstandingPayment.Value = txtGrandTotalContract.Value - txtTotalPayment.Value
     End Sub
 
     Private Sub prvSave()
@@ -241,6 +244,7 @@
         ToolStripLogInc.Text = "Jumlah Edit : -"
         ToolStripLogBy.Text = "Dibuat Oleh : -"
         ToolStripLogDate.Text = Format(Now, UI.usDefCons.DateFull)
+        prvGetAmount()
     End Sub
 
     Private Sub prvChooseCOA()

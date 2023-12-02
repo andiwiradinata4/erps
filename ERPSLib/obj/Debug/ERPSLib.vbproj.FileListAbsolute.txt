@@ -22,3 +22,5 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.vbproj.Generat
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.dll
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.pdb
+C:\My Project\Desktop\Toni JKT\erps\ERPSLib\obj\Debug\ERPSLib.vbproj.AssemblyReference.cache
+C:\My Project\Desktop\Toni JKT\erps\ERPSLib\obj\Debug\ERPSLib.vbproj.CoreCompileInputs.cache
