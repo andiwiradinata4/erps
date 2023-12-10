@@ -104,6 +104,7 @@
                     Err.Raise(515, "", "Tidak dapat disimpan. Nomor " & clsData.ARNumber & " sudah ada.")
                 End If
 
+                clsData.DueDate = clsData.ARDate.AddDays(clsData.DueDateValue)
                 DL.AccountReceivable.SaveData(sqlCon, sqlTrans, bolNew, clsData)
 
                 '# Save Data Detail

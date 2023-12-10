@@ -428,6 +428,7 @@ Public Class frmTraAccountPayableDet
         prvQueryItem()
         prvQueryHistory()
         prvUserAccess()
+        txtDueDateValue.Minimum = 0
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick

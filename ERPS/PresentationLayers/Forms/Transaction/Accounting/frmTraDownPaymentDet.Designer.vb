@@ -61,6 +61,8 @@ Partial Class frmTraDownPaymentDet
         Me.ToolStripLogBy = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.txtDueDateValue = New ERPS.usNumeric()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         CType(Me.txtPercentage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -72,6 +74,7 @@ Partial Class frmTraDownPaymentDet
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip.SuspendLayout()
+        CType(Me.txtDueDateValue, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -120,12 +123,14 @@ Partial Class frmTraDownPaymentDet
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(884, 231)
+        Me.tcHeader.Size = New System.Drawing.Size(884, 255)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.txtDueDateValue)
+        Me.tpMain.Controls.Add(Me.Label9)
         Me.tpMain.Controls.Add(Me.txtPercentage)
         Me.tpMain.Controls.Add(Me.Label4)
         Me.tpMain.Controls.Add(Me.Label12)
@@ -151,7 +156,7 @@ Partial Class frmTraDownPaymentDet
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(876, 202)
+        Me.tpMain.Size = New System.Drawing.Size(876, 226)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
@@ -201,7 +206,7 @@ Partial Class frmTraDownPaymentDet
         Me.txtOutstandingPayment.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtOutstandingPayment.Name = "txtOutstandingPayment"
         Me.txtOutstandingPayment.Size = New System.Drawing.Size(249, 21)
-        Me.txtOutstandingPayment.TabIndex = 10
+        Me.txtOutstandingPayment.TabIndex = 11
         Me.txtOutstandingPayment.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtOutstandingPayment.ThousandsSeparator = True
         '
@@ -226,7 +231,7 @@ Partial Class frmTraDownPaymentDet
         Me.txtTotalPayment.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPayment.Name = "txtTotalPayment"
         Me.txtTotalPayment.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalPayment.TabIndex = 9
+        Me.txtTotalPayment.TabIndex = 10
         Me.txtTotalPayment.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPayment.ThousandsSeparator = True
         '
@@ -251,7 +256,7 @@ Partial Class frmTraDownPaymentDet
         Me.txtGrandTotalContract.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtGrandTotalContract.Name = "txtGrandTotalContract"
         Me.txtGrandTotalContract.Size = New System.Drawing.Size(249, 21)
-        Me.txtGrandTotalContract.TabIndex = 8
+        Me.txtGrandTotalContract.TabIndex = 9
         Me.txtGrandTotalContract.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtGrandTotalContract.ThousandsSeparator = True
         '
@@ -341,24 +346,24 @@ Partial Class frmTraDownPaymentDet
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 11
+        Me.txtRemarks.TabIndex = 12
         '
         'cboStatus
         '
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(141, 151)
+        Me.cboStatus.Location = New System.Drawing.Point(141, 178)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(127, 21)
-        Me.cboStatus.TabIndex = 7
+        Me.cboStatus.TabIndex = 8
         '
         'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(28, 155)
+        Me.Label5.Location = New System.Drawing.Point(28, 182)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(38, 13)
         Me.Label5.TabIndex = 128
@@ -457,7 +462,7 @@ Partial Class frmTraDownPaymentDet
         'pgMain
         '
         Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pgMain.Location = New System.Drawing.Point(0, 303)
+        Me.pgMain.Location = New System.Drawing.Point(0, 327)
         Me.pgMain.Name = "pgMain"
         Me.pgMain.Size = New System.Drawing.Size(884, 23)
         Me.pgMain.TabIndex = 4
@@ -466,7 +471,7 @@ Partial Class frmTraDownPaymentDet
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 281)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 305)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(884, 22)
         Me.StatusStrip.TabIndex = 3
@@ -513,11 +518,35 @@ Partial Class frmTraDownPaymentDet
         Me.ToolStripLogDate.Size = New System.Drawing.Size(12, 17)
         Me.ToolStripLogDate.Text = "-"
         '
+        'txtDueDateValue
+        '
+        Me.txtDueDateValue.BackColor = System.Drawing.Color.White
+        Me.txtDueDateValue.DecimalPlaces = 2
+        Me.txtDueDateValue.Location = New System.Drawing.Point(141, 151)
+        Me.txtDueDateValue.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtDueDateValue.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtDueDateValue.Name = "txtDueDateValue"
+        Me.txtDueDateValue.Size = New System.Drawing.Size(83, 21)
+        Me.txtDueDateValue.TabIndex = 7
+        Me.txtDueDateValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtDueDateValue.ThousandsSeparator = True
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.BackColor = System.Drawing.Color.Transparent
+        Me.Label9.ForeColor = System.Drawing.Color.Black
+        Me.Label9.Location = New System.Drawing.Point(28, 155)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(69, 13)
+        Me.Label9.TabIndex = 158
+        Me.Label9.Text = "Jatuh Tempo"
+        '
         'frmTraDownPaymentDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(884, 326)
+        Me.ClientSize = New System.Drawing.Size(884, 350)
         Me.Controls.Add(Me.tcHeader)
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.pgMain)
@@ -542,6 +571,7 @@ Partial Class frmTraDownPaymentDet
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip.ResumeLayout(False)
         Me.StatusStrip.PerformLayout()
+        CType(Me.txtDueDateValue, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -584,4 +614,6 @@ Partial Class frmTraDownPaymentDet
     Friend WithEvents txtGrandTotalContract As ERPS.usNumeric
     Friend WithEvents txtPercentage As ERPS.usNumeric
     Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents txtDueDateValue As ERPS.usNumeric
+    Friend WithEvents Label9 As System.Windows.Forms.Label
 End Class

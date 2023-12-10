@@ -13,6 +13,8 @@
         Property ReferencesID As String
         Property ReferencesNote As String
         Property ARDate As DateTime
+        Property DueDateValue As Integer
+        Property DueDate As DateTime
         Property TotalAmount As Decimal
         Property Percentage As Decimal
         Property SubmitBy As String

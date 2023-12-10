@@ -325,6 +325,7 @@
         prvFillForm()
         prvQueryHistory()
         prvUserAccess()
+        txtDueDateValue.Minimum = 0
         AddHandler txtPercentage.ValueChanged, AddressOf txtPercentage_ValueChanged
     End Sub
 

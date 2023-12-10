@@ -29,6 +29,7 @@ Partial Class frmTraAccountPayableDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.chkManual = New DevExpress.XtraEditors.CheckEdit()
         Me.txtTotalAmount = New ERPS.usNumeric()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -66,9 +67,11 @@ Partial Class frmTraAccountPayableDet
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.chkManual = New DevExpress.XtraEditors.CheckEdit()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtDueDateValue = New ERPS.usNumeric()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
+        CType(Me.chkManual.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpHistory.SuspendLayout()
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -77,7 +80,7 @@ Partial Class frmTraAccountPayableDet
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.chkManual.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtDueDateValue, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -132,6 +135,8 @@ Partial Class frmTraAccountPayableDet
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.txtDueDateValue)
+        Me.tpMain.Controls.Add(Me.Label9)
         Me.tpMain.Controls.Add(Me.chkManual)
         Me.tpMain.Controls.Add(Me.txtTotalAmount)
         Me.tpMain.Controls.Add(Me.Label7)
@@ -160,6 +165,15 @@ Partial Class frmTraAccountPayableDet
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'chkManual
+        '
+        Me.chkManual.Enabled = False
+        Me.chkManual.Location = New System.Drawing.Point(387, 125)
+        Me.chkManual.Name = "chkManual"
+        Me.chkManual.Properties.Caption = "Manual?"
+        Me.chkManual.Size = New System.Drawing.Size(75, 19)
+        Me.chkManual.TabIndex = 9
         '
         'txtTotalAmount
         '
@@ -294,7 +308,7 @@ Partial Class frmTraAccountPayableDet
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(485, 74)
+        Me.Label13.Location = New System.Drawing.Point(496, 101)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 129
@@ -304,29 +318,29 @@ Partial Class frmTraAccountPayableDet
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(572, 70)
+        Me.txtRemarks.Location = New System.Drawing.Point(572, 97)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 11
+        Me.txtRemarks.TabIndex = 13
         '
         'cboStatus
         '
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(572, 43)
+        Me.cboStatus.Location = New System.Drawing.Point(572, 70)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(127, 21)
-        Me.cboStatus.TabIndex = 10
+        Me.cboStatus.TabIndex = 12
         '
         'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(510, 47)
+        Me.Label5.Location = New System.Drawing.Point(521, 74)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(38, 13)
         Me.Label5.TabIndex = 128
@@ -340,7 +354,7 @@ Partial Class frmTraAccountPayableDet
         Me.dtpAPDate.Location = New System.Drawing.Point(572, 16)
         Me.dtpAPDate.Name = "dtpAPDate"
         Me.dtpAPDate.Size = New System.Drawing.Size(127, 21)
-        Me.dtpAPDate.TabIndex = 9
+        Me.dtpAPDate.TabIndex = 10
         Me.dtpAPDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
         'Label6
@@ -348,7 +362,7 @@ Partial Class frmTraAccountPayableDet
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.ForeColor = System.Drawing.Color.Black
-        Me.Label6.Location = New System.Drawing.Point(503, 20)
+        Me.Label6.Location = New System.Drawing.Point(514, 20)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(45, 13)
         Me.Label6.TabIndex = 124
@@ -561,14 +575,29 @@ Partial Class frmTraAccountPayableDet
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
         '
-        'chkManual
+        'Label9
         '
-        Me.chkManual.Enabled = False
-        Me.chkManual.Location = New System.Drawing.Point(387, 125)
-        Me.chkManual.Name = "chkManual"
-        Me.chkManual.Properties.Caption = "Manual?"
-        Me.chkManual.Size = New System.Drawing.Size(75, 19)
-        Me.chkManual.TabIndex = 142
+        Me.Label9.AutoSize = True
+        Me.Label9.BackColor = System.Drawing.Color.Transparent
+        Me.Label9.ForeColor = System.Drawing.Color.Black
+        Me.Label9.Location = New System.Drawing.Point(490, 47)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(69, 13)
+        Me.Label9.TabIndex = 144
+        Me.Label9.Text = "Jatuh Tempo"
+        '
+        'txtDueDateValue
+        '
+        Me.txtDueDateValue.BackColor = System.Drawing.Color.White
+        Me.txtDueDateValue.DecimalPlaces = 2
+        Me.txtDueDateValue.Location = New System.Drawing.Point(572, 43)
+        Me.txtDueDateValue.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtDueDateValue.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtDueDateValue.Name = "txtDueDateValue"
+        Me.txtDueDateValue.Size = New System.Drawing.Size(127, 21)
+        Me.txtDueDateValue.TabIndex = 11
+        Me.txtDueDateValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtDueDateValue.ThousandsSeparator = True
         '
         'frmTraAccountPayableDet
         '
@@ -592,6 +621,7 @@ Partial Class frmTraAccountPayableDet
         Me.tcHeader.ResumeLayout(False)
         Me.tpMain.ResumeLayout(False)
         Me.tpMain.PerformLayout()
+        CType(Me.chkManual.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpHistory.ResumeLayout(False)
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).EndInit()
@@ -601,7 +631,7 @@ Partial Class frmTraAccountPayableDet
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.chkManual.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtDueDateValue, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -650,4 +680,6 @@ Partial Class frmTraAccountPayableDet
     Friend WithEvents grdItemView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents rpiValue As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents chkManual As DevExpress.XtraEditors.CheckEdit
+    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents txtDueDateValue As ERPS.usNumeric
 End Class

@@ -17,7 +17,7 @@
                     "SELECT " & vbNewLine & _
                     "   A.ID, A.CompanyID, MC.Name AS CompanyName, A.ProgramID, MP.Name AS ProgramName, A.APNumber, A.BPID, " & vbNewLine & _
                     "   C.Code AS BPCode, C.Name AS BPName, A.CoAIDOfOutgoingPayment, COA.Code AS CoACodeOfOutgoingPayment, COA.Name AS CoANameOfOutgoingPayment, " & vbNewLine & _
-                    "   A.Modules, A.ReferencesID, A.ReferencesNote, A.APDate, A.TotalAmount, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
+                    "   A.Modules, A.ReferencesID, A.ReferencesNote, A.APDate, A.DueDateValue, A.DueDate, A.TotalAmount, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
                     "   A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine & _
                     "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.PaymentBy, " & vbNewLine & _
                     "   CASE WHEN A.PaymentBy = '' THEN NULL ELSE A.PaymentDate END AS PaymentDate, A.TaxInvoiceNumber, " & vbNewLine & _
@@ -76,10 +76,10 @@
                     .CommandText = _
                         "INSERT INTO traAccountPayable " & vbNewLine & _
                         "   (ID, CompanyID, ProgramID, APNumber, BPID, CoAIDOfOutgoingPayment, Modules, ReferencesID, ReferencesNote, " & vbNewLine & _
-                        "    APDate, TotalAmount, Percentage, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine & _
+                        "    APDate, DueDateValue, DueDate, TotalAmount, Percentage, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine & _
                         "VALUES " & vbNewLine & _
                         "   (@ID, @CompanyID, @ProgramID, @APNumber, @BPID, @CoAIDOfOutgoingPayment, @Modules, @ReferencesID, @ReferencesNote, " & vbNewLine & _
-                        "    @APDate, @TotalAmount, @Percentage, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
+                        "    @APDate, @DueDateValue, @DueDate, @TotalAmount, @Percentage, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
                 Else
                     .CommandText = _
                         "UPDATE traAccountPayable SET " & vbNewLine & _
@@ -92,6 +92,8 @@
                         "    ReferencesID=@ReferencesID, " & vbNewLine & _
                         "    ReferencesNote=@ReferencesNote, " & vbNewLine & _
                         "    APDate=@APDate, " & vbNewLine & _
+                        "    DueDateValue=@DueDateValue, " & vbNewLine & _
+                        "    DueDate=@DueDate, " & vbNewLine & _
                         "    TotalAmount=@TotalAmount, " & vbNewLine & _
                         "    Percentage=@Percentage, " & vbNewLine & _
                         "    Remarks=@Remarks, " & vbNewLine & _
@@ -113,6 +115,8 @@
                 .Parameters.Add("@ReferencesID", SqlDbType.VarChar, 250).Value = clsData.ReferencesID
                 .Parameters.Add("@ReferencesNote", SqlDbType.VarChar, 250).Value = clsData.ReferencesNote
                 .Parameters.Add("@APDate", SqlDbType.DateTime).Value = clsData.APDate
+                .Parameters.Add("@DueDateValue", SqlDbType.Int).Value = clsData.DueDateValue
+                .Parameters.Add("@DueDate", SqlDbType.DateTime).Value = clsData.DueDate
                 .Parameters.Add("@TotalAmount", SqlDbType.Decimal).Value = clsData.TotalAmount
                 .Parameters.Add("@Percentage", SqlDbType.Decimal).Value = clsData.Percentage
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 500).Value = clsData.Remarks
@@ -139,7 +143,7 @@
                         "SELECT TOP 1 " & vbNewLine & _
                         "   A.ID, A.CompanyID, MC.Name AS CompanyName, A.ProgramID, MP.Name AS ProgramName, A.APNumber, A.BPID, " & vbNewLine & _
                         "   C.Code AS BPCode, C.Name AS BPName, A.CoAIDOfOutgoingPayment, COA.Code AS CoACodeOfOutgoingPayment, COA.Name AS CoANameOfOutgoingPayment, " & vbNewLine & _
-                        "   A.Modules, A.ReferencesID, A.ReferencesNote, A.APDate, A.TotalAmount, A.Percentage, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
+                        "   A.Modules, A.ReferencesID, A.ReferencesNote, A.APDate, A.DueDateValue, A.DueDate, A.TotalAmount, A.Percentage, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
                         "   A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.PaymentBy, A.PaymentDate, A.TaxInvoiceNumber, " & vbNewLine & _
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine & _
                         "   A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
@@ -177,6 +181,8 @@
                         voReturn.ReferencesID = .Item("ReferencesID")
                         voReturn.ReferencesNote = .Item("ReferencesNote")
                         voReturn.APDate = .Item("APDate")
+                        voReturn.DueDateValue = .Item("DueDateValue")
+                        voReturn.DueDate = .Item("DueDate")
                         voReturn.TotalAmount = .Item("TotalAmount")
                         voReturn.Percentage = .Item("Percentage")
                         voReturn.JournalID = .Item("JournalID")

@@ -116,6 +116,7 @@
                     Err.Raise(515, "", "Tidak dapat disimpan. Nomor " & clsData.APNumber & " sudah ada.")
                 End If
 
+                clsData.DueDate = clsData.APDate.AddDays(clsData.DueDateValue)
                 DL.AccountPayable.SaveData(sqlCon, sqlTrans, bolNew, clsData)
 
                 '# Save Data Detail
