@@ -29,6 +29,8 @@ Partial Class frmTraAccountReceivableDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.txtDueDateValue = New ERPS.usNumeric()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.chkManual = New DevExpress.XtraEditors.CheckEdit()
         Me.txtTotalAmount = New ERPS.usNumeric()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -67,10 +69,10 @@ Partial Class frmTraAccountReceivableDet
         Me.ToolStripLogBy = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.txtDueDateValue = New ERPS.usNumeric()
-        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
+        CType(Me.txtDueDateValue, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkManual.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpHistory.SuspendLayout()
@@ -80,7 +82,6 @@ Partial Class frmTraAccountReceivableDet
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip.SuspendLayout()
-        CType(Me.txtDueDateValue, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -135,6 +136,7 @@ Partial Class frmTraAccountReceivableDet
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.Label10)
         Me.tpMain.Controls.Add(Me.txtDueDateValue)
         Me.tpMain.Controls.Add(Me.Label9)
         Me.tpMain.Controls.Add(Me.chkManual)
@@ -165,6 +167,29 @@ Partial Class frmTraAccountReceivableDet
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'txtDueDateValue
+        '
+        Me.txtDueDateValue.BackColor = System.Drawing.Color.White
+        Me.txtDueDateValue.Location = New System.Drawing.Point(572, 43)
+        Me.txtDueDateValue.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtDueDateValue.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtDueDateValue.Name = "txtDueDateValue"
+        Me.txtDueDateValue.Size = New System.Drawing.Size(127, 21)
+        Me.txtDueDateValue.TabIndex = 11
+        Me.txtDueDateValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtDueDateValue.ThousandsSeparator = True
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.BackColor = System.Drawing.Color.Transparent
+        Me.Label9.ForeColor = System.Drawing.Color.Black
+        Me.Label9.Location = New System.Drawing.Point(479, 47)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(69, 13)
+        Me.Label9.TabIndex = 146
+        Me.Label9.Text = "Jatuh Tempo"
         '
         'chkManual
         '
@@ -575,29 +600,16 @@ Partial Class frmTraAccountReceivableDet
         Me.ToolStripLogDate.Size = New System.Drawing.Size(12, 17)
         Me.ToolStripLogDate.Text = "-"
         '
-        'txtDueDateValue
+        'Label10
         '
-        Me.txtDueDateValue.BackColor = System.Drawing.Color.White
-        Me.txtDueDateValue.DecimalPlaces = 2
-        Me.txtDueDateValue.Location = New System.Drawing.Point(572, 43)
-        Me.txtDueDateValue.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtDueDateValue.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtDueDateValue.Name = "txtDueDateValue"
-        Me.txtDueDateValue.Size = New System.Drawing.Size(127, 21)
-        Me.txtDueDateValue.TabIndex = 11
-        Me.txtDueDateValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtDueDateValue.ThousandsSeparator = True
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.BackColor = System.Drawing.Color.Transparent
-        Me.Label9.ForeColor = System.Drawing.Color.Black
-        Me.Label9.Location = New System.Drawing.Point(479, 47)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(69, 13)
-        Me.Label9.TabIndex = 146
-        Me.Label9.Text = "Jatuh Tempo"
+        Me.Label10.AutoSize = True
+        Me.Label10.BackColor = System.Drawing.Color.Transparent
+        Me.Label10.ForeColor = System.Drawing.Color.Black
+        Me.Label10.Location = New System.Drawing.Point(705, 47)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(26, 13)
+        Me.Label10.TabIndex = 147
+        Me.Label10.Text = "Hari"
         '
         'frmTraAccountReceivableDet
         '
@@ -621,6 +633,7 @@ Partial Class frmTraAccountReceivableDet
         Me.tcHeader.ResumeLayout(False)
         Me.tpMain.ResumeLayout(False)
         Me.tpMain.PerformLayout()
+        CType(Me.txtDueDateValue, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkManual.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpHistory.ResumeLayout(False)
@@ -631,7 +644,6 @@ Partial Class frmTraAccountReceivableDet
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip.ResumeLayout(False)
         Me.StatusStrip.PerformLayout()
-        CType(Me.txtDueDateValue, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -682,4 +694,5 @@ Partial Class frmTraAccountReceivableDet
     Friend WithEvents chkManual As DevExpress.XtraEditors.CheckEdit
     Friend WithEvents txtDueDateValue As ERPS.usNumeric
     Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents Label10 As System.Windows.Forms.Label
 End Class

@@ -156,6 +156,8 @@ Public Class frmTraAccountPayable
         clsReturn.ID = grdView.GetRowCellValue(intPos, "ID")
         clsReturn.APNumber = grdView.GetRowCellValue(intPos, "APNumber")
         clsReturn.APDate = grdView.GetRowCellValue(intPos, "APDate")
+        clsReturn.DueDateValue = grdView.GetRowCellValue(intPos, "DueDateValue")
+        clsReturn.DueDate = grdView.GetRowCellValue(intPos, "DueDate")
         clsReturn.BPID = grdView.GetRowCellValue(intPos, "BPID")
         clsReturn.BPCode = grdView.GetRowCellValue(intPos, "BPCode")
         clsReturn.BPName = grdView.GetRowCellValue(intPos, "BPName")

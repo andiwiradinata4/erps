@@ -156,6 +156,8 @@ Public Class frmTraAccountReceivable
         clsReturn.ID = grdView.GetRowCellValue(intPos, "ID")
         clsReturn.ARNumber = grdView.GetRowCellValue(intPos, "ARNumber")
         clsReturn.ARDate = grdView.GetRowCellValue(intPos, "ARDate")
+        clsReturn.DueDateValue = grdView.GetRowCellValue(intPos, "DueDateValue")
+        clsReturn.DueDate = grdView.GetRowCellValue(intPos, "DueDate")
         clsReturn.BPID = grdView.GetRowCellValue(intPos, "BPID")
         clsReturn.BPCode = grdView.GetRowCellValue(intPos, "BPCode")
         clsReturn.BPName = grdView.GetRowCellValue(intPos, "BPName")

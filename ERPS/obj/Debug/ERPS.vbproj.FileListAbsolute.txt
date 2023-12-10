@@ -333,8 +333,6 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraAccountSetPaym
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraAccountSetTaxInvoiceNumber.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraCostDet.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraCostDetItem.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraDownPayment.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraDownPaymentDet.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraJournal.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraJournalDet.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraJournalDetItem.resources
@@ -414,3 +412,5 @@ C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.rptConfirmationOrderVer0
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.rptProformaInvoice.resources
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.vbproj.CoreCompileInputs.cache
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.vbproj.CopyComplete
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAP.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDet.resources

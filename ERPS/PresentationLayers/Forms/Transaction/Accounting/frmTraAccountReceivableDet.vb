@@ -97,6 +97,7 @@ Public Class frmTraAccountReceivableDet
                 strModules = clsData.Modules
                 txtReferencesID.Text = clsData.ReferencesID
                 dtpARDate.Value = clsData.ARDate
+                txtDueDateValue.Value = clsData.DueDateValue
                 txtTotalAmount.Value = clsData.TotalAmount
                 cboStatus.SelectedValue = clsData.StatusID
                 txtRemarks.Text = clsData.Remarks
@@ -137,6 +138,11 @@ Public Class frmTraAccountReceivableDet
             UI.usForm.frmMessageBox("Total Bayar harus lebih besar dari 0")
             tcHeader.SelectedTab = tpMain
             txtTotalAmount.Focus()
+            Exit Sub
+        ElseIf txtDueDateValue.Value <= 0 Then
+            UI.usForm.frmMessageBox("Jatuh Tempo harus lebih besar dari 0")
+            tcHeader.SelectedTab = tpMain
+            txtDueDateValue.Focus()
             Exit Sub
         ElseIf cboStatus.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Status kosong. Mohon untuk tutup form dan buka kembali")
@@ -188,6 +194,7 @@ Public Class frmTraAccountReceivableDet
         clsData.ReferencesNote = ""
         clsData.TotalAmount = txtTotalAmount.Value
         clsData.ARDate = dtpARDate.Value.Date
+        clsData.DueDateValue = txtDueDateValue.Value
         clsData.Modules = strModules
         clsData.Remarks = txtRemarks.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
@@ -232,6 +239,7 @@ Public Class frmTraAccountReceivableDet
         txtCoANameOfIncomePayment.Text = ""
         txtReferencesID.Text = ""
         dtpARDate.Value = Now
+        txtDueDateValue.Value = 0
         txtTotalAmount.Value = 0
         txtRemarks.Text = ""
         cboStatus.SelectedValue = VO.Status.Values.Draft

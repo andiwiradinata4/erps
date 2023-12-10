@@ -498,16 +498,16 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetTaxInvoiceNumber.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraDownPayment.Designer.vb">
-      <DependentUpon>frmTraDownPayment.vb</DependentUpon>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAP.Designer.vb">
+      <DependentUpon>frmTraARAP.vb</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraDownPayment.vb">
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAP.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraDownPaymentDet.Designer.vb">
-      <DependentUpon>frmTraDownPaymentDet.vb</DependentUpon>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDet.Designer.vb">
+      <DependentUpon>frmTraARAPDet.vb</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraDownPaymentDet.vb">
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDet.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournal.Designer.vb">
@@ -1128,11 +1128,11 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraCostDetItem.resx">
       <DependentUpon>frmTraCostDetItem.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraDownPayment.resx">
-      <DependentUpon>frmTraDownPayment.vb</DependentUpon>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAP.resx">
+      <DependentUpon>frmTraARAP.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraDownPaymentDet.resx">
-      <DependentUpon>frmTraDownPaymentDet.vb</DependentUpon>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDet.resx">
+      <DependentUpon>frmTraARAPDet.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournal.resx">
       <DependentUpon>frmTraJournal.vb</DependentUpon>

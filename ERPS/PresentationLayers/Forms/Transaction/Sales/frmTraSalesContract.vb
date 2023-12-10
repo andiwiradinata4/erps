@@ -393,10 +393,31 @@ Public Class frmTraSalesContract
             Exit Sub
         End If
 
-        Dim frmDetail As New frmTraDownPayment
+        Dim frmDetail As New frmTraARAP
         With frmDetail
             .pubModules = VO.AccountReceivable.DownPayment
-            .pubDPType = VO.DownPayment.DPTypeValue.Sales
+            .pubDPType = VO.ARAP.ARAPTypeValue.Sales
+            .pubBPID = clsData.BPID
+            .pubCS = prvGetCS()
+            .pubReferencesID = clsData.ID
+            .ShowDialog()
+        End With
+    End Sub
+
+    Private Sub prvReceivePayment()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+
+        If clsData.StatusID <> VO.Status.Values.Approved Then
+            UI.usForm.frmMessageBox("Status Data harus disetujui terlebih dahulu")
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraARAP
+        With frmDetail
+            .pubModules = VO.AccountReceivable.ReceivePayment
+            .pubDPType = VO.ARAP.ARAPTypeValue.Sales
             .pubBPID = clsData.BPID
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
@@ -631,6 +652,7 @@ Public Class frmTraSalesContract
                 Case ToolBar.Buttons(cApprove).Name : prvApprove()
                 Case ToolBar.Buttons(cCancelApprove).Name : prvCancelApprove()
                 Case ToolBar.Buttons(cDownPayment).Name : prvDownPayment()
+                Case ToolBar.Buttons(cReceive).Name : prvReceivePayment()
                 Case ToolBar.Buttons(cPrint).Name : prvPrintSCCO() : prvPrint()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
