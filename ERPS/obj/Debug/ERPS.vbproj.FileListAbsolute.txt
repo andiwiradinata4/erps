@@ -406,11 +406,11 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.pdb
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.vbproj.AssemblyReference.cache
-C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.frmTraDownPayment.resources
-C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.frmTraDownPaymentDet.resources
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.rptConfirmationOrderVer00.resources
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.rptProformaInvoice.resources
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.vbproj.CoreCompileInputs.cache
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.vbproj.CopyComplete
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAP.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDet.resources
+C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.frmTraARAP.resources
+C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.frmTraARAPDet.resources
