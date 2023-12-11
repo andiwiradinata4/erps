@@ -543,8 +543,10 @@ Public Class frmTraARAP
                 crReport.Watermark.TextTransparency = 150
             End If
 
+            Dim bolIsDP As Boolean = IIf(VO.ARAP.GetPaymentTypeInitial(clsData.Modules) = "DP", True, False)
+
             '# Set Default Value Payment
-            crReport.InvoiceType.Value = "DP"
+            crReport.InvoiceType.Value = VO.ARAP.GetPaymentTypeInitial(clsData.Modules)
             crReport.DescPayment1.Value = ""
             crReport.DescPayment2.Value = ""
             crReport.DescPayment3.Value = ""
@@ -558,28 +560,28 @@ Public Class frmTraARAP
             If dtPaymentHistory.Rows.Count = 0 Then
                 Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
                 crReport.sbPayment1.Visible = True
-                crReport.DescPayment1.Value = "Down Payment " & IIf(intValue = 0, "", intValue & "%")
+                crReport.DescPayment1.Value = VO.ARAP.GetPaymentType(dtData.Rows(0).Item("Modules")) & " " & IIf(intValue = 0, "", intValue & "%")
                 crReport.AmountPayment1.Value = dtData.Rows(0).Item("TotalAmount")
             End If
 
             If dtPaymentHistory.Rows.Count = 1 Then
                 Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
                 crReport.sbPayment2.Visible = True
-                crReport.DescPayment2.Value = "Down Payment " & IIf(intValue = 0, "", intValue & "%")
+                crReport.DescPayment2.Value = VO.ARAP.GetPaymentType(dtData.Rows(0).Item("Modules")) & " " & IIf(intValue = 0, "", intValue & "%")
                 crReport.AmountPayment2.Value = dtData.Rows(0).Item("TotalAmount")
             End If
 
             If dtPaymentHistory.Rows.Count = 2 Then
                 Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
                 crReport.sbPayment3.Visible = True
-                crReport.DescPayment3.Value = "Down Payment " & IIf(intValue = 0, "", intValue & "%")
+                crReport.DescPayment3.Value = VO.ARAP.GetPaymentType(dtData.Rows(0).Item("Modules")) & " " & IIf(intValue = 0, "", intValue & "%")
                 crReport.AmountPayment3.Value = dtData.Rows(0).Item("TotalAmount")
             End If
 
             If dtPaymentHistory.Rows.Count = 3 Then
                 Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
                 crReport.sbPayment4.Visible = True
-                crReport.DescPayment4.Value = "Down Payment " & IIf(intValue = 0, "", intValue & "%")
+                crReport.DescPayment4.Value = VO.ARAP.GetPaymentType(dtData.Rows(0).Item("Modules")) & " " & IIf(intValue = 0, "", intValue & "%")
                 crReport.AmountPayment4.Value = dtData.Rows(0).Item("TotalAmount")
             End If
 
@@ -668,6 +670,7 @@ Public Class frmTraARAP
             .Item(cSetPaymentDate).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.PaymentAccess)
             .Item(cDeletePaymentDate).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelPaymentAccess)
             .Item(cSetTaxInvoiceNumber).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.TaxInvoiceNumberAccess)
+            If enumDPType = VO.ARAP.ARAPTypeValue.Purchase Then .Item(cPrint).Visible = False
         End With
     End Sub
 

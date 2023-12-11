@@ -60,6 +60,7 @@
                 .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = intStatusID
                 .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = strModules
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
                 .Parameters.Add("@ReferencesID", SqlDbType.VarChar, 100).Value = strReferencesID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)

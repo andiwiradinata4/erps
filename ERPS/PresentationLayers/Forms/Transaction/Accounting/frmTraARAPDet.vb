@@ -125,7 +125,14 @@
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
 
                 dtpDPDate.Enabled = False
-                If txtPercentage.Value > 0 Then chkUsePercentage.Checked = True
+                If txtPercentage.Value > 0 Then
+                    chkUsePercentage.Checked = True
+                    txtPercentage.Enabled = True
+                    txtPercentage.BackColor = Color.White
+
+                    txtTotalAmount.Enabled = False
+                    txtTotalAmount.BackColor = Color.LightYellow
+                End If
             End If
             prvGetAmount()
         Catch ex As Exception
@@ -143,11 +150,11 @@
         If enumDPType = VO.ARAP.ARAPTypeValue.Sales Then
             Dim clsReferences As VO.SalesContract = BL.SalesContract.GetDetail(strReferencesID)
             txtGrandTotalContract.Value = clsReferences.GrandTotal
-            txtTotalPayment.Value = clsReferences.DPAmount + clsReferences.ReceiveAmount
+            txtTotalPayment.Value = clsReferences.DPAmount + clsReferences.ReceiveAmount - txtTotalAmount.Value
         Else
             Dim clsReferences As VO.PurchaseContract = BL.PurchaseContract.GetDetail(strReferencesID)
             txtGrandTotalContract.Value = clsReferences.GrandTotal
-            txtTotalPayment.Value = clsReferences.DPAmount + clsReferences.ReceiveAmount
+            txtTotalPayment.Value = clsReferences.DPAmount + clsReferences.ReceiveAmount - txtTotalAmount.Value
         End If
         txtOutstandingPayment.Value = txtGrandTotalContract.Value - txtTotalPayment.Value
     End Sub
@@ -341,6 +348,7 @@
         prvUserAccess()
         txtDueDateValue.Minimum = 0
         AddHandler txtPercentage.ValueChanged, AddressOf txtPercentage_ValueChanged
+        AddHandler chkUsePercentage.CheckedChanged, AddressOf chkUsePercentage_CheckedChanged
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
@@ -358,7 +366,7 @@
         prvCalculate()
     End Sub
 
-    Private Sub chkUsePercentage_CheckedChanged(sender As Object, e As EventArgs) Handles chkUsePercentage.CheckedChanged
+    Private Sub chkUsePercentage_CheckedChanged(sender As Object, e As EventArgs)
         If chkUsePercentage.Checked Then
             txtPercentage.Enabled = True
             txtPercentage.BackColor = Color.White

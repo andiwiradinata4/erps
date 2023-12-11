@@ -16,7 +16,7 @@
                     "	SCH.TotalPPN, SCH.TotalPPH, GrandTotal=SCH.TotalDPP+SCH.TotalPPN-SCH.TotalPPH+SCH.RoundingManual, MC.DirectorName AS CompanyDirectorName, " & vbNewLine & _
                     "	MBC.AccountName, MBC.BankName, MBC.AccountNumber, ARH.StatusID, MIS.Description AS ItemSpec, IT.Description AS ItemType, MI.Thick AS ItemThick, MI.Width AS ItemWidth, " & vbNewLine & _
                     "	MI.Length AS ItemLength, MI.Weight, SCD.Quantity, SCD.TotalWeight AS TotalWeightItem, SCD.UnitPrice, SCD.TotalPrice, ARH.TotalAmount, ARH.Percentage,  " & vbNewLine & _
-                    "   CAST('' AS VARCHAR(1000)) AS NumericToString " & vbNewLine & _
+                    "   CAST('' AS VARCHAR(1000)) AS NumericToString, ARH.Modules " & vbNewLine & _
                     "FROM traAccountReceivable ARH " & vbNewLine & _
                     "INNER JOIN traAccountReceivableDet ARD ON " & vbNewLine & _
                     "	ARH.ID=ARD.ARID " & vbNewLine & _

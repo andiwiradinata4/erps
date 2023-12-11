@@ -78,21 +78,21 @@
 
         Public Shared Function GetPaymentType(ByVal strModules As String) As String
             If strModules = VO.AccountPayable.PurchaseBalance Then
-                Return "Pelunasan"
+                Return "Pembayaran"
             ElseIf strModules = VO.AccountPayable.DownPaymentManual Then
                 Return "Down Payment"
             ElseIf strModules = VO.AccountPayable.DownPayment Then
                 Return "Down Payment"
             ElseIf strModules = VO.AccountPayable.ReceivePayment Then
-                Return "Pelunasan"
+                Return "Pembayaran"
             ElseIf strModules = VO.AccountPayable.DownPaymentCutting Then
                 Return "Down Payment"
             ElseIf strModules = VO.AccountPayable.ReceivePaymentCutting Then
-                Return "Pelunasan"
+                Return "Pembayaran"
             ElseIf strModules = VO.AccountPayable.DownPaymentTransport Then
                 Return "Down Payment"
             ElseIf strModules = VO.AccountPayable.ReceivePaymentTransport Then
-                Return "Pelunasan"
+                Return "Pembayaran"
             ElseIf strModules = VO.AccountReceivable.SalesBalance Then
                 Return "Pelunasan"
             ElseIf strModules = VO.AccountReceivable.DownPaymentManual Then
@@ -103,6 +103,35 @@
                 Return "Pelunasan"
             End If
             Return ""
+        End Function
+
+        Public Shared Function GetPaymentTypeInitial(ByVal strModules As String) As String
+            If strModules = VO.AccountPayable.PurchaseBalance Then
+                Return " "
+            ElseIf strModules = VO.AccountPayable.DownPaymentManual Then
+                Return "DP"
+            ElseIf strModules = VO.AccountPayable.DownPayment Then
+                Return "DP"
+            ElseIf strModules = VO.AccountPayable.ReceivePayment Then
+                Return " "
+            ElseIf strModules = VO.AccountPayable.DownPaymentCutting Then
+                Return "DP"
+            ElseIf strModules = VO.AccountPayable.ReceivePaymentCutting Then
+                Return " "
+            ElseIf strModules = VO.AccountPayable.DownPaymentTransport Then
+                Return "DP"
+            ElseIf strModules = VO.AccountPayable.ReceivePaymentTransport Then
+                Return " "
+            ElseIf strModules = VO.AccountReceivable.SalesBalance Then
+                Return " "
+            ElseIf strModules = VO.AccountReceivable.DownPaymentManual Then
+                Return "DP"
+            ElseIf strModules = VO.AccountReceivable.DownPayment Then
+                Return "DP"
+            ElseIf strModules = VO.AccountReceivable.ReceivePayment Then
+                Return " "
+            End If
+            Return " "
         End Function
 
     End Class
