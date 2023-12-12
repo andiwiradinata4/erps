@@ -66,6 +66,53 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataOutstandingPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                          ByVal intCompanyID As Integer, ByVal intProgramID As Integer, _
+                                                          ByVal strModules As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "SELECT " & vbNewLine & _
+                    "   A.ID, A.CompanyID, MC.Name AS CompanyName, A.ProgramID, MP.Name AS ProgramName, A.APNumber, A.BPID, " & vbNewLine & _
+                    "   C.Code AS BPCode, C.Name AS BPName, A.CoAIDOfOutgoingPayment, COA.Code AS CoACodeOfOutgoingPayment, COA.Name AS CoANameOfOutgoingPayment, " & vbNewLine & _
+                    "   A.Modules, A.ReferencesID, A.ReferencesNote, A.APDate, A.DueDateValue, A.DueDate, A.TotalAmount, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
+                    "   A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine & _
+                    "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.PaymentBy, " & vbNewLine & _
+                    "   CASE WHEN A.PaymentBy = '' THEN NULL ELSE A.PaymentDate END AS PaymentDate, A.TaxInvoiceNumber, " & vbNewLine & _
+                    "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine & _
+                    "   A.LogInc, A.LogBy, A.LogDate, A.APNumber AS TransNumber, A.APDate AS TransDate, A.CoAIDOfOutgoingPayment AS CoAID, COA.Code AS CoACode, COA.Name AS CoAName " & vbNewLine & _
+                    "FROM traAccountPayable A " & vbNewLine & _
+                    "INNER JOIN mstStatus B ON " & vbNewLine & _
+                    "   A.StatusID=B.ID " & vbNewLine & _
+                    "INNER JOIN mstBusinessPartner C ON " & vbNewLine & _
+                    "   A.BPID=C.ID " & vbNewLine & _
+                    "INNER JOIN mstCompany MC ON " & vbNewLine & _
+                    "   A.CompanyID=MC.ID " & vbNewLine & _
+                    "INNER JOIN mstProgram MP ON " & vbNewLine & _
+                    "   A.ProgramID=MP.ID " & vbNewLine & _
+                    "INNER JOIN mstChartOfAccount COA ON " & vbNewLine & _
+                    "   A.CoAIDOfOutgoingPayment=COA.ID " & vbNewLine & _
+                    "WHERE  " & vbNewLine & _
+                    "   A.CompanyID=@CompanyID " & vbNewLine & _
+                    "   AND A.ProgramID=@ProgramID " & vbNewLine & _
+                    "   AND A.PaymentBy='' " & vbNewLine & _
+                    "   AND A.StatusID=@StatusID " & vbNewLine
+
+                If strModules.Trim <> "" Then .CommandText += "   AND A.Modules=@Modules "
+
+                .CommandText += "ORDER BY A.DueDate, A.APDate, A.ID ASC " & vbNewLine
+
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = strModules
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                    ByVal bolNew As Boolean, ByVal clsData As VO.AccountPayable)
             Dim sqlCmdExecute As New SqlCommand

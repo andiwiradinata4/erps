@@ -36,6 +36,7 @@
         Property DPType As VO.ARAP.ARAPTypeValue
 
         Enum ARAPTypeValue
+            All
             Sales
             Purchase
         End Enum

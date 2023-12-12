@@ -11,11 +11,30 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 If enumDPType = VO.ARAP.ARAPTypeValue.Sales Then
-                    Return DL.AccountReceivable.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID, strModules, intBPID, strReferencesID)
+                    Return DL.AccountReceivable.ListData(sqlCon, Nothing, intCompanyID, intProgramID, dtmDateFrom, dtmDateTo, intStatusID, strModules, intBPID, strReferencesID)
                 Else
-                    Return DL.AccountPayable.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID, strModules, intBPID, strReferencesID)
+                    Return DL.AccountPayable.ListData(sqlCon, Nothing, intCompanyID, intProgramID, dtmDateFrom, dtmDateTo, intStatusID, strModules, intBPID, strReferencesID)
                 End If
             End Using
+        End Function
+
+        Public Shared Function ListDataOutstandingPayment(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                          ByVal strModules As String, ByVal enumDPType As VO.ARAP.ARAPTypeValue) As DataTable
+            BL.Server.ServerDefault()
+            Dim dtData As New DataTable
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                If enumDPType = VO.ARAP.ARAPTypeValue.Sales Then
+                    dtData = DL.AccountReceivable.ListDataOutstandingPayment(sqlCon, Nothing, intCompanyID, intProgramID, strModules)
+                ElseIf enumDPType = VO.ARAP.ARAPTypeValue.Purchase Then
+                    dtData = DL.AccountPayable.ListDataOutstandingPayment(sqlCon, Nothing, intCompanyID, intProgramID, strModules)
+                Else
+                    dtData = DL.AccountReceivable.ListDataOutstandingPayment(sqlCon, Nothing, intCompanyID, intProgramID, strModules)
+                    dtData.Merge(DL.AccountPayable.ListDataOutstandingPayment(sqlCon, Nothing, intCompanyID, intProgramID, strModules))
+                    dtData.DefaultView.Sort = "DueDate, ARDate, ID ASC"
+                    dtData = dtData.DefaultView.ToTable
+                End If
+            End Using
+            Return dtData
         End Function
 
         Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsDataARAP As VO.ARAP) As String

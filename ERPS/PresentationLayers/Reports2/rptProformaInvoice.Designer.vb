@@ -1281,10 +1281,10 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel21.Dpi = 100.0!
         Me.XrLabel21.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold)
         Me.XrLabel21.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.XrLabel21.LocationFloat = New DevExpress.Utils.PointFloat(458.1626!, 9.999974!)
+        Me.XrLabel21.LocationFloat = New DevExpress.Utils.PointFloat(458.1638!, 9.999974!)
         Me.XrLabel21.Name = "XrLabel21"
         Me.XrLabel21.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel21.SizeF = New System.Drawing.SizeF(348.8384!, 80.00005!)
+        Me.XrLabel21.SizeF = New System.Drawing.SizeF(348.8371!, 80.00005!)
         Me.XrLabel21.StylePriority.UseFont = False
         Me.XrLabel21.StylePriority.UseForeColor = False
         Me.XrLabel21.StylePriority.UsePadding = False

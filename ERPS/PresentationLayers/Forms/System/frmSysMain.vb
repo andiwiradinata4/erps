@@ -66,6 +66,7 @@
 
     '# Setting
     Dim frmMainSysChangePassword As frmSysChangePassword
+    Dim frmMainSysOutstandingARAP As frmSysOutstandingARAP
 
 
     Private Sub prvSetupStatusStrip()
@@ -250,6 +251,7 @@
         bolLogOut = False
         prvSetupStatusStrip()
         prvUserAccess()
+        'UI.usForm.frmOpen(frmMainSysOutstandingARAP, "frmSysOutstandingARAP", Me)
     End Sub
 
     Private Sub Form_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
