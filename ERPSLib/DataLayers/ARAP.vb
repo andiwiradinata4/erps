@@ -11,12 +11,12 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "SELECT " & vbNewLine & _
-                    "	ARH.ID, ARH.ProgramID, MP.Name AS ProgramName, ARH.CompanyID, MC.Name AS CompanyName, MC.Address AS CompanyAddress, ARH.ARNumber AS TransNumber, " & vbNewLine & _
+                    "	ARH.ID, ARH.ProgramID, MP.Name AS ProgramName, ARH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress, ARH.ARNumber AS TransNumber, " & vbNewLine & _
                     "   ARH.ARDate AS TransDate, ARH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, ARH.ReferencesID, ARH.ReferencesNote, SCH.PPN, SCH.PPH, SCH.TotalDPP, " & vbNewLine & _
                     "	SCH.TotalPPN, SCH.TotalPPH, GrandTotal=SCH.TotalDPP+SCH.TotalPPN-SCH.TotalPPH+SCH.RoundingManual, MC.DirectorName AS CompanyDirectorName, " & vbNewLine & _
                     "	MBC.AccountName, MBC.BankName, MBC.AccountNumber, ARH.StatusID, MIS.Description AS ItemSpec, IT.Description AS ItemType, MI.Thick AS ItemThick, MI.Width AS ItemWidth, " & vbNewLine & _
                     "	MI.Length AS ItemLength, MI.Weight, SCD.Quantity, SCD.TotalWeight AS TotalWeightItem, SCD.UnitPrice, SCD.TotalPrice, ARH.TotalAmount, ARH.Percentage,  " & vbNewLine & _
-                    "   CAST('' AS VARCHAR(1000)) AS NumericToString, ARH.Modules " & vbNewLine & _
+                    "   CAST('' AS VARCHAR(1000)) AS NumericToString, ARH.Modules, ARH.CreatedDate " & vbNewLine & _
                     "FROM traAccountReceivable ARH " & vbNewLine & _
                     "INNER JOIN traAccountReceivableDet ARD ON " & vbNewLine & _
                     "	ARH.ID=ARD.ARID " & vbNewLine & _
@@ -63,7 +63,7 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "SELECT " & vbNewLine & _
-                    "	ARD.Amount, ARH.Modules, ARH.Percentage  " & vbNewLine & _
+                    "	ARD.Amount, ARH.Modules, ARH.Percentage, ARH.ARDate, ARH.CreatedDate  " & vbNewLine & _
                     "FROM traAccountReceivable ARH " & vbNewLine & _
                     "INNER JOIN traAccountReceivableDet ARD ON " & vbNewLine & _
                     "	ARH.ID=ARD.ARID " & vbNewLine & _
@@ -73,7 +73,8 @@
                     "	AND ARH.CompanyID=@CompanyID " & vbNewLine & _
                     "	AND ARH.ARDate<=@TransDate " & vbNewLine & _
                     "	AND ARH.ID<>@ID " & vbNewLine & _
-                    "	AND ARH.IsDeleted=0" & vbNewLine
+                    "	AND ARH.IsDeleted=0" & vbNewLine & _
+                    "ORDER BY ARH.ARDate, ARH.CreatedDate "
 
                 .Parameters.Add("@ReferencesID", SqlDbType.VarChar, 100).Value = strReferencesID
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
