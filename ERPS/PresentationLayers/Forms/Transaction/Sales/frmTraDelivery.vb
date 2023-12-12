@@ -309,6 +309,57 @@ Public Class frmTraDelivery
         End Try
     End Sub
 
+    Private Sub prvPrint()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+        Application.DoEvents()
+        prvGetCS()
+        clsData = prvGetData()
+        Try
+            Dim dtData As DataTable = BL.Delivery.PrintVer00(clsData.ProgramID, intCompanyID, strID)
+            'Dim intStatusID As Integer = 0
+            'For Each dr As DataRow In dtData.Rows
+            '    intStatusID = dr.Item("StatusID")
+            '    Exit For
+            'Next
+
+            Dim crReport As New rptShippingInvoiceVer00
+
+            ''# Setup Watermark Report
+            'If intStatusID <> VO.Status.Values.Approved Then
+            '    crReport.Watermark.ShowBehind = False
+            '    crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
+            '    crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
+            '    crReport.Watermark.Font = New System.Drawing.Font("Tahoma", 70.0!, System.Drawing.FontStyle.Bold)
+            '    crReport.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.Horizontal
+            '    crReport.Watermark.TextTransparency = 150
+            'End If
+
+            crReport.DataSource = dtData
+            crReport.CreateDocument(True)
+            crReport.ShowPreviewMarginLines = False
+            crReport.ShowPrintMarginsWarning = False
+
+            Dim frmDetail As New frmReportPreview
+            With frmDetail
+                .docViewer.DocumentSource = crReport
+                .pgExportButton.Enabled = bolExport
+                .Text = Me.Text & " - " & VO.Reports.PrintOut
+                .WindowState = FormWindowState.Maximized
+                .Show()
+            End With
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            pgMain.Value = 100
+            Application.DoEvents()
+            prvResetProgressBar()
+        End Try
+    End Sub
+
     Private Sub prvExportExcel()
         Dim dxExporter As New DX.usDXHelper
         dxExporter.DevExport(Me, grdMain, Me.Text, Me.Text, DX.usDxExportFormat.fXls, True, True, DX.usDXExportType.etDefault)
@@ -402,7 +453,7 @@ Public Class frmTraDelivery
             .Item(cPrint).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesDelivery, VO.Access.Values.PrintReportAccess)
             .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesDelivery, VO.Access.Values.ExportExcelAccess)
             bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesDelivery, VO.Access.Values.ExportReportAccess)
-            .Item(cPrint).Visible = False
+            '.Item(cPrint).Visible = False
         End With
     End Sub
 
@@ -441,6 +492,7 @@ Public Class frmTraDelivery
                 Case ToolBar.Buttons(cDelete).Name : prvDelete()
                 Case ToolBar.Buttons(cSubmit).Name : prvSubmit()
                 Case ToolBar.Buttons(cCancelSubmit).Name : prvCancelSubmit()
+                Case ToolBar.Buttons(cPrint).Name : prvPrint()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If

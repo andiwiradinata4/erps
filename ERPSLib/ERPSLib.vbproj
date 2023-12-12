@@ -268,6 +268,7 @@
     <Compile Include="ValueObject\Reports\rptMonitoringProductTransaction.vb" />
     <Compile Include="ValueObject\Reports\rptProformaInvoice.vb" />
     <Compile Include="ValueObject\Reports\rptSalesContractVer00.vb" />
+    <Compile Include="ValueObject\Reports\rptShippingInvoiceVer00.vb" />
     <Compile Include="ValueObject\SalesContract.vb" />
     <Compile Include="ValueObject\SalesContractDet.vb" />
     <Compile Include="ValueObject\SalesContractDetConfirmationOrder.vb" />

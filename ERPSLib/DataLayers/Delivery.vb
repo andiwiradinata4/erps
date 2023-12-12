@@ -409,6 +409,53 @@
             End Try
         End Sub
 
+        Public Shared Function PrintVer00(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                          ByVal strID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "SELECT  " & vbNewLine & _
+                    "   DH.ID, DH.ProgramID, MP.Name AS ProgramName, DH.CompanyID, MC.Name AS CompanyName, MC.Address AS CompanyAddress, DH.DeliveryNumber AS TransNumber,  " & vbNewLine & _
+                    "   DH.DeliveryDate AS TransDate, DH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, SCH.SCNumber, DH.PlatNumber, DH.Driver, DH.ReferencesNumber, " & vbNewLine & _
+                    "   DH.TotalQuantity, DH.TotalWeight, DH.StatusID, MIS.Description AS ItemSpec, IT.Description AS ItemType, MI.ItemCodeExternal, MI.Thick AS ItemThick, MI.Width AS ItemWidth,  " & vbNewLine & _
+                    "   MI.Length AS ItemLength, MI.Weight, DD.Quantity, DD.TotalWeight AS TotalWeightItem, DD.Remarks AS ItemRemarks, DH.CreatedBy " & vbNewLine & _
+                    "FROM traDelivery DH  " & vbNewLine & _
+                    "INNER JOIN traSalesContract SCH ON " & vbNewLine & _
+                    "	DH.SCID=SCH.ID " & vbNewLine & _
+                    "INNER JOIN traDeliveryDet DD ON  " & vbNewLine & _
+                    "    DH.ID=DD.DeliveryID " & vbNewLine & _
+                    "INNER JOIN mstStatus B ON  " & vbNewLine & _
+                    "    DH.StatusID=B.ID  " & vbNewLine & _
+                    "INNER JOIN mstBusinessPartner C ON  " & vbNewLine & _
+                    "    DH.BPID=C.ID  " & vbNewLine & _
+                    "INNER JOIN mstCompany MC ON  " & vbNewLine & _
+                    "    DH.CompanyID=MC.ID  " & vbNewLine & _
+                    "INNER JOIN mstProgram MP ON  " & vbNewLine & _
+                    "    DH.ProgramID=MP.ID  " & vbNewLine & _
+                    "INNER JOIN mstItem MI ON 	   " & vbNewLine & _
+                    "    DD.ItemID=MI.ID 	   " & vbNewLine & _
+                    "INNER JOIN mstItemType IT ON 	 	   " & vbNewLine & _
+                    "    MI.ItemTypeID=IT.ID 	 	   " & vbNewLine & _
+                    "INNER JOIN mstItemSpecification MIS ON 	 	   " & vbNewLine & _
+                    "    MI.ItemSpecificationID=MIS.ID 	 	   " & vbNewLine & _
+                    "INNER JOIN mstCompanyBankAccount MBC ON  " & vbNewLine & _
+                    "    SCH.CompanyBankAccountID=MBC.ID " & vbNewLine & _
+                    "WHERE 	 " & vbNewLine & _
+                    "    DH.ProgramID=@ProgramID  " & vbNewLine & _
+                    "    AND DH.CompanyID=@CompanyID  " & vbNewLine & _
+                    "    AND DH.ID=@ID" & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
 #End Region
 
 #Region "Detail"

@@ -414,3 +414,4 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAP.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDet.resources
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.frmTraARAP.resources
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.frmTraARAPDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptShippingInvoiceVer00.resources

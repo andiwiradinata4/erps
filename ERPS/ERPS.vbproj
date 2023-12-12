@@ -876,6 +876,12 @@
     <Compile Include="PresentationLayers\Reports2\rptSalesContractVer00.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptShippingInvoiceVer00.Designer.vb">
+      <DependentUpon>rptShippingInvoiceVer00.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptShippingInvoiceVer00.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\SharedLib\Components\usCheckListBoxControl.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -1307,6 +1313,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptSalesContractVer00.resx">
       <DependentUpon>rptSalesContractVer00.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports2\rptShippingInvoiceVer00.resx">
+      <DependentUpon>rptShippingInvoiceVer00.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\SharedLib\Components\usFormPaymentTerm.resx">
       <DependentUpon>usFormPaymentTerm.vb</DependentUpon>

@@ -204,6 +204,15 @@
             Return bolReturn
         End Function
 
+        Public Shared Function PrintVer00(ByVal intProgramID As Integer, ByVal intCompanyID As Integer, ByVal strID As String) As DataTable
+            BL.Server.ServerDefault()
+            Dim dtReturn As New DataTable
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                dtReturn = DL.Delivery.PrintVer00(sqlCon, Nothing, intProgramID, intCompanyID, strID)
+            End Using
+            Return dtReturn
+        End Function
+
 #End Region
 
 #Region "Detail"
