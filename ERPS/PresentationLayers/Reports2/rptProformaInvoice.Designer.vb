@@ -1062,7 +1062,7 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel56.StylePriority.UseFont = False
         Me.XrLabel56.StylePriority.UsePadding = False
         Me.XrLabel56.StylePriority.UseTextAlignment = False
-        Me.XrLabel56.Text = "IDR 1680-0030-32396"
+        Me.XrLabel56.Text = "IDR 16800-0030-32396"
         Me.XrLabel56.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
         'XrLabel57
