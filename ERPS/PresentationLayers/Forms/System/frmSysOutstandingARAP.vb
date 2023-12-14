@@ -27,6 +27,7 @@ Public Class frmSysOutstandingARAP
         UI.usForm.SetGrid(grdView, "CoACode", "Kode Akun", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "CoAName", "Nama Akun", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "Modules", "Modules", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "ModulesName", "Module", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ReferencesID", "No. Referensi", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "TotalAmount", "Total Bayar", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "PaymentBy", "Dibayar Oleh", 100, UI.usDefGrid.gString)
@@ -76,10 +77,12 @@ Public Class frmSysOutstandingARAP
     End Sub
 
     Private Sub prvSumGrid()
-        Dim SumTotalAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalAmount", "Total Bayar: {0:#,##0.00}")
-        If grdView.Columns("TotalAmount").SummaryText.Trim = "" Then
-            grdView.Columns("TotalAmount").Summary.Add(SumTotalAmount)
-        End If
+        'Dim SumTotalAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalAmount", "Total Bayar: {0:#,##0.00}")
+        'If grdView.Columns("TotalAmount").SummaryText.Trim = "" Then
+        '    grdView.Columns("TotalAmount").Summary.Add(SumTotalAmount)
+        'End If
+        Dim SumGroupTotalAmount As New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalAmount", grdView.Columns("TotalAmount"), "Total Bayar: {0:#,##0.00}")
+        grdView.GroupSummary.Add(SumGroupTotalAmount)
         grdView.BestFitColumns()
     End Sub
 
