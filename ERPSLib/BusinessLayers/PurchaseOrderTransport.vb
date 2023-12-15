@@ -296,7 +296,7 @@
                     ElseIf DL.PurchaseOrderTransport.IsDeleted(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
                     ElseIf DL.PurchaseOrderTransport.IsAlreadyDone(sqlCon, sqlTrans, strID) Then
-                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses Pemotongan")
+                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses Pengiriman")
                     End If
 
                     Dim clsData As VO.PurchaseOrderTransport = DL.PurchaseOrderTransport.GetDetail(sqlCon, sqlTrans, strID)
