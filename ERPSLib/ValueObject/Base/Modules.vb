@@ -48,10 +48,10 @@ Namespace VO
             TransactionAccountReceivableBalance = 33
             TransactionAccountPayableBalance = 34
             TransactionCost = 35
-            TransactionPurchaseDPManual = 36
-            TransactionSalesDPManual = 37
-            TransactionPurchaseDP = 38
-            TransactionSalesDP = 39
+            TransactionSalesDPManual = 36
+            TransactionPurchaseDPManual = 37
+            TransactionSalesDP = 38
+            TransactionPurchaseDP = 39
             TransactionAccountReceivable = 40
             TransactionAccountPayable = 41
             TransactionPurchaseDPCutting = 43

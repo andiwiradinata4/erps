@@ -1,3 +1,13 @@
+DELETE mstBusinessPartner
+DELETE mstBusinessPartnerAPBalance
+DELETE mstBusinessPartnerARBalance
+DELETE mstBusinessPartnerAssign
+DELETE mstBusinessPartnerBankAccount
+DELETE mstItem
+DELETE mstItemSpecification
+DELETE mstItemType
+
+
 DELETE traAccountPayable
 DELETE traAccountPayableDet
 DELETE traAccountPayableStatus

@@ -49,7 +49,7 @@ Partial Class frmMstUserUserAccess
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(637, 28)
+        Me.ToolBar.Size = New System.Drawing.Size(927, 28)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -67,7 +67,7 @@ Partial Class frmMstUserUserAccess
         Me.lblInfo.ForeColor = System.Drawing.Color.White
         Me.lblInfo.Location = New System.Drawing.Point(0, 28)
         Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(637, 22)
+        Me.lblInfo.Size = New System.Drawing.Size(927, 22)
         Me.lblInfo.TabIndex = 1
         Me.lblInfo.Text = "« Setup User Akses"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -84,7 +84,7 @@ Partial Class frmMstUserUserAccess
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlDetail.Location = New System.Drawing.Point(0, 50)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(637, 86)
+        Me.pnlDetail.Size = New System.Drawing.Size(927, 86)
         Me.pnlDetail.TabIndex = 2
         '
         'cboProgram
@@ -110,7 +110,7 @@ Partial Class frmMstUserUserAccess
         'btnSave
         '
         Me.btnSave.Image = CType(resources.GetObject("btnSave.Image"), System.Drawing.Image)
-        Me.btnSave.Location = New System.Drawing.Point(348, 40)
+        Me.btnSave.Location = New System.Drawing.Point(645, 40)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(123, 23)
         Me.btnSave.TabIndex = 2
@@ -119,7 +119,7 @@ Partial Class frmMstUserUserAccess
         'btnRefresh
         '
         Me.btnRefresh.Image = CType(resources.GetObject("btnRefresh.Image"), System.Drawing.Image)
-        Me.btnRefresh.Location = New System.Drawing.Point(477, 40)
+        Me.btnRefresh.Location = New System.Drawing.Point(774, 40)
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.Size = New System.Drawing.Size(123, 23)
         Me.btnRefresh.TabIndex = 3
@@ -132,7 +132,7 @@ Partial Class frmMstUserUserAccess
         Me.cboModules.Location = New System.Drawing.Point(87, 40)
         Me.cboModules.MaxDropDownItems = 100
         Me.cboModules.Name = "cboModules"
-        Me.cboModules.Size = New System.Drawing.Size(230, 21)
+        Me.cboModules.Size = New System.Drawing.Size(552, 21)
         Me.cboModules.TabIndex = 1
         '
         'lblModule
@@ -154,7 +154,7 @@ Partial Class frmMstUserUserAccess
         Me.Label1.ForeColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(0, 136)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(637, 22)
+        Me.Label1.Size = New System.Drawing.Size(927, 22)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "« List Akses"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -179,7 +179,7 @@ Partial Class frmMstUserUserAccess
         Me.grdMain.Location = New System.Drawing.Point(0, 158)
         Me.grdMain.MainView = Me.grdView
         Me.grdMain.Name = "grdMain"
-        Me.grdMain.Size = New System.Drawing.Size(637, 342)
+        Me.grdMain.Size = New System.Drawing.Size(927, 342)
         Me.grdMain.TabIndex = 4
         Me.grdMain.UseEmbeddedNavigator = True
         Me.grdMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdView})
@@ -198,7 +198,7 @@ Partial Class frmMstUserUserAccess
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(637, 500)
+        Me.ClientSize = New System.Drawing.Size(927, 500)
         Me.Controls.Add(Me.grdMain)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.pnlDetail)
