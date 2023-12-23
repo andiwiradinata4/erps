@@ -49,7 +49,7 @@
                 ERPSLib.UI.usUserApp.CompanyName = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("CompanyName")
                 ERPSLib.UI.usUserApp.CompanyAddress = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("Address")
                 ERPSLib.UI.usUserApp.CompanyInitial = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("CompanyInitial")
-                'ERPSLib.UI.usUserApp.JournalPost = BL.JournalPost.GetDetail(ERPSLib.UI.usUserApp.ProgramID)
+                ERPSLib.UI.usUserApp.JournalPost = BL.JournalPost.GetDetail(ERPSLib.UI.usUserApp.ProgramID)
                 frmSysMain.Show()
             Else
                 Dim frmDetail As New frmViewProgramCompany
@@ -63,7 +63,7 @@
                         ERPSLib.UI.usUserApp.CompanyName = .pubLUdtRow.Item("CompanyName")
                         ERPSLib.UI.usUserApp.CompanyAddress = .pubLUdtRow.Item("Address")
                         ERPSLib.UI.usUserApp.CompanyInitial = .pubLUdtRow.Item("CompanyInitial")
-                        'ERPSLib.UI.usUserApp.JournalPost = BL.JournalPost.GetDetail(ERPSLib.UI.usUserApp.ProgramID)
+                        ERPSLib.UI.usUserApp.JournalPost = BL.JournalPost.GetDetail(ERPSLib.UI.usUserApp.ProgramID)
                         frmSysMain.Show()
                     End If
                 End With

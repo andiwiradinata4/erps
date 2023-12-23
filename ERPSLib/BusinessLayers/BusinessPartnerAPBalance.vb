@@ -67,7 +67,7 @@
                         decTotal += decAmount
                         clsJournalDetail.Add(New VO.JournalDet With
                                              {
-                                                 .CoAID = VO.Journal.Value.HutangUsaha,
+                                                 .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable,
                                                  .DebitAmount = 0,
                                                  .CreditAmount = decAmount,
                                                  .Remarks = "SETUP SALDO - " & clsData.InvoiceNumber
@@ -78,7 +78,7 @@
                     If clsDataAll.Count > 0 Then
                         clsJournalDetail.Add(New VO.JournalDet With
                                              {
-                                                 .CoAID = VO.Journal.Value.ModalUsaha,
+                                                 .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofVentureCapital,
                                                  .DebitAmount = decTotal,
                                                  .CreditAmount = 0,
                                                  .Remarks = "SETUP SALDO - " & strAllInvoiceNumber.Substring(0, strAllInvoiceNumber.Length - 2)

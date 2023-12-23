@@ -303,14 +303,14 @@
 
                     clsJournalDetail.Add(New VO.JournalDet With
                                          {
-                                             .CoAID = VO.Journal.Value.PiutangUsaha,
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountReceivable,
                                              .DebitAmount = decTotalAmount,
                                              .CreditAmount = 0,
                                              .Remarks = "KONTRAK PENJUALAN - " & clsData.SCNumber
                                          })
                     clsJournalDetail.Add(New VO.JournalDet With
                                          {
-                                             .CoAID = VO.Journal.Value.Penjualan,
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofRevenue,
                                              .DebitAmount = 0,
                                              .CreditAmount = decTotalAmount,
                                              .Remarks = "KONTRAK PENJUALAN - " & clsData.SCNumber

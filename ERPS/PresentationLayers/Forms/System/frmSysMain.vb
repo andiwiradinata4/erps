@@ -66,6 +66,7 @@
 
     '# Setting
     Dim frmMainSysChangePassword As frmSysChangePassword
+    Dim frmMainSysJournalPost As frmSysJournalPost
     Dim frmMainSysOutstandingARAP As frmSysOutstandingARAP
 
 
@@ -698,6 +699,10 @@
 
     Private Sub mnuSettingUbahPassword_Click(sender As Object, e As EventArgs) Handles mnuSettingUbahPassword.Click
         UI.usForm.frmOpen(frmMainSysChangePassword, "frmSysChangePassword", Me)
+    End Sub
+
+    Private Sub mnuPengaturanSetupPostingJurnalTransaksi_Click(sender As Object, e As EventArgs) Handles mnuPengaturanSetupPostingJurnalTransaksi.Click
+        UI.usForm.frmOpen(frmMainSysJournalPost, "frmSysJournalPost", Me)
     End Sub
 
 #End Region

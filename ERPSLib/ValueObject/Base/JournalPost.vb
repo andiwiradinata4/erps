@@ -61,6 +61,10 @@
         Property CoACodeofPurchaseTax As String
         Property CoANameofPurchaseTax As String
 
+        Property CoAofVentureCapital As Integer
+        Property CoACodeofVentureCapital As String
+        Property CoANameofVentureCapital As String
+
         Property Remarks As String
     End Class
 End Namespace

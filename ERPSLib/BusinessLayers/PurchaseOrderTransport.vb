@@ -233,14 +233,14 @@
 
                     clsJournalDetail.Add(New VO.JournalDet With
                                          {
-                                             .CoAID = VO.Journal.Value.Pembelian,
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofStock,
                                              .DebitAmount = decTotalAmount,
                                              .CreditAmount = 0,
                                              .Remarks = "PESANAN PEMBELIAN PENGIRIMAN - " & clsData.PONumber
                                          })
                     clsJournalDetail.Add(New VO.JournalDet With
                                          {
-                                             .CoAID = VO.Journal.Value.HutangUsaha,
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable,
                                              .DebitAmount = 0,
                                              .CreditAmount = decTotalAmount,
                                              .Remarks = "PESANAN PEMBELIAN PENGIRIMAN - " & clsData.PONumber

@@ -380,7 +380,7 @@
 
                 clsJournalDetail.Add(New VO.JournalDet With
                                      {
-                                         .CoAID = VO.Journal.Value.HutangUsaha,
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable,
                                          .DebitAmount = clsData.TotalAmount,
                                          .CreditAmount = 0,
                                          .Remarks = strJournalDetailRemarks

@@ -432,6 +432,12 @@
     <Compile Include="PresentationLayers\Forms\System\frmSysChangePassword.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\System\frmSysJournalPost.designer.vb">
+      <DependentUpon>frmSysJournalPost.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\System\frmSysJournalPost.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\System\frmSysLogin.designer.vb">
       <DependentUpon>frmSysLogin.vb</DependentUpon>
     </Compile>
@@ -1109,6 +1115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\System\frmSysChangePassword.resx">
       <DependentUpon>frmSysChangePassword.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\System\frmSysJournalPost.resx">
+      <DependentUpon>frmSysJournalPost.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\System\frmSysLogin.resx">
       <DependentUpon>frmSysLogin.vb</DependentUpon>

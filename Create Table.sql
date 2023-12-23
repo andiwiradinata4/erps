@@ -420,6 +420,7 @@ CREATE TABLE [dbo].[sysJournalPost](
 	[CoAofAdvancePayment] [int] NOT NULL CONSTRAINT [DF_sysJournalPost_CoAofAdvancePayment]  DEFAULT ((0)),
 	[CoAofSalesTax] [int] NOT NULL CONSTRAINT [DF_sysJournalPost_CoAofSalesTax]  DEFAULT ((0)),
 	[CoAofPurchaseTax] [int] NOT NULL CONSTRAINT [DF_sysJournalPost_CoAofPurchaseTax]  DEFAULT ((0)),
+	[CoAofVentureCapital] [int] NOT NULL CONSTRAINT [DF_sysJournalPost_CoAofVentureCapital]  DEFAULT ((0)),
 	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_sysJournalPost_Remarks]  DEFAULT (''),
 	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_sysJournalPost_CreatedBy]  DEFAULT ('SYSTEM'),
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_sysJournalPost_CreatedDate]  DEFAULT (getdate()),

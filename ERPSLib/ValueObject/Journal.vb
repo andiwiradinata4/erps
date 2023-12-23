@@ -32,15 +32,15 @@ Namespace VO
             End Function
         End Class
 
-        Enum Value
-            PiutangUsaha = 2
-            HutangUsaha = 4
-            ModalUsaha = 5
-            PanjarPembelian = 12
-            PanjarPenjualan = 13
-            Penjualan = 14
-            Pembelian = 23
-        End Enum
+        'Enum Value
+        '    PiutangUsaha = 2
+        '    HutangUsaha = 4
+        '    ModalUsaha = 5
+        '    PanjarPembelian = 12
+        '    PanjarPenjualan = 13
+        '    Penjualan = 14
+        '    Pembelian = 23
+        'End Enum
 
 
     End Class

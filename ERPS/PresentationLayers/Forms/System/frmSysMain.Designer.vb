@@ -88,6 +88,7 @@ Partial Class frmSysMain
         Me.mnuTransaksiPembukuanPembayaranBiaya = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuanJurnalUmum = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLaporan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuLaporanTransaksiBarang = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLaporanPembukuan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLaporanPembukuanBukuBesar = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuPengaturan = New System.Windows.Forms.ToolStripMenuItem()
@@ -98,7 +99,7 @@ Partial Class frmSysMain
         Me.mnuWindowsCascade = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuWindowsCloseAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLogout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuLaporanTransaksiBarang = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuPengaturanSetupPostingJurnalTransaksi = New System.Windows.Forms.ToolStripMenuItem()
         Me.ssMain.SuspendLayout()
         Me.mnuMain.SuspendLayout()
         Me.SuspendLayout()
@@ -537,6 +538,12 @@ Partial Class frmSysMain
         Me.mnuLaporan.Size = New System.Drawing.Size(62, 20)
         Me.mnuLaporan.Text = "&Laporan"
         '
+        'mnuLaporanTransaksiBarang
+        '
+        Me.mnuLaporanTransaksiBarang.Name = "mnuLaporanTransaksiBarang"
+        Me.mnuLaporanTransaksiBarang.Size = New System.Drawing.Size(161, 22)
+        Me.mnuLaporanTransaksiBarang.Text = "Transaksi Barang"
+        '
         'mnuLaporanPembukuan
         '
         Me.mnuLaporanPembukuan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuLaporanPembukuanBukuBesar})
@@ -547,12 +554,12 @@ Partial Class frmSysMain
         'mnuLaporanPembukuanBukuBesar
         '
         Me.mnuLaporanPembukuanBukuBesar.Name = "mnuLaporanPembukuanBukuBesar"
-        Me.mnuLaporanPembukuanBukuBesar.Size = New System.Drawing.Size(152, 22)
+        Me.mnuLaporanPembukuanBukuBesar.Size = New System.Drawing.Size(132, 22)
         Me.mnuLaporanPembukuanBukuBesar.Text = "Buku Besar"
         '
         'mnuPengaturan
         '
-        Me.mnuPengaturan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSettingUbahPassword})
+        Me.mnuPengaturan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSettingUbahPassword, Me.mnuPengaturanSetupPostingJurnalTransaksi})
         Me.mnuPengaturan.Name = "mnuPengaturan"
         Me.mnuPengaturan.Size = New System.Drawing.Size(80, 20)
         Me.mnuPengaturan.Text = "&Pengaturan"
@@ -560,7 +567,7 @@ Partial Class frmSysMain
         'mnuSettingUbahPassword
         '
         Me.mnuSettingUbahPassword.Name = "mnuSettingUbahPassword"
-        Me.mnuSettingUbahPassword.Size = New System.Drawing.Size(155, 22)
+        Me.mnuSettingUbahPassword.Size = New System.Drawing.Size(231, 22)
         Me.mnuSettingUbahPassword.Text = "Ubah Password"
         '
         'mnuTampilan
@@ -573,25 +580,25 @@ Partial Class frmSysMain
         'mnuWindowsVertical
         '
         Me.mnuWindowsVertical.Name = "mnuWindowsVertical"
-        Me.mnuWindowsVertical.Size = New System.Drawing.Size(129, 22)
+        Me.mnuWindowsVertical.Size = New System.Drawing.Size(152, 22)
         Me.mnuWindowsVertical.Text = "Vertical"
         '
         'mnuWindowsHorizontal
         '
         Me.mnuWindowsHorizontal.Name = "mnuWindowsHorizontal"
-        Me.mnuWindowsHorizontal.Size = New System.Drawing.Size(129, 22)
+        Me.mnuWindowsHorizontal.Size = New System.Drawing.Size(152, 22)
         Me.mnuWindowsHorizontal.Text = "Horizontal"
         '
         'mnuWindowsCascade
         '
         Me.mnuWindowsCascade.Name = "mnuWindowsCascade"
-        Me.mnuWindowsCascade.Size = New System.Drawing.Size(129, 22)
+        Me.mnuWindowsCascade.Size = New System.Drawing.Size(152, 22)
         Me.mnuWindowsCascade.Text = "Cascade"
         '
         'mnuWindowsCloseAll
         '
         Me.mnuWindowsCloseAll.Name = "mnuWindowsCloseAll"
-        Me.mnuWindowsCloseAll.Size = New System.Drawing.Size(129, 22)
+        Me.mnuWindowsCloseAll.Size = New System.Drawing.Size(152, 22)
         Me.mnuWindowsCloseAll.Text = "Close All"
         '
         'mnuLogout
@@ -600,11 +607,11 @@ Partial Class frmSysMain
         Me.mnuLogout.Size = New System.Drawing.Size(57, 20)
         Me.mnuLogout.Text = "L&ogout"
         '
-        'mnuLaporanTransaksiBarang
+        'mnuPengaturanSetupPostingJurnalTransaksi
         '
-        Me.mnuLaporanTransaksiBarang.Name = "mnuLaporanTransaksiBarang"
-        Me.mnuLaporanTransaksiBarang.Size = New System.Drawing.Size(161, 22)
-        Me.mnuLaporanTransaksiBarang.Text = "Transaksi Barang"
+        Me.mnuPengaturanSetupPostingJurnalTransaksi.Name = "mnuPengaturanSetupPostingJurnalTransaksi"
+        Me.mnuPengaturanSetupPostingJurnalTransaksi.Size = New System.Drawing.Size(231, 22)
+        Me.mnuPengaturanSetupPostingJurnalTransaksi.Text = "Setup Posting Jurnal Transaksi"
         '
         'frmSysMain
         '
@@ -705,4 +712,5 @@ Partial Class frmSysMain
     Friend WithEvents mnuTransaksiPembukuanPembayaranHutangPesananPengiriman As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents mnuLaporanTransaksiBarang As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuPengaturanSetupPostingJurnalTransaksi As System.Windows.Forms.ToolStripMenuItem
 End Class

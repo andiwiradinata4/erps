@@ -321,8 +321,6 @@
                 '# Save Data Status
                 BL.AccountReceivable.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
-
-
                 Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
                 Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
                 Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
@@ -334,14 +332,14 @@
                                          .CoAID = clsData.CoAIDOfIncomePayment,
                                          .DebitAmount = clsData.TotalAmount,
                                          .CreditAmount = 0,
-                                         .Remarks = "PELUNASAN SALDO - " & clsData.ARNumber
+                                         .Remarks = "PELUNASAN - " & clsData.ARNumber
                                      })
                 clsJournalDetail.Add(New VO.JournalDet With
                                      {
-                                         .CoAID = VO.Journal.Value.PiutangUsaha,
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountReceivable,
                                          .DebitAmount = 0,
                                          .CreditAmount = clsData.TotalAmount,
-                                         .Remarks = "PELUNASAN SALDO - " & clsData.ARNumber
+                                         .Remarks = "PELUNASAN - " & clsData.ARNumber
                                      })
 
                 Dim clsJournal As New VO.Journal With

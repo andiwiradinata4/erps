@@ -29,6 +29,7 @@ SELECT [ProgramID]
       ,[LogInc]
       ,[LogBy]
       ,[LogDate]
+      ,[CoAofVentureCapital]
   FROM [dbo].[sysJournalPost]
                     </a>.Value
             End With
@@ -46,10 +47,10 @@ SELECT [ProgramID]
                     .CommandText = _
                        "INSERT INTO sysJournalPost " & vbNewLine & _
                        "    (ProgramID, CoAofRevenue, CoAofAccountReceivable, CoAofSalesDisc, CoAofPrepaidIncome, CoAofCOGS, CoAofStock, CoAofCash, CoAofAccountPayable,   " & vbNewLine & _
-                       "     CoAofPurchaseDisc, CoAofPurchaseEquipments, CoAofAdvancePayment, CoAofSalesTax, CoAofPurchaseTax, Remarks, CreatedBy, CreatedDate, LogBy, LogDate)   " & vbNewLine & _
+                       "     CoAofPurchaseDisc, CoAofPurchaseEquipments, CoAofAdvancePayment, CoAofSalesTax, CoAofPurchaseTax, Remarks, CreatedBy, CreatedDate, LogBy, LogDate, CoAofVentureCapital)   " & vbNewLine & _
                        "VALUES " & vbNewLine & _
                        "    (@ProgramID, @CoAofRevenue, @CoAofAccountReceivable, @CoAofSalesDisc, @CoAofPrepaidIncome, @CoAofCOGS, @CoAofStock, @CoAofCash, @CoAofAccountPayable,   " & vbNewLine & _
-                       "     @CoAofPurchaseDisc, @CoAofPurchaseEquipments, @CoAofAdvancePayment, @CoAofSalesTax, @CoAofPurchaseTax, @Remarks, @LogBy, GETDATE(), @LogBy, GETDATE())  " & vbNewLine
+                       "     @CoAofPurchaseDisc, @CoAofPurchaseEquipments, @CoAofAdvancePayment, @CoAofSalesTax, @CoAofPurchaseTax, @Remarks, @LogBy, GETDATE(), @LogBy, GETDATE(), @CoAofVentureCapital)  " & vbNewLine
                 Else
                     .CommandText = _
                     "UPDATE sysJournalPost SET " & vbNewLine & _
@@ -69,7 +70,8 @@ SELECT [ProgramID]
                     "    Remarks=@Remarks, " & vbNewLine & _
                     "    LogInc=LogInc+1, " & vbNewLine & _
                     "    LogBy=@LogBy, " & vbNewLine & _
-                    "    LogDate=GETDATE() " & vbNewLine & _
+                    "    LogDate=GETDATE(), " & vbNewLine & _
+                    "    CoAofVentureCapital=@CoAofVentureCapital " & vbNewLine & _
                     "WHERE ProgramID=@ProgramID " & vbNewLine
                 End If
 
@@ -89,6 +91,7 @@ SELECT [ProgramID]
                 .Parameters.Add("@CoAofPurchaseTax", SqlDbType.Int).Value = clsData.CoAofPurchaseTax
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
+                .Parameters.Add("@CoAofVentureCapital", SqlDbType.Int).Value = clsData.CoAofVentureCapital
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -106,10 +109,10 @@ SELECT [ProgramID]
                 .CommandText = _
                    "INSERT INTO sysJournalPost " & vbNewLine & _
                    "    (ProgramID, CoAofRevenue, CoAofAccountReceivable, CoAofSalesDisc, CoAofPrepaidIncome, CoAofCOGS, CoAofStock, CoAofCash, CoAofAccountPayable,   " & vbNewLine & _
-                   "     CoAofPurchaseDisc, CoAofPurchaseEquipments, CoAofAdvancePayment, CoAofSalesTax, CoAofPurchaseTax, Remarks, CreatedBy, CreatedDate, LogBy, LogDate, LogInc)   " & vbNewLine & _
+                   "     CoAofPurchaseDisc, CoAofPurchaseEquipments, CoAofAdvancePayment, CoAofSalesTax, CoAofPurchaseTax, Remarks, CreatedBy, CreatedDate, LogBy, LogDate, LogInc, CoAofVentureCapital)   " & vbNewLine & _
                    "VALUES " & vbNewLine & _
                    "    (@ProgramID, @CoAofRevenue, @CoAofAccountReceivable, @CoAofSalesDisc, @CoAofPrepaidIncome, @CoAofCOGS, @CoAofStock, @CoAofCash, @CoAofAccountPayable,   " & vbNewLine & _
-                   "     @CoAofPurchaseDisc, @CoAofPurchaseEquipments, @CoAofAdvancePayment, @CoAofSalesTax, @CoAofPurchaseTax, @Remarks, @CreatedBy, @CreatedDate, @LogBy, @LogDate, @LogInc)  " & vbNewLine
+                   "     @CoAofPurchaseDisc, @CoAofPurchaseEquipments, @CoAofAdvancePayment, @CoAofSalesTax, @CoAofPurchaseTax, @Remarks, @CreatedBy, @CreatedDate, @LogBy, @LogDate, @LogInc, @CoAofVentureCapital)  " & vbNewLine
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = clsData.ProgramID
                 .Parameters.Add("@CoAofRevenue", SqlDbType.Int).Value = clsData.CoAofRevenue
@@ -131,6 +134,7 @@ SELECT [ProgramID]
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@LogDate", SqlDbType.DateTime).Value = clsData.LogDate
                 .Parameters.Add("@LogInc", SqlDbType.Int).Value = clsData.LogInc
+                .Parameters.Add("@CoAofVentureCapital", SqlDbType.Int).Value = clsData.CoAofVentureCapital
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -162,6 +166,7 @@ SELECT [ProgramID]
                         "	A.CoAofAdvancePayment, ISNULL(CAPP.Code,'') AS CoACodeofAdvancePayment, ISNULL(CAPP.Name,'') AS CoANameofAdvancePayment, 	" & vbNewLine & _
                         "	A.CoAofSalesTax, ISNULL(CSTX.Code,'') AS CoACodeofSalesTax, ISNULL(CSTX.Name,'') AS CoANameofSalesTax, 	" & vbNewLine & _
                         "	A.CoAofPurchaseTax, ISNULL(CPTX.Code,'') AS CoACodeofPurchaseTax, ISNULL(CPTX.Name,'') AS CoANameofPurchaseTax, 	" & vbNewLine & _
+                        "	A.CoAofVentureCapital, ISNULL(CVC.Code,'') AS CoACodeofVentureCapital, ISNULL(CVC.Name,'') AS CoANameofVentureCapital, 	" & vbNewLine & _
                         "	A.Remarks, A.LogBy, A.LogDate, A.LogInc  	" & vbNewLine & _
                         "FROM sysJournalPost A 	" & vbNewLine & _
                         "LEFT JOIN mstChartOfAccount CR ON 	" & vbNewLine & _
@@ -190,6 +195,8 @@ SELECT [ProgramID]
                         "	A.CoAofSalesTax=CSTX.ID	" & vbNewLine & _
                         "LEFT JOIN mstChartOfAccount CPTX ON 	" & vbNewLine & _
                         "	A.CoAofPurchaseTax=CPTX.ID	" & vbNewLine & _
+                        "LEFT JOIN mstChartOfAccount CVC ON 	" & vbNewLine & _
+                        "	A.CoAofVentureCapital=CVC.ID	" & vbNewLine & _
                         "WHERE " & vbNewLine & _
                         "	A.ProgramID=@ProgramID " & vbNewLine
 
@@ -250,6 +257,10 @@ SELECT [ProgramID]
                         voReturn.CoAofPurchaseTax = .Item("CoAofPurchaseTax")
                         voReturn.CoACodeofPurchaseTax = .Item("CoACodeofPurchaseTax")
                         voReturn.CoANameofPurchaseTax = .Item("CoANameofPurchaseTax")
+
+                        voReturn.CoAofVentureCapital = .Item("CoAofVentureCapital")
+                        voReturn.CoACodeofVentureCapital = .Item("CoACodeofVentureCapital")
+                        voReturn.CoANameofVentureCapital = .Item("CoANameofVentureCapital")
 
                         voReturn.Remarks = .Item("Remarks")
                         voReturn.LogBy = .Item("LogBy")
