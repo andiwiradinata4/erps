@@ -580,12 +580,11 @@ Partial Class frmTraConfirmationOrderDet
         '
         'txtCONumber
         '
-        Me.txtCONumber.BackColor = System.Drawing.Color.LightYellow
+        Me.txtCONumber.BackColor = System.Drawing.Color.White
         Me.txtCONumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtCONumber.Location = New System.Drawing.Point(160, 16)
         Me.txtCONumber.MaxLength = 250
         Me.txtCONumber.Name = "txtCONumber"
-        Me.txtCONumber.ReadOnly = True
         Me.txtCONumber.Size = New System.Drawing.Size(167, 21)
         Me.txtCONumber.TabIndex = 0
         '
@@ -601,7 +600,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.tpAmount.Controls.Add(Me.txtPPN)
         Me.tpAmount.Location = New System.Drawing.Point(4, 25)
         Me.tpAmount.Name = "tpAmount"
-        Me.tpAmount.Size = New System.Drawing.Size(924, 173)
+        Me.tpAmount.Size = New System.Drawing.Size(882, 173)
         Me.tpAmount.TabIndex = 2
         Me.tpAmount.Text = "Harga - F2"
         Me.tpAmount.UseVisualStyleBackColor = True
@@ -798,7 +797,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.tpPaymentTerm.Controls.Add(Me.ToolBarPaymentTerm)
         Me.tpPaymentTerm.Location = New System.Drawing.Point(4, 25)
         Me.tpPaymentTerm.Name = "tpPaymentTerm"
-        Me.tpPaymentTerm.Size = New System.Drawing.Size(924, 151)
+        Me.tpPaymentTerm.Size = New System.Drawing.Size(882, 173)
         Me.tpPaymentTerm.TabIndex = 3
         Me.tpPaymentTerm.Text = "Syarat Pembayaran - F3"
         Me.tpPaymentTerm.UseVisualStyleBackColor = True
@@ -824,7 +823,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.grdPaymentTerm.MainView = Me.grdPaymentTermView
         Me.grdPaymentTerm.Name = "grdPaymentTerm"
         Me.grdPaymentTerm.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit2})
-        Me.grdPaymentTerm.Size = New System.Drawing.Size(920, 119)
+        Me.grdPaymentTerm.Size = New System.Drawing.Size(878, 141)
         Me.grdPaymentTerm.TabIndex = 2
         Me.grdPaymentTerm.UseEmbeddedNavigator = True
         Me.grdPaymentTerm.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdPaymentTermView})
@@ -855,7 +854,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.ToolBarPaymentTerm.Location = New System.Drawing.Point(0, 0)
         Me.ToolBarPaymentTerm.Name = "ToolBarPaymentTerm"
         Me.ToolBarPaymentTerm.ShowToolTips = True
-        Me.ToolBarPaymentTerm.Size = New System.Drawing.Size(920, 28)
+        Me.ToolBarPaymentTerm.Size = New System.Drawing.Size(878, 28)
         Me.ToolBarPaymentTerm.TabIndex = 1
         Me.ToolBarPaymentTerm.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -884,7 +883,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(924, 151)
+        Me.tpHistory.Size = New System.Drawing.Size(882, 173)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F4"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -909,7 +908,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.grdStatus.Location = New System.Drawing.Point(3, 3)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(914, 141)
+        Me.grdStatus.Size = New System.Drawing.Size(872, 163)
         Me.grdStatus.TabIndex = 13
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})

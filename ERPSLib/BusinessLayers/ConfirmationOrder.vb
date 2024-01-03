@@ -27,7 +27,7 @@
                 Try
                     If bolNew Then
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.CODate, clsData.CompanyID, clsData.ProgramID)
-                        clsData.CONumber = clsData.ID
+                        If clsData.CONumber.Trim = "" Then clsData.CONumber = clsData.ID
                     Else
                         Dim dtItem As DataTable = DL.ConfirmationOrder.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
 

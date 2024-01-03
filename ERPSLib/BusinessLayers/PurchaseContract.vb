@@ -35,7 +35,7 @@
                 Try
                     If bolNew Then
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.PCDate, clsData.CompanyID, clsData.ProgramID)
-                        clsData.PCNumber = clsData.ID
+                        If clsData.PCNumber.Trim = "" Then clsData.PCNumber = clsData.ID
                     Else
                         Dim dtItem As DataTable = DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
 

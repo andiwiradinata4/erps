@@ -317,12 +317,11 @@ Partial Class frmTraPurchaseContractDet
         '
         'txtPCNumber
         '
-        Me.txtPCNumber.BackColor = System.Drawing.Color.LightYellow
+        Me.txtPCNumber.BackColor = System.Drawing.Color.White
         Me.txtPCNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtPCNumber.Location = New System.Drawing.Point(145, 16)
         Me.txtPCNumber.MaxLength = 250
         Me.txtPCNumber.Name = "txtPCNumber"
-        Me.txtPCNumber.ReadOnly = True
         Me.txtPCNumber.Size = New System.Drawing.Size(167, 21)
         Me.txtPCNumber.TabIndex = 0
         '
