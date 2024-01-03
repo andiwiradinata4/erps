@@ -19,7 +19,7 @@
         UI.usForm.SetGrid(grdView, "ComboID", "ComboID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "ID", "ID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "ItemCodeExternal", "Kode Barang Eksternal", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "ItemCodeExternal", "Kode Barang Eksternal", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "ItemTypeName", "Jenis Barang", 100, UI.usDefGrid.gString)

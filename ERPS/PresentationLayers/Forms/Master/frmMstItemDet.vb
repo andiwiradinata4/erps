@@ -86,7 +86,7 @@
             txtWidth.Focus()
             Exit Sub
         ElseIf txtWeight.Value <= 0 Then
-            UI.usForm.frmMessageBox("Berat harus lebih besar dari 0")
+            UI.usForm.frmMessageBox("Berat tidak boleh lebih kecil dari 0")
             txtWeight.Focus()
             Exit Sub
         ElseIf cboItemSpecification.SelectedIndex = -1 Then
