@@ -432,12 +432,11 @@ Partial Class frmTraPurchaseOrderDet
         '
         'txtPONumber
         '
-        Me.txtPONumber.BackColor = System.Drawing.Color.LightYellow
+        Me.txtPONumber.BackColor = System.Drawing.Color.White
         Me.txtPONumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtPONumber.Location = New System.Drawing.Point(141, 16)
         Me.txtPONumber.MaxLength = 250
         Me.txtPONumber.Name = "txtPONumber"
-        Me.txtPONumber.ReadOnly = True
         Me.txtPONumber.Size = New System.Drawing.Size(167, 21)
         Me.txtPONumber.TabIndex = 0
         '
@@ -486,7 +485,7 @@ Partial Class frmTraPurchaseOrderDet
         Me.Label15.TabIndex = 125
         Me.Label15.Text = "Grand Total"
         '
-        'txtGrandTotalOrder
+        'txtGrandTotal
         '
         Me.txtGrandTotal.BackColor = System.Drawing.Color.LightYellow
         Me.txtGrandTotal.DecimalPlaces = 2
@@ -494,7 +493,7 @@ Partial Class frmTraPurchaseOrderDet
         Me.txtGrandTotal.Location = New System.Drawing.Point(115, 104)
         Me.txtGrandTotal.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtGrandTotal.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtGrandTotal.Name = "txtGrandTotalOrder"
+        Me.txtGrandTotal.Name = "txtGrandTotal"
         Me.txtGrandTotal.Size = New System.Drawing.Size(186, 21)
         Me.txtGrandTotal.TabIndex = 3
         Me.txtGrandTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -511,7 +510,7 @@ Partial Class frmTraPurchaseOrderDet
         Me.Label16.TabIndex = 123
         Me.Label16.Text = "Total PPh"
         '
-        'txtTotalPPHOrder
+        'txtTotalPPH
         '
         Me.txtTotalPPH.BackColor = System.Drawing.Color.LightYellow
         Me.txtTotalPPH.DecimalPlaces = 2
@@ -519,13 +518,13 @@ Partial Class frmTraPurchaseOrderDet
         Me.txtTotalPPH.Location = New System.Drawing.Point(115, 77)
         Me.txtTotalPPH.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalPPH.Name = "txtTotalPPHOrder"
+        Me.txtTotalPPH.Name = "txtTotalPPH"
         Me.txtTotalPPH.Size = New System.Drawing.Size(186, 21)
         Me.txtTotalPPH.TabIndex = 2
         Me.txtTotalPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPPH.ThousandsSeparator = True
         '
-        'txtTotalDPPOrder
+        'txtTotalDPP
         '
         Me.txtTotalDPP.BackColor = System.Drawing.Color.LightYellow
         Me.txtTotalDPP.DecimalPlaces = 2
@@ -533,7 +532,7 @@ Partial Class frmTraPurchaseOrderDet
         Me.txtTotalDPP.Location = New System.Drawing.Point(115, 23)
         Me.txtTotalDPP.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalDPP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalDPP.Name = "txtTotalDPPOrder"
+        Me.txtTotalDPP.Name = "txtTotalDPP"
         Me.txtTotalDPP.Size = New System.Drawing.Size(186, 21)
         Me.txtTotalDPP.TabIndex = 0
         Me.txtTotalDPP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -561,7 +560,7 @@ Partial Class frmTraPurchaseOrderDet
         Me.Label18.TabIndex = 119
         Me.Label18.Text = "Total DPP"
         '
-        'txtTotalPPNOrder
+        'txtTotalPPN
         '
         Me.txtTotalPPN.BackColor = System.Drawing.Color.LightYellow
         Me.txtTotalPPN.DecimalPlaces = 2
@@ -569,7 +568,7 @@ Partial Class frmTraPurchaseOrderDet
         Me.txtTotalPPN.Location = New System.Drawing.Point(115, 50)
         Me.txtTotalPPN.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalPPN.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalPPN.Name = "txtTotalPPNOrder"
+        Me.txtTotalPPN.Name = "txtTotalPPN"
         Me.txtTotalPPN.Size = New System.Drawing.Size(186, 21)
         Me.txtTotalPPN.TabIndex = 1
         Me.txtTotalPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -915,13 +914,13 @@ Partial Class frmTraPurchaseOrderDet
         Me.RepositoryItemTextEdit1.Name = "RepositoryItemTextEdit1"
         Me.RepositoryItemTextEdit1.NullText = "0.00"
         '
-        'ToolBarDetailOrder
+        'ToolBarDetail
         '
         Me.ToolBarDetail.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
         Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder})
         Me.ToolBarDetail.DropDownArrows = True
         Me.ToolBarDetail.Location = New System.Drawing.Point(3, 3)
-        Me.ToolBarDetail.Name = "ToolBarDetailOrder"
+        Me.ToolBarDetail.Name = "ToolBarDetail"
         Me.ToolBarDetail.ShowToolTips = True
         Me.ToolBarDetail.Size = New System.Drawing.Size(870, 28)
         Me.ToolBarDetail.TabIndex = 8

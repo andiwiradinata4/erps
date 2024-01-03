@@ -27,7 +27,7 @@
                 Try
                     If bolNew Then
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.PODate, clsData.CompanyID, clsData.ProgramID)
-                        clsData.PONumber = clsData.ID
+                        If clsData.PONumber.Trim = "" Then clsData.PONumber = clsData.ID
                     Else
                         DL.PurchaseOrder.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
                         DL.PurchaseOrder.DeleteDataPaymentTerm(sqlCon, sqlTrans, clsData.ID)
