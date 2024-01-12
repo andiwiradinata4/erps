@@ -54,6 +54,8 @@ Public Class frmTraAccountPayableDet
         UI.usForm.SetGrid(grdItemView, "InvoiceDate", "Tanggal Invoice", 250, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdItemView, "PurchaseAmount", "PurchaseAmount", 250, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemView, "Amount", "Total Tagihan", 150, UI.usDefGrid.gReal2Num, True, False)
+        UI.usForm.SetGrid(grdItemView, "PPN", "PPN", 150, UI.usDefGrid.gReal2Num, True, False)
+        UI.usForm.SetGrid(grdItemView, "PPH", "PPH", 150, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "MaxPaymentAmount", "Total Maksimal Tagihan", 150, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 250, UI.usDefGrid.gString, True, False)
         grdItemView.Columns("Amount").ColumnEdit = rpiValue
@@ -178,6 +180,8 @@ Public Class frmTraAccountPayableDet
                                .APID = pubID,
                                .PurchaseID = dr.Item("PurchaseID"),
                                .Amount = dr.Item("Amount"),
+                               .PPN = dr.Item("PPN"),
+                               .PPH = dr.Item("PPH"),
                                .Remarks = UCase(dr.Item("Remarks"))
                            })
             End If
@@ -193,6 +197,8 @@ Public Class frmTraAccountPayableDet
         clsData.ReferencesID = txtReferencesID.Text.Trim
         clsData.ReferencesNote = ""
         clsData.TotalAmount = txtTotalAmount.Value
+        clsData.TotalPPN = txtTotalPPN.Value
+        clsData.TotalPPH = txtTotalPPH.Value
         clsData.APDate = dtpAPDate.Value.Date
         clsData.DueDateValue = txtDueDateValue.Value
         clsData.Modules = strModules
@@ -241,6 +247,8 @@ Public Class frmTraAccountPayableDet
         dtpAPDate.Value = Now
         txtDueDateValue.Value = 0
         txtTotalAmount.Value = 0
+        txtTotalPPN.Value = 0
+        txtTotalPPH.Value = 0
         txtRemarks.Text = ""
         cboStatus.SelectedValue = VO.Status.Values.Draft
         ToolStripLogInc.Text = "Jumlah Edit : -"
@@ -363,13 +371,17 @@ Public Class frmTraAccountPayableDet
     End Sub
 
     Private Sub prvCalculate()
-        Dim decAmount As Decimal = 0
+        Dim decAmount As Decimal = 0, decPPN As Decimal = 0, decPPH As Decimal = 0
 
         For Each dr As DataRow In dtItem.Rows
             decAmount += dr.Item("Amount")
+            decPPN += dr.Item("PPN")
+            decPPH += dr.Item("PPH")
         Next
 
         txtTotalAmount.Value = decAmount
+        txtTotalPPN.Value = decPPN
+        txtTotalPPH.Value = decPPH
     End Sub
 
     Private Sub prvChangeCheckedValue(ByVal bolValue As Boolean)

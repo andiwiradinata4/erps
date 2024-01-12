@@ -16,6 +16,8 @@
         Property DueDateValue As Integer
         Property DueDate As DateTime
         Property TotalAmount As Decimal
+        Property TotalPPN As Decimal
+        Property TotalPPH As Decimal
         Property Percentage As Decimal
         Property SubmitBy As String
         Property SubmitDate As DateTime

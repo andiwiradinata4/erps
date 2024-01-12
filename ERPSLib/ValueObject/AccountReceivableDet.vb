@@ -4,6 +4,8 @@
         Property ARID As String
         Property SalesID As String
         Property Amount As Decimal
+        Property PPN As Decimal
+        Property PPH As Decimal
         Property Remarks As String
     End Class
 End Namespace

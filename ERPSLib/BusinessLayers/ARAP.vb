@@ -56,6 +56,8 @@
                                         .ARID = "",
                                         .SalesID = clsDataARAP.ReferencesID,
                                         .Amount = clsDataARAP.TotalAmount,
+                                        .PPN = clsDataARAP.TotalPPN,
+                                        .PPH = clsDataARAP.TotalPPN,
                                         .Remarks = clsDataARAP.Remarks
                                     })
 
@@ -70,6 +72,8 @@
                         clsData.ReferencesID = clsReferences.SCNumber
                         clsData.ReferencesNote = ""
                         clsData.TotalAmount = clsDataARAP.TotalAmount
+                        clsData.TotalPPN = clsDataARAP.TotalPPN
+                        clsData.TotalPPH = clsDataARAP.TotalPPH
                         clsData.Percentage = clsDataARAP.Percentage
                         clsData.ARDate = clsDataARAP.TransDate
                         clsData.DueDateValue = clsDataARAP.DueDateValue
@@ -101,6 +105,8 @@
                                         .APID = "",
                                         .PurchaseID = clsDataARAP.ReferencesID,
                                         .Amount = clsDataARAP.TotalAmount,
+                                        .PPN = clsDataARAP.TotalPPN,
+                                        .PPH = clsDataARAP.TotalPPH,
                                         .Remarks = clsDataARAP.Remarks
                                     })
 
@@ -115,6 +121,8 @@
                         clsData.ReferencesID = clsReferences.PCNumber
                         clsData.ReferencesNote = ""
                         clsData.TotalAmount = clsDataARAP.TotalAmount
+                        clsData.TotalPPN = clsDataARAP.TotalPPN
+                        clsData.TotalPPH = clsDataARAP.TotalPPH
                         clsData.Percentage = clsDataARAP.Percentage
                         clsData.APDate = clsDataARAP.TransDate
                         clsData.DueDateValue = clsDataARAP.DueDateValue

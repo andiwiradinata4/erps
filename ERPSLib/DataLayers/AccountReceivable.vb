@@ -83,7 +83,8 @@
                     "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.PaymentBy, " & vbNewLine & _
                     "   CASE WHEN A.PaymentBy = '' THEN NULL ELSE A.PaymentDate END AS PaymentDate, A.TaxInvoiceNumber, " & vbNewLine & _
                     "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine & _
-                    "   A.LogInc, A.LogBy, A.LogDate, A.ARNumber AS TransNumber, A.ARDate AS TransDate, A.CoAIDOfIncomePayment AS CoAID, COA.Code AS CoACode, COA.Name AS CoAName  " & vbNewLine & _
+                    "   A.LogInc, A.LogBy, A.LogDate, A.ARNumber AS TransNumber, A.ARDate AS TransDate, A.CoAIDOfIncomePayment AS CoAID, " & vbNewLine & _
+                    "   COA.Code AS CoACode, COA.Name AS CoAName, A.TotalPPN, A.TotalPPH  " & vbNewLine & _
                     "FROM traAccountReceivable A " & vbNewLine & _
                     "INNER JOIN mstModuleIDARAP MDARAP ON " & vbNewLine & _
                     "   A.Modules=MDARAP.Code " & vbNewLine & _
@@ -126,10 +127,12 @@
                     .CommandText = _
                         "INSERT INTO traAccountReceivable " & vbNewLine & _
                         "   (ID, CompanyID, ProgramID, ARNumber, BPID, CoAIDOfIncomePayment, Modules, ReferencesID, ReferencesNote, " & vbNewLine & _
-                        "    ARDate, DueDateValue, DueDate, TotalAmount, Percentage, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine & _
+                        "    ARDate, DueDateValue, DueDate, TotalAmount, Percentage, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, " & vbNewLine & _
+                        "    TotalPPN, TotalPPH) " & vbNewLine & _
                         "VALUES " & vbNewLine & _
                         "   (@ID, @CompanyID, @ProgramID, @ARNumber, @BPID, @CoAIDOfIncomePayment, @Modules, @ReferencesID, @ReferencesNote, " & vbNewLine & _
-                        "    @ARDate, @DueDateValue, @DueDate, @TotalAmount, @Percentage, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
+                        "    @ARDate, @DueDateValue, @DueDate, @TotalAmount, @Percentage, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), " & vbNewLine & _
+                        "    @TotalPPN, @TotalPPH) " & vbNewLine
                 Else
                     .CommandText = _
                         "UPDATE traAccountReceivable SET " & vbNewLine & _
@@ -145,6 +148,8 @@
                         "    DueDateValue=@DueDateValue, " & vbNewLine & _
                         "    DueDate=@DueDate, " & vbNewLine & _
                         "    TotalAmount=@TotalAmount, " & vbNewLine & _
+                        "    TotalPPN=@TotalPPN, " & vbNewLine & _
+                        "    TotalPPH=@TotalPPH, " & vbNewLine & _
                         "    Percentage=@Percentage, " & vbNewLine & _
                         "    Remarks=@Remarks, " & vbNewLine & _
                         "    StatusID=@StatusID, " & vbNewLine & _
@@ -168,6 +173,8 @@
                 .Parameters.Add("@DueDateValue", SqlDbType.Int).Value = clsData.DueDateValue
                 .Parameters.Add("@DueDate", SqlDbType.DateTime).Value = clsData.DueDate
                 .Parameters.Add("@TotalAmount", SqlDbType.Decimal).Value = clsData.TotalAmount
+                .Parameters.Add("@TotalPPN", SqlDbType.Decimal).Value = clsData.TotalPPN
+                .Parameters.Add("@TotalPPH", SqlDbType.Decimal).Value = clsData.TotalPPH
                 .Parameters.Add("@Percentage", SqlDbType.Decimal).Value = clsData.Percentage
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 500).Value = clsData.Remarks
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
@@ -196,7 +203,7 @@
                         "   A.Modules, A.ReferencesID, A.ReferencesNote, A.ARDate, A.DueDateValue, A.DueDate, A.TotalAmount, A.Percentage, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
                         "   A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.PaymentBy, A.PaymentDate, A.TaxInvoiceNumber, " & vbNewLine & _
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine & _
-                        "   A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
+                        "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH " & vbNewLine & _
                         "FROM traAccountReceivable A " & vbNewLine & _
                         "INNER JOIN mstStatus B ON " & vbNewLine & _
                         "   A.StatusID=B.ID " & vbNewLine & _
@@ -256,6 +263,8 @@
                         voReturn.LogInc = .Item("LogInc")
                         voReturn.LogBy = .Item("LogBy")
                         voReturn.LogDate = .Item("LogDate")
+                        voReturn.TotalPPN = .Item("TotalPPN")
+                        voReturn.TotalPPH = .Item("TotalPPH")
                     End If
                 End With
             Catch ex As Exception
@@ -742,7 +751,7 @@
                     "   CAST (1 AS BIT) AS Pick, A.SalesID, B.InvoiceNumber, B.InvoiceDate, " & vbNewLine & _
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH AS SalesAmount, A.Amount, " & vbNewLine & _
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH-B.TotalPaymentDP-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine & _
-                    "   A.Remarks " & vbNewLine & _
+                    "   A.Remarks, A.PPN, A.PPH " & vbNewLine & _
                     "FROM traAccountReceivableDet A " & vbNewLine & _
                     "INNER JOIN mstBusinessPartnerARBalance B ON " & vbNewLine & _
                     "   A.SalesID=B.ID " & vbNewLine & _
@@ -767,7 +776,7 @@
                     "   CAST (1 AS BIT) AS Pick, A.SalesID, B.InvoiceNumber, B.InvoiceDate, " & vbNewLine & _
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH AS SalesAmount, A.Amount, " & vbNewLine & _
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH-B.TotalPaymentDP-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine & _
-                    "   A.Remarks " & vbNewLine & _
+                    "   A.Remarks, A.PPN, A.PPH " & vbNewLine & _
                     "FROM traAccountReceivableDet A " & vbNewLine & _
                     "INNER JOIN mstBusinessPartnerARBalance B ON " & vbNewLine & _
                     "   A.SalesID=B.ID " & vbNewLine & _
@@ -780,7 +789,7 @@
                     "   CAST(0 AS BIT) AS Pick, A.ID AS SalesID, A.InvoiceNumber, A.InvoiceDate, " & vbNewLine & _
                     "   A.TotalDPP+A.TotalPPN-A.TotalPPH AS SalesAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine & _
                     "   A.TotalDPP+A.TotalPPN-A.TotalPPH-A.TotalPaymentDP-A.TotalPayment AS MaxPaymentAmount, " & vbNewLine & _
-                    "   CAST('' AS VARCHAR(500)) AS Remarks " & vbNewLine & _
+                    "   CAST('' AS VARCHAR(500)) AS Remarks, CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH " & vbNewLine & _
                     "FROM mstBusinessPartnerARBalance A " & vbNewLine & _
                     "INNER JOIN mstCompany MC ON " & vbNewLine & _
                     "   A.CompanyID=MC.ID " & vbNewLine & _
@@ -825,7 +834,7 @@
                     "   CAST (1 AS BIT) AS Pick, A.SalesID, B.SCNumber AS InvoiceNumber, B.SCDate AS InvoiceDate, " & vbNewLine & _
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual AS SalesAmount, A.Amount, " & vbNewLine & _
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual-B.DPAmount-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, " & vbNewLine & _
-                    "   A.Remarks " & vbNewLine & _
+                    "   A.Remarks, A.PPN, A.PPH " & vbNewLine & _
                     "FROM traAccountReceivableDet A " & vbNewLine & _
                     "INNER JOIN traSalesContract B ON " & vbNewLine & _
                     "   A.SalesID=B.ID " & vbNewLine & _
@@ -850,7 +859,7 @@
                     "   CAST (1 AS BIT) AS Pick, A.SalesID, B.SCNumber AS InvoiceNumber, B.SCDate AS InvoiceDate, " & vbNewLine & _
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual AS SalesAmount, A.Amount, " & vbNewLine & _
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual-B.DPAmount-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, " & vbNewLine & _
-                    "   A.Remarks " & vbNewLine & _
+                    "   A.Remarks, A.PPN, A.PPH " & vbNewLine & _
                     "FROM traAccountReceivableDet A " & vbNewLine & _
                     "INNER JOIN traSalesContract B ON " & vbNewLine & _
                     "   A.SalesID=B.ID " & vbNewLine & _
@@ -863,7 +872,7 @@
                     "   CAST(0 AS BIT) AS Pick, A.ID AS SalesID, A.SCNumber AS InvoiceNumber, A.SCDate AS InvoiceDate, " & vbNewLine & _
                     "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual AS SalesAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine & _
                     "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual-A.DPAmount-A.ReceiveAmount AS MaxPaymentAmount, " & vbNewLine & _
-                    "   CAST('' AS VARCHAR(500)) AS Remarks " & vbNewLine & _
+                    "   CAST('' AS VARCHAR(500)) AS Remarks, CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH " & vbNewLine & _
                     "FROM traSalesContract A " & vbNewLine & _
                     "INNER JOIN mstCompany MC ON " & vbNewLine & _
                     "   A.CompanyID=MC.ID " & vbNewLine & _
@@ -906,15 +915,17 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "INSERT INTO traAccountReceivableDet " & vbNewLine & _
-                    "   (ID, ARID, SalesID, Amount, Remarks) " & vbNewLine & _
+                    "   (ID, ARID, SalesID, Amount, Remarks, PPN, PPH) " & vbNewLine & _
                     "VALUES " & vbNewLine & _
-                    "   (@ID, @ARID, @SalesID, @Amount, @Remarks) " & vbNewLine
+                    "   (@ID, @ARID, @SalesID, @Amount, @Remarks, @PPN, @PPH) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@ARID", SqlDbType.VarChar, 100).Value = clsData.ARID
                 .Parameters.Add("@SalesID", SqlDbType.VarChar, 100).Value = clsData.SalesID
                 .Parameters.Add("@Amount", SqlDbType.Decimal).Value = clsData.Amount
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 500).Value = clsData.Remarks
+                .Parameters.Add("@PPN", SqlDbType.Decimal).Value = clsData.PPN
+                .Parameters.Add("@PPH", SqlDbType.Decimal).Value = clsData.PPH
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

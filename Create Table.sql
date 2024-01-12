@@ -965,6 +965,8 @@ CREATE TABLE [dbo].[traAccountReceivable](
 	[DueDateValue] [int] NOT NULL CONSTRAINT [DF_traAccountReceivable_DueDateValue]  DEFAULT ((0)),
 	[DueDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountReceivable_DueDate]  DEFAULT (getdate()),
 	[TotalAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountReceivable_TotalAmount]  DEFAULT ((0)),
+	[TotalPPN] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountReceivable_TotalPPN]  DEFAULT ((0)),
+	[TotalPPH] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountReceivable_TotalPPH]  DEFAULT ((0)),
 	[TotalAmountDPAllocate] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountReceivable_TotalAmountDPAllocate]  DEFAULT ((0)),
 	[Percentage] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traAccountReceivable_Percentage]  DEFAULT ((0)),
 	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountReceivable_JournalID]  DEFAULT (''),
@@ -1016,6 +1018,8 @@ CREATE TABLE [dbo].[traAccountReceivableDet](
 	[ARID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountReceivableDet_ARID]  DEFAULT (''),
 	[SalesID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountReceivableDet_SalesID]  DEFAULT (''),
 	[Amount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountReceivableDet_Amount]  DEFAULT ((0)),
+	[PPN] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountReceivableDet_PPN]  DEFAULT ((0)),
+	[PPH] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountReceivableDet_PPH]  DEFAULT ((0)),
 	[Remarks] [varchar](500) NOT NULL CONSTRAINT [DF_traAccountReceivableDet_Remarks]  DEFAULT (''),
  CONSTRAINT [PK_traAccountReceivableDet] PRIMARY KEY CLUSTERED 
 (
@@ -1083,6 +1087,8 @@ CREATE TABLE [dbo].[traAccountPayable](
 	[DueDateValue] [int] NOT NULL CONSTRAINT [DF_traAccountPayable_DueDateValue]  DEFAULT ((0)),
 	[DueDate] [datetime] NOT NULL CONSTRAINT [DF_traAccountPayable_DueDate]  DEFAULT (getdate()),
 	[TotalAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountPayable_TotalAmount]  DEFAULT ((0)),
+	[TotalPPN] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountPayable_TotalPPN]  DEFAULT ((0)),
+	[TotalPPH] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountPayable_TotalPPH]  DEFAULT ((0)),
 	[TotalAmountDPAllocate] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountPayable_TotalAmountDPAllocate]  DEFAULT ((0)),
 	[Percentage] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traAccountPayable_Percentage]  DEFAULT ((0)),
 	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountPayable_JournalID]  DEFAULT (''),
@@ -1134,6 +1140,8 @@ CREATE TABLE [dbo].[traAccountPayableDet](
 	[APID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountPayableDet_APID]  DEFAULT (''),
 	[PurchaseID] [varchar](100) NOT NULL CONSTRAINT [DF_traAccountPayableDet_PurchaseID]  DEFAULT (''),
 	[Amount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountPayableDet_Amount]  DEFAULT ((0)),
+	[PPN] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountPayableDet_PPN]  DEFAULT ((0)),
+	[PPH] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traAccountPayableDet_PPH]  DEFAULT ((0)),
 	[Remarks] [varchar](500) NOT NULL CONSTRAINT [DF_traAccountPayableDet_Remarks]  DEFAULT (''),
  CONSTRAINT [PK_traAccountPayableDet] PRIMARY KEY CLUSTERED 
 (

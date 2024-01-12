@@ -13,6 +13,7 @@
     Private strID As String = ""
     Private bolIsNew As Boolean = False
     Private clsCS As New VO.CS
+    Private decPPN As Decimal = 0, decPPH As Decimal = 0
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -151,10 +152,14 @@
             Dim clsReferences As VO.SalesContract = BL.SalesContract.GetDetail(strReferencesID)
             txtGrandTotalContract.Value = clsReferences.GrandTotal
             txtTotalPayment.Value = clsReferences.DPAmount + clsReferences.ReceiveAmount - txtTotalAmount.Value
+            decPPN = clsReferences.PPN
+            decPPH = clsReferences.PPH
         Else
             Dim clsReferences As VO.PurchaseContract = BL.PurchaseContract.GetDetail(strReferencesID)
             txtGrandTotalContract.Value = clsReferences.GrandTotal
             txtTotalPayment.Value = clsReferences.DPAmount + clsReferences.ReceiveAmount - txtTotalAmount.Value
+            decPPN = clsReferences.PPN
+            decPPH = clsReferences.PPH
         End If
         txtOutstandingPayment.Value = txtGrandTotalContract.Value - txtTotalPayment.Value
     End Sub
@@ -212,6 +217,8 @@
         clsData.ReferencesNote = ""
         clsData.TotalAmount = txtTotalAmount.Value
         clsData.Percentage = txtPercentage.Value
+        clsData.TotalPPN = txtTotalPPN.Value
+        clsData.TotalPPH = txtTotalPPH.Value
         clsData.TransDate = dtpDPDate.Value.Date
         clsData.DueDateValue = txtDueDateValue.Value
         clsData.Modules = strModules
@@ -297,6 +304,8 @@
     Private Sub prvCalculate()
         If txtPercentage.Value <= 0 Then Exit Sub
         txtTotalAmount.Value = ERPSLib.SharedLib.Math.Round((txtGrandTotalContract.Value * txtPercentage.Value / 100), 0)
+        txtTotalPPN.Value = ERPSLib.SharedLib.Math.Round((txtTotalAmount.Value * decPPN / 100), 0)
+        txtTotalPPH.Value = ERPSLib.SharedLib.Math.Round((txtTotalAmount.Value * decPPH / 100), 0)
     End Sub
 
 #Region "History Handle"

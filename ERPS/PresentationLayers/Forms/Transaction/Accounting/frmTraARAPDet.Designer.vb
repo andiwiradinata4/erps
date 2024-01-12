@@ -65,6 +65,10 @@ Partial Class frmTraARAPDet
         Me.ToolStripLogBy = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.txtTotalPPH = New ERPS.usNumeric()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtTotalPPN = New ERPS.usNumeric()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         CType(Me.txtDueDateValue, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -77,6 +81,8 @@ Partial Class frmTraARAPDet
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip.SuspendLayout()
+        CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -131,6 +137,10 @@ Partial Class frmTraARAPDet
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.txtTotalPPH)
+        Me.tpMain.Controls.Add(Me.Label3)
+        Me.tpMain.Controls.Add(Me.txtTotalPPN)
+        Me.tpMain.Controls.Add(Me.Label11)
         Me.tpMain.Controls.Add(Me.chkUsePercentage)
         Me.tpMain.Controls.Add(Me.Label10)
         Me.tpMain.Controls.Add(Me.txtDueDateValue)
@@ -171,7 +181,7 @@ Partial Class frmTraARAPDet
         Me.chkUsePercentage.Location = New System.Drawing.Point(230, 72)
         Me.chkUsePercentage.Name = "chkUsePercentage"
         Me.chkUsePercentage.Size = New System.Drawing.Size(70, 17)
-        Me.chkUsePercentage.TabIndex = 160
+        Me.chkUsePercentage.TabIndex = 5
         Me.chkUsePercentage.Text = "Aktifkan?"
         Me.chkUsePercentage.UseVisualStyleBackColor = True
         '
@@ -194,7 +204,7 @@ Partial Class frmTraARAPDet
         Me.txtDueDateValue.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtDueDateValue.Name = "txtDueDateValue"
         Me.txtDueDateValue.Size = New System.Drawing.Size(83, 21)
-        Me.txtDueDateValue.TabIndex = 7
+        Me.txtDueDateValue.TabIndex = 8
         Me.txtDueDateValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtDueDateValue.ThousandsSeparator = True
         '
@@ -239,7 +249,7 @@ Partial Class frmTraARAPDet
         Me.Label12.AutoSize = True
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.ForeColor = System.Drawing.Color.Black
-        Me.Label12.Location = New System.Drawing.Point(470, 74)
+        Me.Label12.Location = New System.Drawing.Point(470, 128)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(57, 13)
         Me.Label12.TabIndex = 153
@@ -250,12 +260,12 @@ Partial Class frmTraARAPDet
         Me.txtOutstandingPayment.BackColor = System.Drawing.Color.LightYellow
         Me.txtOutstandingPayment.DecimalPlaces = 2
         Me.txtOutstandingPayment.Enabled = False
-        Me.txtOutstandingPayment.Location = New System.Drawing.Point(588, 70)
+        Me.txtOutstandingPayment.Location = New System.Drawing.Point(588, 124)
         Me.txtOutstandingPayment.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtOutstandingPayment.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtOutstandingPayment.Name = "txtOutstandingPayment"
         Me.txtOutstandingPayment.Size = New System.Drawing.Size(249, 21)
-        Me.txtOutstandingPayment.TabIndex = 11
+        Me.txtOutstandingPayment.TabIndex = 14
         Me.txtOutstandingPayment.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtOutstandingPayment.ThousandsSeparator = True
         '
@@ -280,7 +290,7 @@ Partial Class frmTraARAPDet
         Me.txtTotalPayment.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPayment.Name = "txtTotalPayment"
         Me.txtTotalPayment.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalPayment.TabIndex = 10
+        Me.txtTotalPayment.TabIndex = 11
         Me.txtTotalPayment.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPayment.ThousandsSeparator = True
         '
@@ -305,7 +315,7 @@ Partial Class frmTraARAPDet
         Me.txtGrandTotalContract.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtGrandTotalContract.Name = "txtGrandTotalContract"
         Me.txtGrandTotalContract.Size = New System.Drawing.Size(249, 21)
-        Me.txtGrandTotalContract.TabIndex = 9
+        Me.txtGrandTotalContract.TabIndex = 10
         Me.txtGrandTotalContract.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtGrandTotalContract.ThousandsSeparator = True
         '
@@ -318,7 +328,7 @@ Partial Class frmTraARAPDet
         Me.txtTotalAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalAmount.Name = "txtTotalAmount"
         Me.txtTotalAmount.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalAmount.TabIndex = 5
+        Me.txtTotalAmount.TabIndex = 6
         Me.txtTotalAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalAmount.ThousandsSeparator = True
         '
@@ -379,7 +389,7 @@ Partial Class frmTraARAPDet
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(470, 101)
+        Me.Label13.Location = New System.Drawing.Point(470, 155)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 129
@@ -389,12 +399,12 @@ Partial Class frmTraARAPDet
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(588, 97)
+        Me.txtRemarks.Location = New System.Drawing.Point(588, 151)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 12
+        Me.txtRemarks.TabIndex = 15
         '
         'cboStatus
         '
@@ -404,7 +414,7 @@ Partial Class frmTraARAPDet
         Me.cboStatus.Location = New System.Drawing.Point(141, 178)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(127, 21)
-        Me.cboStatus.TabIndex = 8
+        Me.cboStatus.TabIndex = 9
         '
         'Label5
         '
@@ -425,7 +435,7 @@ Partial Class frmTraARAPDet
         Me.dtpDPDate.Location = New System.Drawing.Point(141, 124)
         Me.dtpDPDate.Name = "dtpDPDate"
         Me.dtpDPDate.Size = New System.Drawing.Size(83, 21)
-        Me.dtpDPDate.TabIndex = 6
+        Me.dtpDPDate.TabIndex = 7
         Me.dtpDPDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
         'Label6
@@ -566,6 +576,54 @@ Partial Class frmTraARAPDet
         Me.ToolStripLogDate.Size = New System.Drawing.Size(12, 17)
         Me.ToolStripLogDate.Text = "-"
         '
+        'txtTotalPPH
+        '
+        Me.txtTotalPPH.BackColor = System.Drawing.Color.White
+        Me.txtTotalPPH.DecimalPlaces = 2
+        Me.txtTotalPPH.Location = New System.Drawing.Point(588, 97)
+        Me.txtTotalPPH.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalPPH.Name = "txtTotalPPH"
+        Me.txtTotalPPH.Size = New System.Drawing.Size(249, 21)
+        Me.txtTotalPPH.TabIndex = 13
+        Me.txtTotalPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalPPH.ThousandsSeparator = True
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
+        Me.Label3.ForeColor = System.Drawing.Color.Black
+        Me.Label3.Location = New System.Drawing.Point(470, 101)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(93, 13)
+        Me.Label3.TabIndex = 164
+        Me.Label3.Text = "Total PPH Dibayar"
+        '
+        'txtTotalPPN
+        '
+        Me.txtTotalPPN.BackColor = System.Drawing.Color.White
+        Me.txtTotalPPN.DecimalPlaces = 2
+        Me.txtTotalPPN.Location = New System.Drawing.Point(588, 70)
+        Me.txtTotalPPN.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalPPN.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalPPN.Name = "txtTotalPPN"
+        Me.txtTotalPPN.Size = New System.Drawing.Size(249, 21)
+        Me.txtTotalPPN.TabIndex = 12
+        Me.txtTotalPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalPPN.ThousandsSeparator = True
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.BackColor = System.Drawing.Color.Transparent
+        Me.Label11.ForeColor = System.Drawing.Color.Black
+        Me.Label11.Location = New System.Drawing.Point(470, 74)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(93, 13)
+        Me.Label11.TabIndex = 163
+        Me.Label11.Text = "Total PPN Dibayar"
+        '
         'frmTraARAPDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -596,6 +654,8 @@ Partial Class frmTraARAPDet
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip.ResumeLayout(False)
         Me.StatusStrip.PerformLayout()
+        CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -642,4 +702,8 @@ Partial Class frmTraARAPDet
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents chkUsePercentage As System.Windows.Forms.CheckBox
+    Friend WithEvents txtTotalPPH As ERPS.usNumeric
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents txtTotalPPN As ERPS.usNumeric
+    Friend WithEvents Label11 As System.Windows.Forms.Label
 End Class

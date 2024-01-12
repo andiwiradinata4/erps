@@ -29,6 +29,7 @@ Partial Class frmTraAccountPayableDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.txtDueDateValue = New ERPS.usNumeric()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.chkManual = New DevExpress.XtraEditors.CheckEdit()
@@ -69,7 +70,10 @@ Partial Class frmTraAccountPayableDet
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtTotalPPN = New ERPS.usNumeric()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.txtTotalPPH = New ERPS.usNumeric()
+        Me.Label12 = New System.Windows.Forms.Label()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         CType(Me.txtDueDateValue, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -82,6 +86,8 @@ Partial Class frmTraAccountPayableDet
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -130,12 +136,16 @@ Partial Class frmTraAccountPayableDet
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(859, 196)
+        Me.tcHeader.Size = New System.Drawing.Size(859, 259)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.txtTotalPPH)
+        Me.tpMain.Controls.Add(Me.Label12)
+        Me.tpMain.Controls.Add(Me.txtTotalPPN)
+        Me.tpMain.Controls.Add(Me.Label11)
         Me.tpMain.Controls.Add(Me.Label10)
         Me.tpMain.Controls.Add(Me.txtDueDateValue)
         Me.tpMain.Controls.Add(Me.Label9)
@@ -163,10 +173,21 @@ Partial Class frmTraAccountPayableDet
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(851, 167)
+        Me.tpMain.Size = New System.Drawing.Size(851, 230)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.BackColor = System.Drawing.Color.Transparent
+        Me.Label10.ForeColor = System.Drawing.Color.Black
+        Me.Label10.Location = New System.Drawing.Point(705, 47)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(26, 13)
+        Me.Label10.TabIndex = 148
+        Me.Label10.Text = "Hari"
         '
         'txtDueDateValue
         '
@@ -176,7 +197,7 @@ Partial Class frmTraAccountPayableDet
         Me.txtDueDateValue.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtDueDateValue.Name = "txtDueDateValue"
         Me.txtDueDateValue.Size = New System.Drawing.Size(127, 21)
-        Me.txtDueDateValue.TabIndex = 11
+        Me.txtDueDateValue.TabIndex = 13
         Me.txtDueDateValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtDueDateValue.ThousandsSeparator = True
         '
@@ -348,7 +369,7 @@ Partial Class frmTraAccountPayableDet
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 13
+        Me.txtRemarks.TabIndex = 15
         '
         'cboStatus
         '
@@ -358,7 +379,7 @@ Partial Class frmTraAccountPayableDet
         Me.cboStatus.Location = New System.Drawing.Point(572, 70)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(127, 21)
-        Me.cboStatus.TabIndex = 12
+        Me.cboStatus.TabIndex = 14
         '
         'Label5
         '
@@ -379,7 +400,7 @@ Partial Class frmTraAccountPayableDet
         Me.dtpAPDate.Location = New System.Drawing.Point(572, 16)
         Me.dtpAPDate.Name = "dtpAPDate"
         Me.dtpAPDate.Size = New System.Drawing.Size(127, 21)
-        Me.dtpAPDate.TabIndex = 10
+        Me.dtpAPDate.TabIndex = 12
         Me.dtpAPDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
         'Label6
@@ -467,7 +488,7 @@ Partial Class frmTraAccountPayableDet
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(0, 246)
+        Me.Label1.Location = New System.Drawing.Point(0, 309)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(859, 22)
         Me.Label1.TabIndex = 3
@@ -479,7 +500,7 @@ Partial Class frmTraAccountPayableDet
         Me.ToolBarDetail.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
         Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarCheckAll, Me.BarUncheckAll})
         Me.ToolBarDetail.DropDownArrows = True
-        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 268)
+        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 331)
         Me.ToolBarDetail.Name = "ToolBarDetail"
         Me.ToolBarDetail.ShowToolTips = True
         Me.ToolBarDetail.Size = New System.Drawing.Size(859, 28)
@@ -574,11 +595,11 @@ Partial Class frmTraAccountPayableDet
         Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdItem.Location = New System.Drawing.Point(0, 296)
+        Me.grdItem.Location = New System.Drawing.Point(0, 359)
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
-        Me.grdItem.Size = New System.Drawing.Size(859, 284)
+        Me.grdItem.Size = New System.Drawing.Size(859, 221)
         Me.grdItem.TabIndex = 5
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
@@ -600,16 +621,55 @@ Partial Class frmTraAccountPayableDet
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
         '
-        'Label10
+        'txtTotalPPN
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.BackColor = System.Drawing.Color.Transparent
-        Me.Label10.ForeColor = System.Drawing.Color.Black
-        Me.Label10.Location = New System.Drawing.Point(705, 47)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(26, 13)
-        Me.Label10.TabIndex = 148
-        Me.Label10.Text = "Hari"
+        Me.txtTotalPPN.BackColor = System.Drawing.Color.LightYellow
+        Me.txtTotalPPN.DecimalPlaces = 2
+        Me.txtTotalPPN.Enabled = False
+        Me.txtTotalPPN.Location = New System.Drawing.Point(132, 151)
+        Me.txtTotalPPN.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalPPN.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalPPN.Name = "txtTotalPPN"
+        Me.txtTotalPPN.Size = New System.Drawing.Size(249, 21)
+        Me.txtTotalPPN.TabIndex = 10
+        Me.txtTotalPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalPPN.ThousandsSeparator = True
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.BackColor = System.Drawing.Color.Transparent
+        Me.Label11.ForeColor = System.Drawing.Color.Black
+        Me.Label11.Location = New System.Drawing.Point(28, 155)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(93, 13)
+        Me.Label11.TabIndex = 150
+        Me.Label11.Text = "Total PPN Dibayar"
+        '
+        'txtTotalPPH
+        '
+        Me.txtTotalPPH.BackColor = System.Drawing.Color.LightYellow
+        Me.txtTotalPPH.DecimalPlaces = 2
+        Me.txtTotalPPH.Enabled = False
+        Me.txtTotalPPH.Location = New System.Drawing.Point(132, 178)
+        Me.txtTotalPPH.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalPPH.Name = "txtTotalPPH"
+        Me.txtTotalPPH.Size = New System.Drawing.Size(249, 21)
+        Me.txtTotalPPH.TabIndex = 11
+        Me.txtTotalPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalPPH.ThousandsSeparator = True
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.BackColor = System.Drawing.Color.Transparent
+        Me.Label12.ForeColor = System.Drawing.Color.Black
+        Me.Label12.Location = New System.Drawing.Point(28, 182)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(93, 13)
+        Me.Label12.TabIndex = 152
+        Me.Label12.Text = "Total PPH Dibayar"
         '
         'frmTraAccountPayableDet
         '
@@ -644,6 +704,8 @@ Partial Class frmTraAccountPayableDet
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -695,4 +757,8 @@ Partial Class frmTraAccountPayableDet
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents txtDueDateValue As ERPS.usNumeric
     Friend WithEvents Label10 As System.Windows.Forms.Label
+    Friend WithEvents txtTotalPPH As ERPS.usNumeric
+    Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents txtTotalPPN As ERPS.usNumeric
+    Friend WithEvents Label11 As System.Windows.Forms.Label
 End Class
