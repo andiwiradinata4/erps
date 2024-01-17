@@ -12,26 +12,26 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.PCNumber, A.PCDate, " & vbNewLine & _
-                    "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.AllowanceProduction, A.Franco, " & vbNewLine & _
-                    "   A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine & _
-                    "   A.DPAmount, A.ReceiveAmount, (A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual)-(A.DPAmount+A.ReceiveAmount) AS OutstandingPayment, A.IsDeleted, A.Remarks, A.StatusID, " & vbNewLine & _
-                    "   B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine & _
-                    "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
-                    "FROM traPurchaseContract A " & vbNewLine & _
-                    "INNER JOIN mstStatus B ON " & vbNewLine & _
-                    "   A.StatusID=B.ID " & vbNewLine & _
-                    "INNER JOIN mstBusinessPartner C ON " & vbNewLine & _
-                    "   A.BPID=C.ID " & vbNewLine & _
-                    "INNER JOIN mstCompany MC ON " & vbNewLine & _
-                    "   A.CompanyID=MC.ID " & vbNewLine & _
-                    "INNER JOIN mstProgram MP ON " & vbNewLine & _
-                    "   A.ProgramID=MP.ID " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
-                    "   A.ProgramID=@ProgramID " & vbNewLine & _
-                    "   AND A.CompanyID=@CompanyID " & vbNewLine & _
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.PCNumber, A.PCDate, " & vbNewLine &
+                    "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.AllowanceProduction, A.Franco, " & vbNewLine &
+                    "   A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine &
+                    "   A.DPAmount, A.ReceiveAmount, (A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual)-(A.DPAmount+A.ReceiveAmount) AS OutstandingPayment, A.IsDeleted, A.Remarks, A.StatusID, " & vbNewLine &
+                    "   B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine &
+                    "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine &
+                    "FROM traPurchaseContract A " & vbNewLine &
+                    "INNER JOIN mstStatus B ON " & vbNewLine &
+                    "   A.StatusID=B.ID " & vbNewLine &
+                    "INNER JOIN mstBusinessPartner C ON " & vbNewLine &
+                    "   A.BPID=C.ID " & vbNewLine &
+                    "INNER JOIN mstCompany MC ON " & vbNewLine &
+                    "   A.CompanyID=MC.ID " & vbNewLine &
+                    "INNER JOIN mstProgram MP ON " & vbNewLine &
+                    "   A.ProgramID=MP.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine &
                     "   AND A.PCDate>=@DateFrom AND A.PCDate<=@DateTo " & vbNewLine
 
                 If intStatusID > 0 Then .CommandText += "   AND A.StatusID=@StatusID " & vbNewLine
@@ -53,22 +53,23 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "   CAST(0 AS BIT) AS Pick, A.ID AS PurchaseID, A.PCNumber AS InvoiceNumber, A.PCDate AS InvoiceDate, " & vbNewLine & _
-                    "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine & _
-                    "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual-A.DPAmount-A.ReceiveAmount AS MaxPaymentAmount, " & vbNewLine & _
-                    "   CAST('' AS VARCHAR(500)) AS Remarks " & vbNewLine & _
-                    "FROM traPurchaseContract A " & vbNewLine & _
-                    "INNER JOIN mstCompany MC ON " & vbNewLine & _
-                    "   A.CompanyID=MC.ID " & vbNewLine & _
-                    "INNER JOIN mstProgram MP ON " & vbNewLine & _
-                    "   A.ProgramID=MP.ID " & vbNewLine & _
-                    "WHERE  " & vbNewLine & _
-                    "   A.BPID=@BPID " & vbNewLine & _
-                    "   AND A.CompanyID=@CompanyID " & vbNewLine & _
-                    "   AND A.ProgramID=@ProgramID " & vbNewLine & _
-                    "   AND A.ApprovedBy<>'' " & vbNewLine & _
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, A.ID AS PurchaseID, A.PCNumber AS InvoiceNumber, A.PCDate AS InvoiceDate, " & vbNewLine &
+                    "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine &
+                    "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual-A.DPAmount-A.ReceiveAmount AS MaxPaymentAmount, " & vbNewLine &
+                    "   CAST('' AS VARCHAR(500)) AS Remarks, A.PPN AS PPNPercent, A.PPH AS PPHPercent, CAST(0 AS DECIMAL(18,2)) AS PPN, " & vbNewLine &
+                    "   CAST(0 AS DECIMAL(18,2)) AS PPH " & vbNewLine &
+                    "FROM traPurchaseContract A " & vbNewLine &
+                    "INNER JOIN mstCompany MC ON " & vbNewLine &
+                    "   A.CompanyID=MC.ID " & vbNewLine &
+                    "INNER JOIN mstProgram MP ON " & vbNewLine &
+                    "   A.ProgramID=MP.ID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   A.BPID=@BPID " & vbNewLine &
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.ApprovedBy<>'' " & vbNewLine &
                     "   AND A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual-A.DPAmount-A.ReceiveAmount>0 " & vbNewLine
 
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
@@ -86,41 +87,41 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 If bolNew Then
-                    .CommandText = _
-                        "INSERT INTO traPurchaseContract " & vbNewLine & _
-                        "   (ID, ProgramID, CompanyID, PCNumber, PCDate, BPID, DeliveryPeriodFrom, DeliveryPeriodTo, AllowanceProduction, " & vbNewLine & _
-                        "    Franco, PPN, PPH, TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, RoundingManual, Remarks, " & vbNewLine & _
-                        "    StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine & _
-                        "VALUES " & vbNewLine & _
-                        "   (@ID, @ProgramID, @CompanyID, @PCNumber, @PCDate, @BPID, @DeliveryPeriodFrom, @DeliveryPeriodTo, @AllowanceProduction, " & vbNewLine & _
-                        "    @Franco, @PPN, @PPH, @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @RoundingManual, @Remarks, " & vbNewLine & _
+                    .CommandText =
+                        "INSERT INTO traPurchaseContract " & vbNewLine &
+                        "   (ID, ProgramID, CompanyID, PCNumber, PCDate, BPID, DeliveryPeriodFrom, DeliveryPeriodTo, AllowanceProduction, " & vbNewLine &
+                        "    Franco, PPN, PPH, TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, RoundingManual, Remarks, " & vbNewLine &
+                        "    StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine &
+                        "VALUES " & vbNewLine &
+                        "   (@ID, @ProgramID, @CompanyID, @PCNumber, @PCDate, @BPID, @DeliveryPeriodFrom, @DeliveryPeriodTo, @AllowanceProduction, " & vbNewLine &
+                        "    @Franco, @PPN, @PPH, @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @RoundingManual, @Remarks, " & vbNewLine &
                         "    @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
                 Else
-                    .CommandText = _
-                    "UPDATE traPurchaseContract SET " & vbNewLine & _
-                    "    ProgramID=@ProgramID, " & vbNewLine & _
-                    "    CompanyID=@CompanyID, " & vbNewLine & _
-                    "    PCNumber=@PCNumber, " & vbNewLine & _
-                    "    PCDate=@PCDate, " & vbNewLine & _
-                    "    BPID=@BPID, " & vbNewLine & _
-                    "    DeliveryPeriodFrom=@DeliveryPeriodFrom, " & vbNewLine & _
-                    "    DeliveryPeriodTo=@DeliveryPeriodTo, " & vbNewLine & _
-                    "    AllowanceProduction=@AllowanceProduction, " & vbNewLine & _
-                    "    Franco=@Franco, " & vbNewLine & _
-                    "    PPN=@PPN, " & vbNewLine & _
-                    "    PPH=@PPH, " & vbNewLine & _
-                    "    TotalQuantity=@TotalQuantity, " & vbNewLine & _
-                    "    TotalWeight=@TotalWeight, " & vbNewLine & _
-                    "    TotalDPP=@TotalDPP, " & vbNewLine & _
-                    "    TotalPPN=@TotalPPN, " & vbNewLine & _
-                    "    TotalPPH=@TotalPPH, " & vbNewLine & _
-                    "    RoundingManual=@RoundingManual, " & vbNewLine & _
-                    "    Remarks=@Remarks, " & vbNewLine & _
-                    "    StatusID=@StatusID, " & vbNewLine & _
-                    "    LogInc=LogInc+1, " & vbNewLine & _
-                    "    LogBy=@LogBy, " & vbNewLine & _
-                    "    LogDate=GETDATE() " & vbNewLine & _
-                    "WHERE   " & vbNewLine & _
+                    .CommandText =
+                    "UPDATE traPurchaseContract SET " & vbNewLine &
+                    "    ProgramID=@ProgramID, " & vbNewLine &
+                    "    CompanyID=@CompanyID, " & vbNewLine &
+                    "    PCNumber=@PCNumber, " & vbNewLine &
+                    "    PCDate=@PCDate, " & vbNewLine &
+                    "    BPID=@BPID, " & vbNewLine &
+                    "    DeliveryPeriodFrom=@DeliveryPeriodFrom, " & vbNewLine &
+                    "    DeliveryPeriodTo=@DeliveryPeriodTo, " & vbNewLine &
+                    "    AllowanceProduction=@AllowanceProduction, " & vbNewLine &
+                    "    Franco=@Franco, " & vbNewLine &
+                    "    PPN=@PPN, " & vbNewLine &
+                    "    PPH=@PPH, " & vbNewLine &
+                    "    TotalQuantity=@TotalQuantity, " & vbNewLine &
+                    "    TotalWeight=@TotalWeight, " & vbNewLine &
+                    "    TotalDPP=@TotalDPP, " & vbNewLine &
+                    "    TotalPPN=@TotalPPN, " & vbNewLine &
+                    "    TotalPPH=@TotalPPH, " & vbNewLine &
+                    "    RoundingManual=@RoundingManual, " & vbNewLine &
+                    "    Remarks=@Remarks, " & vbNewLine &
+                    "    StatusID=@StatusID, " & vbNewLine &
+                    "    LogInc=LogInc+1, " & vbNewLine &
+                    "    LogBy=@LogBy, " & vbNewLine &
+                    "    LogDate=GETDATE() " & vbNewLine &
+                    "WHERE   " & vbNewLine &
                     "    ID=@ID " & vbNewLine
                 End If
 
@@ -162,15 +163,15 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   A.ID, A.ProgramID, A.CompanyID, A.PCNumber, A.PCDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.AllowanceProduction, A.Franco, " & vbNewLine & _
-                        "   A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.JournalID, A.StatusID, A.SubmitBy, A.SubmitDate, A.ApproveL1, " & vbNewLine & _
-                        "   A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.ReceiveAmount, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual " & vbNewLine & _
-                        "FROM traPurchaseContract A " & vbNewLine & _
-                        "INNER JOIN mstBusinessPartner B ON " & vbNewLine & _
-                        "   A.BPID=B.ID " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   A.ID, A.ProgramID, A.CompanyID, A.PCNumber, A.PCDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.AllowanceProduction, A.Franco, " & vbNewLine &
+                        "   A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.JournalID, A.StatusID, A.SubmitBy, A.SubmitDate, A.ApproveL1, " & vbNewLine &
+                        "   A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.ReceiveAmount, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual " & vbNewLine &
+                        "FROM traPurchaseContract A " & vbNewLine &
+                        "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
+                        "   A.BPID=B.ID " & vbNewLine &
+                        "WHERE " & vbNewLine &
                         "   A.ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -234,11 +235,11 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE traPurchaseContract SET " & vbNewLine & _
-                    "   StatusID=@StatusID, " & vbNewLine & _
-                    "   IsDeleted=1 " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "UPDATE traPurchaseContract SET " & vbNewLine &
+                    "   StatusID=@StatusID, " & vbNewLine &
+                    "   IsDeleted=1 " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -260,12 +261,12 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   ISNULL(RIGHT(ID, 4),'0000') AS ID " & vbNewLine & _
-                        "FROM traPurchaseContract " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
-                        "   LEFT(ID,@Length)=@ID " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ISNULL(RIGHT(ID, 4),'0000') AS ID " & vbNewLine &
+                        "FROM traPurchaseContract " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   LEFT(ID,@Length)=@ID " & vbNewLine &
                         "ORDER BY CreatedDate DESC " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, strNewID.Length).Value = strNewID
@@ -295,12 +296,12 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   ID " & vbNewLine & _
-                        "FROM traPurchaseContract " & vbNewLine & _
-                        "WHERE  " & vbNewLine & _
-                        "   PCNumber=@PCNumber " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID " & vbNewLine &
+                        "FROM traPurchaseContract " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   PCNumber=@PCNumber " & vbNewLine &
                         "   AND ID<>@ID " & vbNewLine
 
                     .Parameters.Add("@PCNumber", SqlDbType.VarChar, 100).Value = strPCNumber
@@ -328,11 +329,11 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   StatusID " & vbNewLine & _
-                        "FROM traPurchaseContract " & vbNewLine & _
-                        "WHERE  " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   StatusID " & vbNewLine &
+                        "FROM traPurchaseContract " & vbNewLine &
+                        "WHERE  " & vbNewLine &
                         "   ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -360,12 +361,12 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   StatusID " & vbNewLine & _
-                        "FROM traPurchaseContract " & vbNewLine & _
-                        "WHERE  " & vbNewLine & _
-                        "   ID=@ID " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   StatusID " & vbNewLine &
+                        "FROM traPurchaseContract " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   ID=@ID " & vbNewLine &
                         "   AND IsDeleted=1 " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -392,12 +393,12 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE traPurchaseContract SET " & vbNewLine & _
-                    "    StatusID=@StatusID, " & vbNewLine & _
-                    "    SubmitBy=@LogBy, " & vbNewLine & _
-                    "    SubmitDate=GETDATE() " & vbNewLine & _
-                    "WHERE   " & vbNewLine & _
+                .CommandText =
+                    "UPDATE traPurchaseContract SET " & vbNewLine &
+                    "    StatusID=@StatusID, " & vbNewLine &
+                    "    SubmitBy=@LogBy, " & vbNewLine &
+                    "    SubmitDate=GETDATE() " & vbNewLine &
+                    "WHERE   " & vbNewLine &
                     "    ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -418,11 +419,11 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE traPurchaseContract SET " & vbNewLine & _
-                    "    StatusID=@StatusID, " & vbNewLine & _
-                    "    SubmitBy='' " & vbNewLine & _
-                    "WHERE   " & vbNewLine & _
+                .CommandText =
+                    "UPDATE traPurchaseContract SET " & vbNewLine &
+                    "    StatusID=@StatusID, " & vbNewLine &
+                    "    SubmitBy='' " & vbNewLine &
+                    "WHERE   " & vbNewLine &
                     "    ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -442,14 +443,14 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE traPurchaseContract SET " & vbNewLine & _
-                    "    StatusID=@StatusID, " & vbNewLine & _
-                    "    ApproveL1=@LogBy, " & vbNewLine & _
-                    "    ApproveL1Date=GETDATE(), " & vbNewLine & _
-                    "    ApprovedBy=@LogBy, " & vbNewLine & _
-                    "    ApprovedDate=GETDATE() " & vbNewLine & _
-                    "WHERE   " & vbNewLine & _
+                .CommandText =
+                    "UPDATE traPurchaseContract SET " & vbNewLine &
+                    "    StatusID=@StatusID, " & vbNewLine &
+                    "    ApproveL1=@LogBy, " & vbNewLine &
+                    "    ApproveL1Date=GETDATE(), " & vbNewLine &
+                    "    ApprovedBy=@LogBy, " & vbNewLine &
+                    "    ApprovedDate=GETDATE() " & vbNewLine &
+                    "WHERE   " & vbNewLine &
                     "    ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -470,12 +471,12 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE traPurchaseContract SET " & vbNewLine & _
-                    "    StatusID=@StatusID, " & vbNewLine & _
-                    "    ApproveL1='', " & vbNewLine & _
-                    "    ApprovedBy='' " & vbNewLine & _
-                    "WHERE   " & vbNewLine & _
+                .CommandText =
+                    "UPDATE traPurchaseContract SET " & vbNewLine &
+                    "    StatusID=@StatusID, " & vbNewLine &
+                    "    ApproveL1='', " & vbNewLine &
+                    "    ApprovedBy='' " & vbNewLine &
+                    "WHERE   " & vbNewLine &
                     "    ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -495,20 +496,20 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE traPurchaseContract SET 	" & vbNewLine & _
-                    "	DPAmount=	" & vbNewLine & _
-                    "	(	" & vbNewLine & _
-                    "		SELECT	" & vbNewLine & _
-                    "			ISNULL(SUM(APD.Amount),0) TotalPayment		" & vbNewLine & _
-                    "		FROM traAccountPayableDet APD 	" & vbNewLine & _
-                    "		INNER JOIN traAccountPayable APH ON	" & vbNewLine & _
-                    "			APD.APID=APH.ID 	" & vbNewLine & _
-                    "			AND APH.Modules=@Modules " & vbNewLine & _
-                    "		WHERE 	" & vbNewLine & _
-                    "			APD.PurchaseID=@ID 	" & vbNewLine & _
-                    "			AND APH.IsDeleted=0 	" & vbNewLine & _
-                    "	) " & vbNewLine & _
+                .CommandText =
+                    "UPDATE traPurchaseContract SET 	" & vbNewLine &
+                    "	DPAmount=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(APD.Amount),0) TotalPayment		" & vbNewLine &
+                    "		FROM traAccountPayableDet APD 	" & vbNewLine &
+                    "		INNER JOIN traAccountPayable APH ON	" & vbNewLine &
+                    "			APD.APID=APH.ID 	" & vbNewLine &
+                    "			AND APH.Modules=@Modules " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			APD.PurchaseID=@ID 	" & vbNewLine &
+                    "			AND APH.IsDeleted=0 	" & vbNewLine &
+                    "	) " & vbNewLine &
                     "WHERE ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -528,20 +529,20 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE traPurchaseContract SET 	" & vbNewLine & _
-                    "	ReceiveAmount=	" & vbNewLine & _
-                    "	(	" & vbNewLine & _
-                    "		SELECT	" & vbNewLine & _
-                    "			ISNULL(SUM(APD.Amount),0) TotalPayment		" & vbNewLine & _
-                    "		FROM traAccountPayableDet APD 	" & vbNewLine & _
-                    "		INNER JOIN traAccountPayable APH ON	" & vbNewLine & _
-                    "			APD.APID=APH.ID 	" & vbNewLine & _
-                    "			AND APH.Modules=@Modules " & vbNewLine & _
-                    "		WHERE 	" & vbNewLine & _
-                    "			APD.PurchaseID=@ID 	" & vbNewLine & _
-                    "			AND APH.IsDeleted=0 	" & vbNewLine & _
-                    "	) " & vbNewLine & _
+                .CommandText =
+                    "UPDATE traPurchaseContract SET 	" & vbNewLine &
+                    "	ReceiveAmount=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(APD.Amount),0) TotalPayment		" & vbNewLine &
+                    "		FROM traAccountPayableDet APD 	" & vbNewLine &
+                    "		INNER JOIN traAccountPayable APH ON	" & vbNewLine &
+                    "			APD.APID=APH.ID 	" & vbNewLine &
+                    "			AND APH.Modules=@Modules " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			APD.PurchaseID=@ID 	" & vbNewLine &
+                    "			AND APH.IsDeleted=0 	" & vbNewLine &
+                    "	) " & vbNewLine &
                     "WHERE ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -561,10 +562,10 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE traPurchaseContract SET " & vbNewLine & _
-                    "    JournalID=@JournalID " & vbNewLine & _
-                    "WHERE   " & vbNewLine & _
+                .CommandText =
+                    "UPDATE traPurchaseContract SET " & vbNewLine &
+                    "    JournalID=@JournalID " & vbNewLine &
+                    "WHERE   " & vbNewLine &
                     "    ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -585,12 +586,12 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   ID " & vbNewLine & _
-                        "FROM traPurchaseContract " & vbNewLine & _
-                        "WHERE  " & vbNewLine & _
-                        "   ID=@ID " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID " & vbNewLine &
+                        "FROM traPurchaseContract " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   ID=@ID " & vbNewLine &
                         "   AND DPAmount+ReceiveAmount>0 " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -621,23 +622,23 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "   A.ID, A.PCID, A.CODetailID, A2.CONumber, A1.OrderNumberSupplier, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
-                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine & _
-                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.PCWeight AS MaxTotalWeight, A.Remarks " & vbNewLine & _
-                    "FROM traPurchaseContractDet A " & vbNewLine & _
-                    "INNER JOIN traConfirmationOrderDet A1 ON " & vbNewLine & _
-                    "   A.CODetailID=A1.ID " & vbNewLine & _
-                    "INNER JOIN traConfirmationOrder A2 ON " & vbNewLine & _
-                    "   A1.COID=A2.ID " & vbNewLine & _
-                    "INNER JOIN mstItem B ON " & vbNewLine & _
-                    "   A.ItemID=B.ID " & vbNewLine & _
-                    "INNER JOIN mstItemSpecification C ON " & vbNewLine & _
-                    "   B.ItemSpecificationID=C.ID " & vbNewLine & _
-                    "INNER JOIN mstItemType D ON " & vbNewLine & _
-                    "   B.ItemTypeID=D.ID " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.PCID, A.CODetailID, A2.CONumber, A1.OrderNumberSupplier, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.PCWeight AS MaxTotalWeight, A.Remarks " & vbNewLine &
+                    "FROM traPurchaseContractDet A " & vbNewLine &
+                    "INNER JOIN traConfirmationOrderDet A1 ON " & vbNewLine &
+                    "   A.CODetailID=A1.ID " & vbNewLine &
+                    "INNER JOIN traConfirmationOrder A2 ON " & vbNewLine &
+                    "   A1.COID=A2.ID " & vbNewLine &
+                    "INNER JOIN mstItem B ON " & vbNewLine &
+                    "   A.ItemID=B.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification C ON " & vbNewLine &
+                    "   B.ItemSpecificationID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItemType D ON " & vbNewLine &
+                    "   B.ItemTypeID=D.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   A.PCID=@PCID " & vbNewLine
 
                 .Parameters.Add("@PCID", SqlDbType.VarChar, 100).Value = strPCID
@@ -686,8 +687,7 @@ WHERE
         End Function
 
         Public Shared Function ListDataDetailOutstandingCutting(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                                ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                                ByVal intBPID As Integer) As DataTable
+                                                                ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -730,10 +730,10 @@ WHERE
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "INSERT INTO traPurchaseContractDet " & vbNewLine & _
-                    "   (ID, PCID, CODetailID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks) " & vbNewLine & _
-                    "VALUES " & vbNewLine & _
+                .CommandText =
+                    "INSERT INTO traPurchaseContractDet " & vbNewLine &
+                    "   (ID, PCID, CODetailID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks) " & vbNewLine &
+                    "VALUES " & vbNewLine &
                     "   (@ID, @PCID, @CODetailID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
@@ -761,9 +761,9 @@ WHERE
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "DELETE FROM traPurchaseContractDet     " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "DELETE FROM traPurchaseContractDet     " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   PCID=@PCID" & vbNewLine
 
                 .Parameters.Add("@PCID", SqlDbType.VarChar, 100).Value = strPCID
@@ -782,30 +782,30 @@ WHERE
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE traPurchaseContractDet SET 	" & vbNewLine & _
-                    "	DCWeight=	" & vbNewLine & _
-                    "	(	" & vbNewLine & _
-                    "		SELECT	" & vbNewLine & _
-                    "			ISNULL(SUM(RVD.TotalWeight),0) TotalWeight		" & vbNewLine & _
-                    "		FROM traReceiveDet RVD 	" & vbNewLine & _
-                    "		INNER JOIN traReceive RVH ON	" & vbNewLine & _
-                    "			RVD.ReceiveID=RVH.ID 	" & vbNewLine & _
-                    "		WHERE 	" & vbNewLine & _
-                    "			RVD.PCDetailID=@PCDetailID 	" & vbNewLine & _
-                    "			AND RVH.IsDeleted=0 	" & vbNewLine & _
-                    "	), 	" & vbNewLine & _
-                    "	DCQuantity=	" & vbNewLine & _
-                    "	(	" & vbNewLine & _
-                    "		SELECT	" & vbNewLine & _
-                    "			ISNULL(SUM(RVD.Quantity),0) TotalQuantity " & vbNewLine & _
-                    "		FROM traReceiveDet RVD 	" & vbNewLine & _
-                    "		INNER JOIN traReceive RVH ON	" & vbNewLine & _
-                    "			RVD.ReceiveID=RVH.ID 	" & vbNewLine & _
-                    "		WHERE 	" & vbNewLine & _
-                    "			RVD.PCDetailID=@PCDetailID 	" & vbNewLine & _
-                    "			AND RVH.IsDeleted=0 	" & vbNewLine & _
-                    "	) 	" & vbNewLine & _
+                .CommandText =
+                    "UPDATE traPurchaseContractDet SET 	" & vbNewLine &
+                    "	DCWeight=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(RVD.TotalWeight),0) TotalWeight		" & vbNewLine &
+                    "		FROM traReceiveDet RVD 	" & vbNewLine &
+                    "		INNER JOIN traReceive RVH ON	" & vbNewLine &
+                    "			RVD.ReceiveID=RVH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			RVD.PCDetailID=@PCDetailID 	" & vbNewLine &
+                    "			AND RVH.IsDeleted=0 	" & vbNewLine &
+                    "	), 	" & vbNewLine &
+                    "	DCQuantity=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(RVD.Quantity),0) TotalQuantity " & vbNewLine &
+                    "		FROM traReceiveDet RVD 	" & vbNewLine &
+                    "		INNER JOIN traReceive RVH ON	" & vbNewLine &
+                    "			RVD.ReceiveID=RVH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			RVD.PCDetailID=@PCDetailID 	" & vbNewLine &
+                    "			AND RVH.IsDeleted=0 	" & vbNewLine &
+                    "	) 	" & vbNewLine &
                     "WHERE ID=@PCDetailID	" & vbNewLine
 
                 .Parameters.Add("@PCDetailID", SqlDbType.VarChar, 100).Value = strPCDetailID
@@ -824,30 +824,30 @@ WHERE
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE traPurchaseContractDet SET 	" & vbNewLine & _
-                    "	CuttingWeight=	" & vbNewLine & _
-                    "	(	" & vbNewLine & _
-                    "		SELECT	" & vbNewLine & _
-                    "			ISNULL(SUM(POD.TotalWeight),0) TotalWeight " & vbNewLine & _
-                    "		FROM traPurchaseOrderCuttingDet POD 	" & vbNewLine & _
-                    "		INNER JOIN traPurchaseOrderCutting POH ON	" & vbNewLine & _
-                    "			POD.POID=POH.ID 	" & vbNewLine & _
-                    "		WHERE 	" & vbNewLine & _
-                    "			POD.PCDetailID=@PCDetailID 	" & vbNewLine & _
-                    "			AND POH.IsDeleted=0 	" & vbNewLine & _
-                    "	), 	" & vbNewLine & _
-                    "	CuttingQuantity=	" & vbNewLine & _
-                    "	(	" & vbNewLine & _
-                    "		SELECT	" & vbNewLine & _
-                    "			ISNULL(SUM(POD.Quantity),0) TotalQuantity " & vbNewLine & _
-                    "		FROM traPurchaseOrderCuttingDet POD 	" & vbNewLine & _
-                    "		INNER JOIN traPurchaseOrderCutting POH ON	" & vbNewLine & _
-                    "			POD.POID=POH.ID 	" & vbNewLine & _
-                    "		WHERE 	" & vbNewLine & _
-                    "			POD.PCDetailID=@PCDetailID 	" & vbNewLine & _
-                    "			AND POH.IsDeleted=0 	" & vbNewLine & _
-                    "	) 	" & vbNewLine & _
+                .CommandText =
+                    "UPDATE traPurchaseContractDet SET 	" & vbNewLine &
+                    "	CuttingWeight=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(POD.TotalWeight),0) TotalWeight " & vbNewLine &
+                    "		FROM traPurchaseOrderCuttingDet POD 	" & vbNewLine &
+                    "		INNER JOIN traPurchaseOrderCutting POH ON	" & vbNewLine &
+                    "			POD.POID=POH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			POD.PCDetailID=@PCDetailID 	" & vbNewLine &
+                    "			AND POH.IsDeleted=0 	" & vbNewLine &
+                    "	), 	" & vbNewLine &
+                    "	CuttingQuantity=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(POD.Quantity),0) TotalQuantity " & vbNewLine &
+                    "		FROM traPurchaseOrderCuttingDet POD 	" & vbNewLine &
+                    "		INNER JOIN traPurchaseOrderCutting POH ON	" & vbNewLine &
+                    "			POD.POID=POH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			POD.PCDetailID=@PCDetailID 	" & vbNewLine &
+                    "			AND POH.IsDeleted=0 	" & vbNewLine &
+                    "	) 	" & vbNewLine &
                     "WHERE ID=@PCDetailID	" & vbNewLine
 
                 .Parameters.Add("@PCDetailID", SqlDbType.VarChar, 100).Value = strPCDetailID
@@ -870,16 +870,16 @@ WHERE
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "   A.ID, A.PCID, A.Percentage, A.PaymentTypeID, B.Code AS PaymentTypeCode, B.Name AS PaymentTypeName, " & vbNewLine & _
-                    "   A.PaymentModeID, C.Code AS PaymentModeCode, C.Name AS PaymentModeName, A.CreditTerm, A.Remarks " & vbNewLine & _
-                    "FROM traPurchaseContractPaymentTerm A " & vbNewLine & _
-                    "INNER JOIN mstPaymentType B ON " & vbNewLine & _
-                    "   A.PaymentTypeID=B.ID " & vbNewLine & _
-                    "INNER JOIN mstPaymentMode C ON " & vbNewLine & _
-                    "   A.PaymentModeID=C.ID " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.PCID, A.Percentage, A.PaymentTypeID, B.Code AS PaymentTypeCode, B.Name AS PaymentTypeName, " & vbNewLine &
+                    "   A.PaymentModeID, C.Code AS PaymentModeCode, C.Name AS PaymentModeName, A.CreditTerm, A.Remarks " & vbNewLine &
+                    "FROM traPurchaseContractPaymentTerm A " & vbNewLine &
+                    "INNER JOIN mstPaymentType B ON " & vbNewLine &
+                    "   A.PaymentTypeID=B.ID " & vbNewLine &
+                    "INNER JOIN mstPaymentMode C ON " & vbNewLine &
+                    "   A.PaymentModeID=C.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   A.PCID=@PCID " & vbNewLine
 
                 .Parameters.Add("@PCID", SqlDbType.VarChar, 100).Value = strPCID
@@ -894,10 +894,10 @@ WHERE
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "INSERT INTO traPurchaseContractPaymentTerm " & vbNewLine & _
-                    "   (ID, PCID, Percentage, PaymentTypeID, PaymentModeID, CreditTerm, Remarks) " & vbNewLine & _
-                    "VALUES " & vbNewLine & _
+                .CommandText =
+                    "INSERT INTO traPurchaseContractPaymentTerm " & vbNewLine &
+                    "   (ID, PCID, Percentage, PaymentTypeID, PaymentModeID, CreditTerm, Remarks) " & vbNewLine &
+                    "VALUES " & vbNewLine &
                     "   (@ID, @PCID, @Percentage, @PaymentTypeID, @PaymentModeID, @CreditTerm, @Remarks) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
@@ -922,9 +922,9 @@ WHERE
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "DELETE FROM traPurchaseContractPaymentTerm     " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "DELETE FROM traPurchaseContractPaymentTerm     " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   PCID=@PCID" & vbNewLine
 
                 .Parameters.Add("@PCID", SqlDbType.VarChar, 100).Value = strPCID
@@ -947,11 +947,11 @@ WHERE
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "   A.ID, A.PCID, A.Status, A.StatusBy, A.StatusDate, A.Remarks " & vbNewLine & _
-                    "FROM traPurchaseContractStatus A " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.PCID, A.Status, A.StatusBy, A.StatusDate, A.Remarks " & vbNewLine &
+                    "FROM traPurchaseContractStatus A " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   A.PCID=@PCID " & vbNewLine
 
                 .Parameters.Add("@PCID", SqlDbType.VarChar, 100).Value = strPCID
@@ -966,10 +966,10 @@ WHERE
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "INSERT INTO traPurchaseContractStatus " & vbNewLine & _
-                    "   (ID, PCID, Status, StatusBy, StatusDate, Remarks) " & vbNewLine & _
-                    "VALUES " & vbNewLine & _
+                .CommandText =
+                    "INSERT INTO traPurchaseContractStatus " & vbNewLine &
+                    "   (ID, PCID, Status, StatusBy, StatusDate, Remarks) " & vbNewLine &
+                    "VALUES " & vbNewLine &
                     "   (@ID, @PCID, @Status, @StatusBy, GETDATE(), @Remarks) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
@@ -994,11 +994,11 @@ WHERE
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 ISNULL(RIGHT(ID,3),'000') AS ID " & vbNewLine & _
-                        "FROM traPurchaseContractStatus " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
-                        "   PCID=@PCID " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 ISNULL(RIGHT(ID,3),'000') AS ID " & vbNewLine &
+                        "FROM traPurchaseContractStatus " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   PCID=@PCID " & vbNewLine &
                         "ORDER BY ID DESC " & vbNewLine
 
                     .Parameters.Add("@PCID", SqlDbType.VarChar, 100).Value = strPCID

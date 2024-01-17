@@ -54,11 +54,15 @@ Public Class frmTraAccountPayableDet
         UI.usForm.SetGrid(grdItemView, "InvoiceDate", "Tanggal Invoice", 250, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdItemView, "PurchaseAmount", "PurchaseAmount", 250, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemView, "Amount", "Total Tagihan", 150, UI.usDefGrid.gReal2Num, True, False)
+        UI.usForm.SetGrid(grdItemView, "PPNPercent", "PPNPercent", 150, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdItemView, "PPHPercent", "PPHPercent", 150, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemView, "PPN", "PPN", 150, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "PPH", "PPH", 150, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "MaxPaymentAmount", "Total Maksimal Tagihan", 150, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 250, UI.usDefGrid.gString, True, False)
         grdItemView.Columns("Amount").ColumnEdit = rpiValue
+        grdItemView.Columns("PPN").ColumnEdit = rpiValue
+        grdItemView.Columns("PPH").ColumnEdit = rpiValue
 
         '# History
         UI.usForm.SetGrid(grdStatusView, "ID", "ID", 100, UI.usDefGrid.gString, False)
@@ -101,6 +105,8 @@ Public Class frmTraAccountPayableDet
                 dtpAPDate.Value = clsData.APDate
                 txtDueDateValue.Value = clsData.DueDateValue
                 txtTotalAmount.Value = clsData.TotalAmount
+                txtTotalPPN.Value = clsData.TotalPPN
+                txtTotalPPH.Value = clsData.TotalPPH
                 cboStatus.SelectedValue = clsData.StatusID
                 txtRemarks.Text = clsData.Remarks
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
@@ -375,8 +381,8 @@ Public Class frmTraAccountPayableDet
 
         For Each dr As DataRow In dtItem.Rows
             decAmount += dr.Item("Amount")
-            decPPN += dr.Item("PPN")
-            decPPH += dr.Item("PPH")
+            decPPN += ERPSLib.SharedLib.Math.Round(dr.Item("PPN"), 2)
+            decPPH += ERPSLib.SharedLib.Math.Round(dr.Item("PPH"), 2)
         Next
 
         txtTotalAmount.Value = decAmount
@@ -389,9 +395,16 @@ Public Class frmTraAccountPayableDet
             For i As Integer = 0 To .RowCount - 1
                 .SetRowCellValue(i, "Pick", bolValue)
                 If bolValue Then
-                    .SetRowCellValue(i, "Amount", .GetRowCellValue(i, "MaxPaymentAmount"))
+                    Dim decAmount As Decimal = .GetRowCellValue(i, "MaxPaymentAmount")
+                    Dim decPPNPercent As Decimal = .GetRowCellValue(i, "PPNPercent")
+                    Dim decPPHPercent As Decimal = .GetRowCellValue(i, "PPHPercent")
+                    .SetRowCellValue(i, "Amount", decAmount)
+                    If decPPNPercent > 0 Then .SetRowCellValue(i, "PPN", ERPSLib.SharedLib.Math.Round(decAmount * decPPNPercent / 100, 2))
+                    If decPPHPercent > 0 Then .SetRowCellValue(i, "PPH", ERPSLib.SharedLib.Math.Round(decAmount * decPPHPercent / 100, 2))
                 Else
                     .SetRowCellValue(i, "Amount", 0)
+                    .SetRowCellValue(i, "PPN", 0)
+                    .SetRowCellValue(i, "PPH", 0)
                 End If
                 .UpdateCurrentRow()
             Next
@@ -488,9 +501,12 @@ Public Class frmTraAccountPayableDet
             bolValid = True
             Dim col As GridColumn = .FocusedColumn
             Dim intFocus As Integer = .FocusedRowHandle
+            Dim decPPNPercent As Decimal = grdItemView.GetFocusedRowCellValue("PPNPercent")
+            Dim decPPHPercent As Decimal = grdItemView.GetFocusedRowCellValue("PPHPercent")
             If col.Name = "Amount" Then
                 Dim oldValue As Decimal = IIf(.GetFocusedRowCellValue(col).Equals(DBNull.Value), 0, .GetFocusedRowCellValue(col))
                 Dim newValue As Decimal = IIf((e.Value = "") Or (e.Value.Equals(DBNull.Value) Or (e.Value = ".")), 0, e.Value)
+
                 Dim strErrorMessage As String = ""
                 If newValue > 0 And newValue > grdItemView.GetFocusedRowCellValue("MaxPaymentAmount") Then
                     bolValid = False
@@ -508,23 +524,31 @@ Public Class frmTraAccountPayableDet
                     Exit Sub
                 Else
                     .SetRowCellValue(intFocus, col.Name, newValue)
+                    If decPPNPercent > 0 Then .SetRowCellValue(intFocus, "PPN", ERPSLib.SharedLib.Math.Round(newValue * decPPNPercent / 100, 2))
+                    If decPPHPercent > 0 Then .SetRowCellValue(intFocus, "PPH", ERPSLib.SharedLib.Math.Round(newValue * decPPHPercent / 100, 2))
+
                     .UpdateCurrentRow()
                     prvCalculate()
                 End If
             ElseIf col.Name = "Pick" Then
                 If e.Value = True Then
+                    Dim decMaxPaymentAmount As Decimal = grdItemView.GetRowCellValue(intFocus, "MaxPaymentAmount")
                     grdItemView.SetRowCellValue(intFocus, col.Name, e.Value)
-                    grdItemView.SetRowCellValue(intFocus, "Amount", grdItemView.GetRowCellValue(intFocus, "MaxPaymentAmount"))
+                    grdItemView.SetRowCellValue(intFocus, "Amount", decMaxPaymentAmount)
+                    If decPPNPercent > 0 Then grdItemView.SetRowCellValue(intFocus, "PPN", ERPSLib.SharedLib.Math.Round(decMaxPaymentAmount * decPPNPercent / 100, 2))
+                    If decPPHPercent > 0 Then grdItemView.SetRowCellValue(intFocus, "PPH", ERPSLib.SharedLib.Math.Round(decMaxPaymentAmount * decPPHPercent / 100, 2))
                 ElseIf e.Value = False Then
                     grdItemView.SetRowCellValue(intFocus, col.Name, e.Value)
                     grdItemView.SetRowCellValue(intFocus, "Amount", 0)
+                    grdItemView.SetRowCellValue(intFocus, "PPN", 0)
+                    grdItemView.SetRowCellValue(intFocus, "PPH", 0)
                 End If
                 .UpdateCurrentRow()
                 prvCalculate()
             End If
         End With
     End Sub
-
+    'Rounding disemua kalkulasi PPN dan PPH
 #End Region
 
 End Class

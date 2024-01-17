@@ -54,6 +54,9 @@ Partial Class frmTraPurchaseOrderCutting
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.BarDownPayment = New System.Windows.Forms.ToolBarButton()
+        Me.BarReceive = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -63,7 +66,7 @@ Partial Class frmTraPurchaseOrderCutting
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarPrint, Me.BarExportExcel, Me.BarSep3, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarDownPayment, Me.BarReceive, Me.BarSep3, Me.BarPrint, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -334,6 +337,23 @@ Partial Class frmTraPurchaseOrderCutting
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
+        'BarDownPayment
+        '
+        Me.BarDownPayment.Name = "BarDownPayment"
+        Me.BarDownPayment.Tag = "Alt"
+        Me.BarDownPayment.Text = "Panjar"
+        '
+        'BarReceive
+        '
+        Me.BarReceive.Name = "BarReceive"
+        Me.BarReceive.Tag = "Calculation"
+        Me.BarReceive.Text = "Pembayaran"
+        '
+        'BarSep4
+        '
+        Me.BarSep4.Name = "BarSep4"
+        Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
         'frmTraPurchaseOrderCutting
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -387,4 +407,7 @@ Partial Class frmTraPurchaseOrderCutting
     Friend WithEvents pgMain As System.Windows.Forms.ProgressBar
     Friend WithEvents grdMain As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents BarDownPayment As ToolBarButton
+    Friend WithEvents BarReceive As ToolBarButton
+    Friend WithEvents BarSep4 As ToolBarButton
 End Class

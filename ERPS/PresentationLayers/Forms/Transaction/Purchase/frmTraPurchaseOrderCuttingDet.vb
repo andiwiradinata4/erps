@@ -256,7 +256,7 @@ Public Class frmTraPurchaseOrderCuttingDet
                 prvQueryItem()
                 prvQueryHistory()
                 prvQueryPaymentTerm()
-                prvSetupTools()
+                'prvSetupTools()
             Else
                 Me.Close()
             End If
@@ -349,10 +349,10 @@ Public Class frmTraPurchaseOrderCuttingDet
         ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
     End Sub
 
-    Private Sub prvSetupTools()
-        Dim bolEnabled As Boolean = IIf(grdItemView.RowCount = 0, True, False)
-        btnBP.Enabled = bolEnabled
-    End Sub
+    'Private Sub prvSetupTools()
+    '    Dim bolEnabled As Boolean = IIf(grdItemView.RowCount = 0, True, False)
+    '    btnBP.Enabled = bolEnabled
+    'End Sub
 
 #Region "Item Handle"
 
@@ -395,13 +395,12 @@ Public Class frmTraPurchaseOrderCuttingDet
         With frmDetail
             .pubIsNew = True
             .pubCS = pubCS
-            .pubBPID = intBPID
             .pubTableParentItem = dtItem
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
             prvCalculate()
-            prvSetupTools()
+            'prvSetupTools()
         End With
     End Sub
 
@@ -412,14 +411,13 @@ Public Class frmTraPurchaseOrderCuttingDet
         With frmDetail
             .pubIsNew = False
             .pubCS = pubCS
-            .pubBPID = intBPID
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .pubTableParentItem = dtItem
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
             prvCalculate()
-            prvSetupTools()
+            'prvSetupTools()
         End With
     End Sub
 
@@ -436,7 +434,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         dtItem.AcceptChanges()
         prvCalculate()
         prvSetButtonItem()
-        prvSetupTools()
+        'prvSetupTools()
     End Sub
 
 #End Region

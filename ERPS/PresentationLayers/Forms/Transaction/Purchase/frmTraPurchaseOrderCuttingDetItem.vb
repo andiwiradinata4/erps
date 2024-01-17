@@ -3,7 +3,6 @@
 #Region "Property"
 
     Private frmParent As frmTraPurchaseOrderCuttingDet
-    Private intBPID As Integer = 0
     Private dtParentItem As New DataTable
     Private bolIsNew As Boolean = False
     Private intItemID As Integer = 0
@@ -12,12 +11,6 @@
     Private strID As String = ""
     Private intPos As Integer = 0
     Private clsCS As VO.CS
-
-    Public WriteOnly Property pubBPID As Integer
-        Set(value As Integer)
-            intBPID = value
-        End Set
-    End Property
 
     Public WriteOnly Property pubTableParentItem As DataTable
         Set(value As DataTable)
@@ -214,7 +207,6 @@
         Dim frmDetail As New frmTraPurchaseOrderCuttingDetItemOutstanding
         With frmDetail
             .pubParentItem = dtParentItem
-            .pubBPID = intBPID
             .pubCS = clsCS
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)

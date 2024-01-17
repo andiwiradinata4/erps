@@ -35,21 +35,22 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                   "SELECT " & vbNewLine & _
-                   "    CAST(0 AS BIT) AS Pick, A.ID AS PurchaseID, A.InvoiceNumber, A.InvoiceDate, " & vbNewLine & _
-                   "    A.TotalDPP+A.TotalPPN-A.TotalPPH AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine & _
-                   "    (A.TotalDPP+A.TotalPPN-A.TotalPPH)-(A.TotalPaymentDP+A.TotalPayment) AS MaxPaymentAmount, " & vbNewLine & _
-                   "    CAST('' AS VARCHAR(500)) AS Remarks " & vbNewLine & _
-                   "FROM mstBusinessPartnerAPBalance A " & vbNewLine & _
-                   "INNER JOIN mstCompany MC ON " & vbNewLine & _
-                   "    A.CompanyID=MC.ID " & vbNewLine & _
-                   "INNER JOIN mstProgram MP ON " & vbNewLine & _
-                   "    A.ProgramID=MP.ID " & vbNewLine & _
-                   "WHERE  " & vbNewLine & _
-                   "    A.BPID=@BPID " & vbNewLine & _
-                   "    AND A.CompanyID=@CompanyID " & vbNewLine & _
-                   "    AND A.ProgramID=@ProgramID " & vbNewLine & _
+                .CommandText =
+                   "SELECT " & vbNewLine &
+                   "    CAST(0 AS BIT) AS Pick, A.ID AS PurchaseID, A.InvoiceNumber, A.InvoiceDate, " & vbNewLine &
+                   "    A.TotalDPP+A.TotalPPN-A.TotalPPH AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine &
+                   "    (A.TotalDPP+A.TotalPPN-A.TotalPPH)-(A.TotalPaymentDP+A.TotalPayment) AS MaxPaymentAmount, " & vbNewLine &
+                   "    CAST('' AS VARCHAR(500)) AS Remarks, CAST(0 AS DECIMAL) PPNPercent, CAST(0 AS DECIMAL) PPHPercent, " & vbNewLine &
+                   "    CAST(0 AS DECIMAL) PPN, CAST(0 AS DECIMAL) PPH" & vbNewLine &
+                   "FROM mstBusinessPartnerAPBalance A " & vbNewLine &
+                   "INNER JOIN mstCompany MC ON " & vbNewLine &
+                   "    A.CompanyID=MC.ID " & vbNewLine &
+                   "INNER JOIN mstProgram MP ON " & vbNewLine &
+                   "    A.ProgramID=MP.ID " & vbNewLine &
+                   "WHERE  " & vbNewLine &
+                   "    A.BPID=@BPID " & vbNewLine &
+                   "    AND A.CompanyID=@CompanyID " & vbNewLine &
+                   "    AND A.ProgramID=@ProgramID " & vbNewLine &
                    "    AND A.TotalDPP+A.TotalPPN-A.TotalPPH-A.TotalPaymentDP-A.TotalPayment>0 " & vbNewLine
 
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID

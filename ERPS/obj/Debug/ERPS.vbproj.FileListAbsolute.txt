@@ -419,3 +419,4 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmSysOutstandingARA
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.frmSysOutstandingARAP.resources
 C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.rptShippingInvoiceVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmSysJournalPost.resources
+C:\My Project\Desktop\Toni JKT\erps\ERPS\obj\Debug\ERPS.frmSysJournalPost.resources

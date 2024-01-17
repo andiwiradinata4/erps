@@ -5,7 +5,7 @@ Public Class frmTraAccountReceivable
     Private clsData As New VO.AccountReceivable
     Private intCompanyID As Integer
     Private dtData As New DataTable
-    Private strModules As String = ""
+    Private strModules As String = VO.AccountReceivable.All
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -43,6 +43,8 @@ Public Class frmTraAccountReceivable
         UI.usForm.SetGrid(grdView, "Modules", "Modules", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "ReferencesID", "No. Referensi", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "TotalAmount", "Total Bayar", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "TotalPPN", "Total PPN Dibayar", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "TotalPPH", "Total PPH Dibayar", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "PaymentBy", "Dibayar Oleh", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PaymentDate", "Tanggal Bayar", 100, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdView, "TaxInvoiceNumber", "No. Faktur Pajak", 100, UI.usDefGrid.gString)
@@ -504,8 +506,19 @@ Public Class frmTraAccountReceivable
 
     Private Sub prvSumGrid()
         Dim SumTotalAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalAmount", "Total Bayar: {0:#,##0.00}")
+        Dim SumTotalPPN As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPN", "Total PPN Dibayar: {0:#,##0.00}")
+        Dim SumTotalPPH As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPH", "Total PPH Dibayar: {0:#,##0.00}")
+
         If grdView.Columns("TotalAmount").SummaryText.Trim = "" Then
             grdView.Columns("TotalAmount").Summary.Add(SumTotalAmount)
+        End If
+
+        If grdView.Columns("TotalPPN").SummaryText.Trim = "" Then
+            grdView.Columns("TotalPPN").Summary.Add(SumTotalPPN)
+        End If
+
+        If grdView.Columns("TotalPPH").SummaryText.Trim = "" Then
+            grdView.Columns("TotalPPH").Summary.Add(SumTotalPPH)
         End If
     End Sub
 
@@ -521,6 +534,16 @@ Public Class frmTraAccountReceivable
             .Item(cSetPaymentDate).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.PaymentAccess)
             .Item(cDeletePaymentDate).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelPaymentAccess)
             .Item(cSetTaxInvoiceNumber).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.TaxInvoiceNumberAccess)
+
+            If strModules = VO.AccountReceivable.All Then
+                .Item(cNew).Visible = False
+                .Item(cDetail).Visible = False
+                .Item(cDelete).Visible = False
+                .Item(cSubmit).Visible = False
+                .Item(cCancelSubmit).Visible = False
+                cboStatus.SelectedValue = VO.Status.Values.Approved
+                cboStatus.Enabled = False
+            End If
         End With
     End Sub
 
@@ -541,8 +564,8 @@ Public Class frmTraAccountReceivable
         dtpDateFrom.Value = Today.Date.AddDays(-7)
         dtpDateTo.Value = Today.Date
         prvDefaultFilter()
-        prvQuery()
         prvUserAccess()
+        prvQuery()
         Me.Text = VO.Common.GetPaymentText(strModules)
         Me.WindowState = FormWindowState.Maximized
     End Sub

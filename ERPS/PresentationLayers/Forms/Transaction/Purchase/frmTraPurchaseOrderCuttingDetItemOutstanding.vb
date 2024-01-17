@@ -5,17 +5,10 @@ Public Class frmTraPurchaseOrderCuttingDetItemOutstanding
 
     Private intPos As Integer = 0
     Private frmParent As frmTraPurchaseOrderCuttingDetItem
-    Private intBPID As Integer = 0
     Private clsCS As VO.CS
     Public pubLUdtRow As DataRow
     Public pubIsLookUpGet As Boolean = False
     Public pubParentItem As New DataTable
-
-    Public WriteOnly Property pubBPID As Integer
-        Set(value As Integer)
-            intBPID = value
-        End Set
-    End Property
 
     Public WriteOnly Property pubCS As VO.CS
         Set(value As VO.CS)
@@ -64,7 +57,7 @@ Public Class frmTraPurchaseOrderCuttingDetItemOutstanding
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         Try
-            Dim dtData As DataTable = BL.PurchaseContract.ListDataDetailOutstandingCutting(clsCS.ProgramID, clsCS.CompanyID, intBPID)
+            Dim dtData As DataTable = BL.PurchaseContract.ListDataDetailOutstandingCutting(clsCS.ProgramID, clsCS.CompanyID)
             For Each drParent As DataRow In pubParentItem.Rows
                 For Each dr As DataRow In dtData.Rows
                     If dr.Item("ID") = drParent.Item("PCDetailID") Then dr.Delete()

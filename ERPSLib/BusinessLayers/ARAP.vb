@@ -93,7 +93,20 @@
 
                         strDPNumber = clsData.ARNumber
                     Else
-                        Dim clsReferences As VO.PurchaseContract = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                        Dim clsReferences As New Object
+                        Dim strReferencesID As String = ""
+                        If clsDataARAP.Modules = VO.AccountPayable.DownPaymentCutting Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentCutting Then
+                            clsReferences = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesID = clsReferences.PONumber
+                        ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPaymentTransport Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport Then
+                            clsReferences = DL.PurchaseOrderTransport.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesID = clsReferences.PONumber
+                        ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPayment Or clsDataARAP.Modules = VO.AccountPayable.ReceivePayment Then
+                            clsReferences = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesID = clsReferences.PCNumber
+                        Else
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Modules tidak terdaftar")
+                        End If
                         If clsReferences.StatusID <> VO.Status.Values.Approved Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Data Kontrak harus disetujui terlebih dahulu")
                         End If
@@ -118,7 +131,7 @@
                         clsData.APNumber = clsDataARAP.TransNumber
                         clsData.BPID = clsDataARAP.BPID
                         clsData.CoAIDOfOutgoingPayment = clsDataARAP.CoAID
-                        clsData.ReferencesID = clsReferences.PCNumber
+                        clsData.ReferencesID = strReferencesID
                         clsData.ReferencesNote = ""
                         clsData.TotalAmount = clsDataARAP.TotalAmount
                         clsData.TotalPPN = clsDataARAP.TotalPPN
@@ -135,7 +148,18 @@
 
                         BL.AccountPayable.SaveData(sqlCon, sqlTrans, bolNew, clsData)
 
-                        clsReferences = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                        If clsDataARAP.Modules = VO.AccountPayable.DownPaymentCutting Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentCutting Then
+                            clsReferences = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesID = clsReferences.PONumber
+                        ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPaymentTransport Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport Then
+                            clsReferences = DL.PurchaseOrderTransport.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesID = clsReferences.PONumber
+                        ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPayment Or clsDataARAP.Modules = VO.AccountPayable.ReceivePayment Then
+                            clsReferences = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesID = clsReferences.PCNumber
+                        Else
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Modules tidak terdaftar")
+                        End If
                         If clsReferences.DPAmount + clsReferences.ReceiveAmount > clsReferences.GrandTotal Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Grand Total Transaksi")
                         End If
@@ -173,6 +197,8 @@
                     clsReturn.TransDate = clsData.ARDate
                     clsReturn.DueDateValue = clsData.DueDateValue
                     clsReturn.TotalAmount = clsData.TotalAmount
+                    clsReturn.TotalPPN = clsData.TotalPPN
+                    clsReturn.TotalPPH = clsData.TotalPPH
                     clsReturn.Percentage = clsData.Percentage
                     clsReturn.JournalID = clsData.JournalID
                     clsReturn.SubmitBy = clsData.SubmitBy
@@ -215,6 +241,8 @@
                     clsReturn.TransDate = clsData.APDate
                     clsReturn.DueDateValue = clsData.DueDateValue
                     clsReturn.TotalAmount = clsData.TotalAmount
+                    clsReturn.TotalPPN = clsData.TotalPPN
+                    clsReturn.TotalPPH = clsData.TotalPPH
                     clsReturn.Percentage = clsData.Percentage
                     clsReturn.JournalID = clsData.JournalID
                     clsReturn.SubmitBy = clsData.SubmitBy

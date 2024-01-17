@@ -28,6 +28,8 @@
         Property ApproveL1Date As DateTime
         Property ApprovedBy As String
         Property ApprovedDate As DateTime
+        Property DPAmount As Decimal
+        Property ReceiveAmount As Decimal
         Property Detail As List(Of VO.PurchaseOrderCuttingDet)
         Property PaymentTerm As List(Of VO.PurchaseOrderPaymentTerm)
         Property Save As VO.Save.Action

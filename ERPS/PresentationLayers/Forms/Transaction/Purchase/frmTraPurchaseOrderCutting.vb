@@ -11,8 +11,8 @@ Public Class frmTraPurchaseOrderCutting
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
-       cSep2 As Byte = 8, cPrint As Byte = 9, cExportExcel As Byte = 10, cSep3 As Byte = 11, cRefresh As Byte = 12,
-       cClose As Byte = 13
+       cSep2 As Byte = 8, cDownPayment As Byte = 9, cReceive As Byte = 10, cSep3 As Byte = 11, cPrint As Byte = 12,
+       cExportExcel As Byte = 13, cSep4 As Byte = 14, cRefresh As Byte = 15, cClose As Byte = 16
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -43,6 +43,9 @@ Public Class frmTraPurchaseOrderCutting
         UI.usForm.SetGrid(grdView, "TotalPPH", "Total PPh", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "GrandTotal", "Grand Total", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "RoundingManual", "RoundingManual", 100, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdView, "DPAmount", "Total Panjar", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "ReceiveAmount", "Total Pembayaran", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "OutstandingPayment", "Sisa Hutang", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "SubmitBy", "Disubmit Oleh", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "SubmitDate", "Tanggal Disubmit", 100, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdView, "ApprovedBy", "Diapprove Oleh", 100, UI.usDefGrid.gString)
@@ -68,6 +71,8 @@ Public Class frmTraPurchaseOrderCutting
             .Item(cCancelSubmit).Enabled = bolEnable
             .Item(cApprove).Enabled = bolEnable
             .Item(cCancelApprove).Enabled = bolEnable
+            .Item(cDownPayment).Enabled = bolEnable
+            .Item(cReceive).Enabled = bolEnable
             .Item(cPrint).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
         End With
@@ -367,6 +372,48 @@ Public Class frmTraPurchaseOrderCutting
         End Try
     End Sub
 
+    Private Sub prvDownPayment()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+
+        If clsData.StatusID <> VO.Status.Values.Approved Then
+            UI.usForm.frmMessageBox("Status Data harus disetujui terlebih dahulu")
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraARAP
+        With frmDetail
+            .pubModules = VO.AccountPayable.DownPaymentCutting
+            .pubDPType = VO.ARAP.ARAPTypeValue.Purchase
+            .pubBPID = clsData.BPID
+            .pubCS = prvGetCS()
+            .pubReferencesID = clsData.ID
+            .ShowDialog()
+        End With
+    End Sub
+
+    Private Sub prvReceivePayment()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+
+        If clsData.StatusID <> VO.Status.Values.Approved Then
+            UI.usForm.frmMessageBox("Status Data harus disetujui terlebih dahulu")
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraARAP
+        With frmDetail
+            .pubModules = VO.AccountPayable.ReceivePaymentCutting
+            .pubDPType = VO.ARAP.ARAPTypeValue.Purchase
+            .pubBPID = clsData.BPID
+            .pubCS = prvGetCS()
+            .pubReferencesID = clsData.ID
+            .ShowDialog()
+        End With
+    End Sub
+
     Private Sub prvPrint()
         'intPos = grdView.FocusedRowHandle
         'If intPos < 0 Then Exit Sub
@@ -449,6 +496,9 @@ Public Class frmTraPurchaseOrderCutting
         Dim SumTotalPPN As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPN", "Total PPN: {0:#,##0.00}")
         Dim SumTotalPPH As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPH", "Total PPh: {0:#,##0.00}")
         Dim SumGrandTotal As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "GrandTotal", "Grand Total: {0:#,##0.00}")
+        Dim SumDPAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DPAmount", "Total Panjar: {0:#,##0.00}")
+        Dim SumReceiveAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ReceiveAmount", "Total Pembayaran: {0:#,##0.00}")
+        Dim SumOutstandingPayment As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "OutstandingPayment", "Sisa Hutang: {0:#,##0.00}")
 
         If grdView.Columns("TotalQuantity").SummaryText.Trim = "" Then
             grdView.Columns("TotalQuantity").Summary.Add(SumTotalQuantity)
@@ -473,6 +523,19 @@ Public Class frmTraPurchaseOrderCutting
         If grdView.Columns("GrandTotal").SummaryText.Trim = "" Then
             grdView.Columns("GrandTotal").Summary.Add(SumGrandTotal)
         End If
+
+        If grdView.Columns("DPAmount").SummaryText.Trim = "" Then
+            grdView.Columns("DPAmount").Summary.Add(SumDPAmount)
+        End If
+
+        If grdView.Columns("ReceiveAmount").SummaryText.Trim = "" Then
+            grdView.Columns("ReceiveAmount").Summary.Add(SumReceiveAmount)
+        End If
+
+        If grdView.Columns("OutstandingPayment").SummaryText.Trim = "" Then
+            grdView.Columns("OutstandingPayment").Summary.Add(SumOutstandingPayment)
+        End If
+        grdView.BestFitColumns()
     End Sub
 
     Private Sub prvUserAccess()
@@ -527,6 +590,8 @@ Public Class frmTraPurchaseOrderCutting
                 Case ToolBar.Buttons(cCancelSubmit).Name : prvCancelSubmit()
                 Case ToolBar.Buttons(cApprove).Name : prvApprove()
                 Case ToolBar.Buttons(cCancelApprove).Name : prvCancelApprove()
+                Case ToolBar.Buttons(cDownPayment).Name : prvDownPayment()
+                Case ToolBar.Buttons(cReceive).Name : prvReceivePayment()
                 Case ToolBar.Buttons(cPrint).Name : prvPrint()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select

@@ -119,6 +119,8 @@
                 dtpDPDate.Value = clsData.TransDate
                 txtDueDateValue.Value = clsData.DueDateValue
                 txtTotalAmount.Value = clsData.TotalAmount
+                txtTotalPPN.Value = clsData.TotalPPN
+                txtTotalPPH.Value = clsData.TotalPPH
                 cboStatus.SelectedValue = clsData.StatusID
                 txtRemarks.Text = clsData.Remarks
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
@@ -155,7 +157,16 @@
             decPPN = clsReferences.PPN
             decPPH = clsReferences.PPH
         Else
-            Dim clsReferences As VO.PurchaseContract = BL.PurchaseContract.GetDetail(strReferencesID)
+            Dim clsReferences As New Object
+            If strModules = VO.AccountPayable.DownPaymentCutting Or strModules = VO.AccountPayable.ReceivePaymentCutting Then
+                clsReferences = BL.PurchaseOrderCutting.GetDetail(strReferencesID)
+            ElseIf strModules = VO.AccountPayable.DownPaymentTransport Or strModules = VO.AccountPayable.ReceivePaymentTransport Then
+                clsReferences = BL.PurchaseOrderTransport.GetDetail(strReferencesID)
+            ElseIf strModules = VO.AccountPayable.DownPayment Or strModules = VO.AccountPayable.ReceivePayment Then
+                clsReferences = BL.PurchaseContract.GetDetail(strReferencesID)
+            Else
+                Exit Sub
+            End If
             txtGrandTotalContract.Value = clsReferences.GrandTotal
             txtTotalPayment.Value = clsReferences.DPAmount + clsReferences.ReceiveAmount - txtTotalAmount.Value
             decPPN = clsReferences.PPN
@@ -264,6 +275,8 @@
         txtPercentage.Value = 0
         chkUsePercentage.Checked = False
         txtTotalAmount.Value = 0
+        txtTotalPPN.Value = 0
+        txtTotalPPH.Value = 0
         txtRemarks.Text = ""
         cboStatus.SelectedValue = VO.Status.Values.Draft
         txtGrandTotalContract.Value = 0
@@ -304,8 +317,8 @@
     Private Sub prvCalculate()
         If txtPercentage.Value <= 0 Then Exit Sub
         txtTotalAmount.Value = ERPSLib.SharedLib.Math.Round((txtGrandTotalContract.Value * txtPercentage.Value / 100), 0)
-        txtTotalPPN.Value = ERPSLib.SharedLib.Math.Round((txtTotalAmount.Value * decPPN / 100), 0)
-        txtTotalPPH.Value = ERPSLib.SharedLib.Math.Round((txtTotalAmount.Value * decPPH / 100), 0)
+        txtTotalPPN.Value = ERPSLib.SharedLib.Math.Round((txtTotalAmount.Value * decPPN / 100), 2)
+        txtTotalPPH.Value = ERPSLib.SharedLib.Math.Round((txtTotalAmount.Value * decPPH / 100), 2)
     End Sub
 
 #Region "History Handle"

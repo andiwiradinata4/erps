@@ -36,6 +36,7 @@
         Property Detail As New List(Of VO.AccountPayableDet)
         Property Save As VO.Save.Action
 
+        Public Const All As String = "AP"
         Public Const PurchaseBalance As String = "PB"
         Public Const DownPaymentManual As String = "PDM"
         Public Const DownPayment As String = "PDP"

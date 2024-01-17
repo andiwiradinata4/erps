@@ -35,6 +35,8 @@
                 Return "Panjar Pesanan Pengiriman"
             ElseIf strModules = VO.AccountPayable.ReceivePaymentTransport Then
                 Return "Pembayaran Hutang Pesanan Pengiriman"
+            ElseIf strModules = VO.AccountPayable.All Then
+                Return "Semua Daftar Pembayaran"
             ElseIf strModules = VO.AccountReceivable.SalesBalance Then
                 Return "Pelunasan Saldo"
             ElseIf strModules = VO.AccountReceivable.DownPaymentManual Then
@@ -43,6 +45,8 @@
                 Return "Panjar Penjualan"
             ElseIf strModules = VO.AccountReceivable.ReceivePayment Then
                 Return "Pelunasan Piutang Penjualan"
+            ElseIf strModules = VO.AccountReceivable.All Then
+                Return "Semua Daftar Pelunasan"
             End If
             Return ""
         End Function
