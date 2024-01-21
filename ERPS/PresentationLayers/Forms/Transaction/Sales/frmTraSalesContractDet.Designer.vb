@@ -351,12 +351,11 @@ Partial Class frmTraSalesContractDet
         '
         'txtSCNumber
         '
-        Me.txtSCNumber.BackColor = System.Drawing.Color.LightYellow
+        Me.txtSCNumber.BackColor = System.Drawing.Color.White
         Me.txtSCNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtSCNumber.Location = New System.Drawing.Point(145, 16)
         Me.txtSCNumber.MaxLength = 250
         Me.txtSCNumber.Name = "txtSCNumber"
-        Me.txtSCNumber.ReadOnly = True
         Me.txtSCNumber.Size = New System.Drawing.Size(167, 21)
         Me.txtSCNumber.TabIndex = 0
         '

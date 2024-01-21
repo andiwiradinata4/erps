@@ -49,18 +49,6 @@ Partial Class frmTraOrderRequestDet
         Me.txtBPName = New ERPS.usTextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtOrderNumber = New ERPS.usTextBox()
-        Me.tpHistory = New System.Windows.Forms.TabPage()
-        Me.grdStatus = New DevExpress.XtraGrid.GridControl()
-        Me.grdStatusView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.ToolBarDetail = New ERPS.usToolBar()
-        Me.BarAdd = New System.Windows.Forms.ToolBarButton()
-        Me.BarEdit = New System.Windows.Forms.ToolBarButton()
-        Me.BarDelete = New System.Windows.Forms.ToolBarButton()
-        Me.pgMain = New System.Windows.Forms.ProgressBar()
-        Me.grdItem = New DevExpress.XtraGrid.GridControl()
-        Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.tpPrice = New System.Windows.Forms.TabPage()
         Me.gboPesanan = New System.Windows.Forms.GroupBox()
         Me.Label15 = New System.Windows.Forms.Label()
@@ -77,15 +65,21 @@ Partial Class frmTraOrderRequestDet
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtPPN = New ERPS.usNumeric()
+        Me.tpHistory = New System.Windows.Forms.TabPage()
+        Me.grdStatus = New DevExpress.XtraGrid.GridControl()
+        Me.grdStatusView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.ToolBarDetail = New ERPS.usToolBar()
+        Me.BarAdd = New System.Windows.Forms.ToolBarButton()
+        Me.BarEdit = New System.Windows.Forms.ToolBarButton()
+        Me.BarDelete = New System.Windows.Forms.ToolBarButton()
+        Me.pgMain = New System.Windows.Forms.ProgressBar()
+        Me.grdItem = New DevExpress.XtraGrid.GridControl()
+        Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.StatusStrip.SuspendLayout()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
-        Me.tpHistory.SuspendLayout()
-        CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpPrice.SuspendLayout()
         Me.gboPesanan.SuspendLayout()
         CType(Me.txtGrandTotal, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -94,6 +88,12 @@ Partial Class frmTraOrderRequestDet
         CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtPPN, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tpHistory.SuspendLayout()
+        CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -362,156 +362,13 @@ Partial Class frmTraOrderRequestDet
         '
         'txtOrderNumber
         '
-        Me.txtOrderNumber.BackColor = System.Drawing.Color.LightYellow
+        Me.txtOrderNumber.BackColor = System.Drawing.Color.White
         Me.txtOrderNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtOrderNumber.Location = New System.Drawing.Point(110, 16)
         Me.txtOrderNumber.MaxLength = 250
         Me.txtOrderNumber.Name = "txtOrderNumber"
-        Me.txtOrderNumber.ReadOnly = True
         Me.txtOrderNumber.Size = New System.Drawing.Size(167, 21)
         Me.txtOrderNumber.TabIndex = 0
-        '
-        'tpHistory
-        '
-        Me.tpHistory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.tpHistory.Controls.Add(Me.grdStatus)
-        Me.tpHistory.Location = New System.Drawing.Point(4, 25)
-        Me.tpHistory.Name = "tpHistory"
-        Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(823, 174)
-        Me.tpHistory.TabIndex = 1
-        Me.tpHistory.Text = "History - F3"
-        Me.tpHistory.UseVisualStyleBackColor = True
-        '
-        'grdStatus
-        '
-        Me.grdStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdStatus.EmbeddedNavigator.Buttons.Append.Enabled = False
-        Me.grdStatus.EmbeddedNavigator.Buttons.Append.Visible = False
-        Me.grdStatus.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
-        Me.grdStatus.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
-        Me.grdStatus.EmbeddedNavigator.Buttons.Edit.Enabled = False
-        Me.grdStatus.EmbeddedNavigator.Buttons.Edit.Visible = False
-        Me.grdStatus.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
-        Me.grdStatus.EmbeddedNavigator.Buttons.EndEdit.Visible = False
-        Me.grdStatus.EmbeddedNavigator.Buttons.NextPage.Enabled = False
-        Me.grdStatus.EmbeddedNavigator.Buttons.NextPage.Visible = False
-        Me.grdStatus.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
-        Me.grdStatus.EmbeddedNavigator.Buttons.PrevPage.Visible = False
-        Me.grdStatus.EmbeddedNavigator.Buttons.Remove.Enabled = False
-        Me.grdStatus.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdStatus.Location = New System.Drawing.Point(3, 3)
-        Me.grdStatus.MainView = Me.grdStatusView
-        Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(813, 164)
-        Me.grdStatus.TabIndex = 13
-        Me.grdStatus.UseEmbeddedNavigator = True
-        Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
-        '
-        'grdStatusView
-        '
-        Me.grdStatusView.GridControl = Me.grdStatus
-        Me.grdStatusView.Name = "grdStatusView"
-        Me.grdStatusView.OptionsCustomization.AllowColumnMoving = False
-        Me.grdStatusView.OptionsCustomization.AllowGroup = False
-        Me.grdStatusView.OptionsView.ColumnAutoWidth = False
-        Me.grdStatusView.OptionsView.ShowGroupPanel = False
-        '
-        'Label1
-        '
-        Me.Label1.BackColor = System.Drawing.Color.CadetBlue
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Label1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(0, 253)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(831, 22)
-        Me.Label1.TabIndex = 3
-        Me.Label1.Text = "« Item"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'ToolBarDetail
-        '
-        Me.ToolBarDetail.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAdd, Me.BarEdit, Me.BarDelete})
-        Me.ToolBarDetail.DropDownArrows = True
-        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 275)
-        Me.ToolBarDetail.Name = "ToolBarDetail"
-        Me.ToolBarDetail.ShowToolTips = True
-        Me.ToolBarDetail.Size = New System.Drawing.Size(831, 28)
-        Me.ToolBarDetail.TabIndex = 4
-        Me.ToolBarDetail.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
-        'BarAdd
-        '
-        Me.BarAdd.Name = "BarAdd"
-        Me.BarAdd.Tag = "Add"
-        Me.BarAdd.Text = "Tambah"
-        '
-        'BarEdit
-        '
-        Me.BarEdit.Name = "BarEdit"
-        Me.BarEdit.Tag = "Edit"
-        Me.BarEdit.Text = "Edit"
-        '
-        'BarDelete
-        '
-        Me.BarDelete.Name = "BarDelete"
-        Me.BarDelete.Tag = "Delete"
-        Me.BarDelete.Text = "Hapus"
-        '
-        'pgMain
-        '
-        Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pgMain.Location = New System.Drawing.Point(0, 553)
-        Me.pgMain.Name = "pgMain"
-        Me.pgMain.Size = New System.Drawing.Size(831, 23)
-        Me.pgMain.TabIndex = 7
-        '
-        'grdItem
-        '
-        Me.grdItem.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdItem.EmbeddedNavigator.Buttons.Append.Enabled = False
-        Me.grdItem.EmbeddedNavigator.Buttons.Append.Visible = False
-        Me.grdItem.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
-        Me.grdItem.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
-        Me.grdItem.EmbeddedNavigator.Buttons.Edit.Enabled = False
-        Me.grdItem.EmbeddedNavigator.Buttons.Edit.Visible = False
-        Me.grdItem.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
-        Me.grdItem.EmbeddedNavigator.Buttons.EndEdit.Visible = False
-        Me.grdItem.EmbeddedNavigator.Buttons.NextPage.Enabled = False
-        Me.grdItem.EmbeddedNavigator.Buttons.NextPage.Visible = False
-        Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
-        Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Visible = False
-        Me.grdItem.EmbeddedNavigator.Buttons.Remove.Enabled = False
-        Me.grdItem.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdItem.Location = New System.Drawing.Point(0, 303)
-        Me.grdItem.MainView = Me.grdItemView
-        Me.grdItem.Name = "grdItem"
-        Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
-        Me.grdItem.Size = New System.Drawing.Size(831, 228)
-        Me.grdItem.TabIndex = 5
-        Me.grdItem.UseEmbeddedNavigator = True
-        Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
-        '
-        'grdItemView
-        '
-        Me.grdItemView.GridControl = Me.grdItem
-        Me.grdItemView.Name = "grdItemView"
-        Me.grdItemView.OptionsCustomization.AllowColumnMoving = False
-        Me.grdItemView.OptionsCustomization.AllowGroup = False
-        Me.grdItemView.OptionsView.ColumnAutoWidth = False
-        Me.grdItemView.OptionsView.ShowAutoFilterRow = True
-        Me.grdItemView.OptionsView.ShowFooter = True
-        Me.grdItemView.OptionsView.ShowGroupPanel = False
-        '
-        'rpiValue
-        '
-        Me.rpiValue.AutoHeight = False
-        Me.rpiValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.rpiValue.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.rpiValue.Name = "rpiValue"
-        Me.rpiValue.NullText = "0.00"
         '
         'tpPrice
         '
@@ -715,6 +572,148 @@ Partial Class frmTraOrderRequestDet
         Me.txtPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtPPN.ThousandsSeparator = True
         '
+        'tpHistory
+        '
+        Me.tpHistory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpHistory.Controls.Add(Me.grdStatus)
+        Me.tpHistory.Location = New System.Drawing.Point(4, 25)
+        Me.tpHistory.Name = "tpHistory"
+        Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
+        Me.tpHistory.Size = New System.Drawing.Size(823, 174)
+        Me.tpHistory.TabIndex = 1
+        Me.tpHistory.Text = "History - F3"
+        Me.tpHistory.UseVisualStyleBackColor = True
+        '
+        'grdStatus
+        '
+        Me.grdStatus.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdStatus.EmbeddedNavigator.Buttons.Append.Enabled = False
+        Me.grdStatus.EmbeddedNavigator.Buttons.Append.Visible = False
+        Me.grdStatus.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
+        Me.grdStatus.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
+        Me.grdStatus.EmbeddedNavigator.Buttons.Edit.Enabled = False
+        Me.grdStatus.EmbeddedNavigator.Buttons.Edit.Visible = False
+        Me.grdStatus.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
+        Me.grdStatus.EmbeddedNavigator.Buttons.EndEdit.Visible = False
+        Me.grdStatus.EmbeddedNavigator.Buttons.NextPage.Enabled = False
+        Me.grdStatus.EmbeddedNavigator.Buttons.NextPage.Visible = False
+        Me.grdStatus.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
+        Me.grdStatus.EmbeddedNavigator.Buttons.PrevPage.Visible = False
+        Me.grdStatus.EmbeddedNavigator.Buttons.Remove.Enabled = False
+        Me.grdStatus.EmbeddedNavigator.Buttons.Remove.Visible = False
+        Me.grdStatus.Location = New System.Drawing.Point(3, 3)
+        Me.grdStatus.MainView = Me.grdStatusView
+        Me.grdStatus.Name = "grdStatus"
+        Me.grdStatus.Size = New System.Drawing.Size(813, 164)
+        Me.grdStatus.TabIndex = 13
+        Me.grdStatus.UseEmbeddedNavigator = True
+        Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
+        '
+        'grdStatusView
+        '
+        Me.grdStatusView.GridControl = Me.grdStatus
+        Me.grdStatusView.Name = "grdStatusView"
+        Me.grdStatusView.OptionsCustomization.AllowColumnMoving = False
+        Me.grdStatusView.OptionsCustomization.AllowGroup = False
+        Me.grdStatusView.OptionsView.ColumnAutoWidth = False
+        Me.grdStatusView.OptionsView.ShowGroupPanel = False
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.CadetBlue
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.Location = New System.Drawing.Point(0, 253)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(831, 22)
+        Me.Label1.TabIndex = 3
+        Me.Label1.Text = "« Item"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'ToolBarDetail
+        '
+        Me.ToolBarDetail.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAdd, Me.BarEdit, Me.BarDelete})
+        Me.ToolBarDetail.DropDownArrows = True
+        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 275)
+        Me.ToolBarDetail.Name = "ToolBarDetail"
+        Me.ToolBarDetail.ShowToolTips = True
+        Me.ToolBarDetail.Size = New System.Drawing.Size(831, 28)
+        Me.ToolBarDetail.TabIndex = 4
+        Me.ToolBarDetail.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'BarAdd
+        '
+        Me.BarAdd.Name = "BarAdd"
+        Me.BarAdd.Tag = "Add"
+        Me.BarAdd.Text = "Tambah"
+        '
+        'BarEdit
+        '
+        Me.BarEdit.Name = "BarEdit"
+        Me.BarEdit.Tag = "Edit"
+        Me.BarEdit.Text = "Edit"
+        '
+        'BarDelete
+        '
+        Me.BarDelete.Name = "BarDelete"
+        Me.BarDelete.Tag = "Delete"
+        Me.BarDelete.Text = "Hapus"
+        '
+        'pgMain
+        '
+        Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.pgMain.Location = New System.Drawing.Point(0, 553)
+        Me.pgMain.Name = "pgMain"
+        Me.pgMain.Size = New System.Drawing.Size(831, 23)
+        Me.pgMain.TabIndex = 7
+        '
+        'grdItem
+        '
+        Me.grdItem.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdItem.EmbeddedNavigator.Buttons.Append.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.Append.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.Edit.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.Edit.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.EndEdit.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.NextPage.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.NextPage.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.Remove.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.Remove.Visible = False
+        Me.grdItem.Location = New System.Drawing.Point(0, 303)
+        Me.grdItem.MainView = Me.grdItemView
+        Me.grdItem.Name = "grdItem"
+        Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
+        Me.grdItem.Size = New System.Drawing.Size(831, 228)
+        Me.grdItem.TabIndex = 5
+        Me.grdItem.UseEmbeddedNavigator = True
+        Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
+        '
+        'grdItemView
+        '
+        Me.grdItemView.GridControl = Me.grdItem
+        Me.grdItemView.Name = "grdItemView"
+        Me.grdItemView.OptionsCustomization.AllowColumnMoving = False
+        Me.grdItemView.OptionsCustomization.AllowGroup = False
+        Me.grdItemView.OptionsView.ColumnAutoWidth = False
+        Me.grdItemView.OptionsView.ShowAutoFilterRow = True
+        Me.grdItemView.OptionsView.ShowFooter = True
+        Me.grdItemView.OptionsView.ShowGroupPanel = False
+        '
+        'rpiValue
+        '
+        Me.rpiValue.AutoHeight = False
+        Me.rpiValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.rpiValue.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.rpiValue.Name = "rpiValue"
+        Me.rpiValue.NullText = "0.00"
+        '
         'frmTraOrderRequestDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -739,12 +738,6 @@ Partial Class frmTraOrderRequestDet
         Me.tcHeader.ResumeLayout(False)
         Me.tpMain.ResumeLayout(False)
         Me.tpMain.PerformLayout()
-        Me.tpHistory.ResumeLayout(False)
-        CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdItem, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpPrice.ResumeLayout(False)
         Me.tpPrice.PerformLayout()
         Me.gboPesanan.ResumeLayout(False)
@@ -755,6 +748,12 @@ Partial Class frmTraOrderRequestDet
         CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtPPN, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tpHistory.ResumeLayout(False)
+        CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdItem, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

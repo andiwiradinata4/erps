@@ -37,7 +37,7 @@
                 Try
                     If bolNew Then
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.OrderDate, clsData.CompanyID, clsData.ProgramID)
-                        clsData.OrderNumber = clsData.ID
+                        If clsData.OrderNumber.Trim = "" Then clsData.OrderNumber = clsData.ID
                     Else
                         DL.OrderRequest.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
                     End If

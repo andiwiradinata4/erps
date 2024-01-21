@@ -79,7 +79,7 @@
                 Try
                     If bolNew Then
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.SCDate, clsData.CompanyID, clsData.ProgramID)
-                        clsData.SCNumber = GetNewNo(sqlCon, sqlTrans, clsData.SCDate, clsData.BPID, clsData.CompanyID, clsData.ProgramID)
+                        If clsData.SCNumber.Trim = "" Then clsData.SCNumber = GetNewNo(sqlCon, sqlTrans, clsData.SCDate, clsData.BPID, clsData.CompanyID, clsData.ProgramID)
                     Else
                         Dim dtItem As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
                         Dim dtItemCO As DataTable = DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, clsData.ID)

@@ -257,7 +257,7 @@
                         "FROM traOrderRequest " & vbNewLine & _
                         "WHERE " & vbNewLine & _
                         "   LEFT(ID,@Length)=@ID " & vbNewLine & _
-                        "ORDER BY OrderDate DESC " & vbNewLine
+                        "ORDER BY CreatedDate DESC " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, strNewID.Length).Value = strNewID
                     .Parameters.Add("@Length", SqlDbType.Int).Value = strNewID.Length
