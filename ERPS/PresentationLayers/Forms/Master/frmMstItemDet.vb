@@ -85,10 +85,10 @@
             '    UI.usForm.frmMessageBox("Lebar harus lebih besar dari 0")
             '    txtWidth.Focus()
             '    Exit Sub
-        ElseIf txtWeight.Value <= 0 Then
-            UI.usForm.frmMessageBox("Berat tidak boleh lebih kecil dari 0")
-            txtWeight.Focus()
-            Exit Sub
+            'ElseIf txtWeight.Value <= 0 Then
+            '    UI.usForm.frmMessageBox("Berat tidak boleh lebih kecil dari 0")
+            '    txtWeight.Focus()
+            '    Exit Sub
         ElseIf cboItemSpecification.SelectedIndex = -1 Then
             UI.usForm.frmMessageBox("Pilih spec terlebih dahulu")
             cboItemSpecification.Focus()
