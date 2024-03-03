@@ -77,14 +77,14 @@
             UI.usForm.frmMessageBox("Nama tidak boleh kosong")
             txtItemName.Focus()
             Exit Sub
-        ElseIf txtThick.Value <= 0 Then
-            UI.usForm.frmMessageBox("Tebal harus lebih besar dari 0")
-            txtThick.Focus()
-            Exit Sub
-        ElseIf txtWidth.Value <= 0 Then
-            UI.usForm.frmMessageBox("Lebar harus lebih besar dari 0")
-            txtWidth.Focus()
-            Exit Sub
+            'ElseIf txtThick.Value <= 0 Then
+            '    UI.usForm.frmMessageBox("Tebal harus lebih besar dari 0")
+            '    txtThick.Focus()
+            '    Exit Sub
+            'ElseIf txtWidth.Value <= 0 Then
+            '    UI.usForm.frmMessageBox("Lebar harus lebih besar dari 0")
+            '    txtWidth.Focus()
+            '    Exit Sub
         ElseIf txtWeight.Value <= 0 Then
             UI.usForm.frmMessageBox("Berat tidak boleh lebih kecil dari 0")
             txtWeight.Focus()
