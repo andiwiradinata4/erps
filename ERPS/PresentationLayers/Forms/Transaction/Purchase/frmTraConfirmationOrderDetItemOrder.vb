@@ -120,6 +120,10 @@
             UI.usForm.frmMessageBox("Jumlah harus lebih besar dari 0")
             txtQuantity.Focus()
             Exit Sub
+        ElseIf txtWeight.Value <= 0 Then
+            UI.usForm.frmMessageBox("Berat harus lebih besar dari 0")
+            txtWeight.Focus()
+            Exit Sub
         ElseIf txtMaxTotalWeight.Value < txtTotalWeight.Value Then
             If Not UI.usForm.frmAskQuestion("Total Berat melebihi Maks. Total Berat, Apakah anda yakin ingin melanjutkannya?") Then Exit Sub
         End If

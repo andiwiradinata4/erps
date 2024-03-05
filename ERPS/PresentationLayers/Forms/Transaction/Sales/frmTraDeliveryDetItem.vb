@@ -183,6 +183,10 @@ Public Class frmTraDeliveryDetItem
             UI.usForm.frmMessageBox("Jumlah harus lebih besar dari 0")
             txtQuantity.Focus()
             Exit Sub
+        ElseIf txtWeight.Value <= 0 Then
+            UI.usForm.frmMessageBox("Berat harus lebih besar dari 0")
+            txtWeight.Focus()
+            Exit Sub
         ElseIf grdItemTransportView.RowCount = 0 Then
             UI.usForm.frmMessageBox("Pilih pesanan pengiriman terlebih dahulu")
             grdItemTransportView.Focus()
