@@ -10,6 +10,7 @@ Public Class frmTraConfirmationOrderDet
     Private dtPaymentTerm As New DataTable
     Private intPos As Integer = 0
     Private strCOID As String = ""
+    Private strPCID As String = ""
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
@@ -127,6 +128,9 @@ Public Class frmTraConfirmationOrderDet
                 txtTotalPPH.Value = clsData.TotalPPH
                 cboStatus.SelectedValue = clsData.StatusID
                 txtRemarks.Text = clsData.Remarks
+                strPCID = clsData.PCID
+                txtPCNumber.Text = clsData.PCNumber
+                txtFranco.Text = clsData.Franco
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
@@ -292,6 +296,9 @@ Public Class frmTraConfirmationOrderDet
         txtTotalPPH.Value = 0
         txtGrandTotal.Value = 0
         txtRemarks.Text = ""
+        strPCID = ""
+        txtPCNumber.Text = ""
+        txtFranco.Text = ""
         cboStatus.SelectedValue = VO.Status.Values.Draft
         ToolStripLogInc.Text = "Jumlah Edit : -"
         ToolStripLogBy.Text = "Dibuat Oleh : -"
@@ -357,6 +364,18 @@ Public Class frmTraConfirmationOrderDet
     Private Sub prvSetupTools()
         Dim bolEnabled As Boolean = IIf(grdItemView.RowCount = 0, True, False)
         btnBP.Enabled = bolEnabled
+    End Sub
+
+    Private Sub prvGenerateContract()
+        Dim frmDetail As New frmTraConfirmationOrderGenerateContract
+        With frmDetail
+            .pubCOID = pubID
+            .StartPosition = FormStartPosition.CenterScreen
+            .pubShowDialog(Me)
+            If .pubIsSave Then
+                prvFillForm()
+            End If
+        End With
     End Sub
 
 #Region "Item Handle"
@@ -576,6 +595,7 @@ Public Class frmTraConfirmationOrderDet
         Select Case e.Button.Text.Trim
             Case "Simpan" : prvSave()
             Case "Tutup" : Me.Close()
+            Case "Generate Kontrak" : prvGenerateContract()
         End Select
     End Sub
 

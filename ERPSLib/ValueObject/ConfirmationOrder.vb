@@ -23,6 +23,9 @@
         Property StatusID As Integer
         Property SubmitBy As String
         Property SubmitDate As DateTime
+        Property PCID As String
+        Property PCNumber As String
+        Property Franco As String
         Property Detail As List(Of VO.ConfirmationOrderDet)
         Property PaymentTerm As List(Of VO.ConfirmationOrderPaymentTerm)
         Property Save As VO.Save.Action

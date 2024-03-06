@@ -26,6 +26,8 @@ Partial Class frmTraConfirmationOrderDet
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep1 = New System.Windows.Forms.ToolBarButton()
+        Me.BarGenerateContract = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.pgMain = New System.Windows.Forms.ProgressBar()
@@ -48,6 +50,10 @@ Partial Class frmTraConfirmationOrderDet
         Me.GridView4 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtFranco = New ERPS.usTextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtPCNumber = New ERPS.usTextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.txtAllowanceProduction = New ERPS.usNumeric()
         Me.Label21 = New System.Windows.Forms.Label()
@@ -125,7 +131,7 @@ Partial Class frmTraConfirmationOrderDet
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarRefresh, Me.BarClose, Me.BarSep1, Me.BarGenerateContract})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -145,6 +151,17 @@ Partial Class frmTraConfirmationOrderDet
         Me.BarClose.Name = "BarClose"
         Me.BarClose.Tag = "Close"
         Me.BarClose.Text = "Tutup"
+        '
+        'BarSep1
+        '
+        Me.BarSep1.Name = "BarSep1"
+        Me.BarSep1.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarGenerateContract
+        '
+        Me.BarGenerateContract.Name = "BarGenerateContract"
+        Me.BarGenerateContract.Tag = "Checked"
+        Me.BarGenerateContract.Text = "Generate Kontrak"
         '
         'lblInfo
         '
@@ -354,6 +371,10 @@ Partial Class frmTraConfirmationOrderDet
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.Label3)
+        Me.tpMain.Controls.Add(Me.txtFranco)
+        Me.tpMain.Controls.Add(Me.Label2)
+        Me.tpMain.Controls.Add(Me.txtPCNumber)
         Me.tpMain.Controls.Add(Me.Label9)
         Me.tpMain.Controls.Add(Me.txtAllowanceProduction)
         Me.tpMain.Controls.Add(Me.Label21)
@@ -380,6 +401,50 @@ Partial Class frmTraConfirmationOrderDet
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
+        Me.Label3.ForeColor = System.Drawing.Color.Black
+        Me.Label3.Location = New System.Drawing.Point(494, 127)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(100, 13)
+        Me.Label3.TabIndex = 143
+        Me.Label3.Text = "Syarat Penyerahan"
+        '
+        'txtFranco
+        '
+        Me.txtFranco.BackColor = System.Drawing.Color.LightYellow
+        Me.txtFranco.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtFranco.Location = New System.Drawing.Point(611, 123)
+        Me.txtFranco.MaxLength = 250
+        Me.txtFranco.Name = "txtFranco"
+        Me.txtFranco.ReadOnly = True
+        Me.txtFranco.Size = New System.Drawing.Size(249, 21)
+        Me.txtFranco.TabIndex = 11
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.ForeColor = System.Drawing.Color.Black
+        Me.Label2.Location = New System.Drawing.Point(494, 100)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(78, 13)
+        Me.Label2.TabIndex = 141
+        Me.Label2.Text = "Nomor Kontrak"
+        '
+        'txtPCNumber
+        '
+        Me.txtPCNumber.BackColor = System.Drawing.Color.LightYellow
+        Me.txtPCNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPCNumber.Location = New System.Drawing.Point(611, 96)
+        Me.txtPCNumber.MaxLength = 250
+        Me.txtPCNumber.Name = "txtPCNumber"
+        Me.txtPCNumber.ReadOnly = True
+        Me.txtPCNumber.Size = New System.Drawing.Size(249, 21)
+        Me.txtPCNumber.TabIndex = 10
         '
         'Label9
         '
@@ -466,7 +531,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(506, 47)
+        Me.Label13.Location = New System.Drawing.Point(494, 47)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 129
@@ -476,7 +541,7 @@ Partial Class frmTraConfirmationOrderDet
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(586, 43)
+        Me.txtRemarks.Location = New System.Drawing.Point(611, 43)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
@@ -488,7 +553,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(586, 16)
+        Me.cboStatus.Location = New System.Drawing.Point(611, 16)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(109, 21)
         Me.cboStatus.TabIndex = 8
@@ -498,7 +563,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(506, 20)
+        Me.Label5.Location = New System.Drawing.Point(494, 20)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(38, 13)
         Me.Label5.TabIndex = 128
@@ -1046,4 +1111,10 @@ Partial Class frmTraConfirmationOrderDet
     Friend WithEvents tpHistory As System.Windows.Forms.TabPage
     Friend WithEvents grdStatus As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdStatusView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents BarSep1 As ToolBarButton
+    Friend WithEvents BarGenerateContract As ToolBarButton
+    Friend WithEvents Label3 As Label
+    Friend WithEvents txtFranco As usTextBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents txtPCNumber As usTextBox
 End Class

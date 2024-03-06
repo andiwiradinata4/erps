@@ -222,31 +222,32 @@ Public Class frmTraPurchaseContractDet
                                 })
         Next
 
-        clsData = New VO.PurchaseContract
-        clsData.ID = pubID
-        clsData.ProgramID = pubCS.ProgramID
-        clsData.CompanyID = pubCS.CompanyID
-        clsData.PCNumber = txtPCNumber.Text.Trim
-        clsData.PCDate = dtpPCDate.Value.Date
-        clsData.BPID = intBPID
-        clsData.DeliveryPeriodFrom = dtpDeliveryPeriodFrom.Value.Date
-        clsData.DeliveryPeriodTo = dtpDeliveryPeriodTo.Value.Date
-        clsData.Franco = txtFranco.Text.Trim
-        clsData.AllowanceProduction = txtAllowanceProduction.Value
-        clsData.PPN = txtPPN.Value
-        clsData.PPH = txtPPH.Value
-        clsData.TotalQuantity = grdItemView.Columns("Quantity").SummaryItem.SummaryValue
-        clsData.TotalWeight = grdItemView.Columns("TotalWeight").SummaryItem.SummaryValue
-        clsData.TotalDPP = txtTotalDPP.Value
-        clsData.TotalPPN = txtTotalPPN.Value
-        clsData.TotalPPH = txtTotalPPH.Value
-        clsData.RoundingManual = 0
-        clsData.Remarks = txtRemarks.Text.Trim
-        clsData.StatusID = cboStatus.SelectedValue
-        clsData.Detail = listDetailOrder
-        clsData.PaymentTerm = listPaymentTerm
-        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        clsData.Save = intSave
+        clsData = New VO.PurchaseContract With {
+            .ID = pubID,
+            .ProgramID = pubCS.ProgramID,
+            .CompanyID = pubCS.CompanyID,
+            .PCNumber = txtPCNumber.Text.Trim,
+            .PCDate = dtpPCDate.Value.Date,
+            .BPID = intBPID,
+            .DeliveryPeriodFrom = dtpDeliveryPeriodFrom.Value.Date,
+            .DeliveryPeriodTo = dtpDeliveryPeriodTo.Value.Date,
+            .Franco = txtFranco.Text.Trim,
+            .AllowanceProduction = txtAllowanceProduction.Value,
+            .PPN = txtPPN.Value,
+            .PPH = txtPPH.Value,
+            .TotalQuantity = grdItemView.Columns("Quantity").SummaryItem.SummaryValue,
+            .TotalWeight = grdItemView.Columns("TotalWeight").SummaryItem.SummaryValue,
+            .TotalDPP = txtTotalDPP.Value,
+            .TotalPPN = txtTotalPPN.Value,
+            .TotalPPH = txtTotalPPH.Value,
+            .RoundingManual = 0,
+            .Remarks = txtRemarks.Text.Trim,
+            .StatusID = cboStatus.SelectedValue,
+            .Detail = listDetailOrder,
+            .PaymentTerm = listPaymentTerm,
+            .LogBy = ERPSLib.UI.usUserApp.UserID,
+            .Save = intSave
+        }
 
         pgMain.Value = 60
         Application.DoEvents()

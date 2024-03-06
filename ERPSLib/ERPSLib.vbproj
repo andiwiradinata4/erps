@@ -74,6 +74,7 @@
     <Compile Include="BusinessLayers\Base\Company.vb" />
     <Compile Include="BusinessLayers\Base\CompanyBankAccount.vb" />
     <Compile Include="BusinessLayers\Base\JournalPost.vb" />
+    <Compile Include="BusinessLayers\Base\Migration.vb" />
     <Compile Include="BusinessLayers\Base\Modules.vb" />
     <Compile Include="BusinessLayers\Base\ModulesAccess.vb" />
     <Compile Include="BusinessLayers\Base\PaymentMode.vb" />
@@ -120,6 +121,7 @@
     <Compile Include="DataLayers\Base\Company.vb" />
     <Compile Include="DataLayers\Base\CompanyBankAccount.vb" />
     <Compile Include="DataLayers\Base\JournalPost.vb" />
+    <Compile Include="DataLayers\Base\Migration.vb" />
     <Compile Include="DataLayers\Base\Modules.vb" />
     <Compile Include="DataLayers\Base\ModulesAccess.vb" />
     <Compile Include="DataLayers\Base\PaymentMode.vb" />
@@ -195,6 +197,7 @@
     <Compile Include="ValueObject\Base\CS.vb" />
     <Compile Include="ValueObject\Base\DefaultServer.vb" />
     <Compile Include="ValueObject\Base\JournalPost.vb" />
+    <Compile Include="ValueObject\Base\Migration.vb" />
     <Compile Include="ValueObject\Base\Modules.vb" />
     <Compile Include="ValueObject\Base\ModulesAccess.vb" />
     <Compile Include="ValueObject\Base\PaymentMode.vb" />

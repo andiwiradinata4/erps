@@ -612,6 +612,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderOutstanding.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderGenerateContract.Designer.vb">
+      <DependentUpon>frmTraConfirmationOrderGenerateContract.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderGenerateContract.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderOutstandingSalesContract.Designer.vb">
       <DependentUpon>frmTraConfirmationOrderOutstandingSalesContract.vb</DependentUpon>
     </Compile>
@@ -1223,6 +1229,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderOutstanding.resx">
       <DependentUpon>frmTraConfirmationOrderDetItemOrderOutstanding.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderGenerateContract.resx">
+      <DependentUpon>frmTraConfirmationOrderGenerateContract.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderOutstandingSalesContract.resx">
       <DependentUpon>frmTraConfirmationOrderOutstandingSalesContract.vb</DependentUpon>

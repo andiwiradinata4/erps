@@ -20,6 +20,13 @@
             End Using
         End Function
 
+        Public Shared Function GetNewID(ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer, ByVal intProgramID As Integer) As String
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return GetNewID(sqlCon, Nothing, dtmTransDate, intCompanyID, intProgramID)
+            End Using
+        End Function
+
         Public Shared Function GetNewID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer, ByVal intProgramID As Integer) As String
             Dim clsCompany As VO.Company = DL.Company.GetDetail(sqlCon, sqlTrans, intCompanyID)
@@ -33,61 +40,8 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    If bolNew Then
-                        clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.PCDate, clsData.CompanyID, clsData.ProgramID)
-                        If clsData.PCNumber.Trim = "" Then clsData.PCNumber = clsData.ID
-                    Else
-                        Dim dtItem As DataTable = DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
 
-                        DL.PurchaseContract.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
-                        DL.PurchaseContract.DeleteDataPaymentTerm(sqlCon, sqlTrans, clsData.ID)
-
-                        '# Revert PC Quantity
-                        For Each dr As DataRow In dtItem.Rows
-                            DL.ConfirmationOrder.CalculatePCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
-                        Next
-                    End If
-
-                    Dim intStatusID As Integer = DL.PurchaseContract.GetStatusID(sqlCon, sqlTrans, clsData.ID)
-                    If intStatusID = VO.Status.Values.Approved Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di approve")
-                    ElseIf intStatusID = VO.Status.Values.Submit Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di submit")
-                    ElseIf DL.PurchaseContract.IsDeleted(sqlCon, sqlTrans, clsData.ID) Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
-                    ElseIf DL.PurchaseContract.DataExists(sqlCon, sqlTrans, clsData.PCNumber, clsData.ID) Then
-                        Err.Raise(515, "", "Tidak dapat disimpan. Nomor " & clsData.PCNumber & " sudah ada.")
-                    End If
-
-                    DL.PurchaseContract.SaveData(sqlCon, sqlTrans, bolNew, clsData)
-
-                    '# Save Data Detail
-                    Dim intCount As Integer = 1
-                    For Each clsDet As VO.PurchaseContractDet In clsData.Detail
-                        clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
-                        clsDet.PCID = clsData.ID
-                        DL.PurchaseContract.SaveDataDetail(sqlCon, sqlTrans, clsDet)
-                        intCount += 1
-                    Next
-
-                    '# Save Data Payment Term
-                    intCount = 1
-                    For Each clsDet As VO.PurchaseContractPaymentTerm In clsData.PaymentTerm
-                        clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
-                        clsDet.PCID = clsData.ID
-                        DL.PurchaseContract.SaveDataPaymentTerm(sqlCon, sqlTrans, clsDet)
-                        intCount += 1
-                    Next
-
-                    '# Calculate PC Quantity
-                    For Each clsDet As VO.PurchaseContractDet In clsData.Detail
-                        DL.ConfirmationOrder.CalculatePCTotalUsed(sqlCon, sqlTrans, clsDet.CODetailID)
-                    Next
-
-                    '# Save Data Status
-                    BL.PurchaseContract.SaveDataStatus(sqlCon, sqlTrans, clsData.ID, IIf(bolNew, "BARU", "EDIT"), ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
-
-                    If clsData.Save = VO.Save.Action.SaveAndSubmit Then Submit(sqlCon, sqlTrans, clsData.ID, clsData.Remarks)
+                    BL.PurchaseContract.SaveData(sqlCon, sqlTrans, bolNew, clsData)
 
                     sqlTrans.Commit()
                 Catch ex As Exception
@@ -95,6 +49,67 @@
                     Throw ex
                 End Try
             End Using
+            Return clsData.PCNumber
+        End Function
+
+        Public Shared Function SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                        ByVal bolNew As Boolean, ByVal clsData As VO.PurchaseContract) As String
+            If bolNew Then
+                If clsData.ID.Trim = "" Then clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.PCDate, clsData.CompanyID, clsData.ProgramID)
+                If clsData.PCNumber.Trim = "" Then clsData.PCNumber = clsData.ID
+            Else
+                Dim dtItem As DataTable = DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
+
+                DL.PurchaseContract.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
+                DL.PurchaseContract.DeleteDataPaymentTerm(sqlCon, sqlTrans, clsData.ID)
+
+                '# Revert PC Quantity
+                For Each dr As DataRow In dtItem.Rows
+                    DL.ConfirmationOrder.CalculatePCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
+                Next
+            End If
+
+            Dim intStatusID As Integer = DL.PurchaseContract.GetStatusID(sqlCon, sqlTrans, clsData.ID)
+            If intStatusID = VO.Status.Values.Approved Then
+                Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di approve")
+            ElseIf intStatusID = VO.Status.Values.Submit Then
+                Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di submit")
+            ElseIf DL.PurchaseContract.IsDeleted(sqlCon, sqlTrans, clsData.ID) Then
+                Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
+            ElseIf DL.PurchaseContract.DataExists(sqlCon, sqlTrans, clsData.PCNumber, clsData.ID) Then
+                Err.Raise(515, "", "Tidak dapat disimpan. Nomor " & clsData.PCNumber & " sudah ada.")
+            End If
+
+            DL.PurchaseContract.SaveData(sqlCon, sqlTrans, bolNew, clsData)
+
+            '# Save Data Detail
+            Dim intCount As Integer = 1
+            For Each clsDet As VO.PurchaseContractDet In clsData.Detail
+                clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
+                clsDet.PCID = clsData.ID
+                DL.PurchaseContract.SaveDataDetail(sqlCon, sqlTrans, clsDet)
+                intCount += 1
+            Next
+
+            '# Save Data Payment Term
+            intCount = 1
+            For Each clsDet As VO.PurchaseContractPaymentTerm In clsData.PaymentTerm
+                clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
+                clsDet.PCID = clsData.ID
+                DL.PurchaseContract.SaveDataPaymentTerm(sqlCon, sqlTrans, clsDet)
+                intCount += 1
+            Next
+
+            '# Calculate PC Quantity
+            For Each clsDet As VO.PurchaseContractDet In clsData.Detail
+                DL.ConfirmationOrder.CalculatePCTotalUsed(sqlCon, sqlTrans, clsDet.CODetailID)
+            Next
+
+            '# Save Data Status
+            BL.PurchaseContract.SaveDataStatus(sqlCon, sqlTrans, clsData.ID, IIf(bolNew, "BARU", "EDIT"), ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
+
+            If clsData.Save = VO.Save.Action.SaveAndSubmit Then Submit(sqlCon, sqlTrans, clsData.ID, clsData.Remarks)
+
             Return clsData.PCNumber
         End Function
 
@@ -222,55 +237,56 @@
                     '# Save Data Status
                     BL.PurchaseContract.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
-                    Dim clsData As VO.PurchaseContract = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, strID)
-                    Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
-                    Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
+                    ''# Generate Journal
+                    'Dim clsData As VO.PurchaseContract = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, strID)
+                    'Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
+                    'Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
 
-                    '# Generate Journal
-                    Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.TotalPPN - clsData.TotalPPH + clsData.RoundingManual
-                    Dim clsJournalDetail As New List(Of VO.JournalDet)
+                    ''# Generate Journal
+                    'Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.TotalPPN - clsData.TotalPPH + clsData.RoundingManual
+                    'Dim clsJournalDetail As New List(Of VO.JournalDet)
 
-                    clsJournalDetail.Add(New VO.JournalDet With
-                                         {
-                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofStock,
-                                             .DebitAmount = decTotalAmount,
-                                             .CreditAmount = 0,
-                                             .Remarks = "KONTRAK PEMBELIAN - " & clsData.PCNumber
-                                         })
-                    clsJournalDetail.Add(New VO.JournalDet With
-                                         {
-                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable,
-                                             .DebitAmount = 0,
-                                             .CreditAmount = decTotalAmount,
-                                             .Remarks = "KONTRAK PEMBELIAN - " & clsData.PCNumber
-                                         })
+                    'clsJournalDetail.Add(New VO.JournalDet With
+                    '                     {
+                    '                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofStock,
+                    '                         .DebitAmount = decTotalAmount,
+                    '                         .CreditAmount = 0,
+                    '                         .Remarks = "KONTRAK PEMBELIAN - " & clsData.PCNumber
+                    '                     })
+                    'clsJournalDetail.Add(New VO.JournalDet With
+                    '                     {
+                    '                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable,
+                    '                         .DebitAmount = 0,
+                    '                         .CreditAmount = decTotalAmount,
+                    '                         .Remarks = "KONTRAK PEMBELIAN - " & clsData.PCNumber
+                    '                     })
 
-                    Dim clsJournal As New VO.Journal With
-                        {
-                            .ProgramID = clsData.ProgramID,
-                            .CompanyID = clsData.CompanyID,
-                            .ID = PrevJournal.ID,
-                            .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
-                            .ReferencesID = clsData.ID,
-                            .JournalDate = IIf(bolNew, Now, PrevJournal.JournalDate),
-                            .TotalAmount = decTotalAmount,
-                            .IsAutoGenerate = True,
-                            .StatusID = VO.Status.Values.Draft,
-                            .Remarks = clsData.Remarks,
-                            .LogBy = ERPSLib.UI.usUserApp.UserID,
-                            .Initial = "",
-                            .Detail = clsJournalDetail,
-                            .Save = VO.Save.Action.SaveAndSubmit
-                        }
+                    'Dim clsJournal As New VO.Journal With
+                    '    {
+                    '        .ProgramID = clsData.ProgramID,
+                    '        .CompanyID = clsData.CompanyID,
+                    '        .ID = PrevJournal.ID,
+                    '        .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                    '        .ReferencesID = clsData.ID,
+                    '        .JournalDate = IIf(bolNew, Now, PrevJournal.JournalDate),
+                    '        .TotalAmount = decTotalAmount,
+                    '        .IsAutoGenerate = True,
+                    '        .StatusID = VO.Status.Values.Draft,
+                    '        .Remarks = clsData.Remarks,
+                    '        .LogBy = ERPSLib.UI.usUserApp.UserID,
+                    '        .Initial = "",
+                    '        .Detail = clsJournalDetail,
+                    '        .Save = VO.Save.Action.SaveAndSubmit
+                    '    }
 
-                    '# Save Journal
-                    Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
+                    ''# Save Journal
+                    'Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
 
-                    '# Approve Journal
-                    BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
+                    ''# Approve Journal
+                    'BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
 
-                    '# Update Journal ID in Purchase Contract
-                    DL.PurchaseContract.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
+                    ''# Update Journal ID in Purchase Contract
+                    'DL.PurchaseContract.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
 
                     sqlTrans.Commit()
                 Catch ex As Exception
@@ -298,13 +314,13 @@
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses pembayaran")
                     End If
 
-                    Dim clsData As VO.PurchaseContract = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, strID)
+                    'Dim clsData As VO.PurchaseContract = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, strID)
 
-                    '# Cancel Approve Journal
-                    BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+                    ''# Cancel Approve Journal
+                    'BL.Journal.Unapprove(clsData.JournalID.Trim, "")
 
-                    '# Cancel Submit Journal
-                    BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+                    ''# Cancel Submit Journal
+                    'BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
 
                     DL.PurchaseContract.Unapprove(sqlCon, sqlTrans, strID)
 

@@ -85,6 +85,9 @@
         pgMain.Value = 30
         Application.DoEvents()
 
+        '# Run Migration
+        BL.Migration.Migrate()
+
         '# Master
         mnuMasterProgram.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterProgram, VO.Access.Values.ViewAccess)
         mnuMasterStatus.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterStatus, VO.Access.Values.ViewAccess)
