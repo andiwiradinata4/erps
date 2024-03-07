@@ -23,7 +23,7 @@ Public Class frmTraConfirmationOrderDet
 #End Region
 
     Private Const _
-       cSave As Byte = 0, cClose As Byte = 1, _
+       cSave As Byte = 0, cClose As Byte = 1, cSep As Byte = 2, cGenerateContract As Byte = 3,
        cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2
 
     Private Sub prvSetTitleForm()
@@ -364,9 +364,15 @@ Public Class frmTraConfirmationOrderDet
     Private Sub prvSetupTools()
         Dim bolEnabled As Boolean = IIf(grdItemView.RowCount = 0, True, False)
         btnBP.Enabled = bolEnabled
+        If clsData.StatusID <> VO.Status.Values.Submit Then ToolBar.Buttons.Item(cGenerateContract).Enabled = False
     End Sub
 
     Private Sub prvGenerateContract()
+        If clsData.StatusID <> VO.Status.Values.Submit Then
+            UI.usForm.frmMessageBox("Data harus di Submit terlebih dahulu.")
+            Exit Sub
+        End If
+
         Dim frmDetail As New frmTraConfirmationOrderGenerateContract
         With frmDetail
             .pubCOID = pubID
@@ -624,5 +630,5 @@ Public Class frmTraConfirmationOrderDet
     End Sub
 
 #End Region
-    
+
 End Class

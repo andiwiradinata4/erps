@@ -30,6 +30,7 @@
         Property ApprovedDate As DateTime
         Property DPAmount As Decimal
         Property ReceiveAmount As Decimal
+        Property IsAutoGenerate As Boolean
         Property Detail As List(Of VO.PurchaseContractDet)
         Property PaymentTerm As List(Of VO.PurchaseContractPaymentTerm)
         Property Save As VO.Save.Action

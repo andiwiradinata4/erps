@@ -94,70 +94,7 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim clsData As VO.ConfirmationOrder = DL.ConfirmationOrder.GetDetail(sqlCon, sqlTrans, strID)
-                    Dim dtDetail As DataTable = DL.ConfirmationOrder.ListDataDetail(sqlCon, sqlTrans, strID)
-                    Dim dtPaymentTerm As DataTable = DL.ConfirmationOrder.ListDataPaymentTerm(sqlCon, sqlTrans, strID)
-                    Dim bolNew As Boolean = IIf(clsData.PCID.Trim = "", True, False)
-                    Dim strPCID As String = clsData.PCID
-                    If bolNew Then strPCID = BL.PurchaseContract.GetNewID(sqlCon, sqlTrans, clsData.CODate, clsData.CompanyID, clsData.ProgramID)
-
-                    Dim listDetailOrder As New List(Of VO.PurchaseContractDet)
-                    For Each dr As DataRow In dtDetail.Rows
-                        listDetailOrder.Add(New ERPSLib.VO.PurchaseContractDet With
-                        {
-                            .CODetailID = dr.Item("ID"),
-                            .ItemID = dr.Item("ItemID"),
-                            .Quantity = dr.Item("Quantity"),
-                            .Weight = dr.Item("Weight"),
-                            .TotalWeight = dr.Item("TotalWeight"),
-                            .UnitPrice = dr.Item("UnitPrice"),
-                            .TotalPrice = dr.Item("TotalPrice"),
-                            .Remarks = dr.Item("Remarks")
-                        })
-                    Next
-
-                    Dim listPaymentTerm As New List(Of VO.PurchaseContractPaymentTerm)
-                    For Each dr As DataRow In dtPaymentTerm.Rows
-                        listPaymentTerm.Add(New VO.PurchaseContractPaymentTerm With
-                        {
-                            .Percentage = dr.Item("Percentage"),
-                            .PaymentTypeID = dr.Item("PaymentTypeID"),
-                            .PaymentModeID = dr.Item("PaymentModeID"),
-                            .CreditTerm = dr.Item("CreditTerm"),
-                            .Remarks = dr.Item("Remarks")
-                        })
-                    Next
-
-                    Dim clsContract As New VO.PurchaseContract
-                    clsContract = New VO.PurchaseContract With {
-                        .ID = strPCID,
-                        .ProgramID = clsData.ProgramID,
-                        .CompanyID = clsData.CompanyID,
-                        .PCNumber = strContractNumber,
-                        .PCDate = clsData.CODate,
-                        .BPID = clsData.BPID,
-                        .DeliveryPeriodFrom = clsData.DeliveryPeriodFrom,
-                        .DeliveryPeriodTo = clsData.DeliveryPeriodTo,
-                        .Franco = strFranco,
-                        .AllowanceProduction = clsData.AllowanceProduction,
-                        .PPN = clsData.PPN,
-                        .PPH = clsData.PPH,
-                        .TotalQuantity = clsData.TotalQuantity,
-                        .TotalWeight = clsData.TotalWeight,
-                        .TotalDPP = clsData.TotalDPP,
-                        .TotalPPN = clsData.TotalPPN,
-                        .TotalPPH = clsData.TotalPPH,
-                        .RoundingManual = clsData.RoundingManual,
-                        .Remarks = clsData.Remarks,
-                        .StatusID = VO.Status.Values.Draft,
-                        .Detail = listDetailOrder,
-                        .PaymentTerm = listPaymentTerm,
-                        .LogBy = ERPSLib.UI.usUserApp.UserID,
-                        .Save = VO.Save.Action.SaveAsDraft
-                    }
-
-                    BL.PurchaseContract.SaveData(sqlCon, sqlTrans, bolNew, clsContract)
-                    If bolNew Then DL.ConfirmationOrder.UpdatePCID(sqlCon, sqlTrans, clsData.ID, strPCID)
+                    BL.ConfirmationOrder.GeneratePurchaseContract(sqlCon, sqlTrans, strID, strContractNumber, strFranco)
                     sqlTrans.Commit()
                     bolReturn = True
                 Catch ex As Exception
@@ -167,6 +104,85 @@
                 Return bolReturn
             End Using
         End Function
+
+        Public Shared Sub GeneratePurchaseContract(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal strID As String, ByVal strContractNumber As String,
+                                                   ByVal strFranco As String)
+            Try
+                Dim clsData As VO.ConfirmationOrder = DL.ConfirmationOrder.GetDetail(sqlCon, sqlTrans, strID)
+                Dim dtDetail As DataTable = DL.ConfirmationOrder.ListDataDetail(sqlCon, sqlTrans, strID)
+                Dim dtPaymentTerm As DataTable = DL.ConfirmationOrder.ListDataPaymentTerm(sqlCon, sqlTrans, strID)
+                Dim bolNew As Boolean = IIf(clsData.PCID.Trim = "", True, False)
+                Dim strPCID As String = clsData.PCID
+                If bolNew Then strPCID = BL.PurchaseContract.GetNewID(sqlCon, sqlTrans, clsData.CODate, clsData.CompanyID, clsData.ProgramID)
+
+                Dim listDetailOrder As New List(Of VO.PurchaseContractDet)
+                For Each dr As DataRow In dtDetail.Rows
+                    listDetailOrder.Add(New ERPSLib.VO.PurchaseContractDet With
+                    {
+                        .CODetailID = dr.Item("ID"),
+                        .ItemID = dr.Item("ItemID"),
+                        .Quantity = dr.Item("Quantity"),
+                        .Weight = dr.Item("Weight"),
+                        .TotalWeight = dr.Item("TotalWeight"),
+                        .UnitPrice = dr.Item("UnitPrice"),
+                        .TotalPrice = dr.Item("TotalPrice"),
+                        .Remarks = dr.Item("Remarks")
+                    })
+                Next
+
+                Dim listPaymentTerm As New List(Of VO.PurchaseContractPaymentTerm)
+                For Each dr As DataRow In dtPaymentTerm.Rows
+                    listPaymentTerm.Add(New VO.PurchaseContractPaymentTerm With
+                    {
+                        .Percentage = dr.Item("Percentage"),
+                        .PaymentTypeID = dr.Item("PaymentTypeID"),
+                        .PaymentModeID = dr.Item("PaymentModeID"),
+                        .CreditTerm = dr.Item("CreditTerm"),
+                        .Remarks = dr.Item("Remarks")
+                    })
+                Next
+
+                Dim clsContract As New VO.PurchaseContract
+                clsContract = New VO.PurchaseContract With {
+                    .ID = strPCID,
+                    .ProgramID = clsData.ProgramID,
+                    .CompanyID = clsData.CompanyID,
+                    .PCNumber = strContractNumber,
+                    .PCDate = clsData.CODate,
+                    .BPID = clsData.BPID,
+                    .DeliveryPeriodFrom = clsData.DeliveryPeriodFrom,
+                    .DeliveryPeriodTo = clsData.DeliveryPeriodTo,
+                    .Franco = strFranco,
+                    .AllowanceProduction = clsData.AllowanceProduction,
+                    .PPN = clsData.PPN,
+                    .PPH = clsData.PPH,
+                    .TotalQuantity = clsData.TotalQuantity,
+                    .TotalWeight = clsData.TotalWeight,
+                    .TotalDPP = clsData.TotalDPP,
+                    .TotalPPN = clsData.TotalPPN,
+                    .TotalPPH = clsData.TotalPPH,
+                    .RoundingManual = clsData.RoundingManual,
+                    .Remarks = clsData.Remarks,
+                    .StatusID = VO.Status.Values.Draft,
+                    .IsAutoGenerate = True,
+                    .Detail = listDetailOrder,
+                    .PaymentTerm = listPaymentTerm,
+                    .LogBy = ERPSLib.UI.usUserApp.UserID,
+                    .Save = VO.Save.Action.SaveAndSubmit
+                }
+
+                '# Save and Submit Purchase Contract
+                BL.PurchaseContract.SaveData(sqlCon, sqlTrans, bolNew, clsContract)
+
+                '# Approve Purchase Contract
+                BL.PurchaseContract.Approve(sqlCon, sqlTrans, strPCID, clsData.Remarks)
+
+                If bolNew Then DL.ConfirmationOrder.UpdatePCID(sqlCon, sqlTrans, clsData.ID, strPCID)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
 
         Public Shared Function GetDetail(ByVal strID As String) As VO.ConfirmationOrder
             BL.Server.ServerDefault()
@@ -225,7 +241,8 @@
 
         Public Shared Sub Submit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                  ByVal strID As String, ByVal strRemarks As String)
-            Dim bolReturn As Boolean = False
+
+            Dim clsData As VO.ConfirmationOrder = DL.ConfirmationOrder.GetDetail(sqlCon, sqlTrans, strID)
             Dim intStatusID As Integer = DL.ConfirmationOrder.GetStatusID(sqlCon, sqlTrans, strID)
             If intStatusID = VO.Status.Values.Submit Then
                 Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan status data telah SUBMIT")
@@ -237,6 +254,9 @@
 
             '# Save Data Status
             BL.ConfirmationOrder.SaveDataStatus(sqlCon, sqlTrans, strID, "SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+            '# Re-Generate Purchase Contract
+            If clsData.PCID.Trim <> "" Then BL.ConfirmationOrder.GeneratePurchaseContract(sqlCon, sqlTrans, clsData.ID, clsData.PCNumber, clsData.Franco)
         End Sub
 
         Public Shared Function Unsubmit(ByVal strID As String, ByVal strRemarks As String) As Boolean
@@ -245,13 +265,18 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
+                    Dim clsData As VO.ConfirmationOrder = DL.ConfirmationOrder.GetDetail(sqlCon, sqlTrans, strID)
+                    Dim clsContract As VO.PurchaseContract = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, clsData.PCID)
+
                     Dim intStatusID As Integer = DL.ConfirmationOrder.GetStatusID(sqlCon, sqlTrans, strID)
                     If intStatusID = VO.Status.Values.Draft Then
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah DRAFT")
                     ElseIf DL.ConfirmationOrder.IsDeleted(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
-                    ElseIf DL.ConfirmationOrder.IsAlreadyPurchaseContract(sqlCon, sqlTrans, strID) Then
+                    ElseIf DL.ConfirmationOrder.IsAlreadyPurchaseContract(sqlCon, sqlTrans, strID) And Not clsContract.IsAutoGenerate Then
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dilanjutkan proses Kontrak Pembelian")
+                    ElseIf clsContract.DPAmount > 0 Then
+                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data Kontrak terkait sudah melakukan pembayaran DP")
                     End If
 
                     DL.ConfirmationOrder.Unsubmit(sqlCon, sqlTrans, strID)
@@ -259,6 +284,11 @@
                     '# Save Data Status
                     BL.ConfirmationOrder.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
+                    '# Update Purchase Contract
+                    If clsData.PCID <> "" Then
+                        BL.PurchaseContract.Unapprove(sqlCon, sqlTrans, clsContract.ID, strRemarks)
+                        BL.PurchaseContract.Unsubmit(sqlCon, sqlTrans, clsContract.ID, strRemarks)
+                    End If
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
