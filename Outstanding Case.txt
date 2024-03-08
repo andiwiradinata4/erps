@@ -1,0 +1,12 @@
+1. Check semua transaksi agar Weight per Item bisa di edit dikarenakan ada Item yang tidak menentukan Weight sehingga setiap transaksi ketika add Item harus validasi Weight lebih besar dari 0
+-> Done
+2. Buat Fitur generate Kontrak KP agar user tidak perlu melakukan penginputan ulang Kontrak dari KP dikarenakan info dari cucu bahwasanya 1 Kontrak Pembelian hanya terdiri dari 1 KO
+-> Done. Pikirkan gimana ketika cancel submit KO bisa dilakukan jika ada generate Kontrak
+-> Done Re-Generate Kontrak ketika Submit dan Set kontrak menjadi draft ketika Konfirmasi Order Cancel Submit
+3. Generate Hutang Usaha berdasarkan Penerimaan Barang
+-> Done.
+4. Checking Laporan Transaksi Barang, dimana data pembayaran penjualan ada keliru.
+
+5. Pembayaran Hutang bisa menggunakan Alokasi beberapa DP dan nilai pelunasan di alokasikan ke beberapa Penerimaan Barang
+6. Penambahan kolom rounding di setiap transaksi
+7. penambahan fitur Close pada kontrak pembelian dan kontrak penjualan jika diperlukan
