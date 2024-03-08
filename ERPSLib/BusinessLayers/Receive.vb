@@ -147,6 +147,8 @@
 
             '# Save Data Status
             BL.Receive.SaveDataStatus(sqlCon, sqlTrans, strID, "SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+            GenerateJournal(sqlCon, sqlTrans, strID)
         End Sub
 
         Public Shared Function Unsubmit(ByVal strID As String, ByVal strRemarks As String) As Boolean

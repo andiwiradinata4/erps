@@ -364,7 +364,11 @@ Public Class frmTraConfirmationOrderDet
     Private Sub prvSetupTools()
         Dim bolEnabled As Boolean = IIf(grdItemView.RowCount = 0, True, False)
         btnBP.Enabled = bolEnabled
-        If clsData.StatusID <> VO.Status.Values.Submit Then ToolBar.Buttons.Item(cGenerateContract).Enabled = False
+        If clsData.StatusID <> VO.Status.Values.Submit Then
+            ToolBar.Buttons.Item(cGenerateContract).Enabled = False
+        Else
+            ToolBar.Buttons.Item(cGenerateContract).Enabled = IIf(txtPCNumber.Text.Trim = "", True, False)
+        End If
     End Sub
 
     Private Sub prvGenerateContract()

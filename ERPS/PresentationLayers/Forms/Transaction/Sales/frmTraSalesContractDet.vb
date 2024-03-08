@@ -520,7 +520,7 @@ Public Class frmTraSalesContractDet
 
     Private Sub prvAddItem()
         If txtBPCode.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih Pemasok terlebih dahulu")
+            UI.usForm.frmMessageBox("Pilih Pelanggan terlebih dahulu")
             txtBPCode.Focus()
             Exit Sub
         End If
