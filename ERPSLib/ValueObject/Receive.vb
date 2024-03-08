@@ -23,6 +23,7 @@
         Property StatusID As Integer
         Property SubmitBy As String
         Property SubmitDate As DateTime
+        Property TotalPayment As Decimal
         Property Detail As List(Of VO.ReceiveDet)
         Property Save As VO.Save.Action
     End Class

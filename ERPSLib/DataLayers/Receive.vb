@@ -12,25 +12,25 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "    A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.ReceiveNumber, A.ReceiveDate, " & vbNewLine & _
-                    "    A.BPID, C.Code AS BPCode, C.Name AS BPName, A.PlatNumber, A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, " & vbNewLine & _
-                    "    A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine & _
-                    "    A.StatusID, B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, " & vbNewLine & _
-                    "    A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate  " & vbNewLine & _
-                    "FROM traReceive A " & vbNewLine & _
-                    "INNER JOIN mstStatus B ON " & vbNewLine & _
-                    "   A.StatusID=B.ID " & vbNewLine & _
-                    "INNER JOIN mstBusinessPartner C ON " & vbNewLine & _
-                    "   A.BPID=C.ID " & vbNewLine & _
-                    "INNER JOIN mstCompany MC ON " & vbNewLine & _
-                    "   A.CompanyID=MC.ID " & vbNewLine & _
-                    "INNER JOIN mstProgram MP ON " & vbNewLine & _
-                    "   A.ProgramID=MP.ID " & vbNewLine & _
-                    "WHERE  " & vbNewLine & _
-                    "   A.ProgramID=@ProgramID " & vbNewLine & _
-                    "   AND A.CompanyID=@CompanyID " & vbNewLine & _
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "    A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.ReceiveNumber, A.ReceiveDate, " & vbNewLine &
+                    "    A.BPID, C.Code AS BPCode, C.Name AS BPName, A.PlatNumber, A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, " & vbNewLine &
+                    "    A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine &
+                    "    A.StatusID, B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, " & vbNewLine &
+                    "    A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate  " & vbNewLine &
+                    "FROM traReceive A " & vbNewLine &
+                    "INNER JOIN mstStatus B ON " & vbNewLine &
+                    "   A.StatusID=B.ID " & vbNewLine &
+                    "INNER JOIN mstBusinessPartner C ON " & vbNewLine &
+                    "   A.BPID=C.ID " & vbNewLine &
+                    "INNER JOIN mstCompany MC ON " & vbNewLine &
+                    "   A.CompanyID=MC.ID " & vbNewLine &
+                    "INNER JOIN mstProgram MP ON " & vbNewLine &
+                    "   A.ProgramID=MP.ID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   A.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine &
                     "   AND A.ReceiveDate>=@DateFrom AND A.ReceiveDate<=@DateTo " & vbNewLine
 
                 If intStatusID > 0 Then .CommandText += "   AND A.StatusID=@StatusID " & vbNewLine
@@ -52,41 +52,41 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 If bolNew Then
-                    .CommandText = _
-                       "INSERT INTO traReceive " & vbNewLine & _
-                       "    (ID, ProgramID, CompanyID, ReceiveNumber, ReceiveDate, BPID, PlatNumber,   " & vbNewLine & _
-                       "     Driver, ReferencesNumber, PPN, PPH, TotalQuantity, TotalWeight,   " & vbNewLine & _
-                       "     TotalDPP, TotalPPN, TotalPPH, RoundingManual, Remarks,   " & vbNewLine & _
-                       "     StatusID, CreatedBy, CreatedDate, LogBy, LogDate)   " & vbNewLine & _
-                       "VALUES " & vbNewLine & _
-                       "    (@ID, @ProgramID, @CompanyID, @ReceiveNumber, @ReceiveDate, @BPID, @PlatNumber,   " & vbNewLine & _
-                       "     @Driver, @ReferencesNumber, @PPN, @PPH, @TotalQuantity, @TotalWeight,   " & vbNewLine & _
-                       "     @TotalDPP, @TotalPPN, @TotalPPH, @RoundingManual, @Remarks,   " & vbNewLine & _
+                    .CommandText =
+                       "INSERT INTO traReceive " & vbNewLine &
+                       "    (ID, ProgramID, CompanyID, ReceiveNumber, ReceiveDate, BPID, PlatNumber,   " & vbNewLine &
+                       "     Driver, ReferencesNumber, PPN, PPH, TotalQuantity, TotalWeight,   " & vbNewLine &
+                       "     TotalDPP, TotalPPN, TotalPPH, RoundingManual, Remarks,   " & vbNewLine &
+                       "     StatusID, CreatedBy, CreatedDate, LogBy, LogDate)   " & vbNewLine &
+                       "VALUES " & vbNewLine &
+                       "    (@ID, @ProgramID, @CompanyID, @ReceiveNumber, @ReceiveDate, @BPID, @PlatNumber,   " & vbNewLine &
+                       "     @Driver, @ReferencesNumber, @PPN, @PPH, @TotalQuantity, @TotalWeight,   " & vbNewLine &
+                       "     @TotalDPP, @TotalPPN, @TotalPPH, @RoundingManual, @Remarks,   " & vbNewLine &
                        "     @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE())  " & vbNewLine
                 Else
-                    .CommandText = _
-                    "UPDATE traReceive SET " & vbNewLine & _
-                    "    ProgramID=@ProgramID, " & vbNewLine & _
-                    "    CompanyID=@CompanyID, " & vbNewLine & _
-                    "    ReceiveNumber=@ReceiveNumber, " & vbNewLine & _
-                    "    ReceiveDate=@ReceiveDate, " & vbNewLine & _
-                    "    BPID=@BPID, " & vbNewLine & _
-                    "    PlatNumber=@PlatNumber, " & vbNewLine & _
-                    "    Driver=@Driver, " & vbNewLine & _
-                    "    ReferencesNumber=@ReferencesNumber, " & vbNewLine & _
-                    "    PPN=@PPN, " & vbNewLine & _
-                    "    PPH=@PPH, " & vbNewLine & _
-                    "    TotalQuantity=@TotalQuantity, " & vbNewLine & _
-                    "    TotalWeight=@TotalWeight, " & vbNewLine & _
-                    "    TotalDPP=@TotalDPP, " & vbNewLine & _
-                    "    TotalPPN=@TotalPPN, " & vbNewLine & _
-                    "    TotalPPH=@TotalPPH, " & vbNewLine & _
-                    "    RoundingManual=@RoundingManual, " & vbNewLine & _
-                    "    Remarks=@Remarks, " & vbNewLine & _
-                    "    StatusID=@StatusID, " & vbNewLine & _
-                    "    LogBy=@LogBy, " & vbNewLine & _
-                    "    LogDate=GETDATE() " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                    .CommandText =
+                    "UPDATE traReceive SET " & vbNewLine &
+                    "    ProgramID=@ProgramID, " & vbNewLine &
+                    "    CompanyID=@CompanyID, " & vbNewLine &
+                    "    ReceiveNumber=@ReceiveNumber, " & vbNewLine &
+                    "    ReceiveDate=@ReceiveDate, " & vbNewLine &
+                    "    BPID=@BPID, " & vbNewLine &
+                    "    PlatNumber=@PlatNumber, " & vbNewLine &
+                    "    Driver=@Driver, " & vbNewLine &
+                    "    ReferencesNumber=@ReferencesNumber, " & vbNewLine &
+                    "    PPN=@PPN, " & vbNewLine &
+                    "    PPH=@PPH, " & vbNewLine &
+                    "    TotalQuantity=@TotalQuantity, " & vbNewLine &
+                    "    TotalWeight=@TotalWeight, " & vbNewLine &
+                    "    TotalDPP=@TotalDPP, " & vbNewLine &
+                    "    TotalPPN=@TotalPPN, " & vbNewLine &
+                    "    TotalPPH=@TotalPPH, " & vbNewLine &
+                    "    RoundingManual=@RoundingManual, " & vbNewLine &
+                    "    Remarks=@Remarks, " & vbNewLine &
+                    "    StatusID=@StatusID, " & vbNewLine &
+                    "    LogBy=@LogBy, " & vbNewLine &
+                    "    LogDate=GETDATE() " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "    ID=@ID " & vbNewLine
                 End If
 
@@ -127,21 +127,21 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   A.ID, A.ProgramID, A.CompanyID, A.ReceiveNumber, A.ReceiveDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.PlatNumber,   " & vbNewLine & _
-                        "   A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight,   " & vbNewLine & _
-                        "   A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks,   " & vbNewLine & _
-                        "   A.StatusID, A.SubmitBy, A.SubmitDate, A.LogBy, A.LogDate  " & vbNewLine & _
-                        "FROM traReceive A " & vbNewLine & _
-                        "INNER JOIN mstBusinessPartner B ON " & vbNewLine & _
-                        "   A.BPID=B.ID " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   A.ID, A.ProgramID, A.CompanyID, A.ReceiveNumber, A.ReceiveDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.PlatNumber,   " & vbNewLine &
+                        "   A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight,   " & vbNewLine &
+                        "   A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks,   " & vbNewLine &
+                        "   A.StatusID, A.SubmitBy, A.SubmitDate, A.LogBy, A.LogDate, A.JournalID, A.TotalPayment  " & vbNewLine &
+                        "FROM traReceive A " & vbNewLine &
+                        "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
+                        "   A.BPID=B.ID " & vbNewLine &
+                        "WHERE " & vbNewLine &
                         "   A.ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 End With
-                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
                 With sqlrdData
                     If .HasRows Then
                         .Read()
@@ -171,6 +171,8 @@
                         voReturn.SubmitDate = .Item("SubmitDate")
                         voReturn.LogBy = .Item("LogBy")
                         voReturn.LogDate = .Item("LogDate")
+                        voReturn.JournalID = .Item("JournalID")
+                        voReturn.TotalPayment = .Item("TotalPayment")
                     End If
                 End With
             Catch ex As Exception
@@ -188,11 +190,11 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE traReceive SET " & vbNewLine & _
-                    "   StatusID=@StatusID, " & vbNewLine & _
-                    "   IsDeleted=1 " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "UPDATE traReceive SET " & vbNewLine &
+                    "   StatusID=@StatusID, " & vbNewLine &
+                    "   IsDeleted=1 " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -214,12 +216,12 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   ISNULL(RIGHT(ID, 4),'0000') AS ID " & vbNewLine & _
-                        "FROM traReceive " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
-                        "   LEFT(ID,@Length)=@ID " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ISNULL(RIGHT(ID, 4),'0000') AS ID " & vbNewLine &
+                        "FROM traReceive " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   LEFT(ID,@Length)=@ID " & vbNewLine &
                         "ORDER BY CreatedDate DESC " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, strNewID.Length).Value = strNewID
@@ -249,12 +251,12 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   ID " & vbNewLine & _
-                        "FROM traReceive " & vbNewLine & _
-                        "WHERE  " & vbNewLine & _
-                        "   ReceiveNumber=@ReceiveNumber " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID " & vbNewLine &
+                        "FROM traReceive " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   ReceiveNumber=@ReceiveNumber " & vbNewLine &
                         "   AND ID<>@ID " & vbNewLine
 
                     .Parameters.Add("@ReceiveNumber", SqlDbType.VarChar, 100).Value = strReceiveNumber
@@ -282,11 +284,11 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   StatusID " & vbNewLine & _
-                        "FROM traReceive " & vbNewLine & _
-                        "WHERE  " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   StatusID " & vbNewLine &
+                        "FROM traReceive " & vbNewLine &
+                        "WHERE  " & vbNewLine &
                         "   ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -314,12 +316,12 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   StatusID " & vbNewLine & _
-                        "FROM traReceive " & vbNewLine & _
-                        "WHERE  " & vbNewLine & _
-                        "   ID=@ID " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   StatusID " & vbNewLine &
+                        "FROM traReceive " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   ID=@ID " & vbNewLine &
                         "   AND IsDeleted=1 " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -346,12 +348,12 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE traReceive SET " & vbNewLine & _
-                    "    StatusID=@StatusID, " & vbNewLine & _
-                    "    SubmitBy=@LogBy, " & vbNewLine & _
-                    "    SubmitDate=GETDATE() " & vbNewLine & _
-                    "WHERE   " & vbNewLine & _
+                .CommandText =
+                    "UPDATE traReceive SET " & vbNewLine &
+                    "    StatusID=@StatusID, " & vbNewLine &
+                    "    SubmitBy=@LogBy, " & vbNewLine &
+                    "    SubmitDate=GETDATE() " & vbNewLine &
+                    "WHERE   " & vbNewLine &
                     "    ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -372,15 +374,38 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE traReceive SET " & vbNewLine & _
-                    "    StatusID=@StatusID, " & vbNewLine & _
-                    "    SubmitBy='' " & vbNewLine & _
-                    "WHERE   " & vbNewLine & _
+                .CommandText =
+                    "UPDATE traReceive SET " & vbNewLine &
+                    "    StatusID=@StatusID, " & vbNewLine &
+                    "    SubmitBy='' " & vbNewLine &
+                    "WHERE   " & vbNewLine &
                     "    ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Draft
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub UpdateJournalID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal strID As String, ByVal strJournalID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traReceive SET " & vbNewLine &
+                    "    JournalID=@JournalID " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@JournalID", SqlDbType.VarChar, 100).Value = strJournalID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -400,23 +425,23 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "   A.ID, A.ReceiveID, A.PCDetailID, A2.PCNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
-                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine & _
-                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.DCWeight AS MaxTotalWeight, A.Remarks " & vbNewLine & _
-                    "FROM traReceiveDet A " & vbNewLine & _
-                    "INNER JOIN traPurchaseContractDet A1 ON " & vbNewLine & _
-                    "   A.PCDetailID=A1.ID " & vbNewLine & _
-                    "INNER JOIN traPurchaseContract A2 ON " & vbNewLine & _
-                    "   A1.PCID=A2.ID " & vbNewLine & _
-                    "INNER JOIN mstItem B ON " & vbNewLine & _
-                    "   A.ItemID=B.ID " & vbNewLine & _
-                    "INNER JOIN mstItemSpecification C ON " & vbNewLine & _
-                    "   B.ItemSpecificationID=C.ID " & vbNewLine & _
-                    "INNER JOIN mstItemType D ON " & vbNewLine & _
-                    "   B.ItemTypeID=D.ID " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.ReceiveID, A.PCDetailID, A2.PCNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.DCWeight AS MaxTotalWeight, A.Remarks " & vbNewLine &
+                    "FROM traReceiveDet A " & vbNewLine &
+                    "INNER JOIN traPurchaseContractDet A1 ON " & vbNewLine &
+                    "   A.PCDetailID=A1.ID " & vbNewLine &
+                    "INNER JOIN traPurchaseContract A2 ON " & vbNewLine &
+                    "   A1.PCID=A2.ID " & vbNewLine &
+                    "INNER JOIN mstItem B ON " & vbNewLine &
+                    "   A.ItemID=B.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification C ON " & vbNewLine &
+                    "   B.ItemSpecificationID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItemType D ON " & vbNewLine &
+                    "   B.ItemTypeID=D.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   A.ReceiveID=@ReceiveID " & vbNewLine
 
                 .Parameters.Add("@ReceiveID", SqlDbType.VarChar, 100).Value = strReceiveID
@@ -431,10 +456,10 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "INSERT INTO traReceiveDet " & vbNewLine & _
-                    "   (ID, ReceiveID, PCDetailID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks) " & vbNewLine & _
-                    "VALUES " & vbNewLine & _
+                .CommandText =
+                    "INSERT INTO traReceiveDet " & vbNewLine &
+                    "   (ID, ReceiveID, PCDetailID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks) " & vbNewLine &
+                    "VALUES " & vbNewLine &
                     "   (@ID, @ReceiveID, @PCDetailID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
@@ -462,9 +487,9 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "DELETE FROM traReceiveDet     " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "DELETE FROM traReceiveDet     " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   ReceiveID=@ReceiveID" & vbNewLine
 
                 .Parameters.Add("@ReceiveID", SqlDbType.VarChar, 100).Value = strReceiveID
@@ -487,11 +512,11 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "   A.ID, A.ReceiveID, A.Status, A.StatusBy, A.StatusDate, A.Remarks " & vbNewLine & _
-                    "FROM traReceiveStatus A " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.ReceiveID, A.Status, A.StatusBy, A.StatusDate, A.Remarks " & vbNewLine &
+                    "FROM traReceiveStatus A " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   A.ReceiveID=@ReceiveID " & vbNewLine
 
                 .Parameters.Add("@ReceiveID", SqlDbType.VarChar, 100).Value = strReceiveID
@@ -506,10 +531,10 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "INSERT INTO traReceiveStatus " & vbNewLine & _
-                    "   (ID, ReceiveID, Status, StatusBy, StatusDate, Remarks) " & vbNewLine & _
-                    "VALUES " & vbNewLine & _
+                .CommandText =
+                    "INSERT INTO traReceiveStatus " & vbNewLine &
+                    "   (ID, ReceiveID, Status, StatusBy, StatusDate, Remarks) " & vbNewLine &
+                    "VALUES " & vbNewLine &
                     "   (@ID, @ReceiveID, @Status, @StatusBy, GETDATE(), @Remarks) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
@@ -534,11 +559,11 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 ISNULL(RIGHT(ID,3),'000') AS ID " & vbNewLine & _
-                        "FROM traReceiveStatus " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
-                        "   ReceiveID=@ReceiveID " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 ISNULL(RIGHT(ID,3),'000') AS ID " & vbNewLine &
+                        "FROM traReceiveStatus " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   ReceiveID=@ReceiveID " & vbNewLine &
                         "ORDER BY ID DESC " & vbNewLine
 
                     .Parameters.Add("@ReceiveID", SqlDbType.VarChar, 100).Value = strReceiveID

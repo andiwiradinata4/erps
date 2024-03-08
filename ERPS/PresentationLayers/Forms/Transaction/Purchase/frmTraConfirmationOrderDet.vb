@@ -4,7 +4,7 @@ Public Class frmTraConfirmationOrderDet
 #Region "Property"
 
     Private frmParent As frmTraConfirmationOrder
-    Private clsData As VO.ConfirmationOrder
+    Private clsData As New VO.ConfirmationOrder
     Private intBPID As Integer = 0
     Private dtItem As New DataTable
     Private dtPaymentTerm As New DataTable

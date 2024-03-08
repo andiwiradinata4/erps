@@ -214,6 +214,13 @@
 
                     '# Save Data Status
                     BL.ConfirmationOrder.SaveDataStatus(sqlCon, sqlTrans, strID, "HAPUS", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+                    '# Delete Pure Contract
+                    Dim clsData As VO.ConfirmationOrder = DL.ConfirmationOrder.GetDetail(sqlCon, sqlTrans, strID)
+                    DL.PurchaseContract.DeleteDataStatus(sqlCon, sqlTrans, clsData.PCID)
+                    DL.PurchaseContract.DeleteDataPaymentTerm(sqlCon, sqlTrans, clsData.PCID)
+                    DL.PurchaseContract.DeleteDataDetail(sqlCon, sqlTrans, clsData.PCID)
+                    DL.PurchaseContract.DeleteDataPure(sqlCon, sqlTrans, clsData.PCID)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
