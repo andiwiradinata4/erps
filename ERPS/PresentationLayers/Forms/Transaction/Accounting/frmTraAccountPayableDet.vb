@@ -101,7 +101,7 @@ Public Class frmTraAccountPayableDet
                 txtCoACodeOfOutgoingPayment.Text = clsData.CoACodeOfOutgoingPayment
                 txtCoANameOfOutgoingPayment.Text = clsData.CoANameOfOutgoingPayment
                 strModules = clsData.Modules
-                txtReferencesID.Text = clsData.ReferencesID
+                txtReferencesNote.Text = clsData.ReferencesNote
                 dtpAPDate.Value = clsData.APDate
                 txtDueDateValue.Value = clsData.DueDateValue
                 txtTotalAmount.Value = clsData.TotalAmount
@@ -200,8 +200,8 @@ Public Class frmTraAccountPayableDet
         clsData.APNumber = txtAPNumber.Text.Trim
         clsData.BPID = intBPID
         clsData.CoAIDOfOutgoingPayment = intCoAIDOfOutgoingPayment
-        clsData.ReferencesID = txtReferencesID.Text.Trim
-        clsData.ReferencesNote = ""
+        clsData.ReferencesID = ""
+        clsData.ReferencesNote = txtReferencesNote.Text.Trim
         clsData.TotalAmount = txtTotalAmount.Value
         clsData.TotalPPN = txtTotalPPN.Value
         clsData.TotalPPH = txtTotalPPH.Value
@@ -249,7 +249,7 @@ Public Class frmTraAccountPayableDet
         intCoAIDOfOutgoingPayment = 0
         txtCoACodeOfOutgoingPayment.Text = ""
         txtCoANameOfOutgoingPayment.Text = ""
-        txtReferencesID.Text = ""
+        txtReferencesNote.Text = ""
         dtpAPDate.Value = Now
         txtDueDateValue.Value = 0
         txtTotalAmount.Value = 0
@@ -290,7 +290,7 @@ Public Class frmTraAccountPayableDet
                 intCoAIDOfOutgoingPayment = .pubLUdtRow.Item("ID")
                 txtCoACodeOfOutgoingPayment.Text = .pubLUdtRow.Item("Code")
                 txtCoANameOfOutgoingPayment.Text = .pubLUdtRow.Item("Name")
-                txtReferencesID.Focus()
+                txtReferencesNote.Focus()
             End If
         End With
     End Sub

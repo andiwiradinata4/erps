@@ -44,6 +44,40 @@
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataOutstandingPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                          ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                          ByVal intBPID As Integer) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, A.ID AS PurchaseID, A.ReceiveNumber AS InvoiceNumber, A.ReceiveDate AS InvoiceDate, " & vbNewLine &
+                    "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS DPAmount, " & vbNewLine &
+                    "   CAST(0 AS DECIMAL(18,2)) AS Amount, A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual-A.DPAmount-A.TotalPayment AS MaxPaymentAmount, " & vbNewLine &
+                    "   CAST('' AS VARCHAR(500)) AS Remarks, A.PPN AS PPNPercent, A.PPH AS PPHPercent, CAST(0 AS DECIMAL(18,2)) AS PPN, " & vbNewLine &
+                    "   CAST(0 AS DECIMAL(18,2)) AS PPH " & vbNewLine &
+                    "FROM traReceive A " & vbNewLine &
+                    "INNER JOIN mstCompany MC ON " & vbNewLine &
+                    "   A.CompanyID=MC.ID " & vbNewLine &
+                    "INNER JOIN mstProgram MP ON " & vbNewLine &
+                    "   A.ProgramID=MP.ID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   A.BPID=@BPID " & vbNewLine &
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.ApprovedBy<>'' " & vbNewLine &
+                    "   AND A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual-A.DPAmount-A.TotalPayment>0 " & vbNewLine
+
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                    ByVal bolNew As Boolean, ByVal clsData As VO.Receive)
             Dim sqlcmdExecute As New SqlCommand
@@ -130,9 +164,8 @@
                     .CommandText =
                         "SELECT TOP 1 " & vbNewLine &
                         "   A.ID, A.ProgramID, A.CompanyID, A.ReceiveNumber, A.ReceiveDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.PlatNumber,   " & vbNewLine &
-                        "   A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight,   " & vbNewLine &
-                        "   A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks,   " & vbNewLine &
-                        "   A.StatusID, A.SubmitBy, A.SubmitDate, A.LogBy, A.LogDate, A.JournalID, A.TotalPayment  " & vbNewLine &
+                        "   A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, " & vbNewLine &
+                        "   A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, A.LogBy, A.LogDate, A.JournalID, A.TotalPayment, A.DPAmount  " & vbNewLine &
                         "FROM traReceive A " & vbNewLine &
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
                         "   A.BPID=B.ID " & vbNewLine &
@@ -173,6 +206,7 @@
                         voReturn.LogDate = .Item("LogDate")
                         voReturn.JournalID = .Item("JournalID")
                         voReturn.TotalPayment = .Item("TotalPayment")
+                        voReturn.DPAmount = .Item("DPAmount")
                     End If
                 End With
             Catch ex As Exception
@@ -406,6 +440,105 @@
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@JournalID", SqlDbType.VarChar, 100).Value = strJournalID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Function IsAlreadyPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strID As String) As Boolean
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim bolReturn As Boolean = False
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID " & vbNewLine &
+                        "FROM traReceive " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   ID=@ID " & vbNewLine &
+                        "   AND DPAmount+TotalPayment>0 " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        bolReturn = True
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return bolReturn
+        End Function
+
+        Public Shared Sub CalculateTotalUsedDownPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                        ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traReceive SET 	" & vbNewLine &
+                    "	DPAmount=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(APD.Amount),0) TotalPayment		" & vbNewLine &
+                    "		FROM traAccountPayableDet APD 	" & vbNewLine &
+                    "		INNER JOIN traAccountPayable APH ON	" & vbNewLine &
+                    "			APD.APID=APH.ID 	" & vbNewLine &
+                    "			AND APH.Modules=@Modules " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			APD.PurchaseID=@ID 	" & vbNewLine &
+                    "			AND APH.IsDeleted=0 	" & vbNewLine &
+                    "	) " & vbNewLine &
+                    "WHERE ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.DownPayment
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateTotalUsedReceivePayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                           ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traReceive SET 	" & vbNewLine &
+                    "	TotalPayment=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(APD.Amount),0) TotalPayment		" & vbNewLine &
+                    "		FROM traAccountPayableDet APD 	" & vbNewLine &
+                    "		INNER JOIN traAccountPayable APH ON	" & vbNewLine &
+                    "			APD.APID=APH.ID 	" & vbNewLine &
+                    "			AND APH.Modules=@Modules " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			APD.PurchaseID=@ID 	" & vbNewLine &
+                    "			AND APH.IsDeleted=0 	" & vbNewLine &
+                    "	) " & vbNewLine &
+                    "WHERE ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePayment
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

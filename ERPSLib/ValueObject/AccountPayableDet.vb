@@ -7,5 +7,6 @@
         Property PPN As Decimal
         Property PPH As Decimal
         Property Remarks As String
+        Property DPAmount As Decimal
     End Class
 End Namespace

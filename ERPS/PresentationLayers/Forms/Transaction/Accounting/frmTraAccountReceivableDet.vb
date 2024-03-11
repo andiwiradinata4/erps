@@ -95,7 +95,7 @@ Public Class frmTraAccountReceivableDet
                 txtCoACodeOfIncomePayment.Text = clsData.CoACodeOfIncomePayment
                 txtCoANameOfIncomePayment.Text = clsData.CoANameOfIncomePayment
                 strModules = clsData.Modules
-                txtReferencesID.Text = clsData.ReferencesID
+                txtReferencesNote.Text = clsData.ReferencesNote
                 dtpARDate.Value = clsData.ARDate
                 txtDueDateValue.Value = clsData.DueDateValue
                 txtTotalAmount.Value = clsData.TotalAmount
@@ -190,8 +190,8 @@ Public Class frmTraAccountReceivableDet
         clsData.ARNumber = txtARNumber.Text.Trim
         clsData.BPID = intBPID
         clsData.CoAIDOfIncomePayment = intCoAIDOfIncomePayment
-        clsData.ReferencesID = txtReferencesID.Text.Trim
-        clsData.ReferencesNote = ""
+        clsData.ReferencesID = ""
+        clsData.ReferencesNote = txtReferencesNote.Text.Trim
         clsData.TotalAmount = txtTotalAmount.Value
         clsData.ARDate = dtpARDate.Value.Date
         clsData.DueDateValue = txtDueDateValue.Value
@@ -237,7 +237,7 @@ Public Class frmTraAccountReceivableDet
         intCoAIDOfIncomePayment = 0
         txtCoACodeOfIncomePayment.Text = ""
         txtCoANameOfIncomePayment.Text = ""
-        txtReferencesID.Text = ""
+        txtReferencesNote.Text = ""
         dtpARDate.Value = Now
         txtDueDateValue.Value = 0
         txtTotalAmount.Value = 0
@@ -276,7 +276,7 @@ Public Class frmTraAccountReceivableDet
                 intCoAIDOfIncomePayment = .pubLUdtRow.Item("ID")
                 txtCoACodeOfIncomePayment.Text = .pubLUdtRow.Item("Code")
                 txtCoANameOfIncomePayment.Text = .pubLUdtRow.Item("Name")
-                txtReferencesID.Focus()
+                txtReferencesNote.Focus()
             End If
         End With
     End Sub

@@ -35,7 +35,7 @@ Partial Class frmTraAccountReceivableDet
         Me.txtTotalAmount = New ERPS.usNumeric()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.txtReferencesID = New ERPS.usTextBox()
+        Me.txtReferencesNote = New ERPS.usTextBox()
         Me.txtCoACodeOfIncomePayment = New ERPS.usTextBox()
         Me.btnCoAOfIncomePayment = New DevExpress.XtraEditors.SimpleButton()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -143,7 +143,7 @@ Partial Class frmTraAccountReceivableDet
         Me.tpMain.Controls.Add(Me.txtTotalAmount)
         Me.tpMain.Controls.Add(Me.Label7)
         Me.tpMain.Controls.Add(Me.Label4)
-        Me.tpMain.Controls.Add(Me.txtReferencesID)
+        Me.tpMain.Controls.Add(Me.txtReferencesNote)
         Me.tpMain.Controls.Add(Me.txtCoACodeOfIncomePayment)
         Me.tpMain.Controls.Add(Me.btnCoAOfIncomePayment)
         Me.tpMain.Controls.Add(Me.Label2)
@@ -238,13 +238,13 @@ Partial Class frmTraAccountReceivableDet
         '
         'txtReferencesID
         '
-        Me.txtReferencesID.BackColor = System.Drawing.Color.White
-        Me.txtReferencesID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtReferencesID.Location = New System.Drawing.Point(130, 97)
-        Me.txtReferencesID.MaxLength = 250
-        Me.txtReferencesID.Name = "txtReferencesID"
-        Me.txtReferencesID.Size = New System.Drawing.Size(249, 21)
-        Me.txtReferencesID.TabIndex = 7
+        Me.txtReferencesNote.BackColor = System.Drawing.Color.White
+        Me.txtReferencesNote.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtReferencesNote.Location = New System.Drawing.Point(130, 97)
+        Me.txtReferencesNote.MaxLength = 250
+        Me.txtReferencesNote.Name = "txtReferencesID"
+        Me.txtReferencesNote.Size = New System.Drawing.Size(249, 21)
+        Me.txtReferencesNote.TabIndex = 7
         '
         'txtCoACodeOfIncomePayment
         '
@@ -677,7 +677,7 @@ Partial Class frmTraAccountReceivableDet
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents txtCoANameOfIncomePayment As ERPS.usTextBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents txtReferencesID As ERPS.usTextBox
+    Friend WithEvents txtReferencesNote As ERPS.usTextBox
     Friend WithEvents BarCheckAll As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarUncheckAll As System.Windows.Forms.ToolBarButton
     Friend WithEvents grdItem As DevExpress.XtraGrid.GridControl
