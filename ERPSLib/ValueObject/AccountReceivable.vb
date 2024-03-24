@@ -33,8 +33,10 @@
         Property ClosedPeriodDate As DateTime
         Property Remarks As String
         Property StatusID As Integer
+        Property IsDP As Boolean
         Property DPAmount As Decimal
         Property ReceiveAmount As Decimal
+        Property TotalAmountUsed As Decimal
         Property Detail As New List(Of VO.AccountReceivableDet)
         Property Save As VO.Save.Action
 

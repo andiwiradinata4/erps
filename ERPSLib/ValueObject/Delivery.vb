@@ -29,6 +29,8 @@
         Property StatusID As Integer
         Property SubmitBy As String
         Property SubmitDate As DateTime
+        Property DPAmount As Decimal
+        Property TotalPayment As Decimal
         Property Detail As List(Of VO.DeliveryDet)
         Property DetailTransport As List(Of VO.DeliveryDetTransport)
         Property Save As VO.Save.Action

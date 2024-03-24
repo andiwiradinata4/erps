@@ -8,5 +8,6 @@
         Property PPH As Decimal
         Property Remarks As String
         Property DPAmount As Decimal
+        Property Rounding As Decimal
     End Class
 End Namespace

@@ -12,28 +12,28 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.DeliveryNumber, A.DeliveryDate, " & vbNewLine & _
-                    "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.SCID, A1.SCNumber, A.PlatNumber, A.Driver, A.ReferencesNumber, A.PPN, " & vbNewLine & _
-                    "   A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine & _
-                    "   A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.TotalDPPTransport+TotalPPNTransport+A.TotalPPHTransport AS GrandTotalTransport, " & vbNewLine & _
-                    "   A.RoundingManual, A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, " & vbNewLine & _
-                    "   A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
-                    "FROM traDelivery A " & vbNewLine & _
-                    "INNER JOIN traSalesContract A1 ON " & vbNewLine & _
-                    "   A.SCID=A1.ID " & vbNewLine & _
-                    "INNER JOIN mstStatus B ON " & vbNewLine & _
-                    "   A.StatusID=B.ID " & vbNewLine & _
-                    "INNER JOIN mstBusinessPartner C ON " & vbNewLine & _
-                    "   A.BPID=C.ID " & vbNewLine & _
-                    "INNER JOIN mstCompany MC ON " & vbNewLine & _
-                    "   A.CompanyID=MC.ID " & vbNewLine & _
-                    "INNER JOIN mstProgram MP ON " & vbNewLine & _
-                    "   A.ProgramID=MP.ID " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
-                    "   A.ProgramID=@ProgramID " & vbNewLine & _
-                    "   AND A.CompanyID=@CompanyID " & vbNewLine & _
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.DeliveryNumber, A.DeliveryDate, " & vbNewLine &
+                    "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.SCID, A1.SCNumber, A.PlatNumber, A.Driver, A.ReferencesNumber, A.PPN, " & vbNewLine &
+                    "   A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine &
+                    "   A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.TotalDPPTransport+TotalPPNTransport+A.TotalPPHTransport AS GrandTotalTransport, " & vbNewLine &
+                    "   A.RoundingManual, A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, " & vbNewLine &
+                    "   A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine &
+                    "FROM traDelivery A " & vbNewLine &
+                    "INNER JOIN traSalesContract A1 ON " & vbNewLine &
+                    "   A.SCID=A1.ID " & vbNewLine &
+                    "INNER JOIN mstStatus B ON " & vbNewLine &
+                    "   A.StatusID=B.ID " & vbNewLine &
+                    "INNER JOIN mstBusinessPartner C ON " & vbNewLine &
+                    "   A.BPID=C.ID " & vbNewLine &
+                    "INNER JOIN mstCompany MC ON " & vbNewLine &
+                    "   A.CompanyID=MC.ID " & vbNewLine &
+                    "INNER JOIN mstProgram MP ON " & vbNewLine &
+                    "   A.ProgramID=MP.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine &
                     "   AND A.DeliveryDate>=@DateFrom AND A.DeliveryDate<=@DateTo " & vbNewLine
 
                 If intStatusID > 0 Then .CommandText += "   AND A.StatusID=@StatusID " & vbNewLine
@@ -55,44 +55,44 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 If bolNew Then
-                    .CommandText = _
-                        "INSERT INTO traDelivery " & vbNewLine & _
-                        "   (ID, ProgramID, CompanyID, DeliveryNumber, DeliveryDate, BPID, SCID, PlatNumber, Driver, ReferencesNumber, " & vbNewLine & _
-                        "    PPN, PPH, TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, TotalDPPTransport, TotalPPNTransport, " & vbNewLine & _
-                        "    TotalPPHTransport, RoundingManual, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine & _
-                        "VALUES " & vbNewLine & _
-                        "   (@ID, @ProgramID, @CompanyID, @DeliveryNumber, @DeliveryDate, @BPID, @SCID, @PlatNumber, @Driver, @ReferencesNumber, " & vbNewLine & _
-                        "    @PPN, @PPH, @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @TotalDPPTransport, @TotalPPNTransport, " & vbNewLine & _
+                    .CommandText =
+                        "INSERT INTO traDelivery " & vbNewLine &
+                        "   (ID, ProgramID, CompanyID, DeliveryNumber, DeliveryDate, BPID, SCID, PlatNumber, Driver, ReferencesNumber, " & vbNewLine &
+                        "    PPN, PPH, TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, TotalDPPTransport, TotalPPNTransport, " & vbNewLine &
+                        "    TotalPPHTransport, RoundingManual, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine &
+                        "VALUES " & vbNewLine &
+                        "   (@ID, @ProgramID, @CompanyID, @DeliveryNumber, @DeliveryDate, @BPID, @SCID, @PlatNumber, @Driver, @ReferencesNumber, " & vbNewLine &
+                        "    @PPN, @PPH, @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @TotalDPPTransport, @TotalPPNTransport, " & vbNewLine &
                         "    @TotalPPHTransport, @RoundingManual, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
                 Else
-                    .CommandText = _
-                        "UPDATE traDelivery SET " & vbNewLine & _
-                        "   ProgramID=@ProgramID, " & vbNewLine & _
-                        "   CompanyID=@CompanyID, " & vbNewLine & _
-                        "   DeliveryNumber=@DeliveryNumber, " & vbNewLine & _
-                        "   DeliveryDate=@DeliveryDate, " & vbNewLine & _
-                        "   BPID=@BPID, " & vbNewLine & _
-                        "   SCID=@SCID, " & vbNewLine & _
-                        "   PlatNumber=@PlatNumber, " & vbNewLine & _
-                        "   Driver=@Driver, " & vbNewLine & _
-                        "   ReferencesNumber=@ReferencesNumber, " & vbNewLine & _
-                        "   PPN=@PPN, " & vbNewLine & _
-                        "   PPH=@PPH, " & vbNewLine & _
-                        "   TotalQuantity=@TotalQuantity, " & vbNewLine & _
-                        "   TotalWeight=@TotalWeight, " & vbNewLine & _
-                        "   TotalDPP=@TotalDPP, " & vbNewLine & _
-                        "   TotalPPN=@TotalPPN, " & vbNewLine & _
-                        "   TotalPPH=@TotalPPH, " & vbNewLine & _
-                        "   TotalDPPTransport=@TotalDPPTransport, " & vbNewLine & _
-                        "   TotalPPNTransport=@TotalPPNTransport, " & vbNewLine & _
-                        "   TotalPPHTransport=@TotalPPHTransport, " & vbNewLine & _
-                        "   RoundingManual=@RoundingManual, " & vbNewLine & _
-                        "   Remarks=@Remarks, " & vbNewLine & _
-                        "   StatusID=@StatusID, " & vbNewLine & _
-                        "   LogInc=LogInc+1, " & vbNewLine & _
-                        "   LogBy=@LogBy, " & vbNewLine & _
-                        "   LogDate=GETDATE() " & vbNewLine & _
-                        "WHERE   " & vbNewLine & _
+                    .CommandText =
+                        "UPDATE traDelivery SET " & vbNewLine &
+                        "   ProgramID=@ProgramID, " & vbNewLine &
+                        "   CompanyID=@CompanyID, " & vbNewLine &
+                        "   DeliveryNumber=@DeliveryNumber, " & vbNewLine &
+                        "   DeliveryDate=@DeliveryDate, " & vbNewLine &
+                        "   BPID=@BPID, " & vbNewLine &
+                        "   SCID=@SCID, " & vbNewLine &
+                        "   PlatNumber=@PlatNumber, " & vbNewLine &
+                        "   Driver=@Driver, " & vbNewLine &
+                        "   ReferencesNumber=@ReferencesNumber, " & vbNewLine &
+                        "   PPN=@PPN, " & vbNewLine &
+                        "   PPH=@PPH, " & vbNewLine &
+                        "   TotalQuantity=@TotalQuantity, " & vbNewLine &
+                        "   TotalWeight=@TotalWeight, " & vbNewLine &
+                        "   TotalDPP=@TotalDPP, " & vbNewLine &
+                        "   TotalPPN=@TotalPPN, " & vbNewLine &
+                        "   TotalPPH=@TotalPPH, " & vbNewLine &
+                        "   TotalDPPTransport=@TotalDPPTransport, " & vbNewLine &
+                        "   TotalPPNTransport=@TotalPPNTransport, " & vbNewLine &
+                        "   TotalPPHTransport=@TotalPPHTransport, " & vbNewLine &
+                        "   RoundingManual=@RoundingManual, " & vbNewLine &
+                        "   Remarks=@Remarks, " & vbNewLine &
+                        "   StatusID=@StatusID, " & vbNewLine &
+                        "   LogInc=LogInc+1, " & vbNewLine &
+                        "   LogBy=@LogBy, " & vbNewLine &
+                        "   LogDate=GETDATE() " & vbNewLine &
+                        "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
 
@@ -137,18 +137,18 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   A.ID, A.ProgramID, A.CompanyID, A.DeliveryNumber, A.DeliveryDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, " & vbNewLine & _
-                        "   A.SCID, A1.SCNumber, A.PlatNumber, A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, " & vbNewLine & _
-                        "   A.TotalPPN, A.TotalPPH, A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.RoundingManual, A.IsDeleted, A.Remarks, " & vbNewLine & _
-                        "   A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
-                        "FROM traDelivery A " & vbNewLine & _
-                        "INNER JOIN traSalesContract A1 ON " & vbNewLine & _
-                        "   A.SCID=A1.ID " & vbNewLine & _
-                        "INNER JOIN mstBusinessPartner B ON " & vbNewLine & _
-                        "   A.BPID=B.ID " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   A.ID, A.ProgramID, A.CompanyID, A.DeliveryNumber, A.DeliveryDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, " & vbNewLine &
+                        "   A.SCID, A1.SCNumber, A.PlatNumber, A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, " & vbNewLine &
+                        "   A.TotalPPN, A.TotalPPH, A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.RoundingManual, A.IsDeleted, A.Remarks, " & vbNewLine &
+                        "   A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.TotalPayment " & vbNewLine &
+                        "FROM traDelivery A " & vbNewLine &
+                        "INNER JOIN traSalesContract A1 ON " & vbNewLine &
+                        "   A.SCID=A1.ID " & vbNewLine &
+                        "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
+                        "   A.BPID=B.ID " & vbNewLine &
+                        "WHERE " & vbNewLine &
                         "   A.ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -191,6 +191,8 @@
                         voReturn.LogInc = .Item("LogInc")
                         voReturn.LogBy = .Item("LogBy")
                         voReturn.LogDate = .Item("LogDate")
+                        voReturn.DPAmount = .Item("DPAmount")
+                        voReturn.TotalPayment = .Item("TotalPayment")
                     End If
                 End With
             Catch ex As Exception
@@ -208,11 +210,11 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE traDelivery SET " & vbNewLine & _
-                    "   StatusID=@StatusID, " & vbNewLine & _
-                    "   IsDeleted=1 " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "UPDATE traDelivery SET " & vbNewLine &
+                    "   StatusID=@StatusID, " & vbNewLine &
+                    "   IsDeleted=1 " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -234,12 +236,12 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   ISNULL(RIGHT(ID, 4),'0000') AS ID " & vbNewLine & _
-                        "FROM traDelivery " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
-                        "   LEFT(ID,@Length)=@ID " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ISNULL(RIGHT(ID, 4),'0000') AS ID " & vbNewLine &
+                        "FROM traDelivery " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   LEFT(ID,@Length)=@ID " & vbNewLine &
                         "ORDER BY CreatedDate DESC " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, strNewID.Length).Value = strNewID
@@ -269,12 +271,12 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   ID " & vbNewLine & _
-                        "FROM traDelivery " & vbNewLine & _
-                        "WHERE  " & vbNewLine & _
-                        "   DeliveryNumber=@DeliveryNumber " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID " & vbNewLine &
+                        "FROM traDelivery " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   DeliveryNumber=@DeliveryNumber " & vbNewLine &
                         "   AND ID<>@ID " & vbNewLine
 
                     .Parameters.Add("@DeliveryNumber", SqlDbType.VarChar, 100).Value = strDeliveryNumber
@@ -302,11 +304,11 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   StatusID " & vbNewLine & _
-                        "FROM traDelivery " & vbNewLine & _
-                        "WHERE  " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   StatusID " & vbNewLine &
+                        "FROM traDelivery " & vbNewLine &
+                        "WHERE  " & vbNewLine &
                         "   ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -334,12 +336,12 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   StatusID " & vbNewLine & _
-                        "FROM traDelivery " & vbNewLine & _
-                        "WHERE  " & vbNewLine & _
-                        "   ID=@ID " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   StatusID " & vbNewLine &
+                        "FROM traDelivery " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   ID=@ID " & vbNewLine &
                         "   AND IsDeleted=1 " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -366,12 +368,12 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE traDelivery SET " & vbNewLine & _
-                    "    StatusID=@StatusID, " & vbNewLine & _
-                    "    SubmitBy=@LogBy, " & vbNewLine & _
-                    "    SubmitDate=GETDATE() " & vbNewLine & _
-                    "WHERE   " & vbNewLine & _
+                .CommandText =
+                    "UPDATE traDelivery SET " & vbNewLine &
+                    "    StatusID=@StatusID, " & vbNewLine &
+                    "    SubmitBy=@LogBy, " & vbNewLine &
+                    "    SubmitDate=GETDATE() " & vbNewLine &
+                    "WHERE   " & vbNewLine &
                     "    ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -392,11 +394,11 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE traDelivery SET " & vbNewLine & _
-                    "    StatusID=@StatusID, " & vbNewLine & _
-                    "    SubmitBy='' " & vbNewLine & _
-                    "WHERE   " & vbNewLine & _
+                .CommandText =
+                    "UPDATE traDelivery SET " & vbNewLine &
+                    "    StatusID=@StatusID, " & vbNewLine &
+                    "    SubmitBy='' " & vbNewLine &
+                    "WHERE   " & vbNewLine &
                     "    ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -417,36 +419,36 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT  " & vbNewLine & _
-                    "   DH.ID, DH.ProgramID, MP.Name AS ProgramName, DH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress, DH.DeliveryNumber AS TransNumber,  " & vbNewLine & _
-                    "   DH.DeliveryDate AS TransDate, DH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, SCH.SCNumber, DH.PlatNumber, DH.Driver, DH.ReferencesNumber, " & vbNewLine & _
-                    "   DH.TotalQuantity, DH.TotalWeight, DH.StatusID, MIS.Description AS ItemSpec, IT.Description AS ItemType, MI.ItemCodeExternal, MI.Thick AS ItemThick, MI.Width AS ItemWidth,  " & vbNewLine & _
-                    "   MI.Length AS ItemLength, MI.Weight, DD.Quantity, DD.TotalWeight AS TotalWeightItem, DD.Remarks AS ItemRemarks, DH.CreatedBy " & vbNewLine & _
-                    "FROM traDelivery DH  " & vbNewLine & _
-                    "INNER JOIN traSalesContract SCH ON " & vbNewLine & _
-                    "	DH.SCID=SCH.ID " & vbNewLine & _
-                    "INNER JOIN traDeliveryDet DD ON  " & vbNewLine & _
-                    "    DH.ID=DD.DeliveryID " & vbNewLine & _
-                    "INNER JOIN mstStatus B ON  " & vbNewLine & _
-                    "    DH.StatusID=B.ID  " & vbNewLine & _
-                    "INNER JOIN mstBusinessPartner C ON  " & vbNewLine & _
-                    "    DH.BPID=C.ID  " & vbNewLine & _
-                    "INNER JOIN mstCompany MC ON  " & vbNewLine & _
-                    "    DH.CompanyID=MC.ID  " & vbNewLine & _
-                    "INNER JOIN mstProgram MP ON  " & vbNewLine & _
-                    "    DH.ProgramID=MP.ID  " & vbNewLine & _
-                    "INNER JOIN mstItem MI ON 	   " & vbNewLine & _
-                    "    DD.ItemID=MI.ID 	   " & vbNewLine & _
-                    "INNER JOIN mstItemType IT ON 	 	   " & vbNewLine & _
-                    "    MI.ItemTypeID=IT.ID 	 	   " & vbNewLine & _
-                    "INNER JOIN mstItemSpecification MIS ON 	 	   " & vbNewLine & _
-                    "    MI.ItemSpecificationID=MIS.ID 	 	   " & vbNewLine & _
-                    "INNER JOIN mstCompanyBankAccount MBC ON  " & vbNewLine & _
-                    "    SCH.CompanyBankAccountID=MBC.ID " & vbNewLine & _
-                    "WHERE 	 " & vbNewLine & _
-                    "    DH.ProgramID=@ProgramID  " & vbNewLine & _
-                    "    AND DH.CompanyID=@CompanyID  " & vbNewLine & _
+                .CommandText =
+                    "SELECT  " & vbNewLine &
+                    "   DH.ID, DH.ProgramID, MP.Name AS ProgramName, DH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress, DH.DeliveryNumber AS TransNumber,  " & vbNewLine &
+                    "   DH.DeliveryDate AS TransDate, DH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, SCH.SCNumber, DH.PlatNumber, DH.Driver, DH.ReferencesNumber, " & vbNewLine &
+                    "   DH.TotalQuantity, DH.TotalWeight, DH.StatusID, MIS.Description AS ItemSpec, IT.Description AS ItemType, MI.ItemCodeExternal, MI.Thick AS ItemThick, MI.Width AS ItemWidth,  " & vbNewLine &
+                    "   MI.Length AS ItemLength, MI.Weight, DD.Quantity, DD.TotalWeight AS TotalWeightItem, DD.Remarks AS ItemRemarks, DH.CreatedBy " & vbNewLine &
+                    "FROM traDelivery DH  " & vbNewLine &
+                    "INNER JOIN traSalesContract SCH ON " & vbNewLine &
+                    "	DH.SCID=SCH.ID " & vbNewLine &
+                    "INNER JOIN traDeliveryDet DD ON  " & vbNewLine &
+                    "    DH.ID=DD.DeliveryID " & vbNewLine &
+                    "INNER JOIN mstStatus B ON  " & vbNewLine &
+                    "    DH.StatusID=B.ID  " & vbNewLine &
+                    "INNER JOIN mstBusinessPartner C ON  " & vbNewLine &
+                    "    DH.BPID=C.ID  " & vbNewLine &
+                    "INNER JOIN mstCompany MC ON  " & vbNewLine &
+                    "    DH.CompanyID=MC.ID  " & vbNewLine &
+                    "INNER JOIN mstProgram MP ON  " & vbNewLine &
+                    "    DH.ProgramID=MP.ID  " & vbNewLine &
+                    "INNER JOIN mstItem MI ON 	   " & vbNewLine &
+                    "    DD.ItemID=MI.ID 	   " & vbNewLine &
+                    "INNER JOIN mstItemType IT ON 	 	   " & vbNewLine &
+                    "    MI.ItemTypeID=IT.ID 	 	   " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON 	 	   " & vbNewLine &
+                    "    MI.ItemSpecificationID=MIS.ID 	 	   " & vbNewLine &
+                    "INNER JOIN mstCompanyBankAccount MBC ON  " & vbNewLine &
+                    "    SCH.CompanyBankAccountID=MBC.ID " & vbNewLine &
+                    "WHERE 	 " & vbNewLine &
+                    "    DH.ProgramID=@ProgramID  " & vbNewLine &
+                    "    AND DH.CompanyID=@CompanyID  " & vbNewLine &
                     "    AND DH.ID=@ID" & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -467,23 +469,23 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "   A.ID, A.DeliveryID, A.SCDetailID, A2.SCNumber, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
-                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine & _
-                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.DCWeight AS MaxTotalWeight, A.Remarks " & vbNewLine & _
-                    "FROM traDeliveryDet A " & vbNewLine & _
-                    "INNER JOIN traSalesContractDet A1 ON " & vbNewLine & _
-                    "   A.SCDetailID=A1.ID " & vbNewLine & _
-                    "INNER JOIN traSalesContract A2 ON " & vbNewLine & _
-                    "   A1.SCID=A2.ID " & vbNewLine & _
-                    "INNER JOIN mstItem B ON " & vbNewLine & _
-                    "   A.ItemID=B.ID " & vbNewLine & _
-                    "INNER JOIN mstItemSpecification C ON " & vbNewLine & _
-                    "   B.ItemSpecificationID=C.ID " & vbNewLine & _
-                    "INNER JOIN mstItemType D ON " & vbNewLine & _
-                    "   B.ItemTypeID=D.ID " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.DeliveryID, A.SCDetailID, A2.SCNumber, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.DCWeight AS MaxTotalWeight, A.Remarks " & vbNewLine &
+                    "FROM traDeliveryDet A " & vbNewLine &
+                    "INNER JOIN traSalesContractDet A1 ON " & vbNewLine &
+                    "   A.SCDetailID=A1.ID " & vbNewLine &
+                    "INNER JOIN traSalesContract A2 ON " & vbNewLine &
+                    "   A1.SCID=A2.ID " & vbNewLine &
+                    "INNER JOIN mstItem B ON " & vbNewLine &
+                    "   A.ItemID=B.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification C ON " & vbNewLine &
+                    "   B.ItemSpecificationID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItemType D ON " & vbNewLine &
+                    "   B.ItemTypeID=D.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   A.DeliveryID=@DeliveryID " & vbNewLine
 
                 .Parameters.Add("@DeliveryID", SqlDbType.VarChar, 100).Value = strDeliveryID
@@ -498,10 +500,10 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "INSERT INTO traDeliveryDet " & vbNewLine & _
-                    "   (ID, DeliveryID, SCDetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks) " & vbNewLine & _
-                    "VALUES " & vbNewLine & _
+                .CommandText =
+                    "INSERT INTO traDeliveryDet " & vbNewLine &
+                    "   (ID, DeliveryID, SCDetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks) " & vbNewLine &
+                    "VALUES " & vbNewLine &
                     "   (@ID, @DeliveryID, @SCDetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
@@ -530,9 +532,9 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "DELETE FROM traDeliveryDet     " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "DELETE FROM traDeliveryDet     " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   DeliveryID=@DeliveryID" & vbNewLine
 
                 .Parameters.Add("@DeliveryID", SqlDbType.VarChar, 100).Value = strDeliveryID
@@ -555,23 +557,23 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "   A.ID, A.DeliveryID, A.PODetailID, A2.PONumber, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
-                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine & _
-                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.DoneWeight AS MaxTotalWeight, A.Remarks " & vbNewLine & _
-                    "FROM traDeliveryDetTransport A " & vbNewLine & _
-                    "INNER JOIN traPurchaseOrderTransportDet A1 ON " & vbNewLine & _
-                    "   A.PODetailID=A1.ID " & vbNewLine & _
-                    "INNER JOIN traPurchaseOrderTransport A2 ON " & vbNewLine & _
-                    "   A1.POID=A2.ID " & vbNewLine & _
-                    "INNER JOIN mstItem B ON " & vbNewLine & _
-                    "   A.ItemID=B.ID " & vbNewLine & _
-                    "INNER JOIN mstItemSpecification C ON " & vbNewLine & _
-                    "   B.ItemSpecificationID=C.ID " & vbNewLine & _
-                    "INNER JOIN mstItemType D ON " & vbNewLine & _
-                    "   B.ItemTypeID=D.ID " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.DeliveryID, A.PODetailID, A2.PONumber, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.DoneWeight AS MaxTotalWeight, A.Remarks " & vbNewLine &
+                    "FROM traDeliveryDetTransport A " & vbNewLine &
+                    "INNER JOIN traPurchaseOrderTransportDet A1 ON " & vbNewLine &
+                    "   A.PODetailID=A1.ID " & vbNewLine &
+                    "INNER JOIN traPurchaseOrderTransport A2 ON " & vbNewLine &
+                    "   A1.POID=A2.ID " & vbNewLine &
+                    "INNER JOIN mstItem B ON " & vbNewLine &
+                    "   A.ItemID=B.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification C ON " & vbNewLine &
+                    "   B.ItemSpecificationID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItemType D ON " & vbNewLine &
+                    "   B.ItemTypeID=D.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   A.DeliveryID=@DeliveryID " & vbNewLine
 
                 .Parameters.Add("@DeliveryID", SqlDbType.VarChar, 100).Value = strDeliveryID
@@ -586,10 +588,10 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "INSERT INTO traDeliveryDetTransport " & vbNewLine & _
-                    "   (ID, DeliveryID, PODetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks) " & vbNewLine & _
-                    "VALUES " & vbNewLine & _
+                .CommandText =
+                    "INSERT INTO traDeliveryDetTransport " & vbNewLine &
+                    "   (ID, DeliveryID, PODetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks) " & vbNewLine &
+                    "VALUES " & vbNewLine &
                     "   (@ID, @DeliveryID, @PODetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
@@ -618,9 +620,9 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "DELETE FROM traDeliveryDetTransport     " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "DELETE FROM traDeliveryDetTransport     " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   DeliveryID=@DeliveryID" & vbNewLine
 
                 .Parameters.Add("@DeliveryID", SqlDbType.VarChar, 100).Value = strDeliveryID
@@ -643,11 +645,11 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "   A.ID, A.DeliveryID, A.Status, A.StatusBy, A.StatusDate, A.Remarks " & vbNewLine & _
-                    "FROM traDeliveryStatus A " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.DeliveryID, A.Status, A.StatusBy, A.StatusDate, A.Remarks " & vbNewLine &
+                    "FROM traDeliveryStatus A " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   A.DeliveryID=@DeliveryID " & vbNewLine
 
                 .Parameters.Add("@DeliveryID", SqlDbType.VarChar, 100).Value = strDeliveryID
@@ -662,10 +664,10 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "INSERT INTO traDeliveryStatus " & vbNewLine & _
-                    "   (ID, DeliveryID, Status, StatusBy, StatusDate, Remarks) " & vbNewLine & _
-                    "VALUES " & vbNewLine & _
+                .CommandText =
+                    "INSERT INTO traDeliveryStatus " & vbNewLine &
+                    "   (ID, DeliveryID, Status, StatusBy, StatusDate, Remarks) " & vbNewLine &
+                    "VALUES " & vbNewLine &
                     "   (@ID, @DeliveryID, @Status, @StatusBy, GETDATE(), @Remarks) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
@@ -690,11 +692,11 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 ISNULL(RIGHT(ID,3),'000') AS ID " & vbNewLine & _
-                        "FROM traDeliveryStatus " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
-                        "   DeliveryID=@DeliveryID " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 ISNULL(RIGHT(ID,3),'000') AS ID " & vbNewLine &
+                        "FROM traDeliveryStatus " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   DeliveryID=@DeliveryID " & vbNewLine &
                         "ORDER BY ID DESC " & vbNewLine
 
                     .Parameters.Add("@DeliveryID", SqlDbType.VarChar, 100).Value = strDeliveryID

@@ -307,13 +307,13 @@ Partial Class frmTraAccountPayableDet
         Me.Label4.TabIndex = 139
         Me.Label4.Text = "No. Referensi"
         '
-        'txtReferencesID
+        'txtReferencesNote
         '
         Me.txtReferencesNote.BackColor = System.Drawing.Color.White
         Me.txtReferencesNote.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtReferencesNote.Location = New System.Drawing.Point(132, 97)
         Me.txtReferencesNote.MaxLength = 250
-        Me.txtReferencesNote.Name = "txtReferencesID"
+        Me.txtReferencesNote.Name = "txtReferencesNote"
         Me.txtReferencesNote.Size = New System.Drawing.Size(249, 21)
         Me.txtReferencesNote.TabIndex = 7
         '

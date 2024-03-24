@@ -33,9 +33,12 @@ Partial Class frmTraPurchaseContract
         Me.BarApprove = New System.Windows.Forms.ToolBarButton()
         Me.BarCancelApprove = New System.Windows.Forms.ToolBarButton()
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
+        Me.BarDownPayment = New System.Windows.Forms.ToolBarButton()
+        Me.BarReceive = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarPrint = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
-        Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
@@ -54,9 +57,6 @@ Partial Class frmTraPurchaseContract
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.BarDownPayment = New System.Windows.Forms.ToolBarButton()
-        Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
-        Me.BarReceive = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -127,6 +127,23 @@ Partial Class frmTraPurchaseContract
         Me.BarSep2.Name = "BarSep2"
         Me.BarSep2.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
+        'BarDownPayment
+        '
+        Me.BarDownPayment.Name = "BarDownPayment"
+        Me.BarDownPayment.Tag = "Alt"
+        Me.BarDownPayment.Text = "Panjar"
+        '
+        'BarReceive
+        '
+        Me.BarReceive.Name = "BarReceive"
+        Me.BarReceive.Tag = "Calculation"
+        Me.BarReceive.Text = "Pembayaran"
+        '
+        'BarSep3
+        '
+        Me.BarSep3.Name = "BarSep3"
+        Me.BarSep3.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
         'BarPrint
         '
         Me.BarPrint.Name = "BarPrint"
@@ -139,10 +156,10 @@ Partial Class frmTraPurchaseContract
         Me.BarExportExcel.Tag = "Excel"
         Me.BarExportExcel.Text = "Export Excel"
         '
-        'BarSep3
+        'BarSep4
         '
-        Me.BarSep3.Name = "BarSep3"
-        Me.BarSep3.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        Me.BarSep4.Name = "BarSep4"
+        Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
         'BarRefresh
         '
@@ -336,23 +353,6 @@ Partial Class frmTraPurchaseContract
         Me.grdView.OptionsView.ColumnAutoWidth = False
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
-        '
-        'BarDownPayment
-        '
-        Me.BarDownPayment.Name = "BarDownPayment"
-        Me.BarDownPayment.Tag = "Alt"
-        Me.BarDownPayment.Text = "Panjar"
-        '
-        'BarSep4
-        '
-        Me.BarSep4.Name = "BarSep4"
-        Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
-        '
-        'BarReceive
-        '
-        Me.BarReceive.Name = "BarReceive"
-        Me.BarReceive.Tag = "Calculation"
-        Me.BarReceive.Text = "Pembayaran"
         '
         'frmTraPurchaseContract
         '

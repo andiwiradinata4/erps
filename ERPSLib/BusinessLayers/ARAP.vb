@@ -49,8 +49,8 @@
                             Err.Raise(515, "", "Data tidak dapat disimpan. Data Kontrak harus disetujui terlebih dahulu")
                         End If
                         '# Save Data Detail
-                        Dim clsDet As New List(Of VO.AccountReceivableDet)
-                        clsDet.Add(New VO.AccountReceivableDet With
+                        Dim clsDet As New List(Of VO.AccountReceivableDet) From {
+                            New VO.AccountReceivableDet With
                                     {
                                         .ID = "",
                                         .ARID = "",
@@ -59,7 +59,8 @@
                                         .PPN = clsDataARAP.TotalPPN,
                                         .PPH = clsDataARAP.TotalPPN,
                                         .Remarks = clsDataARAP.Remarks
-                                    })
+                                    }
+                        }
 
                         '# Save Data Header
                         Dim clsData As New VO.AccountReceivable
@@ -69,8 +70,8 @@
                         clsData.ARNumber = clsDataARAP.TransNumber
                         clsData.BPID = clsDataARAP.BPID
                         clsData.CoAIDOfIncomePayment = clsDataARAP.CoAID
-                        clsData.ReferencesID = clsReferences.SCNumber
-                        clsData.ReferencesNote = ""
+                        clsData.ReferencesID = clsDataARAP.ReferencesID
+                        clsData.ReferencesNote = clsReferences.SCNumber
                         clsData.TotalAmount = clsDataARAP.TotalAmount
                         clsData.TotalPPN = clsDataARAP.TotalPPN
                         clsData.TotalPPH = clsDataARAP.TotalPPH
@@ -94,16 +95,16 @@
                         strDPNumber = clsData.ARNumber
                     Else
                         Dim clsReferences As New Object
-                        Dim strReferencesID As String = ""
+                        Dim strReferencesNumber As String = ""
                         If clsDataARAP.Modules = VO.AccountPayable.DownPaymentCutting Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentCutting Then
                             clsReferences = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
-                            strReferencesID = clsReferences.PONumber
+                            strReferencesNumber = clsReferences.PONumber
                         ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPaymentTransport Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport Then
                             clsReferences = DL.PurchaseOrderTransport.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
-                            strReferencesID = clsReferences.PONumber
+                            strReferencesNumber = clsReferences.PONumber
                         ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPayment Or clsDataARAP.Modules = VO.AccountPayable.ReceivePayment Then
                             clsReferences = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
-                            strReferencesID = clsReferences.PCNumber
+                            strReferencesNumber = clsReferences.PCNumber
                         Else
                             Err.Raise(515, "", "Data tidak dapat disimpan. Modules tidak terdaftar")
                         End If
@@ -111,8 +112,8 @@
                             Err.Raise(515, "", "Data tidak dapat disimpan. Data Kontrak harus disetujui terlebih dahulu")
                         End If
                         '# Save Data Detail
-                        Dim clsDet As New List(Of VO.AccountPayableDet)
-                        clsDet.Add(New VO.AccountPayableDet With
+                        Dim clsDet As New List(Of VO.AccountPayableDet) From {
+                            New VO.AccountPayableDet With
                                     {
                                         .ID = "",
                                         .APID = "",
@@ -121,7 +122,8 @@
                                         .PPN = clsDataARAP.TotalPPN,
                                         .PPH = clsDataARAP.TotalPPH,
                                         .Remarks = clsDataARAP.Remarks
-                                    })
+                                    }
+                        }
 
                         '# Save Data Header
                         Dim clsData As New VO.AccountPayable
@@ -131,8 +133,8 @@
                         clsData.APNumber = clsDataARAP.TransNumber
                         clsData.BPID = clsDataARAP.BPID
                         clsData.CoAIDOfOutgoingPayment = clsDataARAP.CoAID
-                        clsData.ReferencesID = strReferencesID
-                        clsData.ReferencesNote = ""
+                        clsData.ReferencesID = clsDataARAP.ReferencesID
+                        clsData.ReferencesNote = strReferencesNumber
                         clsData.TotalAmount = clsDataARAP.TotalAmount
                         clsData.TotalPPN = clsDataARAP.TotalPPN
                         clsData.TotalPPH = clsDataARAP.TotalPPH
@@ -150,13 +152,13 @@
 
                         If clsDataARAP.Modules = VO.AccountPayable.DownPaymentCutting Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentCutting Then
                             clsReferences = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
-                            strReferencesID = clsReferences.PONumber
+                            strReferencesNumber = clsReferences.PONumber
                         ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPaymentTransport Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport Then
                             clsReferences = DL.PurchaseOrderTransport.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
-                            strReferencesID = clsReferences.PONumber
+                            strReferencesNumber = clsReferences.PONumber
                         ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPayment Or clsDataARAP.Modules = VO.AccountPayable.ReceivePayment Then
                             clsReferences = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
-                            strReferencesID = clsReferences.PCNumber
+                            strReferencesNumber = clsReferences.PCNumber
                         Else
                             Err.Raise(515, "", "Data tidak dapat disimpan. Modules tidak terdaftar")
                         End If
