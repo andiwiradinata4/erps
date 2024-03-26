@@ -61,6 +61,7 @@
 
     '# Laporan
     Dim frmMainRptMonitoringProductTransactionVer00 As frmRptMonitoringProductTransactionVer00
+    Dim frmMainRptKartuHutangVer00 As frmRptKartuHutangVer00
 
     '## Pembukuan
     Dim frmMainRptBukuBesarVer00 As frmRptBukuBesarVer00
@@ -614,6 +615,10 @@
 
     Private Sub mnuLaporanTransaksiBarang_Click(sender As Object, e As EventArgs) Handles mnuLaporanTransaksiBarang.Click
         UI.usForm.frmOpen(frmMainRptMonitoringProductTransactionVer00, "frmRptMonitoringProductTransactionVer00", Me)
+    End Sub
+
+    Private Sub mnuLaporanPembukuanKartuHutang_Click(sender As Object, e As EventArgs) Handles mnuLaporanPembukuanKartuHutang.Click
+        UI.usForm.frmOpen(frmMainRptKartuHutangVer00, "frmRptKartuHutangVer00", Me)
     End Sub
 
     Private Sub mnuLaporanPembukuanBukuBesar_Click(sender As Object, e As EventArgs) Handles mnuLaporanPembukuanBukuBesar.Click

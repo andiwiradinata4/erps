@@ -900,6 +900,12 @@
     <Compile Include="PresentationLayers\Reports1\frmRptBukuBesarVer00.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Reports1\frmRptKartuHutangVer00.Designer.vb">
+      <DependentUpon>frmRptKartuHutangVer00.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports1\frmRptKartuHutangVer00.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Reports1\frmRptMonitoringProductTransactionVer00.Designer.vb">
       <DependentUpon>frmRptMonitoringProductTransactionVer00.vb</DependentUpon>
     </Compile>
@@ -916,6 +922,12 @@
       <DependentUpon>rptConfirmationOrderVer00.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Reports2\rptConfirmationOrderVer00.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptKartuHutangPiutangReportVer00.Designer.vb">
+      <DependentUpon>rptKartuHutangPiutangReportVer00.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptKartuHutangPiutangReportVer00.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Reports2\rptMonitoringProductTransactionVer00.Designer.vb">
@@ -1371,6 +1383,9 @@
     <EmbeddedResource Include="PresentationLayers\Reports1\frmRptBukuBesarVer00.resx">
       <DependentUpon>frmRptBukuBesarVer00.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports1\frmRptKartuHutangVer00.resx">
+      <DependentUpon>frmRptKartuHutangVer00.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports1\frmRptMonitoringProductTransactionVer00.resx">
       <DependentUpon>frmRptMonitoringProductTransactionVer00.vb</DependentUpon>
     </EmbeddedResource>
@@ -1379,6 +1394,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptConfirmationOrderVer00.resx">
       <DependentUpon>rptConfirmationOrderVer00.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports2\rptKartuHutangPiutangReportVer00.resx">
+      <DependentUpon>rptKartuHutangPiutangReportVer00.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptMonitoringProductTransactionVer00.resx">
       <DependentUpon>rptMonitoringProductTransactionVer00.vb</DependentUpon>

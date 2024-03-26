@@ -228,5 +228,72 @@
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function KartuHutangVer01Report(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                      ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+                                                      ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                      ByVal intBPID As Integer) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "SELECT 	" & vbNewLine & _
+                    "	BPS.Code, BPS.Name, 	" & vbNewLine & _
+                    "	CONVERT(DATE,DP.APDate,112) AS TransactionDate, 'PANJAR PEMBELIAN' AS RemarksInfo, 	" & vbNewLine & _
+                    "	CAST(0 AS DECIMAL) AS FirstBalance, DP.TotalAmount AS DebitAmount, CAST(0 AS DECIMAL) AS CreditAmount, CAST(0 AS DECIMAL) AS BalanceAmount	" & vbNewLine & _
+                    "FROM traAccountPayable DP 	 	" & vbNewLine & _
+                    "INNER JOIN mstBusinessPartner BPS ON 	 	" & vbNewLine & _
+                    "	DP.BPID=BPS.ID 	 	" & vbNewLine & _
+                    "WHERE 	 	" & vbNewLine & _
+                    "	DP.ProgramID=@ProgramID 	" & vbNewLine & _
+                    "	AND DP.CompanyID=@CompanyID 	" & vbNewLine & _
+                    "	AND DP.APDate>=@DateFrom AND DP.APDate<=@DateTo 	" & vbNewLine & _
+                    "	AND DP.BPID=@BPID 	 	" & vbNewLine & _
+                    "	AND DP.IsDeleted=0 	 	" & vbNewLine & _
+                    "	AND DP.IsDP=1 	 	" & vbNewLine & _
+                    "	" & vbNewLine & _
+                    "UNION ALL 	 	" & vbNewLine & _
+                    "SELECT 	" & vbNewLine & _
+                    "	BPR.Code, BPR.Name, 	" & vbNewLine & _
+                    "	CONVERT(DATE,TR.ReceiveDate,112) AS TransactionDate, TR.ReceiveNumber AS RemarksInfo, " & vbNewLine & _
+                    "	CAST(0 AS DECIMAL) AS FirstBalance, CAST(0 AS DECIMAL) AS DebitAmount, TR.TotalDPP AS CreditAmount, CAST(0 AS DECIMAL) AS BalanceAmount	" & vbNewLine & _
+                    "FROM traReceive TR 	" & vbNewLine & _
+                    "INNER JOIN mstBusinessPartner BPR ON 	" & vbNewLine & _
+                    "	TR.BPID=BPR.ID 	" & vbNewLine & _
+                    "WHERE 	 	" & vbNewLine & _
+                    "	TR.ProgramID=@ProgramID 	" & vbNewLine & _
+                    "	AND TR.CompanyID=@CompanyID 	" & vbNewLine & _
+                    "	AND TR.ReceiveDate>=@DateFrom AND TR.ReceiveDate<=@DateTo 	" & vbNewLine & _
+                    "	AND TR.BPID=@BPID 	 	" & vbNewLine & _
+                    "	AND TR.IsDeleted=0 	 	" & vbNewLine & _
+                    "	" & vbNewLine & _
+                    "UNION ALL 	 	" & vbNewLine & _
+                    "SELECT 	 	" & vbNewLine & _
+                    "	BPR.Code, BPR.Name, 	" & vbNewLine & _
+                    "	CONVERT(DATE,AP.APDate,112) AS TransactionDate, 'PEMBAYARAN TBS' AS RemarksInfo, 	" & vbNewLine & _
+                    "	CAST(0 AS DECIMAL) AS FirstBalance, AP.TotalAmount AS DebitAmount, CAST(0 AS DECIMAL) AS CreditAmount, CAST(0 AS DECIMAL) AS BalanceAmount	" & vbNewLine & _
+                    "FROM traAccountPayable AP 	 	" & vbNewLine & _
+                    "INNER JOIN mstBusinessPartner BPR ON 	 	" & vbNewLine & _
+                    "	AP.BPID=BPR.ID 	 	" & vbNewLine & _
+                    "WHERE 	 	" & vbNewLine & _
+                    "	AP.ProgramID=@ProgramID 	" & vbNewLine & _
+                    "	AND AP.CompanyID=@CompanyID 	" & vbNewLine & _
+                    "	AND AP.APDate>=@DateFrom AND AP.APDate<=@DateTo 	" & vbNewLine & _
+                    "	AND AP.BPID=@BPID 	 	" & vbNewLine & _
+                    "	AND AP.IsDeleted=0 	 	" & vbNewLine & _
+                    "	AND AP.IsDP=0 	 	" & vbNewLine & _
+                    "	" & vbNewLine & _
+                    "ORDER BY TransactionDate, RemarksInfo ASC	" & vbNewLine
+
+                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
+                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
     End Class
 End Namespace

@@ -30,6 +30,14 @@
             End Using
         End Function
 
+        Public Shared Function KartuHutangVer01Report(ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime, ByVal intProgramID As Integer, ByVal intCompanyID As Integer, ByVal intBPID As Integer) As DataTable
+            dtmDateTo = dtmDateTo.AddHours(23).AddMinutes(59).AddSeconds(59)
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.Reports.KartuHutangVer01Report(sqlCon, Nothing, dtmDateFrom, dtmDateTo, intProgramID, intCompanyID, intBPID)
+            End Using
+        End Function
+
     End Class
 
 End Namespace
