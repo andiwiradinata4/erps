@@ -68,7 +68,7 @@ Public Class frmTraARAPDetVer2
 
     Private Const _
        cSave As Byte = 0, cClose As Byte = 1,
-       cCheckAll As Byte = 0, cUncheckAll As Byte = 1
+       cCheckAll As Byte = 0, cUncheckAll As Byte = 1, cSep1Item As Byte = 2, cAllocateDP As Byte = 3
 
     Private Sub prvSetTitleForm()
         If bolIsNew Then
@@ -157,14 +157,6 @@ Public Class frmTraARAPDetVer2
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
 
                 dtpDPDate.Enabled = False
-                If txtTotalDP.Value > 0 Then
-                    chkUsePercentage.Checked = True
-                    txtTotalDP.Enabled = True
-                    txtTotalDP.BackColor = Color.White
-
-                    txtTotalAmount.Enabled = False
-                    txtTotalAmount.BackColor = Color.LightYellow
-                End If
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -329,47 +321,6 @@ Public Class frmTraARAPDetVer2
         intModuleID = VO.Common.GetModuleID(strModules)
     End Sub
 
-    Private Sub prvAllocateDP()
-        If txtTotalDP.Value <= 0 Then Exit Sub
-        Dim decOutstandingDP As Decimal = txtTotalDP.Value
-        'For Each dr As DataRow In dtItem.Rows
-        '    If decOutstandingDP > 0 And dr.Item("Pick") Then
-        '        dr.BeginEdit()
-        '        If dr.Item("MaxPaymentAmount") > decOutstandingDP Then
-        '            dr.Item("DPAmount") = decOutstandingDP
-        '            dr.Item("Amount") = dr.Item("MaxPaymentAmount") - decOutstandingDP
-        '            decOutstandingDP = 0
-        '        Else
-        '            dr.Item("DPAmount") = dr.Item("MaxPaymentAmount")
-        '            dr.Item("Amount") = 0
-        '            decOutstandingDP -= dr.Item("MaxPaymentAmount")
-        '        End If
-        '        dr.EndEdit()
-        '    End If
-        'Next
-        'dtItem.AcceptChanges()
-
-        With grdItemView
-            For i As Integer = 0 To .RowCount - 1
-                If .GetRowCellValue(i, "Pick") And decOutstandingDP > 0 Then
-                    If .GetRowCellValue(i, "MaxPaymentAmount") > decOutstandingDP Then
-                        .SetRowCellValue(i, "DPAmount", decOutstandingDP)
-                        .SetRowCellValue(i, "Amount", .GetRowCellValue(i, "MaxPaymentAmount") - decOutstandingDP)
-                        decOutstandingDP = 0
-                    Else
-                        .SetRowCellValue(i, "DPAmount", .GetRowCellValue(i, "MaxPaymentAmount"))
-                        .SetRowCellValue(i, "Amount", 0)
-                        decOutstandingDP -= .GetRowCellValue(i, "MaxPaymentAmount")
-                    End If
-                End If
-                .UpdateCurrentRow()
-            Next
-            ToolBarDetail.Focus()
-            prvCalculate()
-            .BestFitColumns()
-        End With
-    End Sub
-
     Private Sub prvUserAccess()
         ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, IIf(bolIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
     End Sub
@@ -455,7 +406,7 @@ Public Class frmTraARAPDetVer2
             For i As Integer = 0 To .RowCount - 1
                 .SetRowCellValue(i, "Pick", bolValue)
                 If bolValue Then
-                    Dim decAmount As Decimal = .GetRowCellValue(i, "MaxPaymentAmount")
+                    Dim decAmount As Decimal = .GetRowCellValue(i, "MaxPaymentAmount") - .GetRowCellValue(i, "DPAmount")
                     Dim decPPNPercent As Decimal = .GetRowCellValue(i, "PPNPercent")
                     Dim decPPHPercent As Decimal = .GetRowCellValue(i, "PPHPercent")
                     .SetRowCellValue(i, "Amount", decAmount)
@@ -470,6 +421,92 @@ Public Class frmTraARAPDetVer2
             Next
             ToolBarDetail.Focus()
             prvAllocateDP()
+            prvCalculate()
+            .BestFitColumns()
+        End With
+    End Sub
+
+#End Region
+
+#Region "Down Payment"
+
+    Private Sub prvCalculateDP()
+        txtTotalDP.Value = 0
+        With grdDownPaymentView
+            For i As Integer = 0 To .RowCount - 1
+                If .GetRowCellValue(i, "Pick") Then txtTotalDP.Value += .GetRowCellValue(i, "DPAmount")
+            Next
+        End With
+    End Sub
+
+    Private Sub prvQueryDP()
+        pgMain.Value = 30
+        Me.Cursor = Cursors.WaitCursor
+        Try
+            If clsData.IsDeleted Then
+                grdDownPayment.DataSource = BL.ARAP.ListDataDownpayment(strID, enumARAPType)
+            Else
+                grdDownPayment.DataSource = BL.ARAP.ListDataDownPaymentWithOutstanding(clsCS.CompanyID, clsCS.ProgramID, intBPID, strModules, strID, enumARAPType)
+            End If
+            grdDownPaymentView.BestFitColumns()
+
+            If bolIsNew Then
+                With grdDownPaymentView
+                    For i As Integer = 0 To .RowCount - 1
+                        .SetRowCellValue(i, "Pick", True)
+                        .SetRowCellValue(i, "DPAmount", .GetRowCellValue(i, "MaxDPAmount"))
+                    Next
+                    .UpdateCurrentRow()
+                End With
+                ToolBarDetail.Focus()
+                prvCalculateDP()
+            End If
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+            Me.Close()
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+    Private Sub prvAllocateDP()
+        If txtTotalDP.Value <= 0 Then Exit Sub
+        Dim decOutstandingDP As Decimal = txtTotalDP.Value
+        'For Each dr As DataRow In dtItem.Rows
+        '    If decOutstandingDP > 0 And dr.Item("Pick") Then
+        '        dr.BeginEdit()
+        '        If dr.Item("MaxPaymentAmount") > decOutstandingDP Then
+        '            dr.Item("DPAmount") = decOutstandingDP
+        '            dr.Item("Amount") = dr.Item("MaxPaymentAmount") - decOutstandingDP
+        '            decOutstandingDP = 0
+        '        Else
+        '            dr.Item("DPAmount") = dr.Item("MaxPaymentAmount")
+        '            dr.Item("Amount") = 0
+        '            decOutstandingDP -= dr.Item("MaxPaymentAmount")
+        '        End If
+        '        dr.EndEdit()
+        '    End If
+        'Next
+        'dtItem.AcceptChanges()
+
+        With grdItemView
+            For i As Integer = 0 To .RowCount - 1
+                If .GetRowCellValue(i, "Pick") And decOutstandingDP > 0 Then
+                    If .GetRowCellValue(i, "MaxPaymentAmount") > decOutstandingDP Then
+                        .SetRowCellValue(i, "DPAmount", decOutstandingDP)
+                        .SetRowCellValue(i, "Amount", .GetRowCellValue(i, "MaxPaymentAmount") - decOutstandingDP)
+                        decOutstandingDP = 0
+                    Else
+                        .SetRowCellValue(i, "DPAmount", .GetRowCellValue(i, "MaxPaymentAmount"))
+                        .SetRowCellValue(i, "Amount", 0)
+                        decOutstandingDP -= .GetRowCellValue(i, "MaxPaymentAmount")
+                    End If
+                End If
+                .UpdateCurrentRow()
+            Next
+            ToolBarDetail.Focus()
             prvCalculate()
             .BestFitColumns()
         End With
@@ -544,10 +581,6 @@ Public Class frmTraARAPDetVer2
             Case "Tidak Centang Semua" : prvChangeCheckedValue(False)
         End Select
     End Sub
-
-    'Private Sub btnBP_Click(sender As Object, e As EventArgs) Handles btnBP.Click
-    '    prvChooseBP()
-    'End Sub
 
 #End Region
 

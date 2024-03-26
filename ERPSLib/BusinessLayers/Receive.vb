@@ -164,6 +164,13 @@
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
                     End If
 
+                    '# Cancel Approve Journal
+                    Dim clsData As VO.Receive = DL.Receive.GetDetail(sqlCon, sqlTrans, strID)
+                    BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+
+                    '# Cancel Submit Journal
+                    BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+
                     DL.Receive.Unsubmit(sqlCon, sqlTrans, strID)
 
                     '# Save Data Status
