@@ -497,19 +497,28 @@ Namespace BL
         Public Shared Function ListDataDownpayment(ByVal strParentID As String, ByVal enumARAPType As VO.ARAP.ARAPTypeValue) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-
+                If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
+                    Return New DataTable
+                Else
+                    Return DL.AccountPayable.ListDataDownPayment(sqlCon, Nothing, strParentID)
+                End If
             End Using
-            If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
-                Return New DataTable
-            Else
-                Return BL.AccountPayable.ListDataDetailRev01(strParentID)
-            End If
         End Function
 
-
+        Public Shared Function ListDataDownPaymentWithOutstanding(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                  ByVal intBPID As Integer, ByVal strModules As String,
+                                                                  ByVal strParentID As String, ByVal enumARAPType As VO.ARAP.ARAPTypeValue) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
+                    Return New DataTable
+                Else
+                    Return DL.AccountPayable.ListDataDownPaymentWithOutstanding(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strModules, strParentID)
+                End If
+            End Using
+        End Function
 
 #End Region
-
 
     End Class
 End Namespace

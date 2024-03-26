@@ -47,7 +47,6 @@ Partial Class frmTraARAPDetVer2
         Me.dtpDPDate = New System.Windows.Forms.DateTimePicker()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.chkUsePercentage = New System.Windows.Forms.CheckBox()
         Me.cboStatus = New ERPS.usComboBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.txtRemarks = New ERPS.usTextBox()
@@ -55,7 +54,7 @@ Partial Class frmTraARAPDetVer2
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.txtCoAName = New ERPS.usTextBox()
-        Me.txtPercentage = New ERPS.usNumeric()
+        Me.txtTotalDP = New ERPS.usNumeric()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.btnCoAOfOutgoingPayment = New DevExpress.XtraEditors.SimpleButton()
@@ -71,9 +70,16 @@ Partial Class frmTraARAPDetVer2
         Me.tpDownPayment = New System.Windows.Forms.TabPage()
         Me.grdDownPayment = New DevExpress.XtraGrid.GridControl()
         Me.grdDownPaymentView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.rpiDPAmount = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.tpHistory = New System.Windows.Forms.TabPage()
         Me.grdStatus = New DevExpress.XtraGrid.GridControl()
         Me.grdStatusView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.StatusStrip = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripEmpty = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripLogInc = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripLogBy = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -83,7 +89,7 @@ Partial Class frmTraARAPDetVer2
         CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtDueDateValue, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtPercentage, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtTotalDP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtOutstandingPayment, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPayment, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -91,9 +97,11 @@ Partial Class frmTraARAPDetVer2
         Me.tpDownPayment.SuspendLayout()
         CType(Me.grdDownPayment, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdDownPaymentView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.rpiDPAmount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpHistory.SuspendLayout()
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -151,7 +159,7 @@ Partial Class frmTraARAPDetVer2
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(981, 701)
+        Me.tcHeader.Size = New System.Drawing.Size(981, 679)
         Me.tcHeader.TabIndex = 6
         '
         'tpMain
@@ -164,7 +172,7 @@ Partial Class frmTraARAPDetVer2
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(973, 672)
+        Me.tpMain.Size = New System.Drawing.Size(973, 650)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
@@ -190,8 +198,8 @@ Partial Class frmTraARAPDetVer2
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
-        Me.grdItem.Size = New System.Drawing.Size(963, 374)
-        Me.grdItem.TabIndex = 169
+        Me.grdItem.Size = New System.Drawing.Size(963, 352)
+        Me.grdItem.TabIndex = 170
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
         '
@@ -260,7 +268,6 @@ Partial Class frmTraARAPDetVer2
         Me.pnlMain.Controls.Add(Me.dtpDPDate)
         Me.pnlMain.Controls.Add(Me.Label11)
         Me.pnlMain.Controls.Add(Me.Label5)
-        Me.pnlMain.Controls.Add(Me.chkUsePercentage)
         Me.pnlMain.Controls.Add(Me.cboStatus)
         Me.pnlMain.Controls.Add(Me.Label10)
         Me.pnlMain.Controls.Add(Me.txtRemarks)
@@ -268,7 +275,7 @@ Partial Class frmTraARAPDetVer2
         Me.pnlMain.Controls.Add(Me.Label13)
         Me.pnlMain.Controls.Add(Me.Label9)
         Me.pnlMain.Controls.Add(Me.txtCoAName)
-        Me.pnlMain.Controls.Add(Me.txtPercentage)
+        Me.pnlMain.Controls.Add(Me.txtTotalDP)
         Me.pnlMain.Controls.Add(Me.Label2)
         Me.pnlMain.Controls.Add(Me.Label4)
         Me.pnlMain.Controls.Add(Me.btnCoAOfOutgoingPayment)
@@ -390,16 +397,6 @@ Partial Class frmTraARAPDetVer2
         Me.Label5.TabIndex = 128
         Me.Label5.Text = "Status"
         '
-        'chkUsePercentage
-        '
-        Me.chkUsePercentage.AutoSize = True
-        Me.chkUsePercentage.Location = New System.Drawing.Point(226, 78)
-        Me.chkUsePercentage.Name = "chkUsePercentage"
-        Me.chkUsePercentage.Size = New System.Drawing.Size(70, 17)
-        Me.chkUsePercentage.TabIndex = 5
-        Me.chkUsePercentage.Text = "Aktifkan?"
-        Me.chkUsePercentage.UseVisualStyleBackColor = True
-        '
         'cboStatus
         '
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -477,19 +474,19 @@ Partial Class frmTraARAPDetVer2
         Me.txtCoAName.Size = New System.Drawing.Size(167, 21)
         Me.txtCoAName.TabIndex = 2
         '
-        'txtPercentage
+        'txtTotalDP
         '
-        Me.txtPercentage.BackColor = System.Drawing.Color.LightYellow
-        Me.txtPercentage.DecimalPlaces = 2
-        Me.txtPercentage.Enabled = False
-        Me.txtPercentage.Location = New System.Drawing.Point(137, 76)
-        Me.txtPercentage.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtPercentage.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtPercentage.Name = "txtPercentage"
-        Me.txtPercentage.Size = New System.Drawing.Size(83, 21)
-        Me.txtPercentage.TabIndex = 4
-        Me.txtPercentage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtPercentage.ThousandsSeparator = True
+        Me.txtTotalDP.BackColor = System.Drawing.Color.LightYellow
+        Me.txtTotalDP.DecimalPlaces = 2
+        Me.txtTotalDP.Enabled = False
+        Me.txtTotalDP.Location = New System.Drawing.Point(137, 76)
+        Me.txtTotalDP.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalDP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalDP.Name = "txtTotalDP"
+        Me.txtTotalDP.Size = New System.Drawing.Size(249, 21)
+        Me.txtTotalDP.TabIndex = 4
+        Me.txtTotalDP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalDP.ThousandsSeparator = True
         '
         'Label2
         '
@@ -636,7 +633,7 @@ Partial Class frmTraARAPDetVer2
         Me.tpDownPayment.Controls.Add(Me.grdDownPayment)
         Me.tpDownPayment.Location = New System.Drawing.Point(4, 25)
         Me.tpDownPayment.Name = "tpDownPayment"
-        Me.tpDownPayment.Size = New System.Drawing.Size(973, 672)
+        Me.tpDownPayment.Size = New System.Drawing.Size(973, 650)
         Me.tpDownPayment.TabIndex = 2
         Me.tpDownPayment.Text = "Panjar - F2"
         Me.tpDownPayment.UseVisualStyleBackColor = True
@@ -661,7 +658,8 @@ Partial Class frmTraARAPDetVer2
         Me.grdDownPayment.Location = New System.Drawing.Point(0, 0)
         Me.grdDownPayment.MainView = Me.grdDownPaymentView
         Me.grdDownPayment.Name = "grdDownPayment"
-        Me.grdDownPayment.Size = New System.Drawing.Size(973, 672)
+        Me.grdDownPayment.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiDPAmount})
+        Me.grdDownPayment.Size = New System.Drawing.Size(973, 650)
         Me.grdDownPayment.TabIndex = 14
         Me.grdDownPayment.UseEmbeddedNavigator = True
         Me.grdDownPayment.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdDownPaymentView})
@@ -675,6 +673,13 @@ Partial Class frmTraARAPDetVer2
         Me.grdDownPaymentView.OptionsView.ColumnAutoWidth = False
         Me.grdDownPaymentView.OptionsView.ShowGroupPanel = False
         '
+        'rpiDPAmount
+        '
+        Me.rpiDPAmount.AutoHeight = False
+        Me.rpiDPAmount.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.rpiDPAmount.Name = "rpiDPAmount"
+        Me.rpiDPAmount.NullText = "0.00"
+        '
         'tpHistory
         '
         Me.tpHistory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
@@ -682,7 +687,7 @@ Partial Class frmTraARAPDetVer2
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(973, 672)
+        Me.tpHistory.Size = New System.Drawing.Size(973, 650)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -707,7 +712,7 @@ Partial Class frmTraARAPDetVer2
         Me.grdStatus.Location = New System.Drawing.Point(3, 3)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(963, 662)
+        Me.grdStatus.Size = New System.Drawing.Size(963, 640)
         Me.grdStatus.TabIndex = 13
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -721,12 +726,64 @@ Partial Class frmTraARAPDetVer2
         Me.grdStatusView.OptionsView.ColumnAutoWidth = False
         Me.grdStatusView.OptionsView.ShowGroupPanel = False
         '
+        'StatusStrip
+        '
+        Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 729)
+        Me.StatusStrip.Name = "StatusStrip"
+        Me.StatusStrip.Size = New System.Drawing.Size(981, 22)
+        Me.StatusStrip.TabIndex = 7
+        Me.StatusStrip.Text = "StatusStrip1"
+        '
+        'ToolStripEmpty
+        '
+        Me.ToolStripEmpty.Name = "ToolStripEmpty"
+        Me.ToolStripEmpty.Size = New System.Drawing.Size(858, 17)
+        Me.ToolStripEmpty.Spring = True
+        '
+        'ToolStripLogInc
+        '
+        Me.ToolStripLogInc.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.ToolStripLogInc.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.ToolStripLogInc.Name = "ToolStripLogInc"
+        Me.ToolStripLogInc.Size = New System.Drawing.Size(48, 17)
+        Me.ToolStripLogInc.Text = "Log Inc : "
+        '
+        'ToolStripLogBy
+        '
+        Me.ToolStripLogBy.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.ToolStripLogBy.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.ToolStripLogBy.Name = "ToolStripLogBy"
+        Me.ToolStripLogBy.Size = New System.Drawing.Size(48, 17)
+        Me.ToolStripLogBy.Text = "Last Log :"
+        '
+        'ToolStripStatusLabel1
+        '
+        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(0, 17)
+        '
+        'ToolStripLogDate
+        '
+        Me.ToolStripLogDate.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.ToolStripLogDate.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.ToolStripLogDate.Name = "ToolStripLogDate"
+        Me.ToolStripLogDate.Size = New System.Drawing.Size(12, 17)
+        Me.ToolStripLogDate.Text = "-"
+        '
         'frmTraARAPDetVer2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(981, 774)
         Me.Controls.Add(Me.tcHeader)
+        Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.pgMain)
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
@@ -746,7 +803,7 @@ Partial Class frmTraARAPDetVer2
         CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtDueDateValue, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtPercentage, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtTotalDP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtOutstandingPayment, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalPayment, System.ComponentModel.ISupportInitialize).EndInit()
@@ -754,9 +811,12 @@ Partial Class frmTraARAPDetVer2
         Me.tpDownPayment.ResumeLayout(False)
         CType(Me.grdDownPayment, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdDownPaymentView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.rpiDPAmount, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpHistory.ResumeLayout(False)
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.StatusStrip.ResumeLayout(False)
+        Me.StatusStrip.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -773,11 +833,10 @@ Partial Class frmTraARAPDetVer2
     Friend WithEvents Label3 As Label
     Friend WithEvents txtTotalPPN As usNumeric
     Friend WithEvents Label11 As Label
-    Friend WithEvents chkUsePercentage As CheckBox
     Friend WithEvents Label10 As Label
     Friend WithEvents txtDueDateValue As usNumeric
     Friend WithEvents Label9 As Label
-    Friend WithEvents txtPercentage As usNumeric
+    Friend WithEvents txtTotalDP As usNumeric
     Friend WithEvents Label4 As Label
     Friend WithEvents Label12 As Label
     Friend WithEvents txtOutstandingPayment As usNumeric
@@ -810,7 +869,14 @@ Partial Class frmTraARAPDetVer2
     Friend WithEvents ToolBarDetail As usToolBar
     Friend WithEvents BarCheckAll As ToolBarButton
     Friend WithEvents BarUncheckAll As ToolBarButton
+    Friend WithEvents rpiDPAmount As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents grdItem As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdItemView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents rpiValue As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents StatusStrip As StatusStrip
+    Friend WithEvents ToolStripEmpty As ToolStripStatusLabel
+    Friend WithEvents ToolStripLogInc As ToolStripStatusLabel
+    Friend WithEvents ToolStripLogBy As ToolStripStatusLabel
+    Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
+    Friend WithEvents ToolStripLogDate As ToolStripStatusLabel
 End Class
