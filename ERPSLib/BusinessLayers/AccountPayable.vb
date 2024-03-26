@@ -646,6 +646,21 @@
             End Using
         End Function
 
+        Public Shared Function ListDataDetailRev01(ByVal strAPID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.AccountPayable.ListDataDetailRev01(sqlCon, Nothing, strAPID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailWithOutstandingRev01(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                  ByVal intBPID As Integer, ByVal strAPID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.AccountPayable.ListDataDetailWithOutstandingRev01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID)
+            End Using
+        End Function
+
 #End Region
 
 #Region "Status"

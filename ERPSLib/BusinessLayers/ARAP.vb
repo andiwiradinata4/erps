@@ -1,4 +1,6 @@
-﻿Namespace BL
+﻿Imports System.Runtime.Remoting.Metadata.W3cXsd2001
+
+Namespace BL
     Public Class ARAP
 
 #Region "Main"
@@ -466,6 +468,48 @@
         End Function
 
 #End Region
+
+#Region "Detail"
+
+        Public Shared Function ListDataDetail(ByVal strParentID As String, ByVal enumARAPType As VO.ARAP.ARAPTypeValue) As DataTable
+            If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
+                Return New DataTable
+            Else
+                Return BL.AccountPayable.ListDataDetailRev01(strParentID)
+            End If
+        End Function
+
+        Public Shared Function ListDataDetailWithOutstanding(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                             ByVal intBPID As Integer, ByVal strParentID As String,
+                                                             ByVal enumARAPType As VO.ARAP.ARAPTypeValue) As DataTable
+            If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
+                Return New DataTable
+            Else
+                Return BL.AccountPayable.ListDataDetailWithOutstandingRev01(intCompanyID, intProgramID, intBPID, strParentID)
+            End If
+
+        End Function
+
+#End Region
+
+#Region "Down Payment"
+
+        Public Shared Function ListDataDownpayment(ByVal strParentID As String, ByVal enumARAPType As VO.ARAP.ARAPTypeValue) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+
+            End Using
+            If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
+                Return New DataTable
+            Else
+                Return BL.AccountPayable.ListDataDetailRev01(strParentID)
+            End If
+        End Function
+
+
+
+#End Region
+
 
     End Class
 End Namespace
