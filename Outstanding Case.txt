@@ -62,4 +62,4 @@ AP (D)			7,000
 Cash (K)			7,000
 
 
--- Kartu Hutang Piutang
+-- Dilaporan Kartu Hutang Piutang - Pemasok diganti menjadi Rekan Bisnis

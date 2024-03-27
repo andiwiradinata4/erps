@@ -31,6 +31,10 @@
         Property SubmitDate As DateTime
         Property DPAmount As Decimal
         Property TotalPayment As Decimal
+        Property RoundingManualTransport As Decimal
+        Property DPAmountTransport As Decimal
+        Property TotalPaymentTransport As Decimal
+        Property JournalIDTransport As String
         Property Detail As List(Of VO.DeliveryDet)
         Property DetailTransport As List(Of VO.DeliveryDetTransport)
         Property Save As VO.Save.Action

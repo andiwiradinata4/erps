@@ -14,6 +14,14 @@
         Property StatusID As Integer
         Property SubmitBy As String
         Property SubmitDate As DateTime
+        Property PPN As Decimal
+        Property PPH As Decimal
+        Property TotalDPP As Decimal
+        Property TotalPPN As Decimal
+        Property TotalPPH As Decimal
+        Property RoundingManual As Decimal
+        Property DPAmount As Decimal
+        Property TotalPayment As Decimal
         Property Detail As List(Of VO.CuttingDet)
         Property DetailResult As List(Of VO.CuttingDetResult)
         Property Save As VO.Save.Action

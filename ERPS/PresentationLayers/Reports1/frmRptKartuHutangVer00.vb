@@ -112,8 +112,8 @@
         Me.Cursor = Cursors.WaitCursor
         Try
             Dim crReport As New rptKartuHutangPiutangReportVer00
-            crReport.DataSource = prvCollectDataVer00(drPick)
             With crReport
+                .DataSource = prvCollectDataVer00(drPick)
                 .Parameters.Item("FilterPeriod").Value = strFilterDate
                 .Parameters.Item("ReportTitle").Value = "KARTU HUTANG"
                 .Parameters.Item("CompanyName").Value = ERPSLib.UI.usUserApp.CompanyName

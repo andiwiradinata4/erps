@@ -309,7 +309,6 @@ Public Class frmTraReceiveDet
     Private Sub prvQueryItem()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
         Try
             dtItem = BL.Receive.ListDataDetail(pubID.Trim)
             grdItem.DataSource = dtItem
@@ -322,7 +321,6 @@ Public Class frmTraReceiveDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
             prvSetButtonItem()
             prvResetProgressBar()
         End Try

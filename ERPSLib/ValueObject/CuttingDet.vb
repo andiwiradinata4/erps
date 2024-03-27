@@ -9,5 +9,7 @@
         Property Weight As Decimal
         Property TotalWeight As Decimal
         Property Remarks As String
+        Property UnitPrice As Decimal
+        Property TotalPrice As Decimal
     End Class
 End Namespace

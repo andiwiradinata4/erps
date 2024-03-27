@@ -148,7 +148,7 @@
             '# Save Data Status
             BL.Receive.SaveDataStatus(sqlCon, sqlTrans, strID, "SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
-            GenerateJournal(sqlCon, sqlTrans, strID)
+            'GenerateJournal(sqlCon, sqlTrans, strID)
         End Sub
 
         Public Shared Function Unsubmit(ByVal strID As String, ByVal strRemarks As String) As Boolean
@@ -164,12 +164,12 @@
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
                     End If
 
-                    '# Cancel Approve Journal
-                    Dim clsData As VO.Receive = DL.Receive.GetDetail(sqlCon, sqlTrans, strID)
-                    BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+                    ''# Cancel Approve Journal
+                    'Dim clsData As VO.Receive = DL.Receive.GetDetail(sqlCon, sqlTrans, strID)
+                    'BL.Journal.Unapprove(clsData.JournalID.Trim, "")
 
-                    '# Cancel Submit Journal
-                    BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+                    ''# Cancel Submit Journal
+                    'BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
 
                     DL.Receive.Unsubmit(sqlCon, sqlTrans, strID)
 

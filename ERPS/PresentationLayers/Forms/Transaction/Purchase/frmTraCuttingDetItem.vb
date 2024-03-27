@@ -143,6 +143,7 @@ Public Class frmTraCuttingDetItem
                 txtLength.Value = drSelectedItem.Item("Length")
                 txtWeight.Value = drSelectedItem.Item("Weight")
                 txtMaxTotalWeight.Value = drSelectedItem.Item("MaxTotalWeight")
+                txtUnitPrice.Value = drSelectedItem.Item("UnitPrice")
                 txtQuantity.Value = drSelectedItem.Item("Quantity")
                 txtRemarks.Text = drSelectedItem.Item("Remarks")
 
@@ -206,6 +207,8 @@ Public Class frmTraCuttingDetItem
                 .Item("Weight") = txtWeight.Value
                 .Item("TotalWeight") = txtTotalWeight.Value
                 .Item("MaxTotalWeight") = txtMaxTotalWeight.Value
+                .Item("UnitPrice") = txtUnitPrice.Value
+                .Item("TotalPrice") = txtTotalPrice.Value
                 .Item("Remarks") = txtRemarks.Text.Trim
                 .EndEdit()
             End With
@@ -233,6 +236,8 @@ Public Class frmTraCuttingDetItem
                         .Item("Weight") = txtWeight.Value
                         .Item("TotalWeight") = txtTotalWeight.Value
                         .Item("MaxTotalWeight") = txtMaxTotalWeight.Value
+                        .Item("UnitPrice") = txtUnitPrice.Value
+                        .Item("TotalPrice") = txtTotalPrice.Value
                         .Item("Remarks") = txtRemarks.Text.Trim
                         .EndEdit()
                     End If
@@ -275,8 +280,10 @@ Public Class frmTraCuttingDetItem
         txtLength.Value = 0
         txtWeight.Value = 0
         txtMaxTotalWeight.Value = 0
+        txtUnitPrice.Value = 0
         txtQuantity.Value = 0
         txtTotalWeight.Value = 0
+        txtTotalPrice.Value = 0
         txtRemarks.Text = ""
     End Sub
 
@@ -301,6 +308,7 @@ Public Class frmTraCuttingDetItem
                 txtLength.Value = .pubLUdtRow.Item("Length")
                 txtWeight.Value = .pubLUdtRow.Item("Weight")
                 txtMaxTotalWeight.Value = .pubLUdtRow.Item("MaxTotalWeight")
+                txtUnitPrice.Value = .pubLUdtRow.Item("UnitPrice")
                 txtQuantity.Value = .pubLUdtRow.Item("Quantity")
                 txtQuantity.Focus()
                 txtRemarks.Text = ""
@@ -315,6 +323,7 @@ Public Class frmTraCuttingDetItem
 
     Private Sub prvCalculate()
         txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
+        txtTotalPrice.Value = txtUnitPrice.Value * txtTotalWeight.Value
     End Sub
 
 #Region "Item Result Item"

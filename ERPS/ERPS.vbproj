@@ -906,6 +906,12 @@
     <Compile Include="PresentationLayers\Reports1\frmRptKartuHutangVer00.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Reports1\frmRptKartuPiutangVer00.Designer.vb">
+      <DependentUpon>frmRptKartuPiutangVer00.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports1\frmRptKartuPiutangVer00.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Reports1\frmRptMonitoringProductTransactionVer00.Designer.vb">
       <DependentUpon>frmRptMonitoringProductTransactionVer00.vb</DependentUpon>
     </Compile>
@@ -1385,6 +1391,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports1\frmRptKartuHutangVer00.resx">
       <DependentUpon>frmRptKartuHutangVer00.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports1\frmRptKartuPiutangVer00.resx">
+      <DependentUpon>frmRptKartuPiutangVer00.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports1\frmRptMonitoringProductTransactionVer00.resx">
       <DependentUpon>frmRptMonitoringProductTransactionVer00.vb</DependentUpon>

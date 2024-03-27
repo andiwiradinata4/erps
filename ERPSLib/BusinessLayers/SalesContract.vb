@@ -293,56 +293,7 @@
                     '# Save Data Status
                     BL.SalesContract.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
-                    Dim clsData As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, sqlTrans, strID)
-                    Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
-                    Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
-
-                    '# Generate Journal
-                    Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.TotalPPN - clsData.TotalPPH + clsData.RoundingManual
-                    Dim clsJournalDetail As New List(Of VO.JournalDet)
-
-                    clsJournalDetail.Add(New VO.JournalDet With
-                                         {
-                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountReceivable,
-                                             .DebitAmount = decTotalAmount,
-                                             .CreditAmount = 0,
-                                             .Remarks = "KONTRAK PENJUALAN - " & clsData.SCNumber
-                                         })
-                    clsJournalDetail.Add(New VO.JournalDet With
-                                         {
-                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofRevenue,
-                                             .DebitAmount = 0,
-                                             .CreditAmount = decTotalAmount,
-                                             .Remarks = "KONTRAK PENJUALAN - " & clsData.SCNumber
-                                         })
-
-                    Dim clsJournal As New VO.Journal With
-                        {
-                            .ProgramID = clsData.ProgramID,
-                            .CompanyID = clsData.CompanyID,
-                            .ID = PrevJournal.ID,
-                            .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
-                            .ReferencesID = clsData.ID,
-                            .JournalDate = IIf(bolNew, Now, PrevJournal.JournalDate),
-                            .TotalAmount = decTotalAmount,
-                            .IsAutoGenerate = True,
-                            .StatusID = VO.Status.Values.Draft,
-                            .Remarks = clsData.Remarks,
-                            .LogBy = ERPSLib.UI.usUserApp.UserID,
-                            .Initial = "",
-                            .Detail = clsJournalDetail,
-                            .Save = VO.Save.Action.SaveAndSubmit
-                        }
-
-                    '# Save Journal
-                    Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
-
-                    '# Approve Journal
-                    BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
-
-                    '# Update Journal ID in Purchase Contract
-                    DL.SalesContract.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
-
+                    'GenerateJournal(sqlCon, sqlTrans, strID)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -369,13 +320,13 @@
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses pembayaran")
                     End If
 
-                    Dim clsData As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, sqlTrans, strID)
+                    'Dim clsData As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, sqlTrans, strID)
 
-                    '# Cancel Approve Journal
-                    BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+                    ''# Cancel Approve Journal
+                    'BL.Journal.Unapprove(clsData.JournalID.Trim, "")
 
-                    '# Cancel Submit Journal
-                    BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+                    ''# Cancel Submit Journal
+                    'BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
 
                     DL.SalesContract.Unapprove(sqlCon, sqlTrans, strID)
 
@@ -498,6 +449,64 @@
 
             Return dtReturn
         End Function
+
+        Public Shared Sub GenerateJournal(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal strID As String)
+            Try
+
+                Dim clsData As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, sqlTrans, strID)
+                Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
+                Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
+
+                '# Generate Journal
+                Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.TotalPPN - clsData.TotalPPH + clsData.RoundingManual
+                Dim clsJournalDetail As New List(Of VO.JournalDet) From {
+                        New VO.JournalDet With
+                                         {
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountReceivable,
+                                             .DebitAmount = decTotalAmount,
+                                             .CreditAmount = 0,
+                                             .Remarks = "KONTRAK PENJUALAN - " & clsData.SCNumber
+                                         },
+                        New VO.JournalDet With
+                                         {
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofRevenue,
+                                             .DebitAmount = 0,
+                                             .CreditAmount = decTotalAmount,
+                                             .Remarks = "KONTRAK PENJUALAN - " & clsData.SCNumber
+                                         }
+                    }
+
+                Dim clsJournal As New VO.Journal With
+                        {
+                            .ProgramID = clsData.ProgramID,
+                            .CompanyID = clsData.CompanyID,
+                            .ID = PrevJournal.ID,
+                            .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                            .ReferencesID = clsData.ID,
+                            .JournalDate = IIf(bolNew, Now, PrevJournal.JournalDate),
+                            .TotalAmount = decTotalAmount,
+                            .IsAutoGenerate = True,
+                            .StatusID = VO.Status.Values.Draft,
+                            .Remarks = clsData.Remarks,
+                            .LogBy = ERPSLib.UI.usUserApp.UserID,
+                            .Initial = "",
+                            .Detail = clsJournalDetail,
+                            .Save = VO.Save.Action.SaveAndSubmit
+                        }
+
+                '# Save Journal
+                Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
+
+                '# Approve Journal
+                BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
+
+                '# Update Journal ID in Purchase Contract
+                DL.SalesContract.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
 
 #End Region
 

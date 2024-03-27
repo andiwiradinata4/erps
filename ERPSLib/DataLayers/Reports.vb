@@ -237,53 +237,120 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT 	" & vbNewLine & _
-                    "	BPS.Code, BPS.Name, 	" & vbNewLine & _
-                    "	CONVERT(DATE,DP.APDate,112) AS TransactionDate, 'PANJAR PEMBELIAN' AS RemarksInfo, 	" & vbNewLine & _
-                    "	CAST(0 AS DECIMAL) AS FirstBalance, DP.TotalAmount AS DebitAmount, CAST(0 AS DECIMAL) AS CreditAmount, CAST(0 AS DECIMAL) AS BalanceAmount	" & vbNewLine & _
-                    "FROM traAccountPayable DP 	 	" & vbNewLine & _
-                    "INNER JOIN mstBusinessPartner BPS ON 	 	" & vbNewLine & _
-                    "	DP.BPID=BPS.ID 	 	" & vbNewLine & _
-                    "WHERE 	 	" & vbNewLine & _
-                    "	DP.ProgramID=@ProgramID 	" & vbNewLine & _
-                    "	AND DP.CompanyID=@CompanyID 	" & vbNewLine & _
-                    "	AND DP.APDate>=@DateFrom AND DP.APDate<=@DateTo 	" & vbNewLine & _
-                    "	AND DP.BPID=@BPID 	 	" & vbNewLine & _
-                    "	AND DP.IsDeleted=0 	 	" & vbNewLine & _
-                    "	AND DP.IsDP=1 	 	" & vbNewLine & _
-                    "	" & vbNewLine & _
-                    "UNION ALL 	 	" & vbNewLine & _
-                    "SELECT 	" & vbNewLine & _
-                    "	BPR.Code, BPR.Name, 	" & vbNewLine & _
-                    "	CONVERT(DATE,TR.ReceiveDate,112) AS TransactionDate, TR.ReceiveNumber AS RemarksInfo, " & vbNewLine & _
-                    "	CAST(0 AS DECIMAL) AS FirstBalance, CAST(0 AS DECIMAL) AS DebitAmount, TR.TotalDPP AS CreditAmount, CAST(0 AS DECIMAL) AS BalanceAmount	" & vbNewLine & _
-                    "FROM traReceive TR 	" & vbNewLine & _
-                    "INNER JOIN mstBusinessPartner BPR ON 	" & vbNewLine & _
-                    "	TR.BPID=BPR.ID 	" & vbNewLine & _
-                    "WHERE 	 	" & vbNewLine & _
-                    "	TR.ProgramID=@ProgramID 	" & vbNewLine & _
-                    "	AND TR.CompanyID=@CompanyID 	" & vbNewLine & _
-                    "	AND TR.ReceiveDate>=@DateFrom AND TR.ReceiveDate<=@DateTo 	" & vbNewLine & _
-                    "	AND TR.BPID=@BPID 	 	" & vbNewLine & _
-                    "	AND TR.IsDeleted=0 	 	" & vbNewLine & _
-                    "	" & vbNewLine & _
-                    "UNION ALL 	 	" & vbNewLine & _
-                    "SELECT 	 	" & vbNewLine & _
-                    "	BPR.Code, BPR.Name, 	" & vbNewLine & _
-                    "	CONVERT(DATE,AP.APDate,112) AS TransactionDate, 'PEMBAYARAN TBS' AS RemarksInfo, 	" & vbNewLine & _
-                    "	CAST(0 AS DECIMAL) AS FirstBalance, AP.TotalAmount AS DebitAmount, CAST(0 AS DECIMAL) AS CreditAmount, CAST(0 AS DECIMAL) AS BalanceAmount	" & vbNewLine & _
-                    "FROM traAccountPayable AP 	 	" & vbNewLine & _
-                    "INNER JOIN mstBusinessPartner BPR ON 	 	" & vbNewLine & _
-                    "	AP.BPID=BPR.ID 	 	" & vbNewLine & _
-                    "WHERE 	 	" & vbNewLine & _
-                    "	AP.ProgramID=@ProgramID 	" & vbNewLine & _
-                    "	AND AP.CompanyID=@CompanyID 	" & vbNewLine & _
-                    "	AND AP.APDate>=@DateFrom AND AP.APDate<=@DateTo 	" & vbNewLine & _
-                    "	AND AP.BPID=@BPID 	 	" & vbNewLine & _
-                    "	AND AP.IsDeleted=0 	 	" & vbNewLine & _
-                    "	AND AP.IsDP=0 	 	" & vbNewLine & _
-                    "	" & vbNewLine & _
+                .CommandText =
+                    "SELECT 	" & vbNewLine &
+                    "	BPS.Code, BPS.Name, 	" & vbNewLine &
+                    "	CONVERT(DATE,DP.APDate,112) AS TransactionDate, 'PANJAR PEMBELIAN' AS RemarksInfo, 	" & vbNewLine &
+                    "	CAST(0 AS DECIMAL) AS FirstBalance, DP.TotalAmount AS DebitAmount, CAST(0 AS DECIMAL) AS CreditAmount, CAST(0 AS DECIMAL) AS BalanceAmount	" & vbNewLine &
+                    "FROM traAccountPayable DP 	 	" & vbNewLine &
+                    "INNER JOIN mstBusinessPartner BPS ON 	 	" & vbNewLine &
+                    "	DP.BPID=BPS.ID 	 	" & vbNewLine &
+                    "WHERE 	 	" & vbNewLine &
+                    "	DP.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	AND DP.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	AND DP.APDate>=@DateFrom AND DP.APDate<=@DateTo 	" & vbNewLine &
+                    "	AND DP.BPID=@BPID 	 	" & vbNewLine &
+                    "	AND DP.IsDeleted=0 	 	" & vbNewLine &
+                    "	AND DP.IsDP=1 	 	" & vbNewLine &
+                    "	" & vbNewLine &
+                    "UNION ALL 	 	" & vbNewLine &
+                    "SELECT 	" & vbNewLine &
+                    "	BPR.Code, BPR.Name, 	" & vbNewLine &
+                    "	CONVERT(DATE,TR.ReceiveDate,112) AS TransactionDate, TR.ReceiveNumber AS RemarksInfo, " & vbNewLine &
+                    "	CAST(0 AS DECIMAL) AS FirstBalance, CAST(0 AS DECIMAL) AS DebitAmount, TR.TotalDPP AS CreditAmount, CAST(0 AS DECIMAL) AS BalanceAmount	" & vbNewLine &
+                    "FROM traReceive TR 	" & vbNewLine &
+                    "INNER JOIN mstBusinessPartner BPR ON 	" & vbNewLine &
+                    "	TR.BPID=BPR.ID 	" & vbNewLine &
+                    "WHERE 	 	" & vbNewLine &
+                    "	TR.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	AND TR.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	AND TR.ReceiveDate>=@DateFrom AND TR.ReceiveDate<=@DateTo 	" & vbNewLine &
+                    "	AND TR.BPID=@BPID 	 	" & vbNewLine &
+                    "	AND TR.IsDeleted=0 	 	" & vbNewLine &
+                    "	" & vbNewLine &
+                    "UNION ALL 	 	" & vbNewLine &
+                    "SELECT 	 	" & vbNewLine &
+                    "	BPR.Code, BPR.Name, 	" & vbNewLine &
+                    "	CONVERT(DATE,AP.APDate,112) AS TransactionDate, 'PEMBAYARAN PEMBELIAN' AS RemarksInfo, 	" & vbNewLine &
+                    "	CAST(0 AS DECIMAL) AS FirstBalance, AP.TotalAmount AS DebitAmount, CAST(0 AS DECIMAL) AS CreditAmount, CAST(0 AS DECIMAL) AS BalanceAmount	" & vbNewLine &
+                    "FROM traAccountPayable AP 	 	" & vbNewLine &
+                    "INNER JOIN mstBusinessPartner BPR ON 	 	" & vbNewLine &
+                    "	AP.BPID=BPR.ID 	 	" & vbNewLine &
+                    "WHERE 	 	" & vbNewLine &
+                    "	AP.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	AND AP.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	AND AP.APDate>=@DateFrom AND AP.APDate<=@DateTo 	" & vbNewLine &
+                    "	AND AP.BPID=@BPID 	 	" & vbNewLine &
+                    "	AND AP.IsDeleted=0 	 	" & vbNewLine &
+                    "	AND AP.IsDP=0 	 	" & vbNewLine &
+                    "	" & vbNewLine &
+                    "ORDER BY TransactionDate, RemarksInfo ASC	" & vbNewLine
+
+                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
+                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function KartuPiutangVer01Report(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                       ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+                                                       ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                       ByVal intBPID As Integer) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT 	" & vbNewLine &
+                    "	BPS.Code, BPS.Name, 	" & vbNewLine &
+                    "	CONVERT(DATE,DP.ARDate,112) AS TransactionDate, 'PANJAR PENJUALAN' AS RemarksInfo, 	" & vbNewLine &
+                    "	CAST(0 AS DECIMAL) AS FirstBalance, DP.TotalAmount AS DebitAmount, CAST(0 AS DECIMAL) AS CreditAmount, CAST(0 AS DECIMAL) AS BalanceAmount	" & vbNewLine &
+                    "FROM traAccountReceivable DP 	 	" & vbNewLine &
+                    "INNER JOIN mstBusinessPartner BPS ON 	 	" & vbNewLine &
+                    "	DP.BPID=BPS.ID 	 	" & vbNewLine &
+                    "WHERE 	 	" & vbNewLine &
+                    "	DP.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	AND DP.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	AND DP.ARDate>=@DateFrom AND DP.ARDate<=@DateTo 	" & vbNewLine &
+                    "	AND DP.BPID=@BPID 	 	" & vbNewLine &
+                    "	AND DP.IsDeleted=0 	 	" & vbNewLine &
+                    "	AND DP.IsDP=1 	 	" & vbNewLine &
+                    "	" & vbNewLine &
+                    "UNION ALL 	 	" & vbNewLine &
+                    "SELECT 	" & vbNewLine &
+                    "	BPR.Code, BPR.Name, 	" & vbNewLine &
+                    "	CONVERT(DATE,TD.DeliveryDate,112) AS TransactionDate, TD.DeliveryNumber AS RemarksInfo, " & vbNewLine &
+                    "	CAST(0 AS DECIMAL) AS FirstBalance, CAST(0 AS DECIMAL) AS DebitAmount, TD.TotalDPP AS CreditAmount, CAST(0 AS DECIMAL) AS BalanceAmount	" & vbNewLine &
+                    "FROM traDelivery TD 	" & vbNewLine &
+                    "INNER JOIN mstBusinessPartner BPR ON 	" & vbNewLine &
+                    "	TD.BPID=BPR.ID 	" & vbNewLine &
+                    "WHERE 	 	" & vbNewLine &
+                    "	TD.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	AND TD.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	AND TD.DeliveryDate>=@DateFrom AND TD.DeliveryDate<=@DateTo 	" & vbNewLine &
+                    "	AND TD.BPID=@BPID 	 	" & vbNewLine &
+                    "	AND TD.IsDeleted=0 	 	" & vbNewLine &
+                    "	" & vbNewLine &
+                    "UNION ALL 	 	" & vbNewLine &
+                    "SELECT 	 	" & vbNewLine &
+                    "	BPR.Code, BPR.Name, 	" & vbNewLine &
+                    "	CONVERT(DATE,AR.ARDate,112) AS TransactionDate, 'PELUNASAN PENJUALAN' AS RemarksInfo, 	" & vbNewLine &
+                    "	CAST(0 AS DECIMAL) AS FirstBalance, AR.TotalAmount AS DebitAmount, CAST(0 AS DECIMAL) AS CreditAmount, CAST(0 AS DECIMAL) AS BalanceAmount	" & vbNewLine &
+                    "FROM traAccountReceivable AR 	 	" & vbNewLine &
+                    "INNER JOIN mstBusinessPartner BPR ON 	 	" & vbNewLine &
+                    "	AR.BPID=BPR.ID 	 	" & vbNewLine &
+                    "WHERE 	 	" & vbNewLine &
+                    "	AR.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	AND AR.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	AND AR.ARDate>=@DateFrom AND AR.ARDate<=@DateTo 	" & vbNewLine &
+                    "	AND AR.BPID=@BPID 	 	" & vbNewLine &
+                    "	AND AR.IsDeleted=0 	 	" & vbNewLine &
+                    "	AND AR.IsDP=0 	 	" & vbNewLine &
+                    "	" & vbNewLine &
                     "ORDER BY TransactionDate, RemarksInfo ASC	" & vbNewLine
 
                 .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom

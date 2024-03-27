@@ -578,3 +578,6 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer2.re
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderGenerateContract.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptKartuHutangVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptKartuHutangPiutangReportVer00.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptKartuHutangVer00.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptKartuPiutangVer00.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptKartuHutangPiutangReportVer00.resources

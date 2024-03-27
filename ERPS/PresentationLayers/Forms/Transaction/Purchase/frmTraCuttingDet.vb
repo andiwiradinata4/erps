@@ -58,6 +58,8 @@ Public Class frmTraCuttingDet
         UI.usForm.SetGrid(grdItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
 
         '# Cutting Detail Result
@@ -115,6 +117,11 @@ Public Class frmTraCuttingDet
                 txtBPName.Text = clsData.BPName
                 dtpCuttingDate.Value = clsData.CuttingDate
                 txtReferencesNumber.Text = clsData.ReferencesNumber
+                txtPPN.Value = clsData.PPN
+                txtPPH.Value = clsData.PPH
+                txtTotalDPP.Value = clsData.TotalDPP
+                txtTotalPPN.Value = clsData.TotalPPN
+                txtTotalPPH.Value = clsData.TotalPPH
                 cboStatus.SelectedValue = clsData.StatusID
                 txtRemarks.Text = clsData.Remarks
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
@@ -181,6 +188,8 @@ Public Class frmTraCuttingDet
                                .Quantity = dr.Item("Quantity"),
                                .Weight = dr.Item("Weight"),
                                .TotalWeight = dr.Item("TotalWeight"),
+                               .UnitPrice = dr.Item("UnitPrice"),
+                               .TotalPrice = dr.Item("TotalPrice"),
                                .Remarks = dr.Item("Remarks")
                            })
         Next
@@ -206,8 +215,14 @@ Public Class frmTraCuttingDet
         clsData.CuttingDate = dtpCuttingDate.Value.Date
         clsData.BPID = intBPID
         clsData.ReferencesNumber = txtReferencesNumber.Text.Trim
+        clsData.PPN = txtPPN.Value
+        clsData.PPH = txtPPH.Value
         clsData.TotalQuantity = grdItemView.Columns("Quantity").SummaryItem.SummaryValue
         clsData.TotalWeight = grdItemView.Columns("TotalWeight").SummaryItem.SummaryValue
+        clsData.TotalDPP = txtTotalDPP.Value
+        clsData.TotalPPN = txtTotalPPN.Value
+        clsData.TotalPPH = txtTotalPPH.Value
+        clsData.RoundingManual = 0
         clsData.Remarks = txtRemarks.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
         clsData.Detail = listDetail
@@ -252,6 +267,12 @@ Public Class frmTraCuttingDet
         txtBPName.Text = ""
         dtpCuttingDate.Value = Now
         txtReferencesNumber.Text = ""
+        txtPPN.Value = 0
+        txtPPH.Value = 0
+        txtTotalDPP.Value = 0
+        txtTotalPPN.Value = 0
+        txtTotalPPH.Value = 0
+        txtGrandTotal.Value = 0
         txtRemarks.Text = ""
         cboStatus.SelectedValue = VO.Status.Values.Draft
         ToolStripLogInc.Text = "Jumlah Edit : -"
@@ -277,6 +298,7 @@ Public Class frmTraCuttingDet
         '# Item
         Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
         Dim SumGrandTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
+        Dim SumGrandTotalPrice As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
 
         If grdItemView.Columns("Quantity").SummaryText.Trim = "" Then
             grdItemView.Columns("Quantity").Summary.Add(SumTotalQuantity)
@@ -284,6 +306,10 @@ Public Class frmTraCuttingDet
 
         If grdItemView.Columns("TotalWeight").SummaryText.Trim = "" Then
             grdItemView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeight)
+        End If
+
+        If grdItemView.Columns("TotalPrice").SummaryText.Trim = "" Then
+            grdItemView.Columns("TotalPrice").Summary.Add(SumGrandTotalPrice)
         End If
         grdItemView.BestFitColumns()
 
@@ -299,6 +325,16 @@ Public Class frmTraCuttingDet
             grdItemResultView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeightResult)
         End If
         grdItemResultView.BestFitColumns()
+    End Sub
+
+    Private Sub prvCalculate()
+        txtTotalDPP.Value = 0
+        For Each dr As DataRow In dtItem.Rows
+            txtTotalDPP.Value += dr.Item("TotalPrice")
+        Next
+        txtTotalPPN.Value = txtTotalDPP.Value * (txtPPN.Value / 100)
+        txtTotalPPH.Value = txtTotalDPP.Value * (txtPPH.Value / 100)
+        txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
     End Sub
 
     Private Sub prvUserAccess()
@@ -324,7 +360,6 @@ Public Class frmTraCuttingDet
     Private Sub prvQueryItem()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
         Try
             dtItem = BL.Cutting.ListDataDetail(pubID.Trim)
             grdItem.DataSource = dtItem
@@ -337,7 +372,6 @@ Public Class frmTraCuttingDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
             prvSetButtonItem()
             prvResetProgressBar()
         End Try
@@ -359,6 +393,7 @@ Public Class frmTraCuttingDet
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
+            prvCalculate()
             prvSetupTools()
         End With
     End Sub
@@ -377,6 +412,7 @@ Public Class frmTraCuttingDet
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
+            prvCalculate()
             prvSetupTools()
         End With
     End Sub
@@ -392,6 +428,7 @@ Public Class frmTraCuttingDet
             If dr.Item("ID") = strID Then dr.Delete() : Exit For
         Next
         dtItem.AcceptChanges()
+        prvCalculate()
 
         '# Delete Item Result
         For Each dr As DataRow In dtItemResult.Rows
@@ -418,7 +455,6 @@ Public Class frmTraCuttingDet
             End If
         Next
         dtItemResult.AcceptChanges()
-
         prvSetButtonItem()
         prvSetupTools()
     End Sub
