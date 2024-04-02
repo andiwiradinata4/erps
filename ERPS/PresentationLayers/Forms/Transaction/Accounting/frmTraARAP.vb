@@ -8,7 +8,7 @@ Public Class frmTraARAP
     Private intCompanyID As Integer
     Private dtData As New DataTable
     Private strModules As String = ""
-    Private enumDPType As VO.ARAP.ARAPTypeValue
+    Private enumARAPType As VO.ARAP.ARAPTypeValue
     Private intBPID As Integer = 0
     Private clsCS As New VO.CS
     Private strReferencesID As String
@@ -20,9 +20,9 @@ Public Class frmTraARAP
         End Set
     End Property
 
-    Public WriteOnly Property pubDPType As VO.ARAP.ARAPTypeValue
+    Public WriteOnly Property pubARAPType As VO.ARAP.ARAPTypeValue
         Set(value As VO.ARAP.ARAPTypeValue)
-            enumDPType = value
+            enumARAPType = value
         End Set
     End Property
 
@@ -148,7 +148,7 @@ Public Class frmTraARAP
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
         Try
-            dtData = BL.ARAP.ListData(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue, strModules, enumDPType, intBPID, strReferencesID)
+            dtData = BL.ARAP.ListData(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue, strModules, enumARAPType, intBPID, strReferencesID)
             grdMain.DataSource = dtData
             prvSumGrid()
             grdView.BestFitColumns()
@@ -210,13 +210,20 @@ Public Class frmTraARAP
 
     Private Sub prvNew()
         prvResetProgressBar()
-        Dim frmDetail As New frmTraARAPDet
+        Dim frmDetail As Object
+        If strModules = VO.AccountPayable.DownPayment Or
+           strModules = VO.AccountReceivable.DownPayment Then
+            frmDetail = New frmTraARAPDet
+        Else
+            frmDetail = New frmTraARAPDetVer2
+        End If
+
         With frmDetail
             .pubIsNew = True
             .pubCS = prvGetCS()
             .pubModules = strModules
             .pubBPID = intBPID
-            .pubDPType = enumDPType
+            .pubARAPType = enumARAPType
             .pubReferencesID = strReferencesID
             .Text = Me.Text
             .StartPosition = FormStartPosition.CenterScreen
@@ -229,14 +236,21 @@ Public Class frmTraARAP
         intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         clsData = prvGetData()
-        Dim frmDetail As New frmTraARAPDet
+        Dim frmDetail As Object
+        If strModules = VO.AccountPayable.DownPayment Or
+           strModules = VO.AccountReceivable.DownPayment Then
+            frmDetail = New frmTraARAPDet
+        Else
+            frmDetail = New frmTraARAPDetVer2
+        End If
+
         With frmDetail
             .pubIsNew = False
             .pubCS = prvGetCS()
             .pubID = clsData.ID
             .pubModules = strModules
             .pubBPID = intBPID
-            .pubDPType = enumDPType
+            .pubARAPType = enumARAPType
             .pubReferencesID = strReferencesID
             .Text = Me.Text
             .StartPosition = FormStartPosition.CenterScreen
@@ -267,7 +281,7 @@ Public Class frmTraARAP
         pgMain.Value = 40
         Application.DoEvents()
         Try
-            BL.ARAP.DeleteData(clsData.ID, clsData.Modules, clsData.Remarks, enumDPType)
+            BL.ARAP.DeleteData(clsData.ID, clsData.Modules, clsData.Remarks, enumARAPType)
             pgMain.Value = 100
             Application.DoEvents()
             UI.usForm.frmMessageBox("Hapus data berhasil.")
@@ -293,7 +307,7 @@ Public Class frmTraARAP
         pgMain.Value = 40
         Application.DoEvents()
         Try
-            BL.ARAP.Submit(clsData.ID, "", enumDPType)
+            BL.ARAP.Submit(clsData.ID, "", enumARAPType)
             pgMain.Value = 100
             Application.DoEvents()
             UI.usForm.frmMessageBox("Submit data berhasil.")
@@ -330,7 +344,7 @@ Public Class frmTraARAP
         pgMain.Value = 40
         Application.DoEvents()
         Try
-            BL.ARAP.Unsubmit(clsData.ID, clsData.Remarks, enumDPType)
+            BL.ARAP.Unsubmit(clsData.ID, clsData.Remarks, enumARAPType)
             pgMain.Value = 100
             Application.DoEvents()
             UI.usForm.frmMessageBox("Batal submit data berhasil.")
@@ -356,7 +370,7 @@ Public Class frmTraARAP
         pgMain.Value = 40
         Application.DoEvents()
         Try
-            BL.ARAP.Approve(clsData.ID, "", enumDPType)
+            BL.ARAP.Approve(clsData.ID, "", enumARAPType)
             pgMain.Value = 100
             Application.DoEvents()
             UI.usForm.frmMessageBox("Approve data berhasil.")
@@ -393,7 +407,7 @@ Public Class frmTraARAP
         pgMain.Value = 40
         Application.DoEvents()
         Try
-            BL.ARAP.Unapprove(clsData.ID, clsData.Remarks, enumDPType)
+            BL.ARAP.Unapprove(clsData.ID, clsData.Remarks, enumARAPType)
             pgMain.Value = 100
             Application.DoEvents()
             UI.usForm.frmMessageBox("Batal approve data berhasil.")
@@ -430,7 +444,7 @@ Public Class frmTraARAP
         pgMain.Value = 40
         Application.DoEvents()
         Try
-            BL.ARAP.SetupPayment(clsData.ID, clsData.PaymentDate, clsData.Remarks, enumDPType)
+            BL.ARAP.SetupPayment(clsData.ID, clsData.PaymentDate, clsData.Remarks, enumARAPType)
             pgMain.Value = 100
             Application.DoEvents()
             UI.usForm.frmMessageBox("Setup tanggal pembayaran berhasil.")
@@ -468,7 +482,7 @@ Public Class frmTraARAP
         pgMain.Value = 40
         Application.DoEvents()
         Try
-            BL.ARAP.SetupCancelPayment(clsData.ID, clsData.Remarks, enumDPType)
+            BL.ARAP.SetupCancelPayment(clsData.ID, clsData.Remarks, enumARAPType)
             pgMain.Value = 100
             Application.DoEvents()
             UI.usForm.frmMessageBox("Hapus tanggal pembayaran berhasil.")
@@ -504,7 +518,7 @@ Public Class frmTraARAP
         pgMain.Value = 40
         Application.DoEvents()
         Try
-            BL.ARAP.UpdateTaxInvoiceNumber(clsData.ID, clsData.TaxInvoiceNumber, clsData.Remarks, enumDPType)
+            BL.ARAP.UpdateTaxInvoiceNumber(clsData.ID, clsData.TaxInvoiceNumber, clsData.Remarks, enumARAPType)
             pgMain.Value = 100
             Application.DoEvents()
             UI.usForm.frmMessageBox("Update nomor faktur pajak berhasil.")
@@ -687,7 +701,7 @@ Public Class frmTraARAP
             .Item(cSetPaymentDate).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.PaymentAccess)
             .Item(cDeletePaymentDate).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelPaymentAccess)
             .Item(cSetTaxInvoiceNumber).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.TaxInvoiceNumberAccess)
-            If enumDPType = VO.ARAP.ARAPTypeValue.Purchase Then .Item(cPrint).Visible = False
+            If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase Then .Item(cPrint).Visible = False
         End With
     End Sub
 

@@ -396,7 +396,7 @@ Public Class frmTraSalesContract
         Dim frmDetail As New frmTraARAP
         With frmDetail
             .pubModules = VO.AccountReceivable.DownPayment
-            .pubDPType = VO.ARAP.ARAPTypeValue.Sales
+            .pubARAPType = VO.ARAP.ARAPTypeValue.Sales
             .pubBPID = clsData.BPID
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
@@ -417,7 +417,7 @@ Public Class frmTraSalesContract
         Dim frmDetail As New frmTraARAP
         With frmDetail
             .pubModules = VO.AccountReceivable.ReceivePayment
-            .pubDPType = VO.ARAP.ARAPTypeValue.Sales
+            .pubARAPType = VO.ARAP.ARAPTypeValue.Sales
             .pubBPID = clsData.BPID
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID

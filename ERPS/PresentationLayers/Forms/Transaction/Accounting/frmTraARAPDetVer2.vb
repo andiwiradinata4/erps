@@ -339,39 +339,14 @@ Public Class frmTraARAPDetVer2
         Try
             pgMain.Value = 30
             Me.Cursor = Cursors.WaitCursor
-            If strModules.Trim = VO.AccountPayable.DownPayment Or
-                strModules.Trim = VO.AccountPayable.ReceivePayment Then
-                If bolIsNew Then
-                    dtItem = BL.ARAP.ListDataDetailWithOutstanding(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType)
+            If bolIsNew Then
+                dtItem = BL.ARAP.ListDataDetailWithOutstanding(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType)
+            Else
+                If clsData.IsDeleted Then
+                    dtItem = BL.ARAP.ListDataDetail(strID, enumARAPType)
                 Else
-                    If clsData.IsDeleted Then
-                        dtItem = BL.ARAP.ListDataDetail(strID, enumARAPType)
-                    Else
-                        dtItem = BL.ARAP.ListDataDetailWithOutstanding(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType)
-                    End If
+                    dtItem = BL.ARAP.ListDataDetailWithOutstanding(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType)
                 End If
-                'ElseIf strModules.Trim = VO.AccountPayable.DownPaymentCutting Or
-                '    strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
-                '    If bolIsNew Then
-                '        dtItem = BL.PurchaseOrderCutting.ListDataOutstanding(clsCS.CompanyID, clsCS.ProgramID, intBPID)
-                '    Else
-                '        If clsData.IsDeleted Then
-                '            dtItem = BL.AccountPayable.ListDataDetail(pubID)
-                '        Else
-                '            dtItem = BL.AccountPayable.ListDataDetailWithOutstandingPurchaseOrderCutting(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID)
-                '        End If
-                '    End If
-                'ElseIf strModules.Trim = VO.AccountPayable.DownPaymentTransport Or
-                '    strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
-                '    If bolIsNew Then
-                '        dtItem = BL.PurchaseOrderTransport.ListDataOutstanding(clsCS.CompanyID, clsCS.ProgramID, intBPID)
-                '    Else
-                '        If clsData.IsDeleted Then
-                '            dtItem = BL.AccountPayable.ListDataDetail(strID)
-                '        Else
-                '            dtItem = BL.AccountPayable.ListDataDetailWithOutstandingPurchaseOrderTransport(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID)
-                '        End If
-                '    End If
             End If
             grdItem.DataSource = dtItem
             grdItemView.BestFitColumns()
@@ -579,6 +554,7 @@ Public Class frmTraARAPDetVer2
         Select Case e.Button.Text.Trim
             Case "Centang Semua" : prvChangeCheckedValue(True)
             Case "Tidak Centang Semua" : prvChangeCheckedValue(False)
+            Case "Alokasi Panjar" : prvAllocateDP()
         End Select
     End Sub
 

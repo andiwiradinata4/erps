@@ -557,6 +557,10 @@ Public Class frmTraCuttingDet
         prvChooseBP()
     End Sub
 
+    Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtPPN.ValueChanged, txtPPH.ValueChanged
+        prvCalculate()
+    End Sub
+
 #End Region
 
 End Class

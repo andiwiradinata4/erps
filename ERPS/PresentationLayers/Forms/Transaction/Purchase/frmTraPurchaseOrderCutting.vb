@@ -385,7 +385,7 @@ Public Class frmTraPurchaseOrderCutting
         Dim frmDetail As New frmTraARAP
         With frmDetail
             .pubModules = VO.AccountPayable.DownPaymentCutting
-            .pubDPType = VO.ARAP.ARAPTypeValue.Purchase
+            .pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
             .pubBPID = clsData.BPID
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
@@ -406,7 +406,7 @@ Public Class frmTraPurchaseOrderCutting
         Dim frmDetail As New frmTraARAP
         With frmDetail
             .pubModules = VO.AccountPayable.ReceivePaymentCutting
-            .pubDPType = VO.ARAP.ARAPTypeValue.Purchase
+            .pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
             .pubBPID = clsData.BPID
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID

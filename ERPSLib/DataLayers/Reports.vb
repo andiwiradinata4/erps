@@ -253,10 +253,10 @@
                     "	AND DP.IsDeleted=0 	 	" & vbNewLine &
                     "	AND DP.IsDP=1 	 	" & vbNewLine &
                     "	" & vbNewLine &
-                    "UNION ALL 	 	" & vbNewLine &
+                    "UNION ALL /* Pembelian Barang */ " & vbNewLine &
                     "SELECT 	" & vbNewLine &
                     "	BPR.Code, BPR.Name, 	" & vbNewLine &
-                    "	CONVERT(DATE,TR.ReceiveDate,112) AS TransactionDate, TR.ReceiveNumber AS RemarksInfo, " & vbNewLine &
+                    "	CONVERT(DATE,TR.ReceiveDate,112) AS TransactionDate, 'PEMBELIAN ' + TR.ReceiveNumber AS RemarksInfo, " & vbNewLine &
                     "	CAST(0 AS DECIMAL) AS FirstBalance, CAST(0 AS DECIMAL) AS DebitAmount, TR.TotalDPP AS CreditAmount, CAST(0 AS DECIMAL) AS BalanceAmount	" & vbNewLine &
                     "FROM traReceive TR 	" & vbNewLine &
                     "INNER JOIN mstBusinessPartner BPR ON 	" & vbNewLine &
@@ -267,6 +267,36 @@
                     "	AND TR.ReceiveDate>=@DateFrom AND TR.ReceiveDate<=@DateTo 	" & vbNewLine &
                     "	AND TR.BPID=@BPID 	 	" & vbNewLine &
                     "	AND TR.IsDeleted=0 	 	" & vbNewLine &
+                    "	" & vbNewLine &
+                    "UNION ALL /* Pemotongan */ " & vbNewLine &
+                    "SELECT 	" & vbNewLine &
+                    "	BPR.Code, BPR.Name, 	" & vbNewLine &
+                    "	CONVERT(DATE,TC.CuttingDate,112) AS TransactionDate, 'PEMOTONGAN ' + TC.CuttingNumber AS RemarksInfo, " & vbNewLine &
+                    "	CAST(0 AS DECIMAL) AS FirstBalance, CAST(0 AS DECIMAL) AS DebitAmount, TC.TotalDPP AS CreditAmount, CAST(0 AS DECIMAL) AS BalanceAmount	" & vbNewLine &
+                    "FROM traCutting TC 	" & vbNewLine &
+                    "INNER JOIN mstBusinessPartner BPR ON 	" & vbNewLine &
+                    "	TC.BPID=BPR.ID 	" & vbNewLine &
+                    "WHERE 	 	" & vbNewLine &
+                    "	TC.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	AND TC.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	AND TC.CuttingDate>=@DateFrom AND TC.CuttingDate<=@DateTo 	" & vbNewLine &
+                    "	AND TC.BPID=@BPID 	 	" & vbNewLine &
+                    "	AND TC.IsDeleted=0 	 	" & vbNewLine &
+                    " " & vbNewLine &
+                    "UNION ALL /* Transport */ " & vbNewLine &
+                    "SELECT 	" & vbNewLine &
+                    "	BPR.Code, BPR.Name, 	" & vbNewLine &
+                    "	CONVERT(DATE,TD.DeliveryDate,112) AS TransactionDate, 'PENGIRIMAN ' + TD.DeliveryNumber AS RemarksInfo, " & vbNewLine &
+                    "	CAST(0 AS DECIMAL) AS FirstBalance, CAST(0 AS DECIMAL) AS DebitAmount, TD.TotalDPPTransport AS CreditAmount, CAST(0 AS DECIMAL) AS BalanceAmount	" & vbNewLine &
+                    "FROM traDelivery TD 	" & vbNewLine &
+                    "INNER JOIN mstBusinessPartner BPR ON 	" & vbNewLine &
+                    "	TD.BPID=BPR.ID 	" & vbNewLine &
+                    "WHERE 	 	" & vbNewLine &
+                    "	TD.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	AND TD.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	AND TD.DeliveryDate>=@DateFrom AND TD.DeliveryDate<=@DateTo 	" & vbNewLine &
+                    "	AND TD.BPID=@BPID 	 	" & vbNewLine &
+                    "	AND TD.IsDeleted=0 	 	" & vbNewLine &
                     "	" & vbNewLine &
                     "UNION ALL 	 	" & vbNewLine &
                     "SELECT 	 	" & vbNewLine &

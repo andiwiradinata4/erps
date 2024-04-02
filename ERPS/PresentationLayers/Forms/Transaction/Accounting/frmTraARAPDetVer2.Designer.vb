@@ -135,9 +135,9 @@ Partial Class frmTraARAPDetVer2
         'pgMain
         '
         Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pgMain.Location = New System.Drawing.Point(0, 602)
+        Me.pgMain.Location = New System.Drawing.Point(0, 624)
         Me.pgMain.Name = "pgMain"
-        Me.pgMain.Size = New System.Drawing.Size(890, 23)
+        Me.pgMain.Size = New System.Drawing.Size(890, 1)
         Me.pgMain.TabIndex = 7
         '
         'tcHeader
@@ -150,7 +150,7 @@ Partial Class frmTraARAPDetVer2
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(890, 233)
+        Me.tcHeader.Size = New System.Drawing.Size(890, 225)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
@@ -182,7 +182,7 @@ Partial Class frmTraARAPDetVer2
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(882, 204)
+        Me.tpMain.Size = New System.Drawing.Size(882, 196)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
@@ -452,7 +452,7 @@ Partial Class frmTraARAPDetVer2
         Me.tpDownPayment.Controls.Add(Me.grdDownPayment)
         Me.tpDownPayment.Location = New System.Drawing.Point(4, 25)
         Me.tpDownPayment.Name = "tpDownPayment"
-        Me.tpDownPayment.Size = New System.Drawing.Size(882, 204)
+        Me.tpDownPayment.Size = New System.Drawing.Size(882, 208)
         Me.tpDownPayment.TabIndex = 2
         Me.tpDownPayment.Text = "Panjar - F2"
         Me.tpDownPayment.UseVisualStyleBackColor = True
@@ -478,7 +478,7 @@ Partial Class frmTraARAPDetVer2
         Me.grdDownPayment.MainView = Me.grdDownPaymentView
         Me.grdDownPayment.Name = "grdDownPayment"
         Me.grdDownPayment.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiDPAmount})
-        Me.grdDownPayment.Size = New System.Drawing.Size(882, 204)
+        Me.grdDownPayment.Size = New System.Drawing.Size(882, 208)
         Me.grdDownPayment.TabIndex = 14
         Me.grdDownPayment.UseEmbeddedNavigator = True
         Me.grdDownPayment.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdDownPaymentView})
@@ -501,12 +501,10 @@ Partial Class frmTraARAPDetVer2
         '
         'tpHistory
         '
-        Me.tpHistory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.tpHistory.Controls.Add(Me.grdStatus)
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
-        Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(882, 204)
+        Me.tpHistory.Size = New System.Drawing.Size(882, 208)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -528,11 +526,11 @@ Partial Class frmTraARAPDetVer2
         Me.grdStatus.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdStatus.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdStatus.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdStatus.Location = New System.Drawing.Point(3, 3)
+        Me.grdStatus.Location = New System.Drawing.Point(0, 0)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(872, 194)
-        Me.grdStatus.TabIndex = 13
+        Me.grdStatus.Size = New System.Drawing.Size(882, 208)
+        Me.grdStatus.TabIndex = 14
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
         '
@@ -549,7 +547,7 @@ Partial Class frmTraARAPDetVer2
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 580)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 602)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(890, 22)
         Me.StatusStrip.TabIndex = 6
@@ -602,7 +600,7 @@ Partial Class frmTraARAPDetVer2
         Me.Label14.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label14.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.ForeColor = System.Drawing.Color.White
-        Me.Label14.Location = New System.Drawing.Point(0, 283)
+        Me.Label14.Location = New System.Drawing.Point(0, 275)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(890, 22)
         Me.Label14.TabIndex = 3
@@ -614,7 +612,7 @@ Partial Class frmTraARAPDetVer2
         Me.ToolBarDetail.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
         Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarCheckAll, Me.BarUncheckAll, Me.BarSep1Item, Me.BarAllocateDP})
         Me.ToolBarDetail.DropDownArrows = True
-        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 305)
+        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 297)
         Me.ToolBarDetail.Name = "ToolBarDetail"
         Me.ToolBarDetail.ShowToolTips = True
         Me.ToolBarDetail.Size = New System.Drawing.Size(890, 28)
@@ -661,11 +659,11 @@ Partial Class frmTraARAPDetVer2
         Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdItem.Location = New System.Drawing.Point(0, 333)
+        Me.grdItem.Location = New System.Drawing.Point(0, 325)
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
-        Me.grdItem.Size = New System.Drawing.Size(890, 247)
+        Me.grdItem.Size = New System.Drawing.Size(890, 277)
         Me.grdItem.TabIndex = 5
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
@@ -761,8 +759,6 @@ Partial Class frmTraARAPDetVer2
     Friend WithEvents Label8 As Label
     Friend WithEvents txtDPNumber As usTextBox
     Friend WithEvents tpHistory As TabPage
-    Friend WithEvents grdStatus As DevExpress.XtraGrid.GridControl
-    Friend WithEvents grdStatusView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents tpDownPayment As TabPage
     Friend WithEvents grdDownPayment As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdDownPaymentView As DevExpress.XtraGrid.Views.Grid.GridView
@@ -782,4 +778,6 @@ Partial Class frmTraARAPDetVer2
     Friend WithEvents rpiValue As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents BarSep1Item As ToolBarButton
     Friend WithEvents BarAllocateDP As ToolBarButton
+    Friend WithEvents grdStatus As DevExpress.XtraGrid.GridControl
+    Friend WithEvents grdStatusView As DevExpress.XtraGrid.Views.Grid.GridView
 End Class

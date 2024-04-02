@@ -27,7 +27,7 @@
         End Set
     End Property
 
-    Public WriteOnly Property pubDPType As VO.ARAP.ARAPTypeValue
+    Public WriteOnly Property pubARAPType As VO.ARAP.ARAPTypeValue
         Set(value As VO.ARAP.ARAPTypeValue)
             enumDPType = value
         End Set
