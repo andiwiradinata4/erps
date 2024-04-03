@@ -67,7 +67,8 @@ Public Class frmTraReceiveDetItemOutstanding
             Dim dtData As DataTable = BL.PurchaseContract.ListDataDetailOutstandingReceive(clsCS.ProgramID, clsCS.CompanyID, intBPID)
             For Each drParent As DataRow In pubParentItem.Rows
                 For Each dr As DataRow In dtData.Rows
-                    If dr.Item("ID") = drParent.Item("PCDetailID") Then dr.Delete()
+                    If dr.Item("ID") = drParent.Item("PCDetailID") Then dr.Delete() '# Tidak memunculkan Kontrak Detail yang sudah dipilih
+                    If dr.Item("PCID") <> drParent.Item("PCID") Then dr.Delete() '# Hanya boleh 1 Kontrak ketika proses penerimaan
                 Next
                 dtData.AcceptChanges()
             Next
