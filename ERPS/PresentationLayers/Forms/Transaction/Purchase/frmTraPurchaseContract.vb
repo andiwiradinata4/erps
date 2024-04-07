@@ -409,8 +409,12 @@ Public Class frmTraPurchaseContract
             .pubModules = VO.AccountPayable.ReceivePayment
             .pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
             .pubBPID = clsData.BPID
+            .pubBPCode = clsData.BPCode
+            .pubBPName = clsData.BPName
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
+            .pubReferencesNumber = clsData.PCNumber
+            .pubIsLookup = True
             .ShowDialog()
         End With
     End Sub

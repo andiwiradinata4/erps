@@ -236,6 +236,7 @@
         clsData.DPType = enumDPType
         clsData.Remarks = txtRemarks.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
+        clsData.IsDP = True
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
 

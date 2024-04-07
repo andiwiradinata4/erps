@@ -25,6 +25,8 @@
         Property SubmitDate As DateTime
         Property TotalPayment As Decimal
         Property DPAmount As Decimal
+        Property PCID As String
+        Property PCNumber As String
         Property Detail As List(Of VO.ReceiveDet)
         Property Save As VO.Save.Action
     End Class

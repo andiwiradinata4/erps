@@ -11,6 +11,7 @@
         Property CoAName As String
         Property Modules As String
         Property ReferencesID As String
+        Property ReferencesNumber As String
         Property ReferencesNote As String
         Property TransDate As DateTime
         Property DueDateValue As Integer
@@ -33,6 +34,7 @@
         Property ClosedPeriodDate As DateTime
         Property Remarks As String
         Property StatusID As Integer
+        Property IsDP As Boolean
         Property Detail As New List(Of VO.AccountPayableDet)
         Property Save As VO.Save.Action
         Property DPType As VO.ARAP.ARAPTypeValue

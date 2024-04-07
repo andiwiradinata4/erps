@@ -7,6 +7,7 @@ Public Class frmTraReceiveDetItemOutstanding
     Private frmParent As frmTraReceiveDetItem
     Private intBPID As Integer = 0
     Private clsCS As VO.CS
+    Private strPCID As String = ""
     Public pubLUdtRow As DataRow
     Public pubIsLookUpGet As Boolean = False
     Public pubParentItem As New DataTable
@@ -20,6 +21,12 @@ Public Class frmTraReceiveDetItemOutstanding
     Public WriteOnly Property pubCS As VO.CS
         Set(value As VO.CS)
             clsCS = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubPCID As String
+        Set(value As String)
+            strPCID = value
         End Set
     End Property
 
@@ -64,11 +71,10 @@ Public Class frmTraReceiveDetItemOutstanding
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         Try
-            Dim dtData As DataTable = BL.PurchaseContract.ListDataDetailOutstandingReceive(clsCS.ProgramID, clsCS.CompanyID, intBPID)
+            Dim dtData As DataTable = BL.PurchaseContract.ListDataDetailOutstandingReceive(clsCS.ProgramID, clsCS.CompanyID, intBPID, strPCID)
             For Each drParent As DataRow In pubParentItem.Rows
                 For Each dr As DataRow In dtData.Rows
                     If dr.Item("ID") = drParent.Item("PCDetailID") Then dr.Delete() '# Tidak memunculkan Kontrak Detail yang sudah dipilih
-                    If dr.Item("PCID") <> drParent.Item("PCID") Then dr.Delete() '# Hanya boleh 1 Kontrak ketika proses penerimaan
                 Next
                 dtData.AcceptChanges()
             Next

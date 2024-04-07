@@ -1,5 +1,6 @@
 ﻿Namespace BL
     Public Class Migration
+
         Public Shared Sub Migrate()
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
@@ -8,7 +9,8 @@
                 AddColumnIsAutoGenerateInTablePurchaseContract_ID2(sqlCon, Nothing)
                 DevelopARAPForUsingDownPayment_ID3(sqlCon, Nothing)
                 CreateTableARAPDP_ID4(sqlCon, Nothing)
-                AlterTableCutting_AndDeliveryID5(sqlCon, Nothing)
+                AlterTableCuttingAndDelivery_ID5(sqlCon, Nothing)
+                AlterTableReceive_ID6(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -131,7 +133,7 @@
         End Sub
 
         '# ID = 5
-        Private Shared Sub AlterTableCutting_AndDeliveryID5(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+        Private Shared Sub AlterTableCuttingAndDelivery_ID5(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
             Dim clsData As New VO.Migration
             clsData.ID = 5
             clsData.Name = "Alter Table Cutting"
@@ -152,6 +154,21 @@
                 "ALTER TABLE traDelivery ADD TotalPaymentTransport DECIMAL(18,4) NOT NULL CONSTRAINT DF_traDelivery_TotalPaymentTransport DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traDelivery ADD JournalID VARCHAR(100) NOT NULL CONSTRAINT DF_traDelivery_JournalID DEFAULT ('') " & vbNewLine &
                 "ALTER TABLE traDelivery ADD JournalIDTransport VARCHAR(100) NOT NULL CONSTRAINT DF_traDelivery_JournalIDTransport DEFAULT ('') " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 6
+        Private Shared Sub AlterTableReceive_ID6(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 6
+            clsData.Name = "Alter Table Receive"
+            clsData.Scripts =
+                "ALTER TABLE traReceive ADD PCID VARCHAR(100) NOT NULL CONSTRAINT DF_traReceive_PCID DEFAULT ('') " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

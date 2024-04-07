@@ -26,33 +26,33 @@ Partial Public Class rptKartuHutangPiutangReportVer00
         Me.XrLabel1 = New DevExpress.XtraReports.UI.XRLabel()
         Me.xrAccountName = New DevExpress.XtraReports.UI.XRLabel()
         Me.PageFooter = New DevExpress.XtraReports.UI.PageFooterBand()
+        Me.XrPageInfo2 = New DevExpress.XtraReports.UI.XRPageInfo()
+        Me.XrPageInfo1 = New DevExpress.XtraReports.UI.XRPageInfo()
         Me.xrPeriod = New DevExpress.XtraReports.UI.XRLabel()
+        Me.FilterPeriod = New DevExpress.XtraReports.Parameters.Parameter()
         Me.xrTitle = New DevExpress.XtraReports.UI.XRLabel()
+        Me.ReportTitle = New DevExpress.XtraReports.Parameters.Parameter()
         Me.BottomMargin = New DevExpress.XtraReports.UI.BottomMarginBand()
         Me.XrLabel4 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel12 = New DevExpress.XtraReports.UI.XRLabel()
         Me.TopMargin = New DevExpress.XtraReports.UI.TopMarginBand()
         Me.xrLblAccountCode = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrPageInfo2 = New DevExpress.XtraReports.UI.XRPageInfo()
         Me.XrLabel5 = New DevExpress.XtraReports.UI.XRLabel()
         Me.Detail = New DevExpress.XtraReports.UI.DetailBand()
+        Me.XrLabel14 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel13 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel11 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel9 = New DevExpress.XtraReports.UI.XRLabel()
         Me.PageHeader = New DevExpress.XtraReports.UI.PageHeaderBand()
         Me.ReportFooter = New DevExpress.XtraReports.UI.ReportFooterBand()
         Me.XrLabel3 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportHeader = New DevExpress.XtraReports.UI.ReportHeaderBand()
-        Me.XrLabel11 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrPageInfo1 = New DevExpress.XtraReports.UI.XRPageInfo()
-        Me.XrLabel14 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel9 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel7 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel8 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.FilterPeriod = New DevExpress.XtraReports.Parameters.Parameter()
         Me.ghCode = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.XrLabel6 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel13 = New DevExpress.XtraReports.UI.XRLabel()
         Me.gfCode = New DevExpress.XtraReports.UI.GroupFooterBand()
         Me.ObjectDataSource1 = New DevExpress.DataAccess.ObjectBinding.ObjectDataSource(Me.components)
-        Me.ReportTitle = New DevExpress.XtraReports.Parameters.Parameter()
         CType(Me.ObjectDataSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
@@ -102,10 +102,10 @@ Partial Public Class rptKartuHutangPiutangReportVer00
         Me.xrAccountName.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Name")})
         Me.xrAccountName.Dpi = 100.0!
         Me.xrAccountName.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.xrAccountName.LocationFloat = New DevExpress.Utils.PointFloat(77.99999!, 0.0!)
+        Me.xrAccountName.LocationFloat = New DevExpress.Utils.PointFloat(97.79167!, 0.0!)
         Me.xrAccountName.Name = "xrAccountName"
         Me.xrAccountName.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 100.0!)
-        Me.xrAccountName.SizeF = New System.Drawing.SizeF(708.9999!, 25.0!)
+        Me.xrAccountName.SizeF = New System.Drawing.SizeF(689.2082!, 25.0!)
         Me.xrAccountName.StylePriority.UseFont = False
         Me.xrAccountName.StylePriority.UsePadding = False
         Me.xrAccountName.StylePriority.UseTextAlignment = False
@@ -117,6 +117,31 @@ Partial Public Class rptKartuHutangPiutangReportVer00
         Me.PageFooter.Dpi = 100.0!
         Me.PageFooter.HeightF = 31.25!
         Me.PageFooter.Name = "PageFooter"
+        '
+        'XrPageInfo2
+        '
+        Me.XrPageInfo2.Dpi = 100.0!
+        Me.XrPageInfo2.Format = "Tanggal Cetak: {0:dd MMMM yyyy HH:mm:ss}"
+        Me.XrPageInfo2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 8.25!)
+        Me.XrPageInfo2.Name = "XrPageInfo2"
+        Me.XrPageInfo2.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 2, 0, 0, 100.0!)
+        Me.XrPageInfo2.PageInfo = DevExpress.XtraPrinting.PageInfo.DateTime
+        Me.XrPageInfo2.SizeF = New System.Drawing.SizeF(381.2499!, 23.0!)
+        Me.XrPageInfo2.StylePriority.UsePadding = False
+        Me.XrPageInfo2.StylePriority.UseTextAlignment = False
+        Me.XrPageInfo2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'XrPageInfo1
+        '
+        Me.XrPageInfo1.Dpi = 100.0!
+        Me.XrPageInfo1.Format = "Halaman: {0} dari {1}"
+        Me.XrPageInfo1.LocationFloat = New DevExpress.Utils.PointFloat(381.2499!, 8.25!)
+        Me.XrPageInfo1.Name = "XrPageInfo1"
+        Me.XrPageInfo1.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 5, 0, 0, 100.0!)
+        Me.XrPageInfo1.SizeF = New System.Drawing.SizeF(405.75!, 23.0!)
+        Me.XrPageInfo1.StylePriority.UsePadding = False
+        Me.XrPageInfo1.StylePriority.UseTextAlignment = False
+        Me.XrPageInfo1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
         'xrPeriod
         '
@@ -131,6 +156,11 @@ Partial Public Class rptKartuHutangPiutangReportVer00
         Me.xrPeriod.StylePriority.UseTextAlignment = False
         Me.xrPeriod.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
         '
+        'FilterPeriod
+        '
+        Me.FilterPeriod.Description = "FilterPeriod"
+        Me.FilterPeriod.Name = "FilterPeriod"
+        '
         'xrTitle
         '
         Me.xrTitle.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.ReportTitle, "Text", "")})
@@ -143,6 +173,11 @@ Partial Public Class rptKartuHutangPiutangReportVer00
         Me.xrTitle.StylePriority.UseFont = False
         Me.xrTitle.StylePriority.UseTextAlignment = False
         Me.xrTitle.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'ReportTitle
+        '
+        Me.ReportTitle.Description = "Report Title"
+        Me.ReportTitle.Name = "ReportTitle"
         '
         'BottomMargin
         '
@@ -199,25 +234,12 @@ Partial Public Class rptKartuHutangPiutangReportVer00
         Me.xrLblAccountCode.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
         Me.xrLblAccountCode.Name = "xrLblAccountCode"
         Me.xrLblAccountCode.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 2, 0, 0, 100.0!)
-        Me.xrLblAccountCode.SizeF = New System.Drawing.SizeF(78.0!, 25.0!)
+        Me.xrLblAccountCode.SizeF = New System.Drawing.SizeF(97.79167!, 25.0!)
         Me.xrLblAccountCode.StylePriority.UseFont = False
         Me.xrLblAccountCode.StylePriority.UsePadding = False
         Me.xrLblAccountCode.StylePriority.UseTextAlignment = False
-        Me.xrLblAccountCode.Text = "Pemasok :"
+        Me.xrLblAccountCode.Text = "Rekan Bisnis :"
         Me.xrLblAccountCode.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'XrPageInfo2
-        '
-        Me.XrPageInfo2.Dpi = 100.0!
-        Me.XrPageInfo2.Format = "Tanggal Cetak: {0:dd MMMM yyyy HH:mm:ss}"
-        Me.XrPageInfo2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 8.25!)
-        Me.XrPageInfo2.Name = "XrPageInfo2"
-        Me.XrPageInfo2.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 2, 0, 0, 100.0!)
-        Me.XrPageInfo2.PageInfo = DevExpress.XtraPrinting.PageInfo.DateTime
-        Me.XrPageInfo2.SizeF = New System.Drawing.SizeF(381.2499!, 23.0!)
-        Me.XrPageInfo2.StylePriority.UsePadding = False
-        Me.XrPageInfo2.StylePriority.UseTextAlignment = False
-        Me.XrPageInfo2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
         'XrLabel5
         '
@@ -243,6 +265,72 @@ Partial Public Class rptKartuHutangPiutangReportVer00
         Me.Detail.Name = "Detail"
         Me.Detail.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
         Me.Detail.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel14
+        '
+        Me.XrLabel14.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrLabel14.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BalanceAmount", "{0:n2}")})
+        Me.XrLabel14.Dpi = 100.0!
+        Me.XrLabel14.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.XrLabel14.LocationFloat = New DevExpress.Utils.PointFloat(658.0!, 0.0!)
+        Me.XrLabel14.Name = "XrLabel14"
+        Me.XrLabel14.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 5, 0, 0, 100.0!)
+        Me.XrLabel14.SizeF = New System.Drawing.SizeF(129.0!, 25.0!)
+        Me.XrLabel14.StylePriority.UseBorders = False
+        Me.XrLabel14.StylePriority.UseFont = False
+        Me.XrLabel14.StylePriority.UsePadding = False
+        Me.XrLabel14.StylePriority.UseTextAlignment = False
+        Me.XrLabel14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        '
+        'XrLabel13
+        '
+        Me.XrLabel13.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrLabel13.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CreditAmount", "{0:n2}")})
+        Me.XrLabel13.Dpi = 100.0!
+        Me.XrLabel13.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.XrLabel13.LocationFloat = New DevExpress.Utils.PointFloat(528.0!, 0.0!)
+        Me.XrLabel13.Name = "XrLabel13"
+        Me.XrLabel13.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 5, 0, 0, 100.0!)
+        Me.XrLabel13.SizeF = New System.Drawing.SizeF(130.0!, 25.0!)
+        Me.XrLabel13.StylePriority.UseBorders = False
+        Me.XrLabel13.StylePriority.UseFont = False
+        Me.XrLabel13.StylePriority.UsePadding = False
+        Me.XrLabel13.StylePriority.UseTextAlignment = False
+        Me.XrLabel13.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        '
+        'XrLabel11
+        '
+        Me.XrLabel11.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrLabel11.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "RemarksInfo")})
+        Me.XrLabel11.Dpi = 100.0!
+        Me.XrLabel11.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.XrLabel11.LocationFloat = New DevExpress.Utils.PointFloat(77.99999!, 0.0!)
+        Me.XrLabel11.Multiline = True
+        Me.XrLabel11.Name = "XrLabel11"
+        Me.XrLabel11.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 2, 0, 0, 100.0!)
+        Me.XrLabel11.SizeF = New System.Drawing.SizeF(320.0!, 25.0!)
+        Me.XrLabel11.StylePriority.UseBorders = False
+        Me.XrLabel11.StylePriority.UseFont = False
+        Me.XrLabel11.StylePriority.UsePadding = False
+        Me.XrLabel11.StylePriority.UseTextAlignment = False
+        Me.XrLabel11.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel9
+        '
+        Me.XrLabel9.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrLabel9.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TransactionDate", "{0:dd-MMM-yyyy}")})
+        Me.XrLabel9.Dpi = 100.0!
+        Me.XrLabel9.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.XrLabel9.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.XrLabel9.Name = "XrLabel9"
+        Me.XrLabel9.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 2, 0, 0, 100.0!)
+        Me.XrLabel9.ProcessDuplicatesMode = DevExpress.XtraReports.UI.ProcessDuplicatesMode.Suppress
+        Me.XrLabel9.SizeF = New System.Drawing.SizeF(78.0!, 25.0!)
+        Me.XrLabel9.StylePriority.UseBorders = False
+        Me.XrLabel9.StylePriority.UseFont = False
+        Me.XrLabel9.StylePriority.UsePadding = False
+        Me.XrLabel9.StylePriority.UseTextAlignment = False
+        Me.XrLabel9.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
         'PageHeader
         '
@@ -279,68 +367,6 @@ Partial Public Class rptKartuHutangPiutangReportVer00
         Me.ReportHeader.HeightF = 120.0!
         Me.ReportHeader.Name = "ReportHeader"
         '
-        'XrLabel11
-        '
-        Me.XrLabel11.Borders = DevExpress.XtraPrinting.BorderSide.None
-        Me.XrLabel11.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "RemarksInfo")})
-        Me.XrLabel11.Dpi = 100.0!
-        Me.XrLabel11.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.XrLabel11.LocationFloat = New DevExpress.Utils.PointFloat(77.99999!, 0.0!)
-        Me.XrLabel11.Multiline = True
-        Me.XrLabel11.Name = "XrLabel11"
-        Me.XrLabel11.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 2, 0, 0, 100.0!)
-        Me.XrLabel11.SizeF = New System.Drawing.SizeF(320.0!, 25.0!)
-        Me.XrLabel11.StylePriority.UseBorders = False
-        Me.XrLabel11.StylePriority.UseFont = False
-        Me.XrLabel11.StylePriority.UsePadding = False
-        Me.XrLabel11.StylePriority.UseTextAlignment = False
-        Me.XrLabel11.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrPageInfo1
-        '
-        Me.XrPageInfo1.Dpi = 100.0!
-        Me.XrPageInfo1.Format = "Halaman: {0} dari {1}"
-        Me.XrPageInfo1.LocationFloat = New DevExpress.Utils.PointFloat(381.2499!, 8.25!)
-        Me.XrPageInfo1.Name = "XrPageInfo1"
-        Me.XrPageInfo1.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 5, 0, 0, 100.0!)
-        Me.XrPageInfo1.SizeF = New System.Drawing.SizeF(405.75!, 23.0!)
-        Me.XrPageInfo1.StylePriority.UsePadding = False
-        Me.XrPageInfo1.StylePriority.UseTextAlignment = False
-        Me.XrPageInfo1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        '
-        'XrLabel14
-        '
-        Me.XrLabel14.Borders = DevExpress.XtraPrinting.BorderSide.None
-        Me.XrLabel14.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BalanceAmount", "{0:n2}")})
-        Me.XrLabel14.Dpi = 100.0!
-        Me.XrLabel14.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.XrLabel14.LocationFloat = New DevExpress.Utils.PointFloat(658.0!, 0.0!)
-        Me.XrLabel14.Name = "XrLabel14"
-        Me.XrLabel14.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 5, 0, 0, 100.0!)
-        Me.XrLabel14.SizeF = New System.Drawing.SizeF(129.0!, 25.0!)
-        Me.XrLabel14.StylePriority.UseBorders = False
-        Me.XrLabel14.StylePriority.UseFont = False
-        Me.XrLabel14.StylePriority.UsePadding = False
-        Me.XrLabel14.StylePriority.UseTextAlignment = False
-        Me.XrLabel14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        '
-        'XrLabel9
-        '
-        Me.XrLabel9.Borders = DevExpress.XtraPrinting.BorderSide.None
-        Me.XrLabel9.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TransactionDate", "{0:dd-MMM-yyyy}")})
-        Me.XrLabel9.Dpi = 100.0!
-        Me.XrLabel9.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.XrLabel9.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
-        Me.XrLabel9.Name = "XrLabel9"
-        Me.XrLabel9.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 2, 0, 0, 100.0!)
-        Me.XrLabel9.ProcessDuplicatesMode = DevExpress.XtraReports.UI.ProcessDuplicatesMode.Suppress
-        Me.XrLabel9.SizeF = New System.Drawing.SizeF(78.0!, 25.0!)
-        Me.XrLabel9.StylePriority.UseBorders = False
-        Me.XrLabel9.StylePriority.UseFont = False
-        Me.XrLabel9.StylePriority.UsePadding = False
-        Me.XrLabel9.StylePriority.UseTextAlignment = False
-        Me.XrLabel9.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
         'XrLabel7
         '
         Me.XrLabel7.Borders = DevExpress.XtraPrinting.BorderSide.None
@@ -372,11 +398,6 @@ Partial Public Class rptKartuHutangPiutangReportVer00
         Me.XrLabel8.StylePriority.UseTextAlignment = False
         Me.XrLabel8.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
-        'FilterPeriod
-        '
-        Me.FilterPeriod.Description = "FilterPeriod"
-        Me.FilterPeriod.Name = "FilterPeriod"
-        '
         'ghCode
         '
         Me.ghCode.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel8, Me.XrLabel7, Me.XrLabel6, Me.XrLabel5, Me.XrLabel4, Me.XrLabel3, Me.XrLabel1, Me.xrAccountName, Me.xrLblAccountCode})
@@ -402,22 +423,6 @@ Partial Public Class rptKartuHutangPiutangReportVer00
         Me.XrLabel6.Text = "Debet"
         Me.XrLabel6.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
-        'XrLabel13
-        '
-        Me.XrLabel13.Borders = DevExpress.XtraPrinting.BorderSide.None
-        Me.XrLabel13.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CreditAmount", "{0:n2}")})
-        Me.XrLabel13.Dpi = 100.0!
-        Me.XrLabel13.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.XrLabel13.LocationFloat = New DevExpress.Utils.PointFloat(528.0!, 0.0!)
-        Me.XrLabel13.Name = "XrLabel13"
-        Me.XrLabel13.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 5, 0, 0, 100.0!)
-        Me.XrLabel13.SizeF = New System.Drawing.SizeF(130.0!, 25.0!)
-        Me.XrLabel13.StylePriority.UseBorders = False
-        Me.XrLabel13.StylePriority.UseFont = False
-        Me.XrLabel13.StylePriority.UsePadding = False
-        Me.XrLabel13.StylePriority.UseTextAlignment = False
-        Me.XrLabel13.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        '
         'gfCode
         '
         Me.gfCode.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine1})
@@ -429,11 +434,6 @@ Partial Public Class rptKartuHutangPiutangReportVer00
         '
         Me.ObjectDataSource1.DataSource = GetType(ERPSLib.VO.rptKartuHutangPiutangReport)
         Me.ObjectDataSource1.Name = "ObjectDataSource1"
-        '
-        'ReportTitle
-        '
-        Me.ReportTitle.Description = "Report Title"
-        Me.ReportTitle.Name = "ReportTitle"
         '
         'rptKartuHutangPiutangReportVer00
         '

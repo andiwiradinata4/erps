@@ -6,6 +6,7 @@ Public Class frmTraReceiveDet
     Private frmParent As frmTraReceive
     Private clsData As VO.Receive
     Private intBPID As Integer = 0
+    Private strPCID As String = ""
     Private dtItem As New DataTable
     Private dtPaymentTerm As New DataTable
     Private intPos As Integer = 0
@@ -94,6 +95,8 @@ Public Class frmTraReceiveDet
                 intBPID = clsData.BPID
                 txtBPCode.Text = clsData.BPCode
                 txtBPName.Text = clsData.BPName
+                strPCID = clsData.PCID
+                txtPCNumber.Text = clsData.PCNumber
                 dtpReceiveDate.Value = clsData.ReceiveDate
                 txtReferencesNumber.Text = clsData.ReferencesNumber
                 txtPlatNumber.Text = clsData.PlatNumber
@@ -129,6 +132,11 @@ Public Class frmTraReceiveDet
             UI.usForm.frmMessageBox("Pilih pemasok terlebih dahulu")
             tcHeader.SelectedTab = tpMain
             txtBPCode.Focus()
+            Exit Sub
+        ElseIf txtPCNumber.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih nomor kontrak terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtPCNumber.Focus()
             Exit Sub
         ElseIf cboStatus.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Status kosong. Mohon untuk tutup form dan buka kembali")
@@ -177,6 +185,8 @@ Public Class frmTraReceiveDet
         clsData.ReceiveNumber = txtReceiveNumber.Text.Trim
         clsData.ReceiveDate = dtpReceiveDate.Value.Date
         clsData.BPID = intBPID
+        clsData.PCID = strPCID
+        clsData.PCNumber = txtPCNumber.Text.Trim
         clsData.ReferencesNumber = txtReferencesNumber.Text.Trim
         clsData.PlatNumber = txtPlatNumber.Text.Trim
         clsData.Driver = txtDriver.Text.Trim
@@ -227,6 +237,8 @@ Public Class frmTraReceiveDet
         intBPID = 0
         txtBPCode.Text = ""
         txtBPName.Text = ""
+        strPCID = ""
+        txtPCNumber.Text = ""
         dtpReceiveDate.Value = Now
         txtReferencesNumber.Text = ""
         txtPlatNumber.Text = ""
@@ -251,9 +263,35 @@ Public Class frmTraReceiveDet
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
             If .pubIsLookUpGet Then
+                If intBPID <> .pubLUdtRow.Item("ID") Then
+                    strPCID = ""
+                    txtPCNumber.Text = ""
+                    prvClearItem()
+                End If
+
                 intBPID = .pubLUdtRow.Item("ID")
                 txtBPCode.Text = .pubLUdtRow.Item("Code")
                 txtBPName.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub prvChooseContract()
+        Dim frmDetail As New frmTraReceiveDetOutstandingContract
+        With frmDetail
+            .pubBPID = intBPID
+            .pubCS = pubCS
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                If strPCID.Trim <> .pubLUdtRow.Item("ID") Then
+                    prvClearItem()
+                    Dim clsPC As VO.PurchaseContract = BL.PurchaseContract.GetDetail(.pubLUdtRow.Item("ID"))
+                    txtPPN.Value = clsPC.PPN
+                    txtPPH.Value = clsPC.PPH
+                End If
+                strPCID = .pubLUdtRow.Item("ID")
+                txtPCNumber.Text = .pubLUdtRow.Item("PCNumber")
             End If
         End With
     End Sub
@@ -306,6 +344,12 @@ Public Class frmTraReceiveDet
         End With
     End Sub
 
+    Private Sub prvClearItem()
+        dtItem.Clear()
+        dtItem.AcceptChanges()
+        grdItem.DataSource = dtItem
+    End Sub
+
     Private Sub prvQueryItem()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
@@ -329,7 +373,13 @@ Public Class frmTraReceiveDet
     Private Sub prvAddItem()
         If txtBPCode.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Pilih Pemasok terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
             txtBPCode.Focus()
+            Exit Sub
+        ElseIf txtPCNumber.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih Nomor Kontrak terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtPCNumber.Focus()
             Exit Sub
         End If
         Dim frmDetail As New frmTraReceiveDetItem
@@ -337,6 +387,7 @@ Public Class frmTraReceiveDet
             .pubIsNew = True
             .pubCS = pubCS
             .pubBPID = intBPID
+            .pubPCID = strPCID
             .pubTableParentItem = dtItem
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
@@ -354,6 +405,7 @@ Public Class frmTraReceiveDet
             .pubIsNew = False
             .pubCS = pubCS
             .pubBPID = intBPID
+            .pubPCID = strPCID
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .pubTableParentItem = dtItem
             .StartPosition = FormStartPosition.CenterParent
@@ -453,6 +505,10 @@ Public Class frmTraReceiveDet
 
     Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtPPN.ValueChanged, txtPPH.ValueChanged
         prvCalculate()
+    End Sub
+
+    Private Sub btnPurchaseContract_Click(sender As Object, e As EventArgs) Handles btnPurchaseContract.Click
+        prvChooseContract()
     End Sub
 
 #End Region

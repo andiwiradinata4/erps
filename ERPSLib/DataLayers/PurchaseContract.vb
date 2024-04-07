@@ -45,9 +45,9 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
-        Public Shared Function ListDataOutstanding(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                   ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
-                                                   ByVal intBPID As Integer) As DataTable
+        Public Shared Function ListDataOutstandingPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                          ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                          ByVal intBPID As Integer) As DataTable
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
                 .Connection = sqlCon
@@ -71,6 +71,37 @@
                     "   AND A.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.ApprovedBy<>'' " & vbNewLine &
                     "   AND A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual-A.DPAmount-A.ReceiveAmount>0 " & vbNewLine
+
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataOutstandingReceive(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                          ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                          ByVal intBPID As Integer) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT DISTINCT " & vbNewLine &
+                    "   A.ID, A.PCNumber, A.PCDate, A.BPID, MBP.Code AS BPCode, MBP.Name AS BPName " & vbNewLine &
+                    "FROM traPurchaseContract A " & vbNewLine &
+                    "INNER JOIN traPurchaseContractDet PCD ON " & vbNewLine &
+                    "   A.ID=PCD.PCID " & vbNewLine &
+                    "INNER JOIN mstBusinessPartner MBP ON " & vbNewLine &
+                    "   A.BPID=MBP.ID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   A.BPID=@BPID " & vbNewLine &
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.ApprovedBy<>'' " & vbNewLine &
+                    "   AND PCD.Quantity-PCD.DCQuantity>0 " & vbNewLine &
+                    "   AND PCD.Weight-PCD.DCWeight>0 " & vbNewLine
 
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
@@ -671,7 +702,7 @@
 
         Public Shared Function ListDataDetailOutstandingReceive(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                                 ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                                ByVal intBPID As Integer) As DataTable
+                                                                ByVal intBPID As Integer, ByVal strPCID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -699,12 +730,14 @@ WHERE
 	AND PCH.BPID=@BPID 
     AND PCD.TotalWeight-PCD.DCWeight>0
     AND PCD.Quantity-PCD.DCQuantity>0
+    AND PCD.PCID=@PCID 
 </a>.Value
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
+                .Parameters.Add("@PCID", SqlDbType.VarChar).Value = strPCID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function

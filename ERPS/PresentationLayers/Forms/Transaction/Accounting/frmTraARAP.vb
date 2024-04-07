@@ -9,10 +9,13 @@ Public Class frmTraARAP
     Private dtData As New DataTable
     Private strModules As String = ""
     Private enumARAPType As VO.ARAP.ARAPTypeValue
-    Private intBPID As Integer = 0
+    Private intBPID As Integer = 0,
+        strBPCode As String = "", strBPName As String = ""
     Private clsCS As New VO.CS
-    Private strReferencesID As String
+    Private strReferencesID As String = "",
+        strReferencesNumber As String = ""
     Private bolExport As Boolean = True
+    Private bolIsLookup As Boolean = False
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -32,6 +35,18 @@ Public Class frmTraARAP
         End Set
     End Property
 
+    Public WriteOnly Property pubBPCode As String
+        Set(value As String)
+            strBPCode = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubBPName As String
+        Set(value As String)
+            strBPName = value
+        End Set
+    End Property
+
     Public WriteOnly Property pubCS As VO.CS
         Set(value As VO.CS)
             clsCS = value
@@ -41,6 +56,18 @@ Public Class frmTraARAP
     Public WriteOnly Property pubReferencesID As String
         Set(value As String)
             strReferencesID = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubReferencesNumber As String
+        Set(value As String)
+            strReferencesNumber = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubIsLookup As Boolean
+        Set(value As Boolean)
+            bolIsLookup = value
         End Set
     End Property
 
@@ -216,6 +243,10 @@ Public Class frmTraARAP
             frmDetail = New frmTraARAPDet
         Else
             frmDetail = New frmTraARAPDetVer2
+            frmDetail.pubBPCode = strBPCode
+            frmDetail.pubBPName = strBPName
+            frmDetail.pubReferencesNumber = strReferencesNumber
+            frmDetail.pubIsLookup = True
         End If
 
         With frmDetail
@@ -242,6 +273,10 @@ Public Class frmTraARAP
             frmDetail = New frmTraARAPDet
         Else
             frmDetail = New frmTraARAPDetVer2
+            frmDetail.pubBPCode = strBPCode
+            frmDetail.pubBPName = strBPName
+            frmDetail.pubReferencesNumber = strReferencesNumber
+            frmDetail.pubIsLookup = True
         End If
 
         With frmDetail

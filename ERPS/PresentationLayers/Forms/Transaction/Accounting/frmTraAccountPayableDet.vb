@@ -331,7 +331,7 @@ Public Class frmTraAccountPayableDet
             ElseIf strModules.Trim = VO.AccountPayable.DownPayment Or
                 strModules.Trim = VO.AccountPayable.ReceivePayment Then
                 If pubIsNew Then
-                    dtItem = BL.PurchaseContract.ListDataOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID)
+                    dtItem = BL.PurchaseContract.ListDataOutstandingPayment(pubCS.CompanyID, pubCS.ProgramID, intBPID)
                 Else
                     If clsData.IsDeleted Then
                         dtItem = BL.AccountPayable.ListDataDetail(pubID)
@@ -501,14 +501,14 @@ Public Class frmTraAccountPayableDet
             bolValid = True
             Dim col As GridColumn = .FocusedColumn
             Dim intFocus As Integer = .FocusedRowHandle
-            Dim decPPNPercent As Decimal = grdItemView.GetFocusedRowCellValue("PPNPercent")
-            Dim decPPHPercent As Decimal = grdItemView.GetFocusedRowCellValue("PPHPercent")
+            Dim decPPNPercent As Decimal = .GetFocusedRowCellValue("PPNPercent")
+            Dim decPPHPercent As Decimal = .GetFocusedRowCellValue("PPHPercent")
             If col.Name = "Amount" Then
                 Dim oldValue As Decimal = IIf(.GetFocusedRowCellValue(col).Equals(DBNull.Value), 0, .GetFocusedRowCellValue(col))
                 Dim newValue As Decimal = IIf((e.Value = "") Or (e.Value.Equals(DBNull.Value) Or (e.Value = ".")), 0, e.Value)
 
                 Dim strErrorMessage As String = ""
-                If newValue > 0 And newValue > grdItemView.GetFocusedRowCellValue("MaxPaymentAmount") Then
+                If newValue > 0 And newValue > .GetFocusedRowCellValue("MaxPaymentAmount") Then
                     bolValid = False
                     strErrorMessage = "Total tagihan tidak boleh lebih besar dari total maksimal tagihan"
                     UI.usForm.frmMessageBox(strErrorMessage)
@@ -532,16 +532,16 @@ Public Class frmTraAccountPayableDet
                 End If
             ElseIf col.Name = "Pick" Then
                 If e.Value = True Then
-                    Dim decMaxPaymentAmount As Decimal = grdItemView.GetRowCellValue(intFocus, "MaxPaymentAmount")
-                    grdItemView.SetRowCellValue(intFocus, col.Name, e.Value)
-                    grdItemView.SetRowCellValue(intFocus, "Amount", decMaxPaymentAmount)
-                    If decPPNPercent > 0 Then grdItemView.SetRowCellValue(intFocus, "PPN", ERPSLib.SharedLib.Math.Round(decMaxPaymentAmount * decPPNPercent / 100, 2))
-                    If decPPHPercent > 0 Then grdItemView.SetRowCellValue(intFocus, "PPH", ERPSLib.SharedLib.Math.Round(decMaxPaymentAmount * decPPHPercent / 100, 2))
+                    Dim decMaxPaymentAmount As Decimal = .GetRowCellValue(intFocus, "MaxPaymentAmount")
+                    .SetRowCellValue(intFocus, col.Name, e.Value)
+                    .SetRowCellValue(intFocus, "Amount", decMaxPaymentAmount)
+                    If decPPNPercent > 0 Then .SetRowCellValue(intFocus, "PPN", ERPSLib.SharedLib.Math.Round(decMaxPaymentAmount * decPPNPercent / 100, 2))
+                    If decPPHPercent > 0 Then .SetRowCellValue(intFocus, "PPH", ERPSLib.SharedLib.Math.Round(decMaxPaymentAmount * decPPHPercent / 100, 2))
                 ElseIf e.Value = False Then
-                    grdItemView.SetRowCellValue(intFocus, col.Name, e.Value)
-                    grdItemView.SetRowCellValue(intFocus, "Amount", 0)
-                    grdItemView.SetRowCellValue(intFocus, "PPN", 0)
-                    grdItemView.SetRowCellValue(intFocus, "PPH", 0)
+                    .SetRowCellValue(intFocus, col.Name, e.Value)
+                    .SetRowCellValue(intFocus, "Amount", 0)
+                    .SetRowCellValue(intFocus, "PPN", 0)
+                    .SetRowCellValue(intFocus, "PPH", 0)
                 End If
                 .UpdateCurrentRow()
                 prvCalculate()

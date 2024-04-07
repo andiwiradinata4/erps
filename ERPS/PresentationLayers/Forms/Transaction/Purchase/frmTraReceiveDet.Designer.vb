@@ -29,6 +29,9 @@ Partial Class frmTraReceiveDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.txtPCNumber = New ERPS.usTextBox()
+        Me.btnPurchaseContract = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.txtDriver = New ERPS.usTextBox()
         Me.txtPlatNumber = New ERPS.usTextBox()
         Me.Label10 = New System.Windows.Forms.Label()
@@ -157,6 +160,9 @@ Partial Class frmTraReceiveDet
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.txtPCNumber)
+        Me.tpMain.Controls.Add(Me.btnPurchaseContract)
+        Me.tpMain.Controls.Add(Me.Label9)
         Me.tpMain.Controls.Add(Me.txtDriver)
         Me.tpMain.Controls.Add(Me.txtPlatNumber)
         Me.tpMain.Controls.Add(Me.Label10)
@@ -183,32 +189,62 @@ Partial Class frmTraReceiveDet
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
         '
+        'txtPCNumber
+        '
+        Me.txtPCNumber.BackColor = System.Drawing.Color.Azure
+        Me.txtPCNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPCNumber.Location = New System.Drawing.Point(145, 98)
+        Me.txtPCNumber.MaxLength = 250
+        Me.txtPCNumber.Name = "txtPCNumber"
+        Me.txtPCNumber.ReadOnly = True
+        Me.txtPCNumber.Size = New System.Drawing.Size(249, 21)
+        Me.txtPCNumber.TabIndex = 5
+        '
+        'btnPurchaseContract
+        '
+        Me.btnPurchaseContract.Image = CType(resources.GetObject("btnPurchaseContract.Image"), System.Drawing.Image)
+        Me.btnPurchaseContract.Location = New System.Drawing.Point(400, 97)
+        Me.btnPurchaseContract.Name = "btnPurchaseContract"
+        Me.btnPurchaseContract.Size = New System.Drawing.Size(23, 23)
+        Me.btnPurchaseContract.TabIndex = 6
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.BackColor = System.Drawing.Color.Transparent
+        Me.Label9.ForeColor = System.Drawing.Color.Black
+        Me.Label9.Location = New System.Drawing.Point(28, 102)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(78, 13)
+        Me.Label9.TabIndex = 145
+        Me.Label9.Text = "Nomor Kontrak"
+        '
         'txtDriver
         '
         Me.txtDriver.BackColor = System.Drawing.Color.White
         Me.txtDriver.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtDriver.Location = New System.Drawing.Point(585, 16)
+        Me.txtDriver.Location = New System.Drawing.Point(590, 43)
         Me.txtDriver.MaxLength = 250
         Me.txtDriver.Name = "txtDriver"
         Me.txtDriver.Size = New System.Drawing.Size(249, 21)
-        Me.txtDriver.TabIndex = 7
+        Me.txtDriver.TabIndex = 9
         '
         'txtPlatNumber
         '
         Me.txtPlatNumber.BackColor = System.Drawing.Color.White
         Me.txtPlatNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPlatNumber.Location = New System.Drawing.Point(145, 124)
+        Me.txtPlatNumber.Location = New System.Drawing.Point(590, 16)
         Me.txtPlatNumber.MaxLength = 250
         Me.txtPlatNumber.Name = "txtPlatNumber"
         Me.txtPlatNumber.Size = New System.Drawing.Size(249, 21)
-        Me.txtPlatNumber.TabIndex = 6
+        Me.txtPlatNumber.TabIndex = 8
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.BackColor = System.Drawing.Color.Transparent
         Me.Label10.ForeColor = System.Drawing.Color.Black
-        Me.Label10.Location = New System.Drawing.Point(28, 128)
+        Me.Label10.Location = New System.Drawing.Point(477, 20)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(45, 13)
         Me.Label10.TabIndex = 141
@@ -218,22 +254,22 @@ Partial Class frmTraReceiveDet
         '
         Me.txtReferencesNumber.BackColor = System.Drawing.Color.White
         Me.txtReferencesNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtReferencesNumber.Location = New System.Drawing.Point(145, 97)
+        Me.txtReferencesNumber.Location = New System.Drawing.Point(145, 126)
         Me.txtReferencesNumber.MaxLength = 250
         Me.txtReferencesNumber.Name = "txtReferencesNumber"
         Me.txtReferencesNumber.Size = New System.Drawing.Size(249, 21)
-        Me.txtReferencesNumber.TabIndex = 5
+        Me.txtReferencesNumber.TabIndex = 7
         '
         'txtRemarks
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(585, 70)
+        Me.txtRemarks.Location = New System.Drawing.Point(590, 98)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 9
+        Me.txtRemarks.TabIndex = 11
         '
         'txtBPCode
         '
@@ -273,7 +309,7 @@ Partial Class frmTraReceiveDet
         Me.Label19.AutoSize = True
         Me.Label19.BackColor = System.Drawing.Color.Transparent
         Me.Label19.ForeColor = System.Drawing.Color.Black
-        Me.Label19.Location = New System.Drawing.Point(28, 101)
+        Me.Label19.Location = New System.Drawing.Point(28, 130)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(73, 13)
         Me.Label19.TabIndex = 132
@@ -284,7 +320,7 @@ Partial Class frmTraReceiveDet
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(472, 20)
+        Me.Label5.Location = New System.Drawing.Point(477, 47)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(61, 13)
         Me.Label5.TabIndex = 131
@@ -295,7 +331,7 @@ Partial Class frmTraReceiveDet
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(472, 74)
+        Me.Label13.Location = New System.Drawing.Point(477, 102)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 129
@@ -306,17 +342,17 @@ Partial Class frmTraReceiveDet
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(585, 43)
+        Me.cboStatus.Location = New System.Drawing.Point(590, 71)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(109, 21)
-        Me.cboStatus.TabIndex = 8
+        Me.cboStatus.TabIndex = 10
         '
         'lblStatusID
         '
         Me.lblStatusID.AutoSize = True
         Me.lblStatusID.BackColor = System.Drawing.Color.Transparent
         Me.lblStatusID.ForeColor = System.Drawing.Color.Black
-        Me.lblStatusID.Location = New System.Drawing.Point(472, 47)
+        Me.lblStatusID.Location = New System.Drawing.Point(477, 75)
         Me.lblStatusID.Name = "lblStatusID"
         Me.lblStatusID.Size = New System.Drawing.Size(38, 13)
         Me.lblStatusID.TabIndex = 128
@@ -327,7 +363,7 @@ Partial Class frmTraReceiveDet
         Me.dtpReceiveDate.CustomFormat = "dd/MM/yyyy"
         Me.dtpReceiveDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpReceiveDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpReceiveDate.Location = New System.Drawing.Point(145, 70)
+        Me.dtpReceiveDate.Location = New System.Drawing.Point(145, 71)
         Me.dtpReceiveDate.Name = "dtpReceiveDate"
         Me.dtpReceiveDate.Size = New System.Drawing.Size(105, 21)
         Me.dtpReceiveDate.TabIndex = 4
@@ -338,7 +374,7 @@ Partial Class frmTraReceiveDet
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.ForeColor = System.Drawing.Color.Black
-        Me.Label4.Location = New System.Drawing.Point(28, 74)
+        Me.Label4.Location = New System.Drawing.Point(28, 75)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(45, 13)
         Me.Label4.TabIndex = 124
@@ -898,4 +934,7 @@ Partial Class frmTraReceiveDet
     Friend WithEvents txtDriver As ERPS.usTextBox
     Friend WithEvents txtPlatNumber As ERPS.usTextBox
     Friend WithEvents Label10 As System.Windows.Forms.Label
+    Friend WithEvents txtPCNumber As ERPS.usTextBox
+    Friend WithEvents btnPurchaseContract As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label9 As System.Windows.Forms.Label
 End Class

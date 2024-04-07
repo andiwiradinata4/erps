@@ -15,7 +15,7 @@
                 .CommandText =
                     "SELECT " & vbNewLine &
                     "    A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.ReceiveNumber, A.ReceiveDate, " & vbNewLine &
-                    "    A.BPID, C.Code AS BPCode, C.Name AS BPName, A.PlatNumber, A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, " & vbNewLine &
+                    "    A.BPID, C.Code AS BPCode, C.Name AS BPName, A.PlatNumber, A.Driver, A.PCID, PC.PCNumber, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, " & vbNewLine &
                     "    A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine &
                     "    A.StatusID, B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, " & vbNewLine &
                     "    A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate  " & vbNewLine &
@@ -28,6 +28,8 @@
                     "   A.CompanyID=MC.ID " & vbNewLine &
                     "INNER JOIN mstProgram MP ON " & vbNewLine &
                     "   A.ProgramID=MP.ID " & vbNewLine &
+                    "LEFT JOIN traPurchaseContract PC ON " & vbNewLine &
+                    "   A.PCID=PC.ID " & vbNewLine &
                     "WHERE  " & vbNewLine &
                     "   A.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.CompanyID=@CompanyID " & vbNewLine &
@@ -91,12 +93,12 @@
                        "    (ID, ProgramID, CompanyID, ReceiveNumber, ReceiveDate, BPID, PlatNumber,   " & vbNewLine &
                        "     Driver, ReferencesNumber, PPN, PPH, TotalQuantity, TotalWeight,   " & vbNewLine &
                        "     TotalDPP, TotalPPN, TotalPPH, RoundingManual, Remarks,   " & vbNewLine &
-                       "     StatusID, CreatedBy, CreatedDate, LogBy, LogDate)   " & vbNewLine &
+                       "     StatusID, CreatedBy, CreatedDate, LogBy, LogDate, PCID)   " & vbNewLine &
                        "VALUES " & vbNewLine &
                        "    (@ID, @ProgramID, @CompanyID, @ReceiveNumber, @ReceiveDate, @BPID, @PlatNumber,   " & vbNewLine &
                        "     @Driver, @ReferencesNumber, @PPN, @PPH, @TotalQuantity, @TotalWeight,   " & vbNewLine &
                        "     @TotalDPP, @TotalPPN, @TotalPPH, @RoundingManual, @Remarks,   " & vbNewLine &
-                       "     @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE())  " & vbNewLine
+                       "     @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @PCID)  " & vbNewLine
                 Else
                     .CommandText =
                     "UPDATE traReceive SET " & vbNewLine &
@@ -119,7 +121,8 @@
                     "    Remarks=@Remarks, " & vbNewLine &
                     "    StatusID=@StatusID, " & vbNewLine &
                     "    LogBy=@LogBy, " & vbNewLine &
-                    "    LogDate=GETDATE() " & vbNewLine &
+                    "    LogDate=GETDATE(), " & vbNewLine &
+                    "    PCID=@PCID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "    ID=@ID " & vbNewLine
                 End If
@@ -144,6 +147,7 @@
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
+                .Parameters.Add("@PCID", SqlDbType.VarChar, 100).Value = clsData.PCID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -164,11 +168,13 @@
                     .CommandText =
                         "SELECT TOP 1 " & vbNewLine &
                         "   A.ID, A.ProgramID, A.CompanyID, A.ReceiveNumber, A.ReceiveDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.PlatNumber,   " & vbNewLine &
-                        "   A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, " & vbNewLine &
+                        "   A.Driver, A.PCID, PC.PCNumber, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, " & vbNewLine &
                         "   A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, A.LogBy, A.LogDate, A.JournalID, A.DPAmount, A.TotalPayment " & vbNewLine &
                         "FROM traReceive A " & vbNewLine &
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
                         "   A.BPID=B.ID " & vbNewLine &
+                        "INNER JOIN traPurchaseContract PC ON " & vbNewLine &
+                        "   A.PCID=PC.ID " & vbNewLine &
                         "WHERE " & vbNewLine &
                         "   A.ID=@ID " & vbNewLine
 
@@ -188,6 +194,8 @@
                         voReturn.BPName = .Item("BPName")
                         voReturn.PlatNumber = .Item("PlatNumber")
                         voReturn.Driver = .Item("Driver")
+                        voReturn.PCID = .Item("PCID")
+                        voReturn.PCNumber = .Item("PCNumber")
                         voReturn.ReferencesNumber = .Item("ReferencesNumber")
                         voReturn.PPN = .Item("PPN")
                         voReturn.PPH = .Item("PPH")

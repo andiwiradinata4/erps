@@ -12,11 +12,19 @@
             End Using
         End Function
 
-        Public Shared Function ListDataOutstanding(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
-                                                   ByVal intBPID As Integer) As DataTable
+        Public Shared Function ListDataOutstandingPayment(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                          ByVal intBPID As Integer) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.PurchaseContract.ListDataOutstanding(sqlCon, Nothing, intCompanyID, intProgramID, intBPID)
+                Return DL.PurchaseContract.ListDataOutstandingPayment(sqlCon, Nothing, intCompanyID, intProgramID, intBPID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataOutstandingReceive(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                          ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseContract.ListDataOutstandingReceive(sqlCon, Nothing, intCompanyID, intProgramID, intBPID)
             End Using
         End Function
 
@@ -380,10 +388,10 @@
         End Function
 
         Public Shared Function ListDataDetailOutstandingReceive(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                                ByVal intBPID As Integer) As DataTable
+                                                                ByVal intBPID As Integer, ByVal strPCID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.PurchaseContract.ListDataDetailOutstandingReceive(sqlCon, Nothing, intProgramID, intCompanyID, intBPID)
+                Return DL.PurchaseContract.ListDataDetailOutstandingReceive(sqlCon, Nothing, intProgramID, intCompanyID, intBPID, strPCID)
             End Using
         End Function
 

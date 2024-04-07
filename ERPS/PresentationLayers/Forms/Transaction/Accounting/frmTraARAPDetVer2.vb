@@ -4,18 +4,22 @@ Public Class frmTraARAPDetVer2
 #Region "Property"
 
     Private frmParent As frmTraARAP
-    Private clsData As VO.ARAP
-    Private intBPID As Integer = 0
+    Private clsData As New VO.ARAP
+    Private intBPID As Integer = 0,
+        strBPCode As String = "", strBPName As String = ""
     Private intCoAID As Integer = 0
     Private strModules As String = ""
     Private intModuleID As Integer = 0
     Private enumARAPType As VO.ARAP.ARAPTypeValue
-    Private strReferencesID As String = ""
+    Private strReferencesID As String = "",
+        strReferencesNumber As String = ""
     Private strID As String = ""
     Private bolIsNew As Boolean = False
     Private clsCS As New VO.CS
     Private decPPN As Decimal = 0, decPPH As Decimal = 0
     Private dtItem As New DataTable, dtDP As New DataTable
+    Private bolIsLookup As Boolean = False
+    Private bolValid As Boolean = True
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -29,6 +33,18 @@ Public Class frmTraARAPDetVer2
         End Set
     End Property
 
+    Public WriteOnly Property pubBPCode As String
+        Set(value As String)
+            strBPCode = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubBPName As String
+        Set(value As String)
+            strBPName = value
+        End Set
+    End Property
+
     Public WriteOnly Property pubARAPType As VO.ARAP.ARAPTypeValue
         Set(value As VO.ARAP.ARAPTypeValue)
             enumARAPType = value
@@ -38,6 +54,12 @@ Public Class frmTraARAPDetVer2
     Public WriteOnly Property pubReferencesID As String
         Set(value As String)
             strReferencesID = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubReferencesNumber As String
+        Set(value As String)
+            strReferencesNumber = value
         End Set
     End Property
 
@@ -56,6 +78,12 @@ Public Class frmTraARAPDetVer2
     Public WriteOnly Property pubCS As VO.CS
         Set(value As VO.CS)
             clsCS = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubIsLookup As Boolean
+        Set(value As Boolean)
+            bolIsLookup = value
         End Set
     End Property
 
@@ -317,6 +345,28 @@ Public Class frmTraARAPDetVer2
         End With
     End Sub
 
+    Private Sub prvChooseBP()
+        Dim frmDetail As New frmMstBusinessPartner
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                If intBPID <> .pubLUdtRow.Item("ID") Then
+                    strReferencesID = ""
+                    txtReferencesNumber.Text = ""
+                End If
+
+                intBPID = .pubLUdtRow.Item("ID")
+                txtBPCode.Text = .pubLUdtRow.Item("Code")
+                txtBPName.Text = .pubLUdtRow.Item("Name")
+                prvQueryDP()
+                prvQueryItem()
+                prvCalculate()
+            End If
+        End With
+    End Sub
+
     Private Sub prvGetModuleID()
         intModuleID = VO.Common.GetModuleID(strModules)
     End Sub
@@ -364,13 +414,21 @@ Public Class frmTraARAPDetVer2
     Private Sub prvCalculate()
         Dim decDPAllocate As Decimal = 0, decAmount As Decimal = 0, decPPN As Decimal = 0, decPPH As Decimal = 0
 
+        With grdItemView
+            For i As Integer = 0 To .RowCount - 1
+                If .GetRowCellValue(i, "Amount") > 0 And .GetRowCellValue(i, "PPNPercent") > 0 Then .SetRowCellValue(i, "PPN", ERPSLib.SharedLib.Math.Round(.GetRowCellValue(i, "Amount") * .GetRowCellValue(i, "PPNPercent") / 100, 2)) Else .SetRowCellValue(i, "PPN", 0)
+                If .GetRowCellValue(i, "Amount") > 0 And .GetRowCellValue(i, "PPHPercent") > 0 Then .SetRowCellValue(i, "PPH", ERPSLib.SharedLib.Math.Round(.GetRowCellValue(i, "Amount") * .GetRowCellValue(i, "PPHPercent") / 100, 2)) Else .SetRowCellValue(i, "PPH", 0)
+                .UpdateCurrentRow()
+            Next
+        End With
+
         For Each dr As DataRow In dtItem.Rows
             decDPAllocate += dr.Item("DPAmount")
             decAmount += dr.Item("Amount")
-            decPPN += ERPSLib.SharedLib.Math.Round(dr.Item("Amount") * dr.Item("PPNPercent") / 100, 2)
-            decPPH += ERPSLib.SharedLib.Math.Round(dr.Item("Amount") * dr.Item("PPHPercent") / 100, 2)
+            decPPN += dr.Item("PPN") 'ERPSLib.SharedLib.Math.Round(dr.Item("Amount") * dr.Item("PPNPercent") / 100, 2)
+            decPPH += dr.Item("PPH") 'ERPSLib.SharedLib.Math.Round(dr.Item("Amount") * dr.Item("PPHPercent") / 100, 2)
         Next
-
+        txtDPAllocate.Value = decDPAllocate
         txtTotalAmount.Value = decAmount
         txtTotalPPN.Value = decPPN
         txtTotalPPH.Value = decPPH
@@ -417,11 +475,18 @@ Public Class frmTraARAPDetVer2
     Private Sub prvQueryDP()
         pgMain.Value = 30
         Me.Cursor = Cursors.WaitCursor
+
+        Dim strDPModules As String = VO.AccountPayable.All
+        If strModules.Trim = VO.AccountPayable.ReceivePayment Then strDPModules = VO.AccountPayable.DownPayment
+        If strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Then strDPModules = VO.AccountPayable.DownPaymentCutting
+        If strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then strDPModules = VO.AccountPayable.DownPaymentTransport
+
+        If strModules.Trim = VO.AccountReceivable.ReceivePayment Then strDPModules = VO.AccountReceivable.DownPayment
         Try
             If clsData.IsDeleted Then
                 grdDownPayment.DataSource = BL.ARAP.ListDataDownpayment(strID, enumARAPType)
             Else
-                grdDownPayment.DataSource = BL.ARAP.ListDataDownPaymentWithOutstanding(clsCS.CompanyID, clsCS.ProgramID, intBPID, strModules, strID, enumARAPType)
+                grdDownPayment.DataSource = BL.ARAP.ListDataDownPaymentWithOutstanding(clsCS.CompanyID, clsCS.ProgramID, intBPID, strDPModules, strID, enumARAPType)
             End If
             grdDownPaymentView.BestFitColumns()
 
@@ -447,36 +512,30 @@ Public Class frmTraARAPDetVer2
     End Sub
 
     Private Sub prvAllocateDP()
-        If txtTotalDP.Value <= 0 Then Exit Sub
         Dim decOutstandingDP As Decimal = txtTotalDP.Value
-        'For Each dr As DataRow In dtItem.Rows
-        '    If decOutstandingDP > 0 And dr.Item("Pick") Then
-        '        dr.BeginEdit()
-        '        If dr.Item("MaxPaymentAmount") > decOutstandingDP Then
-        '            dr.Item("DPAmount") = decOutstandingDP
-        '            dr.Item("Amount") = dr.Item("MaxPaymentAmount") - decOutstandingDP
-        '            decOutstandingDP = 0
-        '        Else
-        '            dr.Item("DPAmount") = dr.Item("MaxPaymentAmount")
-        '            dr.Item("Amount") = 0
-        '            decOutstandingDP -= dr.Item("MaxPaymentAmount")
-        '        End If
-        '        dr.EndEdit()
-        '    End If
-        'Next
-        'dtItem.AcceptChanges()
-
         With grdItemView
+
+            '# Reset Value
             For i As Integer = 0 To .RowCount - 1
-                If .GetRowCellValue(i, "Pick") And decOutstandingDP > 0 Then
-                    If .GetRowCellValue(i, "MaxPaymentAmount") > decOutstandingDP Then
-                        .SetRowCellValue(i, "DPAmount", decOutstandingDP)
-                        .SetRowCellValue(i, "Amount", .GetRowCellValue(i, "MaxPaymentAmount") - decOutstandingDP)
-                        decOutstandingDP = 0
+                .SetRowCellValue(i, "DPAmount", 0)
+                .SetRowCellValue(i, "Amount", 0)
+                .UpdateCurrentRow()
+            Next
+
+            For i As Integer = 0 To .RowCount - 1
+                If .GetRowCellValue(i, "Pick") Then
+                    If decOutstandingDP > 0 Then
+                        If .GetRowCellValue(i, "MaxPaymentAmount") > decOutstandingDP Then
+                            .SetRowCellValue(i, "DPAmount", decOutstandingDP)
+                            .SetRowCellValue(i, "Amount", .GetRowCellValue(i, "MaxPaymentAmount") - decOutstandingDP)
+                            decOutstandingDP = 0
+                        Else
+                            .SetRowCellValue(i, "DPAmount", .GetRowCellValue(i, "MaxPaymentAmount"))
+                            .SetRowCellValue(i, "Amount", 0)
+                            decOutstandingDP -= .GetRowCellValue(i, "MaxPaymentAmount")
+                        End If
                     Else
-                        .SetRowCellValue(i, "DPAmount", .GetRowCellValue(i, "MaxPaymentAmount"))
-                        .SetRowCellValue(i, "Amount", 0)
-                        decOutstandingDP -= .GetRowCellValue(i, "MaxPaymentAmount")
+                        .SetRowCellValue(i, "Amount", .GetRowCellValue(i, "MaxPaymentAmount"))
                     End If
                 End If
                 .UpdateCurrentRow()
@@ -538,9 +597,20 @@ Public Class frmTraARAPDetVer2
         prvSetGrid()
         prvFillForm()
         prvQueryItem()
+        prvQueryDP()
         prvQueryHistory()
         prvUserAccess()
         txtDueDateValue.Minimum = 0
+        Me.Text += IIf(strReferencesID.Trim = "", "", " - ") & strReferencesID
+        lblInfo.Text += VO.Common.GetPaymentText(strModules)
+
+        If bolIsLookup Then
+            btnBP.Enabled = False
+            btnReferences.Enabled = False
+            txtBPCode.Text = strBPCode
+            txtBPName.Text = strBPName
+            txtReferencesNumber.Text = strReferencesNumber
+        End If
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
@@ -556,6 +626,110 @@ Public Class frmTraARAPDetVer2
             Case "Tidak Centang Semua" : prvChangeCheckedValue(False)
             Case "Alokasi Panjar" : prvAllocateDP()
         End Select
+    End Sub
+
+    Private Sub btnCoAOfOutgoingPayment_Click(sender As Object, e As EventArgs) Handles btnCoAOfOutgoingPayment.Click
+        prvChooseCOA()
+    End Sub
+
+    Private Sub btnBP_Click(sender As Object, e As EventArgs) Handles btnBP.Click
+        prvChooseBP()
+    End Sub
+
+    Private Sub grdItemView_ValidatingEditor(sender As Object, e As DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventArgs) Handles grdItemView.ValidatingEditor
+        With grdItemView
+            bolValid = True
+            Dim col As GridColumn = .FocusedColumn
+            Dim intFocus As Integer = .FocusedRowHandle
+            Dim decPPNPercent As Decimal = .GetFocusedRowCellValue("PPNPercent")
+            Dim decPPHPercent As Decimal = .GetFocusedRowCellValue("PPHPercent")
+            If col.Name = "Amount" Then
+                Dim oldValue As Decimal = IIf(.GetFocusedRowCellValue(col).Equals(DBNull.Value), 0, .GetFocusedRowCellValue(col))
+                Dim newValue As Decimal = IIf((e.Value = "") Or (e.Value.Equals(DBNull.Value) Or (e.Value = ".")), 0, e.Value)
+
+                Dim strErrorMessage As String = ""
+                If newValue > 0 And newValue > .GetFocusedRowCellValue("MaxPaymentAmount") Then
+                    bolValid = False
+                    strErrorMessage = "Total tagihan tidak boleh lebih besar dari total maksimal tagihan"
+                    UI.usForm.frmMessageBox(strErrorMessage)
+                End If
+
+                If bolValid = False Then
+                    e.Value = oldValue
+                    e.Valid = False
+                    e.ErrorText = strErrorMessage
+                    .FocusedRowHandle = intFocus
+                    .FocusedColumn = .Columns(col.Name)
+                    .ShowEditor()
+                    Exit Sub
+                Else
+                    .SetRowCellValue(intFocus, col.Name, newValue)
+                    If decPPNPercent > 0 Then .SetRowCellValue(intFocus, "PPN", ERPSLib.SharedLib.Math.Round(newValue * decPPNPercent / 100, 2))
+                    If decPPHPercent > 0 Then .SetRowCellValue(intFocus, "PPH", ERPSLib.SharedLib.Math.Round(newValue * decPPHPercent / 100, 2))
+
+                    .UpdateCurrentRow()
+                    prvCalculate()
+                End If
+            ElseIf col.Name = "Pick" Then
+                .SetRowCellValue(intFocus, col.Name, e.Value)
+                'If e.Value = True Then
+                '    Dim decMaxPaymentAmount As Decimal = grdItemView.GetRowCellValue(intFocus, "MaxPaymentAmount")
+                '    grdItemView.SetRowCellValue(intFocus, col.Name, e.Value)
+                '    grdItemView.SetRowCellValue(intFocus, "Amount", decMaxPaymentAmount)
+                '    If decPPNPercent > 0 Then grdItemView.SetRowCellValue(intFocus, "PPN", ERPSLib.SharedLib.Math.Round(decMaxPaymentAmount * decPPNPercent / 100, 2))
+                '    If decPPHPercent > 0 Then grdItemView.SetRowCellValue(intFocus, "PPH", ERPSLib.SharedLib.Math.Round(decMaxPaymentAmount * decPPHPercent / 100, 2))
+                'ElseIf e.Value = False Then
+                '    grdItemView.SetRowCellValue(intFocus, col.Name, e.Value)
+                '    grdItemView.SetRowCellValue(intFocus, "Amount", 0)
+                '    grdItemView.SetRowCellValue(intFocus, "PPN", 0)
+                '    grdItemView.SetRowCellValue(intFocus, "PPH", 0)
+                'End If
+                .UpdateCurrentRow()
+                prvAllocateDP()
+                prvCalculate()
+            End If
+        End With
+    End Sub
+
+    Private Sub grdDownPaymentView_ValidatingEditor(sender As Object, e As DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventArgs) Handles grdDownPaymentView.ValidatingEditor
+        With grdDownPaymentView
+            bolValid = True
+            Dim col As GridColumn = .FocusedColumn
+            Dim intFocus As Integer = .FocusedRowHandle
+            If col.Name = "Pick" Then
+                If e.Value Then
+                    .SetRowCellValue(intFocus, "DPAmount", .GetRowCellValue(intFocus, "MaxDPAmount"))
+                Else
+                    .SetRowCellValue(intFocus, "DPAmount", 0)
+                End If
+                .UpdateCurrentRow()
+                prvCalculateDP()
+            ElseIf col.Name = "DPAmount" Then
+                Dim oldValue As Decimal = IIf(.GetFocusedRowCellValue(col).Equals(DBNull.Value), 0, .GetFocusedRowCellValue(col))
+                Dim newValue As Decimal = IIf((e.Value = "") Or (e.Value.Equals(DBNull.Value) Or (e.Value = ".")), 0, e.Value)
+
+                Dim strErrorMessage As String = ""
+                If newValue > 0 And newValue > .GetFocusedRowCellValue("MaxDPAmount") Then
+                    bolValid = False
+                    strErrorMessage = "Total panjar tidak boleh lebih besar dari total maksimal panjar"
+                    UI.usForm.frmMessageBox(strErrorMessage)
+                End If
+
+                If bolValid = False Then
+                    e.Value = oldValue
+                    e.Valid = False
+                    e.ErrorText = strErrorMessage
+                    .FocusedRowHandle = intFocus
+                    .FocusedColumn = .Columns(col.Name)
+                    .ShowEditor()
+                    Exit Sub
+                Else
+                    .SetRowCellValue(intFocus, col.Name, newValue)
+                    .UpdateCurrentRow()
+                    prvCalculateDP()
+                End If
+            End If
+        End With
     End Sub
 
 #End Region
