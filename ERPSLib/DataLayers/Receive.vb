@@ -489,8 +489,8 @@
             Return bolReturn
         End Function
 
-        Public Shared Sub CalculateTotalUsedDownPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                        ByVal strID As String)
+        Public Shared Sub CalculateTotalUsedReceivePayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                           ByVal strID As String)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -501,7 +501,7 @@
                     "	DPAmount=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(APD.Amount),0) TotalPayment		" & vbNewLine &
+                    "			ISNULL(SUM(APD.DPAmount),0) DPAmount		" & vbNewLine &
                     "		FROM traAccountPayableDet APD 	" & vbNewLine &
                     "		INNER JOIN traAccountPayable APH ON	" & vbNewLine &
                     "			APD.APID=APH.ID 	" & vbNewLine &
@@ -509,28 +509,7 @@
                     "		WHERE 	" & vbNewLine &
                     "			APD.PurchaseID=@ID 	" & vbNewLine &
                     "			AND APH.IsDeleted=0 	" & vbNewLine &
-                    "	) " & vbNewLine &
-                    "WHERE ID=@ID " & vbNewLine
-
-                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
-                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.DownPayment
-            End With
-            Try
-                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
-            Catch ex As Exception
-                Throw ex
-            End Try
-        End Sub
-
-        Public Shared Sub CalculateTotalUsedReceivePayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                           ByVal strID As String)
-            Dim sqlCmdExecute As New SqlCommand
-            With sqlCmdExecute
-                .Connection = sqlCon
-                .Transaction = sqlTrans
-                .CommandType = CommandType.Text
-                .CommandText =
-                    "UPDATE traReceive SET 	" & vbNewLine &
+                    "	), " & vbNewLine &
                     "	TotalPayment=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &

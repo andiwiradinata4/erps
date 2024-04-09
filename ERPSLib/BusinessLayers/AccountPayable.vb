@@ -78,6 +78,7 @@
                         clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Or
                         clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
                         dtItem = DL.AccountPayable.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
+                        dtItem.Merge(DL.AccountPayable.ListDataDetailRev01(sqlCon, sqlTrans, clsData.ID))
                     End If
 
                     DL.AccountPayable.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
@@ -90,16 +91,23 @@
                         ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPayment Then
                             DL.PurchaseContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
                         ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
-                            DL.PurchaseContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                            DL.Receive.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
                         ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then
                             DL.PurchaseOrderCutting.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
                         ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
-                            DL.PurchaseOrderCutting.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+
                         ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Then
                             DL.PurchaseOrderTransport.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
                         ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
-                            DL.PurchaseOrderTransport.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+
                         End If
+                    Next
+
+                    '# Revert Down Payment
+                    Dim dtDownPayment As DataTable = DL.AccountPayable.ListDataDownPayment(sqlCon, sqlTrans, clsData.ID)
+                    DL.ARAP.DeleteDataDP(sqlCon, sqlTrans, clsData.ID)
+                    For Each dr As DataRow In dtDownPayment.Rows
+                        DL.ARAP.CalculateTotalAmountUsed(sqlCon, sqlTrans, dr.Item("DPID"))
                     Next
                 End If
 
@@ -128,6 +136,19 @@
                     intCount += 1
                 Next
 
+                '# Save Data Down Payment
+                intCount = 1
+                For Each clsDet As VO.ARAPDP In clsData.ARAPDownPayment
+                    clsDet.ID = clsData.ID & "-" & 1 & "-" & Format(intCount, "000")
+                    clsDet.ParentID = clsData.ID
+                    DL.ARAP.SaveDataDP(sqlCon, sqlTrans, clsDet)
+                    DL.ARAP.CalculateTotalAmountUsed(sqlCon, sqlTrans, clsDet.DPID)
+                    intCount += 1
+                Next
+
+                '# Allocate DP Amount to Each Receive
+                '# On Progress
+
                 '# Calculate Payment Amount
                 For Each clsDet As VO.AccountPayableDet In clsData.Detail
                     '# For Setup Balance
@@ -136,17 +157,22 @@
                     ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPayment Then
                         DL.PurchaseContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.PurchaseID)
                     ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
-                        DL.PurchaseContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.PurchaseID)
+                        DL.Receive.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.PurchaseID)
                     ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then
                         DL.PurchaseOrderCutting.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.PurchaseID)
                     ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
-                        DL.PurchaseOrderCutting.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.PurchaseID)
+
                     ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Then
                         DL.PurchaseOrderTransport.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.PurchaseID)
                     ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
-                        DL.PurchaseOrderTransport.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.PurchaseID)
+
                     End If
                 Next
+
+                '# Calculate Purchase Contract / Purchase Order
+                If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then DL.PurchaseContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
+                If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
+                If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then DL.PurchaseOrderTransport.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
 
                 '# Save Data Status
                 BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, clsData.ID, IIf(bolNew, "BARU", "EDIT"), ERPSLib.UI.usUserApp.UserID, clsData.Remarks)

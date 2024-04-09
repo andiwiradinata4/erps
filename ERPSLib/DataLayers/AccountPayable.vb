@@ -1116,7 +1116,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT " & vbNewLine &
-                    "   CAST (1 AS BIT) AS Pick, A.PurchaseID, B.ReceiveNumber AS InvoiceNumber, B.ReceiveDate AS InvoiceDate, " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.PurchaseID AS InvoiceID, B.ReceiveNumber AS InvoiceNumber, B.ReceiveDate AS InvoiceDate, " & vbNewLine &
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual AS PurchaseAmount, A.Amount, " & vbNewLine &
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual-B.DPAmount-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine &
                     "   A.Remarks, B.PPN AS PPNPercent, B.PPH AS PPHPercent, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
@@ -1129,7 +1129,7 @@
                 .CommandText +=
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
-                    "   CAST(0 AS BIT) AS Pick, A.ID AS PurchaseID, A.ReceiveNumber AS InvoiceNumber, A.ReceiveDate AS InvoiceDate, " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, A.ID AS InvoiceID, A.ReceiveNumber AS InvoiceNumber, A.ReceiveDate AS InvoiceDate, " & vbNewLine &
                     "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine &
                     "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual-A.DPAmount-A.TotalPayment AS MaxPaymentAmount, " & vbNewLine &
                     "   CAST('' AS VARCHAR(500)) AS Remarks, A.PPN AS PPNPercent, A.PPH AS PPHPercent, CAST(0 AS DECIMAL(18,2)) AS PPN, " & vbNewLine &
@@ -1162,7 +1162,7 @@
                 .CommandText +=
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
-                    "   CAST(0 AS BIT) AS Pick, A.ID AS PurchaseID, A.CuttingNumber AS InvoiceNumber, A.CuttingDate AS InvoiceDate, " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, A.ID AS InvoiceID, A.CuttingNumber AS InvoiceNumber, A.CuttingDate AS InvoiceDate, " & vbNewLine &
                     "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine &
                     "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual-A.DPAmount-A.TotalPayment AS MaxPaymentAmount, " & vbNewLine &
                     "   CAST('' AS VARCHAR(500)) AS Remarks, A.PPN AS PPNPercent, A.PPH AS PPHPercent, CAST(0 AS DECIMAL(18,2)) AS PPN, " & vbNewLine &
@@ -1195,7 +1195,7 @@
                 .CommandText +=
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
-                    "   CAST(0 AS BIT) AS Pick, A.ID AS PurchaseID, A.DeliveryNumber AS InvoiceNumber, A.DeliveryDate AS InvoiceDate, " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, A.ID AS InvoiceID, A.DeliveryNumber AS InvoiceNumber, A.DeliveryDate AS InvoiceDate, " & vbNewLine &
                     "   A.TotalDPPTransport+A.TotalPPNTransport-A.TotalPPHTransport+A.RoundingManualTransport AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine &
                     "   A.TotalDPPTransport+A.TotalPPNTransport-A.TotalPPHTransport+A.RoundingManualTransport-A.DPAmountTransport-A.TotalPaymentTransport AS MaxPaymentAmount, " & vbNewLine &
                     "   CAST('' AS VARCHAR(500)) AS Remarks, A.PPN AS PPNPercent, A.PPH AS PPHPercent, CAST(0 AS DECIMAL(18,2)) AS PPN, " & vbNewLine &

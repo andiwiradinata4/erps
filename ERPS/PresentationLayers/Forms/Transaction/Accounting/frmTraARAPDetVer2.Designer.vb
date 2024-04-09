@@ -41,7 +41,7 @@ Partial Class frmTraARAPDetVer2
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.txtTotalPPH = New ERPS.usNumeric()
-        Me.txtDPNumber = New ERPS.usTextBox()
+        Me.txtARAPNumber = New ERPS.usTextBox()
         Me.txtTotalAmount = New ERPS.usNumeric()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -49,7 +49,7 @@ Partial Class frmTraARAPDetVer2
         Me.txtCoACode = New ERPS.usTextBox()
         Me.txtTotalPPN = New ERPS.usNumeric()
         Me.btnCoAOfOutgoingPayment = New DevExpress.XtraEditors.SimpleButton()
-        Me.dtpDPDate = New System.Windows.Forms.DateTimePicker()
+        Me.dtpARAPDate = New System.Windows.Forms.DateTimePicker()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -177,7 +177,7 @@ Partial Class frmTraARAPDetVer2
         Me.tpMain.Controls.Add(Me.Label1)
         Me.tpMain.Controls.Add(Me.Label8)
         Me.tpMain.Controls.Add(Me.txtTotalPPH)
-        Me.tpMain.Controls.Add(Me.txtDPNumber)
+        Me.tpMain.Controls.Add(Me.txtARAPNumber)
         Me.tpMain.Controls.Add(Me.txtTotalAmount)
         Me.tpMain.Controls.Add(Me.Label3)
         Me.tpMain.Controls.Add(Me.Label7)
@@ -185,7 +185,7 @@ Partial Class frmTraARAPDetVer2
         Me.tpMain.Controls.Add(Me.txtCoACode)
         Me.tpMain.Controls.Add(Me.txtTotalPPN)
         Me.tpMain.Controls.Add(Me.btnCoAOfOutgoingPayment)
-        Me.tpMain.Controls.Add(Me.dtpDPDate)
+        Me.tpMain.Controls.Add(Me.dtpARAPDate)
         Me.tpMain.Controls.Add(Me.Label4)
         Me.tpMain.Controls.Add(Me.Label11)
         Me.tpMain.Controls.Add(Me.Label2)
@@ -326,16 +326,16 @@ Partial Class frmTraARAPDetVer2
         Me.txtTotalPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPPH.ThousandsSeparator = True
         '
-        'txtDPNumber
+        'txtARAPNumber
         '
-        Me.txtDPNumber.BackColor = System.Drawing.Color.LightYellow
-        Me.txtDPNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtDPNumber.Location = New System.Drawing.Point(134, 16)
-        Me.txtDPNumber.MaxLength = 250
-        Me.txtDPNumber.Name = "txtDPNumber"
-        Me.txtDPNumber.ReadOnly = True
-        Me.txtDPNumber.Size = New System.Drawing.Size(167, 21)
-        Me.txtDPNumber.TabIndex = 0
+        Me.txtARAPNumber.BackColor = System.Drawing.Color.LightYellow
+        Me.txtARAPNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtARAPNumber.Location = New System.Drawing.Point(134, 16)
+        Me.txtARAPNumber.MaxLength = 250
+        Me.txtARAPNumber.Name = "txtARAPNumber"
+        Me.txtARAPNumber.ReadOnly = True
+        Me.txtARAPNumber.Size = New System.Drawing.Size(167, 21)
+        Me.txtARAPNumber.TabIndex = 0
         '
         'txtTotalAmount
         '
@@ -358,9 +358,9 @@ Partial Class frmTraARAPDetVer2
         Me.Label3.ForeColor = System.Drawing.Color.Black
         Me.Label3.Location = New System.Drawing.Point(463, 128)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(93, 13)
+        Me.Label3.Size = New System.Drawing.Size(53, 13)
         Me.Label3.TabIndex = 164
-        Me.Label3.Text = "Total PPH Dibayar"
+        Me.Label3.Text = "Total PPH"
         '
         'Label7
         '
@@ -369,9 +369,9 @@ Partial Class frmTraARAPDetVer2
         Me.Label7.ForeColor = System.Drawing.Color.Black
         Me.Label7.Location = New System.Drawing.Point(463, 74)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(62, 13)
+        Me.Label7.Size = New System.Drawing.Size(63, 13)
         Me.Label7.TabIndex = 140
-        Me.Label7.Text = "Total Bayar"
+        Me.Label7.Text = "Total Harga"
         '
         'Label6
         '
@@ -416,16 +416,16 @@ Partial Class frmTraARAPDetVer2
         Me.btnCoAOfOutgoingPayment.Size = New System.Drawing.Size(23, 23)
         Me.btnCoAOfOutgoingPayment.TabIndex = 8
         '
-        'dtpDPDate
+        'dtpARAPDate
         '
-        Me.dtpDPDate.CustomFormat = "dd/MM/yyyy"
-        Me.dtpDPDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtpDPDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpDPDate.Location = New System.Drawing.Point(134, 124)
-        Me.dtpDPDate.Name = "dtpDPDate"
-        Me.dtpDPDate.Size = New System.Drawing.Size(83, 21)
-        Me.dtpDPDate.TabIndex = 9
-        Me.dtpDPDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
+        Me.dtpARAPDate.CustomFormat = "dd/MM/yyyy"
+        Me.dtpARAPDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpARAPDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpARAPDate.Location = New System.Drawing.Point(134, 124)
+        Me.dtpARAPDate.Name = "dtpARAPDate"
+        Me.dtpARAPDate.Size = New System.Drawing.Size(83, 21)
+        Me.dtpARAPDate.TabIndex = 9
+        Me.dtpARAPDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
         'Label4
         '
@@ -445,9 +445,9 @@ Partial Class frmTraARAPDetVer2
         Me.Label11.ForeColor = System.Drawing.Color.Black
         Me.Label11.Location = New System.Drawing.Point(463, 101)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(93, 13)
+        Me.Label11.Size = New System.Drawing.Size(53, 13)
         Me.Label11.TabIndex = 163
-        Me.Label11.Text = "Total PPN Dibayar"
+        Me.Label11.Text = "Total PPN"
         '
         'Label2
         '
@@ -567,7 +567,7 @@ Partial Class frmTraARAPDetVer2
         Me.tpDownPayment.Controls.Add(Me.grdDownPayment)
         Me.tpDownPayment.Location = New System.Drawing.Point(4, 25)
         Me.tpDownPayment.Name = "tpDownPayment"
-        Me.tpDownPayment.Size = New System.Drawing.Size(882, 219)
+        Me.tpDownPayment.Size = New System.Drawing.Size(882, 226)
         Me.tpDownPayment.TabIndex = 2
         Me.tpDownPayment.Text = "Panjar - F2"
         Me.tpDownPayment.UseVisualStyleBackColor = True
@@ -593,7 +593,7 @@ Partial Class frmTraARAPDetVer2
         Me.grdDownPayment.MainView = Me.grdDownPaymentView
         Me.grdDownPayment.Name = "grdDownPayment"
         Me.grdDownPayment.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiDPAmount})
-        Me.grdDownPayment.Size = New System.Drawing.Size(882, 219)
+        Me.grdDownPayment.Size = New System.Drawing.Size(882, 226)
         Me.grdDownPayment.TabIndex = 14
         Me.grdDownPayment.UseEmbeddedNavigator = True
         Me.grdDownPayment.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdDownPaymentView})
@@ -619,7 +619,7 @@ Partial Class frmTraARAPDetVer2
         Me.tpHistory.Controls.Add(Me.grdStatus)
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
-        Me.tpHistory.Size = New System.Drawing.Size(882, 219)
+        Me.tpHistory.Size = New System.Drawing.Size(882, 226)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -644,7 +644,7 @@ Partial Class frmTraARAPDetVer2
         Me.grdStatus.Location = New System.Drawing.Point(0, 0)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(882, 219)
+        Me.grdStatus.Size = New System.Drawing.Size(882, 226)
         Me.grdStatus.TabIndex = 14
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -870,10 +870,10 @@ Partial Class frmTraARAPDetVer2
     Friend WithEvents txtRemarks As usTextBox
     Friend WithEvents cboStatus As usComboBox
     Friend WithEvents Label5 As Label
-    Friend WithEvents dtpDPDate As DateTimePicker
+    Friend WithEvents dtpARAPDate As DateTimePicker
     Friend WithEvents Label6 As Label
     Friend WithEvents Label8 As Label
-    Friend WithEvents txtDPNumber As usTextBox
+    Friend WithEvents txtARAPNumber As usTextBox
     Friend WithEvents tpHistory As TabPage
     Friend WithEvents tpDownPayment As TabPage
     Friend WithEvents grdDownPayment As DevExpress.XtraGrid.GridControl

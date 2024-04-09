@@ -113,6 +113,7 @@ Namespace BL
                         If clsReferences.StatusID <> VO.Status.Values.Approved Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Data Kontrak harus disetujui terlebih dahulu")
                         End If
+
                         '# Save Data Detail
                         Dim clsDet As New List(Of VO.AccountPayableDet) From {
                             New VO.AccountPayableDet With
@@ -147,6 +148,7 @@ Namespace BL
                         clsData.Remarks = clsDataARAP.Remarks
                         clsData.StatusID = clsDataARAP.StatusID
                         clsData.Detail = clsDet
+                        clsData.ARAPDownPayment = clsDataARAP.DownPayment
                         clsData.LogBy = clsDataARAP.LogBy
                         clsData.Save = clsDataARAP.Save
 

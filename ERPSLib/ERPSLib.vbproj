@@ -186,6 +186,9 @@
     <Compile Include="ValueObject\AccountReceivable.vb" />
     <Compile Include="ValueObject\AccountReceivableDet.vb" />
     <Compile Include="ValueObject\AccountReceivableStatus.vb" />
+    <Compile Include="ValueObject\ARAPDet.vb" />
+    <Compile Include="ValueObject\ARAPDP.vb" />
+    <Compile Include="ValueObject\ARAPDPDet.vb" />
     <Compile Include="ValueObject\Base\Access.vb" />
     <Compile Include="ValueObject\Base\ChartOfAccount.vb" />
     <Compile Include="ValueObject\Base\ChartOfAccountAssign.vb" />

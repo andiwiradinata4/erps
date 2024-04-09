@@ -1,9 +1,11 @@
 ﻿Namespace DL
     Public Class ARAP
 
+#Region "Main"
+
         Public Shared Function PrintVer00(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                          ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                          ByVal strID As String) As DataTable
+                                  ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                  ByVal strID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -84,6 +86,87 @@
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
+
+#End Region
+
+#Region "Down Payment"
+
+        Public Shared Sub SaveDataDP(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                     ByVal clsData As VO.ARAPDP)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "INSERT INTO traARAPDP " & vbNewLine &
+                    "   (ID, ParentID, DPID, DPAmount) " & vbNewLine &
+                    "VALUES " & vbNewLine &
+                    "   (@ID, @ParentID, @DPID, @DPAmount) " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
+                .Parameters.Add("@DPID", SqlDbType.VarChar, 100).Value = clsData.DPID
+                .Parameters.Add("@DPAmount", SqlDbType.Decimal).Value = clsData.DPAmount
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataDP(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                       ByVal strParentID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "DELETE traARAPDP  " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ParentID=@ParentID " & vbNewLine
+
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateTotalAmountUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traAccountPayable SET 	" & vbNewLine &
+                    "	TotalAmountUsed=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(DP.DPAmount),0) DPAmount " & vbNewLine &
+                    "		FROM traARAPDP DP " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			DP.DPID=@ID 	" & vbNewLine &
+                    "			AND DP.IsDeleted=0 	" & vbNewLine &
+                    "	) " & vbNewLine &
+                    "WHERE ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+#End Region
 
     End Class
 End Namespace

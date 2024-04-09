@@ -114,7 +114,7 @@ Public Class frmTraARAPDetVer2
     Private Sub prvSetGrid()
         '# Item
         UI.usForm.SetGrid(grdItemView, "Pick", "Pilih", 80, UI.usDefGrid.gBoolean, True, False)
-        UI.usForm.SetGrid(grdItemView, "PurchaseID", "PurchaseID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "InvoiceID", "InvoiceID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "InvoiceNumber", "Nomor Invoice", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "InvoiceDate", "Tanggal Invoice", 250, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdItemView, "PurchaseAmount", "PurchaseAmount", 250, UI.usDefGrid.gReal2Num, False)
@@ -150,7 +150,7 @@ Public Class frmTraARAPDetVer2
 
     Private Sub prvFillCombo()
         Try
-            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionAccountPayableBalance), "StatusID", "StatusName")
+            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionAccountPayable), "StatusID", "StatusName")
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -167,13 +167,13 @@ Public Class frmTraARAPDetVer2
             Else
                 clsData = New VO.ARAP
                 clsData = BL.ARAP.GetDetail(strID, enumARAPType)
-                txtDPNumber.Text = clsData.TransNumber
+                txtARAPNumber.Text = clsData.TransNumber
                 intCoAID = clsData.CoAID
                 txtCoACode.Text = clsData.CoACode
                 txtCoAName.Text = clsData.CoAName
                 txtTotalDP.Value = clsData.Percentage
                 strModules = clsData.Modules
-                dtpDPDate.Value = clsData.TransDate
+                dtpARAPDate.Value = clsData.TransDate
                 txtDueDateValue.Value = clsData.DueDateValue
                 txtTotalAmount.Value = clsData.TotalAmount
                 txtTotalPPN.Value = clsData.TotalPPN
@@ -184,7 +184,7 @@ Public Class frmTraARAPDetVer2
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
 
-                dtpDPDate.Enabled = False
+                dtpARAPDate.Enabled = False
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -197,152 +197,154 @@ Public Class frmTraARAPDetVer2
     End Sub
 
     Private Sub prvSave()
-        'ToolBar.Focus()
-        'If txtBPCode.Text.Trim = "" Then
-        '    UI.usForm.frmMessageBox("Pilih pelanggan terlebih dahulu")
-        '    tcHeader.SelectedTab = tpMain
-        '    txtBPCode.Focus()
-        '    Exit Sub
-        'ElseIf txtCoACodeOfOutgoingPayment.Text.Trim = "" Then
-        '    UI.usForm.frmMessageBox("Pilih akun terlebih dahulu")
-        '    tcHeader.SelectedTab = tpMain
-        '    txtCoACodeOfOutgoingPayment.Focus()
-        '    Exit Sub
-        'ElseIf txtTotalAmount.Value <= 0 Then
-        '    UI.usForm.frmMessageBox("Total Bayar harus lebih besar dari 0")
-        '    tcHeader.SelectedTab = tpMain
-        '    txtTotalAmount.Focus()
-        '    Exit Sub
-        'ElseIf txtDueDateValue.Value <= 0 Then
-        '    UI.usForm.frmMessageBox("Jatuh Tempo harus lebih besar dari 0")
-        '    tcHeader.SelectedTab = tpMain
-        '    txtDueDateValue.Focus()
-        '    Exit Sub
-        'ElseIf cboStatus.Text.Trim = "" Then
-        '    UI.usForm.frmMessageBox("Status kosong. Mohon untuk tutup form dan buka kembali")
-        '    tcHeader.SelectedTab = tpMain
-        '    cboStatus.Focus()
-        '    Exit Sub
-        'ElseIf grdItemView.RowCount = 0 And chkManual.Checked = False Then
-        '    UI.usForm.frmMessageBox("Item kosong. Mohon untuk diinput item terlebih dahulu")
-        '    tcHeader.SelectedTab = tpMain
-        '    grdItemView.Focus()
-        '    Exit Sub
-        'End If
+        ToolBar.Focus()
+        If txtBPCode.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih pelanggan terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtBPCode.Focus()
+            Exit Sub
+        ElseIf txtCoACode.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih akun terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtCoACode.Focus()
+            Exit Sub
+        ElseIf txtTotalAmount.Value <= 0 Then
+            UI.usForm.frmMessageBox("Total Bayar harus lebih besar dari 0")
+            tcHeader.SelectedTab = tpMain
+            txtTotalAmount.Focus()
+            Exit Sub
+        ElseIf txtDueDateValue.Value <= 0 Then
+            UI.usForm.frmMessageBox("Jatuh Tempo harus lebih besar dari 0")
+            tcHeader.SelectedTab = tpMain
+            txtDueDateValue.Focus()
+            Exit Sub
+        ElseIf cboStatus.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Status kosong. Mohon untuk tutup form dan buka kembali")
+            tcHeader.SelectedTab = tpMain
+            cboStatus.Focus()
+            Exit Sub
+        ElseIf grdItemView.RowCount = 0 Then
+            UI.usForm.frmMessageBox("Pilih item yang ingin di proses")
+            tcHeader.SelectedTab = tpMain
+            grdItemView.Focus()
+            Exit Sub
+        End If
 
-        'Dim frmDetail As New usFormSave
-        'Dim intSave As VO.Save.Action
-        'With frmDetail
-        '    .StartPosition = FormStartPosition.CenterParent
-        '    .ShowDialog()
-        '    If .pubIsSave Then intSave = .pubValue
-        '    If intSave = VO.Save.Action.CancelSave Then Exit Sub
-        'End With
+        Dim frmDetail As New usFormSave
+        Dim intSave As VO.Save.Action
+        With frmDetail
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsSave Then intSave = .pubValue
+            If intSave = VO.Save.Action.CancelSave Then Exit Sub
+        End With
 
-        'Me.Cursor = Cursors.WaitCursor
-        'pgMain.Value = 30
-        'Application.DoEvents()
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 30
 
-        'Dim listDetail As New List(Of VO.AccountPayableDet)
-        'For Each dr As DataRow In dtItem.Rows
-        '    If dr.Item("Pick") Then
-        '        listDetail.Add(New ERPSLib.VO.AccountPayableDet With
-        '                   {
-        '                       .ID = "",
-        '                       .APID = pubID,
-        '                       .PurchaseID = dr.Item("PurchaseID"),
-        '                       .Amount = dr.Item("Amount"),
-        '                       .PPN = dr.Item("PPN"),
-        '                       .PPH = dr.Item("PPH"),
-        '                       .Remarks = UCase(dr.Item("Remarks"))
-        '                   })
-        '    End If
-        'Next
+        Dim listDetail As New List(Of VO.ARAPDet)
+        For Each dr As DataRow In dtItem.Rows
+            If dr.Item("Pick") Then
+                listDetail.Add(New ERPSLib.VO.ARAPDet With
+                           {
+                               .ID = "",
+                               .ARAPID = strID,
+                               .InvoiceID = dr.Item("InvoiceID"),
+                               .Amount = dr.Item("Amount"),
+                               .PPN = dr.Item("PPN"),
+                               .PPH = dr.Item("PPH"),
+                               .Remarks = UCase(dr.Item("Remarks")),
+                               .DPAmount = UCase(dr.Item("DPAmount"))
+                           })
+            End If
+        Next
 
-        'clsData = New VO.AccountPayable
-        'clsData.ID = pubID
-        'clsData.ProgramID = pubCS.ProgramID
-        'clsData.CompanyID = pubCS.CompanyID
-        'clsData.APNumber = txtAPNumber.Text.Trim
-        'clsData.BPID = intBPID
-        'clsData.CoAIDOfOutgoingPayment = intCoAIDOfOutgoingPayment
-        'clsData.ReferencesID = ""
-        'clsData.ReferencesNote = txtReferencesNote.Text.Trim
-        'clsData.TotalAmount = txtTotalAmount.Value
-        'clsData.TotalPPN = txtTotalPPN.Value
-        'clsData.TotalPPH = txtTotalPPH.Value
-        'clsData.APDate = dtpAPDate.Value.Date
-        'clsData.DueDateValue = txtDueDateValue.Value
-        'clsData.Modules = strModules
-        'clsData.Remarks = txtRemarks.Text.Trim
-        'clsData.StatusID = cboStatus.SelectedValue
-        'clsData.Detail = listDetail
-        'clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        'clsData.Save = intSave
+        Dim listDownPayment As New List(Of VO.ARAPDP)
+        For Each dr As DataRow In dtDP.Rows
+            If dr.Item("Pick") And dr.Item("DPAmount") > 0 Then
+                listDownPayment.Add(New ERPSLib.VO.ARAPDP With
+                                    {
+                                        .ID = "",
+                                        .ParentID = strID,
+                                        .DPID = dr.Item("DPID"),
+                                        .DPAmount = dr.Item("DPAmount")
+                                    })
+            End If
+        Next
+        
+        clsData = New VO.ARAP
+        clsData.ID = strID
+        clsData.ProgramID = clsCS.ProgramID
+        clsData.CompanyID = clsCS.CompanyID
+        clsData.TransNumber = txtARAPNumber.Text.Trim
+        clsData.BPID = intBPID
+        clsData.CoAID = intCoAID
+        clsData.ReferencesID = strReferencesID.Trim
+        clsData.ReferencesNumber = txtReferencesNumber.Text.Trim
+        clsData.ReferencesNote = txtReferencesNumber.Text.Trim
+        clsData.TotalAmount = txtTotalAmount.Value
+        clsData.TotalPPN = txtTotalPPN.Value
+        clsData.TotalPPH = txtTotalPPH.Value
+        clsData.TransDate = dtpARAPDate.Value.Date
+        clsData.DueDateValue = txtDueDateValue.Value
+        clsData.Modules = strModules
+        clsData.Remarks = txtRemarks.Text.Trim
+        clsData.StatusID = cboStatus.SelectedValue
+        clsData.IsDP = False
+        clsData.DPAmount = txtDPAllocate.Value
+        clsData.ReceiveAmount = txtTotalAmount.Value
+        clsData.Detail = listDetail
+        clsData.DownPayment = listDownPayment
+        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+        clsData.Save = intSave
 
-        'pgMain.Value = 60
-        'Application.DoEvents()
+        pgMain.Value = 60
 
-        'Try
-        '    Dim strAPNumber As String = BL.AccountPayable.SaveData(pubIsNew, clsData)
-        '    UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strAPNumber)
-        '    pgMain.Value = 80
-        '    Application.DoEvents()
-        '    frmParent.pubRefresh(strAPNumber)
-        '    If pubIsNew Then
-        '        prvClear()
-        '        prvQueryItem()
-        '        prvQueryHistory()
-        '    Else
-        '        Me.Close()
-        '    End If
-        'Catch ex As Exception
-        '    UI.usForm.frmMessageBox(ex.Message)
-        'Finally
-        '    pgMain.Value = 100
-        '    Application.DoEvents()
-        '    prvResetProgressBar()
-        'End Try
+       Try
+            Dim strARAPNumber As String = BL.ARAP.SaveData(bolIsNew, clsData)
+            UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strARAPNumber)
+            pgMain.Value = 80
+            Application.DoEvents()
+            frmParent.pubRefresh(strARAPNumber)
+            If bolIsNew Then
+                prvClear()
+                prvQueryHistory()
+            Else
+                Me.Close()
+            End If
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            pgMain.Value = 100
+            Application.DoEvents()
+            prvResetProgressBar()
+        End Try
     End Sub
 
     Private Sub prvClear()
-        'tcHeader.SelectedTab = tpMain
-        'pubID = ""
-        'txtAPNumber.Text = ""
-        'intBPID = 0
-        'txtBPCode.Text = ""
-        'txtBPName.Text = ""
-        'intCoAIDOfOutgoingPayment = 0
-        'txtCoACodeOfOutgoingPayment.Text = ""
-        'txtCoANameOfOutgoingPayment.Text = ""
-        'txtReferencesNote.Text = ""
-        'dtpAPDate.Value = Now
-        'txtDueDateValue.Value = 0
-        'txtTotalAmount.Value = 0
-        'txtTotalPPN.Value = 0
-        'txtTotalPPH.Value = 0
-        'txtRemarks.Text = ""
-        'cboStatus.SelectedValue = VO.Status.Values.Draft
-        'ToolStripLogInc.Text = "Jumlah Edit : -"
-        'ToolStripLogBy.Text = "Dibuat Oleh : -"
-        'ToolStripLogDate.Text = Format(Now, UI.usDefCons.DateFull)
-    End Sub
-
-    Private Sub prvChooseCOA()
-        Dim frmDetail As New frmMstChartOfAccount
-        With frmDetail
-            .pubIsLookUp = True
-            .pubCompanyID = clsCS.CompanyID
-            .pubProgramID = clsCS.ProgramID
-            .pubFilterGroup = VO.ChartOfAccount.FilterGroup.CashOrBank
-            .StartPosition = FormStartPosition.CenterScreen
-            .ShowDialog()
-            If .pubIsLookUpGet Then
-                intCoAID = .pubLUdtRow.Item("ID")
-                txtCoACode.Text = .pubLUdtRow.Item("Code")
-                txtCoAName.Text = .pubLUdtRow.Item("Name")
-            End If
-        End With
+        tcHeader.SelectedTab = tpMain
+        pubID = ""
+        txtARAPNumber.Text = ""
+        If Not bolIsLookup Then intBPID = 0
+        If Not bolIsLookup Then txtBPCode.Text = ""
+        If Not bolIsLookup Then txtBPName.Text = ""
+        If Not bolIsLookup Then strReferencesID = ""
+        txtReferencesNumber.Text = ""
+        intCoAID = 0
+        txtCoACode.Text = ""
+        txtCoAName.Text = ""
+        dtpARAPDate.Value = Now
+        txtDueDateValue.Value = 0
+        cboStatus.SelectedValue = VO.Status.Values.Draft
+        txtTotalDP.Value = 0
+        txtDPAllocate.Value = 0
+        txtTotalAmount.Value = 0
+        txtTotalPPN.Value = 0
+        txtTotalPPH.Value = 0
+        txtRemarks.Text = ""
+        ToolStripLogInc.Text = "Jumlah Edit : -"
+        ToolStripLogBy.Text = "Dibuat Oleh : -"
+        ToolStripLogDate.Text = Format(Now, UI.usDefCons.DateFull)
     End Sub
 
     Private Sub prvChooseBP()
@@ -363,6 +365,27 @@ Public Class frmTraARAPDetVer2
                 prvQueryDP()
                 prvQueryItem()
                 prvCalculate()
+            End If
+        End With
+    End Sub
+
+    Private Sub prvChooseReferences()
+
+    End Sub
+
+    Private Sub prvChooseCOA()
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .pubCompanyID = clsCS.CompanyID
+            .pubProgramID = clsCS.ProgramID
+            .pubFilterGroup = VO.ChartOfAccount.FilterGroup.CashOrBank
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAID = .pubLUdtRow.Item("ID")
+                txtCoACode.Text = .pubLUdtRow.Item("Code")
+                txtCoAName.Text = .pubLUdtRow.Item("Name")
             End If
         End With
     End Sub
@@ -512,6 +535,7 @@ Public Class frmTraARAPDetVer2
     End Sub
 
     Private Sub prvAllocateDP()
+        ToolBarDetail.Focus()
         Dim decOutstandingDP As Decimal = txtTotalDP.Value
         With grdItemView
 
@@ -628,12 +652,16 @@ Public Class frmTraARAPDetVer2
         End Select
     End Sub
 
-    Private Sub btnCoAOfOutgoingPayment_Click(sender As Object, e As EventArgs) Handles btnCoAOfOutgoingPayment.Click
-        prvChooseCOA()
-    End Sub
-
     Private Sub btnBP_Click(sender As Object, e As EventArgs) Handles btnBP.Click
         prvChooseBP()
+    End Sub
+
+    Private Sub btnReferences_Click(sender As Object, e As EventArgs) Handles btnReferences.Click
+        prvChooseReferences()
+    End Sub
+
+    Private Sub btnCoAOfOutgoingPayment_Click(sender As Object, e As EventArgs) Handles btnCoAOfOutgoingPayment.Click
+        prvChooseCOA()
     End Sub
 
     Private Sub grdItemView_ValidatingEditor(sender As Object, e As DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventArgs) Handles grdItemView.ValidatingEditor
@@ -672,18 +700,6 @@ Public Class frmTraARAPDetVer2
                 End If
             ElseIf col.Name = "Pick" Then
                 .SetRowCellValue(intFocus, col.Name, e.Value)
-                'If e.Value = True Then
-                '    Dim decMaxPaymentAmount As Decimal = grdItemView.GetRowCellValue(intFocus, "MaxPaymentAmount")
-                '    grdItemView.SetRowCellValue(intFocus, col.Name, e.Value)
-                '    grdItemView.SetRowCellValue(intFocus, "Amount", decMaxPaymentAmount)
-                '    If decPPNPercent > 0 Then grdItemView.SetRowCellValue(intFocus, "PPN", ERPSLib.SharedLib.Math.Round(decMaxPaymentAmount * decPPNPercent / 100, 2))
-                '    If decPPHPercent > 0 Then grdItemView.SetRowCellValue(intFocus, "PPH", ERPSLib.SharedLib.Math.Round(decMaxPaymentAmount * decPPHPercent / 100, 2))
-                'ElseIf e.Value = False Then
-                '    grdItemView.SetRowCellValue(intFocus, col.Name, e.Value)
-                '    grdItemView.SetRowCellValue(intFocus, "Amount", 0)
-                '    grdItemView.SetRowCellValue(intFocus, "PPN", 0)
-                '    grdItemView.SetRowCellValue(intFocus, "PPH", 0)
-                'End If
                 .UpdateCurrentRow()
                 prvAllocateDP()
                 prvCalculate()

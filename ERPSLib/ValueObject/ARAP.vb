@@ -35,7 +35,11 @@
         Property Remarks As String
         Property StatusID As Integer
         Property IsDP As Boolean
-        Property Detail As New List(Of VO.AccountPayableDet)
+        Property DPAmount As Decimal
+        Property ReceiveAmount As Decimal
+        Property Detail As New List(Of VO.ARAPDet)
+        Property DownPayment As New List(Of VO.ARAPDP)
+        Property DownPaymentDetail As New List(Of VO.ARAPDPDet)
         Property Save As VO.Save.Action
         Property DPType As VO.ARAP.ARAPTypeValue
 

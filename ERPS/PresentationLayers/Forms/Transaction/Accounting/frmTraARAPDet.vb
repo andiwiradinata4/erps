@@ -101,7 +101,6 @@
 
     Private Sub prvFillForm()
         pgMain.Value = 30
-        Application.DoEvents()
         Me.Cursor = Cursors.WaitCursor
         prvFillCombo()
         Try
@@ -144,7 +143,6 @@
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
             prvResetProgressBar()
         End Try
     End Sub
@@ -215,7 +213,6 @@
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
 
         clsData = New VO.ARAP
         clsData.ID = strID
@@ -241,14 +238,12 @@
         clsData.Save = intSave
 
         pgMain.Value = 60
-        Application.DoEvents()
 
         Try
-            Dim strDPNumber As String = BL.ARAP.SaveData(bolIsNew, clsData)
-            UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strDPNumber)
+            Dim strARAPNumber As String = BL.ARAP.SaveData(bolIsNew, clsData)
+            UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strARAPNumber)
             pgMain.Value = 80
-            Application.DoEvents()
-            frmParent.pubRefresh(strDPNumber)
+            frmParent.pubRefresh(strARAPNumber)
             If bolIsNew Then
                 prvClear()
                 prvQueryHistory()
