@@ -115,18 +115,35 @@ Namespace BL
                         End If
 
                         '# Save Data Detail
-                        Dim clsDet As New List(Of VO.AccountPayableDet) From {
-                            New VO.AccountPayableDet With
-                                    {
-                                        .ID = "",
-                                        .APID = "",
-                                        .PurchaseID = clsDataARAP.ReferencesID,
-                                        .Amount = clsDataARAP.TotalAmount,
-                                        .PPN = clsDataARAP.TotalPPN,
-                                        .PPH = clsDataARAP.TotalPPH,
-                                        .Remarks = clsDataARAP.Remarks
-                                    }
-                        }
+                        Dim clsDet As New List(Of VO.AccountPayableDet)
+                        If clsDataARAP.Modules = VO.AccountPayable.ReceivePayment Then
+                            For Each cls As VO.ARAPDet In clsDataARAP.Detail
+                                clsDet.Add(New VO.AccountPayableDet With
+                                        {
+                                            .ID = "",
+                                            .APID = "",
+                                            .PurchaseID = cls.InvoiceID,
+                                            .Amount = cls.Amount,
+                                            .PPN = cls.PPN,
+                                            .PPH = cls.PPH,
+                                            .Remarks = cls.Remarks,
+                                            .DPAmount = cls.DPAmount,
+                                            .Rounding = cls.Rounding
+                                        })
+                            Next
+                        Else
+                            clsDet.Add(New VO.AccountPayableDet With
+                                        {
+                                            .ID = "",
+                                            .APID = "",
+                                            .PurchaseID = clsDataARAP.ReferencesID,
+                                            .Amount = clsDataARAP.TotalAmount,
+                                            .PPN = clsDataARAP.TotalPPN,
+                                            .PPH = clsDataARAP.TotalPPH,
+                                            .Remarks = clsDataARAP.Remarks
+                                        })
+                        End If
+
 
                         '# Save Data Header
                         Dim clsData As New VO.AccountPayable
@@ -147,6 +164,9 @@ Namespace BL
                         clsData.Modules = clsDataARAP.Modules
                         clsData.Remarks = clsDataARAP.Remarks
                         clsData.StatusID = clsDataARAP.StatusID
+                        clsData.IsDP = clsDataARAP.IsDP
+                        clsData.DPAmount = clsDataARAP.DPAmount
+                        clsData.ReceiveAmount = clsDataARAP.ReceiveAmount
                         clsData.Detail = clsDet
                         clsData.ARAPDownPayment = clsDataARAP.DownPayment
                         clsData.LogBy = clsDataARAP.LogBy
@@ -287,6 +307,8 @@ Namespace BL
                     Else
                         BL.AccountPayable.DeleteData(sqlCon, sqlTrans, strID, strModules, strRemarks)
                     End If
+
+                    DL.ARAP.DeleteDataDP(sqlCon, sqlTrans, strID)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()

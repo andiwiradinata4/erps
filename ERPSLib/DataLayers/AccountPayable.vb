@@ -40,21 +40,13 @@
                     "   AND A.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.APDate>=@DateFrom AND A.APDate<=@DateTo " & vbNewLine
 
-                If strModules.Trim <> VO.AccountPayable.All Then
-                    .CommandText += "   AND A.Modules=@Modules " & vbNewLine
-                End If
+                If strModules.Trim <> VO.AccountPayable.All Then .CommandText += "   AND A.Modules=@Modules " & vbNewLine
 
-                If intStatusID <> VO.Status.Values.All Then
-                    .CommandText += "    AND A.StatusID=@StatusID" & vbNewLine
-                End If
+                If intStatusID <> VO.Status.Values.All Then .CommandText += "    AND A.StatusID=@StatusID" & vbNewLine
 
-                If intBPID <> 0 Then
-                    .CommandText += "    AND A.BPID=@BPID " & vbNewLine
-                End If
+                If intBPID <> 0 Then .CommandText += "    AND A.BPID=@BPID " & vbNewLine
 
-                If strReferencesID.Trim <> "" Then
-                    .CommandText += "   AND A.ID IN (SELECT APID FROM traAccountPayableDet WHERE PurchaseID=@ReferencesID)"
-                End If
+                If strReferencesID.Trim <> "" Then .CommandText += "   AND A.ReferencesID=@ReferencesID " & vbNewLine
 
                 .CommandText += "ORDER BY A.APDate, A.ID ASC " & vbNewLine
 

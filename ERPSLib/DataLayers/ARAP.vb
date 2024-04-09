@@ -152,8 +152,7 @@
                     "			ISNULL(SUM(DP.DPAmount),0) DPAmount " & vbNewLine &
                     "		FROM traARAPDP DP " & vbNewLine &
                     "		WHERE 	" & vbNewLine &
-                    "			DP.DPID=@ID 	" & vbNewLine &
-                    "			AND DP.IsDeleted=0 	" & vbNewLine &
+                    "			DP.DPID=@ID " & vbNewLine &
                     "	) " & vbNewLine &
                     "WHERE ID=@ID " & vbNewLine
 

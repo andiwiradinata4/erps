@@ -175,6 +175,7 @@ Public Class frmTraARAPDetVer2
                 strModules = clsData.Modules
                 dtpARAPDate.Value = clsData.TransDate
                 txtDueDateValue.Value = clsData.DueDateValue
+                txtDPAllocate.Value = clsData.DPAmount
                 txtTotalAmount.Value = clsData.TotalAmount
                 txtTotalPPN.Value = clsData.TotalPPN
                 txtTotalPPH.Value = clsData.TotalPPH
@@ -260,14 +261,14 @@ Public Class frmTraARAPDetVer2
         Next
 
         Dim listDownPayment As New List(Of VO.ARAPDP)
-        For Each dr As DataRow In dtDP.Rows
-            If dr.Item("Pick") And dr.Item("DPAmount") > 0 Then
+        For i As Integer = 0 To grdDownPaymentView.RowCount - 1
+            If grdDownPaymentView.GetRowCellValue(i, "Pick") And grdDownPaymentView.GetRowCellValue(i, "DPAmount") > 0 Then
                 listDownPayment.Add(New ERPSLib.VO.ARAPDP With
                                     {
                                         .ID = "",
                                         .ParentID = strID,
-                                        .DPID = dr.Item("DPID"),
-                                        .DPAmount = dr.Item("DPAmount")
+                                        .DPID = grdDownPaymentView.GetRowCellValue(i, "DPID"),
+                                        .DPAmount = grdDownPaymentView.GetRowCellValue(i, "DPAmount")
                                     })
             End If
         Next
@@ -522,8 +523,8 @@ Public Class frmTraARAPDetVer2
                     .UpdateCurrentRow()
                 End With
                 ToolBarDetail.Focus()
-                prvCalculateDP()
             End If
+            prvCalculateDP()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -703,6 +704,14 @@ Public Class frmTraARAPDetVer2
                 .UpdateCurrentRow()
                 prvAllocateDP()
                 prvCalculate()
+            ElseIf col.Name = "DPAmount" Then
+                Dim newValue As Decimal = IIf((e.Value = "") Or (e.Value.Equals(DBNull.Value) Or (e.Value = ".")), 0, e.Value)
+                .SetRowCellValue(intFocus, col.Name, newValue)
+                If decPPNPercent > 0 Then .SetRowCellValue(intFocus, "PPN", ERPSLib.SharedLib.Math.Round(newValue * decPPNPercent / 100, 2))
+                If decPPHPercent > 0 Then .SetRowCellValue(intFocus, "PPH", ERPSLib.SharedLib.Math.Round(newValue * decPPHPercent / 100, 2))
+
+                .UpdateCurrentRow()
+                prvCalculate()
             End If
         End With
     End Sub
@@ -718,6 +727,7 @@ Public Class frmTraARAPDetVer2
                 Else
                     .SetRowCellValue(intFocus, "DPAmount", 0)
                 End If
+                .SetRowCellValue(intFocus, "Pick", e.Value)
                 .UpdateCurrentRow()
                 prvCalculateDP()
             ElseIf col.Name = "DPAmount" Then
