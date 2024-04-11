@@ -239,7 +239,9 @@ Public Class frmTraARAP
         prvResetProgressBar()
         Dim frmDetail As Object
         If strModules = VO.AccountPayable.DownPayment Or
-           strModules = VO.AccountReceivable.DownPayment Then
+            strModules = VO.AccountPayable.DownPaymentCutting Or
+            strModules = VO.AccountPayable.DownPaymentTransport Or
+            strModules = VO.AccountReceivable.DownPayment Then
             frmDetail = New frmTraARAPDet
         Else
             frmDetail = New frmTraARAPDetVer2
@@ -269,7 +271,9 @@ Public Class frmTraARAP
         clsData = prvGetData()
         Dim frmDetail As Object
         If strModules = VO.AccountPayable.DownPayment Or
-           strModules = VO.AccountReceivable.DownPayment Then
+            strModules = VO.AccountPayable.DownPaymentCutting Or
+            strModules = VO.AccountPayable.DownPaymentTransport Or
+            strModules = VO.AccountReceivable.DownPayment Then
             frmDetail = New frmTraARAPDet
         Else
             frmDetail = New frmTraARAPDetVer2
@@ -539,6 +543,7 @@ Public Class frmTraARAP
 
         Dim frmDetail As New frmTraAccountSetTaxInvoiceNumber
         With frmDetail
+            .pubTaxInvoiceNumber = clsData.TaxInvoiceNumber
             .StartPosition = FormStartPosition.CenterParent
             .ShowDialog()
             If .pubIsSave Then
@@ -555,7 +560,6 @@ Public Class frmTraARAP
         Try
             BL.ARAP.UpdateTaxInvoiceNumber(clsData.ID, clsData.TaxInvoiceNumber, clsData.Remarks, enumARAPType)
             pgMain.Value = 100
-            Application.DoEvents()
             UI.usForm.frmMessageBox("Update nomor faktur pajak berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "TransNumber"))
         Catch ex As Exception

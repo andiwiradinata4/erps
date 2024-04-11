@@ -153,7 +153,6 @@ Partial Class frmMstItem
         'cboItemSpecification
         '
         Me.cboItemSpecification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboItemSpecification.Enabled = False
         Me.cboItemSpecification.FormattingEnabled = True
         Me.cboItemSpecification.Location = New System.Drawing.Point(98, 71)
         Me.cboItemSpecification.Name = "cboItemSpecification"
@@ -174,7 +173,6 @@ Partial Class frmMstItem
         'cboItemType
         '
         Me.cboItemType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboItemType.Enabled = False
         Me.cboItemType.FormattingEnabled = True
         Me.cboItemType.Location = New System.Drawing.Point(98, 44)
         Me.cboItemType.Name = "cboItemType"

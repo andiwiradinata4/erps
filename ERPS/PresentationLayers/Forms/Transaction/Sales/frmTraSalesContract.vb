@@ -419,8 +419,11 @@ Public Class frmTraSalesContract
             .pubModules = VO.AccountReceivable.ReceivePayment
             .pubARAPType = VO.ARAP.ARAPTypeValue.Sales
             .pubBPID = clsData.BPID
+            .pubBPCode = clsData.BPCode
+            .pubBPName = clsData.BPName
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
+            .pubReferencesNumber = clsData.SCNumber
             .ShowDialog()
         End With
     End Sub

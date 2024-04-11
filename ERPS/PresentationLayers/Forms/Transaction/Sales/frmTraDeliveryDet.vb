@@ -327,6 +327,12 @@ Public Class frmTraDeliveryDet
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
             If .pubIsLookUpGet Then
+                If intBPID <> .pubLUdtRow.Item("ID") Then
+                    strSCID = ""
+                    txtSCNumber.Text = ""
+                    prvClearItem()
+                End If
+
                 intBPID = .pubLUdtRow.Item("ID")
                 txtBPCode.Text = .pubLUdtRow.Item("Code")
                 txtBPName.Text = .pubLUdtRow.Item("Name")
@@ -342,6 +348,12 @@ Public Class frmTraDeliveryDet
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
             If .pubIsLookupGet Then
+                If strSCID.Trim <> .pubLUdtRow.Item("ID") Then
+                    Dim clsSC As VO.SalesContract = BL.SalesContract.GetDetail(.pubLUdtRow.Item("ID"))
+                    txtPPN.Value = clsSC.PPN
+                    txtPPH.Value = clsSC.PPH
+                End If
+
                 strSCID = .pubLUdtRow.Item("ID")
                 txtSCNumber.Text = .pubLUdtRow.Item("SCNumber")
             End If
@@ -425,6 +437,13 @@ Public Class frmTraDeliveryDet
             .Buttons(cEditItem).Enabled = bolEnabled
             .Buttons(cDeleteItem).Enabled = bolEnabled
         End With
+    End Sub
+
+    Private Sub prvClearItem()
+        dtItem.Clear()
+        dtItem.AcceptChanges()
+        grdItem.DataSource = dtItem
+        prvCalculate()
     End Sub
 
     Private Sub prvQueryItem()

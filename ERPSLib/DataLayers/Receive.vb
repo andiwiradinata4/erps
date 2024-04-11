@@ -28,7 +28,7 @@
                     "   A.CompanyID=MC.ID " & vbNewLine &
                     "INNER JOIN mstProgram MP ON " & vbNewLine &
                     "   A.ProgramID=MP.ID " & vbNewLine &
-                    "LEFT JOIN traPurchaseContract PC ON " & vbNewLine &
+                    "INNER JOIN traPurchaseContract PC ON " & vbNewLine &
                     "   A.PCID=PC.ID " & vbNewLine &
                     "WHERE  " & vbNewLine &
                     "   A.ProgramID=@ProgramID " & vbNewLine &

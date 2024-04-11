@@ -408,8 +408,11 @@ Public Class frmTraPurchaseOrderCutting
             .pubModules = VO.AccountPayable.ReceivePaymentCutting
             .pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
             .pubBPID = clsData.BPID
+            .pubBPCode = clsData.BPCode
+            .pubBPName = clsData.BPName
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
+            .pubReferencesNumber = clsData.PONumber
             .ShowDialog()
         End With
     End Sub

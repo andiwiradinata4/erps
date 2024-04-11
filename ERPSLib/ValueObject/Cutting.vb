@@ -22,6 +22,8 @@
         Property RoundingManual As Decimal
         Property DPAmount As Decimal
         Property TotalPayment As Decimal
+        Property POID As String
+        Property PONumber As String
         Property Detail As List(Of VO.CuttingDet)
         Property DetailResult As List(Of VO.CuttingDetResult)
         Property Save As VO.Save.Action

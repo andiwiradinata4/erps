@@ -10,7 +10,10 @@
         End Get
     End Property
 
-    Public ReadOnly Property pubTaxInvoiceNumber As String
+    Public Property pubTaxInvoiceNumber As String
+        Set(value As String)
+            strTaxInvoiceNumber = value
+        End Set
         Get
             Return strTaxInvoiceNumber
         End Get
@@ -43,6 +46,7 @@
     Private Sub frmTraAccountSetTaxInvoiceNumber_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
+        txtTaxInvoiceNumber.Text = strTaxInvoiceNumber.Trim
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick

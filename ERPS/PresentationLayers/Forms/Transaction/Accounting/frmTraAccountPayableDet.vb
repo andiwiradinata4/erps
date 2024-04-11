@@ -342,7 +342,7 @@ Public Class frmTraAccountPayableDet
             ElseIf strModules.Trim = VO.AccountPayable.DownPaymentCutting Or
                 strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
                 If pubIsNew Then
-                    dtItem = BL.PurchaseOrderCutting.ListDataOutstanding(pubCS.CompanyID, pubCS.ProgramID, intBPID)
+                    dtItem = BL.PurchaseOrderCutting.ListDataOutstandingPayment(pubCS.CompanyID, pubCS.ProgramID, intBPID)
                 Else
                     If clsData.IsDeleted Then
                         dtItem = BL.AccountPayable.ListDataDetail(pubID)

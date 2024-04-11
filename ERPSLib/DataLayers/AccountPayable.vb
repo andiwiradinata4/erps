@@ -1058,8 +1058,8 @@
                 .CommandText =
                     "SELECT " & vbNewLine &
                     "   CAST (1 AS BIT) AS Pick, A.PurchaseID, B.ReceiveNumber AS InvoiceNumber, B.ReceiveDate AS InvoiceDate, " & vbNewLine &
-                    "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual AS PurchaseAmount, A.Amount, " & vbNewLine &
-                    "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual-B.DPAmount-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine &
+                    "   B.TotalDPP+B.RoundingManual AS PurchaseAmount, A.Amount, " & vbNewLine &
+                    "   B.TotalDPP+B.RoundingManual-B.DPAmount-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine &
                     "   A.Remarks, B.PPN AS PPNPercent, B.PPH AS PPHPercent, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
                     "FROM traAccountPayableDet A " & vbNewLine &
                     "INNER JOIN traReceive B ON " & vbNewLine &
@@ -1071,8 +1071,8 @@
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
                     "   CAST (1 AS BIT) AS Pick, A.PurchaseID, B.CuttingNumber AS InvoiceNumber, B.CuttingDate AS InvoiceDate, " & vbNewLine &
-                    "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual AS PurchaseAmount, A.Amount, " & vbNewLine &
-                    "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual-B.DPAmount-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine &
+                    "   B.TotalDPP+B.RoundingManual AS PurchaseAmount, A.Amount, " & vbNewLine &
+                    "   B.TotalDPP+B.RoundingManual-B.DPAmount-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine &
                     "   A.Remarks, B.PPN AS PPNPercent, B.PPH AS PPHPercent, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
                     "FROM traAccountPayableDet A " & vbNewLine &
                     "INNER JOIN traCutting B ON " & vbNewLine &
@@ -1084,8 +1084,8 @@
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
                     "   CAST (1 AS BIT) AS Pick, A.PurchaseID, B.DeliveryNumber AS InvoiceNumber, B.DeliveryDate AS InvoiceDate, " & vbNewLine &
-                    "   B.TotalDPPTransport+B.TotalPPNTransport-B.TotalPPHTransport+B.RoundingManualTransport AS PurchaseAmount, A.Amount, " & vbNewLine &
-                    "   B.TotalDPPTransport+B.TotalPPNTransport-B.TotalPPHTransport+B.RoundingManualTransport-B.DPAmountTransport-B.TotalPaymentTransport+A.Amount AS MaxPaymentAmount, " & vbNewLine &
+                    "   B.TotalDPPTransport+B.RoundingManualTransport AS PurchaseAmount, A.Amount, " & vbNewLine &
+                    "   B.TotalDPPTransport+B.RoundingManualTransport-B.DPAmountTransport-B.TotalPaymentTransport+A.Amount AS MaxPaymentAmount, " & vbNewLine &
                     "   A.Remarks, B.PPN AS PPNPercent, B.PPH AS PPHPercent, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
                     "FROM traAccountPayableDet A " & vbNewLine &
                     "INNER JOIN traDelivery B ON " & vbNewLine &
@@ -1109,8 +1109,8 @@
                 .CommandText =
                     "SELECT " & vbNewLine &
                     "   CAST (1 AS BIT) AS Pick, A.PurchaseID AS InvoiceID, B.ReceiveNumber AS InvoiceNumber, B.ReceiveDate AS InvoiceDate, " & vbNewLine &
-                    "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual AS PurchaseAmount, A.Amount, " & vbNewLine &
-                    "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual-B.DPAmount-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine &
+                    "   B.TotalDPP+B.RoundingManual AS PurchaseAmount, A.Amount, " & vbNewLine &
+                    "   B.TotalDPP+B.RoundingManual-B.DPAmount-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine &
                     "   A.Remarks, B.PPN AS PPNPercent, B.PPH AS PPHPercent, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
                     "FROM traAccountPayableDet A " & vbNewLine &
                     "INNER JOIN traReceive B ON " & vbNewLine &
@@ -1121,9 +1121,35 @@
                 .CommandText +=
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.PurchaseID AS InvoiceID, B.CuttingNumber AS InvoiceNumber, B.CuttingDate AS InvoiceDate, " & vbNewLine &
+                    "   B.TotalDPP+B.RoundingManual AS PurchaseAmount, A.Amount, " & vbNewLine &
+                    "   B.TotalDPP+B.RoundingManual-B.DPAmount-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine &
+                    "   A.Remarks, B.PPN AS PPNPercent, B.PPH AS PPHPercent, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
+                    "FROM traAccountPayableDet A " & vbNewLine &
+                    "INNER JOIN traCutting B ON " & vbNewLine &
+                    "   A.PurchaseID=B.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.APID=@APID " & vbNewLine
+
+                .CommandText +=
+                    "UNION ALL " & vbNewLine &
+                    "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.PurchaseID AS InvoiceID, B.DeliveryNumber AS InvoiceNumber, B.DeliveryDate AS InvoiceDate, " & vbNewLine &
+                    "   B.TotalDPP+B.RoundingManual AS PurchaseAmount, A.Amount, " & vbNewLine &
+                    "   B.TotalDPP+B.RoundingManual-B.DPAmount-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine &
+                    "   A.Remarks, B.PPN AS PPNPercent, B.PPH AS PPHPercent, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
+                    "FROM traAccountPayableDet A " & vbNewLine &
+                    "INNER JOIN traDelivery B ON " & vbNewLine &
+                    "   A.PurchaseID=B.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.APID=@APID " & vbNewLine
+
+                .CommandText +=
+                    "UNION ALL " & vbNewLine &
+                    "SELECT " & vbNewLine &
                     "   CAST(0 AS BIT) AS Pick, A.ID AS InvoiceID, A.ReceiveNumber AS InvoiceNumber, A.ReceiveDate AS InvoiceDate, " & vbNewLine &
-                    "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine &
-                    "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual-A.DPAmount-A.TotalPayment AS MaxPaymentAmount, " & vbNewLine &
+                    "   A.TotalDPP+A.RoundingManual AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine &
+                    "   A.TotalDPP+A.RoundingManual-A.DPAmount-A.TotalPayment AS MaxPaymentAmount, " & vbNewLine &
                     "   CAST('' AS VARCHAR(500)) AS Remarks, A.PPN AS PPNPercent, A.PPH AS PPHPercent, CAST(0 AS DECIMAL(18,2)) AS PPN, " & vbNewLine &
                     "   CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS DPAmount, CAST(0 AS DECIMAL(18,2)) AS Rounding " & vbNewLine &
                     "FROM traReceive A " & vbNewLine &
@@ -1136,7 +1162,7 @@
                     "   And A.CompanyID=@CompanyID " & vbNewLine &
                     "   And A.ProgramID=@ProgramID " & vbNewLine &
                     "   And A.SubmitBy<>'' " & vbNewLine &
-                    "   AND A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual-A.DPAmount-A.TotalPayment>0 " & vbNewLine &
+                    "   AND A.TotalDPP+A.RoundingManual-A.DPAmount-A.TotalPayment>0 " & vbNewLine &
                     "   AND A.ID NOT IN " & vbNewLine &
                     "       ( " & vbNewLine &
                     "           SELECT ARD.PurchaseID 	" & vbNewLine &
@@ -1155,8 +1181,8 @@
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
                     "   CAST(0 AS BIT) AS Pick, A.ID AS InvoiceID, A.CuttingNumber AS InvoiceNumber, A.CuttingDate AS InvoiceDate, " & vbNewLine &
-                    "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine &
-                    "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual-A.DPAmount-A.TotalPayment AS MaxPaymentAmount, " & vbNewLine &
+                    "   A.TotalDPP+A.RoundingManual AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine &
+                    "   A.TotalDPP+A.RoundingManual-A.DPAmount-A.TotalPayment AS MaxPaymentAmount, " & vbNewLine &
                     "   CAST('' AS VARCHAR(500)) AS Remarks, A.PPN AS PPNPercent, A.PPH AS PPHPercent, CAST(0 AS DECIMAL(18,2)) AS PPN, " & vbNewLine &
                     "   CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS DPAmount, CAST(0 AS DECIMAL(18,2)) AS Rounding " & vbNewLine &
                     "FROM traCutting A " & vbNewLine &
@@ -1169,7 +1195,7 @@
                     "   And A.CompanyID=@CompanyID " & vbNewLine &
                     "   And A.ProgramID=@ProgramID " & vbNewLine &
                     "   And A.SubmitBy<>'' " & vbNewLine &
-                    "   AND A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual-A.DPAmount-A.TotalPayment>0 " & vbNewLine &
+                    "   AND A.TotalDPP+A.RoundingManual-A.DPAmount-A.TotalPayment>0 " & vbNewLine &
                     "   AND A.ID NOT IN " & vbNewLine &
                     "       ( " & vbNewLine &
                     "           SELECT ARD.PurchaseID 	" & vbNewLine &
@@ -1188,8 +1214,8 @@
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
                     "   CAST(0 AS BIT) AS Pick, A.ID AS InvoiceID, A.DeliveryNumber AS InvoiceNumber, A.DeliveryDate AS InvoiceDate, " & vbNewLine &
-                    "   A.TotalDPPTransport+A.TotalPPNTransport-A.TotalPPHTransport+A.RoundingManualTransport AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine &
-                    "   A.TotalDPPTransport+A.TotalPPNTransport-A.TotalPPHTransport+A.RoundingManualTransport-A.DPAmountTransport-A.TotalPaymentTransport AS MaxPaymentAmount, " & vbNewLine &
+                    "   A.TotalDPPTransport+A.RoundingManualTransport AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine &
+                    "   A.TotalDPPTransport+A.RoundingManualTransport-A.DPAmountTransport-A.TotalPaymentTransport AS MaxPaymentAmount, " & vbNewLine &
                     "   CAST('' AS VARCHAR(500)) AS Remarks, A.PPN AS PPNPercent, A.PPH AS PPHPercent, CAST(0 AS DECIMAL(18,2)) AS PPN, " & vbNewLine &
                     "   CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS DPAmount, CAST(0 AS DECIMAL(18,2)) AS Rounding " & vbNewLine &
                     "FROM traDelivery A " & vbNewLine &
@@ -1202,7 +1228,7 @@
                     "   And A.CompanyID=@CompanyID " & vbNewLine &
                     "   And A.ProgramID=@ProgramID " & vbNewLine &
                     "   And A.SubmitBy<>'' " & vbNewLine &
-                    "   AND A.TotalDPPTransport+A.TotalPPNTransport-A.TotalPPHTransport+A.RoundingManualTransport-A.DPAmountTransport-A.TotalPaymentTransport>0 " & vbNewLine &
+                    "   AND A.TotalDPPTransport+A.RoundingManualTransport-A.DPAmountTransport-A.TotalPaymentTransport>0 " & vbNewLine &
                     "   AND A.ID NOT IN " & vbNewLine &
                     "       ( " & vbNewLine &
                     "           SELECT ARD.PurchaseID 	" & vbNewLine &

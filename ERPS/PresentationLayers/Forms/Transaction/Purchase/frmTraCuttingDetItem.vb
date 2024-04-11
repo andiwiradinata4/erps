@@ -6,7 +6,7 @@ Public Class frmTraCuttingDetItem
     Private frmParent As frmTraCuttingDet
     Private bolIsNew As Boolean = False
     Private strID As String = ""
-    Private strPODetailID As String
+    Private strPODetailID As String = ""
     Private intBPID As Integer = 0
     Private intItemID As Integer = 0
     Private intPos As Integer = 0
@@ -16,6 +16,7 @@ Public Class frmTraCuttingDetItem
     Private dtItem As New DataTable
     Private drSelectedItem As DataRow
     Private dtResult As New DataTable
+    Private strPOID As String = ""
 
     Public WriteOnly Property pubBPID As Integer
         Set(value As Integer)
@@ -56,6 +57,12 @@ Public Class frmTraCuttingDetItem
     Public WriteOnly Property pubCS As VO.CS
         Set(value As VO.CS)
             clsCS = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubPOID As String
+        Set(value As String)
+            strPOID = value
         End Set
     End Property
 
@@ -293,6 +300,7 @@ Public Class frmTraCuttingDetItem
             .pubParentItem = dtItem
             .pubBPID = intBPID
             .pubCS = clsCS
+            .pubPOID = strPOID
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             If .pubIsLookupGet Then

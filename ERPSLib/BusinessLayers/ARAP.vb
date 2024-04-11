@@ -116,7 +116,9 @@ Namespace BL
 
                         '# Save Data Detail
                         Dim clsDet As New List(Of VO.AccountPayableDet)
-                        If clsDataARAP.Modules = VO.AccountPayable.ReceivePayment Then
+                        If clsDataARAP.Modules = VO.AccountPayable.ReceivePayment Or
+                            clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentCutting Or
+                            clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport Then
                             For Each cls As VO.ARAPDet In clsDataARAP.Detail
                                 clsDet.Add(New VO.AccountPayableDet With
                                         {
@@ -308,7 +310,6 @@ Namespace BL
                         BL.AccountPayable.DeleteData(sqlCon, sqlTrans, strID, strModules, strRemarks)
                     End If
 
-                    DL.ARAP.DeleteDataDP(sqlCon, sqlTrans, strID)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()

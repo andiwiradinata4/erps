@@ -45,7 +45,7 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
-        Public Shared Function ListDataOutstanding(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+        Public Shared Function ListDataOutstandingPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                    ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
                                                    ByVal intBPID As Integer) As DataTable
             Dim sqlcmdExecute As New SqlCommand
@@ -56,8 +56,8 @@
                 .CommandText =
                     "SELECT " & vbNewLine &
                     "   CAST(0 AS BIT) AS Pick, A.ID AS PurchaseID, A.PONumber AS InvoiceNumber, A.PODate AS InvoiceDate, " & vbNewLine &
-                    "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine &
-                    "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual-A.DPAmount-A.ReceiveAmount AS MaxPaymentAmount, " & vbNewLine &
+                    "   A.TotalDPP+A.RoundingManual AS PurchaseAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine &
+                    "   A.TotalDPP+A.RoundingManual-A.DPAmount-A.ReceiveAmount AS MaxPaymentAmount, " & vbNewLine &
                     "   CAST('' AS VARCHAR(500)) AS Remarks, A.PPN AS PPNPercent, A.PPH AS PPHPercent, CAST(0 AS DECIMAL(18,2)) AS PPN, " & vbNewLine &
                     "   CAST(0 AS DECIMAL(18,2)) AS PPH " & vbNewLine &
                     "FROM traPurchaseOrderCutting A " & vbNewLine &
@@ -70,7 +70,38 @@
                     "   AND A.CompanyID=@CompanyID " & vbNewLine &
                     "   AND A.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.ApprovedBy<>'' " & vbNewLine &
-                    "   AND A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual-A.DPAmount-A.ReceiveAmount>0 " & vbNewLine
+                    "   AND A.TotalDPP+A.RoundingManual-A.DPAmount-A.ReceiveAmount>0 " & vbNewLine
+
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataOutstandingCutting(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                          ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                          ByVal intBPID As Integer) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT DISTINCT " & vbNewLine &
+                    "   A.ID, A.PONumber, A.PODate, A.BPID, MBP.Code AS BPCode, MBP.Name AS BPName " & vbNewLine &
+                    "FROM traPurchaseOrderCutting A " & vbNewLine &
+                    "INNER JOIN traPurchaseOrderCuttingDet POD ON " & vbNewLine &
+                    "   A.ID=POD.POID " & vbNewLine &
+                    "INNER JOIN mstBusinessPartner MBP ON " & vbNewLine &
+                    "   A.BPID=MBP.ID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   A.BPID=@BPID " & vbNewLine &
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.ApprovedBy<>'' " & vbNewLine &
+                    "   AND POD.Quantity-POD.DoneQuantity>0 " & vbNewLine &
+                    "   AND POD.TotalWeight-POD.DoneWeight>0 " & vbNewLine
 
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
@@ -723,7 +754,7 @@
 
         Public Shared Function ListDataDetailOutstandingDone(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                              ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                             ByVal intBPID As Integer) As DataTable
+                                                             ByVal intBPID As Integer, ByVal strPOID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -752,12 +783,14 @@
                     "   AND A1.StatusID=@StatusID " & vbNewLine &
                     "   AND A1.ApprovedBy<>'' " & vbNewLine &
                     "   AND A.Quantity-A.DoneQuantity>0	" & vbNewLine &
-                    "   AND A.TotalWeight-A.DoneWeight>0	" & vbNewLine
+                    "   AND A.TotalWeight-A.DoneWeight>0	" & vbNewLine &
+                    "   AND A.POID=@POID" & vbNewLine
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
+                .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = strPOID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function

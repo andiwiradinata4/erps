@@ -150,7 +150,7 @@
     Private Sub prvGetAmount()
         If enumDPType = VO.ARAP.ARAPTypeValue.Sales Then
             Dim clsReferences As VO.SalesContract = BL.SalesContract.GetDetail(strReferencesID)
-            txtGrandTotalContract.Value = clsReferences.GrandTotal
+            txtGrandTotalContract.Value = clsReferences.TotalDPP
             txtTotalPayment.Value = clsReferences.DPAmount + clsReferences.ReceiveAmount - txtTotalAmount.Value
             decPPN = clsReferences.PPN
             decPPH = clsReferences.PPH
@@ -165,7 +165,7 @@
             Else
                 Exit Sub
             End If
-            txtGrandTotalContract.Value = clsReferences.GrandTotal
+            txtGrandTotalContract.Value = clsReferences.TotalDPP
             txtTotalPayment.Value = clsReferences.DPAmount + clsReferences.ReceiveAmount - txtTotalAmount.Value
             decPPN = clsReferences.PPN
             decPPH = clsReferences.PPH

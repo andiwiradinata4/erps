@@ -583,3 +583,4 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptKartuPiutangVer00.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptKartuHutangPiutangReportVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraReceiveDetOutstandingContract.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptKartuPiutangVer00.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraCuttingDetOutstandingPO.resources

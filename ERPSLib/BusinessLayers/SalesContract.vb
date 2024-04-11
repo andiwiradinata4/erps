@@ -195,7 +195,7 @@
                     Next
 
                     '# Revert SC Quantity in Confirmation Order
-                    For Each dr As DataRow In dtItem.Rows
+                    For Each dr As DataRow In dtItemCO.Rows
                         DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
                     Next
 

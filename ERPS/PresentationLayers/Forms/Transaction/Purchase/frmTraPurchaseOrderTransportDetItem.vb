@@ -202,7 +202,7 @@
         cboItemType.SelectedIndex = -1
         cboItemSpecification.SelectedIndex = -1
         txtThick.Value = 0
-        txtWeight.Value = 0
+        txtWidth.Value = 0
         txtLength.Value = 0
         txtWeight.Value = 0
         txtMaxTotalWeight.Value = 0

@@ -29,6 +29,8 @@ Public Class frmTraCutting
         UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "BPCode", "Kode Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "BPName", "Nama Pemasok", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "POID", "POID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "PONumber", "Nomor Pesanan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ReferencesNumber", "No. Referensi", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "TotalQuantity", "Total Quantity", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)

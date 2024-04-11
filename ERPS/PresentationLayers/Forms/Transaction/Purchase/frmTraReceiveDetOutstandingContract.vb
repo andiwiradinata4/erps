@@ -35,7 +35,7 @@
         UI.usForm.SetGrid(grdView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "PCNumber", "Nomor Kontrak", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PCDate", "Tanggal Kontrak", 100, UI.usDefGrid.gSmallDate)
-        UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "BPCode", "Kode Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "BPName", "Nama Pemasok", 100, UI.usDefGrid.gString)
     End Sub
@@ -50,7 +50,7 @@
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         Try
-            grdMain.DataSource = BL.PurchaseContract.ListDataOutstandingReceive(clsCS.ProgramID, clsCS.CompanyID, intBPID)
+            grdMain.DataSource = BL.PurchaseContract.ListDataOutstandingReceive(clsCS.CompanyID, clsCS.ProgramID, intBPID)
             grdView.BestFitColumns()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)

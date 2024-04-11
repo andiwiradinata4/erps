@@ -9,6 +9,7 @@ Public Class frmTraCuttingDet
     Private dtItem As New DataTable
     Private dtItemResult As New DataTable
     Private intPos As Integer = 0
+    Private strPOID As String = ""
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
@@ -116,6 +117,8 @@ Public Class frmTraCuttingDet
                 txtBPCode.Text = clsData.BPCode
                 txtBPName.Text = clsData.BPName
                 dtpCuttingDate.Value = clsData.CuttingDate
+                strPOID = clsData.POID
+                txtPONumber.Text = clsData.PONumber
                 txtReferencesNumber.Text = clsData.ReferencesNumber
                 txtPPN.Value = clsData.PPN
                 txtPPH.Value = clsData.PPH
@@ -225,6 +228,8 @@ Public Class frmTraCuttingDet
         clsData.RoundingManual = 0
         clsData.Remarks = txtRemarks.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
+        clsData.POID = strPOID
+        clsData.PONumber = txtPONumber.Text.Trim
         clsData.Detail = listDetail
         clsData.DetailResult = listDetailResult
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
@@ -266,6 +271,8 @@ Public Class frmTraCuttingDet
         txtBPCode.Text = ""
         txtBPName.Text = ""
         dtpCuttingDate.Value = Now
+        strPOID = ""
+        txtPONumber.Text = ""
         txtReferencesNumber.Text = ""
         txtPPN.Value = 0
         txtPPH.Value = 0
@@ -287,6 +294,12 @@ Public Class frmTraCuttingDet
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
             If .pubIsLookUpGet Then
+                If intBPID <> .pubLUdtRow.Item("ID") Then
+                    strPOID = ""
+                    txtPONumber.Text = ""
+                    prvClearItem()
+                End If
+
                 intBPID = .pubLUdtRow.Item("ID")
                 txtBPCode.Text = .pubLUdtRow.Item("Code")
                 txtBPName.Text = .pubLUdtRow.Item("Name")
@@ -347,6 +360,32 @@ Public Class frmTraCuttingDet
         grdItemResultView.ExpandAllGroups()
     End Sub
 
+    Private Sub prvChoosePO()
+        If intBPID = 0 Or txtBPCode.Text.Trim = "" Or txtBPName.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih Pemasok terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtBPCode.Focus()
+            Exit Sub
+        End If
+        Dim frmDetail As New frmTraCuttingDetOutstandingPO
+        With frmDetail
+            .pubBPID = intBPID
+            .pubCS = pubCS
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                If strPOID.Trim <> .pubLUdtRow.Item("ID") Then
+                    prvClearItem()
+                    Dim clsPO As VO.PurchaseOrderCutting = BL.PurchaseOrderCutting.GetDetail(.pubLUdtRow.Item("ID"))
+                    txtPPN.Value = clsPO.PPN
+                    txtPPH.Value = clsPO.PPH
+                End If
+                strPOID = .pubLUdtRow.Item("ID")
+                txtPONumber.Text = .pubLUdtRow.Item("PONumber")
+            End If
+        End With
+    End Sub
+
 #Region "Item Handle"
 
     Private Sub prvSetButtonItem()
@@ -355,6 +394,13 @@ Public Class frmTraCuttingDet
             .Buttons(cEditItem).Enabled = bolEnabled
             .Buttons(cDeleteItem).Enabled = bolEnabled
         End With
+    End Sub
+
+    Private Sub prvClearItem()
+        dtItem.Clear()
+        dtItem.AcceptChanges()
+        grdItem.DataSource = dtItem
+        prvCalculate()
     End Sub
 
     Private Sub prvQueryItem()
@@ -380,7 +426,13 @@ Public Class frmTraCuttingDet
     Private Sub prvAddItem()
         If txtBPCode.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Pilih Pemasok terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
             txtBPCode.Focus()
+            Exit Sub
+        ElseIf strPOID.Trim = "" Or txtPONumber.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih Nomor Pesanan terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtPONumber.Focus()
             Exit Sub
         End If
         Dim frmDetail As New frmTraCuttingDetItem
@@ -390,6 +442,7 @@ Public Class frmTraCuttingDet
             .pubBPID = intBPID
             .pubTableItem = dtItem
             .pubTableItemResultParent = dtItemResult
+            .pubPOID = strPOID
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -399,6 +452,17 @@ Public Class frmTraCuttingDet
     End Sub
 
     Private Sub prvEditItem()
+        If txtBPCode.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih Pemasok terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtBPCode.Focus()
+            Exit Sub
+        ElseIf strPOID.Trim = "" Or txtPONumber.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih Nomor Pesanan terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtPONumber.Focus()
+            Exit Sub
+        End If
         intPos = grdItemView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         Dim frmDetail As New frmTraCuttingDetItem
@@ -409,6 +473,7 @@ Public Class frmTraCuttingDet
             .pubTableItem = dtItem
             .pubTableItemResultParent = dtItemResult
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
+            .pubPOID = strPOID
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -555,6 +620,10 @@ Public Class frmTraCuttingDet
 
     Private Sub btnBP_Click(sender As Object, e As EventArgs) Handles btnBP.Click
         prvChooseBP()
+    End Sub
+
+    Private Sub btnPurchaseOrder_Click(sender As Object, e As EventArgs) Handles btnPurchaseOrder.Click
+        prvChoosePO()
     End Sub
 
     Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtPPN.ValueChanged, txtPPH.ValueChanged

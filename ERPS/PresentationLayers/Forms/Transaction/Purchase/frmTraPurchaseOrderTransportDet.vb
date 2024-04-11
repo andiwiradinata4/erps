@@ -337,6 +337,12 @@ Public Class frmTraPurchaseOrderTransportDet
                     txtBPCode.Text = .pubLUdtRow.Item("Code")
                     txtBPName.Text = .pubLUdtRow.Item("Name")
                 ElseIf enumchooseBP = ChooseBP.Customer Then
+                    If intCustomerID <> .pubLUdtRow.Item("ID") Then
+                        strSCID = ""
+                        txtSCNumber.Text = ""
+                        prvClearItem()
+                    End If
+
                     intCustomerID = .pubLUdtRow.Item("ID")
                     txtCustomerCode.Text = .pubLUdtRow.Item("Code")
                     txtCustomerName.Text = .pubLUdtRow.Item("Name")
@@ -353,6 +359,10 @@ Public Class frmTraPurchaseOrderTransportDet
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
             If .pubIsLookupGet Then
+                If strSCID <> .pubLUdtRow.Item("ID") Then
+                    prvClearItem()
+                End If
+
                 strSCID = .pubLUdtRow.Item("ID")
                 txtSCNumber.Text = .pubLUdtRow.Item("SCNumber")
             End If
@@ -413,6 +423,13 @@ Public Class frmTraPurchaseOrderTransportDet
             .Buttons(cEditItem).Enabled = bolEnabled
             .Buttons(cDeleteItem).Enabled = bolEnabled
         End With
+    End Sub
+
+    Private Sub prvClearItem()
+        dtItem.Clear()
+        dtItem.AcceptChanges()
+        grdItem.DataSource = dtItem
+        prvCalculate()
     End Sub
 
     Private Sub prvQueryItem()

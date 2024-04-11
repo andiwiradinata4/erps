@@ -17,7 +17,7 @@ Public Class frmTraARAPDetVer2
     Private bolIsNew As Boolean = False
     Private clsCS As New VO.CS
     Private decPPN As Decimal = 0, decPPH As Decimal = 0
-    Private dtItem As New DataTable, dtDP As New DataTable
+    Private dtItem As New DataTable
     Private bolIsLookup As Boolean = False
     Private bolValid As Boolean = True
 
@@ -199,6 +199,7 @@ Public Class frmTraARAPDetVer2
 
     Private Sub prvSave()
         ToolBar.Focus()
+        If Not bolValid Then Exit Sub
         If txtBPCode.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Pilih pelanggan terlebih dahulu")
             tcHeader.SelectedTab = tpMain
@@ -227,6 +228,17 @@ Public Class frmTraARAPDetVer2
         ElseIf grdItemView.RowCount = 0 Then
             UI.usForm.frmMessageBox("Pilih item yang ingin di proses")
             tcHeader.SelectedTab = tpMain
+            grdItemView.Focus()
+            Exit Sub
+        End If
+
+        Dim decTotalDPUsed As Decimal = 0
+        For i As Integer = 0 To grdItemView.RowCount - 1
+            decTotalDPUsed += grdItemView.GetRowCellValue(i, "DPAmount")
+        Next
+
+        If txtTotalDP.Value <> decTotalDPUsed Then
+            UI.usForm.frmMessageBox("Total Panjar dan Total Alokasi Panjar harus sesuai")
             grdItemView.Focus()
             Exit Sub
         End If
@@ -309,6 +321,8 @@ Public Class frmTraARAPDetVer2
             frmParent.pubRefresh(strARAPNumber)
             If bolIsNew Then
                 prvClear()
+                prvQueryItem()
+                prvQueryDP()
                 prvQueryHistory()
             Else
                 Me.Close()
@@ -330,7 +344,7 @@ Public Class frmTraARAPDetVer2
         If Not bolIsLookup Then txtBPCode.Text = ""
         If Not bolIsLookup Then txtBPName.Text = ""
         If Not bolIsLookup Then strReferencesID = ""
-        txtReferencesNumber.Text = ""
+        If Not bolIsLookup Then txtReferencesNumber.Text = ""
         intCoAID = 0
         txtCoACode.Text = ""
         txtCoAName.Text = ""
@@ -406,6 +420,7 @@ Public Class frmTraARAPDetVer2
         With ToolBarDetail
             .Buttons(cCheckAll).Enabled = bolEnabled
             .Buttons(cUncheckAll).Enabled = bolEnabled
+            .Buttons(cAllocateDP).Enabled = bolEnabled
         End With
     End Sub
 

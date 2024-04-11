@@ -348,6 +348,7 @@ Public Class frmTraReceiveDet
         dtItem.Clear()
         dtItem.AcceptChanges()
         grdItem.DataSource = dtItem
+        prvCalculate()
     End Sub
 
     Private Sub prvQueryItem()

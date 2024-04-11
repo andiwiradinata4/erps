@@ -12,11 +12,19 @@
             End Using
         End Function
 
-        Public Shared Function ListDataOutstanding(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+        Public Shared Function ListDataOutstandingPayment(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
                                                    ByVal intBPID As Integer) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.PurchaseOrderCutting.ListDataOutstanding(sqlCon, Nothing, intCompanyID, intProgramID, intBPID)
+                Return DL.PurchaseOrderCutting.ListDataOutstandingPayment(sqlCon, Nothing, intCompanyID, intProgramID, intBPID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataOutstandingCutting(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                          ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseOrderCutting.ListDataOutstandingCutting(sqlCon, Nothing, intCompanyID, intProgramID, intBPID)
             End Using
         End Function
 
@@ -370,10 +378,10 @@
         End Function
 
         Public Shared Function ListDataDetailOutstandingDone(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                             ByVal intBPID As Integer) As DataTable
+                                                             ByVal intBPID As Integer, ByVal strPOID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.PurchaseOrderCutting.ListDataDetailOutstandingDone(sqlCon, Nothing, intProgramID, intCompanyID, intBPID)
+                Return DL.PurchaseOrderCutting.ListDataDetailOutstandingDone(sqlCon, Nothing, intProgramID, intCompanyID, intBPID, strPOID)
             End Using
         End Function
 
