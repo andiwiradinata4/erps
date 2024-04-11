@@ -138,24 +138,37 @@
         End Sub
 
         Public Shared Sub CalculateTotalAmountUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                   ByVal strID As String)
+                                                   ByVal strID As String, ByVal enumDPType As VO.ARAP.ARAPTypeValue)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText =
-                    "UPDATE traAccountPayable SET 	" & vbNewLine &
-                    "	TotalAmountUsed=	" & vbNewLine &
-                    "	(	" & vbNewLine &
-                    "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(DP.DPAmount),0) DPAmount " & vbNewLine &
-                    "		FROM traARAPDP DP " & vbNewLine &
-                    "		WHERE 	" & vbNewLine &
-                    "			DP.DPID=@ID " & vbNewLine &
-                    "	) " & vbNewLine &
-                    "WHERE ID=@ID " & vbNewLine
-
+                If enumDPType = VO.ARAP.ARAPTypeValue.Purchase Then
+                    .CommandText =
+                        "UPDATE traAccountPayable SET 	" & vbNewLine &
+                        "	TotalAmountUsed=	" & vbNewLine &
+                        "	(	" & vbNewLine &
+                        "		SELECT	" & vbNewLine &
+                        "			ISNULL(SUM(DP.DPAmount),0) DPAmount " & vbNewLine &
+                        "		FROM traARAPDP DP " & vbNewLine &
+                        "		WHERE 	" & vbNewLine &
+                        "			DP.DPID=@ID " & vbNewLine &
+                        "	) " & vbNewLine &
+                        "WHERE ID=@ID " & vbNewLine
+                ElseIf enumDPType = VO.ARAP.ARAPTypeValue.Sales Then
+                    .CommandText =
+                        "UPDATE traAccountReceivable SET 	" & vbNewLine &
+                        "	TotalAmountUsed=	" & vbNewLine &
+                        "	(	" & vbNewLine &
+                        "		SELECT	" & vbNewLine &
+                        "			ISNULL(SUM(DP.DPAmount),0) DPAmount " & vbNewLine &
+                        "		FROM traARAPDP DP " & vbNewLine &
+                        "		WHERE 	" & vbNewLine &
+                        "			DP.DPID=@ID " & vbNewLine &
+                        "	) " & vbNewLine &
+                        "WHERE ID=@ID " & vbNewLine
+                End If
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
             End With
             Try

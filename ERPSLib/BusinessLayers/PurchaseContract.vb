@@ -48,9 +48,7 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-
                     BL.PurchaseContract.SaveData(sqlCon, sqlTrans, bolNew, clsData)
-
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -75,6 +73,13 @@
                 For Each dr As DataRow In dtItem.Rows
                     DL.ConfirmationOrder.CalculatePCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
                 Next
+
+                Dim clsExists As VO.PurchaseContract = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, clsData.ID)
+                If clsExists.DPAmount > 0 Then
+                    Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses panjar")
+                ElseIf clsExists.ReceiveAmount > 0 Then
+                    Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pembayaran")
+                End If
             End If
 
             Dim intStatusID As Integer = DL.PurchaseContract.GetStatusID(sqlCon, sqlTrans, clsData.ID)

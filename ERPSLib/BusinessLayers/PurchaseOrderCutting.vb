@@ -54,6 +54,13 @@
                         For Each dr As DataRow In dtItem.Rows
                             DL.PurchaseContract.CalculateCuttingTotalUsed(sqlCon, sqlTrans, dr.Item("PCDetailID"))
                         Next
+
+                        Dim clsExists As VO.PurchaseOrderCutting = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsData.ID)
+                        If clsExists.DPAmount > 0 Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses panjar")
+                        ElseIf clsExists.ReceiveAmount > 0 Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pembayaran")
+                        End If
                     End If
 
                     Dim intStatusID As Integer = DL.PurchaseOrderCutting.GetStatusID(sqlCon, sqlTrans, clsData.ID)

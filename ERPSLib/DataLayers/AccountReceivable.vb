@@ -40,21 +40,13 @@
                     "   AND A.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.ARDate>=@DateFrom AND A.ARDate<=@DateTo " & vbNewLine
 
-                If strModules.Trim <> VO.AccountReceivable.All Then
-                    .CommandText += "   AND A.Modules=@Modules " & vbNewLine
-                End If
+                If strModules.Trim <> VO.AccountReceivable.All Then .CommandText += "   AND A.Modules=@Modules " & vbNewLine
 
-                If intStatusID <> VO.Status.Values.All Then
-                    .CommandText += "    AND A.StatusID=@StatusID " & vbNewLine
-                End If
+                If intStatusID <> VO.Status.Values.All Then .CommandText += "    AND A.StatusID=@StatusID" & vbNewLine
 
-                If intBPID <> 0 Then
-                    .CommandText += "    AND A.BPID=@BPID " & vbNewLine
-                End If
+                If intBPID <> 0 Then .CommandText += "    AND A.BPID=@BPID " & vbNewLine
 
-                If strReferencesID.Trim <> "" Then
-                    .CommandText += "   AND A.ID IN (SELECT ARID FROM traAccountReceivableDet WHERE SalesID=@ReferencesID)"
-                End If
+                If strReferencesID.Trim <> "" Then .CommandText += "   AND A.ReferencesID=@ReferencesID " & vbNewLine
 
                 .CommandText += "ORDER BY A.ARDate, A.ID ASC " & vbNewLine
 
@@ -846,7 +838,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT " & vbNewLine &
-                    "   CAST (1 AS BIT) AS Pick, A.SalesID, B.SCNumber AS InvoiceNumber, B.SCDate AS InvoiceDate, " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.SalesID AS InvoiceID, B.SCNumber AS InvoiceNumber, B.SCDate AS InvoiceDate, " & vbNewLine &
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual AS SalesAmount, A.Amount, " & vbNewLine &
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual-B.DPAmount-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, " & vbNewLine &
                     "   A.Remarks, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
@@ -973,6 +965,94 @@
             End Try
         End Sub
 
+        Public Shared Function ListDataDetailRev01(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal strARID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.SalesID AS InvoiceID, B.SCNumber AS InvoiceNumber, B.SCDate AS InvoiceDate, " & vbNewLine &
+                    "   B.TotalDPP+B.RoundingManual AS InvoiceAmount, A.Amount, " & vbNewLine &
+                    "   B.TotalDPP+B.RoundingManual-B.DPAmount-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, " & vbNewLine &
+                    "   A.Remarks, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
+                    "FROM traAccountReceivableDet A " & vbNewLine &
+                    "INNER JOIN traSalesContract B ON " & vbNewLine &
+                    "   A.SalesID=B.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ARID=@ARID " & vbNewLine
+
+                .Parameters.Add("@ARID", SqlDbType.VarChar, 100).Value = strARID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataDetailWithOutstandingRev01(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                  ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                  ByVal intBPID As Integer, ByVal strARID As String,
+                                                                  ByVal strReferencesID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.SalesID AS InvoiceID, B.DeliveryNumber AS InvoiceNumber, B.DeliveryDate AS InvoiceDate, " & vbNewLine &
+                    "   B.TotalDPP+B.RoundingManual AS InvoiceAmount, A.Amount, " & vbNewLine &
+                    "   B.TotalDPP+B.RoundingManual-B.DPAmount-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine &
+                    "   A.Remarks, B.PPN AS PPNPercent, B.PPH AS PPHPercent, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
+                    "FROM traAccountReceivableDet A " & vbNewLine &
+                    "INNER JOIN traDelivery B ON " & vbNewLine &
+                    "   A.SalesID=B.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ARID=@ARID " & vbNewLine
+
+                .CommandText +=
+                    "UNION ALL " & vbNewLine &
+                    "SELECT " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, A.ID AS InvoiceID, A.DeliveryNumber AS InvoiceNumber, A.DeliveryDate AS InvoiceDate, " & vbNewLine &
+                    "   A.TotalDPP+A.RoundingManual AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine &
+                    "   A.TotalDPP+A.RoundingManual-A.DPAmount-A.TotalPayment AS MaxPaymentAmount, " & vbNewLine &
+                    "   CAST('' AS VARCHAR(500)) AS Remarks, A.PPN AS PPNPercent, A.PPH AS PPHPercent, CAST(0 AS DECIMAL(18,2)) AS PPN, " & vbNewLine &
+                    "   CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS DPAmount, CAST(0 AS DECIMAL(18,2)) AS Rounding " & vbNewLine &
+                    "FROM traDelivery A " & vbNewLine &
+                    "INNER JOIN mstCompany MC ON " & vbNewLine &
+                    "   A.CompanyID=MC.ID " & vbNewLine &
+                    "INNER JOIN mstProgram MP ON " & vbNewLine &
+                    "   A.ProgramID=MP.ID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   A.BPID=@BPID " & vbNewLine &
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.SCID=@ReferencesID " & vbNewLine &
+                    "   AND A.SubmitBy<>'' " & vbNewLine &
+                    "   AND A.TotalDPP+A.RoundingManual-A.DPAmount-A.TotalPayment>0 " & vbNewLine &
+                    "   AND A.ID NOT IN " & vbNewLine &
+                    "       ( " & vbNewLine &
+                    "           SELECT ARD.SalesID 	" & vbNewLine &
+                    "           FROM traAccountReceivableDet ARD 	" & vbNewLine &
+                    "           INNER JOIN traAccountReceivable ARH ON 	" & vbNewLine &
+                    "	        ARD.ARID=ARH.ID		" & vbNewLine &
+                    "           WHERE 	" & vbNewLine &
+                    "               ARH.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	            AND ARH.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	            AND ARH.BPID=@BPID " & vbNewLine &
+                    "	            AND ARH.IsDeleted=0	" & vbNewLine &
+                    "	            AND ARH.ID=@ARID " & vbNewLine &
+                    "       ) " & vbNewLine
+
+                .Parameters.Add("@ARID", SqlDbType.VarChar, 100).Value = strARID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+                .Parameters.Add("@ReferencesID", SqlDbType.VarChar, 100).Value = strReferencesID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
 #End Region
 
 #Region "Status"
@@ -1053,6 +1133,92 @@
                 If Not sqlrdData Is Nothing Then sqlrdData.Close()
             End Try
             Return intReturn
+        End Function
+
+#End Region
+
+#Region "Down Payment"
+
+        Public Shared Function ListDataDownPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal strParentID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   CAST(1 AS BIT) AS Pick, A.DPID, B.ARNumber AS DPNumber, B.ARDate AS DPDate, A.DPAmount, MaxDPAmount=B.TotalAmount-B.TotalAmountUsed+A.DPAmount " & vbNewLine &
+                    "FROM traARAPDP A " & vbNewLine &
+                    "INNER JOIN traAccountReceivable B ON " & vbNewLine &
+                    "   A.DPID=B.ID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   A.ParentID=@ParentID " & vbNewLine
+
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataDownPaymentWithOutstanding(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                  ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                  ByVal intBPID As Integer, ByVal strModules As String,
+                                                                  ByVal strParentID As String, ByVal strReferencesID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   CAST(1 AS BIT) AS Pick, A.DPID, B.ARNumber AS DPNumber, B.ARDate AS DPDate, A.DPAmount, MaxDPAmount=B.TotalAmount-B.TotalAmountUsed+A.DPAmount " & vbNewLine &
+                    "FROM traARAPDP A " & vbNewLine &
+                    "INNER JOIN traAccountReceivable B ON " & vbNewLine &
+                    "   A.DPID=B.ID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   A.ParentID=@ParentID " & vbNewLine &
+                    "   AND B.ReferencesID=@ReferencesID " & vbNewLine
+
+                .CommandText +=
+                    "UNION ALL " & vbNewLine &
+                    "SELECT " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, A.ID AS DPID, A.ARNumber AS DPNumber, A.ARDate AS DPDate, A.TotalAmount, MaxDPAmount=A.TotalAmount-A.TotalAmountUsed " & vbNewLine &
+                    "FROM traAccountReceivable A " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   A.BPID=@BPID " & vbNewLine &
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.IsDP=1 " & vbNewLine &
+                    "   AND A.ApprovedBy<>'' " & vbNewLine &
+                    "   AND A.TotalAmount-A.TotalAmountUsed>0 " & vbNewLine &
+                    "   AND A.ReferencesID=@ReferencesID " & vbNewLine &
+                    "   AND A.ID NOT IN " & vbNewLine &
+                    "       ( " & vbNewLine &
+                    "           SELECT ARAPDP.DPID 	" & vbNewLine &
+                    "           FROM traARAPDP ARAPDP 	" & vbNewLine &
+                    "           INNER JOIN traAccountReceivable APH ON 	" & vbNewLine &
+                    "	            ARAPDP.DPID=APH.ID		" & vbNewLine &
+                    "           WHERE 	" & vbNewLine &
+                    "               APH.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	            AND APH.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	            AND APH.BPID=@BPID " & vbNewLine &
+                    "	            AND APH.IsDeleted=0	" & vbNewLine &
+                    "	            AND ARAPDP.ParentID=@ParentID " & vbNewLine &
+                    "       ) " & vbNewLine
+
+
+                If strModules.Trim <> VO.AccountPayable.All Then
+                    .CommandText += "   AND A.Modules=@Modules " & vbNewLine
+                End If
+
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = strModules
+                .Parameters.Add("@ReferencesID", SqlDbType.VarChar, 250).Value = strReferencesID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
 #End Region

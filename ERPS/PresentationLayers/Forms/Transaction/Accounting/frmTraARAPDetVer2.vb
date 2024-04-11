@@ -117,7 +117,7 @@ Public Class frmTraARAPDetVer2
         UI.usForm.SetGrid(grdItemView, "InvoiceID", "InvoiceID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "InvoiceNumber", "Nomor Invoice", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "InvoiceDate", "Tanggal Invoice", 250, UI.usDefGrid.gSmallDate)
-        UI.usForm.SetGrid(grdItemView, "PurchaseAmount", "PurchaseAmount", 250, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdItemView, "InvoiceAmount", "InvoiceAmount", 250, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemView, "Amount", "Total Tagihan", 150, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "DPAmount", "Total Panjar", 150, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "PPNPercent", "PPNPercent", 150, UI.usDefGrid.gReal2Num, False)
@@ -309,6 +309,7 @@ Public Class frmTraARAPDetVer2
         clsData.Detail = listDetail
         clsData.DownPayment = listDownPayment
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+        clsData.ARAPType = enumARAPType
         clsData.Save = intSave
 
         pgMain.Value = 60
@@ -429,12 +430,12 @@ Public Class frmTraARAPDetVer2
             pgMain.Value = 30
             Me.Cursor = Cursors.WaitCursor
             If bolIsNew Then
-                dtItem = BL.ARAP.ListDataDetailWithOutstanding(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType)
+                dtItem = BL.ARAP.ListDataDetailWithOutstanding(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID)
             Else
                 If clsData.IsDeleted Then
                     dtItem = BL.ARAP.ListDataDetail(strID, enumARAPType)
                 Else
-                    dtItem = BL.ARAP.ListDataDetailWithOutstanding(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType)
+                    dtItem = BL.ARAP.ListDataDetailWithOutstanding(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID)
                 End If
             End If
             grdItem.DataSource = dtItem
@@ -525,7 +526,7 @@ Public Class frmTraARAPDetVer2
             If clsData.IsDeleted Then
                 grdDownPayment.DataSource = BL.ARAP.ListDataDownpayment(strID, enumARAPType)
             Else
-                grdDownPayment.DataSource = BL.ARAP.ListDataDownPaymentWithOutstanding(clsCS.CompanyID, clsCS.ProgramID, intBPID, strDPModules, strID, enumARAPType)
+                grdDownPayment.DataSource = BL.ARAP.ListDataDownPaymentWithOutstanding(clsCS.CompanyID, clsCS.ProgramID, intBPID, strDPModules, strID, enumARAPType, strReferencesID)
             End If
             grdDownPaymentView.BestFitColumns()
 

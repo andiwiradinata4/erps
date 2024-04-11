@@ -37,11 +37,12 @@
         Property IsDP As Boolean
         Property DPAmount As Decimal
         Property ReceiveAmount As Decimal
+        Property TotalAmountUsed As Decimal
         Property Detail As New List(Of VO.ARAPDet)
         Property DownPayment As New List(Of VO.ARAPDP)
         Property DownPaymentDetail As New List(Of VO.ARAPDPDet)
         Property Save As VO.Save.Action
-        Property DPType As VO.ARAP.ARAPTypeValue
+        Property ARAPType As VO.ARAP.ARAPTypeValue
 
         Enum ARAPTypeValue
             All

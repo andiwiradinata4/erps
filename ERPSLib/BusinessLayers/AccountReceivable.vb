@@ -68,27 +68,38 @@
                 Else
                     Dim dtItem As New DataTable
 
-                    '# For Setup Balance
                     If clsData.Modules.Trim = VO.AccountReceivable.SalesBalance Then
                         dtItem = DL.AccountReceivable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, clsData.ID)
                     ElseIf clsData.Modules.Trim = VO.AccountReceivable.DownPayment Or
                         clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then
                         dtItem = DL.AccountReceivable.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
+                        dtItem.Merge(DL.AccountReceivable.ListDataDetailRev01(sqlCon, sqlTrans, clsData.ID))
                     End If
 
                     DL.AccountReceivable.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
 
                     '# Revert Payment Amount
                     For Each dr As DataRow In dtItem.Rows
-                        '# For Setup Balance
                         If clsData.Modules.Trim = VO.AccountReceivable.SalesBalance Then
-                            DL.BusinessPartnerARBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("SalesID"))
+                            DL.BusinessPartnerARBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                         ElseIf clsData.Modules.Trim = VO.AccountReceivable.DownPayment Then
-                            DL.SalesContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("SalesID"))
+                            DL.SalesContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                         ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then
-                            DL.SalesContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("SalesID"))
+                            DL.Delivery.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                         End If
                     Next
+
+                    '# Revert Down Payment
+                    Dim dtDownPayment As DataTable = DL.AccountReceivable.ListDataDownPayment(sqlCon, sqlTrans, clsData.ID)
+                    DL.ARAP.DeleteDataDP(sqlCon, sqlTrans, clsData.ID)
+                    For Each dr As DataRow In dtDownPayment.Rows
+                        DL.ARAP.CalculateTotalAmountUsed(sqlCon, sqlTrans, dr.Item("DPID"), VO.ARAP.ARAPTypeValue.Sales)
+                    Next
+
+                    Dim clsExists As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, clsData.ID)
+                    If clsExists.TotalAmountUsed > 0 Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah dipakai ditransaksi lain")
+                    End If
                 End If
 
                 Dim intStatusID As Integer = DL.AccountReceivable.GetStatusID(sqlCon, sqlTrans, clsData.ID)
@@ -116,17 +127,29 @@
                     intCount += 1
                 Next
 
+                '# Save Data Down Payment
+                intCount = 1
+                For Each clsDet As VO.ARAPDP In clsData.ARAPDownPayment
+                    clsDet.ID = clsData.ID & "-" & 1 & "-" & Format(intCount, "000")
+                    clsDet.ParentID = clsData.ID
+                    DL.ARAP.SaveDataDP(sqlCon, sqlTrans, clsDet)
+                    DL.ARAP.CalculateTotalAmountUsed(sqlCon, sqlTrans, clsDet.DPID, VO.ARAP.ARAPTypeValue.Sales)
+                    intCount += 1
+                Next
+
                 '# Calculate Payment Amount
                 For Each clsDet As VO.AccountReceivableDet In clsData.Detail
-                    '# For Setup Balance
                     If clsData.Modules = VO.AccountReceivable.SalesBalance Then
                         DL.BusinessPartnerARBalance.CalculateTotalUsed(sqlCon, sqlTrans, clsDet.SalesID)
                     ElseIf clsData.Modules.Trim = VO.AccountReceivable.DownPayment Then
                         DL.SalesContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.SalesID)
                     ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then
-                        DL.SalesContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.SalesID)
+                        DL.Delivery.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.SalesID)
                     End If
                 Next
+
+                '# Calculate Sales Contract
+                If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then DL.SalesContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
 
                 '# Save Data Status
                 BL.AccountReceivable.SaveDataStatus(sqlCon, sqlTrans, clsData.ID, IIf(bolNew, "BARU", "EDIT"), ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
@@ -162,6 +185,7 @@
         Public Shared Sub DeleteData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                      ByVal strID As String, ByVal strModules As String, ByVal strRemarks As String)
             Try
+                Dim clsExists As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
                 Dim intStatusID As Integer = DL.AccountReceivable.GetStatusID(sqlCon, sqlTrans, strID)
                 If intStatusID = VO.Status.Values.Submit Then
                     Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah di submit")
@@ -171,31 +195,41 @@
                     Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan status data telah DIBAYAR")
                 ElseIf DL.AccountReceivable.IsDeleted(sqlCon, sqlTrans, strID) Then
                     Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
+                ElseIf clsExists.TotalAmountUsed > 0 Then
+                    Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah dipakai ditransaksi lain")
                 End If
 
                 Dim dtItem As New DataTable
-
-                '# For Setup Balance
                 If strModules.Trim = VO.AccountReceivable.SalesBalance Then
                     dtItem = DL.AccountReceivable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, strID)
                 ElseIf strModules.Trim = VO.AccountReceivable.DownPayment Or
                     strModules.Trim = VO.AccountReceivable.ReceivePayment Then
                     dtItem = DL.AccountReceivable.ListDataDetail(sqlCon, sqlTrans, strID)
+                    dtItem.Merge(DL.AccountReceivable.ListDataDetailRev01(sqlCon, sqlTrans, strID))
                 End If
 
                 DL.AccountReceivable.DeleteData(sqlCon, sqlTrans, strID)
 
                 '# Revert Payment Amount
                 For Each dr As DataRow In dtItem.Rows
-                    '# For Setup Balance
                     If strModules.Trim = VO.AccountReceivable.SalesBalance Then
-                        DL.BusinessPartnerARBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("SalesID"))
+                        DL.BusinessPartnerARBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                     ElseIf strModules.Trim = VO.AccountReceivable.DownPayment Then
-                        DL.SalesContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("SalesID"))
+                        DL.SalesContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                     ElseIf strModules.Trim = VO.AccountReceivable.ReceivePayment Then
-                        DL.SalesContract.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("SalesID"))
+                        DL.Delivery.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                     End If
                 Next
+
+                '# Revert Down Payment
+                Dim dtDownPayment As DataTable = DL.AccountReceivable.ListDataDownPayment(sqlCon, sqlTrans, strID)
+                DL.ARAP.DeleteDataDP(sqlCon, sqlTrans, strID)
+                For Each dr As DataRow In dtDownPayment.Rows
+                    DL.ARAP.CalculateTotalAmountUsed(sqlCon, sqlTrans, dr.Item("DPID"), VO.ARAP.ARAPTypeValue.Sales)
+                Next
+
+                '# Calculate Sales Contract
+                If strModules.Trim = VO.AccountReceivable.ReceivePayment Then DL.SalesContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsExists.ReferencesID)
 
                 '# Save Data Status
                 BL.AccountReceivable.SaveDataStatus(sqlCon, sqlTrans, strID, "HAPUS", ERPSLib.UI.usUserApp.UserID, strRemarks)
@@ -573,6 +607,22 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.AccountReceivable.ListDataDetailWithOutstanding(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strARID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailRev01(ByVal strARID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.AccountReceivable.ListDataDetailRev01(sqlCon, Nothing, strARID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailWithOutstandingRev01(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                  ByVal intBPID As Integer, ByVal strARID As String,
+                                                                  ByVal strReferencesID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.AccountReceivable.ListDataDetailWithOutstandingRev01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strARID, strReferencesID)
             End Using
         End Function
 

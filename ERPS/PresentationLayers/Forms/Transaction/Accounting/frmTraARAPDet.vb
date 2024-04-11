@@ -230,7 +230,7 @@
         clsData.TransDate = dtpDPDate.Value.Date
         clsData.DueDateValue = txtDueDateValue.Value
         clsData.Modules = strModules
-        clsData.DPType = enumDPType
+        clsData.ARAPType = enumDPType
         clsData.Remarks = txtRemarks.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
         clsData.IsDP = True

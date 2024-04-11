@@ -418,8 +418,11 @@ Public Class frmTraPurchaseOrderTransport
             .pubModules = VO.AccountPayable.ReceivePaymentTransport
             .pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
             .pubBPID = clsData.BPID
+            .pubBPCode = clsData.BPCode
+            .pubBPName = clsData.BPName
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
+            .pubReferencesNumber = clsData.PONumber
             .ShowDialog()
         End With
     End Sub

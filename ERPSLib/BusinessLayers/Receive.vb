@@ -37,6 +37,11 @@
                         For Each dr As DataRow In dtItem.Rows
                             DL.PurchaseContract.CalculateDCTotalUsed(sqlCon, sqlTrans, dr.Item("PCDetailID"))
                         Next
+
+                        Dim clsExists As VO.Receive = DL.Receive.GetDetail(sqlCon, sqlTrans, clsData.ID)
+                        If clsExists.DPAmount > 0 Or clsExists.TotalPayment > 0 Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pembayaran")
+                        End If
                     End If
 
                     Dim intStatusID As Integer = DL.Receive.GetStatusID(sqlCon, sqlTrans, clsData.ID)

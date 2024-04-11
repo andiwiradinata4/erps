@@ -44,6 +44,11 @@
                         For Each dr As DataRow In dtItemTransport.Rows
                             DL.PurchaseOrderTransport.CalculateDoneTotalUsed(sqlCon, sqlTrans, dr.Item("PODetailID"))
                         Next
+
+                        Dim clsExists As VO.Delivery = DL.Delivery.GetDetail(sqlCon, sqlTrans, clsData.ID)
+                        If clsExists.DPAmount > 0 Or clsExists.TotalPayment > 0 Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pembayaran")
+                        End If
                     End If
 
                     Dim intStatusID As Integer = DL.Delivery.GetStatusID(sqlCon, sqlTrans, clsData.ID)
