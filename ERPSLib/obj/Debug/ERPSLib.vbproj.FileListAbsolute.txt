@@ -34,3 +34,13 @@ C:\Project\Tony\ERPS\ERPSLib\obj\Debug\ERPSLib.vbproj.CoreCompileInputs.cache
 C:\Project\Tony\ERPS\ERPSLib\obj\Debug\ERPSLib.dll
 C:\Project\Tony\ERPS\ERPSLib\obj\Debug\ERPSLib.xml
 C:\Project\Tony\ERPS\ERPSLib\obj\Debug\ERPSLib.pdb
+C:\Project\Toni\erps\ERPSLib\bin\Debug\ERPSLib.dll
+C:\Project\Toni\erps\ERPSLib\bin\Debug\ERPSLib.pdb
+C:\Project\Toni\erps\ERPSLib\bin\Debug\ERPSLib.xml
+C:\Project\Toni\erps\ERPSLib\obj\Debug\ERPSLib.vbproj.AssemblyReference.cache
+C:\Project\Toni\erps\ERPSLib\obj\Debug\ERPSLib.Resources.resources
+C:\Project\Toni\erps\ERPSLib\obj\Debug\ERPSLib.vbproj.GenerateResource.cache
+C:\Project\Toni\erps\ERPSLib\obj\Debug\ERPSLib.vbproj.CoreCompileInputs.cache
+C:\Project\Toni\erps\ERPSLib\obj\Debug\ERPSLib.dll
+C:\Project\Toni\erps\ERPSLib\obj\Debug\ERPSLib.xml
+C:\Project\Toni\erps\ERPSLib\obj\Debug\ERPSLib.pdb
