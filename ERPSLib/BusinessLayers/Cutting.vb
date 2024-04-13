@@ -177,6 +177,11 @@
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
                     End If
 
+                    Dim clsExists As VO.Cutting = DL.Cutting.GetDetail(sqlCon, sqlTrans, strID)
+                    If clsExists.DPAmount > 0 Or clsExists.TotalPayment > 0 Then
+                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses pembayaran")
+                    End If
+
                     DL.Cutting.Unsubmit(sqlCon, sqlTrans, strID)
 
                     '# Save Data Status

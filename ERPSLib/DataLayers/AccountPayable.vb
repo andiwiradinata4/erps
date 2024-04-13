@@ -1083,13 +1083,15 @@
                 .CommandText +=
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
-                    "   CAST (1 AS BIT) AS Pick, A.PurchaseID AS InvoiceID, B.DeliveryNumber AS InvoiceNumber, B.DeliveryDate AS InvoiceDate, " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.PurchaseID AS InvoiceID, B.DeliveryNumber AS InvoiceNumber, C.DeliveryDate AS InvoiceDate, " & vbNewLine &
                     "   B.TotalDPP+B.RoundingManual AS InvoiceAmount, A.Amount, " & vbNewLine &
                     "   B.TotalDPP+B.RoundingManual-B.DPAmount-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine &
                     "   A.Remarks, B.PPN AS PPNPercent, B.PPH AS PPHPercent, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
                     "FROM traAccountPayableDet A " & vbNewLine &
                     "INNER JOIN traDeliveryTransport B ON " & vbNewLine &
                     "   A.PurchaseID=B.ID " & vbNewLine &
+                    "INNER JOIN traDelivery C ON " & vbNewLine &
+                    "   B.DeliveryID=C.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   A.APID=@APID " & vbNewLine
 

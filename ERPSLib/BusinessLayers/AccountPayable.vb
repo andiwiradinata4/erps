@@ -394,72 +394,7 @@
                 '# Save Data Status
                 BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
-                Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
-                Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
-                Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
-
-                '# Generate Journal
-                Dim clsJournalDetail As New List(Of VO.JournalDet)
-                Dim strJournalDetailRemarks As String = ""
-                If clsData.Modules.Trim = VO.AccountPayable.DownPayment Then
-                    strJournalDetailRemarks = "PEMBAYARAN PANJAR PEMBELIAN - " & clsData.APNumber
-                ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentManual Then
-                    strJournalDetailRemarks = "PEMBAYARAN PANJAR PEMBELIAN [MANUAL] - " & clsData.APNumber
-                ElseIf clsData.Modules.Trim = VO.AccountPayable.PurchaseBalance Then
-                    strJournalDetailRemarks = "PEMBAYARAN SALDO - " & clsData.APNumber
-                ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
-                    strJournalDetailRemarks = "PEMBAYARAN HUTANG PEMBELIAN - " & clsData.APNumber
-                ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then
-                    strJournalDetailRemarks = "PEMBAYARAN PANJAR PESANAN PEMOTONGAN - " & clsData.APNumber
-                ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
-                    strJournalDetailRemarks = "PEMBAYARAN HUTANG PESANAN PEMOTONGAN - " & clsData.APNumber
-                ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Then
-                    strJournalDetailRemarks = "PEMBAYARAN PANJAR PESANAN PENGIRIMAN - " & clsData.APNumber
-                ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
-                    strJournalDetailRemarks = "PEMBAYARAN HUTANG PESANAN PENGIRIMAN - " & clsData.APNumber
-                End If
-
-                clsJournalDetail.Add(New VO.JournalDet With
-                                     {
-                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable,
-                                         .DebitAmount = clsData.TotalAmount,
-                                         .CreditAmount = 0,
-                                         .Remarks = strJournalDetailRemarks
-                                     })
-                clsJournalDetail.Add(New VO.JournalDet With
-                                     {
-                                         .CoAID = clsData.CoAIDOfOutgoingPayment,
-                                         .DebitAmount = 0,
-                                         .CreditAmount = clsData.TotalAmount,
-                                         .Remarks = strJournalDetailRemarks
-                                     })
-
-                Dim clsJournal As New VO.Journal With
-                    {
-                        .ProgramID = clsData.ProgramID,
-                        .CompanyID = clsData.CompanyID,
-                        .ID = PrevJournal.ID,
-                        .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
-                        .ReferencesID = clsData.ID,
-                        .JournalDate = IIf(bolNew, clsData.APDate, PrevJournal.JournalDate),
-                        .TotalAmount = clsData.TotalAmount,
-                        .IsAutoGenerate = True,
-                        .StatusID = VO.Status.Values.Draft,
-                        .Remarks = clsData.Remarks,
-                        .LogBy = ERPSLib.UI.usUserApp.UserID,
-                        .Initial = "",
-                        .Detail = clsJournalDetail,
-                        .Save = VO.Save.Action.SaveAndSubmit
-                    }
-
-                '# Save Journal
-                Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
-
-                '# Approve Journal
-                BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
-
-                '# Update Journal ID in Account Payable
-                DL.AccountPayable.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
+                'GenerateJournal(sqlCon, sqlTrans, strID)
                 bolReturn = True
             Catch ex As Exception
                 Throw ex
@@ -498,13 +433,12 @@
                     Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
                 End If
 
-                Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
+                'Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
+                ''# Cancel Approve Journal
+                'BL.Journal.Unapprove(clsData.JournalID.Trim, "")
 
-                '# Cancel Approve Journal
-                BL.Journal.Unapprove(clsData.JournalID.Trim, "")
-
-                '# Cancel Submit Journal
-                BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+                ''# Cancel Submit Journal
+                'BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
 
                 '# Unapprove Account Receivable
                 DL.AccountPayable.Unapprove(sqlCon, sqlTrans, strID)
@@ -636,6 +570,80 @@
             End Try
             Return bolReturn
         End Function
+
+        Public Shared Sub GenerateJournal(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal strID As String)
+            Try
+                '# Generate Journal
+                Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
+                Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
+                Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
+
+                Dim clsJournalDetail As New List(Of VO.JournalDet)
+                Dim strJournalDetailRemarks As String = ""
+                If clsData.Modules.Trim = VO.AccountPayable.DownPayment Then
+                    strJournalDetailRemarks = "PEMBAYARAN PANJAR PEMBELIAN - " & clsData.APNumber
+                ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentManual Then
+                    strJournalDetailRemarks = "PEMBAYARAN PANJAR PEMBELIAN [MANUAL] - " & clsData.APNumber
+                ElseIf clsData.Modules.Trim = VO.AccountPayable.PurchaseBalance Then
+                    strJournalDetailRemarks = "PEMBAYARAN SALDO - " & clsData.APNumber
+                ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
+                    strJournalDetailRemarks = "PEMBAYARAN HUTANG PEMBELIAN - " & clsData.APNumber
+                ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then
+                    strJournalDetailRemarks = "PEMBAYARAN PANJAR PESANAN PEMOTONGAN - " & clsData.APNumber
+                ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                    strJournalDetailRemarks = "PEMBAYARAN HUTANG PESANAN PEMOTONGAN - " & clsData.APNumber
+                ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Then
+                    strJournalDetailRemarks = "PEMBAYARAN PANJAR PESANAN PENGIRIMAN - " & clsData.APNumber
+                ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                    strJournalDetailRemarks = "PEMBAYARAN HUTANG PESANAN PENGIRIMAN - " & clsData.APNumber
+                End If
+
+                clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable,
+                                         .DebitAmount = clsData.TotalAmount,
+                                         .CreditAmount = 0,
+                                         .Remarks = strJournalDetailRemarks
+                                     })
+                clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = clsData.CoAIDOfOutgoingPayment,
+                                         .DebitAmount = 0,
+                                         .CreditAmount = clsData.TotalAmount,
+                                         .Remarks = strJournalDetailRemarks
+                                     })
+
+                Dim clsJournal As New VO.Journal With
+                    {
+                        .ProgramID = clsData.ProgramID,
+                        .CompanyID = clsData.CompanyID,
+                        .ID = PrevJournal.ID,
+                        .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                        .ReferencesID = clsData.ID,
+                        .JournalDate = IIf(bolNew, clsData.APDate, PrevJournal.JournalDate),
+                        .TotalAmount = clsData.TotalAmount,
+                        .IsAutoGenerate = True,
+                        .StatusID = VO.Status.Values.Draft,
+                        .Remarks = clsData.Remarks,
+                        .LogBy = ERPSLib.UI.usUserApp.UserID,
+                        .Initial = "",
+                        .Detail = clsJournalDetail,
+                        .Save = VO.Save.Action.SaveAndSubmit
+                    }
+
+                '# Save Journal
+                Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
+
+                '# Approve Journal
+                BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
+
+                '# Update Journal ID in Account Payable
+                DL.AccountPayable.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
 
 #End Region
 

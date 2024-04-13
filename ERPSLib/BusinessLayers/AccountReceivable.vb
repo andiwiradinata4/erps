@@ -355,53 +355,7 @@
                 '# Save Data Status
                 BL.AccountReceivable.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
-                Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
-                Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
-                Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
-
-                '# Generate Journal
-                Dim clsJournalDetail As New List(Of VO.JournalDet)
-                clsJournalDetail.Add(New VO.JournalDet With
-                                     {
-                                         .CoAID = clsData.CoAIDOfIncomePayment,
-                                         .DebitAmount = clsData.TotalAmount,
-                                         .CreditAmount = 0,
-                                         .Remarks = "PELUNASAN - " & clsData.ARNumber
-                                     })
-                clsJournalDetail.Add(New VO.JournalDet With
-                                     {
-                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountReceivable,
-                                         .DebitAmount = 0,
-                                         .CreditAmount = clsData.TotalAmount,
-                                         .Remarks = "PELUNASAN - " & clsData.ARNumber
-                                     })
-
-                Dim clsJournal As New VO.Journal With
-                    {
-                        .ProgramID = clsData.ProgramID,
-                        .CompanyID = clsData.CompanyID,
-                        .ID = PrevJournal.ID,
-                        .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
-                        .ReferencesID = clsData.ID,
-                        .JournalDate = IIf(bolNew, clsData.ARDate, PrevJournal.JournalDate),
-                        .TotalAmount = clsData.TotalAmount,
-                        .IsAutoGenerate = True,
-                        .StatusID = VO.Status.Values.Draft,
-                        .Remarks = clsData.Remarks,
-                        .LogBy = ERPSLib.UI.usUserApp.UserID,
-                        .Initial = "",
-                        .Detail = clsJournalDetail,
-                        .Save = VO.Save.Action.SaveAndSubmit
-                    }
-
-                '# Save Journal
-                Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
-
-                '# Approve Journal
-                BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
-
-                '# Update Journal ID in Business Partners
-                DL.AccountReceivable.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
+                'GenerateJournal(sqlCon, sqlTrans, strID)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -439,13 +393,12 @@
                     Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
                 End If
 
-                Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
+                'Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
+                ''# Cancel Approve Journal
+                'BL.Journal.Unapprove(clsData.JournalID.Trim, "")
 
-                '# Cancel Approve Journal
-                BL.Journal.Unapprove(clsData.JournalID.Trim, "")
-
-                '# Cancel Submit Journal
-                BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+                ''# Cancel Submit Journal
+                'BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
 
                 '# Unapprove Account Receivable
                 DL.AccountReceivable.Unapprove(sqlCon, sqlTrans, strID)
@@ -575,6 +528,61 @@
             End Try
             Return bolReturn
         End Function
+
+        Public Shared Sub GenerateJournal(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal strID As String)
+            Try
+                '# Generate Journal
+                Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
+                Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
+                Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
+
+                Dim clsJournalDetail As New List(Of VO.JournalDet)
+                clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = clsData.CoAIDOfIncomePayment,
+                                         .DebitAmount = clsData.TotalAmount,
+                                         .CreditAmount = 0,
+                                         .Remarks = "PELUNASAN - " & clsData.ARNumber
+                                     })
+                clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountReceivable,
+                                         .DebitAmount = 0,
+                                         .CreditAmount = clsData.TotalAmount,
+                                         .Remarks = "PELUNASAN - " & clsData.ARNumber
+                                     })
+
+                Dim clsJournal As New VO.Journal With
+                    {
+                        .ProgramID = clsData.ProgramID,
+                        .CompanyID = clsData.CompanyID,
+                        .ID = PrevJournal.ID,
+                        .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                        .ReferencesID = clsData.ID,
+                        .JournalDate = IIf(bolNew, clsData.ARDate, PrevJournal.JournalDate),
+                        .TotalAmount = clsData.TotalAmount,
+                        .IsAutoGenerate = True,
+                        .StatusID = VO.Status.Values.Draft,
+                        .Remarks = clsData.Remarks,
+                        .LogBy = ERPSLib.UI.usUserApp.UserID,
+                        .Initial = "",
+                        .Detail = clsJournalDetail,
+                        .Save = VO.Save.Action.SaveAndSubmit
+                    }
+
+                '# Save Journal
+                Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
+
+                '# Approve Journal
+                BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
+
+                '# Update Journal ID in Business Partners
+                DL.AccountReceivable.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
 
 #End Region
 

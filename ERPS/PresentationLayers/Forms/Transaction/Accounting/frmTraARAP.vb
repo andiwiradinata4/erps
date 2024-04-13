@@ -318,11 +318,11 @@ Public Class frmTraARAP
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.ARAP.DeleteData(clsData.ID, clsData.Modules, clsData.Remarks, enumARAPType)
             pgMain.Value = 100
-            Application.DoEvents()
+
             UI.usForm.frmMessageBox("Hapus data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "TransNumber"))
         Catch ex As Exception
@@ -330,7 +330,7 @@ Public Class frmTraARAP
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -344,11 +344,11 @@ Public Class frmTraARAP
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.ARAP.Submit(clsData.ID, "", enumARAPType)
             pgMain.Value = 100
-            Application.DoEvents()
+
             UI.usForm.frmMessageBox("Submit data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "TransNumber"))
         Catch ex As Exception
@@ -356,7 +356,7 @@ Public Class frmTraARAP
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -381,11 +381,11 @@ Public Class frmTraARAP
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.ARAP.Unsubmit(clsData.ID, clsData.Remarks, enumARAPType)
             pgMain.Value = 100
-            Application.DoEvents()
+
             UI.usForm.frmMessageBox("Batal submit data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "TransNumber"))
         Catch ex As Exception
@@ -393,7 +393,7 @@ Public Class frmTraARAP
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -407,11 +407,11 @@ Public Class frmTraARAP
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.ARAP.Approve(clsData.ID, "", enumARAPType)
             pgMain.Value = 100
-            Application.DoEvents()
+
             UI.usForm.frmMessageBox("Approve data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "TransNumber"))
         Catch ex As Exception
@@ -419,7 +419,7 @@ Public Class frmTraARAP
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -444,11 +444,11 @@ Public Class frmTraARAP
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.ARAP.Unapprove(clsData.ID, clsData.Remarks, enumARAPType)
             pgMain.Value = 100
-            Application.DoEvents()
+
             UI.usForm.frmMessageBox("Batal approve data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "TransNumber"))
         Catch ex As Exception
@@ -456,7 +456,7 @@ Public Class frmTraARAP
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -481,11 +481,11 @@ Public Class frmTraARAP
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.ARAP.SetupPayment(clsData.ID, clsData.PaymentDate, clsData.Remarks, enumARAPType)
             pgMain.Value = 100
-            Application.DoEvents()
+
             UI.usForm.frmMessageBox("Setup tanggal pembayaran berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "TransNumber"))
         Catch ex As Exception
@@ -493,7 +493,7 @@ Public Class frmTraARAP
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -519,11 +519,11 @@ Public Class frmTraARAP
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.ARAP.SetupCancelPayment(clsData.ID, clsData.Remarks, enumARAPType)
             pgMain.Value = 100
-            Application.DoEvents()
+
             UI.usForm.frmMessageBox("Hapus tanggal pembayaran berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "TransNumber"))
         Catch ex As Exception
@@ -531,7 +531,7 @@ Public Class frmTraARAP
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -556,7 +556,7 @@ Public Class frmTraARAP
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.ARAP.UpdateTaxInvoiceNumber(clsData.ID, clsData.TaxInvoiceNumber, clsData.Remarks, enumARAPType)
             pgMain.Value = 100
@@ -567,7 +567,7 @@ Public Class frmTraARAP
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -578,7 +578,7 @@ Public Class frmTraARAP
         Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         prvGetCS()
         clsData = prvGetData()
         Try
@@ -679,7 +679,7 @@ Public Class frmTraARAP
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub

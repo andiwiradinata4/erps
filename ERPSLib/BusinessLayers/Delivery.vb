@@ -215,6 +215,18 @@
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
                     End If
 
+                    Dim clsExists As VO.Delivery = DL.Delivery.GetDetail(sqlCon, sqlTrans, strID)
+                    If clsExists.DPAmount > 0 Or clsExists.TotalPayment > 0 Then
+                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses pembayaran")
+                    End If
+
+                    Dim dtDeliveryTransport As DataTable = DL.Delivery.ListDataDeliveryTransport(sqlCon, sqlTrans, strID)
+                    For Each dr As DataRow In dtDeliveryTransport.Rows
+                        If dr.Item("DPAmount") > 0 Or dr.Item("TotalPayment") > 0 Then
+                            Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data transport telah diproses pembayaran")
+                        End If
+                    Next
+
                     DL.Delivery.Unsubmit(sqlCon, sqlTrans, strID)
 
                     '# Save Data Status
