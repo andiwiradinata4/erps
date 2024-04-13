@@ -241,6 +241,7 @@
     <Compile Include="ValueObject\DeliveryDetTransport.vb" />
     <Compile Include="ValueObject\DeliveryStatus.vb" />
     <Compile Include="ValueObject\ARAP.vb" />
+    <Compile Include="ValueObject\DeliveryTransport.vb" />
     <Compile Include="ValueObject\Item.vb" />
     <Compile Include="ValueObject\ItemSpecification.vb" />
     <Compile Include="ValueObject\ItemType.vb" />

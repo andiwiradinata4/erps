@@ -6,7 +6,7 @@ Public Class frmTraDeliveryDetItem
     Private frmParent As frmTraDeliveryDet
     Private bolIsNew As Boolean = False
     Private strID As String = ""
-    Private strSCDetailID As String
+    Private strSCDetailID As String = ""
     Private strSCID As String = ""
     Private intItemID As Integer = 0
     Private intPos As Integer = 0
@@ -75,6 +75,7 @@ Public Class frmTraDeliveryDetItem
         UI.usForm.SetGrid(grdItemTransportView, "DeliveryID", "DeliveryID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemTransportView, "PODetailID", "PODetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemTransportView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemTransportView, "POID", "POID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemTransportView, "PONumber", "Nomor Pesanan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemTransportView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemTransportView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
@@ -93,6 +94,9 @@ Public Class frmTraDeliveryDetItem
         UI.usForm.SetGrid(grdItemTransportView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemTransportView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemTransportView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemTransportView, "BPID", "BPID", 300, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemTransportView, "PPN", "PPN", 300, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemTransportView, "PPH", "PPH", 300, UI.usDefGrid.gReal2Num)
     End Sub
 
     Private Sub prvFillCombo()

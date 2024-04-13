@@ -10,6 +10,7 @@ Public Class frmTraDeliveryDet
     Private dtItem As New DataTable
     Private dtItemTransport As New DataTable
     Private dtPaymentTerm As New DataTable
+    Private dtDeliveryTransport As New DataTable
     Private intPos As Integer = 0
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
@@ -69,6 +70,7 @@ Public Class frmTraDeliveryDet
         UI.usForm.SetGrid(grdItemTransportView, "DeliveryID", "DeliveryID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemTransportView, "PODetailID", "PODetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemTransportView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemTransportView, "POID", "POID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemTransportView, "PONumber", "Nomor Pesanan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemTransportView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemTransportView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
@@ -87,6 +89,9 @@ Public Class frmTraDeliveryDet
         UI.usForm.SetGrid(grdItemTransportView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemTransportView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemTransportView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemTransportView, "BPID", "BPID", 300, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemTransportView, "PPN", "PPN", 300, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemTransportView, "PPH", "PPH", 300, UI.usDefGrid.gReal2Num)
         grdItemTransportView.Columns("GroupID").GroupIndex = 0
 
         '# History
@@ -109,7 +114,6 @@ Public Class frmTraDeliveryDet
 
     Private Sub prvFillForm()
         pgMain.Value = 30
-        Application.DoEvents()
         Me.Cursor = Cursors.WaitCursor
         prvFillCombo()
         Try
@@ -151,7 +155,6 @@ Public Class frmTraDeliveryDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
             prvResetProgressBar()
         End Try
     End Sub
@@ -201,7 +204,6 @@ Public Class frmTraDeliveryDet
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
 
         Dim listDetail As New List(Of VO.DeliveryDet)
         For Each dr As DataRow In dtItem.Rows
@@ -217,6 +219,31 @@ Public Class frmTraDeliveryDet
                                .TotalPrice = dr.Item("TotalPrice"),
                                .Remarks = dr.Item("Remarks")
                            })
+        Next
+
+        Dim listDeliveryTransport As New List(Of VO.DeliveryTransport)
+        For Each dr As DataRow In dtDeliveryTransport.Rows
+            listDeliveryTransport.Add(New VO.DeliveryTransport With
+                                      {
+                                          .ID = dr.Item("ID"),
+                                          .ProgramID = dr.Item("ProgramID"),
+                                          .CompanyID = dr.Item("CompanyID"),
+                                          .DeliveryID = dr.Item("DeliveryID"),
+                                          .POID = dr.Item("POID"),
+                                          .BPID = dr.Item("BPID"),
+                                          .PPN = dr.Item("PPN"),
+                                          .PPH = dr.Item("PPH"),
+                                          .TotalQuantity = dr.Item("TotalQuantity"),
+                                          .TotalWeight = dr.Item("TotalWeight"),
+                                          .TotalDPP = dr.Item("TotalDPP"),
+                                          .TotalPPN = dr.Item("TotalPPN"),
+                                          .TotalPPH = dr.Item("TotalPPH"),
+                                          .RoundingManual = dr.Item("RoundingManual"),
+                                          .Remarks = dr.Item("Remarks"),
+                                          .DPAmount = dr.Item("DPAmount"),
+                                          .TotalPayment = dr.Item("TotalPayment"),
+                                          .JournalID = dr.Item("JournalID")
+                                      })
         Next
 
         Dim listDetailTransport As New List(Of VO.DeliveryDetTransport)
@@ -260,18 +287,16 @@ Public Class frmTraDeliveryDet
         clsData.Remarks = txtRemarks.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
         clsData.Detail = listDetail
+        clsData.DeliveryTransport = listDeliveryTransport
         clsData.DetailTransport = listDetailTransport
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
 
         pgMain.Value = 60
-        Application.DoEvents()
-
         Try
             Dim strDeliveryNumber As String = BL.Delivery.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strDeliveryNumber)
             pgMain.Value = 80
-            Application.DoEvents()
             frmParent.pubRefresh(strDeliveryNumber)
             If pubIsNew Then
                 prvClear()
@@ -286,7 +311,6 @@ Public Class frmTraDeliveryDet
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            Application.DoEvents()
             prvResetProgressBar()
         End Try
     End Sub
@@ -408,13 +432,22 @@ Public Class frmTraDeliveryDet
         txtTotalPPH.Value = txtTotalDPP.Value * (txtPPH.Value / 100)
         txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
 
+        ''# Transport
+        'txtTotalDPPTransport.Value = 0
+        'For Each dr As DataRow In dtItemTransport.Rows
+        '    txtTotalDPPTransport.Value += dr.Item("TotalPrice")
+        'Next
+        'txtTotalPPNTransport.Value = txtTotalDPPTransport.Value * (txtPPN.Value / 100)
+        'txtTotalPPHTransport.Value = txtTotalDPPTransport.Value * (txtPPH.Value / 100)
+        'txtGrandTotalTransport.Value = txtTotalDPPTransport.Value + txtTotalPPNTransport.Value - txtTotalPPHTransport.Value
+
         '# Transport
         txtTotalDPPTransport.Value = 0
-        For Each dr As DataRow In dtItemTransport.Rows
-            txtTotalDPPTransport.Value += dr.Item("TotalPrice")
+        For Each dr As DataRow In dtDeliveryTransport.Rows
+            txtTotalDPPTransport.Value += dr.Item("TotalDPP")
+            txtTotalPPNTransport.Value += dr.Item("TotalPPN")
+            txtTotalPPHTransport.Value += dr.Item("TotalPPH")
         Next
-        txtTotalPPNTransport.Value = txtTotalDPPTransport.Value * (txtPPN.Value / 100)
-        txtTotalPPHTransport.Value = txtTotalDPPTransport.Value * (txtPPH.Value / 100)
         txtGrandTotalTransport.Value = txtTotalDPPTransport.Value + txtTotalPPNTransport.Value - txtTotalPPHTransport.Value
     End Sub
 
@@ -449,7 +482,6 @@ Public Class frmTraDeliveryDet
     Private Sub prvQueryItem()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
         Try
             dtItem = BL.Delivery.ListDataDetail(pubID.Trim)
             grdItem.DataSource = dtItem
@@ -462,7 +494,6 @@ Public Class frmTraDeliveryDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
             prvSetButtonItem()
             prvResetProgressBar()
         End Try
@@ -558,23 +589,88 @@ Public Class frmTraDeliveryDet
     Private Sub prvQueryItemTransport()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
         Try
             dtItemTransport = BL.Delivery.ListDataDetailTransport(pubID.Trim)
             grdItemTransport.DataSource = dtItemTransport
             prvSumGrid()
             grdItemView.BestFitColumns()
             prvSetupTools()
+
+            prvQueryDeliveryTransport()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
             prvSetButtonItem()
             prvResetProgressBar()
         End Try
+    End Sub
+
+    Private Sub prvQueryDeliveryTransport()
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 30
+        Try
+            dtDeliveryTransport = BL.Delivery.ListDataDeliveryTransport(pubID.Trim)
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+            Me.Close()
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+    Private Sub prvSetupDeliveryTransport()
+        '# Reset Delivery Transport
+        dtDeliveryTransport.Clear()
+        dtDeliveryTransport.AcceptChanges()
+
+        '# Recalculate Data
+        Dim dsHelper As New DataSetHelper
+        Dim dtPOTransport As DataTable = dsHelper.SelectGroupByInto("POTransport", dtItemTransport, "POID, BPID, PPN, PPH", "", "POID, BPID, PPN, PPH")
+        For Each dr As DataRow In dtPOTransport.Rows
+            Dim drSelectedPO() As DataRow = dtItemTransport.Select("POID='" & dr.Item("POID"))
+            Dim decTotalQuantity As Decimal = 0, decTotalWeight As Decimal = 0, decTotalDPP As Decimal = 0,
+                decTotalPPN As Decimal = 0, decTotalPPH As Decimal = 0, decTotalRoundingManual As Decimal = 0
+
+            For Each drSelected As DataRow In drSelectedPO
+                decTotalQuantity += drSelected.Item("Quantity")
+                decTotalWeight += drSelected.Item("TotalWeight")
+                decTotalDPP += drSelected.Item("TotalPrice")
+                decTotalPPN += drSelected.Item("TotalPrice") * (drSelected.Item("PPN") / 100)
+                decTotalPPH += drSelected.Item("TotalPrice") * (drSelected.Item("PPH") / 100)
+                decTotalRoundingManual += 0
+            Next
+
+            If drSelectedPO.Count > 0 Then
+                Dim drNew As DataRow = dtDeliveryTransport.NewRow
+                drNew.BeginEdit()
+                drNew.Item("ID") = Guid.NewGuid.ToString
+                drNew.Item("ProgramID") = pubCS.ProgramID
+                drNew.Item("CompanyID") = pubCS.CompanyID
+                drNew.Item("DeliveryID") = pubID
+                drNew.Item("POID") = dr.Item("POID")
+                drNew.Item("BPID") = dr.Item("BPID")
+                drNew.Item("PPN") = dr.Item("PPN")
+                drNew.Item("PPH") = dr.Item("PPH")
+                drNew.Item("TotalQuantity") = decTotalQuantity
+                drNew.Item("TotalWeight") = decTotalWeight
+                drNew.Item("TotalDPP") = decTotalDPP
+                drNew.Item("TotalPPN") = decTotalPPN
+                drNew.Item("TotalPPH") = decTotalPPH
+                drNew.Item("RoundingManual") = decTotalRoundingManual
+                drNew.Item("Remarks") = ""
+                drNew.Item("DPAmount") = 0
+                drNew.Item("TotalPayment") = 0
+                drNew.Item("JournalID") = ""
+                drNew.EndEdit()
+                dtDeliveryTransport.Rows.Add(drNew)
+            End If
+            dtDeliveryTransport.AcceptChanges()
+        Next
     End Sub
 
 #End Region
@@ -584,7 +680,6 @@ Public Class frmTraDeliveryDet
     Private Sub prvQueryHistory()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
         Try
             grdStatus.DataSource = BL.Delivery.ListDataStatus(pubID.Trim)
         Catch ex As Exception
@@ -592,7 +687,6 @@ Public Class frmTraDeliveryDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
             prvResetProgressBar()
         End Try
     End Sub

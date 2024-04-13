@@ -36,6 +36,7 @@
         Property TotalPaymentTransport As Decimal
         Property JournalIDTransport As String
         Property Detail As List(Of VO.DeliveryDet)
+        Property DeliveryTransport As List(Of VO.DeliveryTransport)
         Property DetailTransport As List(Of VO.DeliveryDetTransport)
         Property Save As VO.Save.Action
     End Class

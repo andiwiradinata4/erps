@@ -9,8 +9,12 @@
     Private intItemID As Integer = 0
     Private drSelected As DataRow
     Private strID As String = ""
-    Private strSCDetailID As String
-    Private strPODetailID As String
+    Private strSCDetailID As String = ""
+    Private strPODetailID As String = ""
+    Private strPOID As String = ""
+    Private intBPID As Integer = 0
+    Private decPPN As Decimal = 0
+    Private decPPH As Decimal = 0
     Private clsCS As VO.CS
 
     Public WriteOnly Property pubIsNew As Boolean
@@ -84,6 +88,7 @@
             Else
                 strID = drSelected.Item("ID")
                 strPODetailID = drSelected.Item("PODetailID")
+                strPOID = drSelected.Item("POID")
                 txtPONumber.Text = drSelected.Item("PONumber")
                 intItemID = drSelected.Item("ItemID")
                 txtItemCode.Text = drSelected.Item("ItemCode")
@@ -144,6 +149,7 @@
                 .Item("ID") = Guid.NewGuid
                 .Item("DeliveryID") = ""
                 .Item("PODetailID") = strPODetailID
+                .Item("POID") = strPOID
                 .Item("GroupID") = 0
                 .Item("PONumber") = txtPONumber.Text.Trim
                 .Item("ItemID") = intItemID
@@ -163,6 +169,9 @@
                 .Item("UnitPrice") = txtUnitPrice.Value
                 .Item("TotalPrice") = txtTotalPrice.Value
                 .Item("Remarks") = txtRemarks.Text.Trim
+                .Item("BPID") = intBPID
+                .Item("PPN") = decPPN
+                .Item("PPH") = decPPH
                 dr.EndEdit()
                 dtParent.Rows.Add(dr)
                 dtParent.AcceptChanges()
@@ -175,6 +184,7 @@
                     If .Item("ID") = strID Then
                         .BeginEdit()
                         .Item("PODetailID") = strPODetailID
+                        .Item("POID") = strPOID
                         .Item("PONumber") = txtPONumber.Text.Trim
                         .Item("ItemID") = intItemID
                         .Item("ItemCode") = txtItemCode.Text.Trim
@@ -193,6 +203,9 @@
                         .Item("UnitPrice") = txtUnitPrice.Value
                         .Item("TotalPrice") = txtTotalPrice.Value
                         .Item("Remarks") = txtRemarks.Text.Trim
+                        .Item("BPID") = intBPID
+                        .Item("PPN") = decPPN
+                        .Item("PPH") = decPPH
                         .EndEdit()
                         dtParent.AcceptChanges()
                         frmParent.grdItemTransportView.BestFitColumns()
@@ -215,6 +228,7 @@
             .pubShowDialog(Me)
             If .pubIsLookUpGet Then
                 txtPONumber.Text = .pubLUdtRow.Item("PONumber")
+                strPOID = .pubLUdtRow.Item("POID")
                 strPODetailID = .pubLUdtRow.Item("ID")
                 intItemID = .pubLUdtRow.Item("ItemID")
                 cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
@@ -228,6 +242,9 @@
                 txtMaxTotalWeight.Value = .pubLUdtRow.Item("MaxTotalWeight")
                 txtUnitPrice.Value = .pubLUdtRow.Item("UnitPrice")
                 txtQuantity.Value = .pubLUdtRow.Item("Quantity")
+                intBPID = .pubLUdtRow.Item("BPID")
+                decPPN = .pubLUdtRow.Item("PPN")
+                decPPH = .pubLUdtRow.Item("PPH")
                 txtQuantity.Focus()
                 txtRemarks.Text = ""
             End If
@@ -242,6 +259,7 @@
     Private Sub prvClear()
         strID = ""
         strPODetailID = ""
+        strPOID = ""
         txtPONumber.Text = ""
         intItemID = 0
         txtItemCode.Text = ""
@@ -256,6 +274,9 @@
         txtQuantity.Value = 0
         txtMaxTotalWeight.Value = 0
         txtRemarks.Text = ""
+        intBPID = 0
+        decPPN = 0
+        decPPH = 0
         txtItemCode.Focus()
     End Sub
 

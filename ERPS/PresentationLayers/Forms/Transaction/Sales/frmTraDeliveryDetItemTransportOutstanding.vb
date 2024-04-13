@@ -53,6 +53,9 @@ Public Class frmTraDeliveryDetItemTransportOutstanding
         UI.usForm.SetGrid(grdView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "BPID", "BPID", 300, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdView, "PPN", "PPN", 300, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "PPH", "PPH", 300, UI.usDefGrid.gReal2Num)
     End Sub
 
     Private Sub prvSetButton()

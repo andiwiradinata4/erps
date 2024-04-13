@@ -3,6 +3,7 @@
         Property ID As String
         Property DeliveryID As String
         Property GroupID As Integer
+        Property POID As String
         Property PODetailID As String
         Property ItemID As Integer
         Property Quantity As Decimal

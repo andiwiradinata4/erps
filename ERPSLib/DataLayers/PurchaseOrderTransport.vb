@@ -749,7 +749,8 @@
                     "SELECT " & vbNewLine & _
                     "   A.ID, A.POID, A1.PONumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine & _
-                    "   A.Quantity-A.DoneQuantity AS Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A.TotalWeight-A.DoneWeight AS MaxTotalWeight, A.Remarks " & vbNewLine & _
+                    "   A.Quantity-A.DoneQuantity AS Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A.TotalWeight-A.DoneWeight AS MaxTotalWeight, A.Remarks, " & vbNewLine & _
+                    "   A1. BPID, A1.PPN, A1.PPH " & vbNewLine & _
                     "FROM traPurchaseOrderTransportDet A " & vbNewLine & _
                     "INNER JOIN traPurchaseOrderTransport A1 ON " & vbNewLine & _
                     "   A.POID=A1.ID " & vbNewLine & _

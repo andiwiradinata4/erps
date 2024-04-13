@@ -49,6 +49,16 @@
                         If clsExists.DPAmount > 0 Or clsExists.TotalPayment > 0 Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pembayaran")
                         End If
+
+                        Dim dtDeliveryTransport As DataTable = DL.Delivery.ListDataDeliveryTransport(sqlCon, sqlTrans, clsData.ID)
+                        For Each dr As DataRow In dtDeliveryTransport.Rows
+                            If dr.Item("DPAmount") > 0 Or dr.Item("TotalPayment") > 0 Then
+                                Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pembayaran")
+                            End If
+                        Next
+
+                        '# Delete Delivery Transport
+                        DL.Delivery.DeleteDataDeliveryTransport(sqlCon, sqlTrans, clsData.ID)
                     End If
 
                     Dim intStatusID As Integer = DL.Delivery.GetStatusID(sqlCon, sqlTrans, clsData.ID)
@@ -68,6 +78,15 @@
                         clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
                         clsDet.DeliveryID = clsData.ID
                         DL.Delivery.SaveDataDetail(sqlCon, sqlTrans, clsDet)
+                        intCount += 1
+                    Next
+
+                    '# Save Data Delivery Transport
+                    intCount = 1
+                    For Each clsDet As VO.DeliveryTransport In clsData.DeliveryTransport
+                        clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
+                        clsDet.DeliveryID = clsData.ID
+                        DL.Delivery.SaveDataDeliveryTransport(sqlCon, sqlTrans, clsDet)
                         intCount += 1
                     Next
 
@@ -237,6 +256,13 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.Delivery.ListDataDetailTransport(sqlCon, Nothing, strDeliveryID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDeliveryTransport(ByVal strDeliveryID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.Delivery.ListDataDeliveryTransport(sqlCon, Nothing, strDeliveryID)
             End Using
         End Function
 
