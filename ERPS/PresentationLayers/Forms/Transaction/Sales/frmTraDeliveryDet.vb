@@ -226,8 +226,6 @@ Public Class frmTraDeliveryDet
             listDeliveryTransport.Add(New VO.DeliveryTransport With
                                       {
                                           .ID = dr.Item("ID"),
-                                          .ProgramID = dr.Item("ProgramID"),
-                                          .CompanyID = dr.Item("CompanyID"),
                                           .DeliveryID = dr.Item("DeliveryID"),
                                           .POID = dr.Item("POID"),
                                           .BPID = dr.Item("BPID"),
@@ -432,17 +430,10 @@ Public Class frmTraDeliveryDet
         txtTotalPPH.Value = txtTotalDPP.Value * (txtPPH.Value / 100)
         txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
 
-        ''# Transport
-        'txtTotalDPPTransport.Value = 0
-        'For Each dr As DataRow In dtItemTransport.Rows
-        '    txtTotalDPPTransport.Value += dr.Item("TotalPrice")
-        'Next
-        'txtTotalPPNTransport.Value = txtTotalDPPTransport.Value * (txtPPN.Value / 100)
-        'txtTotalPPHTransport.Value = txtTotalDPPTransport.Value * (txtPPH.Value / 100)
-        'txtGrandTotalTransport.Value = txtTotalDPPTransport.Value + txtTotalPPNTransport.Value - txtTotalPPHTransport.Value
-
         '# Transport
         txtTotalDPPTransport.Value = 0
+        txtTotalPPNTransport.Value = 0
+        txtTotalPPHTransport.Value = 0
         For Each dr As DataRow In dtDeliveryTransport.Rows
             txtTotalDPPTransport.Value += dr.Item("TotalDPP")
             txtTotalPPNTransport.Value += dr.Item("TotalPPN")
@@ -515,6 +506,7 @@ Public Class frmTraDeliveryDet
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
+            prvSetupDeliveryTransport()
             prvCalculate()
             prvSetupTools()
         End With
@@ -534,6 +526,7 @@ Public Class frmTraDeliveryDet
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
+            prvSetupDeliveryTransport()
             prvCalculate()
             prvSetupTools()
         End With
@@ -576,7 +569,7 @@ Public Class frmTraDeliveryDet
             End If
         Next
         dtItemTransport.AcceptChanges()
-
+        prvSetupDeliveryTransport()
         prvCalculate()
         prvSetButtonItem()
         prvSetupTools()
@@ -632,7 +625,7 @@ Public Class frmTraDeliveryDet
         Dim dsHelper As New DataSetHelper
         Dim dtPOTransport As DataTable = dsHelper.SelectGroupByInto("POTransport", dtItemTransport, "POID, BPID, PPN, PPH", "", "POID, BPID, PPN, PPH")
         For Each dr As DataRow In dtPOTransport.Rows
-            Dim drSelectedPO() As DataRow = dtItemTransport.Select("POID='" & dr.Item("POID"))
+            Dim drSelectedPO() As DataRow = dtItemTransport.Select("POID='" & dr.Item("POID") & "'")
             Dim decTotalQuantity As Decimal = 0, decTotalWeight As Decimal = 0, decTotalDPP As Decimal = 0,
                 decTotalPPN As Decimal = 0, decTotalPPH As Decimal = 0, decTotalRoundingManual As Decimal = 0
 
@@ -649,8 +642,6 @@ Public Class frmTraDeliveryDet
                 Dim drNew As DataRow = dtDeliveryTransport.NewRow
                 drNew.BeginEdit()
                 drNew.Item("ID") = Guid.NewGuid.ToString
-                drNew.Item("ProgramID") = pubCS.ProgramID
-                drNew.Item("CompanyID") = pubCS.CompanyID
                 drNew.Item("DeliveryID") = pubID
                 drNew.Item("POID") = dr.Item("POID")
                 drNew.Item("BPID") = dr.Item("BPID")

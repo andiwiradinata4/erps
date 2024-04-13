@@ -202,9 +202,8 @@
             clsData.Scripts =
 "CREATE TABLE [dbo].[traDeliveryTransport](" & vbNewLine &
 "	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryTransport_ID]  DEFAULT (''), " & vbNewLine & _
-"	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traDeliveryTransport_ProgramID]  DEFAULT ((0)), " & vbNewLine & _
-"	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traDeliveryTransport_CompanyID]  DEFAULT ((0)), " & vbNewLine & _
 "	[DeliveryID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryTransport_DeliveryID]  DEFAULT (''), " & vbNewLine & _
+"	[DeliveryNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryTransport_DeliveryNumber]  DEFAULT (''), " & vbNewLine & _
 "	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryTransport_POID]  DEFAULT (''), " & vbNewLine & _
 "	[BPID] [int] NOT NULL CONSTRAINT [DF_traDeliveryTransport_BPID]  DEFAULT ((0)), " & vbNewLine & _
 "	[PPN] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traDeliveryTransport_PPN]  DEFAULT ((0)), " & vbNewLine & _

@@ -423,7 +423,7 @@
                     "SELECT  " & vbNewLine &
                     "   DH.ID, DH.ProgramID, MP.Name AS ProgramName, DH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress, DH.DeliveryNumber AS TransNumber,  " & vbNewLine &
                     "   DH.DeliveryDate AS TransDate, DH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, SCH.SCNumber, DH.PlatNumber, DH.Driver, DH.ReferencesNumber, " & vbNewLine &
-                    "   DH.TotalQuantity, DH.TotalWeight, DH.StatusID, MIS.Description AS ItemSpec, IT.Description AS ItemType, MI.ItemCodeExternal, MI.Thick AS ItemThick, MI.Width AS ItemWidth,  " & vbNewLine &
+                    "   DH.TotalQuantity, DH.TotalWeight, DH.StatusID, MIS.Description AS ItemSpec, IT.Description AS ItemType, IT.Description AS ItemCodeExternal, MI.Thick AS ItemThick, MI.Width AS ItemWidth,  " & vbNewLine &
                     "   MI.Length AS ItemLength, MI.Weight, DD.Quantity, DD.TotalWeight AS TotalWeightItem, DD.Remarks AS ItemRemarks, DH.CreatedBy " & vbNewLine &
                     "FROM traDelivery DH  " & vbNewLine &
                     "INNER JOIN traSalesContract SCH ON " & vbNewLine &
@@ -511,8 +511,8 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText =
-                    "UPDATE traDelivery SET 	" & vbNewLine &
-                    "	DPAmountTransport=	" & vbNewLine &
+                    "UPDATE traDeliveryTransport SET 	" & vbNewLine &
+                    "	DPAmount=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(APD.DPAmount),0) DPAmount		" & vbNewLine &
@@ -524,7 +524,7 @@
                     "			APD.PurchaseID=@ID 	" & vbNewLine &
                     "			AND APH.IsDeleted=0 	" & vbNewLine &
                     "	), " & vbNewLine &
-                    "	TotalPaymentTransport=	" & vbNewLine &
+                    "	TotalPayment=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(APD.Amount),0) TotalPayment		" & vbNewLine &
@@ -649,7 +649,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT  " & vbNewLine & _
-                    "	A.ID, A.ProgramID, A.CompanyID, A.DeliveryID, A.POID, A.BPID, A.PPN,  " & vbNewLine & _
+                    "	A.ID, A.DeliveryID, A.DeliveryNumber, A.POID, A.BPID, A.PPN,  " & vbNewLine & _
                     "	A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH,  " & vbNewLine & _
                     "	A.RoundingManual, A.Remarks, A.DPAmount, A.TotalPayment, A.JournalID " & vbNewLine & _
                     "FROM traDeliveryTransport A " & vbNewLine &
@@ -670,18 +670,17 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traDeliveryTransport " & vbNewLine & _
-                    "	(ID, ProgramID, CompanyID, DeliveryID, POID, BPID, PPN,  " & vbNewLine & _
+                    "	(ID, DeliveryID, DeliveryNumber, POID, BPID, PPN,  " & vbNewLine & _
                     "	 PPH, TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH,  " & vbNewLine & _
                     "	 RoundingManual, Remarks, DPAmount, TotalPayment, JournalID) " & vbNewLine & _
                     "VALUES  " & vbNewLine & _
-                    "	(@ID, @ProgramID, @CompanyID, @DeliveryID, @POID, @BPID, @PPN,  " & vbNewLine & _
+                    "	(@ID, @DeliveryID, @DeliveryNumber, @POID, @BPID, @PPN,  " & vbNewLine & _
                     "	 @PPH, @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH,  " & vbNewLine & _
                     "	 @RoundingManual, @Remarks, @DPAmount, @TotalPayment, @JournalID) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
-                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = clsData.ProgramID
-                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = clsData.CompanyID
                 .Parameters.Add("@DeliveryID", SqlDbType.VarChar, 100).Value = clsData.DeliveryID
+                .Parameters.Add("@DeliveryNumber", SqlDbType.VarChar, 100).Value = clsData.DeliveryNumber
                 .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = clsData.POID
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = clsData.BPID
                 .Parameters.Add("@PPN", SqlDbType.Decimal).Value = clsData.PPN
@@ -693,6 +692,9 @@
                 .Parameters.Add("@TotalPPH", SqlDbType.Decimal).Value = clsData.TotalPPH
                 .Parameters.Add("@RoundingManual", SqlDbType.Decimal).Value = clsData.RoundingManual
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
+                .Parameters.Add("@DPAmount", SqlDbType.Decimal).Value = clsData.DPAmount
+                .Parameters.Add("@TotalPayment", SqlDbType.Decimal).Value = clsData.TotalPayment
+                .Parameters.Add("@JournalID", SqlDbType.VarChar, 100).Value = clsData.JournalID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

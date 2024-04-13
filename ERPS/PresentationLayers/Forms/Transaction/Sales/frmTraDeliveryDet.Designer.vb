@@ -29,6 +29,9 @@ Partial Class frmTraDeliveryDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.txtSCNumber = New ERPS.usTextBox()
+        Me.btnSC = New DevExpress.XtraEditors.SimpleButton()
         Me.txtDriver = New ERPS.usTextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.txtPlatNumber = New ERPS.usTextBox()
@@ -96,9 +99,6 @@ Partial Class frmTraDeliveryDet
         Me.grdItemTransport = New DevExpress.XtraGrid.GridControl()
         Me.grdItemTransportView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit3 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.Label21 = New System.Windows.Forms.Label()
-        Me.txtSCNumber = New ERPS.usTextBox()
-        Me.btnSC = New DevExpress.XtraEditors.SimpleButton()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         Me.tpAmount.SuspendLayout()
@@ -137,7 +137,7 @@ Partial Class frmTraDeliveryDet
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(925, 28)
+        Me.ToolBar.Size = New System.Drawing.Size(914, 28)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -161,7 +161,7 @@ Partial Class frmTraDeliveryDet
         Me.lblInfo.ForeColor = System.Drawing.Color.White
         Me.lblInfo.Location = New System.Drawing.Point(0, 28)
         Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(925, 22)
+        Me.lblInfo.Size = New System.Drawing.Size(914, 22)
         Me.lblInfo.TabIndex = 1
         Me.lblInfo.Text = "« Pengiriman Penjualan Detail"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -176,7 +176,7 @@ Partial Class frmTraDeliveryDet
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(925, 206)
+        Me.tcHeader.Size = New System.Drawing.Size(914, 206)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
@@ -206,10 +206,40 @@ Partial Class frmTraDeliveryDet
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(917, 177)
+        Me.tpMain.Size = New System.Drawing.Size(906, 177)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.BackColor = System.Drawing.Color.Transparent
+        Me.Label21.ForeColor = System.Drawing.Color.Black
+        Me.Label21.Location = New System.Drawing.Point(28, 74)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(114, 13)
+        Me.Label21.TabIndex = 195
+        Me.Label21.Text = "No. Kontrak Penjualan"
+        '
+        'txtSCNumber
+        '
+        Me.txtSCNumber.BackColor = System.Drawing.Color.Azure
+        Me.txtSCNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtSCNumber.Location = New System.Drawing.Point(159, 70)
+        Me.txtSCNumber.MaxLength = 250
+        Me.txtSCNumber.Name = "txtSCNumber"
+        Me.txtSCNumber.ReadOnly = True
+        Me.txtSCNumber.Size = New System.Drawing.Size(249, 21)
+        Me.txtSCNumber.TabIndex = 4
+        '
+        'btnSC
+        '
+        Me.btnSC.Image = CType(resources.GetObject("btnSC.Image"), System.Drawing.Image)
+        Me.btnSC.Location = New System.Drawing.Point(414, 69)
+        Me.btnSC.Name = "btnSC"
+        Me.btnSC.Size = New System.Drawing.Size(23, 23)
+        Me.btnSC.TabIndex = 5
         '
         'txtDriver
         '
@@ -415,7 +445,7 @@ Partial Class frmTraDeliveryDet
         Me.tpAmount.Controls.Add(Me.txtPPN)
         Me.tpAmount.Location = New System.Drawing.Point(4, 25)
         Me.tpAmount.Name = "tpAmount"
-        Me.tpAmount.Size = New System.Drawing.Size(917, 177)
+        Me.tpAmount.Size = New System.Drawing.Size(906, 177)
         Me.tpAmount.TabIndex = 2
         Me.tpAmount.Text = "Harga - F2"
         Me.tpAmount.UseVisualStyleBackColor = True
@@ -430,10 +460,10 @@ Partial Class frmTraDeliveryDet
         Me.gboTransport.Controls.Add(Me.Label14)
         Me.gboTransport.Controls.Add(Me.Label20)
         Me.gboTransport.Controls.Add(Me.txtTotalPPNTransport)
-        Me.gboTransport.Location = New System.Drawing.Point(399, 17)
+        Me.gboTransport.Location = New System.Drawing.Point(531, 12)
         Me.gboTransport.Name = "gboTransport"
         Me.gboTransport.Size = New System.Drawing.Size(334, 138)
-        Me.gboTransport.TabIndex = 1
+        Me.gboTransport.TabIndex = 3
         Me.gboTransport.TabStop = False
         Me.gboTransport.Text = "Total Harga Transport"
         '
@@ -547,10 +577,10 @@ Partial Class frmTraDeliveryDet
         Me.gboDelivery.Controls.Add(Me.Label17)
         Me.gboDelivery.Controls.Add(Me.Label18)
         Me.gboDelivery.Controls.Add(Me.txtTotalPPN)
-        Me.gboDelivery.Location = New System.Drawing.Point(32, 17)
+        Me.gboDelivery.Location = New System.Drawing.Point(170, 12)
         Me.gboDelivery.Name = "gboDelivery"
         Me.gboDelivery.Size = New System.Drawing.Size(334, 138)
-        Me.gboDelivery.TabIndex = 0
+        Me.gboDelivery.TabIndex = 2
         Me.gboDelivery.TabStop = False
         Me.gboDelivery.Text = "Total Harga"
         '
@@ -659,7 +689,7 @@ Partial Class frmTraDeliveryDet
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.ForeColor = System.Drawing.Color.Black
-        Me.Label7.Location = New System.Drawing.Point(860, 98)
+        Me.Label7.Location = New System.Drawing.Point(133, 98)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(18, 13)
         Me.Label7.TabIndex = 117
@@ -670,7 +700,7 @@ Partial Class frmTraDeliveryDet
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.ForeColor = System.Drawing.Color.Black
-        Me.Label8.Location = New System.Drawing.Point(780, 76)
+        Me.Label8.Location = New System.Drawing.Point(53, 76)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(25, 13)
         Me.Label8.TabIndex = 116
@@ -679,12 +709,12 @@ Partial Class frmTraDeliveryDet
         'txtPPH
         '
         Me.txtPPH.DecimalPlaces = 2
-        Me.txtPPH.Location = New System.Drawing.Point(780, 94)
+        Me.txtPPH.Location = New System.Drawing.Point(53, 94)
         Me.txtPPH.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtPPH.Name = "txtPPH"
         Me.txtPPH.Size = New System.Drawing.Size(77, 21)
-        Me.txtPPH.TabIndex = 3
+        Me.txtPPH.TabIndex = 1
         Me.txtPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtPPH.ThousandsSeparator = True
         '
@@ -693,7 +723,7 @@ Partial Class frmTraDeliveryDet
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.ForeColor = System.Drawing.Color.Black
-        Me.Label6.Location = New System.Drawing.Point(860, 44)
+        Me.Label6.Location = New System.Drawing.Point(133, 44)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(18, 13)
         Me.Label6.TabIndex = 114
@@ -704,7 +734,7 @@ Partial Class frmTraDeliveryDet
         Me.Label11.AutoSize = True
         Me.Label11.BackColor = System.Drawing.Color.Transparent
         Me.Label11.ForeColor = System.Drawing.Color.Black
-        Me.Label11.Location = New System.Drawing.Point(780, 21)
+        Me.Label11.Location = New System.Drawing.Point(53, 21)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(26, 13)
         Me.Label11.TabIndex = 113
@@ -713,12 +743,12 @@ Partial Class frmTraDeliveryDet
         'txtPPN
         '
         Me.txtPPN.DecimalPlaces = 2
-        Me.txtPPN.Location = New System.Drawing.Point(780, 40)
+        Me.txtPPN.Location = New System.Drawing.Point(53, 40)
         Me.txtPPN.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtPPN.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtPPN.Name = "txtPPN"
         Me.txtPPN.Size = New System.Drawing.Size(77, 21)
-        Me.txtPPN.TabIndex = 2
+        Me.txtPPN.TabIndex = 0
         Me.txtPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtPPN.ThousandsSeparator = True
         '
@@ -729,7 +759,7 @@ Partial Class frmTraDeliveryDet
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(917, 177)
+        Me.tpHistory.Size = New System.Drawing.Size(906, 177)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -754,7 +784,7 @@ Partial Class frmTraDeliveryDet
         Me.grdStatus.Location = New System.Drawing.Point(3, 3)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(907, 167)
+        Me.grdStatus.Size = New System.Drawing.Size(896, 167)
         Me.grdStatus.TabIndex = 13
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -773,7 +803,7 @@ Partial Class frmTraDeliveryDet
         Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.pgMain.Location = New System.Drawing.Point(0, 638)
         Me.pgMain.Name = "pgMain"
-        Me.pgMain.Size = New System.Drawing.Size(925, 23)
+        Me.pgMain.Size = New System.Drawing.Size(914, 23)
         Me.pgMain.TabIndex = 5
         '
         'Label1
@@ -784,7 +814,7 @@ Partial Class frmTraDeliveryDet
         Me.Label1.ForeColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(0, 256)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(925, 22)
+        Me.Label1.Size = New System.Drawing.Size(914, 22)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "« Item"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -798,7 +828,7 @@ Partial Class frmTraDeliveryDet
         Me.tcDetail.Location = New System.Drawing.Point(0, 278)
         Me.tcDetail.Name = "tcDetail"
         Me.tcDetail.SelectedIndex = 0
-        Me.tcDetail.Size = New System.Drawing.Size(925, 360)
+        Me.tcDetail.Size = New System.Drawing.Size(914, 360)
         Me.tcDetail.TabIndex = 4
         '
         'tpItem
@@ -809,7 +839,7 @@ Partial Class frmTraDeliveryDet
         Me.tpItem.Location = New System.Drawing.Point(4, 25)
         Me.tpItem.Name = "tpItem"
         Me.tpItem.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpItem.Size = New System.Drawing.Size(917, 331)
+        Me.tpItem.Size = New System.Drawing.Size(906, 331)
         Me.tpItem.TabIndex = 1
         Me.tpItem.Text = "Item - F4"
         Me.tpItem.UseVisualStyleBackColor = True
@@ -835,7 +865,7 @@ Partial Class frmTraDeliveryDet
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItem.Size = New System.Drawing.Size(911, 275)
+        Me.grdItem.Size = New System.Drawing.Size(900, 275)
         Me.grdItem.TabIndex = 1
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
@@ -865,14 +895,14 @@ Partial Class frmTraDeliveryDet
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
         Me.StatusStrip.Location = New System.Drawing.Point(3, 306)
         Me.StatusStrip.Name = "StatusStrip"
-        Me.StatusStrip.Size = New System.Drawing.Size(911, 22)
+        Me.StatusStrip.Size = New System.Drawing.Size(900, 22)
         Me.StatusStrip.TabIndex = 2
         Me.StatusStrip.Text = "StatusStrip1"
         '
         'ToolStripEmpty
         '
         Me.ToolStripEmpty.Name = "ToolStripEmpty"
-        Me.ToolStripEmpty.Size = New System.Drawing.Size(788, 17)
+        Me.ToolStripEmpty.Size = New System.Drawing.Size(780, 17)
         Me.ToolStripEmpty.Spring = True
         '
         'ToolStripLogInc
@@ -918,7 +948,7 @@ Partial Class frmTraDeliveryDet
         Me.ToolBarItem.Location = New System.Drawing.Point(3, 3)
         Me.ToolBarItem.Name = "ToolBarItem"
         Me.ToolBarItem.ShowToolTips = True
-        Me.ToolBarItem.Size = New System.Drawing.Size(911, 28)
+        Me.ToolBarItem.Size = New System.Drawing.Size(900, 28)
         Me.ToolBarItem.TabIndex = 0
         Me.ToolBarItem.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -995,41 +1025,11 @@ Partial Class frmTraDeliveryDet
         Me.RepositoryItemTextEdit3.Name = "RepositoryItemTextEdit3"
         Me.RepositoryItemTextEdit3.NullText = "0.00"
         '
-        'Label21
-        '
-        Me.Label21.AutoSize = True
-        Me.Label21.BackColor = System.Drawing.Color.Transparent
-        Me.Label21.ForeColor = System.Drawing.Color.Black
-        Me.Label21.Location = New System.Drawing.Point(28, 74)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(114, 13)
-        Me.Label21.TabIndex = 195
-        Me.Label21.Text = "No. Kontrak Penjualan"
-        '
-        'txtSCNumber
-        '
-        Me.txtSCNumber.BackColor = System.Drawing.Color.Azure
-        Me.txtSCNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtSCNumber.Location = New System.Drawing.Point(159, 70)
-        Me.txtSCNumber.MaxLength = 250
-        Me.txtSCNumber.Name = "txtSCNumber"
-        Me.txtSCNumber.ReadOnly = True
-        Me.txtSCNumber.Size = New System.Drawing.Size(249, 21)
-        Me.txtSCNumber.TabIndex = 4
-        '
-        'btnSC
-        '
-        Me.btnSC.Image = CType(resources.GetObject("btnSC.Image"), System.Drawing.Image)
-        Me.btnSC.Location = New System.Drawing.Point(414, 69)
-        Me.btnSC.Name = "btnSC"
-        Me.btnSC.Size = New System.Drawing.Size(23, 23)
-        Me.btnSC.TabIndex = 5
-        '
         'frmTraDeliveryDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(925, 661)
+        Me.ClientSize = New System.Drawing.Size(914, 661)
         Me.Controls.Add(Me.tcDetail)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.pgMain)

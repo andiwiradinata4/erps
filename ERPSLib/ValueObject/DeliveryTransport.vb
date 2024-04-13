@@ -3,6 +3,7 @@
         Inherits Common
         Property ID As String
         Property DeliveryID As String
+        Property DeliveryNumber As String
         Property POID As String
         Property BPID As Integer
         Property BPCode As String
