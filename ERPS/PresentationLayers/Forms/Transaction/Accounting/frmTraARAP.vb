@@ -592,7 +592,7 @@ Public Class frmTraARAP
             Dim crReport As New rptProformaInvoice
 
             '# Setup Watermark Report
-            If intStatusID <> VO.Status.Values.Approved Then
+            If intStatusID <> VO.Status.Values.Approved And intStatusID <> VO.Status.Values.Payment Then
                 crReport.Watermark.ShowBehind = False
                 crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
                 crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
