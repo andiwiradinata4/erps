@@ -135,8 +135,9 @@
         'mnuTransaksiPembelianKonfirmasiPengiriman.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionConfirmationDelivery, VO.Access.Values.ViewAccess)
 
         '## Pembukuan
-        mnuTransaksiPembukuanPelunasanSaldoAwal.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountReceivableBalance, VO.Access.Values.ViewAccess)
-        mnuTransaksiPembukuanPembayaranSaldoAwal.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountPayableBalance, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembukuanPelunasanSaldoAwal.Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountReceivableBalance, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembukuanPembayaranSaldoAwal.Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountPayableBalance, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembukuanSep1.Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountPayableBalance, VO.Access.Values.ViewAccess)
         mnuTransaksiPembukuanPanjarPenjualanManual.Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesDPManual, VO.Access.Values.ViewAccess)
         mnuTransaksiPembukuanPanjarPembelianManual.Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseDPManual, VO.Access.Values.ViewAccess)
         mnuTransaksiPembukuanSep2.Visible = False

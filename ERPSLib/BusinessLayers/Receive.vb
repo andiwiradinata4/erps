@@ -27,7 +27,7 @@
                 Try
                     If bolNew Then
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.ReceiveDate, clsData.CompanyID, clsData.ProgramID)
-                        clsData.ReceiveNumber = clsData.ID
+                        If clsData.ReceiveNumber.Trim = "" Then clsData.ReceiveNumber = clsData.ID
                     Else
                         Dim dtItem As DataTable = DL.Receive.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
 

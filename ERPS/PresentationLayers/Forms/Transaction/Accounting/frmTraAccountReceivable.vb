@@ -542,7 +542,7 @@ Public Class frmTraAccountReceivable
                 .Item(cSubmit).Visible = False
                 .Item(cCancelSubmit).Visible = False
                 cboStatus.SelectedValue = VO.Status.Values.Approved
-                cboStatus.Enabled = False
+                'cboStatus.Enabled = False
             End If
         End With
     End Sub

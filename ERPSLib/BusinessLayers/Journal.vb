@@ -71,7 +71,7 @@ Namespace BL
                                         ByVal bolNew As Boolean, ByRef clsData As VO.Journal) As String
             If bolNew Then
                 clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.CompanyID, clsData.IsAutoGenerate, clsData.ProgramID, clsData.JournalDate)
-                clsData.JournalNo = clsData.ID
+                If clsData.JournalNo.Trim = "" Then clsData.JournalNo = clsData.ID
             Else
                 DL.Journal.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
             End If

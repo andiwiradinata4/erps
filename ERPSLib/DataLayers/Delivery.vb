@@ -548,6 +548,75 @@
             End Try
         End Sub
 
+        Public Shared Sub UpdateJournalID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal strID As String, ByVal strJournalID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traDelivery SET " & vbNewLine &
+                    "    JournalID=@JournalID " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@JournalID", SqlDbType.VarChar, 100).Value = strJournalID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub UpdateJournalIDTransport(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal strID As String, ByVal strJournalID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traDelivery SET " & vbNewLine &
+                    "    JournalIDTransport=@JournalID " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@JournalID", SqlDbType.VarChar, 100).Value = strJournalID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub UpdateJournalIDDeliveryTransport(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal strID As String, ByVal strJournalID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traDeliveryTransport SET " & vbNewLine &
+                    "    JournalID=@JournalID " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    DeliveryID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@JournalID", SqlDbType.VarChar, 100).Value = strJournalID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail"

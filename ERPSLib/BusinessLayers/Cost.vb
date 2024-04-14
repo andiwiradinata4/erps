@@ -28,7 +28,7 @@
                 Try
                     If bolNew Then
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.CostDate, clsData.CompanyID, clsData.ProgramID)
-                        clsData.CostNumber = clsData.ID
+                        If clsData.CostNumber.Trim = "" Then clsData.CostNumber = clsData.ID
                     Else
                         DL.Cost.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
                     End If

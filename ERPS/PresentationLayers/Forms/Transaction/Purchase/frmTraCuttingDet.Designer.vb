@@ -264,12 +264,11 @@ Partial Class frmTraCuttingDet
         '
         'txtCuttingNumber
         '
-        Me.txtCuttingNumber.BackColor = System.Drawing.Color.LightYellow
+        Me.txtCuttingNumber.BackColor = System.Drawing.Color.White
         Me.txtCuttingNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtCuttingNumber.Location = New System.Drawing.Point(126, 16)
         Me.txtCuttingNumber.MaxLength = 250
         Me.txtCuttingNumber.Name = "txtCuttingNumber"
-        Me.txtCuttingNumber.ReadOnly = True
         Me.txtCuttingNumber.Size = New System.Drawing.Size(167, 21)
         Me.txtCuttingNumber.TabIndex = 0
         '

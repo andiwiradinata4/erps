@@ -483,12 +483,11 @@ Partial Class frmTraPurchaseOrderCuttingDet
         '
         'txtPONumber
         '
-        Me.txtPONumber.BackColor = System.Drawing.Color.LightYellow
+        Me.txtPONumber.BackColor = System.Drawing.Color.White
         Me.txtPONumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtPONumber.Location = New System.Drawing.Point(160, 16)
         Me.txtPONumber.MaxLength = 250
         Me.txtPONumber.Name = "txtPONumber"
-        Me.txtPONumber.ReadOnly = True
         Me.txtPONumber.Size = New System.Drawing.Size(167, 21)
         Me.txtPONumber.TabIndex = 0
         '

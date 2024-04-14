@@ -339,12 +339,11 @@ Partial Class frmTraDeliveryDet
         '
         'txtDeliveryNumber
         '
-        Me.txtDeliveryNumber.BackColor = System.Drawing.Color.LightYellow
+        Me.txtDeliveryNumber.BackColor = System.Drawing.Color.White
         Me.txtDeliveryNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtDeliveryNumber.Location = New System.Drawing.Point(159, 16)
         Me.txtDeliveryNumber.MaxLength = 250
         Me.txtDeliveryNumber.Name = "txtDeliveryNumber"
-        Me.txtDeliveryNumber.ReadOnly = True
         Me.txtDeliveryNumber.Size = New System.Drawing.Size(167, 21)
         Me.txtDeliveryNumber.TabIndex = 0
         '
@@ -902,7 +901,7 @@ Partial Class frmTraDeliveryDet
         'ToolStripEmpty
         '
         Me.ToolStripEmpty.Name = "ToolStripEmpty"
-        Me.ToolStripEmpty.Size = New System.Drawing.Size(780, 17)
+        Me.ToolStripEmpty.Size = New System.Drawing.Size(777, 17)
         Me.ToolStripEmpty.Spring = True
         '
         'ToolStripLogInc
@@ -975,7 +974,7 @@ Partial Class frmTraDeliveryDet
         Me.tpTransport.Controls.Add(Me.grdItemTransport)
         Me.tpTransport.Location = New System.Drawing.Point(4, 25)
         Me.tpTransport.Name = "tpTransport"
-        Me.tpTransport.Size = New System.Drawing.Size(917, 331)
+        Me.tpTransport.Size = New System.Drawing.Size(906, 331)
         Me.tpTransport.TabIndex = 2
         Me.tpTransport.Text = "Transport - F5"
         Me.tpTransport.UseVisualStyleBackColor = True
@@ -1001,7 +1000,7 @@ Partial Class frmTraDeliveryDet
         Me.grdItemTransport.MainView = Me.grdItemTransportView
         Me.grdItemTransport.Name = "grdItemTransport"
         Me.grdItemTransport.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit3})
-        Me.grdItemTransport.Size = New System.Drawing.Size(917, 331)
+        Me.grdItemTransport.Size = New System.Drawing.Size(906, 331)
         Me.grdItemTransport.TabIndex = 0
         Me.grdItemTransport.UseEmbeddedNavigator = True
         Me.grdItemTransport.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemTransportView})

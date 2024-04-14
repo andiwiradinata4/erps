@@ -211,12 +211,11 @@ Partial Class frmTraJournalDet
         '
         'txtJournalNo
         '
-        Me.txtJournalNo.BackColor = System.Drawing.Color.LightYellow
+        Me.txtJournalNo.BackColor = System.Drawing.Color.White
         Me.txtJournalNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtJournalNo.Location = New System.Drawing.Point(119, 16)
         Me.txtJournalNo.MaxLength = 250
         Me.txtJournalNo.Name = "txtJournalNo"
-        Me.txtJournalNo.ReadOnly = True
         Me.txtJournalNo.Size = New System.Drawing.Size(167, 21)
         Me.txtJournalNo.TabIndex = 0
         '

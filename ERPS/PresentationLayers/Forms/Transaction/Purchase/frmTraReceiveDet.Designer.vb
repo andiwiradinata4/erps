@@ -295,12 +295,11 @@ Partial Class frmTraReceiveDet
         '
         'txtReceiveNumber
         '
-        Me.txtReceiveNumber.BackColor = System.Drawing.Color.LightYellow
+        Me.txtReceiveNumber.BackColor = System.Drawing.Color.White
         Me.txtReceiveNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtReceiveNumber.Location = New System.Drawing.Point(145, 16)
         Me.txtReceiveNumber.MaxLength = 250
         Me.txtReceiveNumber.Name = "txtReceiveNumber"
-        Me.txtReceiveNumber.ReadOnly = True
         Me.txtReceiveNumber.Size = New System.Drawing.Size(167, 21)
         Me.txtReceiveNumber.TabIndex = 0
         '

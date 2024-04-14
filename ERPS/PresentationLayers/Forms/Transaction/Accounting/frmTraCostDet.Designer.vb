@@ -316,12 +316,11 @@ Partial Class frmTraCostDet
         '
         'txtCostNumber
         '
-        Me.txtCostNumber.BackColor = System.Drawing.Color.LightYellow
+        Me.txtCostNumber.BackColor = System.Drawing.Color.White
         Me.txtCostNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtCostNumber.Location = New System.Drawing.Point(132, 16)
         Me.txtCostNumber.MaxLength = 250
         Me.txtCostNumber.Name = "txtCostNumber"
-        Me.txtCostNumber.ReadOnly = True
         Me.txtCostNumber.Size = New System.Drawing.Size(167, 21)
         Me.txtCostNumber.TabIndex = 0
         '

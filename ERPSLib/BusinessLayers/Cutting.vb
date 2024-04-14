@@ -27,7 +27,7 @@
                 Try
                     If bolNew Then
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.CuttingDate, clsData.CompanyID, clsData.ProgramID)
-                        clsData.CuttingNumber = clsData.ID
+                        If clsData.CuttingNumber.Trim = "" Then clsData.CuttingNumber = clsData.ID
                     Else
                         Dim dtItem As DataTable = DL.Cutting.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
 
@@ -162,6 +162,8 @@
 
             '# Save Data Status
             BL.Cutting.SaveDataStatus(sqlCon, sqlTrans, strID, "SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+            'GenerateJournal(sqlCon, sqlTrans, strID)
         End Sub
 
         Public Shared Function Unsubmit(ByVal strID As String, ByVal strRemarks As String) As Boolean
@@ -182,6 +184,13 @@
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses pembayaran")
                     End If
 
+                    ''# Cancel Approve Journal
+                    'Dim clsData As VO.Cutting = DL.Cutting.GetDetail(sqlCon, sqlTrans, strID)
+                    'BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+
+                    ''# Cancel Submit Journal
+                    'BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+
                     DL.Cutting.Unsubmit(sqlCon, sqlTrans, strID)
 
                     '# Save Data Status
@@ -195,6 +204,63 @@
             End Using
             Return bolReturn
         End Function
+
+        Public Shared Sub GenerateJournal(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal strID As String)
+            Try
+                Dim clsData As VO.Cutting = DL.Cutting.GetDetail(sqlCon, sqlTrans, strID)
+                Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
+                Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
+
+                '# Generate Journal
+                Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.TotalPPN - clsData.TotalPPH + clsData.RoundingManual
+                Dim clsJournalDetail As New List(Of VO.JournalDet) From {
+                    New VO.JournalDet With
+                                     {
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofStock,
+                                         .DebitAmount = decTotalAmount,
+                                         .CreditAmount = 0,
+                                         .Remarks = "PROSES PEMOTONGAN - " & clsData.CuttingNumber
+                                     },
+                    New VO.JournalDet With
+                                     {
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable,
+                                         .DebitAmount = 0,
+                                         .CreditAmount = decTotalAmount,
+                                         .Remarks = "PROSES PEMOTONGAN - " & clsData.CuttingNumber
+                                     }
+                }
+
+                Dim clsJournal As New VO.Journal With
+                {
+                    .ProgramID = clsData.ProgramID,
+                    .CompanyID = clsData.CompanyID,
+                    .ID = PrevJournal.ID,
+                    .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                    .ReferencesID = clsData.ID,
+                    .JournalDate = IIf(bolNew, Now, PrevJournal.JournalDate),
+                    .TotalAmount = decTotalAmount,
+                    .IsAutoGenerate = True,
+                    .StatusID = VO.Status.Values.Draft,
+                    .Remarks = clsData.Remarks,
+                    .LogBy = ERPSLib.UI.usUserApp.UserID,
+                    .Initial = "",
+                    .Detail = clsJournalDetail,
+                    .Save = VO.Save.Action.SaveAndSubmit
+                }
+
+                '# Save Journal
+                Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
+
+                '# Approve Journal
+                BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
+
+                '# Update Journal ID in Cutting
+                DL.Cutting.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
 
 #End Region
 
