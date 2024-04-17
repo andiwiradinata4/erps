@@ -1,0 +1,61 @@
+Panjar Pembelian
+----
+-> Hutang Dagang -> Debit
+-> Kas / Bank -> Kredit
+
+Pembelian / Penerimaan
+----
+-> Pembelian -> Debit 
+-> Hutang Dagang -> Kredit
+
+Pembayaran Pembelian
+----
+-> Hutang Dagang -> Debit
+-> Kas / Bank -> Kredit
+
+Panjar Proses Pemotongan
+----
+-> Hutang Dagang -> Debit
+-> Kas / Bank -> Kredit
+
+Proses Pemotongan
+----
+-> Pembelian -> Debit
+-> Hutang Dagang -> Kredit 
+
+Pembayaran Pemotongan
+----
+-> Hutang Dagang -> Debit
+-> Kas / Bank -> Kredit
+
+Panjar Expedisi
+----
+-> Hutang Dagang -> Debit
+-> Kas / Bank -> Kredit
+
+Proses Penggunaan Expedisi
+----
+-> Pembelian -> Debit
+-> Hutang Dagang -> Kredit
+
+Pembayaran Expedisi
+----
+-> Hutang Dagang -> Debit
+-> Kas / Bank -> Kredit
+
+Panjar Penjualan / Pengiriman
+----
+-> Kas / Bank -> Debit
+-> Piutang -> Kredit
+
+Penjualan / Pengiriman 
+----
+-> Piutang -> Debit
+-> Penjualan -> Kredit
+
+Penagihan Penjualan
+----
+-> Kas / Bank -> Debit
+-> Piutang -> Kredit
+
+->> Apakah Akun Hutang Pemotongan, Hutang Pengiriman, Pembelian (Pengiriman), Pembelian (Pemotongan) harus dipisah akunnya?
