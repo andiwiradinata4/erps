@@ -42,6 +42,9 @@
 
             Me.Hide()
 
+            '# Run Migration
+            BL.Migration.Migrate()
+
             If ERPSLib.UI.usUserApp.AccessList.Rows.Count = 1 Then
                 ERPSLib.UI.usUserApp.ProgramID = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("ProgramID")
                 ERPSLib.UI.usUserApp.ProgramName = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("ProgramName")

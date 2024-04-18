@@ -394,7 +394,7 @@
                 '# Save Data Status
                 BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
-                'GenerateJournal(sqlCon, sqlTrans, strID)
+                GenerateJournal(sqlCon, sqlTrans, strID)
                 bolReturn = True
             Catch ex As Exception
                 Throw ex
@@ -433,12 +433,12 @@
                     Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
                 End If
 
-                'Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
-                ''# Cancel Approve Journal
-                'BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+                Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
+                '# Cancel Approve Journal
+                BL.Journal.Unapprove(clsData.JournalID.Trim, "")
 
-                ''# Cancel Submit Journal
-                'BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+                '# Cancel Submit Journal
+                BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
 
                 '# Unapprove Account Receivable
                 DL.AccountPayable.Unapprove(sqlCon, sqlTrans, strID)
@@ -599,10 +599,11 @@
                     strJournalDetailRemarks = "PEMBAYARAN HUTANG PESANAN PENGIRIMAN - " & clsData.APNumber
                 End If
 
+                '# Note -> DP Only Have Total Amount 
                 clsJournalDetail.Add(New VO.JournalDet With
                                      {
                                          .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable,
-                                         .DebitAmount = clsData.TotalAmount,
+                                         .DebitAmount = IIf(clsData.IsDP, clsData.TotalAmount, clsData.ReceiveAmount),
                                          .CreditAmount = 0,
                                          .Remarks = strJournalDetailRemarks
                                      })
@@ -610,7 +611,7 @@
                                      {
                                          .CoAID = clsData.CoAIDOfOutgoingPayment,
                                          .DebitAmount = 0,
-                                         .CreditAmount = clsData.TotalAmount,
+                                         .CreditAmount = IIf(clsData.IsDP, clsData.TotalAmount, clsData.ReceiveAmount),
                                          .Remarks = strJournalDetailRemarks
                                      })
 
@@ -622,7 +623,7 @@
                         .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
                         .ReferencesID = clsData.ID,
                         .JournalDate = IIf(bolNew, clsData.APDate, PrevJournal.JournalDate),
-                        .TotalAmount = clsData.TotalAmount,
+                        .TotalAmount = IIf(clsData.IsDP, clsData.TotalAmount, clsData.ReceiveAmount),
                         .IsAutoGenerate = True,
                         .StatusID = VO.Status.Values.Draft,
                         .Remarks = clsData.Remarks,

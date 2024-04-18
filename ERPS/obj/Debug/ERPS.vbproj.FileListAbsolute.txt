@@ -568,7 +568,6 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.vbproj.GenerateResource.cache
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.exe.licenses
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.vbproj.CoreCompileInputs.cache
 C:\Project\Tony\ERPS\ERPS\obj\Debug\aa\ERPS.resources.dll
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.vbproj.CopyComplete
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.exe
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.xml
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.pdb
@@ -743,3 +742,6 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.vbproj.Up2Date
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.exe
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.xml
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.pdb
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraCuttingDetOutstandingPO.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraReceiveDetOutstandingContract.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.vbproj.Up2Date

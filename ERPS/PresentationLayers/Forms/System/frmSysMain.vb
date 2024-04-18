@@ -85,10 +85,6 @@
     Private Sub prvUserAccess()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
-
-        '# Run Migration
-        BL.Migration.Migrate()
 
         '# Master
         mnuMasterProgram.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterProgram, VO.Access.Values.ViewAccess)
@@ -112,7 +108,7 @@
         mnuMasterAkunBankPerusahaan.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterCompanyBankAccount, VO.Access.Values.ViewAccess)
 
         pgMain.Value = 50
-        Application.DoEvents()
+
 
         '# Transaction
         '## Sales

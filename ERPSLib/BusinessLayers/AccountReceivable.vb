@@ -355,7 +355,7 @@
                 '# Save Data Status
                 BL.AccountReceivable.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
-                'GenerateJournal(sqlCon, sqlTrans, strID)
+                GenerateJournal(sqlCon, sqlTrans, strID)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -541,7 +541,7 @@
                 clsJournalDetail.Add(New VO.JournalDet With
                                      {
                                          .CoAID = clsData.CoAIDOfIncomePayment,
-                                         .DebitAmount = clsData.TotalAmount,
+                                         .DebitAmount = IIf(clsData.IsDP, clsData.TotalAmount, clsData.ReceiveAmount),
                                          .CreditAmount = 0,
                                          .Remarks = "PELUNASAN - " & clsData.ARNumber
                                      })
@@ -549,7 +549,7 @@
                                      {
                                          .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountReceivable,
                                          .DebitAmount = 0,
-                                         .CreditAmount = clsData.TotalAmount,
+                                         .CreditAmount = IIf(clsData.IsDP, clsData.TotalAmount, clsData.ReceiveAmount),
                                          .Remarks = "PELUNASAN - " & clsData.ARNumber
                                      })
 
@@ -561,7 +561,7 @@
                         .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
                         .ReferencesID = clsData.ID,
                         .JournalDate = IIf(bolNew, clsData.ARDate, PrevJournal.JournalDate),
-                        .TotalAmount = clsData.TotalAmount,
+                        .TotalAmount = IIf(clsData.IsDP, clsData.TotalAmount, clsData.ReceiveAmount),
                         .IsAutoGenerate = True,
                         .StatusID = VO.Status.Values.Draft,
                         .Remarks = clsData.Remarks,

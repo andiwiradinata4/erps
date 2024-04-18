@@ -3,10 +3,13 @@
 #Region "Property"
 
     Private _
-        intCoAIDofRevenue As Integer = 0, intCoAIDofAccountReceivable As Integer = 0, intCoAIDofSalesDiscount As Integer = 0, intCoAIDofPrepaidIncome As Integer = 0, _
-        intCoAIDofCOGS As Integer = 0, intCoAIDofStock As Integer = 0, intCoAIDofCashOrBank As Integer = 0, intCoAIDofAccountPayable As Integer = 0, _
-        intCoAIDofPurchaseDiscount As Integer = 0, intCoAIDofPurchaseEquipments As Integer = 0, intCoAIDofAdvancePayment As Integer = 0, _
-        intCoAIDofSalesTax As Integer = 0, intCoAIDofPurchaseTax As Integer = 0, intCoAIDofVentureCapital As Integer = 0
+        intCoAIDofRevenue As Integer = 0, intCoAIDofAccountReceivable As Integer = 0, intCoAIDofSalesDiscount As Integer = 0, intCoAIDofPrepaidIncome As Integer = 0,
+        intCoAIDofCOGS As Integer = 0, intCoAIDofStock As Integer = 0, intCoAIDofCashOrBank As Integer = 0, intCoAIDofAccountPayable As Integer = 0,
+        intCoAIDofPurchaseDiscount As Integer = 0, intCoAIDofPurchaseEquipments As Integer = 0, intCoAIDofAdvancePayment As Integer = 0,
+        intCoAIDofSalesTax As Integer = 0, intCoAIDofPurchaseTax As Integer = 0, intCoAIDofVentureCapital As Integer = 0, intCoAIDOfPPHSales As Integer = 0,
+        intCoAIDOfPPHPurchase As Integer = 0, intCoAIDofPrepaidIncomeCutting As Integer = 0, intCoAIDofPrepaidIncomeTransport As Integer = 0,
+        intCoAIDofStockCutting As Integer = 0, intCoAIDofStockTransport As Integer = 0, intCoAIDofAccountPayableCutting As Integer = 0,
+        intCoAIDofAccountPayableTransport As Integer = 0
     Private clsData As New VO.JournalPost
     Private Const _
        cSave = 0, cClose = 1
@@ -72,6 +75,38 @@
             txtCoACodeofVentureCapital.Text = clsData.CoACodeofVentureCapital
             txtCoANameofVentureCapital.Text = clsData.CoANameofVentureCapital
 
+            intCoAIDofPPHSales = clsData.CoAofPPHSales
+            txtCoACodeofPPHSales.Text = clsData.CoACodeofPPHSales
+            txtCoANameofPPHSales.Text = clsData.CoANameofPPHSales
+
+            intCoAIDOfPPHPurchase = clsData.CoAofPPHPurchase
+            txtCoACodeofPPHPurchase.Text = clsData.CoACodeofPPHPurchase
+            txtCoANameofPPHPurchase.Text = clsData.CoANameofPPHPurchase
+
+            intCoAIDofPrepaidIncomeCutting = clsData.CoAofPrepaidIncomeCutting
+            txtCoACodeofPrepaidIncomeCutting.Text = clsData.CoACodeofPrepaidIncomeCutting
+            txtCoANameofPrepaidIncomeCutting.Text = clsData.CoANameofPrepaidIncomeCutting
+
+            intCoAIDofPrepaidIncomeTransport = clsData.CoAofPrepaidIncomeTransport
+            txtCoACodeofPrepaidIncomeTransport.Text = clsData.CoACodeofPrepaidIncomeTransport
+            txtCoANameofPrepaidIncomeTransport.Text = clsData.CoANameofPrepaidIncomeTransport
+
+            intCoAIDofStockCutting = clsData.CoAofStockCutting
+            txtCoACodeofStockCutting.Text = clsData.CoACodeofStockCutting
+            txtCoANameofStockCutting.Text = clsData.CoANameofStockCutting
+
+            intCoAIDofStockTransport = clsData.CoAofStockTransport
+            txtCoACodeofStockTransport.Text = clsData.CoACodeofStockTransport
+            txtCoANameofStockTransport.Text = clsData.CoANameofStockTransport
+
+            intCoAIDofAccountPayableCutting = clsData.CoAofAccountPayableCutting
+            txtCoACodeofAccountPayableCutting.Text = clsData.CoACodeofAccountPayableCutting
+            txtCoANameofAccountPayableCutting.Text = clsData.CoANameofAccountPayableCutting
+
+            intCoAIDofAccountPayableTransport = clsData.CoAofAccountPayableTransport
+            txtCoACodeofAccountPayableTransport.Text = clsData.CoACodeofAccountPayableTransport
+            txtCoANameofAccountPayableTransport.Text = clsData.CoANameofAccountPayableTransport
+
             ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
             ToolStripLogBy.Text = "Dibuat Oleh : " & IIf(clsData.LogBy Is Nothing, ERPSLib.UI.usUserApp.UserID, clsData.LogBy)
             ToolStripLogDate.Text = Format(IIf(clsData.LogBy Is Nothing, Now(), clsData.LogDate), UI.usDefCons.DateFull)
@@ -98,6 +133,14 @@
         clsData.CoAofSalesTax = intCoAIDofSalesTax
         clsData.CoAofPurchaseTax = intCoAIDofPurchaseTax
         clsData.CoAofVentureCapital = intCoAIDofVentureCapital
+        clsData.CoAofPPHSales = intCoAIDOfPPHSales
+        clsData.CoAofPPHPurchase = intCoAIDOfPPHPurchase
+        clsData.CoAofPrepaidIncomeCutting = intCoAIDofPrepaidIncomeCutting
+        clsData.CoAofPrepaidIncomeTransport = intCoAIDofPrepaidIncomeTransport
+        clsData.CoAofStockCutting = intCoAIDofStockCutting
+        clsData.CoAofStockTransport = intCoAIDofStockTransport
+        clsData.CoAofAccountPayableCutting = intCoAIDofAccountPayableCutting
+        clsData.CoAofAccountPayableTransport = intCoAIDofAccountPayableTransport
         clsData.Remarks = ""
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
 

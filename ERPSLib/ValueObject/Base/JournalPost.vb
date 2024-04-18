@@ -65,6 +65,38 @@
         Property CoACodeofVentureCapital As String
         Property CoANameofVentureCapital As String
 
+        Property CoAofPPHSales As Integer
+        Property CoACodeofPPHSales As String
+        Property CoANameofPPHSales As String
+
+        Property CoAofPPHPurchase As Integer
+        Property CoACodeofPPHPurchase As String
+        Property CoANameofPPHPurchase As String
+
+        Property CoAofPrepaidIncomeCutting As Integer
+        Property CoACodeofPrepaidIncomeCutting As String
+        Property CoANameofPrepaidIncomeCutting As String
+
+        Property CoAofPrepaidIncomeTransport As Integer
+        Property CoACodeofPrepaidIncomeTransport As String
+        Property CoANameofPrepaidIncomeTransport As String
+
+        Property CoAofStockCutting As Integer
+        Property CoACodeofStockCutting As String
+        Property CoANameofStockCutting As String
+
+        Property CoAofStockTransport As Integer
+        Property CoACodeofStockTransport As String
+        Property CoANameofStockTransport As String
+
+        Property CoAofAccountPayableCutting As Integer
+        Property CoACodeofAccountPayableCutting As String
+        Property CoANameofAccountPayableCutting As String
+
+        Property CoAofAccountPayableTransport As Integer
+        Property CoACodeofAccountPayableTransport As String
+        Property CoANameofAccountPayableTransport As String
+
         Property Remarks As String
     End Class
 End Namespace
