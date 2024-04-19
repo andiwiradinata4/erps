@@ -11,14 +11,14 @@ Namespace BL
         Public Shared Function SaveData(ByVal clsData As VO.JournalPost) As Boolean
             Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
-            Try
-                Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Try
                     DL.JournalPost.SaveData(sqlCon, Nothing, Not DL.JournalPost.DataExists(sqlCon, Nothing), clsData)
-                End Using
-                bolReturn = True
-            Catch ex As Exception
-                Throw ex
-            End Try
+                    bolReturn = True
+                Catch ex As Exception
+                    Throw ex
+                End Try
+            End Using
             Return bolReturn
         End Function
 

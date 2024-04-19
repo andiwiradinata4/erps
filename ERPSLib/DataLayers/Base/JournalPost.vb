@@ -48,10 +48,10 @@ SELECT [ProgramID]
                                    ByVal bolNew As Boolean, ByVal clsData As VO.JournalPost)
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
                 If bolNew Then
-                    .Connection = sqlCon
-                    .Transaction = sqlTrans
-                    .CommandType = CommandType.Text
                     .CommandText =
                        "INSERT INTO sysJournalPost " & vbNewLine &
                        "    (ProgramID, CoAofRevenue, CoAofAccountReceivable, CoAofSalesDisc, CoAofPrepaidIncome, CoAofCOGS, CoAofStock, CoAofCash, CoAofAccountPayable,   " & vbNewLine &
