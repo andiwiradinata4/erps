@@ -15,8 +15,9 @@
                 .CommandText =
                     "SELECT " & vbNewLine &
                     "    A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.ReceiveNumber, A.ReceiveDate, " & vbNewLine &
-                    "    A.BPID, C.Code AS BPCode, C.Name AS BPName, A.PlatNumber, A.Driver, A.PCID, PC.PCNumber, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, " & vbNewLine &
-                    "    A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine &
+                    "    A.BPID, C.Code AS BPCode, C.Name AS BPName, A.PlatNumber, A.Driver, A.PCID, PC.PCNumber, A.CoAofStock, COA.Code AS CoACodeofStock, " & vbNewLine &
+                    "    COA.Name AS CoANameofStock, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, " & vbNewLine &
+                    "    A.RoundingManual, A.IsDeleted, A.Remarks, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine &
                     "    A.StatusID, B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, " & vbNewLine &
                     "    A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate  " & vbNewLine &
                     "FROM traReceive A " & vbNewLine &
@@ -30,6 +31,8 @@
                     "   A.ProgramID=MP.ID " & vbNewLine &
                     "INNER JOIN traPurchaseContract PC ON " & vbNewLine &
                     "   A.PCID=PC.ID " & vbNewLine &
+                    "INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
+                    "   A.CoAofStock=COA.ID " & vbNewLine &
                     "WHERE  " & vbNewLine &
                     "   A.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.CompanyID=@CompanyID " & vbNewLine &
@@ -93,12 +96,12 @@
                        "    (ID, ProgramID, CompanyID, ReceiveNumber, ReceiveDate, BPID, PlatNumber,   " & vbNewLine &
                        "     Driver, ReferencesNumber, PPN, PPH, TotalQuantity, TotalWeight,   " & vbNewLine &
                        "     TotalDPP, TotalPPN, TotalPPH, RoundingManual, Remarks,   " & vbNewLine &
-                       "     StatusID, CreatedBy, CreatedDate, LogBy, LogDate, PCID)   " & vbNewLine &
+                       "     StatusID, CreatedBy, CreatedDate, LogBy, LogDate, PCID, CoAofStock)   " & vbNewLine &
                        "VALUES " & vbNewLine &
                        "    (@ID, @ProgramID, @CompanyID, @ReceiveNumber, @ReceiveDate, @BPID, @PlatNumber,   " & vbNewLine &
                        "     @Driver, @ReferencesNumber, @PPN, @PPH, @TotalQuantity, @TotalWeight,   " & vbNewLine &
                        "     @TotalDPP, @TotalPPN, @TotalPPH, @RoundingManual, @Remarks,   " & vbNewLine &
-                       "     @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @PCID)  " & vbNewLine
+                       "     @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @PCID, @CoAofStock)  " & vbNewLine
                 Else
                     .CommandText =
                     "UPDATE traReceive SET " & vbNewLine &
@@ -122,7 +125,8 @@
                     "    StatusID=@StatusID, " & vbNewLine &
                     "    LogBy=@LogBy, " & vbNewLine &
                     "    LogDate=GETDATE(), " & vbNewLine &
-                    "    PCID=@PCID " & vbNewLine &
+                    "    PCID=@PCID, " & vbNewLine &
+                    "    CoAofStock=@CoAofStock " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "    ID=@ID " & vbNewLine
                 End If
@@ -148,6 +152,7 @@
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@PCID", SqlDbType.VarChar, 100).Value = clsData.PCID
+                .Parameters.Add("@CoAofStock", SqlDbType.Int).Value = clsData.CoAofStock
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -168,13 +173,16 @@
                     .CommandText =
                         "SELECT TOP 1 " & vbNewLine &
                         "   A.ID, A.ProgramID, A.CompanyID, A.ReceiveNumber, A.ReceiveDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.PlatNumber,   " & vbNewLine &
-                        "   A.Driver, A.PCID, PC.PCNumber, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, " & vbNewLine &
-                        "   A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, A.LogBy, A.LogDate, A.JournalID, A.DPAmount, A.TotalPayment " & vbNewLine &
+                        "   A.Driver, A.PCID, PC.PCNumber, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, " & vbNewLine &
+                        "   A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, A.LogBy, A.LogDate, A.JournalID, " & vbNewLine &
+                        "   A.DPAmount, A.TotalPayment, A.CoAofStock, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock " & vbNewLine &
                         "FROM traReceive A " & vbNewLine &
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
                         "   A.BPID=B.ID " & vbNewLine &
                         "INNER JOIN traPurchaseContract PC ON " & vbNewLine &
                         "   A.PCID=PC.ID " & vbNewLine &
+                        "INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
+                        "   A.CoAofStock=COA.ID " & vbNewLine &
                         "WHERE " & vbNewLine &
                         "   A.ID=@ID " & vbNewLine
 
@@ -215,6 +223,9 @@
                         voReturn.JournalID = .Item("JournalID")
                         voReturn.DPAmount = .Item("DPAmount")
                         voReturn.TotalPayment = .Item("TotalPayment")
+                        voReturn.CoAofStock = .Item("CoAofStock")
+                        voReturn.CoACodeOfStock = .Item("CoACodeofStock")
+                        voReturn.CoANameOfStock = .Item("CoANameOfStock")
                     End If
                 End With
             Catch ex As Exception

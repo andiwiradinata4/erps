@@ -86,6 +86,10 @@ Partial Class frmTraReceiveDet
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.txtCoACodeOfStock = New ERPS.usTextBox()
+        Me.btnCoAOfStock = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.txtCoANameOfStock = New ERPS.usTextBox()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         Me.tpAmount.SuspendLayout()
@@ -154,12 +158,16 @@ Partial Class frmTraReceiveDet
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(884, 209)
+        Me.tcHeader.Size = New System.Drawing.Size(884, 228)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.txtCoACodeOfStock)
+        Me.tpMain.Controls.Add(Me.btnCoAOfStock)
+        Me.tpMain.Controls.Add(Me.Label12)
+        Me.tpMain.Controls.Add(Me.txtCoANameOfStock)
         Me.tpMain.Controls.Add(Me.txtPCNumber)
         Me.tpMain.Controls.Add(Me.btnPurchaseContract)
         Me.tpMain.Controls.Add(Me.Label9)
@@ -184,7 +192,7 @@ Partial Class frmTraReceiveDet
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(876, 180)
+        Me.tpMain.Size = New System.Drawing.Size(876, 199)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
@@ -254,7 +262,7 @@ Partial Class frmTraReceiveDet
         '
         Me.txtReferencesNumber.BackColor = System.Drawing.Color.White
         Me.txtReferencesNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtReferencesNumber.Location = New System.Drawing.Point(145, 126)
+        Me.txtReferencesNumber.Location = New System.Drawing.Point(145, 152)
         Me.txtReferencesNumber.MaxLength = 250
         Me.txtReferencesNumber.Name = "txtReferencesNumber"
         Me.txtReferencesNumber.Size = New System.Drawing.Size(249, 21)
@@ -308,7 +316,7 @@ Partial Class frmTraReceiveDet
         Me.Label19.AutoSize = True
         Me.Label19.BackColor = System.Drawing.Color.Transparent
         Me.Label19.ForeColor = System.Drawing.Color.Black
-        Me.Label19.Location = New System.Drawing.Point(28, 130)
+        Me.Label19.Location = New System.Drawing.Point(28, 156)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(73, 13)
         Me.Label19.TabIndex = 132
@@ -663,7 +671,7 @@ Partial Class frmTraReceiveDet
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(0, 259)
+        Me.Label1.Location = New System.Drawing.Point(0, 278)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(884, 22)
         Me.Label1.TabIndex = 3
@@ -683,10 +691,10 @@ Partial Class frmTraReceiveDet
         Me.tcDetail.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tcDetail.Controls.Add(Me.tpItem)
         Me.tcDetail.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tcDetail.Location = New System.Drawing.Point(0, 281)
+        Me.tcDetail.Location = New System.Drawing.Point(0, 300)
         Me.tcDetail.Name = "tcDetail"
         Me.tcDetail.SelectedIndex = 0
-        Me.tcDetail.Size = New System.Drawing.Size(884, 357)
+        Me.tcDetail.Size = New System.Drawing.Size(884, 338)
         Me.tcDetail.TabIndex = 4
         '
         'tpItem
@@ -697,7 +705,7 @@ Partial Class frmTraReceiveDet
         Me.tpItem.Location = New System.Drawing.Point(4, 25)
         Me.tpItem.Name = "tpItem"
         Me.tpItem.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpItem.Size = New System.Drawing.Size(876, 328)
+        Me.tpItem.Size = New System.Drawing.Size(876, 309)
         Me.tpItem.TabIndex = 1
         Me.tpItem.Text = "Item - F4"
         Me.tpItem.UseVisualStyleBackColor = True
@@ -723,7 +731,7 @@ Partial Class frmTraReceiveDet
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItem.Size = New System.Drawing.Size(870, 272)
+        Me.grdItem.Size = New System.Drawing.Size(870, 253)
         Me.grdItem.TabIndex = 1
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
@@ -751,7 +759,7 @@ Partial Class frmTraReceiveDet
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(3, 303)
+        Me.StatusStrip.Location = New System.Drawing.Point(3, 284)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(870, 22)
         Me.StatusStrip.TabIndex = 2
@@ -827,6 +835,47 @@ Partial Class frmTraReceiveDet
         Me.BarDeleteItemOrder.Name = "BarDeleteItemOrder"
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
+        '
+        'txtCoACodeOfStock
+        '
+        Me.txtCoACodeOfStock.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeOfStock.Location = New System.Drawing.Point(145, 125)
+        Me.txtCoACodeOfStock.MaxLength = 250
+        Me.txtCoACodeOfStock.Name = "txtCoACodeOfStock"
+        Me.txtCoACodeOfStock.ReadOnly = True
+        Me.txtCoACodeOfStock.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeOfStock.TabIndex = 146
+        '
+        'btnCoAOfStock
+        '
+        Me.btnCoAOfStock.Image = CType(resources.GetObject("btnCoAOfStock.Image"), System.Drawing.Image)
+        Me.btnCoAOfStock.Location = New System.Drawing.Point(400, 124)
+        Me.btnCoAOfStock.Name = "btnCoAOfStock"
+        Me.btnCoAOfStock.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAOfStock.TabIndex = 148
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.BackColor = System.Drawing.Color.Transparent
+        Me.Label12.ForeColor = System.Drawing.Color.Black
+        Me.Label12.Location = New System.Drawing.Point(28, 129)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(87, 13)
+        Me.Label12.TabIndex = 149
+        Me.Label12.Text = "Akun Persediaan"
+        '
+        'txtCoANameOfStock
+        '
+        Me.txtCoANameOfStock.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameOfStock.Location = New System.Drawing.Point(227, 125)
+        Me.txtCoANameOfStock.MaxLength = 250
+        Me.txtCoANameOfStock.Name = "txtCoANameOfStock"
+        Me.txtCoANameOfStock.ReadOnly = True
+        Me.txtCoANameOfStock.Size = New System.Drawing.Size(167, 21)
+        Me.txtCoANameOfStock.TabIndex = 147
         '
         'frmTraReceiveDet
         '
@@ -936,4 +985,8 @@ Partial Class frmTraReceiveDet
     Friend WithEvents txtPCNumber As ERPS.usTextBox
     Friend WithEvents btnPurchaseContract As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents txtCoACodeOfStock As usTextBox
+    Friend WithEvents btnCoAOfStock As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label12 As Label
+    Friend WithEvents txtCoANameOfStock As usTextBox
 End Class

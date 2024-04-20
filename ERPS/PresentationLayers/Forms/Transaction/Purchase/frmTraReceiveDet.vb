@@ -7,6 +7,7 @@ Public Class frmTraReceiveDet
     Private clsData As VO.Receive
     Private intBPID As Integer = 0
     Private strPCID As String = ""
+    Private intCoAIDOfStock As Integer = 0
     Private dtItem As New DataTable
     Private dtPaymentTerm As New DataTable
     Private intPos As Integer = 0
@@ -98,6 +99,9 @@ Public Class frmTraReceiveDet
                 strPCID = clsData.PCID
                 txtPCNumber.Text = clsData.PCNumber
                 dtpReceiveDate.Value = clsData.ReceiveDate
+                intCoAIDOfStock = clsData.CoAofStock
+                txtCoACodeOfStock.Text = clsData.CoACodeOfStock
+                txtCoANameOfStock.Text = clsData.CoANameOfStock
                 txtReferencesNumber.Text = clsData.ReferencesNumber
                 txtPlatNumber.Text = clsData.PlatNumber
                 txtDriver.Text = clsData.Driver
@@ -187,6 +191,9 @@ Public Class frmTraReceiveDet
         clsData.BPID = intBPID
         clsData.PCID = strPCID
         clsData.PCNumber = txtPCNumber.Text.Trim
+        clsData.CoAofStock = intCoAIDOfStock
+        clsData.CoACodeOfStock = txtCoACodeOfStock.Text.Trim
+        clsData.CoANameOfStock = txtCoANameOfStock.Text.Trim
         clsData.ReferencesNumber = txtReferencesNumber.Text.Trim
         clsData.PlatNumber = txtPlatNumber.Text.Trim
         clsData.Driver = txtDriver.Text.Trim
@@ -240,6 +247,9 @@ Public Class frmTraReceiveDet
         strPCID = ""
         txtPCNumber.Text = ""
         dtpReceiveDate.Value = Now
+        intCoAIDOfStock = 0
+        txtCoACodeOfStock.Text = ""
+        txtCoANameOfStock.Text = ""
         txtReferencesNumber.Text = ""
         txtPlatNumber.Text = ""
         txtDriver.Text = ""
@@ -292,6 +302,24 @@ Public Class frmTraReceiveDet
                 End If
                 strPCID = .pubLUdtRow.Item("ID")
                 txtPCNumber.Text = .pubLUdtRow.Item("PCNumber")
+            End If
+        End With
+    End Sub
+
+    Private Sub prvChooseCOA()
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .pubCompanyID = pubCS.CompanyID
+            .pubProgramID = pubCS.ProgramID
+            .pubFilterGroup = VO.ChartOfAccount.FilterGroup.Stock
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDOfStock = .pubLUdtRow.Item("ID")
+                txtCoACodeOfStock.Text = .pubLUdtRow.Item("Code")
+                txtCoANameOfStock.Text = .pubLUdtRow.Item("Name")
+                txtReferencesNumber.Focus()
             End If
         End With
     End Sub
@@ -510,6 +538,10 @@ Public Class frmTraReceiveDet
 
     Private Sub btnPurchaseContract_Click(sender As Object, e As EventArgs) Handles btnPurchaseContract.Click
         prvChooseContract()
+    End Sub
+
+    Private Sub btnCoAOfStock_Click(sender As Object, e As EventArgs) Handles btnCoAOfStock.Click
+        prvChooseCOA()
     End Sub
 
 #End Region

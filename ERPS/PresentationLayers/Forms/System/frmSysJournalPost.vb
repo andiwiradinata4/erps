@@ -8,8 +8,11 @@
         intCoAIDofPurchaseDiscount As Integer = 0, intCoAIDofPurchaseEquipments As Integer = 0, intCoAIDofAdvancePayment As Integer = 0,
         intCoAIDofSalesTax As Integer = 0, intCoAIDofPurchaseTax As Integer = 0, intCoAIDofVentureCapital As Integer = 0, intCoAIDOfPPHSales As Integer = 0,
         intCoAIDOfPPHPurchase As Integer = 0, intCoAIDofPrepaidIncomeCutting As Integer = 0, intCoAIDofPrepaidIncomeTransport As Integer = 0,
-        intCoAIDofStockCutting As Integer = 0, intCoAIDofStockTransport As Integer = 0, intCoAIDofAccountPayableCutting As Integer = 0,
-        intCoAIDofAccountPayableTransport As Integer = 0
+        intCoAIDofStockCutting As Integer = 0, intCoAIDofStockCutting2 As Integer = 0, intCoAIDofStockCutting3 As Integer = 0, intCoAIDofStockTransport As Integer = 0,
+        intCoAIDofAccountPayableCutting As Integer = 0, intCoAIDofAccountPayableCutting2 As Integer = 0, intCoAIDofAccountPayableCutting3 As Integer = 0,
+        intCoAIDofAccountPayableTransport As Integer = 0, intCoAIDofAccountReceivableOutstandingPayment As Integer = 0, intCoAIDofAccountPayableOutstandingPayment As Integer = 0,
+        intCoAIDofAccountPayableCuttingOutstandingPayment As Integer = 0, intCoAIDofAccountPayableTransportOutstandingPayment As Integer = 0
+
     Private clsData As New VO.JournalPost
     Private Const _
        cSave = 0, cClose = 1
@@ -95,6 +98,14 @@
             txtCoACodeofStockCutting.Text = clsData.CoACodeofStockCutting
             txtCoANameofStockCutting.Text = clsData.CoANameofStockCutting
 
+            intCoAIDofStockCutting2 = clsData.CoAofStockCutting2
+            txtCoACodeofStockCutting2.Text = clsData.CoACodeofStockCutting2
+            txtCoANameofStockCutting2.Text = clsData.CoANameofStockCutting2
+
+            intCoAIDofStockCutting3 = clsData.CoAofStockCutting3
+            txtCoACodeofStockCutting3.Text = clsData.CoACodeofStockCutting3
+            txtCoANameofStockCutting3.Text = clsData.CoANameofStockCutting3
+
             intCoAIDofStockTransport = clsData.CoAofStockTransport
             txtCoACodeofStockTransport.Text = clsData.CoACodeofStockTransport
             txtCoANameofStockTransport.Text = clsData.CoANameofStockTransport
@@ -103,9 +114,33 @@
             txtCoACodeofAccountPayableCutting.Text = clsData.CoACodeofAccountPayableCutting
             txtCoANameofAccountPayableCutting.Text = clsData.CoANameofAccountPayableCutting
 
+            intCoAIDofAccountPayableCutting2 = clsData.CoAofAccountPayableCutting2
+            txtCoACodeofAccountPayableCutting2.Text = clsData.CoACodeofAccountPayableCutting2
+            txtCoANameofAccountPayableCutting2.Text = clsData.CoANameofAccountPayableCutting2
+
+            intCoAIDofAccountPayableCutting3 = clsData.CoAofAccountPayableCutting3
+            txtCoACodeofAccountPayableCutting3.Text = clsData.CoACodeofAccountPayableCutting3
+            txtCoANameofAccountPayableCutting3.Text = clsData.CoANameofAccountPayableCutting3
+
             intCoAIDofAccountPayableTransport = clsData.CoAofAccountPayableTransport
             txtCoACodeofAccountPayableTransport.Text = clsData.CoACodeofAccountPayableTransport
             txtCoANameofAccountPayableTransport.Text = clsData.CoANameofAccountPayableTransport
+
+            intCoAIDofAccountReceivableOutstandingPayment = clsData.CoAofAccountReceivableOutstandingPayment
+            txtCoACodeOfAccountReceivableOutstandingPayment.Text = clsData.CoACodeofAccountReceivableOutstandingPayment
+            txtCoANameOfAccountReceivableOutstandingPayment.Text = clsData.CoANameofAccountReceivableOutstandingPayment
+
+            intCoAIDofAccountPayableOutstandingPayment = clsData.CoAofAccountPayableOutstandingPayment
+            txtCoACodeOfAccountPayableOutstandingPayment.Text = clsData.CoACodeofAccountPayableOutstandingPayment
+            txtCoANameOfAccountPayableOutstandingPayment.Text = clsData.CoANameofAccountPayableOutstandingPayment
+
+            intCoAIDofAccountPayableCuttingOutstandingPayment = clsData.CoAofAccountPayableCuttingOutstandingPayment
+            txtCoACodeofAccountPayableCuttingOutstandingPayment.Text = clsData.CoACodeofAccountPayableCuttingOutstandingPayment
+            txtCoANameofAccountPayableCuttingOutstandingPayment.Text = clsData.CoANameofAccountPayableCuttingOutstandingPayment
+
+            intCoAIDofAccountPayableTransportOutstandingPayment = clsData.CoAofAccountPayableTransportOutstandingPayment
+            txtCoACodeofAccountPayableTransportOutstandingPayment.Text = clsData.CoACodeofAccountPayableTransportOutstandingPayment
+            txtCoANameofAccountPayableTransportOutstandingPayment.Text = clsData.CoANameofAccountPayableTransportOutstandingPayment
 
             ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
             ToolStripLogBy.Text = "Dibuat Oleh : " & IIf(clsData.LogBy Is Nothing, ERPSLib.UI.usUserApp.UserID, clsData.LogBy)
@@ -138,9 +173,17 @@
         clsData.CoAofPrepaidIncomeCutting = intCoAIDofPrepaidIncomeCutting
         clsData.CoAofPrepaidIncomeTransport = intCoAIDofPrepaidIncomeTransport
         clsData.CoAofStockCutting = intCoAIDofStockCutting
+        clsData.CoAofStockCutting2 = intCoAIDofStockCutting2
+        clsData.CoAofStockCutting3 = intCoAIDofStockCutting3
         clsData.CoAofStockTransport = intCoAIDofStockTransport
         clsData.CoAofAccountPayableCutting = intCoAIDofAccountPayableCutting
+        clsData.CoAofAccountPayableCutting2 = intCoAIDofAccountPayableCutting2
+        clsData.CoAofAccountPayableCutting3 = intCoAIDofAccountPayableCutting3
         clsData.CoAofAccountPayableTransport = intCoAIDofAccountPayableTransport
+        clsData.CoAofAccountReceivableOutstandingPayment = intCoAIDofAccountReceivableOutstandingPayment
+        clsData.CoAofAccountPayableOutstandingPayment = intCoAIDofAccountPayableOutstandingPayment
+        clsData.CoAofAccountPayableCuttingOutstandingPayment = intCoAIDofAccountPayableCuttingOutstandingPayment
+        clsData.CoAofAccountPayableTransportOutstandingPayment = intCoAIDofAccountPayableTransportOutstandingPayment
         clsData.Remarks = ""
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
 
@@ -365,6 +408,244 @@
                 intCoAIDofPurchaseTax = .pubLUdtRow.Item("ID")
                 txtCoACodeOfPurchaseTax.Text = .pubLUdtRow.Item("Code")
                 txtCoANameOfPurchaseTax.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofVentureCapital_Click(sender As Object, e As EventArgs) Handles btnCoAofVentureCapital.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofVentureCapital = .pubLUdtRow.Item("ID")
+                txtCoACodeofVentureCapital.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofVentureCapital.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofPPHSales_Click(sender As Object, e As EventArgs) Handles btnCoAofPPHSales.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDOfPPHSales = .pubLUdtRow.Item("ID")
+                txtCoACodeofPPHSales.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofPPHSales.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofPPHPurchase_Click(sender As Object, e As EventArgs) Handles btnCoAofPPHPurchase.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDOfPPHPurchase = .pubLUdtRow.Item("ID")
+                txtCoACodeofPPHPurchase.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofPPHPurchase.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofPrepaidIncomeCutting_Click(sender As Object, e As EventArgs) Handles btnCoAofPrepaidIncomeCutting.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofPrepaidIncomeCutting = .pubLUdtRow.Item("ID")
+                txtCoACodeofPrepaidIncomeCutting.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofPrepaidIncomeCutting.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofPrepaidIncomeTransport_Click(sender As Object, e As EventArgs) Handles btnCoAofPrepaidIncomeTransport.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofPrepaidIncomeTransport = .pubLUdtRow.Item("ID")
+                txtCoACodeofPrepaidIncomeTransport.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofPrepaidIncomeTransport.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofStockCutting_Click(sender As Object, e As EventArgs) Handles btnCoAofStockCutting.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofStockCutting = .pubLUdtRow.Item("ID")
+                txtCoACodeofStockCutting.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofStockCutting.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofStockCutting2_Click(sender As Object, e As EventArgs) Handles btnCoAofStockCutting2.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofStockCutting2 = .pubLUdtRow.Item("ID")
+                txtCoACodeofStockCutting2.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofStockCutting2.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofStockCutting3_Click(sender As Object, e As EventArgs) Handles btnCoAofStockCutting3.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofStockCutting3 = .pubLUdtRow.Item("ID")
+                txtCoACodeofStockCutting3.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofStockCutting3.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofStockTransport_Click(sender As Object, e As EventArgs) Handles btnCoAofStockTransport.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofStockTransport = .pubLUdtRow.Item("ID")
+                txtCoACodeofStockTransport.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofStockTransport.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofAccountPayableCutting_Click(sender As Object, e As EventArgs) Handles btnCoAofAccountPayableCutting.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofAccountPayableCutting = .pubLUdtRow.Item("ID")
+                txtCoACodeofAccountPayableCutting.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofAccountPayableCutting.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofAccountPayableCutting2_Click(sender As Object, e As EventArgs) Handles btnCoAofAccountPayableCutting2.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofAccountPayableCutting2 = .pubLUdtRow.Item("ID")
+                txtCoACodeofAccountPayableCutting2.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofAccountPayableCutting2.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofAccountPayableCutting3_Click(sender As Object, e As EventArgs) Handles btnCoAofAccountPayableCutting3.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofAccountPayableCutting3 = .pubLUdtRow.Item("ID")
+                txtCoACodeofAccountPayableCutting3.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofAccountPayableCutting3.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofAccountPayableTransport_Click(sender As Object, e As EventArgs) Handles btnCoAofAccountPayableTransport.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofAccountPayableTransport = .pubLUdtRow.Item("ID")
+                txtCoACodeofAccountPayableTransport.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofAccountPayableTransport.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAOfAccountReceivableOutstandingPayment_Click(sender As Object, e As EventArgs) Handles btnCoAOfAccountReceivableOutstandingPayment.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofAccountReceivableOutstandingPayment = .pubLUdtRow.Item("ID")
+                txtCoACodeOfAccountReceivableOutstandingPayment.Text = .pubLUdtRow.Item("Code")
+                txtCoANameOfAccountReceivableOutstandingPayment.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAOfAccountPayableOutstandingPayment_Click(sender As Object, e As EventArgs) Handles btnCoAOfAccountPayableOutstandingPayment.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofAccountPayableOutstandingPayment = .pubLUdtRow.Item("ID")
+                txtCoACodeOfAccountPayableOutstandingPayment.Text = .pubLUdtRow.Item("Code")
+                txtCoANameOfAccountPayableOutstandingPayment.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofAccountPayableCuttingOutstandingPayment_Click(sender As Object, e As EventArgs) Handles btnCoAofAccountPayableCuttingOutstandingPayment.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofAccountPayableCuttingOutstandingPayment = .pubLUdtRow.Item("ID")
+                txtCoACodeofAccountPayableCuttingOutstandingPayment.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofAccountPayableCuttingOutstandingPayment.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofAccountPayableTransportOutstandingPayment_Click(sender As Object, e As EventArgs) Handles btnCoAofAccountPayableTransportOutstandingPayment.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofAccountPayableTransportOutstandingPayment = .pubLUdtRow.Item("ID")
+                txtCoACodeofAccountPayableTransportOutstandingPayment.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofAccountPayableTransportOutstandingPayment.Text = .pubLUdtRow.Item("Name")
             End If
         End With
     End Sub

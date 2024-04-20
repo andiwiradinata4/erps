@@ -1,7 +1,7 @@
 Namespace DL
 
     Public Class JournalPost
-        
+
         Public Shared Function ListDataAll(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction) As DataTable
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
@@ -35,9 +35,17 @@ SELECT [ProgramID]
       ,[CoAofPrepaidIncomeCutting]
       ,[CoAofPrepaidIncomeTransport]
       ,[CoAofStockCutting]
+      ,[CoAofStockCutting2]
+      ,[CoAofStockCutting3]
       ,[CoAofStockTransport]
       ,[CoAofAccountPayableCutting]
+      ,[CoAofAccountPayableCutting2]
+      ,[CoAofAccountPayableCutting3]
       ,[CoAofAccountPayableTransport]
+      ,[CoAofAccountReceivableOutstandingPayment]
+      ,[CoAofAccountPayableOutstandingPayment]
+      ,[CoAofAccountPayableCuttingOutstandingPayment]
+      ,[CoAofAccountPayableTransportOutstandingPayment]
   FROM [dbo].[sysJournalPost]
                     </a>.Value
             End With
@@ -56,13 +64,15 @@ SELECT [ProgramID]
                        "INSERT INTO sysJournalPost " & vbNewLine &
                        "    (ProgramID, CoAofRevenue, CoAofAccountReceivable, CoAofSalesDisc, CoAofPrepaidIncome, CoAofCOGS, CoAofStock, CoAofCash, CoAofAccountPayable,   " & vbNewLine &
                        "     CoAofPurchaseDisc, CoAofPurchaseEquipments, CoAofAdvancePayment, CoAofSalesTax, CoAofPurchaseTax, Remarks, CreatedBy, CreatedDate, LogBy, LogDate, " & vbNewLine &
-                       "     CoAofVentureCapital, CoAOfPPHSales, CoAOfPPHPurchase, CoAofPrepaidIncomeCutting, CoAofPrepaidIncomeTransport, CoAofStockCutting, CoAofStockTransport, " & vbNewLine &
-                       "     CoAofAccountPayableCutting, CoAofAccountPayableTransport)   " & vbNewLine &
+                       "     CoAofVentureCapital, CoAOfPPHSales, CoAOfPPHPurchase, CoAofPrepaidIncomeCutting, CoAofPrepaidIncomeTransport, CoAofStockCutting, CoAofStockCutting2, " & vbNewLine &
+                       "     CoAofStockCutting3, CoAofStockTransport, CoAofAccountPayableCutting, CoAofAccountPayableCutting2, CoAofAccountPayableCutting3, CoAofAccountPayableTransport, " & vbNewLine &
+                       "     CoAofAccountReceivableOutstandingPayment, CoAofAccountPayableOutstandingPayment, CoAofAccountPayableCuttingOutstandingPayment, CoAofAccountPayableTransportOutstandingPayment)   " & vbNewLine &
                        "VALUES " & vbNewLine &
                        "    (@ProgramID, @CoAofRevenue, @CoAofAccountReceivable, @CoAofSalesDisc, @CoAofPrepaidIncome, @CoAofCOGS, @CoAofStock, @CoAofCash, @CoAofAccountPayable,   " & vbNewLine &
                        "     @CoAofPurchaseDisc, @CoAofPurchaseEquipments, @CoAofAdvancePayment, @CoAofSalesTax, @CoAofPurchaseTax, @Remarks, @LogBy, GETDATE(), @LogBy, GETDATE(), " & vbNewLine &
-                       "     @CoAofVentureCapital, @CoAOfPPHSales, @CoAOfPPHPurchase, @CoAofPrepaidIncomeCutting, @CoAofPrepaidIncomeTransport, @CoAofStockCutting, @CoAofStockTransport, " & vbNewLine &
-                       "     @CoAofAccountPayableCutting, @CoAofAccountPayableTransport)   " & vbNewLine
+                       "     @CoAofVentureCapital, @CoAOfPPHSales, @CoAOfPPHPurchase, @CoAofPrepaidIncomeCutting, @CoAofPrepaidIncomeTransport, @CoAofStockCutting, @CoAofStockCutting2, " & vbNewLine &
+                       "     @CoAofStockCutting3, @CoAofStockTransport, @CoAofAccountPayableCutting, @CoAofAccountPayableCutting2, @CoAofAccountPayableCutting3, @CoAofAccountPayableTransport, " & vbNewLine &
+                       "     @CoAofAccountReceivableOutstandingPayment, @CoAofAccountPayableOutstandingPayment, @CoAofAccountPayableCuttingOutstandingPayment, @CoAofAccountPayableTransportOutstandingPayment)   " & vbNewLine
                 Else
                     .CommandText =
                     "UPDATE sysJournalPost SET " & vbNewLine &
@@ -89,9 +99,17 @@ SELECT [ProgramID]
                     "    CoAofPrepaidIncomeCutting=@CoAofPrepaidIncomeCutting, " & vbNewLine &
                     "    CoAofPrepaidIncomeTransport=@CoAofPrepaidIncomeTransport, " & vbNewLine &
                     "    CoAofStockCutting=@CoAofStockCutting, " & vbNewLine &
+                    "    CoAofStockCutting2=@CoAofStockCutting2, " & vbNewLine &
+                    "    CoAofStockCutting3=@CoAofStockCutting3, " & vbNewLine &
                     "    CoAofStockTransport=@CoAofStockTransport, " & vbNewLine &
                     "    CoAofAccountPayableCutting=@CoAofAccountPayableCutting, " & vbNewLine &
-                    "    CoAofAccountPayableTransport=@CoAofAccountPayableTransport " & vbNewLine &
+                    "    CoAofAccountPayableCutting2=@CoAofAccountPayableCutting2, " & vbNewLine &
+                    "    CoAofAccountPayableCutting3=@CoAofAccountPayableCutting3, " & vbNewLine &
+                    "    CoAofAccountPayableTransport=@CoAofAccountPayableTransport, " & vbNewLine &
+                    "    CoAofAccountReceivableOutstandingPayment=@CoAofAccountReceivableOutstandingPayment, " & vbNewLine &
+                    "    CoAofAccountPayableOutstandingPayment=@CoAofAccountPayableOutstandingPayment, " & vbNewLine &
+                    "    CoAofAccountPayableCuttingOutstandingPayment=@CoAofAccountPayableCuttingOutstandingPayment, " & vbNewLine &
+                    "    CoAofAccountPayableTransportOutstandingPayment=@CoAofAccountPayableTransportOutstandingPayment " & vbNewLine &
                     "WHERE ProgramID=@ProgramID " & vbNewLine
                 End If
 
@@ -117,9 +135,17 @@ SELECT [ProgramID]
                 .Parameters.Add("@CoAofPrepaidIncomeCutting", SqlDbType.Int).Value = clsData.CoAofPrepaidIncomeCutting
                 .Parameters.Add("@CoAofPrepaidIncomeTransport", SqlDbType.Int).Value = clsData.CoAofPrepaidIncomeTransport
                 .Parameters.Add("@CoAofStockCutting", SqlDbType.Int).Value = clsData.CoAofStockCutting
+                .Parameters.Add("@CoAofStockCutting2", SqlDbType.Int).Value = clsData.CoAofStockCutting2
+                .Parameters.Add("@CoAofStockCutting3", SqlDbType.Int).Value = clsData.CoAofStockCutting3
                 .Parameters.Add("@CoAofStockTransport", SqlDbType.Int).Value = clsData.CoAofStockTransport
                 .Parameters.Add("@CoAofAccountPayableCutting", SqlDbType.Int).Value = clsData.CoAofAccountPayableCutting
+                .Parameters.Add("@CoAofAccountPayableCutting2", SqlDbType.Int).Value = clsData.CoAofAccountPayableCutting2
+                .Parameters.Add("@CoAofAccountPayableCutting3", SqlDbType.Int).Value = clsData.CoAofAccountPayableCutting3
                 .Parameters.Add("@CoAofAccountPayableTransport", SqlDbType.Int).Value = clsData.CoAofAccountPayableTransport
+                .Parameters.Add("@CoAofAccountReceivableOutstandingPayment", SqlDbType.Int).Value = clsData.CoAofAccountReceivableOutstandingPayment
+                .Parameters.Add("@CoAofAccountPayableOutstandingPayment", SqlDbType.Int).Value = clsData.CoAofAccountPayableOutstandingPayment
+                .Parameters.Add("@CoAofAccountPayableCuttingOutstandingPayment", SqlDbType.Int).Value = clsData.CoAofAccountPayableCuttingOutstandingPayment
+                .Parameters.Add("@CoAofAccountPayableTransportOutstandingPayment", SqlDbType.Int).Value = clsData.CoAofAccountPayableTransportOutstandingPayment
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -135,16 +161,18 @@ SELECT [ProgramID]
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText =
-                   "INSERT INTO sysJournalPost " & vbNewLine &
-                   "    (ProgramID, CoAofRevenue, CoAofAccountReceivable, CoAofSalesDisc, CoAofPrepaidIncome, CoAofCOGS, CoAofStock, CoAofCash, CoAofAccountPayable,   " & vbNewLine &
-                   "     CoAofPurchaseDisc, CoAofPurchaseEquipments, CoAofAdvancePayment, CoAofSalesTax, CoAofPurchaseTax, Remarks, CreatedBy, CreatedDate, LogBy, LogDate, LogInc, " & vbNewLine &
-                   "     CoAofVentureCapital, CoAOfPPHSales, CoAOfPPHPurchase, CoAofPrepaidIncomeCutting, CoAofPrepaidIncomeTransport, CoAofStockCutting, CoAofStockTransport, " & vbNewLine &
-                   "     CoAofAccountPayableCutting, CoAofAccountPayableTransport)   " & vbNewLine &
-                   "VALUES " & vbNewLine &
-                   "    (@ProgramID, @CoAofRevenue, @CoAofAccountReceivable, @CoAofSalesDisc, @CoAofPrepaidIncome, @CoAofCOGS, @CoAofStock, @CoAofCash, @CoAofAccountPayable,   " & vbNewLine &
-                   "     @CoAofPurchaseDisc, @CoAofPurchaseEquipments, @CoAofAdvancePayment, @CoAofSalesTax, @CoAofPurchaseTax, @Remarks, @CreatedBy, @CreatedDate, @LogBy, @LogDate, @LogInc, " & vbNewLine &
-                   "     @CoAofVentureCapital, @CoAOfPPHSales, @CoAOfPPHPurchase, @CoAofPrepaidIncomeCutting, @CoAofPrepaidIncomeTransport, @CoAofStockCutting, @CoAofStockTransport, " & vbNewLine &
-                   "     @CoAofAccountPayableCutting, @CoAofAccountPayableTransport)   " & vbNewLine
+                    "INSERT INTO sysJournalPost " & vbNewLine &
+                    "    (ProgramID, CoAofRevenue, CoAofAccountReceivable, CoAofSalesDisc, CoAofPrepaidIncome, CoAofCOGS, CoAofStock, CoAofCash, CoAofAccountPayable,   " & vbNewLine &
+                    "     CoAofPurchaseDisc, CoAofPurchaseEquipments, CoAofAdvancePayment, CoAofSalesTax, CoAofPurchaseTax, Remarks, CreatedBy, CreatedDate, LogBy, LogDate, " & vbNewLine &
+                    "     CoAofVentureCapital, CoAOfPPHSales, CoAOfPPHPurchase, CoAofPrepaidIncomeCutting, CoAofPrepaidIncomeTransport, CoAofStockCutting, CoAofStockCutting2, " & vbNewLine &
+                    "     CoAofStockCutting3, CoAofStockTransport, CoAofAccountPayableCutting, CoAofAccountPayableCutting2, CoAofAccountPayableCutting3, CoAofAccountPayableTransport, " & vbNewLine &
+                    "     CoAofAccountReceivableOutstandingPayment, CoAofAccountPayableOutstandingPayment, CoAofAccountPayableCuttingOutstandingPayment, CoAofAccountPayableTransportOutstandingPayment)   " & vbNewLine &
+                    "VALUES " & vbNewLine &
+                    "    (@ProgramID, @CoAofRevenue, @CoAofAccountReceivable, @CoAofSalesDisc, @CoAofPrepaidIncome, @CoAofCOGS, @CoAofStock, @CoAofCash, @CoAofAccountPayable,   " & vbNewLine &
+                    "     @CoAofPurchaseDisc, @CoAofPurchaseEquipments, @CoAofAdvancePayment, @CoAofSalesTax, @CoAofPurchaseTax, @Remarks, @LogBy, GETDATE(), @LogBy, GETDATE(), " & vbNewLine &
+                    "     @CoAofVentureCapital, @CoAOfPPHSales, @CoAOfPPHPurchase, @CoAofPrepaidIncomeCutting, @CoAofPrepaidIncomeTransport, @CoAofStockCutting, @CoAofStockCutting2, " & vbNewLine &
+                    "     @CoAofStockCutting3, @CoAofStockTransport, @CoAofAccountPayableCutting, @CoAofAccountPayableCutting2, @CoAofAccountPayableCutting3, @CoAofAccountPayableTransport, " & vbNewLine &
+                    "     @CoAofAccountReceivableOutstandingPayment, @CoAofAccountPayableOutstandingPayment, @CoAofAccountPayableCuttingOutstandingPayment, @CoAofAccountPayableTransportOutstandingPayment)   " & vbNewLine
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = clsData.ProgramID
                 .Parameters.Add("@CoAofRevenue", SqlDbType.Int).Value = clsData.CoAofRevenue
@@ -172,9 +200,17 @@ SELECT [ProgramID]
                 .Parameters.Add("@CoAofPrepaidIncomeCutting", SqlDbType.Int).Value = clsData.CoAofPrepaidIncomeCutting
                 .Parameters.Add("@CoAofPrepaidIncomeTransport", SqlDbType.Int).Value = clsData.CoAofPrepaidIncomeTransport
                 .Parameters.Add("@CoAofStockCutting", SqlDbType.Int).Value = clsData.CoAofStockCutting
+                .Parameters.Add("@CoAofStockCutting2", SqlDbType.Int).Value = clsData.CoAofStockCutting2
+                .Parameters.Add("@CoAofStockCutting3", SqlDbType.Int).Value = clsData.CoAofStockCutting3
                 .Parameters.Add("@CoAofStockTransport", SqlDbType.Int).Value = clsData.CoAofStockTransport
                 .Parameters.Add("@CoAofAccountPayableCutting", SqlDbType.Int).Value = clsData.CoAofAccountPayableCutting
+                .Parameters.Add("@CoAofAccountPayableCutting2", SqlDbType.Int).Value = clsData.CoAofAccountPayableCutting2
+                .Parameters.Add("@CoAofAccountPayableCutting3", SqlDbType.Int).Value = clsData.CoAofAccountPayableCutting3
                 .Parameters.Add("@CoAofAccountPayableTransport", SqlDbType.Int).Value = clsData.CoAofAccountPayableTransport
+                .Parameters.Add("@CoAofAccountReceivableOutstandingPayment", SqlDbType.Int).Value = clsData.CoAofAccountReceivableOutstandingPayment
+                .Parameters.Add("@CoAofAccountPayableOutstandingPayment", SqlDbType.Int).Value = clsData.CoAofAccountPayableOutstandingPayment
+                .Parameters.Add("@CoAofAccountPayableCuttingOutstandingPayment", SqlDbType.Int).Value = clsData.CoAofAccountPayableCuttingOutstandingPayment
+                .Parameters.Add("@CoAofAccountPayableTransportOutstandingPayment", SqlDbType.Int).Value = clsData.CoAofAccountPayableTransportOutstandingPayment
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -212,9 +248,17 @@ SELECT [ProgramID]
                         "	A.CoAofPrepaidIncomeCutting, ISNULL(PIC.Code,'') AS CoACodeofPrepaidIncomeCutting, ISNULL(PIC.Name,'') AS CoANameofPrepaidIncomeCutting, 	" & vbNewLine &
                         "	A.CoAofPrepaidIncomeTransport, ISNULL(PIT.Code,'') AS CoACodeofPrepaidIncomeTransport, ISNULL(PIT.Name,'') AS CoANameofPrepaidIncomeTransport, 	" & vbNewLine &
                         "	A.CoAofStockCutting, ISNULL(CSC.Code,'') AS CoACodeofStockCutting, ISNULL(CSC.Name,'') AS CoANameofStockCutting, 	" & vbNewLine &
+                        "	A.CoAofStockCutting2, ISNULL(CSC2.Code,'') AS CoACodeofStockCutting2, ISNULL(CSC2.Name,'') AS CoANameofStockCutting2, 	" & vbNewLine &
+                        "	A.CoAofStockCutting3, ISNULL(CSC3.Code,'') AS CoACodeofStockCutting3, ISNULL(CSC3.Name,'') AS CoANameofStockCutting3, 	" & vbNewLine &
                         "	A.CoAofStockTransport, ISNULL(CSTP.Code,'') AS CoACodeofStockTransport, ISNULL(CSTP.Name,'') AS CoANameofStockTransport, 	" & vbNewLine &
                         "	A.CoAofAccountPayableCutting, ISNULL(APC.Code,'') AS CoACodeofAccountPayableCutting, ISNULL(APC.Name,'') AS CoANameofAccountPayableCutting, 	" & vbNewLine &
+                        "	A.CoAofAccountPayableCutting2, ISNULL(APC2.Code,'') AS CoACodeofAccountPayableCutting2, ISNULL(APC2.Name,'') AS CoANameofAccountPayableCutting2, 	" & vbNewLine &
+                        "	A.CoAofAccountPayableCutting3, ISNULL(APC3.Code,'') AS CoACodeofAccountPayableCutting3, ISNULL(APC3.Name,'') AS CoANameofAccountPayableCutting3, 	" & vbNewLine &
                         "	A.CoAofAccountPayableTransport, ISNULL(APT.Code,'') AS CoACodeofAccountPayableTransport, ISNULL(APT.Name,'') AS CoANameofAccountPayableTransport, 	" & vbNewLine &
+                        "	A.CoAofAccountReceivableOutstandingPayment, ISNULL(AROP.Code,'') AS CoACodeofAccountReceivableOutstandingPayment, ISNULL(AROP.Name,'') AS CoANameofAccountReceivableOutstandingPayment, 	" & vbNewLine &
+                        "	A.CoAofAccountPayableOutstandingPayment, ISNULL(APOP.Code,'') AS CoACodeofAccountPayableOutstandingPayment, ISNULL(APOP.Name,'') AS CoANameofAccountPayableOutstandingPayment, 	" & vbNewLine &
+                        "	A.CoAofAccountPayableCuttingOutstandingPayment, ISNULL(APCOP.Code,'') AS CoACodeofAccountPayableCuttingOutstandingPayment, ISNULL(APCOP.Name,'') AS CoANameofAccountPayableCuttingOutstandingPayment, 	" & vbNewLine &
+                        "	A.CoAofAccountPayableTransportOutstandingPayment, ISNULL(APTOP.Code,'') AS CoACodeofAccountPayableTransportOutstandingPayment, ISNULL(APTOP.Name,'') AS CoANameofAccountPayableTransportOutstandingPayment, 	" & vbNewLine &
                         "	A.Remarks, A.LogBy, A.LogDate, A.LogInc  	" & vbNewLine &
                         "FROM sysJournalPost A 	" & vbNewLine &
                         "LEFT JOIN mstChartOfAccount CR ON 	" & vbNewLine &
@@ -255,12 +299,28 @@ SELECT [ProgramID]
                         "	A.CoAofPrepaidIncomeTransport=PIT.ID	" & vbNewLine &
                         "LEFT JOIN mstChartOfAccount CSC ON 	" & vbNewLine &
                         "	A.CoAofStockCutting=CSC.ID	" & vbNewLine &
+                        "LEFT JOIN mstChartOfAccount CSC2 ON 	" & vbNewLine &
+                        "	A.CoAofStockCutting2=CSC2.ID	" & vbNewLine &
+                        "LEFT JOIN mstChartOfAccount CSC3 ON 	" & vbNewLine &
+                        "	A.CoAofStockCutting3=CSC3.ID	" & vbNewLine &
                         "LEFT JOIN mstChartOfAccount CSTP ON 	" & vbNewLine &
                         "	A.CoAofStockTransport=CSTP.ID	" & vbNewLine &
                         "LEFT JOIN mstChartOfAccount APC ON 	" & vbNewLine &
                         "	A.CoAofAccountPayableCutting=APC.ID	" & vbNewLine &
+                        "LEFT JOIN mstChartOfAccount APC2 ON 	" & vbNewLine &
+                        "	A.CoAofAccountPayableCutting2=APC2.ID	" & vbNewLine &
+                        "LEFT JOIN mstChartOfAccount APC3 ON 	" & vbNewLine &
+                        "	A.CoAofAccountPayableCutting3=APC3.ID	" & vbNewLine &
                         "LEFT JOIN mstChartOfAccount APT ON 	" & vbNewLine &
                         "	A.CoAofAccountPayableTransport=APT.ID	" & vbNewLine &
+                        "LEFT JOIN mstChartOfAccount AROP ON 	" & vbNewLine &
+                        "	A.CoAofAccountReceivableOutstandingPayment=AROP.ID	" & vbNewLine &
+                        "LEFT JOIN mstChartOfAccount APOP ON 	" & vbNewLine &
+                        "	A.CoAofAccountPayableOutstandingPayment=APOP.ID	" & vbNewLine &
+                        "LEFT JOIN mstChartOfAccount APCOP ON 	" & vbNewLine &
+                        "	A.CoAofAccountPayableCuttingOutstandingPayment=APCOP.ID	" & vbNewLine &
+                        "LEFT JOIN mstChartOfAccount APTOP ON 	" & vbNewLine &
+                        "	A.CoAofAccountPayableTransportOutstandingPayment=APTOP.ID	" & vbNewLine &
                         "WHERE " & vbNewLine &
                         "	A.ProgramID=@ProgramID " & vbNewLine
 
@@ -346,6 +406,14 @@ SELECT [ProgramID]
                         voReturn.CoACodeofStockCutting = .Item("CoACodeofStockCutting")
                         voReturn.CoANameofStockCutting = .Item("CoANameofStockCutting")
 
+                        voReturn.CoAofStockCutting2 = .Item("CoAofStockCutting2")
+                        voReturn.CoACodeofStockCutting2 = .Item("CoACodeofStockCutting2")
+                        voReturn.CoANameofStockCutting2 = .Item("CoANameofStockCutting2")
+
+                        voReturn.CoAofStockCutting3 = .Item("CoAofStockCutting3")
+                        voReturn.CoACodeofStockCutting3 = .Item("CoACodeofStockCutting3")
+                        voReturn.CoANameofStockCutting3 = .Item("CoANameofStockCutting3")
+
                         voReturn.CoAofStockTransport = .Item("CoAofStockTransport")
                         voReturn.CoACodeofStockTransport = .Item("CoACodeofStockTransport")
                         voReturn.CoANameofStockTransport = .Item("CoANameofStockTransport")
@@ -354,9 +422,33 @@ SELECT [ProgramID]
                         voReturn.CoACodeofAccountPayableCutting = .Item("CoACodeofAccountPayableCutting")
                         voReturn.CoANameofAccountPayableCutting = .Item("CoANameofAccountPayableCutting")
 
+                        voReturn.CoAofAccountPayableCutting2 = .Item("CoAofAccountPayableCutting2")
+                        voReturn.CoACodeofAccountPayableCutting2 = .Item("CoACodeofAccountPayableCutting2")
+                        voReturn.CoANameofAccountPayableCutting2 = .Item("CoANameofAccountPayableCutting2")
+
+                        voReturn.CoAofAccountPayableCutting3 = .Item("CoAofAccountPayableCutting3")
+                        voReturn.CoACodeofAccountPayableCutting3 = .Item("CoACodeofAccountPayableCutting3")
+                        voReturn.CoANameofAccountPayableCutting3 = .Item("CoANameofAccountPayableCutting3")
+
                         voReturn.CoAofAccountPayableTransport = .Item("CoAofAccountPayableTransport")
                         voReturn.CoACodeofAccountPayableTransport = .Item("CoACodeofAccountPayableTransport")
                         voReturn.CoANameofAccountPayableTransport = .Item("CoANameofAccountPayableTransport")
+
+                        voReturn.CoAofAccountReceivableOutstandingPayment = .Item("CoAofAccountReceivableOutstandingPayment")
+                        voReturn.CoACodeofAccountReceivableOutstandingPayment = .Item("CoACodeofAccountReceivableOutstandingPayment")
+                        voReturn.CoANameofAccountReceivableOutstandingPayment = .Item("CoANameofAccountReceivableOutstandingPayment")
+
+                        voReturn.CoAofAccountPayableOutstandingPayment = .Item("CoAofAccountPayableOutstandingPayment")
+                        voReturn.CoACodeofAccountPayableOutstandingPayment = .Item("CoACodeofAccountPayableOutstandingPayment")
+                        voReturn.CoANameofAccountPayableOutstandingPayment = .Item("CoANameofAccountPayableOutstandingPayment")
+
+                        voReturn.CoAofAccountPayableCuttingOutstandingPayment = .Item("CoAofAccountPayableCuttingOutstandingPayment")
+                        voReturn.CoACodeofAccountPayableCuttingOutstandingPayment = .Item("CoACodeofAccountPayableCuttingOutstandingPayment")
+                        voReturn.CoANameofAccountPayableCuttingOutstandingPayment = .Item("CoANameofAccountPayableCuttingOutstandingPayment")
+
+                        voReturn.CoAofAccountPayableTransportOutstandingPayment = .Item("CoAofAccountPayableTransportOutstandingPayment")
+                        voReturn.CoACodeofAccountPayableTransportOutstandingPayment = .Item("CoACodeofAccountPayableTransportOutstandingPayment")
+                        voReturn.CoANameofAccountPayableTransportOutstandingPayment = .Item("CoANameofAccountPayableTransportOutstandingPayment")
 
                         voReturn.Remarks = .Item("Remarks")
                         voReturn.LogBy = .Item("LogBy")
@@ -380,10 +472,10 @@ SELECT [ProgramID]
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   CoAofRevenue " & vbNewLine & _
-                        "FROM sysJournalPost " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   CoAofRevenue " & vbNewLine &
+                        "FROM sysJournalPost " & vbNewLine &
                         "WHERE ProgramID=@ProgramID " & vbNewLine
 
                     .Parameters.Add("@ProgramID", SqlDbType.Int).Value = UI.usUserApp.ProgramID
@@ -409,7 +501,7 @@ SELECT [ProgramID]
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
+                .CommandText =
                    "DELETE sysJournalPost " & vbNewLine
 
             End With

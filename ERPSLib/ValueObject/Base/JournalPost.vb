@@ -85,6 +85,14 @@
         Property CoACodeofStockCutting As String
         Property CoANameofStockCutting As String
 
+        Property CoAofStockCutting2 As Integer
+        Property CoACodeofStockCutting2 As String
+        Property CoANameofStockCutting2 As String
+
+        Property CoAofStockCutting3 As Integer
+        Property CoACodeofStockCutting3 As String
+        Property CoANameofStockCutting3 As String
+
         Property CoAofStockTransport As Integer
         Property CoACodeofStockTransport As String
         Property CoANameofStockTransport As String
@@ -93,9 +101,33 @@
         Property CoACodeofAccountPayableCutting As String
         Property CoANameofAccountPayableCutting As String
 
+        Property CoAofAccountPayableCutting2 As Integer
+        Property CoACodeofAccountPayableCutting2 As String
+        Property CoANameofAccountPayableCutting2 As String
+
+        Property CoAofAccountPayableCutting3 As Integer
+        Property CoACodeofAccountPayableCutting3 As String
+        Property CoANameofAccountPayableCutting3 As String
+
         Property CoAofAccountPayableTransport As Integer
         Property CoACodeofAccountPayableTransport As String
         Property CoANameofAccountPayableTransport As String
+
+        Property CoAofAccountReceivableOutstandingPayment As Integer
+        Property CoACodeofAccountReceivableOutstandingPayment As String
+        Property CoANameofAccountReceivableOutstandingPayment As String
+
+        Property CoAofAccountPayableOutstandingPayment As Integer
+        Property CoACodeofAccountPayableOutstandingPayment As String
+        Property CoANameofAccountPayableOutstandingPayment As String
+
+        Property CoAofAccountPayableCuttingOutstandingPayment As Integer
+        Property CoACodeofAccountPayableCuttingOutstandingPayment As String
+        Property CoANameofAccountPayableCuttingOutstandingPayment As String
+
+        Property CoAofAccountPayableTransportOutstandingPayment As Integer
+        Property CoACodeofAccountPayableTransportOutstandingPayment As String
+        Property CoANameofAccountPayableTransportOutstandingPayment As String
 
         Property Remarks As String
     End Class

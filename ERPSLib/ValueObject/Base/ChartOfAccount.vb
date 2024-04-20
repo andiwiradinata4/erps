@@ -15,6 +15,7 @@ Namespace VO
             All
             CashOrBank
             Expense
+            Stock
             ViewOnly
         End Enum
 

@@ -27,6 +27,9 @@
         Property DPAmount As Decimal
         Property PCID As String
         Property PCNumber As String
+        Property CoAofStock As Integer
+        Property CoACodeOfStock As String
+        Property CoANameOfStock As String
         Property Detail As List(Of VO.ReceiveDet)
         Property Save As VO.Save.Action
     End Class

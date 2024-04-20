@@ -37,6 +37,7 @@
         Property DPAmount As Decimal
         Property ReceiveAmount As Decimal
         Property TotalAmountUsed As Decimal
+        Property JournalIDInvoice As Integer
         Property Detail As New List(Of VO.AccountReceivableDet)
         Property ARAPDownPayment As New List(Of VO.ARAPDP)
         Property Save As VO.Save.Action
