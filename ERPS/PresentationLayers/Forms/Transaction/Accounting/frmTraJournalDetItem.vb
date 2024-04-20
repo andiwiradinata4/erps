@@ -67,6 +67,7 @@
             prvClear()
         Else
             strID = drSelected.Item("ID")
+            txtGroupID.Value = drSelected.Item("GroupID")
             intCoAID = drSelected.Item("CoAID")
             txtCoACode.Text = drSelected.Item("CoACode")
             txtCoAName.Text = drSelected.Item("CoAName")
@@ -96,6 +97,7 @@
             dr = dtParent.NewRow
             dr.BeginEdit()
             dr.Item("ID") = Guid.NewGuid
+            dr.Item("GroupID") = txtGroupID.Value
             dr.Item("JournalID") = ""
             dr.Item("CoAID") = intCoAID
             dr.Item("CoACode") = txtCoACode.Text.Trim
@@ -117,6 +119,7 @@
                 If dr.Item("ID") = strID Then
                     dr.BeginEdit()
                     dr.Item("ID") = strID
+                    dr.Item("GroupID") = txtGroupID.Value
                     dr.Item("JournalID") = ""
                     dr.Item("CoAID") = intCoAID
                     dr.Item("CoACode") = txtCoACode.Text.Trim

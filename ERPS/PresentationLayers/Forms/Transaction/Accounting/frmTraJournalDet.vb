@@ -41,6 +41,7 @@ Public Class frmTraJournalDet
     End Sub
 
     Private Sub prvSetGrid()
+        UI.usForm.SetGrid(grdItemView, "GroupID", "Group", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdItemView, "JournalID", "JournalID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "CoAID", "CoAID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "CoACode", "Kode Akun", 200, UI.usDefGrid.gString)
@@ -120,14 +121,19 @@ Public Class frmTraJournalDet
 
         If Not UI.usForm.frmAskQuestion("Simpan data jurnal?") Then Exit Sub
 
-        Dim drDebit() As DataRow = dtItem.Select("DebitAmount>0")
-        Dim drCredit() As DataRow = dtItem.Select("CreditAmount>0")
+        Dim dsHelper As New DataSetHelper
+        Dim dtGroupID As DataTable = dsHelper.SelectGroupByInto("GroupID", dtItem, "GroupID", "", "GroupID")
 
-        If drDebit.Count > 1 And drCredit.Count > 1 Then
-            UI.usForm.frmMessageBox("Akun Debit dan Akun Credit tidak boleh sama-sama lebih dari 1 baris")
-            Exit Sub
-        End If
+        For Each dr As DataRow In dtGroupID.Rows
+            Dim drDebit() As DataRow = dtItem.Select("DebitAmount>0 AND GroupID=" & dr.Item("GroupID"))
+            Dim drCredit() As DataRow = dtItem.Select("CreditAmount>0 AND GroupID=" & dr.Item("GroupID"))
 
+            If drDebit.Count > 1 And drCredit.Count > 1 Then
+                UI.usForm.frmMessageBox("Akun Debit dan Akun Credit tidak boleh sama-sama lebih dari 1 baris")
+                Exit Sub
+            End If
+        Next
+        
         Dim frmDetail As New usFormSave
         Dim intSave As VO.Save.Action
         With frmDetail
@@ -151,7 +157,8 @@ Public Class frmTraJournalDet
                                          .CoAName = dr.Item("CoAName"),
                                          .DebitAmount = dr.Item("DebitAmount"),
                                          .CreditAmount = dr.Item("CreditAmount"),
-                                         .Remarks = dr.Item("Remarks")
+                                         .Remarks = dr.Item("Remarks"),
+                                         .GroupID = dr.Item("GroupID")
                                     })
             Next
         End With

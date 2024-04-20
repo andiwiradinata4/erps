@@ -13,6 +13,7 @@ Namespace VO
         Property StatusID As Integer
         Property JournalNo As String
         Property Initial As String = ""
+        Property ReferencesNo As String = ""
         Property Detail As New List(Of JournalDet)
         Property Save As VO.Save.Action
 

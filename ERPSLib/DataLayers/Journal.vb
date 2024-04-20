@@ -121,10 +121,10 @@ Namespace DL
                     .CommandText = _
                        "INSERT INTO traJournal " & vbNewLine & _
                        "    (CompanyID, ProgramID, ID, JournalNo, JournalDate, ReferencesID, TotalAmount, IsAutoGenerate, Remarks, StatusID, CreatedBy, CreatedDate,   " & vbNewLine & _
-                       "     LogBy, LogDate, Initial)   " & vbNewLine & _
+                       "     LogBy, LogDate, Initial, ReferencesNo)   " & vbNewLine & _
                        "VALUES " & vbNewLine & _
                        "    (@CompanyID, @ProgramID, @ID, @JournalNo, @JournalDate, @ReferencesID, @TotalAmount, @IsAutoGenerate, @Remarks, @StatusID, @LogBy, GETDATE(),   " & vbNewLine & _
-                       "     @LogBy, GETDATE(), @Initial)  " & vbNewLine
+                       "     @LogBy, GETDATE(), @Initial, @ReferencesNo)  " & vbNewLine
                 Else
                     .CommandText = _
                     "UPDATE traJournal SET " & vbNewLine & _
@@ -140,7 +140,8 @@ Namespace DL
                     "    LogInc=LogInc+1, " & vbNewLine & _
                     "    LogBy=@LogBy, " & vbNewLine & _
                     "    LogDate=GETDATE(), " & vbNewLine & _
-                    "    Initial=@Initial " & vbNewLine & _
+                    "    Initial=@Initial, " & vbNewLine & _
+                    "    ReferencesNo=@ReferencesNo " & vbNewLine & _
                     "WHERE " & vbNewLine & _
                     "    ID=@ID " & vbNewLine
                 End If
@@ -157,6 +158,7 @@ Namespace DL
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@Initial", SqlDbType.VarChar, 10).Value = clsData.Initial
+                .Parameters.Add("@ReferencesNo", SqlDbType.VarChar, 100).Value = clsData.ReferencesNo
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -867,7 +869,8 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                    "SELECT " & vbNewLine & _
-                   "    A.ID, A.JournalID, A.CoAID, B.Code AS CoACode, B.Name AS CoAName, A.DebitAmount, A.CreditAmount, A.Remarks, C.JournalNo " & vbNewLine & _
+                   "    A.ID, A.JournalID, A.CoAID, B.Code AS CoACode, B.Name AS CoAName, A.DebitAmount, A.CreditAmount, A.Remarks, C.JournalNo, " & vbNewLine & _
+                   "    ReferencesNo=CASE WHEN C.ReferencesNo='' THEN C.JournalNo ELSE C.ReferencesNo END, A.GroupID, A.BPID " & vbNewLine & _
                    "FROM traJournalDet A " & vbNewLine & _
                    "INNER JOIN mstChartOfAccount B ON " & vbNewLine & _
                    "    A.CoAID=B.ID " & vbNewLine & _
@@ -890,9 +893,9 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "INSERT INTO traJournalDet " & vbNewLine & _
-                    "    (ID, JournalID, CoAID, DebitAmount, CreditAmount, Remarks)   " & vbNewLine & _
+                    "    (ID, JournalID, CoAID, DebitAmount, CreditAmount, Remarks, GroupID, BPID)   " & vbNewLine & _
                     "VALUES " & vbNewLine & _
-                    "    (@ID, @JournalID, @CoAID, @DebitAmount, @CreditAmount, @Remarks)  " & vbNewLine
+                    "    (@ID, @JournalID, @CoAID, @DebitAmount, @CreditAmount, @Remarks, @GroupID, @BPID)  " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@JournalID", SqlDbType.VarChar, 100).Value = clsData.JournalID
@@ -900,6 +903,8 @@ Namespace DL
                 .Parameters.Add("@DebitAmount", SqlDbType.Decimal).Value = clsData.DebitAmount
                 .Parameters.Add("@CreditAmount", SqlDbType.Decimal).Value = clsData.CreditAmount
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 500).Value = clsData.Remarks
+                .Parameters.Add("@GroupID", SqlDbType.Int).Value = clsData.GroupID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = clsData.BPID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)

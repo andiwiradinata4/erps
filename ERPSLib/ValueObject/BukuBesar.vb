@@ -14,5 +14,6 @@ Namespace VO
         Property IsClosedPeriod As Boolean
         Property ClosedPeriodBy As String
         Property ClosedPeriodDate As DateTime
+        Property BPID As Integer
     End Class 
 End Namespace

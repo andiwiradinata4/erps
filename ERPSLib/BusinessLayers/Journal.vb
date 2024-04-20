@@ -323,138 +323,104 @@ Namespace BL
 
         Public Shared Sub GenerateBukuBesar(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                             ByVal clsData As VO.Journal)
+            Dim dsHelper As New DataSetHelper
             Dim dtDetail As DataTable = DL.Journal.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
-            Dim drParent() As DataRow = Nothing
-            Dim drChild() As DataRow = Nothing
-            Dim drDebit() As DataRow = dtDetail.Select("DebitAmount>0")
-            Dim drCredit() As DataRow = dtDetail.Select("CreditAmount>0")
-            If drDebit.Length = 1 Then
-                drParent = drDebit
-                drChild = drCredit
+            Dim dtGroupID As DataTable = dsHelper.SelectGroupByInto("GroupID", dtDetail, "GroupID", "", "GroupID")
 
-                '# Save Buku Besar
-                Dim clsBukuBesarAll As New List(Of VO.BukuBesar)
-                For Each drP As DataRow In drParent
-                    For Each drC As DataRow In drChild
-                        '# Parent 
-                        BL.BukuBesar.SaveData(sqlCon, sqlTrans, New VO.BukuBesar With
-                            {
-                                .CompanyID = clsData.CompanyID,
-                                .ProgramID = clsData.ProgramID,
-                                .ReferencesID = clsData.ID,
-                                .TransactionDate = clsData.JournalDate,
-                                .COAIDParent = drP.Item("CoAID"),
-                                .COAIDChild = drC.Item("CoAID"),
-                                .DebitAmount = IIf(drC.Item("CreditAmount") = 0, drC.Item("DebitAmount"), drC.Item("CreditAmount")),
-                                .CreditAmount = 0,
-                                .Remarks = IIf(drC.Item("Remarks") = "", drP.Item("Remarks"), drC.Item("Remarks")),
-                                .LogBy = ERPSLib.UI.usUserApp.UserID,
-                                .ReferencesNo = drP.Item("JournalNo")
-                            }
-                        )
+            For Each dr As DataRow In dtGroupID.Rows
+                Dim drParent() As DataRow = Nothing
+                Dim drChild() As DataRow = Nothing
+                Dim drDebit() As DataRow = dtDetail.Select("DebitAmount>0 AND GroupID=" & dr.Item("GroupID"))
+                Dim drCredit() As DataRow = dtDetail.Select("CreditAmount>0 AND GroupID=" & dr.Item("GroupID"))
 
-                        '# Child
-                        BL.BukuBesar.SaveData(sqlCon, sqlTrans, New VO.BukuBesar With
-                            {
-                                .CompanyID = clsData.CompanyID,
-                                .ProgramID = clsData.ProgramID,
-                                .ReferencesID = clsData.ID,
-                                .TransactionDate = clsData.JournalDate,
-                                .COAIDParent = drC.Item("CoAID"),
-                                .COAIDChild = drP.Item("CoAID"),
-                                .DebitAmount = 0,
-                                .CreditAmount = IIf(drC.Item("CreditAmount") = 0, drC.Item("DebitAmount"), drC.Item("CreditAmount")),
-                                .Remarks = IIf(drC.Item("Remarks") = "", drP.Item("Remarks"), drC.Item("Remarks")),
-                                .LogBy = ERPSLib.UI.usUserApp.UserID,
-                                .ReferencesNo = drC.Item("JournalNo")
-                            }
-                        )
+                If drDebit.Length = 1 Then
+                    drParent = drDebit
+                    drChild = drCredit
+
+                    '# Save Buku Besar
+                    Dim clsBukuBesarAll As New List(Of VO.BukuBesar)
+                    For Each drP As DataRow In drParent
+                        For Each drC As DataRow In drChild
+                            '# Parent 
+                            BL.BukuBesar.SaveData(sqlCon, sqlTrans, New VO.BukuBesar With
+                                {
+                                    .CompanyID = clsData.CompanyID,
+                                    .ProgramID = clsData.ProgramID,
+                                    .ReferencesID = clsData.ID,
+                                    .TransactionDate = clsData.JournalDate,
+                                    .COAIDParent = drP.Item("CoAID"),
+                                    .COAIDChild = drC.Item("CoAID"),
+                                    .DebitAmount = IIf(drC.Item("CreditAmount") = 0, drC.Item("DebitAmount"), drC.Item("CreditAmount")),
+                                    .CreditAmount = 0,
+                                    .Remarks = IIf(drC.Item("Remarks") = "", drP.Item("Remarks"), drC.Item("Remarks")),
+                                    .LogBy = ERPSLib.UI.usUserApp.UserID,
+                                    .ReferencesNo = drP.Item("ReferencesNo")
+                                }
+                            )
+
+                            '# Child
+                            BL.BukuBesar.SaveData(sqlCon, sqlTrans, New VO.BukuBesar With
+                                {
+                                    .CompanyID = clsData.CompanyID,
+                                    .ProgramID = clsData.ProgramID,
+                                    .ReferencesID = clsData.ID,
+                                    .TransactionDate = clsData.JournalDate,
+                                    .COAIDParent = drC.Item("CoAID"),
+                                    .COAIDChild = drP.Item("CoAID"),
+                                    .DebitAmount = 0,
+                                    .CreditAmount = IIf(drC.Item("CreditAmount") = 0, drC.Item("DebitAmount"), drC.Item("CreditAmount")),
+                                    .Remarks = IIf(drC.Item("Remarks") = "", drP.Item("Remarks"), drC.Item("Remarks")),
+                                    .LogBy = ERPSLib.UI.usUserApp.UserID,
+                                    .ReferencesNo = drC.Item("ReferencesNo")
+                                }
+                            )
+                        Next
                     Next
-                Next
-            Else
-                drParent = drCredit
-                drChild = drDebit
+                Else
+                    drParent = drCredit
+                    drChild = drDebit
 
-                '# Save Buku Besar
-                Dim clsBukuBesarAll As New List(Of VO.BukuBesar)
-                For Each drP As DataRow In drParent
-                    For Each drC As DataRow In drChild
-                        '# Parent 
-                        BL.BukuBesar.SaveData(sqlCon, sqlTrans, New VO.BukuBesar With
-                            {
-                                .CompanyID = clsData.CompanyID,
-                                .ProgramID = clsData.ProgramID,
-                                .ReferencesID = clsData.ID,
-                                .TransactionDate = clsData.JournalDate,
-                                .COAIDParent = drC.Item("CoAID"),
-                                .COAIDChild = drP.Item("CoAID"),
-                                .DebitAmount = IIf(drC.Item("CreditAmount") = 0, drC.Item("DebitAmount"), drC.Item("CreditAmount")),
-                                .CreditAmount = 0,
-                                .Remarks = IIf(drC.Item("Remarks") = "", drP.Item("Remarks"), drC.Item("Remarks")),
-                                .LogBy = ERPSLib.UI.usUserApp.UserID,
-                                .ReferencesNo = drP.Item("JournalNo")
-                            }
-                        )
+                    '# Save Buku Besar
+                    Dim clsBukuBesarAll As New List(Of VO.BukuBesar)
+                    For Each drP As DataRow In drParent
+                        For Each drC As DataRow In drChild
+                            '# Parent 
+                            BL.BukuBesar.SaveData(sqlCon, sqlTrans, New VO.BukuBesar With
+                                {
+                                    .CompanyID = clsData.CompanyID,
+                                    .ProgramID = clsData.ProgramID,
+                                    .ReferencesID = clsData.ID,
+                                    .TransactionDate = clsData.JournalDate,
+                                    .COAIDParent = drC.Item("CoAID"),
+                                    .COAIDChild = drP.Item("CoAID"),
+                                    .DebitAmount = IIf(drC.Item("CreditAmount") = 0, drC.Item("DebitAmount"), drC.Item("CreditAmount")),
+                                    .CreditAmount = 0,
+                                    .Remarks = IIf(drC.Item("Remarks") = "", drP.Item("Remarks"), drC.Item("Remarks")),
+                                    .LogBy = ERPSLib.UI.usUserApp.UserID,
+                                    .ReferencesNo = drP.Item("ReferencesNo")
+                                }
+                            )
 
-                        '# Child
-                        BL.BukuBesar.SaveData(sqlCon, sqlTrans, New VO.BukuBesar With
-                            {
-                                .CompanyID = clsData.CompanyID,
-                                .ProgramID = clsData.ProgramID,
-                                .ReferencesID = clsData.ID,
-                                .TransactionDate = clsData.JournalDate,
-                                .COAIDParent = drP.Item("CoAID"),
-                                .COAIDChild = drC.Item("CoAID"),
-                                .DebitAmount = 0,
-                                .CreditAmount = IIf(drC.Item("CreditAmount") = 0, drC.Item("DebitAmount"), drC.Item("CreditAmount")),
-                                .Remarks = IIf(drC.Item("Remarks") = "", drP.Item("Remarks"), drC.Item("Remarks")),
-                                .LogBy = ERPSLib.UI.usUserApp.UserID,
-                                .ReferencesNo = drC.Item("JournalNo")
-                            }
-                        )
+                            '# Child
+                            BL.BukuBesar.SaveData(sqlCon, sqlTrans, New VO.BukuBesar With
+                                {
+                                    .CompanyID = clsData.CompanyID,
+                                    .ProgramID = clsData.ProgramID,
+                                    .ReferencesID = clsData.ID,
+                                    .TransactionDate = clsData.JournalDate,
+                                    .COAIDParent = drP.Item("CoAID"),
+                                    .COAIDChild = drC.Item("CoAID"),
+                                    .DebitAmount = 0,
+                                    .CreditAmount = IIf(drC.Item("CreditAmount") = 0, drC.Item("DebitAmount"), drC.Item("CreditAmount")),
+                                    .Remarks = IIf(drC.Item("Remarks") = "", drP.Item("Remarks"), drC.Item("Remarks")),
+                                    .LogBy = ERPSLib.UI.usUserApp.UserID,
+                                    .ReferencesNo = drC.Item("ReferencesNo")
+                                }
+                            )
+                        Next
                     Next
-                Next
-            End If
-
-            ''# Save Buku Besar
-            'Dim clsBukuBesarAll As New List(Of VO.BukuBesar)
-            'For Each drP As DataRow In drParent
-            '    For Each drC As DataRow In drChild
-            '        '# Parent 
-            '        BL.BukuBesar.SaveData(sqlCon, sqlTrans, New VO.BukuBesar With
-            '            {
-            '                .CompanyID = clsData.CompanyID,
-            '                .ProgramID = clsData.ProgramID,
-            '                .ReferencesID = clsData.ID,
-            '                .TransactionDate = clsData.JournalDate,
-            '                .COAIDParent = drP.Item("CoAID"),
-            '                .COAIDChild = drC.Item("CoAID"),
-            '                .DebitAmount = IIf(drC.Item("CreditAmount") = 0, drC.Item("DebitAmount"), drC.Item("CreditAmount")),
-            '                .CreditAmount = 0,
-            '                .Remarks = IIf(drC.Item("Remarks") = "", drP.Item("Remarks"), drC.Item("Remarks")),
-            '                .LogBy = ERPSLib.UI.usUserApp.UserID,
-            '                .ReferencesNo = drP.Item("JournalNo")
-            '            }
-            '        )
-
-            '        '# Child
-            '        BL.BukuBesar.SaveData(sqlCon, sqlTrans, New VO.BukuBesar With
-            '            {
-            '                .CompanyID = clsData.CompanyID,
-            '                .ProgramID = clsData.ProgramID,
-            '                .ReferencesID = clsData.ID,
-            '                .TransactionDate = clsData.JournalDate,
-            '                .COAIDParent = drC.Item("CoAID"),
-            '                .COAIDChild = drP.Item("CoAID"),
-            '                .DebitAmount = 0,
-            '                .CreditAmount = IIf(drC.Item("CreditAmount") = 0, drC.Item("DebitAmount"), drC.Item("CreditAmount")),
-            '                .Remarks = IIf(drC.Item("Remarks") = "", drP.Item("Remarks"), drC.Item("Remarks")),
-            '                .LogBy = ERPSLib.UI.usUserApp.UserID,
-            '                .ReferencesNo = drC.Item("JournalNo")
-            '            }
-            '        )
-            '    Next
-            'Next
+                End If
+            Next
         End Sub
 
 #End Region

@@ -14,6 +14,8 @@
                 AlterTableCutting_ID7(sqlCon, Nothing)
                 CreateTableDeliveryTransport_ID8(sqlCon, Nothing)
                 AlterTableSysJournalPost_ID9(sqlCon, Nothing)
+                AlterTableTraJournalDet_ID10(sqlCon, Nothing)
+                AddBPIDAndReferencesNoInJournalAndBukuBesar_ID11(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -246,6 +248,36 @@
                 "ALTER TABLE sysJournalPost ADD CoAofStockTransport INT NOT NULL CONSTRAINT CoAofStockTransport DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE sysJournalPost ADD CoAofAccountPayableCutting INT NOT NULL CONSTRAINT CoAofAccountPayableCutting DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE sysJournalPost ADD CoAofAccountPayableTransport INT NOT NULL CONSTRAINT CoAofAccountPayableTransport DEFAULT ((0)) " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 10
+        Private Shared Sub AlterTableTraJournalDet_ID10(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 10
+            clsData.Name = "Alter Table traJournalDet"
+            clsData.Scripts = "ALTER TABLE traJournalDet ADD GroupID INT NOT NULL CONSTRAINT DF_traJournalDet_GroupID DEFAULT ((0)) " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 11
+        Private Shared Sub AddBPIDAndReferencesNoInJournalAndBukuBesar_ID11(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 10
+            clsData.Name = "Alter Table traJournalDet"
+            clsData.Scripts = "ALTER TABLE traJournalDet ADD BPID INT NOT NULL CONSTRAINT DF_traJournalDet_BPID DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traBukuBesar ADD BPID INT NOT NULL CONSTRAINT DF_traBukuBesar_BPID DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traJournal ADD ReferencesNo VARCHAR(100) NOT NULL CONSTRAINT DF_traJournal_ReferencesNo DEFAULT ('') " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

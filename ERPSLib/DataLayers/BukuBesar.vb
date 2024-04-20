@@ -13,7 +13,7 @@ Namespace DL
                    "SELECT " & vbNewLine & _
                    "     A.CompanyID, A.ProgramID, A.ID, A.TransactionDate, A.ReferencesID, A.COAIDParent, COAP.Code AS COAParentCode, COAP.Name AS COAParentName, " & vbNewLine & _
                    "     A.COAIDChild, COAC.Code AS COACodeChild, COAC.Name AS COANameChild, A.DebitAmount, A.CreditAmount,   " & vbNewLine & _
-                   "     A.Balance, A.Remarks, A.CreatedBy, A.CreatedDate, RemarksInfo=CASE WHEN A.Remarks='' THEN COAC.Name ELSE A.Remarks END, A.ReferencesNo " & vbNewLine & _
+                   "     A.Balance, A.Remarks, A.CreatedBy, A.CreatedDate, RemarksInfo=CASE WHEN A.Remarks='' THEN COAC.Name ELSE A.Remarks END, A.ReferencesNo, A.BPID " & vbNewLine & _
                    "FROM traBukuBesar A " & vbNewLine & _
                    "INNER JOIN mstChartOfAccount COAP ON " & vbNewLine & _
                    "    A.COAIDParent=COAP.ID " & vbNewLine & _
@@ -49,10 +49,10 @@ Namespace DL
                 .CommandText = _
                     "INSERT INTO traBukuBesar " & vbNewLine & _
                     "    (CompanyID, ProgramID, ID, TransactionDate, ReferencesID, COAIDParent, COAIDChild, DebitAmount, CreditAmount,   " & vbNewLine & _
-                    "     Remarks, CreatedBy, CreatedDate, ReferencesNo)   " & vbNewLine & _
+                    "     Remarks, CreatedBy, CreatedDate, ReferencesNo, BPID)   " & vbNewLine & _
                     "VALUES " & vbNewLine & _
                     "    (@CompanyID, @ProgramID, @ID, @TransactionDate, @ReferencesID, @COAIDParent, @COAIDChild, @DebitAmount, @CreditAmount,   " & vbNewLine & _
-                    "     @Remarks, @LogBy, GETDATE(), @ReferencesNo)  " & vbNewLine
+                    "     @Remarks, @LogBy, GETDATE(), @ReferencesNo, @BPID)  " & vbNewLine
 
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = clsData.CompanyID
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = clsData.ProgramID
@@ -66,6 +66,7 @@ Namespace DL
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 500).Value = clsData.Remarks
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@ReferencesNo", SqlDbType.VarChar, 100).Value = clsData.ReferencesNo
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = clsData.BPID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)

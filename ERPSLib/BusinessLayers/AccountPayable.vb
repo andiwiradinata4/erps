@@ -580,24 +580,24 @@
                 Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
 
                 Dim clsJournalDetail As New List(Of VO.JournalDet)
-                Dim strJournalDetailRemarks As String = ""
-                If clsData.Modules.Trim = VO.AccountPayable.DownPayment Then
-                    strJournalDetailRemarks = "PEMBAYARAN PANJAR PEMBELIAN - " & clsData.APNumber
-                ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentManual Then
-                    strJournalDetailRemarks = "PEMBAYARAN PANJAR PEMBELIAN [MANUAL] - " & clsData.APNumber
-                ElseIf clsData.Modules.Trim = VO.AccountPayable.PurchaseBalance Then
-                    strJournalDetailRemarks = "PEMBAYARAN SALDO - " & clsData.APNumber
-                ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
-                    strJournalDetailRemarks = "PEMBAYARAN HUTANG PEMBELIAN - " & clsData.APNumber
-                ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then
-                    strJournalDetailRemarks = "PEMBAYARAN PANJAR PESANAN PEMOTONGAN - " & clsData.APNumber
-                ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
-                    strJournalDetailRemarks = "PEMBAYARAN HUTANG PESANAN PEMOTONGAN - " & clsData.APNumber
-                ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Then
-                    strJournalDetailRemarks = "PEMBAYARAN PANJAR PESANAN PENGIRIMAN - " & clsData.APNumber
-                ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
-                    strJournalDetailRemarks = "PEMBAYARAN HUTANG PESANAN PENGIRIMAN - " & clsData.APNumber
-                End If
+                Dim strJournalDetailRemarks As String = "" 'clsData.APNumber
+                'If clsData.Modules.Trim = VO.AccountPayable.DownPayment Then
+                '    strJournalDetailRemarks = "PEMBAYARAN PANJAR PEMBELIAN - " & clsData.APNumber
+                'ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentManual Then
+                '    strJournalDetailRemarks = "PEMBAYARAN PANJAR PEMBELIAN [MANUAL] - " & clsData.APNumber
+                'ElseIf clsData.Modules.Trim = VO.AccountPayable.PurchaseBalance Then
+                '    strJournalDetailRemarks = "PEMBAYARAN SALDO - " & clsData.APNumber
+                'ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
+                '    strJournalDetailRemarks = "PEMBAYARAN HUTANG PEMBELIAN - " & clsData.APNumber
+                'ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then
+                '    strJournalDetailRemarks = "PEMBAYARAN PANJAR PESANAN PEMOTONGAN - " & clsData.APNumber
+                'ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                '    strJournalDetailRemarks = "PEMBAYARAN HUTANG PESANAN PEMOTONGAN - " & clsData.APNumber
+                'ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Then
+                '    strJournalDetailRemarks = "PEMBAYARAN PANJAR PESANAN PENGIRIMAN - " & clsData.APNumber
+                'ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                '    strJournalDetailRemarks = "PEMBAYARAN HUTANG PESANAN PENGIRIMAN - " & clsData.APNumber
+                'End If
 
                 '# Note -> DP Only Have Total Amount 
                 clsJournalDetail.Add(New VO.JournalDet With
@@ -629,6 +629,7 @@
                         .Remarks = clsData.Remarks,
                         .LogBy = ERPSLib.UI.usUserApp.UserID,
                         .Initial = "",
+                        .ReferencesNo = clsData.APNumber,
                         .Detail = clsJournalDetail,
                         .Save = VO.Save.Action.SaveAndSubmit
                     }

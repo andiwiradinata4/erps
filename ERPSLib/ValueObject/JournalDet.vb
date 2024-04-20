@@ -7,6 +7,8 @@ Namespace VO
         Property DebitAmount As Decimal
         Property CreditAmount As Decimal
         Property Remarks As String = ""
+        Property GroupID As Integer
+        Property BPID As Integer
     End Class 
 End Namespace
 

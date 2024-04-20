@@ -14,14 +14,6 @@ C:\My Project\Desktop\Toni JKT\erps\ERPSLib\obj\Debug\ERPSLib.vbproj.GenerateRes
 C:\My Project\Desktop\Toni JKT\erps\ERPSLib\obj\Debug\ERPSLib.dll
 C:\My Project\Desktop\Toni JKT\erps\ERPSLib\obj\Debug\ERPSLib.xml
 C:\My Project\Desktop\Toni JKT\erps\ERPSLib\obj\Debug\ERPSLib.pdb
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\bin\Debug\ERPSLib.dll
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\bin\Debug\ERPSLib.pdb
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\bin\Debug\ERPSLib.xml
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.Resources.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.vbproj.GenerateResource.Cache
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.dll
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.xml
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.pdb
 C:\My Project\Desktop\Toni JKT\erps\ERPSLib\obj\Debug\ERPSLib.vbproj.AssemblyReference.cache
 C:\My Project\Desktop\Toni JKT\erps\ERPSLib\obj\Debug\ERPSLib.vbproj.CoreCompileInputs.cache
 C:\Project\Tony\ERPS\ERPSLib\bin\Debug\ERPSLib.dll
@@ -44,3 +36,11 @@ C:\Project\Toni\erps\ERPSLib\obj\Debug\ERPSLib.vbproj.CoreCompileInputs.cache
 C:\Project\Toni\erps\ERPSLib\obj\Debug\ERPSLib.dll
 C:\Project\Toni\erps\ERPSLib\obj\Debug\ERPSLib.xml
 C:\Project\Toni\erps\ERPSLib\obj\Debug\ERPSLib.pdb
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\bin\Debug\ERPSLib.dll
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\bin\Debug\ERPSLib.pdb
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\bin\Debug\ERPSLib.xml
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.Resources.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.vbproj.GenerateResource.Cache
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.dll
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.xml
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPSLib\obj\Debug\ERPSLib.pdb
