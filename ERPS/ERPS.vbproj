@@ -576,6 +576,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournal.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournalAutoGenerate.Designer.vb">
+      <DependentUpon>frmTraJournalAutoGenerate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournalAutoGenerate.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournalDet.Designer.vb">
       <DependentUpon>frmTraJournalDet.vb</DependentUpon>
     </Compile>
@@ -1247,6 +1253,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournal.resx">
       <DependentUpon>frmTraJournal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournalAutoGenerate.resx">
+      <DependentUpon>frmTraJournalAutoGenerate.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournalDet.resx">
       <DependentUpon>frmTraJournalDet.vb</DependentUpon>

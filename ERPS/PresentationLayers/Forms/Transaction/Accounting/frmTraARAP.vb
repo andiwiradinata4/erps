@@ -120,6 +120,7 @@ Public Class frmTraARAP
         UI.usForm.SetGrid(grdView, "LogDate", "Tanggal Edit", 100, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdView, "LogInc", "LogInc", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdView, "StatusInfo", "Status", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "IsDP", "IsDP", 100, UI.usDefGrid.gBoolean, False)
     End Sub
 
     Private Sub prvSetButton()
@@ -232,6 +233,7 @@ Public Class frmTraARAP
         clsReturn.TotalPPH = grdView.GetRowCellValue(intPos, "TotalPPH")
         clsReturn.PaymentBy = grdView.GetRowCellValue(intPos, "PaymentBy")
         clsReturn.TaxInvoiceNumber = grdView.GetRowCellValue(intPos, "TaxInvoiceNumber")
+        clsReturn.IsDP = grdView.GetRowCellValue(intPos, "IsDP")
         Return clsReturn
     End Function
 
@@ -468,9 +470,15 @@ Public Class frmTraARAP
 
         Dim frmDetail As New frmTraAccountSetPaymentDate
         With frmDetail
+            .pubChooseCoA = IIf(clsData.IsDP, False, True)
+            .pubCoAID = clsData.CoAID
+            .pubCoACode = clsData.CoACode
+            .pubCoAName = clsData.CoAName
+            .pubCS = prvGetCS()
             .StartPosition = FormStartPosition.CenterParent
             .ShowDialog()
             If .pubIsSave Then
+                clsData.CoAID = .pubCoAID
                 clsData.PaymentDate = .pubPaymentDate
                 clsData.PaymentBy = ERPSLib.UI.usUserApp.UserID
                 clsData.Remarks = .pubRemarks
@@ -483,7 +491,7 @@ Public Class frmTraARAP
         pgMain.Value = 40
 
         Try
-            BL.ARAP.SetupPayment(clsData.ID, clsData.PaymentDate, clsData.Remarks, enumARAPType)
+            BL.ARAP.SetupPayment(clsData.ID, clsData.PaymentDate, clsData.Remarks, enumARAPType, clsData.CoAID)
             pgMain.Value = 100
 
             UI.usForm.frmMessageBox("Setup tanggal pembayaran berhasil.")

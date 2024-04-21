@@ -4,31 +4,31 @@ Namespace DL
 #Region "Main"
 
         Public Shared Function ListData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                        ByVal intCompanyID As Integer, ByVal intProgramID As Integer, _
-                                        ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime, ByVal intStatusID As Integer, _
-                                        ByVal strInitial As String) As DataTable
+                                        ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                        ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime, ByVal intStatusID As Integer,
+                                        ByVal strInitial As String, ByVal bolIsAutoGenerate As Boolean) As DataTable
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                   "SELECT " & vbNewLine & _
-                   "    CAST(0 AS BIT) AS Pick, A.CompanyID, MC.Name AS CompanyName, A.ProgramID, MP.Name AS ProgramName, " & vbNewLine & _
-                   "    A.ID, A.JournalNo, A.JournalDate, A.ReferencesID, A.TotalAmount, A.IsAutoGenerate, A.IsClosedPeriod, A.ClosedPeriodBy,   " & vbNewLine & _
-                   "    A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine & _
-                   "    CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, B.Name AS StatusInfo, A.Initial " & vbNewLine & _
-                   "FROM traJournal A " & vbNewLine & _
-                   "INNER JOIN mstStatus B ON " & vbNewLine & _
-                   "    A.StatusID=B.ID " & vbNewLine & _
-                   "INNER JOIN mstCompany MC ON " & vbNewLine & _
-                   "    A.CompanyID=MC.ID " & vbNewLine & _
-                   "INNER JOIN mstProgram MP ON " & vbNewLine & _
-                   "    A.ProgramID=MP.ID " & vbNewLine & _
-                   "WHERE  " & vbNewLine & _
-                   "    A.CompanyID=@CompanyID " & vbNewLine & _
-                   "    AND A.ProgramID=@ProgramID " & vbNewLine & _
-                   "    AND A.IsAutoGenerate=0 " & vbNewLine & _
+                .CommandText =
+                   "SELECT " & vbNewLine &
+                   "    CAST(0 AS BIT) AS Pick, A.CompanyID, MC.Name AS CompanyName, A.ProgramID, MP.Name AS ProgramName, " & vbNewLine &
+                   "    A.ID, A.JournalNo, A.JournalDate, A.ReferencesID, A.TotalAmount, A.IsAutoGenerate, A.IsClosedPeriod, A.ClosedPeriodBy,   " & vbNewLine &
+                   "    A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine &
+                   "    CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, B.Name AS StatusInfo, A.Initial " & vbNewLine &
+                   "FROM traJournal A " & vbNewLine &
+                   "INNER JOIN mstStatus B ON " & vbNewLine &
+                   "    A.StatusID=B.ID " & vbNewLine &
+                   "INNER JOIN mstCompany MC ON " & vbNewLine &
+                   "    A.CompanyID=MC.ID " & vbNewLine &
+                   "INNER JOIN mstProgram MP ON " & vbNewLine &
+                   "    A.ProgramID=MP.ID " & vbNewLine &
+                   "WHERE  " & vbNewLine &
+                   "    A.CompanyID=@CompanyID " & vbNewLine &
+                   "    AND A.ProgramID=@ProgramID " & vbNewLine &
+                   "    AND A.IsAutoGenerate=@IsAutoGenerate " & vbNewLine &
                    "    AND A.JournalDate>=@DateFrom AND A.JournalDate<=@DateTo " & vbNewLine
 
                 If intStatusID <> VO.Status.Values.All Then
@@ -46,6 +46,7 @@ Namespace DL
                 .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
                 .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = intStatusID
+                .Parameters.Add("@IsAutoGenerate", SqlDbType.Int).Value = bolIsAutoGenerate
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function

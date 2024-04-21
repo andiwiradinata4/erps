@@ -23,7 +23,7 @@
                     "   CASE WHEN A.PaymentBy = '' THEN NULL ELSE A.PaymentDate END AS PaymentDate, A.TaxInvoiceNumber, " & vbNewLine &
                     "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
                     "   A.LogInc, A.LogBy, A.LogDate, A.ARNumber AS TransNumber, A.ARDate AS TransDate, A.CoAIDOfIncomePayment AS CoAID, COA.Code AS CoACode, COA.Name AS CoAName,  " & vbNewLine &
-                    "   A.TotalPPN, A.TotalPPH, A.DPAmount, A.ReceiveAmount " & vbNewLine &
+                    "   A.TotalPPN, A.TotalPPH, A.DPAmount, A.ReceiveAmount, A.IsDP " & vbNewLine &
                     "FROM traAccountReceivable A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &

@@ -57,6 +57,7 @@
 
     Dim frmMainTraCost As frmTraCost
     Dim frmMainTraJournal As frmTraJournal
+    Dim frmMainTraJournalAutoGenerate As frmTraJournalAutoGenerate
 
 
     '# Laporan
@@ -151,6 +152,7 @@
         mnuTransaksiPembukuanSep6.Visible = False
         mnuTransaksiPembukuanPembayaranBiaya.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCost, VO.Access.Values.ViewAccess)
         mnuTransaksiPembukuanJurnalUmum.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionJournal, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembukuanJurnalUmum.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionJournal, -1)
 
         '# Laporan
         mnuLaporanTransaksiBarang.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, ERPSLib.VO.Modules.Values.ReportTransaksiBarang, VO.Access.Values.ViewAccess)
@@ -603,6 +605,10 @@
 
     Private Sub mnuTransaksiPembukuanJurnalUmum_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanJurnalUmum.Click
         UI.usForm.frmOpen(frmMainTraJournal, "frmTraJournal", Me)
+    End Sub
+
+    Private Sub mnuTransaksiPembukuanJurnalUmumAutoGenerate_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanJurnalUmumAutoGenerate.Click
+        UI.usForm.frmOpen(frmMainTraJournalAutoGenerate, "frmTraJournalAutoGenerate", Me)
     End Sub
 
 #End Region

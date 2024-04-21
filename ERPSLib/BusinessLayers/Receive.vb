@@ -174,12 +174,12 @@
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses pembayaran")
                     End If
 
-                    ''# Cancel Approve Journal
-                    'Dim clsData As VO.Receive = DL.Receive.GetDetail(sqlCon, sqlTrans, strID)
-                    'BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+                    '# Cancel Approve Journal
+                    Dim clsData As VO.Receive = DL.Receive.GetDetail(sqlCon, sqlTrans, strID)
+                    BL.Journal.Unapprove(clsData.JournalID.Trim, "")
 
-                    ''# Cancel Submit Journal
-                    'BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+                    '# Cancel Submit Journal
+                    BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
 
                     DL.Receive.Unsubmit(sqlCon, sqlTrans, strID)
 
@@ -203,21 +203,26 @@
                 Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
 
                 '# Generate Journal
-                Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.TotalPPN - clsData.TotalPPH + clsData.RoundingManual
+                Dim intGroupID As Integer = 1
+                Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.RoundingManual ' + clsData.TotalPPN - clsData.TotalPPH
                 Dim clsJournalDetail As New List(Of VO.JournalDet) From {
                     New VO.JournalDet With
                                      {
-                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofStock,
+                                         .CoAID = clsData.CoAofStock,
                                          .DebitAmount = decTotalAmount,
                                          .CreditAmount = 0,
-                                         .Remarks = "PENERIMAAN PEMBELIAN - " & clsData.ReceiveNumber
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
                                      },
                     New VO.JournalDet With
                                      {
-                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable,
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableOutstandingPayment,
                                          .DebitAmount = 0,
                                          .CreditAmount = decTotalAmount,
-                                         .Remarks = "PENERIMAAN PEMBELIAN - " & clsData.ReceiveNumber
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
                                      }
                 }
 
@@ -235,6 +240,7 @@
                     .Remarks = clsData.Remarks,
                     .LogBy = ERPSLib.UI.usUserApp.UserID,
                     .Initial = "",
+                    .ReferencesNo = clsData.ReceiveNumber,
                     .Detail = clsJournalDetail,
                     .Save = VO.Save.Action.SaveAndSubmit
                 }

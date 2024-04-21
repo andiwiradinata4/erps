@@ -92,7 +92,7 @@ Public Class frmTraJournal
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
         Try
-            dtData = BL.Journal.ListData(intCompanyID, ERPSLib.UI.usUserApp.ProgramID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue, "")
+            dtData = BL.Journal.ListData(intCompanyID, ERPSLib.UI.usUserApp.ProgramID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue, "", False)
             grdMain.DataSource = dtData
             prvSumGrid()
             grdView.BestFitColumns()

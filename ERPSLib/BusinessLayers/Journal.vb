@@ -3,13 +3,13 @@ Namespace BL
 
 #Region "Main"
 
-        Public Shared Function ListData(ByVal intCompanyID As Integer, ByVal intProgramID As Integer, _
-                                        ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime, ByVal intIDStatus As Integer, _
-                                        ByVal strInitial As String) As DataTable
+        Public Shared Function ListData(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                        ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime, ByVal intIDStatus As Integer,
+                                        ByVal strInitial As String, ByVal bolIsAutoGenerate As Boolean) As DataTable
             dtmDateTo = dtmDateTo.AddHours(23).AddMinutes(59).AddSeconds(59)
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.Journal.ListData(sqlCon, Nothing, intCompanyID, intProgramID, dtmDateFrom, dtmDateTo, intIDStatus, strInitial)
+                Return DL.Journal.ListData(sqlCon, Nothing, intCompanyID, intProgramID, dtmDateFrom, dtmDateTo, intIDStatus, strInitial, bolIsAutoGenerate)
             End Using
         End Function
 
@@ -354,7 +354,8 @@ Namespace BL
                                     .CreditAmount = 0,
                                     .Remarks = IIf(drC.Item("Remarks") = "", drP.Item("Remarks"), drC.Item("Remarks")),
                                     .LogBy = ERPSLib.UI.usUserApp.UserID,
-                                    .ReferencesNo = drP.Item("ReferencesNo")
+                                    .ReferencesNo = drP.Item("ReferencesNo"),
+                                    .BPID = drP.Item("BPID")
                                 }
                             )
 
@@ -371,7 +372,8 @@ Namespace BL
                                     .CreditAmount = IIf(drC.Item("CreditAmount") = 0, drC.Item("DebitAmount"), drC.Item("CreditAmount")),
                                     .Remarks = IIf(drC.Item("Remarks") = "", drP.Item("Remarks"), drC.Item("Remarks")),
                                     .LogBy = ERPSLib.UI.usUserApp.UserID,
-                                    .ReferencesNo = drC.Item("ReferencesNo")
+                                    .ReferencesNo = drC.Item("ReferencesNo"),
+                                    .BPID = drC.Item("BPID")
                                 }
                             )
                         Next
@@ -397,7 +399,8 @@ Namespace BL
                                     .CreditAmount = 0,
                                     .Remarks = IIf(drC.Item("Remarks") = "", drP.Item("Remarks"), drC.Item("Remarks")),
                                     .LogBy = ERPSLib.UI.usUserApp.UserID,
-                                    .ReferencesNo = drP.Item("ReferencesNo")
+                                    .ReferencesNo = drP.Item("ReferencesNo"),
+                                    .BPID = drP.Item("BPID")
                                 }
                             )
 
@@ -414,7 +417,8 @@ Namespace BL
                                     .CreditAmount = IIf(drC.Item("CreditAmount") = 0, drC.Item("DebitAmount"), drC.Item("CreditAmount")),
                                     .Remarks = IIf(drC.Item("Remarks") = "", drP.Item("Remarks"), drC.Item("Remarks")),
                                     .LogBy = ERPSLib.UI.usUserApp.UserID,
-                                    .ReferencesNo = drC.Item("ReferencesNo")
+                                    .ReferencesNo = drC.Item("ReferencesNo"),
+                                    .BPID = drC.Item("BPID")
                                 }
                             )
                         Next

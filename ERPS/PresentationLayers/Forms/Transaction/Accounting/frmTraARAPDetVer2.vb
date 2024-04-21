@@ -205,11 +205,11 @@ Public Class frmTraARAPDetVer2
             tcHeader.SelectedTab = tpMain
             txtBPCode.Focus()
             Exit Sub
-        ElseIf txtCoACode.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih akun terlebih dahulu")
-            tcHeader.SelectedTab = tpMain
-            txtCoACode.Focus()
-            Exit Sub
+            'ElseIf txtCoACode.Text.Trim = "" Then
+            '    UI.usForm.frmMessageBox("Pilih akun terlebih dahulu")
+            '    tcHeader.SelectedTab = tpMain
+            '    txtCoACode.Focus()
+            '    Exit Sub
         ElseIf txtTotalAmount.Value <= 0 Then
             UI.usForm.frmMessageBox("Total Bayar harus lebih besar dari 0")
             tcHeader.SelectedTab = tpMain
@@ -644,7 +644,7 @@ Public Class frmTraARAPDetVer2
         txtDueDateValue.Minimum = 0
         Me.Text += IIf(strReferencesID.Trim = "", "", " - ") & strReferencesID
         lblInfo.Text += VO.Common.GetPaymentText(strModules)
-
+        btnCoAOfOutgoingPayment.Enabled = False
         If bolIsLookup Then
             btnBP.Enabled = False
             btnReferences.Enabled = False

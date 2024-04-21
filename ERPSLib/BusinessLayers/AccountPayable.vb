@@ -223,7 +223,7 @@
                 ElseIf clsExists.TotalAmountUsed > 0 Then
                     Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah dipakai ditransaksi lain")
                 End If
-                
+
                 Dim dtItem As New DataTable
                 If strModules.Trim = VO.AccountPayable.PurchaseBalance Then
                     dtItem = DL.AccountPayable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, strID)
@@ -453,13 +453,13 @@
         End Function
 
         Public Shared Function SetupPayment(ByVal strID As String, ByVal dtmPaymentDate As DateTime,
-                                            ByVal strRemarks As String) As Boolean
+                                            ByVal strRemarks As String, ByVal intCoAIDOfOutgoingPayment As Integer) As Boolean
             Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    bolReturn = SetupPayment(sqlCon, sqlTrans, strID, dtmPaymentDate, strRemarks)
+                    bolReturn = SetupPayment(sqlCon, sqlTrans, strID, dtmPaymentDate, strRemarks, intCoAIDOfOutgoingPayment)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -471,7 +471,7 @@
 
         Public Shared Function SetupPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                             ByVal strID As String, ByVal dtmPaymentDate As DateTime,
-                                            ByVal strRemarks As String) As Boolean
+                                            ByVal strRemarks As String, ByVal intCoAIDOfOutgoingPayment As Integer) As Boolean
             Dim bolReturn As Boolean = False
             Try
                 Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
@@ -483,10 +483,14 @@
                     Err.Raise(515, "", "Data tidak dapat di Proses Pembayaran. Dikarenakan status data harus disetujui terlebih dahulu")
                 End If
 
-                DL.AccountPayable.SetupPayment(sqlCon, sqlTrans, strID, dtmPaymentDate)
+                DL.AccountPayable.SetupPayment(sqlCon, sqlTrans, strID, dtmPaymentDate, intCoAIDOfOutgoingPayment)
 
                 '# Save Data Status
                 BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "PROSES PEMBAYARAN", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+                '# Generate Journal
+                Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
+                If Not clsData.IsDP Then GenerateJournalInvoice(sqlCon, sqlTrans, strID)
                 bolReturn = True
             Catch ex As Exception
                 Throw ex
@@ -519,6 +523,18 @@
                     Err.Raise(515, "", "Data tidak dapat di Proses Batal Pembayaran. Dikarenakan data telah dihapus")
                 ElseIf intStatusID <> VO.Status.Values.Payment Then
                     Err.Raise(515, "", "Data tidak dapat di Proses Batal Pembayaran. Dikarenakan data belum pernah diproses BAYAR")
+                End If
+
+                Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
+                If Not clsData.IsDP Then
+                    '# Cancel Approve Journal
+                    BL.Journal.Unapprove(clsData.JournalIDInvoice.Trim, "")
+
+                    '# Cancel Submit Journal
+                    BL.Journal.Unsubmit(clsData.JournalIDInvoice.Trim, "")
+
+                    '# Unapprove Account Receivable
+                    DL.AccountPayable.Unapprove(sqlCon, sqlTrans, strID)
                 End If
 
                 DL.AccountPayable.SetupCancelPayment(sqlCon, sqlTrans, strID)
@@ -578,6 +594,8 @@
                 Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
                 Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
                 Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
+                Dim intGroupID As Integer = 1
+                Dim decTotalAmount As Decimal = 0
 
                 Dim clsJournalDetail As New List(Of VO.JournalDet)
                 Dim strJournalDetailRemarks As String = "" 'clsData.APNumber
@@ -599,21 +617,155 @@
                 '    strJournalDetailRemarks = "PEMBAYARAN HUTANG PESANAN PENGIRIMAN - " & clsData.APNumber
                 'End If
 
-                '# Note -> DP Only Have Total Amount 
-                clsJournalDetail.Add(New VO.JournalDet With
+                If clsData.IsDP Then '# Pembayaran DP
+                    Dim intCoAofDownPaymentAccount As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncome
+                    If clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeCutting
+                    If clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Then intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeTransport
+
+                    '# Akun Panjar Pembelian -> Debit
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = intCoAofDownPaymentAccount,
+                                             .DebitAmount = clsData.TotalAmount,
+                                             .CreditAmount = 0,
+                                             .Remarks = strJournalDetailRemarks,
+                                             .GroupID = intGroupID,
+                                             .BPID = clsData.BPID
+                                         })
+                    decTotalAmount += clsData.TotalAmount
+
+                    '# Akun PPN -> Debit
+                    If clsData.TotalPPN > 0 Then
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPurchaseTax,
+                                             .DebitAmount = clsData.TotalPPN,
+                                             .CreditAmount = 0,
+                                             .Remarks = strJournalDetailRemarks,
+                                             .GroupID = intGroupID,
+                                             .BPID = clsData.BPID
+                                         })
+                        decTotalAmount += clsData.TotalPPN
+                    End If
+
+
+                    '# Akun Kas / Bank -> Kredit
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = clsData.CoAIDOfOutgoingPayment,
+                                             .DebitAmount = 0,
+                                             .CreditAmount = clsData.TotalAmount + clsData.TotalPPN,
+                                             .Remarks = strJournalDetailRemarks,
+                                             .GroupID = intGroupID,
+                                             .BPID = clsData.BPID
+                                         })
+
+                    '# Setup Akun PPH
+                    If clsData.TotalPPH > 0 Then
+                        intGroupID += 1
+
+                        '# Akun Kas / Bank -> Debit
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = clsData.CoAIDOfOutgoingPayment,
+                                             .DebitAmount = clsData.TotalPPH,
+                                             .CreditAmount = 0,
+                                             .Remarks = strJournalDetailRemarks,
+                                             .GroupID = intGroupID,
+                                             .BPID = clsData.BPID
+                                         })
+
+                        '# Akun PPH -> Kredit
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPPHPurchase,
+                                             .DebitAmount = 0,
+                                             .CreditAmount = clsData.TotalPPH,
+                                             .Remarks = strJournalDetailRemarks,
+                                             .GroupID = intGroupID,
+                                             .BPID = clsData.BPID
+                                         })
+                        decTotalAmount += clsData.TotalPPH
+                    End If
+                Else
+                    Dim intCoAofReceivePaymentAccountOutstandingPayment As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableOutstandingPayment
+                    Dim intCoAofReceivePaymentAccount As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable
+                    Dim intCoAofDownPaymentAccount As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncome
+
+                    If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                        intCoAofReceivePaymentAccountOutstandingPayment = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableCuttingOutstandingPayment
+                        intCoAofReceivePaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableCutting
+                        intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeCutting
+                    End If
+                    If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                        intCoAofReceivePaymentAccountOutstandingPayment = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableTransportOutstandingPayment
+                        intCoAofReceivePaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableTransport
+                        intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeTransport
+                    End If
+
+                    '# Akun Hutang Belum Ditagih -> Debit
+                    clsJournalDetail.Add(New VO.JournalDet With
                                      {
-                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable,
-                                         .DebitAmount = IIf(clsData.IsDP, clsData.TotalAmount, clsData.ReceiveAmount),
+                                         .CoAID = intCoAofReceivePaymentAccountOutstandingPayment,
+                                         .DebitAmount = clsData.ReceiveAmount + clsData.DPAmount,
                                          .CreditAmount = 0,
-                                         .Remarks = strJournalDetailRemarks
+                                         .Remarks = strJournalDetailRemarks,
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
                                      })
-                clsJournalDetail.Add(New VO.JournalDet With
+
+                    '# Akun PPN -> Debit
+                    clsJournalDetail.Add(New VO.JournalDet With
                                      {
-                                         .CoAID = clsData.CoAIDOfOutgoingPayment,
-                                         .DebitAmount = 0,
-                                         .CreditAmount = IIf(clsData.IsDP, clsData.TotalAmount, clsData.ReceiveAmount),
-                                         .Remarks = strJournalDetailRemarks
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPurchaseTax,
+                                         .DebitAmount = clsData.TotalPPN,
+                                         .CreditAmount = 0,
+                                         .Remarks = strJournalDetailRemarks,
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
                                      })
+
+                    '# Akun Hutang Usaha -> Kredit
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = intCoAofReceivePaymentAccount,
+                                         .DebitAmount = 0,
+                                         .CreditAmount = clsData.ReceiveAmount + clsData.DPAmount + clsData.TotalPPN,
+                                         .Remarks = strJournalDetailRemarks,
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     })
+                    decTotalAmount += clsData.ReceiveAmount + clsData.DPAmount + clsData.TotalPPN
+
+                    '# Setup / Cross Akun DP
+                    If clsData.DPAmount > 0 Then
+                        intGroupID += 1
+
+                        '# Akun Hutang Usaha -> Debit
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = intCoAofReceivePaymentAccount,
+                                         .DebitAmount = clsData.DPAmount,
+                                         .CreditAmount = 0,
+                                         .Remarks = strJournalDetailRemarks,
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     })
+
+                        '# Akun Uang Muka Pembelian -> Kredit
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = intCoAofDownPaymentAccount,
+                                         .DebitAmount = 0,
+                                         .CreditAmount = clsData.DPAmount,
+                                         .Remarks = strJournalDetailRemarks,
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     })
+
+                        decTotalAmount += clsData.DPAmount
+                    End If
+                End If
 
                 Dim clsJournal As New VO.Journal With
                     {
@@ -623,7 +775,7 @@
                         .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
                         .ReferencesID = clsData.ID,
                         .JournalDate = IIf(bolNew, clsData.APDate, PrevJournal.JournalDate),
-                        .TotalAmount = IIf(clsData.IsDP, clsData.TotalAmount, clsData.ReceiveAmount),
+                        .TotalAmount = decTotalAmount,
                         .IsAutoGenerate = True,
                         .StatusID = VO.Status.Values.Draft,
                         .Remarks = clsData.Remarks,
@@ -642,6 +794,116 @@
 
                 '# Update Journal ID in Account Payable
                 DL.AccountPayable.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub GenerateJournalInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                 ByVal strID As String)
+            Try
+                '# Generate Journal
+                Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
+                Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalIDInvoice)
+                Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
+                Dim intGroupID As Integer = 1
+                Dim decTotalAmount As Decimal = 0
+
+                Dim clsJournalDetail As New List(Of VO.JournalDet)
+                Dim strJournalDetailRemarks As String = ""
+                Dim intCoAofReceivePaymentAccountOutstandingPayment As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableOutstandingPayment
+                Dim intCoAofReceivePaymentAccount As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable
+                Dim intCoAofDownPaymentAccount As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncome
+
+                If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                    intCoAofReceivePaymentAccountOutstandingPayment = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableCuttingOutstandingPayment
+                    intCoAofReceivePaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableCutting
+                    intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeCutting
+                End If
+                If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                    intCoAofReceivePaymentAccountOutstandingPayment = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableTransportOutstandingPayment
+                    intCoAofReceivePaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableTransport
+                    intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeTransport
+                End If
+
+                '# Akun Hutang Usaha -> Debit
+                clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = intCoAofReceivePaymentAccount,
+                                         .DebitAmount = clsData.ReceiveAmount + clsData.TotalPPN,
+                                         .CreditAmount = 0,
+                                         .Remarks = strJournalDetailRemarks,
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     })
+
+                '# Akun Kas / Bank - Kredit
+                clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = clsData.CoAIDOfOutgoingPayment,
+                                         .DebitAmount = 0,
+                                         .CreditAmount = clsData.ReceiveAmount + clsData.TotalPPN,
+                                         .Remarks = strJournalDetailRemarks,
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     })
+                decTotalAmount += clsData.TotalAmount + clsData.TotalPPN
+
+                '# Setup Akun PPH
+                If clsData.TotalPPH > 0 Then
+                    intGroupID += 1
+
+                    '# Akun Kas / Bank -> Debit
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = clsData.CoAIDOfOutgoingPayment,
+                                         .DebitAmount = clsData.TotalPPH,
+                                         .CreditAmount = 0,
+                                         .Remarks = strJournalDetailRemarks,
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     })
+
+                    '# Akun PPH -> Kredit
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPPHPurchase,
+                                         .DebitAmount = 0,
+                                         .CreditAmount = clsData.TotalPPH,
+                                         .Remarks = strJournalDetailRemarks,
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     })
+                    decTotalAmount += clsData.TotalPPH
+                End If
+
+                Dim clsJournal As New VO.Journal With
+                    {
+                        .ProgramID = clsData.ProgramID,
+                        .CompanyID = clsData.CompanyID,
+                        .ID = PrevJournal.ID,
+                        .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                        .ReferencesID = clsData.ID,
+                        .JournalDate = clsData.PaymentDate,
+                        .TotalAmount = decTotalAmount,
+                        .IsAutoGenerate = True,
+                        .StatusID = VO.Status.Values.Draft,
+                        .Remarks = clsData.Remarks,
+                        .LogBy = ERPSLib.UI.usUserApp.UserID,
+                        .Initial = "",
+                        .ReferencesNo = clsData.APNumber,
+                        .Detail = clsJournalDetail,
+                        .Save = VO.Save.Action.SaveAndSubmit
+                    }
+
+                '# Save Journal
+                Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
+
+                '# Approve Journal
+                BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
+
+                '# Update Journal ID in Account Payable
+                DL.AccountPayable.UpdateJournalIDInvoice(sqlCon, sqlTrans, clsData.ID, strJournalID)
             Catch ex As Exception
                 Throw ex
             End Try

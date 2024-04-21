@@ -200,25 +200,25 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT 	" & vbNewLine & _
-                    "	BB.TransactionDate AS JournalDate, BB.ReferencesNo AS JournalNo, COAG.COAType, COAP.Code AS GroupCode, COAP.Name AS GroupName, COAC.Code, COAC.Name, " & vbNewLine & _
-                    "	Remarks=COAC.Name + CASE WHEN BB.BPID=0 THEN '' ELSE ' - ' + ISNULL(BP.Name,'') END + CASE WHEN BB.ReferencesNo='' THEN '' ELSE ' - ' + BB.ReferencesNo END + CASE WHEN BB.Remarks='' THEN '' ELSE ' - ' + BB.Remarks END, " & vbNewLine & _
-                    "   BB.DebitAmount, BB.CreditAmount, FirstBalance=CAST(0 AS DECIMAL(18,2)), BalanceAmount=CAST(0 AS DECIMAL(18,2)), LastBalance=CAST(0 AS DECIMAL(18,2))	" & vbNewLine & _
-                    "FROM traBukuBesar BB 	" & vbNewLine & _
-                    "INNER JOIN mstChartOfAccount COAP ON 	" & vbNewLine & _
-                    "	BB.COAIDParent=COAP.ID 	" & vbNewLine & _
-                    "INNER JOIN mstChartOfAccount COAC ON 	" & vbNewLine & _
-                    "	BB.COAIDChild=COAC.ID 	" & vbNewLine & _
-                    "INNER JOIN mstChartOfAccountGroup COAG ON 	" & vbNewLine & _
-                    "	COAP.AccountGroupID=COAG.ID 	" & vbNewLine & _
-                    "LEFT JOIN mstBusinessPartner BP ON 	" & vbNewLine & _
-                    "	BB.BPID=BP.ID 	" & vbNewLine & _
-                    "WHERE 	" & vbNewLine & _
-                    "	BB.CompanyID=@CompanyID 	" & vbNewLine & _
-                    "	AND BB.ProgramID=@ProgramID 	" & vbNewLine & _
-                    "	AND BB.TransactionDate>=@DateFrom AND BB.TransactionDate<=@DateTo	" & vbNewLine & _
-                    "	AND BB.COAIDParent=@COAID 	" & vbNewLine & _
+                .CommandText =
+                    "SELECT 	" & vbNewLine &
+                    "	BB.TransactionDate AS JournalDate, BB.ReferencesID AS JournalNo, COAG.COAType, COAP.Code AS GroupCode, COAP.Name AS GroupName, COAC.Code, COAC.Name, " & vbNewLine &
+                    "	Remarks=COAC.Name + CASE WHEN BB.BPID=0 THEN '' ELSE ' - ' + ISNULL(BP.Name,'') END + CASE WHEN BB.ReferencesNo='' THEN '' ELSE ' - ' + BB.ReferencesNo END + CASE WHEN BB.Remarks='' THEN '' ELSE ' - ' + BB.Remarks END, " & vbNewLine &
+                    "   BB.DebitAmount, BB.CreditAmount, FirstBalance=CAST(0 AS DECIMAL(18,2)), BalanceAmount=CAST(0 AS DECIMAL(18,2)), LastBalance=CAST(0 AS DECIMAL(18,2))	" & vbNewLine &
+                    "FROM traBukuBesar BB 	" & vbNewLine &
+                    "INNER JOIN mstChartOfAccount COAP ON 	" & vbNewLine &
+                    "	BB.COAIDParent=COAP.ID 	" & vbNewLine &
+                    "INNER JOIN mstChartOfAccount COAC ON 	" & vbNewLine &
+                    "	BB.COAIDChild=COAC.ID 	" & vbNewLine &
+                    "INNER JOIN mstChartOfAccountGroup COAG ON 	" & vbNewLine &
+                    "	COAP.AccountGroupID=COAG.ID 	" & vbNewLine &
+                    "LEFT JOIN mstBusinessPartner BP ON 	" & vbNewLine &
+                    "	BB.BPID=BP.ID 	" & vbNewLine &
+                    "WHERE 	" & vbNewLine &
+                    "	BB.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	AND BB.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	AND BB.TransactionDate>=@DateFrom AND BB.TransactionDate<=@DateTo	" & vbNewLine &
+                    "	AND BB.COAIDParent=@COAID 	" & vbNewLine &
                     "ORDER BY BB.TransactionDate ASC	" & vbNewLine
 
                 .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom

@@ -260,8 +260,8 @@
                 "ALTER TABLE traBukuBesar ADD BPID INT NOT NULL CONSTRAINT DF_traBukuBesar_BPID DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traJournal ADD ReferencesNo VARCHAR(100) NOT NULL CONSTRAINT DF_traJournal_ReferencesNo DEFAULT ('') " & vbNewLine &
                 "ALTER TABLE traReceive ADD CoAofStock INT NOT NULL CONSTRAINT DF_traReceive_CoAofStock DEFAULT ((0)) " & vbNewLine &
-                "ALTER TABLE traAccountReceivable ADD JournalIDInvoice INT NOT NULL CONSTRAINT DF_traAccountReceivable_JournalIDInvoice DEFAULT ((0)) " & vbNewLine &
-                "ALTER TABLE traAccountPayable ADD JournalIDInvoice INT NOT NULL CONSTRAINT DF_traAccountPayable_JournalIDInvoice DEFAULT ((0)) " & vbNewLine
+                "ALTER TABLE traAccountReceivable ADD JournalIDInvoice VARCHAR(100) NOT NULL CONSTRAINT DF_traAccountReceivable_JournalIDInvoice DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD JournalIDInvoice VARCHAR(100) NOT NULL CONSTRAINT DF_traAccountPayable_JournalIDInvoice DEFAULT ('') " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

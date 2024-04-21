@@ -3,7 +3,7 @@ Public Class frmTraJournalDet
 
 #Region "Property"
 
-    Private frmParent As frmTraJournal
+    Private frmParent As Object
     Private clsData As VO.Journal
     Private dtItem As New DataTable
     Private intPos As Integer = 0
