@@ -16,13 +16,13 @@
                 .CommandText =
                     "SELECT " & vbNewLine &
                     "   A.ID, A.CompanyID, MC.Name AS CompanyName, A.ProgramID, MP.Name AS ProgramName, A.ARNumber, A.BPID, " & vbNewLine &
-                    "   C.Code AS BPCode, C.Name AS BPName, A.CoAIDOfIncomePayment, COA.Code AS CoACodeOfIncomePayment, COA.Name AS CoANameOfIncomePayment, " & vbNewLine &
+                    "   C.Code AS BPCode, C.Name AS BPName, A.CoAIDOfIncomePayment, ISNULL(COA.Code,'') AS CoACodeOfIncomePayment, ISNULL(COA.Name,'') AS CoANameOfIncomePayment, " & vbNewLine &
                     "   A.Modules, A.ReferencesID, A.ReferencesNote, A.ARDate, A.DueDateValue, A.DueDate, A.TotalAmount, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine &
                     "   A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine &
                     "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.PaymentBy, " & vbNewLine &
                     "   CASE WHEN A.PaymentBy = '' THEN NULL ELSE A.PaymentDate END AS PaymentDate, A.TaxInvoiceNumber, " & vbNewLine &
                     "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
-                    "   A.LogInc, A.LogBy, A.LogDate, A.ARNumber AS TransNumber, A.ARDate AS TransDate, A.CoAIDOfIncomePayment AS CoAID, COA.Code AS CoACode, COA.Name AS CoAName,  " & vbNewLine &
+                    "   A.LogInc, A.LogBy, A.LogDate, A.ARNumber AS TransNumber, A.ARDate AS TransDate, A.CoAIDOfIncomePayment AS CoAID, ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName,  " & vbNewLine &
                     "   A.TotalPPN, A.TotalPPH, A.DPAmount, A.ReceiveAmount, A.IsDP " & vbNewLine &
                     "FROM traAccountReceivable A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
@@ -33,7 +33,7 @@
                     "   A.CompanyID=MC.ID " & vbNewLine &
                     "INNER JOIN mstProgram MP ON " & vbNewLine &
                     "   A.ProgramID=MP.ID " & vbNewLine &
-                    "INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
+                    "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
                     "   A.CoAIDOfIncomePayment=COA.ID " & vbNewLine &
                     "WHERE  " & vbNewLine &
                     "   A.CompanyID=@CompanyID " & vbNewLine &
@@ -73,14 +73,14 @@
                 .CommandText =
                     "SELECT " & vbNewLine &
                     "   A.ID, A.CompanyID, MC.Name AS CompanyName, A.ProgramID, MP.Name AS ProgramName, A.ARNumber, A.BPID, " & vbNewLine &
-                    "   C.Code AS BPCode, C.Name AS BPName, A.CoAIDOfIncomePayment, COA.Code AS CoACodeOfIncomePayment, COA.Name AS CoANameOfIncomePayment, " & vbNewLine &
+                    "   C.Code AS BPCode, C.Name AS BPName, A.CoAIDOfIncomePayment, ISNULL(COA.Code,'') AS CoACodeOfIncomePayment, ISNULL(COA.Name,'') AS CoANameOfIncomePayment, " & vbNewLine &
                     "   A.Modules, MDARAP.Name AS ModulesName, A.ReferencesID, A.ReferencesNote, A.ARDate, A.DueDateValue, A.DueDate, A.TotalAmount, A.JournalID, A.StatusID, " & vbNewLine &
                     "   B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine &
                     "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.PaymentBy, " & vbNewLine &
                     "   CASE WHEN A.PaymentBy = '' THEN NULL ELSE A.PaymentDate END AS PaymentDate, A.TaxInvoiceNumber, " & vbNewLine &
                     "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
                     "   A.LogInc, A.LogBy, A.LogDate, A.ARNumber AS TransNumber, A.ARDate AS TransDate, A.CoAIDOfIncomePayment AS CoAID, " & vbNewLine &
-                    "   COA.Code AS CoACode, COA.Name AS CoAName, A.TotalPPN, A.TotalPPH  " & vbNewLine &
+                    "   ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName, A.TotalPPN, A.TotalPPH  " & vbNewLine &
                     "FROM traAccountReceivable A " & vbNewLine &
                     "INNER JOIN mstModuleIDARAP MDARAP ON " & vbNewLine &
                     "   A.Modules=MDARAP.Code " & vbNewLine &
@@ -92,7 +92,7 @@
                     "   A.CompanyID=MC.ID " & vbNewLine &
                     "INNER JOIN mstProgram MP ON " & vbNewLine &
                     "   A.ProgramID=MP.ID " & vbNewLine &
-                    "INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
+                    "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
                     "   A.CoAIDOfIncomePayment=COA.ID " & vbNewLine &
                     "WHERE  " & vbNewLine &
                     "   A.CompanyID=@CompanyID " & vbNewLine &
@@ -201,11 +201,11 @@
                     .CommandText =
                         "SELECT TOP 1 " & vbNewLine &
                         "   A.ID, A.CompanyID, MC.Name AS CompanyName, A.ProgramID, MP.Name AS ProgramName, A.ARNumber, A.BPID, " & vbNewLine &
-                        "   C.Code AS BPCode, C.Name AS BPName, A.CoAIDOfIncomePayment, COA.Code AS CoACodeOfIncomePayment, COA.Name AS CoANameOfIncomePayment, " & vbNewLine &
+                        "   C.Code AS BPCode, C.Name AS BPName, A.CoAIDOfIncomePayment, ISNULL(COA.Code,'') AS CoACodeOfIncomePayment, ISNULL(COA.Name,'') AS CoANameOfIncomePayment, " & vbNewLine &
                         "   A.Modules, A.ReferencesID, A.ReferencesNote, A.ARDate, A.DueDateValue, A.DueDate, A.TotalAmount, A.Percentage, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine &
                         "   A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.PaymentBy, A.PaymentDate, A.TaxInvoiceNumber, " & vbNewLine &
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
-                        "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed " & vbNewLine &
+                        "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice " & vbNewLine &
                         "FROM traAccountReceivable A " & vbNewLine &
                         "INNER JOIN mstStatus B ON " & vbNewLine &
                         "   A.StatusID=B.ID " & vbNewLine &
@@ -215,7 +215,7 @@
                         "   A.CompanyID=MC.ID " & vbNewLine &
                         "INNER JOIN mstProgram MP ON " & vbNewLine &
                         "   A.ProgramID=MP.ID " & vbNewLine &
-                        "INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
+                        "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
                         "   A.CoAIDOfIncomePayment=COA.ID " & vbNewLine &
                         "WHERE " & vbNewLine &
                         "   A.ID=@ID " & vbNewLine
@@ -271,6 +271,7 @@
                         voReturn.DPAmount = .Item("DPAmount")
                         voReturn.ReceiveAmount = .Item("ReceiveAmount")
                         voReturn.TotalAmountUsed = .Item("TotalAmountUsed")
+                        voReturn.JournalIDInvoice = .Item("JournalIDInvoice")
                     End If
                 End With
             Catch ex As Exception
@@ -667,8 +668,8 @@
             End Try
         End Sub
 
-        Public Shared Sub SetupPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                       ByVal strID As String, ByVal dtmPaymentDate As DateTime)
+        Public Shared Sub UpdateJournalIDInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                 ByVal strID As String, ByVal strJournalID As String)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -676,6 +677,31 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "UPDATE traAccountReceivable SET " & vbNewLine &
+                    "    JournalIDInvoice=@JournalID " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@JournalID", SqlDbType.VarChar, 100).Value = strJournalID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub SetupPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                       ByVal strID As String, ByVal dtmPaymentDate As DateTime,
+                                       ByVal intCoAIDOfIncomePayment As Integer)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traAccountReceivable SET " & vbNewLine &
+                    "    CoAIDOfIncomePayment=@CoAIDOfIncomePayment, " & vbNewLine &
                     "    PaymentBy=@PaymentBy, " & vbNewLine &
                     "    PaymentDate=@PaymentDate, " & vbNewLine &
                     "    StatusID=@StatusID " & vbNewLine &
@@ -683,6 +709,7 @@
                     "    ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@CoAIDOfIncomePayment", SqlDbType.Int).Value = intCoAIDOfIncomePayment
                 .Parameters.Add("@PaymentBy", SqlDbType.VarChar, 20).Value = UI.usUserApp.UserID
                 .Parameters.Add("@PaymentDate", SqlDbType.DateTime).Value = dtmPaymentDate
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Payment
@@ -703,6 +730,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "UPDATE traAccountReceivable SET " & vbNewLine &
+                    "    CoAIDOfIncomePayment=0, " & vbNewLine &
                     "    PaymentBy='', " & vbNewLine &
                     "    StatusID=@StatusID " & vbNewLine &
                     "WHERE   " & vbNewLine &

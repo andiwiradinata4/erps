@@ -200,6 +200,8 @@
 
             '# Save Data Status
             BL.Delivery.SaveDataStatus(sqlCon, sqlTrans, strID, "SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+            GenerateJournal(sqlCon, sqlTrans, strID)
         End Sub
 
         Public Shared Function Unsubmit(ByVal strID As String, ByVal strRemarks As String) As Boolean
@@ -227,14 +229,14 @@
                         End If
                     Next
 
-                    ''# Cancel Approve Journal Delivery
-                    'Dim clsData As VO.Delivery = DL.Delivery.GetDetail(sqlCon, sqlTrans, strID)
-                    'BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+                    '# Cancel Approve Journal Delivery
+                    Dim clsData As VO.Delivery = DL.Delivery.GetDetail(sqlCon, sqlTrans, strID)
+                    BL.Journal.Unapprove(clsData.JournalID.Trim, "")
 
-                    ''# Cancel Submit Journal Delivery
-                    'BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+                    '# Cancel Submit Journal Delivery
+                    BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
 
-                    ''# Cancel Approve Journal Delivery Transport
+                    '# Cancel Approve Journal Delivery Transport
                     'BL.Journal.Unapprove(clsData.JournalIDTransport.Trim, "")
 
                     ''# Cancel Submit Journal Delivery Transport
@@ -271,21 +273,26 @@
                 Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
 
                 '# Generate Journal
-                Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.TotalPPN - clsData.TotalPPH + clsData.RoundingManual
+                Dim intGroupID As Integer = 1
+                Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.RoundingManual ' + clsData.TotalPPN - clsData.TotalPPH 
                 Dim clsJournalDetail As New List(Of VO.JournalDet) From {
                     New VO.JournalDet With
                                      {
-                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountReceivable,
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountReceivableOutstandingPayment,
                                          .DebitAmount = decTotalAmount,
                                          .CreditAmount = 0,
-                                         .Remarks = "PENGIRIMAN PENJUALAN - " & clsData.DeliveryNumber
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
                                      },
                     New VO.JournalDet With
                                      {
                                          .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofRevenue,
                                          .DebitAmount = 0,
                                          .CreditAmount = decTotalAmount,
-                                         .Remarks = "PENGIRIMAN PENJUALAN - " & clsData.DeliveryNumber
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
                                      }
                 }
 
@@ -303,6 +310,7 @@
                     .Remarks = clsData.Remarks,
                     .LogBy = ERPSLib.UI.usUserApp.UserID,
                     .Initial = "",
+                    .ReferencesNo = clsData.DeliveryNumber,
                     .Detail = clsJournalDetail,
                     .Save = VO.Save.Action.SaveAndSubmit
                 }
@@ -316,56 +324,56 @@
                 '# Update Journal ID in Delivery
                 DL.Delivery.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
 
-                '# Delivery Transport
-                PrevJournal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalIDTransport)
-                bolNew = IIf(PrevJournal.ID = "", True, False)
+                ''# Delivery Transport
+                'PrevJournal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalIDTransport)
+                'bolNew = IIf(PrevJournal.ID = "", True, False)
 
-                '# Generate Journal
-                decTotalAmount = clsData.TotalDPPTransport + clsData.TotalPPNTransport - clsData.TotalPPHTransport + clsData.RoundingManualTransport
-                clsJournalDetail = New List(Of VO.JournalDet) From {
-                    New VO.JournalDet With
-                                     {
-                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofStock,
-                                         .DebitAmount = decTotalAmount,
-                                         .CreditAmount = 0,
-                                         .Remarks = "TRANSPORT PENJUALAN - " & clsData.DeliveryNumber
-                                     },
-                    New VO.JournalDet With
-                                     {
-                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable,
-                                         .DebitAmount = 0,
-                                         .CreditAmount = decTotalAmount,
-                                         .Remarks = "TRANSPORT PENJUALAN - " & clsData.DeliveryNumber
-                                     }
-                }
+                ''# Generate Journal
+                'decTotalAmount = clsData.TotalDPPTransport + clsData.TotalPPNTransport - clsData.TotalPPHTransport + clsData.RoundingManualTransport
+                'clsJournalDetail = New List(Of VO.JournalDet) From {
+                '    New VO.JournalDet With
+                '                     {
+                '                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofStock,
+                '                         .DebitAmount = decTotalAmount,
+                '                         .CreditAmount = 0,
+                '                         .Remarks = "TRANSPORT PENJUALAN - " & clsData.DeliveryNumber
+                '                     },
+                '    New VO.JournalDet With
+                '                     {
+                '                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable,
+                '                         .DebitAmount = 0,
+                '                         .CreditAmount = decTotalAmount,
+                '                         .Remarks = "TRANSPORT PENJUALAN - " & clsData.DeliveryNumber
+                '                     }
+                '}
 
-                clsJournal = New VO.Journal With
-                {
-                    .ProgramID = clsData.ProgramID,
-                    .CompanyID = clsData.CompanyID,
-                    .ID = PrevJournal.ID,
-                    .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
-                    .ReferencesID = clsData.ID,
-                    .JournalDate = IIf(bolNew, Now, PrevJournal.JournalDate),
-                    .TotalAmount = decTotalAmount,
-                    .IsAutoGenerate = True,
-                    .StatusID = VO.Status.Values.Draft,
-                    .Remarks = clsData.Remarks,
-                    .LogBy = ERPSLib.UI.usUserApp.UserID,
-                    .Initial = "",
-                    .Detail = clsJournalDetail,
-                    .Save = VO.Save.Action.SaveAndSubmit
-                }
+                'clsJournal = New VO.Journal With
+                '{
+                '    .ProgramID = clsData.ProgramID,
+                '    .CompanyID = clsData.CompanyID,
+                '    .ID = PrevJournal.ID,
+                '    .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                '    .ReferencesID = clsData.ID,
+                '    .JournalDate = IIf(bolNew, Now, PrevJournal.JournalDate),
+                '    .TotalAmount = decTotalAmount,
+                '    .IsAutoGenerate = True,
+                '    .StatusID = VO.Status.Values.Draft,
+                '    .Remarks = clsData.Remarks,
+                '    .LogBy = ERPSLib.UI.usUserApp.UserID,
+                '    .Initial = "",
+                '    .Detail = clsJournalDetail,
+                '    .Save = VO.Save.Action.SaveAndSubmit
+                '}
 
-                '# Save Journal
-                strJournalID = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
+                ''# Save Journal
+                'strJournalID = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
 
-                '# Approve Journal
-                BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
+                ''# Approve Journal
+                'BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
 
-                '# Update Journal ID in Delivery
-                DL.Delivery.UpdateJournalIDTransport(sqlCon, sqlTrans, clsData.ID, strJournalID)
-                DL.Delivery.UpdateJournalIDDeliveryTransport(sqlCon, sqlTrans, clsData.ID, strJournalID)
+                ''# Update Journal ID in Delivery
+                'DL.Delivery.UpdateJournalIDTransport(sqlCon, sqlTrans, clsData.ID, strJournalID)
+                'DL.Delivery.UpdateJournalIDDeliveryTransport(sqlCon, sqlTrans, clsData.ID, strJournalID)
             Catch ex As Exception
                 Throw ex
             End Try

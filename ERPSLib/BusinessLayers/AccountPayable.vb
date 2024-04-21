@@ -516,7 +516,7 @@
 
         Public Shared Function SetupCancelPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                   ByVal strID As String, ByVal strRemarks As String) As Boolean
-            Dim bolReturn As Boolean = False
+            Dim bolReturn As Boolean
             Try
                 Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
                 If DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, strID) Then
@@ -532,9 +532,6 @@
 
                     '# Cancel Submit Journal
                     BL.Journal.Unsubmit(clsData.JournalIDInvoice.Trim, "")
-
-                    '# Unapprove Account Receivable
-                    DL.AccountPayable.Unapprove(sqlCon, sqlTrans, strID)
                 End If
 
                 DL.AccountPayable.SetupCancelPayment(sqlCon, sqlTrans, strID)
@@ -618,7 +615,7 @@
                 'End If
 
                 If clsData.IsDP Then '# Pembayaran DP
-                    Dim intCoAofDownPaymentAccount As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncome
+                    Dim intCoAofDownPaymentAccount As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofAdvancePayment
                     If clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeCutting
                     If clsData.Modules.Trim = VO.AccountPayable.DownPaymentTransport Then intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeTransport
 
@@ -690,7 +687,7 @@
                 Else
                     Dim intCoAofReceivePaymentAccountOutstandingPayment As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableOutstandingPayment
                     Dim intCoAofReceivePaymentAccount As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable
-                    Dim intCoAofDownPaymentAccount As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncome
+                    Dim intCoAofDownPaymentAccount As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofAdvancePayment
 
                     If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
                         intCoAofReceivePaymentAccountOutstandingPayment = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableCuttingOutstandingPayment

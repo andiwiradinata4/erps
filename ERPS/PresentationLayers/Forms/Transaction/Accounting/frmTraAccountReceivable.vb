@@ -62,6 +62,7 @@ Public Class frmTraAccountReceivable
         UI.usForm.SetGrid(grdView, "LogDate", "Tanggal Edit", 100, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdView, "LogInc", "LogInc", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdView, "StatusInfo", "Status", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "IsDP", "IsDP", 100, UI.usDefGrid.gBoolean)
     End Sub
 
     Private Sub prvSetButton()
@@ -170,6 +171,7 @@ Public Class frmTraAccountReceivable
         clsReturn.ReferencesID = grdView.GetRowCellValue(intPos, "ReferencesID")
         clsReturn.TotalAmount = grdView.GetRowCellValue(intPos, "TotalAmount")
         clsReturn.TaxInvoiceNumber = grdView.GetRowCellValue(intPos, "TaxInvoiceNumber")
+        clsReturn.IsDP = grdView.GetRowCellValue(intPos, "IsDP")
         Return clsReturn
     End Function
 
@@ -374,9 +376,15 @@ Public Class frmTraAccountReceivable
 
         Dim frmDetail As New frmTraAccountSetPaymentDate
         With frmDetail
+            .pubChooseCoA = IIf(clsData.IsDP, False, True)
+            .pubCoAID = clsData.CoAIDOfIncomePayment
+            .pubCoACode = clsData.CoACodeOfIncomePayment
+            .pubCoAName = clsData.CoANameOfIncomePayment
+            .pubCS = prvGetCS()
             .StartPosition = FormStartPosition.CenterParent
             .ShowDialog()
             If .pubIsSave Then
+                clsData.CoAIDOfIncomePayment = .pubCoAID
                 clsData.PaymentDate = .pubPaymentDate
                 clsData.PaymentBy = ERPSLib.UI.usUserApp.UserID
                 clsData.Remarks = .pubRemarks
@@ -389,7 +397,7 @@ Public Class frmTraAccountReceivable
         pgMain.Value = 40
         Application.DoEvents()
         Try
-            BL.AccountReceivable.SetupPayment(clsData.ID, clsData.PaymentDate, clsData.Remarks)
+            BL.AccountReceivable.SetupPayment(clsData.ID, clsData.PaymentDate, clsData.Remarks, clsData.CoAIDOfIncomePayment)
             pgMain.Value = 100
             Application.DoEvents()
             UI.usForm.frmMessageBox("Setup tanggal pembayaran berhasil.")

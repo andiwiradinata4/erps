@@ -438,16 +438,16 @@ Namespace BL
 
         Public Shared Function SetupPayment(ByVal strID As String, ByVal dtmPaymentDate As DateTime,
                                             ByVal strRemarks As String, ByVal enumDPType As VO.ARAP.ARAPTypeValue,
-                                            ByVal intCoAIDOfOutgoingPayment As Integer) As Boolean
+                                            ByVal intCoAID As Integer) As Boolean
             Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
                     If enumDPType = VO.ARAP.ARAPTypeValue.Sales Then
-                        bolReturn = BL.AccountReceivable.SetupPayment(sqlCon, sqlTrans, strID, dtmPaymentDate, strRemarks)
+                        bolReturn = BL.AccountReceivable.SetupPayment(sqlCon, sqlTrans, strID, dtmPaymentDate, strRemarks, intCoAID)
                     Else
-                        bolReturn = BL.AccountPayable.SetupPayment(sqlCon, sqlTrans, strID, dtmPaymentDate, strRemarks, intCoAIDOfOutgoingPayment)
+                        bolReturn = BL.AccountPayable.SetupPayment(sqlCon, sqlTrans, strID, dtmPaymentDate, strRemarks, intCoAID)
                     End If
                     sqlTrans.Commit()
                 Catch ex As Exception

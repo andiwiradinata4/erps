@@ -142,7 +142,7 @@
                         "   A.ID, A.ProgramID, A.CompanyID, A.DeliveryNumber, A.DeliveryDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, " & vbNewLine &
                         "   A.SCID, A1.SCNumber, A.PlatNumber, A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, " & vbNewLine &
                         "   A.TotalPPN, A.TotalPPH, A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.RoundingManual, A.IsDeleted, A.Remarks, " & vbNewLine &
-                        "   A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.TotalPayment " & vbNewLine &
+                        "   A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.TotalPayment, A.JournalID, A.JournalIDTransport " & vbNewLine &
                         "FROM traDelivery A " & vbNewLine &
                         "INNER JOIN traSalesContract A1 ON " & vbNewLine &
                         "   A.SCID=A1.ID " & vbNewLine &
@@ -193,6 +193,8 @@
                         voReturn.LogDate = .Item("LogDate")
                         voReturn.DPAmount = .Item("DPAmount")
                         voReturn.TotalPayment = .Item("TotalPayment")
+                        voReturn.JournalID = .Item("JournalID")
+                        voReturn.JournalIDTransport = .Item("JournalIDTransport")
                     End If
                 End With
             Catch ex As Exception

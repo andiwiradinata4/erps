@@ -65,6 +65,12 @@
 #End Region
 
     Private Sub prvSave()
+        If intCoAID = 0 Then
+            UI.usForm.frmMessageBox("Pilih akun perkiraan terlebih dahulu")
+            txtCoACode.Focus()
+            Exit Sub
+        End If
+
         If Not UI.usForm.frmAskQuestion("Simpan data?") Then Exit Sub
         bolSave = True
         dtmPaymentDate = dtpPaymentDate.Value
