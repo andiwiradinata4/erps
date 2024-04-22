@@ -163,7 +163,7 @@
             '# Save Data Status
             BL.Cutting.SaveDataStatus(sqlCon, sqlTrans, strID, "SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
-            'GenerateJournal(sqlCon, sqlTrans, strID)
+            GenerateJournal(sqlCon, sqlTrans, strID)
         End Sub
 
         Public Shared Function Unsubmit(ByVal strID As String, ByVal strRemarks As String) As Boolean
@@ -184,12 +184,12 @@
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses pembayaran")
                     End If
 
-                    ''# Cancel Approve Journal
-                    'Dim clsData As VO.Cutting = DL.Cutting.GetDetail(sqlCon, sqlTrans, strID)
-                    'BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+                    '# Cancel Approve Journal
+                    Dim clsData As VO.Cutting = DL.Cutting.GetDetail(sqlCon, sqlTrans, strID)
+                    BL.Journal.Unapprove(clsData.JournalID.Trim, "")
 
-                    ''# Cancel Submit Journal
-                    'BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+                    '# Cancel Submit Journal
+                    BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
 
                     DL.Cutting.Unsubmit(sqlCon, sqlTrans, strID)
 
@@ -213,21 +213,26 @@
                 Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
 
                 '# Generate Journal
-                Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.TotalPPN - clsData.TotalPPH + clsData.RoundingManual
+                Dim intGroupID As Integer = 1
+                Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.RoundingManual '+ clsData.TotalPPN - clsData.TotalPPH 
                 Dim clsJournalDetail As New List(Of VO.JournalDet) From {
                     New VO.JournalDet With
                                      {
-                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofStock,
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAOfCutting,
                                          .DebitAmount = decTotalAmount,
                                          .CreditAmount = 0,
-                                         .Remarks = "PROSES PEMOTONGAN - " & clsData.CuttingNumber
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
                                      },
                     New VO.JournalDet With
                                      {
-                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable,
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableCuttingOutstandingPayment,
                                          .DebitAmount = 0,
                                          .CreditAmount = decTotalAmount,
-                                         .Remarks = "PROSES PEMOTONGAN - " & clsData.CuttingNumber
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
                                      }
                 }
 
@@ -245,6 +250,7 @@
                     .Remarks = clsData.Remarks,
                     .LogBy = ERPSLib.UI.usUserApp.UserID,
                     .Initial = "",
+                    .ReferencesNo = clsData.CuttingNumber,
                     .Detail = clsJournalDetail,
                     .Save = VO.Save.Action.SaveAndSubmit
                 }

@@ -14,7 +14,7 @@
                 AlterTableCutting_ID7(sqlCon, Nothing)
                 CreateTableDeliveryTransport_ID8(sqlCon, Nothing)
                 AlterTableSysJournalPost_ID9(sqlCon, Nothing)
-
+                AlterTableSysJournalPost_ID10(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -270,19 +270,21 @@
             End If
         End Sub
 
-        ''# ID = 10
-        'Private Shared Sub AlterTableTraJournalDet_ID10(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
-        '    Dim clsData As New VO.Migration
-        '    clsData.ID = 10
-        '    clsData.Name = "Alter Table traJournalDet"
-        '    clsData.Scripts = "ALTER TABLE traJournalDet ADD GroupID INT NOT NULL CONSTRAINT DF_traJournalDet_GroupID DEFAULT ((0)) " & vbNewLine
+        '# ID = 10
+        Private Shared Sub AlterTableSysJournalPost_ID10(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 10
+            clsData.Name = "Alter Table sysJournalPost"
+            clsData.Scripts =
+            "ALTER TABLE sysJournalPost ADD CoAOfCutting INT NOT NULL CONSTRAINT DF_sysJournalPost_CoAOfCutting DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE sysJournalPost ADD CoAOfTransport INT NOT NULL CONSTRAINT DF_sysJournalPost_CoAOfTransport DEFAULT ((0)) " & vbNewLine
 
-        '    clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        '    If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
-        '        DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
-        '        DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
-        '    End If
-        'End Sub
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
 
         ''# ID = 11
         'Private Shared Sub AddBPIDAndReferencesNoInJournalAndBukuBesar_ID11(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)

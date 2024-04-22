@@ -28,6 +28,38 @@ Partial Class frmSysJournalPost
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlMain = New System.Windows.Forms.Panel()
+        Me.txtCoACodeofAccountPayableTransportOutstandingPayment = New ERPS.usTextBox()
+        Me.txtCoANameofAccountPayableTransportOutstandingPayment = New ERPS.usTextBox()
+        Me.btnCoAofAccountPayableTransportOutstandingPayment = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment = New ERPS.usTextBox()
+        Me.txtCoANameofAccountPayableCuttingOutstandingPayment = New ERPS.usTextBox()
+        Me.btnCoAofAccountPayableCuttingOutstandingPayment = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.txtCoACodeOfAccountPayableOutstandingPayment = New ERPS.usTextBox()
+        Me.txtCoANameOfAccountPayableOutstandingPayment = New ERPS.usTextBox()
+        Me.btnCoAOfAccountPayableOutstandingPayment = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.txtCoACodeOfAccountReceivableOutstandingPayment = New ERPS.usTextBox()
+        Me.txtCoANameOfAccountReceivableOutstandingPayment = New ERPS.usTextBox()
+        Me.btnCoAOfAccountReceivableOutstandingPayment = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.txtCoACodeofAccountPayableCutting3 = New ERPS.usTextBox()
+        Me.txtCoANameofAccountPayableCutting3 = New ERPS.usTextBox()
+        Me.btnCoAofAccountPayableCutting3 = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.txtCoACodeofAccountPayableCutting2 = New ERPS.usTextBox()
+        Me.txtCoANameofAccountPayableCutting2 = New ERPS.usTextBox()
+        Me.btnCoAofAccountPayableCutting2 = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.txtCoACodeofStockCutting3 = New ERPS.usTextBox()
+        Me.txtCoANameofStockCutting3 = New ERPS.usTextBox()
+        Me.btnCoAofStockCutting3 = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.txtCoACodeofStockCutting2 = New ERPS.usTextBox()
+        Me.txtCoANameofStockCutting2 = New ERPS.usTextBox()
+        Me.btnCoAofStockCutting2 = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label23 = New System.Windows.Forms.Label()
         Me.txtCoACodeofAccountPayableTransport = New ERPS.usTextBox()
         Me.txtCoANameofAccountPayableTransport = New ERPS.usTextBox()
         Me.btnCoAofAccountPayableTransport = New DevExpress.XtraEditors.SimpleButton()
@@ -123,38 +155,14 @@ Partial Class frmSysJournalPost
         Me.ToolStripLogBy = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.txtCoACodeofStockCutting2 = New ERPS.usTextBox()
-        Me.txtCoANameofStockCutting2 = New ERPS.usTextBox()
-        Me.btnCoAofStockCutting2 = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label23 = New System.Windows.Forms.Label()
-        Me.txtCoACodeofStockCutting3 = New ERPS.usTextBox()
-        Me.txtCoANameofStockCutting3 = New ERPS.usTextBox()
-        Me.btnCoAofStockCutting3 = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.txtCoACodeofAccountPayableCutting2 = New ERPS.usTextBox()
-        Me.txtCoANameofAccountPayableCutting2 = New ERPS.usTextBox()
-        Me.btnCoAofAccountPayableCutting2 = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.txtCoACodeofAccountPayableCutting3 = New ERPS.usTextBox()
-        Me.txtCoANameofAccountPayableCutting3 = New ERPS.usTextBox()
-        Me.btnCoAofAccountPayableCutting3 = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label26 = New System.Windows.Forms.Label()
-        Me.txtCoACodeOfAccountReceivableOutstandingPayment = New ERPS.usTextBox()
-        Me.txtCoANameOfAccountReceivableOutstandingPayment = New ERPS.usTextBox()
-        Me.btnCoAOfAccountReceivableOutstandingPayment = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label27 = New System.Windows.Forms.Label()
-        Me.txtCoACodeOfAccountPayableOutstandingPayment = New ERPS.usTextBox()
-        Me.txtCoANameOfAccountPayableOutstandingPayment = New ERPS.usTextBox()
-        Me.btnCoAOfAccountPayableOutstandingPayment = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label28 = New System.Windows.Forms.Label()
-        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment = New ERPS.usTextBox()
-        Me.txtCoANameofAccountPayableCuttingOutstandingPayment = New ERPS.usTextBox()
-        Me.btnCoAofAccountPayableCuttingOutstandingPayment = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label29 = New System.Windows.Forms.Label()
-        Me.txtCoACodeofAccountPayableTransportOutstandingPayment = New ERPS.usTextBox()
-        Me.txtCoANameofAccountPayableTransportOutstandingPayment = New ERPS.usTextBox()
-        Me.btnCoAofAccountPayableTransportOutstandingPayment = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label30 = New System.Windows.Forms.Label()
+        Me.txtCoACodeofCutting = New ERPS.usTextBox()
+        Me.txtCoANameofCutting = New ERPS.usTextBox()
+        Me.btnCoAofCutting = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.txtCoACodeofTransport = New ERPS.usTextBox()
+        Me.txtCoANameofTransport = New ERPS.usTextBox()
+        Me.btnCoAofTransport = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label32 = New System.Windows.Forms.Label()
         Me.pnlMain.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -200,6 +208,14 @@ Partial Class frmSysJournalPost
         '
         Me.pnlMain.AutoScroll = True
         Me.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlMain.Controls.Add(Me.txtCoACodeofTransport)
+        Me.pnlMain.Controls.Add(Me.txtCoANameofTransport)
+        Me.pnlMain.Controls.Add(Me.btnCoAofTransport)
+        Me.pnlMain.Controls.Add(Me.Label32)
+        Me.pnlMain.Controls.Add(Me.txtCoACodeofCutting)
+        Me.pnlMain.Controls.Add(Me.txtCoANameofCutting)
+        Me.pnlMain.Controls.Add(Me.btnCoAofCutting)
+        Me.pnlMain.Controls.Add(Me.Label31)
         Me.pnlMain.Controls.Add(Me.txtCoACodeofAccountPayableTransportOutstandingPayment)
         Me.pnlMain.Controls.Add(Me.txtCoANameofAccountPayableTransportOutstandingPayment)
         Me.pnlMain.Controls.Add(Me.btnCoAofAccountPayableTransportOutstandingPayment)
@@ -323,8 +339,336 @@ Partial Class frmSysJournalPost
         Me.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlMain.Location = New System.Drawing.Point(0, 50)
         Me.pnlMain.Name = "pnlMain"
-        Me.pnlMain.Size = New System.Drawing.Size(690, 577)
+        Me.pnlMain.Size = New System.Drawing.Size(690, 636)
         Me.pnlMain.TabIndex = 2
+        '
+        'txtCoACodeofAccountPayableTransportOutstandingPayment
+        '
+        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.Location = New System.Drawing.Point(219, 796)
+        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.MaxLength = 250
+        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.Name = "txtCoACodeofAccountPayableTransportOutstandingPayment"
+        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.ReadOnly = True
+        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.TabIndex = 243
+        '
+        'txtCoANameofAccountPayableTransportOutstandingPayment
+        '
+        Me.txtCoANameofAccountPayableTransportOutstandingPayment.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofAccountPayableTransportOutstandingPayment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofAccountPayableTransportOutstandingPayment.Location = New System.Drawing.Point(301, 796)
+        Me.txtCoANameofAccountPayableTransportOutstandingPayment.MaxLength = 250
+        Me.txtCoANameofAccountPayableTransportOutstandingPayment.Name = "txtCoANameofAccountPayableTransportOutstandingPayment"
+        Me.txtCoANameofAccountPayableTransportOutstandingPayment.ReadOnly = True
+        Me.txtCoANameofAccountPayableTransportOutstandingPayment.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofAccountPayableTransportOutstandingPayment.TabIndex = 244
+        '
+        'btnCoAofAccountPayableTransportOutstandingPayment
+        '
+        Me.btnCoAofAccountPayableTransportOutstandingPayment.Image = CType(resources.GetObject("btnCoAofAccountPayableTransportOutstandingPayment.Image"), System.Drawing.Image)
+        Me.btnCoAofAccountPayableTransportOutstandingPayment.Location = New System.Drawing.Point(627, 795)
+        Me.btnCoAofAccountPayableTransportOutstandingPayment.Name = "btnCoAofAccountPayableTransportOutstandingPayment"
+        Me.btnCoAofAccountPayableTransportOutstandingPayment.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofAccountPayableTransportOutstandingPayment.TabIndex = 245
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.BackColor = System.Drawing.Color.Transparent
+        Me.Label30.ForeColor = System.Drawing.Color.Black
+        Me.Label30.Location = New System.Drawing.Point(33, 800)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(158, 13)
+        Me.Label30.TabIndex = 246
+        Me.Label30.Text = "Hutang Transport Belum ditagih"
+        '
+        'txtCoACodeofAccountPayableCuttingOutstandingPayment
+        '
+        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.Location = New System.Drawing.Point(219, 769)
+        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.MaxLength = 250
+        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.Name = "txtCoACodeofAccountPayableCuttingOutstandingPayment"
+        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.ReadOnly = True
+        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.TabIndex = 239
+        '
+        'txtCoANameofAccountPayableCuttingOutstandingPayment
+        '
+        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.Location = New System.Drawing.Point(301, 769)
+        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.MaxLength = 250
+        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.Name = "txtCoANameofAccountPayableCuttingOutstandingPayment"
+        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.ReadOnly = True
+        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.TabIndex = 240
+        '
+        'btnCoAofAccountPayableCuttingOutstandingPayment
+        '
+        Me.btnCoAofAccountPayableCuttingOutstandingPayment.Image = CType(resources.GetObject("btnCoAofAccountPayableCuttingOutstandingPayment.Image"), System.Drawing.Image)
+        Me.btnCoAofAccountPayableCuttingOutstandingPayment.Location = New System.Drawing.Point(627, 768)
+        Me.btnCoAofAccountPayableCuttingOutstandingPayment.Name = "btnCoAofAccountPayableCuttingOutstandingPayment"
+        Me.btnCoAofAccountPayableCuttingOutstandingPayment.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofAccountPayableCuttingOutstandingPayment.TabIndex = 241
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.BackColor = System.Drawing.Color.Transparent
+        Me.Label29.ForeColor = System.Drawing.Color.Black
+        Me.Label29.Location = New System.Drawing.Point(33, 773)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(171, 13)
+        Me.Label29.TabIndex = 242
+        Me.Label29.Text = "Hutang Pemotongan Belum ditagih"
+        '
+        'txtCoACodeOfAccountPayableOutstandingPayment
+        '
+        Me.txtCoACodeOfAccountPayableOutstandingPayment.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeOfAccountPayableOutstandingPayment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeOfAccountPayableOutstandingPayment.Location = New System.Drawing.Point(219, 742)
+        Me.txtCoACodeOfAccountPayableOutstandingPayment.MaxLength = 250
+        Me.txtCoACodeOfAccountPayableOutstandingPayment.Name = "txtCoACodeOfAccountPayableOutstandingPayment"
+        Me.txtCoACodeOfAccountPayableOutstandingPayment.ReadOnly = True
+        Me.txtCoACodeOfAccountPayableOutstandingPayment.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeOfAccountPayableOutstandingPayment.TabIndex = 235
+        '
+        'txtCoANameOfAccountPayableOutstandingPayment
+        '
+        Me.txtCoANameOfAccountPayableOutstandingPayment.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameOfAccountPayableOutstandingPayment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameOfAccountPayableOutstandingPayment.Location = New System.Drawing.Point(301, 742)
+        Me.txtCoANameOfAccountPayableOutstandingPayment.MaxLength = 250
+        Me.txtCoANameOfAccountPayableOutstandingPayment.Name = "txtCoANameOfAccountPayableOutstandingPayment"
+        Me.txtCoANameOfAccountPayableOutstandingPayment.ReadOnly = True
+        Me.txtCoANameOfAccountPayableOutstandingPayment.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameOfAccountPayableOutstandingPayment.TabIndex = 236
+        '
+        'btnCoAOfAccountPayableOutstandingPayment
+        '
+        Me.btnCoAOfAccountPayableOutstandingPayment.Image = CType(resources.GetObject("btnCoAOfAccountPayableOutstandingPayment.Image"), System.Drawing.Image)
+        Me.btnCoAOfAccountPayableOutstandingPayment.Location = New System.Drawing.Point(627, 741)
+        Me.btnCoAOfAccountPayableOutstandingPayment.Name = "btnCoAOfAccountPayableOutstandingPayment"
+        Me.btnCoAOfAccountPayableOutstandingPayment.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAOfAccountPayableOutstandingPayment.TabIndex = 237
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.BackColor = System.Drawing.Color.Transparent
+        Me.Label28.ForeColor = System.Drawing.Color.Black
+        Me.Label28.Location = New System.Drawing.Point(33, 746)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(141, 13)
+        Me.Label28.TabIndex = 238
+        Me.Label28.Text = "Hutang Usaha Belum ditagih"
+        '
+        'txtCoACodeOfAccountReceivableOutstandingPayment
+        '
+        Me.txtCoACodeOfAccountReceivableOutstandingPayment.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeOfAccountReceivableOutstandingPayment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeOfAccountReceivableOutstandingPayment.Location = New System.Drawing.Point(219, 715)
+        Me.txtCoACodeOfAccountReceivableOutstandingPayment.MaxLength = 250
+        Me.txtCoACodeOfAccountReceivableOutstandingPayment.Name = "txtCoACodeOfAccountReceivableOutstandingPayment"
+        Me.txtCoACodeOfAccountReceivableOutstandingPayment.ReadOnly = True
+        Me.txtCoACodeOfAccountReceivableOutstandingPayment.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeOfAccountReceivableOutstandingPayment.TabIndex = 231
+        '
+        'txtCoANameOfAccountReceivableOutstandingPayment
+        '
+        Me.txtCoANameOfAccountReceivableOutstandingPayment.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameOfAccountReceivableOutstandingPayment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameOfAccountReceivableOutstandingPayment.Location = New System.Drawing.Point(301, 715)
+        Me.txtCoANameOfAccountReceivableOutstandingPayment.MaxLength = 250
+        Me.txtCoANameOfAccountReceivableOutstandingPayment.Name = "txtCoANameOfAccountReceivableOutstandingPayment"
+        Me.txtCoANameOfAccountReceivableOutstandingPayment.ReadOnly = True
+        Me.txtCoANameOfAccountReceivableOutstandingPayment.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameOfAccountReceivableOutstandingPayment.TabIndex = 232
+        '
+        'btnCoAOfAccountReceivableOutstandingPayment
+        '
+        Me.btnCoAOfAccountReceivableOutstandingPayment.Image = CType(resources.GetObject("btnCoAOfAccountReceivableOutstandingPayment.Image"), System.Drawing.Image)
+        Me.btnCoAOfAccountReceivableOutstandingPayment.Location = New System.Drawing.Point(627, 714)
+        Me.btnCoAOfAccountReceivableOutstandingPayment.Name = "btnCoAOfAccountReceivableOutstandingPayment"
+        Me.btnCoAOfAccountReceivableOutstandingPayment.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAOfAccountReceivableOutstandingPayment.TabIndex = 233
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.BackColor = System.Drawing.Color.Transparent
+        Me.Label27.ForeColor = System.Drawing.Color.Black
+        Me.Label27.Location = New System.Drawing.Point(33, 719)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(142, 13)
+        Me.Label27.TabIndex = 234
+        Me.Label27.Text = "Piutang Usaha Belum ditagih"
+        '
+        'txtCoACodeofAccountPayableCutting3
+        '
+        Me.txtCoACodeofAccountPayableCutting3.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofAccountPayableCutting3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofAccountPayableCutting3.Location = New System.Drawing.Point(219, 661)
+        Me.txtCoACodeofAccountPayableCutting3.MaxLength = 250
+        Me.txtCoACodeofAccountPayableCutting3.Name = "txtCoACodeofAccountPayableCutting3"
+        Me.txtCoACodeofAccountPayableCutting3.ReadOnly = True
+        Me.txtCoACodeofAccountPayableCutting3.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofAccountPayableCutting3.TabIndex = 227
+        '
+        'txtCoANameofAccountPayableCutting3
+        '
+        Me.txtCoANameofAccountPayableCutting3.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofAccountPayableCutting3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofAccountPayableCutting3.Location = New System.Drawing.Point(301, 661)
+        Me.txtCoANameofAccountPayableCutting3.MaxLength = 250
+        Me.txtCoANameofAccountPayableCutting3.Name = "txtCoANameofAccountPayableCutting3"
+        Me.txtCoANameofAccountPayableCutting3.ReadOnly = True
+        Me.txtCoANameofAccountPayableCutting3.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofAccountPayableCutting3.TabIndex = 228
+        '
+        'btnCoAofAccountPayableCutting3
+        '
+        Me.btnCoAofAccountPayableCutting3.Image = CType(resources.GetObject("btnCoAofAccountPayableCutting3.Image"), System.Drawing.Image)
+        Me.btnCoAofAccountPayableCutting3.Location = New System.Drawing.Point(627, 660)
+        Me.btnCoAofAccountPayableCutting3.Name = "btnCoAofAccountPayableCutting3"
+        Me.btnCoAofAccountPayableCutting3.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofAccountPayableCutting3.TabIndex = 229
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.BackColor = System.Drawing.Color.Transparent
+        Me.Label26.ForeColor = System.Drawing.Color.Black
+        Me.Label26.Location = New System.Drawing.Point(33, 665)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(114, 13)
+        Me.Label26.TabIndex = 230
+        Me.Label26.Text = "Hutang Pemotongan 3"
+        '
+        'txtCoACodeofAccountPayableCutting2
+        '
+        Me.txtCoACodeofAccountPayableCutting2.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofAccountPayableCutting2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofAccountPayableCutting2.Location = New System.Drawing.Point(219, 634)
+        Me.txtCoACodeofAccountPayableCutting2.MaxLength = 250
+        Me.txtCoACodeofAccountPayableCutting2.Name = "txtCoACodeofAccountPayableCutting2"
+        Me.txtCoACodeofAccountPayableCutting2.ReadOnly = True
+        Me.txtCoACodeofAccountPayableCutting2.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofAccountPayableCutting2.TabIndex = 223
+        '
+        'txtCoANameofAccountPayableCutting2
+        '
+        Me.txtCoANameofAccountPayableCutting2.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofAccountPayableCutting2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofAccountPayableCutting2.Location = New System.Drawing.Point(301, 634)
+        Me.txtCoANameofAccountPayableCutting2.MaxLength = 250
+        Me.txtCoANameofAccountPayableCutting2.Name = "txtCoANameofAccountPayableCutting2"
+        Me.txtCoANameofAccountPayableCutting2.ReadOnly = True
+        Me.txtCoANameofAccountPayableCutting2.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofAccountPayableCutting2.TabIndex = 224
+        '
+        'btnCoAofAccountPayableCutting2
+        '
+        Me.btnCoAofAccountPayableCutting2.Image = CType(resources.GetObject("btnCoAofAccountPayableCutting2.Image"), System.Drawing.Image)
+        Me.btnCoAofAccountPayableCutting2.Location = New System.Drawing.Point(627, 633)
+        Me.btnCoAofAccountPayableCutting2.Name = "btnCoAofAccountPayableCutting2"
+        Me.btnCoAofAccountPayableCutting2.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofAccountPayableCutting2.TabIndex = 225
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.BackColor = System.Drawing.Color.Transparent
+        Me.Label25.ForeColor = System.Drawing.Color.Black
+        Me.Label25.Location = New System.Drawing.Point(33, 638)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(114, 13)
+        Me.Label25.TabIndex = 226
+        Me.Label25.Text = "Hutang Pemotongan 2"
+        '
+        'txtCoACodeofStockCutting3
+        '
+        Me.txtCoACodeofStockCutting3.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofStockCutting3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofStockCutting3.Location = New System.Drawing.Point(219, 553)
+        Me.txtCoACodeofStockCutting3.MaxLength = 250
+        Me.txtCoACodeofStockCutting3.Name = "txtCoACodeofStockCutting3"
+        Me.txtCoACodeofStockCutting3.ReadOnly = True
+        Me.txtCoACodeofStockCutting3.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofStockCutting3.TabIndex = 219
+        '
+        'txtCoANameofStockCutting3
+        '
+        Me.txtCoANameofStockCutting3.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofStockCutting3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofStockCutting3.Location = New System.Drawing.Point(301, 553)
+        Me.txtCoANameofStockCutting3.MaxLength = 250
+        Me.txtCoANameofStockCutting3.Name = "txtCoANameofStockCutting3"
+        Me.txtCoANameofStockCutting3.ReadOnly = True
+        Me.txtCoANameofStockCutting3.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofStockCutting3.TabIndex = 220
+        '
+        'btnCoAofStockCutting3
+        '
+        Me.btnCoAofStockCutting3.Image = CType(resources.GetObject("btnCoAofStockCutting3.Image"), System.Drawing.Image)
+        Me.btnCoAofStockCutting3.Location = New System.Drawing.Point(627, 552)
+        Me.btnCoAofStockCutting3.Name = "btnCoAofStockCutting3"
+        Me.btnCoAofStockCutting3.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofStockCutting3.TabIndex = 221
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.BackColor = System.Drawing.Color.Transparent
+        Me.Label24.ForeColor = System.Drawing.Color.Black
+        Me.Label24.Location = New System.Drawing.Point(33, 557)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(132, 13)
+        Me.Label24.TabIndex = 222
+        Me.Label24.Text = "Persediaan Pemotongan 3"
+        '
+        'txtCoACodeofStockCutting2
+        '
+        Me.txtCoACodeofStockCutting2.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofStockCutting2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofStockCutting2.Location = New System.Drawing.Point(219, 526)
+        Me.txtCoACodeofStockCutting2.MaxLength = 250
+        Me.txtCoACodeofStockCutting2.Name = "txtCoACodeofStockCutting2"
+        Me.txtCoACodeofStockCutting2.ReadOnly = True
+        Me.txtCoACodeofStockCutting2.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofStockCutting2.TabIndex = 215
+        '
+        'txtCoANameofStockCutting2
+        '
+        Me.txtCoANameofStockCutting2.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofStockCutting2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofStockCutting2.Location = New System.Drawing.Point(301, 526)
+        Me.txtCoANameofStockCutting2.MaxLength = 250
+        Me.txtCoANameofStockCutting2.Name = "txtCoANameofStockCutting2"
+        Me.txtCoANameofStockCutting2.ReadOnly = True
+        Me.txtCoANameofStockCutting2.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofStockCutting2.TabIndex = 216
+        '
+        'btnCoAofStockCutting2
+        '
+        Me.btnCoAofStockCutting2.Image = CType(resources.GetObject("btnCoAofStockCutting2.Image"), System.Drawing.Image)
+        Me.btnCoAofStockCutting2.Location = New System.Drawing.Point(627, 525)
+        Me.btnCoAofStockCutting2.Name = "btnCoAofStockCutting2"
+        Me.btnCoAofStockCutting2.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofStockCutting2.TabIndex = 217
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.BackColor = System.Drawing.Color.Transparent
+        Me.Label23.ForeColor = System.Drawing.Color.Black
+        Me.Label23.Location = New System.Drawing.Point(33, 530)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(132, 13)
+        Me.Label23.TabIndex = 218
+        Me.Label23.Text = "Persediaan Pemotongan 2"
         '
         'txtCoACodeofAccountPayableTransport
         '
@@ -1231,7 +1575,7 @@ Partial Class frmSysJournalPost
         'pgMain
         '
         Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pgMain.Location = New System.Drawing.Point(0, 649)
+        Me.pgMain.Location = New System.Drawing.Point(0, 708)
         Me.pgMain.Name = "pgMain"
         Me.pgMain.Size = New System.Drawing.Size(690, 23)
         Me.pgMain.TabIndex = 4
@@ -1240,7 +1584,7 @@ Partial Class frmSysJournalPost
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 627)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 686)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(690, 22)
         Me.StatusStrip.TabIndex = 3
@@ -1287,339 +1631,93 @@ Partial Class frmSysJournalPost
         Me.ToolStripLogDate.Size = New System.Drawing.Size(12, 17)
         Me.ToolStripLogDate.Text = "-"
         '
-        'txtCoACodeofStockCutting2
+        'txtCoACodeofCutting
         '
-        Me.txtCoACodeofStockCutting2.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeofStockCutting2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeofStockCutting2.Location = New System.Drawing.Point(219, 526)
-        Me.txtCoACodeofStockCutting2.MaxLength = 250
-        Me.txtCoACodeofStockCutting2.Name = "txtCoACodeofStockCutting2"
-        Me.txtCoACodeofStockCutting2.ReadOnly = True
-        Me.txtCoACodeofStockCutting2.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofStockCutting2.TabIndex = 215
+        Me.txtCoACodeofCutting.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofCutting.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofCutting.Location = New System.Drawing.Point(219, 823)
+        Me.txtCoACodeofCutting.MaxLength = 250
+        Me.txtCoACodeofCutting.Name = "txtCoACodeofCutting"
+        Me.txtCoACodeofCutting.ReadOnly = True
+        Me.txtCoACodeofCutting.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofCutting.TabIndex = 246
         '
-        'txtCoANameofStockCutting2
+        'txtCoANameofCutting
         '
-        Me.txtCoANameofStockCutting2.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameofStockCutting2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameofStockCutting2.Location = New System.Drawing.Point(301, 526)
-        Me.txtCoANameofStockCutting2.MaxLength = 250
-        Me.txtCoANameofStockCutting2.Name = "txtCoANameofStockCutting2"
-        Me.txtCoANameofStockCutting2.ReadOnly = True
-        Me.txtCoANameofStockCutting2.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofStockCutting2.TabIndex = 216
+        Me.txtCoANameofCutting.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofCutting.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofCutting.Location = New System.Drawing.Point(301, 823)
+        Me.txtCoANameofCutting.MaxLength = 250
+        Me.txtCoANameofCutting.Name = "txtCoANameofCutting"
+        Me.txtCoANameofCutting.ReadOnly = True
+        Me.txtCoANameofCutting.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofCutting.TabIndex = 247
         '
-        'btnCoAofStockCutting2
+        'btnCoAofCutting
         '
-        Me.btnCoAofStockCutting2.Image = CType(resources.GetObject("btnCoAofStockCutting2.Image"), System.Drawing.Image)
-        Me.btnCoAofStockCutting2.Location = New System.Drawing.Point(627, 525)
-        Me.btnCoAofStockCutting2.Name = "btnCoAofStockCutting2"
-        Me.btnCoAofStockCutting2.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofStockCutting2.TabIndex = 217
+        Me.btnCoAofCutting.Image = CType(resources.GetObject("btnCoAofCutting.Image"), System.Drawing.Image)
+        Me.btnCoAofCutting.Location = New System.Drawing.Point(627, 822)
+        Me.btnCoAofCutting.Name = "btnCoAofCutting"
+        Me.btnCoAofCutting.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofCutting.TabIndex = 248
         '
-        'Label23
+        'Label31
         '
-        Me.Label23.AutoSize = True
-        Me.Label23.BackColor = System.Drawing.Color.Transparent
-        Me.Label23.ForeColor = System.Drawing.Color.Black
-        Me.Label23.Location = New System.Drawing.Point(33, 530)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(132, 13)
-        Me.Label23.TabIndex = 218
-        Me.Label23.Text = "Persediaan Pemotongan 2"
+        Me.Label31.AutoSize = True
+        Me.Label31.BackColor = System.Drawing.Color.Transparent
+        Me.Label31.ForeColor = System.Drawing.Color.Black
+        Me.Label31.Location = New System.Drawing.Point(33, 827)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(96, 13)
+        Me.Label31.TabIndex = 250
+        Me.Label31.Text = "Biaya Pemotongan"
         '
-        'txtCoACodeofStockCutting3
+        'txtCoACodeofTransport
         '
-        Me.txtCoACodeofStockCutting3.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeofStockCutting3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeofStockCutting3.Location = New System.Drawing.Point(219, 553)
-        Me.txtCoACodeofStockCutting3.MaxLength = 250
-        Me.txtCoACodeofStockCutting3.Name = "txtCoACodeofStockCutting3"
-        Me.txtCoACodeofStockCutting3.ReadOnly = True
-        Me.txtCoACodeofStockCutting3.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofStockCutting3.TabIndex = 219
+        Me.txtCoACodeofTransport.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofTransport.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofTransport.Location = New System.Drawing.Point(219, 850)
+        Me.txtCoACodeofTransport.MaxLength = 250
+        Me.txtCoACodeofTransport.Name = "txtCoACodeofTransport"
+        Me.txtCoACodeofTransport.ReadOnly = True
+        Me.txtCoACodeofTransport.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofTransport.TabIndex = 249
         '
-        'txtCoANameofStockCutting3
+        'txtCoANameofTransport
         '
-        Me.txtCoANameofStockCutting3.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameofStockCutting3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameofStockCutting3.Location = New System.Drawing.Point(301, 553)
-        Me.txtCoANameofStockCutting3.MaxLength = 250
-        Me.txtCoANameofStockCutting3.Name = "txtCoANameofStockCutting3"
-        Me.txtCoANameofStockCutting3.ReadOnly = True
-        Me.txtCoANameofStockCutting3.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofStockCutting3.TabIndex = 220
+        Me.txtCoANameofTransport.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofTransport.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofTransport.Location = New System.Drawing.Point(301, 850)
+        Me.txtCoANameofTransport.MaxLength = 250
+        Me.txtCoANameofTransport.Name = "txtCoANameofTransport"
+        Me.txtCoANameofTransport.ReadOnly = True
+        Me.txtCoANameofTransport.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofTransport.TabIndex = 250
         '
-        'btnCoAofStockCutting3
+        'btnCoAofTransport
         '
-        Me.btnCoAofStockCutting3.Image = CType(resources.GetObject("btnCoAofStockCutting3.Image"), System.Drawing.Image)
-        Me.btnCoAofStockCutting3.Location = New System.Drawing.Point(627, 552)
-        Me.btnCoAofStockCutting3.Name = "btnCoAofStockCutting3"
-        Me.btnCoAofStockCutting3.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofStockCutting3.TabIndex = 221
+        Me.btnCoAofTransport.Image = CType(resources.GetObject("btnCoAofTransport.Image"), System.Drawing.Image)
+        Me.btnCoAofTransport.Location = New System.Drawing.Point(627, 849)
+        Me.btnCoAofTransport.Name = "btnCoAofTransport"
+        Me.btnCoAofTransport.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofTransport.TabIndex = 251
         '
-        'Label24
+        'Label32
         '
-        Me.Label24.AutoSize = True
-        Me.Label24.BackColor = System.Drawing.Color.Transparent
-        Me.Label24.ForeColor = System.Drawing.Color.Black
-        Me.Label24.Location = New System.Drawing.Point(33, 557)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(132, 13)
-        Me.Label24.TabIndex = 222
-        Me.Label24.Text = "Persediaan Pemotongan 3"
-        '
-        'txtCoACodeofAccountPayableCutting2
-        '
-        Me.txtCoACodeofAccountPayableCutting2.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeofAccountPayableCutting2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeofAccountPayableCutting2.Location = New System.Drawing.Point(219, 634)
-        Me.txtCoACodeofAccountPayableCutting2.MaxLength = 250
-        Me.txtCoACodeofAccountPayableCutting2.Name = "txtCoACodeofAccountPayableCutting2"
-        Me.txtCoACodeofAccountPayableCutting2.ReadOnly = True
-        Me.txtCoACodeofAccountPayableCutting2.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofAccountPayableCutting2.TabIndex = 223
-        '
-        'txtCoANameofAccountPayableCutting2
-        '
-        Me.txtCoANameofAccountPayableCutting2.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameofAccountPayableCutting2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameofAccountPayableCutting2.Location = New System.Drawing.Point(301, 634)
-        Me.txtCoANameofAccountPayableCutting2.MaxLength = 250
-        Me.txtCoANameofAccountPayableCutting2.Name = "txtCoANameofAccountPayableCutting2"
-        Me.txtCoANameofAccountPayableCutting2.ReadOnly = True
-        Me.txtCoANameofAccountPayableCutting2.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofAccountPayableCutting2.TabIndex = 224
-        '
-        'btnCoAofAccountPayableCutting2
-        '
-        Me.btnCoAofAccountPayableCutting2.Image = CType(resources.GetObject("btnCoAofAccountPayableCutting2.Image"), System.Drawing.Image)
-        Me.btnCoAofAccountPayableCutting2.Location = New System.Drawing.Point(627, 633)
-        Me.btnCoAofAccountPayableCutting2.Name = "btnCoAofAccountPayableCutting2"
-        Me.btnCoAofAccountPayableCutting2.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofAccountPayableCutting2.TabIndex = 225
-        '
-        'Label25
-        '
-        Me.Label25.AutoSize = True
-        Me.Label25.BackColor = System.Drawing.Color.Transparent
-        Me.Label25.ForeColor = System.Drawing.Color.Black
-        Me.Label25.Location = New System.Drawing.Point(33, 638)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(114, 13)
-        Me.Label25.TabIndex = 226
-        Me.Label25.Text = "Hutang Pemotongan 2"
-        '
-        'txtCoACodeofAccountPayableCutting3
-        '
-        Me.txtCoACodeofAccountPayableCutting3.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeofAccountPayableCutting3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeofAccountPayableCutting3.Location = New System.Drawing.Point(219, 661)
-        Me.txtCoACodeofAccountPayableCutting3.MaxLength = 250
-        Me.txtCoACodeofAccountPayableCutting3.Name = "txtCoACodeofAccountPayableCutting3"
-        Me.txtCoACodeofAccountPayableCutting3.ReadOnly = True
-        Me.txtCoACodeofAccountPayableCutting3.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofAccountPayableCutting3.TabIndex = 227
-        '
-        'txtCoANameofAccountPayableCutting3
-        '
-        Me.txtCoANameofAccountPayableCutting3.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameofAccountPayableCutting3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameofAccountPayableCutting3.Location = New System.Drawing.Point(301, 661)
-        Me.txtCoANameofAccountPayableCutting3.MaxLength = 250
-        Me.txtCoANameofAccountPayableCutting3.Name = "txtCoANameofAccountPayableCutting3"
-        Me.txtCoANameofAccountPayableCutting3.ReadOnly = True
-        Me.txtCoANameofAccountPayableCutting3.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofAccountPayableCutting3.TabIndex = 228
-        '
-        'btnCoAofAccountPayableCutting3
-        '
-        Me.btnCoAofAccountPayableCutting3.Image = CType(resources.GetObject("btnCoAofAccountPayableCutting3.Image"), System.Drawing.Image)
-        Me.btnCoAofAccountPayableCutting3.Location = New System.Drawing.Point(627, 660)
-        Me.btnCoAofAccountPayableCutting3.Name = "btnCoAofAccountPayableCutting3"
-        Me.btnCoAofAccountPayableCutting3.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofAccountPayableCutting3.TabIndex = 229
-        '
-        'Label26
-        '
-        Me.Label26.AutoSize = True
-        Me.Label26.BackColor = System.Drawing.Color.Transparent
-        Me.Label26.ForeColor = System.Drawing.Color.Black
-        Me.Label26.Location = New System.Drawing.Point(33, 665)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(114, 13)
-        Me.Label26.TabIndex = 230
-        Me.Label26.Text = "Hutang Pemotongan 3"
-        '
-        'txtCoACodeOfAccountReceivableOutstandingPayment
-        '
-        Me.txtCoACodeOfAccountReceivableOutstandingPayment.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeOfAccountReceivableOutstandingPayment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeOfAccountReceivableOutstandingPayment.Location = New System.Drawing.Point(219, 715)
-        Me.txtCoACodeOfAccountReceivableOutstandingPayment.MaxLength = 250
-        Me.txtCoACodeOfAccountReceivableOutstandingPayment.Name = "txtCoACodeOfAccountReceivableOutstandingPayment"
-        Me.txtCoACodeOfAccountReceivableOutstandingPayment.ReadOnly = True
-        Me.txtCoACodeOfAccountReceivableOutstandingPayment.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeOfAccountReceivableOutstandingPayment.TabIndex = 231
-        '
-        'txtCoANameOfAccountReceivableOutstandingPayment
-        '
-        Me.txtCoANameOfAccountReceivableOutstandingPayment.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameOfAccountReceivableOutstandingPayment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameOfAccountReceivableOutstandingPayment.Location = New System.Drawing.Point(301, 715)
-        Me.txtCoANameOfAccountReceivableOutstandingPayment.MaxLength = 250
-        Me.txtCoANameOfAccountReceivableOutstandingPayment.Name = "txtCoANameOfAccountReceivableOutstandingPayment"
-        Me.txtCoANameOfAccountReceivableOutstandingPayment.ReadOnly = True
-        Me.txtCoANameOfAccountReceivableOutstandingPayment.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameOfAccountReceivableOutstandingPayment.TabIndex = 232
-        '
-        'btnCoAOfAccountReceivableOutstandingPayment
-        '
-        Me.btnCoAOfAccountReceivableOutstandingPayment.Image = CType(resources.GetObject("btnCoAOfAccountReceivableOutstandingPayment.Image"), System.Drawing.Image)
-        Me.btnCoAOfAccountReceivableOutstandingPayment.Location = New System.Drawing.Point(627, 714)
-        Me.btnCoAOfAccountReceivableOutstandingPayment.Name = "btnCoAOfAccountReceivableOutstandingPayment"
-        Me.btnCoAOfAccountReceivableOutstandingPayment.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAOfAccountReceivableOutstandingPayment.TabIndex = 233
-        '
-        'Label27
-        '
-        Me.Label27.AutoSize = True
-        Me.Label27.BackColor = System.Drawing.Color.Transparent
-        Me.Label27.ForeColor = System.Drawing.Color.Black
-        Me.Label27.Location = New System.Drawing.Point(33, 719)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(142, 13)
-        Me.Label27.TabIndex = 234
-        Me.Label27.Text = "Piutang Usaha Belum ditagih"
-        '
-        'txtCoACodeOfAccountPayableOutstandingPayment
-        '
-        Me.txtCoACodeOfAccountPayableOutstandingPayment.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeOfAccountPayableOutstandingPayment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeOfAccountPayableOutstandingPayment.Location = New System.Drawing.Point(219, 742)
-        Me.txtCoACodeOfAccountPayableOutstandingPayment.MaxLength = 250
-        Me.txtCoACodeOfAccountPayableOutstandingPayment.Name = "txtCoACodeOfAccountPayableOutstandingPayment"
-        Me.txtCoACodeOfAccountPayableOutstandingPayment.ReadOnly = True
-        Me.txtCoACodeOfAccountPayableOutstandingPayment.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeOfAccountPayableOutstandingPayment.TabIndex = 235
-        '
-        'txtCoANameOfAccountPayableOutstandingPayment
-        '
-        Me.txtCoANameOfAccountPayableOutstandingPayment.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameOfAccountPayableOutstandingPayment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameOfAccountPayableOutstandingPayment.Location = New System.Drawing.Point(301, 742)
-        Me.txtCoANameOfAccountPayableOutstandingPayment.MaxLength = 250
-        Me.txtCoANameOfAccountPayableOutstandingPayment.Name = "txtCoANameOfAccountPayableOutstandingPayment"
-        Me.txtCoANameOfAccountPayableOutstandingPayment.ReadOnly = True
-        Me.txtCoANameOfAccountPayableOutstandingPayment.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameOfAccountPayableOutstandingPayment.TabIndex = 236
-        '
-        'btnCoAOfAccountPayableOutstandingPayment
-        '
-        Me.btnCoAOfAccountPayableOutstandingPayment.Image = CType(resources.GetObject("btnCoAOfAccountPayableOutstandingPayment.Image"), System.Drawing.Image)
-        Me.btnCoAOfAccountPayableOutstandingPayment.Location = New System.Drawing.Point(627, 741)
-        Me.btnCoAOfAccountPayableOutstandingPayment.Name = "btnCoAOfAccountPayableOutstandingPayment"
-        Me.btnCoAOfAccountPayableOutstandingPayment.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAOfAccountPayableOutstandingPayment.TabIndex = 237
-        '
-        'Label28
-        '
-        Me.Label28.AutoSize = True
-        Me.Label28.BackColor = System.Drawing.Color.Transparent
-        Me.Label28.ForeColor = System.Drawing.Color.Black
-        Me.Label28.Location = New System.Drawing.Point(33, 746)
-        Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(141, 13)
-        Me.Label28.TabIndex = 238
-        Me.Label28.Text = "Hutang Usaha Belum ditagih"
-        '
-        'txtCoACodeofAccountPayableCuttingOutstandingPayment
-        '
-        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.Location = New System.Drawing.Point(219, 769)
-        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.MaxLength = 250
-        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.Name = "txtCoACodeofAccountPayableCuttingOutstandingPayment"
-        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.ReadOnly = True
-        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.TabIndex = 239
-        '
-        'txtCoANameofAccountPayableCuttingOutstandingPayment
-        '
-        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.Location = New System.Drawing.Point(301, 769)
-        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.MaxLength = 250
-        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.Name = "txtCoANameofAccountPayableCuttingOutstandingPayment"
-        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.ReadOnly = True
-        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.TabIndex = 240
-        '
-        'btnCoAofAccountPayableCuttingOutstandingPayment
-        '
-        Me.btnCoAofAccountPayableCuttingOutstandingPayment.Image = CType(resources.GetObject("btnCoAofAccountPayableCuttingOutstandingPayment.Image"), System.Drawing.Image)
-        Me.btnCoAofAccountPayableCuttingOutstandingPayment.Location = New System.Drawing.Point(627, 768)
-        Me.btnCoAofAccountPayableCuttingOutstandingPayment.Name = "btnCoAofAccountPayableCuttingOutstandingPayment"
-        Me.btnCoAofAccountPayableCuttingOutstandingPayment.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofAccountPayableCuttingOutstandingPayment.TabIndex = 241
-        '
-        'Label29
-        '
-        Me.Label29.AutoSize = True
-        Me.Label29.BackColor = System.Drawing.Color.Transparent
-        Me.Label29.ForeColor = System.Drawing.Color.Black
-        Me.Label29.Location = New System.Drawing.Point(33, 773)
-        Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(171, 13)
-        Me.Label29.TabIndex = 242
-        Me.Label29.Text = "Hutang Pemotongan Belum ditagih"
-        '
-        'txtCoACodeofAccountPayableTransportOutstandingPayment
-        '
-        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.Location = New System.Drawing.Point(219, 796)
-        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.MaxLength = 250
-        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.Name = "txtCoACodeofAccountPayableTransportOutstandingPayment"
-        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.ReadOnly = True
-        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.TabIndex = 243
-        '
-        'txtCoANameofAccountPayableTransportOutstandingPayment
-        '
-        Me.txtCoANameofAccountPayableTransportOutstandingPayment.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameofAccountPayableTransportOutstandingPayment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameofAccountPayableTransportOutstandingPayment.Location = New System.Drawing.Point(301, 796)
-        Me.txtCoANameofAccountPayableTransportOutstandingPayment.MaxLength = 250
-        Me.txtCoANameofAccountPayableTransportOutstandingPayment.Name = "txtCoANameofAccountPayableTransportOutstandingPayment"
-        Me.txtCoANameofAccountPayableTransportOutstandingPayment.ReadOnly = True
-        Me.txtCoANameofAccountPayableTransportOutstandingPayment.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofAccountPayableTransportOutstandingPayment.TabIndex = 244
-        '
-        'btnCoAofAccountPayableTransportOutstandingPayment
-        '
-        Me.btnCoAofAccountPayableTransportOutstandingPayment.Image = CType(resources.GetObject("btnCoAofAccountPayableTransportOutstandingPayment.Image"), System.Drawing.Image)
-        Me.btnCoAofAccountPayableTransportOutstandingPayment.Location = New System.Drawing.Point(627, 795)
-        Me.btnCoAofAccountPayableTransportOutstandingPayment.Name = "btnCoAofAccountPayableTransportOutstandingPayment"
-        Me.btnCoAofAccountPayableTransportOutstandingPayment.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofAccountPayableTransportOutstandingPayment.TabIndex = 245
-        '
-        'Label30
-        '
-        Me.Label30.AutoSize = True
-        Me.Label30.BackColor = System.Drawing.Color.Transparent
-        Me.Label30.ForeColor = System.Drawing.Color.Black
-        Me.Label30.Location = New System.Drawing.Point(33, 800)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(158, 13)
-        Me.Label30.TabIndex = 246
-        Me.Label30.Text = "Hutang Transport Belum ditagih"
+        Me.Label32.AutoSize = True
+        Me.Label32.BackColor = System.Drawing.Color.Transparent
+        Me.Label32.ForeColor = System.Drawing.Color.Black
+        Me.Label32.Location = New System.Drawing.Point(33, 854)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(151, 13)
+        Me.Label32.TabIndex = 254
+        Me.Label32.Text = "Biaya Transportasi Pengiriman"
         '
         'frmSysJournalPost
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(690, 672)
+        Me.ClientSize = New System.Drawing.Size(690, 731)
         Me.Controls.Add(Me.pnlMain)
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.pgMain)
@@ -1769,4 +1867,12 @@ Partial Class frmSysJournalPost
     Friend WithEvents txtCoANameOfAccountPayableOutstandingPayment As usTextBox
     Friend WithEvents btnCoAOfAccountPayableOutstandingPayment As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label28 As Label
+    Friend WithEvents txtCoACodeofTransport As usTextBox
+    Friend WithEvents txtCoANameofTransport As usTextBox
+    Friend WithEvents btnCoAofTransport As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label32 As Label
+    Friend WithEvents txtCoACodeofCutting As usTextBox
+    Friend WithEvents txtCoANameofCutting As usTextBox
+    Friend WithEvents btnCoAofCutting As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label31 As Label
 End Class

@@ -129,6 +129,14 @@
         Property CoACodeofAccountPayableTransportOutstandingPayment As String
         Property CoANameofAccountPayableTransportOutstandingPayment As String
 
+        Property CoAOfCutting As Integer
+        Property CoACodeofCutting As String
+        Property CoANameofCutting As String
+
+        Property CoAOfTransport As Integer
+        Property CoACodeofTransport As String
+        Property CoANameofTransport As String
+
         Property Remarks As String
     End Class
 End Namespace

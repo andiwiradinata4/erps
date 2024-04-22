@@ -11,7 +11,8 @@
         intCoAIDofStockCutting As Integer = 0, intCoAIDofStockCutting2 As Integer = 0, intCoAIDofStockCutting3 As Integer = 0, intCoAIDofStockTransport As Integer = 0,
         intCoAIDofAccountPayableCutting As Integer = 0, intCoAIDofAccountPayableCutting2 As Integer = 0, intCoAIDofAccountPayableCutting3 As Integer = 0,
         intCoAIDofAccountPayableTransport As Integer = 0, intCoAIDofAccountReceivableOutstandingPayment As Integer = 0, intCoAIDofAccountPayableOutstandingPayment As Integer = 0,
-        intCoAIDofAccountPayableCuttingOutstandingPayment As Integer = 0, intCoAIDofAccountPayableTransportOutstandingPayment As Integer = 0
+        intCoAIDofAccountPayableCuttingOutstandingPayment As Integer = 0, intCoAIDofAccountPayableTransportOutstandingPayment As Integer = 0,
+        intCoAIDofCutting As Integer = 0, intCoAIDofTransport As Integer = 0
 
     Private clsData As New VO.JournalPost
     Private Const _
@@ -142,6 +143,14 @@
             txtCoACodeofAccountPayableTransportOutstandingPayment.Text = clsData.CoACodeofAccountPayableTransportOutstandingPayment
             txtCoANameofAccountPayableTransportOutstandingPayment.Text = clsData.CoANameofAccountPayableTransportOutstandingPayment
 
+            intCoAIDofCutting = clsData.CoAOfCutting
+            txtCoACodeofCutting.Text = clsData.CoACodeofCutting
+            txtCoANameofCutting.Text = clsData.CoANameofCutting
+
+            intCoAIDofTransport = clsData.CoAOfTransport
+            txtCoACodeofTransport.Text = clsData.CoACodeofTransport
+            txtCoANameofTransport.Text = clsData.CoANameofTransport
+
             ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
             ToolStripLogBy.Text = "Dibuat Oleh : " & IIf(clsData.LogBy Is Nothing, ERPSLib.UI.usUserApp.UserID, clsData.LogBy)
             ToolStripLogDate.Text = Format(IIf(clsData.LogBy Is Nothing, Now(), clsData.LogDate), UI.usDefCons.DateFull)
@@ -184,6 +193,8 @@
         clsData.CoAofAccountPayableOutstandingPayment = intCoAIDofAccountPayableOutstandingPayment
         clsData.CoAofAccountPayableCuttingOutstandingPayment = intCoAIDofAccountPayableCuttingOutstandingPayment
         clsData.CoAofAccountPayableTransportOutstandingPayment = intCoAIDofAccountPayableTransportOutstandingPayment
+        clsData.CoAOfCutting = intCoAIDofCutting
+        clsData.CoAOfTransport = intCoAIDofTransport
         clsData.Remarks = ""
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
 
@@ -646,6 +657,34 @@
                 intCoAIDofAccountPayableTransportOutstandingPayment = .pubLUdtRow.Item("ID")
                 txtCoACodeofAccountPayableTransportOutstandingPayment.Text = .pubLUdtRow.Item("Code")
                 txtCoANameofAccountPayableTransportOutstandingPayment.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofCutting_Click(sender As Object, e As EventArgs) Handles btnCoAofCutting.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofCutting = .pubLUdtRow.Item("ID")
+                txtCoACodeofCutting.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofCutting.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofTransport_Click(sender As Object, e As EventArgs) Handles btnCoAofTransport.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofTransport = .pubLUdtRow.Item("ID")
+                txtCoACodeofTransport.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofTransport.Text = .pubLUdtRow.Item("Name")
             End If
         End With
     End Sub
