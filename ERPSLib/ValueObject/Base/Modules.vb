@@ -62,6 +62,9 @@ Namespace VO
             '# Reports
             ReportBukuBesar = 32
             ReportTransaksiBarang = 47
+            ReportNeracaSaldo = 48
+            ReportProfitAndLoss = 49
+            ReportBalanceSheet = 50
         End Enum
 
     End Class

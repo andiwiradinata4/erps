@@ -11,6 +11,7 @@ Namespace VO
         Property StatusID As Integer
         Property Initial As String
 
+        Public Const cProfitAndLoss = 43
         Enum FilterGroup
             All
             CashOrBank

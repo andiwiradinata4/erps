@@ -92,12 +92,15 @@ FROM [dbo].[mstChartOfAccount]
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "SELECT " & vbNewLine & _
-                    "   BB.ReferencesID, BB.TransactionDate, COAG.COAType, COAP.ID, COAP.Name, BB.DebitAmount, BB.CreditAmount, BB.Remarks 	" & vbNewLine & _
-                    "FROM traBukuBesar BB 	 	" & vbNewLine & _
+                    "   BB.ReferencesID, BB.TransactionDate, COAG.COAType, COAP.ID, Name=COAP.Name + CASE WHEN BB.BPID=0 THEN '' ELSE ' - ' + ISNULL(BP.Name,'') END + CASE WHEN BB.ReferencesNo='' THEN '' ELSE ' - ' + BB.ReferencesNo END + CASE WHEN BB.Remarks='' THEN '' ELSE ' - ' + BB.Remarks END, " & vbNewLine & _
+                    "   BB.DebitAmount, BB.CreditAmount " & vbNewLine & _
+                    "FROM traBukuBesar BB 	 	" & vbNewLine &
                     "INNER JOIN mstChartOfAccount COAP ON 	 	" & vbNewLine & _
-                    "   BB.COAIDParent=COAP.ID 	 	" & vbNewLine & _
+                    "   BB.COAIDChild=COAP.ID 	 	" & vbNewLine & _
                     "INNER JOIN mstChartOfAccountGroup COAG ON 	 	" & vbNewLine & _
                     "   COAP.AccountGroupID=COAG.ID 	" & vbNewLine & _
+                    "LEFT JOIN mstBusinessPartner BP ON 	" & vbNewLine &
+                    "	BB.BPID=BP.ID 	" & vbNewLine &
                     "WHERE 	" & vbNewLine & _
                     "	BB.ProgramID=@ProgramID 	" & vbNewLine & _
                     "	AND BB.CompanyID=@CompanyID 	" & vbNewLine & _

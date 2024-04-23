@@ -67,6 +67,8 @@
 
     '## Pembukuan
     Dim frmMainRptBukuBesarVer00 As frmRptBukuBesarVer00
+    Dim frmMainRptNeracaSaldoVer00 As frmRptNeracaSaldoVer00
+    Dim frmMainRptNeracaVer00 As frmRptNeracaVer00
 
 
     '# Setting
@@ -159,6 +161,8 @@
 
         '## Pembukuan
         mnuLaporanPembukuanBukuBesar.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, ERPSLib.VO.Modules.Values.ReportBukuBesar, VO.Access.Values.ViewAccess)
+        mnuLaporanPembukuanNeracaSaldo.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, ERPSLib.VO.Modules.Values.ReportNeracaSaldo, VO.Access.Values.ViewAccess)
+        mnuLaporanPembukuanNeraca.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, ERPSLib.VO.Modules.Values.ReportBalanceSheet, VO.Access.Values.ViewAccess)
 
         Me.Cursor = Cursors.Default
         pgMain.Visible = False
@@ -631,6 +635,18 @@
 
     Private Sub mnuLaporanPembukuanBukuBesar_Click(sender As Object, e As EventArgs) Handles mnuLaporanPembukuanBukuBesar.Click
         UI.usForm.frmOpen(frmMainRptBukuBesarVer00, "frmRptBukuBesarVer00", Me)
+    End Sub
+
+    Private Sub mnuLaporanPembukuanNeracaSaldo_Click(sender As Object, e As EventArgs) Handles mnuLaporanPembukuanNeracaSaldo.Click
+        UI.usForm.frmOpen(frmMainRptNeracaSaldoVer00, "frmRptNeracaSaldoVer00", Me)
+    End Sub
+
+    Private Sub mnuLaporanPembukuanLabaRugi_Click(sender As Object, e As EventArgs) Handles mnuLaporanPembukuanLabaRugi.Click
+
+    End Sub
+
+    Private Sub mnuLaporanPembukuanNeraca_Click(sender As Object, e As EventArgs) Handles mnuLaporanPembukuanNeraca.Click
+        UI.usForm.frmOpen(frmMainRptNeracaVer00, "frmRptNeracaVer00", Me)
     End Sub
 
 #End Region
