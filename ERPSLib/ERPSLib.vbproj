@@ -271,6 +271,7 @@
     <Compile Include="ValueObject\Reports\PurchaseOrder.vb" />
     <Compile Include="ValueObject\Reports\Reports.vb" />
     <Compile Include="ValueObject\Reports\rptBukuBesarVer00.vb" />
+    <Compile Include="ValueObject\Reports\rptCOAPerGroup.vb" />
     <Compile Include="ValueObject\Reports\rptCOAPerType.vb" />
     <Compile Include="ValueObject\Reports\rptConfirmationOrderVer00.vb" />
     <Compile Include="ValueObject\Reports\rptKartuHutangPiutangReport.vb" />

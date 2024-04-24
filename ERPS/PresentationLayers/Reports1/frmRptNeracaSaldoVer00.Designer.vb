@@ -90,7 +90,7 @@ Partial Class frmRptNeracaSaldoVer00
         Me.dtpDateTo.CustomFormat = "dd/MM/yyyy"
         Me.dtpDateTo.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpDateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpDateTo.Location = New System.Drawing.Point(232, 17)
+        Me.dtpDateTo.Location = New System.Drawing.Point(240, 25)
         Me.dtpDateTo.Name = "dtpDateTo"
         Me.dtpDateTo.Size = New System.Drawing.Size(101, 21)
         Me.dtpDateTo.TabIndex = 1
@@ -99,7 +99,7 @@ Partial Class frmRptNeracaSaldoVer00
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(24, 21)
+        Me.Label2.Location = New System.Drawing.Point(32, 29)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(45, 13)
         Me.Label2.TabIndex = 6
@@ -110,7 +110,7 @@ Partial Class frmRptNeracaSaldoVer00
         Me.dtpDateFrom.CustomFormat = "dd/MM/yyyy"
         Me.dtpDateFrom.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpDateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpDateFrom.Location = New System.Drawing.Point(105, 17)
+        Me.dtpDateFrom.Location = New System.Drawing.Point(113, 25)
         Me.dtpDateFrom.Name = "dtpDateFrom"
         Me.dtpDateFrom.Size = New System.Drawing.Size(101, 21)
         Me.dtpDateFrom.TabIndex = 0
@@ -119,7 +119,7 @@ Partial Class frmRptNeracaSaldoVer00
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(214, 21)
+        Me.Label3.Location = New System.Drawing.Point(222, 29)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(11, 13)
         Me.Label3.TabIndex = 9

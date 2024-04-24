@@ -930,6 +930,12 @@
     <Compile Include="PresentationLayers\Reports1\frmRptKartuPiutangVer00.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Reports1\frmRptLabaRugiVer00.Designer.vb">
+      <DependentUpon>frmRptLabaRugiVer00.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports1\frmRptLabaRugiVer00.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Reports1\frmRptMonitoringProductTransactionVer00.Designer.vb">
       <DependentUpon>frmRptMonitoringProductTransactionVer00.vb</DependentUpon>
     </Compile>
@@ -952,6 +958,12 @@
       <DependentUpon>rptBukuBesarVer00.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Reports2\rptBukuBesarVer00.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptCOAPerGroupVer00.Designer.vb">
+      <DependentUpon>rptCOAPerGroupVer00.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptCOAPerGroupVer00.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Reports2\rptCOAPerTypeVer00.Designer.vb">
@@ -1458,6 +1470,9 @@
     <EmbeddedResource Include="PresentationLayers\Reports1\frmRptKartuPiutangVer00.resx">
       <DependentUpon>frmRptKartuPiutangVer00.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports1\frmRptLabaRugiVer00.resx">
+      <DependentUpon>frmRptLabaRugiVer00.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports1\frmRptMonitoringProductTransactionVer00.resx">
       <DependentUpon>frmRptMonitoringProductTransactionVer00.vb</DependentUpon>
     </EmbeddedResource>
@@ -1469,6 +1484,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptBukuBesarVer00.resx">
       <DependentUpon>rptBukuBesarVer00.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports2\rptCOAPerGroupVer00.resx">
+      <DependentUpon>rptCOAPerGroupVer00.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptCOAPerTypeVer00.resx">
       <DependentUpon>rptCOAPerTypeVer00.vb</DependentUpon>
