@@ -4,6 +4,7 @@
 
     Private frmParent As frmMstBusinessPartner
     Private clsData As VO.BusinessPartner
+    Private intCoAofCostOfRawMaterial As Integer
     Property pubID As Integer
     Property pubIsNew As Boolean = False
     Property pubIsSave As Boolean = False
@@ -50,6 +51,9 @@
                 txtPICName.Text = clsData.PICName
                 txtPICPhoneNumber.Text = clsData.PICPhoneNumber
                 txtRemarks.Text = clsData.Remarks
+                intCoAofCostOfRawMaterial = clsData.CoAIDofStock
+                txtCoACodeofCostRawMaterial.Text = clsData.CoACodeofStock
+                txtCoANameofCostRawMaterial.Text = clsData.CoANameofStock
                 cboStatus.SelectedValue = clsData.StatusID
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
@@ -88,6 +92,7 @@
         clsData.Address = txtAddress.Text.Trim
         clsData.PICName = txtPICName.Text.Trim
         clsData.PICPhoneNumber = txtPICPhoneNumber.Text.Trim
+        clsData.CoAIDofStock = intCoAofCostOfRawMaterial
         clsData.StatusID = cboStatus.SelectedValue
         clsData.Remarks = txtRemarks.Text.Trim
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
@@ -110,6 +115,9 @@
         txtAddress.Text = ""
         txtPICName.Text = ""
         txtPICPhoneNumber.Text = ""
+        intCoAofCostOfRawMaterial = 0
+        txtCoACodeofCostRawMaterial.Text = ""
+        txtCoANameofCostRawMaterial.Text = ""
         txtRemarks.Text = ""
         cboStatus.SelectedValue = VO.Status.Values.Active
         ToolStripLogInc.Text = "Jumlah Edit : -"
@@ -144,6 +152,23 @@
             Case ToolBar.Buttons(cSave).Name : prvSave()
             Case ToolBar.Buttons(cClose).Name : Me.Close()
         End Select
+    End Sub
+
+    Private Sub btnCoAofCostOfRawMaterial_Click(sender As Object, e As EventArgs) Handles btnCoAofCostOfRawMaterial.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .pubCompanyID = ERPSLib.UI.usUserApp.CompanyID
+            .pubProgramID = ERPSLib.UI.usUserApp.ProgramID
+            .pubFilterGroup = VO.ChartOfAccount.FilterGroup.Stock
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAofCostOfRawMaterial =.pubLUdtRow.Item("ID")
+                txtCoACodeofCostRawMaterial.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofCostRawMaterial.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
     End Sub
 
 #End Region

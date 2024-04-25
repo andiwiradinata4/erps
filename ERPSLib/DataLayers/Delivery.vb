@@ -59,11 +59,11 @@
                         "INSERT INTO traDelivery " & vbNewLine &
                         "   (ID, ProgramID, CompanyID, DeliveryNumber, DeliveryDate, BPID, SCID, PlatNumber, Driver, ReferencesNumber, " & vbNewLine &
                         "    PPN, PPH, TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, TotalDPPTransport, TotalPPNTransport, " & vbNewLine &
-                        "    TotalPPHTransport, RoundingManual, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine &
+                        "    TotalPPHTransport, RoundingManual, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, TotalCostRawMaterial) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @ProgramID, @CompanyID, @DeliveryNumber, @DeliveryDate, @BPID, @SCID, @PlatNumber, @Driver, @ReferencesNumber, " & vbNewLine &
                         "    @PPN, @PPH, @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @TotalDPPTransport, @TotalPPNTransport, " & vbNewLine &
-                        "    @TotalPPHTransport, @RoundingManual, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
+                        "    @TotalPPHTransport, @RoundingManual, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @TotalCostRawMaterial) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE traDelivery SET " & vbNewLine &
@@ -91,7 +91,8 @@
                         "   StatusID=@StatusID, " & vbNewLine &
                         "   LogInc=LogInc+1, " & vbNewLine &
                         "   LogBy=@LogBy, " & vbNewLine &
-                        "   LogDate=GETDATE() " & vbNewLine &
+                        "   LogDate=GETDATE(), " & vbNewLine &
+                        "   TotalCostRawMaterial=@TotalCostRawMaterial " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -120,6 +121,7 @@
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
+                .Parameters.Add("@TotalCostRawMaterial", SqlDbType.Decimal).Value = clsData.TotalCostRawMaterial
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -142,7 +144,8 @@
                         "   A.ID, A.ProgramID, A.CompanyID, A.DeliveryNumber, A.DeliveryDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, " & vbNewLine &
                         "   A.SCID, A1.SCNumber, A.PlatNumber, A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, " & vbNewLine &
                         "   A.TotalPPN, A.TotalPPH, A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.RoundingManual, A.IsDeleted, A.Remarks, " & vbNewLine &
-                        "   A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.TotalPayment, A.JournalID, A.JournalIDTransport " & vbNewLine &
+                        "   A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.TotalPayment, " & vbNewLine &
+                        "   A.JournalID, A.JournalIDTransport, A.TotalCostRawMaterial " & vbNewLine &
                         "FROM traDelivery A " & vbNewLine &
                         "INNER JOIN traSalesContract A1 ON " & vbNewLine &
                         "   A.SCID=A1.ID " & vbNewLine &
@@ -195,6 +198,7 @@
                         voReturn.TotalPayment = .Item("TotalPayment")
                         voReturn.JournalID = .Item("JournalID")
                         voReturn.JournalIDTransport = .Item("JournalIDTransport")
+                        voReturn.TotalCostRawMaterial = .Item("TotalCostRawMaterial")
                     End If
                 End With
             Catch ex As Exception
@@ -551,7 +555,8 @@
         End Sub
 
         Public Shared Sub UpdateJournalID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                          ByVal strID As String, ByVal strJournalID As String)
+                                          ByVal strID As String, ByVal strJournalID As String,
+                                          ByVal decTotalCostRawMaterial As Decimal)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -559,12 +564,14 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "UPDATE traDelivery SET " & vbNewLine &
-                    "    JournalID=@JournalID " & vbNewLine &
+                    "    JournalID=@JournalID, " & vbNewLine &
+                    "    TotalCostRawMaterial=@TotalCostRawMaterial " & vbNewLine &
                     "WHERE   " & vbNewLine &
                     "    ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@JournalID", SqlDbType.VarChar, 100).Value = strJournalID
+                .Parameters.Add("@TotalCostRawMaterial", SqlDbType.Decimal).Value = decTotalCostRawMaterial
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -618,6 +625,45 @@
                 Throw ex
             End Try
         End Sub
+
+        Public Shared Function GetTotalCostRawMaterial(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                       ByVal strID As String) As Decimal
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim decReturn As Decimal = 0
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT  " & vbNewLine & _
+                        "	SUM(DD.TotalWeight*PCD.UnitPrice) TotalCostRawMaterial  " & vbNewLine & _
+                        "FROM traPurchaseContractDet PCD  " & vbNewLine & _
+                        "INNER JOIN  traSalesContractDetConfirmationOrder SCDCO ON  " & vbNewLine & _
+                        "	PCD.CODetailID=SCDCO.CODetailID  " & vbNewLine & _
+                        "INNER JOIN traSalesContractDet SCD ON  " & vbNewLine & _
+                        "	SCDCO.SCID=SCD.SCID  " & vbNewLine & _
+                        "	AND SCDCO.GroupID=SCD.GroupID  " & vbNewLine & _
+                        "INNER JOIN traDeliveryDet DD ON  " & vbNewLine & _
+                        "	SCD.ID=DD.SCDetailID  " & vbNewLine & _
+                        "WHERE DD.DeliveryID=@DeliveryID " & vbNewLine
+
+                    .Parameters.Add("@DeliveryID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        decReturn = .Item("TotalCostRawMaterial")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return decReturn
+        End Function
 
 #End Region
 

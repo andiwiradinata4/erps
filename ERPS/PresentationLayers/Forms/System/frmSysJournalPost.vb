@@ -12,7 +12,7 @@
         intCoAIDofAccountPayableCutting As Integer = 0, intCoAIDofAccountPayableCutting2 As Integer = 0, intCoAIDofAccountPayableCutting3 As Integer = 0,
         intCoAIDofAccountPayableTransport As Integer = 0, intCoAIDofAccountReceivableOutstandingPayment As Integer = 0, intCoAIDofAccountPayableOutstandingPayment As Integer = 0,
         intCoAIDofAccountPayableCuttingOutstandingPayment As Integer = 0, intCoAIDofAccountPayableTransportOutstandingPayment As Integer = 0,
-        intCoAIDofCutting As Integer = 0, intCoAIDofTransport As Integer = 0
+        intCoAIDofCutting As Integer = 0, intCoAIDofTransport As Integer = 0, intCoAIDofCostRawMaterial As Integer = 0
 
     Private clsData As New VO.JournalPost
     Private Const _
@@ -151,6 +151,10 @@
             txtCoACodeofTransport.Text = clsData.CoACodeofTransport
             txtCoANameofTransport.Text = clsData.CoANameofTransport
 
+            intCoAIDofCostRawMaterial = clsData.CoAOfCostRawMaterial
+            txtCoACodeofCostRawMaterial.Text = clsData.CoACodeofCostRawMaterial
+            txtCoANameofCostRawMaterial.Text = clsData.CoANameofCostRawMaterial
+
             ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
             ToolStripLogBy.Text = "Dibuat Oleh : " & IIf(clsData.LogBy Is Nothing, ERPSLib.UI.usUserApp.UserID, clsData.LogBy)
             ToolStripLogDate.Text = Format(IIf(clsData.LogBy Is Nothing, Now(), clsData.LogDate), UI.usDefCons.DateFull)
@@ -195,6 +199,7 @@
         clsData.CoAofAccountPayableTransportOutstandingPayment = intCoAIDofAccountPayableTransportOutstandingPayment
         clsData.CoAOfCutting = intCoAIDofCutting
         clsData.CoAOfTransport = intCoAIDofTransport
+        clsData.CoAOfCostRawMaterial = intCoAIDofCostRawMaterial
         clsData.Remarks = ""
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
 
@@ -689,5 +694,20 @@
         End With
     End Sub
 
+    Private Sub btnCoAofCostOfRawMaterial_Click(sender As Object, e As EventArgs) Handles btnCoAofCostOfRawMaterial.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofCostRawMaterial = .pubLUdtRow.Item("ID")
+                txtCoACodeofCostRawMaterial.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofCostRawMaterial.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
 #End Region
+
 End Class

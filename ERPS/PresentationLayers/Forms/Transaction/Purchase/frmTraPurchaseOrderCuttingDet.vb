@@ -9,6 +9,7 @@ Public Class frmTraPurchaseOrderCuttingDet
     Private dtItem As New DataTable
     Private dtPaymentTerm As New DataTable
     Private intPos As Integer = 0
+    Private decTotalDPPRawaMaterial As Decimal = 0
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
@@ -59,6 +60,8 @@ Public Class frmTraPurchaseOrderCuttingDet
         UI.usForm.SetGrid(grdItemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "UnitPriceRawMaterial", "Harga Barang", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "TotalPriceRawMaterial", "Total Harga Barang", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
 
         '# PO Payment Term
@@ -190,6 +193,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         Application.DoEvents()
 
         Dim listDetail As New List(Of VO.PurchaseOrderCuttingDet)
+        decTotalDPPRawaMaterial = 0
         For Each dr As DataRow In dtItem.Rows
             listDetail.Add(New ERPSLib.VO.PurchaseOrderCuttingDet With
                                 {
@@ -200,8 +204,11 @@ Public Class frmTraPurchaseOrderCuttingDet
                                     .TotalWeight = dr.Item("TotalWeight"),
                                     .UnitPrice = dr.Item("UnitPrice"),
                                     .TotalPrice = dr.Item("TotalPrice"),
-                                    .Remarks = dr.Item("Remarks")
+                                    .Remarks = dr.Item("Remarks"),
+                                    .UnitPriceRawMaterial = dr.Item("UnitPriceRawMaterial"),
+                                    .TotalPriceRawMaterial = dr.Item("TotalPriceRawMaterial")
                                 })
+            decTotalDPPRawaMaterial += dr.Item("TotalPriceRawMaterial")
         Next
 
         Dim listPaymentTerm As New List(Of VO.PurchaseOrderPaymentTerm)
@@ -236,6 +243,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         clsData.TotalPPH = txtTotalPPH.Value
         clsData.RoundingManual = 0
         clsData.Remarks = txtRemarks.Text.Trim
+        clsData.TotalDPPRawMaterial = decTotalDPPRawaMaterial
         clsData.StatusID = cboStatus.SelectedValue
         clsData.Detail = listDetail
         clsData.PaymentTerm = listPaymentTerm

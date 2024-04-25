@@ -137,6 +137,10 @@
         Property CoACodeofTransport As String
         Property CoANameofTransport As String
 
+        Property CoAOfCostRawMaterial As Integer
+        Property CoACodeofCostRawMaterial As String
+        Property CoANameofCostRawMaterial As String
+
         Property Remarks As String
     End Class
 End Namespace

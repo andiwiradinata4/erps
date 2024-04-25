@@ -214,9 +214,13 @@
 
                 '# Generate Journal
                 Dim intGroupID As Integer = 1
-                Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.RoundingManual '+ clsData.TotalPPN - clsData.TotalPPH 
-                Dim clsJournalDetail As New List(Of VO.JournalDet) From {
-                    New VO.JournalDet With
+                Dim decTotalAmount As Decimal = 0 '+ clsData.TotalPPN - clsData.TotalPPH 
+                Dim clsJournalDetail As New List(Of VO.JournalDet)
+                Dim decTotalDPPRawMaterial As Decimal = DL.Cutting.GetTotalCostRawMaterial(sqlCon, sqlTrans, strID)
+
+                '# Akun Biaya Pemotongan -> Debit
+                decTotalAmount += clsData.TotalDPP + clsData.RoundingManual
+                clsJournalDetail.Add(New VO.JournalDet With
                                      {
                                          .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAOfCutting,
                                          .DebitAmount = decTotalAmount,
@@ -224,8 +228,10 @@
                                          .Remarks = "",
                                          .GroupID = intGroupID,
                                          .BPID = clsData.BPID
-                                     },
-                    New VO.JournalDet With
+                                     })
+
+                '# Akun Hutang Pemotongan Belum ditagih -> Kredit
+                clsJournalDetail.Add(New VO.JournalDet With
                                      {
                                          .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableCuttingOutstandingPayment,
                                          .DebitAmount = 0,
@@ -233,8 +239,31 @@
                                          .Remarks = "",
                                          .GroupID = intGroupID,
                                          .BPID = clsData.BPID
-                                     }
-                }
+                                     })
+
+                intGroupID += 1
+                '# Akun Persediaan -> Debit
+                clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofStock,
+                                         .DebitAmount = decTotalDPPRawMaterial,
+                                         .CreditAmount = 0,
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     })
+
+                '# Akun Persediaan Cutting Center -> Kredit
+                clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = clsData.CoAIDofStock,
+                                         .DebitAmount = 0,
+                                         .CreditAmount = decTotalDPPRawMaterial,
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     })
+                decTotalAmount += decTotalDPPRawMaterial
 
                 Dim clsJournal As New VO.Journal With
                 {

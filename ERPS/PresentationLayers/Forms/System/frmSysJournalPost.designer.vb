@@ -28,6 +28,14 @@ Partial Class frmSysJournalPost
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlMain = New System.Windows.Forms.Panel()
+        Me.txtCoACodeofTransport = New ERPS.usTextBox()
+        Me.txtCoANameofTransport = New ERPS.usTextBox()
+        Me.btnCoAofTransport = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.txtCoACodeofCutting = New ERPS.usTextBox()
+        Me.txtCoANameofCutting = New ERPS.usTextBox()
+        Me.btnCoAofCutting = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label31 = New System.Windows.Forms.Label()
         Me.txtCoACodeofAccountPayableTransportOutstandingPayment = New ERPS.usTextBox()
         Me.txtCoANameofAccountPayableTransportOutstandingPayment = New ERPS.usTextBox()
         Me.btnCoAofAccountPayableTransportOutstandingPayment = New DevExpress.XtraEditors.SimpleButton()
@@ -155,14 +163,10 @@ Partial Class frmSysJournalPost
         Me.ToolStripLogBy = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.txtCoACodeofCutting = New ERPS.usTextBox()
-        Me.txtCoANameofCutting = New ERPS.usTextBox()
-        Me.btnCoAofCutting = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label31 = New System.Windows.Forms.Label()
-        Me.txtCoACodeofTransport = New ERPS.usTextBox()
-        Me.txtCoANameofTransport = New ERPS.usTextBox()
-        Me.btnCoAofTransport = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label32 = New System.Windows.Forms.Label()
+        Me.txtCoACodeofCostRawMaterial = New ERPS.usTextBox()
+        Me.txtCoANameofCostRawMaterial = New ERPS.usTextBox()
+        Me.btnCoAofCostOfRawMaterial = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label33 = New System.Windows.Forms.Label()
         Me.pnlMain.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -208,6 +212,10 @@ Partial Class frmSysJournalPost
         '
         Me.pnlMain.AutoScroll = True
         Me.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlMain.Controls.Add(Me.txtCoACodeofCostRawMaterial)
+        Me.pnlMain.Controls.Add(Me.txtCoANameofCostRawMaterial)
+        Me.pnlMain.Controls.Add(Me.btnCoAofCostOfRawMaterial)
+        Me.pnlMain.Controls.Add(Me.Label33)
         Me.pnlMain.Controls.Add(Me.txtCoACodeofTransport)
         Me.pnlMain.Controls.Add(Me.txtCoANameofTransport)
         Me.pnlMain.Controls.Add(Me.btnCoAofTransport)
@@ -339,8 +347,90 @@ Partial Class frmSysJournalPost
         Me.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlMain.Location = New System.Drawing.Point(0, 50)
         Me.pnlMain.Name = "pnlMain"
-        Me.pnlMain.Size = New System.Drawing.Size(690, 636)
+        Me.pnlMain.Size = New System.Drawing.Size(690, 966)
         Me.pnlMain.TabIndex = 2
+        '
+        'txtCoACodeofTransport
+        '
+        Me.txtCoACodeofTransport.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofTransport.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofTransport.Location = New System.Drawing.Point(219, 850)
+        Me.txtCoACodeofTransport.MaxLength = 250
+        Me.txtCoACodeofTransport.Name = "txtCoACodeofTransport"
+        Me.txtCoACodeofTransport.ReadOnly = True
+        Me.txtCoACodeofTransport.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofTransport.TabIndex = 249
+        '
+        'txtCoANameofTransport
+        '
+        Me.txtCoANameofTransport.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofTransport.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofTransport.Location = New System.Drawing.Point(301, 850)
+        Me.txtCoANameofTransport.MaxLength = 250
+        Me.txtCoANameofTransport.Name = "txtCoANameofTransport"
+        Me.txtCoANameofTransport.ReadOnly = True
+        Me.txtCoANameofTransport.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofTransport.TabIndex = 250
+        '
+        'btnCoAofTransport
+        '
+        Me.btnCoAofTransport.Image = CType(resources.GetObject("btnCoAofTransport.Image"), System.Drawing.Image)
+        Me.btnCoAofTransport.Location = New System.Drawing.Point(627, 849)
+        Me.btnCoAofTransport.Name = "btnCoAofTransport"
+        Me.btnCoAofTransport.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofTransport.TabIndex = 251
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.BackColor = System.Drawing.Color.Transparent
+        Me.Label32.ForeColor = System.Drawing.Color.Black
+        Me.Label32.Location = New System.Drawing.Point(33, 854)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(151, 13)
+        Me.Label32.TabIndex = 254
+        Me.Label32.Text = "Biaya Transportasi Pengiriman"
+        '
+        'txtCoACodeofCutting
+        '
+        Me.txtCoACodeofCutting.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofCutting.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofCutting.Location = New System.Drawing.Point(219, 823)
+        Me.txtCoACodeofCutting.MaxLength = 250
+        Me.txtCoACodeofCutting.Name = "txtCoACodeofCutting"
+        Me.txtCoACodeofCutting.ReadOnly = True
+        Me.txtCoACodeofCutting.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofCutting.TabIndex = 246
+        '
+        'txtCoANameofCutting
+        '
+        Me.txtCoANameofCutting.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofCutting.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofCutting.Location = New System.Drawing.Point(301, 823)
+        Me.txtCoANameofCutting.MaxLength = 250
+        Me.txtCoANameofCutting.Name = "txtCoANameofCutting"
+        Me.txtCoANameofCutting.ReadOnly = True
+        Me.txtCoANameofCutting.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofCutting.TabIndex = 247
+        '
+        'btnCoAofCutting
+        '
+        Me.btnCoAofCutting.Image = CType(resources.GetObject("btnCoAofCutting.Image"), System.Drawing.Image)
+        Me.btnCoAofCutting.Location = New System.Drawing.Point(627, 822)
+        Me.btnCoAofCutting.Name = "btnCoAofCutting"
+        Me.btnCoAofCutting.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofCutting.TabIndex = 248
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.BackColor = System.Drawing.Color.Transparent
+        Me.Label31.ForeColor = System.Drawing.Color.Black
+        Me.Label31.Location = New System.Drawing.Point(33, 827)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(96, 13)
+        Me.Label31.TabIndex = 250
+        Me.Label31.Text = "Biaya Pemotongan"
         '
         'txtCoACodeofAccountPayableTransportOutstandingPayment
         '
@@ -1575,7 +1665,7 @@ Partial Class frmSysJournalPost
         'pgMain
         '
         Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pgMain.Location = New System.Drawing.Point(0, 708)
+        Me.pgMain.Location = New System.Drawing.Point(0, 1038)
         Me.pgMain.Name = "pgMain"
         Me.pgMain.Size = New System.Drawing.Size(690, 23)
         Me.pgMain.TabIndex = 4
@@ -1584,7 +1674,7 @@ Partial Class frmSysJournalPost
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 686)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 1016)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(690, 22)
         Me.StatusStrip.TabIndex = 3
@@ -1631,93 +1721,52 @@ Partial Class frmSysJournalPost
         Me.ToolStripLogDate.Size = New System.Drawing.Size(12, 17)
         Me.ToolStripLogDate.Text = "-"
         '
-        'txtCoACodeofCutting
+        'txtCoACodeofCostOfRawMaterial
         '
-        Me.txtCoACodeofCutting.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeofCutting.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeofCutting.Location = New System.Drawing.Point(219, 823)
-        Me.txtCoACodeofCutting.MaxLength = 250
-        Me.txtCoACodeofCutting.Name = "txtCoACodeofCutting"
-        Me.txtCoACodeofCutting.ReadOnly = True
-        Me.txtCoACodeofCutting.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofCutting.TabIndex = 246
+        Me.txtCoACodeofCostRawMaterial.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofCostRawMaterial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofCostRawMaterial.Location = New System.Drawing.Point(219, 877)
+        Me.txtCoACodeofCostRawMaterial.MaxLength = 250
+        Me.txtCoACodeofCostRawMaterial.Name = "txtCoACodeofCostOfRawMaterial"
+        Me.txtCoACodeofCostRawMaterial.ReadOnly = True
+        Me.txtCoACodeofCostRawMaterial.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofCostRawMaterial.TabIndex = 255
         '
-        'txtCoANameofCutting
+        'txtCoANameofCostOfRawMaterial
         '
-        Me.txtCoANameofCutting.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameofCutting.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameofCutting.Location = New System.Drawing.Point(301, 823)
-        Me.txtCoANameofCutting.MaxLength = 250
-        Me.txtCoANameofCutting.Name = "txtCoANameofCutting"
-        Me.txtCoANameofCutting.ReadOnly = True
-        Me.txtCoANameofCutting.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofCutting.TabIndex = 247
+        Me.txtCoANameofCostRawMaterial.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofCostRawMaterial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofCostRawMaterial.Location = New System.Drawing.Point(301, 877)
+        Me.txtCoANameofCostRawMaterial.MaxLength = 250
+        Me.txtCoANameofCostRawMaterial.Name = "txtCoANameofCostOfRawMaterial"
+        Me.txtCoANameofCostRawMaterial.ReadOnly = True
+        Me.txtCoANameofCostRawMaterial.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofCostRawMaterial.TabIndex = 256
         '
-        'btnCoAofCutting
+        'btnCoAofCostOfRawMaterial
         '
-        Me.btnCoAofCutting.Image = CType(resources.GetObject("btnCoAofCutting.Image"), System.Drawing.Image)
-        Me.btnCoAofCutting.Location = New System.Drawing.Point(627, 822)
-        Me.btnCoAofCutting.Name = "btnCoAofCutting"
-        Me.btnCoAofCutting.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofCutting.TabIndex = 248
+        Me.btnCoAofCostOfRawMaterial.Image = CType(resources.GetObject("btnCoAofCostOfRawMaterial.Image"), System.Drawing.Image)
+        Me.btnCoAofCostOfRawMaterial.Location = New System.Drawing.Point(627, 876)
+        Me.btnCoAofCostOfRawMaterial.Name = "btnCoAofCostOfRawMaterial"
+        Me.btnCoAofCostOfRawMaterial.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofCostOfRawMaterial.TabIndex = 257
         '
-        'Label31
+        'Label33
         '
-        Me.Label31.AutoSize = True
-        Me.Label31.BackColor = System.Drawing.Color.Transparent
-        Me.Label31.ForeColor = System.Drawing.Color.Black
-        Me.Label31.Location = New System.Drawing.Point(33, 827)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(96, 13)
-        Me.Label31.TabIndex = 250
-        Me.Label31.Text = "Biaya Pemotongan"
-        '
-        'txtCoACodeofTransport
-        '
-        Me.txtCoACodeofTransport.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeofTransport.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeofTransport.Location = New System.Drawing.Point(219, 850)
-        Me.txtCoACodeofTransport.MaxLength = 250
-        Me.txtCoACodeofTransport.Name = "txtCoACodeofTransport"
-        Me.txtCoACodeofTransport.ReadOnly = True
-        Me.txtCoACodeofTransport.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofTransport.TabIndex = 249
-        '
-        'txtCoANameofTransport
-        '
-        Me.txtCoANameofTransport.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameofTransport.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameofTransport.Location = New System.Drawing.Point(301, 850)
-        Me.txtCoANameofTransport.MaxLength = 250
-        Me.txtCoANameofTransport.Name = "txtCoANameofTransport"
-        Me.txtCoANameofTransport.ReadOnly = True
-        Me.txtCoANameofTransport.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofTransport.TabIndex = 250
-        '
-        'btnCoAofTransport
-        '
-        Me.btnCoAofTransport.Image = CType(resources.GetObject("btnCoAofTransport.Image"), System.Drawing.Image)
-        Me.btnCoAofTransport.Location = New System.Drawing.Point(627, 849)
-        Me.btnCoAofTransport.Name = "btnCoAofTransport"
-        Me.btnCoAofTransport.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofTransport.TabIndex = 251
-        '
-        'Label32
-        '
-        Me.Label32.AutoSize = True
-        Me.Label32.BackColor = System.Drawing.Color.Transparent
-        Me.Label32.ForeColor = System.Drawing.Color.Black
-        Me.Label32.Location = New System.Drawing.Point(33, 854)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(151, 13)
-        Me.Label32.TabIndex = 254
-        Me.Label32.Text = "Biaya Transportasi Pengiriman"
+        Me.Label33.AutoSize = True
+        Me.Label33.BackColor = System.Drawing.Color.Transparent
+        Me.Label33.ForeColor = System.Drawing.Color.Black
+        Me.Label33.Location = New System.Drawing.Point(33, 881)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(92, 13)
+        Me.Label33.TabIndex = 258
+        Me.Label33.Text = "Biaya Bahan Baku"
         '
         'frmSysJournalPost
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(690, 731)
+        Me.ClientSize = New System.Drawing.Size(690, 1061)
         Me.Controls.Add(Me.pnlMain)
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.pgMain)
@@ -1875,4 +1924,8 @@ Partial Class frmSysJournalPost
     Friend WithEvents txtCoANameofCutting As usTextBox
     Friend WithEvents btnCoAofCutting As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label31 As Label
+    Friend WithEvents txtCoACodeofCostRawMaterial As ERPS.usTextBox
+    Friend WithEvents txtCoANameofCostRawMaterial As ERPS.usTextBox
+    Friend WithEvents btnCoAofCostOfRawMaterial As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label33 As System.Windows.Forms.Label
 End Class

@@ -469,6 +469,40 @@
             End Try
         End Sub
 
+        Public Shared Function GetTotalCostRawMaterial(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                       ByVal strID As String) As Decimal
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim decReturn As Decimal = 0
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT  " & vbNewLine & _
+                        "	SUM(CD.TotalWeight * POCD.UnitPriceRawMaterial) TotalDPPRawMaterial  " & vbNewLine & _
+                        "FROM traPurchaseOrderCuttingDet POCD  " & vbNewLine & _
+                        "INNER JOIN traCuttingDet CD ON  " & vbNewLine & _
+                        "	POCD.ID=CD.PODetailID  " & vbNewLine & _
+                        "WHERE CD.CuttingID=@CuttingID  " & vbNewLine
+
+                    .Parameters.Add("@CuttingID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        decReturn = .Item("TotalDPPRawMaterial")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return decReturn
+        End Function
+
 #End Region
 
 #Region "Detail"

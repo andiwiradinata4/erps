@@ -35,6 +35,7 @@
         Property DPAmountTransport As Decimal
         Property TotalPaymentTransport As Decimal
         Property JournalIDTransport As String
+        Property TotalCostRawMaterial As Decimal
         Property Detail As List(Of VO.DeliveryDet)
         Property DeliveryTransport As List(Of VO.DeliveryTransport)
         Property DetailTransport As List(Of VO.DeliveryDetTransport)

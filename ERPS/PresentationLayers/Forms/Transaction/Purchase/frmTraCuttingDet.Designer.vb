@@ -86,6 +86,10 @@ Partial Class frmTraCuttingDet
         Me.grdItemResult = New DevExpress.XtraGrid.GridControl()
         Me.grdItemResultView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit3 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.txtCoACodeOfStock = New ERPS.usTextBox()
+        Me.txtCoANameOfStock = New ERPS.usTextBox()
+        Me.btnCoAOfStock = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         Me.tpPrice.SuspendLayout()
@@ -164,6 +168,10 @@ Partial Class frmTraCuttingDet
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.txtCoACodeOfStock)
+        Me.tpMain.Controls.Add(Me.txtCoANameOfStock)
+        Me.tpMain.Controls.Add(Me.btnCoAOfStock)
+        Me.tpMain.Controls.Add(Me.Label5)
         Me.tpMain.Controls.Add(Me.txtPONumber)
         Me.tpMain.Controls.Add(Me.btnPurchaseOrder)
         Me.tpMain.Controls.Add(Me.Label9)
@@ -233,12 +241,12 @@ Partial Class frmTraCuttingDet
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(588, 43)
+        Me.txtRemarks.Location = New System.Drawing.Point(584, 70)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 9
+        Me.txtRemarks.TabIndex = 12
         '
         'txtBPCode
         '
@@ -288,7 +296,7 @@ Partial Class frmTraCuttingDet
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(498, 47)
+        Me.Label13.Location = New System.Drawing.Point(494, 74)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 129
@@ -299,17 +307,17 @@ Partial Class frmTraCuttingDet
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(588, 16)
+        Me.cboStatus.Location = New System.Drawing.Point(584, 43)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(105, 21)
-        Me.cboStatus.TabIndex = 8
+        Me.cboStatus.TabIndex = 11
         '
         'lblStatusID
         '
         Me.lblStatusID.AutoSize = True
         Me.lblStatusID.BackColor = System.Drawing.Color.Transparent
         Me.lblStatusID.ForeColor = System.Drawing.Color.Black
-        Me.lblStatusID.Location = New System.Drawing.Point(498, 20)
+        Me.lblStatusID.Location = New System.Drawing.Point(494, 47)
         Me.lblStatusID.Name = "lblStatusID"
         Me.lblStatusID.Size = New System.Drawing.Size(38, 13)
         Me.lblStatusID.TabIndex = 128
@@ -842,6 +850,47 @@ Partial Class frmTraCuttingDet
         Me.RepositoryItemTextEdit3.Name = "RepositoryItemTextEdit3"
         Me.RepositoryItemTextEdit3.NullText = "0.00"
         '
+        'txtCoACodeOfStock
+        '
+        Me.txtCoACodeOfStock.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeOfStock.Location = New System.Drawing.Point(584, 16)
+        Me.txtCoACodeOfStock.MaxLength = 250
+        Me.txtCoACodeOfStock.Name = "txtCoACodeOfStock"
+        Me.txtCoACodeOfStock.ReadOnly = True
+        Me.txtCoACodeOfStock.Size = New System.Drawing.Size(59, 21)
+        Me.txtCoACodeOfStock.TabIndex = 8
+        '
+        'txtCoANameOfStock
+        '
+        Me.txtCoANameOfStock.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameOfStock.Location = New System.Drawing.Point(642, 16)
+        Me.txtCoANameOfStock.MaxLength = 250
+        Me.txtCoANameOfStock.Name = "txtCoANameOfStock"
+        Me.txtCoANameOfStock.ReadOnly = True
+        Me.txtCoANameOfStock.Size = New System.Drawing.Size(191, 21)
+        Me.txtCoANameOfStock.TabIndex = 9
+        '
+        'btnCoAOfStock
+        '
+        Me.btnCoAOfStock.Image = CType(resources.GetObject("btnCoAOfStock.Image"), System.Drawing.Image)
+        Me.btnCoAOfStock.Location = New System.Drawing.Point(839, 15)
+        Me.btnCoAOfStock.Name = "btnCoAOfStock"
+        Me.btnCoAOfStock.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAOfStock.TabIndex = 10
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
+        Me.Label5.ForeColor = System.Drawing.Color.Black
+        Me.Label5.Location = New System.Drawing.Point(494, 20)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(60, 13)
+        Me.Label5.TabIndex = 158
+        Me.Label5.Text = "Persediaan"
+        '
         'frmTraCuttingDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -954,4 +1003,8 @@ Partial Class frmTraCuttingDet
     Friend WithEvents txtPONumber As ERPS.usTextBox
     Friend WithEvents btnPurchaseOrder As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents txtCoACodeOfStock As ERPS.usTextBox
+    Friend WithEvents txtCoANameOfStock As ERPS.usTextBox
+    Friend WithEvents btnCoAOfStock As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label5 As System.Windows.Forms.Label
 End Class

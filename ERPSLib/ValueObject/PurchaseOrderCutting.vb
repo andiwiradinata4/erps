@@ -30,6 +30,7 @@
         Property ApprovedDate As DateTime
         Property DPAmount As Decimal
         Property ReceiveAmount As Decimal
+        Property TotalDPPRawMaterial As Decimal
         Property Detail As List(Of VO.PurchaseOrderCuttingDet)
         Property PaymentTerm As List(Of VO.PurchaseOrderPaymentTerm)
         Property Save As VO.Save.Action

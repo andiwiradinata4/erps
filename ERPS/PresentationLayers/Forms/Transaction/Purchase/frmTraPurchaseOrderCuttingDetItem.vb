@@ -81,6 +81,8 @@
                 txtWeight.Value = drSelectedItem.Item("Weight")
                 txtMaxTotalWeight.Value = drSelectedItem.Item("MaxTotalWeight")
                 txtUnitPrice.Value = drSelectedItem.Item("UnitPrice")
+                txtUnitPriceRawMaterial.Value = drSelectedItem.Item("UnitPriceRawMaterial")
+                txtTotalPriceRawMaterial.Value = drSelectedItem.Item("TotalPriceRawMaterial")
                 txtQuantity.Value = drSelectedItem.Item("Quantity")
                 txtRemarks.Text = drSelectedItem.Item("Remarks")
             End If
@@ -145,6 +147,8 @@
                 .Item("MaxTotalWeight") = txtMaxTotalWeight.Value
                 .Item("UnitPrice") = txtUnitPrice.Value
                 .Item("TotalPrice") = txtTotalPrice.Value
+                .Item("UnitPriceRawMaterial") = txtUnitPriceRawMaterial.Value
+                .Item("TotalPriceRawMaterial") = txtTotalPriceRawMaterial.Value
                 .Item("Remarks") = txtRemarks.Text.Trim
                 .EndEdit()
             End With
@@ -173,6 +177,8 @@
                         .Item("MaxTotalWeight") = txtMaxTotalWeight.Value
                         .Item("UnitPrice") = txtUnitPrice.Value
                         .Item("TotalPrice") = txtTotalPrice.Value
+                        .Item("UnitPriceRawMaterial") = txtUnitPriceRawMaterial.Value
+                        .Item("TotalPriceRawMaterial") = txtTotalPriceRawMaterial.Value
                         .Item("Remarks") = txtRemarks.Text.Trim
                         .EndEdit()
                     End If
@@ -204,6 +210,8 @@
         txtQuantity.Value = 0
         txtTotalWeight.Value = 0
         txtTotalPrice.Value = 0
+        txtUnitPriceRawMaterial.Value = 0
+        txtTotalPriceRawMaterial.Value = 0
         txtRemarks.Text = ""
     End Sub
 
@@ -228,6 +236,7 @@
                 txtWeight.Value = .pubLUdtRow.Item("Weight")
                 txtMaxTotalWeight.Value = .pubLUdtRow.Item("TotalWeight")
                 txtQuantity.Value = .pubLUdtRow.Item("Quantity")
+                txtUnitPriceRawMaterial.Value = .pubLUdtRow.Item("UnitPrice")
                 txtUnitPrice.Focus()
                 txtUnitPrice.Value = 0
                 txtRemarks.Text = ""
@@ -238,6 +247,7 @@
     Private Sub prvCalculate()
         txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
         txtTotalPrice.Value = txtUnitPrice.Value * txtTotalWeight.Value
+        txtTotalPriceRawMaterial.Value = txtUnitPriceRawMaterial.Value * txtTotalWeight.Value
     End Sub
 
 #Region "Form Handle"

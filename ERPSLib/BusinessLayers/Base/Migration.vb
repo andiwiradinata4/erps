@@ -16,6 +16,7 @@
                 AlterTableSysJournalPost_ID9(sqlCon, Nothing)
                 AlterTableSysJournalPost_ID10(sqlCon, Nothing)
                 AlterTableForHandleCoAofStock_ID11(sqlCon, Nothing)
+                AlterTableForHandleCoAofStock_ID12(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -290,12 +291,30 @@
         '# ID = 11
         Private Shared Sub AlterTableForHandleCoAofStock_ID11(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
             Dim clsData As New VO.Migration
-            clsData.ID = 10
+            clsData.ID = 11
             clsData.Name = "Alter Table For Handle CoA of Stock"
             clsData.Scripts =
                 "ALTER TABLE traCutting ADD CoAIDofStock INT NOT NULL CONSTRAINT DF_traCutting_CoAIDofStock DEFAULT ((0)) " & vbNewLine &
-                "ALTER TABLE mstBusinessPartner ADD CoAIDofStock INT NOT NULL CONSTRAINT DF_mstBusinessPartner_CoAIDofStock DEFAULT ((0)) " & vbNewLine
+                "ALTER TABLE mstBusinessPartner ADD CoAIDofStock INT NOT NULL CONSTRAINT DF_mstBusinessPartner_CoAIDofStock DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE sysJournalPost ADD CoAOfCostRawMaterial INT NOT NULL CONSTRAINT DF_sysJournalPost_CoAOfCostRawMaterial DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDelivery ADD TotalCostRawMaterial DECIMAL(18,4) NOT NULL CONSTRAINT DF_traDelivery_TotalCostRawMaterial DEFAULT ((0)) " & vbNewLine
 
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 12
+        Private Shared Sub AlterTableForHandleCoAofStock_ID12(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 12
+            clsData.Name = "Alter Table For Handle CoA of Stock Rev 1"
+            clsData.Scripts =
+                "ALTER TABLE traPurchaseOrderCutting ADD TotalDPPRawMaterial DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_TotalDPPRawMaterial DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDet ADD UnitPriceRawMaterial DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_UnitPriceRawMaterial DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDet ADD TotalPriceRawMaterial DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_TotalPriceRawMaterial DEFAULT ((0)) " & vbNewLine
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

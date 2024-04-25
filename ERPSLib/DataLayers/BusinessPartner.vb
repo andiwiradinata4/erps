@@ -97,7 +97,7 @@
                         "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
                         "   A.CoAIDofStock=COA.ID " & vbNewLine &
                         "WHERE " & vbNewLine &
-                        "   ID=@ID " & vbNewLine
+                        "   A.ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.Int).Value = intID
                 End With

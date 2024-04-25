@@ -10,6 +10,7 @@ Public Class frmTraCuttingDet
     Private dtItemResult As New DataTable
     Private intPos As Integer = 0
     Private strPOID As String = ""
+    Private intCoAIDofStock As Integer = 0
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
@@ -127,6 +128,9 @@ Public Class frmTraCuttingDet
                 txtTotalPPH.Value = clsData.TotalPPH
                 cboStatus.SelectedValue = clsData.StatusID
                 txtRemarks.Text = clsData.Remarks
+                intCoAIDofStock = clsData.CoAIDofStock
+                txtCoACodeOfStock.Text = clsData.CoACodeofStock
+                txtCoANameOfStock.Text = clsData.CoANameofStock
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
@@ -155,6 +159,11 @@ Public Class frmTraCuttingDet
             UI.usForm.frmMessageBox("Status kosong. Mohon untuk tutup form dan buka kembali")
             tcHeader.SelectedTab = tpMain
             cboStatus.Focus()
+            Exit Sub
+        ElseIf intCoAIDofStock = 0 Then
+            UI.usForm.frmMessageBox("Pilih akun persediaan terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtCoACodeOfStock.Focus()
             Exit Sub
         ElseIf grdItemView.RowCount = 0 Then
             UI.usForm.frmMessageBox("Item kosong. Mohon untuk diinput item terlebih dahulu")
@@ -230,6 +239,7 @@ Public Class frmTraCuttingDet
         clsData.StatusID = cboStatus.SelectedValue
         clsData.POID = strPOID
         clsData.PONumber = txtPONumber.Text.Trim
+        clsData.CoAIDofStock = intCoAIDofStock
         clsData.Detail = listDetail
         clsData.DetailResult = listDetailResult
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
@@ -281,6 +291,9 @@ Public Class frmTraCuttingDet
         txtTotalPPH.Value = 0
         txtGrandTotal.Value = 0
         txtRemarks.Text = ""
+        intCoAIDofStock = 0
+        txtCoACodeOfStock.Text = ""
+        txtCoANameOfStock.Text = ""
         cboStatus.SelectedValue = VO.Status.Values.Draft
         ToolStripLogInc.Text = "Jumlah Edit : -"
         ToolStripLogBy.Text = "Dibuat Oleh : -"
@@ -303,6 +316,9 @@ Public Class frmTraCuttingDet
                 intBPID = .pubLUdtRow.Item("ID")
                 txtBPCode.Text = .pubLUdtRow.Item("Code")
                 txtBPName.Text = .pubLUdtRow.Item("Name")
+                intCoAIDofStock = .pubLUdtRow.Item("CoAIDofStock")
+                txtCoACodeOfStock.Text = .pubLUdtRow.Item("CoACodeofStock")
+                txtCoANameOfStock.Text = .pubLUdtRow.Item("CoANameofStock")
             End If
         End With
     End Sub
@@ -628,6 +644,20 @@ Public Class frmTraCuttingDet
 
     Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtPPN.ValueChanged, txtPPH.ValueChanged
         prvCalculate()
+    End Sub
+
+    Private Sub btnCoAOfStock_Click(sender As Object, e As EventArgs) Handles btnCoAOfStock.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofStock = .pubLUdtRow.Item("ID")
+                txtCoACodeOfStock.Text = .pubLUdtRow.Item("Code")
+                txtCoANameOfStock.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
     End Sub
 
 #End Region

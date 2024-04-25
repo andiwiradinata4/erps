@@ -22,6 +22,7 @@ Partial Class frmMstBusinessPartnerDet
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMstBusinessPartnerDet))
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
@@ -33,6 +34,10 @@ Partial Class frmMstBusinessPartnerDet
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.txtCoACodeofCostRawMaterial = New ERPS.usTextBox()
+        Me.txtCoANameofCostRawMaterial = New ERPS.usTextBox()
+        Me.btnCoAofCostOfRawMaterial = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label33 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtInitial = New ERPS.usTextBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -94,7 +99,7 @@ Partial Class frmMstBusinessPartnerDet
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 366)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 427)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(592, 22)
         Me.StatusStrip.TabIndex = 3
@@ -144,6 +149,10 @@ Partial Class frmMstBusinessPartnerDet
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.txtCoACodeofCostRawMaterial)
+        Me.pnlDetail.Controls.Add(Me.txtCoANameofCostRawMaterial)
+        Me.pnlDetail.Controls.Add(Me.btnCoAofCostOfRawMaterial)
+        Me.pnlDetail.Controls.Add(Me.Label33)
         Me.pnlDetail.Controls.Add(Me.Label3)
         Me.pnlDetail.Controls.Add(Me.txtInitial)
         Me.pnlDetail.Controls.Add(Me.Label2)
@@ -163,8 +172,49 @@ Partial Class frmMstBusinessPartnerDet
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlDetail.Location = New System.Drawing.Point(0, 50)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(592, 316)
+        Me.pnlDetail.Size = New System.Drawing.Size(592, 377)
         Me.pnlDetail.TabIndex = 2
+        '
+        'txtCoACodeofCostRawMaterial
+        '
+        Me.txtCoACodeofCostRawMaterial.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofCostRawMaterial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofCostRawMaterial.Location = New System.Drawing.Point(129, 261)
+        Me.txtCoACodeofCostRawMaterial.MaxLength = 250
+        Me.txtCoACodeofCostRawMaterial.Name = "txtCoACodeofCostRawMaterial"
+        Me.txtCoACodeofCostRawMaterial.ReadOnly = True
+        Me.txtCoACodeofCostRawMaterial.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofCostRawMaterial.TabIndex = 7
+        '
+        'txtCoANameofCostRawMaterial
+        '
+        Me.txtCoANameofCostRawMaterial.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofCostRawMaterial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofCostRawMaterial.Location = New System.Drawing.Point(211, 261)
+        Me.txtCoANameofCostRawMaterial.MaxLength = 250
+        Me.txtCoANameofCostRawMaterial.Name = "txtCoANameofCostRawMaterial"
+        Me.txtCoANameofCostRawMaterial.ReadOnly = True
+        Me.txtCoANameofCostRawMaterial.Size = New System.Drawing.Size(341, 21)
+        Me.txtCoANameofCostRawMaterial.TabIndex = 8
+        '
+        'btnCoAofCostOfRawMaterial
+        '
+        Me.btnCoAofCostOfRawMaterial.Image = CType(resources.GetObject("btnCoAofCostOfRawMaterial.Image"), System.Drawing.Image)
+        Me.btnCoAofCostOfRawMaterial.Location = New System.Drawing.Point(557, 260)
+        Me.btnCoAofCostOfRawMaterial.Name = "btnCoAofCostOfRawMaterial"
+        Me.btnCoAofCostOfRawMaterial.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofCostOfRawMaterial.TabIndex = 9
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.BackColor = System.Drawing.Color.Transparent
+        Me.Label33.ForeColor = System.Drawing.Color.Black
+        Me.Label33.Location = New System.Drawing.Point(23, 265)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(92, 13)
+        Me.Label33.TabIndex = 262
+        Me.Label33.Text = "Biaya Bahan Baku"
         '
         'Label3
         '
@@ -300,10 +350,10 @@ Partial Class frmMstBusinessPartnerDet
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(129, 261)
+        Me.cboStatus.Location = New System.Drawing.Point(129, 288)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(160, 21)
-        Me.cboStatus.TabIndex = 7
+        Me.cboStatus.TabIndex = 10
         '
         'lblName
         '
@@ -331,7 +381,7 @@ Partial Class frmMstBusinessPartnerDet
         Me.lblStatusID.AutoSize = True
         Me.lblStatusID.BackColor = System.Drawing.Color.Transparent
         Me.lblStatusID.ForeColor = System.Drawing.Color.Black
-        Me.lblStatusID.Location = New System.Drawing.Point(23, 265)
+        Me.lblStatusID.Location = New System.Drawing.Point(23, 292)
         Me.lblStatusID.Name = "lblStatusID"
         Me.lblStatusID.Size = New System.Drawing.Size(38, 13)
         Me.lblStatusID.TabIndex = 93
@@ -341,7 +391,7 @@ Partial Class frmMstBusinessPartnerDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(592, 388)
+        Me.ClientSize = New System.Drawing.Size(592, 449)
         Me.Controls.Add(Me.pnlDetail)
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.lblInfo)
@@ -387,4 +437,8 @@ Partial Class frmMstBusinessPartnerDet
     Friend WithEvents lblStatusID As System.Windows.Forms.Label
     Friend WithEvents Label3 As Label
     Friend WithEvents txtInitial As usTextBox
+    Friend WithEvents txtCoACodeofCostRawMaterial As ERPS.usTextBox
+    Friend WithEvents txtCoANameofCostRawMaterial As ERPS.usTextBox
+    Friend WithEvents btnCoAofCostOfRawMaterial As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label33 As System.Windows.Forms.Label
 End Class

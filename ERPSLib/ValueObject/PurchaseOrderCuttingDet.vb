@@ -12,5 +12,7 @@
         Property DoneQuantity As Decimal
         Property DoneWeight As Decimal
         Property Remarks As String
+        Property UnitPriceRawMaterial As Decimal
+        Property TotalPriceRawMaterial As Decimal
     End Class
 End Namespace
