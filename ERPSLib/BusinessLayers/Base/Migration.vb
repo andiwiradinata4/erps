@@ -15,6 +15,7 @@
                 CreateTableDeliveryTransport_ID8(sqlCon, Nothing)
                 AlterTableSysJournalPost_ID9(sqlCon, Nothing)
                 AlterTableSysJournalPost_ID10(sqlCon, Nothing)
+                AlterTableForHandleCoAofStock_ID11(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -286,21 +287,21 @@
             End If
         End Sub
 
-        ''# ID = 11
-        'Private Shared Sub AddBPIDAndReferencesNoInJournalAndBukuBesar_ID11(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
-        '    Dim clsData As New VO.Migration
-        '    clsData.ID = 10
-        '    clsData.Name = "Alter Table traJournalDet"
-        '    clsData.Scripts = "ALTER TABLE traJournalDet ADD BPID INT NOT NULL CONSTRAINT DF_traJournalDet_BPID DEFAULT ((0)) " & vbNewLine &
-        '        "ALTER TABLE traBukuBesar ADD BPID INT NOT NULL CONSTRAINT DF_traBukuBesar_BPID DEFAULT ((0)) " & vbNewLine &
-        '        "ALTER TABLE traJournal ADD ReferencesNo VARCHAR(100) NOT NULL CONSTRAINT DF_traJournal_ReferencesNo DEFAULT ('') " & vbNewLine
+        '# ID = 11
+        Private Shared Sub AlterTableForHandleCoAofStock_ID11(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 10
+            clsData.Name = "Alter Table For Handle CoA of Stock"
+            clsData.Scripts =
+                "ALTER TABLE traCutting ADD CoAIDofStock INT NOT NULL CONSTRAINT DF_traCutting_CoAIDofStock DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE mstBusinessPartner ADD CoAIDofStock INT NOT NULL CONSTRAINT DF_mstBusinessPartner_CoAIDofStock DEFAULT ((0)) " & vbNewLine
 
-        '    clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        '    If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
-        '        DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
-        '        DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
-        '    End If
-        'End Sub
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
 
     End Class
 End Namespace

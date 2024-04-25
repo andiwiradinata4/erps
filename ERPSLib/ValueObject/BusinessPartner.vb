@@ -14,5 +14,8 @@
         Property JournalIDForAPBalance As String
         Property JournalIDForARBalance As String
         Property Initial As String
+        Property CoAIDofStock As Integer
+        Property CoACodeofStock As String
+        Property CoANameofStock As String
     End Class
 End Namespace

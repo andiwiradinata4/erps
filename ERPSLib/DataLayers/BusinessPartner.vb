@@ -9,13 +9,16 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "   CAST(0 AS BIT) AS Pick, A.ID, A.Code, A.Name, A.Address, A.PICName, A.PICPhoneNumber, A.Initial, A.APBalance, A.ARBalance, " & vbNewLine & _
-                    "   A.StatusID, B.Name AS StatusInfo, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine & _
-                    "FROM mstBusinessPartner A " & vbNewLine & _
-                    "INNER JOIN mstStatus B ON " & vbNewLine & _
-                    "   A.StatusID=B.ID " & vbNewLine
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, A.ID, A.Code, A.Name, A.Address, A.PICName, A.PICPhoneNumber, A.Initial, A.APBalance, A.ARBalance, " & vbNewLine &
+                    "   A.StatusID, B.Name AS StatusInfo, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc, " & vbNewLine &
+                    "   A.CoAIDofStock, ISNULL(COA.Code,'') AS CoACodeofStock, ISNULL(COA.Name,'') AS CoANameofStock  " & vbNewLine &
+                    "FROM mstBusinessPartner A " & vbNewLine &
+                    "INNER JOIN mstStatus B ON " & vbNewLine &
+                    "   A.StatusID=B.ID " & vbNewLine &
+                    "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
+                    "   A.CoAIDofStock=COA.ID " & vbNewLine
 
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
@@ -29,28 +32,29 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 If bolNew Then
-                    .CommandText = _
-                        "INSERT INTO mstBusinessPartner " & vbNewLine & _
-                        "     (ID, Code, Name, Address, PICName, PICPhoneNumber, APBalance, ARBalance, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, Initial) " & vbNewLine & _
-                        "VALUES " & vbNewLine & _
-                        "     (@ID, @Code, @Name, @Address, @PICName, @PICPhoneNumber, @APBalance, @ARBalance, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @Initial) " & vbNewLine
+                    .CommandText =
+                        "INSERT INTO mstBusinessPartner " & vbNewLine &
+                        "     (ID, Code, Name, Address, PICName, PICPhoneNumber, APBalance, ARBalance, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, Initial, CoAIDofStock) " & vbNewLine &
+                        "VALUES " & vbNewLine &
+                        "     (@ID, @Code, @Name, @Address, @PICName, @PICPhoneNumber, @APBalance, @ARBalance, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @Initial, @CoAIDofStock) " & vbNewLine
                 Else
-                    .CommandText = _
-                        "UPDATE mstBusinessPartner SET " & vbNewLine & _
-                        "    Code=@Code, " & vbNewLine & _
-                        "    Name=@Name, " & vbNewLine & _
-                        "    Address=@Address, " & vbNewLine & _
-                        "    PICName=@PICName, " & vbNewLine & _
-                        "    PICPhoneNumber=@PICPhoneNumber, " & vbNewLine & _
-                        "    APBalance=@APBalance, " & vbNewLine & _
-                        "    ARBalance=@ARBalance, " & vbNewLine & _
-                        "    StatusID=@StatusID, " & vbNewLine & _
-                        "    Remarks=@Remarks, " & vbNewLine & _
-                        "    LogBy=@LogBy, " & vbNewLine & _
-                        "    LogDate=GETDATE(), " & vbNewLine & _
-                        "    LogInc=LogInc+1, " & vbNewLine & _
-                        "    Initial=@Initial " & vbNewLine & _
-                        "WHERE   " & vbNewLine & _
+                    .CommandText =
+                        "UPDATE mstBusinessPartner SET " & vbNewLine &
+                        "    Code=@Code, " & vbNewLine &
+                        "    Name=@Name, " & vbNewLine &
+                        "    Address=@Address, " & vbNewLine &
+                        "    PICName=@PICName, " & vbNewLine &
+                        "    PICPhoneNumber=@PICPhoneNumber, " & vbNewLine &
+                        "    APBalance=@APBalance, " & vbNewLine &
+                        "    ARBalance=@ARBalance, " & vbNewLine &
+                        "    StatusID=@StatusID, " & vbNewLine &
+                        "    Remarks=@Remarks, " & vbNewLine &
+                        "    LogBy=@LogBy, " & vbNewLine &
+                        "    LogDate=GETDATE(), " & vbNewLine &
+                        "    LogInc=LogInc+1, " & vbNewLine &
+                        "    Initial=@Initial, " & vbNewLine &
+                        "    CoAIDofStock=@CoAIDofStock " & vbNewLine &
+                        "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
 
@@ -66,6 +70,7 @@
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
                 .Parameters.Add("@Initial", SqlDbType.VarChar, 150).Value = clsData.Initial
+                .Parameters.Add("@CoAIDofStock", SqlDbType.Int).Value = clsData.CoAIDofStock
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -83,12 +88,15 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   A.ID, A.Code, A.Name, A.Address, A.PICName, A.PICPhoneNumber, " & vbNewLine & _
-                        "   A.APBalance, A.ARBalance, A.StatusID, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc, A.JournalIDForARBalance, A.JournalIDForAPBalance, A.Initial " & vbNewLine & _
-                        "FROM mstBusinessPartner A " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   A.ID, A.Code, A.Name, A.Address, A.PICName, A.PICPhoneNumber, " & vbNewLine &
+                        "   A.APBalance, A.ARBalance, A.StatusID, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
+                        "   A.LogBy, A.LogDate, A.LogInc, A.JournalIDForARBalance, A.JournalIDForAPBalance, A.Initial, A.CoAIDofStock, ISNULL(COA.Code,'') AS CoACodeofStock, ISNULL(COA.Name,'') AS CoANameofStock   " & vbNewLine &
+                        "FROM mstBusinessPartner A " & vbNewLine &
+                        "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
+                        "   A.CoAIDofStock=COA.ID " & vbNewLine &
+                        "WHERE " & vbNewLine &
                         "   ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.Int).Value = intID
@@ -115,6 +123,9 @@
                         voReturn.JournalIDForARBalance = .Item("JournalIDForARBalance")
                         voReturn.JournalIDForAPBalance = .Item("JournalIDForAPBalance")
                         voReturn.Initial = .Item("Initial")
+                        voReturn.CoAIDofStock = .Item("CoAIDofStock")
+                        voReturn.CoACodeofStock = .Item("CoACodeofStock")
+                        voReturn.CoANameofStock = .Item("CoANameofStock")
                     End If
                 End With
             Catch ex As Exception
@@ -132,10 +143,10 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE mstBusinessPartner " & vbNewLine & _
-                    "SET StatusID=@StatusID " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "UPDATE mstBusinessPartner " & vbNewLine &
+                    "SET StatusID=@StatusID " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.Int).Value = intID
@@ -154,7 +165,7 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
+                .CommandText =
                     "DELETE mstBusinessPartner " & vbNewLine
 
             End With
@@ -173,9 +184,9 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   ID=ISNULL(MAX(ID),0) " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID=ISNULL(MAX(ID),0) " & vbNewLine &
                         "FROM mstBusinessPartner " & vbNewLine
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
@@ -201,13 +212,13 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   ID=ISNULL(RIGHT(Code,7),'0000000') " & vbNewLine & _
-                        "FROM mstBusinessPartner " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
-                        "   LEFT(Code,@Length)=@Code " & vbNewLine & _
-                        "ORDER BY " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID=ISNULL(RIGHT(Code,7),'0000000') " & vbNewLine &
+                        "FROM mstBusinessPartner " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   LEFT(Code,@Length)=@Code " & vbNewLine &
+                        "ORDER BY " & vbNewLine &
                         "   Code DESC " & vbNewLine
 
                     .Parameters.Add("@Code", SqlDbType.VarChar, strNewCode.Length).Value = strNewCode
@@ -237,12 +248,12 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   ID " & vbNewLine & _
-                        "FROM mstBusinessPartner " & vbNewLine & _
-                        "WHERE  " & vbNewLine & _
-                        "   Name=@Name " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID " & vbNewLine &
+                        "FROM mstBusinessPartner " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   Name=@Name " & vbNewLine &
                         "   AND ID<>@ID " & vbNewLine
 
                     .Parameters.Add("@Name", SqlDbType.VarChar, 250).Value = strName
@@ -273,11 +284,11 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   StatusID " & vbNewLine & _
-                        "FROM mstBusinessPartner " & vbNewLine & _
-                        "WHERE  " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   StatusID " & vbNewLine &
+                        "FROM mstBusinessPartner " & vbNewLine &
+                        "WHERE  " & vbNewLine &
                         "   ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.Int).Value = intID
@@ -304,10 +315,10 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE mstBusinessPartner " & vbNewLine & _
-                    "SET JournalIDForARBalance=@JournalID " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "UPDATE mstBusinessPartner " & vbNewLine &
+                    "SET JournalIDForARBalance=@JournalID " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.Int).Value = intID
@@ -328,10 +339,10 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE mstBusinessPartner " & vbNewLine & _
-                    "SET JournalIDForAPBalance=@JournalID " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "UPDATE mstBusinessPartner " & vbNewLine &
+                    "SET JournalIDForAPBalance=@JournalID " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.Int).Value = intID
@@ -356,11 +367,11 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "     A.ID, A.BPID, A.AccountName, A.BankName, A.AccountNumber, A.Currency, A.StatusID, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine & _
-                    "FROM mstBusinessPartnerBankAccount A " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "     A.ID, A.BPID, A.AccountName, A.BankName, A.AccountNumber, A.Currency, A.StatusID, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine &
+                    "FROM mstBusinessPartnerBankAccount A " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "    BPID=@BPID " & vbNewLine
 
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
@@ -376,25 +387,25 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 If bolNew Then
-                    .CommandText = _
-                        "INSERT INTO mstBusinessPartnerBankAccount " & vbNewLine & _
-                        "     (ID, BPID, AccountName, BankName, AccountNumber, Currency, StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine & _
-                        "VALUES " & vbNewLine & _
+                    .CommandText =
+                        "INSERT INTO mstBusinessPartnerBankAccount " & vbNewLine &
+                        "     (ID, BPID, AccountName, BankName, AccountNumber, Currency, StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine &
+                        "VALUES " & vbNewLine &
                         "     (@ID, @BPID, @AccountName, @BankName, @AccountNumber, @Currency, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
                 Else
-                    .CommandText = _
-                        "UPDATE mstBusinessPartnerBankAccount SET " & vbNewLine & _
-                        "    BPID=@BPID, " & vbNewLine & _
-                        "    AccountName=@AccountName, " & vbNewLine & _
-                        "    BankName=@BankName, " & vbNewLine & _
-                        "    AccountNumber=@AccountNumber, " & vbNewLine & _
-                        "    Currency=@Currency, " & vbNewLine & _
-                        "    StatusID=@StatusID, " & vbNewLine & _
-                        "    Remarks=@Remarks, " & vbNewLine & _
-                        "    LogBy=@LogBy, " & vbNewLine & _
-                        "    LogDate=GETDATE(), " & vbNewLine & _
-                        "    LogInc=LogInc+1 " & vbNewLine & _
-                        "WHERE   " & vbNewLine & _
+                    .CommandText =
+                        "UPDATE mstBusinessPartnerBankAccount SET " & vbNewLine &
+                        "    BPID=@BPID, " & vbNewLine &
+                        "    AccountName=@AccountName, " & vbNewLine &
+                        "    BankName=@BankName, " & vbNewLine &
+                        "    AccountNumber=@AccountNumber, " & vbNewLine &
+                        "    Currency=@Currency, " & vbNewLine &
+                        "    StatusID=@StatusID, " & vbNewLine &
+                        "    Remarks=@Remarks, " & vbNewLine &
+                        "    LogBy=@LogBy, " & vbNewLine &
+                        "    LogDate=GETDATE(), " & vbNewLine &
+                        "    LogInc=LogInc+1 " & vbNewLine &
+                        "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
 
@@ -423,11 +434,11 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "     A.ID, A.BPID, A.AccountName, A.BankName, A.AccountNumber, A.Currency, A.StatusID, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine & _
-                        "FROM mstBusinessPartnerBankAccount A " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "     A.ID, A.BPID, A.AccountName, A.BankName, A.AccountNumber, A.Currency, A.StatusID, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine &
+                        "FROM mstBusinessPartnerBankAccount A " & vbNewLine &
+                        "WHERE " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                     .Parameters.Add("@ID", SqlDbType.Int).Value = intID
                 End With
@@ -465,10 +476,10 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "UPDATE mstBusinessPartnerBankAccount " & vbNewLine & _
-                    "SET StatusID=@StatusID " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "UPDATE mstBusinessPartnerBankAccount " & vbNewLine &
+                    "SET StatusID=@StatusID " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.Int).Value = intID
@@ -489,9 +500,9 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   ID=ISNULL(MAX(ID),0) " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID=ISNULL(MAX(ID),0) " & vbNewLine &
                         "FROM mstBusinessPartnerBankAccount " & vbNewLine
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
@@ -519,13 +530,13 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   ID " & vbNewLine & _
-                        "FROM mstBusinessPartnerBankAccount " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
-                        "   BankName=@BankName " & vbNewLine & _
-                        "   AND AccountNumber=@AccountNumber " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID " & vbNewLine &
+                        "FROM mstBusinessPartnerBankAccount " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   BankName=@BankName " & vbNewLine &
+                        "   AND AccountNumber=@AccountNumber " & vbNewLine &
                         "   AND ID<>@ID " & vbNewLine
 
                     .Parameters.Add("@BankName", SqlDbType.VarChar, 500).Value = strBankName
@@ -555,11 +566,11 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   StatusID " & vbNewLine & _
-                        "FROM mstBusinessPartnerBankAccount " & vbNewLine & _
-                        "WHERE  " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   StatusID " & vbNewLine &
+                        "FROM mstBusinessPartnerBankAccount " & vbNewLine &
+                        "WHERE  " & vbNewLine &
                         "   ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.Int).Value = intID
@@ -590,16 +601,16 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                   "SELECT " & vbNewLine & _
-                   "    CAST(A.ID AS VARCHAR(30)) AS ID, A.BPID, A.ProgramID, MP.Name AS ProgramName, " & vbNewLine & _
-                   "    A.CompanyID, MC.Name AS CompanyName, A.FirstBalance, A.FirstBalanceDate  " & vbNewLine & _
-                   "FROM mstBusinessPartnerAssign A " & vbNewLine & _
-                   "INNER JOIN mstProgram MP ON " & vbNewLine & _
-                   "    A.ProgramID=MP.ID " & vbNewLine & _
-                   "INNER JOIN mstCompany MC ON " & vbNewLine & _
-                   "    A.CompanyID=MC.ID " & vbNewLine & _
-                   "WHERE  " & vbNewLine & _
+                .CommandText =
+                   "SELECT " & vbNewLine &
+                   "    CAST(A.ID AS VARCHAR(30)) AS ID, A.BPID, A.ProgramID, MP.Name AS ProgramName, " & vbNewLine &
+                   "    A.CompanyID, MC.Name AS CompanyName, A.FirstBalance, A.FirstBalanceDate  " & vbNewLine &
+                   "FROM mstBusinessPartnerAssign A " & vbNewLine &
+                   "INNER JOIN mstProgram MP ON " & vbNewLine &
+                   "    A.ProgramID=MP.ID " & vbNewLine &
+                   "INNER JOIN mstCompany MC ON " & vbNewLine &
+                   "    A.CompanyID=MC.ID " & vbNewLine &
+                   "WHERE  " & vbNewLine &
                    "    A.BPID=@BPID" & vbNewLine
 
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
@@ -614,10 +625,10 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "INSERT INTO mstBusinessPartnerAssign " & vbNewLine & _
-                    "    (ID, BPID, ProgramID, CompanyID, FirstBalance, FirstBalanceDate)   " & vbNewLine & _
-                    "VALUES " & vbNewLine & _
+                .CommandText =
+                    "INSERT INTO mstBusinessPartnerAssign " & vbNewLine &
+                    "    (ID, BPID, ProgramID, CompanyID, FirstBalance, FirstBalanceDate)   " & vbNewLine &
+                    "VALUES " & vbNewLine &
                     "    (@ID, @BPID, @ProgramID, @CompanyID, @FirstBalance, @FirstBalanceDate)  " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.Int).Value = clsData.ID
@@ -641,9 +652,9 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "DELETE FROM mstBusinessPartnerAssign " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "DELETE FROM mstBusinessPartnerAssign " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   BPID=@BPID " & vbNewLine
 
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
@@ -661,7 +672,7 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
+                .CommandText =
                     "DELETE mstBusinessPartnerAssign " & vbNewLine
 
             End With
@@ -680,9 +691,9 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   ID=ISNULL(MAX(ID),0) " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID=ISNULL(MAX(ID),0) " & vbNewLine &
                         "FROM mstBusinessPartnerAssign " & vbNewLine
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
@@ -709,11 +720,11 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   ID " & vbNewLine & _
-                        "FROM mstBusinessPartnerAssign " & vbNewLine & _
-                        "WHERE  " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID " & vbNewLine &
+                        "FROM mstBusinessPartnerAssign " & vbNewLine &
+                        "WHERE  " & vbNewLine &
                         "   ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.Int).Value = intID
