@@ -54,11 +54,9 @@
 
     Dim frmMainTraAccountPayable As frmTraAccountPayable
 
-
     Dim frmMainTraCost As frmTraCost
     Dim frmMainTraJournal As frmTraJournal
     Dim frmMainTraJournalAutoGenerate As frmTraJournalAutoGenerate
-
 
     '# Laporan
     Dim frmMainRptMonitoringProductTransactionVer00 As frmRptMonitoringProductTransactionVer00
