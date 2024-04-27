@@ -11,6 +11,7 @@ Public Class frmTraSalesContractDet
     Private dtItemConfirmationOrder As New DataTable
     Private dtPaymentTerm As New DataTable
     Private intPos As Integer = 0
+    Private intBPLocationID As Integer = 0
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
@@ -202,6 +203,11 @@ Public Class frmTraSalesContractDet
             tcHeader.SelectedTab = tpMain
             dtpDeliveryPeriodFrom.Focus()
             Exit Sub
+        ElseIf intBPLocationID = 0 Or txtBPLocationAddress.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Alamat Pengiriman harus dipilih terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtBPLocationAddress.Focus()
+            Exit Sub
         ElseIf grdItemView.RowCount = 0 Then
             UI.usForm.frmMessageBox("Item kosong. Mohon untuk diinput item terlebih dahulu")
             tcDetail.SelectedTab = tpItem
@@ -322,6 +328,8 @@ Public Class frmTraSalesContractDet
         clsData.DelegationSeller = txtDelegationSeller.Text.Trim
         clsData.DelegationPositionSeller = txtDelegationPositionSeller.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
+        clsData.BPLocationID = intBPLocationID
+        clsData.BPLocationAddress = txtBPLocationAddress.Text.Trim
         clsData.Detail = listDetail
         clsData.DetailConfirmationOrder = listDetailConfirmationOrder
         clsData.PaymentTerm = listPaymentTerm
@@ -376,6 +384,8 @@ Public Class frmTraSalesContractDet
         txtTotalPPH.Value = 0
         txtGrandTotal.Value = 0
         txtRemarks.Text = ""
+        intBPLocationID = 0
+        txtBPLocationAddress.Text = ""
         intCompanyBankAccountID = 0
         txtAccountName.Text = ""
         txtBankName.Text = ""
@@ -401,6 +411,12 @@ Public Class frmTraSalesContractDet
                 intBPID = .pubLUdtRow.Item("ID")
                 txtBPCode.Text = .pubLUdtRow.Item("Code")
                 txtBPName.Text = .pubLUdtRow.Item("Name")
+
+                Dim clsBPLocation As VO.BusinessPartnerLocation = BL.BusinessPartner.GetDetailLocation(intBPID, True)
+                If clsBPLocation.ID <> 0 Then
+                    intBPLocationID = clsBPLocation.ID
+                    txtBPLocationAddress.Text = clsBPLocation.Address
+                End If
             End If
         End With
     End Sub
@@ -417,6 +433,20 @@ Public Class frmTraSalesContractDet
                 txtBankName.Text = .pubLUdtRow.Item("BankName")
                 txtAccountNumber.Text = .pubLUdtRow.Item("AccountNumber")
                 txtCurrencyBank.Text = .pubLUdtRow.Item("Currency")
+            End If
+        End With
+    End Sub
+
+    Private Sub prvChooseBPLocation()
+        Dim frmDetail As New frmMstBusinessPartnerLocation
+        With frmDetail
+            .pubIsLookUp = True
+            .pubBPID = intBPID
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intBPLocationID = .pubLUdtRow.Item("ID")
+                txtBPLocationAddress.Text = .pubLUdtRow.Item("Address")
             End If
         End With
     End Sub
@@ -772,6 +802,10 @@ Public Class frmTraSalesContractDet
             Case "Edit" : prvEditItem()
             Case "Hapus" : prvDeleteItem()
         End Select
+    End Sub
+
+    Private Sub btnBPLocation_Click(sender As Object, e As EventArgs) Handles btnBPLocation.Click
+        prvChooseBPLocation()
     End Sub
 
     Private Sub ToolBarPaymentTerm_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarPaymentTerm.ButtonClick

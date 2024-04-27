@@ -38,6 +38,10 @@
         Property ReceiveAmount As Decimal
         Property TotalAmountUsed As Decimal
         Property JournalIDInvoice As String
+        Property CompanyBankAccount1 As Integer
+        Property CompanyBankAccount2 As Integer
+        Property OtherExpenses As Decimal
+        Property InvoiceNumberBP As String
         Property Detail As New List(Of VO.AccountPayableDet)
         Property ARAPDownPayment As New List(Of VO.ARAPDP)
         Property ARAPDownPaymentDetail As New List(Of VO.ARAPDPDet)

@@ -24,7 +24,7 @@
         UI.usForm.SetGrid(grdView, "AccountNumber", "Nomor Rekening", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "Currency", "Mata Uang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "Remarks", "Keterangan", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "StatusID", "StatusID", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdView, "StatusID", "StatusID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "StatusInfo", "Status", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "CreatedBy", "Dibuat Oleh", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "CreatedDate", "Tanggal Buat", 100, UI.usDefGrid.gFullDate)
@@ -107,7 +107,7 @@
         Try
             BL.BusinessPartner.DeleteDataBankAccount(grdView.GetRowCellValue(intPos, "ID"))
             UI.usForm.frmMessageBox("Hapus data berhasil.")
-            pubRefresh(grdView.GetRowCellValue(intPos, "Name"))
+            pubRefresh(grdView.GetRowCellValue(intPos, "AccountName"))
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         End Try

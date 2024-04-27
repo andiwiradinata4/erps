@@ -23,7 +23,7 @@
                     "   CASE WHEN A.PaymentBy = '' THEN NULL ELSE A.PaymentDate END AS PaymentDate, A.TaxInvoiceNumber, " & vbNewLine &
                     "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
                     "   A.LogInc, A.LogBy, A.LogDate, A.APNumber AS TransNumber, A.APDate AS TransDate, A.CoAIDOfOutgoingPayment AS CoAID, " & vbNewLine &
-                    "   ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName, A.TotalPPN, A.TotalPPH, A.DPAmount, A.ReceiveAmount, A.IsDP  " & vbNewLine &
+                    "   ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName, A.TotalPPN, A.TotalPPH, A.DPAmount, A.ReceiveAmount, A.IsDP, A.InvoiceNumberBP  " & vbNewLine &
                     "FROM traAccountPayable A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -205,7 +205,7 @@
                         "   A.Modules, A.ReferencesID, A.ReferencesNote, A.APDate, A.DueDateValue, A.DueDate, A.TotalAmount, A.Percentage, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine &
                         "   A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.PaymentBy, A.PaymentDate, A.TaxInvoiceNumber, " & vbNewLine &
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
-                        "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice " & vbNewLine &
+                        "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice, A.InvoiceNumberBP " & vbNewLine &
                         "FROM traAccountPayable A " & vbNewLine &
                         "INNER JOIN mstStatus B ON " & vbNewLine &
                         "   A.StatusID=B.ID " & vbNewLine &
@@ -272,6 +272,7 @@
                         voReturn.ReceiveAmount = .Item("ReceiveAmount")
                         voReturn.TotalAmountUsed = .Item("TotalAmountUsed")
                         voReturn.JournalIDInvoice = .Item("JournalIDInvoice")
+                        voReturn.InvoiceNumberBP = .Item("InvoiceNumberBP")
                     End If
                 End With
             Catch ex As Exception
@@ -664,7 +665,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "UPDATE traAccountPayable SET " & vbNewLine &
-                    "    CoAIDOfOutgoingPayment=0, " & vbNewLine &
+                    "    CoAIDOfOutgoingPayment=CAST WHEN IsDP=1 THEN CoAIDOfOutgoingPayment ELSE 0 END, " & vbNewLine &
                     "    PaymentBy='', " & vbNewLine &
                     "    StatusID=@StatusID " & vbNewLine &
                     "WHERE   " & vbNewLine &
@@ -1128,6 +1129,66 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailRev02(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal strAPID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
+                    "   A.ItemID, B.TotalPrice AS InvoiceAmount, A.Amount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, " & vbNewLine &
+                    "   B.TotalPrice-B.DPAmount-B.Receive+A.Amount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName " & vbNewLine &
+                    "FROM traARAPItem A " & vbNewLine &
+                    "INNER JOIN traPurchaseContractDet B ON " & vbNewLine &
+                    "   A.ReferencesID=B.PCID " & vbNewLine &
+                    "INNER JOIN traPurchaseContract C ON " & vbNewLine &
+                    "   A.ReferencesID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItem MI ON " & vbNewLine &
+                    "   A.ItemID=MI.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
+                    "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
+                    "INNER JOIN mstItemType MIT ON " & vbNewLine &
+                    "   MI.ItemTypeID=MIT.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.APID=@APID " & vbNewLine
+
+                '.CommandText +=
+                '    "UNION ALL " & vbNewLine &
+                '    "SELECT " & vbNewLine &
+                '    "   CAST (1 AS BIT) AS Pick, A.PurchaseID AS InvoiceID, B.CuttingNumber AS InvoiceNumber, B.CuttingDate AS InvoiceDate, " & vbNewLine &
+                '    "   B.TotalDPP+B.RoundingManual AS InvoiceAmount, A.Amount, " & vbNewLine &
+                '    "   B.TotalDPP+B.RoundingManual-B.DPAmount-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine &
+                '    "   A.Remarks, B.PPN AS PPNPercent, B.PPH AS PPHPercent, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
+                '    "FROM traAccountPayableDet A " & vbNewLine &
+                '    "INNER JOIN traCutting B ON " & vbNewLine &
+                '    "   A.PurchaseID=B.ID " & vbNewLine &
+                '    "WHERE " & vbNewLine &
+                '    "   A.APID=@APID " & vbNewLine
+
+                '.CommandText +=
+                '    "UNION ALL " & vbNewLine &
+                '    "SELECT " & vbNewLine &
+                '    "   CAST (1 AS BIT) AS Pick, A.PurchaseID AS InvoiceID, B.DeliveryNumber AS InvoiceNumber, C.DeliveryDate AS InvoiceDate, " & vbNewLine &
+                '    "   B.TotalDPP+B.RoundingManual AS InvoiceAmount, A.Amount, " & vbNewLine &
+                '    "   B.TotalDPP+B.RoundingManual-B.DPAmount-B.TotalPayment+A.Amount AS MaxPaymentAmount, " & vbNewLine &
+                '    "   A.Remarks, B.PPN AS PPNPercent, B.PPH AS PPHPercent, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
+                '    "FROM traAccountPayableDet A " & vbNewLine &
+                '    "INNER JOIN traDeliveryTransport B ON " & vbNewLine &
+                '    "   A.PurchaseID=B.ID " & vbNewLine &
+                '    "INNER JOIN traDelivery C ON " & vbNewLine &
+                '    "   B.DeliveryID=C.ID " & vbNewLine &
+                '    "WHERE " & vbNewLine &
+                '    "   A.APID=@APID " & vbNewLine
+
+                .Parameters.Add("@APID", SqlDbType.VarChar, 100).Value = strAPID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Function ListDataDetailWithOutstandingRev01(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                                   ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
                                                                   ByVal intBPID As Integer, ByVal strAPID As String,
@@ -1263,6 +1324,84 @@
                     "           FROM traAccountPayableDet ARD 	" & vbNewLine &
                     "           INNER JOIN traAccountPayable ARH ON 	" & vbNewLine &
                     "	            ARD.APID=ARH.ID		" & vbNewLine &
+                    "           WHERE 	" & vbNewLine &
+                    "               ARH.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	            AND ARH.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	            AND ARH.BPID=@BPID " & vbNewLine &
+                    "	            AND ARH.IsDeleted=0	" & vbNewLine &
+                    "	            AND ARH.ID=@APID " & vbNewLine &
+                    "       ) " & vbNewLine
+
+                .Parameters.Add("@APID", SqlDbType.VarChar, 100).Value = strAPID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+                .Parameters.Add("@ReferencesID", SqlDbType.VarChar, 100).Value = strReferencesID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataDetailWithOutstandingRev02(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                  ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                  ByVal intBPID As Integer, ByVal strAPID As String,
+                                                                  ByVal strReferencesID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
+                    "   A.ItemID, B.TotalPrice AS InvoiceAmount, A.Amount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, " & vbNewLine &
+                    "   B.TotalPrice-B.DPAmount-B.Receive+A.Amount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName " & vbNewLine &
+                    "FROM traARAPItem A " & vbNewLine &
+                    "INNER JOIN traPurchaseContractDet B ON " & vbNewLine &
+                    "   A.ReferencesID=B.PCID " & vbNewLine &
+                    "INNER JOIN traPurchaseContract C ON " & vbNewLine &
+                    "   A.ReferencesID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItem MI ON " & vbNewLine &
+                    "   A.ItemID=MI.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
+                    "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
+                    "INNER JOIN mstItemType MIT ON " & vbNewLine &
+                    "   MI.ItemTypeID=MIT.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.APID=@APID " & vbNewLine
+
+                .CommandText +=
+                    "UNION ALL " & vbNewLine &
+                    "SELECT " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.PCID AS ReferencesID, A.ID AS ReferencesDetailID, C.OrderNumberSupplier, " & vbNewLine &
+                    "   A.ItemID, A.TotalPrice AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, B.PPN AS PPNPercent, B.PPH AS PPHPercent, " & vbNewLine &
+                    "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, " & vbNewLine &
+                    "   A.TotalPrice-A.DPAmount-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName " & vbNewLine &
+                    "FROM traPurchaseContractDet A " & vbNewLine &
+                    "INNER JOIN traPurchaseContract B ON " & vbNewLine &
+                    "   A.PCID=B.ID " & vbNewLine &
+                    "INNER JOIN traConfirmationOrderDet C ON " & vbNewLine &
+                    "   A.CODetailID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItem MI ON " & vbNewLine &
+                    "   A.ItemID=MI.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
+                    "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
+                    "INNER JOIN mstItemType MIT ON " & vbNewLine &
+                    "   MI.ItemTypeID=MIT.ID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   A.BPID=@BPID " & vbNewLine &
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.PCID=@ReferencesID " & vbNewLine &
+                    "   AND A.ApprovedBy<>'' " & vbNewLine &
+                    "   AND A.TotalPrice-A.DPAmount-A.ReceiveAmount>0 " & vbNewLine &
+                    "   AND A.ID NOT IN " & vbNewLine &
+                    "       ( " & vbNewLine &
+                    "           SELECT ARD.ReferencesDetailID 	" & vbNewLine &
+                    "           FROM traARAPItem ARD 	" & vbNewLine &
+                    "           INNER JOIN traAccountPayable ARH ON 	" & vbNewLine &
+                    "	            ARD.ParentID=ARH.ID		" & vbNewLine &
                     "           WHERE 	" & vbNewLine &
                     "               ARH.CompanyID=@CompanyID 	" & vbNewLine &
                     "	            AND ARH.ProgramID=@ProgramID 	" & vbNewLine &

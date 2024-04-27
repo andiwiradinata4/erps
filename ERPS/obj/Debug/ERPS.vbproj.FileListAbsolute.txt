@@ -754,3 +754,15 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptNeracaVer00.resou
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptLabaRugiVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptCOAPerGroupVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptLabaRugiVer00.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraJournalAutoGenerate.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptLabaRugiVer00.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptNeracaSaldoVer00.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptNeracaVer00.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptCOAPerGroupVer00.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptCOAPerTypeVer00.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptLabaRugiVer00.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptNeracaSaldoVer00.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptNeracaVer00.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmMstBusinessPartnerLocation.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmMstBusinessPartnerLocationDet.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPDetVer3.resources

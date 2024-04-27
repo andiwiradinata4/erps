@@ -31,6 +31,7 @@ Partial Class frmMstBusinessPartner
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
         Me.BarBankAccount = New System.Windows.Forms.ToolBarButton()
         Me.BarAssign = New System.Windows.Forms.ToolBarButton()
+        Me.BarLocation = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarSetupARBalance = New System.Windows.Forms.ToolBarButton()
         Me.BarSetupAPBalance = New System.Windows.Forms.ToolBarButton()
@@ -46,7 +47,7 @@ Partial Class frmMstBusinessPartner
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarGet, Me.BarSep1, Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep2, Me.BarBankAccount, Me.BarAssign, Me.BarSep3, Me.BarSetupARBalance, Me.BarSetupAPBalance, Me.BarSep4, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarGet, Me.BarSep1, Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep2, Me.BarBankAccount, Me.BarAssign, Me.BarLocation, Me.BarSep3, Me.BarSetupARBalance, Me.BarSetupAPBalance, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -100,6 +101,12 @@ Partial Class frmMstBusinessPartner
         Me.BarAssign.Name = "BarAssign"
         Me.BarAssign.Tag = "Submit"
         Me.BarAssign.Text = "Assign"
+        '
+        'BarLocation
+        '
+        Me.BarLocation.Name = "BarLocation"
+        Me.BarLocation.Tag = "Checked"
+        Me.BarLocation.Text = "Lokasi"
         '
         'BarSep3
         '
@@ -204,4 +211,5 @@ Partial Class frmMstBusinessPartner
     Friend WithEvents BarSetupARBalance As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarSetupAPBalance As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarSep4 As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarLocation As ToolBarButton
 End Class

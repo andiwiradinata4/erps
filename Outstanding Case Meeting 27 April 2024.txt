@@ -1,0 +1,35 @@
+1. Adjust Quantity dan Price PO dari KP
+2. Hilangkan syarat pembayaran di PO Pembelian dan KO Pembelian -> Done -> Testing -> Done.
+3. Harga di PO ke KP dan KO bisa 0 -> Done -> Testing -> Done.
+4. Alamat BP bisa lebih dari 1 dan kontrak penjualan bisa pilih alamat, secara default pilih IsDefault -> Done -> Testing -> 
+5. Panjar dan Pembayaran Per Item
+6. Printout Invoice pilih nomor rekeningnya (2 rekening)
+7. Printout Invoice dimunculkan peritem yang dipilih saat pembayaran
+8. Printout Item Invoice diganti jadi Orderline
+9. Ada bugs ketika cancel set tanggal bayar di DP Sales Contract -> Done -> Testing -> 
+10. Tambah nomor Faktur Pajak di Printout Invoice ketika sudah bayar dan input nomor faktur pajak
+11. Performa Invoice DP menjadi Performa Invoice
+12. Persediaan Umum tidak diperlukan -> Tetap diperlukan untuk proses Persediaan yang direject
+13. PO Cutting harus tentukan Hasilnya
+14. Item Delivery harus item kontrak sudah lunas, kecuali ada proses ignore sudah lunas maka item bisa diproses kirim.
+15. Pengiriman berdasarkan Kontrak Penjualan yang sudah di terbit PI (Performa Invoice) atau yang sudah dibayar lunas.
+16. PPN, PPH (Free) Transporter ditentukan di Rekan Bisnis.
+
+--- Kompensasi
+1. Uang masuk dari KP maka Jurnal Kas / Bank posisi debit dan penjualan (Pendapatan Klaim) / Pendapatan Lainnya ke kredit
+2. Ketika uang keluar ke pelanggan maka Jurnal Kas / Bank posisi kredit dan beban klaim (Beban Lainnya) di kredit
+3. Ada 3 kasus yaitu:
+-> Klaim ke KP dan ganti utk kirim ke customer menggunakan stock sendiri dimana secara sistem tidak ada lakukan apa"
+-> Klaim ke KP dan Bayar Klaim ke pelanggan
+-> Klaim ke KP dan proses Retur semua proses penjualan yg sudah terjadi / boleh dibilang proses Reject dari pelanggan.
+4. Ada proses kirim barang kembali ke KP dan diterima kembali.
+
+
+--- NOP 
+1. Biaya transport bisa lebih mahal dari biaya transport yang diinput dengan nilai biaya tambahan
+KO KP -> 
+Jenis NOP
+Plat -> Loco KP (Ambil Sendiri) -> Ongkos Transportasi
+				-> Ongkos Potong
+     -> Coil
+2. Persediaan yg masuk dari KP itu ke Persediaan

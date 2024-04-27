@@ -41,6 +41,7 @@
         Property Detail As New List(Of VO.ARAPDet)
         Property DownPayment As New List(Of VO.ARAPDP)
         Property DownPaymentDetail As New List(Of VO.ARAPDPDet)
+        Property DetailItem As New List(Of VO.ARAPItem)
         Property Save As VO.Save.Action
         Property ARAPType As VO.ARAP.ARAPTypeValue
 

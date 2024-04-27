@@ -32,8 +32,11 @@ Partial Class frmSysLogin
         Me.btnLogin = New DevExpress.XtraEditors.SimpleButton()
         Me.labelControl2 = New DevExpress.XtraEditors.LabelControl()
         Me.simpleButton1 = New DevExpress.XtraEditors.SimpleButton()
+        Me.ssMain = New System.Windows.Forms.StatusStrip()
+        Me.tssVersion = New System.Windows.Forms.ToolStripStatusLabel()
         CType(Me.pnlLogin, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlLogin.SuspendLayout()
+        Me.ssMain.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlLogin
@@ -49,7 +52,7 @@ Partial Class frmSysLogin
         Me.pnlLogin.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlLogin.Location = New System.Drawing.Point(0, 67)
         Me.pnlLogin.Name = "pnlLogin"
-        Me.pnlLogin.Size = New System.Drawing.Size(296, 200)
+        Me.pnlLogin.Size = New System.Drawing.Size(296, 195)
         Me.pnlLogin.TabIndex = 3
         '
         'LabelControl3
@@ -130,12 +133,37 @@ Partial Class frmSysLogin
         Me.simpleButton1.TabIndex = 2
         Me.simpleButton1.TabStop = False
         '
+        'ssMain
+        '
+        Me.ssMain.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.ssMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tssVersion})
+        Me.ssMain.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
+        Me.ssMain.Location = New System.Drawing.Point(0, 262)
+        Me.ssMain.Name = "ssMain"
+        Me.ssMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode
+        Me.ssMain.Size = New System.Drawing.Size(296, 22)
+        Me.ssMain.TabIndex = 8
+        Me.ssMain.Text = "StatusStrip1"
+        '
+        'tssVersion
+        '
+        Me.tssVersion.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.tssVersion.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.tssVersion.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.tssVersion.ForeColor = System.Drawing.Color.DimGray
+        Me.tssVersion.Name = "tssVersion"
+        Me.tssVersion.Size = New System.Drawing.Size(53, 17)
+        Me.tssVersion.Text = "Version"
+        '
         'frmSysLogin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(296, 267)
+        Me.ClientSize = New System.Drawing.Size(296, 284)
         Me.Controls.Add(Me.pnlLogin)
+        Me.Controls.Add(Me.ssMain)
         Me.Controls.Add(Me.simpleButton1)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -147,7 +175,10 @@ Partial Class frmSysLogin
         CType(Me.pnlLogin, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlLogin.ResumeLayout(False)
         Me.pnlLogin.PerformLayout()
+        Me.ssMain.ResumeLayout(False)
+        Me.ssMain.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents pnlLogin As DevExpress.XtraEditors.PanelControl
@@ -159,5 +190,6 @@ Partial Class frmSysLogin
     Friend WithEvents txtUserID As ERPS.usTextBox
     Private WithEvents LabelControl3 As DevExpress.XtraEditors.LabelControl
     Private WithEvents simpleButton1 As DevExpress.XtraEditors.SimpleButton
-
+    Friend WithEvents ssMain As StatusStrip
+    Friend WithEvents tssVersion As ToolStripStatusLabel
 End Class

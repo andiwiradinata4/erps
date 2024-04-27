@@ -204,6 +204,18 @@
     <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerDet.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerLocation.Designer.vb">
+      <DependentUpon>frmMstBusinessPartnerLocation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerLocation.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerLocationDet.Designer.vb">
+      <DependentUpon>frmMstBusinessPartnerLocationDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerLocationDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerSetupBalanceAP.Designer.vb">
       <DependentUpon>frmMstBusinessPartnerSetupBalanceAP.vb</DependentUpon>
     </Compile>
@@ -502,6 +514,12 @@
       <DependentUpon>frmTraARAPDetVer2.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer2.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer3.Designer.vb">
+      <DependentUpon>frmTraARAPDetVer3.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer3.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraCost.Designer.vb">
@@ -1116,6 +1134,12 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerDet.resx">
       <DependentUpon>frmMstBusinessPartnerDet.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerLocation.resx">
+      <DependentUpon>frmMstBusinessPartnerLocation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerLocationDet.resx">
+      <DependentUpon>frmMstBusinessPartnerLocationDet.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstBusinessPartnerSetupBalanceAP.resx">
       <DependentUpon>frmMstBusinessPartnerSetupBalanceAP.vb</DependentUpon>
     </EmbeddedResource>
@@ -1265,6 +1289,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer2.resx">
       <DependentUpon>frmTraARAPDetVer2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer3.resx">
+      <DependentUpon>frmTraARAPDetVer3.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraCost.resx">
       <DependentUpon>frmTraCost.vb</DependentUpon>

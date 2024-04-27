@@ -745,6 +745,285 @@
 
 #End Region
 
+#Region "Location"
+
+        Public Shared Function ListDataLocation(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                ByVal intBPID As Integer) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                   "SELECT " & vbNewLine &
+                   "    A.ID, A.BPID, A.Address, A.IsDefault, A.StatusID, B.Name AS StatusInfo, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine &
+                   "FROM mstBusinessPartnerLocation A " & vbNewLine &
+                   "INNER JOIN mstStatus B ON " & vbNewLine &
+                    "   A.StatusID=B.ID " & vbNewLine &
+                   "WHERE  " & vbNewLine &
+                   "    A.BPID=@BPID" & vbNewLine
+
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Sub SaveDataLocation(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                           ByVal bolNew As Boolean, ByVal clsData As VO.BusinessPartnerLocation)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                If bolNew Then
+                    .CommandText =
+                    "INSERT INTO mstBusinessPartnerLocation " & vbNewLine &
+                    "    (ID, BPID, Address, IsDefault, StatusID, Remarks, LogBy, CreatedBy)   " & vbNewLine &
+                    "VALUES " & vbNewLine &
+                    "    (@ID, @BPID, @Address, @IsDefault, @StatusID, @Remarks, @LogBy, @LogBy)  " & vbNewLine
+
+                Else
+                    .CommandText =
+                    "UPDATE mstBusinessPartnerLocation SET " & vbNewLine &
+                    "    Address=@Address," & vbNewLine &
+                    "    IsDefault=@IsDefault," & vbNewLine &
+                    "    StatusID=@StatusID," & vbNewLine &
+                    "    Remarks=@Remarks," & vbNewLine &
+                    "    LogBy=@LogBy," & vbNewLine &
+                    "    LogInc=LogInc+1," & vbNewLine &
+                    "    LogDate=GETDATE() " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+                End If
+
+                .Parameters.Add("@ID", SqlDbType.Int).Value = clsData.ID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = clsData.BPID
+                .Parameters.Add("@Address", SqlDbType.VarChar, 2000).Value = clsData.Address
+                .Parameters.Add("@IsDefault", SqlDbType.Bit).Value = clsData.IsDefault
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
+                .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
+                .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataLocation(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                             ByVal intID As Integer)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE mstBusinessPartnerLocation SET " & vbNewLine &
+                    "   StatusID=@StatusID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.Int).Value = intID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.InActive
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataAllLocation(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "DELETE mstBusinessPartnerLocation " & vbNewLine
+
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Function GetMaxIDLocation(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction) As Integer
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim intReturn As Integer = 1
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID=ISNULL(MAX(ID),0) " & vbNewLine &
+                        "FROM mstBusinessPartnerLocation " & vbNewLine
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        intReturn = .Item("ID") + 1
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return intReturn
+        End Function
+
+        Public Shared Function GetDetailLocation(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                 ByVal intID As Integer) As VO.BusinessPartnerLocation
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim voReturn As New VO.BusinessPartnerLocation
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "     A.ID, A.BPID, A.Address, A.IsDefault, A.StatusID, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine &
+                        "FROM mstBusinessPartnerLocation A " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "    ID=@ID " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.Int).Value = intID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        voReturn.ID = .Item("ID")
+                        voReturn.BPID = .Item("BPID")
+                        voReturn.Address = .Item("Address")
+                        voReturn.IsDefault = .Item("IsDefault")
+                        voReturn.StatusID = .Item("StatusID")
+                        voReturn.Remarks = .Item("Remarks")
+                        voReturn.CreatedBy = .Item("CreatedBy")
+                        voReturn.CreatedDate = .Item("CreatedDate")
+                        voReturn.LogBy = .Item("LogBy")
+                        voReturn.LogDate = .Item("LogDate")
+                        voReturn.LogInc = .Item("LogInc")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return voReturn
+        End Function
+
+        Public Shared Function GetDetailLocation(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                 ByVal intBPID As Integer, ByVal bolIsDefault As Boolean) As VO.BusinessPartnerLocation
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim voReturn As New VO.BusinessPartnerLocation
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "     A.ID, A.BPID, A.Address, A.IsDefault, A.StatusID, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine &
+                        "FROM mstBusinessPartnerLocation A " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "    BPID=@BPID " & vbNewLine &
+                        "    AND IsDefault=1 " & vbNewLine
+
+                    .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        voReturn.ID = .Item("ID")
+                        voReturn.BPID = .Item("BPID")
+                        voReturn.Address = .Item("Address")
+                        voReturn.IsDefault = .Item("IsDefault")
+                        voReturn.StatusID = .Item("StatusID")
+                        voReturn.Remarks = .Item("Remarks")
+                        voReturn.CreatedBy = .Item("CreatedBy")
+                        voReturn.CreatedDate = .Item("CreatedDate")
+                        voReturn.LogBy = .Item("LogBy")
+                        voReturn.LogDate = .Item("LogDate")
+                        voReturn.LogInc = .Item("LogInc")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return voReturn
+        End Function
+
+        Public Shared Function DataExistsLocation(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                  ByVal intID As Integer) As Boolean
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim bolExists As Boolean = False
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID " & vbNewLine &
+                        "FROM mstBusinessPartnerLocation " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   ID=@ID " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.Int).Value = intID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        bolExists = True
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return bolExists
+        End Function
+
+        Public Shared Sub RevertIsDefaultLocation(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                  ByVal intBPID As Integer)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE mstBusinessPartnerLocation SET " & vbNewLine &
+                    "   IsDefault=0 " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   BPID=@BPID " & vbNewLine &
+                    "   AND IsDefault=1 " & vbNewLine
+
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
+
+#End Region
+
     End Class
 
 End Namespace

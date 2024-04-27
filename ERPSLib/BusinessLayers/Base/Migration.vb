@@ -17,6 +17,8 @@
                 AlterTableSysJournalPost_ID10(sqlCon, Nothing)
                 AlterTableForHandleCoAofStock_ID11(sqlCon, Nothing)
                 AlterTableForHandleCoAofStock_ID12(sqlCon, Nothing)
+                CreateTableBPLocation_ID13(sqlCon, Nothing)
+                DevelopARAPForItem_ID14(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -315,6 +317,87 @@
                 "ALTER TABLE traPurchaseOrderCutting ADD TotalDPPRawMaterial DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_TotalDPPRawMaterial DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traPurchaseOrderCuttingDet ADD UnitPriceRawMaterial DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_UnitPriceRawMaterial DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traPurchaseOrderCuttingDet ADD TotalPriceRawMaterial DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_TotalPriceRawMaterial DEFAULT ((0)) " & vbNewLine
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 13
+        Private Shared Sub CreateTableBPLocation_ID13(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 13
+            clsData.Name = "Create Table BP Location"
+            clsData.Scripts =
+"CREATE TABLE [dbo].[mstBusinessPartnerLocation](" & vbNewLine &
+"	[ID] [int] NOT NULL CONSTRAINT [DF_mstBusinessPartnerLocation_ID]  DEFAULT ((0)), " & vbNewLine &
+"	[BPID] [int] NOT NULL CONSTRAINT [DF_mstBusinessPartnerLocation_BPID]  DEFAULT ((0)), " & vbNewLine &
+"	[Address] [varchar](2000) NOT NULL CONSTRAINT [DF_mstBusinessPartnerLocation_Address]  DEFAULT (''), " & vbNewLine &
+"	[IsDefault] [bit] NOT NULL CONSTRAINT [DF_mstBusinessPartnerLocation_IsDefault]  DEFAULT ((0)), " & vbNewLine &
+"	[StatusID] [int] NOT NULL CONSTRAINT [DF_mstBusinessPartnerLocation_StatusID]  DEFAULT ((0)), " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_mstBusinessPartnerLocation_Remarks]  DEFAULT (''), " & vbNewLine &
+"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_mstBusinessPartnerLocation_CreatedBy]  DEFAULT (''), " & vbNewLine &
+"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_mstBusinessPartnerLocation_CreatedDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_mstBusinessPartnerLocation_LogBy]  DEFAULT (''), " & vbNewLine &
+"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_mstBusinessPartnerLocation_LogDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[LogInc] [int] NOT NULL CONSTRAINT [DF_mstBusinessPartnerLocation_LogInc]  DEFAULT ((0)), " & vbNewLine &
+"   CONSTRAINT [PK_mstBusinessPartnerLocation] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine &
+"" & vbNewLine &
+"ALTER TABLE traSalesContract ADD BPLocationID int NOT NULL CONSTRAINT DF_traSalesContract_BPLocationID DEFAULT ((0)) " & vbNewLine &
+"" & vbNewLine
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 14
+        Private Shared Sub DevelopARAPForItem_ID14(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 14
+            clsData.Name = "Develop ARAP for Item"
+            clsData.Scripts =
+"ALTER TABLE traPurchaseContractDet ADD DPAmount decimal(18,4) NOT NULL CONSTRAINT DF_traPurchaseContractDet_DPAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traReceiveDet ADD DPAmount decimal(18,4) NOT NULL CONSTRAINT DF_traReceiveDet_DPAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traReceiveDet ADD ReceiveAmount decimal(18,4) NOT NULL CONSTRAINT DF_traReceiveDet_ReceiveAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCuttingDet ADD DPAmount decimal(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_DPAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCuttingDet ADD ReceiveAmount decimal(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ReceiveAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traCuttingDet ADD DPAmount decimal(18,4) NOT NULL CONSTRAINT DF_traCuttingDet_DPAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traCuttingDet ADD ReceiveAmount decimal(18,4) NOT NULL CONSTRAINT DF_traCuttingDet_ReceiveAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traSalesContractDet ADD DPAmount decimal(18,4) NOT NULL CONSTRAINT DF_traSalesContractDet_DPAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traDeliveryDet ADD DPAmount decimal(18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_DPAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traDeliveryDet ADD ReceiveAmount decimal(18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_ReceiveAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traAccountPayable ADD CompanyBankAccountID1 int NOT NULL CONSTRAINT DF_traAccountPayable_CompanyBankAccountID1 DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traAccountPayable ADD CompanyBankAccountID2 int NOT NULL CONSTRAINT DF_traAccountPayable_CompanyBankAccountID2 DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traAccountPayable ADD OtherExpenses decimal(18,4) NOT NULL CONSTRAINT DF_traAccountPayable_OtherExpenses DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traAccountPayable ADD InvoiceNumberBP varchar(1000) NOT NULL CONSTRAINT DF_traAccountPayable_InvoiceNumberBP DEFAULT ('') " & vbNewLine &
+"ALTER TABLE traAccountReceivable ADD CompanyBankAccountID1 int NOT NULL CONSTRAINT DF_traAccountReceivable_CompanyBankAccountID1 DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traAccountReceivable ADD CompanyBankAccountID2 int NOT NULL CONSTRAINT DF_traAccountReceivable_CompanyBankAccountID2 DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traAccountReceivable ADD OtherExpenses decimal(18,4) NOT NULL CONSTRAINT DF_traAccountReceivable_OtherExpenses DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traAccountReceivable ADD InvoiceNumberBP varchar(1000) NOT NULL CONSTRAINT DF_traAccountReceivable_InvoiceNumberBP DEFAULT ('') " & vbNewLine &
+"CREATE TABLE [dbo].[traARAPItem](" & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPItem_ID]  DEFAULT (''), " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPItem_ParentID]  DEFAULT (''), " & vbNewLine &
+"	[ReferencesID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPItem_ReferencesID]  DEFAULT (''), " & vbNewLine &
+"	[ReferencesDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPItem_ReferencesDetailID]  DEFAULT (''), " & vbNewLine &
+"	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPItem_OrderNumberSupplier]  DEFAULT (''), " & vbNewLine &
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traARAPItem_BPID]  DEFAULT ((0)), " & vbNewLine &
+"	[Amount] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPItem_Amount]  DEFAULT ((0)), " & vbNewLine &
+"	[PPN] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPItem_PPN]  DEFAULT ((0)), " & vbNewLine &
+"	[PPH] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPItem_PPH]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmount] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPItem_DPAmount]  DEFAULT ((0)), " & vbNewLine &
+"	[Rounding] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPItem_Rounding]  DEFAULT ((0)), " & vbNewLine &
+"   CONSTRAINT [PK_traARAPItem] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

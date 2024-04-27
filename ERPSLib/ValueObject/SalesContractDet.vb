@@ -13,5 +13,7 @@
         Property DCQuantity As Decimal
         Property DCWeight As Decimal
         Property Remarks As String
+        Property ReceiveAmount As Decimal
+        Property DPAmount As Decimal
     End Class
 End Namespace

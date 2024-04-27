@@ -219,5 +219,62 @@
 
 #End Region
 
+#Region "Item"
+
+        Public Shared Sub SaveDataItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                       ByVal clsData As VO.ARAPItem)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "INSERT INTO traARAPItem " & vbNewLine &
+                    "   (ID, ParentID, ReferencesID, ReferencesDetailID, OrderNumberSupplier, ItemID, Amount, PPN, PPH, DPAmount, Rounding) " & vbNewLine &
+                    "VALUES " & vbNewLine &
+                    "   (@ID, @ParentID, @ReferencesID, @ReferencesDetailID, @OrderNumberSupplier, @ItemID, @Amount, @PPN, @PPH, @DPAmount, @Rounding) " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
+                .Parameters.Add("@ReferencesID", SqlDbType.VarChar, 100).Value = clsData.ReferencesID
+                .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = clsData.ReferencesDetailID
+                .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = clsData.OrderNumberSupplier
+                .Parameters.Add("@ItemID", SqlDbType.Int).Value = clsData.ItemID
+                .Parameters.Add("@Amount", SqlDbType.Decimal).Value = clsData.Amount
+                .Parameters.Add("@PPN", SqlDbType.Decimal).Value = clsData.PPN
+                .Parameters.Add("@PPH", SqlDbType.Decimal).Value = clsData.PPH
+                .Parameters.Add("@DPAmount", SqlDbType.Decimal).Value = clsData.DPAmount
+                .Parameters.Add("@Rounding", SqlDbType.Decimal).Value = clsData.Rounding
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                       ByVal strParentID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "DELETE traARAPItem  " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ParentID=@ParentID " & vbNewLine
+
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+#End Region
+
     End Class
 End Namespace

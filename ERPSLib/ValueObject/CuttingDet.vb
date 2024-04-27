@@ -11,5 +11,7 @@
         Property Remarks As String
         Property UnitPrice As Decimal
         Property TotalPrice As Decimal
+        Property ReceiveAmount As Decimal
+        Property DPAmount As Decimal
     End Class
 End Namespace

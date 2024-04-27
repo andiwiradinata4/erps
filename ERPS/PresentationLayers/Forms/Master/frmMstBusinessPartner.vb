@@ -8,8 +8,8 @@
 
     Private Const _
        cGet As Byte = 0, cSep1 As Byte = 1, cNew As Byte = 2, cDetail As Byte = 3, cDelete As Byte = 4, cSep2 As Byte = 5,
-       cBankAccount As Byte = 6, cAssign As Byte = 7, cSep3 As Byte = 8, cSetupARBalance As Byte = 9, cSetupAPBalance As Byte = 10,
-       cSep4 As Byte = 11, cRefresh As Byte = 12, cClose As Byte = 13
+       cBankAccount As Byte = 6, cAssign As Byte = 7, cLocation As Byte = 8, cSep3 As Byte = 9, cSetupARBalance As Byte = 10,
+       cSetupAPBalance As Byte = 11, cSep4 As Byte = 12, cRefresh As Byte = 13, cClose As Byte = 14
 
     Private Sub prvSetTitleForm()
         If pubIsLookUp Then
@@ -47,6 +47,7 @@
             .Item(cDelete).Enabled = bolEnable
             .Item(cBankAccount).Enabled = bolEnable
             .Item(cAssign).Enabled = bolEnable
+            .Item(cLocation).Enabled = bolEnable
             .Item(cSetupARBalance).Enabled = bolEnable
             .Item(cSetupAPBalance).Enabled = bolEnable
         End With
@@ -150,6 +151,17 @@
         End With
     End Sub
 
+    Private Sub prvLocation()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim frmDetail As New frmMstBusinessPartnerLocation
+        With frmDetail
+            .pubBPID = grdView.GetRowCellValue(intPos, "ID")
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+        End With
+    End Sub
+
     Private Sub prvSetupARBalance()
         intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
@@ -220,6 +232,7 @@
                 Case ToolBar.Buttons(cDelete).Name : prvDelete()
                 Case ToolBar.Buttons(cBankAccount).Name : prvBankAccount()
                 Case ToolBar.Buttons(cAssign).Name : prvAssign()
+                Case ToolBar.Buttons(cLocation).Name : prvLocation()
                 Case ToolBar.Buttons(cSetupARBalance).Name : prvSetupARBalance()
                 Case ToolBar.Buttons(cSetupAPBalance).Name : prvSetupAPBalance()
             End Select

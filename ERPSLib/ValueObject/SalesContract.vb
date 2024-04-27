@@ -39,6 +39,8 @@
         Property ApprovedDate As DateTime
         Property DPAmount As Decimal
         Property ReceiveAmount As Decimal
+        Property BPLocationID As Integer
+        Property BPLocationAddress As String
         Property Detail As List(Of VO.SalesContractDet)
         Property DetailConfirmationOrder As List(Of VO.SalesContractDetConfirmationOrder)
         Property PaymentTerm As List(Of VO.SalesContractPaymentTerm)

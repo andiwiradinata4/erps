@@ -114,10 +114,10 @@
             UI.usForm.frmMessageBox("Spesifikasi barang tidak valid")
             cboItemSpecification.Focus()
             Exit Sub
-        ElseIf txtUnitPrice.Value <= 0 Then
-            UI.usForm.frmMessageBox("Harga harus lebih besar dari 0")
-            txtQuantity.Focus()
-            Exit Sub
+            'ElseIf txtUnitPrice.Value <= 0 Then
+            '    UI.usForm.frmMessageBox("Harga harus lebih besar dari 0")
+            '    txtQuantity.Focus()
+            '    Exit Sub
         ElseIf txtQuantity.Value <= 0 Then
             UI.usForm.frmMessageBox("Jumlah harus lebih besar dari 0")
             txtQuantity.Focus()

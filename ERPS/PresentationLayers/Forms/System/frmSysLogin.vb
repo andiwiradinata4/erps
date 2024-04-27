@@ -93,6 +93,7 @@
         txtUserID.Focus()
         txtPassword.CharacterCasing = CharacterCasing.Normal
         prvLoadXML()
+        tssVersion.Text = "Versi: " & FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion
     End Sub
 
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click

@@ -189,6 +189,7 @@
     <Compile Include="ValueObject\ARAPDet.vb" />
     <Compile Include="ValueObject\ARAPDP.vb" />
     <Compile Include="ValueObject\ARAPDPDet.vb" />
+    <Compile Include="ValueObject\ARAPItem.vb" />
     <Compile Include="ValueObject\Base\Access.vb" />
     <Compile Include="ValueObject\Base\ChartOfAccount.vb" />
     <Compile Include="ValueObject\Base\ChartOfAccountAssign.vb" />
@@ -225,6 +226,7 @@
     <Compile Include="ValueObject\BusinessPartnerARBalance.vb" />
     <Compile Include="ValueObject\BusinessPartnerAssign.vb" />
     <Compile Include="ValueObject\BusinessPartnerBankAccount.vb" />
+    <Compile Include="ValueObject\BusinessPartnerLocation.vb" />
     <Compile Include="ValueObject\ConfirmationOrder.vb" />
     <Compile Include="ValueObject\ConfirmationOrderDet.vb" />
     <Compile Include="ValueObject\ConfirmationOrderPaymentTerm.vb" />

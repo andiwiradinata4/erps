@@ -112,20 +112,20 @@
 
 #Region "Assign"
 
-        Public Shared Function ListDataAssign(ByVal intCOAID As Integer) As DataTable
+        Public Shared Function ListDataAssign(ByVal intBPID As Integer) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.BusinessPartner.ListDataAssign(sqlCon, Nothing, intCOAID)
+                Return DL.BusinessPartner.ListDataAssign(sqlCon, Nothing, intBPID)
             End Using
         End Function
 
-        Public Shared Function SaveDataAssign(ByVal intCOAID As Integer, ByVal clsDataAll() As VO.BusinessPartnerAssign) As Boolean
+        Public Shared Function SaveDataAssign(ByVal intBPID As Integer, ByVal clsDataAll() As VO.BusinessPartnerAssign) As Boolean
             Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    DL.BusinessPartner.DeleteDataAssign(sqlCon, sqlTrans, intCOAID)
+                    DL.BusinessPartner.DeleteDataAssign(sqlCon, sqlTrans, intBPID)
 
                     For Each clsItem As VO.BusinessPartnerAssign In clsDataAll
                         clsItem.ID = DL.BusinessPartner.GetMaxIDAssign(sqlCon, sqlTrans)
@@ -141,7 +141,7 @@
             Return bolReturn
         End Function
 
-        Public Shared Sub SaveDataAllAssign(ByVal strServer As String, ByVal strDBMS As String, ByVal strUserID As String, ByVal strPassword As String, _
+        Public Shared Sub SaveDataAllAssign(ByVal strServer As String, ByVal strDBMS As String, ByVal strUserID As String, ByVal strPassword As String,
                                             ByVal clsData As VO.BusinessPartnerAssign)
             BL.Server.SetServer(strServer, strDBMS, strUserID, strPassword)
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
@@ -153,6 +153,82 @@
             BL.Server.SetServer(strServer, strDBMS, strUserID, strPassword)
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 DL.BusinessPartner.DeleteDataAllAssign(sqlCon, Nothing)
+            End Using
+        End Sub
+
+#End Region
+
+#Region "Location"
+
+        Public Shared Function ListDataLocation(ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.BusinessPartner.ListDataLocation(sqlCon, Nothing, intBPID)
+            End Using
+        End Function
+
+        Public Shared Function SaveDataLocation(ByVal bolNew As Boolean, ByVal clsData As VO.BusinessPartnerLocation) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    If bolNew Then clsData.ID = DL.BusinessPartner.GetMaxIDLocation(sqlCon, sqlTrans)
+                    If bolNew And DL.BusinessPartner.DataExistsLocation(sqlCon, sqlTrans, clsData.ID) Then
+                        Err.Raise(515, "", "Tidak dapat disimpan. ID sudah ada.")
+                    End If
+
+                    '# Jika set default dari awal maka Sistem akan check apakah data tersebut sebelumnya adalah Not Default
+                    If clsData.IsDefault Then
+                        If bolNew Then
+                            DL.BusinessPartner.RevertIsDefaultLocation(sqlCon, sqlTrans, clsData.BPID)
+                        Else
+                            Dim clsExists As VO.BusinessPartnerLocation = DL.BusinessPartner.GetDetailLocation(sqlCon, sqlTrans, clsData.ID)
+                            If Not clsExists.IsDefault Then DL.BusinessPartner.RevertIsDefaultLocation(sqlCon, sqlTrans, clsData.BPID)
+                        End If
+                    End If
+
+                    '# Jika belum ada row maka Default akan tercentang
+                    Dim dtData As DataTable = DL.BusinessPartner.ListDataLocation(sqlCon, sqlTrans, clsData.BPID)
+                    If dtData.Rows.Count = 0 Then clsData.IsDefault = 1
+
+                    DL.BusinessPartner.SaveDataLocation(sqlCon, sqlTrans, bolNew, clsData)
+
+                    sqlTrans.Commit()
+                    bolReturn = True
+                Catch ex As Exception
+                    Throw ex
+                    sqlTrans.Rollback()
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function GetDetailLocation(ByVal intID As Integer) As VO.BusinessPartnerLocation
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.BusinessPartner.GetDetailLocation(sqlCon, Nothing, intID)
+            End Using
+        End Function
+
+        Public Shared Function GetDetailLocation(ByVal intBPID As Integer, ByVal bolIsDefault As Boolean) As VO.BusinessPartnerLocation
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.BusinessPartner.GetDetailLocation(sqlCon, Nothing, intBPID, bolIsDefault)
+            End Using
+        End Function
+
+        Public Shared Sub DeleteDataLocation(ByVal intID As Integer)
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                DL.BusinessPartner.DeleteDataLocation(sqlCon, Nothing, intID)
+            End Using
+        End Sub
+
+        Public Shared Sub DeleteDataAllLocation(ByVal strServer As String, ByVal strDBMS As String, ByVal strUserID As String, ByVal strPassword As String)
+            BL.Server.SetServer(strServer, strDBMS, strUserID, strPassword)
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                DL.BusinessPartner.DeleteDataAllLocation(sqlCon, Nothing)
             End Using
         End Sub
 
