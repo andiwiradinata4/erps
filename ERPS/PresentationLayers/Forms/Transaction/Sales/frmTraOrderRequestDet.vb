@@ -77,7 +77,7 @@ Public Class frmTraOrderRequestDet
 
     Private Sub prvFillForm()
         pgMain.Value = 30
-        Application.DoEvents()
+
         Me.Cursor = Cursors.WaitCursor
         prvFillCombo()
         Try
@@ -112,7 +112,7 @@ Public Class frmTraOrderRequestDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -147,7 +147,7 @@ Public Class frmTraOrderRequestDet
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
 
         Dim listDetail As New List(Of VO.OrderRequestDet)
         For Each dr As DataRow In dtItem.Rows
@@ -188,13 +188,13 @@ Public Class frmTraOrderRequestDet
         clsData.Save = intSave
 
         pgMain.Value = 60
-        Application.DoEvents()
+
 
         Try
             Dim strOrderNumber As String = BL.OrderRequest.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strOrderNumber)
             pgMain.Value = 80
-            Application.DoEvents()
+
             frmParent.pubRefresh(strOrderNumber)
             If pubIsNew Then
                 prvClear()
@@ -207,7 +207,7 @@ Public Class frmTraOrderRequestDet
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -293,7 +293,7 @@ Public Class frmTraOrderRequestDet
     Private Sub prvQueryItem()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
         Try
             dtItem = BL.OrderRequest.ListDataDetail(pubID.Trim)
             grdItem.DataSource = dtItem
@@ -305,7 +305,7 @@ Public Class frmTraOrderRequestDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvSetButtonItem()
             prvResetProgressBar()
         End Try
@@ -358,7 +358,7 @@ Public Class frmTraOrderRequestDet
     Private Sub prvQueryHistory()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
         Try
             grdStatus.DataSource = BL.OrderRequest.ListDataStatus(pubID.Trim)
         Catch ex As Exception
@@ -366,7 +366,7 @@ Public Class frmTraOrderRequestDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub

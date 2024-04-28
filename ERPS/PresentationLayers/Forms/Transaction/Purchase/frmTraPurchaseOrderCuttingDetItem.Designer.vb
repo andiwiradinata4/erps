@@ -25,6 +25,9 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraPurchaseOrderCuttingDetItem))
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.txtTotalPriceRawMaterial = New ERPS.usNumeric()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtUnitPriceRawMaterial = New ERPS.usNumeric()
@@ -70,10 +73,8 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.Label19 = New System.Windows.Forms.Label()
-        Me.txtTotalPriceRawMaterial = New ERPS.usNumeric()
         Me.pnlDetail.SuspendLayout()
+        CType(Me.txtTotalPriceRawMaterial, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtUnitPriceRawMaterial, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -84,7 +85,6 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         CType(Me.txtThick, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtMaxTotalWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtTotalPriceRawMaterial, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblInfo
@@ -153,6 +153,42 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.pnlDetail.Name = "pnlDetail"
         Me.pnlDetail.Size = New System.Drawing.Size(693, 401)
         Me.pnlDetail.TabIndex = 2
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.BackColor = System.Drawing.Color.Transparent
+        Me.Label18.ForeColor = System.Drawing.Color.Black
+        Me.Label18.Location = New System.Drawing.Point(341, 290)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(19, 13)
+        Me.Label18.TabIndex = 195
+        Me.Label18.Text = "Kg"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.BackColor = System.Drawing.Color.Transparent
+        Me.Label19.ForeColor = System.Drawing.Color.Black
+        Me.Label19.Location = New System.Drawing.Point(31, 290)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(100, 13)
+        Me.Label19.TabIndex = 194
+        Me.Label19.Text = "Total Harga Barang"
+        '
+        'txtTotalPriceRawMaterial
+        '
+        Me.txtTotalPriceRawMaterial.BackColor = System.Drawing.Color.Azure
+        Me.txtTotalPriceRawMaterial.DecimalPlaces = 2
+        Me.txtTotalPriceRawMaterial.Enabled = False
+        Me.txtTotalPriceRawMaterial.Location = New System.Drawing.Point(166, 286)
+        Me.txtTotalPriceRawMaterial.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalPriceRawMaterial.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalPriceRawMaterial.Name = "txtTotalPriceRawMaterial"
+        Me.txtTotalPriceRawMaterial.Size = New System.Drawing.Size(170, 21)
+        Me.txtTotalPriceRawMaterial.TabIndex = 193
+        Me.txtTotalPriceRawMaterial.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalPriceRawMaterial.ThousandsSeparator = True
         '
         'Label5
         '
@@ -291,7 +327,6 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         '
         'txtQuantity
         '
-        Me.txtQuantity.DecimalPlaces = 2
         Me.txtQuantity.Location = New System.Drawing.Point(477, 150)
         Me.txtQuantity.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtQuantity.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
@@ -628,7 +663,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         'txtWeight
         '
         Me.txtWeight.BackColor = System.Drawing.Color.White
-        Me.txtWeight.DecimalPlaces = 4
+        Me.txtWeight.DecimalPlaces = 1
         Me.txtWeight.Location = New System.Drawing.Point(166, 205)
         Me.txtWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
@@ -662,42 +697,6 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.BarClose.Tag = "Close"
         Me.BarClose.Text = "Tutup"
         '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.BackColor = System.Drawing.Color.Transparent
-        Me.Label18.ForeColor = System.Drawing.Color.Black
-        Me.Label18.Location = New System.Drawing.Point(341, 290)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(19, 13)
-        Me.Label18.TabIndex = 195
-        Me.Label18.Text = "Kg"
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.BackColor = System.Drawing.Color.Transparent
-        Me.Label19.ForeColor = System.Drawing.Color.Black
-        Me.Label19.Location = New System.Drawing.Point(31, 290)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(100, 13)
-        Me.Label19.TabIndex = 194
-        Me.Label19.Text = "Total Harga Barang"
-        '
-        'txtTotalPriceRawMaterial
-        '
-        Me.txtTotalPriceRawMaterial.BackColor = System.Drawing.Color.Azure
-        Me.txtTotalPriceRawMaterial.DecimalPlaces = 2
-        Me.txtTotalPriceRawMaterial.Enabled = False
-        Me.txtTotalPriceRawMaterial.Location = New System.Drawing.Point(166, 286)
-        Me.txtTotalPriceRawMaterial.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtTotalPriceRawMaterial.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalPriceRawMaterial.Name = "txtTotalPriceRawMaterial"
-        Me.txtTotalPriceRawMaterial.Size = New System.Drawing.Size(170, 21)
-        Me.txtTotalPriceRawMaterial.TabIndex = 193
-        Me.txtTotalPriceRawMaterial.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalPriceRawMaterial.ThousandsSeparator = True
-        '
         'frmTraPurchaseOrderCuttingDetItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -714,6 +713,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.Text = "Barang"
         Me.pnlDetail.ResumeLayout(False)
         Me.pnlDetail.PerformLayout()
+        CType(Me.txtTotalPriceRawMaterial, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtUnitPriceRawMaterial, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).EndInit()
@@ -724,7 +724,6 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         CType(Me.txtThick, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtMaxTotalWeight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtTotalPriceRawMaterial, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

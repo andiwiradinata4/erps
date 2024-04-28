@@ -51,8 +51,8 @@ Public Class frmTraPurchaseOrderDet
         UI.usForm.SetGrid(grdItemView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
-        UI.usForm.SetGrid(grdItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemView, "Quantity", "Quantity", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal1Num)
         UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
@@ -78,7 +78,7 @@ Public Class frmTraPurchaseOrderDet
 
     Private Sub prvFillForm()
         pgMain.Value = 30
-        Application.DoEvents()
+
         Me.Cursor = Cursors.WaitCursor
         prvFillCombo()
         Try
@@ -108,7 +108,7 @@ Public Class frmTraPurchaseOrderDet
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
 
-                dtpPODate.Enabled = False
+                'dtpPODate.Enabled = False
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
             End If
         Catch ex As Exception
@@ -117,7 +117,7 @@ Public Class frmTraPurchaseOrderDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -162,7 +162,7 @@ Public Class frmTraPurchaseOrderDet
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
 
         Dim listDetail As New List(Of VO.PurchaseOrderDet)
         For Each dr As DataRow In dtItem.Rows
@@ -200,7 +200,7 @@ Public Class frmTraPurchaseOrderDet
         clsData.PersonInCharge = txtPersonInCharge.Text.Trim
         clsData.DeliveryPeriodFrom = dtpDeliveryPeriodFrom.Value.Date
         clsData.DeliveryPeriodTo = dtpDeliveryPeriodTo.Value.Date
-        clsData.DeliveryAddress = txtDeliveryAddress.Text.Trim
+        clsData.DeliveryAddress = txtDeliveryAddress.Text.Trim.ToUpper
         clsData.Validity = txtValidity.Text.Trim
         clsData.PPN = txtPPN.Value
         clsData.PPH = txtPPH.Value
@@ -210,7 +210,7 @@ Public Class frmTraPurchaseOrderDet
         clsData.TotalPPN = txtTotalPPN.Value
         clsData.TotalPPH = txtTotalPPH.Value
         clsData.RoundingManual = 0
-        clsData.Remarks = txtRemarks.Text.Trim
+        clsData.Remarks = txtRemarks.Text.Trim.ToUpper
         clsData.StatusID = cboStatus.SelectedValue
         clsData.Detail = listDetail
         clsData.PaymentTerm = listPaymentTerm
@@ -218,13 +218,13 @@ Public Class frmTraPurchaseOrderDet
         clsData.Save = intSave
 
         pgMain.Value = 60
-        Application.DoEvents()
+
 
         Try
             Dim strPONumber As String = BL.PurchaseOrder.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strPONumber)
             pgMain.Value = 80
-            Application.DoEvents()
+
             frmParent.pubRefresh(strPONumber)
             If pubIsNew Then
                 prvClear()
@@ -237,7 +237,7 @@ Public Class frmTraPurchaseOrderDet
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -329,7 +329,7 @@ Public Class frmTraPurchaseOrderDet
     Private Sub prvQueryItem()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
         Try
             dtItem = BL.PurchaseOrder.ListDataDetail(pubID.Trim)
             grdItemOrder.DataSource = dtItem
@@ -341,7 +341,7 @@ Public Class frmTraPurchaseOrderDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvSetButtonItem()
             prvResetProgressBar()
         End Try
@@ -394,7 +394,7 @@ Public Class frmTraPurchaseOrderDet
     Private Sub prvQueryHistory()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
         Try
             grdStatus.DataSource = BL.PurchaseOrder.ListDataStatus(pubID.Trim)
         Catch ex As Exception
@@ -402,7 +402,7 @@ Public Class frmTraPurchaseOrderDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub

@@ -643,6 +643,7 @@
                     "		FROM traAccountPayable APH " & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			APH.ReferencesID=@ID 	" & vbNewLine &
+                    "			AND APH.Modules=@Modules 	" & vbNewLine &
                     "			AND APH.IsDeleted=0 	" & vbNewLine &
                     "	) " & vbNewLine &
                     "WHERE ID=@ID " & vbNewLine

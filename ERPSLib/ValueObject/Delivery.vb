@@ -36,6 +36,11 @@
         Property TotalPaymentTransport As Decimal
         Property JournalIDTransport As String
         Property TotalCostRawMaterial As Decimal
+        Property TransporterID As Integer
+        Property PPNTransport As Decimal
+        Property PPHTransport As Decimal
+        Property IsFreePPNTransport As Decimal
+        Property IsFreePPHTransport As Decimal
         Property Detail As List(Of VO.DeliveryDet)
         Property DeliveryTransport As List(Of VO.DeliveryTransport)
         Property DetailTransport As List(Of VO.DeliveryDetTransport)

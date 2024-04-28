@@ -31,7 +31,6 @@ Partial Class frmTraPurchaseOrderDet
         Me.tpMain = New System.Windows.Forms.TabPage()
         Me.txtValidity = New ERPS.usTextBox()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.txtDeliveryAddress = New ERPS.usTextBox()
         Me.Label22 = New System.Windows.Forms.Label()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.dtpDeliveryPeriodTo = New System.Windows.Forms.DateTimePicker()
@@ -40,7 +39,6 @@ Partial Class frmTraPurchaseOrderDet
         Me.txtPersonInCharge = New ERPS.usTextBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.txtRemarks = New ERPS.usTextBox()
         Me.cboStatus = New ERPS.usComboBox()
         Me.lblStatusID = New System.Windows.Forms.Label()
         Me.dtpPODate = New System.Windows.Forms.DateTimePicker()
@@ -87,6 +85,8 @@ Partial Class frmTraPurchaseOrderDet
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.txtDeliveryAddress = New ERPS.usTextBox()
+        Me.txtRemarks = New ERPS.usTextBox()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         Me.tpAmount.SuspendLayout()
@@ -161,9 +161,10 @@ Partial Class frmTraPurchaseOrderDet
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.txtRemarks)
+        Me.tpMain.Controls.Add(Me.txtDeliveryAddress)
         Me.tpMain.Controls.Add(Me.txtValidity)
         Me.tpMain.Controls.Add(Me.Label23)
-        Me.tpMain.Controls.Add(Me.txtDeliveryAddress)
         Me.tpMain.Controls.Add(Me.Label22)
         Me.tpMain.Controls.Add(Me.Label21)
         Me.tpMain.Controls.Add(Me.dtpDeliveryPeriodTo)
@@ -172,7 +173,6 @@ Partial Class frmTraPurchaseOrderDet
         Me.tpMain.Controls.Add(Me.txtPersonInCharge)
         Me.tpMain.Controls.Add(Me.Label19)
         Me.tpMain.Controls.Add(Me.Label13)
-        Me.tpMain.Controls.Add(Me.txtRemarks)
         Me.tpMain.Controls.Add(Me.cboStatus)
         Me.tpMain.Controls.Add(Me.lblStatusID)
         Me.tpMain.Controls.Add(Me.dtpPODate)
@@ -211,16 +211,6 @@ Partial Class frmTraPurchaseOrderDet
         Me.Label23.Size = New System.Drawing.Size(41, 13)
         Me.Label23.TabIndex = 140
         Me.Label23.Text = "Validity"
-        '
-        'txtDeliveryAddress
-        '
-        Me.txtDeliveryAddress.BackColor = System.Drawing.Color.White
-        Me.txtDeliveryAddress.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtDeliveryAddress.Location = New System.Drawing.Point(141, 151)
-        Me.txtDeliveryAddress.MaxLength = 250
-        Me.txtDeliveryAddress.Name = "txtDeliveryAddress"
-        Me.txtDeliveryAddress.Size = New System.Drawing.Size(249, 21)
-        Me.txtDeliveryAddress.TabIndex = 8
         '
         'Label22
         '
@@ -310,17 +300,6 @@ Partial Class frmTraPurchaseOrderDet
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 129
         Me.Label13.Text = "Keterangan"
-        '
-        'txtRemarks
-        '
-        Me.txtRemarks.BackColor = System.Drawing.Color.White
-        Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(573, 71)
-        Me.txtRemarks.MaxLength = 250
-        Me.txtRemarks.Multiline = True
-        Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 11
         '
         'cboStatus
         '
@@ -845,6 +824,23 @@ Partial Class frmTraPurchaseOrderDet
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
         '
+        'txtDeliveryAddress
+        '
+        Me.txtDeliveryAddress.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtDeliveryAddress.Location = New System.Drawing.Point(141, 151)
+        Me.txtDeliveryAddress.Name = "txtDeliveryAddress"
+        Me.txtDeliveryAddress.Size = New System.Drawing.Size(249, 21)
+        Me.txtDeliveryAddress.TabIndex = 8
+        '
+        'txtRemarks
+        '
+        Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtRemarks.Location = New System.Drawing.Point(573, 71)
+        Me.txtRemarks.Multiline = True
+        Me.txtRemarks.Name = "txtRemarks"
+        Me.txtRemarks.Size = New System.Drawing.Size(249, 47)
+        Me.txtRemarks.TabIndex = 11
+        '
         'frmTraPurchaseOrderDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -898,7 +894,6 @@ Partial Class frmTraPurchaseOrderDet
     Friend WithEvents tcHeader As System.Windows.Forms.TabControl
     Friend WithEvents tpMain As System.Windows.Forms.TabPage
     Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents txtRemarks As ERPS.usTextBox
     Friend WithEvents cboStatus As ERPS.usComboBox
     Friend WithEvents lblStatusID As System.Windows.Forms.Label
     Friend WithEvents dtpPODate As System.Windows.Forms.DateTimePicker
@@ -945,7 +940,6 @@ Partial Class frmTraPurchaseOrderDet
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents txtValidity As ERPS.usTextBox
     Friend WithEvents Label23 As System.Windows.Forms.Label
-    Friend WithEvents txtDeliveryAddress As ERPS.usTextBox
     Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents dtpDeliveryPeriodTo As System.Windows.Forms.DateTimePicker
@@ -955,4 +949,6 @@ Partial Class frmTraPurchaseOrderDet
     Friend WithEvents BarAddItemOrder As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarDetailItemOrder As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarDeleteItemOrder As System.Windows.Forms.ToolBarButton
+    Friend WithEvents txtDeliveryAddress As usTextBox
+    Friend WithEvents txtRemarks As usTextBox
 End Class

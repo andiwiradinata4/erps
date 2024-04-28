@@ -56,8 +56,8 @@ Public Class frmTraCuttingDet
         UI.usForm.SetGrid(grdItemView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
-        UI.usForm.SetGrid(grdItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemView, "Quantity", "Quantity", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal1Num)
         UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
@@ -104,7 +104,7 @@ Public Class frmTraCuttingDet
 
     Private Sub prvFillForm()
         pgMain.Value = 30
-        Application.DoEvents()
+
         Me.Cursor = Cursors.WaitCursor
         prvFillCombo()
         Try
@@ -135,7 +135,7 @@ Public Class frmTraCuttingDet
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
 
-                dtpCuttingDate.Enabled = False
+                'dtpCuttingDate.Enabled = False
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -143,7 +143,7 @@ Public Class frmTraCuttingDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -188,7 +188,7 @@ Public Class frmTraCuttingDet
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
 
         Dim listDetail As New List(Of VO.CuttingDet)
         For Each dr As DataRow In dtItem.Rows
@@ -246,13 +246,13 @@ Public Class frmTraCuttingDet
         clsData.Save = intSave
 
         pgMain.Value = 60
-        Application.DoEvents()
+
 
         Try
             Dim strCuttingNumber As String = BL.Cutting.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strCuttingNumber)
             pgMain.Value = 80
-            Application.DoEvents()
+
             frmParent.pubRefresh(strCuttingNumber)
             If pubIsNew Then
                 prvClear()
@@ -267,7 +267,7 @@ Public Class frmTraCuttingDet
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -547,7 +547,7 @@ Public Class frmTraCuttingDet
     Private Sub prvQueryItemResult()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
         Try
             dtItemResult = BL.Cutting.ListDataDetailResult(pubID.Trim)
             grdItemResult.DataSource = dtItemResult
@@ -560,7 +560,7 @@ Public Class frmTraCuttingDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvSetButtonItem()
             prvResetProgressBar()
         End Try
@@ -573,7 +573,7 @@ Public Class frmTraCuttingDet
     Private Sub prvQueryHistory()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
         Try
             grdStatus.DataSource = BL.Cutting.ListDataStatus(pubID.Trim)
         Catch ex As Exception
@@ -581,7 +581,7 @@ Public Class frmTraCuttingDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub

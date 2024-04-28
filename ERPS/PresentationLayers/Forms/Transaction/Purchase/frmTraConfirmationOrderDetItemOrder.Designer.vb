@@ -332,7 +332,6 @@ Partial Class frmTraConfirmationOrderDetItemOrder
         'txtUnitPrice
         '
         Me.txtUnitPrice.BackColor = System.Drawing.Color.White
-        Me.txtUnitPrice.DecimalPlaces = 2
         Me.txtUnitPrice.Location = New System.Drawing.Point(465, 122)
         Me.txtUnitPrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtUnitPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
@@ -458,7 +457,7 @@ Partial Class frmTraConfirmationOrderDetItemOrder
         'txtWeight
         '
         Me.txtWeight.BackColor = System.Drawing.Color.White
-        Me.txtWeight.DecimalPlaces = 4
+        Me.txtWeight.DecimalPlaces = 1
         Me.txtWeight.Location = New System.Drawing.Point(133, 204)
         Me.txtWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})

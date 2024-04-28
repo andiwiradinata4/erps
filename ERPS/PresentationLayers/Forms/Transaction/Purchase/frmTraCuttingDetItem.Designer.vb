@@ -28,6 +28,12 @@ Partial Class frmTraCuttingDetItem
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.txtTotalPrice = New ERPS.usNumeric()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.txtUnitPrice = New ERPS.usNumeric()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtPONumber = New ERPS.usTextBox()
         Me.txtLength = New ERPS.usNumeric()
@@ -70,13 +76,9 @@ Partial Class frmTraCuttingDetItem
         Me.grdItemResultView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.txtUnitPrice = New ERPS.usNumeric()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.txtTotalPrice = New ERPS.usNumeric()
         Me.pnlDetail.SuspendLayout()
+        CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtUnitPrice, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtThick, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -88,8 +90,6 @@ Partial Class frmTraCuttingDetItem
         CType(Me.grdItemResultView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtUnitPrice, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -176,6 +176,78 @@ Partial Class frmTraCuttingDetItem
         Me.pnlDetail.Name = "pnlDetail"
         Me.pnlDetail.Size = New System.Drawing.Size(652, 330)
         Me.pnlDetail.TabIndex = 2
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.BackColor = System.Drawing.Color.Transparent
+        Me.Label24.ForeColor = System.Drawing.Color.Black
+        Me.Label24.Location = New System.Drawing.Point(593, 210)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(19, 13)
+        Me.Label24.TabIndex = 192
+        Me.Label24.Text = "Kg"
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.BackColor = System.Drawing.Color.Transparent
+        Me.Label25.ForeColor = System.Drawing.Color.Black
+        Me.Label25.Location = New System.Drawing.Point(342, 210)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(63, 13)
+        Me.Label25.TabIndex = 191
+        Me.Label25.Text = "Total Harga"
+        '
+        'txtTotalPrice
+        '
+        Me.txtTotalPrice.BackColor = System.Drawing.Color.Azure
+        Me.txtTotalPrice.DecimalPlaces = 2
+        Me.txtTotalPrice.Enabled = False
+        Me.txtTotalPrice.Location = New System.Drawing.Point(429, 206)
+        Me.txtTotalPrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalPrice.Name = "txtTotalPrice"
+        Me.txtTotalPrice.Size = New System.Drawing.Size(160, 21)
+        Me.txtTotalPrice.TabIndex = 15
+        Me.txtTotalPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalPrice.ThousandsSeparator = True
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.BackColor = System.Drawing.Color.Transparent
+        Me.Label17.ForeColor = System.Drawing.Color.Black
+        Me.Label17.Location = New System.Drawing.Point(595, 129)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(19, 13)
+        Me.Label17.TabIndex = 189
+        Me.Label17.Text = "Kg"
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.BackColor = System.Drawing.Color.Transparent
+        Me.Label14.ForeColor = System.Drawing.Color.Black
+        Me.Label14.Location = New System.Drawing.Point(369, 129)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(36, 13)
+        Me.Label14.TabIndex = 188
+        Me.Label14.Text = "Harga"
+        '
+        'txtUnitPrice
+        '
+        Me.txtUnitPrice.BackColor = System.Drawing.Color.Azure
+        Me.txtUnitPrice.DecimalPlaces = 2
+        Me.txtUnitPrice.Enabled = False
+        Me.txtUnitPrice.Location = New System.Drawing.Point(429, 125)
+        Me.txtUnitPrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtUnitPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtUnitPrice.Name = "txtUnitPrice"
+        Me.txtUnitPrice.Size = New System.Drawing.Size(160, 21)
+        Me.txtUnitPrice.TabIndex = 12
+        Me.txtUnitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtUnitPrice.ThousandsSeparator = True
         '
         'Label4
         '
@@ -290,7 +362,6 @@ Partial Class frmTraCuttingDetItem
         '
         'txtQuantity
         '
-        Me.txtQuantity.DecimalPlaces = 2
         Me.txtQuantity.Location = New System.Drawing.Point(429, 152)
         Me.txtQuantity.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtQuantity.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
@@ -424,7 +495,7 @@ Partial Class frmTraCuttingDetItem
         'txtWeight
         '
         Me.txtWeight.BackColor = System.Drawing.Color.Azure
-        Me.txtWeight.DecimalPlaces = 4
+        Me.txtWeight.DecimalPlaces = 1
         Me.txtWeight.Enabled = False
         Me.txtWeight.Location = New System.Drawing.Point(133, 206)
         Me.txtWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
@@ -648,78 +719,6 @@ Partial Class frmTraCuttingDetItem
         Me.GridView1.GridControl = Me.grdItemResult
         Me.GridView1.Name = "GridView1"
         '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.BackColor = System.Drawing.Color.Transparent
-        Me.Label17.ForeColor = System.Drawing.Color.Black
-        Me.Label17.Location = New System.Drawing.Point(595, 129)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(19, 13)
-        Me.Label17.TabIndex = 189
-        Me.Label17.Text = "Kg"
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.ForeColor = System.Drawing.Color.Black
-        Me.Label14.Location = New System.Drawing.Point(369, 129)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(36, 13)
-        Me.Label14.TabIndex = 188
-        Me.Label14.Text = "Harga"
-        '
-        'txtUnitPrice
-        '
-        Me.txtUnitPrice.BackColor = System.Drawing.Color.Azure
-        Me.txtUnitPrice.DecimalPlaces = 2
-        Me.txtUnitPrice.Enabled = False
-        Me.txtUnitPrice.Location = New System.Drawing.Point(429, 125)
-        Me.txtUnitPrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtUnitPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtUnitPrice.Name = "txtUnitPrice"
-        Me.txtUnitPrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtUnitPrice.TabIndex = 12
-        Me.txtUnitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtUnitPrice.ThousandsSeparator = True
-        '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.BackColor = System.Drawing.Color.Transparent
-        Me.Label24.ForeColor = System.Drawing.Color.Black
-        Me.Label24.Location = New System.Drawing.Point(593, 210)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(19, 13)
-        Me.Label24.TabIndex = 192
-        Me.Label24.Text = "Kg"
-        '
-        'Label25
-        '
-        Me.Label25.AutoSize = True
-        Me.Label25.BackColor = System.Drawing.Color.Transparent
-        Me.Label25.ForeColor = System.Drawing.Color.Black
-        Me.Label25.Location = New System.Drawing.Point(342, 210)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(63, 13)
-        Me.Label25.TabIndex = 191
-        Me.Label25.Text = "Total Harga"
-        '
-        'txtTotalPrice
-        '
-        Me.txtTotalPrice.BackColor = System.Drawing.Color.Azure
-        Me.txtTotalPrice.DecimalPlaces = 2
-        Me.txtTotalPrice.Enabled = False
-        Me.txtTotalPrice.Location = New System.Drawing.Point(429, 206)
-        Me.txtTotalPrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtTotalPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalPrice.Name = "txtTotalPrice"
-        Me.txtTotalPrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalPrice.TabIndex = 15
-        Me.txtTotalPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalPrice.ThousandsSeparator = True
-        '
         'frmTraCuttingDetItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -739,6 +738,8 @@ Partial Class frmTraCuttingDetItem
         Me.Text = "Barang"
         Me.pnlDetail.ResumeLayout(False)
         Me.pnlDetail.PerformLayout()
+        CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtUnitPrice, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtThick, System.ComponentModel.ISupportInitialize).EndInit()
@@ -750,8 +751,6 @@ Partial Class frmTraCuttingDetItem
         CType(Me.grdItemResultView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtUnitPrice, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

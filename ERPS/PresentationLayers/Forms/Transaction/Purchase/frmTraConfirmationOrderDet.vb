@@ -37,7 +37,7 @@ Public Class frmTraConfirmationOrderDet
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
         Me.Cursor = Cursors.Default
-        Application.DoEvents()
+
     End Sub
 
     Private Sub prvSetGrid()
@@ -58,8 +58,8 @@ Public Class frmTraConfirmationOrderDet
         UI.usForm.SetGrid(grdItemView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
-        UI.usForm.SetGrid(grdItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemView, "Quantity", "Quantity", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal1Num)
         UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
@@ -91,7 +91,7 @@ Public Class frmTraConfirmationOrderDet
 
     Private Sub prvFillForm()
         pgMain.Value = 30
-        Application.DoEvents()
+
         Me.Cursor = Cursors.WaitCursor
         prvFillCombo()
         Try
@@ -122,7 +122,7 @@ Public Class frmTraConfirmationOrderDet
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
 
-                dtpCODate.Enabled = False
+                'dtpCODate.Enabled = False
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
             End If
         Catch ex As Exception
@@ -131,7 +131,7 @@ Public Class frmTraConfirmationOrderDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -171,7 +171,7 @@ Public Class frmTraConfirmationOrderDet
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
 
         Dim listDetail As New List(Of VO.ConfirmationOrderDet)
         For Each dr As DataRow In dtItem.Rows
@@ -228,13 +228,13 @@ Public Class frmTraConfirmationOrderDet
         clsData.Save = intSave
 
         pgMain.Value = 60
-        Application.DoEvents()
+
 
         Try
             Dim strCONumber As String = BL.ConfirmationOrder.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strCONumber)
             pgMain.Value = 80
-            Application.DoEvents()
+
             frmParent.pubRefresh(strCONumber)
             If pubIsNew Then
                 prvClear()
@@ -248,7 +248,7 @@ Public Class frmTraConfirmationOrderDet
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -370,7 +370,7 @@ Public Class frmTraConfirmationOrderDet
     Private Sub prvQueryItem()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
         Try
             dtItem = BL.ConfirmationOrder.ListDataDetail(pubID.Trim)
             grdItem.DataSource = dtItem
@@ -382,7 +382,7 @@ Public Class frmTraConfirmationOrderDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvSetButtonItem()
             prvSetupTools()
             prvResetProgressBar()
@@ -450,7 +450,7 @@ Public Class frmTraConfirmationOrderDet
     Private Sub prvQueryHistory()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
         Try
             grdStatus.DataSource = BL.ConfirmationOrder.ListDataStatus(pubID.Trim)
         Catch ex As Exception
@@ -458,7 +458,7 @@ Public Class frmTraConfirmationOrderDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub

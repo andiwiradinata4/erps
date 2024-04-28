@@ -323,11 +323,8 @@ Namespace BL
 
                         '# Save Data Detail
                         Dim clsDet As New List(Of VO.AccountPayableDet)
-                        If clsDataARAP.Modules = VO.AccountPayable.ReceivePayment Or
-                            clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentCutting Or
-                            clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport Then
-                            For Each cls As VO.ARAPDet In clsDataARAP.Detail
-                                clsDet.Add(New VO.AccountPayableDet With
+                        For Each cls As VO.ARAPDet In clsDataARAP.Detail
+                            clsDet.Add(New VO.AccountPayableDet With
                                         {
                                             .ID = "",
                                             .APID = "",
@@ -339,20 +336,7 @@ Namespace BL
                                             .DPAmount = cls.DPAmount,
                                             .Rounding = cls.Rounding
                                         })
-                            Next
-                        Else
-                            clsDet.Add(New VO.AccountPayableDet With
-                                        {
-                                            .ID = "",
-                                            .APID = "",
-                                            .PurchaseID = clsDataARAP.ReferencesID,
-                                            .Amount = clsDataARAP.TotalAmount,
-                                            .PPN = clsDataARAP.TotalPPN,
-                                            .PPH = clsDataARAP.TotalPPH,
-                                            .Remarks = clsDataARAP.Remarks
-                                        })
-                        End If
-
+                        Next
 
                         '# Save Data Header
                         Dim clsData As New VO.AccountPayable
@@ -378,10 +362,11 @@ Namespace BL
                         clsData.ReceiveAmount = clsDataARAP.ReceiveAmount
                         clsData.Detail = clsDet
                         clsData.ARAPDownPayment = clsDataARAP.DownPayment
+                        clsData.ARAPItem = clsDataARAP.DetailItem
                         clsData.LogBy = clsDataARAP.LogBy
                         clsData.Save = clsDataARAP.Save
 
-                        BL.AccountPayable.SaveData(sqlCon, sqlTrans, bolNew, clsData)
+                        BL.AccountPayable.SaveDataVer01(sqlCon, sqlTrans, bolNew, clsData)
 
                         If clsDataARAP.Modules = VO.AccountPayable.DownPaymentCutting Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentCutting Then
                             clsReferences = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
@@ -743,15 +728,14 @@ Namespace BL
 
         End Function
 
-        Public Shared Function ListDataDetailWithOutstandingVer2(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+        Public Shared Function ListDataDetailItemWithOutstandingVer2(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
                                                                  ByVal intBPID As Integer, ByVal strParentID As String,
                                                                  ByVal enumARAPType As VO.ARAP.ARAPTypeValue, ByVal strReferencesID As String) As DataTable
             If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
                 Return BL.AccountReceivable.ListDataDetailWithOutstandingRev01(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
             Else
-                Return BL.AccountPayable.ListDataDetailWithOutstandingRev02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
+                Return BL.AccountPayable.ListDataDetailItemWithOutstandingRev02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
             End If
-
         End Function
 
 #End Region

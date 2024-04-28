@@ -441,12 +441,11 @@ Partial Class frmMstItemDet
         '
         'txtItemCode
         '
-        Me.txtItemCode.BackColor = System.Drawing.Color.LightYellow
+        Me.txtItemCode.BackColor = System.Drawing.Color.White
         Me.txtItemCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtItemCode.Location = New System.Drawing.Point(147, 12)
         Me.txtItemCode.MaxLength = 250
         Me.txtItemCode.Name = "txtItemCode"
-        Me.txtItemCode.ReadOnly = True
         Me.txtItemCode.Size = New System.Drawing.Size(135, 21)
         Me.txtItemCode.TabIndex = 0
         '

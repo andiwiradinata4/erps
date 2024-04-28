@@ -685,7 +685,7 @@
                     .ID = PrevJournal.ID,
                     .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
                     .ReferencesID = clsData.ID,
-                    .JournalDate = IIf(bolNew, clsData.ARDate, PrevJournal.JournalDate),
+                    .JournalDate = clsData.ARDate,
                     .TotalAmount = decTotalAmount,
                     .IsAutoGenerate = True,
                     .StatusID = VO.Status.Values.Draft,

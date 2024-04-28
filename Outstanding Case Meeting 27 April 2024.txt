@@ -14,6 +14,8 @@
 14. Item Delivery harus item kontrak sudah lunas, kecuali ada proses ignore sudah lunas maka item bisa diproses kirim.
 15. Pengiriman berdasarkan Kontrak Penjualan yang sudah di terbit PI (Performa Invoice) atau yang sudah dibayar lunas.
 16. PPN, PPH (Free) Transporter ditentukan di Rekan Bisnis.
+17. Laporan untuk Mengetahui QS dan Item KO ke PI Customer apa saja dan setiap Sales Contract Detail Item harus ada QS nya
+18. Payment Schedule harus input rencana bayar ketika sudah lewat jatuh tempo.
 
 --- Kompensasi
 1. Uang masuk dari KP maka Jurnal Kas / Bank posisi debit dan penjualan (Pendapatan Klaim) / Pendapatan Lainnya ke kredit

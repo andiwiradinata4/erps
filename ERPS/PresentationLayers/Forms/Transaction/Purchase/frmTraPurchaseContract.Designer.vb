@@ -131,7 +131,7 @@ Partial Class frmTraPurchaseContract
         '
         Me.BarDownPayment.Name = "BarDownPayment"
         Me.BarDownPayment.Tag = "Alt"
-        Me.BarDownPayment.Text = "Panjar"
+        Me.BarDownPayment.Text = "Down Payment"
         '
         'BarReceive
         '

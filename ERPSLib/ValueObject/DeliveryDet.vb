@@ -13,5 +13,6 @@
         Property Remarks As String
         Property ReceiveAmount As Decimal
         Property DPAmount As Decimal
+        Property UnitPriceTransport As Decimal
     End Class
 End Namespace

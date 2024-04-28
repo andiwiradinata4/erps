@@ -793,6 +793,26 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailOnly(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                  ByVal strAPID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.PurchaseID AS InvoiceID, A.Amount, " & vbNewLine &
+                    "   A.Remarks, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
+                    "FROM traAccountPayableDet A " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.APID=@APID " & vbNewLine
+
+                .Parameters.Add("@APID", SqlDbType.VarChar, 100).Value = strAPID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Function ListDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                               ByVal strAPID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
@@ -1129,8 +1149,28 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
-        Public Shared Function ListDataDetailRev02(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                   ByVal strAPID As String) As DataTable
+        Public Shared Function ListDataDetailItemOnly(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                      ByVal strAPID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
+                    "   A.ItemID, A.Amount, A.PPN, A.PPH  " & vbNewLine &
+                    "FROM traARAPItem A " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ParentID=@APID " & vbNewLine
+
+                .Parameters.Add("@APID", SqlDbType.VarChar, 100).Value = strAPID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataDetailItemVer01(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                       ByVal strAPID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -1190,9 +1230,9 @@
         End Function
 
         Public Shared Function ListDataDetailWithOutstandingRev01(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                                  ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
-                                                                  ByVal intBPID As Integer, ByVal strAPID As String,
-                                                                  ByVal strReferencesID As String) As DataTable
+                                                                      ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                      ByVal intBPID As Integer, ByVal strAPID As String,
+                                                                      ByVal strReferencesID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -1341,7 +1381,7 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
-        Public Shared Function ListDataDetailWithOutstandingRev02(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+        Public Shared Function ListDataDetailItemWithOutstandingVer01(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                                   ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
                                                                   ByVal intBPID As Integer, ByVal strAPID As String,
                                                                   ByVal strReferencesID As String) As DataTable
@@ -1353,12 +1393,13 @@
                 .CommandText =
                     "SELECT " & vbNewLine &
                     "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
-                    "   A.ItemID, B.TotalPrice AS InvoiceAmount, A.Amount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, " & vbNewLine &
-                    "   B.TotalPrice-B.DPAmount-B.Receive+A.Amount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   A.ItemID, B.TotalPrice AS InvoiceAmount, A.Amount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
+                    "   B.TotalPrice-B.DPAmount-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
                     "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName " & vbNewLine &
                     "FROM traARAPItem A " & vbNewLine &
                     "INNER JOIN traPurchaseContractDet B ON " & vbNewLine &
                     "   A.ReferencesID=B.PCID " & vbNewLine &
+                    "   AND A.ReferencesDetailID=B.ID " & vbNewLine &
                     "INNER JOIN traPurchaseContract C ON " & vbNewLine &
                     "   A.ReferencesID=C.ID " & vbNewLine &
                     "INNER JOIN mstItem MI ON " & vbNewLine &
@@ -1368,14 +1409,14 @@
                     "INNER JOIN mstItemType MIT ON " & vbNewLine &
                     "   MI.ItemTypeID=MIT.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
-                    "   A.APID=@APID " & vbNewLine
+                    "   A.ParentID=@APID " & vbNewLine
 
                 .CommandText +=
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
                     "   CAST(0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.PCID AS ReferencesID, A.ID AS ReferencesDetailID, C.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, A.TotalPrice AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, B.PPN AS PPNPercent, B.PPH AS PPHPercent, " & vbNewLine &
-                    "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, " & vbNewLine &
+                    "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
                     "   A.TotalPrice-A.DPAmount-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
                     "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName " & vbNewLine &
                     "FROM traPurchaseContractDet A " & vbNewLine &
@@ -1390,11 +1431,11 @@
                     "INNER JOIN mstItemType MIT ON " & vbNewLine &
                     "   MI.ItemTypeID=MIT.ID " & vbNewLine &
                     "WHERE  " & vbNewLine &
-                    "   A.BPID=@BPID " & vbNewLine &
-                    "   AND A.CompanyID=@CompanyID " & vbNewLine &
-                    "   AND A.ProgramID=@ProgramID " & vbNewLine &
+                    "   B.BPID=@BPID " & vbNewLine &
+                    "   AND B.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND B.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.PCID=@ReferencesID " & vbNewLine &
-                    "   AND A.ApprovedBy<>'' " & vbNewLine &
+                    "   AND B.ApprovedBy<>'' " & vbNewLine &
                     "   AND A.TotalPrice-A.DPAmount-A.ReceiveAmount>0 " & vbNewLine &
                     "   AND A.ID NOT IN " & vbNewLine &
                     "       ( " & vbNewLine &

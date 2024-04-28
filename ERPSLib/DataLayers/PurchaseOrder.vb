@@ -532,6 +532,32 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDeliveryAddress(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT DISTINCT DeliveryAddress FROM traPurchaseOrder WHERE DeliveryAddress<>'' " & vbNewLine
+
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataRemarks(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT DISTINCT Remarks FROM traPurchaseOrder WHERE Remarks<>'' " & vbNewLine
+
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
 #End Region
 
 #Region "Detail"

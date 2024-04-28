@@ -1,5 +1,4 @@
-﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement.ListView
-
+﻿Imports DevExpress.XtraGrid.Columns
 Public Class frmTraARAPDetVer3
 
 #Region "Property"
@@ -17,6 +16,7 @@ Public Class frmTraARAPDetVer3
     Private clsCS As New VO.CS
     Private decPPN As Decimal = 0, decPPH As Decimal = 0
     Private dtItem As New DataTable
+    Private bolValid As Boolean = True
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -113,7 +113,6 @@ Public Class frmTraARAPDetVer3
         grdItemView.Columns("PPN").ColumnEdit = rpiValue
         grdItemView.Columns("PPH").ColumnEdit = rpiValue
 
-
         '# History
         UI.usForm.SetGrid(grdStatusView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdStatusView, "Status", "Status", 100, UI.usDefGrid.gString)
@@ -158,7 +157,7 @@ Public Class frmTraARAPDetVer3
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
 
-                dtpDPDate.Enabled = False
+                'dtpDPDate.Enabled = False
                 If txtPercentage.Value > 0 Then
                     chkUsePercentage.Checked = True
                     txtPercentage.Enabled = True
@@ -322,6 +321,7 @@ Public Class frmTraARAPDetVer3
             frmParent.pubRefresh(strARAPNumber)
             If bolIsNew Then
                 prvClear()
+                prvQueryItem()
                 prvQueryHistory()
             Else
                 Me.Close()
@@ -386,6 +386,18 @@ Public Class frmTraARAPDetVer3
         ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, IIf(bolIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
     End Sub
 
+    Private Sub prvCalculate()
+        Dim decAmount As Decimal = 0, decPPN As Decimal = 0, decPPH As Decimal = 0
+        For Each dr As DataRow In dtItem.Rows
+            decAmount += dr.Item("Amount")
+            decPPN += dr.Item("PPN") 'ERPSLib.SharedLib.Math.Round(dr.Item("Amount") * dr.Item("PPNPercent") / 100, 2)
+            decPPH += dr.Item("PPH") 'ERPSLib.SharedLib.Math.Round(dr.Item("Amount") * dr.Item("PPHPercent") / 100, 2)
+        Next
+        txtTotalAmount.Value = decAmount
+        txtTotalPPN.Value = decPPN
+        txtTotalPPH.Value = decPPH
+    End Sub
+
 #Region "Item Handle"
 
     Private Sub prvSetButton()
@@ -402,12 +414,12 @@ Public Class frmTraARAPDetVer3
             pgMain.Value = 30
             Me.Cursor = Cursors.WaitCursor
             If bolIsNew Then
-                dtItem = BL.ARAP.ListDataDetailWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID)
+                dtItem = BL.ARAP.ListDataDetailItemWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID)
             Else
                 If clsData.IsDeleted Then
                     dtItem = BL.ARAP.ListDataDetailVer2(strID, enumARAPType)
                 Else
-                    dtItem = BL.ARAP.ListDataDetailWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID)
+                    dtItem = BL.ARAP.ListDataDetailItemWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID)
                 End If
             End If
             grdItem.DataSource = dtItem
@@ -425,50 +437,39 @@ Public Class frmTraARAPDetVer3
 
     Private Sub prvCalculateItem()
         Dim decAmount As Decimal = 0, decPPN As Decimal = 0, decPPH As Decimal = 0
-
-        With grdItemView
-            For i As Integer = 0 To .RowCount - 1
-                If .GetRowCellValue(i, "Pick") Then
-                    If chkUsePercentage.Checked And txtPercentage.Value > 0 Then
-                        Dim decValue As Decimal = ERPSLib.SharedLib.Math.Round(.GetRowCellValue(i, "InvoiceAmount") * txtPercentage.Value / 100, 2)
-                        If decValue > .GetRowCellValue(i, "MaxPaymentAmount") Then decValue = .GetRowCellValue(i, "MaxPaymentAmount")
-                        .SetRowCellValue(i, "Amount", decValue)
-                    Else
-                        .SetRowCellValue(i, "Amount", .GetRowCellValue(i, .GetRowCellValue(i, "MaxPaymentAmount")))
-                    End If
-                Else
-                    .SetRowCellValue(i, "Amount", 0)
-                End If
-                .UpdateCurrentRow()
-            Next
-
-            For i As Integer = 0 To .RowCount - 1
-                If .GetRowCellValue(i, "Amount") > 0 And .GetRowCellValue(i, "PPNPercent") > 0 Then .SetRowCellValue(i, "PPN", ERPSLib.SharedLib.Math.Round(.GetRowCellValue(i, "Amount") * .GetRowCellValue(i, "PPNPercent") / 100, 2)) Else .SetRowCellValue(i, "PPN", 0)
-                If .GetRowCellValue(i, "Amount") > 0 And .GetRowCellValue(i, "PPHPercent") > 0 Then .SetRowCellValue(i, "PPH", ERPSLib.SharedLib.Math.Round(.GetRowCellValue(i, "Amount") * .GetRowCellValue(i, "PPHPercent") / 100, 2)) Else .SetRowCellValue(i, "PPH", 0)
-                .UpdateCurrentRow()
-            Next
-        End With
-
         For Each dr As DataRow In dtItem.Rows
-            decAmount += dr.Item("Amount")
-            decPPN += dr.Item("PPN") 'ERPSLib.SharedLib.Math.Round(dr.Item("Amount") * dr.Item("PPNPercent") / 100, 2)
-            decPPH += dr.Item("PPH") 'ERPSLib.SharedLib.Math.Round(dr.Item("Amount") * dr.Item("PPHPercent") / 100, 2)
+            Dim decValue As Decimal = 0
+            If dr.Item("Pick") Then
+                If chkUsePercentage.Checked And txtPercentage.Value > 0 Then
+                    decValue = ERPSLib.SharedLib.Math.Round(dr.Item("InvoiceAmount") * txtPercentage.Value / 100, 2)
+                    If decValue > dr.Item("MaxPaymentAmount") Then decValue = dr.Item("MaxPaymentAmount")
+                Else
+                    decAmount = dr.Item("MaxPaymentAmount")
+                End If
+            End If
+
+            dr.BeginEdit()
+            dr.Item("Amount") = decValue
+            dr.Item("PPN") = IIf(decValue = 0, 0, ERPSLib.SharedLib.Math.Round(decValue * dr.Item("PPNPercent") / 100, 2))
+            dr.Item("PPH") = IIf(decValue = 0, 0, ERPSLib.SharedLib.Math.Round(decValue * dr.Item("PPHPercent") / 100, 2))
+            dr.EndEdit()
+            dr.AcceptChanges()
         Next
-        txtTotalAmount.Value = decAmount
-        txtTotalPPN.Value = decPPN
-        txtTotalPPH.Value = decPPH
+        grdItem.DataSource = dtItem
+        grdItemView.BestFitColumns()
+
+        prvCalculate()
     End Sub
 
     Private Sub prvChangeCheckedValue(ByVal bolValue As Boolean)
-        With grdItemView
-            For i As Integer = 0 To .RowCount - 1
-                .SetRowCellValue(i, "Pick", bolValue)
-                .UpdateCurrentRow()
-            Next
-            prvCalculateItem()
-            .BestFitColumns()
-            ToolBarDetail.Focus()
-        End With
+        For Each dr As DataRow In dtItem.Rows
+            dr.BeginEdit()
+            dr.Item("Pick") = bolValue
+            dr.EndEdit()
+            dr.AcceptChanges()
+        Next
+        prvCalculateItem()
+        ToolBarDetail.Focus()
     End Sub
 
 #End Region
@@ -515,9 +516,11 @@ Public Class frmTraARAPDetVer3
         prvGetModuleID()
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
+        ToolBarDetail.SetIcon(Me)
         prvSetTitleForm()
         prvSetGrid()
         prvFillForm()
+        prvQueryItem()
         prvQueryHistory()
         prvUserAccess()
         txtDueDateValue.Minimum = 0
@@ -562,6 +565,48 @@ Public Class frmTraARAPDetVer3
             txtTotalAmount.Enabled = True
             txtTotalAmount.BackColor = Color.White
         End If
+    End Sub
+
+    Private Sub grdItemView_ValidatingEditor(sender As Object, e As DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventArgs) Handles grdItemView.ValidatingEditor
+        With grdItemView
+            bolValid = True
+            Dim col As GridColumn = .FocusedColumn
+            Dim intFocus As Integer = .FocusedRowHandle
+            Dim decPPNPercent As Decimal = .GetFocusedRowCellValue("PPNPercent")
+            Dim decPPHPercent As Decimal = .GetFocusedRowCellValue("PPHPercent")
+            If col.Name = "Amount" Then
+                Dim oldValue As Decimal = IIf(.GetFocusedRowCellValue(col).Equals(DBNull.Value), 0, .GetFocusedRowCellValue(col))
+                Dim newValue As Decimal = IIf((e.Value = "") Or (e.Value.Equals(DBNull.Value) Or (e.Value = ".")), 0, e.Value)
+
+                Dim strErrorMessage As String = ""
+                If newValue > 0 And newValue > .GetFocusedRowCellValue("MaxPaymentAmount") Then
+                    bolValid = False
+                    strErrorMessage = "Total tagihan tidak boleh lebih besar dari total maksimal tagihan"
+                    UI.usForm.frmMessageBox(strErrorMessage)
+                End If
+
+                If bolValid = False Then
+                    e.Value = oldValue
+                    e.Valid = False
+                    e.ErrorText = strErrorMessage
+                    .FocusedRowHandle = intFocus
+                    .FocusedColumn = .Columns(col.Name)
+                    .ShowEditor()
+                    Exit Sub
+                Else
+                    .SetRowCellValue(intFocus, col.Name, newValue)
+                    If decPPNPercent > 0 Then .SetRowCellValue(intFocus, "PPN", ERPSLib.SharedLib.Math.Round(newValue * decPPNPercent / 100, 2))
+                    If decPPHPercent > 0 Then .SetRowCellValue(intFocus, "PPH", ERPSLib.SharedLib.Math.Round(newValue * decPPHPercent / 100, 2))
+
+                    .UpdateCurrentRow()
+                    prvCalculate()
+                End If
+            ElseIf col.Name = "Pick" Then
+                .SetRowCellValue(intFocus, col.Name, e.Value)
+                .UpdateCurrentRow()
+                prvCalculateItem()
+            End If
+        End With
     End Sub
 
 #End Region

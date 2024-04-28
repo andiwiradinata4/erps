@@ -361,7 +361,7 @@ Partial Class frmTraARAP
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Query berdasarkan:"
         '
-        'frmTraDownPayment
+        'frmTraARAP
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -371,8 +371,8 @@ Partial Class frmTraARAP
         Me.Controls.Add(Me.ToolBar)
         Me.Controls.Add(Me.pgMain)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.Name = "frmTraDownPayment"
-        Me.Text = "Panjar"
+        Me.Name = "frmTraARAP"
+        Me.Text = "Down Payment"
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()

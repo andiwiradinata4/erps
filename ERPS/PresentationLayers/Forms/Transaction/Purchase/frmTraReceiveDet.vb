@@ -40,10 +40,12 @@ Public Class frmTraReceiveDet
     End Sub
 
     Private Sub prvSetGrid()
-        '# PO Detail
+        '# Re Detail
         UI.usForm.SetGrid(grdItemView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "ReceiveID", "ReceiveID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "PCDetailID", "PCDetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "PCNumber", "Nomor Kontrak", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "PCNumber", "Nomor Kontrak", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
@@ -83,7 +85,7 @@ Public Class frmTraReceiveDet
 
     Private Sub prvFillForm()
         pgMain.Value = 30
-        Application.DoEvents()
+
         Me.Cursor = Cursors.WaitCursor
         prvFillCombo()
         Try
@@ -116,7 +118,7 @@ Public Class frmTraReceiveDet
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
 
-                dtpReceiveDate.Enabled = False
+                'dtpReceiveDate.Enabled = False
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
             End If
         Catch ex As Exception
@@ -125,7 +127,7 @@ Public Class frmTraReceiveDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -165,7 +167,7 @@ Public Class frmTraReceiveDet
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
 
         Dim listDetailOrder As New List(Of VO.ReceiveDet)
         For Each dr As DataRow In dtItem.Rows
@@ -212,13 +214,13 @@ Public Class frmTraReceiveDet
         clsData.Save = intSave
 
         pgMain.Value = 60
-        Application.DoEvents()
+
 
         Try
             Dim strReceiveNumber As String = BL.Receive.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strReceiveNumber)
             pgMain.Value = 80
-            Application.DoEvents()
+
             frmParent.pubRefresh(strReceiveNumber)
             If pubIsNew Then
                 prvClear()
@@ -231,7 +233,7 @@ Public Class frmTraReceiveDet
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -468,7 +470,7 @@ Public Class frmTraReceiveDet
     Private Sub prvQueryHistory()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
         Try
             grdStatus.DataSource = BL.Receive.ListDataStatus(pubID.Trim)
         Catch ex As Exception
@@ -476,7 +478,7 @@ Public Class frmTraReceiveDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub

@@ -45,6 +45,7 @@
         Property Detail As New List(Of VO.AccountPayableDet)
         Property ARAPDownPayment As New List(Of VO.ARAPDP)
         Property ARAPDownPaymentDetail As New List(Of VO.ARAPDPDet)
+        Property ARAPItem As New List(Of VO.ARAPItem)
         Property Save As VO.Save.Action
 
         Public Const All As String = "AP"

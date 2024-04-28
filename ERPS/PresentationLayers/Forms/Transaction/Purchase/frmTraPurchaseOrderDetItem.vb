@@ -244,10 +244,11 @@
         prvChooseItem()
     End Sub
 
-    Private Sub txtNumeric_ValueChanged(sender As Object, e As EventArgs) Handles txtQuantity.ValueChanged, txtUnitPrice.ValueChanged
+    Private Sub txtNumeric_ValueChanged(sender As Object, e As EventArgs) Handles txtQuantity.ValueChanged,
+        txtWeight.ValueChanged, txtUnitPrice.ValueChanged
         prvCalculate()
     End Sub
 
 #End Region
-    
+
 End Class

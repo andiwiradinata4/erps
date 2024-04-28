@@ -766,3 +766,4 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptNeracaVer00.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmMstBusinessPartnerLocation.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmMstBusinessPartnerLocationDet.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPDetVer3.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPVer4.resources

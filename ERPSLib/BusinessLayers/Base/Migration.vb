@@ -19,6 +19,7 @@
                 AlterTableForHandleCoAofStock_ID12(sqlCon, Nothing)
                 CreateTableBPLocation_ID13(sqlCon, Nothing)
                 DevelopARAPForItem_ID14(sqlCon, Nothing)
+                DevelopOnProgress_ID15(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -371,6 +372,12 @@
 "ALTER TABLE traCuttingDet ADD DPAmount decimal(18,4) NOT NULL CONSTRAINT DF_traCuttingDet_DPAmount DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE traCuttingDet ADD ReceiveAmount decimal(18,4) NOT NULL CONSTRAINT DF_traCuttingDet_ReceiveAmount DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE traSalesContractDet ADD DPAmount decimal(18,4) NOT NULL CONSTRAINT DF_traSalesContractDet_DPAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traDelivery ADD TransporterID int NOT NULL CONSTRAINT DF_traDelivery_TransporterID DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traDelivery ADD PPNTransport int NOT NULL CONSTRAINT DF_traDelivery_PPNTransport DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traDelivery ADD PPHTransport int NOT NULL CONSTRAINT DF_traDelivery_PPHTransport DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traDelivery ADD IsFreePPNTransport bit NOT NULL CONSTRAINT DF_traDelivery_IsFreePPNTransport DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traDelivery ADD IsFreePPHTransport bit NOT NULL CONSTRAINT DF_traDelivery_IsFreePPHTransport DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traDeliveryDet ADD UnitPriceTransport decimal(18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_UnitPriceTransport DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE traDeliveryDet ADD DPAmount decimal(18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_DPAmount DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE traDeliveryDet ADD ReceiveAmount decimal(18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_ReceiveAmount DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE traAccountPayable ADD CompanyBankAccountID1 int NOT NULL CONSTRAINT DF_traAccountPayable_CompanyBankAccountID1 DEFAULT ((0)) " & vbNewLine &
@@ -398,6 +405,24 @@
 "   	[ID] ASC" & vbNewLine &
 "   ) " & vbNewLine &
 ") " & vbNewLine
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 15
+        Private Shared Sub DevelopOnProgress_ID15(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 14
+            clsData.Name = "Develop On Progress"
+            clsData.Scripts =
+"ALTER TABLE traReceiveDet ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traReceiveDet_OrderNumberSupplier DEFAULT ('') " & vbNewLine &
+"ALTER TABLE traSalesContractDet ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traSalesContractDet_OrderNumberSupplier DEFAULT ('') " & vbNewLine &
+"ALTER TABLE traDeliveryDet ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traDeliveryDet_OrderNumberSupplier DEFAULT ('') " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCuttingDet ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_OrderNumberSupplier DEFAULT ('') " & vbNewLine &
+"ALTER TABLE traCuttingDet ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traCuttingDet_OrderNumberSupplier DEFAULT ('') " & vbNewLine
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

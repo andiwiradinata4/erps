@@ -124,7 +124,7 @@ Public Class frmTraSalesContractDet
 
     Private Sub prvFillForm()
         pgMain.Value = 30
-        Application.DoEvents()
+
         Me.Cursor = Cursors.WaitCursor
         prvFillCombo()
         Try
@@ -162,7 +162,7 @@ Public Class frmTraSalesContractDet
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
 
-                dtpSCDate.Enabled = False
+                'dtpSCDate.Enabled = False
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
             End If
         Catch ex As Exception
@@ -171,7 +171,7 @@ Public Class frmTraSalesContractDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -256,7 +256,7 @@ Public Class frmTraSalesContractDet
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
 
         Dim listDetail As New List(Of VO.SalesContractDet)
         For Each dr As DataRow In dtItem.Rows
@@ -337,13 +337,13 @@ Public Class frmTraSalesContractDet
         clsData.Save = intSave
 
         pgMain.Value = 60
-        Application.DoEvents()
+
 
         Try
             Dim strSCNumber As String = BL.SalesContract.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strSCNumber)
             pgMain.Value = 80
-            Application.DoEvents()
+
             frmParent.pubRefresh(strSCNumber)
             If pubIsNew Then
                 prvClear()
@@ -359,7 +359,7 @@ Public Class frmTraSalesContractDet
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -529,7 +529,7 @@ Public Class frmTraSalesContractDet
     Private Sub prvQueryItem()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
         Try
             dtItem = BL.SalesContract.ListDataDetail(pubID.Trim)
             grdItem.DataSource = dtItem
@@ -542,7 +542,7 @@ Public Class frmTraSalesContractDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvSetButtonItem()
             prvResetProgressBar()
         End Try
@@ -638,7 +638,7 @@ Public Class frmTraSalesContractDet
     Private Sub prvQueryItemConfirmationOrder()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
         Try
             dtItemConfirmationOrder = BL.SalesContract.ListDataDetailCO(pubID.Trim)
             grdItemCO.DataSource = dtItemConfirmationOrder
@@ -651,7 +651,7 @@ Public Class frmTraSalesContractDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvSetButtonItem()
             prvResetProgressBar()
         End Try
@@ -672,7 +672,7 @@ Public Class frmTraSalesContractDet
     Private Sub prvQueryPaymentTerm()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
         Try
             dtPaymentTerm = BL.SalesContract.ListDataPaymentTerm(pubID.Trim)
             grdPaymentTerm.DataSource = dtPaymentTerm
@@ -684,7 +684,7 @@ Public Class frmTraSalesContractDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvSetButtonPaymentTerm()
             prvResetProgressBar()
         End Try
@@ -735,7 +735,7 @@ Public Class frmTraSalesContractDet
     Private Sub prvQueryHistory()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
         Try
             grdStatus.DataSource = BL.SalesContract.ListDataStatus(pubID.Trim)
         Catch ex As Exception
@@ -743,7 +743,7 @@ Public Class frmTraSalesContractDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub

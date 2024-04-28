@@ -145,9 +145,9 @@ Partial Class frmTraARAPDetVer2
         'pgMain
         '
         Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pgMain.Location = New System.Drawing.Point(0, 624)
+        Me.pgMain.Location = New System.Drawing.Point(0, 603)
         Me.pgMain.Name = "pgMain"
-        Me.pgMain.Size = New System.Drawing.Size(890, 1)
+        Me.pgMain.Size = New System.Drawing.Size(890, 22)
         Me.pgMain.TabIndex = 7
         '
         'tcHeader
@@ -662,7 +662,7 @@ Partial Class frmTraARAPDetVer2
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 602)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 581)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(890, 22)
         Me.StatusStrip.TabIndex = 6
@@ -778,7 +778,7 @@ Partial Class frmTraARAPDetVer2
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
-        Me.grdItem.Size = New System.Drawing.Size(890, 247)
+        Me.grdItem.Size = New System.Drawing.Size(890, 226)
         Me.grdItem.TabIndex = 5
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
