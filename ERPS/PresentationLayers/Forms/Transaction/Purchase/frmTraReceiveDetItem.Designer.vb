@@ -67,6 +67,8 @@ Partial Class frmTraReceiveDetItem
         Me.txtThick = New ERPS.usNumeric()
         Me.txtMaxTotalWeight = New ERPS.usNumeric()
         Me.txtWeight = New ERPS.usNumeric()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.txtOrderNumberSupplier = New ERPS.usTextBox()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -119,6 +121,8 @@ Partial Class frmTraReceiveDetItem
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.Label5)
+        Me.pnlDetail.Controls.Add(Me.txtOrderNumberSupplier)
         Me.pnlDetail.Controls.Add(Me.Label4)
         Me.pnlDetail.Controls.Add(Me.txtPCNumber)
         Me.pnlDetail.Controls.Add(Me.btnPC)
@@ -161,7 +165,7 @@ Partial Class frmTraReceiveDetItem
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlDetail.Location = New System.Drawing.Point(0, 50)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(693, 345)
+        Me.pnlDetail.Size = New System.Drawing.Size(693, 411)
         Me.pnlDetail.TabIndex = 2
         '
         'Label4
@@ -199,7 +203,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label26.AutoSize = True
         Me.Label26.BackColor = System.Drawing.Color.Transparent
         Me.Label26.ForeColor = System.Drawing.Color.Black
-        Me.Label26.Location = New System.Drawing.Point(341, 236)
+        Me.Label26.Location = New System.Drawing.Point(341, 263)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(19, 13)
         Me.Label26.TabIndex = 184
@@ -210,7 +214,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label27.AutoSize = True
         Me.Label27.BackColor = System.Drawing.Color.Transparent
         Me.Label27.ForeColor = System.Drawing.Color.Black
-        Me.Label27.Location = New System.Drawing.Point(31, 236)
+        Me.Label27.Location = New System.Drawing.Point(31, 263)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(91, 13)
         Me.Label27.TabIndex = 183
@@ -221,7 +225,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label24.AutoSize = True
         Me.Label24.BackColor = System.Drawing.Color.Transparent
         Me.Label24.ForeColor = System.Drawing.Color.Black
-        Me.Label24.Location = New System.Drawing.Point(641, 208)
+        Me.Label24.Location = New System.Drawing.Point(641, 235)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(19, 13)
         Me.Label24.TabIndex = 182
@@ -232,7 +236,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label25.AutoSize = True
         Me.Label25.BackColor = System.Drawing.Color.Transparent
         Me.Label25.ForeColor = System.Drawing.Color.Black
-        Me.Label25.Location = New System.Drawing.Point(398, 208)
+        Me.Label25.Location = New System.Drawing.Point(398, 235)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(63, 13)
         Me.Label25.TabIndex = 181
@@ -243,12 +247,12 @@ Partial Class frmTraReceiveDetItem
         Me.txtTotalPrice.BackColor = System.Drawing.Color.Azure
         Me.txtTotalPrice.DecimalPlaces = 2
         Me.txtTotalPrice.Enabled = False
-        Me.txtTotalPrice.Location = New System.Drawing.Point(477, 204)
+        Me.txtTotalPrice.Location = New System.Drawing.Point(477, 231)
         Me.txtTotalPrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPrice.Name = "txtTotalPrice"
         Me.txtTotalPrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalPrice.TabIndex = 14
+        Me.txtTotalPrice.TabIndex = 15
         Me.txtTotalPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPrice.ThousandsSeparator = True
         '
@@ -257,7 +261,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label23.AutoSize = True
         Me.Label23.BackColor = System.Drawing.Color.Transparent
         Me.Label23.ForeColor = System.Drawing.Color.Black
-        Me.Label23.Location = New System.Drawing.Point(421, 154)
+        Me.Label23.Location = New System.Drawing.Point(421, 181)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(40, 13)
         Me.Label23.TabIndex = 180
@@ -266,12 +270,12 @@ Partial Class frmTraReceiveDetItem
         'txtQuantity
         '
         Me.txtQuantity.DecimalPlaces = 2
-        Me.txtQuantity.Location = New System.Drawing.Point(477, 150)
+        Me.txtQuantity.Location = New System.Drawing.Point(477, 177)
         Me.txtQuantity.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtQuantity.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtQuantity.Name = "txtQuantity"
         Me.txtQuantity.Size = New System.Drawing.Size(160, 21)
-        Me.txtQuantity.TabIndex = 12
+        Me.txtQuantity.TabIndex = 13
         Me.txtQuantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtQuantity.ThousandsSeparator = True
         '
@@ -280,7 +284,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label17.AutoSize = True
         Me.Label17.BackColor = System.Drawing.Color.Transparent
         Me.Label17.ForeColor = System.Drawing.Color.Black
-        Me.Label17.Location = New System.Drawing.Point(643, 127)
+        Me.Label17.Location = New System.Drawing.Point(643, 154)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(19, 13)
         Me.Label17.TabIndex = 174
@@ -291,7 +295,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
         Me.Label14.ForeColor = System.Drawing.Color.Black
-        Me.Label14.Location = New System.Drawing.Point(425, 127)
+        Me.Label14.Location = New System.Drawing.Point(425, 154)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(36, 13)
         Me.Label14.TabIndex = 173
@@ -302,12 +306,12 @@ Partial Class frmTraReceiveDetItem
         Me.txtUnitPrice.BackColor = System.Drawing.Color.Azure
         Me.txtUnitPrice.DecimalPlaces = 2
         Me.txtUnitPrice.Enabled = False
-        Me.txtUnitPrice.Location = New System.Drawing.Point(477, 123)
+        Me.txtUnitPrice.Location = New System.Drawing.Point(477, 150)
         Me.txtUnitPrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtUnitPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtUnitPrice.Name = "txtUnitPrice"
         Me.txtUnitPrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtUnitPrice.TabIndex = 11
+        Me.txtUnitPrice.TabIndex = 12
         Me.txtUnitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtUnitPrice.ThousandsSeparator = True
         '
@@ -316,7 +320,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label15.AutoSize = True
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.ForeColor = System.Drawing.Color.Black
-        Me.Label15.Location = New System.Drawing.Point(641, 181)
+        Me.Label15.Location = New System.Drawing.Point(641, 208)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(19, 13)
         Me.Label15.TabIndex = 172
@@ -327,7 +331,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label16.AutoSize = True
         Me.Label16.BackColor = System.Drawing.Color.Transparent
         Me.Label16.ForeColor = System.Drawing.Color.Black
-        Me.Label16.Location = New System.Drawing.Point(401, 181)
+        Me.Label16.Location = New System.Drawing.Point(401, 208)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(60, 13)
         Me.Label16.TabIndex = 171
@@ -338,12 +342,12 @@ Partial Class frmTraReceiveDetItem
         Me.txtTotalWeight.BackColor = System.Drawing.Color.Azure
         Me.txtTotalWeight.DecimalPlaces = 2
         Me.txtTotalWeight.Enabled = False
-        Me.txtTotalWeight.Location = New System.Drawing.Point(477, 177)
+        Me.txtTotalWeight.Location = New System.Drawing.Point(477, 204)
         Me.txtTotalWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalWeight.Name = "txtTotalWeight"
         Me.txtTotalWeight.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalWeight.TabIndex = 13
+        Me.txtTotalWeight.TabIndex = 14
         Me.txtTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalWeight.ThousandsSeparator = True
         '
@@ -352,7 +356,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(31, 262)
+        Me.Label13.Location = New System.Drawing.Point(31, 289)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 170
@@ -362,19 +366,19 @@ Partial Class frmTraReceiveDetItem
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(166, 259)
+        Me.txtRemarks.Location = New System.Drawing.Point(166, 286)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(471, 48)
-        Me.txtRemarks.TabIndex = 15
+        Me.txtRemarks.TabIndex = 16
         '
         'Label12
         '
         Me.Label12.AutoSize = True
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.ForeColor = System.Drawing.Color.Black
-        Me.Label12.Location = New System.Drawing.Point(341, 209)
+        Me.Label12.Location = New System.Drawing.Point(341, 236)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(19, 13)
         Me.Label12.TabIndex = 169
@@ -385,7 +389,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label10.AutoSize = True
         Me.Label10.BackColor = System.Drawing.Color.Transparent
         Me.Label10.ForeColor = System.Drawing.Color.Black
-        Me.Label10.Location = New System.Drawing.Point(341, 181)
+        Me.Label10.Location = New System.Drawing.Point(341, 208)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(23, 13)
         Me.Label10.TabIndex = 167
@@ -396,7 +400,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.ForeColor = System.Drawing.Color.Black
-        Me.Label9.Location = New System.Drawing.Point(341, 154)
+        Me.Label9.Location = New System.Drawing.Point(341, 181)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(23, 13)
         Me.Label9.TabIndex = 166
@@ -407,7 +411,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.ForeColor = System.Drawing.Color.Black
-        Me.Label8.Location = New System.Drawing.Point(341, 127)
+        Me.Label8.Location = New System.Drawing.Point(341, 154)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(23, 13)
         Me.Label8.TabIndex = 165
@@ -418,7 +422,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.ForeColor = System.Drawing.Color.Black
-        Me.Label7.Location = New System.Drawing.Point(31, 209)
+        Me.Label7.Location = New System.Drawing.Point(31, 236)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(33, 13)
         Me.Label7.TabIndex = 164
@@ -429,7 +433,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.ForeColor = System.Drawing.Color.Black
-        Me.Label6.Location = New System.Drawing.Point(31, 181)
+        Me.Label6.Location = New System.Drawing.Point(31, 208)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(46, 13)
         Me.Label6.TabIndex = 163
@@ -440,7 +444,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(31, 154)
+        Me.Label1.Location = New System.Drawing.Point(31, 181)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(34, 13)
         Me.Label1.TabIndex = 162
@@ -451,7 +455,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(31, 127)
+        Me.Label2.Location = New System.Drawing.Point(31, 154)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(33, 13)
         Me.Label2.TabIndex = 161
@@ -462,17 +466,17 @@ Partial Class frmTraReceiveDetItem
         Me.cboItemSpecification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboItemSpecification.Enabled = False
         Me.cboItemSpecification.FormattingEnabled = True
-        Me.cboItemSpecification.Location = New System.Drawing.Point(477, 41)
+        Me.cboItemSpecification.Location = New System.Drawing.Point(477, 69)
         Me.cboItemSpecification.Name = "cboItemSpecification"
         Me.cboItemSpecification.Size = New System.Drawing.Size(160, 21)
-        Me.cboItemSpecification.TabIndex = 4
+        Me.cboItemSpecification.TabIndex = 5
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(431, 45)
+        Me.Label3.Location = New System.Drawing.Point(431, 73)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(30, 13)
         Me.Label3.TabIndex = 160
@@ -483,17 +487,17 @@ Partial Class frmTraReceiveDetItem
         Me.cboItemType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboItemType.Enabled = False
         Me.cboItemType.FormattingEnabled = True
-        Me.cboItemType.Location = New System.Drawing.Point(477, 14)
+        Me.cboItemType.Location = New System.Drawing.Point(477, 42)
         Me.cboItemType.Name = "cboItemType"
         Me.cboItemType.Size = New System.Drawing.Size(160, 21)
-        Me.cboItemType.TabIndex = 3
+        Me.cboItemType.TabIndex = 4
         '
         'Label28
         '
         Me.Label28.AutoSize = True
         Me.Label28.BackColor = System.Drawing.Color.Transparent
         Me.Label28.ForeColor = System.Drawing.Color.Black
-        Me.Label28.Location = New System.Drawing.Point(430, 18)
+        Me.Label28.Location = New System.Drawing.Point(430, 46)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(31, 13)
         Me.Label28.TabIndex = 159
@@ -504,7 +508,7 @@ Partial Class frmTraReceiveDetItem
         Me.Label29.AutoSize = True
         Me.Label29.BackColor = System.Drawing.Color.Transparent
         Me.Label29.ForeColor = System.Drawing.Color.Black
-        Me.Label29.Location = New System.Drawing.Point(31, 44)
+        Me.Label29.Location = New System.Drawing.Point(31, 71)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(68, 13)
         Me.Label29.TabIndex = 158
@@ -514,19 +518,19 @@ Partial Class frmTraReceiveDetItem
         '
         Me.txtItemCode.BackColor = System.Drawing.Color.Azure
         Me.txtItemCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtItemCode.Location = New System.Drawing.Point(166, 40)
+        Me.txtItemCode.Location = New System.Drawing.Point(166, 67)
         Me.txtItemCode.MaxLength = 250
         Me.txtItemCode.Name = "txtItemCode"
         Me.txtItemCode.ReadOnly = True
         Me.txtItemCode.Size = New System.Drawing.Size(170, 21)
-        Me.txtItemCode.TabIndex = 2
+        Me.txtItemCode.TabIndex = 3
         '
         'lblName
         '
         Me.lblName.AutoSize = True
         Me.lblName.BackColor = System.Drawing.Color.Transparent
         Me.lblName.ForeColor = System.Drawing.Color.Black
-        Me.lblName.Location = New System.Drawing.Point(31, 72)
+        Me.lblName.Location = New System.Drawing.Point(31, 99)
         Me.lblName.Name = "lblName"
         Me.lblName.Size = New System.Drawing.Size(71, 13)
         Me.lblName.TabIndex = 157
@@ -536,25 +540,25 @@ Partial Class frmTraReceiveDetItem
         '
         Me.txtItemName.BackColor = System.Drawing.Color.Azure
         Me.txtItemName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtItemName.Location = New System.Drawing.Point(166, 69)
+        Me.txtItemName.Location = New System.Drawing.Point(166, 96)
         Me.txtItemName.MaxLength = 250
         Me.txtItemName.Multiline = True
         Me.txtItemName.Name = "txtItemName"
         Me.txtItemName.ReadOnly = True
         Me.txtItemName.Size = New System.Drawing.Size(471, 48)
-        Me.txtItemName.TabIndex = 5
+        Me.txtItemName.TabIndex = 6
         '
         'txtLength
         '
         Me.txtLength.BackColor = System.Drawing.Color.Azure
         Me.txtLength.DecimalPlaces = 2
         Me.txtLength.Enabled = False
-        Me.txtLength.Location = New System.Drawing.Point(166, 177)
+        Me.txtLength.Location = New System.Drawing.Point(166, 204)
         Me.txtLength.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtLength.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtLength.Name = "txtLength"
         Me.txtLength.Size = New System.Drawing.Size(170, 21)
-        Me.txtLength.TabIndex = 8
+        Me.txtLength.TabIndex = 9
         Me.txtLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtLength.ThousandsSeparator = True
         '
@@ -563,12 +567,12 @@ Partial Class frmTraReceiveDetItem
         Me.txtWidth.BackColor = System.Drawing.Color.Azure
         Me.txtWidth.DecimalPlaces = 2
         Me.txtWidth.Enabled = False
-        Me.txtWidth.Location = New System.Drawing.Point(166, 150)
+        Me.txtWidth.Location = New System.Drawing.Point(166, 177)
         Me.txtWidth.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtWidth.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtWidth.Name = "txtWidth"
         Me.txtWidth.Size = New System.Drawing.Size(170, 21)
-        Me.txtWidth.TabIndex = 7
+        Me.txtWidth.TabIndex = 8
         Me.txtWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtWidth.ThousandsSeparator = True
         '
@@ -577,12 +581,12 @@ Partial Class frmTraReceiveDetItem
         Me.txtThick.BackColor = System.Drawing.Color.Azure
         Me.txtThick.DecimalPlaces = 2
         Me.txtThick.Enabled = False
-        Me.txtThick.Location = New System.Drawing.Point(166, 123)
+        Me.txtThick.Location = New System.Drawing.Point(166, 150)
         Me.txtThick.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtThick.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtThick.Name = "txtThick"
         Me.txtThick.Size = New System.Drawing.Size(170, 21)
-        Me.txtThick.TabIndex = 6
+        Me.txtThick.TabIndex = 7
         Me.txtThick.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtThick.ThousandsSeparator = True
         '
@@ -591,12 +595,12 @@ Partial Class frmTraReceiveDetItem
         Me.txtMaxTotalWeight.BackColor = System.Drawing.Color.Azure
         Me.txtMaxTotalWeight.DecimalPlaces = 2
         Me.txtMaxTotalWeight.Enabled = False
-        Me.txtMaxTotalWeight.Location = New System.Drawing.Point(166, 232)
+        Me.txtMaxTotalWeight.Location = New System.Drawing.Point(166, 259)
         Me.txtMaxTotalWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtMaxTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtMaxTotalWeight.Name = "txtMaxTotalWeight"
         Me.txtMaxTotalWeight.Size = New System.Drawing.Size(170, 21)
-        Me.txtMaxTotalWeight.TabIndex = 10
+        Me.txtMaxTotalWeight.TabIndex = 11
         Me.txtMaxTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtMaxTotalWeight.ThousandsSeparator = True
         '
@@ -604,20 +608,42 @@ Partial Class frmTraReceiveDetItem
         '
         Me.txtWeight.BackColor = System.Drawing.Color.White
         Me.txtWeight.DecimalPlaces = 4
-        Me.txtWeight.Location = New System.Drawing.Point(166, 205)
+        Me.txtWeight.Location = New System.Drawing.Point(166, 232)
         Me.txtWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtWeight.Name = "txtWeight"
         Me.txtWeight.Size = New System.Drawing.Size(170, 21)
-        Me.txtWeight.TabIndex = 9
+        Me.txtWeight.TabIndex = 10
         Me.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtWeight.ThousandsSeparator = True
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
+        Me.Label5.ForeColor = System.Drawing.Color.Black
+        Me.Label5.Location = New System.Drawing.Point(31, 44)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(127, 13)
+        Me.Label5.TabIndex = 193
+        Me.Label5.Text = "Nomor Pesanan Pemasok"
+        '
+        'txtOrderNumberSupplier
+        '
+        Me.txtOrderNumberSupplier.BackColor = System.Drawing.Color.Azure
+        Me.txtOrderNumberSupplier.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtOrderNumberSupplier.Location = New System.Drawing.Point(166, 40)
+        Me.txtOrderNumberSupplier.MaxLength = 250
+        Me.txtOrderNumberSupplier.Name = "txtOrderNumberSupplier"
+        Me.txtOrderNumberSupplier.ReadOnly = True
+        Me.txtOrderNumberSupplier.Size = New System.Drawing.Size(170, 21)
+        Me.txtOrderNumberSupplier.TabIndex = 2
         '
         'frmTraReceiveDetItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(693, 395)
+        Me.ClientSize = New System.Drawing.Size(693, 461)
         Me.Controls.Add(Me.pnlDetail)
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
@@ -686,4 +712,6 @@ Partial Class frmTraReceiveDetItem
     Friend WithEvents txtThick As ERPS.usNumeric
     Friend WithEvents txtMaxTotalWeight As ERPS.usNumeric
     Friend WithEvents txtWeight As ERPS.usNumeric
+    Friend WithEvents Label5 As Label
+    Friend WithEvents txtOrderNumberSupplier As usTextBox
 End Class

@@ -93,6 +93,7 @@ Public Class frmTraARAPDetVer3
         UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "InvoiceAmount", "InvoiceAmount", 250, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemView, "Amount", "Total Tagihan", 150, UI.usDefGrid.gReal2Num, True, False)
+        UI.usForm.SetGrid(grdItemView, "DPAmount", "Total Panjar", 150, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemView, "PPNPercent", "PPNPercent", 150, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemView, "PPHPercent", "PPHPercent", 150, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemView, "PPN", "PPN", 150, UI.usDefGrid.gReal2Num, True, False)
@@ -235,7 +236,7 @@ Public Class frmTraARAPDetVer3
 
         With grdItemView
             For i As Integer = 0 To .RowCount - 1
-                If .GetRowCellValue(i, "Amount") > .GetRowCellValue(i, "MaxPaymentAmount") Then
+                If .GetRowCellValue(i, "Amount") + .GetRowCellValue(i, "DPAmount") > .GetRowCellValue(i, "MaxPaymentAmount") Then
                     UI.usForm.frmMessageBox("Total Tagihan " & .GetRowCellValue(i, "OrderNumberSupplier") & " | " & .GetRowCellValue(i, "ItemName") & " tidak boleh melebihi nilai maksimal tagihan")
                     tcHeader.SelectedTab = tpMain
                     grdItem.Focus()
@@ -281,7 +282,7 @@ Public Class frmTraARAPDetVer3
                 clsDetailItem.Amount = dr.Item("Amount")
                 clsDetailItem.PPN = dr.Item("PPN")
                 clsDetailItem.PPH = dr.Item("PPH")
-                clsDetailItem.DPAmount = 0
+                clsDetailItem.DPAmount = dr.Item("DPAmount")
                 clsDetailItem.Rounding = dr.Item("Rounding")
                 listDetailItem.Add(clsDetailItem)
             End If

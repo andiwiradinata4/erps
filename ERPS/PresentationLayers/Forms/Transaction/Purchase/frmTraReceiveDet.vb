@@ -180,7 +180,8 @@ Public Class frmTraReceiveDet
                                     .TotalWeight = dr.Item("TotalWeight"),
                                     .UnitPrice = dr.Item("UnitPrice"),
                                     .TotalPrice = dr.Item("TotalPrice"),
-                                    .Remarks = dr.Item("Remarks")
+                                    .Remarks = dr.Item("Remarks"),
+                                    .OrderNumberSupplier = dr.Item("OrderNumberSupplier")
                                 })
         Next
 

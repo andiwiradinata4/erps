@@ -416,13 +416,17 @@
         Private Shared Sub DevelopOnProgress_ID15(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
             Dim clsData As New VO.Migration
             clsData.ID = 15
-            clsData.Name = "Develop On Progress"
+            clsData.Name = "Develop On Progress 15"
             clsData.Scripts =
 "ALTER TABLE traReceiveDet ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traReceiveDet_OrderNumberSupplier DEFAULT ('') " & vbNewLine &
+"ALTER TABLE traReceiveDet ADD OutQuantity decimal(18,4) NOT NULL CONSTRAINT DF_traReceiveDet_OutQuantity DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traReceiveDet ADD OutWeight decimal(18,4) NOT NULL CONSTRAINT DF_traReceiveDet_OutWeight DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE traSalesContractDet ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traSalesContractDet_OrderNumberSupplier DEFAULT ('') " & vbNewLine &
 "ALTER TABLE traDeliveryDet ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traDeliveryDet_OrderNumberSupplier DEFAULT ('') " & vbNewLine &
 "ALTER TABLE traPurchaseOrderCuttingDet ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_OrderNumberSupplier DEFAULT ('') " & vbNewLine &
-"ALTER TABLE traCuttingDet ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traCuttingDet_OrderNumberSupplier DEFAULT ('') " & vbNewLine
+"ALTER TABLE traCuttingDet ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traCuttingDet_OrderNumberSupplier DEFAULT ('') " & vbNewLine &
+"ALTER TABLE traCuttingDet ADD OutQuantity decimal(18,4) NOT NULL CONSTRAINT DF_traCuttingDet_OutQuantity DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traCuttingDet ADD OutWeight decimal(18,4) NOT NULL CONSTRAINT DF_traCuttingDet_OutWeight DEFAULT ((0)) " & vbNewLine
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

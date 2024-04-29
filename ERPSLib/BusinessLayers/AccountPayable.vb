@@ -241,7 +241,7 @@ Namespace BL
                         ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPayment Then
                             DL.PurchaseContract.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
                         ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
-                            'DL.Receive.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.PurchaseID)
+                            DL.Receive.CalculateItemTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
                         ElseIf clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then
                             'DL.PurchaseOrderCutting.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.PurchaseID)
                         ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
@@ -1149,7 +1149,7 @@ Namespace BL
         Public Shared Function ListDataDetailRev02(ByVal strAPID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.AccountPayable.ListDataDetailRev01(sqlCon, Nothing, strAPID)
+                Return DL.AccountPayable.ListDataDetailRev02(sqlCon, Nothing, strAPID)
             End Using
         End Function
 

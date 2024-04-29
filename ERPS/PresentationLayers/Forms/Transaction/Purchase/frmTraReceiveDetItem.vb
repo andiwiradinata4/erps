@@ -83,6 +83,7 @@
             If Not bolIsNew Then
                 strID = drSelectedItem.Item("ID")
                 txtPCNumber.Text = drSelectedItem.Item("PCNumber")
+                txtOrderNumberSupplier.Text = drSelectedItem.Item("OrderNumberSupplier")
                 strPCDetailID = drSelectedItem.Item("PCDetailID")
                 intItemID = drSelectedItem.Item("ItemID")
                 cboItemType.SelectedValue = drSelectedItem.Item("ItemTypeID")
@@ -112,6 +113,10 @@
             UI.usForm.frmMessageBox("Pilih barang terlebih dahulu")
             txtPCNumber.Focus()
             Exit Sub
+        ElseIf txtOrderNumberSupplier.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih barang terlebih dahulu")
+            txtOrderNumberSupplier.Focus()
+            Exit Sub
         ElseIf txtItemCode.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Pilih barang terlebih dahulu")
             txtItemCode.Focus()
@@ -139,6 +144,7 @@
                 .Item("ReceiveID") = ""
                 .Item("PCNumber") = txtPCNumber.Text.Trim
                 .Item("PCDetailID") = strPCDetailID
+                .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
                 .Item("ItemID") = intItemID
                 .Item("ItemCode") = txtItemCode.Text.Trim
                 .Item("ItemName") = txtItemName.Text.Trim
@@ -167,6 +173,7 @@
                         .Item("ReceiveID") = ""
                         .Item("PCNumber") = txtPCNumber.Text.Trim
                         .Item("PCDetailID") = strPCDetailID
+                        .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
                         .Item("ItemID") = intItemID
                         .Item("ItemCode") = txtItemCode.Text.Trim
                         .Item("ItemName") = txtItemName.Text.Trim
@@ -200,6 +207,7 @@
         txtPCNumber.Text = ""
         txtPCNumber.Focus()
         strPCDetailID = ""
+        txtOrderNumberSupplier.Text = ""
         intItemID = 0
         txtItemCode.Text = ""
         txtItemName.Text = ""
