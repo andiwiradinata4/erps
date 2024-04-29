@@ -66,14 +66,6 @@ Partial Class frmTraPurchaseContractDet
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtPPN = New ERPS.usNumeric()
-        Me.tpPaymentTerm = New System.Windows.Forms.TabPage()
-        Me.grdPaymentTerm = New DevExpress.XtraGrid.GridControl()
-        Me.grdPaymentTermView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.ToolBarPaymentTerm = New ERPS.usToolBar()
-        Me.BarAddPayment = New System.Windows.Forms.ToolBarButton()
-        Me.BarEditPayment = New System.Windows.Forms.ToolBarButton()
-        Me.BarDeletePayment = New System.Windows.Forms.ToolBarButton()
         Me.tpHistory = New System.Windows.Forms.TabPage()
         Me.grdStatus = New DevExpress.XtraGrid.GridControl()
         Me.grdStatusView = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -105,10 +97,6 @@ Partial Class frmTraPurchaseContractDet
         CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtPPN, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tpPaymentTerm.SuspendLayout()
-        CType(Me.grdPaymentTerm, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdPaymentTermView, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpHistory.SuspendLayout()
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -162,7 +150,6 @@ Partial Class frmTraPurchaseContractDet
         Me.tcHeader.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tcHeader.Controls.Add(Me.tpMain)
         Me.tcHeader.Controls.Add(Me.tpAmount)
-        Me.tcHeader.Controls.Add(Me.tpPaymentTerm)
         Me.tcHeader.Controls.Add(Me.tpHistory)
         Me.tcHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
@@ -633,92 +620,6 @@ Partial Class frmTraPurchaseContractDet
         Me.txtPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtPPN.ThousandsSeparator = True
         '
-        'tpPaymentTerm
-        '
-        Me.tpPaymentTerm.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.tpPaymentTerm.Controls.Add(Me.grdPaymentTerm)
-        Me.tpPaymentTerm.Controls.Add(Me.ToolBarPaymentTerm)
-        Me.tpPaymentTerm.Location = New System.Drawing.Point(4, 25)
-        Me.tpPaymentTerm.Name = "tpPaymentTerm"
-        Me.tpPaymentTerm.Size = New System.Drawing.Size(876, 180)
-        Me.tpPaymentTerm.TabIndex = 3
-        Me.tpPaymentTerm.Text = "Syarat Pembayaran - F3"
-        Me.tpPaymentTerm.UseVisualStyleBackColor = True
-        '
-        'grdPaymentTerm
-        '
-        Me.grdPaymentTerm.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.Append.Enabled = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.Append.Visible = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.Edit.Enabled = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.Edit.Visible = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.EndEdit.Visible = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.NextPage.Enabled = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.NextPage.Visible = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.PrevPage.Visible = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.Remove.Enabled = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdPaymentTerm.Location = New System.Drawing.Point(0, 28)
-        Me.grdPaymentTerm.MainView = Me.grdPaymentTermView
-        Me.grdPaymentTerm.Name = "grdPaymentTerm"
-        Me.grdPaymentTerm.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit2})
-        Me.grdPaymentTerm.Size = New System.Drawing.Size(872, 148)
-        Me.grdPaymentTerm.TabIndex = 2
-        Me.grdPaymentTerm.UseEmbeddedNavigator = True
-        Me.grdPaymentTerm.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdPaymentTermView})
-        '
-        'grdPaymentTermView
-        '
-        Me.grdPaymentTermView.GridControl = Me.grdPaymentTerm
-        Me.grdPaymentTermView.Name = "grdPaymentTermView"
-        Me.grdPaymentTermView.OptionsCustomization.AllowColumnMoving = False
-        Me.grdPaymentTermView.OptionsCustomization.AllowGroup = False
-        Me.grdPaymentTermView.OptionsView.ColumnAutoWidth = False
-        Me.grdPaymentTermView.OptionsView.ShowFooter = True
-        Me.grdPaymentTermView.OptionsView.ShowGroupPanel = False
-        '
-        'RepositoryItemTextEdit2
-        '
-        Me.RepositoryItemTextEdit2.AutoHeight = False
-        Me.RepositoryItemTextEdit2.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.RepositoryItemTextEdit2.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.RepositoryItemTextEdit2.Name = "RepositoryItemTextEdit2"
-        Me.RepositoryItemTextEdit2.NullText = "0.00"
-        '
-        'ToolBarPaymentTerm
-        '
-        Me.ToolBarPaymentTerm.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarPaymentTerm.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddPayment, Me.BarEditPayment, Me.BarDeletePayment})
-        Me.ToolBarPaymentTerm.DropDownArrows = True
-        Me.ToolBarPaymentTerm.Location = New System.Drawing.Point(0, 0)
-        Me.ToolBarPaymentTerm.Name = "ToolBarPaymentTerm"
-        Me.ToolBarPaymentTerm.ShowToolTips = True
-        Me.ToolBarPaymentTerm.Size = New System.Drawing.Size(872, 28)
-        Me.ToolBarPaymentTerm.TabIndex = 1
-        Me.ToolBarPaymentTerm.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
-        'BarAddPayment
-        '
-        Me.BarAddPayment.Name = "BarAddPayment"
-        Me.BarAddPayment.Tag = "Add"
-        Me.BarAddPayment.Text = "Tambah"
-        '
-        'BarEditPayment
-        '
-        Me.BarEditPayment.Name = "BarEditPayment"
-        Me.BarEditPayment.Tag = "Edit"
-        Me.BarEditPayment.Text = "Edit"
-        '
-        'BarDeletePayment
-        '
-        Me.BarDeletePayment.Name = "BarDeletePayment"
-        Me.BarDeletePayment.Tag = "Delete"
-        Me.BarDeletePayment.Text = "Hapus"
-        '
         'tpHistory
         '
         Me.tpHistory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
@@ -728,7 +629,7 @@ Partial Class frmTraPurchaseContractDet
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
         Me.tpHistory.Size = New System.Drawing.Size(876, 180)
         Me.tpHistory.TabIndex = 1
-        Me.tpHistory.Text = "History - F4"
+        Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
         '
         'grdStatus
@@ -807,7 +708,7 @@ Partial Class frmTraPurchaseContractDet
         Me.tpItem.Padding = New System.Windows.Forms.Padding(3)
         Me.tpItem.Size = New System.Drawing.Size(876, 328)
         Me.tpItem.TabIndex = 1
-        Me.tpItem.Text = "Item - F5"
+        Me.tpItem.Text = "Item - F4"
         Me.tpItem.UseVisualStyleBackColor = True
         '
         'grdItem
@@ -967,11 +868,6 @@ Partial Class frmTraPurchaseContractDet
         CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtPPN, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tpPaymentTerm.ResumeLayout(False)
-        Me.tpPaymentTerm.PerformLayout()
-        CType(Me.grdPaymentTerm, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdPaymentTermView, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpHistory.ResumeLayout(False)
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1028,14 +924,6 @@ Partial Class frmTraPurchaseContractDet
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents txtPPN As ERPS.usNumeric
-    Friend WithEvents tpPaymentTerm As System.Windows.Forms.TabPage
-    Friend WithEvents grdPaymentTerm As DevExpress.XtraGrid.GridControl
-    Friend WithEvents grdPaymentTermView As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents RepositoryItemTextEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
-    Friend WithEvents ToolBarPaymentTerm As ERPS.usToolBar
-    Friend WithEvents BarAddPayment As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarEditPayment As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarDeletePayment As System.Windows.Forms.ToolBarButton
     Friend WithEvents tpHistory As System.Windows.Forms.TabPage
     Friend WithEvents grdStatus As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdStatusView As DevExpress.XtraGrid.Views.Grid.GridView

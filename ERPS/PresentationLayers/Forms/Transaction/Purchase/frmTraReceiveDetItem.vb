@@ -237,6 +237,7 @@
             If .pubIsLookUpGet Then
                 txtPCNumber.Text = .pubLUdtRow.Item("PCNumber")
                 strPCDetailID = .pubLUdtRow.Item("ID")
+                txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
                 intItemID = .pubLUdtRow.Item("ItemID")
                 cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
                 txtItemCode.Text = .pubLUdtRow.Item("ItemCode")

@@ -22,17 +22,17 @@
             If strModules = VO.AccountPayable.PurchaseBalance Then
                 Return "Pembayaran Saldo"
             ElseIf strModules = VO.AccountPayable.DownPaymentManual Then
-                Return "Panjar Pembelian [Manual]"
+                Return "Uang Muka Pembelian [Manual]"
             ElseIf strModules = VO.AccountPayable.DownPayment Then
-                Return "Panjar Pembelian"
+                Return "Uang Muka Pembelian"
             ElseIf strModules = VO.AccountPayable.ReceivePayment Then
                 Return "Pembayaran Hutang Pembelian"
             ElseIf strModules = VO.AccountPayable.DownPaymentCutting Then
-                Return "Panjar Pesanan Pemotongan"
+                Return "Uang Muka Pesanan Pemotongan"
             ElseIf strModules = VO.AccountPayable.ReceivePaymentCutting Then
                 Return "Pembayaran Hutang Pesanan Pemotongan"
             ElseIf strModules = VO.AccountPayable.DownPaymentTransport Then
-                Return "Panjar Pesanan Pengiriman"
+                Return "Uang Muka Pesanan Pengiriman"
             ElseIf strModules = VO.AccountPayable.ReceivePaymentTransport Then
                 Return "Pembayaran Hutang Pesanan Pengiriman"
             ElseIf strModules = VO.AccountPayable.All Then
@@ -40,9 +40,9 @@
             ElseIf strModules = VO.AccountReceivable.SalesBalance Then
                 Return "Pelunasan Saldo"
             ElseIf strModules = VO.AccountReceivable.DownPaymentManual Then
-                Return "Panjar Penjualan [Manual]"
+                Return "Uang Muka Penjualan [Manual]"
             ElseIf strModules = VO.AccountReceivable.DownPayment Then
-                Return "Panjar Penjualan"
+                Return "Uang Muka Penjualan"
             ElseIf strModules = VO.AccountReceivable.ReceivePayment Then
                 Return "Pelunasan Piutang Penjualan"
             ElseIf strModules = VO.AccountReceivable.All Then

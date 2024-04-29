@@ -767,3 +767,7 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmMstBusinessPartnerLocation.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmMstBusinessPartnerLocationDet.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPDetVer3.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPDetVer4.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstBusinessPartnerLocation.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstBusinessPartnerLocationDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer3.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer4.resources

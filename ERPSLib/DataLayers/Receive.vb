@@ -566,8 +566,8 @@
                     "			APD.ReferencesID=@ReferencesID 	" & vbNewLine &
                     "			AND APD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
                     "			AND APH.IsDeleted=0 	" & vbNewLine &
-                    "	) " & vbNewLine &
-                    "	DPAmount=	" & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	ReceiveAmount=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(APD.Amount),0) TotalPayment " & vbNewLine &
@@ -609,7 +609,7 @@
                     "SELECT " & vbNewLine &
                     "   A.ID, A.ReceiveID, A.PCDetailID, A2.PCNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
-                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.DCWeight AS MaxTotalWeight, A.Remarks " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.DCWeight AS MaxTotalWeight, A.Remarks, A.OrderNumberSupplier " & vbNewLine &
                     "FROM traReceiveDet A " & vbNewLine &
                     "INNER JOIN traPurchaseContractDet A1 ON " & vbNewLine &
                     "   A.PCDetailID=A1.ID " & vbNewLine &
@@ -638,9 +638,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traReceiveDet " & vbNewLine &
-                    "   (ID, ReceiveID, PCDetailID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks) " & vbNewLine &
+                    "   (ID, ReceiveID, PCDetailID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, OrderNumberSupplier) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @ReceiveID, @PCDetailID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks) " & vbNewLine
+                    "   (@ID, @ReceiveID, @PCDetailID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @OrderNumberSupplier) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@ReceiveID", SqlDbType.VarChar, 100).Value = clsData.ReceiveID
@@ -652,6 +652,7 @@
                 .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = clsData.UnitPrice
                 .Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = clsData.TotalPrice
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
+                .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = clsData.OrderNumberSupplier
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

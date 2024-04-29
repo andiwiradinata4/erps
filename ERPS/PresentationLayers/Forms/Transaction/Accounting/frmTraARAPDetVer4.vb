@@ -296,22 +296,20 @@ Public Class frmTraARAPDetVer4
         Next
 
         Dim dsHelper As New DataSetHelper
-        Dim dtARAPDet As DataTable = dsHelper.SelectGroupByInto("ARAPDet", dtItem, "Pick, ReferencesID, SUM(Amount) Amount, SUM(PPN) PPN, SUM(PPH) PPH, Remarks, SUM(DPAmount) DPAmount", "", "Pick, ReferencesID, Remarks")
+        Dim dtARAPDet As DataTable = dsHelper.SelectGroupByInto("ARAPDet", dtItem, "Pick, ReferencesID, SUM(Amount) Amount, SUM(PPN) PPN, SUM(PPH) PPH, SUM(DPAmount) DPAmount", "Pick=True", "Pick, ReferencesID")
         Dim listDetail As New List(Of VO.ARAPDet)
         For Each dr As DataRow In dtARAPDet.Rows
-            If dr.Item("Pick") Then
-                listDetail.Add(New ERPSLib.VO.ARAPDet With
-                           {
-                               .ID = "",
-                               .ARAPID = strID,
-                               .InvoiceID = dr.Item("ReferencesID"),
-                               .Amount = dr.Item("Amount"),
-                               .PPN = dr.Item("PPN"),
-                               .PPH = dr.Item("PPH"),
-                               .Remarks = UCase(dr.Item("Remarks")),
-                               .DPAmount = UCase(dr.Item("DPAmount"))
-                           })
-            End If
+            listDetail.Add(New ERPSLib.VO.ARAPDet With
+                       {
+                           .ID = "",
+                           .ARAPID = strID,
+                           .InvoiceID = dr.Item("ReferencesID"),
+                           .Amount = dr.Item("Amount"),
+                           .PPN = dr.Item("PPN"),
+                           .PPH = dr.Item("PPH"),
+                           .Remarks = "",
+                           .DPAmount = UCase(dr.Item("DPAmount"))
+                       })
         Next
 
         Dim listDownPayment As New List(Of VO.ARAPDP)

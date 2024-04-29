@@ -676,6 +676,35 @@
             End Try
         End Sub
 
+        Public Shared Sub CalculateTotalUsedReceiveItemPaymentVer01(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                    ByVal strDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traPurchaseContractDet SET 	" & vbNewLine &
+                    "	ReceiveAmount=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(APD.ReceiveAmount),0) ReceiveAmount " & vbNewLine &
+                    "		FROM traReceiveDet APD " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			APD.PCDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "	) " & vbNewLine &
+                    "WHERE ID=@ReferencesDetailID " & vbNewLine
+
+                .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strDetailID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePayment
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
         Public Shared Sub UpdateJournalID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                           ByVal strID As String, ByVal strJournalID As String)
             Dim sqlCmdExecute As New SqlCommand
@@ -777,12 +806,14 @@
                 .CommandType = CommandType.Text
                 .CommandText = <a>
 SELECT  
-    PCD.ID, PCD.PCID, PCH.PCNumber, PCD.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  
+    PCD.ID, PCD.PCID, PCH.PCNumber, COD.OrderNumberSupplier, PCD.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  
     C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  
     PCD.Quantity-PCD.DCQuantity AS Quantity, PCD.Weight, PCD.TotalWeight-PCD.DCWeight AS TotalWeight, PCD.UnitPrice, PCD.TotalPrice 
 FROM traPurchaseContractDet PCD  
 INNER JOIN traPurchaseContract PCH ON  
     PCD.PCID=PCH.ID  
+INNER JOIN traConfirmationOrderDet COD ON 
+	PCD.CODetailID=COD.ID 
 INNER JOIN mstItem B ON  
     PCD.ItemID=B.ID  
 INNER JOIN mstItemSpecification C ON  
@@ -795,8 +826,7 @@ WHERE
 	AND PCH.CompanyID=@CompanyID 
     AND PCH.StatusID=@StatusID  
 	AND PCH.BPID=@BPID 
-    AND PCD.TotalWeight-PCD.DCWeight>0
-    AND PCD.Quantity-PCD.DCQuantity>0
+    AND PCD.TotalWeight-PCD.DCWeight>0 
     AND PCD.PCID=@PCID 
 </a>.Value
 
@@ -836,7 +866,6 @@ WHERE
 	AND PCH.CompanyID=@CompanyID 
     AND PCH.StatusID=@StatusID  
     AND PCD.TotalWeight-PCD.CuttingWeight>0
-    AND PCD.Quantity-PCD.CuttingQuantity>0
 </a>.Value
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID

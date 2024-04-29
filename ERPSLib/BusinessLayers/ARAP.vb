@@ -511,7 +511,7 @@ Namespace BL
                     If enumDPType = VO.ARAP.ARAPTypeValue.Sales Then
                         BL.AccountReceivable.DeleteData(sqlCon, sqlTrans, strID, strModules, strRemarks)
                     Else
-                        BL.AccountPayable.DeleteData(sqlCon, sqlTrans, strID, strModules, strRemarks)
+                        BL.AccountPayable.DeleteDataVer01(sqlCon, sqlTrans, strID, strModules, strRemarks)
                     End If
 
                     sqlTrans.Commit()

@@ -62,19 +62,6 @@ Public Class frmTraPurchaseContractDet
         UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
 
-        '# PO Payment Term
-        UI.usForm.SetGrid(grdPaymentTermView, "ID", "ID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdPaymentTermView, "PCID", "PCID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdPaymentTermView, "Percentage", "Percentage", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdPaymentTermView, "PaymentTypeID", "PaymentTypeID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdPaymentTermView, "PaymentTypeCode", "Jenis Pembayaran [Kode]", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdPaymentTermView, "PaymentTypeName", "Jenis Pembayaran [Nama]", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdPaymentTermView, "PaymentModeID", "PaymentModeID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdPaymentTermView, "PaymentModeCode", "Metode Pembayaran [Kode]", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdPaymentTermView, "PaymentModeName", "Metode Pembayaran [Nama]", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdPaymentTermView, "CreditTerm", "CreditTerm", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdPaymentTermView, "Remarks", "Remarks", 100, UI.usDefGrid.gString)
-
         '# History
         UI.usForm.SetGrid(grdStatusView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdStatusView, "PCID", "PCID", 100, UI.usDefGrid.gString, False)
@@ -170,16 +157,6 @@ Public Class frmTraPurchaseContractDet
             tcDetail.SelectedTab = tpItem
             grdItemView.Focus()
             Exit Sub
-        ElseIf grdPaymentTermView.RowCount = 0 Then
-            UI.usForm.frmMessageBox("Syarat pembayaran kosong. Mohon untuk diinput syarat pembayaran terlebih dahulu")
-            tcHeader.SelectedTab = tpPaymentTerm
-            grdPaymentTermView.Focus()
-            Exit Sub
-        ElseIf grdPaymentTermView.Columns("Percentage").SummaryItem.SummaryValue <> 100 Then
-            UI.usForm.frmMessageBox("Total persentase syarat pembayaran harus 100%")
-            tcHeader.SelectedTab = tpPaymentTerm
-            grdPaymentTermView.Focus()
-            Exit Sub
         End If
 
         Dim frmDetail As New usFormSave
@@ -262,7 +239,6 @@ Public Class frmTraPurchaseContractDet
                 prvClear()
                 prvQueryItem()
                 prvQueryHistory()
-                prvQueryPaymentTerm()
                 prvSetupTools()
             Else
                 Me.Close()
@@ -317,13 +293,6 @@ Public Class frmTraPurchaseContractDet
     End Sub
 
     Private Sub prvSumGrid()
-        '# Payment Term
-        Dim SumTotalPercentagePayment As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Percentage", "Total: {0:#,##0.00}")
-
-        If grdPaymentTermView.Columns("Percentage").SummaryText.Trim = "" Then
-            grdPaymentTermView.Columns("Percentage").Summary.Add(SumTotalPercentagePayment)
-        End If
-
         '# Item
         Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
         Dim SumGrandTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
@@ -449,77 +418,6 @@ Public Class frmTraPurchaseContractDet
 
 #End Region
 
-#Region "Payment Term Handle"
-
-    Private Sub prvSetButtonPaymentTerm()
-        Dim bolEnabled As Boolean = IIf(grdPaymentTermView.RowCount = 0, False, True)
-        With ToolBarPaymentTerm
-            .Buttons(cEditItem).Enabled = bolEnabled
-            .Buttons(cDeleteItem).Enabled = bolEnabled
-        End With
-    End Sub
-
-    Private Sub prvQueryPaymentTerm()
-        Me.Cursor = Cursors.WaitCursor
-        pgMain.Value = 30
-
-        Try
-            dtPaymentTerm = BL.PurchaseContract.ListDataPaymentTerm(pubID.Trim)
-            grdPaymentTerm.DataSource = dtPaymentTerm
-            prvSumGrid()
-            grdPaymentTermView.BestFitColumns()
-        Catch ex As Exception
-            UI.usForm.frmMessageBox(ex.Message)
-            Me.Close()
-        Finally
-            Me.Cursor = Cursors.Default
-            pgMain.Value = 100
-
-            prvSetButtonPaymentTerm()
-            prvResetProgressBar()
-        End Try
-    End Sub
-
-    Private Sub prvAddPaymentTerm()
-        Dim frmDetail As New usFormPaymentTerm
-        With frmDetail
-            .pubDataParent = dtPaymentTerm
-            .pubIsNew = True
-            .pubID = ""
-            .StartPosition = FormStartPosition.CenterParent
-            .ShowDialog(Me)
-            prvSetButtonPaymentTerm()
-        End With
-    End Sub
-
-    Private Sub prvEditPaymentTerm()
-        intPos = grdPaymentTermView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        Dim frmDetail As New usFormPaymentTerm
-        With frmDetail
-            .pubDataParent = dtPaymentTerm
-            .pubIsNew = False
-            .pubID = grdPaymentTermView.GetRowCellValue(intPos, "ID")
-            .StartPosition = FormStartPosition.CenterParent
-            .ShowDialog(Me)
-        End With
-    End Sub
-
-    Private Sub prvDeletePaymentTerm()
-        intPos = grdPaymentTermView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        Dim strID As String = grdPaymentTermView.GetRowCellValue(intPos, "ID")
-        For Each dr As DataRow In dtPaymentTerm.Rows
-            If dr.Item("ID") = strID Then
-                dr.Delete()
-            End If
-        Next
-        dtPaymentTerm.AcceptChanges()
-        prvSetButtonPaymentTerm()
-    End Sub
-
-#End Region
-
 #Region "History Handle"
 
     Private Sub prvQueryHistory()
@@ -548,10 +446,8 @@ Public Class frmTraPurchaseContractDet
         ElseIf e.KeyCode = Keys.F2 Then
             tcHeader.SelectedTab = tpAmount
         ElseIf e.KeyCode = Keys.F3 Then
-            tcHeader.SelectedTab = tpPaymentTerm
-        ElseIf e.KeyCode = Keys.F4 Then
             tcHeader.SelectedTab = tpHistory
-        ElseIf e.KeyCode = Keys.F5 Then
+        ElseIf e.KeyCode = Keys.F4 Then
             tcDetail.SelectedTab = tpItem
         ElseIf e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
@@ -564,12 +460,10 @@ Public Class frmTraPurchaseContractDet
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         ToolBarItem.SetIcon(Me)
-        ToolBarPaymentTerm.SetIcon(Me)
         prvSetTitleForm()
         prvSetGrid()
         prvFillForm()
         prvQueryItem()
-        prvQueryPaymentTerm()
         prvQueryHistory()
         prvUserAccess()
     End Sub
@@ -586,14 +480,6 @@ Public Class frmTraPurchaseContractDet
             Case "Tambah" : prvAddItem()
             Case "Edit" : prvEditItem()
             Case "Hapus" : prvDeleteItem()
-        End Select
-    End Sub
-
-    Private Sub ToolBarPaymentTerm_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarPaymentTerm.ButtonClick
-        Select Case e.Button.Text.Trim
-            Case "Tambah" : prvAddPaymentTerm()
-            Case "Edit" : prvEditPaymentTerm()
-            Case "Hapus" : prvDeletePaymentTerm()
         End Select
     End Sub
 
