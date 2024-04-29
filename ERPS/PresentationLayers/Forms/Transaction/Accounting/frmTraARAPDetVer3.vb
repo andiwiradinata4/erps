@@ -414,12 +414,12 @@ Public Class frmTraARAPDetVer3
             pgMain.Value = 30
             Me.Cursor = Cursors.WaitCursor
             If bolIsNew Then
-                dtItem = BL.ARAP.ListDataDetailItemWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID)
+                dtItem = BL.ARAP.ListDataDetailItemDPWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID)
             Else
                 If clsData.IsDeleted Then
                     dtItem = BL.ARAP.ListDataDetailVer2(strID, enumARAPType)
                 Else
-                    dtItem = BL.ARAP.ListDataDetailItemWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID)
+                    dtItem = BL.ARAP.ListDataDetailItemDPWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID)
                 End If
             End If
             grdItem.DataSource = dtItem

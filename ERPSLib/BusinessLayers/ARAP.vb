@@ -725,16 +725,25 @@ Namespace BL
             Else
                 Return BL.AccountPayable.ListDataDetailWithOutstandingRev01(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
             End If
-
         End Function
 
-        Public Shared Function ListDataDetailItemWithOutstandingVer2(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+        Public Shared Function ListDataDetailItemDPWithOutstandingVer2(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
                                                                  ByVal intBPID As Integer, ByVal strParentID As String,
                                                                  ByVal enumARAPType As VO.ARAP.ARAPTypeValue, ByVal strReferencesID As String) As DataTable
             If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
                 Return BL.AccountReceivable.ListDataDetailWithOutstandingRev01(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
             Else
-                Return BL.AccountPayable.ListDataDetailItemWithOutstandingRev02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
+                Return BL.AccountPayable.ListDataDetailItemDPWithOutstandingRev02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
+            End If
+        End Function
+
+        Public Shared Function ListDataDetailItemReceiveWithOutstandingVer2(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                 ByVal intBPID As Integer, ByVal strParentID As String,
+                                                                 ByVal enumARAPType As VO.ARAP.ARAPTypeValue, ByVal strReferencesID As String) As DataTable
+            If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
+                Return BL.AccountReceivable.ListDataDetailWithOutstandingRev01(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
+            Else
+                Return BL.AccountPayable.ListDataDetailItemReceiveWithOutstandingRev02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
             End If
         End Function
 

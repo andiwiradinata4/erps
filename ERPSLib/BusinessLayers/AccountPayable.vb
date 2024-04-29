@@ -1162,12 +1162,21 @@ Namespace BL
             End Using
         End Function
 
-        Public Shared Function ListDataDetailItemWithOutstandingRev02(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+        Public Shared Function ListDataDetailItemDPWithOutstandingRev02(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
                                                                   ByVal intBPID As Integer, ByVal strAPID As String,
                                                                   ByVal strReferencesID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.AccountPayable.ListDataDetailItemWithOutstandingVer01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID)
+                Return DL.AccountPayable.ListDataDetailItemDPWithOutstandingVer01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailItemReceiveWithOutstandingRev02(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                  ByVal intBPID As Integer, ByVal strAPID As String,
+                                                                  ByVal strReferencesID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.AccountPayable.ListDataDetailItemReceiveWithOutstandingVer01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID)
             End Using
         End Function
 

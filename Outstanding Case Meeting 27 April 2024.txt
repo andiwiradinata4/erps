@@ -10,12 +10,16 @@
 10. Tambah nomor Faktur Pajak di Printout Invoice ketika sudah bayar dan input nomor faktur pajak
 11. Performa Invoice DP menjadi Performa Invoice
 12. Persediaan Umum tidak diperlukan -> Tetap diperlukan untuk proses Persediaan yang direject
+12.1. Persediaan Masuk dari KP per QS di control quantity keluarnya.
 13. PO Cutting harus tentukan Hasilnya
 14. Item Delivery harus item kontrak sudah lunas, kecuali ada proses ignore sudah lunas maka item bisa diproses kirim.
 15. Pengiriman berdasarkan Kontrak Penjualan yang sudah di terbit PI (Performa Invoice) atau yang sudah dibayar lunas.
 16. PPN, PPH (Free) Transporter ditentukan di Rekan Bisnis.
 17. Laporan untuk Mengetahui QS dan Item KO ke PI Customer apa saja dan setiap Sales Contract Detail Item harus ada QS nya
 18. Payment Schedule harus input rencana bayar ketika sudah lewat jatuh tempo.
+19. Penjualan Stok tidak perlu ada kontrak penjualan, langsung penjualan dan harus references dari QS yang sudah masuk.
+20. Poin 14 maka di user monic
+
 
 --- Kompensasi
 1. Uang masuk dari KP maka Jurnal Kas / Bank posisi debit dan penjualan (Pendapatan Klaim) / Pendapatan Lainnya ke kredit

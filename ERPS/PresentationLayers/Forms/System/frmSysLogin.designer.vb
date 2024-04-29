@@ -52,7 +52,7 @@ Partial Class frmSysLogin
         Me.pnlLogin.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlLogin.Location = New System.Drawing.Point(0, 67)
         Me.pnlLogin.Name = "pnlLogin"
-        Me.pnlLogin.Size = New System.Drawing.Size(296, 195)
+        Me.pnlLogin.Size = New System.Drawing.Size(296, 199)
         Me.pnlLogin.TabIndex = 3
         '
         'LabelControl3
@@ -137,24 +137,21 @@ Partial Class frmSysLogin
         '
         Me.ssMain.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
         Me.ssMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tssVersion})
-        Me.ssMain.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
-        Me.ssMain.Location = New System.Drawing.Point(0, 262)
+        Me.ssMain.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow
+        Me.ssMain.Location = New System.Drawing.Point(0, 266)
         Me.ssMain.Name = "ssMain"
-        Me.ssMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode
-        Me.ssMain.Size = New System.Drawing.Size(296, 22)
+        Me.ssMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
+        Me.ssMain.Size = New System.Drawing.Size(296, 18)
         Me.ssMain.TabIndex = 8
         Me.ssMain.Text = "StatusStrip1"
         '
         'tssVersion
         '
-        Me.tssVersion.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.tssVersion.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.tssVersion.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter
         Me.tssVersion.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.tssVersion.ForeColor = System.Drawing.Color.DimGray
         Me.tssVersion.Name = "tssVersion"
-        Me.tssVersion.Size = New System.Drawing.Size(53, 17)
+        Me.tssVersion.Size = New System.Drawing.Size(49, 17)
         Me.tssVersion.Text = "Version"
         '
         'frmSysLogin

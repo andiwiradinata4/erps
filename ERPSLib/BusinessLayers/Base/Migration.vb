@@ -415,7 +415,7 @@
         '# ID = 15
         Private Shared Sub DevelopOnProgress_ID15(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
             Dim clsData As New VO.Migration
-            clsData.ID = 14
+            clsData.ID = 15
             clsData.Name = "Develop On Progress"
             clsData.Scripts =
 "ALTER TABLE traReceiveDet ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traReceiveDet_OrderNumberSupplier DEFAULT ('') " & vbNewLine &
