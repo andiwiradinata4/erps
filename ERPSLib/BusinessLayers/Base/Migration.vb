@@ -20,6 +20,7 @@
                 CreateTableBPLocation_ID13(sqlCon, Nothing)
                 DevelopARAPForItem_ID14(sqlCon, Nothing)
                 DevelopOnProgress_ID15(sqlCon, Nothing)
+                DevelopOnProgress_ID16(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -427,6 +428,72 @@
 "ALTER TABLE traCuttingDet ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traCuttingDet_OrderNumberSupplier DEFAULT ('') " & vbNewLine &
 "ALTER TABLE traCuttingDet ADD OutQuantity decimal(18,4) NOT NULL CONSTRAINT DF_traCuttingDet_OutQuantity DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE traCuttingDet ADD OutWeight decimal(18,4) NOT NULL CONSTRAINT DF_traCuttingDet_OutWeight DEFAULT ((0)) " & vbNewLine
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 16
+        Private Shared Sub DevelopOnProgress_ID16(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 16
+            clsData.Name = "Develop On Progress 15"
+            clsData.Scripts =
+"ALTER TABLE traConfirmationOrder ADD IsUseSubItem bit NOT NULL CONSTRAINT DF_traConfirmationOrder_IsUseSubItem DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseContract ADD IsUseSubItem bit NOT NULL CONSTRAINT DF_traPurchaseContract_IsUseSubItem DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traSalesContract ADD IsUseSubItem bit NOT NULL CONSTRAINT DF_traSalesContract_IsUseSubItem DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traSalesContractDet ADD IsIgnoreValidationPayment bit NOT NULL CONSTRAINT DF_traSalesContractDet_IsIgnoreValidationPayment DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCuttingDet ADD GroupID int NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_GroupID DEFAULT ((0)) " & vbNewLine &
+"CREATE TABLE [dbo].[traPurchaseOrderCuttingDetResult](" & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDetResult_ID]  DEFAULT (''), " & vbNewLine &
+"	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDetResult_POID]  DEFAULT (''), " & vbNewLine &
+"	[GroupID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDetResult_GroupID]  DEFAULT ((0)), " & vbNewLine &
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDetResult_BPID]  DEFAULT ((0)), " & vbNewLine &
+"	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDetResult_Quantity]  DEFAULT ((0)), " & vbNewLine &
+"	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDetResult_Weight]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traPurchaseOrderCuttingDetResult_TotalWeight]  DEFAULT ((0)), " & vbNewLine &
+"   CONSTRAINT [PK_traPurchaseOrderCuttingDetResult] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine &
+"CREATE TABLE [dbo].[traStockIn](" & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traStockIn_ID]  DEFAULT (''), " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traStockIn_ParentID]  DEFAULT (''), " & vbNewLine &
+"	[ParentDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traStockIn_ParentDetailID]  DEFAULT (''), " & vbNewLine &
+"	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traStockIn_OrderNumberSupplier]  DEFAULT (''), " & vbNewLine &
+"	[SourceData] [varchar](100) NOT NULL CONSTRAINT [DF_traStockIn_SourceData]  DEFAULT (''), " & vbNewLine &
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traStockIn_ItemID]  DEFAULT ((0)), " & vbNewLine &
+"	[InQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traStockIn_InQuantity]  DEFAULT ((0)), " & vbNewLine &
+"	[InWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traStockIn_InWeight]  DEFAULT ((0)), " & vbNewLine &
+"	[InTotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traStockIn_InTotalWeight]  DEFAULT ((0)), " & vbNewLine &
+"	[OutQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traStockIn_OutTotalWeight]  DEFAULT ((0)), " & vbNewLine &
+"	[OutWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traStockIn_OutTotalWeight]  DEFAULT ((0)), " & vbNewLine &
+"	[OutTotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traStockIn_OutTotalWeight]  DEFAULT ((0)), " & vbNewLine &
+"   CONSTRAINT [PK_traStockIn] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine &
+"CREATE TABLE [dbo].[traStockOut](" & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traStockOut_ID]  DEFAULT (''), " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traStockOut_ParentID]  DEFAULT (''), " & vbNewLine &
+"	[ParentDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traStockOut_ParentDetailID]  DEFAULT (''), " & vbNewLine &
+"	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traStockOut_OrderNumberSupplier]  DEFAULT (''), " & vbNewLine &
+"	[SourceData] [varchar](100) NOT NULL CONSTRAINT [DF_traStockOut_SourceData]  DEFAULT (''), " & vbNewLine &
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traStockOut_ItemID]  DEFAULT ((0)), " & vbNewLine &
+"	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traStockOut_Quantity]  DEFAULT ((0)), " & vbNewLine &
+"	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traStockOut_Weight]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traStockOut_TotalWeight]  DEFAULT ((0)), " & vbNewLine &
+"   CONSTRAINT [PK_traStockOut] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine
+
+
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

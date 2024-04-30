@@ -223,7 +223,7 @@
                 txtMaxTotalWeight.Value = .pubLUdtRow.Item("TotalWeight")
                 txtUnitPrice.Value = .pubLUdtRow.Item("UnitPrice")
                 txtQuantity.Value = .pubLUdtRow.Item("Quantity")
-                txtQuantity.Focus()
+                txtWeight.Focus()
                 txtRemarks.Text = ""
             End If
         End With

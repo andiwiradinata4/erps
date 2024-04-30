@@ -330,7 +330,7 @@ Public Class frmTraSalesContractDetItem
                 txtMaxTotalWeight.Value = .pubLUdtRow.Item("MaxTotalWeight")
                 txtUnitPrice.Value = .pubLUdtRow.Item("UnitPrice")
                 txtQuantity.Value = .pubLUdtRow.Item("Quantity")
-                txtQuantity.Focus()
+                txtWeight.Focus()
                 txtRemarks.Text = ""
             End If
         End With

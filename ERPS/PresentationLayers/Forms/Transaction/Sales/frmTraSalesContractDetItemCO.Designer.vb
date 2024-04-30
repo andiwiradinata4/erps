@@ -325,9 +325,8 @@ Partial Class frmTraSalesContractDetItemCO
         '
         'txtUnitPrice
         '
-        Me.txtUnitPrice.BackColor = System.Drawing.Color.Azure
+        Me.txtUnitPrice.BackColor = System.Drawing.Color.White
         Me.txtUnitPrice.DecimalPlaces = 2
-        Me.txtUnitPrice.Enabled = False
         Me.txtUnitPrice.Location = New System.Drawing.Point(477, 149)
         Me.txtUnitPrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtUnitPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})

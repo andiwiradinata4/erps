@@ -19,6 +19,7 @@
 18. Payment Schedule harus input rencana bayar ketika sudah lewat jatuh tempo.
 19. Penjualan Stok tidak perlu ada kontrak penjualan, langsung penjualan dan harus references dari QS yang sudah masuk.
 20. Poin 14 maka di user monic
+21. Setiap receive harus generate di table stock in dan setiap keluar atau potong harus ada proses stock in dan out.
 
 
 --- Kompensasi
@@ -39,3 +40,18 @@ Plat -> Loco KP (Ambil Sendiri) -> Ongkos Transportasi
 				-> Ongkos Potong
      -> Coil
 2. Persediaan yg masuk dari KP itu ke Persediaan
+
+
+
+
+--- Purchase ---
+PO -> KO -> KONTRAK -> RECEIVE 
+   -> Sub Item -> RECEIVE Sub Item
+
+--- Cutting ---
+PO -> Cutting
+
+--- Sales ---
+PO -> KONTRAK -> DELIVERY
+   -> Sub Item -> DELIVERY Sub Item
+

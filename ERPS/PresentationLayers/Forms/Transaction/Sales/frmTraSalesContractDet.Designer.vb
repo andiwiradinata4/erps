@@ -255,11 +255,11 @@ Partial Class frmTraSalesContractDet
         Me.txtBPLocationAddress.Size = New System.Drawing.Size(283, 71)
         Me.txtBPLocationAddress.TabIndex = 10
         '
-        'SimpleButton1
+        'btnBPLocation
         '
-        Me.btnBPLocation.Image = CType(resources.GetObject("SimpleButton1.Image"), System.Drawing.Image)
+        Me.btnBPLocation.Image = CType(resources.GetObject("btnBPLocation.Image"), System.Drawing.Image)
         Me.btnBPLocation.Location = New System.Drawing.Point(877, 43)
-        Me.btnBPLocation.Name = "SimpleButton1"
+        Me.btnBPLocation.Name = "btnBPLocation"
         Me.btnBPLocation.Size = New System.Drawing.Size(23, 23)
         Me.btnBPLocation.TabIndex = 11
         '
