@@ -54,6 +54,7 @@ Public Class frmMstCompanyDet
                 txtWarehouse.Text = clsData.Warehouse
                 txtPhoneNumber.Text = clsData.PhoneNumber
                 txtCompanyInitial.Text = clsData.CompanyInitial
+                txtNPWP.Text = clsData.NPWP
                 cboStatus.SelectedValue = clsData.StatusID
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
@@ -96,6 +97,7 @@ Public Class frmMstCompanyDet
         clsData.Warehouse = txtWarehouse.Text.Trim
         clsData.PhoneNumber = txtPhoneNumber.Text.Trim
         clsData.CompanyInitial = txtCompanyInitial.Text.Trim
+        clsData.NPWP = txtNPWP.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
 

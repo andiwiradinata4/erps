@@ -275,7 +275,6 @@ Public Class frmTraDeliveryDetItem
             dtTransportItemParent.ImportRow(dr)
         Next
         dtTransportItemParent.AcceptChanges()
-        frmParent.grdItemTransportView.BestFitColumns()
         Me.Close()
     End Sub
 

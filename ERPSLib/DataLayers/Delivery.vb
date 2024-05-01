@@ -554,6 +554,55 @@
             End Try
         End Sub
 
+        Public Shared Sub CalculateItemTotalUsedReceivePayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                               ByVal strReferencesID As String, ByVal strReferencesDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traDeliveryDet SET 	" & vbNewLine &
+                    "	DPAmount=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(ARD.DPAmount),0) DPAmount" & vbNewLine &
+                    "		FROM traARAPItem ARD 	" & vbNewLine &
+                    "		INNER JOIN traAccountReceivable ARH ON	" & vbNewLine &
+                    "			ARD.ParentID=ARH.ID 	" & vbNewLine &
+                    "			AND ARH.Modules=@Modules " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			ARD.ReferencesID=@ReferencesID 	" & vbNewLine &
+                    "			AND ARD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND ARH.IsDeleted=0 	" & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	ReceiveAmount=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(ARD.Amount),0) TotalPayment " & vbNewLine &
+                    "		FROM traARAPItem ARD 	" & vbNewLine &
+                    "		INNER JOIN traAccountReceivable ARH ON	" & vbNewLine &
+                    "			ARD.ParentID=ARH.ID 	" & vbNewLine &
+                    "			AND ARH.Modules=@Modules " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			ARD.ReferencesID=@ReferencesID 	" & vbNewLine &
+                    "			AND ARD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND ARH.IsDeleted=0 	" & vbNewLine &
+                    "	) " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ID=@ReferencesDetailID " & vbNewLine
+
+                .Parameters.Add("@ReferencesID", SqlDbType.VarChar, 100).Value = strReferencesID
+                .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strReferencesDetailID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountReceivable.ReceivePayment
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
         Public Shared Sub UpdateJournalID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                           ByVal strID As String, ByVal strJournalID As String,
                                           ByVal decTotalCostRawMaterial As Decimal)

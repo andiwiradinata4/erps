@@ -6,11 +6,10 @@ Public Class frmTraDeliveryDet
     Private frmParent As frmTraDelivery
     Private clsData As VO.Delivery
     Private intBPID As Integer = 0
+    Private intTransporterID As Integer = 0
     Private strSCID As String = ""
     Private dtItem As New DataTable
-    Private dtItemTransport As New DataTable
     Private dtPaymentTerm As New DataTable
-    Private dtDeliveryTransport As New DataTable
     Private intPos As Integer = 0
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
@@ -64,35 +63,6 @@ Public Class frmTraDeliveryDet
         UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
-
-        '# Transport Detail
-        UI.usForm.SetGrid(grdItemTransportView, "ID", "ID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemTransportView, "DeliveryID", "DeliveryID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemTransportView, "PODetailID", "PODetailID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemTransportView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdItemTransportView, "POID", "POID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemTransportView, "PONumber", "Nomor Pesanan", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemTransportView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdItemTransportView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemTransportView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemTransportView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemTransportView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdItemTransportView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdItemTransportView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdItemTransportView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemTransportView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdItemTransportView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemTransportView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
-        UI.usForm.SetGrid(grdItemTransportView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
-        UI.usForm.SetGrid(grdItemTransportView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemTransportView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemTransportView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemTransportView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemTransportView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemTransportView, "BPID", "BPID", 300, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdItemTransportView, "PPN", "PPN", 300, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemTransportView, "PPH", "PPH", 300, UI.usDefGrid.gReal2Num)
-        grdItemTransportView.Columns("GroupID").GroupIndex = 0
 
         '# History
         UI.usForm.SetGrid(grdStatusView, "ID", "ID", 100, UI.usDefGrid.gString, False)
@@ -186,10 +156,10 @@ Public Class frmTraDeliveryDet
             tcDetail.SelectedTab = tpItem
             grdItemView.Focus()
             Exit Sub
-        ElseIf grdItemTransportView.RowCount = 0 Then
-            UI.usForm.frmMessageBox("Item kosong. Mohon untuk diinput item terlebih dahulu")
-            tcDetail.SelectedTab = tpTransport
-            grdItemTransportView.Focus()
+        ElseIf intTransporterID = 0 Or txtTransporterCode.Text.Trim = "" Or txtTransporterName.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih transporter terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtTransporterCode.Focus()
             Exit Sub
         End If
 
@@ -221,46 +191,6 @@ Public Class frmTraDeliveryDet
                            })
         Next
 
-        Dim listDeliveryTransport As New List(Of VO.DeliveryTransport)
-        For Each dr As DataRow In dtDeliveryTransport.Rows
-            listDeliveryTransport.Add(New VO.DeliveryTransport With
-                                      {
-                                          .ID = dr.Item("ID"),
-                                          .DeliveryID = dr.Item("DeliveryID"),
-                                          .POID = dr.Item("POID"),
-                                          .BPID = dr.Item("BPID"),
-                                          .PPN = dr.Item("PPN"),
-                                          .PPH = dr.Item("PPH"),
-                                          .TotalQuantity = dr.Item("TotalQuantity"),
-                                          .TotalWeight = dr.Item("TotalWeight"),
-                                          .TotalDPP = dr.Item("TotalDPP"),
-                                          .TotalPPN = dr.Item("TotalPPN"),
-                                          .TotalPPH = dr.Item("TotalPPH"),
-                                          .RoundingManual = dr.Item("RoundingManual"),
-                                          .Remarks = dr.Item("Remarks"),
-                                          .DPAmount = dr.Item("DPAmount"),
-                                          .TotalPayment = dr.Item("TotalPayment"),
-                                          .JournalID = dr.Item("JournalID")
-                                      })
-        Next
-
-        Dim listDetailTransport As New List(Of VO.DeliveryDetTransport)
-        For Each dr As DataRow In dtItemTransport.Rows
-            listDetailTransport.Add(New ERPSLib.VO.DeliveryDetTransport With
-                                    {
-                                        .PODetailID = dr.Item("PODetailID"),
-                                        .GroupID = dr.Item("GroupID"),
-                                        .ItemID = dr.Item("ItemID"),
-                                        .Quantity = dr.Item("Quantity"),
-                                        .Weight = dr.Item("Weight"),
-                                        .TotalWeight = dr.Item("TotalWeight"),
-                                        .UnitPrice = dr.Item("UnitPrice"),
-                                        .TotalPrice = dr.Item("TotalPrice"),
-                                        .Remarks = dr.Item("Remarks")
-                                    })
-        Next
-
-        clsData = New VO.Delivery
         clsData.ID = pubID
         clsData.ProgramID = pubCS.ProgramID
         clsData.CompanyID = pubCS.CompanyID
@@ -284,9 +214,12 @@ Public Class frmTraDeliveryDet
         clsData.RoundingManual = 0
         clsData.Remarks = txtRemarks.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
+        clsData.UnitPriceTransport = txtUnitPriceTransport.Value
+        clsData.PPNTransport = txtPPNTransport.Value
+        clsData.IsFreePPNTransport = chkIsFreePPNTransport.Checked
+        clsData.PPHTransport = txtPPHTransport.Value
+        clsData.IsFreePPHTransport = chkIsFreePPHTransport.Checked
         clsData.Detail = listDetail
-        clsData.DeliveryTransport = listDeliveryTransport
-        clsData.DetailTransport = listDetailTransport
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
 
@@ -299,7 +232,6 @@ Public Class frmTraDeliveryDet
             If pubIsNew Then
                 prvClear()
                 prvQueryItem()
-                prvQueryItemTransport()
                 prvQueryHistory()
                 prvSetupTools()
             Else
@@ -362,6 +294,27 @@ Public Class frmTraDeliveryDet
         End With
     End Sub
 
+    Private Sub prvChooseTransporter()
+        Dim frmDetail As New frmMstBusinessPartner
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                If intTransporterID <> .pubLUdtRow.Item("ID") Then
+                    txtPPNTransport.Value = .pubLUdtRow.Item("PPN")
+                    txtPPHTransport.Value = .pubLUdtRow.Item("PPH")
+                    chkIsFreePPNTransport.Checked = .pubLUdtRow.Item("IsFreePPN")
+                    chkIsFreePPHTransport.Checked = .pubLUdtRow.Item("IsFreePPH")
+                End If
+
+                intBPID = .pubLUdtRow.Item("ID")
+                txtBPCode.Text = .pubLUdtRow.Item("Code")
+                txtBPName.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
     Private Sub prvChooseSC()
         Dim frmDetail As New frmTraSalesContractOutstandingDelivery
         With frmDetail
@@ -400,24 +353,6 @@ Public Class frmTraDeliveryDet
             grdItemView.Columns("TotalPrice").Summary.Add(SumGrandTotalPrice)
         End If
         grdItemView.BestFitColumns()
-
-        '# Item Transport
-        Dim SumTotalQuantityTransport As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
-        Dim SumGrandTotalWeightTransport As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
-        Dim SumGrandTotalPriceTransport As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
-
-        If grdItemTransportView.Columns("Quantity").SummaryText.Trim = "" Then
-            grdItemTransportView.Columns("Quantity").Summary.Add(SumTotalQuantityTransport)
-        End If
-
-        If grdItemTransportView.Columns("TotalWeight").SummaryText.Trim = "" Then
-            grdItemTransportView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeightTransport)
-        End If
-
-        If grdItemTransportView.Columns("TotalPrice").SummaryText.Trim = "" Then
-            grdItemTransportView.Columns("TotalPrice").Summary.Add(SumGrandTotalPriceTransport)
-        End If
-        grdItemTransportView.BestFitColumns()
     End Sub
 
     Private Sub prvCalculate()
@@ -434,11 +369,13 @@ Public Class frmTraDeliveryDet
         txtTotalDPPTransport.Value = 0
         txtTotalPPNTransport.Value = 0
         txtTotalPPHTransport.Value = 0
-        For Each dr As DataRow In dtDeliveryTransport.Rows
-            txtTotalDPPTransport.Value += dr.Item("TotalDPP")
-            txtTotalPPNTransport.Value += dr.Item("TotalPPN")
-            txtTotalPPHTransport.Value += dr.Item("TotalPPH")
+        Dim decTotalWeight As Decimal = 0
+        For Each dr As DataRow In dtItem.Rows
+            decTotalWeight += dr.Item("TotalWeight")
         Next
+        txtTotalDPPTransport.Value += decTotalWeight * txtUnitPriceTransport.Value
+        txtTotalPPNTransport.Value += txtTotalDPPTransport.Value * txtPPNTransport.Value / 100
+        txtTotalPPHTransport.Value += txtTotalDPPTransport.Value * txtPPHTransport.Value / 100
         txtGrandTotalTransport.Value = txtTotalDPPTransport.Value + txtTotalPPNTransport.Value - txtTotalPPHTransport.Value
     End Sub
 
@@ -450,7 +387,6 @@ Public Class frmTraDeliveryDet
         Dim bolEnabled As Boolean = IIf(grdItemView.RowCount = 0, True, False)
         btnBP.Enabled = bolEnabled
         btnSC.Enabled = bolEnabled
-        grdItemTransportView.ExpandAllGroups()
     End Sub
 
 #Region "Item Handle"
@@ -496,17 +432,15 @@ Public Class frmTraDeliveryDet
             txtBPCode.Focus()
             Exit Sub
         End If
-        Dim frmDetail As New frmTraDeliveryDetItem
+        Dim frmDetail As New frmTraDeliveryDetItemVer01
         With frmDetail
             .pubIsNew = True
             .pubCS = pubCS
             .pubSCID = strSCID
             .pubTableItem = dtItem
-            .pubTableTransportItemParent = dtItemTransport
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
-            prvSetupDeliveryTransport()
             prvCalculate()
             prvSetupTools()
         End With
@@ -515,18 +449,16 @@ Public Class frmTraDeliveryDet
     Private Sub prvEditItem()
         intPos = grdItemView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
-        Dim frmDetail As New frmTraDeliveryDetItem
+        Dim frmDetail As New frmTraDeliveryDetItemVer01
         With frmDetail
             .pubIsNew = False
             .pubCS = pubCS
             .pubSCID = strSCID
             .pubTableItem = dtItem
-            .pubTableTransportItemParent = dtItemTransport
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
-            prvSetupDeliveryTransport()
             prvCalculate()
             prvSetupTools()
         End With
@@ -544,12 +476,6 @@ Public Class frmTraDeliveryDet
         Next
         dtItem.AcceptChanges()
 
-        '# Delete Item Transport
-        For Each dr As DataRow In dtItemTransport.Rows
-            If dr.Item("GroupID") = intGroupID Then dr.Delete()
-        Next
-        dtItemTransport.AcceptChanges()
-
         '# Update Group ID Item
         For Each dr As DataRow In dtItem.Rows
             If dr.Item("GroupID") > intGroupID Then
@@ -559,109 +485,9 @@ Public Class frmTraDeliveryDet
             End If
         Next
         dtItem.AcceptChanges()
-
-        '# Update Group ID Confirmation Order
-        For Each dr As DataRow In dtItemTransport.Rows
-            If dr.Item("GroupID") > intGroupID Then
-                dr.BeginEdit()
-                dr.Item("GroupID") = dr.Item("GroupID") - 1
-                dr.EndEdit()
-            End If
-        Next
-        dtItemTransport.AcceptChanges()
-        prvSetupDeliveryTransport()
         prvCalculate()
         prvSetButtonItem()
         prvSetupTools()
-    End Sub
-
-#End Region
-
-#Region "Item Transport Handle"
-
-    Private Sub prvQueryItemTransport()
-        Me.Cursor = Cursors.WaitCursor
-        pgMain.Value = 30
-        Try
-            dtItemTransport = BL.Delivery.ListDataDetailTransport(pubID.Trim)
-            grdItemTransport.DataSource = dtItemTransport
-            prvSumGrid()
-            grdItemView.BestFitColumns()
-            prvSetupTools()
-
-            prvQueryDeliveryTransport()
-        Catch ex As Exception
-            UI.usForm.frmMessageBox(ex.Message)
-            Me.Close()
-        Finally
-            Me.Cursor = Cursors.Default
-            pgMain.Value = 100
-            prvSetButtonItem()
-            prvResetProgressBar()
-        End Try
-    End Sub
-
-    Private Sub prvQueryDeliveryTransport()
-        Me.Cursor = Cursors.WaitCursor
-        pgMain.Value = 30
-        Try
-            dtDeliveryTransport = BL.Delivery.ListDataDeliveryTransport(pubID.Trim)
-        Catch ex As Exception
-            UI.usForm.frmMessageBox(ex.Message)
-            Me.Close()
-        Finally
-            Me.Cursor = Cursors.Default
-            pgMain.Value = 100
-            prvResetProgressBar()
-        End Try
-    End Sub
-
-    Private Sub prvSetupDeliveryTransport()
-        '# Reset Delivery Transport
-        dtDeliveryTransport.Clear()
-        dtDeliveryTransport.AcceptChanges()
-
-        '# Recalculate Data
-        Dim dsHelper As New DataSetHelper
-        Dim dtPOTransport As DataTable = dsHelper.SelectGroupByInto("POTransport", dtItemTransport, "POID, BPID, PPN, PPH", "", "POID, BPID, PPN, PPH")
-        For Each dr As DataRow In dtPOTransport.Rows
-            Dim drSelectedPO() As DataRow = dtItemTransport.Select("POID='" & dr.Item("POID") & "'")
-            Dim decTotalQuantity As Decimal = 0, decTotalWeight As Decimal = 0, decTotalDPP As Decimal = 0,
-                decTotalPPN As Decimal = 0, decTotalPPH As Decimal = 0, decTotalRoundingManual As Decimal = 0
-
-            For Each drSelected As DataRow In drSelectedPO
-                decTotalQuantity += drSelected.Item("Quantity")
-                decTotalWeight += drSelected.Item("TotalWeight")
-                decTotalDPP += drSelected.Item("TotalPrice")
-                decTotalPPN += drSelected.Item("TotalPrice") * (drSelected.Item("PPN") / 100)
-                decTotalPPH += drSelected.Item("TotalPrice") * (drSelected.Item("PPH") / 100)
-                decTotalRoundingManual += 0
-            Next
-
-            If drSelectedPO.Count > 0 Then
-                Dim drNew As DataRow = dtDeliveryTransport.NewRow
-                drNew.BeginEdit()
-                drNew.Item("ID") = Guid.NewGuid.ToString
-                drNew.Item("DeliveryID") = pubID
-                drNew.Item("POID") = dr.Item("POID")
-                drNew.Item("BPID") = dr.Item("BPID")
-                drNew.Item("PPN") = dr.Item("PPN")
-                drNew.Item("PPH") = dr.Item("PPH")
-                drNew.Item("TotalQuantity") = decTotalQuantity
-                drNew.Item("TotalWeight") = decTotalWeight
-                drNew.Item("TotalDPP") = decTotalDPP
-                drNew.Item("TotalPPN") = decTotalPPN
-                drNew.Item("TotalPPH") = decTotalPPH
-                drNew.Item("RoundingManual") = decTotalRoundingManual
-                drNew.Item("Remarks") = ""
-                drNew.Item("DPAmount") = 0
-                drNew.Item("TotalPayment") = 0
-                drNew.Item("JournalID") = ""
-                drNew.EndEdit()
-                dtDeliveryTransport.Rows.Add(drNew)
-            End If
-            dtDeliveryTransport.AcceptChanges()
-        Next
     End Sub
 
 #End Region
@@ -712,7 +538,6 @@ Public Class frmTraDeliveryDet
         prvSetGrid()
         prvFillForm()
         prvQueryItem()
-        prvQueryItemTransport()
         prvCalculate()
         prvQueryHistory()
         prvUserAccess()
@@ -742,6 +567,14 @@ Public Class frmTraDeliveryDet
     End Sub
 
     Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtPPN.ValueChanged, txtPPH.ValueChanged
+        prvCalculate()
+    End Sub
+
+    Private Sub btnTransporter_Click(sender As Object, e As EventArgs) Handles btnTransporter.Click
+        prvChooseTransporter()
+    End Sub
+
+    Private Sub txtUnitPriceTransport_ValueChanged(sender As Object, e As EventArgs) Handles txtUnitPriceTransport.ValueChanged
         prvCalculate()
     End Sub
 

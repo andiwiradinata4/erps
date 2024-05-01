@@ -23,7 +23,7 @@
                     "   CASE WHEN A.PaymentBy = '' THEN NULL ELSE A.PaymentDate END AS PaymentDate, A.TaxInvoiceNumber, " & vbNewLine &
                     "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
                     "   A.LogInc, A.LogBy, A.LogDate, A.APNumber AS TransNumber, A.APDate AS TransDate, A.CoAIDOfOutgoingPayment AS CoAID, " & vbNewLine &
-                    "   ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName, A.TotalPPN, A.TotalPPH, A.DPAmount, A.ReceiveAmount, A.IsDP, A.InvoiceNumberBP  " & vbNewLine &
+                    "   ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName, A.TotalPPN, A.TotalPPH, A.DPAmount, A.ReceiveAmount, A.IsDP, A.InvoiceNumberBP, A.CompanyBankAccountID1, A.CompanyBankAccountID2  " & vbNewLine &
                     "FROM traAccountPayable A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -1194,26 +1194,6 @@
                     "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
                     "INNER JOIN mstItemType MIT ON " & vbNewLine &
                     "   MI.ItemTypeID=MIT.ID " & vbNewLine &
-                    "WHERE " & vbNewLine &
-                    "   A.ParentID=@APID " & vbNewLine
-
-                .Parameters.Add("@APID", SqlDbType.VarChar, 100).Value = strAPID
-            End With
-            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
-        End Function
-
-        Public Shared Function ListDataDetailItemOnly(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                      ByVal strAPID As String) As DataTable
-            Dim sqlCmdExecute As New SqlCommand
-            With sqlCmdExecute
-                .Connection = sqlCon
-                .Transaction = sqlTrans
-                .CommandType = CommandType.Text
-                .CommandText =
-                    "SELECT " & vbNewLine &
-                    "   A.ID, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
-                    "   A.ItemID, A.Amount, A.PPN, A.PPH  " & vbNewLine &
-                    "FROM traARAPItem A " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   A.ParentID=@APID " & vbNewLine
 

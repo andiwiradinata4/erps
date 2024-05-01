@@ -157,6 +157,8 @@ Public Class frmTraSalesContractDet
                 txtDelegationSeller.Text = clsData.DelegationSeller
                 txtDelegationPositionSeller.Text = clsData.DelegationPositionSeller
                 cboStatus.SelectedValue = clsData.StatusID
+                intBPLocationID = clsData.BPLocationID
+                txtBPLocationAddress.Text = clsData.BPLocationAddress
                 txtRemarks.Text = clsData.Remarks
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy

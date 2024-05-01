@@ -3,6 +3,7 @@
     Public pubLUdtRow As DataRow
     Public pubIsLookUp As Boolean = False
     Public pubIsLookUpGet As Boolean = False
+    Public pubCompanyID As Integer = 0
     Private dtData As New DataTable
 
     Private Const _
@@ -45,7 +46,7 @@
 
     Private Sub prvQuery()
         Try
-            grdMain.DataSource = BL.CompanyBankAccount.ListData
+            grdMain.DataSource = BL.CompanyBankAccount.ListData(IIf(pubIsLookUp, pubCompanyID, 0))
             grdView.Columns("CompanyName").GroupIndex = 0
             grdView.ExpandAllGroups()
             grdView.BestFitColumns()

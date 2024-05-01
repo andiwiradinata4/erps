@@ -1,7 +1,8 @@
 ﻿Namespace DL
     Public Class CompanyBankAccount
 
-        Public Shared Function ListData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction) As DataTable
+        Public Shared Function ListData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                        ByVal intCompanyID As Integer) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -15,8 +16,12 @@
                     "INNER JOIN mstStatus B ON " & vbNewLine & _
                     "   A.StatusID=B.ID " & vbNewLine & _
                     "INNER JOIN mstCompany C ON " & vbNewLine & _
-                    "   A.CompanyID=C.ID " & vbNewLine
+                    "   A.CompanyID=C.ID " & vbNewLine & _
+                    "WHERE 1=1 " & vbNewLine
 
+                If intCompanyID <> 0 Then .CommandText += "  AND CompanyID=@CompanyID " & vbNewLine
+
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function

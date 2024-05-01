@@ -211,7 +211,7 @@ Namespace BL
                         clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
 
                         dtDetail = DL.AccountPayable.ListDataDetailOnly(sqlCon, sqlTrans, clsData.ID)
-                        dtDetailItem = DL.AccountPayable.ListDataDetailItemOnly(sqlCon, sqlTrans, clsData.ID)
+                        dtDetailItem = DL.ARAP.ListDataDetailItemOnly(sqlCon, sqlTrans, clsData.ID)
                     End If
 
                     DL.AccountPayable.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
@@ -315,9 +315,6 @@ Namespace BL
                     DL.ARAP.CalculateTotalAmountUsed(sqlCon, sqlTrans, clsDet.DPID, VO.ARAP.ARAPTypeValue.Purchase)
                     intCount += 1
                 Next
-
-                '# Allocate DP Amount to Each Receive
-                '# On Progress
 
                 '# Calculate Payment Amount
                 For Each clsDet As VO.AccountPayableDet In clsData.Detail
@@ -500,7 +497,7 @@ Namespace BL
                     strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
 
                     dtDetail = DL.AccountPayable.ListDataDetailOnly(sqlCon, sqlTrans, strID)
-                    dtDetailItem = DL.AccountPayable.ListDataDetailItemOnly(sqlCon, sqlTrans, strID)
+                    dtDetailItem = DL.ARAP.ListDataDetailItemOnly(sqlCon, sqlTrans, strID)
                 End If
 
                 DL.AccountPayable.DeleteData(sqlCon, sqlTrans, strID)

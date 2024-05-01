@@ -14,6 +14,7 @@ Namespace VO
         Property PhoneNumber As String
         Property CompanyInitial As String
         Property StatusID As Integer
-    End Class 
+        Property NPWP As String
+    End Class
 End Namespace
 

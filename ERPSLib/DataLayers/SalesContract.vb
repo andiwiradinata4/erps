@@ -674,6 +674,42 @@
             End Try
         End Sub
 
+        Public Shared Sub CalculateItemTotalUsedDownPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                            ByVal strReferencesID As String, ByVal strReferencesDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesContractDet SET 	" & vbNewLine &
+                    "	DPAmount=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(ARD.Amount),0) TotalPayment		" & vbNewLine &
+                    "		FROM traARAPItem ARD 	" & vbNewLine &
+                    "		INNER JOIN traAccountReceivable ARH ON	" & vbNewLine &
+                    "			ARD.ParentID=ARH.ID 	" & vbNewLine &
+                    "			AND ARH.Modules=@Modules " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			ARD.ReferencesID=@ReferencesID 	" & vbNewLine &
+                    "			AND ARD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND ARH.IsDeleted=0 	" & vbNewLine &
+                    "	) " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ID=@ReferencesDetailID " & vbNewLine
+
+                .Parameters.Add("@ReferencesID", SqlDbType.VarChar, 100).Value = strReferencesID
+                .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strReferencesDetailID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountReceivable.DownPayment
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
         Public Shared Sub CalculateTotalUsedReceivePayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                            ByVal strID As String)
             Dim sqlCmdExecute As New SqlCommand
@@ -729,6 +765,35 @@
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountReceivable.ReceivePayment
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateTotalUsedReceiveItemPaymentVer01(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                    ByVal strDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesContractDet SET 	" & vbNewLine &
+                    "	ReceiveAmount=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(APD.ReceiveAmount),0) ReceiveAmount " & vbNewLine &
+                    "		FROM traDeliveryDet APD " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			APD.SCDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "	) " & vbNewLine &
+                    "WHERE ID=@ReferencesDetailID " & vbNewLine
+
+                .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strDetailID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePayment
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -1233,6 +1298,33 @@
                 Throw ex
             End Try
         End Sub
+
+        Public Shared Function ListDataPurchaseContractNumber(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                              ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                              ByVal strSCID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT DISTINCT PCH.PCNumber  " & vbNewLine & _
+"FROM traSalesContractDetConfirmationOrder SCCO  " & vbNewLine & _
+"INNER JOIN traPurchaseContractDet PCD ON  " & vbNewLine & _
+"	SCCO.CODetailID=PCD.CODetailID  " & vbNewLine & _
+"INNER JOIN traPurchaseContract PCH ON  " & vbNewLine & _
+"	PCD.PCID=PCH.ID  " & vbNewLine & _
+"WHERE " & vbNewLine & _
+"   PCH.ProgramID=@ProgramID  " & vbNewLine & _
+"   AND PCH.CompanyID=@CompanyID  " & vbNewLine & _
+"   AND SCCO.SCID=@SCID  " & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = strSCID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
 
 #End Region
 

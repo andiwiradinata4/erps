@@ -65,15 +65,15 @@ Partial Class frmTraDeliveryDetItem
         Me.txtItemCode = New ERPS.usTextBox()
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtItemName = New ERPS.usTextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.ToolBarItemTransport = New ERPS.usToolBar()
-        Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.BarEditItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.grdItemTransport = New DevExpress.XtraGrid.GridControl()
-        Me.grdItemTransportView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.grdItemTransportView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.grdItemTransport = New DevExpress.XtraGrid.GridControl()
+        Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarEditItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.ToolBarItemTransport = New ERPS.usToolBar()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -84,10 +84,10 @@ Partial Class frmTraDeliveryDetItem
         CType(Me.txtUnitPrice, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdItemTransport, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdItemTransportView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdItemTransportView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdItemTransport, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -600,48 +600,29 @@ Partial Class frmTraDeliveryDetItem
         Me.txtItemName.Size = New System.Drawing.Size(456, 48)
         Me.txtItemName.TabIndex = 3
         '
-        'Label5
+        'RepositoryItemTextEdit1
         '
-        Me.Label5.BackColor = System.Drawing.Color.CadetBlue
-        Me.Label5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Label5.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.ForeColor = System.Drawing.Color.White
-        Me.Label5.Location = New System.Drawing.Point(0, 393)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(652, 22)
-        Me.Label5.TabIndex = 3
-        Me.Label5.Text = "« Pesanan Pengiriman"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.RepositoryItemTextEdit1.AutoHeight = False
+        Me.RepositoryItemTextEdit1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.RepositoryItemTextEdit1.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.RepositoryItemTextEdit1.Name = "RepositoryItemTextEdit1"
+        Me.RepositoryItemTextEdit1.NullText = "0.00"
         '
-        'ToolBarItemTransport
+        'GridView1
         '
-        Me.ToolBarItemTransport.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarItemTransport.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarEditItemOrder, Me.BarDeleteItemOrder})
-        Me.ToolBarItemTransport.DropDownArrows = True
-        Me.ToolBarItemTransport.Location = New System.Drawing.Point(0, 415)
-        Me.ToolBarItemTransport.Name = "ToolBarItemTransport"
-        Me.ToolBarItemTransport.ShowToolTips = True
-        Me.ToolBarItemTransport.Size = New System.Drawing.Size(652, 28)
-        Me.ToolBarItemTransport.TabIndex = 4
-        Me.ToolBarItemTransport.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        Me.GridView1.GridControl = Me.grdItemTransport
+        Me.GridView1.Name = "GridView1"
         '
-        'BarAddItemOrder
+        'grdItemTransportView
         '
-        Me.BarAddItemOrder.Name = "BarAddItemOrder"
-        Me.BarAddItemOrder.Tag = "Add"
-        Me.BarAddItemOrder.Text = "Tambah"
-        '
-        'BarEditItemOrder
-        '
-        Me.BarEditItemOrder.Name = "BarEditItemOrder"
-        Me.BarEditItemOrder.Tag = "Edit"
-        Me.BarEditItemOrder.Text = "Edit"
-        '
-        'BarDeleteItemOrder
-        '
-        Me.BarDeleteItemOrder.Name = "BarDeleteItemOrder"
-        Me.BarDeleteItemOrder.Tag = "Delete"
-        Me.BarDeleteItemOrder.Text = "Hapus"
+        Me.grdItemTransportView.GridControl = Me.grdItemTransport
+        Me.grdItemTransportView.Name = "grdItemTransportView"
+        Me.grdItemTransportView.OptionsCustomization.AllowColumnMoving = False
+        Me.grdItemTransportView.OptionsCustomization.AllowGroup = False
+        Me.grdItemTransportView.OptionsView.ColumnAutoWidth = False
+        Me.grdItemTransportView.OptionsView.ShowAutoFilterRow = True
+        Me.grdItemTransportView.OptionsView.ShowFooter = True
+        Me.grdItemTransportView.OptionsView.ShowGroupPanel = False
         '
         'grdItemTransport
         '
@@ -669,29 +650,48 @@ Partial Class frmTraDeliveryDetItem
         Me.grdItemTransport.UseEmbeddedNavigator = True
         Me.grdItemTransport.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemTransportView, Me.GridView1})
         '
-        'grdItemTransportView
+        'BarDeleteItemOrder
         '
-        Me.grdItemTransportView.GridControl = Me.grdItemTransport
-        Me.grdItemTransportView.Name = "grdItemTransportView"
-        Me.grdItemTransportView.OptionsCustomization.AllowColumnMoving = False
-        Me.grdItemTransportView.OptionsCustomization.AllowGroup = False
-        Me.grdItemTransportView.OptionsView.ColumnAutoWidth = False
-        Me.grdItemTransportView.OptionsView.ShowAutoFilterRow = True
-        Me.grdItemTransportView.OptionsView.ShowFooter = True
-        Me.grdItemTransportView.OptionsView.ShowGroupPanel = False
+        Me.BarDeleteItemOrder.Name = "BarDeleteItemOrder"
+        Me.BarDeleteItemOrder.Tag = "Delete"
+        Me.BarDeleteItemOrder.Text = "Hapus"
         '
-        'RepositoryItemTextEdit1
+        'BarEditItemOrder
         '
-        Me.RepositoryItemTextEdit1.AutoHeight = False
-        Me.RepositoryItemTextEdit1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.RepositoryItemTextEdit1.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.RepositoryItemTextEdit1.Name = "RepositoryItemTextEdit1"
-        Me.RepositoryItemTextEdit1.NullText = "0.00"
+        Me.BarEditItemOrder.Name = "BarEditItemOrder"
+        Me.BarEditItemOrder.Tag = "Edit"
+        Me.BarEditItemOrder.Text = "Edit"
         '
-        'GridView1
+        'BarAddItemOrder
         '
-        Me.GridView1.GridControl = Me.grdItemTransport
-        Me.GridView1.Name = "GridView1"
+        Me.BarAddItemOrder.Name = "BarAddItemOrder"
+        Me.BarAddItemOrder.Tag = "Add"
+        Me.BarAddItemOrder.Text = "Tambah"
+        '
+        'ToolBarItemTransport
+        '
+        Me.ToolBarItemTransport.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBarItemTransport.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarEditItemOrder, Me.BarDeleteItemOrder})
+        Me.ToolBarItemTransport.DropDownArrows = True
+        Me.ToolBarItemTransport.Location = New System.Drawing.Point(0, 415)
+        Me.ToolBarItemTransport.Name = "ToolBarItemTransport"
+        Me.ToolBarItemTransport.ShowToolTips = True
+        Me.ToolBarItemTransport.Size = New System.Drawing.Size(652, 28)
+        Me.ToolBarItemTransport.TabIndex = 4
+        Me.ToolBarItemTransport.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'Label5
+        '
+        Me.Label5.BackColor = System.Drawing.Color.CadetBlue
+        Me.Label5.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label5.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.ForeColor = System.Drawing.Color.White
+        Me.Label5.Location = New System.Drawing.Point(0, 393)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(652, 22)
+        Me.Label5.TabIndex = 3
+        Me.Label5.Text = "« Pesanan Pengiriman"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'frmTraDeliveryDetItem
         '
@@ -721,10 +721,10 @@ Partial Class frmTraDeliveryDetItem
         CType(Me.txtUnitPrice, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdItemTransport, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdItemTransportView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdItemTransportView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdItemTransport, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -771,13 +771,13 @@ Partial Class frmTraDeliveryDetItem
     Friend WithEvents txtItemCode As ERPS.usTextBox
     Friend WithEvents lblName As System.Windows.Forms.Label
     Friend WithEvents txtItemName As ERPS.usTextBox
-    Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents ToolBarItemTransport As ERPS.usToolBar
-    Friend WithEvents BarAddItemOrder As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarEditItemOrder As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarDeleteItemOrder As System.Windows.Forms.ToolBarButton
-    Friend WithEvents grdItemTransport As DevExpress.XtraGrid.GridControl
-    Friend WithEvents grdItemTransportView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents grdItemTransport As DevExpress.XtraGrid.GridControl
+    Friend WithEvents grdItemTransportView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents BarDeleteItemOrder As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarEditItemOrder As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarAddItemOrder As System.Windows.Forms.ToolBarButton
+    Friend WithEvents ToolBarItemTransport As ERPS.usToolBar
+    Friend WithEvents Label5 As System.Windows.Forms.Label
 End Class

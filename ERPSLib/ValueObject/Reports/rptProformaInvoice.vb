@@ -25,6 +25,17 @@
         Property CompanySubDistrict As String
         Property CompanyDirectorName As String
         Property NumericToString As String
+        Property TaxInvoiceNumber As String
+        Property NPWP As String
+        Property DirectorName As String
+        Property BankAccountName1 As String
+        Property BankAccountBankName1 As String
+        Property BankAccountNumber1 As String
+        Property BankAccountName2 As String
+        Property BankAccountBankName2 As String
+        Property BankAccountNumber2 As String
+        Property ContractNumber As String
+        Property PurchaseNumber As String
 
         '# Items
         Property ItemID As Integer

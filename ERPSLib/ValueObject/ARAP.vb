@@ -38,6 +38,8 @@
         Property DPAmount As Decimal
         Property ReceiveAmount As Decimal
         Property TotalAmountUsed As Decimal
+        Property CompanyBankAccountID1 As Integer
+        Property CompanyBankAccountID2 As Integer
         Property Detail As New List(Of VO.ARAPDet)
         Property DownPayment As New List(Of VO.ARAPDP)
         Property DownPaymentDetail As New List(Of VO.ARAPDPDet)

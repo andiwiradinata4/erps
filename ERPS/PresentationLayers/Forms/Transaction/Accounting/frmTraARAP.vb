@@ -122,6 +122,8 @@ Public Class frmTraARAP
         UI.usForm.SetGrid(grdView, "LogInc", "LogInc", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdView, "StatusInfo", "Status", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "IsDP", "IsDP", 100, UI.usDefGrid.gBoolean, False)
+        UI.usForm.SetGrid(grdView, "CompanyBankAccountID1", "CompanyBankAccountID1", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdView, "CompanyBankAccountID2", "CompanyBankAccountID2", 100, UI.usDefGrid.gIntNum, False)
     End Sub
 
     Private Sub prvSetButton()
@@ -235,6 +237,8 @@ Public Class frmTraARAP
         clsReturn.PaymentBy = grdView.GetRowCellValue(intPos, "PaymentBy")
         clsReturn.TaxInvoiceNumber = grdView.GetRowCellValue(intPos, "TaxInvoiceNumber")
         clsReturn.IsDP = grdView.GetRowCellValue(intPos, "IsDP")
+        clsReturn.CompanyBankAccountID1 = grdView.GetRowCellValue(intPos, "CompanyBankAccountID1")
+        clsReturn.CompanyBankAccountID2 = grdView.GetRowCellValue(intPos, "CompanyBankAccountID2")
         Return clsReturn
     End Function
 
@@ -591,7 +595,19 @@ Public Class frmTraARAP
         prvGetCS()
         clsData = prvGetData()
         Try
-            Dim dtData As DataTable = BL.ARAP.PrintVer00(clsCS.ProgramID, intCompanyID, strID)
+            If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
+                Dim frmChooseBankAccount As New frmTraARAPChooseBankAccount
+                With frmChooseBankAccount
+                    .pubID = strID
+                    .pubCompanyBankAccount1 = clsData.CompanyBankAccountID1
+                    .pubCompanyBankAccount2 = clsData.CompanyBankAccountID2
+                    .StartPosition = FormStartPosition.CenterParent
+                    .pubShowDialog(Me)
+                    If Not .pubIsSave Then Exit Sub
+                End With
+            End If
+
+            Dim dtData As DataTable = BL.ARAP.PrintVer01(clsCS.ProgramID, intCompanyID, strID)
             Dim intStatusID As Integer = 0
             For Each dr As DataRow In dtData.Rows
                 intStatusID = dr.Item("StatusID")
@@ -609,8 +625,6 @@ Public Class frmTraARAP
                 crReport.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.Horizontal
                 crReport.Watermark.TextTransparency = 150
             End If
-
-            Dim bolIsDP As Boolean = IIf(VO.ARAP.GetPaymentTypeInitial(clsData.Modules) = "DP", True, False)
 
             '# Set Default Value Payment
             crReport.InvoiceType.Value = VO.ARAP.GetPaymentTypeInitial(clsData.Modules)
@@ -669,6 +683,11 @@ Public Class frmTraARAP
                     crReport.DescPayment3.Value = strDescPayment
                     crReport.AmountPayment3.Value = decAmountPayment
                 End If
+            Next
+
+            For Each dr As DataRow In dtData.Rows
+                If dr.Item("BankAccountName2") = "" Then crReport.sbCompanyBankAccount2.Visible = False
+                Exit For
             Next
 
             crReport.DataSource = dtData

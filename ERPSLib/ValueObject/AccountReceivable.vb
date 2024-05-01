@@ -42,8 +42,11 @@
         Property CompanyBankAccount2 As Integer
         Property OtherExpenses As Decimal
         Property InvoiceNumberBP As String
+        Property CompanyBankAccountID1 As Integer
+        Property CompanyBankAccountID2 As Integer
         Property Detail As New List(Of VO.AccountReceivableDet)
         Property ARAPDownPayment As New List(Of VO.ARAPDP)
+        Property ARAPItem As New List(Of VO.ARAPItem)
         Property Save As VO.Save.Action
 
         Public Const All As String = "AR"

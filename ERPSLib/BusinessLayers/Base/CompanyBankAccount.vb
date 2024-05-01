@@ -2,10 +2,10 @@
 
     Public Class CompanyBankAccount
 
-        Public Shared Function ListData() As DataTable
+        Public Shared Function ListData(ByVal intCompanyID As Integer) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.CompanyBankAccount.ListData(sqlCon, Nothing)
+                Return DL.CompanyBankAccount.ListData(sqlCon, Nothing, intCompanyID)
             End Using
         End Function
         

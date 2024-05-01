@@ -17,5 +17,10 @@
         Property CoAIDofStock As Integer
         Property CoACodeofStock As String
         Property CoANameofStock As String
+        Property NPWP As String
+        Property PPN As Decimal
+        Property PPH As Decimal
+        Property IsFreePPN As Decimal
+        Property IsFreePPH As Decimal
     End Class
 End Namespace

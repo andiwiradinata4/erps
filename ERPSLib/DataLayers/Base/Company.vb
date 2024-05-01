@@ -10,7 +10,7 @@ Namespace DL
                    "SELECT " & vbNewLine & _
                    "    A.ID AS CompanyID, A.Name AS CompanyName, A.Address, A.Country, A.Province, A.City, A.SubDistrict, A.Area, A.DirectorName, A.Warehouse, " & vbNewLine & _
                    "    A.PhoneNumber, A.CompanyInitial, A.StatusID, B.Name AS StatusInfo, A.CreatedBy,   " & vbNewLine & _
-                   "    A.CreatedDate, A.LogBy, A.LogDate  " & vbNewLine & _
+                   "    A.CreatedDate, A.LogBy, A.LogDate, A.NPWP " & vbNewLine & _
                    "FROM mstCompany A " & vbNewLine & _
                    "INNER JOIN mstStatus B ON " & vbNewLine & _
                    "    A.StatusID=B.ID " & vbNewLine
@@ -48,10 +48,10 @@ Namespace DL
                     .CommandText = _
                        "INSERT INTO mstCompany " & vbNewLine & _
                        "    (ID, Name, Address, Country, Province, City, SubDistrict, Area, DirectorName, Warehouse, PhoneNumber, CompanyInitial, StatusID, CreatedBy,   " & vbNewLine & _
-                       "      CreatedDate, LogBy, LogDate)   " & vbNewLine & _
+                       "      CreatedDate, LogBy, LogDate, NPWP)   " & vbNewLine & _
                        "VALUES " & vbNewLine & _
                        "    (@ID, @Name, @Address, @Country, @Province, @City, @SubDistrict, @Area, @DirectorName, @Warehouse, @PhoneNumber, @CompanyInitial, @StatusID, @LogBy,   " & vbNewLine & _
-                       "      GETDATE(), @LogBy, GETDATE())  " & vbNewLine
+                       "      GETDATE(), @LogBy, GETDATE(), @NPWP)  " & vbNewLine
                 Else
                     .CommandText = _
                         "UPDATE mstCompany SET " & vbNewLine & _
@@ -69,7 +69,8 @@ Namespace DL
                         "    StatusID=@StatusID, " & vbNewLine & _
                         "    LogInc=LogInc+1, " & vbNewLine & _
                         "    LogBy=@LogBy, " & vbNewLine & _
-                        "    LogDate=GETDATE() " & vbNewLine & _
+                        "    LogDate=GETDATE(), " & vbNewLine & _
+                        "    NPWP=@NPWP " & vbNewLine & _
                         "WHERE " & vbNewLine & _
                         "    ID=@ID " & vbNewLine
                 End If
@@ -88,6 +89,7 @@ Namespace DL
                 .Parameters.Add("@CompanyInitial", SqlDbType.VarChar, 3).Value = clsData.CompanyInitial
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
+                .Parameters.Add("@NPWP", SqlDbType.VarChar, 100).Value = clsData.NPWP
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -106,8 +108,8 @@ Namespace DL
                     .CommandType = CommandType.Text
                     .CommandText = _
                        "SELECT TOP 1 " & vbNewLine & _
-                       "    A.ID, A.Name, A.Address, A.Country, A.Province, A.City, A.SubDistrict, A.Area, A.DirectorName, A.Warehouse, A.PhoneNumber, A.CompanyInitial, A.StatusID, A.LogBy,   " & vbNewLine & _
-                       "    A.LogDate  " & vbNewLine & _
+                       "    A.ID, A.Name, A.Address, A.Country, A.Province, A.City, A.SubDistrict, A.Area, A.DirectorName, A.Warehouse, A.PhoneNumber, " & vbNewLine & _
+                       "    A.NPWP, A.CompanyInitial, A.StatusID, A.LogBy, A.LogDate  " & vbNewLine & _
                        "FROM mstCompany A " & vbNewLine & _
                        "WHERE " & vbNewLine & _
                        "    ID=@ID " & vbNewLine
@@ -133,6 +135,7 @@ Namespace DL
                         voReturn.StatusID = .Item("StatusID")
                         voReturn.LogBy = .Item("LogBy")
                         voReturn.LogDate = .Item("LogDate")
+                        voReturn.NPWP = .Item("NPWP")
                     End If
                 End With
             Catch ex As Exception

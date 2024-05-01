@@ -13,7 +13,8 @@
                     "SELECT " & vbNewLine &
                     "   CAST(0 AS BIT) AS Pick, A.ID, A.Code, A.Name, A.Address, A.PICName, A.PICPhoneNumber, A.Initial, A.APBalance, A.ARBalance, " & vbNewLine &
                     "   A.StatusID, B.Name AS StatusInfo, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc, " & vbNewLine &
-                    "   A.CoAIDofStock, ISNULL(COA.Code,'') AS CoACodeofStock, ISNULL(COA.Name,'') AS CoANameofStock  " & vbNewLine &
+                    "   A.CoAIDofStock, ISNULL(COA.Code,'') AS CoACodeofStock, ISNULL(COA.Name,'') AS CoANameofStock, A.NPWP,  " & vbNewLine &
+                    "   A.PPN, A.IsFreePPN, A.PPH, A.IsFreePPH  " & vbNewLine &
                     "FROM mstBusinessPartner A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -34,9 +35,9 @@
                 If bolNew Then
                     .CommandText =
                         "INSERT INTO mstBusinessPartner " & vbNewLine &
-                        "     (ID, Code, Name, Address, PICName, PICPhoneNumber, APBalance, ARBalance, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, Initial, CoAIDofStock) " & vbNewLine &
+                        "     (ID, Code, Name, Address, PICName, PICPhoneNumber, APBalance, ARBalance, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, Initial, CoAIDofStock, NPWP, PPN, IsFreePPN, PPH, IsFreePPH) " & vbNewLine &
                         "VALUES " & vbNewLine &
-                        "     (@ID, @Code, @Name, @Address, @PICName, @PICPhoneNumber, @APBalance, @ARBalance, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @Initial, @CoAIDofStock) " & vbNewLine
+                        "     (@ID, @Code, @Name, @Address, @PICName, @PICPhoneNumber, @APBalance, @ARBalance, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @Initial, @CoAIDofStock, @NPWP, @PPN, @IsFreePPN, @PPH, @IsFreePPH) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE mstBusinessPartner SET " & vbNewLine &
@@ -53,7 +54,12 @@
                         "    LogDate=GETDATE(), " & vbNewLine &
                         "    LogInc=LogInc+1, " & vbNewLine &
                         "    Initial=@Initial, " & vbNewLine &
-                        "    CoAIDofStock=@CoAIDofStock " & vbNewLine &
+                        "    CoAIDofStock=@CoAIDofStock, " & vbNewLine &
+                        "    NPWP=@NPWP, " & vbNewLine &
+                        "    PPN=@PPN, " & vbNewLine &
+                        "    IsFreePPN=@IsFreePPN, " & vbNewLine &
+                        "    PPH=@PPH, " & vbNewLine &
+                        "    IsFreePPH=@IsFreePPH " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -71,6 +77,11 @@
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
                 .Parameters.Add("@Initial", SqlDbType.VarChar, 150).Value = clsData.Initial
                 .Parameters.Add("@CoAIDofStock", SqlDbType.Int).Value = clsData.CoAIDofStock
+                .Parameters.Add("@NPWP", SqlDbType.VarChar, 100).Value = clsData.NPWP
+                .Parameters.Add("@PPN", SqlDbType.Decimal).Value = clsData.PPN
+                .Parameters.Add("@IsFreePPN", SqlDbType.Bit).Value = clsData.IsFreePPN
+                .Parameters.Add("@PPH", SqlDbType.Decimal).Value = clsData.PPH
+                .Parameters.Add("@IsFreePPH", SqlDbType.Bit).Value = clsData.IsFreePPH
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -92,7 +103,8 @@
                         "SELECT TOP 1 " & vbNewLine &
                         "   A.ID, A.Code, A.Name, A.Address, A.PICName, A.PICPhoneNumber, " & vbNewLine &
                         "   A.APBalance, A.ARBalance, A.StatusID, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
-                        "   A.LogBy, A.LogDate, A.LogInc, A.JournalIDForARBalance, A.JournalIDForAPBalance, A.Initial, A.CoAIDofStock, ISNULL(COA.Code,'') AS CoACodeofStock, ISNULL(COA.Name,'') AS CoANameofStock   " & vbNewLine &
+                        "   A.LogBy, A.LogDate, A.LogInc, A.JournalIDForARBalance, A.JournalIDForAPBalance, A.Initial, A.CoAIDofStock, ISNULL(COA.Code,'') AS CoACodeofStock, " & vbNewLine &
+                        "   ISNULL(COA.Name,'') AS CoANameofStock, A.NPWP, A.PPN, A.IsFreePPN, A.PPH, A.IsFreePPH   " & vbNewLine &
                         "FROM mstBusinessPartner A " & vbNewLine &
                         "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
                         "   A.CoAIDofStock=COA.ID " & vbNewLine &
@@ -126,6 +138,11 @@
                         voReturn.CoAIDofStock = .Item("CoAIDofStock")
                         voReturn.CoACodeofStock = .Item("CoACodeofStock")
                         voReturn.CoANameofStock = .Item("CoANameofStock")
+                        voReturn.NPWP = .Item("NPWP")
+                        voReturn.PPN = .Item("PPN")
+                        voReturn.IsFreePPN = .Item("IsFreePPN")
+                        voReturn.PPH = .Item("PPH")
+                        voReturn.IsFreePPH = .Item("IsFreePPH")
                     End If
                 End With
             Catch ex As Exception

@@ -34,6 +34,8 @@ Partial Class frmMstBusinessPartnerDet
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.txtNPWP = New ERPS.usTextBox()
         Me.txtCoACodeofCostRawMaterial = New ERPS.usTextBox()
         Me.txtCoANameofCostRawMaterial = New ERPS.usTextBox()
         Me.btnCoAofCostOfRawMaterial = New DevExpress.XtraEditors.SimpleButton()
@@ -54,8 +56,18 @@ Partial Class frmMstBusinessPartnerDet
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtName = New ERPS.usTextBox()
         Me.lblStatusID = New System.Windows.Forms.Label()
+        Me.txtPPN = New ERPS.usNumeric()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.chkIsFreePPN = New DevExpress.XtraEditors.CheckEdit()
+        Me.chkIsFreePPH = New DevExpress.XtraEditors.CheckEdit()
+        Me.txtPPH = New ERPS.usNumeric()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.StatusStrip.SuspendLayout()
         Me.pnlDetail.SuspendLayout()
+        CType(Me.txtPPN, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkIsFreePPN.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkIsFreePPH.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -66,7 +78,7 @@ Partial Class frmMstBusinessPartnerDet
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(592, 28)
+        Me.ToolBar.Size = New System.Drawing.Size(623, 28)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -90,7 +102,7 @@ Partial Class frmMstBusinessPartnerDet
         Me.lblInfo.ForeColor = System.Drawing.Color.White
         Me.lblInfo.Location = New System.Drawing.Point(0, 28)
         Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(592, 22)
+        Me.lblInfo.Size = New System.Drawing.Size(623, 22)
         Me.lblInfo.TabIndex = 1
         Me.lblInfo.Text = "« Rekan Bisnis Detail"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -99,16 +111,16 @@ Partial Class frmMstBusinessPartnerDet
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 427)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 444)
         Me.StatusStrip.Name = "StatusStrip"
-        Me.StatusStrip.Size = New System.Drawing.Size(592, 22)
+        Me.StatusStrip.Size = New System.Drawing.Size(623, 22)
         Me.StatusStrip.TabIndex = 3
         Me.StatusStrip.Text = "StatusStrip1"
         '
         'ToolStripEmpty
         '
         Me.ToolStripEmpty.Name = "ToolStripEmpty"
-        Me.ToolStripEmpty.Size = New System.Drawing.Size(469, 17)
+        Me.ToolStripEmpty.Size = New System.Drawing.Size(500, 17)
         Me.ToolStripEmpty.Spring = True
         '
         'ToolStripLogInc
@@ -149,6 +161,14 @@ Partial Class frmMstBusinessPartnerDet
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.chkIsFreePPH)
+        Me.pnlDetail.Controls.Add(Me.txtPPH)
+        Me.pnlDetail.Controls.Add(Me.Label8)
+        Me.pnlDetail.Controls.Add(Me.chkIsFreePPN)
+        Me.pnlDetail.Controls.Add(Me.txtPPN)
+        Me.pnlDetail.Controls.Add(Me.Label7)
+        Me.pnlDetail.Controls.Add(Me.Label6)
+        Me.pnlDetail.Controls.Add(Me.txtNPWP)
         Me.pnlDetail.Controls.Add(Me.txtCoACodeofCostRawMaterial)
         Me.pnlDetail.Controls.Add(Me.txtCoANameofCostRawMaterial)
         Me.pnlDetail.Controls.Add(Me.btnCoAofCostOfRawMaterial)
@@ -172,45 +192,66 @@ Partial Class frmMstBusinessPartnerDet
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlDetail.Location = New System.Drawing.Point(0, 50)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(592, 377)
+        Me.pnlDetail.Size = New System.Drawing.Size(623, 394)
         Me.pnlDetail.TabIndex = 2
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.BackColor = System.Drawing.Color.Transparent
+        Me.Label6.ForeColor = System.Drawing.Color.Black
+        Me.Label6.Location = New System.Drawing.Point(23, 264)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(36, 13)
+        Me.Label6.TabIndex = 264
+        Me.Label6.Text = "NPWP"
+        '
+        'txtNPWP
+        '
+        Me.txtNPWP.BackColor = System.Drawing.Color.White
+        Me.txtNPWP.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtNPWP.Location = New System.Drawing.Point(129, 261)
+        Me.txtNPWP.MaxLength = 250
+        Me.txtNPWP.Name = "txtNPWP"
+        Me.txtNPWP.Size = New System.Drawing.Size(423, 21)
+        Me.txtNPWP.TabIndex = 7
         '
         'txtCoACodeofCostRawMaterial
         '
         Me.txtCoACodeofCostRawMaterial.BackColor = System.Drawing.Color.Azure
         Me.txtCoACodeofCostRawMaterial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeofCostRawMaterial.Location = New System.Drawing.Point(129, 261)
+        Me.txtCoACodeofCostRawMaterial.Location = New System.Drawing.Point(129, 288)
         Me.txtCoACodeofCostRawMaterial.MaxLength = 250
         Me.txtCoACodeofCostRawMaterial.Name = "txtCoACodeofCostRawMaterial"
         Me.txtCoACodeofCostRawMaterial.ReadOnly = True
         Me.txtCoACodeofCostRawMaterial.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofCostRawMaterial.TabIndex = 7
+        Me.txtCoACodeofCostRawMaterial.TabIndex = 8
         '
         'txtCoANameofCostRawMaterial
         '
         Me.txtCoANameofCostRawMaterial.BackColor = System.Drawing.Color.Azure
         Me.txtCoANameofCostRawMaterial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameofCostRawMaterial.Location = New System.Drawing.Point(211, 261)
+        Me.txtCoANameofCostRawMaterial.Location = New System.Drawing.Point(211, 288)
         Me.txtCoANameofCostRawMaterial.MaxLength = 250
         Me.txtCoANameofCostRawMaterial.Name = "txtCoANameofCostRawMaterial"
         Me.txtCoANameofCostRawMaterial.ReadOnly = True
         Me.txtCoANameofCostRawMaterial.Size = New System.Drawing.Size(341, 21)
-        Me.txtCoANameofCostRawMaterial.TabIndex = 8
+        Me.txtCoANameofCostRawMaterial.TabIndex = 9
         '
         'btnCoAofCostOfRawMaterial
         '
         Me.btnCoAofCostOfRawMaterial.Image = CType(resources.GetObject("btnCoAofCostOfRawMaterial.Image"), System.Drawing.Image)
-        Me.btnCoAofCostOfRawMaterial.Location = New System.Drawing.Point(557, 260)
+        Me.btnCoAofCostOfRawMaterial.Location = New System.Drawing.Point(557, 287)
         Me.btnCoAofCostOfRawMaterial.Name = "btnCoAofCostOfRawMaterial"
         Me.btnCoAofCostOfRawMaterial.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofCostOfRawMaterial.TabIndex = 9
+        Me.btnCoAofCostOfRawMaterial.TabIndex = 10
         '
         'Label33
         '
         Me.Label33.AutoSize = True
         Me.Label33.BackColor = System.Drawing.Color.Transparent
         Me.Label33.ForeColor = System.Drawing.Color.Black
-        Me.Label33.Location = New System.Drawing.Point(23, 265)
+        Me.Label33.Location = New System.Drawing.Point(23, 292)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(92, 13)
         Me.Label33.TabIndex = 262
@@ -350,10 +391,10 @@ Partial Class frmMstBusinessPartnerDet
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(129, 288)
+        Me.cboStatus.Location = New System.Drawing.Point(129, 342)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(160, 21)
-        Me.cboStatus.TabIndex = 10
+        Me.cboStatus.TabIndex = 15
         '
         'lblName
         '
@@ -381,17 +422,81 @@ Partial Class frmMstBusinessPartnerDet
         Me.lblStatusID.AutoSize = True
         Me.lblStatusID.BackColor = System.Drawing.Color.Transparent
         Me.lblStatusID.ForeColor = System.Drawing.Color.Black
-        Me.lblStatusID.Location = New System.Drawing.Point(23, 292)
+        Me.lblStatusID.Location = New System.Drawing.Point(23, 346)
         Me.lblStatusID.Name = "lblStatusID"
         Me.lblStatusID.Size = New System.Drawing.Size(38, 13)
         Me.lblStatusID.TabIndex = 93
         Me.lblStatusID.Text = "Status"
         '
+        'txtPPN
+        '
+        Me.txtPPN.DecimalPlaces = 2
+        Me.txtPPN.Location = New System.Drawing.Point(129, 315)
+        Me.txtPPN.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtPPN.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtPPN.Name = "txtPPN"
+        Me.txtPPN.Size = New System.Drawing.Size(83, 21)
+        Me.txtPPN.TabIndex = 11
+        Me.txtPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtPPN.ThousandsSeparator = True
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.BackColor = System.Drawing.Color.Transparent
+        Me.Label7.ForeColor = System.Drawing.Color.Black
+        Me.Label7.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.Label7.Location = New System.Drawing.Point(23, 319)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(26, 13)
+        Me.Label7.TabIndex = 266
+        Me.Label7.Text = "PPN"
+        '
+        'chkIsFreePPN
+        '
+        Me.chkIsFreePPN.Location = New System.Drawing.Point(221, 316)
+        Me.chkIsFreePPN.Name = "chkIsFreePPN"
+        Me.chkIsFreePPN.Properties.Caption = "Free PPN ?"
+        Me.chkIsFreePPN.Size = New System.Drawing.Size(75, 19)
+        Me.chkIsFreePPN.TabIndex = 12
+        '
+        'chkIsFreePPH
+        '
+        Me.chkIsFreePPH.Location = New System.Drawing.Point(477, 316)
+        Me.chkIsFreePPH.Name = "chkIsFreePPH"
+        Me.chkIsFreePPH.Properties.Caption = "Free PPH ?"
+        Me.chkIsFreePPH.Size = New System.Drawing.Size(75, 19)
+        Me.chkIsFreePPH.TabIndex = 14
+        '
+        'txtPPH
+        '
+        Me.txtPPH.DecimalPlaces = 2
+        Me.txtPPH.Location = New System.Drawing.Point(385, 315)
+        Me.txtPPH.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtPPH.Name = "txtPPH"
+        Me.txtPPH.Size = New System.Drawing.Size(83, 21)
+        Me.txtPPH.TabIndex = 13
+        Me.txtPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtPPH.ThousandsSeparator = True
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.BackColor = System.Drawing.Color.Transparent
+        Me.Label8.ForeColor = System.Drawing.Color.Black
+        Me.Label8.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.Label8.Location = New System.Drawing.Point(350, 319)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(26, 13)
+        Me.Label8.TabIndex = 269
+        Me.Label8.Text = "PPH"
+        '
         'frmMstBusinessPartnerDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(592, 449)
+        Me.ClientSize = New System.Drawing.Size(623, 466)
         Me.Controls.Add(Me.pnlDetail)
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.lblInfo)
@@ -406,6 +511,10 @@ Partial Class frmMstBusinessPartnerDet
         Me.StatusStrip.PerformLayout()
         Me.pnlDetail.ResumeLayout(False)
         Me.pnlDetail.PerformLayout()
+        CType(Me.txtPPN, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkIsFreePPN.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkIsFreePPH.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -441,4 +550,12 @@ Partial Class frmMstBusinessPartnerDet
     Friend WithEvents txtCoANameofCostRawMaterial As ERPS.usTextBox
     Friend WithEvents btnCoAofCostOfRawMaterial As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label33 As System.Windows.Forms.Label
+    Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents txtNPWP As ERPS.usTextBox
+    Friend WithEvents chkIsFreePPH As DevExpress.XtraEditors.CheckEdit
+    Friend WithEvents txtPPH As ERPS.usNumeric
+    Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents chkIsFreePPN As DevExpress.XtraEditors.CheckEdit
+    Friend WithEvents txtPPN As ERPS.usNumeric
+    Friend WithEvents Label7 As System.Windows.Forms.Label
 End Class

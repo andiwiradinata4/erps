@@ -239,33 +239,20 @@ Namespace BL
 
                         '# Save Data Detail
                         Dim clsDet As New List(Of VO.AccountReceivableDet)
-                        If clsDataARAP.Modules = VO.AccountReceivable.ReceivePayment Then
-                            For Each cls As VO.ARAPDet In clsDataARAP.Detail
-                                clsDet.Add(New VO.AccountReceivableDet With
-                                        {
-                                            .ID = "",
-                                            .ARID = "",
-                                            .SalesID = cls.InvoiceID,
-                                            .Amount = cls.Amount,
-                                            .PPN = cls.PPN,
-                                            .PPH = cls.PPH,
-                                            .Remarks = cls.Remarks,
-                                            .DPAmount = cls.DPAmount,
-                                            .Rounding = cls.Rounding
-                                        })
-                            Next
-                        Else
+                        For Each cls As VO.ARAPDet In clsDataARAP.Detail
                             clsDet.Add(New VO.AccountReceivableDet With
-                                     {
-                                         .ID = "",
-                                         .ARID = "",
-                                         .SalesID = clsDataARAP.ReferencesID,
-                                         .Amount = clsDataARAP.TotalAmount,
-                                         .PPN = clsDataARAP.TotalPPN,
-                                         .PPH = clsDataARAP.TotalPPN,
-                                         .Remarks = clsDataARAP.Remarks
-                                     })
-                        End If
+                                    {
+                                        .ID = "",
+                                        .ARID = "",
+                                        .SalesID = cls.InvoiceID,
+                                        .Amount = cls.Amount,
+                                        .PPN = cls.PPN,
+                                        .PPH = cls.PPH,
+                                        .Remarks = cls.Remarks,
+                                        .DPAmount = cls.DPAmount,
+                                        .Rounding = cls.Rounding
+                                    })
+                        Next
 
                         '# Save Data Header
                         Dim clsData As New VO.AccountReceivable
@@ -291,10 +278,11 @@ Namespace BL
                         clsData.ReceiveAmount = clsDataARAP.ReceiveAmount
                         clsData.Detail = clsDet
                         clsData.ARAPDownPayment = clsDataARAP.DownPayment
+                        clsData.ARAPItem = clsDataARAP.DetailItem
                         clsData.LogBy = clsDataARAP.LogBy
                         clsData.Save = clsDataARAP.Save
 
-                        BL.AccountReceivable.SaveData(sqlCon, sqlTrans, bolNew, clsData)
+                        BL.AccountReceivable.SaveDataVer01(sqlCon, sqlTrans, bolNew, clsData)
 
                         clsReferences = DL.SalesContract.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                         If clsReferences.DPAmount + clsReferences.ReceiveAmount > clsReferences.TotalDPP Then
@@ -509,7 +497,7 @@ Namespace BL
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
                     If enumDPType = VO.ARAP.ARAPTypeValue.Sales Then
-                        BL.AccountReceivable.DeleteData(sqlCon, sqlTrans, strID, strModules, strRemarks)
+                        BL.AccountReceivable.DeleteDataVer01(sqlCon, sqlTrans, strID, strModules, strRemarks)
                     Else
                         BL.AccountPayable.DeleteDataVer01(sqlCon, sqlTrans, strID, strModules, strRemarks)
                     End If
@@ -686,6 +674,30 @@ Namespace BL
             Return dtReturn
         End Function
 
+        Public Shared Function PrintVer01(ByVal intProgramID As Integer, ByVal intCompanyID As Integer, ByVal strID As String) As DataTable
+            BL.Server.ServerDefault()
+            Dim dtReturn As New DataTable
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+
+                dtReturn = DL.ARAP.PrintVer01(sqlCon, Nothing, intProgramID, intCompanyID, strID)
+                Dim dtPurchaseContractNumber As New DataTable
+                Dim strPurchaseContractNumber As String = ""
+                If dtReturn.Rows.Count > 0 Then dtPurchaseContractNumber = DL.SalesContract.ListDataPurchaseContractNumber(sqlCon, Nothing, intProgramID, intCompanyID, dtReturn.Rows(0).Item("ReferencesID"))
+                For Each dr As DataRow In dtPurchaseContractNumber.Rows
+                    strPurchaseContractNumber += IIf(strPurchaseContractNumber.Trim = "", "", ", ") & dr.Item("PCNumber")
+                Next
+
+                For Each dr As DataRow In dtReturn.Rows
+                    dr.BeginEdit()
+                    dr.Item("NumericToString") = SharedLib.Math.NumberToString(dr.Item("TotalAmount"))
+                    dr.Item("ContractNumber") = strPurchaseContractNumber
+                    dr.EndEdit()
+                Next
+                dtReturn.AcceptChanges()
+            End Using
+            Return dtReturn
+        End Function
+
         Public Shared Function ListPaymentHistory(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                                   ByVal strReferencesID As String, ByVal dtmTransDate As DateTime,
                                                   ByVal strID As String) As DataTable
@@ -711,7 +723,7 @@ Namespace BL
 
         Public Shared Function ListDataDetailVer2(ByVal strParentID As String, ByVal enumARAPType As VO.ARAP.ARAPTypeValue) As DataTable
             If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
-                Return New DataTable
+                Return BL.AccountReceivable.ListDataDetailRev02(strParentID)
             Else
                 Return BL.AccountPayable.ListDataDetailRev02(strParentID)
             End If
@@ -731,7 +743,7 @@ Namespace BL
                                                                  ByVal intBPID As Integer, ByVal strParentID As String,
                                                                  ByVal enumARAPType As VO.ARAP.ARAPTypeValue, ByVal strReferencesID As String) As DataTable
             If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
-                Return BL.AccountReceivable.ListDataDetailWithOutstandingRev01(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
+                Return BL.AccountReceivable.ListDataDetailItemDPWithOutstandingRev02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
             Else
                 Return BL.AccountPayable.ListDataDetailItemDPWithOutstandingRev02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
             End If
