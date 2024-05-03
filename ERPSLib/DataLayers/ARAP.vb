@@ -155,45 +155,64 @@
 "	MBC2.AccountName, MBC2.BankName, MBC2.AccountNumber, ARH.StatusID, MIS.Description, ARI.OrderNumberSupplier, MI.Thick, MI.Width, MI.Length, MI.Weight, SCD.Quantity,  " & vbNewLine & _
 "	SCD.TotalWeight, SCD.UnitPrice, SCD.TotalPrice, ARH.TotalAmount, ARH.Percentage, ARH.Modules, ARH.CreatedDate, ARH.TaxInvoiceNumber, C.NPWP, ORH.ReferencesNumber  " & vbNewLine
 
-                '.CommandText +=
-                '    "UNION ALL  " & vbNewLine & _
-                '    "SELECT  " & vbNewLine & _
-                '    "	ARH.ID, ARH.ProgramID, MP.Name AS ProgramName, ARH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress, ARH.ARNumber AS TransNumber,  " & vbNewLine & _
-                '    "	ARH.ARDate AS TransDate, ARH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, ARH.ReferencesID, ARH.ReferencesNote, SCH.PPN, SCH.PPH, SCH.TotalDPP,  " & vbNewLine & _
-                '    "	SCH.TotalPPN, SCH.TotalPPH, GrandTotal=SCH.TotalDPP+SCH.TotalPPN-SCH.TotalPPH+SCH.RoundingManual, MC.DirectorName AS CompanyDirectorName,  " & vbNewLine & _
-                '    "	MBC.AccountName, MBC.BankName, MBC.AccountNumber, ARH.StatusID, MIS.Description AS ItemSpec, IT.Description AS ItemType, MI.Thick AS ItemThick, MI.Width AS ItemWidth,  " & vbNewLine & _
-                '    "	MI.Length AS ItemLength, MI.Weight, SCD.Quantity, SCD.TotalWeight AS TotalWeightItem, SCD.UnitPrice, SCD.TotalPrice, ARH.TotalAmount, ARH.Percentage,   " & vbNewLine & _
-                '    "   CAST('' AS VARCHAR(1000)) AS NumericToString, ARH.Modules, ARH.CreatedDate  " & vbNewLine & _
-                '    "FROM traAccountReceivable ARH  " & vbNewLine & _
-                '    "INNER JOIN traAccountReceivableDet ARD ON  " & vbNewLine & _
-                '    "	ARH.ID=ARD.ARID  " & vbNewLine & _
-                '    "INNER JOIN mstStatus B ON  " & vbNewLine & _
-                '    "    ARH.StatusID=B.ID  " & vbNewLine & _
-                '    "INNER JOIN mstBusinessPartner C ON  " & vbNewLine & _
-                '    "    ARH.BPID=C.ID  " & vbNewLine & _
-                '    "INNER JOIN mstCompany MC ON  " & vbNewLine & _
-                '    "    ARH.CompanyID=MC.ID  " & vbNewLine & _
-                '    "INNER JOIN mstProgram MP ON  " & vbNewLine & _
-                '    "    ARH.ProgramID=MP.ID  " & vbNewLine & _
-                '    "INNER JOIN traDelivery TDH ON  " & vbNewLine & _
-                '    "	ARD.SalesID=TDH.ID  " & vbNewLine & _
-                '    "INNER JOIN traSalesContract SCH ON  " & vbNewLine & _
-                '    "	TDH.SCID=SCH.ID  " & vbNewLine & _
-                '    "INNER JOIN traSalesContractDet SCD ON  " & vbNewLine & _
-                '    "	SCH.ID=SCD.SCID  " & vbNewLine & _
-                '    "INNER JOIN mstItem MI ON 	   " & vbNewLine & _
-                '    "    SCD.ItemID=MI.ID 	   " & vbNewLine & _
-                '    "INNER JOIN mstItemType IT ON 	 	   " & vbNewLine & _
-                '    "    MI.ItemTypeID=IT.ID 	 	   " & vbNewLine & _
-                '    "INNER JOIN mstItemSpecification MIS ON 	 	   " & vbNewLine & _
-                '    "    MI.ItemSpecificationID=MIS.ID 	 	   " & vbNewLine & _
-                '    "INNER JOIN mstCompanyBankAccount MBC ON  " & vbNewLine & _
-                '    "	SCH.CompanyBankAccountID=MBC.ID " & vbNewLine & _
-                '    "WHERE 	 " & vbNewLine & _
-                '    "	ARH.ProgramID=@ProgramID  " & vbNewLine & _
-                '    "	AND ARH.CompanyID=@CompanyID  " & vbNewLine & _
-                '    "	AND ARH.ID=@ID 	 " & vbNewLine
-
+                .CommandText +=
+"UNION ALL " & vbNewLine &
+"SELECT " & vbNewLine &
+"	ARH.ID, ARH.ProgramID, MP.Name AS ProgramName, ARH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress,     " & vbNewLine &
+"	ARH.ARNumber AS TransNumber, ARH.ARDate AS TransDate, ARH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, ARH.ReferencesID, ARH.ReferencesNote,     " & vbNewLine &
+"	TDH.PPN, TDH.PPH, SUM(SCD.TotalPrice) AS TotalDPP, SUM(SCD.TotalPrice)*TDH.PPN/100 AS TotalPPN, SUM(SCD.TotalPrice)*TDH.PPH/100 AS TotalPPH,  " & vbNewLine &
+"	GrandTotal=SUM(SCD.TotalPrice)+(SUM(SCD.TotalPrice)*TDH.PPN/100)-(SUM(SCD.TotalPrice)*TDH.PPH/100), SCH.DelegationSeller AS DirectorName,  " & vbNewLine &
+"	ISNULL(MBC1.AccountName,MBC.AccountName) AS BankAccountName1, ISNULL(MBC1.BankName,MBC.BankName) AS BankAccountBankName1, ISNULL(MBC1.AccountNumber,MBC.AccountNumber) AS BankAccountNumber1,  " & vbNewLine &
+"	ISNULL(MBC2.AccountName,'') AS BankAccountName2, ISNULL(MBC2.BankName,'') AS BankAccountBankName2, ISNULL(MBC2.AccountNumber,'') AS BankAccountNumber2, ARH.StatusID,  " & vbNewLine &
+"	MIS.Description AS ItemSpec, ARI.OrderNumberSupplier AS ItemType, MI.Thick AS ItemThick, MI.Width AS ItemWidth, MI.Length AS ItemLength, MI.Weight, SCD.Quantity,  " & vbNewLine &
+"	SCD.TotalWeight AS TotalWeightItem, SCD.UnitPrice, SCD.TotalPrice, ARH.TotalAmount, ARH.Percentage, CAST('' AS VARCHAR(1000)) AS NumericToString, ARH.Modules, ARH.CreatedDate,  " & vbNewLine &
+"	ARH.TaxInvoiceNumber, C.NPWP, ORH.ReferencesNumber AS PurchaseNumber, CAST('' AS VARCHAR(1000)) AS ContractNumber " & vbNewLine &
+"FROM traAccountReceivable ARH     " & vbNewLine &
+"INNER JOIN traAccountReceivableDet ARD ON     " & vbNewLine &
+"	ARH.ID=ARD.ARID     " & vbNewLine &
+"INNER JOIN mstStatus B ON     " & vbNewLine &
+"    ARH.StatusID=B.ID     " & vbNewLine &
+"INNER JOIN mstBusinessPartner C ON     " & vbNewLine &
+"    ARH.BPID=C.ID     " & vbNewLine &
+"INNER JOIN mstCompany MC ON     " & vbNewLine &
+"    ARH.CompanyID=MC.ID     " & vbNewLine &
+"INNER JOIN mstProgram MP ON     " & vbNewLine &
+"    ARH.ProgramID=MP.ID     " & vbNewLine &
+"INNER JOIN traDelivery TDH ON     " & vbNewLine &
+"	ARD.SalesID=TDH.ID     " & vbNewLine &
+"INNER JOIN traDeliveryDet TDD ON     " & vbNewLine &
+"	TDH.ID=TDD.DeliveryID     " & vbNewLine &
+"INNER JOIN traSalesContract SCH ON     " & vbNewLine &
+"	TDH.SCID=SCH.ID     " & vbNewLine &
+"INNER JOIN traSalesContractDet SCD ON     " & vbNewLine &
+"	SCH.ID=SCD.SCID     " & vbNewLine &
+"INNER JOIN traOrderRequestDet ORD ON  " & vbNewLine &
+"	SCD.ORDetailID=ORD.ID  " & vbNewLine &
+"INNER JOIN traOrderRequest ORH ON  " & vbNewLine &
+"	ORD.OrderRequestID=ORH.ID  " & vbNewLine &
+"INNER JOIN mstItem MI ON 	      " & vbNewLine &
+"    SCD.ItemID=MI.ID 	      " & vbNewLine &
+"INNER JOIN mstItemSpecification MIS ON 	 	      " & vbNewLine &
+"    MI.ItemSpecificationID=MIS.ID 	 	      " & vbNewLine &
+"INNER JOIN mstCompanyBankAccount MBC ON     " & vbNewLine &
+"	SCH.CompanyBankAccountID=MBC.ID     " & vbNewLine &
+"INNER JOIN traARAPItem ARI ON     " & vbNewLine &
+"	ARH.ID=ARI.ParentID     " & vbNewLine &
+"	AND TDD.DeliveryID=ARI.ReferencesID     " & vbNewLine &
+"	AND TDD.ID=ARI.ReferencesDetailID     " & vbNewLine &
+"LEFT JOIN mstCompanyBankAccount MBC1 ON  " & vbNewLine &
+"	ARH.CompanyBankAccountID1=MBC1.ID  " & vbNewLine &
+"LEFT JOIN mstCompanyBankAccount MBC2 ON  " & vbNewLine &
+"	ARH.CompanyBankAccountID2=MBC2.ID  " & vbNewLine &
+"WHERE 	    " & vbNewLine &
+"	ARH.ProgramID=@ProgramID     " & vbNewLine &
+"	AND ARH.CompanyID=@CompanyID     " & vbNewLine &
+"	AND ARH.ID=@ID 	    " & vbNewLine &
+"GROUP BY     " & vbNewLine &
+"	ARH.ID, ARH.ProgramID, MP.Name, ARH.CompanyID, MC.Name, MC.Address, MC.Warehouse, ARH.ARNumber, ARH.ARDate, ARH.BPID, C.Code, C.Name, C.Address, ARH.ReferencesID, ARH.ReferencesNote, " & vbNewLine &
+"	TDH.PPN, TDH.PPH, SCH.DelegationSeller, MBC1.AccountName, MBC.AccountName, MBC1.BankName, MBC.BankName, MBC1.AccountNumber, MBC.AccountNumber, MBC2.AccountName, MBC2.BankName, " & vbNewLine &
+"   MBC2.AccountNumber, ARH.StatusID, MIS.Description, ARI.OrderNumberSupplier, MI.Thick, MI.Width, MI.Length, MI.Weight, SCD.Quantity, SCD.TotalWeight, SCD.UnitPrice, SCD.TotalPrice, " & vbNewLine &
+"   ARH.TotalAmount, ARH.Percentage, ARH.Modules, ARH.CreatedDate, ARH.TaxInvoiceNumber, C.NPWP, ORH.ReferencesNumber " & vbNewLine
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID

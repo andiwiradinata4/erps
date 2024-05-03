@@ -29,6 +29,10 @@ Partial Class frmTraDeliveryDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.txtTransporterCode = New ERPS.usTextBox()
+        Me.txtTransporterName = New ERPS.usTextBox()
+        Me.btnTransporter = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label22 = New System.Windows.Forms.Label()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.txtSCNumber = New ERPS.usTextBox()
         Me.btnSC = New DevExpress.XtraEditors.SimpleButton()
@@ -66,6 +70,27 @@ Partial Class frmTraDeliveryDet
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtPPN = New ERPS.usNumeric()
+        Me.tpTransport = New System.Windows.Forms.TabPage()
+        Me.chkIsFreePPHTransport = New DevExpress.XtraEditors.CheckEdit()
+        Me.chkIsFreePPNTransport = New DevExpress.XtraEditors.CheckEdit()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.txtUnitPriceTransport = New ERPS.usNumeric()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.txtPPHTransport = New ERPS.usNumeric()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.txtPPNTransport = New ERPS.usNumeric()
+        Me.gboTransport = New System.Windows.Forms.GroupBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtGrandTotalTransport = New ERPS.usNumeric()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.txtTotalPPHTransport = New ERPS.usNumeric()
+        Me.txtTotalDPPTransport = New ERPS.usNumeric()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.txtTotalPPNTransport = New ERPS.usNumeric()
         Me.tpHistory = New System.Windows.Forms.TabPage()
         Me.grdStatus = New DevExpress.XtraGrid.GridControl()
         Me.grdStatusView = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -86,31 +111,6 @@ Partial Class frmTraDeliveryDet
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.txtTransporterCode = New ERPS.usTextBox()
-        Me.txtTransporterName = New ERPS.usTextBox()
-        Me.btnTransporter = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label22 = New System.Windows.Forms.Label()
-        Me.tpTransport = New System.Windows.Forms.TabPage()
-        Me.gboTransport = New System.Windows.Forms.GroupBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.txtGrandTotalTransport = New ERPS.usNumeric()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.txtTotalPPHTransport = New ERPS.usNumeric()
-        Me.txtTotalDPPTransport = New ERPS.usNumeric()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.Label20 = New System.Windows.Forms.Label()
-        Me.txtTotalPPNTransport = New ERPS.usNumeric()
-        Me.Label23 = New System.Windows.Forms.Label()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.txtPPHTransport = New ERPS.usNumeric()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.Label26 = New System.Windows.Forms.Label()
-        Me.txtPPNTransport = New ERPS.usNumeric()
-        Me.Label27 = New System.Windows.Forms.Label()
-        Me.txtUnitPriceTransport = New ERPS.usNumeric()
-        Me.Label28 = New System.Windows.Forms.Label()
-        Me.chkIsFreePPNTransport = New DevExpress.XtraEditors.CheckEdit()
-        Me.chkIsFreePPHTransport = New DevExpress.XtraEditors.CheckEdit()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         Me.tpAmount.SuspendLayout()
@@ -121,6 +121,17 @@ Partial Class frmTraDeliveryDet
         CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtPPN, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tpTransport.SuspendLayout()
+        CType(Me.chkIsFreePPHTransport.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkIsFreePPNTransport.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtUnitPriceTransport, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtPPHTransport, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtPPNTransport, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.gboTransport.SuspendLayout()
+        CType(Me.txtGrandTotalTransport, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtTotalPPHTransport, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtTotalDPPTransport, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtTotalPPNTransport, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpHistory.SuspendLayout()
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -130,17 +141,6 @@ Partial Class frmTraDeliveryDet
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip.SuspendLayout()
-        Me.tpTransport.SuspendLayout()
-        Me.gboTransport.SuspendLayout()
-        CType(Me.txtGrandTotalTransport, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtTotalPPHTransport, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtTotalDPPTransport, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtTotalPPNTransport, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtPPHTransport, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtPPNTransport, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtUnitPriceTransport, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.chkIsFreePPNTransport.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.chkIsFreePPHTransport.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -229,6 +229,47 @@ Partial Class frmTraDeliveryDet
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'txtTransporterCode
+        '
+        Me.txtTransporterCode.BackColor = System.Drawing.Color.Azure
+        Me.txtTransporterCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtTransporterCode.Location = New System.Drawing.Point(159, 70)
+        Me.txtTransporterCode.MaxLength = 250
+        Me.txtTransporterCode.Name = "txtTransporterCode"
+        Me.txtTransporterCode.ReadOnly = True
+        Me.txtTransporterCode.Size = New System.Drawing.Size(83, 21)
+        Me.txtTransporterCode.TabIndex = 196
+        '
+        'txtTransporterName
+        '
+        Me.txtTransporterName.BackColor = System.Drawing.Color.Azure
+        Me.txtTransporterName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtTransporterName.Location = New System.Drawing.Point(241, 70)
+        Me.txtTransporterName.MaxLength = 250
+        Me.txtTransporterName.Name = "txtTransporterName"
+        Me.txtTransporterName.ReadOnly = True
+        Me.txtTransporterName.Size = New System.Drawing.Size(167, 21)
+        Me.txtTransporterName.TabIndex = 197
+        '
+        'btnTransporter
+        '
+        Me.btnTransporter.Image = CType(resources.GetObject("btnTransporter.Image"), System.Drawing.Image)
+        Me.btnTransporter.Location = New System.Drawing.Point(414, 69)
+        Me.btnTransporter.Name = "btnTransporter"
+        Me.btnTransporter.Size = New System.Drawing.Size(23, 23)
+        Me.btnTransporter.TabIndex = 198
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.BackColor = System.Drawing.Color.Transparent
+        Me.Label22.ForeColor = System.Drawing.Color.Black
+        Me.Label22.Location = New System.Drawing.Point(28, 74)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(64, 13)
+        Me.Label22.TabIndex = 199
+        Me.Label22.Text = "Transporter"
         '
         'Label21
         '
@@ -652,6 +693,263 @@ Partial Class frmTraDeliveryDet
         Me.txtPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtPPN.ThousandsSeparator = True
         '
+        'tpTransport
+        '
+        Me.tpTransport.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpTransport.Controls.Add(Me.chkIsFreePPHTransport)
+        Me.tpTransport.Controls.Add(Me.chkIsFreePPNTransport)
+        Me.tpTransport.Controls.Add(Me.Label28)
+        Me.tpTransport.Controls.Add(Me.Label27)
+        Me.tpTransport.Controls.Add(Me.txtUnitPriceTransport)
+        Me.tpTransport.Controls.Add(Me.Label23)
+        Me.tpTransport.Controls.Add(Me.Label24)
+        Me.tpTransport.Controls.Add(Me.txtPPHTransport)
+        Me.tpTransport.Controls.Add(Me.Label25)
+        Me.tpTransport.Controls.Add(Me.Label26)
+        Me.tpTransport.Controls.Add(Me.txtPPNTransport)
+        Me.tpTransport.Controls.Add(Me.gboTransport)
+        Me.tpTransport.Location = New System.Drawing.Point(4, 25)
+        Me.tpTransport.Name = "tpTransport"
+        Me.tpTransport.Size = New System.Drawing.Size(906, 192)
+        Me.tpTransport.TabIndex = 3
+        Me.tpTransport.Text = "Transport - F3"
+        Me.tpTransport.UseVisualStyleBackColor = True
+        '
+        'chkIsFreePPHTransport
+        '
+        Me.chkIsFreePPHTransport.Location = New System.Drawing.Point(305, 95)
+        Me.chkIsFreePPHTransport.Name = "chkIsFreePPHTransport"
+        Me.chkIsFreePPHTransport.Properties.Caption = "Free PPH ?"
+        Me.chkIsFreePPHTransport.Size = New System.Drawing.Size(75, 19)
+        Me.chkIsFreePPHTransport.TabIndex = 4
+        '
+        'chkIsFreePPNTransport
+        '
+        Me.chkIsFreePPNTransport.Location = New System.Drawing.Point(305, 68)
+        Me.chkIsFreePPNTransport.Name = "chkIsFreePPNTransport"
+        Me.chkIsFreePPNTransport.Properties.Caption = "Free PPN ?"
+        Me.chkIsFreePPNTransport.Size = New System.Drawing.Size(75, 19)
+        Me.chkIsFreePPNTransport.TabIndex = 2
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.BackColor = System.Drawing.Color.Transparent
+        Me.Label28.ForeColor = System.Drawing.Color.Black
+        Me.Label28.Location = New System.Drawing.Point(275, 44)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(19, 13)
+        Me.Label28.TabIndex = 126
+        Me.Label28.Text = "Kg"
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.BackColor = System.Drawing.Color.Transparent
+        Me.Label27.ForeColor = System.Drawing.Color.Black
+        Me.Label27.Location = New System.Drawing.Point(44, 44)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(91, 13)
+        Me.Label27.TabIndex = 125
+        Me.Label27.Text = "Harga Pengiriman"
+        '
+        'txtUnitPriceTransport
+        '
+        Me.txtUnitPriceTransport.DecimalPlaces = 2
+        Me.txtUnitPriceTransport.Location = New System.Drawing.Point(155, 40)
+        Me.txtUnitPriceTransport.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtUnitPriceTransport.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtUnitPriceTransport.Name = "txtUnitPriceTransport"
+        Me.txtUnitPriceTransport.Size = New System.Drawing.Size(114, 21)
+        Me.txtUnitPriceTransport.TabIndex = 0
+        Me.txtUnitPriceTransport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtUnitPriceTransport.ThousandsSeparator = True
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.BackColor = System.Drawing.Color.Transparent
+        Me.Label23.ForeColor = System.Drawing.Color.Black
+        Me.Label23.Location = New System.Drawing.Point(275, 98)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(18, 13)
+        Me.Label23.TabIndex = 123
+        Me.Label23.Text = "%"
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.BackColor = System.Drawing.Color.Transparent
+        Me.Label24.ForeColor = System.Drawing.Color.Black
+        Me.Label24.Location = New System.Drawing.Point(44, 98)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(25, 13)
+        Me.Label24.TabIndex = 122
+        Me.Label24.Text = "PPh"
+        '
+        'txtPPHTransport
+        '
+        Me.txtPPHTransport.DecimalPlaces = 2
+        Me.txtPPHTransport.Location = New System.Drawing.Point(155, 94)
+        Me.txtPPHTransport.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtPPHTransport.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtPPHTransport.Name = "txtPPHTransport"
+        Me.txtPPHTransport.Size = New System.Drawing.Size(114, 21)
+        Me.txtPPHTransport.TabIndex = 3
+        Me.txtPPHTransport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtPPHTransport.ThousandsSeparator = True
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.BackColor = System.Drawing.Color.Transparent
+        Me.Label25.ForeColor = System.Drawing.Color.Black
+        Me.Label25.Location = New System.Drawing.Point(275, 71)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(18, 13)
+        Me.Label25.TabIndex = 121
+        Me.Label25.Text = "%"
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.BackColor = System.Drawing.Color.Transparent
+        Me.Label26.ForeColor = System.Drawing.Color.Black
+        Me.Label26.Location = New System.Drawing.Point(44, 71)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(26, 13)
+        Me.Label26.TabIndex = 120
+        Me.Label26.Text = "PPN"
+        '
+        'txtPPNTransport
+        '
+        Me.txtPPNTransport.DecimalPlaces = 2
+        Me.txtPPNTransport.Location = New System.Drawing.Point(155, 67)
+        Me.txtPPNTransport.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtPPNTransport.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtPPNTransport.Name = "txtPPNTransport"
+        Me.txtPPNTransport.Size = New System.Drawing.Size(114, 21)
+        Me.txtPPNTransport.TabIndex = 1
+        Me.txtPPNTransport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtPPNTransport.ThousandsSeparator = True
+        '
+        'gboTransport
+        '
+        Me.gboTransport.Controls.Add(Me.Label10)
+        Me.gboTransport.Controls.Add(Me.txtGrandTotalTransport)
+        Me.gboTransport.Controls.Add(Me.Label12)
+        Me.gboTransport.Controls.Add(Me.txtTotalPPHTransport)
+        Me.gboTransport.Controls.Add(Me.txtTotalDPPTransport)
+        Me.gboTransport.Controls.Add(Me.Label14)
+        Me.gboTransport.Controls.Add(Me.Label20)
+        Me.gboTransport.Controls.Add(Me.txtTotalPPNTransport)
+        Me.gboTransport.Location = New System.Drawing.Point(424, 15)
+        Me.gboTransport.Name = "gboTransport"
+        Me.gboTransport.Size = New System.Drawing.Size(334, 145)
+        Me.gboTransport.TabIndex = 5
+        Me.gboTransport.TabStop = False
+        Me.gboTransport.Text = "Total Harga Transport"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.BackColor = System.Drawing.Color.Transparent
+        Me.Label10.ForeColor = System.Drawing.Color.Black
+        Me.Label10.Location = New System.Drawing.Point(19, 108)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(63, 13)
+        Me.Label10.TabIndex = 125
+        Me.Label10.Text = "Grand Total"
+        '
+        'txtGrandTotalTransport
+        '
+        Me.txtGrandTotalTransport.BackColor = System.Drawing.Color.LightYellow
+        Me.txtGrandTotalTransport.DecimalPlaces = 2
+        Me.txtGrandTotalTransport.Enabled = False
+        Me.txtGrandTotalTransport.Location = New System.Drawing.Point(115, 104)
+        Me.txtGrandTotalTransport.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtGrandTotalTransport.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtGrandTotalTransport.Name = "txtGrandTotalTransport"
+        Me.txtGrandTotalTransport.Size = New System.Drawing.Size(186, 21)
+        Me.txtGrandTotalTransport.TabIndex = 3
+        Me.txtGrandTotalTransport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtGrandTotalTransport.ThousandsSeparator = True
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.BackColor = System.Drawing.Color.Transparent
+        Me.Label12.ForeColor = System.Drawing.Color.Black
+        Me.Label12.Location = New System.Drawing.Point(19, 81)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(52, 13)
+        Me.Label12.TabIndex = 123
+        Me.Label12.Text = "Total PPh"
+        '
+        'txtTotalPPHTransport
+        '
+        Me.txtTotalPPHTransport.BackColor = System.Drawing.Color.LightYellow
+        Me.txtTotalPPHTransport.DecimalPlaces = 2
+        Me.txtTotalPPHTransport.Enabled = False
+        Me.txtTotalPPHTransport.Location = New System.Drawing.Point(115, 77)
+        Me.txtTotalPPHTransport.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalPPHTransport.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalPPHTransport.Name = "txtTotalPPHTransport"
+        Me.txtTotalPPHTransport.Size = New System.Drawing.Size(186, 21)
+        Me.txtTotalPPHTransport.TabIndex = 2
+        Me.txtTotalPPHTransport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalPPHTransport.ThousandsSeparator = True
+        '
+        'txtTotalDPPTransport
+        '
+        Me.txtTotalDPPTransport.BackColor = System.Drawing.Color.LightYellow
+        Me.txtTotalDPPTransport.DecimalPlaces = 2
+        Me.txtTotalDPPTransport.Enabled = False
+        Me.txtTotalDPPTransport.Location = New System.Drawing.Point(115, 23)
+        Me.txtTotalDPPTransport.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalDPPTransport.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalDPPTransport.Name = "txtTotalDPPTransport"
+        Me.txtTotalDPPTransport.Size = New System.Drawing.Size(186, 21)
+        Me.txtTotalDPPTransport.TabIndex = 0
+        Me.txtTotalDPPTransport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalDPPTransport.ThousandsSeparator = True
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.BackColor = System.Drawing.Color.Transparent
+        Me.Label14.ForeColor = System.Drawing.Color.Black
+        Me.Label14.Location = New System.Drawing.Point(19, 54)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(53, 13)
+        Me.Label14.TabIndex = 121
+        Me.Label14.Text = "Total PPN"
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.BackColor = System.Drawing.Color.Transparent
+        Me.Label20.ForeColor = System.Drawing.Color.Black
+        Me.Label20.Location = New System.Drawing.Point(19, 27)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(53, 13)
+        Me.Label20.TabIndex = 119
+        Me.Label20.Text = "Total DPP"
+        '
+        'txtTotalPPNTransport
+        '
+        Me.txtTotalPPNTransport.BackColor = System.Drawing.Color.LightYellow
+        Me.txtTotalPPNTransport.DecimalPlaces = 2
+        Me.txtTotalPPNTransport.Enabled = False
+        Me.txtTotalPPNTransport.Location = New System.Drawing.Point(115, 50)
+        Me.txtTotalPPNTransport.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalPPNTransport.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalPPNTransport.Name = "txtTotalPPNTransport"
+        Me.txtTotalPPNTransport.Size = New System.Drawing.Size(186, 21)
+        Me.txtTotalPPNTransport.TabIndex = 1
+        Me.txtTotalPPNTransport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalPPNTransport.ThousandsSeparator = True
+        '
         'tpHistory
         '
         Me.tpHistory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
@@ -659,7 +957,7 @@ Partial Class frmTraDeliveryDet
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(906, 255)
+        Me.tpHistory.Size = New System.Drawing.Size(906, 192)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F4"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -684,7 +982,7 @@ Partial Class frmTraDeliveryDet
         Me.grdStatus.Location = New System.Drawing.Point(3, 3)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(896, 245)
+        Me.grdStatus.Size = New System.Drawing.Size(896, 182)
         Me.grdStatus.TabIndex = 13
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -869,304 +1167,6 @@ Partial Class frmTraDeliveryDet
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
         '
-        'txtTransporterCode
-        '
-        Me.txtTransporterCode.BackColor = System.Drawing.Color.Azure
-        Me.txtTransporterCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtTransporterCode.Location = New System.Drawing.Point(159, 70)
-        Me.txtTransporterCode.MaxLength = 250
-        Me.txtTransporterCode.Name = "txtTransporterCode"
-        Me.txtTransporterCode.ReadOnly = True
-        Me.txtTransporterCode.Size = New System.Drawing.Size(83, 21)
-        Me.txtTransporterCode.TabIndex = 196
-        '
-        'txtTransporterName
-        '
-        Me.txtTransporterName.BackColor = System.Drawing.Color.Azure
-        Me.txtTransporterName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtTransporterName.Location = New System.Drawing.Point(241, 70)
-        Me.txtTransporterName.MaxLength = 250
-        Me.txtTransporterName.Name = "txtTransporterName"
-        Me.txtTransporterName.ReadOnly = True
-        Me.txtTransporterName.Size = New System.Drawing.Size(167, 21)
-        Me.txtTransporterName.TabIndex = 197
-        '
-        'btnTransporter
-        '
-        Me.btnTransporter.Image = CType(resources.GetObject("btnTransporter.Image"), System.Drawing.Image)
-        Me.btnTransporter.Location = New System.Drawing.Point(414, 69)
-        Me.btnTransporter.Name = "btnTransporter"
-        Me.btnTransporter.Size = New System.Drawing.Size(23, 23)
-        Me.btnTransporter.TabIndex = 198
-        '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.BackColor = System.Drawing.Color.Transparent
-        Me.Label22.ForeColor = System.Drawing.Color.Black
-        Me.Label22.Location = New System.Drawing.Point(28, 74)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(64, 13)
-        Me.Label22.TabIndex = 199
-        Me.Label22.Text = "Transporter"
-        '
-        'tpTransport
-        '
-        Me.tpTransport.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.tpTransport.Controls.Add(Me.chkIsFreePPHTransport)
-        Me.tpTransport.Controls.Add(Me.chkIsFreePPNTransport)
-        Me.tpTransport.Controls.Add(Me.Label28)
-        Me.tpTransport.Controls.Add(Me.Label27)
-        Me.tpTransport.Controls.Add(Me.txtUnitPriceTransport)
-        Me.tpTransport.Controls.Add(Me.Label23)
-        Me.tpTransport.Controls.Add(Me.Label24)
-        Me.tpTransport.Controls.Add(Me.txtPPHTransport)
-        Me.tpTransport.Controls.Add(Me.Label25)
-        Me.tpTransport.Controls.Add(Me.Label26)
-        Me.tpTransport.Controls.Add(Me.txtPPNTransport)
-        Me.tpTransport.Controls.Add(Me.gboTransport)
-        Me.tpTransport.Location = New System.Drawing.Point(4, 25)
-        Me.tpTransport.Name = "tpTransport"
-        Me.tpTransport.Size = New System.Drawing.Size(906, 192)
-        Me.tpTransport.TabIndex = 3
-        Me.tpTransport.Text = "Transport - F3"
-        Me.tpTransport.UseVisualStyleBackColor = True
-        '
-        'gboTransport
-        '
-        Me.gboTransport.Controls.Add(Me.Label10)
-        Me.gboTransport.Controls.Add(Me.txtGrandTotalTransport)
-        Me.gboTransport.Controls.Add(Me.Label12)
-        Me.gboTransport.Controls.Add(Me.txtTotalPPHTransport)
-        Me.gboTransport.Controls.Add(Me.txtTotalDPPTransport)
-        Me.gboTransport.Controls.Add(Me.Label14)
-        Me.gboTransport.Controls.Add(Me.Label20)
-        Me.gboTransport.Controls.Add(Me.txtTotalPPNTransport)
-        Me.gboTransport.Location = New System.Drawing.Point(424, 15)
-        Me.gboTransport.Name = "gboTransport"
-        Me.gboTransport.Size = New System.Drawing.Size(334, 145)
-        Me.gboTransport.TabIndex = 5
-        Me.gboTransport.TabStop = False
-        Me.gboTransport.Text = "Total Harga Transport"
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.BackColor = System.Drawing.Color.Transparent
-        Me.Label10.ForeColor = System.Drawing.Color.Black
-        Me.Label10.Location = New System.Drawing.Point(19, 108)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(63, 13)
-        Me.Label10.TabIndex = 125
-        Me.Label10.Text = "Grand Total"
-        '
-        'txtGrandTotalTransport
-        '
-        Me.txtGrandTotalTransport.BackColor = System.Drawing.Color.LightYellow
-        Me.txtGrandTotalTransport.DecimalPlaces = 2
-        Me.txtGrandTotalTransport.Enabled = False
-        Me.txtGrandTotalTransport.Location = New System.Drawing.Point(115, 104)
-        Me.txtGrandTotalTransport.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtGrandTotalTransport.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtGrandTotalTransport.Name = "txtGrandTotalTransport"
-        Me.txtGrandTotalTransport.Size = New System.Drawing.Size(186, 21)
-        Me.txtGrandTotalTransport.TabIndex = 3
-        Me.txtGrandTotalTransport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtGrandTotalTransport.ThousandsSeparator = True
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.BackColor = System.Drawing.Color.Transparent
-        Me.Label12.ForeColor = System.Drawing.Color.Black
-        Me.Label12.Location = New System.Drawing.Point(19, 81)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(52, 13)
-        Me.Label12.TabIndex = 123
-        Me.Label12.Text = "Total PPh"
-        '
-        'txtTotalPPHTransport
-        '
-        Me.txtTotalPPHTransport.BackColor = System.Drawing.Color.LightYellow
-        Me.txtTotalPPHTransport.DecimalPlaces = 2
-        Me.txtTotalPPHTransport.Enabled = False
-        Me.txtTotalPPHTransport.Location = New System.Drawing.Point(115, 77)
-        Me.txtTotalPPHTransport.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtTotalPPHTransport.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalPPHTransport.Name = "txtTotalPPHTransport"
-        Me.txtTotalPPHTransport.Size = New System.Drawing.Size(186, 21)
-        Me.txtTotalPPHTransport.TabIndex = 2
-        Me.txtTotalPPHTransport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalPPHTransport.ThousandsSeparator = True
-        '
-        'txtTotalDPPTransport
-        '
-        Me.txtTotalDPPTransport.BackColor = System.Drawing.Color.LightYellow
-        Me.txtTotalDPPTransport.DecimalPlaces = 2
-        Me.txtTotalDPPTransport.Enabled = False
-        Me.txtTotalDPPTransport.Location = New System.Drawing.Point(115, 23)
-        Me.txtTotalDPPTransport.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtTotalDPPTransport.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalDPPTransport.Name = "txtTotalDPPTransport"
-        Me.txtTotalDPPTransport.Size = New System.Drawing.Size(186, 21)
-        Me.txtTotalDPPTransport.TabIndex = 0
-        Me.txtTotalDPPTransport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalDPPTransport.ThousandsSeparator = True
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.ForeColor = System.Drawing.Color.Black
-        Me.Label14.Location = New System.Drawing.Point(19, 54)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(53, 13)
-        Me.Label14.TabIndex = 121
-        Me.Label14.Text = "Total PPN"
-        '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.BackColor = System.Drawing.Color.Transparent
-        Me.Label20.ForeColor = System.Drawing.Color.Black
-        Me.Label20.Location = New System.Drawing.Point(19, 27)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(53, 13)
-        Me.Label20.TabIndex = 119
-        Me.Label20.Text = "Total DPP"
-        '
-        'txtTotalPPNTransport
-        '
-        Me.txtTotalPPNTransport.BackColor = System.Drawing.Color.LightYellow
-        Me.txtTotalPPNTransport.DecimalPlaces = 2
-        Me.txtTotalPPNTransport.Enabled = False
-        Me.txtTotalPPNTransport.Location = New System.Drawing.Point(115, 50)
-        Me.txtTotalPPNTransport.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtTotalPPNTransport.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalPPNTransport.Name = "txtTotalPPNTransport"
-        Me.txtTotalPPNTransport.Size = New System.Drawing.Size(186, 21)
-        Me.txtTotalPPNTransport.TabIndex = 1
-        Me.txtTotalPPNTransport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalPPNTransport.ThousandsSeparator = True
-        '
-        'Label23
-        '
-        Me.Label23.AutoSize = True
-        Me.Label23.BackColor = System.Drawing.Color.Transparent
-        Me.Label23.ForeColor = System.Drawing.Color.Black
-        Me.Label23.Location = New System.Drawing.Point(273, 85)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(18, 13)
-        Me.Label23.TabIndex = 123
-        Me.Label23.Text = "%"
-        '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.BackColor = System.Drawing.Color.Transparent
-        Me.Label24.ForeColor = System.Drawing.Color.Black
-        Me.Label24.Location = New System.Drawing.Point(45, 85)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(25, 13)
-        Me.Label24.TabIndex = 122
-        Me.Label24.Text = "PPh"
-        '
-        'txtPPHTransport
-        '
-        Me.txtPPHTransport.DecimalPlaces = 2
-        Me.txtPPHTransport.Location = New System.Drawing.Point(153, 81)
-        Me.txtPPHTransport.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtPPHTransport.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtPPHTransport.Name = "txtPPHTransport"
-        Me.txtPPHTransport.Size = New System.Drawing.Size(114, 21)
-        Me.txtPPHTransport.TabIndex = 3
-        Me.txtPPHTransport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtPPHTransport.ThousandsSeparator = True
-        '
-        'Label25
-        '
-        Me.Label25.AutoSize = True
-        Me.Label25.BackColor = System.Drawing.Color.Transparent
-        Me.Label25.ForeColor = System.Drawing.Color.Black
-        Me.Label25.Location = New System.Drawing.Point(273, 58)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(18, 13)
-        Me.Label25.TabIndex = 121
-        Me.Label25.Text = "%"
-        '
-        'Label26
-        '
-        Me.Label26.AutoSize = True
-        Me.Label26.BackColor = System.Drawing.Color.Transparent
-        Me.Label26.ForeColor = System.Drawing.Color.Black
-        Me.Label26.Location = New System.Drawing.Point(45, 58)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(26, 13)
-        Me.Label26.TabIndex = 120
-        Me.Label26.Text = "PPN"
-        '
-        'txtPPNTransport
-        '
-        Me.txtPPNTransport.DecimalPlaces = 2
-        Me.txtPPNTransport.Location = New System.Drawing.Point(153, 54)
-        Me.txtPPNTransport.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtPPNTransport.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtPPNTransport.Name = "txtPPNTransport"
-        Me.txtPPNTransport.Size = New System.Drawing.Size(114, 21)
-        Me.txtPPNTransport.TabIndex = 1
-        Me.txtPPNTransport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtPPNTransport.ThousandsSeparator = True
-        '
-        'Label27
-        '
-        Me.Label27.AutoSize = True
-        Me.Label27.BackColor = System.Drawing.Color.Transparent
-        Me.Label27.ForeColor = System.Drawing.Color.Black
-        Me.Label27.Location = New System.Drawing.Point(45, 31)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(91, 13)
-        Me.Label27.TabIndex = 125
-        Me.Label27.Text = "Harga Pengiriman"
-        '
-        'txtUnitPriceTransport
-        '
-        Me.txtUnitPriceTransport.DecimalPlaces = 2
-        Me.txtUnitPriceTransport.Location = New System.Drawing.Point(153, 27)
-        Me.txtUnitPriceTransport.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtUnitPriceTransport.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtUnitPriceTransport.Name = "txtUnitPriceTransport"
-        Me.txtUnitPriceTransport.Size = New System.Drawing.Size(114, 21)
-        Me.txtUnitPriceTransport.TabIndex = 0
-        Me.txtUnitPriceTransport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtUnitPriceTransport.ThousandsSeparator = True
-        '
-        'Label28
-        '
-        Me.Label28.AutoSize = True
-        Me.Label28.BackColor = System.Drawing.Color.Transparent
-        Me.Label28.ForeColor = System.Drawing.Color.Black
-        Me.Label28.Location = New System.Drawing.Point(273, 31)
-        Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(19, 13)
-        Me.Label28.TabIndex = 126
-        Me.Label28.Text = "Kg"
-        '
-        'chkIsFreePPNTransport
-        '
-        Me.chkIsFreePPNTransport.Location = New System.Drawing.Point(303, 55)
-        Me.chkIsFreePPNTransport.Name = "chkIsFreePPNTransport"
-        Me.chkIsFreePPNTransport.Properties.Caption = "Free PPN ?"
-        Me.chkIsFreePPNTransport.Size = New System.Drawing.Size(75, 19)
-        Me.chkIsFreePPNTransport.TabIndex = 2
-        '
-        'chkIsFreePPHTransport
-        '
-        Me.chkIsFreePPHTransport.Location = New System.Drawing.Point(303, 82)
-        Me.chkIsFreePPHTransport.Name = "chkIsFreePPHTransport"
-        Me.chkIsFreePPHTransport.Properties.Caption = "Free PPH ?"
-        Me.chkIsFreePPHTransport.Size = New System.Drawing.Size(75, 19)
-        Me.chkIsFreePPHTransport.TabIndex = 4
-        '
         'frmTraDeliveryDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1197,6 +1197,19 @@ Partial Class frmTraDeliveryDet
         CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtPPN, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tpTransport.ResumeLayout(False)
+        Me.tpTransport.PerformLayout()
+        CType(Me.chkIsFreePPHTransport.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkIsFreePPNTransport.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtUnitPriceTransport, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtPPHTransport, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtPPNTransport, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.gboTransport.ResumeLayout(False)
+        Me.gboTransport.PerformLayout()
+        CType(Me.txtGrandTotalTransport, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtTotalPPHTransport, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtTotalDPPTransport, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtTotalPPNTransport, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpHistory.ResumeLayout(False)
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1208,19 +1221,6 @@ Partial Class frmTraDeliveryDet
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip.ResumeLayout(False)
         Me.StatusStrip.PerformLayout()
-        Me.tpTransport.ResumeLayout(False)
-        Me.tpTransport.PerformLayout()
-        Me.gboTransport.ResumeLayout(False)
-        Me.gboTransport.PerformLayout()
-        CType(Me.txtGrandTotalTransport, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtTotalPPHTransport, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtTotalDPPTransport, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtTotalPPNTransport, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtPPHTransport, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtPPNTransport, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtUnitPriceTransport, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.chkIsFreePPNTransport.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.chkIsFreePPHTransport.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

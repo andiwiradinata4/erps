@@ -13,6 +13,7 @@
     Private clsCS As VO.CS
     Private dtItem As New DataTable
     Private drSelectedItem As DataRow
+    Private bolIsAutoSearch As Boolean
 
     Public WriteOnly Property pubSCID As String
         Set(value As String)
@@ -50,6 +51,12 @@
         End Set
     End Property
 
+    Public WriteOnly Property pubIsAutoSearch As Boolean
+        Set(value As Boolean)
+            bolIsAutoSearch = value
+        End Set
+    End Property
+
     Public Sub pubShowDialog(ByVal frmGetParent As Form)
         frmParent = frmGetParent
         Me.ShowDialog()
@@ -78,6 +85,7 @@
             Else
                 strID = drSelectedItem.Item("ID")
                 strSCDetailID = drSelectedItem.Item("SCDetailID")
+                txtOrderNumberSupplier.Text = drSelectedItem.Item("OrderNumberSupplier")
                 intGroupID = drSelectedItem.Item("GroupID")
                 intItemID = drSelectedItem.Item("ItemID")
                 cboItemType.SelectedValue = drSelectedItem.Item("ItemTypeID")
@@ -131,6 +139,7 @@
                 .BeginEdit()
                 .Item("ID") = Guid.NewGuid
                 .Item("SCDetailID") = strSCDetailID
+                .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
                 .Item("SCNumber") = ""
                 .Item("GroupID") = intGroupID
                 .Item("ItemID") = intItemID
@@ -159,6 +168,7 @@
                     If .Item("ID") = strID Then
                         .BeginEdit()
                         .Item("SCDetailID") = strSCDetailID
+                        .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
                         .Item("SCNumber") = ""
                         .Item("GroupID") = intGroupID
                         .Item("ItemID") = intItemID
@@ -192,6 +202,7 @@
         strID = ""
         txtItemCode.Focus()
         strSCDetailID = ""
+        txtOrderNumberSupplier.Text = ""
         intGroupID = 0
         intItemID = 0
         txtItemCode.Text = ""
@@ -211,7 +222,7 @@
     End Sub
 
     Private Sub prvChooseItem()
-        Dim frmDetail As New frmTraSalesContractOutstandingDeliveryItem
+        Dim frmDetail As New frmTraSalesContractOutstandingDeliveryItemVer01
         With frmDetail
             .pubParentItem = dtItem
             .pubSCID = strSCID
@@ -220,6 +231,7 @@
             .pubShowDialog(Me)
             If .pubIsLookupGet Then
                 strSCDetailID = .pubLUdtRow.Item("ID")
+                txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
                 intItemID = .pubLUdtRow.Item("ItemID")
                 cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
                 txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
@@ -234,6 +246,9 @@
                 txtQuantity.Value = .pubLUdtRow.Item("Quantity")
                 txtQuantity.Focus()
                 txtRemarks.Text = ""
+                bolIsAutoSearch = False
+            Else
+                If bolIsAutoSearch Then Me.Close()
             End If
         End With
     End Sub
@@ -257,6 +272,7 @@
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         prvFillForm()
+        If bolIsAutoSearch Then prvChooseItem()
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick

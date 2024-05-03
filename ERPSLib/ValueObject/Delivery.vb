@@ -37,6 +37,8 @@
         Property JournalIDTransport As String
         Property TotalCostRawMaterial As Decimal
         Property TransporterID As Integer
+        Property TransporterCode As String
+        Property TransporterName As String
         Property UnitPriceTransport As Decimal
         Property PPNTransport As Decimal
         Property PPHTransport As Decimal

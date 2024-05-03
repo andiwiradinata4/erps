@@ -391,6 +391,10 @@
                     strModules.Trim = VO.AccountReceivable.ReceivePayment Then
                     dtDetail = DL.AccountReceivable.ListDataDetailOnly(sqlCon, sqlTrans, strID)
                     dtDetailItem = DL.ARAP.ListDataDetailItemOnly(sqlCon, sqlTrans, strID)
+
+                    For Each dr As DataRow In dtDetail.Rows
+
+                    Next
                 End If
 
                 DL.AccountReceivable.DeleteData(sqlCon, sqlTrans, strID)
@@ -1092,6 +1096,15 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.AccountReceivable.ListDataDetailItemDPWithOutstandingVer01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailItemReceiveWithOutstandingVer02(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                             ByVal intBPID As Integer, ByVal strAPID As String,
+                                                                             ByVal strReferencesID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.AccountReceivable.ListDataDetailItemReceiveWithOutstandingVer01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID)
             End Using
         End Function
 

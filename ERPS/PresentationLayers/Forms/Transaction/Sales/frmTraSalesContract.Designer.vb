@@ -57,6 +57,8 @@ Partial Class frmTraSalesContract
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.BarSetupDelivery = New System.Windows.Forms.ToolBarButton()
+        Me.BarCancelSetupDelivery = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -66,12 +68,12 @@ Partial Class frmTraSalesContract
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarDownPayment, Me.BarReceive, Me.BarSep3, Me.BarPrint, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarDownPayment, Me.BarReceive, Me.BarSetupDelivery, Me.BarCancelSetupDelivery, Me.BarSep3, Me.BarPrint, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(984, 28)
+        Me.ToolBar.Size = New System.Drawing.Size(984, 72)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -188,7 +190,7 @@ Partial Class frmTraSalesContract
         Me.PanelControl1.Controls.Add(Me.btnExecute)
         Me.PanelControl1.Controls.Add(Me.Label1)
         Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelControl1.Location = New System.Drawing.Point(0, 28)
+        Me.PanelControl1.Location = New System.Drawing.Point(0, 72)
         Me.PanelControl1.Name = "PanelControl1"
         Me.PanelControl1.Size = New System.Drawing.Size(984, 141)
         Me.PanelControl1.TabIndex = 1
@@ -337,10 +339,10 @@ Partial Class frmTraSalesContract
         Me.grdMain.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdMain.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdMain.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdMain.Location = New System.Drawing.Point(0, 169)
+        Me.grdMain.Location = New System.Drawing.Point(0, 213)
         Me.grdMain.MainView = Me.grdView
         Me.grdMain.Name = "grdMain"
-        Me.grdMain.Size = New System.Drawing.Size(984, 420)
+        Me.grdMain.Size = New System.Drawing.Size(984, 376)
         Me.grdMain.TabIndex = 2
         Me.grdMain.UseEmbeddedNavigator = True
         Me.grdMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdView})
@@ -353,6 +355,18 @@ Partial Class frmTraSalesContract
         Me.grdView.OptionsView.ColumnAutoWidth = False
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
+        '
+        'BarSetupDelivery
+        '
+        Me.BarSetupDelivery.Name = "BarSetupDelivery"
+        Me.BarSetupDelivery.Tag = "Shipped"
+        Me.BarSetupDelivery.Text = "Set Pengiriman"
+        '
+        'BarCancelSetupDelivery
+        '
+        Me.BarCancelSetupDelivery.Name = "ToolBarButton1"
+        Me.BarCancelSetupDelivery.Tag = "Cancel"
+        Me.BarCancelSetupDelivery.Text = "Batal Set Pengiriman"
         '
         'frmTraSalesContract
         '
@@ -410,4 +424,6 @@ Partial Class frmTraSalesContract
     Friend WithEvents BarDownPayment As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarReceive As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarSep4 As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarSetupDelivery As ToolBarButton
+    Friend WithEvents BarCancelSetupDelivery As ToolBarButton
 End Class

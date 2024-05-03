@@ -44,8 +44,9 @@ Public Class frmTraDeliveryDet
         UI.usForm.SetGrid(grdItemView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "DeliveryID", "DeliveryID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "SCDetailID", "SCDetailID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "SCNumber", "No. Kontrak Penjualan", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
@@ -96,6 +97,9 @@ Public Class frmTraDeliveryDet
                 intBPID = clsData.BPID
                 txtBPCode.Text = clsData.BPCode
                 txtBPName.Text = clsData.BPName
+                intTransporterID = clsData.TransporterID
+                txtTransporterCode.Text = clsData.TransporterCode
+                txtTransporterName.Text = clsData.TransporterName
                 strSCID = clsData.SCID
                 txtSCNumber.Text = clsData.SCNumber
                 dtpDeliveryDate.Value = clsData.DeliveryDate
@@ -107,6 +111,11 @@ Public Class frmTraDeliveryDet
                 txtTotalDPP.Value = clsData.TotalDPP
                 txtTotalPPN.Value = clsData.TotalPPN
                 txtTotalPPH.Value = clsData.TotalPPH
+                txtUnitPriceTransport.Value = clsData.UnitPriceTransport
+                txtPPNTransport.Value = clsData.PPNTransport
+                chkIsFreePPNTransport.Checked = clsData.IsFreePPNTransport
+                txtPPHTransport.Value = clsData.PPHTransport
+                chkIsFreePPHTransport.Checked = clsData.IsFreePPHTransport
                 txtTotalDPPTransport.Value = clsData.TotalDPPTransport
                 txtTotalPPNTransport.Value = clsData.TotalPPNTransport
                 txtTotalPPHTransport.Value = clsData.TotalPPHTransport
@@ -187,16 +196,19 @@ Public Class frmTraDeliveryDet
                                .TotalWeight = dr.Item("TotalWeight"),
                                .UnitPrice = dr.Item("UnitPrice"),
                                .TotalPrice = dr.Item("TotalPrice"),
-                               .Remarks = dr.Item("Remarks")
+                               .Remarks = dr.Item("Remarks"),
+                               .OrderNumberSupplier = dr.Item("OrderNumberSupplier")
                            })
         Next
 
+        clsData = New VO.Delivery
         clsData.ID = pubID
         clsData.ProgramID = pubCS.ProgramID
         clsData.CompanyID = pubCS.CompanyID
         clsData.DeliveryNumber = txtDeliveryNumber.Text.Trim
         clsData.DeliveryDate = dtpDeliveryDate.Value.Date
         clsData.BPID = intBPID
+        clsData.TransporterID = intTransporterID
         clsData.SCID = strSCID
         clsData.ReferencesNumber = txtReferencesNumber.Text.Trim
         clsData.PlatNumber = txtPlatNumber.Text.Trim
@@ -230,9 +242,9 @@ Public Class frmTraDeliveryDet
             pgMain.Value = 80
             frmParent.pubRefresh(strDeliveryNumber)
             If pubIsNew Then
-                prvClear()
                 prvQueryItem()
                 prvQueryHistory()
+                prvClear()
                 prvSetupTools()
             Else
                 Me.Close()
@@ -253,6 +265,10 @@ Public Class frmTraDeliveryDet
         intBPID = 0
         txtBPCode.Text = ""
         txtBPName.Text = ""
+        intTransporterID = 0
+        txtTransporterCode.Text = ""
+        txtTransporterName.Text = ""
+        txtSCNumber.Text = ""
         dtpDeliveryDate.Value = Now
         txtReferencesNumber.Text = ""
         txtPlatNumber.Text = ""
@@ -263,6 +279,11 @@ Public Class frmTraDeliveryDet
         txtTotalPPN.Value = 0
         txtTotalPPH.Value = 0
         txtGrandTotal.Value = 0
+        txtUnitPriceTransport.Value = 0
+        txtPPNTransport.Value = 0
+        chkIsFreePPNTransport.Checked = False
+        txtPPHTransport.Value = 0
+        chkIsFreePPHTransport.Checked = False
         txtTotalDPPTransport.Value = 0
         txtTotalPPNTransport.Value = 0
         txtTotalPPHTransport.Value = 0
@@ -308,9 +329,9 @@ Public Class frmTraDeliveryDet
                     chkIsFreePPHTransport.Checked = .pubLUdtRow.Item("IsFreePPH")
                 End If
 
-                intBPID = .pubLUdtRow.Item("ID")
-                txtBPCode.Text = .pubLUdtRow.Item("Code")
-                txtBPName.Text = .pubLUdtRow.Item("Name")
+                intTransporterID = .pubLUdtRow.Item("ID")
+                txtTransporterCode.Text = .pubLUdtRow.Item("Code")
+                txtTransporterName.Text = .pubLUdtRow.Item("Name")
             End If
         End With
     End Sub
@@ -428,8 +449,12 @@ Public Class frmTraDeliveryDet
 
     Private Sub prvAddItem()
         If txtBPCode.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih Pemasok terlebih dahulu")
+            UI.usForm.frmMessageBox("Pilih Pelanggan terlebih dahulu")
             txtBPCode.Focus()
+            Exit Sub
+        ElseIf txtSCNumber.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih Kontrak terlebih dahulu")
+            txtSCNumber.Focus()
             Exit Sub
         End If
         Dim frmDetail As New frmTraDeliveryDetItemVer01
@@ -438,6 +463,7 @@ Public Class frmTraDeliveryDet
             .pubCS = pubCS
             .pubSCID = strSCID
             .pubTableItem = dtItem
+            .pubIsAutoSearch = True
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -518,11 +544,11 @@ Public Class frmTraDeliveryDet
         ElseIf e.KeyCode = Keys.F2 Then
             tcHeader.SelectedTab = tpAmount
         ElseIf e.KeyCode = Keys.F3 Then
-            tcHeader.SelectedTab = tpHistory
+            tcHeader.SelectedTab = tpTransport
         ElseIf e.KeyCode = Keys.F4 Then
-            tcDetail.SelectedTab = tpItem
+            tcHeader.SelectedTab = tpHistory
         ElseIf e.KeyCode = Keys.F5 Then
-            tcDetail.SelectedTab = tpTransport
+            tcDetail.SelectedTab = tpItem
         ElseIf e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
         ElseIf (e.Control And e.KeyCode = Keys.S) Then

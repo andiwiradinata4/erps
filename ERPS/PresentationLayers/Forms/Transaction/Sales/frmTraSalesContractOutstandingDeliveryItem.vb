@@ -3,7 +3,7 @@ Public Class frmTraSalesContractOutstandingDeliveryItem
 
 #Region "Properties"
 
-    Private frmParent As frmTraDeliveryDetItem
+    Private frmParent As frmTraDeliveryDetItemVer01
     Private intPos As Integer = 0
     Private clsCS As VO.CS
     Private strSCID As String

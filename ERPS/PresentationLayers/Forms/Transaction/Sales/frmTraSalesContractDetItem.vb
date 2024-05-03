@@ -230,6 +230,7 @@ Public Class frmTraSalesContractDetItem
                 .Item("UnitPrice") = txtUnitPrice.Value
                 .Item("TotalPrice") = txtTotalPrice.Value
                 .Item("Remarks") = txtRemarks.Text.Trim
+                .Item("OrderNumberSupplier") = grdItemCOView.GetRowCellValue(0, "OrderNumberSupplier")
                 .EndEdit()
             End With
             dtItem.Rows.Add(drItem)
@@ -259,6 +260,7 @@ Public Class frmTraSalesContractDetItem
                         .Item("UnitPrice") = txtUnitPrice.Value
                         .Item("TotalPrice") = txtTotalPrice.Value
                         .Item("Remarks") = txtRemarks.Text.Trim
+                        .Item("OrderNumberSupplier") = grdItemCOView.GetRowCellValue(0, "OrderNumberSupplier")
                         .EndEdit()
                     End If
                 End With
@@ -344,6 +346,7 @@ Public Class frmTraSalesContractDetItem
     Private Sub prvToolsHandles()
         Dim bolEnabled As Boolean = IIf(grdItemCOView.RowCount = 0, True, False)
         btnRequestItem.Enabled = bolEnabled
+        ToolBarItemCO.Buttons(cAdd).Enabled = Not bolEnabled
     End Sub
 
 #Region "Confirmation Order Item"
@@ -373,6 +376,7 @@ Public Class frmTraSalesContractDetItem
             .pubTableParent = dtCO
             .pubTableParentAll = dtAllCO
             .pubCS = clsCS
+            .pubIsAutoSearch = True
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButtonItemConfirmationOrder()

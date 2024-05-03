@@ -24,6 +24,7 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Dim clsDataStockIN As New List(Of VO.StockIn)
                 Try
                     If bolNew Then
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.ReceiveDate, clsData.CompanyID, clsData.ProgramID)
@@ -33,9 +34,13 @@
 
                         DL.Receive.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
 
-                        '# Revert DC Quantity
+
                         For Each dr As DataRow In dtItem.Rows
+                            '# Revert DC Quantity
                             DL.PurchaseContract.CalculateDCTotalUsed(sqlCon, sqlTrans, dr.Item("PCDetailID"))
+
+                            '# Delete Stock In
+                            BL.StockIn.DeleteData(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
                         Next
 
                         Dim clsExists As VO.Receive = DL.Receive.GetDetail(sqlCon, sqlTrans, clsData.ID)
@@ -62,6 +67,18 @@
                         clsDet.ReceiveID = clsData.ID
                         DL.Receive.SaveDataDetail(sqlCon, sqlTrans, clsDet)
                         intCount += 1
+
+                        clsDataStockIN.Add(New VO.StockIn With
+                                           {
+                                                .ParentID = "",
+                                                .ParentDetailID = "",
+                                                .OrderNumberSupplier = clsDet.OrderNumberSupplier,
+                                                .SourceData = "",
+                                                .ItemID = clsDet.ItemID,
+                                                .InQuantity = 0,
+                                                .InWeight = 0,
+                                                .InTotalWeight = 0
+                                           })
                     Next
 
                     '# Calculate DC Quantity
@@ -73,6 +90,9 @@
                     BL.Receive.SaveDataStatus(sqlCon, sqlTrans, clsData.ID, IIf(bolNew, "BARU", "EDIT"), ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
 
                     If clsData.Save = VO.Save.Action.SaveAndSubmit Then Submit(sqlCon, sqlTrans, clsData.ID, clsData.Remarks)
+
+                    '# Save Data Stock IN
+                    BL.StockIn.SaveData(clsDataStockIN)
 
                     sqlTrans.Commit()
                 Catch ex As Exception
@@ -106,9 +126,12 @@
 
                     DL.Receive.DeleteData(sqlCon, sqlTrans, strID)
 
-                    '# Revert DC Quantity
                     For Each dr As DataRow In dtItem.Rows
+                        '# Revert DC Quantity
                         DL.PurchaseContract.CalculateDCTotalUsed(sqlCon, sqlTrans, dr.Item("PCDetailID"))
+
+                        '# Delete Stock In
+                        BL.StockIn.DeleteData(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
                     Next
 
                     '# Save Data Status

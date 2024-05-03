@@ -515,6 +515,31 @@
             End Try
         End Sub
 
+        Public Shared Sub SetupIsIgnoreValidationPayment(ByVal strID As String, ByVal bolValue As Boolean, ByVal strRemarks As String)
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+
+                    Dim intStatusID As Integer = DL.SalesContract.GetStatusID(sqlCon, sqlTrans, strID)
+                    If intStatusID <> VO.Status.Values.Approved Then
+                        Err.Raise(515, "", "Data tidak dapat " & IIf(bolValue = False, "batal ", "") & "set pengiriman. Status data harus APPROVED terlebih dahulu")
+                    ElseIf DL.SalesContract.IsDeleted(sqlCon, sqlTrans, strID) Then
+                        Err.Raise(515, "", "Data tidak dapat " & IIf(bolValue = False, "batal ", "") & "set pengiriman. Dikarenakan data telah dihapus")
+                    End If
+
+                    DL.SalesContract.SetupIsIgnoreValidationPayment(sqlCon, sqlTrans, strID, bolValue)
+
+                    '# Save Data Status
+                    BL.SalesContract.SaveDataStatus(sqlCon, sqlTrans, strID, IIf(bolValue = False, "BATAL ", "") & "SET PENGIRIMAN", ERPSLib.UI.usUserApp.UserID, strRemarks)
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+        End Sub
+
 #End Region
 
 #Region "Detail"
@@ -539,6 +564,14 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.SalesContract.ListDataDetailOutstandingDelivery(sqlCon, Nothing, intProgramID, intCompanyID, strSCID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailOutstandingDeliveryVer01(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                      ByVal strSCID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.SalesContract.ListDataDetailOutstandingDeliveryVer01(sqlCon, Nothing, intProgramID, intCompanyID, strSCID)
             End Using
         End Function
 

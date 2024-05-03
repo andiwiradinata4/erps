@@ -24,6 +24,7 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Dim clsDataStockOut As New List(Of VO.StockOut)
                 Try
                     If bolNew Then
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.DeliveryDate, clsData.CompanyID, clsData.ProgramID)
@@ -35,9 +36,12 @@
                         DL.Delivery.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
                         DL.Delivery.DeleteDataDetailTransport(sqlCon, sqlTrans, clsData.ID)
 
-                        '# Revert DC Quantity
                         For Each dr As DataRow In dtItem.Rows
+                            '# Revert DC Quantity
                             DL.SalesContract.CalculateDCTotalUsed(sqlCon, sqlTrans, dr.Item("SCDetailID"))
+
+                            '# Delete Stock Out
+                            BL.StockOut.DeleteData(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
                         Next
 
                         '# Revert Done Quantity
@@ -79,26 +83,42 @@
                         clsDet.DeliveryID = clsData.ID
                         DL.Delivery.SaveDataDetail(sqlCon, sqlTrans, clsDet)
                         intCount += 1
+
+                        clsDataStockOut.Add(New VO.StockOut With
+                           {
+                                .ParentID = "",
+                                .ParentDetailID = "",
+                                .OrderNumberSupplier = clsDet.OrderNumberSupplier,
+                                .SourceData = "",
+                                .ItemID = clsDet.ItemID,
+                                .Quantity = 0,
+                                .Weight = 0,
+                                .TotalWeight = 0
+                           })
                     Next
 
                     '# Save Data Delivery Transport
                     intCount = 1
-                    For Each clsDet As VO.DeliveryTransport In clsData.DeliveryTransport
-                        clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
-                        clsDet.DeliveryID = clsData.ID
-                        clsDet.DeliveryNumber = clsData.DeliveryNumber
-                        DL.Delivery.SaveDataDeliveryTransport(sqlCon, sqlTrans, clsDet)
-                        intCount += 1
-                    Next
+                    If clsData.DeliveryTransport IsNot Nothing Then
+                        For Each clsDet As VO.DeliveryTransport In clsData.DeliveryTransport
+                            clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
+                            clsDet.DeliveryID = clsData.ID
+                            clsDet.DeliveryNumber = clsData.DeliveryNumber
+                            DL.Delivery.SaveDataDeliveryTransport(sqlCon, sqlTrans, clsDet)
+                            intCount += 1
+                        Next
+                    End If
 
                     '# Save Data Detail Transport
                     intCount = 1
-                    For Each clsDet As VO.DeliveryDetTransport In clsData.DetailTransport
-                        clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
-                        clsDet.DeliveryID = clsData.ID
-                        DL.Delivery.SaveDataDetailTransport(sqlCon, sqlTrans, clsDet)
-                        intCount += 1
-                    Next
+                    If clsData.DetailTransport IsNot Nothing Then
+                        For Each clsDet As VO.DeliveryDetTransport In clsData.DetailTransport
+                            clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
+                            clsDet.DeliveryID = clsData.ID
+                            DL.Delivery.SaveDataDetailTransport(sqlCon, sqlTrans, clsDet)
+                            intCount += 1
+                        Next
+                    End If
 
                     '# Calculate DC Quantity
                     For Each clsDet As VO.DeliveryDet In clsData.Detail
@@ -106,14 +126,19 @@
                     Next
 
                     '# Calculate Done Quantity
-                    For Each clsDet As VO.DeliveryDetTransport In clsData.DetailTransport
-                        DL.PurchaseOrderTransport.CalculateDoneTotalUsed(sqlCon, sqlTrans, clsDet.PODetailID)
-                    Next
+                    If clsData.DetailTransport IsNot Nothing Then
+                        For Each clsDet As VO.DeliveryDetTransport In clsData.DetailTransport
+                            DL.PurchaseOrderTransport.CalculateDoneTotalUsed(sqlCon, sqlTrans, clsDet.PODetailID)
+                        Next
+                    End If
 
                     '# Save Data Status
                     BL.Delivery.SaveDataStatus(sqlCon, sqlTrans, clsData.ID, IIf(bolNew, "BARU", "EDIT"), ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
 
                     If clsData.Save = VO.Save.Action.SaveAndSubmit Then Submit(sqlCon, sqlTrans, clsData.ID, clsData.Remarks)
+
+                    '# Save Data Stock Out
+                    BL.StockOut.SaveData(clsDataStockOut)
 
                     sqlTrans.Commit()
                 Catch ex As Exception
@@ -149,9 +174,12 @@
                     DL.Delivery.DeleteData(sqlCon, sqlTrans, strID)
                     DL.Delivery.DeleteDataDetailTransport(sqlCon, sqlTrans, strID)
 
-                    '# Revert DC Quantity
                     For Each dr As DataRow In dtItem.Rows
+                        '# Revert DC Quantity
                         DL.SalesContract.CalculateDCTotalUsed(sqlCon, sqlTrans, dr.Item("SCDetailID"))
+
+                        '# Delete Stock Out
+                        BL.StockOut.DeleteData(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
                     Next
 
                     '# Revert Done Quantity
@@ -353,39 +381,36 @@
                 DL.Delivery.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID, decTotalCostRawMaterial)
 
                 '# Delivery Transport
-                intGroupID = 0
+                intGroupID = 1
                 PrevJournal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalIDTransport)
                 bolNew = IIf(PrevJournal.ID = "", True, False)
 
                 '# Generate Journal
                 Dim dtDeliveryTransport As DataTable = DL.Delivery.ListDataDeliveryTransport(sqlCon, sqlTrans, clsData.ID)
                 decTotalAmount = 0
-                For Each dr As DataRow In dtDeliveryTransport.Rows
-                    intGroupID += 1
-                    decTotalAmount += dr.Item("TotalDPP") + dr.Item("RoundingManual")
-                    clsJournalDetail = New List(Of VO.JournalDet)
-                    '# Biaya Transport -> Debit
-                    clsJournalDetail.Add(New VO.JournalDet With
+                decTotalAmount += clsData.TotalDPPTransport
+                clsJournalDetail = New List(Of VO.JournalDet)
+                '# Biaya Transport -> Debit
+                clsJournalDetail.Add(New VO.JournalDet With
                         {
                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAOfTransport,
                             .DebitAmount = decTotalAmount,
                             .CreditAmount = 0,
                             .Remarks = "",
                             .GroupID = intGroupID,
-                            .BPID = dr.Item("BPID")
+                            .BPID = clsData.TransporterID
                         })
 
-                    '# Hutang Transport Belum ditagih -> Kredit
-                    clsJournalDetail.Add(New VO.JournalDet With
+                '# Hutang Transport Belum ditagih -> Kredit
+                clsJournalDetail.Add(New VO.JournalDet With
                         {
                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableTransportOutstandingPayment,
                             .DebitAmount = 0,
                             .CreditAmount = decTotalAmount,
                             .Remarks = "",
                             .GroupID = intGroupID,
-                            .BPID = dr.Item("BPID")
+                            .BPID = clsData.TransporterID
                         })
-                Next
 
                 clsJournal = New VO.Journal With
                 {
@@ -394,7 +419,7 @@
                     .ID = PrevJournal.ID,
                     .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
                     .ReferencesID = clsData.ID,
-                    .JournalDate = IIf(bolNew, clsData.DeliveryDate, PrevJournal.JournalDate),
+                    .JournalDate = clsData.DeliveryDate,
                     .TotalAmount = decTotalAmount,
                     .IsAutoGenerate = True,
                     .StatusID = VO.Status.Values.Draft,

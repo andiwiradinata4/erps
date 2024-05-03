@@ -45,6 +45,7 @@ Public Class frmTraSalesContractDet
         UI.usForm.SetGrid(grdItemView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "SCID", "SCID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "ORDetailID", "ORDetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdItemView, "RequestNumber", "Nomor Permintaan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
@@ -63,6 +64,7 @@ Public Class frmTraSalesContractDet
         UI.usForm.SetGrid(grdItemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "IsIgnoreValidationPayment", "Set Pengiriman", 100, UI.usDefGrid.gBoolean)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
 
         '# CO Detail
@@ -272,7 +274,8 @@ Public Class frmTraSalesContractDet
                                .TotalWeight = dr.Item("TotalWeight"),
                                .UnitPrice = dr.Item("UnitPrice"),
                                .TotalPrice = dr.Item("TotalPrice"),
-                               .Remarks = dr.Item("Remarks")
+                               .Remarks = dr.Item("Remarks"),
+                               .OrderNumberSupplier = dr.Item("OrderNumberSupplier")
                            })
         Next
 

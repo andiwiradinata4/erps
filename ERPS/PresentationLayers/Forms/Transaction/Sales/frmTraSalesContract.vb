@@ -13,8 +13,9 @@ Public Class frmTraSalesContract
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
-       cSep2 As Byte = 8, cDownPayment As Byte = 9, cReceive As Byte = 10, cSep3 As Byte = 11, cPrint As Byte = 12,
-       cExportExcel As Byte = 13, cSep4 As Byte = 14, cRefresh As Byte = 15, cClose As Byte = 16
+       cSep2 As Byte = 8, cDownPayment As Byte = 9, cReceive As Byte = 10, cSetupDelivery As Byte = 11,
+       cCancelSetupDelivery As Byte = 12, cSep3 As Byte = 13, cPrint As Byte = 14, cExportExcel As Byte = 15,
+       cSep4 As Byte = 16, cRefresh As Byte = 17, cClose As Byte = 18
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -79,6 +80,8 @@ Public Class frmTraSalesContract
             .Item(cCancelApprove).Enabled = bolEnable
             .Item(cDownPayment).Enabled = bolEnable
             .Item(cReceive).Enabled = bolEnable
+            .Item(cSetupDelivery).Enabled = bolEnable
+            .Item(cCancelSetupDelivery).Enabled = bolEnable
             .Item(cPrint).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
         End With
@@ -115,12 +118,12 @@ Public Class frmTraSalesContract
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
         Try
             dtData = BL.SalesContract.ListData(intProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue)
             grdMain.DataSource = dtData
             pgMain.Value = 80
-            Application.DoEvents()
+
             prvSumGrid()
             grdView.BestFitColumns()
         Catch ex As Exception
@@ -128,7 +131,7 @@ Public Class frmTraSalesContract
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvSetButton()
             prvResetProgressBar()
         End Try
@@ -240,11 +243,11 @@ Public Class frmTraSalesContract
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.SalesContract.DeleteData(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            Application.DoEvents()
+
             UI.usForm.frmMessageBox("Hapus data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "SCNumber"))
         Catch ex As Exception
@@ -252,7 +255,7 @@ Public Class frmTraSalesContract
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -266,11 +269,11 @@ Public Class frmTraSalesContract
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.SalesContract.Submit(clsData.ID, "")
             pgMain.Value = 100
-            Application.DoEvents()
+
             UI.usForm.frmMessageBox("Submit data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "SCNumber"))
         Catch ex As Exception
@@ -278,7 +281,7 @@ Public Class frmTraSalesContract
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -303,11 +306,11 @@ Public Class frmTraSalesContract
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.SalesContract.Unsubmit(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            Application.DoEvents()
+
             UI.usForm.frmMessageBox("Batal submit data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "SCNumber"))
         Catch ex As Exception
@@ -315,7 +318,7 @@ Public Class frmTraSalesContract
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -329,11 +332,11 @@ Public Class frmTraSalesContract
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.SalesContract.Approve(clsData.ID, "")
             pgMain.Value = 100
-            Application.DoEvents()
+
             UI.usForm.frmMessageBox("Approve data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "SCNumber"))
         Catch ex As Exception
@@ -341,7 +344,7 @@ Public Class frmTraSalesContract
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -366,11 +369,11 @@ Public Class frmTraSalesContract
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.SalesContract.Unapprove(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            Application.DoEvents()
+
             UI.usForm.frmMessageBox("Batal approve data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "SCNumber"))
         Catch ex As Exception
@@ -378,7 +381,7 @@ Public Class frmTraSalesContract
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -428,13 +431,48 @@ Public Class frmTraSalesContract
         End With
     End Sub
 
+    Private Sub prvSetupDelivery(ByVal bolValue As Boolean)
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+        If Not UI.usForm.frmAskQuestion(IIf(bolValue = False, "Batal ", "") & "Set Pengiriman Nomor " & clsData.SCNumber & "?") Then Exit Sub
+
+        Dim frmDetail As New usFormRemarks
+        With frmDetail
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsSave Then
+                clsData.Remarks = .pubValue
+            Else
+                Exit Sub
+            End If
+        End With
+
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+
+        Try
+            BL.SalesContract.SetupIsIgnoreValidationPayment(clsData.ID, bolValue, clsData.Remarks)
+            pgMain.Value = 100
+            UI.usForm.frmMessageBox(IIf(bolValue = False, "Batal ", "") & "Set Pengiriman Nomor berhasil.")
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+
+            prvResetProgressBar()
+        End Try
+    End Sub
+
     Private Sub prvPrint()
         intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
 
         Try
             Dim dtData As DataTable = BL.SalesContract.PrintVer00(intProgramID, intCompanyID, strID)
@@ -474,7 +512,7 @@ Public Class frmTraSalesContract
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -485,7 +523,7 @@ Public Class frmTraSalesContract
         Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
 
         Try
             Dim dtData As DataTable = BL.SalesContract.PrintSCCOVer00(intProgramID, intCompanyID, strID)
@@ -523,7 +561,7 @@ Public Class frmTraSalesContract
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -611,6 +649,8 @@ Public Class frmTraSalesContract
             .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.CancelSubmitAccess)
             .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.ApproveAccess)
             .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.CancelApproveAccess)
+            .Item(cSetupDelivery).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.SetupDelivery)
+            .Item(cCancelSetupDelivery).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.CancelSetupDelivery)
             .Item(cPrint).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.PrintReportAccess)
             .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.ExportExcelAccess)
             bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.ExportReportAccess)
@@ -656,6 +696,8 @@ Public Class frmTraSalesContract
                 Case ToolBar.Buttons(cCancelApprove).Name : prvCancelApprove()
                 Case ToolBar.Buttons(cDownPayment).Name : prvDownPayment()
                 Case ToolBar.Buttons(cReceive).Name : prvReceivePayment()
+                Case ToolBar.Buttons(cSetupDelivery).Name : prvSetupDelivery(True)
+                Case ToolBar.Buttons(cCancelSetupDelivery).Name : prvSetupDelivery(False)
                 Case ToolBar.Buttons(cPrint).Name : prvPrintSCCO() : prvPrint()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select

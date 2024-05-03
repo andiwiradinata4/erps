@@ -2,7 +2,7 @@
 2. Hilangkan syarat pembayaran di PO Pembelian dan KO Pembelian -> Done -> Testing -> Done.
 3. Harga di PO ke KP dan KO bisa 0 -> Done -> Testing -> Done.
 4. Alamat BP bisa lebih dari 1 dan kontrak penjualan bisa pilih alamat, secara default pilih IsDefault -> Done -> Testing -> Done.
-5. Panjar dan Pembayaran Per Item -> Purchase Contract, Done -> Receive, Done -> Sales Contract, Done -> Delivery, On Progress
+5. Panjar dan Pembayaran Per Item -> Purchase Contract, Done -> Receive, Done -> Sales Contract, Done -> Delivery, Done.
 6. Printout Invoice pilih nomor rekeningnya (2 rekening) -> Done. -> Testing -> Done.
 7. Printout Invoice dimunculkan peritem yang dipilih saat pembayaran -> Done. Testing -> Done.
 8. Printout Item Invoice diganti jadi Orderline -> Done -> Setup Query -> Testing -> Done.
@@ -10,20 +10,21 @@
 10. Tambah nomor Faktur Pajak di Printout Invoice ketika sudah bayar dan input nomor faktur pajak -> Done -> Testing ->Done.
 11. Performa Invoice DP menjadi Performa Invoice -> Done -> Testing -> Done.
 12. Persediaan Umum tidak diperlukan -> Tetap diperlukan untuk proses Persediaan yang direject
-12.1. Persediaan Masuk dari KP per QS di control quantity keluarnya.
+12.1. Persediaan Masuk dari KP per QS di control quantity keluarnya. -- Done -> Testing -> 
 13. PO Cutting harus tentukan Hasilnya
-14. Item Delivery harus item kontrak sudah lunas, kecuali ada proses ignore sudah lunas maka item bisa diproses kirim.
-15. Pengiriman berdasarkan Kontrak Penjualan yang sudah di terbit PI (Performa Invoice) atau yang sudah dibayar lunas.
+14. Item Delivery harus item kontrak sudah lunas, kecuali ada proses ignore sudah lunas maka item bisa diproses kirim. -> Done -> Testing -> Done.
+15. Pengiriman berdasarkan Kontrak Penjualan yang sudah di terbit PI (Performa Invoice) atau yang sudah dibayar lunas. -> Done -> Testing -> Done.
 16. PPN, PPH (Free) Transporter ditentukan di Rekan Bisnis. -> Done -> Testing -> Done.
+16.1 Proses Delivery langsung mengisi nilai Unit Price Transport dan semua informasi transport tanpa PO. Done -> Testing -> Done.
 -- On Progress
-16.1 Proses Delivery langsung mengisi nilai Unit Price Transport dan semua informasi transport tanpa PO. -- On Progress
-
+16.2 Setiap receive harus generate di table stock in dan setiap keluar atau potong harus ada proses stock in dan out. -- Done -> Testing -> 
+16.3 Printout Invoice Sales Receive -- Done -> Testing -> Done.
 
 17. Laporan untuk Mengetahui QS dan Item KO ke PI Customer apa saja dan setiap Sales Contract Detail Item harus ada QS nya
 18. Payment Schedule harus input rencana bayar ketika sudah lewat jatuh tempo.
 19. Penjualan Stok tidak perlu ada kontrak penjualan, langsung penjualan dan harus references dari QS yang sudah masuk.
 20. Poin 14 maka di user monic
-21. Setiap receive harus generate di table stock in dan setiap keluar atau potong harus ada proses stock in dan out.
+
 
 
 --- Kompensasi

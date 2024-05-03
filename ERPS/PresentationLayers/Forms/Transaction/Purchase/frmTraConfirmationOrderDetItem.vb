@@ -239,6 +239,7 @@ Public Class frmTraConfirmationOrderDetItem
             .pubBPID = intBPID
             .pubTableItem = dtItem
             .pubCS = clsCS
+            .pubIsAutoSearch = True
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButtonItem()

@@ -19,7 +19,8 @@
                     "   A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine &
                     "   A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.TotalDPPTransport+TotalPPNTransport+A.TotalPPHTransport AS GrandTotalTransport, " & vbNewLine &
                     "   A.RoundingManual, A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, " & vbNewLine &
-                    "   A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, StatusInfo=B.Name " & vbNewLine &
+                    "   A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, StatusInfo=B.Name, A.TransporterID, TP.Code AS TransporterCode, TP.Name AS TransporterName,  " & vbNewLine &
+                    "   A.UnitPriceTransport, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport " & vbNewLine &
                     "FROM traDelivery A " & vbNewLine &
                     "INNER JOIN traSalesContract A1 ON " & vbNewLine &
                     "   A.SCID=A1.ID " & vbNewLine &
@@ -27,6 +28,8 @@
                     "   A.StatusID=B.ID " & vbNewLine &
                     "INNER JOIN mstBusinessPartner C ON " & vbNewLine &
                     "   A.BPID=C.ID " & vbNewLine &
+                    "INNER JOIN mstBusinessPartner TP ON " & vbNewLine &
+                    "   A.BPID=TP.ID " & vbNewLine &
                     "INNER JOIN mstCompany MC ON " & vbNewLine &
                     "   A.CompanyID=MC.ID " & vbNewLine &
                     "INNER JOIN mstProgram MP ON " & vbNewLine &
@@ -59,11 +62,13 @@
                         "INSERT INTO traDelivery " & vbNewLine &
                         "   (ID, ProgramID, CompanyID, DeliveryNumber, DeliveryDate, BPID, SCID, PlatNumber, Driver, ReferencesNumber, " & vbNewLine &
                         "    PPN, PPH, TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, TotalDPPTransport, TotalPPNTransport, " & vbNewLine &
-                        "    TotalPPHTransport, RoundingManual, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, TotalCostRawMaterial) " & vbNewLine &
+                        "    TotalPPHTransport, RoundingManual, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, TotalCostRawMaterial, " & vbNewLine &
+                        "    TransporterID, UnitPriceTransport, PPNTransport, PPHTransport, IsFreePPNTransport, IsFreePPHTransport) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @ProgramID, @CompanyID, @DeliveryNumber, @DeliveryDate, @BPID, @SCID, @PlatNumber, @Driver, @ReferencesNumber, " & vbNewLine &
                         "    @PPN, @PPH, @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @TotalDPPTransport, @TotalPPNTransport, " & vbNewLine &
-                        "    @TotalPPHTransport, @RoundingManual, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @TotalCostRawMaterial) " & vbNewLine
+                        "    @TotalPPHTransport, @RoundingManual, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @TotalCostRawMaterial, " & vbNewLine &
+                        "    @TransporterID, @UnitPriceTransport, @PPNTransport, @PPHTransport, @IsFreePPNTransport, @IsFreePPHTransport) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE traDelivery SET " & vbNewLine &
@@ -92,7 +97,13 @@
                         "   LogInc=LogInc+1, " & vbNewLine &
                         "   LogBy=@LogBy, " & vbNewLine &
                         "   LogDate=GETDATE(), " & vbNewLine &
-                        "   TotalCostRawMaterial=@TotalCostRawMaterial " & vbNewLine &
+                        "   TotalCostRawMaterial=@TotalCostRawMaterial, " & vbNewLine &
+                        "   TransporterID=@TransporterID, " & vbNewLine &
+                        "   UnitPriceTransport=@UnitPriceTransport, " & vbNewLine &
+                        "   PPNTransport=@PPNTransport, " & vbNewLine &
+                        "   PPHTransport=@PPHTransport, " & vbNewLine &
+                        "   IsFreePPNTransport=@IsFreePPNTransport, " & vbNewLine &
+                        "   IsFreePPHTransport=@IsFreePPHTransport " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -122,6 +133,12 @@
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@TotalCostRawMaterial", SqlDbType.Decimal).Value = clsData.TotalCostRawMaterial
+                .Parameters.Add("@TransporterID", SqlDbType.Int).Value = clsData.TransporterID
+                .Parameters.Add("@UnitPriceTransport", SqlDbType.Decimal).Value = clsData.UnitPriceTransport
+                .Parameters.Add("@PPNTransport", SqlDbType.Decimal).Value = clsData.PPNTransport
+                .Parameters.Add("@PPHTransport", SqlDbType.Decimal).Value = clsData.PPHTransport
+                .Parameters.Add("@IsFreePPNTransport", SqlDbType.Decimal).Value = clsData.IsFreePPNTransport
+                .Parameters.Add("@IsFreePPHTransport", SqlDbType.Decimal).Value = clsData.IsFreePPHTransport
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -145,12 +162,15 @@
                         "   A.SCID, A1.SCNumber, A.PlatNumber, A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, " & vbNewLine &
                         "   A.TotalPPN, A.TotalPPH, A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.RoundingManual, A.IsDeleted, A.Remarks, " & vbNewLine &
                         "   A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.TotalPayment, " & vbNewLine &
-                        "   A.JournalID, A.JournalIDTransport, A.TotalCostRawMaterial " & vbNewLine &
+                        "   A.JournalID, A.JournalIDTransport, A.TotalCostRawMaterial, A.TransporterID, TP.Code AS TransporterCode, TP.Name AS TransporterName, " & vbNewLine &
+                        "   A.UnitPriceTransport, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport " & vbNewLine &
                         "FROM traDelivery A " & vbNewLine &
                         "INNER JOIN traSalesContract A1 ON " & vbNewLine &
                         "   A.SCID=A1.ID " & vbNewLine &
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
                         "   A.BPID=B.ID " & vbNewLine &
+                        "INNER JOIN mstBusinessPartner TP ON " & vbNewLine &
+                        "   A.TransporterID=TP.ID " & vbNewLine &
                         "WHERE " & vbNewLine &
                         "   A.ID=@ID " & vbNewLine
 
@@ -199,6 +219,14 @@
                         voReturn.JournalID = .Item("JournalID")
                         voReturn.JournalIDTransport = .Item("JournalIDTransport")
                         voReturn.TotalCostRawMaterial = .Item("TotalCostRawMaterial")
+                        voReturn.TransporterID = .Item("TransporterID")
+                        voReturn.TransporterCode = .Item("TransporterCode")
+                        voReturn.TransporterName = .Item("TransporterName")
+                        voReturn.UnitPriceTransport = .Item("UnitPriceTransport")
+                        voReturn.PPNTransport = .Item("PPNTransport")
+                        voReturn.PPHTransport = .Item("PPHTransport")
+                        voReturn.IsFreePPNTransport = .Item("IsFreePPNTransport")
+                        voReturn.IsFreePPHTransport = .Item("IsFreePPHTransport")
                     End If
                 End With
             Catch ex As Exception
@@ -729,7 +757,7 @@
                     "SELECT " & vbNewLine &
                     "   A.ID, A.DeliveryID, A.SCDetailID, A2.SCNumber, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
-                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.DCWeight AS MaxTotalWeight, A.Remarks " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.DCWeight AS MaxTotalWeight, A.Remarks, A.OrderNumberSupplier " & vbNewLine &
                     "FROM traDeliveryDet A " & vbNewLine &
                     "INNER JOIN traSalesContractDet A1 ON " & vbNewLine &
                     "   A.SCDetailID=A1.ID " & vbNewLine &
@@ -758,9 +786,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traDeliveryDet " & vbNewLine &
-                    "   (ID, DeliveryID, SCDetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks) " & vbNewLine &
+                    "   (ID, DeliveryID, SCDetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, OrderNumberSupplier) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @DeliveryID, @SCDetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks) " & vbNewLine
+                    "   (@ID, @DeliveryID, @SCDetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @OrderNumberSupplier) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@DeliveryID", SqlDbType.VarChar, 100).Value = clsData.DeliveryID
@@ -773,6 +801,7 @@
                 .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = clsData.UnitPrice
                 .Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = clsData.TotalPrice
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
+                .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = clsData.OrderNumberSupplier
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

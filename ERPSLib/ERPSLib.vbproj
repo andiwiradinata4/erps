@@ -111,6 +111,8 @@
     <Compile Include="BusinessLayers\Receive.vb" />
     <Compile Include="BusinessLayers\Reports.vb" />
     <Compile Include="BusinessLayers\SalesContract.vb" />
+    <Compile Include="BusinessLayers\StockIn.vb" />
+    <Compile Include="BusinessLayers\StockOut.vb" />
     <Compile Include="DataLayers\AccountPayable.vb" />
     <Compile Include="DataLayers\AccountReceivable.vb" />
     <Compile Include="DataLayers\Base\Access.vb" />
@@ -159,6 +161,8 @@
     <Compile Include="DataLayers\Receive.vb" />
     <Compile Include="DataLayers\Reports.vb" />
     <Compile Include="DataLayers\SalesContract.vb" />
+    <Compile Include="DataLayers\StockIn.vb" />
+    <Compile Include="DataLayers\StockOut.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -288,6 +292,8 @@
     <Compile Include="ValueObject\SalesContractDetConfirmationOrder.vb" />
     <Compile Include="ValueObject\SalesContractPaymentTerm.vb" />
     <Compile Include="ValueObject\SalesContractStatus.vb" />
+    <Compile Include="ValueObject\StockIn.vb" />
+    <Compile Include="ValueObject\StockOut.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

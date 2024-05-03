@@ -918,6 +918,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractOutstandingDeliveryItem.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractOutstandingDeliveryItemVer01.Designer.vb">
+      <DependentUpon>frmTraSalesContractOutstandingDeliveryItemVer01.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractOutstandingDeliveryItemVer01.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractOutstandingPOTransport.Designer.vb">
       <DependentUpon>frmTraSalesContractOutstandingPOTransport.vb</DependentUpon>
     </Compile>
@@ -1509,6 +1515,9 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractOutstandingDeliveryItem.resx">
       <DependentUpon>frmTraSalesContractOutstandingDeliveryItem.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractOutstandingDeliveryItemVer01.resx">
+      <DependentUpon>frmTraSalesContractOutstandingDeliveryItemVer01.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractOutstandingPOTransport.resx">
       <DependentUpon>frmTraSalesContractOutstandingPOTransport.vb</DependentUpon>
     </EmbeddedResource>
@@ -1653,7 +1662,9 @@
     <EmbeddedResource Include="PresentationLayers\Icons\User.ico" />
     <EmbeddedResource Include="PresentationLayers\Icons\Word.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="PresentationLayers\Icons\Shipped.ico" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ERPSLib\ERPSLib.vbproj">
       <Project>{f31c7881-7e63-4b5c-a390-a20ea6d2047c}</Project>
