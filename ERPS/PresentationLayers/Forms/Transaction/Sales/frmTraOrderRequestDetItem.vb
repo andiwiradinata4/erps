@@ -8,6 +8,7 @@
     Private intItemID As Integer = 0
     Private drSelected As DataRow
     Private strID As String = ""
+    Private bolIsAutoSearch As Boolean
 
     Public WriteOnly Property pubTableParent As DataTable
         Set(value As DataTable)
@@ -30,6 +31,12 @@
     Public WriteOnly Property pubID As String
         Set(value As String)
             strID = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubIsAutoSearch As Boolean
+        Set(value As Boolean)
+            bolIsAutoSearch = value
         End Set
     End Property
 
@@ -204,6 +211,7 @@
                 txtQuantity.Value = 0
                 txtUnitPrice.Focus()
                 txtRemarks.Text = ""
+                bolIsAutoSearch = False
             End If
         End With
     End Sub
@@ -227,6 +235,7 @@
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         prvFillForm()
+        If bolIsAutoSearch Then prvChooseItem()
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick

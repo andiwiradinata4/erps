@@ -346,7 +346,6 @@ Public Class frmTraSalesContractDetItem
     Private Sub prvToolsHandles()
         Dim bolEnabled As Boolean = IIf(grdItemCOView.RowCount = 0, True, False)
         btnRequestItem.Enabled = bolEnabled
-        ToolBarItemCO.Buttons(cAdd).Enabled = Not bolEnabled
     End Sub
 
 #Region "Confirmation Order Item"
@@ -354,6 +353,7 @@ Public Class frmTraSalesContractDetItem
     Private Sub prvSetButtonItemConfirmationOrder()
         Dim bolEnabled As Boolean = IIf(grdItemCOView.RowCount = 0, False, True)
         With ToolBarItemCO
+            .Buttons(cAdd).Enabled = Not bolEnabled
             .Buttons(cEdit).Enabled = bolEnabled
             .Buttons(cDelete).Enabled = bolEnabled
         End With

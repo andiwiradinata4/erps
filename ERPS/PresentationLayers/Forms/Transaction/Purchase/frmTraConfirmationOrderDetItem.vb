@@ -272,6 +272,16 @@ Public Class frmTraConfirmationOrderDetItem
         dtItem.AcceptChanges()
     End Sub
 
+    Private Sub prvChooseDeliveryAddress()
+        Dim frmDetail As New frmTraConfirmationOrderDetItemAddress
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsLookUpGet Then txtDeliveryAddress.Text = .pubLUdtRow.Item("DeliveryAddress")
+        End With
+    End Sub
+
 #End Region
 
 #Region "Form Handle"
@@ -306,6 +316,10 @@ Public Class frmTraConfirmationOrderDetItem
             Case "Edit" : prvEditItem()
             Case "Hapus" : prvDeleteItem()
         End Select
+    End Sub
+
+    Private Sub btnDeliveryAddress_Click(sender As Object, e As EventArgs) Handles btnDeliveryAddress.Click
+        prvChooseDeliveryAddress()
     End Sub
 
 #End Region

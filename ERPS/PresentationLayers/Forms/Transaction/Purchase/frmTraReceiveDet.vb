@@ -144,6 +144,11 @@ Public Class frmTraReceiveDet
             tcHeader.SelectedTab = tpMain
             txtPCNumber.Focus()
             Exit Sub
+        ElseIf txtCoACodeOfStock.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih akun persediaan terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtCoACodeOfStock.Focus()
+            Exit Sub
         ElseIf cboStatus.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Status kosong. Mohon untuk tutup form dan buka kembali")
             tcHeader.SelectedTab = tpMain
@@ -421,6 +426,7 @@ Public Class frmTraReceiveDet
             .pubBPID = intBPID
             .pubPCID = strPCID
             .pubTableParentItem = dtItem
+            .pubIsAutoSearch = True
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()

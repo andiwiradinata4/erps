@@ -47,6 +47,21 @@ Namespace BL
             End Try
         End Sub
 
+        Public Shared Sub CalculateStockOut(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                            ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer)
+            Try
+                Dim decTotalWeight As Decimal = DL.StockOut.GetTotalWeightStockOut(sqlCon, sqlTrans, strOrderNumberSupplier, intItemID)
+                Dim clsExists As VO.StockIn = DL.StockIn.DataExists(sqlCon, sqlTrans, strOrderNumberSupplier, intItemID)
+                If clsExists.ID <> "" Then
+                    DL.StockOut.UpdateStockOutTotalWeight(sqlCon, sqlTrans, clsExists.ID, decTotalWeight)
+                End If
+
+                DL.StockIn.CalculateStockOut(sqlCon, sqlTrans, strOrderNumberSupplier, intItemID)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
         Public Shared Function GetDetail(ByVal strID As String) As VO.StockOut
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection

@@ -316,6 +316,7 @@ Public Class frmTraOrderRequestDet
         With frmDetail
             .pubIsNew = True
             .pubTableParent = dtItem
+            .pubIsAutoSearch = True
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButtonItem()

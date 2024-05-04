@@ -170,6 +170,11 @@ Public Class frmTraDeliveryDet
             tcHeader.SelectedTab = tpMain
             txtTransporterCode.Focus()
             Exit Sub
+        ElseIf txtUnitPriceTransport.Value <= 0 Then
+            UI.usForm.frmMessageBox("Harga Pengiriman harus lebih besar dari 0")
+            tcHeader.SelectedTab = tpTransport
+            txtUnitPriceTransport.Focus()
+            Exit Sub
         End If
 
         Dim frmDetail As New usFormSave

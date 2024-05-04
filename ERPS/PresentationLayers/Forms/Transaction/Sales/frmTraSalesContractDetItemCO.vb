@@ -62,8 +62,7 @@
 
 #End Region
 
-    Private Const _
-       cSave As Byte = 0, cClose As Byte = 1
+    Private Const cSave As Byte = 0, cClose As Byte = 1
 
     Private Sub prvFillCombo()
         Try
@@ -203,8 +202,8 @@
                     End If
                 End With
             Next
-            Me.Close()
         End If
+        Me.Close()
     End Sub
 
     Private Sub prvChooseItem()

@@ -22,11 +22,13 @@ Partial Class frmTraConfirmationOrderDetItem
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraConfirmationOrderDetItem))
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.txtOrderNumberSupplier = New ERPS.usTextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.txtDeliveryAddress = New ERPS.usTextBox()
         Me.Label29 = New System.Windows.Forms.Label()
@@ -39,7 +41,7 @@ Partial Class frmTraConfirmationOrderDetItem
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.txtOrderNumberSupplier = New ERPS.usTextBox()
+        Me.btnDeliveryAddress = New DevExpress.XtraEditors.SimpleButton()
         Me.pnlDetail.SuspendLayout()
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -55,7 +57,7 @@ Partial Class frmTraConfirmationOrderDetItem
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(652, 28)
+        Me.ToolBar.Size = New System.Drawing.Size(720, 28)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -79,7 +81,7 @@ Partial Class frmTraConfirmationOrderDetItem
         Me.lblInfo.ForeColor = System.Drawing.Color.White
         Me.lblInfo.Location = New System.Drawing.Point(0, 28)
         Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(652, 22)
+        Me.lblInfo.Size = New System.Drawing.Size(720, 22)
         Me.lblInfo.TabIndex = 1
         Me.lblInfo.Text = "« Konfirmasi Pesanan"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -87,6 +89,7 @@ Partial Class frmTraConfirmationOrderDetItem
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.btnDeliveryAddress)
         Me.pnlDetail.Controls.Add(Me.txtOrderNumberSupplier)
         Me.pnlDetail.Controls.Add(Me.Label13)
         Me.pnlDetail.Controls.Add(Me.txtDeliveryAddress)
@@ -94,8 +97,18 @@ Partial Class frmTraConfirmationOrderDetItem
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlDetail.Location = New System.Drawing.Point(0, 50)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(652, 124)
+        Me.pnlDetail.Size = New System.Drawing.Size(720, 124)
         Me.pnlDetail.TabIndex = 2
+        '
+        'txtOrderNumberSupplier
+        '
+        Me.txtOrderNumberSupplier.BackColor = System.Drawing.Color.White
+        Me.txtOrderNumberSupplier.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtOrderNumberSupplier.Location = New System.Drawing.Point(173, 16)
+        Me.txtOrderNumberSupplier.MaxLength = 250
+        Me.txtOrderNumberSupplier.Name = "txtOrderNumberSupplier"
+        Me.txtOrderNumberSupplier.Size = New System.Drawing.Size(169, 21)
+        Me.txtOrderNumberSupplier.TabIndex = 0
         '
         'Label13
         '
@@ -138,7 +151,7 @@ Partial Class frmTraConfirmationOrderDetItem
         Me.Label5.ForeColor = System.Drawing.Color.White
         Me.Label5.Location = New System.Drawing.Point(0, 174)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(652, 22)
+        Me.Label5.Size = New System.Drawing.Size(720, 22)
         Me.Label5.TabIndex = 3
         Me.Label5.Text = "« Barang"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -151,7 +164,7 @@ Partial Class frmTraConfirmationOrderDetItem
         Me.ToolBarItemOrder.Location = New System.Drawing.Point(0, 196)
         Me.ToolBarItemOrder.Name = "ToolBarItemOrder"
         Me.ToolBarItemOrder.ShowToolTips = True
-        Me.ToolBarItemOrder.Size = New System.Drawing.Size(652, 28)
+        Me.ToolBarItemOrder.Size = New System.Drawing.Size(720, 28)
         Me.ToolBarItemOrder.TabIndex = 4
         Me.ToolBarItemOrder.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -194,7 +207,7 @@ Partial Class frmTraConfirmationOrderDetItem
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItem.Size = New System.Drawing.Size(652, 276)
+        Me.grdItem.Size = New System.Drawing.Size(720, 276)
         Me.grdItem.TabIndex = 5
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView, Me.GridView1})
@@ -223,21 +236,19 @@ Partial Class frmTraConfirmationOrderDetItem
         Me.GridView1.GridControl = Me.grdItem
         Me.GridView1.Name = "GridView1"
         '
-        'txtOrderNumberSupplier
+        'btnDeliveryAddress
         '
-        Me.txtOrderNumberSupplier.BackColor = System.Drawing.Color.White
-        Me.txtOrderNumberSupplier.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtOrderNumberSupplier.Location = New System.Drawing.Point(173, 16)
-        Me.txtOrderNumberSupplier.MaxLength = 250
-        Me.txtOrderNumberSupplier.Name = "txtOrderNumberSupplier"
-        Me.txtOrderNumberSupplier.Size = New System.Drawing.Size(169, 21)
-        Me.txtOrderNumberSupplier.TabIndex = 0
+        Me.btnDeliveryAddress.Image = CType(resources.GetObject("btnDeliveryAddress.Image"), System.Drawing.Image)
+        Me.btnDeliveryAddress.Location = New System.Drawing.Point(635, 43)
+        Me.btnDeliveryAddress.Name = "btnDeliveryAddress"
+        Me.btnDeliveryAddress.Size = New System.Drawing.Size(23, 23)
+        Me.btnDeliveryAddress.TabIndex = 2
         '
         'frmTraConfirmationOrderDetItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(652, 500)
+        Me.ClientSize = New System.Drawing.Size(720, 500)
         Me.Controls.Add(Me.grdItem)
         Me.Controls.Add(Me.ToolBarItemOrder)
         Me.Controls.Add(Me.Label5)
@@ -278,4 +289,5 @@ Partial Class frmTraConfirmationOrderDetItem
     Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents txtOrderNumberSupplier As ERPS.usTextBox
+    Friend WithEvents btnDeliveryAddress As DevExpress.XtraEditors.SimpleButton
 End Class

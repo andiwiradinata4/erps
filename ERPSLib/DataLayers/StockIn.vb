@@ -185,7 +185,7 @@ Namespace DL
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandText =
-"SELECT SUM(TotalWeight) AS TotalWeight " & vbNewLine &
+"SELECT SUM(TRD.TotalWeight) AS TotalWeight " & vbNewLine &
 "FROM traReceive TRH " & vbNewLine &
 "INNER JOIN traReceiveDet TRD ON " & vbNewLine &
 "   TRH.ID=TRD.ReceiveID " & vbNewLine &
@@ -228,6 +228,28 @@ Namespace DL
 
                 .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
                 .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub UpdateStockInTotalWeight(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal strID As String, ByVal decTotalWeight As Decimal)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandText =
+"UPDATE traStockIn SET " & vbNewLine &
+"   InTotalWeight=@TotalWeight " & vbNewLine &
+"WHERE " & vbNewLine &
+"	ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = decTotalWeight
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)

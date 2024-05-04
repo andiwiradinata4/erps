@@ -92,7 +92,7 @@
                     If clsData.Save = VO.Save.Action.SaveAndSubmit Then Submit(sqlCon, sqlTrans, clsData.ID, clsData.Remarks)
 
                     '# Save Data Stock IN
-                    BL.StockIn.SaveData(clsDataStockIN)
+                    BL.StockIn.SaveData(sqlCon, sqlTrans, clsDataStockIN)
 
                     sqlTrans.Commit()
                 Catch ex As Exception
@@ -131,7 +131,7 @@
                         DL.PurchaseContract.CalculateDCTotalUsed(sqlCon, sqlTrans, dr.Item("PCDetailID"))
 
                         '# Delete Stock In
-                        BL.StockIn.DeleteData(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
+                        BL.StockIn.CalculateStockIn(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
                     Next
 
                     '# Save Data Status

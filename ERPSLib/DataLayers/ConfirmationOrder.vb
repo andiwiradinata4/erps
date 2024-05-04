@@ -573,6 +573,21 @@
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDeliveryAddressDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT DISTINCT " & vbNewLine &
+                    "   A.DeliveryAddress " & vbNewLine &
+                    "FROM traConfirmationOrderDet A " & vbNewLine
+
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                          ByVal clsData As VO.ConfirmationOrderDet)
             Dim sqlcmdExecute As New SqlCommand
