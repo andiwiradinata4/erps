@@ -850,8 +850,11 @@ WHERE
 SELECT  
     PCD.ID, PCD.PCID, PCH.PCNumber, PCD.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  
     C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  
-    PCD.Quantity-PCD.CuttingQuantity AS Quantity, PCD.Weight, PCD.TotalWeight-PCD.CuttingWeight AS TotalWeight, PCD.UnitPrice, PCD.TotalPrice 
+    PCD.Quantity-PCD.CuttingQuantity AS Quantity, PCD.Weight, PCD.TotalWeight-PCD.CuttingWeight AS TotalWeight, PCD.UnitPrice, 
+    PCD.TotalPrice, COD.OrderNumberSupplier
 FROM traPurchaseContractDet PCD  
+INNER JOIN traConfirmationOrderDet COD ON  
+    PCD.CODetailID=COD.ID  
 INNER JOIN traPurchaseContract PCH ON  
     PCD.PCID=PCH.ID  
 INNER JOIN mstItem B ON  

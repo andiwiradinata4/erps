@@ -36,7 +36,7 @@
 
                         '# Revert Done Quantity
                         For Each dr As DataRow In dtItem.Rows
-                            DL.PurchaseOrderCutting.CalculateDoneTotalUsed(sqlCon, sqlTrans, dr.Item("PODetailID"))
+                            DL.PurchaseOrderCutting.CalculateDoneTotalUsedDetail(sqlCon, sqlTrans, dr.Item("PODetailID"))
                         Next
 
                         Dim clsExists As VO.Cutting = DL.Cutting.GetDetail(sqlCon, sqlTrans, clsData.ID)
@@ -76,7 +76,7 @@
 
                     '# Calculate Done Quantity
                     For Each clsDet As VO.CuttingDet In clsData.Detail
-                        DL.PurchaseOrderCutting.CalculateDoneTotalUsed(sqlCon, sqlTrans, clsDet.PODetailID)
+                        DL.PurchaseOrderCutting.CalculateDoneTotalUsedDetail(sqlCon, sqlTrans, clsDet.PODetailID)
                     Next
 
                     '# Save Data Status
@@ -118,7 +118,7 @@
 
                     '# Revert Done Quantity
                     For Each dr As DataRow In dtItem.Rows
-                        DL.PurchaseOrderCutting.CalculateDoneTotalUsed(sqlCon, sqlTrans, dr.Item("PODetailID"))
+                        DL.PurchaseOrderCutting.CalculateDoneTotalUsedDetail(sqlCon, sqlTrans, dr.Item("PODetailID"))
                     Next
 
                     '# Save Data Status

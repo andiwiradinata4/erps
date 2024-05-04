@@ -32,6 +32,7 @@
         Property ReceiveAmount As Decimal
         Property TotalDPPRawMaterial As Decimal
         Property Detail As List(Of VO.PurchaseOrderCuttingDet)
+        Property DetailResult As List(Of VO.PurchaseOrderCuttingDetResult)
         Property PaymentTerm As List(Of VO.PurchaseOrderPaymentTerm)
         Property Save As VO.Save.Action
     End Class

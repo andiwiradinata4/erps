@@ -23,6 +23,7 @@
                 DevelopOnProgress_ID16(sqlCon, Nothing)
                 DevelopOnProgress_ID17(sqlCon, Nothing)
                 DevelopOnProgress_ID18(sqlCon, Nothing)
+                DevelopOnProgress_ID19(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -530,6 +531,25 @@
 "ALTER TABLE mstBusinessPartner ADD IsFreePPN bit NOT NULL CONSTRAINT DF_mstBusinessPartner_IsFreePPN DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE mstBusinessPartner ADD PPH decimal(18,4) NOT NULL CONSTRAINT DF_mstBusinessPartner_PPH DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE mstBusinessPartner ADD IsFreePPH bit NOT NULL CONSTRAINT DF_mstBusinessPartner_IsFreePPH DEFAULT ((0)) " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 19
+        Private Shared Sub DevelopOnProgress_ID19(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 19
+            clsData.Name = "Develop On Progress 19"
+            clsData.Scripts =
+"ALTER TABLE traPurchaseOrderCuttingDetResult ADD DoneQuantity decimal(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_DoneQuantity DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCuttingDetResult ADD DoneWeight decimal(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_DoneWeight DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCuttingDetResult ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_OrderNumberSupplier DEFAULT ('') " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCuttingDetResult ADD Remarks varchar(250) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_Remarks DEFAULT ('') " & vbNewLine &
+"ALTER TABLE traCuttingDetResult ADD PODetailResultID varchar(100) NOT NULL CONSTRAINT DF_traCuttingDetResult_PODetailResultID DEFAULT ('') " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

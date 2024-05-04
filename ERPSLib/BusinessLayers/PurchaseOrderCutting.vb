@@ -48,6 +48,7 @@
                         Dim dtItem As DataTable = DL.PurchaseOrderCutting.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
 
                         DL.PurchaseOrderCutting.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
+                        DL.PurchaseOrderCutting.DeleteDataDetailResult(sqlCon, sqlTrans, clsData.ID)
                         DL.PurchaseOrder.DeleteDataPaymentTerm(sqlCon, sqlTrans, clsData.ID)
 
                         '# Revert Cutting Quantity
@@ -82,6 +83,15 @@
                         clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
                         clsDet.POID = clsData.ID
                         DL.PurchaseOrderCutting.SaveDataDetail(sqlCon, sqlTrans, clsDet)
+                        intCount += 1
+                    Next
+
+                    '# Save Data Detail Result
+                    intCount = 1
+                    For Each clsDet As VO.PurchaseOrderCuttingDetResult In clsData.DetailResult
+                        clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
+                        clsDet.POID = clsData.ID
+                        DL.PurchaseOrderCutting.SaveDataDetailResult(sqlCon, sqlTrans, clsDet)
                         intCount += 1
                     Next
 
@@ -389,6 +399,17 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.PurchaseOrderCutting.ListDataDetailOutstandingDone(sqlCon, Nothing, intProgramID, intCompanyID, intBPID, strPOID)
+            End Using
+        End Function
+
+#End Region
+
+#Region "Detail Result"
+
+        Public Shared Function ListDataDetailResult(ByVal strPOID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseOrderCutting.ListDataDetailResult(sqlCon, Nothing, strPOID)
             End Using
         End Function
 

@@ -44,6 +44,10 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.tpItemResult = New System.Windows.Forms.TabPage()
+        Me.grdItemResult = New DevExpress.XtraGrid.GridControl()
+        Me.grdItemResultView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.RepositoryItemTextEdit3 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
         Me.txtDeliveryAddress = New ERPS.usTextBox()
@@ -99,6 +103,10 @@ Partial Class frmTraPurchaseOrderCuttingDet
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip.SuspendLayout()
+        Me.tpItemResult.SuspendLayout()
+        CType(Me.grdItemResult, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdItemResultView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         Me.tpAmount.SuspendLayout()
@@ -180,6 +188,7 @@ Partial Class frmTraPurchaseOrderCuttingDet
         '
         Me.tcDetail.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tcDetail.Controls.Add(Me.tpItem)
+        Me.tcDetail.Controls.Add(Me.tpItemResult)
         Me.tcDetail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tcDetail.Location = New System.Drawing.Point(0, 262)
         Me.tcDetail.Name = "tcDetail"
@@ -325,6 +334,61 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.BarDeleteItemOrder.Name = "BarDeleteItemOrder"
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
+        '
+        'tpItemResult
+        '
+        Me.tpItemResult.Controls.Add(Me.grdItemResult)
+        Me.tpItemResult.Location = New System.Drawing.Point(4, 25)
+        Me.tpItemResult.Name = "tpItemResult"
+        Me.tpItemResult.Size = New System.Drawing.Size(876, 347)
+        Me.tpItemResult.TabIndex = 2
+        Me.tpItemResult.Text = "Hasil - F6"
+        Me.tpItemResult.UseVisualStyleBackColor = True
+        '
+        'grdItemResult
+        '
+        Me.grdItemResult.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdItemResult.EmbeddedNavigator.Buttons.Append.Enabled = False
+        Me.grdItemResult.EmbeddedNavigator.Buttons.Append.Visible = False
+        Me.grdItemResult.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
+        Me.grdItemResult.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
+        Me.grdItemResult.EmbeddedNavigator.Buttons.Edit.Enabled = False
+        Me.grdItemResult.EmbeddedNavigator.Buttons.Edit.Visible = False
+        Me.grdItemResult.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
+        Me.grdItemResult.EmbeddedNavigator.Buttons.EndEdit.Visible = False
+        Me.grdItemResult.EmbeddedNavigator.Buttons.NextPage.Enabled = False
+        Me.grdItemResult.EmbeddedNavigator.Buttons.NextPage.Visible = False
+        Me.grdItemResult.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
+        Me.grdItemResult.EmbeddedNavigator.Buttons.PrevPage.Visible = False
+        Me.grdItemResult.EmbeddedNavigator.Buttons.Remove.Enabled = False
+        Me.grdItemResult.EmbeddedNavigator.Buttons.Remove.Visible = False
+        Me.grdItemResult.Location = New System.Drawing.Point(0, 0)
+        Me.grdItemResult.MainView = Me.grdItemResultView
+        Me.grdItemResult.Name = "grdItemResult"
+        Me.grdItemResult.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit3})
+        Me.grdItemResult.Size = New System.Drawing.Size(876, 347)
+        Me.grdItemResult.TabIndex = 3
+        Me.grdItemResult.UseEmbeddedNavigator = True
+        Me.grdItemResult.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemResultView})
+        '
+        'grdItemResultView
+        '
+        Me.grdItemResultView.GridControl = Me.grdItemResult
+        Me.grdItemResultView.Name = "grdItemResultView"
+        Me.grdItemResultView.OptionsCustomization.AllowColumnMoving = False
+        Me.grdItemResultView.OptionsCustomization.AllowGroup = False
+        Me.grdItemResultView.OptionsView.ColumnAutoWidth = False
+        Me.grdItemResultView.OptionsView.ShowAutoFilterRow = True
+        Me.grdItemResultView.OptionsView.ShowFooter = True
+        Me.grdItemResultView.OptionsView.ShowGroupPanel = False
+        '
+        'RepositoryItemTextEdit3
+        '
+        Me.RepositoryItemTextEdit3.AutoHeight = False
+        Me.RepositoryItemTextEdit3.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.RepositoryItemTextEdit3.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.RepositoryItemTextEdit3.Name = "RepositoryItemTextEdit3"
+        Me.RepositoryItemTextEdit3.NullText = "0.00"
         '
         'tcHeader
         '
@@ -945,6 +1009,10 @@ Partial Class frmTraPurchaseOrderCuttingDet
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip.ResumeLayout(False)
         Me.StatusStrip.PerformLayout()
+        Me.tpItemResult.ResumeLayout(False)
+        CType(Me.grdItemResult, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdItemResultView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tcHeader.ResumeLayout(False)
         Me.tpMain.ResumeLayout(False)
         Me.tpMain.PerformLayout()
@@ -1040,4 +1108,8 @@ Partial Class frmTraPurchaseOrderCuttingDet
     Friend WithEvents grdStatusView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents txtDeliveryAddress As ERPS.usTextBox
     Friend WithEvents Label22 As System.Windows.Forms.Label
+    Friend WithEvents tpItemResult As TabPage
+    Friend WithEvents grdItemResult As DevExpress.XtraGrid.GridControl
+    Friend WithEvents grdItemResultView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents RepositoryItemTextEdit3 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
 End Class

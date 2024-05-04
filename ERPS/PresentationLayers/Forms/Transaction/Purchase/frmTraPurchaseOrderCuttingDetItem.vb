@@ -1,20 +1,31 @@
-﻿Public Class frmTraPurchaseOrderCuttingDetItem
+﻿Imports DevExpress.XtraGrid
+
+Public Class frmTraPurchaseOrderCuttingDetItem
 
 #Region "Property"
 
     Private frmParent As frmTraPurchaseOrderCuttingDet
-    Private dtParentItem As New DataTable
+    Private dtItem As New DataTable
+    Private dtItemResultParent As New DataTable
     Private bolIsNew As Boolean = False
     Private intItemID As Integer = 0
     Private drSelectedItem As DataRow
+    Private dtResult As New DataTable
     Private strPCDetailID As String
     Private strID As String = ""
     Private intPos As Integer = 0
+    Private intGroupID As Integer = 0
     Private clsCS As VO.CS
 
-    Public WriteOnly Property pubTableParentItem As DataTable
+    Public WriteOnly Property pubTableItem As DataTable
         Set(value As DataTable)
-            dtParentItem = value
+            dtItem = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubTableItemResultParent As DataTable
+        Set(value As DataTable)
+            dtItemResultParent = value
         End Set
     End Property
 
@@ -50,7 +61,27 @@
 #End Region
 
     Private Const _
-       cSave As Byte = 0, cClose As Byte = 1
+       cSave As Byte = 0, cClose As Byte = 1,
+       cAdd As Byte = 0, cEdit As Byte = 1, cDelete As Byte = 2
+
+    Private Sub prvSetGrid()
+        UI.usForm.SetGrid(grdItemResultView, "ID", "ID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemResultView, "POID", "POID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemResultView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemResultView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemResultView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemResultView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemResultView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemResultView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemResultView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemResultView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemResultView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemResultView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemResultView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemResultView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemResultView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemResultView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
+    End Sub
 
     Private Sub prvFillCombo()
         Try
@@ -61,15 +92,39 @@
         End Try
     End Sub
 
+    Private Sub prvQuery()
+        grdItemResult.DataSource = dtResult
+        prvSumGrid()
+        prvSetButtonItemResult()
+    End Sub
+
+    Private Sub prvSumGrid()
+        '# Item Result
+        Dim SumTotalQuantityOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
+        Dim SumGrandTotalWeightOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
+
+        If grdItemResultView.Columns("Quantity").SummaryText.Trim = "" Then
+            grdItemResultView.Columns("Quantity").Summary.Add(SumTotalQuantityOrder)
+        End If
+
+        If grdItemResultView.Columns("TotalWeight").SummaryText.Trim = "" Then
+            grdItemResultView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeightOrder)
+        End If
+        grdItemResultView.BestFitColumns()
+    End Sub
+
     Private Sub prvFillForm()
         Me.Cursor = Cursors.WaitCursor
         Try
             prvFillCombo()
+            dtResult = dtItemResultParent.Clone
             Me.Cursor = Cursors.Default
             If Not bolIsNew Then
                 strID = drSelectedItem.Item("ID")
                 txtPCNumber.Text = drSelectedItem.Item("PCNumber")
+                txtOrderNumberSupplier.Text = drSelectedItem.Item("OrderNumberSupplier")
                 strPCDetailID = drSelectedItem.Item("PCDetailID")
+                intGroupID = drSelectedItem.Item("GroupID")
                 intItemID = drSelectedItem.Item("ItemID")
                 cboItemType.SelectedValue = drSelectedItem.Item("ItemTypeID")
                 txtItemCode.Text = drSelectedItem.Item("ItemCode")
@@ -85,6 +140,12 @@
                 txtTotalPriceRawMaterial.Value = drSelectedItem.Item("TotalPriceRawMaterial")
                 txtQuantity.Value = drSelectedItem.Item("Quantity")
                 txtRemarks.Text = drSelectedItem.Item("Remarks")
+
+                For Each dr As DataRow In dtItemResultParent.Rows
+                    If dr.Item("GroupID") = intGroupID Then dtResult.ImportRow(dr)
+                Next
+                dtResult.AcceptChanges()
+                prvSetButtonItemResult()
             End If
             prvCalculate()
         Catch ex As Exception
@@ -124,13 +185,16 @@
 
         '# Item Handle
         If bolIsNew Then
-            Dim drItem As DataRow = dtParentItem.NewRow
+            Dim drItem As DataRow = dtItem.NewRow
+            intGroupID = dtItem.Rows.Count + 1
             With drItem
                 .BeginEdit()
                 .Item("ID") = Guid.NewGuid
                 .Item("POID") = ""
                 .Item("PCNumber") = txtPCNumber.Text.Trim
                 .Item("PCDetailID") = strPCDetailID
+                .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
+                .Item("GroupID") = intGroupID
                 .Item("ItemID") = intItemID
                 .Item("ItemCode") = txtItemCode.Text.Trim
                 .Item("ItemName") = txtItemName.Text.Trim
@@ -152,15 +216,17 @@
                 .Item("Remarks") = txtRemarks.Text.Trim
                 .EndEdit()
             End With
-            dtParentItem.Rows.Add(drItem)
+            dtItem.Rows.Add(drItem)
         Else
-            For Each dr As DataRow In dtParentItem.Rows
+            For Each dr As DataRow In dtItem.Rows
                 With dr
                     If .Item("ID") = strID Then
                         .BeginEdit()
                         .Item("POID") = ""
                         .Item("PCNumber") = txtPCNumber.Text.Trim
                         .Item("PCDetailID") = strPCDetailID
+                        .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
+                        .Item("GroupID") = intGroupID
                         .Item("ItemID") = intItemID
                         .Item("ItemCode") = txtItemCode.Text.Trim
                         .Item("ItemName") = txtItemName.Text.Trim
@@ -185,10 +251,25 @@
                 End With
             Next
         End If
-        dtParentItem.AcceptChanges()
+        dtItem.AcceptChanges()
         frmParent.grdItemView.BestFitColumns()
-        prvClear()
-        If Not bolIsNew Then Me.Close()
+
+        '# Item Result Item
+        For Each dr As DataRow In dtItemResultParent.Rows
+            If dr.Item("GroupID") = intGroupID Then dr.Delete()
+        Next
+        dtItemResultParent.AcceptChanges()
+
+        For Each dr As DataRow In dtResult.Rows
+            dr.BeginEdit()
+            dr.Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
+            dr.Item("GroupID") = intGroupID
+            dr.EndEdit()
+            dtItemResultParent.ImportRow(dr)
+        Next
+        dtItemResultParent.AcceptChanges()
+        frmParent.grdItemResultView.BestFitColumns()
+        Me.Close()
     End Sub
 
     Private Sub prvClear()
@@ -196,6 +277,7 @@
         txtPCNumber.Text = ""
         txtPCNumber.Focus()
         strPCDetailID = ""
+        txtOrderNumberSupplier.Text = ""
         intItemID = 0
         txtItemCode.Text = ""
         txtItemName.Text = ""
@@ -218,13 +300,14 @@
     Private Sub prvChooseItem()
         Dim frmDetail As New frmTraPurchaseOrderCuttingDetItemOutstanding
         With frmDetail
-            .pubParentItem = dtParentItem
+            .pubParentItem = dtItem
             .pubCS = clsCS
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             If .pubIsLookUpGet Then
                 txtPCNumber.Text = .pubLUdtRow.Item("PCNumber")
                 strPCDetailID = .pubLUdtRow.Item("ID")
+                txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
                 intItemID = .pubLUdtRow.Item("ItemID")
                 cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
                 txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
@@ -244,11 +327,74 @@
         End With
     End Sub
 
+    Private Sub prvToolsHandles()
+        Dim bolEnabled As Boolean = IIf(grdItemResultView.RowCount = 0, True, False)
+        btnPC.Enabled = bolEnabled
+    End Sub
+
     Private Sub prvCalculate()
         txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
         txtTotalPrice.Value = txtUnitPrice.Value * txtTotalWeight.Value
         txtTotalPriceRawMaterial.Value = txtUnitPriceRawMaterial.Value * txtTotalWeight.Value
     End Sub
+
+#Region "Item Result Item"
+
+    Private Sub prvSetButtonItemResult()
+        Dim bolEnabled As Boolean = IIf(grdItemResultView.RowCount = 0, False, True)
+        With ToolBarItemResult
+            .Buttons(cEdit).Enabled = bolEnabled
+            .Buttons(cDelete).Enabled = bolEnabled
+        End With
+    End Sub
+
+    Private Sub prvAddItemResult()
+        If intItemID = 0 Then
+            UI.usForm.frmMessageBox("Pilih barang yang ingin dipotong terlebih dahulu")
+            txtItemCode.Focus()
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraPurchaseOrderCuttingDetItemResult
+        With frmDetail
+            .pubIsNew = True
+            .pubTableParent = dtResult
+            .pubIsAutoSearch = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .pubShowDialog(Me)
+            prvSetButtonItemResult()
+            prvToolsHandles()
+        End With
+    End Sub
+
+    Private Sub prvEditItemResult()
+        intPos = grdItemResultView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+
+        Dim frmDetail As New frmTraPurchaseOrderCuttingDetItemResult
+        With frmDetail
+            .pubIsNew = False
+            .pubTableParent = dtResult
+            .pubDataRowSelected = grdItemResultView.GetDataRow(intPos)
+            .StartPosition = FormStartPosition.CenterScreen
+            .pubShowDialog(Me)
+            prvSetButtonItemResult()
+            prvToolsHandles()
+        End With
+    End Sub
+
+    Private Sub prvDeleteItemResult()
+        intPos = grdItemResultView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdItemResultView.GetRowCellValue(intPos, "ID")
+        For Each dr As DataRow In dtResult.Rows
+            If dr.Item("ID") = strID Then dr.Delete() : Exit For
+        Next
+        dtResult.AcceptChanges()
+        prvToolsHandles()
+    End Sub
+
+#End Region
 
 #Region "Form Handle"
 
@@ -263,13 +409,24 @@
     Private Sub frmTraPurchaseOrderCuttingDetItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
+        ToolBarItemResult.SetIcon(Me)
+        prvSetGrid()
         prvFillForm()
+        prvQuery()
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
         Select Case e.Button.Name
             Case ToolBar.Buttons(cSave).Name : prvSave()
             Case ToolBar.Buttons(cClose).Name : Me.Close()
+        End Select
+    End Sub
+
+    Private Sub ToolBarItemResult_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarItemResult.ButtonClick
+        Select Case e.Button.Text.Trim
+            Case "Tambah" : prvAddItemResult()
+            Case "Edit" : prvEditItemResult()
+            Case "Hapus" : prvDeleteItemResult()
         End Select
     End Sub
 

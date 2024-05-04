@@ -73,7 +73,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(678, 28)
+        Me.ToolBar.Size = New System.Drawing.Size(679, 28)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -97,7 +97,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.lblInfo.ForeColor = System.Drawing.Color.White
         Me.lblInfo.Location = New System.Drawing.Point(0, 28)
         Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(678, 22)
+        Me.lblInfo.Size = New System.Drawing.Size(679, 22)
         Me.lblInfo.TabIndex = 1
         Me.lblInfo.Text = "« Barang yang dihasilkan"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -136,7 +136,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlDetail.Location = New System.Drawing.Point(0, 50)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(678, 300)
+        Me.pnlDetail.Size = New System.Drawing.Size(679, 301)
         Me.pnlDetail.TabIndex = 2
         '
         'btnItem
@@ -462,7 +462,7 @@ Partial Class frmTraCuttingDetItemResult
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(678, 350)
+        Me.ClientSize = New System.Drawing.Size(679, 351)
         Me.Controls.Add(Me.pnlDetail)
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)

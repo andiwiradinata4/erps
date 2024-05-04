@@ -246,8 +246,6 @@ Public Class frmTraCuttingDet
         clsData.Save = intSave
 
         pgMain.Value = 60
-
-
         Try
             Dim strCuttingNumber As String = BL.Cutting.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strCuttingNumber)

@@ -260,6 +260,8 @@
                 txtQuantity.Focus()
                 txtRemarks.Text = ""
                 bolIsAutoSearch = False
+            Else
+                If bolIsAutoSearch Then Me.Close()
             End If
         End With
     End Sub

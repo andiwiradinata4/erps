@@ -594,6 +594,42 @@
             End Try
         End Sub
 
+        Public Shared Sub CalculateItemTotalUsedDownPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                            ByVal strReferencesID As String, ByVal strReferencesDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traPurchaseOrderCuttingDet SET 	" & vbNewLine &
+                    "	DPAmount=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(APD.Amount),0) TotalPayment		" & vbNewLine &
+                    "		FROM traARAPItem APD 	" & vbNewLine &
+                    "		INNER JOIN traAccountPayable APH ON	" & vbNewLine &
+                    "			APD.ParentID=APH.ID 	" & vbNewLine &
+                    "			AND APH.Modules=@Modules " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			APD.ReferencesID=@ReferencesID 	" & vbNewLine &
+                    "			AND APD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND APH.IsDeleted=0 	" & vbNewLine &
+                    "	) " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ID=@ReferencesDetailID " & vbNewLine
+
+                .Parameters.Add("@ReferencesID", SqlDbType.VarChar, 100).Value = strReferencesID
+                .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strReferencesDetailID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.DownPaymentCutting
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
         Public Shared Sub CalculateTotalUsedReceivePayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                            ByVal strID As String)
             Dim sqlCmdExecute As New SqlCommand
@@ -650,6 +686,35 @@
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePaymentCutting
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateTotalUsedReceiveItemPaymentVer01(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                    ByVal strDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traPurchaseOrderCuttingDet SET 	" & vbNewLine &
+                    "	ReceiveAmount=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(APD.ReceiveAmount),0) ReceiveAmount " & vbNewLine &
+                    "		FROM traCuttingDet APD " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			APD.PODetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "	) " & vbNewLine &
+                    "WHERE ID=@ReferencesDetailID " & vbNewLine
+
+                .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strDetailID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePayment
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -738,7 +803,7 @@
                     "   A.ID, A.POID, A.PCDetailID, A2.PCNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
                     "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.CuttingWeight AS MaxTotalWeight, A.Remarks, " & vbNewLine &
-                    "   A.UnitPriceRawMaterial, A.TotalPriceRawMaterial " & vbNewLine &
+                    "   A.UnitPriceRawMaterial, A.TotalPriceRawMaterial, A.OrderNumberSupplier, A.GroupID " & vbNewLine &
                     "FROM traPurchaseOrderCuttingDet A " & vbNewLine &
                     "INNER JOIN traPurchaseContractDet A1 ON " & vbNewLine &
                     "   A.PCDetailID=A1.ID " & vbNewLine &
@@ -810,9 +875,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traPurchaseOrderCuttingDet " & vbNewLine &
-                    "   (ID, POID, PCDetailID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, UnitPriceRawMaterial, TotalPriceRawMaterial) " & vbNewLine &
+                    "   (ID, POID, PCDetailID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, UnitPriceRawMaterial, TotalPriceRawMaterial, GroupID, OrderNumberSupplier) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @POID, @PCDetailID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @UnitPriceRawMaterial, @TotalPriceRawMaterial) " & vbNewLine
+                    "   (@ID, @POID, @PCDetailID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @UnitPriceRawMaterial, @TotalPriceRawMaterial, @GroupID, @OrderNumberSupplier) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = clsData.POID
@@ -826,6 +891,8 @@
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
                 .Parameters.Add("@UnitPriceRawMaterial", SqlDbType.Decimal).Value = clsData.UnitPriceRawMaterial
                 .Parameters.Add("@TotalPriceRawMaterial", SqlDbType.Decimal).Value = clsData.TotalPriceRawMaterial
+                .Parameters.Add("@GroupID", SqlDbType.Int).Value = clsData.GroupID
+                .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = clsData.OrderNumberSupplier
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -855,8 +922,8 @@
             End Try
         End Sub
 
-        Public Shared Sub CalculateDoneTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                 ByVal strPODetailID As String)
+        Public Shared Sub CalculateDoneTotalUsedDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                       ByVal strPODetailID As String)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -889,6 +956,130 @@
                     "WHERE ID=@PODetailID	" & vbNewLine
 
                 .Parameters.Add("@PODetailID", SqlDbType.VarChar, 100).Value = strPODetailID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+#End Region
+
+#Region "Detail Result"
+
+        Public Shared Function ListDataDetailResult(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                    ByVal strPOID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.POID, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.OrderNumberSupplier, A.Remarks " & vbNewLine &
+                    "FROM traPurchaseOrderCuttingDetResult A " & vbNewLine &
+                    "INNER JOIN mstItem B ON " & vbNewLine &
+                    "   A.ItemID=B.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification C ON " & vbNewLine &
+                    "   B.ItemSpecificationID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItemType D ON " & vbNewLine &
+                    "   B.ItemTypeID=D.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.POID=@POID " & vbNewLine
+
+                .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = strPOID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Sub SaveDataDetailResult(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal clsData As VO.PurchaseOrderCuttingDetResult)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "INSERT INTO traPurchaseOrderCuttingDetResult " & vbNewLine &
+                    "   (ID, POID, GroupID, ItemID, Quantity, Weight, TotalWeight, OrderNumberSupplier, Remarks) " & vbNewLine &
+                    "VALUES " & vbNewLine &
+                    "   (@ID, @POID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @OrderNumberSupplier, @Remarks) " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = clsData.POID
+                .Parameters.Add("@GroupID", SqlDbType.Int).Value = clsData.GroupID
+                .Parameters.Add("@ItemID", SqlDbType.Int).Value = clsData.ItemID
+                .Parameters.Add("@Quantity", SqlDbType.Decimal).Value = clsData.Quantity
+                .Parameters.Add("@Weight", SqlDbType.Decimal).Value = clsData.Weight
+                .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
+                .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = clsData.OrderNumberSupplier
+                .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataDetailResult(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                 ByVal strPOID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "DELETE FROM traPurchaseOrderCuttingDetResult     " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   POID=@POID" & vbNewLine
+
+                .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = strPOID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateDoneTotalUsedDetailResult(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                             ByVal strPODetailResultID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traPurchaseOrderCuttingDetResult SET 	" & vbNewLine &
+                    "	DoneWeight=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(COD.TotalWeight),0) TotalWeight		" & vbNewLine &
+                    "		FROM traCuttingDetResult COD 	" & vbNewLine &
+                    "		INNER JOIN traCutting COH ON	" & vbNewLine &
+                    "			COD.CuttingID=COH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			COD.PODetailResultID=@PODetailResultID " & vbNewLine &
+                    "			AND COH.IsDeleted=0 	" & vbNewLine &
+                    "	), 	" & vbNewLine &
+                    "	DoneQuantity=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(COD.Quantity),0) TotalQuantity " & vbNewLine &
+                    "		FROM traCuttingDetResult COD 	" & vbNewLine &
+                    "		INNER JOIN traCutting COH ON	" & vbNewLine &
+                    "			COD.CuttingID=COH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			COD.PODetailResultID=@PODetailResultID " & vbNewLine &
+                    "			AND COH.IsDeleted=0 	" & vbNewLine &
+                    "	) 	" & vbNewLine &
+                    "WHERE ID=@PODetailResultID	" & vbNewLine
+
+                .Parameters.Add("@PODetailResultID", SqlDbType.VarChar, 100).Value = strPODetailResultID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

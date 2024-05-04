@@ -8,5 +8,6 @@
         Property Weight As Decimal
         Property TotalWeight As Decimal
         Property Remarks As String
+        Property PODetailResultID As String
     End Class
 End Namespace

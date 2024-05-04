@@ -16,5 +16,7 @@
         Property TotalPriceRawMaterial As Decimal
         Property ReceiveAmount As Decimal
         Property DPAmount As Decimal
+        Property OrderNumberSupplier As String
+        Property GroupID As Integer
     End Class
 End Namespace
