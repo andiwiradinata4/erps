@@ -109,12 +109,12 @@ Public Class frmTraPurchaseOrderCutting
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+
         Try
             dtData = BL.PurchaseOrderCutting.ListData(intProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue)
             grdMain.DataSource = dtData
             pgMain.Value = 80
-            Application.DoEvents()
+
             prvSumGrid()
             grdView.BestFitColumns()
         Catch ex As Exception
@@ -122,7 +122,7 @@ Public Class frmTraPurchaseOrderCutting
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvSetButton()
             prvResetProgressBar()
         End Try
@@ -229,11 +229,11 @@ Public Class frmTraPurchaseOrderCutting
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.PurchaseOrderCutting.DeleteData(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            Application.DoEvents()
+
             UI.usForm.frmMessageBox("Hapus data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "PONumber"))
         Catch ex As Exception
@@ -241,7 +241,7 @@ Public Class frmTraPurchaseOrderCutting
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -255,11 +255,11 @@ Public Class frmTraPurchaseOrderCutting
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.PurchaseOrderCutting.Submit(clsData.ID, "")
             pgMain.Value = 100
-            Application.DoEvents()
+
             UI.usForm.frmMessageBox("Submit data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "PONumber"))
         Catch ex As Exception
@@ -267,7 +267,7 @@ Public Class frmTraPurchaseOrderCutting
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -292,11 +292,11 @@ Public Class frmTraPurchaseOrderCutting
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.PurchaseOrderCutting.Unsubmit(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            Application.DoEvents()
+
             UI.usForm.frmMessageBox("Batal submit data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "PONumber"))
         Catch ex As Exception
@@ -304,7 +304,7 @@ Public Class frmTraPurchaseOrderCutting
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -318,11 +318,11 @@ Public Class frmTraPurchaseOrderCutting
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.PurchaseOrderCutting.Approve(clsData.ID, "")
             pgMain.Value = 100
-            Application.DoEvents()
+
             UI.usForm.frmMessageBox("Approve data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "PONumber"))
         Catch ex As Exception
@@ -330,7 +330,7 @@ Public Class frmTraPurchaseOrderCutting
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -355,11 +355,11 @@ Public Class frmTraPurchaseOrderCutting
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+
         Try
             BL.PurchaseOrderCutting.Unapprove(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            Application.DoEvents()
+
             UI.usForm.frmMessageBox("Batal approve data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "PONumber"))
         Catch ex As Exception
@@ -367,7 +367,7 @@ Public Class frmTraPurchaseOrderCutting
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -423,7 +423,7 @@ Public Class frmTraPurchaseOrderCutting
         'Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
         'Me.Cursor = Cursors.WaitCursor
         'pgMain.Value = 40
-        'Application.DoEvents()
+        '
 
         'Try
         '    Dim dtData As DataTable = BL.PurchaseOrderCutting.Print(intProgramID, intCompanyID, strID)
@@ -461,7 +461,7 @@ Public Class frmTraPurchaseOrderCutting
         '    UI.usForm.frmMessageBox(ex.Message)
         'Finally
         '    pgMain.Value = 100
-        '    Application.DoEvents()
+        '    
         '    prvResetProgressBar()
         'End Try
     End Sub

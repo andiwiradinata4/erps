@@ -3,12 +3,16 @@
 #Region "Property"
 
     Private frmParent As frmTraCuttingDetItem
-    Private dtParent As New DataTable
     Private bolIsNew As Boolean = False
     Private intItemID As Integer = 0
     Private drSelected As DataRow
     Private strID As String = ""
     Private clsCS As VO.CS
+    Private intBPID As Integer
+    Private strPODetailID As String
+    Private strPODetailResultID As String
+    Private dtItemResultParent As New DataTable
+    Private bolIsAutoSearch As Boolean
 
     Public WriteOnly Property pubIsNew As Boolean
         Set(value As Boolean)
@@ -22,15 +26,33 @@
         End Set
     End Property
 
-    Public WriteOnly Property pubTableParent As DataTable
-        Set(value As DataTable)
-            dtParent = value
-        End Set
-    End Property
-
     Public WriteOnly Property pubCS As VO.CS
         Set(value As VO.CS)
             clsCS = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubBPID As Integer
+        Set(value As Integer)
+            intBPID = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubPODetailID As String
+        Set(value As String)
+            strPODetailID = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubTableItemResultParent As DataTable
+        Set(value As DataTable)
+            dtItemResultParent = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubIsAutoSearch As Boolean
+        Set(value As Boolean)
+            bolIsAutoSearch = value
         End Set
     End Property
 
@@ -62,6 +84,8 @@
                 prvClear()
             Else
                 strID = drSelected.Item("ID")
+                txtOrderNumberSupplier.Text = drSelected.Item("OrderNumberSupplier")
+                strPODetailResultID = drSelected.Item("PODetailResultID ")
                 intItemID = drSelected.Item("ItemID")
                 txtItemCode.Text = drSelected.Item("ItemCode")
                 txtItemName.Text = drSelected.Item("ItemName")
@@ -101,12 +125,14 @@
         End If
 
         If bolIsNew Then
-            Dim dr As DataRow = dtParent.NewRow
+            Dim dr As DataRow = dtItemResultParent.NewRow
             With dr
                 .BeginEdit()
                 .Item("ID") = Guid.NewGuid
                 .Item("CuttingID") = ""
                 .Item("GroupID") = 0
+                .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
+                .Item("PODetailResultID") = strPODetailResultID
                 .Item("ItemID") = intItemID
                 .Item("ItemCode") = txtItemCode.Text.Trim
                 .Item("ItemName") = txtItemName.Text.Trim
@@ -122,16 +148,18 @@
                 .Item("TotalWeight") = txtTotalWeight.Value
                 .Item("Remarks") = txtRemarks.Text.Trim
                 dr.EndEdit()
-                dtParent.Rows.Add(dr)
-                dtParent.AcceptChanges()
+                dtItemResultParent.Rows.Add(dr)
+                dtItemResultParent.AcceptChanges()
                 frmParent.grdItemResultView.BestFitColumns()
                 prvClear()
             End With
         Else
-            For Each dr As DataRow In dtParent.Rows
+            For Each dr As DataRow In dtItemResultParent.Rows
                 With dr
                     If .Item("ID") = strID Then
                         .BeginEdit()
+                        .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
+                        .Item("PODetailResultID") = strPODetailResultID
                         .Item("ItemID") = intItemID
                         .Item("ItemCode") = txtItemCode.Text.Trim
                         .Item("ItemName") = txtItemName.Text.Trim
@@ -147,7 +175,7 @@
                         .Item("TotalWeight") = txtTotalWeight.Value
                         .Item("Remarks") = txtRemarks.Text.Trim
                         .EndEdit()
-                        dtParent.AcceptChanges()
+                        dtItemResultParent.AcceptChanges()
                         frmParent.grdItemResultView.BestFitColumns()
                         Exit For
                     End If
@@ -158,13 +186,18 @@
     End Sub
 
     Private Sub prvChooseItem()
-        Dim frmDetail As New frmMstItem
+        Dim frmDetail As New frmTraPurchaseOrderCuttingDetItemResultOustandingCutting
         With frmDetail
-            .pubIsLookUp = True
+            .pubCS = clsCS
+            .pubBPID = intBPID
+            .pubPODetailID = strPODetailID
+            .pubParentItem = dtItemResultParent
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
-            If .pubIsLookUpGet Then
-                intItemID = .pubLUdtRow.Item("ID")
+            If .pubIsLookupGet Then
+                strPODetailResultID = .pubLUdtRow.Item("PODetailResultID")
+                txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
+                intItemID = .pubLUdtRow.Item("ItemID")
                 txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
                 cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
                 txtItemName.Text = .pubLUdtRow.Item("ItemName")
@@ -173,9 +206,12 @@
                 txtLength.Value = .pubLUdtRow.Item("Length")
                 cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
                 txtWeight.Value = .pubLUdtRow.Item("Weight")
+                txtQuantity.Value = .pubLUdtRow.Item("Quantity")
                 txtQuantity.Focus()
-                txtQuantity.Value = 0
                 txtRemarks.Text = ""
+                bolIsAutoSearch = False
+            Else
+                If bolIsAutoSearch Then Me.Close()
             End If
         End With
     End Sub
@@ -186,6 +222,8 @@
 
     Private Sub prvClear()
         strID = ""
+        strPODetailResultID = ""
+        txtOrderNumberSupplier.Text = ""
         intItemID = 0
         txtItemCode.Text = ""
         txtItemName.Text = ""
@@ -214,6 +252,7 @@
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         prvFillForm()
+        If bolIsAutoSearch Then prvChooseItem()
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick

@@ -37,7 +37,7 @@ Public Class frmTraJournalDet
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
         Me.Cursor = Cursors.Default
-        Application.DoEvents()
+        
     End Sub
 
     Private Sub prvSetGrid()
@@ -145,7 +145,7 @@ Public Class frmTraJournalDet
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+        
 
         Dim clsDataDetailAll As New List(Of VO.JournalDet)
         With dtItem
@@ -181,13 +181,13 @@ Public Class frmTraJournalDet
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+        
 
         Try
             Dim strID As String = BL.Journal.SaveDataDefault(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strID)
             pgMain.Value = 80
-            Application.DoEvents()
+            
             frmParent.pubRefresh(strID)
             If pubIsNew Then
                 prvClear()
@@ -200,7 +200,7 @@ Public Class frmTraJournalDet
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub

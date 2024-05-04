@@ -226,11 +226,11 @@ Public Class frmTraAccountPayable
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+        
         Try
             BL.AccountPayable.DeleteData(clsData.ID, clsData.Modules, clsData.Remarks)
             pgMain.Value = 100
-            Application.DoEvents()
+            
             UI.usForm.frmMessageBox("Hapus data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "APNumber"))
         Catch ex As Exception
@@ -238,7 +238,7 @@ Public Class frmTraAccountPayable
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub
@@ -252,11 +252,11 @@ Public Class frmTraAccountPayable
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+        
         Try
             BL.AccountPayable.Submit(clsData.ID, "")
             pgMain.Value = 100
-            Application.DoEvents()
+            
             UI.usForm.frmMessageBox("Submit data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "APNumber"))
         Catch ex As Exception
@@ -264,7 +264,7 @@ Public Class frmTraAccountPayable
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub
@@ -289,11 +289,11 @@ Public Class frmTraAccountPayable
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+        
         Try
             BL.AccountPayable.Unsubmit(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            Application.DoEvents()
+            
             UI.usForm.frmMessageBox("Batal submit data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "APNumber"))
         Catch ex As Exception
@@ -301,7 +301,7 @@ Public Class frmTraAccountPayable
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub
@@ -315,11 +315,11 @@ Public Class frmTraAccountPayable
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+        
         Try
             BL.AccountPayable.Approve(clsData.ID, "")
             pgMain.Value = 100
-            Application.DoEvents()
+            
             UI.usForm.frmMessageBox("Approve data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "APNumber"))
         Catch ex As Exception
@@ -327,7 +327,7 @@ Public Class frmTraAccountPayable
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub
@@ -352,11 +352,11 @@ Public Class frmTraAccountPayable
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+        
         Try
             BL.AccountPayable.Unapprove(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            Application.DoEvents()
+            
             UI.usForm.frmMessageBox("Batal approve data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "APNumber"))
         Catch ex As Exception
@@ -364,7 +364,7 @@ Public Class frmTraAccountPayable
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub
@@ -395,11 +395,11 @@ Public Class frmTraAccountPayable
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+        
         Try
             BL.AccountPayable.SetupPayment(clsData.ID, clsData.PaymentDate, clsData.Remarks, clsData.CoAIDOfOutgoingPayment)
             pgMain.Value = 100
-            Application.DoEvents()
+            
             UI.usForm.frmMessageBox("Setup tanggal pembayaran berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "APNumber"))
         Catch ex As Exception
@@ -407,7 +407,7 @@ Public Class frmTraAccountPayable
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub
@@ -433,11 +433,11 @@ Public Class frmTraAccountPayable
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+        
         Try
             BL.AccountPayable.SetupCancelPayment(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            Application.DoEvents()
+            
             UI.usForm.frmMessageBox("Hapus tanggal pembayaran berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "APNumber"))
         Catch ex As Exception
@@ -445,7 +445,7 @@ Public Class frmTraAccountPayable
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub
@@ -469,11 +469,11 @@ Public Class frmTraAccountPayable
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+        
         Try
             BL.AccountPayable.UpdateTaxInvoiceNumber(clsData.ID, clsData.TaxInvoiceNumber, clsData.Remarks)
             pgMain.Value = 100
-            Application.DoEvents()
+            
             UI.usForm.frmMessageBox("Update nomor faktur pajak berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "APNumber"))
         Catch ex As Exception
@@ -481,7 +481,7 @@ Public Class frmTraAccountPayable
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub

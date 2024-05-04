@@ -458,6 +458,39 @@
             Return bolReturn
         End Function
 
+        Public Shared Function IsAlreadyDownPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strID As String) As Boolean
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim bolReturn As Boolean = False
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID " & vbNewLine &
+                        "FROM traPurchaseOrderCutting " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   ID=@ID " & vbNewLine &
+                        "   AND DPAmount>0 " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        bolReturn = True
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return bolReturn
+        End Function
+
         Public Shared Sub Submit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                  ByVal strID As String)
             Dim sqlCmdExecute As New SqlCommand
@@ -836,7 +869,7 @@
                     "   A.ID, A.POID, A1.PONumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, 	" & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, 	" & vbNewLine &
                     "   D.Description AS ItemTypeName, A.UnitPrice, A.Quantity-A.DoneQuantity AS Quantity, A.Weight, " & vbNewLine &
-                    "   A.TotalWeight-A.DoneWeight AS TotalWeight, A.TotalWeight-A.DoneWeight AS MaxTotalWeight, A.Remarks 	" & vbNewLine &
+                    "   A.TotalWeight-A.DoneWeight AS TotalWeight, A.TotalWeight-A.DoneWeight AS MaxTotalWeight, A.Remarks, A.OrderNumberSupplier " & vbNewLine &
                     "FROM traPurchaseOrderCuttingDet A 	" & vbNewLine &
                     "INNER JOIN traPurchaseOrderCutting A1 ON 	" & vbNewLine &
                     "   A.POID=A1.ID 	" & vbNewLine &
@@ -853,7 +886,6 @@
                     "   AND A1.BPID=@BPID " & vbNewLine &
                     "   AND A1.StatusID=@StatusID " & vbNewLine &
                     "   AND A1.ApprovedBy<>'' " & vbNewLine &
-                    "   AND A.Quantity-A.DoneQuantity>0	" & vbNewLine &
                     "   AND A.TotalWeight-A.DoneWeight>0	" & vbNewLine &
                     "   AND A.POID=@POID" & vbNewLine
 
@@ -862,6 +894,50 @@
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
                 .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = strPOID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataDetailOutstandingDoneResult(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                   ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                   ByVal intBPID As Integer, ByVal strPODetailID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT 	" & vbNewLine &
+                    "   A.ID, A.POID, A.ID AS PODetailResultID, A1.PONumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, 	" & vbNewLine &
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
+                    "   A.Quantity-A.DoneQuantity AS Quantity, A.Weight, A.TotalWeight-A.DoneWeight AS TotalWeight, A.TotalWeight-A.DoneWeight AS MaxTotalWeight, A.Remarks, A.OrderNumberSupplier " & vbNewLine &
+                    "FROM traPurchaseOrderCuttingDetResult A 	" & vbNewLine &
+                    "INNER JOIN traPurchaseOrderCutting A1 ON 	" & vbNewLine &
+                    "   A.POID=A1.ID 	" & vbNewLine &
+                    "INNER JOIN traPurchaseOrderCuttingDet A3 ON 	" & vbNewLine &
+                    "   A.POID=A3.POID 	" & vbNewLine &
+                    "   And A.GroupID=A3.GroupID 	" & vbNewLine &
+                    "INNER JOIN mstItem B ON 	" & vbNewLine &
+                    "   A.ItemID=B.ID 	" & vbNewLine &
+                    "INNER JOIN mstItemSpecification C ON 	" & vbNewLine &
+                    "   B.ItemSpecificationID=C.ID 	" & vbNewLine &
+                    "INNER JOIN mstItemType D ON 	" & vbNewLine &
+                    "   B.ItemTypeID=D.ID 	" & vbNewLine &
+                    "WHERE 	" & vbNewLine &
+                    "   A1.ProgramID=@ProgramID " & vbNewLine &
+                    "   And A1.CompanyID=@CompanyID " & vbNewLine &
+                    "   And A1.IsDeleted=0 " & vbNewLine &
+                    "   And A1.BPID=@BPID " & vbNewLine &
+                    "   And A1.StatusID=@StatusID " & vbNewLine &
+                    "   And A1.ApprovedBy<>'' " & vbNewLine &
+                    "   AND A.TotalWeight-A.DoneWeight>0	" & vbNewLine &
+                    "   AND A3.ID=@PODetailID" & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
+                .Parameters.Add("@PODetailID", SqlDbType.VarChar, 100).Value = strPODetailID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function

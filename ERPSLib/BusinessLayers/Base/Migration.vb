@@ -24,6 +24,7 @@
                 DevelopOnProgress_ID17(sqlCon, Nothing)
                 DevelopOnProgress_ID18(sqlCon, Nothing)
                 DevelopOnProgress_ID19(sqlCon, Nothing)
+                DevelopOnProgress_ID20(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -550,6 +551,21 @@
 "ALTER TABLE traPurchaseOrderCuttingDetResult ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_OrderNumberSupplier DEFAULT ('') " & vbNewLine &
 "ALTER TABLE traPurchaseOrderCuttingDetResult ADD Remarks varchar(250) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_Remarks DEFAULT ('') " & vbNewLine &
 "ALTER TABLE traCuttingDetResult ADD PODetailResultID varchar(100) NOT NULL CONSTRAINT DF_traCuttingDetResult_PODetailResultID DEFAULT ('') " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 20
+        Private Shared Sub DevelopOnProgress_ID20(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 20
+            clsData.Name = "Develop On Progress 20"
+            clsData.Scripts =
+"ALTER TABLE traCuttingDetResult ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traCuttingDetResult_OrderNumberSupplier DEFAULT ('') " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

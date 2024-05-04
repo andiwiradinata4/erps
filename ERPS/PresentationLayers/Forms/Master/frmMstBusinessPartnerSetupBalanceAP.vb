@@ -28,7 +28,7 @@ Public Class frmMstBusinessPartnerSetupBalanceAP
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
         Me.Cursor = Cursors.Default
-        Application.DoEvents()
+        
     End Sub
 
     Public Sub prvSetButton()
@@ -58,7 +58,7 @@ Public Class frmMstBusinessPartnerSetupBalanceAP
     Private Sub prvFillForm()
         pgMain.Value = 30
         Me.Cursor = Cursors.WaitCursor
-        Application.DoEvents()
+        
         Try
             txtCode.Text = clsData.Code
             txtName.Text = clsData.Name
@@ -88,7 +88,7 @@ Public Class frmMstBusinessPartnerSetupBalanceAP
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+        
 
         Dim clsDataDetailAll As New List(Of VO.BusinessPartnerAPBalance)
         For Each dr As DataRow In dtItem.Rows
@@ -112,13 +112,13 @@ Public Class frmMstBusinessPartnerSetupBalanceAP
             BL.BusinessPartnerAPBalance.SaveData(clsDataDetailAll)
             UI.usForm.frmMessageBox("Data berhasil disimpan.")
             pgMain.Value = 80
-            Application.DoEvents()
+            
             Me.Close()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub

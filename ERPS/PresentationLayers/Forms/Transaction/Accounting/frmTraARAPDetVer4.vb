@@ -359,7 +359,7 @@ Public Class frmTraARAPDetVer4
             Dim strARAPNumber As String = BL.ARAP.SaveDataVer2(bolIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strARAPNumber)
             pgMain.Value = 80
-            Application.DoEvents()
+            
             frmParent.pubRefresh(strARAPNumber)
             If bolIsNew Then
                 prvClear()
@@ -373,7 +373,7 @@ Public Class frmTraARAPDetVer4
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub

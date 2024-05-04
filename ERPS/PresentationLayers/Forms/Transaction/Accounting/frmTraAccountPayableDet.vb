@@ -84,7 +84,7 @@ Public Class frmTraAccountPayableDet
 
     Private Sub prvFillForm()
         pgMain.Value = 30
-        Application.DoEvents()
+        
         Me.Cursor = Cursors.WaitCursor
         prvFillCombo()
         Try
@@ -125,7 +125,7 @@ Public Class frmTraAccountPayableDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub
@@ -175,7 +175,7 @@ Public Class frmTraAccountPayableDet
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+        
 
         Dim listDetail As New List(Of VO.AccountPayableDet)
         For Each dr As DataRow In dtItem.Rows
@@ -215,13 +215,13 @@ Public Class frmTraAccountPayableDet
         clsData.Save = intSave
 
         pgMain.Value = 60
-        Application.DoEvents()
+        
 
         Try
             Dim strAPNumber As String = BL.AccountPayable.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strAPNumber)
             pgMain.Value = 80
-            Application.DoEvents()
+            
             frmParent.pubRefresh(strAPNumber)
             If pubIsNew Then
                 prvClear()
@@ -234,7 +234,7 @@ Public Class frmTraAccountPayableDet
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub
@@ -316,7 +316,7 @@ Public Class frmTraAccountPayableDet
     Private Sub prvQueryItem()
         Try
             pgMain.Value = 30
-            Application.DoEvents()
+            
             Me.Cursor = Cursors.WaitCursor
             If strModules.Trim = VO.AccountPayable.PurchaseBalance Then
                 If pubIsNew Then
@@ -365,7 +365,7 @@ Public Class frmTraAccountPayableDet
             grdItem.DataSource = dtItem
             grdItemView.BestFitColumns()
             pgMain.Value = 100
-            Application.DoEvents()
+            
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()

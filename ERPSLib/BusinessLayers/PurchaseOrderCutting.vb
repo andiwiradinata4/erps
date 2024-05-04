@@ -273,15 +273,9 @@
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
                     ElseIf DL.PurchaseOrderCutting.IsAlreadyDone(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses Pemotongan")
+                    ElseIf DL.PurchaseOrderCutting.IsAlreadyDownPayment(sqlCon, sqlTrans, strID) Then
+                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses Down Payment")
                     End If
-
-                    'Dim clsData As VO.PurchaseOrderCutting = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, strID)
-
-                    ''# Cancel Approve Journal
-                    'BL.Journal.Unapprove(clsData.JournalID.Trim, "")
-
-                    ''# Cancel Submit Journal
-                    'BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
 
                     DL.PurchaseOrderCutting.Unapprove(sqlCon, sqlTrans, strID)
 
@@ -399,6 +393,14 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.PurchaseOrderCutting.ListDataDetailOutstandingDone(sqlCon, Nothing, intProgramID, intCompanyID, intBPID, strPOID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailOutstandingDoneResult(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                   ByVal intBPID As Integer, ByVal strPODetailID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseOrderCutting.ListDataDetailOutstandingDoneResult(sqlCon, Nothing, intProgramID, intCompanyID, intBPID, strPODetailID)
             End Using
         End Function
 

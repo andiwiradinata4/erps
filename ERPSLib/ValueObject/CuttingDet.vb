@@ -13,5 +13,6 @@
         Property TotalPrice As Decimal
         Property ReceiveAmount As Decimal
         Property DPAmount As Decimal
+        Property OrderNumberSupplier As String
     End Class
 End Namespace

@@ -45,7 +45,8 @@ Public Class frmTraCuttingDet
         UI.usForm.SetGrid(grdItemView, "CuttingID", "CuttingID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "PODetailID", "PODetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdItemView, "PONumber", "Nomor Pesanan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
+        'UI.usForm.SetGrid(grdItemView, "PONumber", "Nomor Pesanan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
@@ -67,7 +68,10 @@ Public Class frmTraCuttingDet
         '# Cutting Detail Result
         UI.usForm.SetGrid(grdItemResultView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemResultView, "CuttingID", "CuttingID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemResultView, "OrderNumberSupplier", "OrderNumberSupplier", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemResultView, "PODetailResultID", "PODetailResultID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemResultView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemResultView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemResultView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemResultView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemResultView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
@@ -202,7 +206,8 @@ Public Class frmTraCuttingDet
                                .TotalWeight = dr.Item("TotalWeight"),
                                .UnitPrice = dr.Item("UnitPrice"),
                                .TotalPrice = dr.Item("TotalPrice"),
-                               .Remarks = dr.Item("Remarks")
+                               .Remarks = dr.Item("Remarks"),
+                               .OrderNumberSupplier = dr.Item("OrderNumberSupplier")
                            })
         Next
 
@@ -215,7 +220,9 @@ Public Class frmTraCuttingDet
                                     .Quantity = dr.Item("Quantity"),
                                     .Weight = dr.Item("Weight"),
                                     .TotalWeight = dr.Item("TotalWeight"),
-                                    .Remarks = dr.Item("Remarks")
+                                    .Remarks = dr.Item("Remarks"),
+                                    .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                                    .PODetailResultID = dr.Item("PODetailResultID")
                                 })
         Next
 
@@ -592,10 +599,12 @@ Public Class frmTraCuttingDet
         If e.KeyCode = Keys.F1 Then
             tcHeader.SelectedTab = tpMain
         ElseIf e.KeyCode = Keys.F2 Then
-            tcHeader.SelectedTab = tpHistory
+            tcHeader.SelectedTab = tpPrice
         ElseIf e.KeyCode = Keys.F3 Then
-            tcDetail.SelectedTab = tpItem
+            tcHeader.SelectedTab = tpHistory
         ElseIf e.KeyCode = Keys.F4 Then
+            tcDetail.SelectedTab = tpItem
+        ElseIf e.KeyCode = Keys.F5 Then
             tcDetail.SelectedTab = tpItemResult
         ElseIf e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()

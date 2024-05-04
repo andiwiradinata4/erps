@@ -29,6 +29,10 @@ Partial Class frmTraCuttingDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.txtCoACodeOfStock = New ERPS.usTextBox()
+        Me.txtCoANameOfStock = New ERPS.usTextBox()
+        Me.btnCoAOfStock = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.txtPONumber = New ERPS.usTextBox()
         Me.btnPurchaseOrder = New DevExpress.XtraEditors.SimpleButton()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -86,10 +90,6 @@ Partial Class frmTraCuttingDet
         Me.grdItemResult = New DevExpress.XtraGrid.GridControl()
         Me.grdItemResultView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit3 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.txtCoACodeOfStock = New ERPS.usTextBox()
-        Me.txtCoANameOfStock = New ERPS.usTextBox()
-        Me.btnCoAOfStock = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         Me.tpPrice.SuspendLayout()
@@ -196,6 +196,47 @@ Partial Class frmTraCuttingDet
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'txtCoACodeOfStock
+        '
+        Me.txtCoACodeOfStock.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeOfStock.Location = New System.Drawing.Point(584, 16)
+        Me.txtCoACodeOfStock.MaxLength = 250
+        Me.txtCoACodeOfStock.Name = "txtCoACodeOfStock"
+        Me.txtCoACodeOfStock.ReadOnly = True
+        Me.txtCoACodeOfStock.Size = New System.Drawing.Size(59, 21)
+        Me.txtCoACodeOfStock.TabIndex = 8
+        '
+        'txtCoANameOfStock
+        '
+        Me.txtCoANameOfStock.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameOfStock.Location = New System.Drawing.Point(642, 16)
+        Me.txtCoANameOfStock.MaxLength = 250
+        Me.txtCoANameOfStock.Name = "txtCoANameOfStock"
+        Me.txtCoANameOfStock.ReadOnly = True
+        Me.txtCoANameOfStock.Size = New System.Drawing.Size(191, 21)
+        Me.txtCoANameOfStock.TabIndex = 9
+        '
+        'btnCoAOfStock
+        '
+        Me.btnCoAOfStock.Image = CType(resources.GetObject("btnCoAOfStock.Image"), System.Drawing.Image)
+        Me.btnCoAOfStock.Location = New System.Drawing.Point(839, 15)
+        Me.btnCoAOfStock.Name = "btnCoAOfStock"
+        Me.btnCoAOfStock.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAOfStock.TabIndex = 10
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
+        Me.Label5.ForeColor = System.Drawing.Color.Black
+        Me.Label5.Location = New System.Drawing.Point(494, 20)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(60, 13)
+        Me.Label5.TabIndex = 158
+        Me.Label5.Text = "Persediaan"
         '
         'txtPONumber
         '
@@ -666,7 +707,7 @@ Partial Class frmTraCuttingDet
         Me.tpItem.Padding = New System.Windows.Forms.Padding(3)
         Me.tpItem.Size = New System.Drawing.Size(917, 337)
         Me.tpItem.TabIndex = 1
-        Me.tpItem.Text = "Item PO - F3"
+        Me.tpItem.Text = "Item PO - F4"
         Me.tpItem.UseVisualStyleBackColor = True
         '
         'grdItem
@@ -802,7 +843,7 @@ Partial Class frmTraCuttingDet
         Me.tpItemResult.Name = "tpItemResult"
         Me.tpItemResult.Size = New System.Drawing.Size(917, 337)
         Me.tpItemResult.TabIndex = 2
-        Me.tpItemResult.Text = "Hasil - F4"
+        Me.tpItemResult.Text = "Hasil - F5"
         Me.tpItemResult.UseVisualStyleBackColor = True
         '
         'grdItemResult
@@ -849,47 +890,6 @@ Partial Class frmTraCuttingDet
         Me.RepositoryItemTextEdit3.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.RepositoryItemTextEdit3.Name = "RepositoryItemTextEdit3"
         Me.RepositoryItemTextEdit3.NullText = "0.00"
-        '
-        'txtCoACodeOfStock
-        '
-        Me.txtCoACodeOfStock.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeOfStock.Location = New System.Drawing.Point(584, 16)
-        Me.txtCoACodeOfStock.MaxLength = 250
-        Me.txtCoACodeOfStock.Name = "txtCoACodeOfStock"
-        Me.txtCoACodeOfStock.ReadOnly = True
-        Me.txtCoACodeOfStock.Size = New System.Drawing.Size(59, 21)
-        Me.txtCoACodeOfStock.TabIndex = 8
-        '
-        'txtCoANameOfStock
-        '
-        Me.txtCoANameOfStock.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameOfStock.Location = New System.Drawing.Point(642, 16)
-        Me.txtCoANameOfStock.MaxLength = 250
-        Me.txtCoANameOfStock.Name = "txtCoANameOfStock"
-        Me.txtCoANameOfStock.ReadOnly = True
-        Me.txtCoANameOfStock.Size = New System.Drawing.Size(191, 21)
-        Me.txtCoANameOfStock.TabIndex = 9
-        '
-        'btnCoAOfStock
-        '
-        Me.btnCoAOfStock.Image = CType(resources.GetObject("btnCoAOfStock.Image"), System.Drawing.Image)
-        Me.btnCoAOfStock.Location = New System.Drawing.Point(839, 15)
-        Me.btnCoAOfStock.Name = "btnCoAOfStock"
-        Me.btnCoAOfStock.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAOfStock.TabIndex = 10
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.BackColor = System.Drawing.Color.Transparent
-        Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(494, 20)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(60, 13)
-        Me.Label5.TabIndex = 158
-        Me.Label5.Text = "Persediaan"
         '
         'frmTraCuttingDet
         '

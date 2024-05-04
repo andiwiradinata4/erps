@@ -101,7 +101,7 @@ Public Class frmTraPurchaseOrderTransportDet
 
     Private Sub prvFillForm()
         pgMain.Value = 30
-        Application.DoEvents()
+        
         Me.Cursor = Cursors.WaitCursor
         prvFillCombo()
         Try
@@ -144,7 +144,7 @@ Public Class frmTraPurchaseOrderTransportDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub
@@ -209,7 +209,7 @@ Public Class frmTraPurchaseOrderTransportDet
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+        
 
         Dim listDetail As New List(Of VO.PurchaseOrderTransportDet)
         For Each dr As DataRow In dtItem.Rows
@@ -268,13 +268,13 @@ Public Class frmTraPurchaseOrderTransportDet
         clsData.Save = intSave
 
         pgMain.Value = 60
-        Application.DoEvents()
+        
 
         Try
             Dim strPONumber As String = BL.PurchaseOrderTransport.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strPONumber)
             pgMain.Value = 80
-            Application.DoEvents()
+            
             frmParent.pubRefresh(strPONumber)
             If pubIsNew Then
                 prvClear()
@@ -289,7 +289,7 @@ Public Class frmTraPurchaseOrderTransportDet
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub
@@ -435,7 +435,7 @@ Public Class frmTraPurchaseOrderTransportDet
     Private Sub prvQueryItem()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+        
         Try
             dtItem = BL.PurchaseOrderTransport.ListDataDetail(pubID.Trim)
             grdItem.DataSource = dtItem
@@ -447,7 +447,7 @@ Public Class frmTraPurchaseOrderTransportDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvSetButtonItem()
             prvResetProgressBar()
         End Try
@@ -524,7 +524,7 @@ Public Class frmTraPurchaseOrderTransportDet
     Private Sub prvQueryPaymentTerm()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+        
         Try
             dtPaymentTerm = BL.PurchaseOrder.ListDataPaymentTerm(pubID.Trim)
             grdPaymentTerm.DataSource = dtPaymentTerm
@@ -536,7 +536,7 @@ Public Class frmTraPurchaseOrderTransportDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvSetButtonPaymentTerm()
             prvResetProgressBar()
         End Try
@@ -587,7 +587,7 @@ Public Class frmTraPurchaseOrderTransportDet
     Private Sub prvQueryHistory()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+        
         Try
             grdStatus.DataSource = BL.PurchaseOrder.ListDataStatus(pubID.Trim)
         Catch ex As Exception
@@ -595,7 +595,7 @@ Public Class frmTraPurchaseOrderTransportDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub

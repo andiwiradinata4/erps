@@ -96,12 +96,12 @@ Public Class frmTraCutting
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+        
         Try
             dtData = BL.Cutting.ListData(intProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue)
             grdMain.DataSource = dtData
             pgMain.Value = 80
-            Application.DoEvents()
+            
             prvSumGrid()
             grdView.BestFitColumns()
         Catch ex As Exception
@@ -109,7 +109,7 @@ Public Class frmTraCutting
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvSetButton()
             prvResetProgressBar()
         End Try
@@ -206,11 +206,11 @@ Public Class frmTraCutting
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+        
         Try
             BL.Cutting.DeleteData(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            Application.DoEvents()
+            
             UI.usForm.frmMessageBox("Hapus data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "CuttingNumber"))
         Catch ex As Exception
@@ -218,7 +218,7 @@ Public Class frmTraCutting
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub
@@ -232,11 +232,11 @@ Public Class frmTraCutting
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+        
         Try
             BL.Cutting.Submit(clsData.ID, "")
             pgMain.Value = 100
-            Application.DoEvents()
+            
             UI.usForm.frmMessageBox("Submit data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "CuttingNumber"))
         Catch ex As Exception
@@ -244,7 +244,7 @@ Public Class frmTraCutting
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub
@@ -269,11 +269,11 @@ Public Class frmTraCutting
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        Application.DoEvents()
+        
         Try
             BL.Cutting.Unsubmit(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            Application.DoEvents()
+            
             UI.usForm.frmMessageBox("Batal submit data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "CuttingNumber"))
         Catch ex As Exception
@@ -281,7 +281,7 @@ Public Class frmTraCutting
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub

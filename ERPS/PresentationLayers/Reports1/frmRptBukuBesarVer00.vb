@@ -29,12 +29,12 @@
     Private Sub prvSetProgressBar(ByVal intMax As Integer)
         pgMain.Value = 0
         pgMain.Maximum = intMax
-        Application.DoEvents()
+        
     End Sub
 
     Private Sub prvRefreshProgressBar()
         pgMain.Value += 1
-        Application.DoEvents()
+        
     End Sub
 
     Private Function prvCollectDataVer00(ByVal drPick() As DataRow) As DataTable

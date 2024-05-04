@@ -81,6 +81,7 @@ Public Class frmTraCuttingDetItem
         UI.usForm.SetGrid(grdItemResultView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemResultView, "CuttingID", "CuttingID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemResultView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemResultView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemResultView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemResultView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemResultView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
@@ -197,6 +198,7 @@ Public Class frmTraCuttingDetItem
                 .BeginEdit()
                 .Item("ID") = Guid.NewGuid
                 .Item("CuttingID") = ""
+                .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
                 .Item("PODetailID") = strPODetailID
                 .Item("PONumber") = txtPONumber.Text.Trim
                 .Item("GroupID") = intGroupID
@@ -226,6 +228,7 @@ Public Class frmTraCuttingDetItem
                     If .Item("ID") = strID Then
                         .BeginEdit()
                         .Item("CuttingID") = ""
+                        .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
                         .Item("PODetailID") = strPODetailID
                         .Item("PONumber") = txtPONumber.Text.Trim
                         .Item("GroupID") = intGroupID
@@ -305,6 +308,7 @@ Public Class frmTraCuttingDetItem
             .pubShowDialog(Me)
             If .pubIsLookupGet Then
                 txtPONumber.Text = .pubLUdtRow.Item("PONumber")
+                txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
                 strPODetailID = .pubLUdtRow.Item("ID")
                 intItemID = .pubLUdtRow.Item("ItemID")
                 cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
@@ -354,7 +358,11 @@ Public Class frmTraCuttingDetItem
         Dim frmDetail As New frmTraCuttingDetItemResult
         With frmDetail
             .pubIsNew = True
-            .pubTableParent = dtResult
+            .pubCS = clsCS
+            .pubBPID = intBPID
+            .pubTableItemResultParent = dtResult
+            .pubPODetailID = strPODetailID
+            .pubIsAutoSearch = True
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButtonItemResult()
@@ -369,8 +377,10 @@ Public Class frmTraCuttingDetItem
         Dim frmDetail As New frmTraCuttingDetItemResult
         With frmDetail
             .pubIsNew = False
-            .pubTableParent = dtResult
+            .pubCS = clsCS
+            .pubBPID = intBPID
             .pubDataRowSelected = grdItemResultView.GetDataRow(intPos)
+            .pubPODetailID = strPODetailID
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButtonItemResult()

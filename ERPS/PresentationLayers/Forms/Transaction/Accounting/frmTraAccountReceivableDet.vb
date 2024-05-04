@@ -78,7 +78,7 @@ Public Class frmTraAccountReceivableDet
 
     Private Sub prvFillForm()
         pgMain.Value = 30
-        Application.DoEvents()
+        
         Me.Cursor = Cursors.WaitCursor
         prvFillCombo()
         Try
@@ -117,7 +117,7 @@ Public Class frmTraAccountReceivableDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub
@@ -167,7 +167,7 @@ Public Class frmTraAccountReceivableDet
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        Application.DoEvents()
+        
 
         Dim listDetail As New List(Of VO.AccountReceivableDet)
         For Each dr As DataRow In dtItem.Rows
@@ -203,13 +203,13 @@ Public Class frmTraAccountReceivableDet
         clsData.Save = intSave
 
         pgMain.Value = 60
-        Application.DoEvents()
+        
 
         Try
             Dim strARNumber As String = BL.AccountReceivable.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strARNumber)
             pgMain.Value = 80
-            Application.DoEvents()
+            
             frmParent.pubRefresh(strARNumber)
             If pubIsNew Then
                 prvClear()
@@ -222,7 +222,7 @@ Public Class frmTraAccountReceivableDet
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            Application.DoEvents()
+            
             prvResetProgressBar()
         End Try
     End Sub
@@ -302,7 +302,7 @@ Public Class frmTraAccountReceivableDet
     Private Sub prvQueryItem()
         Try
             pgMain.Value = 30
-            Application.DoEvents()
+            
             Me.Cursor = Cursors.WaitCursor
             If strModules = VO.AccountReceivable.SalesBalance Then
                 If pubIsNew Then
@@ -329,7 +329,7 @@ Public Class frmTraAccountReceivableDet
             grdItem.DataSource = dtItem
             grdItemView.BestFitColumns()
             pgMain.Value = 100
-            Application.DoEvents()
+            
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
