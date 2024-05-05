@@ -874,6 +874,29 @@
             End Try
         End Sub
 
+        Public Shared Sub UpdateInvoiceNumberSupplier(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                      ByVal strID As String, ByVal strInvoiceNumberSupplier As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traAccountReceivable SET " & vbNewLine &
+                    "    InvoiceNumberBP=@InvoiceNumberBP " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@InvoiceNumberBP", SqlDbType.VarChar, 1000).Value = strInvoiceNumberSupplier
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
         Public Shared Sub UpdateCompanyBankAccount(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                    ByVal strID As String, ByVal intCompanyBankAccountID1 As Integer,
                                                    ByVal intCompanyBankAccountID2 As Integer)

@@ -138,6 +138,7 @@ Public Class frmTraCuttingDetItem
                 prvClear()
             Else
                 strID = drSelectedItem.Item("ID")
+                txtOrderNumberSupplier.Text = drSelectedItem.Item("OrderNumberSupplier")
                 strPODetailID = drSelectedItem.Item("PODetailID")
                 txtPONumber.Text = drSelectedItem.Item("PONumber")
                 intGroupID = drSelectedItem.Item("GroupID")
@@ -379,6 +380,7 @@ Public Class frmTraCuttingDetItem
             .pubIsNew = False
             .pubCS = clsCS
             .pubBPID = intBPID
+            .pubTableItemResultParent = dtResult
             .pubDataRowSelected = grdItemResultView.GetDataRow(intPos)
             .pubPODetailID = strPODetailID
             .StartPosition = FormStartPosition.CenterScreen

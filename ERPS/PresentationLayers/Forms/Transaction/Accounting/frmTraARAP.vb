@@ -77,7 +77,8 @@ Public Class frmTraARAP
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
        cSep2 As Byte = 8, cSetPaymentDate As Byte = 9, cDeletePaymentDate As Byte = 10, cSetTaxInvoiceNumber As Byte = 11,
-       cSep3 As Byte = 12, cPrint As Byte = 13, cExportExcel As Byte = 14, cSep4 As Byte = 15, cRefresh As Byte = 16, cClose As Byte = 17
+       cSetInvoiceNumberBP As Byte = 12, cSep3 As Byte = 13, cPrint As Byte = 14, cExportExcel As Byte = 15, cSep4 As Byte = 16,
+       cRefresh As Byte = 17, cClose As Byte = 18
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -138,6 +139,7 @@ Public Class frmTraARAP
             .Item(cSetPaymentDate).Enabled = bolEnable
             .Item(cDeletePaymentDate).Enabled = bolEnable
             .Item(cSetTaxInvoiceNumber).Enabled = bolEnable
+            .Item(cSetInvoiceNumberBP).Enabled = bolEnable
             .Item(cPrint).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
         End With
@@ -239,6 +241,7 @@ Public Class frmTraARAP
         clsReturn.IsDP = grdView.GetRowCellValue(intPos, "IsDP")
         clsReturn.CompanyBankAccountID1 = grdView.GetRowCellValue(intPos, "CompanyBankAccountID1")
         clsReturn.CompanyBankAccountID2 = grdView.GetRowCellValue(intPos, "CompanyBankAccountID2")
+        clsReturn.InvoiceNumberSupplier = grdView.GetRowCellValue(intPos, "InvoiceNumberSupplier")
         Return clsReturn
     End Function
 
@@ -585,6 +588,42 @@ Public Class frmTraARAP
         End Try
     End Sub
 
+    Private Sub prvSetupInvoiceNumberSupplier()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+
+        Dim frmDetail As New frmTraAccountSetInvoiceNumberBP
+        With frmDetail
+            .pubInvoiceNumberSupplier = clsData.InvoiceNumberSupplier
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsSave Then
+                clsData.InvoiceNumberSupplier = .pubInvoiceNumberSupplier
+                clsData.Remarks = .pubRemarks
+            Else
+                Exit Sub
+            End If
+        End With
+
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+
+        Try
+            BL.ARAP.UpdateInvoiceNumberSupplier(clsData.ID, clsData.TaxInvoiceNumber, clsData.Remarks, enumARAPType)
+            pgMain.Value = 100
+            UI.usForm.frmMessageBox("Update nomor invoice pajak berhasil.")
+            pubRefresh(grdView.GetRowCellValue(intPos, "TransNumber"))
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+
+            prvResetProgressBar()
+        End Try
+    End Sub
+
     Private Sub prvPrint()
         intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
@@ -768,6 +807,7 @@ Public Class frmTraARAP
             .Item(cSetPaymentDate).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.PaymentAccess)
             .Item(cDeletePaymentDate).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelPaymentAccess)
             .Item(cSetTaxInvoiceNumber).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.TaxInvoiceNumberAccess)
+            .Item(cSetInvoiceNumberBP).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.TaxInvoiceNumberAccess)
             If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase Then .Item(cPrint).Visible = False
         End With
     End Sub
@@ -813,6 +853,7 @@ Public Class frmTraARAP
                 Case ToolBar.Buttons(cSetPaymentDate).Name : prvSetupPaymentDate()
                 Case ToolBar.Buttons(cDeletePaymentDate).Name : prvSetupCancelPaymentDate()
                 Case ToolBar.Buttons(cSetTaxInvoiceNumber).Name : prvSetupTaxInvoiceNumber()
+                Case ToolBar.Buttons(cSetInvoiceNumberBP).Name : prvSetupInvoiceNumberSupplier()
                 Case ToolBar.Buttons(cPrint).Name : prvPrint()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select

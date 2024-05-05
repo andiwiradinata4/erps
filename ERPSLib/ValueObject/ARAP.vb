@@ -40,6 +40,7 @@
         Property TotalAmountUsed As Decimal
         Property CompanyBankAccountID1 As Integer
         Property CompanyBankAccountID2 As Integer
+        Property InvoiceNumberSupplier As String
         Property Detail As New List(Of VO.ARAPDet)
         Property DownPayment As New List(Of VO.ARAPDP)
         Property DownPaymentDetail As New List(Of VO.ARAPDPDet)

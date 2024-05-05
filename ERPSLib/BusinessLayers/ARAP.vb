@@ -659,6 +659,27 @@ Namespace BL
             Return bolReturn
         End Function
 
+        Public Shared Function UpdateInvoiceNumberSupplier(ByVal strID As String, ByVal strTaxInvoiceNumber As String,
+                                                           ByVal strRemarks As String, ByVal enumDPType As VO.ARAP.ARAPTypeValue) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    If enumDPType = VO.ARAP.ARAPTypeValue.Sales Then
+                        bolReturn = BL.AccountReceivable.UpdateInvoiceNumberSupplier(sqlCon, sqlTrans, strID, strTaxInvoiceNumber, strRemarks)
+                    Else
+                        bolReturn = BL.AccountPayable.UpdateInvoiceNumberSupplier(sqlCon, sqlTrans, strID, strTaxInvoiceNumber, strRemarks)
+                    End If
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
         Public Shared Function PrintVer00(ByVal intProgramID As Integer, ByVal intCompanyID As Integer, ByVal strID As String) As DataTable
             BL.Server.ServerDefault()
             Dim dtReturn As New DataTable

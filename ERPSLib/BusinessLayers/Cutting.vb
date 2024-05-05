@@ -30,13 +30,19 @@
                         If clsData.CuttingNumber.Trim = "" Then clsData.CuttingNumber = clsData.ID
                     Else
                         Dim dtItem As DataTable = DL.Cutting.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
+                        Dim dtItemResult As DataTable = DL.Cutting.ListDataDetailResult(sqlCon, sqlTrans, clsData.ID)
 
                         DL.Cutting.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
                         DL.Cutting.DeleteDataDetailResult(sqlCon, sqlTrans, clsData.ID)
 
-                        '# Revert Done Quantity
+                        '# Revert Done Quantity PO Detail
                         For Each dr As DataRow In dtItem.Rows
                             DL.PurchaseOrderCutting.CalculateDoneTotalUsedDetail(sqlCon, sqlTrans, dr.Item("PODetailID"))
+                        Next
+
+                        '# Revert Done Quantity PO Detail Result
+                        For Each dr As DataRow In dtItemResult.Rows
+                            DL.PurchaseOrderCutting.CalculateDoneTotalUsedDetailResult(sqlCon, sqlTrans, dr.Item("PODetailResultID"))
                         Next
 
                         Dim clsExists As VO.Cutting = DL.Cutting.GetDetail(sqlCon, sqlTrans, clsData.ID)
@@ -74,9 +80,14 @@
                         intCount += 1
                     Next
 
-                    '# Calculate Done Quantity
+                    '# Calculate Done Quantity PO Detail
                     For Each clsDet As VO.CuttingDet In clsData.Detail
                         DL.PurchaseOrderCutting.CalculateDoneTotalUsedDetail(sqlCon, sqlTrans, clsDet.PODetailID)
+                    Next
+
+                    '# Calculate Done Quantity PO Detail Result
+                    For Each clsDet As VO.CuttingDetResult In clsData.DetailResult
+                        DL.PurchaseOrderCutting.CalculateDoneTotalUsedDetailResult(sqlCon, sqlTrans, clsDet.PODetailResultID)
                     Next
 
                     '# Save Data Status

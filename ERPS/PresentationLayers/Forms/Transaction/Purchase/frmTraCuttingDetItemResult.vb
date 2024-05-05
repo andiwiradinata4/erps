@@ -85,7 +85,7 @@
             Else
                 strID = drSelected.Item("ID")
                 txtOrderNumberSupplier.Text = drSelected.Item("OrderNumberSupplier")
-                strPODetailResultID = drSelected.Item("PODetailResultID ")
+                strPODetailResultID = drSelected.Item("PODetailResultID")
                 intItemID = drSelected.Item("ItemID")
                 txtItemCode.Text = drSelected.Item("ItemCode")
                 txtItemName.Text = drSelected.Item("ItemName")

@@ -421,6 +421,10 @@ Public Class frmTraCuttingDet
         dtItem.Clear()
         dtItem.AcceptChanges()
         grdItem.DataSource = dtItem
+
+        dtItemResult.Clear()
+        dtItemResult.AcceptChanges()
+        grdItemResult.DataSource = dtItemResult
         prvCalculate()
     End Sub
 

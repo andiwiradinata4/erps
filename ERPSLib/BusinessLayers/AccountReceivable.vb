@@ -746,6 +746,44 @@
             Return bolReturn
         End Function
 
+        Public Shared Function UpdateInvoiceNumberSupplier(ByVal strID As String, ByVal strInvoiceNumberSupplier As String,
+                                                           ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    bolReturn = UpdateInvoiceNumberSupplier(sqlCon, sqlTrans, strID, strInvoiceNumberSupplier, strRemarks)
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function UpdateInvoiceNumberSupplier(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                           ByVal strID As String, ByVal strInvoiceNumberSupplier As String,
+                                                           ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean
+            Try
+                Dim intStatusID As Integer = DL.AccountReceivable.GetStatusID(sqlCon, sqlTrans, strID)
+                If DL.AccountReceivable.IsDeleted(sqlCon, sqlTrans, strID) Then
+                    Err.Raise(515, "", "Data tidak dapat di Proses. Dikarenakan data telah dihapus")
+                End If
+
+                DL.AccountReceivable.UpdateInvoiceNumberSupplier(sqlCon, sqlTrans, strID, strInvoiceNumberSupplier)
+
+                '# Save Data Status
+                BL.AccountReceivable.SaveDataStatus(sqlCon, sqlTrans, strID, "UPDATE NOMOR FAKTUR PAJAK", ERPSLib.UI.usUserApp.UserID, strRemarks)
+                bolReturn = True
+            Catch ex As Exception
+                Throw ex
+            End Try
+            Return bolReturn
+        End Function
+
         Public Shared Sub GenerateJournal(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                           ByVal strID As String)
             Try

@@ -20,6 +20,7 @@
 
 --- On Progress
 16.4 PO Cutting harus tentukan Hasilnya dan saat proses cutting harus pilih hasil yang sudah dibuat di PO -> Checking Update Done Quantity / Weight PO Detail Result dan PO Detail
+16.5 Penginputan Invoice Number Supplier di ARAP
 17. Laporan untuk Mengetahui QS dan Item KO ke PI Customer apa saja dan setiap Sales Contract Detail Item harus ada QS nya
 18. Payment Schedule harus input rencana bayar ketika sudah lewat jatuh tempo.
 19. Penjualan Stok tidak perlu ada kontrak penjualan, langsung penjualan dan harus references dari QS yang sudah masuk.
