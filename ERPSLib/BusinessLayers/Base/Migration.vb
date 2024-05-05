@@ -565,7 +565,10 @@
             clsData.ID = 20
             clsData.Name = "Develop On Progress 20"
             clsData.Scripts =
-"ALTER TABLE traCuttingDetResult ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traCuttingDetResult_OrderNumberSupplier DEFAULT ('') " & vbNewLine
+                "ALTER TABLE traCuttingDetResult ADD OrderNumberSupplier varchar(100) NOT NULL CONSTRAINT DF_traCuttingDetResult_OrderNumberSupplier DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD TotalPriceTransport decimal(18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_TotalPriceTransport DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD DPAmountTransport decimal(18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_DPAmountTransport DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD ReceiveAmountTransport decimal(18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_ReceiveAmountTransport DEFAULT ((0)) " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

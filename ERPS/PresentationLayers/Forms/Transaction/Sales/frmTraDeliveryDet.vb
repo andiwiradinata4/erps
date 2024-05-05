@@ -202,7 +202,9 @@ Public Class frmTraDeliveryDet
                                .UnitPrice = dr.Item("UnitPrice"),
                                .TotalPrice = dr.Item("TotalPrice"),
                                .Remarks = dr.Item("Remarks"),
-                               .OrderNumberSupplier = dr.Item("OrderNumberSupplier")
+                               .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                               .UnitPriceTransport = txtUnitPriceTransport.Value,
+                               .TotalPriceTransport = dr.Item("TotalWeight") * txtUnitPriceTransport.Value
                            })
         Next
 

@@ -468,6 +468,7 @@ Public Class frmTraCuttingDet
             .pubTableItem = dtItem
             .pubTableItemResultParent = dtItemResult
             .pubPOID = strPOID
+            .pubIsAutoSearch = True
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()

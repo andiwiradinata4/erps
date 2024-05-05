@@ -27,8 +27,9 @@ Namespace VO
             PaymentAccess = 19
             TaxInvoiceNumberAccess = 20
             CancelPaymentAccess = 21
-            SetupDelivery = 22
-            CancelSetupDelivery = 23
+            InvoiceNumberBusinessPartner = 22
+            SetupDelivery = 23
+            CancelSetupDelivery = 24
         End Enum
 
     End Class 

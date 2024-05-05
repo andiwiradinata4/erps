@@ -15,5 +15,8 @@
         Property DPAmount As Decimal
         Property UnitPriceTransport As Decimal
         Property OrderNumberSupplier As String
+        Property TotalPriceTransport As Decimal
+        Property DPAmountTransport As Decimal
+        Property ReceiveAmountTransport As Decimal
     End Class
 End Namespace

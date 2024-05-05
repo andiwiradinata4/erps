@@ -2,7 +2,7 @@
 2. Hilangkan syarat pembayaran di PO Pembelian dan KO Pembelian -> Done -> Testing -> Done.
 3. Harga di PO ke KP dan KO bisa 0 -> Done -> Testing -> Done.
 4. Alamat BP bisa lebih dari 1 dan kontrak penjualan bisa pilih alamat, secara default pilih IsDefault -> Done -> Testing -> Done.
-5. Panjar dan Pembayaran Per Item -> Purchase Contract, Done -> Receive, Done -> Sales Contract, Done -> Delivery, Done -> PO Cutting, Done -> Receive Cutting, On Progress
+5. Panjar dan Pembayaran Per Item -> Purchase Contract, Done -> Receive, Done -> Sales Contract, Done -> Delivery, Done -> PO Cutting, Done -> Receive Cutting, Done -> Receive Transport, Done.
 6. Printout Invoice pilih nomor rekeningnya (2 rekening) -> Done. -> Testing -> Done.
 7. Printout Invoice dimunculkan peritem yang dipilih saat pembayaran -> Done. Testing -> Done.
 8. Printout Item Invoice diganti jadi Orderline -> Done -> Setup Query -> Testing -> Done.
@@ -15,17 +15,18 @@
 15. Pengiriman berdasarkan Kontrak Penjualan yang sudah di terbit PI (Performa Invoice) atau yang sudah dibayar lunas. -> Done -> Testing -> Done.
 16. PPN, PPH (Free) Transporter ditentukan di Rekan Bisnis. -> Done -> Testing -> Done.
 16.1 Proses Delivery langsung mengisi nilai Unit Price Transport dan semua informasi transport tanpa PO. Done -> Testing -> Done.
-16.2 Setiap receive harus generate di table stock in dan setiap keluar atau potong harus ada proses stock in dan out. -- Done -> Testing -> Done.
+
 16.3 Printout Invoice Sales Receive -- Done -> Testing -> Done.
+16.4 PO Cutting harus tentukan Hasilnya dan saat proses cutting harus pilih hasil yang sudah dibuat di PO -> Checking Update Done Quantity / Weight PO Detail Result dan PO Detail -- Done -> Testing -> Done.
+16.5 Penginputan Invoice Number Supplier di ARAP -- Done -> Testing -> Done.
+16.6 Pembayaran biaya transport -- Done -> Testing -> Done.
 
 --- On Progress
-16.4 PO Cutting harus tentukan Hasilnya dan saat proses cutting harus pilih hasil yang sudah dibuat di PO -> Checking Update Done Quantity / Weight PO Detail Result dan PO Detail
-16.5 Penginputan Invoice Number Supplier di ARAP
+16.2 Setiap receive harus generate di table stock in dan setiap keluar atau potong harus ada proses stock in dan out. -- Done -> Testing -> Done. - Checking Cutting Process u/Masuk Stock
 17. Laporan untuk Mengetahui QS dan Item KO ke PI Customer apa saja dan setiap Sales Contract Detail Item harus ada QS nya
 18. Payment Schedule harus input rencana bayar ketika sudah lewat jatuh tempo.
 19. Penjualan Stok tidak perlu ada kontrak penjualan, langsung penjualan dan harus references dari QS yang sudah masuk.
 20. Poin 14 maka di user monic
-
 
 --- Kompensasi
 1. Uang masuk dari KP maka Jurnal Kas / Bank posisi debit dan penjualan (Pendapatan Klaim) / Pendapatan Lainnya ke kredit

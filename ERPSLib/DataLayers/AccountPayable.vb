@@ -665,7 +665,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "UPDATE traAccountPayable SET " & vbNewLine &
-                    "    CoAIDOfOutgoingPayment=CAST WHEN IsDP=1 THEN CoAIDOfOutgoingPayment ELSE 0 END, " & vbNewLine &
+                    "    CoAIDOfOutgoingPayment=CASE WHEN IsDP=1 THEN CoAIDOfOutgoingPayment ELSE 0 END, " & vbNewLine &
                     "    PaymentBy='', " & vbNewLine &
                     "    StatusID=@StatusID " & vbNewLine &
                     "WHERE   " & vbNewLine &
@@ -1179,7 +1179,8 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText =
+                '# Receive
+                .CommandText +=
                     "SELECT " & vbNewLine &
                     "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, B.TotalPrice AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
@@ -1220,7 +1221,9 @@
                     "WHERE " & vbNewLine &
                     "   A.ParentID=@APID " & vbNewLine
 
+                '# Cutting
                 .CommandText +=
+                    "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
                     "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, B.TotalPrice AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
@@ -1251,6 +1254,29 @@
                     "INNER JOIN traCuttingDet B ON " & vbNewLine &
                     "   A.ReferencesDetailID=B.ID " & vbNewLine &
                     "INNER JOIN traCutting C ON " & vbNewLine &
+                    "   A.ReferencesID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItem MI ON " & vbNewLine &
+                    "   A.ItemID=MI.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
+                    "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
+                    "INNER JOIN mstItemType MIT ON " & vbNewLine &
+                    "   MI.ItemTypeID=MIT.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ParentID=@APID " & vbNewLine
+
+                '# Transport
+                .CommandText +=
+                    "UNION ALL " & vbNewLine &
+                    "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
+                    "   A.ItemID, B.TotalPrice AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
+                    "   B.TotalPrice-B.DPAmount-B.ReceiveAmount+A.Amount+A.DPAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName " & vbNewLine &
+                    "FROM traARAPItem A " & vbNewLine &
+                    "INNER JOIN traDeliveryDet B ON " & vbNewLine &
+                    "   A.ReferencesID=B.POID " & vbNewLine &
+                    "   AND A.ReferencesDetailID=B.ID " & vbNewLine &
+                    "INNER JOIN traDelivery C ON " & vbNewLine &
                     "   A.ReferencesID=C.ID " & vbNewLine &
                     "INNER JOIN mstItem MI ON " & vbNewLine &
                     "   A.ItemID=MI.ID " & vbNewLine &
@@ -1624,7 +1650,9 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText =
+
+                '# Receive
+                .CommandText +=
                     "SELECT " & vbNewLine &
                     "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, B.TotalPrice AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
@@ -1681,6 +1709,7 @@
                     "	            AND ARH.ID=@APID " & vbNewLine &
                     "       ) " & vbNewLine
 
+                '# Cutting
                 .CommandText +=
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
@@ -1725,6 +1754,65 @@
                     "   AND B.POID=@ReferencesID " & vbNewLine &
                     "   AND B.SubmitBy<>'' " & vbNewLine &
                     "   AND A.TotalPrice-A.DPAmount-A.ReceiveAmount>0 " & vbNewLine &
+                    "   AND A.ID NOT IN " & vbNewLine &
+                    "       ( " & vbNewLine &
+                    "           SELECT ARD.ReferencesDetailID 	" & vbNewLine &
+                    "           FROM traARAPItem ARD 	" & vbNewLine &
+                    "           INNER JOIN traAccountPayable ARH ON 	" & vbNewLine &
+                    "	            ARD.ParentID=ARH.ID		" & vbNewLine &
+                    "           WHERE 	" & vbNewLine &
+                    "               ARH.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	            AND ARH.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	            AND ARH.BPID=@BPID " & vbNewLine &
+                    "	            AND ARH.IsDeleted=0	" & vbNewLine &
+                    "	            AND ARH.ID=@APID " & vbNewLine &
+                    "       ) " & vbNewLine
+
+                '# Transport
+                .CommandText +=
+                    "UNION ALL " & vbNewLine &
+                    "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
+                    "   A.ItemID, B.TotalPriceTransport AS InvoiceAmount, A.Amount, A.DPAmount, C.PPNTransport AS PPNPercent, C.PPHTransport AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
+                    "   B.TotalPriceTransport-B.DPAmountTransport-B.ReceiveAmountTransport+A.Amount+A.DPAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName " & vbNewLine &
+                    "FROM traARAPItem A " & vbNewLine &
+                    "INNER JOIN traDeliveryDet B ON " & vbNewLine &
+                    "   A.ReferencesDetailID=B.ID " & vbNewLine &
+                    "INNER JOIN traDelivery C ON " & vbNewLine &
+                    "   B.DeliveryID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItem MI ON " & vbNewLine &
+                    "   A.ItemID=MI.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
+                    "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
+                    "INNER JOIN mstItemType MIT ON " & vbNewLine &
+                    "   MI.ItemTypeID=MIT.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ParentID=@APID " & vbNewLine &
+                    " " & vbNewLine &
+                    "UNION ALL " & vbNewLine &
+                    "SELECT " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.DeliveryID AS ReferencesID, A.ID AS ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
+                    "   A.ItemID, A.TotalPriceTransport AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, CAST(0 AS DECIMAL(18,2)) AS DPAmount, B.PPNTransport AS PPNPercent, B.PPHTransport AS PPHPercent, " & vbNewLine &
+                    "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
+                    "   A.TotalPriceTransport-A.DPAmountTransport-A.ReceiveAmountTransport AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName " & vbNewLine &
+                    "FROM traDeliveryDet A " & vbNewLine &
+                    "INNER JOIN traDelivery B ON " & vbNewLine &
+                    "   A.DeliveryID=B.ID " & vbNewLine &
+                    "INNER JOIN mstItem MI ON " & vbNewLine &
+                    "   A.ItemID=MI.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
+                    "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
+                    "INNER JOIN mstItemType MIT ON " & vbNewLine &
+                    "   MI.ItemTypeID=MIT.ID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   B.TransporterID=@BPID " & vbNewLine &
+                    "   AND B.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND B.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.DeliveryID=@ReferencesID " & vbNewLine &
+                    "   AND B.SubmitBy<>'' " & vbNewLine &
+                    "   AND A.TotalPriceTransport-A.DPAmountTransport-A.ReceiveAmountTransport>0 " & vbNewLine &
                     "   AND A.ID NOT IN " & vbNewLine &
                     "       ( " & vbNewLine &
                     "           SELECT ARD.ReferencesDetailID 	" & vbNewLine &

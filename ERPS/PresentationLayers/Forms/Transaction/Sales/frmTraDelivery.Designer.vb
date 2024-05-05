@@ -31,6 +31,7 @@ Partial Class frmTraDelivery
         Me.BarSubmit = New System.Windows.Forms.ToolBarButton()
         Me.BarCancelSubmit = New System.Windows.Forms.ToolBarButton()
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
+        Me.BarPrint = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
@@ -51,7 +52,8 @@ Partial Class frmTraDelivery
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.BarPrint = New System.Windows.Forms.ToolBarButton()
+        Me.BarPaymentTransport = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -61,7 +63,7 @@ Partial Class frmTraDelivery
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarSep2, Me.BarPrint, Me.BarExportExcel, Me.BarSep3, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarSep2, Me.BarPaymentTransport, Me.BarSep3, Me.BarPrint, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -109,6 +111,12 @@ Partial Class frmTraDelivery
         '
         Me.BarSep2.Name = "BarSep2"
         Me.BarSep2.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarPrint
+        '
+        Me.BarPrint.Name = "BarPrint"
+        Me.BarPrint.Tag = "Print"
+        Me.BarPrint.Text = "Print"
         '
         'BarExportExcel
         '
@@ -314,11 +322,16 @@ Partial Class frmTraDelivery
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
-        'BarPrint
+        'BarPaymentTransport
         '
-        Me.BarPrint.Name = "BarPrint"
-        Me.BarPrint.Tag = "Print"
-        Me.BarPrint.Text = "Print"
+        Me.BarPaymentTransport.Name = "BarPaymentTransport"
+        Me.BarPaymentTransport.Tag = "Approved"
+        Me.BarPaymentTransport.Text = "Pembayaran Transport"
+        '
+        'BarSep4
+        '
+        Me.BarSep4.Name = "BarSep4"
+        Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
         'frmTraDelivery
         '
@@ -371,4 +384,6 @@ Partial Class frmTraDelivery
     Friend WithEvents grdMain As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents BarPrint As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarPaymentTransport As ToolBarButton
+    Friend WithEvents BarSep4 As ToolBarButton
 End Class

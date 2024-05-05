@@ -241,7 +241,7 @@ Public Class frmTraARAP
         clsReturn.IsDP = grdView.GetRowCellValue(intPos, "IsDP")
         clsReturn.CompanyBankAccountID1 = grdView.GetRowCellValue(intPos, "CompanyBankAccountID1")
         clsReturn.CompanyBankAccountID2 = grdView.GetRowCellValue(intPos, "CompanyBankAccountID2")
-        clsReturn.InvoiceNumberSupplier = grdView.GetRowCellValue(intPos, "InvoiceNumberSupplier")
+        clsReturn.InvoiceNumberSupplier = grdView.GetRowCellValue(intPos, "InvoiceNumberBP")
         Return clsReturn
     End Function
 
@@ -610,7 +610,7 @@ Public Class frmTraARAP
         pgMain.Value = 40
 
         Try
-            BL.ARAP.UpdateInvoiceNumberSupplier(clsData.ID, clsData.TaxInvoiceNumber, clsData.Remarks, enumARAPType)
+            BL.ARAP.UpdateInvoiceNumberSupplier(clsData.ID, clsData.InvoiceNumberSupplier, clsData.Remarks, enumARAPType)
             pgMain.Value = 100
             UI.usForm.frmMessageBox("Update nomor invoice pajak berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "TransNumber"))
@@ -807,7 +807,7 @@ Public Class frmTraARAP
             .Item(cSetPaymentDate).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.PaymentAccess)
             .Item(cDeletePaymentDate).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelPaymentAccess)
             .Item(cSetTaxInvoiceNumber).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.TaxInvoiceNumberAccess)
-            .Item(cSetInvoiceNumberBP).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.TaxInvoiceNumberAccess)
+            .Item(cSetInvoiceNumberBP).Visible = enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.InvoiceNumberBusinessPartner)
             If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase Then .Item(cPrint).Visible = False
         End With
     End Sub

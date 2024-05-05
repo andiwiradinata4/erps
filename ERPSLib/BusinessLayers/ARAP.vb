@@ -225,7 +225,6 @@ Namespace BL
         End Function
 
         Public Shared Function SaveDataVer2(ByVal bolNew As Boolean, ByVal clsDataARAP As VO.ARAP) As String
-            '# On Progress
             BL.Server.ServerDefault()
             Dim strARAPNumber As String = ""
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
@@ -297,16 +296,18 @@ Namespace BL
                             clsReferences = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                             strReferencesNumber = clsReferences.PONumber
                         ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPaymentTransport Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport Then
-                            clsReferences = DL.PurchaseOrderTransport.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
-                            strReferencesNumber = clsReferences.PONumber
+                            clsReferences = DL.Delivery.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesNumber = clsReferences.DeliveryNumber
                         ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPayment Or clsDataARAP.Modules = VO.AccountPayable.ReceivePayment Then
                             clsReferences = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                             strReferencesNumber = clsReferences.PCNumber
                         Else
                             Err.Raise(515, "", "Data tidak dapat disimpan. Modules tidak terdaftar")
                         End If
-                        If clsReferences.StatusID <> VO.Status.Values.Approved Then
+                        If clsReferences.StatusID <> VO.Status.Values.Approved And clsDataARAP.Modules <> VO.AccountPayable.ReceivePaymentTransport Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Data Kontrak harus disetujui terlebih dahulu")
+                        ElseIf clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport And clsReferences.StatusID <> VO.Status.Values.Submit Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Data Pengiriman harus disubmit terlebih dahulu")
                         End If
 
                         '# Save Data Detail
@@ -360,16 +361,23 @@ Namespace BL
                             clsReferences = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                             strReferencesNumber = clsReferences.PONumber
                         ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPaymentTransport Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport Then
-                            clsReferences = DL.PurchaseOrderTransport.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
-                            strReferencesNumber = clsReferences.PONumber
+                            clsReferences = DL.Delivery.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesNumber = clsReferences.DeliveryNumber
                         ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPayment Or clsDataARAP.Modules = VO.AccountPayable.ReceivePayment Then
                             clsReferences = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                             strReferencesNumber = clsReferences.PCNumber
                         Else
                             Err.Raise(515, "", "Data tidak dapat disimpan. Modules tidak terdaftar")
                         End If
-                        If clsReferences.DPAmount + clsReferences.ReceiveAmount > clsReferences.TotalDPP Then
-                            Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Total DPP Transaksi")
+
+                        If clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport Then
+                            If clsReferences.DPAmountTransport + clsReferences.TotalPaymentTransport > clsReferences.TotalDPPTransport Then
+                                Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Total DPP Transaksi Transporter")
+                            End If
+                        Else
+                            If clsReferences.DPAmount + clsReferences.ReceiveAmount > clsReferences.TotalDPP Then
+                                Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Total DPP Transaksi")
+                            End If
                         End If
                         strARAPNumber = clsData.APNumber
                     End If

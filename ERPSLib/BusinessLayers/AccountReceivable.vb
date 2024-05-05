@@ -691,10 +691,10 @@
                 Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
                 If Not clsData.IsDP Then
                     '# Cancel Approve Journal
-                    BL.Journal.Unapprove(clsData.JournalIDInvoice.Trim, "")
+                    BL.Journal.Unapprove(sqlCon, sqlTrans, clsData.JournalIDInvoice.Trim, "")
 
                     '# Cancel Submit Journal
-                    BL.Journal.Unsubmit(clsData.JournalIDInvoice.Trim, "")
+                    BL.Journal.Unsubmit(sqlCon, sqlTrans, clsData.JournalIDInvoice.Trim, "")
                 End If
 
                 DL.AccountReceivable.SetupCancelPayment(sqlCon, sqlTrans, strID)

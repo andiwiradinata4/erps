@@ -566,6 +566,7 @@ Public Class frmTraSalesContractDet
             .pubBPID = intBPID
             .pubTableItem = dtItem
             .pubTableCOItemParent = dtItemConfirmationOrder
+            .pubIsAutoSearch = True
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()

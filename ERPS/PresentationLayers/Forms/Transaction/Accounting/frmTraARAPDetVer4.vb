@@ -220,7 +220,7 @@ Public Class frmTraARAPDetVer4
             '    tcHeader.SelectedTab = tpMain
             '    txtCoACode.Focus()
             '    Exit Sub
-        ElseIf txtTotalAmount.Value <= 0 Then
+        ElseIf txtTotalAmount.Value + txtTotalDP.Value <= 0 Then
             UI.usForm.frmMessageBox("Total Bayar harus lebih besar dari 0")
             tcHeader.SelectedTab = tpMain
             txtTotalAmount.Focus()
@@ -359,7 +359,6 @@ Public Class frmTraARAPDetVer4
             Dim strARAPNumber As String = BL.ARAP.SaveDataVer2(bolIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strARAPNumber)
             pgMain.Value = 80
-            
             frmParent.pubRefresh(strARAPNumber)
             If bolIsNew Then
                 prvClear()

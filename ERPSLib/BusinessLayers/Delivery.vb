@@ -248,14 +248,9 @@
                     Dim clsExists As VO.Delivery = DL.Delivery.GetDetail(sqlCon, sqlTrans, strID)
                     If clsExists.DPAmount > 0 Or clsExists.TotalPayment > 0 Then
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses pembayaran")
+                    ElseIf clsExists.DPAmountTransport > 0 Or clsExists.TotalPaymentTransport > 0 Then
+                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data transport telah diproses pembayaran")
                     End If
-
-                    Dim dtDeliveryTransport As DataTable = DL.Delivery.ListDataDeliveryTransport(sqlCon, sqlTrans, strID)
-                    For Each dr As DataRow In dtDeliveryTransport.Rows
-                        If dr.Item("DPAmount") > 0 Or dr.Item("TotalPayment") > 0 Then
-                            Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data transport telah diproses pembayaran")
-                        End If
-                    Next
 
                     '# Cancel Approve Journal Delivery
                     Dim clsData As VO.Delivery = DL.Delivery.GetDetail(sqlCon, sqlTrans, strID)
@@ -302,7 +297,7 @@
 
                 '# Generate Journal
                 Dim intGroupID As Integer = 1
-                Dim decTotalAmount As Decimal = 0 ' + clsData.TotalPPN - clsData.TotalPPH 
+                Dim decTotalAmount As Decimal = 0
                 Dim decTotalCostRawMaterial As Decimal = DL.Delivery.GetTotalCostRawMaterial(sqlCon, sqlTrans, strID)
                 Dim clsJournalDetail As New List(Of VO.JournalDet)
                 decTotalAmount += clsData.TotalDPP + clsData.RoundingManual
@@ -386,7 +381,6 @@
                 bolNew = IIf(PrevJournal.ID = "", True, False)
 
                 '# Generate Journal
-                Dim dtDeliveryTransport As DataTable = DL.Delivery.ListDataDeliveryTransport(sqlCon, sqlTrans, clsData.ID)
                 decTotalAmount = 0
                 decTotalAmount += clsData.TotalDPPTransport
                 clsJournalDetail = New List(Of VO.JournalDet)

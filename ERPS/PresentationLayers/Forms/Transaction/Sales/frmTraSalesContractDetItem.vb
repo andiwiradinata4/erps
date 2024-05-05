@@ -16,6 +16,7 @@ Public Class frmTraSalesContractDetItem
     Private dtItem As New DataTable
     Private drSelectedItem As DataRow
     Private dtCO As New DataTable
+    Private bolIsAutoSearch As Boolean
 
     Public WriteOnly Property pubBPID As Integer
         Set(value As Integer)
@@ -56,6 +57,12 @@ Public Class frmTraSalesContractDetItem
     Public WriteOnly Property pubCS As VO.CS
         Set(value As VO.CS)
             clsCS = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubIsAutoSearch As Boolean
+        Set(value As Boolean)
+            bolIsAutoSearch = value
         End Set
     End Property
 
@@ -334,6 +341,9 @@ Public Class frmTraSalesContractDetItem
                 txtQuantity.Value = .pubLUdtRow.Item("Quantity")
                 txtWeight.Focus()
                 txtRemarks.Text = ""
+                bolIsAutoSearch = False
+            Else
+                If bolIsAutoSearch Then Me.Close()
             End If
         End With
     End Sub
@@ -436,6 +446,7 @@ Public Class frmTraSalesContractDetItem
         prvSetGrid()
         prvFillForm()
         prvQuery()
+        If bolIsAutoSearch Then prvChooseItem()
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick

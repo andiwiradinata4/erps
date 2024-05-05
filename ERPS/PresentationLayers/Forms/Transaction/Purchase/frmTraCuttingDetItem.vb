@@ -17,6 +17,7 @@ Public Class frmTraCuttingDetItem
     Private drSelectedItem As DataRow
     Private dtResult As New DataTable
     Private strPOID As String = ""
+    Private bolIsAutoSearch As Boolean
 
     Public WriteOnly Property pubBPID As Integer
         Set(value As Integer)
@@ -63,6 +64,12 @@ Public Class frmTraCuttingDetItem
     Public WriteOnly Property pubPOID As String
         Set(value As String)
             strPOID = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubIsAutoSearch As Boolean
+        Set(value As Boolean)
+            bolIsAutoSearch = value
         End Set
     End Property
 
@@ -325,6 +332,9 @@ Public Class frmTraCuttingDetItem
                 txtQuantity.Value = .pubLUdtRow.Item("Quantity")
                 txtQuantity.Focus()
                 txtRemarks.Text = ""
+                bolIsAutoSearch = False
+            Else
+                If bolIsAutoSearch Then Me.Close()
             End If
         End With
     End Sub
@@ -420,6 +430,7 @@ Public Class frmTraCuttingDetItem
         prvSetGrid()
         prvFillForm()
         prvQuery()
+        If bolIsAutoSearch Then prvChooseItem()
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick

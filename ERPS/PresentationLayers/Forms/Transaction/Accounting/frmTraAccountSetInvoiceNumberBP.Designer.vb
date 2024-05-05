@@ -22,41 +22,17 @@ Partial Class frmTraAccountSetInvoiceNumberBP
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.ToolBar = New ERPS.usToolBar()
-        Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
-        Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlMain = New System.Windows.Forms.Panel()
         Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.txtRemarks = New ERPS.usTextBox()
         Me.txtTaxInvoiceNumber = New ERPS.usTextBox()
-        Me.Label6 = New System.Windows.Forms.Label()
+        Me.ToolBar = New ERPS.usToolBar()
+        Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
+        Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.pnlMain.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'ToolBar
-        '
-        Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarRefresh, Me.BarClose})
-        Me.ToolBar.DropDownArrows = True
-        Me.ToolBar.Location = New System.Drawing.Point(0, 0)
-        Me.ToolBar.Name = "ToolBar"
-        Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(524, 28)
-        Me.ToolBar.TabIndex = 0
-        Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
-        'BarRefresh
-        '
-        Me.BarRefresh.Name = "BarRefresh"
-        Me.BarRefresh.Tag = "Save"
-        Me.BarRefresh.Text = "Simpan"
-        '
-        'BarClose
-        '
-        Me.BarClose.Name = "BarClose"
-        Me.BarClose.Tag = "Close"
-        Me.BarClose.Text = "Tutup"
         '
         'lblInfo
         '
@@ -95,6 +71,17 @@ Partial Class frmTraAccountSetInvoiceNumberBP
         Me.Label13.TabIndex = 133
         Me.Label13.Text = "Keterangan"
         '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.BackColor = System.Drawing.Color.Transparent
+        Me.Label6.ForeColor = System.Drawing.Color.Black
+        Me.Label6.Location = New System.Drawing.Point(27, 32)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(121, 13)
+        Me.Label6.TabIndex = 126
+        Me.Label6.Text = "Nomor Invoice Pemasok"
+        '
         'txtRemarks
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
@@ -114,16 +101,29 @@ Partial Class frmTraAccountSetInvoiceNumberBP
         Me.txtTaxInvoiceNumber.Size = New System.Drawing.Size(301, 21)
         Me.txtTaxInvoiceNumber.TabIndex = 0
         '
-        'Label6
+        'ToolBar
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.BackColor = System.Drawing.Color.Transparent
-        Me.Label6.ForeColor = System.Drawing.Color.Black
-        Me.Label6.Location = New System.Drawing.Point(27, 32)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(121, 13)
-        Me.Label6.TabIndex = 126
-        Me.Label6.Text = "Nomor Invoice Pemasok"
+        Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.DropDownArrows = True
+        Me.ToolBar.Location = New System.Drawing.Point(0, 0)
+        Me.ToolBar.Name = "ToolBar"
+        Me.ToolBar.ShowToolTips = True
+        Me.ToolBar.Size = New System.Drawing.Size(524, 28)
+        Me.ToolBar.TabIndex = 0
+        Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'BarRefresh
+        '
+        Me.BarRefresh.Name = "BarRefresh"
+        Me.BarRefresh.Tag = "Save"
+        Me.BarRefresh.Text = "Simpan"
+        '
+        'BarClose
+        '
+        Me.BarClose.Name = "BarClose"
+        Me.BarClose.Tag = "Close"
+        Me.BarClose.Text = "Tutup"
         '
         'frmTraAccountSetInvoiceNumberBP
         '
@@ -134,6 +134,7 @@ Partial Class frmTraAccountSetInvoiceNumberBP
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmTraAccountSetInvoiceNumberBP"

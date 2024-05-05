@@ -10,8 +10,9 @@ Public Class frmTraDelivery
 
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
-       cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cSep2 As Byte = 6, cPrint As Byte = 7,
-       cExportExcel As Byte = 8, cSep3 As Byte = 9, cRefresh As Byte = 10, cClose As Byte = 11
+       cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cSep2 As Byte = 6, cPaymentTransport As Byte = 7,
+       cSep3 As Byte = 8, cPrint As Byte = 9, cExportExcel As Byte = 10, cSep4 As Byte = 11, cRefresh As Byte = 12,
+       cClose As Byte = 13
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -156,6 +157,9 @@ Public Class frmTraDelivery
         clsReturn.BPID = grdView.GetRowCellValue(intPos, "BPID")
         clsReturn.BPCode = grdView.GetRowCellValue(intPos, "BPCode")
         clsReturn.BPName = grdView.GetRowCellValue(intPos, "BPName")
+        clsReturn.TransporterID = grdView.GetRowCellValue(intPos, "TransporterID")
+        clsReturn.TransporterCode = grdView.GetRowCellValue(intPos, "TransporterCode")
+        clsReturn.TransporterName = grdView.GetRowCellValue(intPos, "TransporterName")
         clsReturn.SCID = grdView.GetRowCellValue(intPos, "SCID")
         clsReturn.SCNumber = grdView.GetRowCellValue(intPos, "SCNumber")
         clsReturn.ReferencesNumber = grdView.GetRowCellValue(intPos, "ReferencesNumber")
@@ -436,6 +440,33 @@ Public Class frmTraDelivery
         grdView.BestFitColumns()
     End Sub
 
+    Private Sub prvPaymentTransport()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+        clsData.BPID = clsData.TransporterID
+        clsData.BPCode = clsData.TransporterCode
+        clsData.BPName = clsData.TransporterName
+
+        If clsData.StatusID <> VO.Status.Values.Submit Then
+            UI.usForm.frmMessageBox("Status Data harus disubmit terlebih dahulu")
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraARAP
+        With frmDetail
+            .pubModules = VO.AccountPayable.ReceivePaymentTransport
+            .pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
+            .pubBPID = clsData.BPID
+            .pubBPCode = clsData.BPCode
+            .pubBPName = clsData.BPName
+            .pubCS = prvGetCS()
+            .pubReferencesID = clsData.ID
+            .pubReferencesNumber = clsData.DeliveryNumber
+            .ShowDialog()
+        End With
+    End Sub
+
     Private Sub prvUserAccess()
         With ToolBar.Buttons
             .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesDelivery, VO.Access.Values.NewAccess)
@@ -484,6 +515,7 @@ Public Class frmTraDelivery
                 Case ToolBar.Buttons(cDelete).Name : prvDelete()
                 Case ToolBar.Buttons(cSubmit).Name : prvSubmit()
                 Case ToolBar.Buttons(cCancelSubmit).Name : prvCancelSubmit()
+                Case ToolBar.Buttons(cPaymentTransport).Name : prvPaymentTransport()
                 Case ToolBar.Buttons(cPrint).Name : prvPrint()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select

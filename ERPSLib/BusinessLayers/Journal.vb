@@ -228,7 +228,7 @@ Namespace BL
         End Function
 
         Public Shared Sub Unsubmit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                        ByVal strID As String, ByVal strRemarks As String)
+                                   ByVal strID As String, ByVal strRemarks As String)
             BL.Server.ServerDefault()
             Dim intStatusID As Integer = DL.Journal.GetStatusID(sqlCon, sqlTrans, strID)
             If intStatusID = VO.Status.Values.Draft Then

@@ -454,6 +454,7 @@ Public Class frmTraPurchaseOrderCuttingDet
             .pubCS = pubCS
             .pubTableItem = dtItem
             .pubTableItemResultParent = dtItemResult
+            .pubIsAutoSearch = True
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()

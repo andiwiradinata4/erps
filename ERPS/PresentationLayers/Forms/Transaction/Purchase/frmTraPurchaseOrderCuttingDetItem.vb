@@ -16,6 +16,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
     Private intPos As Integer = 0
     Private intGroupID As Integer = 0
     Private clsCS As VO.CS
+    Private bolIsAutoSearch As Boolean
 
     Public WriteOnly Property pubTableItem As DataTable
         Set(value As DataTable)
@@ -50,6 +51,12 @@ Public Class frmTraPurchaseOrderCuttingDetItem
     Public WriteOnly Property pubCS As VO.CS
         Set(value As VO.CS)
             clsCS = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubIsAutoSearch As Boolean
+        Set(value As Boolean)
+            bolIsAutoSearch = value
         End Set
     End Property
 
@@ -323,6 +330,9 @@ Public Class frmTraPurchaseOrderCuttingDetItem
                 txtUnitPrice.Focus()
                 txtUnitPrice.Value = 0
                 txtRemarks.Text = ""
+                bolIsAutoSearch = False
+            Else
+                If bolIsAutoSearch Then Me.Close()
             End If
         End With
     End Sub
@@ -413,6 +423,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
         prvSetGrid()
         prvFillForm()
         prvQuery()
+        If bolIsAutoSearch Then prvChooseItem()
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
