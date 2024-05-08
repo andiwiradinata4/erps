@@ -186,7 +186,9 @@ Public Class frmTraConfirmationOrderDet
                                     .TotalWeight = dr.Item("TotalWeight"),
                                     .UnitPrice = dr.Item("UnitPrice"),
                                     .TotalPrice = dr.Item("TotalPrice"),
-                                    .Remarks = dr.Item("Remarks")
+                                    .Remarks = dr.Item("Remarks"),
+                                    .LevelItem = 0,
+                                    .ParentID = ""
                                 })
         Next
 
@@ -372,7 +374,7 @@ Public Class frmTraConfirmationOrderDet
         pgMain.Value = 30
 
         Try
-            dtItem = BL.ConfirmationOrder.ListDataDetail(pubID.Trim)
+            dtItem = BL.ConfirmationOrder.ListDataDetail(pubID.Trim, "")
             grdItem.DataSource = dtItem
             prvSumGrid()
             grdItemView.BestFitColumns()

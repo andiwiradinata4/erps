@@ -18,5 +18,7 @@
         Property Remarks As String
         Property ReceiveAmount As Decimal
         Property DPAmount As Decimal
+        Property ItemLevel As Integer
+        Property ParentID As String
     End Class
 End Namespace

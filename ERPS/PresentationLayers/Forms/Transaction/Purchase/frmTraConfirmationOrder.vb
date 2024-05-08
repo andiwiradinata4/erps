@@ -174,7 +174,7 @@ Public Class frmTraConfirmationOrder
 
     Private Sub prvNew()
         prvResetProgressBar()
-        Dim frmDetail As New frmTraConfirmationOrderDet
+        Dim frmDetail As New frmTraConfirmationOrderDetVer1
         With frmDetail
             .pubIsNew = True
             .pubCS = prvGetCS()
@@ -188,7 +188,7 @@ Public Class frmTraConfirmationOrder
         intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         clsData = prvGetData()
-        Dim frmDetail As New frmTraConfirmationOrderDet
+        Dim frmDetail As New frmTraConfirmationOrderDetVer1
         With frmDetail
             .pubIsNew = False
             .pubCS = prvGetCS()

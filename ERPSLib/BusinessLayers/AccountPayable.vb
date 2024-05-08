@@ -338,7 +338,12 @@ Namespace BL
                 If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
                     DL.PurchaseContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
 
-                    dtReferencesItem = DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID)
+                    Dim dtReferencesSubItem As New DataTable
+                    dtReferencesItem = DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID, "")
+                    For Each dr As DataRow In dtReferencesItem.Rows
+                        dtReferencesSubItem.Merge(DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID, dr.Item("ID")))
+                    Next
+
                     For Each dr As DataRow In dtReferencesItem.Rows
                         DL.PurchaseContract.CalculateTotalUsedReceiveItemPaymentVer01(sqlCon, sqlTrans, dr.Item("ID"))
                     Next
@@ -535,7 +540,7 @@ Namespace BL
                 '# Calculate Purchase Contract / Purchase Order
                 If strModules.Trim = VO.AccountPayable.ReceivePayment Then
                     DL.PurchaseContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsExists.ReferencesID)
-                    dtReferencesItem = DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, clsExists.ReferencesID)
+                    dtReferencesItem = DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, clsExists.ReferencesID, "")
                     For Each dr As DataRow In dtReferencesItem.Rows
                         DL.PurchaseContract.CalculateTotalUsedReceiveItemPaymentVer01(sqlCon, sqlTrans, dr.Item("ID"))
                     Next

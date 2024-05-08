@@ -29,7 +29,11 @@
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.CODate, clsData.CompanyID, clsData.ProgramID)
                         If clsData.CONumber.Trim = "" Then clsData.CONumber = clsData.ID
                     Else
-                        Dim dtItem As DataTable = DL.ConfirmationOrder.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
+                        Dim dtSubItem As New DataTable
+                        Dim dtItem As DataTable = DL.ConfirmationOrder.ListDataDetail(sqlCon, sqlTrans, clsData.ID, "")
+                        For Each dr As DataRow In dtItem.Rows
+                            dtSubItem.Merge(DL.ConfirmationOrder.ListDataDetail(sqlCon, sqlTrans, clsData.ID, dr.Item("ID")))
+                        Next
 
                         DL.ConfirmationOrder.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
                         DL.ConfirmationOrder.DeleteDataPaymentTerm(sqlCon, sqlTrans, clsData.ID)
@@ -109,15 +113,20 @@
                                                    ByVal strID As String, ByVal strContractNumber As String,
                                                    ByVal strFranco As String)
             Try
+                Dim dtSubItem As New DataTable
                 Dim clsData As VO.ConfirmationOrder = DL.ConfirmationOrder.GetDetail(sqlCon, sqlTrans, strID)
-                Dim dtDetail As DataTable = DL.ConfirmationOrder.ListDataDetail(sqlCon, sqlTrans, strID)
+                Dim dtItem As DataTable = DL.ConfirmationOrder.ListDataDetail(sqlCon, sqlTrans, strID, "")
+                For Each dr As DataRow In dtItem.Rows
+                    dtSubItem.Merge(DL.ConfirmationOrder.ListDataDetail(sqlCon, sqlTrans, strID, dr.Item("ID")))
+                Next
+
                 Dim dtPaymentTerm As DataTable = DL.ConfirmationOrder.ListDataPaymentTerm(sqlCon, sqlTrans, strID)
                 Dim bolNew As Boolean = IIf(clsData.PCID.Trim = "", True, False)
                 Dim strPCID As String = clsData.PCID
                 If bolNew Then strPCID = BL.PurchaseContract.GetNewID(sqlCon, sqlTrans, clsData.CODate, clsData.CompanyID, clsData.ProgramID)
 
                 Dim listDetailOrder As New List(Of VO.PurchaseContractDet)
-                For Each dr As DataRow In dtDetail.Rows
+                For Each dr As DataRow In dtItem.Rows
                     listDetailOrder.Add(New ERPSLib.VO.PurchaseContractDet With
                     {
                         .CODetailID = dr.Item("ID"),
@@ -127,7 +136,9 @@
                         .TotalWeight = dr.Item("TotalWeight"),
                         .UnitPrice = dr.Item("UnitPrice"),
                         .TotalPrice = dr.Item("TotalPrice"),
-                        .Remarks = dr.Item("Remarks")
+                        .Remarks = dr.Item("Remarks"),
+                        .ItemLevel = dr.Item("ItemLevel"),
+                        .ParentID = dr.Item("ParentID")
                     })
                 Next
 
@@ -203,7 +214,13 @@
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
                     End If
 
-                    Dim dtItem As DataTable = DL.ConfirmationOrder.ListDataDetail(sqlCon, sqlTrans, strID)
+                    Dim dtSubItem As New DataTable
+                    Dim dtItem As DataTable = DL.ConfirmationOrder.ListDataDetail(sqlCon, sqlTrans, strID, "")
+
+                    For Each dr As DataRow In dtItem.Rows
+                        '# Calculate Parent ID
+                        'dtSubItem.Merge(DL.ConfirmationOrder.ListDataDetail(sqlCon, sqlTrans, strID, dr.Item("ID")))
+                    Next
 
                     DL.ConfirmationOrder.DeleteData(sqlCon, sqlTrans, strID)
 
@@ -309,10 +326,10 @@
 
 #Region "Detail"
 
-        Public Shared Function ListDataDetail(ByVal strCOID As String) As DataTable
+        Public Shared Function ListDataDetail(ByVal strCOID As String, ByVal strParentID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.ConfirmationOrder.ListDataDetail(sqlCon, Nothing, strCOID)
+                Return DL.ConfirmationOrder.ListDataDetail(sqlCon, Nothing, strCOID, strParentID)
             End Using
         End Function
 

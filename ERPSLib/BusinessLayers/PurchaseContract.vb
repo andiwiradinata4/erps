@@ -64,7 +64,11 @@
                 If clsData.ID.Trim = "" Then clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.PCDate, clsData.CompanyID, clsData.ProgramID)
                 If clsData.PCNumber.Trim = "" Then clsData.PCNumber = clsData.ID
             Else
-                Dim dtItem As DataTable = DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
+                Dim dtSubItem As New DataTable
+                Dim dtItem As DataTable = DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, clsData.ID, "")
+                For Each dr As DataRow In dtItem.Rows
+                    dtSubItem.Merge(DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, clsData.ID, dr.Item("ID")))
+                Next
 
                 DL.PurchaseContract.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
                 DL.PurchaseContract.DeleteDataPaymentTerm(sqlCon, sqlTrans, clsData.ID)
@@ -147,7 +151,7 @@
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
                     End If
 
-                    Dim dtItem As DataTable = DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, strID)
+                    Dim dtItem As DataTable = DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, strID, "")
 
                     DL.PurchaseContract.DeleteData(sqlCon, sqlTrans, strID)
 
@@ -385,10 +389,10 @@
 
 #Region "Detail"
 
-        Public Shared Function ListDataDetail(ByVal strPCID As String) As DataTable
+        Public Shared Function ListDataDetail(ByVal strPCID As String, ByVal strParentID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.PurchaseContract.ListDataDetail(sqlCon, Nothing, strPCID)
+                Return DL.PurchaseContract.ListDataDetail(sqlCon, Nothing, strPCID, strParentID)
             End Using
         End Function
 

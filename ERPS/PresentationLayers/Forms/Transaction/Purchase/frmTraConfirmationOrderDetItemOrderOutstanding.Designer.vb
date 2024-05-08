@@ -90,7 +90,7 @@ Partial Class frmTraConfirmationOrderDetItemOrderOutstanding
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
-        'frmTraConfirmationOrderDetItemOutstanding
+        'frmTraConfirmationOrderDetItemOrderOutstanding
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -101,7 +101,7 @@ Partial Class frmTraConfirmationOrderDetItemOrderOutstanding
         Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmTraConfirmationOrderDetItemOutstanding"
+        Me.Name = "frmTraConfirmationOrderDetItemOrderOutstanding"
         Me.Text = "Pesanan Pembelian"
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).EndInit()

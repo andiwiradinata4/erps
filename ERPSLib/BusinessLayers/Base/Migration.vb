@@ -25,6 +25,7 @@
                 DevelopOnProgress_ID18(sqlCon, Nothing)
                 DevelopOnProgress_ID19(sqlCon, Nothing)
                 DevelopOnProgress_ID20(sqlCon, Nothing)
+                DevelopOnProgress_ID21(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -569,6 +570,30 @@
                 "ALTER TABLE traDeliveryDet ADD TotalPriceTransport decimal(18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_TotalPriceTransport DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traDeliveryDet ADD DPAmountTransport decimal(18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_DPAmountTransport DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traDeliveryDet ADD ReceiveAmountTransport decimal(18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_ReceiveAmountTransport DEFAULT ((0)) " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 21
+        Private Shared Sub DevelopOnProgress_ID21(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 21
+            clsData.Name = "Develop On Progress 21"
+            clsData.Scripts =
+                "ALTER TABLE traConfirmationOrderDet ADD LevelItem int NOT NULL CONSTRAINT DF_traConfirmationOrderDet_LevelItem DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traConfirmationOrderDet ADD ParentID varchar(100) NOT NULL CONSTRAINT DF_traConfirmationOrderDet_ParentID DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traPurchaseContractDet ADD LevelItem int NOT NULL CONSTRAINT DF_traPurchaseContractDet_LevelItem DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseContractDet ADD ParentID varchar(100) NOT NULL CONSTRAINT DF_traPurchaseContractDet_ParentID DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traReceiveDet ADD LevelItem int NOT NULL CONSTRAINT DF_traReceiveDet_LevelItem DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traReceiveDet ADD ParentID varchar(100) NOT NULL CONSTRAINT DF_traReceiveDet_ParentID DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traSalesContractDet ADD LevelItem int NOT NULL CONSTRAINT DF_traSalesContractDet_LevelItem DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesContractDet ADD ParentID varchar(100) NOT NULL CONSTRAINT DF_traSalesContractDet_ParentID DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD LevelItem int NOT NULL CONSTRAINT DF_traDeliveryDet_LevelItem DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD ParentID varchar(100) NOT NULL CONSTRAINT DF_traDeliveryDet_ParentID DEFAULT ('') " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

@@ -86,7 +86,9 @@
                         "    StatusID=@StatusID, " & vbNewLine &
                         "    LogInc=LogInc+1, " & vbNewLine &
                         "    LogBy=@LogBy, " & vbNewLine &
-                        "    LogDate=GETDATE() " & vbNewLine &
+                        "    LogDate=GETDATE(), " & vbNewLine &
+                        "    LevelItem=@LevelItem, " & vbNewLine &
+                        "    ParentID=@ParentID " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -460,7 +462,7 @@
 #Region "Detail"
 
         Public Shared Function ListDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                              ByVal strCOID As String) As DataTable
+                                              ByVal strCOID As String, ByVal strParentID As String) As DataTable
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
                 .Connection = sqlCon
@@ -472,7 +474,7 @@
                     "   A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, C.ID AS ItemSpecificationID, " & vbNewLine &
                     "   C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, A.Quantity,   " & vbNewLine &
                     "   A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.COWeight AS MaxTotalWeight, A.PCQuantity, A.PCWeight,   " & vbNewLine &
-                    "   A.DCQuantity, A.DCWeight, A.Remarks  " & vbNewLine &
+                    "   A.DCQuantity, A.DCWeight, A.Remarks, A.LevelItem, A.ParentID " & vbNewLine &
                     "FROM traConfirmationOrderDet A " & vbNewLine &
                     "INNER JOIN traPurchaseOrderDet A1 ON " & vbNewLine &
                     "   A.PODetailID=A1.ID " & vbNewLine &
@@ -485,9 +487,11 @@
                     "INNER JOIN mstItemType D ON " & vbNewLine &
                     "   B.ItemTypeID=D.ID " & vbNewLine &
                     "WHERE  " & vbNewLine &
-                    "    A.COID=@COID" & vbNewLine
+                    "    A.COID=@COID" & vbNewLine &
+                    "    AND A.ParentID=@ParentID " & vbNewLine
 
                 .Parameters.Add("@COID", SqlDbType.VarChar, 100).Value = strCOID
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
@@ -598,10 +602,10 @@
                 .CommandText =
                    "INSERT INTO traConfirmationOrderDet " & vbNewLine &
                    "    (ID, COID, PODetailID, OrderNumberSupplier, DeliveryAddress, ItemID, Quantity,   " & vbNewLine &
-                   "     Weight, TotalWeight, UnitPrice, TotalPrice, Remarks)   " & vbNewLine &
+                   "     Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, LevelItem, ParentID)   " & vbNewLine &
                    "VALUES " & vbNewLine &
                    "    (@ID, @COID, @PODetailID, @OrderNumberSupplier, @DeliveryAddress, @ItemID, @Quantity,   " & vbNewLine &
-                   "     @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks)  " & vbNewLine
+                   "     @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @LevelItem, @ParentID)  " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@COID", SqlDbType.VarChar, 100).Value = clsData.COID
@@ -615,6 +619,8 @@
                 .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = clsData.UnitPrice
                 .Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = clsData.TotalPrice
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
+                .Parameters.Add("@LevelItem", SqlDbType.Int).Value = clsData.LevelItem
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)

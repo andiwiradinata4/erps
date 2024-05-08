@@ -766,7 +766,7 @@
 #Region "Detail"
 
         Public Shared Function ListDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                              ByVal strPCID As String) As DataTable
+                                              ByVal strPCID As String, ByVal strParentID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -789,9 +789,11 @@
                     "INNER JOIN mstItemType D ON " & vbNewLine &
                     "   B.ItemTypeID=D.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
-                    "   A.PCID=@PCID " & vbNewLine
+                    "   A.PCID=@PCID " & vbNewLine &
+                    "   AND A.ParentID=@ParentID " & vbNewLine
 
                 .Parameters.Add("@PCID", SqlDbType.VarChar, 100).Value = strPCID
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
@@ -887,9 +889,9 @@ WHERE
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traPurchaseContractDet " & vbNewLine &
-                    "   (ID, PCID, CODetailID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks) " & vbNewLine &
+                    "   (ID, PCID, CODetailID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, ItemLevel, ParentID) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @PCID, @CODetailID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks) " & vbNewLine
+                    "   (@ID, @PCID, @CODetailID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @ItemLevel, @ParentID) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@PCID", SqlDbType.VarChar, 100).Value = clsData.PCID
@@ -901,6 +903,8 @@ WHERE
                 .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = clsData.UnitPrice
                 .Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = clsData.TotalPrice
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
+                .Parameters.Add("@ItemLevel", SqlDbType.Int).Value = clsData.ItemLevel
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

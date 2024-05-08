@@ -648,22 +648,52 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItem.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemAddress.Designer.vb">
-      <DependentUpon>frmTraConfirmationOrderDetItemAddress.vb</DependentUpon>
-    </Compile>
-    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemAddress.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrder.Designer.vb">
       <DependentUpon>frmTraConfirmationOrderDetItemOrder.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrder.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemAddress.Designer.vb">
+      <DependentUpon>frmTraConfirmationOrderDetItemAddress.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemAddress.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderOutstanding.Designer.vb">
       <DependentUpon>frmTraConfirmationOrderDetItemOrderOutstanding.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderOutstanding.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderOutstandingVer1.Designer.vb">
+      <DependentUpon>frmTraConfirmationOrderDetItemOrderOutstandingVer1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderOutstandingVer1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderSubItem.Designer.vb">
+      <DependentUpon>frmTraConfirmationOrderDetItemOrderSubItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderSubItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderVer1.Designer.vb">
+      <DependentUpon>frmTraConfirmationOrderDetItemOrderVer1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderVer1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemVer1.Designer.vb">
+      <DependentUpon>frmTraConfirmationOrderDetItemVer1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemVer1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetVer1.Designer.vb">
+      <DependentUpon>frmTraConfirmationOrderDetVer1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetVer1.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderGenerateContract.Designer.vb">
@@ -1404,14 +1434,29 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItem.resx">
       <DependentUpon>frmTraConfirmationOrderDetItem.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemAddress.resx">
-      <DependentUpon>frmTraConfirmationOrderDetItemAddress.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrder.resx">
       <DependentUpon>frmTraConfirmationOrderDetItemOrder.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemAddress.resx">
+      <DependentUpon>frmTraConfirmationOrderDetItemAddress.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderOutstanding.resx">
       <DependentUpon>frmTraConfirmationOrderDetItemOrderOutstanding.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderOutstandingVer1.resx">
+      <DependentUpon>frmTraConfirmationOrderDetItemOrderOutstandingVer1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderSubItem.resx">
+      <DependentUpon>frmTraConfirmationOrderDetItemOrderSubItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderVer1.resx">
+      <DependentUpon>frmTraConfirmationOrderDetItemOrderVer1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemVer1.resx">
+      <DependentUpon>frmTraConfirmationOrderDetItemVer1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetVer1.resx">
+      <DependentUpon>frmTraConfirmationOrderDetVer1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderGenerateContract.resx">
       <DependentUpon>frmTraConfirmationOrderGenerateContract.vb</DependentUpon>
