@@ -304,6 +304,7 @@ Public Class frmTraConfirmationOrderDetVer1
         clsData.Detail = listDetail
         clsData.PaymentTerm = listPaymentTerm
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+        clsData.IsUseSubItem = IIf(dtSubItem.Rows.Count > 0, True, False)
         clsData.Save = intSave
 
         pgMain.Value = 60

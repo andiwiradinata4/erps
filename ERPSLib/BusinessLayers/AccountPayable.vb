@@ -235,14 +235,18 @@ Namespace BL
                         End If
                     Next
 
-                    '# Revert Payment Item Amount
                     DL.ARAP.DeleteDataItem(sqlCon, sqlTrans, clsData.ID)
                     For Each dr As DataRow In dtDetailItem.Rows
+                        '# Revert Payment Item Amount
                         If clsData.Modules.Trim = VO.AccountPayable.DownPayment Then DL.PurchaseContract.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
                         If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then DL.Receive.CalculateItemTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
                         If clsData.Modules.Trim = VO.AccountPayable.DownPaymentCutting Then DL.PurchaseOrderCutting.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
                         If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.Cutting.CalculateItemTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
                         If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then DL.Delivery.CalculateItemTotalUsedReceivePaymentTransport(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
+
+                        '# Revert Payment Item Parent Amount
+                        If clsData.Modules.Trim = VO.AccountPayable.DownPayment And dr.Item("ReferencesParentID") <> "" Then DL.PurchaseContract.CalculateItemTotalUsedDownPaymentParent(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
+
 
                         If clsData.Modules = VO.AccountPayable.PurchaseBalance Then
                             'DL.BusinessPartnerAPBalance.CalculateTotalUsed(sqlCon, sqlTrans, clsDet.PurchaseID)
@@ -1284,11 +1288,11 @@ Namespace BL
         End Function
 
         Public Shared Function ListDataDetailItemDPWithOutstandingRev02(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
-                                                                  ByVal intBPID As Integer, ByVal strAPID As String,
-                                                                  ByVal strReferencesID As String) As DataTable
+                                                                        ByVal intBPID As Integer, ByVal strAPID As String,
+                                                                        ByVal strReferencesID As String, ByVal bolIsUseSubItem As Boolean) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.AccountPayable.ListDataDetailItemDPWithOutstandingVer01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID)
+                Return DL.AccountPayable.ListDataDetailItemDPWithOutstandingVer01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID, bolIsUseSubItem)
             End Using
         End Function
 

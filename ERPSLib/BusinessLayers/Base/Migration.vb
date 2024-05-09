@@ -26,6 +26,7 @@
                 DevelopOnProgress_ID19(sqlCon, Nothing)
                 DevelopOnProgress_ID20(sqlCon, Nothing)
                 DevelopOnProgress_ID21(sqlCon, Nothing)
+                DevelopOnProgress_ID22(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -594,6 +595,26 @@
                 "ALTER TABLE traSalesContractDet ADD ParentID varchar(100) NOT NULL CONSTRAINT DF_traSalesContractDet_ParentID DEFAULT ('') " & vbNewLine &
                 "ALTER TABLE traDeliveryDet ADD LevelItem int NOT NULL CONSTRAINT DF_traDeliveryDet_LevelItem DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traDeliveryDet ADD ParentID varchar(100) NOT NULL CONSTRAINT DF_traDeliveryDet_ParentID DEFAULT ('') " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 22
+        Private Shared Sub DevelopOnProgress_ID22(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 22
+            clsData.Name = "Develop On Progress 22"
+            clsData.Scripts =
+                "ALTER TABLE traReceive ADD IsUseSubItem bit NOT NULL CONSTRAINT DF_traReceiveDet_IsUseSubItem DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDelivery ADD IsUseSubItem bit NOT NULL CONSTRAINT DF_traDelivery_IsUseSubItem DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD IsUseSubItem bit NOT NULL CONSTRAINT DF_traAccountPayable_IsUseSubItem DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountReceivable ADD IsUseSubItem bit NOT NULL CONSTRAINT DF_traAccountReceivable_IsUseSubItem DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traARAPItem ADD LevelItem int NOT NULL CONSTRAINT DF_traARAPItem_LevelItem DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traARAPItem ADD ReferencesParentID varchar(100) NOT NULL CONSTRAINT DF_traARAPItem_ReferencesParentID DEFAULT ('') " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

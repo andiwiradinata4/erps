@@ -42,6 +42,7 @@
         Property CompanyBankAccount2 As Integer
         Property OtherExpenses As Decimal
         Property InvoiceNumberBP As String
+        Property IsUseSubItem As Boolean
         Property Detail As New List(Of VO.AccountPayableDet)
         Property ARAPDownPayment As New List(Of VO.ARAPDP)
         Property ARAPDownPaymentDetail As New List(Of VO.ARAPDPDet)

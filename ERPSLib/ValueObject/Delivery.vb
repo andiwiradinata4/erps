@@ -44,6 +44,7 @@
         Property PPHTransport As Decimal
         Property IsFreePPNTransport As Decimal
         Property IsFreePPHTransport As Decimal
+        Property IsUseSubItem As Boolean
         Property Detail As List(Of VO.DeliveryDet)
         Property DeliveryTransport As List(Of VO.DeliveryTransport)
         Property DetailTransport As List(Of VO.DeliveryDetTransport)

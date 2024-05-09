@@ -113,7 +113,7 @@ Partial Class frmTraARAPDetVer4
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(890, 28)
+        Me.ToolBar.Size = New System.Drawing.Size(884, 28)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -137,7 +137,7 @@ Partial Class frmTraARAPDetVer4
         Me.lblInfo.ForeColor = System.Drawing.Color.White
         Me.lblInfo.Location = New System.Drawing.Point(0, 28)
         Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(890, 22)
+        Me.lblInfo.Size = New System.Drawing.Size(884, 22)
         Me.lblInfo.TabIndex = 1
         Me.lblInfo.Text = "« "
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -146,16 +146,16 @@ Partial Class frmTraARAPDetVer4
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 581)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 587)
         Me.StatusStrip.Name = "StatusStrip"
-        Me.StatusStrip.Size = New System.Drawing.Size(890, 22)
+        Me.StatusStrip.Size = New System.Drawing.Size(884, 22)
         Me.StatusStrip.TabIndex = 6
         Me.StatusStrip.Text = "StatusStrip1"
         '
         'ToolStripEmpty
         '
         Me.ToolStripEmpty.Name = "ToolStripEmpty"
-        Me.ToolStripEmpty.Size = New System.Drawing.Size(767, 17)
+        Me.ToolStripEmpty.Size = New System.Drawing.Size(761, 17)
         Me.ToolStripEmpty.Spring = True
         '
         'ToolStripLogInc
@@ -203,7 +203,7 @@ Partial Class frmTraARAPDetVer4
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(890, 255)
+        Me.tcHeader.Size = New System.Drawing.Size(884, 255)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
@@ -244,7 +244,7 @@ Partial Class frmTraARAPDetVer4
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(882, 226)
+        Me.tpMain.Size = New System.Drawing.Size(876, 226)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
@@ -709,7 +709,7 @@ Partial Class frmTraARAPDetVer4
         Me.Label14.ForeColor = System.Drawing.Color.White
         Me.Label14.Location = New System.Drawing.Point(0, 305)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(890, 22)
+        Me.Label14.Size = New System.Drawing.Size(884, 22)
         Me.Label14.TabIndex = 3
         Me.Label14.Text = "« Item"
         Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -722,7 +722,7 @@ Partial Class frmTraARAPDetVer4
         Me.ToolBarDetail.Location = New System.Drawing.Point(0, 327)
         Me.ToolBarDetail.Name = "ToolBarDetail"
         Me.ToolBarDetail.ShowToolTips = True
-        Me.ToolBarDetail.Size = New System.Drawing.Size(890, 28)
+        Me.ToolBarDetail.Size = New System.Drawing.Size(884, 28)
         Me.ToolBarDetail.TabIndex = 4
         Me.ToolBarDetail.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -770,7 +770,7 @@ Partial Class frmTraARAPDetVer4
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
-        Me.grdItem.Size = New System.Drawing.Size(890, 226)
+        Me.grdItem.Size = New System.Drawing.Size(884, 232)
         Me.grdItem.TabIndex = 5
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
@@ -795,16 +795,16 @@ Partial Class frmTraARAPDetVer4
         'pgMain
         '
         Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pgMain.Location = New System.Drawing.Point(0, 603)
+        Me.pgMain.Location = New System.Drawing.Point(0, 609)
         Me.pgMain.Name = "pgMain"
-        Me.pgMain.Size = New System.Drawing.Size(890, 22)
+        Me.pgMain.Size = New System.Drawing.Size(884, 22)
         Me.pgMain.TabIndex = 7
         '
-        'frmTraARAPVer4
+        'frmTraARAPDetVer4
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(890, 625)
+        Me.ClientSize = New System.Drawing.Size(884, 631)
         Me.Controls.Add(Me.grdItem)
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.pgMain)
@@ -814,7 +814,7 @@ Partial Class frmTraARAPDetVer4
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.Name = "frmTraARAPVer4"
+        Me.Name = "frmTraARAPDetVer4"
         Me.Text = "frmTraARAPVer4"
         Me.StatusStrip.ResumeLayout(False)
         Me.StatusStrip.PerformLayout()

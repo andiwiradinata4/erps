@@ -16,6 +16,7 @@ Public Class frmTraARAP
         strReferencesNumber As String = ""
     Private bolExport As Boolean = True
     Private bolIsLookup As Boolean = False
+    Private bolIsUseSubItem As Boolean = False
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -68,6 +69,12 @@ Public Class frmTraARAP
     Public WriteOnly Property pubIsLookup As Boolean
         Set(value As Boolean)
             bolIsLookup = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubIsUseSubItem As Boolean
+        Set(value As Boolean)
+            bolIsUseSubItem = value
         End Set
     End Property
 
@@ -268,6 +275,7 @@ Public Class frmTraARAP
             .pubBPID = intBPID
             .pubARAPType = enumARAPType
             .pubReferencesID = strReferencesID
+            .pubIsUseSubItem = bolIsUseSubItem
             .Text = Me.Text
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)

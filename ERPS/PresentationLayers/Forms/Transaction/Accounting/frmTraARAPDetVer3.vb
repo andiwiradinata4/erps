@@ -17,6 +17,7 @@ Public Class frmTraARAPDetVer3
     Private decPPN As Decimal = 0, decPPH As Decimal = 0
     Private dtItem As New DataTable
     Private bolValid As Boolean = True
+    Private bolIsUseSubItem As Boolean
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -57,6 +58,12 @@ Public Class frmTraARAPDetVer3
     Public WriteOnly Property pubCS As VO.CS
         Set(value As VO.CS)
             clsCS = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubIsUseSubItem As Boolean
+        Set(value As Boolean)
+            bolIsUseSubItem = value
         End Set
     End Property
 
@@ -256,7 +263,6 @@ Public Class frmTraARAPDetVer3
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-
         Dim listDetail As New List(Of VO.ARAPDet)
         Dim clsDetail As New VO.ARAPDet
         clsDetail.ID = ""
@@ -311,10 +317,10 @@ Public Class frmTraARAPDetVer3
         clsData.Detail = listDetail
         clsData.DetailItem = listDetailItem
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+        clsData.IsUseSubItem = bolIsUseSubItem
         clsData.Save = intSave
 
         pgMain.Value = 60
-
         Try
             Dim strARAPNumber As String = BL.ARAP.SaveDataVer2(bolIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strARAPNumber)
@@ -331,7 +337,6 @@ Public Class frmTraARAPDetVer3
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            
             prvResetProgressBar()
         End Try
     End Sub
@@ -415,12 +420,12 @@ Public Class frmTraARAPDetVer3
             pgMain.Value = 30
             Me.Cursor = Cursors.WaitCursor
             If bolIsNew Then
-                dtItem = BL.ARAP.ListDataDetailItemDPWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID)
+                dtItem = BL.ARAP.ListDataDetailItemDPWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID, bolIsUseSubItem)
             Else
                 If clsData.IsDeleted Then
                     dtItem = BL.ARAP.ListDataDetailVer2(strID, enumARAPType)
                 Else
-                    dtItem = BL.ARAP.ListDataDetailItemDPWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID)
+                    dtItem = BL.ARAP.ListDataDetailItemDPWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID, bolIsUseSubItem)
                 End If
             End If
             grdItem.DataSource = dtItem

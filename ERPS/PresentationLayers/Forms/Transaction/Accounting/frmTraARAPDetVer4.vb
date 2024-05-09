@@ -20,6 +20,7 @@ Public Class frmTraARAPDetVer4
     Private dtItem As New DataTable
     Private bolIsLookup As Boolean = False
     Private bolValid As Boolean = True
+    Private bolIsUseSubItem As Boolean = True
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -84,6 +85,12 @@ Public Class frmTraARAPDetVer4
     Public WriteOnly Property pubIsLookup As Boolean
         Set(value As Boolean)
             bolIsLookup = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubIsUseSubItem As Boolean
+        Set(value As Boolean)
+            bolIsUseSubItem = value
         End Set
     End Property
 

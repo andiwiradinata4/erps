@@ -279,6 +279,7 @@ Namespace BL
                         clsData.ARAPDownPayment = clsDataARAP.DownPayment
                         clsData.ARAPItem = clsDataARAP.DetailItem
                         clsData.LogBy = clsDataARAP.LogBy
+                        clsData.IsUseSubItem = clsDataARAP.IsUseSubItem
                         clsData.Save = clsDataARAP.Save
 
                         BL.AccountReceivable.SaveDataVer01(sqlCon, sqlTrans, bolNew, clsData)
@@ -353,6 +354,7 @@ Namespace BL
                         clsData.ARAPDownPayment = clsDataARAP.DownPayment
                         clsData.ARAPItem = clsDataARAP.DetailItem
                         clsData.LogBy = clsDataARAP.LogBy
+                        clsData.IsUseSubItem = clsDataARAP.IsUseSubItem
                         clsData.Save = clsDataARAP.Save
 
                         BL.AccountPayable.SaveDataVer01(sqlCon, sqlTrans, bolNew, clsData)
@@ -769,12 +771,13 @@ Namespace BL
         End Function
 
         Public Shared Function ListDataDetailItemDPWithOutstandingVer2(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
-                                                                 ByVal intBPID As Integer, ByVal strParentID As String,
-                                                                 ByVal enumARAPType As VO.ARAP.ARAPTypeValue, ByVal strReferencesID As String) As DataTable
+                                                                       ByVal intBPID As Integer, ByVal strParentID As String,
+                                                                       ByVal enumARAPType As VO.ARAP.ARAPTypeValue, ByVal strReferencesID As String,
+                                                                       ByVal bolIsUseSubItem As Boolean) As DataTable
             If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
                 Return BL.AccountReceivable.ListDataDetailItemDPWithOutstandingRev02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
             Else
-                Return BL.AccountPayable.ListDataDetailItemDPWithOutstandingRev02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
+                Return BL.AccountPayable.ListDataDetailItemDPWithOutstandingRev02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID, bolIsUseSubItem)
             End If
         End Function
 

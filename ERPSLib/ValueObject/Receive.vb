@@ -30,6 +30,7 @@
         Property CoAofStock As Integer
         Property CoACodeOfStock As String
         Property CoANameOfStock As String
+        Property IsUseSubItem As Boolean
         Property Detail As List(Of VO.ReceiveDet)
         Property Save As VO.Save.Action
     End Class

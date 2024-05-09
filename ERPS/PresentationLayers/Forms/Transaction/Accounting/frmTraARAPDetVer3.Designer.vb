@@ -73,11 +73,11 @@ Partial Class frmTraARAPDetVer3
         Me.ToolBarDetail = New ERPS.usToolBar()
         Me.BarCheckAll = New System.Windows.Forms.ToolBarButton()
         Me.BarUncheckAll = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep1Item = New System.Windows.Forms.ToolBarButton()
+        Me.BarCalculate = New System.Windows.Forms.ToolBarButton()
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.BarSep1Item = New System.Windows.Forms.ToolBarButton()
-        Me.BarCalculate = New System.Windows.Forms.ToolBarButton()
         Me.StatusStrip.SuspendLayout()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
@@ -131,7 +131,7 @@ Partial Class frmTraARAPDetVer3
         Me.lblInfo.Name = "lblInfo"
         Me.lblInfo.Size = New System.Drawing.Size(884, 22)
         Me.lblInfo.TabIndex = 1
-        Me.lblInfo.Text = "« Panjar Detail"
+        Me.lblInfo.Text = "« Down Payment Detail"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'pgMain
@@ -597,7 +597,7 @@ Partial Class frmTraARAPDetVer3
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(792, 226)
+        Me.tpHistory.Size = New System.Drawing.Size(876, 226)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F2"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -622,7 +622,7 @@ Partial Class frmTraARAPDetVer3
         Me.grdStatus.Location = New System.Drawing.Point(3, 3)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(782, 216)
+        Me.grdStatus.Size = New System.Drawing.Size(866, 216)
         Me.grdStatus.TabIndex = 13
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -673,6 +673,17 @@ Partial Class frmTraARAPDetVer3
         Me.BarUncheckAll.Tag = "Unapproved"
         Me.BarUncheckAll.Text = "Tidak Centang Semua"
         '
+        'BarSep1Item
+        '
+        Me.BarSep1Item.Name = "BarSep1Item"
+        Me.BarSep1Item.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarCalculate
+        '
+        Me.BarCalculate.Name = "BarCalculate"
+        Me.BarCalculate.Tag = "Calculation"
+        Me.BarCalculate.Text = "Kalkulasi"
+        '
         'grdItem
         '
         Me.grdItem.Dock = System.Windows.Forms.DockStyle.Fill
@@ -715,17 +726,6 @@ Partial Class frmTraARAPDetVer3
         Me.rpiValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
-        '
-        'BarSep1Item
-        '
-        Me.BarSep1Item.Name = "BarSep1Item"
-        Me.BarSep1Item.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
-        '
-        'BarCalculate
-        '
-        Me.BarCalculate.Name = "BarCalculate"
-        Me.BarCalculate.Tag = "Calculation"
-        Me.BarCalculate.Text = "Kalkulasi"
         '
         'frmTraARAPDetVer3
         '

@@ -204,6 +204,7 @@
                     .Detail = listDetailOrder,
                     .PaymentTerm = listPaymentTerm,
                     .LogBy = ERPSLib.UI.usUserApp.UserID,
+                    .IsUseSubItem = clsData.IsUseSubItem,
                     .Save = VO.Save.Action.SaveAndSubmit
                 }
 

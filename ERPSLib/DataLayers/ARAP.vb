@@ -358,7 +358,7 @@
                 .CommandText =
                     "SELECT " & vbNewLine &
                     "   A.ID, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
-                    "   A.ItemID, A.Amount, A.PPN, A.PPH  " & vbNewLine &
+                    "   A.ItemID, A.Amount, A.PPN, A.PPH, A.LevelItem, A.ReferencesParentID  " & vbNewLine &
                     "FROM traARAPItem A " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   A.ParentID=@APID " & vbNewLine

@@ -44,6 +44,7 @@
         Property InvoiceNumberBP As String
         Property CompanyBankAccountID1 As Integer
         Property CompanyBankAccountID2 As Integer
+        Property IsUseSubItem As Boolean
         Property Detail As New List(Of VO.AccountReceivableDet)
         Property ARAPDownPayment As New List(Of VO.ARAPDP)
         Property ARAPItem As New List(Of VO.ARAPItem)

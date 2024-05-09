@@ -206,6 +206,7 @@ Public Class frmTraPurchaseContractDetVer1
         For Each dr As DataRow In dtItem.Rows
             listDetailOrder.Add(New ERPSLib.VO.PurchaseContractDet With
                                 {
+                                    .ID = dr.Item("ID"),
                                     .CODetailID = dr.Item("CODetailID"),
                                     .ItemID = dr.Item("ItemID"),
                                     .Quantity = dr.Item("Quantity"),
@@ -213,7 +214,26 @@ Public Class frmTraPurchaseContractDetVer1
                                     .TotalWeight = dr.Item("TotalWeight"),
                                     .UnitPrice = dr.Item("UnitPrice"),
                                     .TotalPrice = dr.Item("TotalPrice"),
-                                    .Remarks = dr.Item("Remarks")
+                                    .Remarks = dr.Item("Remarks"),
+                                    .LevelItem = dr.Item("LevelItem"),
+                                    .ParentID = dr.Item("ParentID")
+                                })
+        Next
+
+        For Each dr As DataRow In dtSubItem.Rows
+            listDetailOrder.Add(New ERPSLib.VO.PurchaseContractDet With
+                                {
+                                    .ID = dr.Item("ID"),
+                                    .CODetailID = dr.Item("CODetailID"),
+                                    .ItemID = dr.Item("ItemID"),
+                                    .Quantity = dr.Item("Quantity"),
+                                    .Weight = dr.Item("Weight"),
+                                    .TotalWeight = dr.Item("TotalWeight"),
+                                    .UnitPrice = dr.Item("UnitPrice"),
+                                    .TotalPrice = dr.Item("TotalPrice"),
+                                    .Remarks = dr.Item("Remarks"),
+                                    .LevelItem = dr.Item("LevelItem"),
+                                    .ParentID = dr.Item("ParentID")
                                 })
         Next
 
@@ -253,12 +273,11 @@ Public Class frmTraPurchaseContractDetVer1
             .Detail = listDetailOrder,
             .PaymentTerm = listPaymentTerm,
             .LogBy = ERPSLib.UI.usUserApp.UserID,
+            .IsUseSubItem = IIf(dtSubItem.Rows.Count > 0, True, False),
             .Save = intSave
         }
 
         pgMain.Value = 60
-
-
         Try
             Dim strPCNumber As String = BL.PurchaseContract.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strPCNumber)
