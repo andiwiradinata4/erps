@@ -139,7 +139,7 @@
     <value>True</value>
   </data>
   <data name="ToolBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>534, 28</value>
+    <value>551, 28</value>
   </data>
   <data name="ToolBar.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -151,7 +151,7 @@
     <value>ToolBar</value>
   </data>
   <data name="&gt;&gt;ToolBar.Type" xml:space="preserve">
-    <value>ERPS.usToolBar, ERPS, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ERPS.usToolBar, ERPS, Version=1.0.0.7, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ToolBar.Parent" xml:space="preserve">
     <value>$this</value>
@@ -169,7 +169,7 @@
     <value>0, 28</value>
   </data>
   <data name="lblInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>534, 22</value>
+    <value>551, 22</value>
   </data>
   <data name="lblInfo.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -199,7 +199,7 @@
     <value>0, 158</value>
   </data>
   <data name="pgMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>534, 23</value>
+    <value>551, 23</value>
   </data>
   <data name="pgMain.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -215,6 +215,48 @@
   </data>
   <data name="&gt;&gt;pgMain.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="btnFranco.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAt0RVh0VGl0
+        bGUAWm9vbTvPCf68AAADeklEQVQ4T3WTX0yTVxjGD2iGJgreLNmNGnfhonHuhg0yFYOCZGzRgk7T4CBE
+        lAWYJtTYiKWIBfotaAWGgiJqsQUGpaOFydwI6R/4aIuFroAbDmRxCHRYKwwQiuTZ+xVNdrM3+eV87znn
+        eb73/GMAAlCsunzdEH67nm9S6xzj6qaHuNvo8FRprcb8Ym0Ujb9DBL2dL/+2SdCwQBIbfyzkhsaSr7vv
+        9v8+8jdm5xapG4H2t2EPNHrH6wKVviQ8MnYDSYIFzdl87YoBxarKe+aCny1D8C8t4yf+KeQVPTiRb0Iu
+        ta2df2Ju3o+6ZjukCk0dzV9LBGVIqwNidqWi9ZOGFpf/1cISuDt9yFZ1g3d68GO3F+fvjOAkZ0NBdS+m
+        fHNQftcC8YlLiSRbnXr6+opBhdraPDA0gTb6c3aJDTM+P8YmFtE/Mg+jbRrcD1PIUtnR8Msw2kz9SMks
+        bSfZWvEp1YrBNbVlXFjr2XIeVuckxiYX4X4yD8vAPzD2vISqbQplbc+QXdqFodEpJKWXvCDZ+oRkjhlP
+        RjBWcsuE18vLSFF24EGfF+7ROZgfzaC1bxoa3osq83PU2nxILzZhdHwaR1KLhSML+0KsYPez9jLGlT/w
+        zMwuQFLZDWnjEzQ6fTC4XkJt9+Im/xzf9/mgsXsgrbKh99E4SDgtGMQdyWOtGXsYu6DU6+y9o6g304ZV
+        2qHomARn9aDC4UVdvw/NQzNQGgZR2/EHanRd2C+SmslgXUyCjBnSdzOWdqYsXsbpqTwfZLVOZNY4cdny
+        F2oGvbjtnMAlQz84vQuOwQkcTuEQvic5jQxC9otymD5tF31S8lVmeS1X1gLXYw/UpsfIqe/BqapOyBse
+        QmsZBu9+hoxzNyHNkID7fHshaUKJ4MbUTwMGQe9/ELHhoFhRmpx1bVmt48H/Ogb3iBddrqe4oTVBdLwQ
+        8szTWBioRI8qCYVx2wpIt14wefsOgok1kTHpB6i09tjEvIWYxDxab64/Kl5i/ijymFi2d4vSUnQUcHHo
+        LkqAPHorR5qw/z6mIGI1IVxVwT3sDeuIECJUErGxqF0WD3RKYJUdgCJuRyHbJ7rIokV5LPpQLiFj0Qcv
+        vCGH8hy279D5ABRClaFf73yPM36zG4uGJFR/GT4rDPxvaJM+ZsqozUyxaxO7GLlJ6AqYJG99V3E1dvsS
+        99mH2n8BS6wgHnYivPsAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="btnFranco.Location" type="System.Drawing.Point, System.Drawing">
+    <value>499, 49</value>
+  </data>
+  <data name="btnFranco.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 23</value>
+  </data>
+  <data name="btnFranco.TabIndex" type="System.Int32, mscorlib">
+    <value>102</value>
+  </data>
+  <data name="&gt;&gt;btnFranco.Name" xml:space="preserve">
+    <value>btnFranco</value>
+  </data>
+  <data name="&gt;&gt;btnFranco.Type" xml:space="preserve">
+    <value>DevExpress.XtraEditors.SimpleButton, DevExpress.XtraEditors.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  </data>
+  <data name="&gt;&gt;btnFranco.Parent" xml:space="preserve">
+    <value>pnlMain</value>
+  </data>
+  <data name="&gt;&gt;btnFranco.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="Label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -244,7 +286,7 @@
     <value>pnlMain</value>
   </data>
   <data name="&gt;&gt;Label1.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="txtFranco.Location" type="System.Drawing.Point, System.Drawing">
     <value>143, 50</value>
@@ -262,13 +304,13 @@
     <value>txtFranco</value>
   </data>
   <data name="&gt;&gt;txtFranco.Type" xml:space="preserve">
-    <value>ERPS.usTextBox, ERPS, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ERPS.usTextBox, ERPS, Version=1.0.0.7, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;txtFranco.Parent" xml:space="preserve">
     <value>pnlMain</value>
   </data>
   <data name="&gt;&gt;txtFranco.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="Label8.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -295,7 +337,7 @@
     <value>pnlMain</value>
   </data>
   <data name="&gt;&gt;Label8.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="txtPCNumber.Location" type="System.Drawing.Point, System.Drawing">
     <value>143, 23</value>
@@ -313,13 +355,13 @@
     <value>txtPCNumber</value>
   </data>
   <data name="&gt;&gt;txtPCNumber.Type" xml:space="preserve">
-    <value>ERPS.usTextBox, ERPS, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ERPS.usTextBox, ERPS, Version=1.0.0.7, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;txtPCNumber.Parent" xml:space="preserve">
     <value>pnlMain</value>
   </data>
   <data name="&gt;&gt;txtPCNumber.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="pnlMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -328,7 +370,7 @@
     <value>0, 50</value>
   </data>
   <data name="pnlMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>534, 108</value>
+    <value>551, 108</value>
   </data>
   <data name="pnlMain.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -352,7 +394,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>534, 181</value>
+    <value>551, 181</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt</value>

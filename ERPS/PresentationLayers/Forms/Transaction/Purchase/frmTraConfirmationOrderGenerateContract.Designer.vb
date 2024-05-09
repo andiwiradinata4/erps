@@ -33,6 +33,7 @@ Partial Class frmTraConfirmationOrderGenerateContract
         Me.txtFranco = New ERPS.usTextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.txtPCNumber = New ERPS.usTextBox()
+        Me.btnFranco = New DevExpress.XtraEditors.SimpleButton()
         Me.pnlMain.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -69,6 +70,7 @@ Partial Class frmTraConfirmationOrderGenerateContract
         'pnlMain
         '
         Me.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlMain.Controls.Add(Me.btnFranco)
         Me.pnlMain.Controls.Add(Me.Label1)
         Me.pnlMain.Controls.Add(Me.txtFranco)
         Me.pnlMain.Controls.Add(Me.Label8)
@@ -104,6 +106,12 @@ Partial Class frmTraConfirmationOrderGenerateContract
         resources.ApplyResources(Me.txtPCNumber, "txtPCNumber")
         Me.txtPCNumber.Name = "txtPCNumber"
         '
+        'btnFranco
+        '
+        Me.btnFranco.Image = CType(resources.GetObject("btnFranco.Image"), System.Drawing.Image)
+        resources.ApplyResources(Me.btnFranco, "btnFranco")
+        Me.btnFranco.Name = "btnFranco"
+        '
         'frmTraConfirmationOrderGenerateContract
         '
         resources.ApplyResources(Me, "$this")
@@ -133,4 +141,5 @@ Partial Class frmTraConfirmationOrderGenerateContract
     Friend WithEvents txtFranco As usTextBox
     Friend WithEvents Label8 As Label
     Friend WithEvents txtPCNumber As usTextBox
+    Friend WithEvents btnFranco As DevExpress.XtraEditors.SimpleButton
 End Class

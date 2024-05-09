@@ -166,8 +166,8 @@ Namespace DL
             End Try
         End Sub
 
-        Public Shared Function GetTotalWeightStockOut(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                      ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer) As Decimal
+        Public Shared Function GetTotalWeightStockOutDelivery(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                              ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer) As Decimal
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim decReturn As Decimal = 0
             Try
@@ -183,6 +183,42 @@ Namespace DL
 "	TDD.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
 "	AND TDD.ItemID=@ItemID " & vbNewLine &
 "	AND TDH.IsDeleted=0 " & vbNewLine
+
+                    .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
+                    .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        decReturn = .Item("TotalWeight")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If sqlrdData IsNot Nothing Then sqlrdData.Close()
+            End Try
+            Return decReturn
+        End Function
+
+        Public Shared Function GetTotalWeightStockOutCutting(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                             ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer) As Decimal
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim decReturn As Decimal = 0
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandText =
+"SELECT SUM(TCD.TotalWeight) AS TotalWeight " & vbNewLine &
+"FROM traCutting TCH " & vbNewLine &
+"INNER JOIN traCuttingDet TCD ON " & vbNewLine &
+"   TCH.ID=TCD.CuttingID " & vbNewLine &
+"WHERE " & vbNewLine &
+"	TCD.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
+"	AND TCD.ItemID=@ItemID " & vbNewLine &
+"	AND TCH.IsDeleted=0 " & vbNewLine
 
                     .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
                     .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID

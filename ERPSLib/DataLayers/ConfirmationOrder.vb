@@ -86,9 +86,7 @@
                         "    StatusID=@StatusID, " & vbNewLine &
                         "    LogInc=LogInc+1, " & vbNewLine &
                         "    LogBy=@LogBy, " & vbNewLine &
-                        "    LogDate=GETDATE(), " & vbNewLine &
-                        "    LevelItem=@LevelItem, " & vbNewLine &
-                        "    ParentID=@ParentID " & vbNewLine &
+                        "    LogDate=GETDATE() " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If

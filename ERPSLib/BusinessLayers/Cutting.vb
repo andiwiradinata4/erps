@@ -24,6 +24,8 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Dim clsDataStockIN As New List(Of VO.StockIn)
+                Dim clsDataStockOut As New List(Of VO.StockOut)
                 Try
                     If bolNew Then
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.CuttingDate, clsData.CompanyID, clsData.ProgramID)
@@ -69,6 +71,18 @@
                         clsDet.CuttingID = clsData.ID
                         DL.Cutting.SaveDataDetail(sqlCon, sqlTrans, clsDet)
                         intCount += 1
+
+                        clsDataStockOut.Add(New VO.StockOut With
+                        {
+                            .ParentID = "",
+                            .ParentDetailID = "",
+                            .OrderNumberSupplier = clsDet.OrderNumberSupplier,
+                            .SourceData = "",
+                            .ItemID = clsDet.ItemID,
+                            .Quantity = 0,
+                            .Weight = 0,
+                            .TotalWeight = 0
+                        })
                     Next
 
                     '# Save Data Detail Result
@@ -78,6 +92,18 @@
                         clsDet.CuttingID = clsData.ID
                         DL.Cutting.SaveDataDetailResult(sqlCon, sqlTrans, clsDet)
                         intCount += 1
+
+                        clsDataStockIN.Add(New VO.StockIn With
+                       {
+                            .ParentID = "",
+                            .ParentDetailID = "",
+                            .OrderNumberSupplier = clsDet.OrderNumberSupplier,
+                            .SourceData = "",
+                            .ItemID = clsDet.ItemID,
+                            .InQuantity = 0,
+                            .InWeight = 0,
+                            .InTotalWeight = 0
+                       })
                     Next
 
                     '# Calculate Done Quantity PO Detail
@@ -94,6 +120,12 @@
                     BL.Cutting.SaveDataStatus(sqlCon, sqlTrans, clsData.ID, IIf(bolNew, "BARU", "EDIT"), ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
 
                     If clsData.Save = VO.Save.Action.SaveAndSubmit Then Submit(sqlCon, sqlTrans, clsData.ID, clsData.Remarks)
+
+                    '# Save Data Stock IN
+                    BL.StockIn.SaveData(sqlCon, sqlTrans, clsDataStockIN)
+
+                    '# Save Data Stock Out
+                    BL.StockOut.SaveData(sqlCon, sqlTrans, clsDataStockOut)
 
                     sqlTrans.Commit()
                 Catch ex As Exception
@@ -124,12 +156,21 @@
                     End If
 
                     Dim dtItem As DataTable = DL.Cutting.ListDataDetail(sqlCon, sqlTrans, strID)
+                    Dim dtItemResult As DataTable = DL.Cutting.ListDataDetailResult(sqlCon, sqlTrans, strID)
 
                     DL.Cutting.DeleteData(sqlCon, sqlTrans, strID)
 
-                    '# Revert Done Quantity
                     For Each dr As DataRow In dtItem.Rows
+                        '# Revert Done Quantity
                         DL.PurchaseOrderCutting.CalculateDoneTotalUsedDetail(sqlCon, sqlTrans, dr.Item("PODetailID"))
+
+                        '# Delete Stock Out
+                        BL.StockOut.CalculateStockOut(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
+                    Next
+
+                    For Each dr As DataRow In dtItemResult.Rows
+                        '# Delete Stock In
+                        BL.StockIn.CalculateStockIn(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
                     Next
 
                     '# Save Data Status

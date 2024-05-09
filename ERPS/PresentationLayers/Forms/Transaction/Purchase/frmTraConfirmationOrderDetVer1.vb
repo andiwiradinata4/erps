@@ -83,20 +83,20 @@ Public Class frmTraConfirmationOrderDetVer1
         UI.usForm.SetGrid(grdSubItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdSubItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdSubItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdSubItemView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdSubItemView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdSubItemView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdSubItemView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSubItemView, "ItemName", "Nama Barang", 200, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubItemView, "Thick", "Tebal", 70, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubItemView, "Width", "Lebar", 70, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSubItemView, "Length", "Panjang", 70, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdSubItemView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdSubItemView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdSubItemView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdSubItemView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdSubItemView, "Quantity", "Quantity", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdSubItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal1Num)
-        UI.usForm.SetGrid(grdSubItemView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdSubItemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubItemView, "ItemTypeName", "Tipe", 70, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubItemView, "Quantity", "Quantity", 150, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSubItemView, "Weight", "Weight", 70, UI.usDefGrid.gReal1Num)
+        UI.usForm.SetGrid(grdSubItemView, "TotalWeight", "Total Berat", 250, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubItemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdSubItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdSubItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubItemView, "TotalPrice", "Total Harga", 250, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdSubItemView, "PCQuantity", "PCQuantity", 100, UI.usDefGrid.gReal4Num, False)
         UI.usForm.SetGrid(grdSubItemView, "PCWeight", "PCWeight", 100, UI.usDefGrid.gReal4Num, False)
         UI.usForm.SetGrid(grdSubItemView, "DCQuantity", "DCQuantity", 100, UI.usDefGrid.gReal4Num, False)
@@ -206,11 +206,35 @@ Public Class frmTraConfirmationOrderDetVer1
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
 
+        If dtSubItem.Rows.Count > 0 Then
+            For Each dr As DataRow In dtItem.Rows
+                If dr.Item("ParentID") = "" Then
+                    Dim decTotalQuantity As Decimal = 0, decTotalWeight As Decimal = 0, decTotalPrice As Decimal = 0
+                    For Each drS As DataRow In dtSubItem.Rows
+                        If drS.Item("ParentID") = dr.Item("ID") Then
+                            decTotalQuantity += drS.Item("Quantity")
+                            decTotalWeight += drS.Item("TotalWeight")
+                            decTotalPrice += drS.Item("TotalPrice")
+                        End If
+                    Next
+                    If decTotalQuantity > 0 Or decTotalWeight > 0 Or decTotalPrice > 0 Then
+                        dr.BeginEdit()
+                        dr.Item("Quantity") = decTotalQuantity
+                        dr.Item("TotalWeight") = decTotalWeight
+                        dr.Item("TotalPrice") = decTotalPrice
+                        dr.EndEdit()
+                    End If
+                End If
+            Next
+            dtItem.AcceptChanges()
+            prvCalculate()
+        End If
 
         Dim listDetail As New List(Of VO.ConfirmationOrderDet)
         For Each dr As DataRow In dtItem.Rows
             listDetail.Add(New ERPSLib.VO.ConfirmationOrderDet With
                                 {
+                                    .ID = dr.Item("ID"),
                                     .PODetailID = dr.Item("PODetailID"),
                                     .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
                                     .DeliveryAddress = dr.Item("DeliveryAddress"),
@@ -220,7 +244,28 @@ Public Class frmTraConfirmationOrderDetVer1
                                     .TotalWeight = dr.Item("TotalWeight"),
                                     .UnitPrice = dr.Item("UnitPrice"),
                                     .TotalPrice = dr.Item("TotalPrice"),
-                                    .Remarks = dr.Item("Remarks")
+                                    .Remarks = dr.Item("Remarks"),
+                                    .LevelItem = dr.Item("LevelItem"),
+                                    .ParentID = dr.Item("ParentID")
+                                })
+        Next
+
+        For Each dr As DataRow In dtSubItem.Rows
+            listDetail.Add(New ERPSLib.VO.ConfirmationOrderDet With
+                                {
+                                    .ID = dr.Item("ID"),
+                                    .PODetailID = dr.Item("PODetailID"),
+                                    .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                                    .DeliveryAddress = dr.Item("DeliveryAddress"),
+                                    .ItemID = dr.Item("ItemID"),
+                                    .Quantity = dr.Item("Quantity"),
+                                    .Weight = dr.Item("Weight"),
+                                    .TotalWeight = dr.Item("TotalWeight"),
+                                    .UnitPrice = dr.Item("UnitPrice"),
+                                    .TotalPrice = dr.Item("TotalPrice"),
+                                    .Remarks = dr.Item("Remarks"),
+                                    .LevelItem = dr.Item("LevelItem"),
+                                    .ParentID = dr.Item("ParentID")
                                 })
         Next
 
@@ -329,7 +374,7 @@ Public Class frmTraConfirmationOrderDetVer1
 
     Private Sub prvSumGrid()
         '# Item
-        Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
+        Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0}")
         Dim SumGrandTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
         Dim SumGrandTotalPrice As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
 
@@ -353,7 +398,7 @@ Public Class frmTraConfirmationOrderDetVer1
         Next
 
         '# Sub Item
-        Dim SumTotalQuantitySubItem As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
+        Dim SumTotalQuantitySubItem As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0}")
         Dim SumGrandTotalWeightSubItem As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
         Dim SumGrandTotalPriceSubItem As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
 
@@ -410,7 +455,7 @@ Public Class frmTraConfirmationOrderDetVer1
         With frmDetail
             .pubCOID = pubID
             .StartPosition = FormStartPosition.CenterScreen
-            .pubShowDialog(Me)
+            .ShowDialog(Me)
             If .pubIsSave Then
                 prvFillForm()
             End If
@@ -439,6 +484,25 @@ Public Class frmTraConfirmationOrderDetVer1
             For Each dr As DataRow In dtItem.Rows
                 dtSubItem.Merge(BL.ConfirmationOrder.ListDataDetail(pubID, dr.Item("ID")))
             Next
+
+            '# Remap ID using Guid
+            For Each dr As DataRow In dtItem.Rows
+                Dim strPrevID As String = dr.Item("ID")
+                Dim strNewID As String = Guid.NewGuid.ToString
+                For Each drSub As DataRow In dtSubItem.Rows
+                    If drSub.Item("ParentID") = strPrevID Then
+                        drSub.BeginEdit()
+                        drSub.Item("ParentID") = strNewID
+                        drSub.EndEdit()
+                    End If
+                Next
+                dtSubItem.AcceptChanges()
+
+                dr.BeginEdit()
+                dr.Item("ID") = strNewID
+                dr.EndEdit()
+            Next
+            dtItem.AcceptChanges()
 
             dsMain.Tables.Add(dtItem)
             dsMain.Tables.Add(dtSubItem)
@@ -502,6 +566,8 @@ Public Class frmTraConfirmationOrderDetVer1
     End Sub
 
     Private Sub prvDeleteItem()
+        Dim view As DevExpress.XtraGrid.Views.Grid.GridView = grdItem.FocusedView
+        If view.Name <> "grdItemView" Then Exit Sub
         intPos = grdItemView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         Dim strID As String = grdItemView.GetRowCellValue(intPos, "ID")
@@ -512,9 +578,14 @@ Public Class frmTraConfirmationOrderDetVer1
             End If
         Next
         dtItem.AcceptChanges()
+        dtSubItem.AcceptChanges()
         prvCalculate()
         prvSetButtonItem()
         prvSetupTools()
+
+        For i As Integer = 0 To grdItemView.RowCount - 1
+            grdItemView.ExpandMasterRow(i, "SubItem")
+        Next
     End Sub
 
 #End Region

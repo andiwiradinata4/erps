@@ -27,7 +27,8 @@ Namespace BL
                                    ByVal clsDataAll As List(Of VO.StockIn))
             Try
                 For Each clsData As VO.StockIn In clsDataAll
-                    Dim decTotalWeight As Decimal = DL.StockIn.GetTotalWeightStockIn(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
+                    Dim decTotalWeightReceive As Decimal = DL.StockIn.GetTotalWeightStockInReceive(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
+                    Dim decTotalWeightCutting As Decimal = DL.StockIn.GetTotalWeightStockInCuttingResult(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
                     Dim clsExists As VO.StockIn = DL.StockIn.DataExists(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
                     Dim bolNew As Boolean
                     If clsExists.ID = "" Then
@@ -37,7 +38,7 @@ Namespace BL
                         clsData.ID = clsExists.ID
                     End If
 
-                    clsData.InTotalWeight = decTotalWeight
+                    clsData.InTotalWeight = decTotalWeightReceive + decTotalWeightCutting
                     DL.StockIn.SaveData(sqlCon, sqlTrans, bolNew, clsData)
 
                     DL.StockIn.CalculateStockOut(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
@@ -50,10 +51,11 @@ Namespace BL
         Public Shared Sub CalculateStockIn(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                            ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer)
             Try
-                Dim decTotalWeight As Decimal = DL.StockIn.GetTotalWeightStockIn(sqlCon, sqlTrans, strOrderNumberSupplier, intItemID)
+                Dim decTotalWeightReceive As Decimal = DL.StockIn.GetTotalWeightStockInReceive(sqlCon, sqlTrans, strOrderNumberSupplier, intItemID)
+                Dim decTotalWeightCutting As Decimal = DL.StockIn.GetTotalWeightStockInCuttingResult(sqlCon, sqlTrans, strOrderNumberSupplier, intItemID)
                 Dim clsExists As VO.StockIn = DL.StockIn.DataExists(sqlCon, sqlTrans, strOrderNumberSupplier, intItemID)
                 If clsExists.ID <> "" Then
-                    DL.StockIn.UpdateStockInTotalWeight(sqlCon, sqlTrans, clsExists.ID, decTotalWeight)
+                    DL.StockIn.UpdateStockInTotalWeight(sqlCon, sqlTrans, clsExists.ID, decTotalWeightReceive + decTotalWeightCutting)
                 End If
             Catch ex As Exception
                 Throw ex

@@ -176,8 +176,8 @@ Namespace DL
             End Try
         End Sub
 
-        Public Shared Function GetTotalWeightStockIn(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                     ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer) As Decimal
+        Public Shared Function GetTotalWeightStockInReceive(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                            ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer) As Decimal
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim decReturn As Decimal = 0
             Try
@@ -185,7 +185,7 @@ Namespace DL
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandText =
-"SELECT SUM(TRD.TotalWeight) AS TotalWeight " & vbNewLine &
+"SELECT ISNULL(SUM(TRD.TotalWeight),0) AS TotalWeight " & vbNewLine &
 "FROM traReceive TRH " & vbNewLine &
 "INNER JOIN traReceiveDet TRD ON " & vbNewLine &
 "   TRH.ID=TRD.ReceiveID " & vbNewLine &
@@ -193,6 +193,42 @@ Namespace DL
 "	TRD.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
 "	AND TRD.ItemID=@ItemID " & vbNewLine &
 "	AND TRH.IsDeleted=0 " & vbNewLine
+
+                    .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
+                    .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        decReturn = .Item("TotalWeight")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If sqlrdData IsNot Nothing Then sqlrdData.Close()
+            End Try
+            Return decReturn
+        End Function
+
+        Public Shared Function GetTotalWeightStockInCuttingResult(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                  ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer) As Decimal
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim decReturn As Decimal = 0
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandText =
+"SELECT ISNULL(SUM(TCD.TotalWeight),0) AS TotalWeight " & vbNewLine &
+"FROM traCutting TCH " & vbNewLine &
+"INNER JOIN traCuttingDetResult TCD ON " & vbNewLine &
+"   TCH.ID=TCD.CuttingID " & vbNewLine &
+"WHERE " & vbNewLine &
+"	TCD.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
+"	AND TCD.ItemID=@ItemID " & vbNewLine &
+"	AND TCH.IsDeleted=0 " & vbNewLine
 
                     .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
                     .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID

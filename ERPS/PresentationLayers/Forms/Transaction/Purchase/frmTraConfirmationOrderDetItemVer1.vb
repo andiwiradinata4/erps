@@ -100,7 +100,7 @@ Public Class frmTraConfirmationOrderDetItemVer1
         UI.usForm.SetGrid(grdItemView, "DCQuantity", "DCQuantity", 100, UI.usDefGrid.gReal4Num, False)
         UI.usForm.SetGrid(grdItemView, "DCWeight", "DCWeight", 100, UI.usDefGrid.gReal4Num, False)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemView, "ItemLevel", "ItemLevel", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
 
         '# Sub Detail
@@ -112,26 +112,26 @@ Public Class frmTraConfirmationOrderDetItemVer1
         UI.usForm.SetGrid(grdSubItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdSubItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdSubItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdSubItemView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdSubItemView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdSubItemView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdSubItemView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSubItemView, "ItemName", "Nama Barang", 200, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubItemView, "Thick", "Tebal", 70, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubItemView, "Width", "Lebar", 70, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSubItemView, "Length", "Panjang", 70, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdSubItemView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdSubItemView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdSubItemView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdSubItemView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdSubItemView, "Quantity", "Quantity", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdSubItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal1Num)
-        UI.usForm.SetGrid(grdSubItemView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubItemView, "ItemTypeName", "Tipe", 70, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubItemView, "Quantity", "Quantity", 150, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSubItemView, "Weight", "Weight", 70, UI.usDefGrid.gReal1Num)
+        UI.usForm.SetGrid(grdSubItemView, "TotalWeight", "Total Berat", 250, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdSubItemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdSubItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdSubItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubItemView, "TotalPrice", "Total Harga", 250, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdSubItemView, "PCQuantity", "PCQuantity", 100, UI.usDefGrid.gReal4Num, False)
         UI.usForm.SetGrid(grdSubItemView, "PCWeight", "PCWeight", 100, UI.usDefGrid.gReal4Num, False)
         UI.usForm.SetGrid(grdSubItemView, "DCQuantity", "DCQuantity", 100, UI.usDefGrid.gReal4Num, False)
         UI.usForm.SetGrid(grdSubItemView, "DCWeight", "DCWeight", 100, UI.usDefGrid.gReal4Num, False)
         UI.usForm.SetGrid(grdSubItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdSubItemView, "ItemLevel", "ItemLevel", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSubItemView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdSubItemView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
     End Sub
 
@@ -179,7 +179,7 @@ Public Class frmTraConfirmationOrderDetItemVer1
 
     Private Sub prvSumGrid()
         '# Item
-        Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
+        Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0}")
         Dim SumGrandTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
         Dim SumGrandTotalPrice As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
 
@@ -198,7 +198,7 @@ Public Class frmTraConfirmationOrderDetItemVer1
         grdItemView.BestFitColumns()
 
         '# Sub Item
-        Dim SumTotalQuantitySubItem As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
+        Dim SumTotalQuantitySubItem As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0}")
         Dim SumGrandTotalWeightSubItem As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
         Dim SumGrandTotalPriceSubItem As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
 
@@ -217,7 +217,6 @@ Public Class frmTraConfirmationOrderDetItemVer1
         For i As Integer = 0 To grdItemView.RowCount - 1
             grdItemView.ExpandMasterRow(i, "SubItem")
         Next
-        grdSubItemView.BestFitColumns(True)
     End Sub
 
     Private Sub prvSave()
@@ -393,6 +392,8 @@ Public Class frmTraConfirmationOrderDetItemVer1
     End Sub
 
     Private Sub prvDeleteItem()
+        Dim view As DevExpress.XtraGrid.Views.Grid.GridView = grdItem.FocusedView
+        If view.Name <> "grdItemView" Then Exit Sub
         intPos = grdItemView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         Dim strID As String = grdItemView.GetRowCellValue(intPos, "ID")
@@ -400,10 +401,6 @@ Public Class frmTraConfirmationOrderDetItemVer1
             If dr.Item("ID") = strID Then dr.Delete() : Exit For
         Next
         dtItem.AcceptChanges()
-
-        For Each dr As DataRow In dtSubItem.Rows
-            If dr.Item("ParentID") = strID Then dr.Delete()
-        Next
         dtSubItem.AcceptChanges()
     End Sub
 

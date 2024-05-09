@@ -28,6 +28,13 @@
             End Using
         End Function
 
+        Public Shared Function ListDataFranco() As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseContract.ListDataFranco(sqlCon, Nothing)
+            End Using
+        End Function
+
         Public Shared Function GetNewID(ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer, ByVal intProgramID As Integer) As String
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
@@ -102,7 +109,13 @@
             '# Save Data Detail
             Dim intCount As Integer = 1
             For Each clsDet As VO.PurchaseContractDet In clsData.Detail
+                Dim prevID As String = clsDet.ID
                 clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
+
+                For Each clsDetChild As VO.PurchaseContractDet In clsData.Detail
+                    If clsDetChild.ParentID = prevID Then clsDetChild.ParentID = clsDet.ID
+                Next
+
                 clsDet.PCID = clsData.ID
                 DL.PurchaseContract.SaveDataDetail(sqlCon, sqlTrans, clsDet)
                 intCount += 1

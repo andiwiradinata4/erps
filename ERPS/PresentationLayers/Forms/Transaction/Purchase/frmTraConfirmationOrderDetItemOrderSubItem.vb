@@ -169,7 +169,6 @@
             dr.Item("DCQuantity") = 0
             dr.Item("DCWeight") = 0
             dr.Item("Remarks") = txtRemarks.Text.Trim
-            dr.Item("Remarks") = txtRemarks.Text.Trim
             dr.Item("LevelItem") = intItemLevel
             dr.Item("ParentID") = strParentID
             dr.EndEdit()

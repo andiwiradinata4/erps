@@ -166,6 +166,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.grdItemView.OptionsView.ColumnAutoWidth = False
         Me.grdItemView.OptionsView.ShowAutoFilterRow = True
         Me.grdItemView.OptionsView.ShowFooter = True
+        Me.grdItemView.OptionsView.ShowGroupPanel = False
         '
         'RepositoryItemTextEdit1
         '

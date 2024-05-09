@@ -7,7 +7,7 @@
     Private Const cGet As Byte = 0, cClose As Byte = 1
 
     Private Sub prvSetGrid()
-        UI.usForm.SetGrid(grdView, "DeliveryAddress", "Alamat Pengiriman", 500, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "DeliveryAddress", "Alamat Pengiriman", 1000, UI.usDefGrid.gString)
     End Sub
 
     Private Sub prvSetButton()
@@ -20,7 +20,7 @@
     Private Sub prvQuery()
         Try
             grdMain.DataSource = BL.ConfirmationOrder.ListDataDeliveryAddressDetail
-            If grdView.RowCount > 0 Then grdView.BestFitColumns()
+            If grdView.RowCount > 0 Then grdView.BestFitColumns(False)
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         End Try

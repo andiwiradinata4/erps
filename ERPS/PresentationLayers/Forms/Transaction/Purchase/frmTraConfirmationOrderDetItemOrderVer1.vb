@@ -289,29 +289,29 @@ Public Class frmTraConfirmationOrderDetItemOrderVer1
                 .Item("PODetailID") = strPODetailID
                 .Item("DeliveryAddress") = ""
                 .Item("OrderNumberSupplier") = ""
-                .Item("ItemID") = intItemID
-                .Item("ItemCode") = txtItemCode.Text.Trim
-                .Item("ItemName") = txtItemName.Text.Trim
-                .Item("Thick") = txtThick.Value
-                .Item("Width") = txtWidth.Value
-                .Item("Length") = txtLength.Value
-                .Item("ItemSpecificationID") = cboItemSpecification.SelectedValue
-                .Item("ItemSpecificationName") = cboItemSpecification.Text.Trim
-                .Item("ItemTypeID") = cboItemType.SelectedValue
-                .Item("ItemTypeName") = cboItemType.Text.Trim
-                .Item("Quantity") = txtQuantity.Value
-                .Item("Weight") = txtWeight.Value
-                .Item("TotalWeight") = txtTotalWeight.Value
-                .Item("MaxTotalWeight") = txtMaxTotalWeight.Value
-                .Item("UnitPrice") = txtUnitPrice.Value
-                .Item("TotalPrice") = txtTotalPrice.Value
+                .Item("ItemID") = dr.Item("ItemID")
+                .Item("ItemCode") = dr.Item("ItemCode")
+                .Item("ItemName") = dr.Item("ItemName")
+                .Item("Thick") = dr.Item("Thick")
+                .Item("Width") = dr.Item("Width")
+                .Item("Length") = dr.Item("Length")
+                .Item("ItemSpecificationID") = dr.Item("ItemSpecificationID")
+                .Item("ItemSpecificationName") = dr.Item("ItemSpecificationName")
+                .Item("ItemTypeID") = dr.Item("ItemTypeID")
+                .Item("ItemTypeName") = dr.Item("ItemTypeName")
+                .Item("Quantity") = dr.Item("Quantity")
+                .Item("Weight") = dr.Item("Weight")
+                .Item("TotalWeight") = dr.Item("TotalWeight")
+                .Item("MaxTotalWeight") = 0
+                .Item("UnitPrice") = dr.Item("UnitPrice")
+                .Item("TotalPrice") = dr.Item("TotalPrice")
                 .Item("PCQuantity") = 0
                 .Item("PCWeight") = 0
                 .Item("DCQuantity") = 0
                 .Item("DCWeight") = 0
-                .Item("Remarks") = txtRemarks.Text.Trim
-                .Item("LevelItem") = 1
-                .Item("ParentID") = strID
+                .Item("Remarks") = dr.Item("Remarks")
+                .Item("LevelItem") = dr.Item("LevelItem")
+                .Item("ParentID") = dr.Item("ParentID")
                 .EndEdit()
             End With
             dtParentSubItem.Rows.Add(drSubItem)
@@ -414,6 +414,7 @@ Public Class frmTraConfirmationOrderDetItemOrderVer1
             .pubIsAutoSearch = True
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
+            prvSetButton()
         End With
     End Sub
 
@@ -429,6 +430,7 @@ Public Class frmTraConfirmationOrderDetItemOrderVer1
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
+            prvSetButton()
         End With
     End Sub
 
@@ -440,6 +442,7 @@ Public Class frmTraConfirmationOrderDetItemOrderVer1
             If dr.Item("ID") = strID Then dr.Delete() : Exit For
         Next
         dtSubItem.AcceptChanges()
+        prvSetButton()
     End Sub
 
 #End Region
@@ -475,7 +478,7 @@ Public Class frmTraConfirmationOrderDetItemOrderVer1
         Select Case e.Button.Text.Trim
             Case "Tambah" : prvAddSubItem()
             Case "Edit" : prvEditSubItem()
-            Case "Edit" : prvDeleteSubItem()
+            Case "Hapus" : prvDeleteSubItem()
         End Select
     End Sub
 

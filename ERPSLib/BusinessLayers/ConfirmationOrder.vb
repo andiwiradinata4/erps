@@ -58,7 +58,13 @@
                     '# Save Data Detail
                     Dim intCount As Integer = 1
                     For Each clsDet As VO.ConfirmationOrderDet In clsData.Detail
+                        Dim prevID As String = clsDet.ID
                         clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
+
+                        For Each clsDetChild As VO.ConfirmationOrderDet In clsData.Detail
+                            If clsDetChild.ParentID = prevID Then clsDetChild.ParentID = clsDet.ID
+                        Next
+
                         clsDet.COID = clsData.ID
                         DL.ConfirmationOrder.SaveDataDetail(sqlCon, sqlTrans, clsDet)
                         intCount += 1
@@ -75,7 +81,7 @@
 
                     '# Calculate CO Quantity
                     For Each clsDet As VO.ConfirmationOrderDet In clsData.Detail
-                        DL.PurchaseOrder.CalculateCOTotalUsed(sqlCon, sqlTrans, clsDet.PODetailID)
+                        If clsDet.ParentID = "" Then DL.PurchaseOrder.CalculateCOTotalUsed(sqlCon, sqlTrans, clsDet.PODetailID)
                     Next
 
                     '# Save Data Status
@@ -129,6 +135,7 @@
                 For Each dr As DataRow In dtItem.Rows
                     listDetailOrder.Add(New ERPSLib.VO.PurchaseContractDet With
                     {
+                        .ID = dr.Item("ID"),
                         .CODetailID = dr.Item("ID"),
                         .ItemID = dr.Item("ItemID"),
                         .Quantity = dr.Item("Quantity"),
@@ -137,7 +144,24 @@
                         .UnitPrice = dr.Item("UnitPrice"),
                         .TotalPrice = dr.Item("TotalPrice"),
                         .Remarks = dr.Item("Remarks"),
-                        .ItemLevel = dr.Item("ItemLevel"),
+                        .LevelItem = dr.Item("LevelItem"),
+                        .ParentID = dr.Item("ParentID")
+                    })
+                Next
+
+                For Each dr As DataRow In dtSubItem.Rows
+                    listDetailOrder.Add(New ERPSLib.VO.PurchaseContractDet With
+                    {
+                        .ID = dr.Item("ID"),
+                        .CODetailID = dr.Item("ID"),
+                        .ItemID = dr.Item("ItemID"),
+                        .Quantity = dr.Item("Quantity"),
+                        .Weight = dr.Item("Weight"),
+                        .TotalWeight = dr.Item("TotalWeight"),
+                        .UnitPrice = dr.Item("UnitPrice"),
+                        .TotalPrice = dr.Item("TotalPrice"),
+                        .Remarks = dr.Item("Remarks"),
+                        .LevelItem = dr.Item("LevelItem"),
                         .ParentID = dr.Item("ParentID")
                     })
                 Next

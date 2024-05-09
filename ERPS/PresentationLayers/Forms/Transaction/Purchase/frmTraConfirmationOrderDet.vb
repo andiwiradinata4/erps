@@ -352,7 +352,7 @@ Public Class frmTraConfirmationOrderDet
         With frmDetail
             .pubCOID = pubID
             .StartPosition = FormStartPosition.CenterScreen
-            .pubShowDialog(Me)
+            .ShowDialog(Me)
             If .pubIsSave Then
                 prvFillForm()
             End If

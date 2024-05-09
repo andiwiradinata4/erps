@@ -110,6 +110,21 @@
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataFranco(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT DISTINCT " & vbNewLine &
+                    "   A.Franco " & vbNewLine &
+                    "FROM traPurchaseContract A " & vbNewLine
+
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                    ByVal bolNew As Boolean, ByVal clsData As VO.PurchaseContract)
             Dim sqlCmdExecute As New SqlCommand
@@ -776,7 +791,7 @@
                     "SELECT " & vbNewLine &
                     "   A.ID, A.PCID, A.CODetailID, A2.CONumber, A1.OrderNumberSupplier, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
-                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.PCWeight AS MaxTotalWeight, A.Remarks " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.PCWeight AS MaxTotalWeight, A.Remarks, A.LevelItem, A.ParentID " & vbNewLine &
                     "FROM traPurchaseContractDet A " & vbNewLine &
                     "INNER JOIN traConfirmationOrderDet A1 ON " & vbNewLine &
                     "   A.CODetailID=A1.ID " & vbNewLine &
@@ -889,9 +904,9 @@ WHERE
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traPurchaseContractDet " & vbNewLine &
-                    "   (ID, PCID, CODetailID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, ItemLevel, ParentID) " & vbNewLine &
+                    "   (ID, PCID, CODetailID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, LevelItem, ParentID) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @PCID, @CODetailID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @ItemLevel, @ParentID) " & vbNewLine
+                    "   (@ID, @PCID, @CODetailID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @LevelItem, @ParentID) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@PCID", SqlDbType.VarChar, 100).Value = clsData.PCID
@@ -903,7 +918,7 @@ WHERE
                 .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = clsData.UnitPrice
                 .Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = clsData.TotalPrice
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
-                .Parameters.Add("@ItemLevel", SqlDbType.Int).Value = clsData.ItemLevel
+                .Parameters.Add("@LevelItem", SqlDbType.Int).Value = clsData.LevelItem
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
             End With
             Try
