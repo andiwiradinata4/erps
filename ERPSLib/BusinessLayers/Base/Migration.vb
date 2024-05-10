@@ -614,7 +614,11 @@
                 "ALTER TABLE traAccountPayable ADD IsUseSubItem bit NOT NULL CONSTRAINT DF_traAccountPayable_IsUseSubItem DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traAccountReceivable ADD IsUseSubItem bit NOT NULL CONSTRAINT DF_traAccountReceivable_IsUseSubItem DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traARAPItem ADD LevelItem int NOT NULL CONSTRAINT DF_traARAPItem_LevelItem DEFAULT ((0)) " & vbNewLine &
-                "ALTER TABLE traARAPItem ADD ReferencesParentID varchar(100) NOT NULL CONSTRAINT DF_traARAPItem_ReferencesParentID DEFAULT ('') " & vbNewLine
+                "ALTER TABLE traARAPItem ADD ReferencesParentID varchar(100) NOT NULL CONSTRAINT DF_traARAPItem_ReferencesParentID DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traAccountPayableDet ADD LevelItem int NOT NULL CONSTRAINT DF_traAccountPayableDet_LevelItem DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountPayableDet ADD ReferencesParentID varchar(100) NOT NULL CONSTRAINT DF_traAccountPayableDet_ReferencesParentID DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traAccountReceivableDet ADD LevelItem int NOT NULL CONSTRAINT DF_traAccountReceivableDet_LevelItem DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountReceivableDet ADD ReferencesParentID varchar(100) NOT NULL CONSTRAINT DF_traAccountReceivableDet_ReferencesParentID DEFAULT ('') " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

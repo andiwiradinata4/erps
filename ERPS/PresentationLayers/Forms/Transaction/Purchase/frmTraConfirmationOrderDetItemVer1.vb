@@ -312,7 +312,7 @@ Public Class frmTraConfirmationOrderDetItemVer1
 
     Public Function pubGetAllData() As DataTable
         Dim dtData As DataTable = dtParentItem.Clone
-        For Each dr As DataRow In dtParentItem.Rows
+        For Each dr As DataRow In dtItem.Rows
             dtData.ImportRow(dr)
         Next
         Return dtData
@@ -320,10 +320,6 @@ Public Class frmTraConfirmationOrderDetItemVer1
 
     Public Function pubGetAllDataSubItem() As DataTable
         Dim dtData As DataTable = dtParentSubItem.Clone
-        For Each dr As DataRow In dtParentSubItem.Rows
-            dtData.ImportRow(dr)
-        Next
-
         For Each dr As DataRow In dtSubItem.Rows
             dtData.ImportRow(dr)
         Next

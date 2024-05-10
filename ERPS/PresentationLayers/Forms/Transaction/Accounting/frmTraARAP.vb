@@ -309,6 +309,7 @@ Public Class frmTraARAP
             .pubBPID = intBPID
             .pubARAPType = enumARAPType
             .pubReferencesID = strReferencesID
+            .pubIsUseSubItem = bolIsUseSubItem
             .Text = Me.Text
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)

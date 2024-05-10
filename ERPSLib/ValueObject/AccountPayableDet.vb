@@ -9,5 +9,7 @@
         Property Remarks As String
         Property DPAmount As Decimal
         Property Rounding As Decimal
+        Property LevelItem As Integer
+        Property ReferencesParentID As String
     End Class
 End Namespace

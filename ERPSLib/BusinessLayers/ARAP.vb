@@ -324,7 +324,9 @@ Namespace BL
                                             .PPH = cls.PPH,
                                             .Remarks = cls.Remarks,
                                             .DPAmount = cls.DPAmount,
-                                            .Rounding = cls.Rounding
+                                            .Rounding = cls.Rounding,
+                                            .LevelItem = cls.LevelItem,
+                                            .ReferencesParentID = cls.ReferencesParentID
                                         })
                         Next
 

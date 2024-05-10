@@ -594,6 +594,35 @@
             End Try
         End Sub
 
+        Public Shared Sub CalculateTotalUsedDownPaymentVer1(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                            ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traPurchaseContract SET 	" & vbNewLine &
+                    "	DPAmount=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(PCD.DPAmount),0) TotalDPAmount " & vbNewLine &
+                    "		FROM traPurchaseContractDet PCD " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			PCD.PCID=@ID " & vbNewLine &
+                    "			AND PCD.ParentID='' " & vbNewLine &
+                    "	) " & vbNewLine &
+                    "WHERE ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
         Public Shared Sub CalculateItemTotalUsedDownPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                             ByVal strReferencesID As String, ByVal strReferencesDetailID As String)
             Dim sqlCmdExecute As New SqlCommand

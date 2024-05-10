@@ -377,9 +377,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traARAPItem " & vbNewLine &
-                    "   (ID, ParentID, ReferencesID, ReferencesDetailID, OrderNumberSupplier, ItemID, Amount, PPN, PPH, DPAmount, Rounding) " & vbNewLine &
+                    "   (ID, ParentID, ReferencesID, ReferencesDetailID, OrderNumberSupplier, ItemID, Amount, PPN, PPH, DPAmount, Rounding, LevelItem, ReferencesParentID) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @ParentID, @ReferencesID, @ReferencesDetailID, @OrderNumberSupplier, @ItemID, @Amount, @PPN, @PPH, @DPAmount, @Rounding) " & vbNewLine
+                    "   (@ID, @ParentID, @ReferencesID, @ReferencesDetailID, @OrderNumberSupplier, @ItemID, @Amount, @PPN, @PPH, @DPAmount, @Rounding, @LevelItem, @ReferencesParentID) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
@@ -392,6 +392,8 @@
                 .Parameters.Add("@PPH", SqlDbType.Decimal).Value = clsData.PPH
                 .Parameters.Add("@DPAmount", SqlDbType.Decimal).Value = clsData.DPAmount
                 .Parameters.Add("@Rounding", SqlDbType.Decimal).Value = clsData.Rounding
+                .Parameters.Add("@LevelItem", SqlDbType.Int).Value = clsData.LevelItem
+                .Parameters.Add("@ReferencesParentID", SqlDbType.VarChar, 100).Value = clsData.ReferencesParentID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

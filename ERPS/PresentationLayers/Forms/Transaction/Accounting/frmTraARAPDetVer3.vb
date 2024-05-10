@@ -117,6 +117,8 @@ Public Class frmTraARAPDetVer3
         UI.usForm.SetGrid(grdItemView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "ReferencesParentID", "ReferencesParentID", 100, UI.usDefGrid.gString, False)
         grdItemView.Columns("Amount").ColumnEdit = rpiValue
         grdItemView.Columns("PPN").ColumnEdit = rpiValue
         grdItemView.Columns("PPH").ColumnEdit = rpiValue
@@ -273,6 +275,8 @@ Public Class frmTraARAPDetVer3
         clsDetail.PPH = txtTotalPPH.Value
         clsDetail.Remarks = txtRemarks.Text.Trim
         clsDetail.DPAmount = 0
+        clsDetail.LevelItem = 0
+        clsDetail.ReferencesParentID = ""
         listDetail.Add(clsDetail)
 
         Dim listDetailItem As New List(Of VO.ARAPItem)
@@ -290,6 +294,8 @@ Public Class frmTraARAPDetVer3
                 clsDetailItem.PPH = dr.Item("PPH")
                 clsDetailItem.DPAmount = dr.Item("DPAmount")
                 clsDetailItem.Rounding = dr.Item("Rounding")
+                clsDetailItem.LevelItem = dr.Item("LevelItem")
+                clsDetailItem.ReferencesParentID = dr.Item("ReferencesParentID")
                 listDetailItem.Add(clsDetailItem)
             End If
         Next
