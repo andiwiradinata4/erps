@@ -349,7 +349,6 @@ Public Class frmTraARAP
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-
             prvResetProgressBar()
         End Try
     End Sub

@@ -298,12 +298,14 @@ Public Class frmTraARAPDetVer4
                 clsDetailItem.PPH = dr.Item("PPH")
                 clsDetailItem.DPAmount = dr.Item("DPAmount")
                 clsDetailItem.Rounding = dr.Item("Rounding")
+                clsDetailItem.LevelItem = dr.Item("LevelItem")
+                clsDetailItem.ReferencesParentID = dr.Item("ReferencesParentID")
                 listDetailItem.Add(clsDetailItem)
             End If
         Next
 
         Dim dsHelper As New DataSetHelper
-        Dim dtARAPDet As DataTable = dsHelper.SelectGroupByInto("ARAPDet", dtItem, "Pick, ReferencesID, SUM(Amount) Amount, SUM(PPN) PPN, SUM(PPH) PPH, SUM(DPAmount) DPAmount", "Pick=True", "Pick, ReferencesID")
+        Dim dtARAPDet As DataTable = dsHelper.SelectGroupByInto("ARAPDet", dtItem, "Pick, ReferencesID, SUM(Amount) Amount, SUM(PPN) PPN, SUM(PPH) PPH, SUM(DPAmount) DPAmount, LevelItem, ReferencesParentID", "Pick=True", "Pick, ReferencesID, LevelItem, ReferencesParentID")
         Dim listDetail As New List(Of VO.ARAPDet)
         For Each dr As DataRow In dtARAPDet.Rows
             listDetail.Add(New ERPSLib.VO.ARAPDet With
@@ -315,7 +317,9 @@ Public Class frmTraARAPDetVer4
                            .PPN = dr.Item("PPN"),
                            .PPH = dr.Item("PPH"),
                            .Remarks = "",
-                           .DPAmount = UCase(dr.Item("DPAmount"))
+                           .DPAmount = UCase(dr.Item("DPAmount")),
+                           .LevelItem = dr.Item("LevelItem"),
+                           .ReferencesParentID = dr.Item("ReferencesParentID")
                        })
         Next
 
