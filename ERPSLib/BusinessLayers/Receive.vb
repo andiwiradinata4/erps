@@ -21,6 +21,10 @@
         End Function
 
         Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.Receive) As String
+            '# Calculate Total Receive Parent ID
+            '# Handle Stock IN Parent Item
+            '# Check Delete utk Calculate Parent Item
+
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
@@ -34,13 +38,19 @@
 
                         DL.Receive.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
 
-
                         For Each dr As DataRow In dtItem.Rows
                             '# Revert DC Quantity
                             DL.PurchaseContract.CalculateDCTotalUsed(sqlCon, sqlTrans, dr.Item("PCDetailID"))
 
                             '# Delete Stock In
                             BL.StockIn.DeleteData(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
+                        Next
+
+                        Dim clsHelper As New DataSetHelper
+                        Dim dtParentID As DataTable = clsHelper.SelectGroupByInto("ParentID", dtItem, "ParentID", "", "ParentID")
+                        For Each dr As DataRow In dtParentID.Rows
+                            '# Revert Payment Item Parent Amount
+                            If dr.Item("ParentID") <> "" Then DL.PurchaseContract.CalculateDCTotalUsedParent(sqlCon, sqlTrans, dr.Item("ParentID"))
                         Next
 
                         Dim clsExists As VO.Receive = DL.Receive.GetDetail(sqlCon, sqlTrans, clsData.ID)
@@ -84,6 +94,14 @@
                     '# Calculate DC Quantity
                     For Each clsDet As VO.ReceiveDet In clsData.Detail
                         DL.PurchaseContract.CalculateDCTotalUsed(sqlCon, sqlTrans, clsDet.PCDetailID)
+                    Next
+
+                    Dim strParentIDExists As String = ""
+                    For Each clsDet As VO.ReceiveDet In clsData.Detail
+                        If strParentIDExists <> clsDet.ParentID Then
+                            If clsDet.ParentID <> "" Then DL.PurchaseContract.CalculateDCTotalUsedParent(sqlCon, sqlTrans, clsDet.ParentID)
+                            strParentIDExists = clsDet.ParentID
+                        End if 
                     Next
 
                     '# Save Data Status
@@ -132,6 +150,13 @@
 
                         '# Delete Stock In
                         BL.StockIn.CalculateStockIn(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
+                    Next
+
+                    Dim clsHelper As New DataSetHelper
+                    Dim dtParentID As DataTable = clsHelper.SelectGroupByInto("ParentID", dtItem, "ParentID", "", "ParentID")
+                    For Each dr As DataRow In dtParentID.Rows
+                        '# Revert Payment Item Parent Amount
+                        If dr.Item("ParentID") <> "" Then DL.PurchaseContract.CalculateDCTotalUsedParent(sqlCon, sqlTrans, dr.Item("ParentID"))
                     Next
 
                     '# Save Data Status

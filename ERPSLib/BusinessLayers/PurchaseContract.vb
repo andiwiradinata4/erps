@@ -410,10 +410,11 @@
         End Function
 
         Public Shared Function ListDataDetailOutstandingReceive(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                                ByVal intBPID As Integer, ByVal strPCID As String) As DataTable
+                                                                ByVal intBPID As Integer, ByVal strPCID As String,
+                                                                ByVal bolIsUseSubItem As Boolean) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.PurchaseContract.ListDataDetailOutstandingReceive(sqlCon, Nothing, intProgramID, intCompanyID, intBPID, strPCID)
+                Return DL.PurchaseContract.ListDataDetailOutstandingReceive(sqlCon, Nothing, intProgramID, intCompanyID, intBPID, strPCID, bolIsUseSubItem)
             End Using
         End Function
 

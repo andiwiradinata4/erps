@@ -11,6 +11,7 @@ Public Class frmTraReceiveDet
     Private dtItem As New DataTable
     Private dtPaymentTerm As New DataTable
     Private intPos As Integer = 0
+    Private bolIsUseSubItem As Boolean
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
@@ -23,7 +24,7 @@ Public Class frmTraReceiveDet
 #End Region
 
     Private Const _
-       cSave As Byte = 0, cClose As Byte = 1, _
+       cSave As Byte = 0, cClose As Byte = 1,
        cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2
 
     Private Sub prvSetTitleForm()
@@ -64,6 +65,8 @@ Public Class frmTraReceiveDet
         UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
 
         '# History
         UI.usForm.SetGrid(grdStatusView, "ID", "ID", 100, UI.usDefGrid.gString, False)
@@ -114,6 +117,7 @@ Public Class frmTraReceiveDet
                 txtTotalPPH.Value = clsData.TotalPPH
                 cboStatus.SelectedValue = clsData.StatusID
                 txtRemarks.Text = clsData.Remarks
+                bolIsUseSubItem = clsData.IsUseSubItem
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
@@ -186,7 +190,9 @@ Public Class frmTraReceiveDet
                                     .UnitPrice = dr.Item("UnitPrice"),
                                     .TotalPrice = dr.Item("TotalPrice"),
                                     .Remarks = dr.Item("Remarks"),
-                                    .OrderNumberSupplier = dr.Item("OrderNumberSupplier")
+                                    .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                                    .LevelItem = dr.Item("LevelItem"),
+                                    .ParentID = dr.Item("ParentID")
                                 })
         Next
 
@@ -215,13 +221,12 @@ Public Class frmTraReceiveDet
         clsData.RoundingManual = 0
         clsData.Remarks = txtRemarks.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
+        clsData.IsUseSubItem = bolIsUseSubItem
         clsData.Detail = listDetailOrder
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
 
         pgMain.Value = 60
-
-
         Try
             Dim strReceiveNumber As String = BL.Receive.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strReceiveNumber)
@@ -310,6 +315,7 @@ Public Class frmTraReceiveDet
                 End If
                 strPCID = .pubLUdtRow.Item("ID")
                 txtPCNumber.Text = .pubLUdtRow.Item("PCNumber")
+                bolIsUseSubItem = .pubLUdtRow.Item("IsUseSubItem")
             End If
         End With
     End Sub
@@ -427,6 +433,7 @@ Public Class frmTraReceiveDet
             .pubPCID = strPCID
             .pubTableParentItem = dtItem
             .pubIsAutoSearch = True
+            .pubIsUseSubItem = bolIsUseSubItem
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -446,6 +453,7 @@ Public Class frmTraReceiveDet
             .pubPCID = strPCID
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .pubTableParentItem = dtItem
+            .pubIsUseSubItem = bolIsUseSubItem
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()

@@ -38,6 +38,7 @@
         UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "BPCode", "Kode Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "BPName", "Nama Pemasok", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "IsUseSubItem", "IsUseSubItem", 100, UI.usDefGrid.gBoolean, False)
     End Sub
 
     Private Sub prvSetButton()

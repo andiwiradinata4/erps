@@ -8,6 +8,7 @@ Public Class frmTraReceiveDetItemOutstanding
     Private intBPID As Integer = 0
     Private clsCS As VO.CS
     Private strPCID As String = ""
+    Private bolIsUseSubItem As Boolean
     Public pubLUdtRow As DataRow
     Public pubIsLookUpGet As Boolean = False
     Public pubParentItem As New DataTable
@@ -27,6 +28,12 @@ Public Class frmTraReceiveDetItemOutstanding
     Public WriteOnly Property pubPCID As String
         Set(value As String)
             strPCID = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubIsUseSubItem As Boolean
+        Set(value As Boolean)
+            bolIsUseSubItem = value
         End Set
     End Property
 
@@ -60,6 +67,8 @@ Public Class frmTraReceiveDetItemOutstanding
         UI.usForm.SetGrid(grdView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "LevelItem", "LevelItem", 300, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "ParentID", "ParentID", 300, UI.usDefGrid.gString, False)
     End Sub
 
     Private Sub prvSetButton()
@@ -72,7 +81,7 @@ Public Class frmTraReceiveDetItemOutstanding
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         Try
-            Dim dtData As DataTable = BL.PurchaseContract.ListDataDetailOutstandingReceive(clsCS.ProgramID, clsCS.CompanyID, intBPID, strPCID)
+            Dim dtData As DataTable = BL.PurchaseContract.ListDataDetailOutstandingReceive(clsCS.ProgramID, clsCS.CompanyID, intBPID, strPCID, bolIsUseSubItem)
             For Each drParent As DataRow In pubParentItem.Rows
                 For Each dr As DataRow In dtData.Rows
                     If dr.Item("ID") = drParent.Item("PCDetailID") Then dr.Delete() '# Tidak memunculkan Kontrak Detail yang sudah dipilih

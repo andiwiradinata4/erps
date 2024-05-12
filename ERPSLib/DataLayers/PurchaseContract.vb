@@ -89,7 +89,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT DISTINCT " & vbNewLine &
-                    "   A.ID, A.PCNumber, A.PCDate, A.BPID, MBP.Code AS BPCode, MBP.Name AS BPName " & vbNewLine &
+                    "   A.ID, A.PCNumber, A.PCDate, A.BPID, MBP.Code AS BPCode, MBP.Name AS BPName, A.IsUseSubItem " & vbNewLine &
                     "FROM traPurchaseContract A " & vbNewLine &
                     "INNER JOIN traPurchaseContractDet PCD ON " & vbNewLine &
                     "   A.ID=PCD.PCID " & vbNewLine &
@@ -877,37 +877,39 @@
 
         Public Shared Function ListDataDetailOutstandingReceive(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                                 ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                                ByVal intBPID As Integer, ByVal strPCID As String) As DataTable
+                                                                ByVal intBPID As Integer, ByVal strPCID As String,
+                                                                ByVal bolIsUseSubItem As Boolean) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = <a>
-SELECT  
-    PCD.ID, PCD.PCID, PCH.PCNumber, COD.OrderNumberSupplier, PCD.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  
-    C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  
-    PCD.Quantity-PCD.DCQuantity AS Quantity, PCD.Weight, PCD.TotalWeight-PCD.DCWeight AS TotalWeight, PCD.UnitPrice, PCD.TotalPrice 
-FROM traPurchaseContractDet PCD  
-INNER JOIN traPurchaseContract PCH ON  
-    PCD.PCID=PCH.ID  
-INNER JOIN traConfirmationOrderDet COD ON 
-	PCD.CODetailID=COD.ID 
-INNER JOIN mstItem B ON  
-    PCD.ItemID=B.ID  
-INNER JOIN mstItemSpecification C ON  
-    B.ItemSpecificationID=C.ID  
-INNER JOIN mstItemType D ON  
-    B.ItemTypeID=D.ID  
-WHERE  
-    PCH.IsDeleted=0 
-	AND PCH.ProgramID=@ProgramID 
-	AND PCH.CompanyID=@CompanyID 
-    AND PCH.StatusID=@StatusID  
-	AND PCH.BPID=@BPID 
-    AND PCD.TotalWeight-PCD.DCWeight>0 
-    AND PCD.PCID=@PCID 
-</a>.Value
+                .CommandText =
+"SELECT   " & vbNewLine &
+"    PCD.ID, PCD.PCID, PCH.PCNumber, COD.OrderNumberSupplier, PCD.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,   " & vbNewLine &
+"    C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,   " & vbNewLine &
+"    PCD.Quantity-PCD.DCQuantity AS Quantity, PCD.Weight, PCD.TotalWeight-PCD.DCWeight AS TotalWeight, PCD.UnitPrice, PCD.TotalPrice, PCD.LevelItem, PCD.ParentID  " & vbNewLine &
+"FROM traPurchaseContractDet PCD   " & vbNewLine &
+"INNER JOIN traPurchaseContract PCH ON   " & vbNewLine &
+"    PCD.PCID=PCH.ID   " & vbNewLine &
+"INNER JOIN traConfirmationOrderDet COD ON  " & vbNewLine &
+"	PCD.CODetailID=COD.ID  " & vbNewLine &
+"INNER JOIN mstItem B ON   " & vbNewLine &
+"    PCD.ItemID=B.ID   " & vbNewLine &
+"INNER JOIN mstItemSpecification C ON   " & vbNewLine &
+"    B.ItemSpecificationID=C.ID   " & vbNewLine &
+"INNER JOIN mstItemType D ON   " & vbNewLine &
+"    B.ItemTypeID=D.ID   " & vbNewLine &
+"WHERE   " & vbNewLine &
+"   PCH.IsDeleted=0  " & vbNewLine &
+"	AND PCH.ProgramID=@ProgramID  " & vbNewLine &
+"	AND PCH.CompanyID=@CompanyID  " & vbNewLine &
+"   AND PCH.StatusID=@StatusID   " & vbNewLine &
+"	AND PCH.BPID=@BPID  " & vbNewLine &
+"   AND PCD.TotalWeight-PCD.DCWeight>0  " & vbNewLine &
+"   AND PCD.PCID=@PCID  " & vbNewLine
+
+                If bolIsUseSubItem Then .CommandText += "   AND PCD.ParentID<>'' " & vbNewLine
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
@@ -1045,6 +1047,42 @@ WHERE
                     "WHERE ID=@PCDetailID	" & vbNewLine
 
                 .Parameters.Add("@PCDetailID", SqlDbType.VarChar, 100).Value = strPCDetailID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateDCTotalUsedParent(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                     ByVal strParentID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traPurchaseContractDet SET 	" & vbNewLine &
+                    "	DCWeight=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(RVD.TotalWeight),0) TotalWeight		" & vbNewLine &
+                    "		FROM traReceiveDet RVD 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			RVD.ParentID=@ParentID " & vbNewLine &
+                    "	), 	" & vbNewLine &
+                    "	DCQuantity=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(RVD.Quantity),0) TotalQuantity " & vbNewLine &
+                    "		FROM traReceiveDet RVD 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			RVD.ParentID=@ParentID 	" & vbNewLine &
+                    "	) 	" & vbNewLine &
+                    "WHERE ID=@ParentID	" & vbNewLine
+
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
