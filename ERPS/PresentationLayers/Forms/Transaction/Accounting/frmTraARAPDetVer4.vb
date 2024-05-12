@@ -353,6 +353,7 @@ Public Class frmTraARAPDetVer4
         clsData.IsDP = False
         clsData.DPAmount = txtDPAllocate.Value
         clsData.ReceiveAmount = txtTotalAmount.Value
+        clsData.IsUseSubItem = bolIsUseSubItem
         clsData.Detail = listDetail
         clsData.DetailItem = listDetailItem
         clsData.DownPayment = listDownPayment

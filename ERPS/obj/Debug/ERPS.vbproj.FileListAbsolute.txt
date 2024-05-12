@@ -789,3 +789,19 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseContra
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseContractFranco.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseContractDetItemVer1.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraReceiveDetVer1.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraAccountSetInvoiceNumberBP.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPChooseBankAccount.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemAddress.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderOutstandingVer1.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderSubItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderVer1.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemVer1.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetVer1.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseContractDetItemVer1.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseContractDetVer1.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseContractFranco.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderCuttingDetItemResult.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderCuttingDetItemResultOustandingCutting.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraReceiveDetVer1.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraDeliveryDetItemVer01.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractOutstandingDeliveryItemVer01.resources

@@ -21,10 +21,6 @@
         End Function
 
         Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.Receive) As String
-            '# Calculate Total Receive Parent ID
-            '# Handle Stock IN Parent Item
-            '# Check Delete utk Calculate Parent Item
-
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
@@ -101,7 +97,7 @@
                         If strParentIDExists <> clsDet.ParentID Then
                             If clsDet.ParentID <> "" Then DL.PurchaseContract.CalculateDCTotalUsedParent(sqlCon, sqlTrans, clsDet.ParentID)
                             strParentIDExists = clsDet.ParentID
-                        End if 
+                        End If
                     Next
 
                     '# Save Data Status
