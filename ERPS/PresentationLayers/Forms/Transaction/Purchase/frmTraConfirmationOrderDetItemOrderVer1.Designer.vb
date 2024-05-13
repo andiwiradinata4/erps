@@ -137,7 +137,7 @@ Partial Class frmTraConfirmationOrderDetItemOrderVer1
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlDetail.Location = New System.Drawing.Point(0, 28)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(645, 372)
+        Me.pnlDetail.Size = New System.Drawing.Size(645, 383)
         Me.pnlDetail.TabIndex = 2
         '
         'lblInfo
@@ -676,7 +676,7 @@ Partial Class frmTraConfirmationOrderDetItemOrderVer1
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItem.Size = New System.Drawing.Size(519, 324)
+        Me.grdItem.Size = New System.Drawing.Size(519, 335)
         Me.grdItem.TabIndex = 5
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView, Me.GridView1})
@@ -722,7 +722,7 @@ Partial Class frmTraConfirmationOrderDetItemOrderVer1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1164, 400)
+        Me.ClientSize = New System.Drawing.Size(1164, 411)
         Me.Controls.Add(Me.grdItem)
         Me.Controls.Add(Me.ToolBarSubItem)
         Me.Controls.Add(Me.Label5)

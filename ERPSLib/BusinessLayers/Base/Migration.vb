@@ -27,6 +27,7 @@
                 DevelopOnProgress_ID20(sqlCon, Nothing)
                 DevelopOnProgress_ID21(sqlCon, Nothing)
                 DevelopOnProgress_ID22(sqlCon, Nothing)
+                DevelopOnProgress_ID23(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -619,6 +620,44 @@
                 "ALTER TABLE traAccountPayableDet ADD ReferencesParentID varchar(100) NOT NULL CONSTRAINT DF_traAccountPayableDet_ReferencesParentID DEFAULT ('') " & vbNewLine &
                 "ALTER TABLE traAccountReceivableDet ADD LevelItem int NOT NULL CONSTRAINT DF_traAccountReceivableDet_LevelItem DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traAccountReceivableDet ADD ReferencesParentID varchar(100) NOT NULL CONSTRAINT DF_traAccountReceivableDet_ReferencesParentID DEFAULT ('') " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 23
+        Private Shared Sub DevelopOnProgress_ID23(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 23
+            clsData.Name = "Develop On Progress 23"
+            clsData.Scripts =
+                "ALTER TABLE traPurchaseOrderDet ADD RoundingWeight decimal(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderDet_RoundingWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traConfirmationOrderDet ADD RoundingWeight decimal(18,4) NOT NULL CONSTRAINT DF_traConfirmationOrderDet_RoundingWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseContractDet ADD RoundingWeight decimal(18,4) NOT NULL CONSTRAINT DF_traPurchaseContractDet_RoundingWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traReceiveDet ADD RoundingWeight decimal(18,4) NOT NULL CONSTRAINT DF_traReceiveDet_RoundingWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traOrderRequestDet ADD RoundingWeight decimal(18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_RoundingWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesContractDet ADD RoundingWeight decimal(18,4) NOT NULL CONSTRAINT DF_traSalesContractDet_RoundingWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesContractDetConfirmationOrder ADD RoundingWeight decimal(18,4) NOT NULL CONSTRAINT DF_traSalesContractDetConfirmationOrder_RoundingWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesContractDetConfirmationOrder ADD LevelItem int NOT NULL CONSTRAINT DF_traSalesContractDetConfirmationOrder_LevelItem DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesContractDetConfirmationOrder ADD ParentID varchar(100) NOT NULL CONSTRAINT DF_traSalesContractDetConfirmationOrder_ParentID DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD RoundingWeight decimal(18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_RoundingWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDet ADD RoundingWeight decimal(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_RoundingWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDet ADD LevelItem int NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_LevelItem DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDet ADD ParentID varchar(100) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ParentID DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDetResult ADD RoundingWeight decimal(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_RoundingWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDetResult ADD LevelItem int NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_LevelItem DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDetResult ADD ParentID varchar(100) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_ParentID DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traCuttingDet ADD RoundingWeight decimal(18,4) NOT NULL CONSTRAINT DF_traCuttingDet_RoundingWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCuttingDet ADD LevelItem int NOT NULL CONSTRAINT DF_traCuttingDet_LevelItem DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCuttingDet ADD ParentID varchar(100) NOT NULL CONSTRAINT DF_traCuttingDet_ParentID DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traCuttingDetResult ADD RoundingWeight decimal(18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_RoundingWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCuttingDetResult ADD LevelItem int NOT NULL CONSTRAINT DF_traCuttingDetResult_LevelItem DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCuttingDetResult ADD ParentID varchar(100) NOT NULL CONSTRAINT DF_traCuttingDetResult_ParentID DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traStockIn ADD OutTotalWeightProcess decimal(18,4) NOT NULL CONSTRAINT DF_traStockIn_OutTotalWeightProcess DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traStockIn ADD OutTotalQuantityProcess decimal(18,4) NOT NULL CONSTRAINT DF_traStockIn_OutTotalQuantityProcess DEFAULT ((0)) " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

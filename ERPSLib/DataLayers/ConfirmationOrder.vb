@@ -475,7 +475,7 @@
                     "   A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, C.ID AS ItemSpecificationID, " & vbNewLine &
                     "   C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, A.Quantity,   " & vbNewLine &
                     "   A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.COWeight AS MaxTotalWeight, A.PCQuantity, A.PCWeight,   " & vbNewLine &
-                    "   A.DCQuantity, A.DCWeight, A.Remarks, A.LevelItem, A.ParentID " & vbNewLine &
+                    "   A.DCQuantity, A.DCWeight, A.Remarks, A.LevelItem, A.ParentID, A.RoundingWeight " & vbNewLine &
                     "FROM traConfirmationOrderDet A " & vbNewLine &
                     "INNER JOIN traPurchaseOrderDet A1 ON " & vbNewLine &
                     "   A.PODetailID=A1.ID " & vbNewLine &
@@ -509,7 +509,7 @@
                     "SELECT " & vbNewLine &
                     "	COD.ID, COD.COID, COH.CONumber, COD.OrderNumberSupplier, COD.DeliveryAddress, COD.ItemID, MI.ItemCode, MI.ItemName, " & vbNewLine &
                     "   MI.Thick, MI.Width, MI.Length, MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, " & vbNewLine &
-                    "   MIT.Description AS ItemTypeName, COD.Quantity-COD.PCQuantity AS Quantity, COD.Weight, COD.TotalWeight-COD.PCWeight AS TotalWeight, COD.UnitPrice, COD.TotalPrice 	" & vbNewLine &
+                    "   MIT.Description AS ItemTypeName, COD.Quantity-COD.PCQuantity AS Quantity, COD.Weight, COD.TotalWeight-COD.PCWeight AS TotalWeight, COD.UnitPrice, COD.TotalPrice, POD.RoundingWeight 	" & vbNewLine &
                     "FROM traPurchaseOrderDet POD 	" & vbNewLine &
                     "INNER JOIN traPurchaseOrder POH ON 	" & vbNewLine &
                     "	POD.POID=POH.ID 	" & vbNewLine &
@@ -529,8 +529,7 @@
                     "   AND COH.CompanyID=@CompanyID " & vbNewLine &
                     "	AND COH.StatusID=@StatusID 	" & vbNewLine &
                     "	AND COH.BPID=@BPID " & vbNewLine &
-                    "	AND COD.TotalWeight-COD.PCWeight>0 	" & vbNewLine &
-                    "	AND COD.Quantity-COD.PCQuantity>0	" & vbNewLine
+                    "	AND COD.TotalWeight+COD.RoundingWeight-COD.PCWeight>0 	" & vbNewLine
 
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
@@ -553,7 +552,7 @@
                     "   COD.ID, COD.COID, COH.CONumber, COD.OrderNumberSupplier, COD.ItemID, B.ItemCode, " & vbNewLine &
                     "	B.ItemName, B.Thick, B.Width, B.Length, C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, " & vbNewLine &
                     "	D.ID AS ItemTypeID, D.Description AS ItemTypeName, COD.Quantity-COD.SCQuantity AS Quantity, " & vbNewLine &
-                    "   COD.Weight, COD.TotalWeight-COD.SCWeight AS TotalWeight, COD.UnitPrice, COD.TotalPrice, COD.TotalWeight-COD.SCWeight AS MaxTotalWeight 	" & vbNewLine &
+                    "   COD.Weight, COD.TotalWeight-COD.SCWeight AS TotalWeight, COD.UnitPrice, COD.TotalPrice, COD.TotalWeight+COD.RoundingWeight-COD.SCWeight AS MaxTotalWeight, COD.RoundingWeight 	" & vbNewLine &
                     "FROM traConfirmationOrderDet COD 	" & vbNewLine &
                     "INNER JOIN traConfirmationOrder COH ON 	" & vbNewLine &
                     "	COD.COID=COH.ID 	" & vbNewLine &
@@ -569,7 +568,7 @@
                     "	AND COH.SubmitBy<>''	" & vbNewLine &
                     "	AND COH.IsDeleted=0 	" & vbNewLine &
                     "	AND COH.StatusID=@StatusID 	" & vbNewLine &
-                    "	AND COD.TotalWeight-COD.SCWeight>0	" & vbNewLine
+                    "	AND COD.TotalWeight+COD.RoundingWeight-COD.SCWeight>0	" & vbNewLine
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
@@ -603,10 +602,10 @@
                 .CommandText =
                    "INSERT INTO traConfirmationOrderDet " & vbNewLine &
                    "    (ID, COID, PODetailID, OrderNumberSupplier, DeliveryAddress, ItemID, Quantity,   " & vbNewLine &
-                   "     Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, LevelItem, ParentID)   " & vbNewLine &
+                   "     Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, LevelItem, ParentID, RoundingWeight)   " & vbNewLine &
                    "VALUES " & vbNewLine &
                    "    (@ID, @COID, @PODetailID, @OrderNumberSupplier, @DeliveryAddress, @ItemID, @Quantity,   " & vbNewLine &
-                   "     @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @LevelItem, @ParentID)  " & vbNewLine
+                   "     @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @LevelItem, @ParentID, @RoundingWeight)  " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@COID", SqlDbType.VarChar, 100).Value = clsData.COID
@@ -622,6 +621,7 @@
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
                 .Parameters.Add("@LevelItem", SqlDbType.Int).Value = clsData.LevelItem
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
+                .Parameters.Add("@RoundingWeight", SqlDbType.Decimal).Value = clsData.RoundingWeight
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -664,7 +664,7 @@
                     "	PCWeight=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(PCD.TotalWeight),0) TotalWeight		" & vbNewLine &
+                    "			ISNULL(SUM(PCD.TotalWeight+PCD.RoundingWeight),0) TotalWeight		" & vbNewLine &
                     "		FROM traPurchaseContractDet PCD 	" & vbNewLine &
                     "		INNER JOIN traPurchaseContract PCH ON	" & vbNewLine &
                     "			PCD.PCID=PCH.ID 	" & vbNewLine &
@@ -675,7 +675,7 @@
                     "	PCQuantity=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(PCD.Quantity),0) TotalQuantity " & vbNewLine &
+                    "			ISNULL(SUM(PCD.Quantity+PCD.RoundingWeight),0) TotalQuantity " & vbNewLine &
                     "		FROM traPurchaseContractDet PCD 	" & vbNewLine &
                     "		INNER JOIN traPurchaseContract PCH ON	" & vbNewLine &
                     "			PCD.PCID=PCH.ID 	" & vbNewLine &
@@ -706,7 +706,7 @@
                     "	SCWeight=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(SCD.TotalWeight),0) TotalWeight " & vbNewLine &
+                    "			ISNULL(SUM(SCD.TotalWeight+SCD.RoundingWeight),0) TotalWeight " & vbNewLine &
                     "		FROM traSalesContractDetConfirmationOrder SCD 	" & vbNewLine &
                     "		INNER JOIN traSalesContract SCH ON	" & vbNewLine &
                     "			SCD.SCID=SCH.ID 	" & vbNewLine &
@@ -717,7 +717,7 @@
                     "	SCQuantity=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(SCD.Quantity),0) TotalQuantity " & vbNewLine &
+                    "			ISNULL(SUM(SCD.Quantity+SCD.RoundingWeight),0) TotalQuantity " & vbNewLine &
                     "		FROM traSalesContractDetConfirmationOrder SCD 	" & vbNewLine &
                     "		INNER JOIN traSalesContract SCH ON	" & vbNewLine &
                     "			SCD.SCID=SCH.ID 	" & vbNewLine &

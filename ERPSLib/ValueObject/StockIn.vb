@@ -13,6 +13,8 @@ Namespace VO
         Property OutQuantity As Decimal
         Property OutWeight As Decimal
         Property OutTotalWeight As Decimal
+        Property OutTotalWeightProcess As Decimal
+        Property OutTotalQuantityProcess As Decimal
 
         Public Const SourceDataReceive = "RECEIVE"
         Public Const SourceDataCutting = "CUTTING"

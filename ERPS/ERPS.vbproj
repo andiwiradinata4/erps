@@ -984,6 +984,24 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetItemCO.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetItemCOVer1.Designer.vb">
+      <DependentUpon>frmTraSalesContractDetItemCOVer1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetItemCOVer1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetItemVer1.Designer.vb">
+      <DependentUpon>frmTraSalesContractDetItemVer1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetItemVer1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetVer1.Designer.vb">
+      <DependentUpon>frmTraSalesContractDetVer1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetVer1.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractOutstandingDelivery.Designer.vb">
       <DependentUpon>frmTraSalesContractOutstandingDelivery.vb</DependentUpon>
     </Compile>
@@ -1625,6 +1643,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetItemCO.resx">
       <DependentUpon>frmTraSalesContractDetItemCO.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetItemCOVer1.resx">
+      <DependentUpon>frmTraSalesContractDetItemCOVer1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetItemVer1.resx">
+      <DependentUpon>frmTraSalesContractDetItemVer1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetVer1.resx">
+      <DependentUpon>frmTraSalesContractDetVer1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractOutstandingDelivery.resx">
       <DependentUpon>frmTraSalesContractOutstandingDelivery.vb</DependentUpon>

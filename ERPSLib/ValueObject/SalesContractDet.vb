@@ -16,5 +16,6 @@
         Property ReceiveAmount As Decimal
         Property DPAmount As Decimal
         Property OrderNumberSupplier As String
+        Property RoundingWeight As Decimal
     End Class
 End Namespace

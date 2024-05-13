@@ -11,5 +11,8 @@
         Property DoneWeight As Decimal
         Property OrderNumberSupplier As String
         Property Remarks As String
+        Property RoundingWeight As Decimal
+        Property LevelItem As Decimal
+        Property ParentID As String = ""
     End Class
 End Namespace

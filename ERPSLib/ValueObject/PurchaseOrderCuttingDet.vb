@@ -18,5 +18,8 @@
         Property DPAmount As Decimal
         Property OrderNumberSupplier As String
         Property GroupID As Integer
+        Property RoundingWeight As Decimal
+        Property LevelItem As Decimal
+        Property ParentID As String = ""
     End Class
 End Namespace

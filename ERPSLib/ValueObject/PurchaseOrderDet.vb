@@ -11,5 +11,6 @@
         Property COQuantity As Decimal
         Property COWeight As Decimal
         Property Remarks As String
+        Property RoundingWeight As Decimal
     End Class
 End Namespace

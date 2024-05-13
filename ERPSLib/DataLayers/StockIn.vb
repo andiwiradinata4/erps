@@ -9,7 +9,7 @@ Namespace DL
                 .CommandText =
 "SELECT  " & vbNewLine &
 "	A.ID, A.ParentID, A.ParentDetailID, A.OrderNumberSupplier, A.SourceData, A.ItemID, A.InQuantity,  " & vbNewLine &
-"	A.InWeight, A.InTotalWeight, A.OutQuantity, A.OutWeight, A.OutTotalWeight " & vbNewLine &
+"	A.InWeight, A.InTotalWeight, A.OutQuantity, A.OutWeight, A.OutTotalWeight, A.OutTotalWeightProcess, A.OutTotalQuantityProcess " & vbNewLine &
 "FROM traStockIn A " & vbNewLine &
 "WHERE  " & vbNewLine &
 "	1=1  " & vbNewLine
@@ -26,10 +26,10 @@ Namespace DL
                     .CommandText =
 "INSERT INTO traStockIn " & vbNewLine &
 "	(ID, ParentID, ParentDetailID, OrderNumberSupplier, SourceData, ItemID, InQuantity,  " & vbNewLine &
-"	 InWeight, InTotalWeight, OutQuantity, OutWeight, OutTotalWeight) " & vbNewLine &
+"	 InWeight, InTotalWeight, OutQuantity, OutWeight, OutTotalWeight, OutTotalWeightProcess, OutTotalQuantityProcess) " & vbNewLine &
 "VALUES  " & vbNewLine &
 "	(@ID, @ParentID, @ParentDetailID, @OrderNumberSupplier, @SourceData, @ItemID, @InQuantity,  " & vbNewLine &
-"	 @InWeight, @InTotalWeight, @OutQuantity, @OutWeight, @OutTotalWeight) " & vbNewLine
+"	 @InWeight, @InTotalWeight, @OutQuantity, @OutWeight, @OutTotalWeight, @OutTotalWeightProcess, @OutTotalQuantityProcess) " & vbNewLine
                 Else
                     .CommandText =
 "UPDATE traStockIn SET  " & vbNewLine &
@@ -43,7 +43,9 @@ Namespace DL
 "	InTotalWeight=@InTotalWeight,  " & vbNewLine &
 "	OutQuantity=@OutQuantity,  " & vbNewLine &
 "	OutWeight=@OutWeight,  " & vbNewLine &
-"	OutTotalWeight=@OutTotalWeight " & vbNewLine &
+"	OutTotalWeight=@OutTotalWeight, " & vbNewLine &
+"	OutTotalWeightProcess=@OutTotalWeightProcess, " & vbNewLine &
+"	OutTotalQuantityProcess=@OutTotalQuantityProcess " & vbNewLine &
 "WHERE " & vbNewLine &
 "	ID=@ID " & vbNewLine
                 End If
@@ -60,6 +62,8 @@ Namespace DL
                 .Parameters.Add("@OutQuantity", SqlDbType.Decimal).Value = clsData.OutQuantity
                 .Parameters.Add("@OutWeight", SqlDbType.Decimal).Value = clsData.OutWeight
                 .Parameters.Add("@OutTotalWeight", SqlDbType.Decimal).Value = clsData.OutTotalWeight
+                .Parameters.Add("@OutTotalWeightProcess", SqlDbType.Decimal).Value = clsData.OutTotalWeightProcess
+                .Parameters.Add("@OutTotalQuantityProcess", SqlDbType.Decimal).Value = clsData.OutTotalQuantityProcess
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -78,7 +82,7 @@ Namespace DL
                     .CommandText =
 "SELECT TOP 1  " & vbNewLine &
 "	A.ID, A.ParentID, A.ParentDetailID, A.OrderNumberSupplier, A.SourceData, A.ItemID, A.InQuantity,  " & vbNewLine &
-"	A.InWeight, A.InTotalWeight, A.OutQuantity, A.OutWeight, A.OutTotalWeight " & vbNewLine &
+"	A.InWeight, A.InTotalWeight, A.OutQuantity, A.OutWeight, A.OutTotalWeight, A.OutTotalWeightProcess, A.OutTotalQuantityProcess " & vbNewLine &
 "FROM traStockIn A " & vbNewLine &
 "WHERE " & vbNewLine &
 "	A.ID=@ID " & vbNewLine
@@ -101,6 +105,8 @@ Namespace DL
                         voReturn.OutQuantity = .Item("OutQuantity")
                         voReturn.OutWeight = .Item("OutWeight")
                         voReturn.OutTotalWeight = .Item("OutTotalWeight")
+                        voReturn.OutTotalWeightProcess = .Item("OutTotalWeightProcess")
+                        voReturn.OutTotalQuantityProcess = .Item("OutTotalQuantityProcess")
                     End If
                 End With
             Catch ex As Exception
@@ -122,7 +128,7 @@ Namespace DL
                     .CommandText =
 "SELECT TOP 1  " & vbNewLine &
 "	A.ID, A.ParentID, A.ParentDetailID, A.OrderNumberSupplier, A.SourceData, A.ItemID, A.InQuantity,  " & vbNewLine &
-"	A.InWeight, A.InTotalWeight, A.OutQuantity, A.OutWeight, A.OutTotalWeight " & vbNewLine &
+"	A.InWeight, A.InTotalWeight, A.OutQuantity, A.OutWeight, A.OutTotalWeight, A.OutTotalWeightProcess, A.OutTotalQuantityProcess  " & vbNewLine &
 "FROM traStockIn A " & vbNewLine &
 "WHERE " & vbNewLine &
 "	A.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
@@ -147,6 +153,8 @@ Namespace DL
                         voReturn.OutQuantity = .Item("OutQuantity")
                         voReturn.OutWeight = .Item("OutWeight")
                         voReturn.OutTotalWeight = .Item("OutTotalWeight")
+                        voReturn.OutTotalWeightProcess = .Item("OutTotalWeightProcess")
+                        voReturn.OutTotalQuantityProcess = .Item("OutTotalQuantityProcess")
                     End If
                 End With
             Catch ex As Exception
@@ -185,7 +193,7 @@ Namespace DL
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandText =
-"SELECT ISNULL(SUM(TRD.TotalWeight),0) AS TotalWeight " & vbNewLine &
+"SELECT ISNULL(SUM(TRD.TotalWeight+TRD.RoundingWeight),0) AS TotalWeight " & vbNewLine &
 "FROM traReceive TRH " & vbNewLine &
 "INNER JOIN traReceiveDet TRD ON " & vbNewLine &
 "   TRH.ID=TRD.ReceiveID " & vbNewLine &
@@ -221,7 +229,7 @@ Namespace DL
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandText =
-"SELECT ISNULL(SUM(TCD.TotalWeight),0) AS TotalWeight " & vbNewLine &
+"SELECT ISNULL(SUM(TCD.TotalWeight+TCD.RoundingWeight),0) AS TotalWeight " & vbNewLine &
 "FROM traCutting TCH " & vbNewLine &
 "INNER JOIN traCuttingDetResult TCD ON " & vbNewLine &
 "   TCH.ID=TCD.CuttingID " & vbNewLine &
