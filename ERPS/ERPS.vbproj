@@ -708,6 +708,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderOutstandingSalesContract.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderOutstandingSalesContractVer1.Designer.vb">
+      <DependentUpon>frmTraConfirmationOrderOutstandingSalesContractVer1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderOutstandingSalesContractVer1.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraCutting.Designer.vb">
       <DependentUpon>frmTraCutting.vb</DependentUpon>
     </Compile>
@@ -958,6 +964,12 @@
       <DependentUpon>frmTraOrderRequestOutstandingItem.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingItemVer1.Designer.vb">
+      <DependentUpon>frmTraOrderRequestOutstandingItemVer1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingItemVer1.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContract.Designer.vb">
@@ -1506,6 +1518,9 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderOutstandingSalesContract.resx">
       <DependentUpon>frmTraConfirmationOrderOutstandingSalesContract.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderOutstandingSalesContractVer1.resx">
+      <DependentUpon>frmTraConfirmationOrderOutstandingSalesContractVer1.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraCutting.resx">
       <DependentUpon>frmTraCutting.vb</DependentUpon>
     </EmbeddedResource>
@@ -1632,14 +1647,14 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingItem.resx">
       <DependentUpon>frmTraOrderRequestOutstandingItem.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingItemVer1.resx">
+      <DependentUpon>frmTraOrderRequestOutstandingItemVer1.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContract.resx">
       <DependentUpon>frmTraSalesContract.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDet.resx">
       <DependentUpon>frmTraSalesContractDet.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetItem.resx">
-      <DependentUpon>frmTraSalesContractDetItem.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetItemCO.resx">
       <DependentUpon>frmTraSalesContractDetItemCO.vb</DependentUpon>

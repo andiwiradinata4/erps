@@ -646,7 +646,7 @@ Public Class frmTraSalesContractDet
         pgMain.Value = 30
 
         Try
-            dtItemConfirmationOrder = BL.SalesContract.ListDataDetailCO(pubID.Trim)
+            dtItemConfirmationOrder = BL.SalesContract.ListDataDetailCO(pubID.Trim, "")
             grdItemCO.DataSource = dtItemConfirmationOrder
             prvSumGrid()
             grdItemView.BestFitColumns()

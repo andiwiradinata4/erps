@@ -58,7 +58,7 @@ Public Class frmTraConfirmationOrderOutstandingSalesContract
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         Try
-            Dim dtData As DataTable = BL.ConfirmationOrder.ListDataDetailOutstandingSalesContract(clsCS.ProgramID, clsCS.CompanyID)
+            Dim dtData As DataTable = BL.ConfirmationOrder.ListDataDetailOutstandingSalesContract(clsCS.ProgramID, clsCS.CompanyID, "")
             For Each drParent As DataRow In pubParentItem.Rows
                 For Each dr As DataRow In dtData.Rows
                     If dr.Item("ID") = drParent.Item("CODetailID") Then dr.Delete()

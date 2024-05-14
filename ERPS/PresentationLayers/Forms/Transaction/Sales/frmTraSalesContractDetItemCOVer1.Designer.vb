@@ -27,6 +27,7 @@ Partial Class frmTraSalesContractDetItemCOVer1
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.lblInfo = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.txtOrderNumberSupplier = New ERPS.usTextBox()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -68,7 +69,6 @@ Partial Class frmTraSalesContractDetItemCOVer1
         Me.txtThick = New ERPS.usNumeric()
         Me.txtMaxTotalWeight = New ERPS.usNumeric()
         Me.txtWeight = New ERPS.usNumeric()
-        Me.lblInfo = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.ToolBarSubItem = New ERPS.usToolBar()
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
@@ -167,6 +167,19 @@ Partial Class frmTraSalesContractDetItemCOVer1
         Me.pnlDetail.Name = "pnlDetail"
         Me.pnlDetail.Size = New System.Drawing.Size(667, 383)
         Me.pnlDetail.TabIndex = 1
+        '
+        'lblInfo
+        '
+        Me.lblInfo.BackColor = System.Drawing.Color.CadetBlue
+        Me.lblInfo.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblInfo.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblInfo.ForeColor = System.Drawing.Color.White
+        Me.lblInfo.Location = New System.Drawing.Point(0, 0)
+        Me.lblInfo.Name = "lblInfo"
+        Me.lblInfo.Size = New System.Drawing.Size(667, 22)
+        Me.lblInfo.TabIndex = 0
+        Me.lblInfo.Text = "« Konfirmasi Pesanan"
+        Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label5
         '
@@ -637,19 +650,6 @@ Partial Class frmTraSalesContractDetItemCOVer1
         Me.txtWeight.TabIndex = 11
         Me.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtWeight.ThousandsSeparator = True
-        '
-        'lblInfo
-        '
-        Me.lblInfo.BackColor = System.Drawing.Color.CadetBlue
-        Me.lblInfo.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblInfo.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblInfo.ForeColor = System.Drawing.Color.White
-        Me.lblInfo.Location = New System.Drawing.Point(0, 0)
-        Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(667, 22)
-        Me.lblInfo.TabIndex = 0
-        Me.lblInfo.Text = "« Konfirmasi Pesanan"
-        Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label11
         '

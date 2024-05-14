@@ -21,7 +21,7 @@
                     "   A.DPAmount, A.ReceiveAmount, (A.TotalDPP+A.RoundingManual)-(A.DPAmount+A.ReceiveAmount) AS OutstandingPayment, " & vbNewLine &
                     "   A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine &
                     "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, " & vbNewLine &
-                    "   StatusInfo=B.Name, A.BPLocationID, BPL.Address AS BPLocationAddress " & vbNewLine &
+                    "   StatusInfo=B.Name, A.BPLocationID, BPL.Address AS BPLocationAddress, A.IsUseSubItem " & vbNewLine &
                     "FROM traSalesContract A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -177,12 +177,12 @@
                         "   (ID, ProgramID, CompanyID, SCNumber, SCDate, BPID, DeliveryPeriodFrom, DeliveryPeriodTo, AllowanceProduction, " & vbNewLine &
                         "    Franco, DelegationSeller, DelegationPositionSeller, DelegationBuyer, DelegationPositionBuyer, PPN, PPH, " & vbNewLine &
                         "    TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, RoundingManual, Remarks, " & vbNewLine &
-                        "    StatusID, CompanyBankAccountID, CreatedBy, CreatedDate, LogBy, LogDate, BPLocationID) " & vbNewLine &
+                        "    StatusID, CompanyBankAccountID, CreatedBy, CreatedDate, LogBy, LogDate, BPLocationID, IsUseSubItem) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @ProgramID, @CompanyID, @SCNumber, @SCDate, @BPID, @DeliveryPeriodFrom, @DeliveryPeriodTo, @AllowanceProduction, " & vbNewLine &
                         "    @Franco, @DelegationSeller, @DelegationPositionSeller, @DelegationBuyer, @DelegationPositionBuyer, @PPN, @PPH, " & vbNewLine &
                         "    @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @RoundingManual, @Remarks, " & vbNewLine &
-                        "    @StatusID, @CompanyBankAccountID, @LogBy, GETDATE(), @LogBy, GETDATE(), @BPLocationID) " & vbNewLine
+                        "    @StatusID, @CompanyBankAccountID, @LogBy, GETDATE(), @LogBy, GETDATE(), @BPLocationID, @IsUseSubItem) " & vbNewLine
                 Else
                     .CommandText =
                     "UPDATE traSalesContract SET " & vbNewLine &
@@ -213,7 +213,8 @@
                     "    LogInc=LogInc+1, " & vbNewLine &
                     "    LogBy=@LogBy, " & vbNewLine &
                     "    LogDate=GETDATE(), " & vbNewLine &
-                    "    BPLocationID=@BPLocationID " & vbNewLine &
+                    "    BPLocationID=@BPLocationID, " & vbNewLine &
+                    "    IsUseSubItem=@IsUseSubItem " & vbNewLine &
                     "WHERE   " & vbNewLine &
                     "    ID=@ID " & vbNewLine
                 End If
@@ -245,6 +246,7 @@
                 .Parameters.Add("@CompanyBankAccountID", SqlDbType.Int).Value = clsData.CompanyBankAccountID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@BPLocationID", SqlDbType.Int).Value = clsData.BPLocationID
+                .Parameters.Add("@IsUseSubItem", SqlDbType.Bit).Value = clsData.IsUseSubItem
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -268,7 +270,7 @@
                         "   A.DelegationSeller, A.DelegationPositionSeller, A.DelegationBuyer, A.DelegationPositionBuyer, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, " & vbNewLine &
                         "   A.RoundingManual, A.IsDeleted, A.Remarks, A.JournalID, A.StatusID, A.CompanyBankAccountID, C.AccountName, C.BankName, C.AccountNumber, C.Currency AS CurrencyBank, A.SubmitBy, A.SubmitDate, " & vbNewLine &
                         "   A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.ReceiveAmount, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual, " & vbNewLine &
-                        "   A.BPLocationID, BPL.Address AS BPLocationAddress " & vbNewLine &
+                        "   A.BPLocationID, BPL.Address AS BPLocationAddress, A.IsUseSubItem " & vbNewLine &
                         "FROM traSalesContract A " & vbNewLine &
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
                         "   A.BPID=B.ID " & vbNewLine &
@@ -334,6 +336,7 @@
                         voReturn.GrandTotal = .Item("GrandTotal")
                         voReturn.BPLocationID = .Item("BPLocationID")
                         voReturn.BPLocationAddress = .Item("BPLocationAddress")
+                        voReturn.IsUseSubItem = .Item("IsUseSubItem")
                     End If
                 End With
             Catch ex As Exception
@@ -981,7 +984,7 @@
                     "    A.ID, A.SCID, A.ORDetailID, A3.ID AS RequestNumber, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  	" & vbNewLine &
                     "    C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  	" & vbNewLine &
                     "    A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight, " & vbNewLine &
-                    "    A.Remarks, A.IsIgnoreValidationPayment, A.OrderNumberSupplier, A.RoundingWeight " & vbNewLine &
+                    "    A.Remarks, A.IsIgnoreValidationPayment, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID " & vbNewLine &
                     "FROM traSalesContractDet A  	" & vbNewLine &
                     "INNER JOIN traOrderRequestDet A1 ON  	" & vbNewLine &
                     "    A.ORDetailID=A1.ID  	" & vbNewLine &
@@ -1073,7 +1076,7 @@
 
         Public Shared Function ListDataDetailOutstandingDeliveryVer01(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                                       ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                                      ByVal strSCID As String) As DataTable
+                                                                      ByVal strSCID As String, ByVal bolIsUseSubItem As Boolean) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -1104,6 +1107,8 @@
                     "   And A.TotalWeight+A.RoundingWeight-A.DCWeight>0 " & vbNewLine &
                     "   And (A.TotalPrice-A.ReceiveAmount-A.DPAmount<=0 Or A.IsIgnoreValidationPayment=1) " & vbNewLine
 
+                If bolIsUseSubItem Then .CommandText += "   AND PCD.ParentID<>'' " & vbNewLine
+
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = strSCID
@@ -1120,9 +1125,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traSalesContractDet " & vbNewLine &
-                    "   ( ID, SCID, ORDetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, OrderNumberSupplier, RoundingWeight) " & vbNewLine &
+                    "   ( ID, SCID, ORDetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, OrderNumberSupplier, RoundingWeight, LevelItem, ParentID) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   ( @ID, @SCID, @ORDetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @OrderNumberSupplier, @RoundingWeight) " & vbNewLine
+                    "   ( @ID, @SCID, @ORDetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @OrderNumberSupplier, @RoundingWeight, @LevelItem, @ParentID) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = clsData.SCID
@@ -1139,6 +1144,8 @@
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
                 .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = clsData.OrderNumberSupplier
                 .Parameters.Add("@RoundingWeight", SqlDbType.Decimal).Value = clsData.RoundingWeight
+                .Parameters.Add("@LevelItem", SqlDbType.Int).Value = clsData.LevelItem
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -1279,7 +1286,7 @@
 #Region "Detail CO"
 
         Public Shared Function ListDataDetailCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                ByVal strSCID As String) As DataTable
+                                                ByVal strSCID As String, ByVal strParentID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -1287,9 +1294,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT	" & vbNewLine &
-                    "    A.ID, A.SCID, A.CODetailID, A3.ID AS CONumber, A1.OrderNumberSupplier, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  	" & vbNewLine &
-                    "    C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  	" & vbNewLine &
-                    "    A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight, A.Remarks, A.RoundingWeight, A.LevelItem, A.ParentID " & vbNewLine &
+                    "   A.ID, A.SCID, A.CODetailID, A3.ID AS CONumber, A1.OrderNumberSupplier, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, A.Quantity, A.Weight, " & vbNewLine &
+                    "   A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight, A.Remarks, A.RoundingWeight, A.LevelItem, A.ParentID " & vbNewLine &
                     "FROM traSalesContractDetConfirmationOrder A  	" & vbNewLine &
                     "INNER JOIN traConfirmationOrderDet A1 ON  	" & vbNewLine &
                     "    A.CODetailID=A1.ID  	" & vbNewLine &
@@ -1302,9 +1309,11 @@
                     "INNER JOIN mstItemType D ON  	" & vbNewLine &
                     "    B.ItemTypeID=D.ID  	" & vbNewLine &
                     "WHERE  	" & vbNewLine &
-                    "    A.SCID=@SCID	" & vbNewLine
+                    "    A.SCID=@SCID	" & vbNewLine &
+                    "    AND A.ParentID=@ParentID " & vbNewLine
 
                 .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = strSCID
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function

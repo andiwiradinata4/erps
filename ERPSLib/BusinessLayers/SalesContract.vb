@@ -82,7 +82,7 @@
                         If clsData.SCNumber.Trim = "" Then clsData.SCNumber = GetNewNo(sqlCon, sqlTrans, clsData.SCDate, clsData.BPID, clsData.CompanyID, clsData.ProgramID)
                     Else
                         Dim dtItem As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
-                        Dim dtItemCO As DataTable = DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, clsData.ID)
+                        Dim dtItemCO As DataTable = DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, clsData.ID, "")
 
                         DL.SalesContract.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
                         DL.SalesContract.DeleteDataDetailCO(sqlCon, sqlTrans, clsData.ID)
@@ -192,7 +192,7 @@
                     End If
 
                     Dim dtItem As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, strID)
-                    Dim dtItemCO As DataTable = DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, strID)
+                    Dim dtItemCO As DataTable = DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, strID, "")
 
                     DL.SalesContract.DeleteData(sqlCon, sqlTrans, strID)
 
@@ -568,10 +568,10 @@
         End Function
 
         Public Shared Function ListDataDetailOutstandingDeliveryVer01(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                                      ByVal strSCID As String) As DataTable
+                                                                      ByVal strSCID As String, ByVal bolIsUseSubItem As Boolean) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.SalesContract.ListDataDetailOutstandingDeliveryVer01(sqlCon, Nothing, intProgramID, intCompanyID, strSCID)
+                Return DL.SalesContract.ListDataDetailOutstandingDeliveryVer01(sqlCon, Nothing, intProgramID, intCompanyID, strSCID, bolIsUseSubItem)
             End Using
         End Function
 
@@ -579,10 +579,10 @@
 
 #Region "Detail Confirmation Order"
 
-        Public Shared Function ListDataDetailCO(ByVal strSCID As String) As DataTable
+        Public Shared Function ListDataDetailCO(ByVal strSCID As String, ByVal strParentID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.SalesContract.ListDataDetailCO(sqlCon, Nothing, strSCID)
+                Return DL.SalesContract.ListDataDetailCO(sqlCon, Nothing, strSCID, strParentID)
             End Using
         End Function
 

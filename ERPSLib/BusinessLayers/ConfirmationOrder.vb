@@ -366,10 +366,11 @@
             End Using
         End Function
 
-        Public Shared Function ListDataDetailOutstandingSalesContract(ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As DataTable
+        Public Shared Function ListDataDetailOutstandingSalesContract(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                      ByVal strParentID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.ConfirmationOrder.ListDataDetailOutstandingSalesContract(sqlCon, Nothing, intProgramID, intCompanyID)
+                Return DL.ConfirmationOrder.ListDataDetailOutstandingSalesContract(sqlCon, Nothing, intProgramID, intCompanyID, strParentID)
             End Using
         End Function
 

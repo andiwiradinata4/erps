@@ -541,7 +541,8 @@
         End Function
 
         Public Shared Function ListDataDetailOutstandingSalesContract(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                                      ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As DataTable
+                                                                      ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                      ByVal strParentID As String) As DataTable
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
                 .Connection = sqlCon
@@ -568,11 +569,13 @@
                     "	AND COH.SubmitBy<>''	" & vbNewLine &
                     "	AND COH.IsDeleted=0 	" & vbNewLine &
                     "	AND COH.StatusID=@StatusID 	" & vbNewLine &
-                    "	AND COD.TotalWeight+COD.RoundingWeight-COD.SCWeight>0	" & vbNewLine
+                    "	AND COD.TotalWeight+COD.RoundingWeight-COD.SCWeight>0	" & vbNewLine &
+                    "	AND COD.ParentID=@ParentID " & vbNewLine
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function

@@ -476,7 +476,6 @@ Public Class frmTraConfirmationOrderDetVer1
     Private Sub prvQueryItem()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-
         Try
             Dim dsMain As New DataSet
             dtItem = BL.ConfirmationOrder.ListDataDetail(pubID.Trim, "")
