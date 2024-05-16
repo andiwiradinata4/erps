@@ -536,7 +536,7 @@ Public Class frmTraSalesContractDet
         pgMain.Value = 30
 
         Try
-            dtItem = BL.SalesContract.ListDataDetail(pubID.Trim)
+            dtItem = BL.SalesContract.ListDataDetail(pubID.Trim, "")
             grdItem.DataSource = dtItem
             prvSumGrid()
             grdItemView.BestFitColumns()

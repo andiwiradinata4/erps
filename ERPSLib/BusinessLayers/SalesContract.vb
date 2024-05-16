@@ -544,10 +544,10 @@
 
 #Region "Detail"
 
-        Public Shared Function ListDataDetail(ByVal strSCID As String) As DataTable
+        Public Shared Function ListDataDetail(ByVal strSCID As String, ByVal strParentID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.SalesContract.ListDataDetail(sqlCon, Nothing, strSCID)
+                Return DL.SalesContract.ListDataDetail(sqlCon, Nothing, strSCID, strParentID)
             End Using
         End Function
 

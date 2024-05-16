@@ -973,7 +973,7 @@
 #Region "Detail"
 
         Public Shared Function ListDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                              ByVal strSCID As String) As DataTable
+                                              ByVal strSCID As String, ByVal strParentID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -997,9 +997,11 @@
                     "INNER JOIN mstItemType D ON  	" & vbNewLine &
                     "    B.ItemTypeID=D.ID  	" & vbNewLine &
                     "WHERE  	" & vbNewLine &
-                    "    A.SCID=@SCID	" & vbNewLine
+                    "    A.SCID=@SCID	" & vbNewLine &
+                    "    AND A.ParentID=@ParentID " & vbNewLine
 
                 .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = strSCID
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function

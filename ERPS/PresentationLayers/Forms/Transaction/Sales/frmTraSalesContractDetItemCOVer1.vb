@@ -1,12 +1,15 @@
-﻿Public Class frmTraSalesContractDetItemCOVer1
+﻿Imports DevExpress.XtraGrid
+
+Public Class frmTraSalesContractDetItemCOVer1
 
 #Region "Property"
 
     Private frmParent As frmTraSalesContractDetItemVer1
     Private dtParent As New DataTable
     Private dtParentAll As New DataTable
-    Private dtItemCO As New DataTable
-    Private dtSubItemCO As New DataTable
+    Private dtParentSub As New DataTable
+    Private dtParentAllSub As New DataTable
+    Private dtSubItem As New DataTable
     Private bolIsNew As Boolean = False
     Private intItemID As Integer = 0
     Private drSelected As DataRow
@@ -27,9 +30,9 @@
         End Set
     End Property
 
-    Public WriteOnly Property pubCODetailID As String
+    Public WriteOnly Property pubID As String
         Set(value As String)
-            strCODetailID = value
+            strID = value
         End Set
     End Property
 
@@ -45,15 +48,15 @@
         End Set
     End Property
 
-    Public WriteOnly Property pubTableItemCO As DataTable
+    Public WriteOnly Property pubTableParentSub As DataTable
         Set(value As DataTable)
-            dtItemCO = value
+            dtParentSub = value
         End Set
     End Property
 
-    Public WriteOnly Property pubTableSubItemCO As DataTable
+    Public WriteOnly Property pubTableParentAllSub As DataTable
         Set(value As DataTable)
-            dtSubItemCO = value
+            dtParentAllSub = value
         End Set
     End Property
 
@@ -76,7 +79,46 @@
 
 #End Region
 
-    Private Const cSave As Byte = 0, cClose As Byte = 1
+    Private Const _
+        cSave As Byte = 0, cClose As Byte = 1,
+        cAdd As Byte = 0, cEdit As Byte = 1, cDelete As Byte = 2
+
+    Private Sub prvSetGrid()
+        UI.usForm.SetGrid(grdItemView, "ID", "ID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "SCID", "SCID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "CODetailID", "CODetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "OrderRequestDetailID", "OrderRequestDetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "CONumber", "Nomor Konfirmasi", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "Thick", "Tebal", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "Width", "Lebar", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "Length", "Panjang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
+    End Sub
+
+    Private Sub prvSetButton()
+        Dim bolEnable As Boolean = IIf(grdItemView.RowCount > 0, True, False)
+        With ToolBarSubItem.Buttons
+            .Item(cEdit).Enabled = bolEnable
+            .Item(cDelete).Enabled = bolEnable
+        End With
+    End Sub
 
     Private Sub prvFillCombo()
         Try
@@ -113,6 +155,16 @@
                 txtQuantity.Value = drSelected.Item("Quantity")
                 txtRemarks.Text = drSelected.Item("Remarks")
             End If
+
+            dtSubItem = dtParentSub.Clone
+            For Each dr As DataRow In dtParentSub.Rows
+                If dr.Item("ParentID") = strID Then dtSubItem.ImportRow(dr)
+            Next
+            dtSubItem.AcceptChanges()
+            grdItem.DataSource = dtSubItem
+            prvSumGrid()
+            prvSetButton()
+            prvCalculate()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally
@@ -155,7 +207,7 @@
             Dim dr As DataRow = dtParent.NewRow
             With dr
                 .BeginEdit()
-                .Item("ID") = Guid.NewGuid
+                .Item("ID") = strID
                 .Item("SCID") = ""
                 .Item("CODetailID") = strCODetailID
                 .Item("GroupID") = 0
@@ -178,10 +230,10 @@
                 .Item("UnitPrice") = txtUnitPrice.Value
                 .Item("TotalPrice") = txtTotalPrice.Value
                 .Item("Remarks") = txtRemarks.Text.Trim
+                .Item("LevelItem") = 0
+                .Item("ParentID") = ""
                 dr.EndEdit()
                 dtParent.Rows.Add(dr)
-                dtParent.AcceptChanges()
-                frmParent.grdItemCOView.BestFitColumns()
                 prvClear()
             End With
         Else
@@ -209,14 +261,58 @@
                         .Item("UnitPrice") = txtUnitPrice.Value
                         .Item("TotalPrice") = txtTotalPrice.Value
                         .Item("Remarks") = txtRemarks.Text.Trim
+                        .Item("LevelItem") = 0
+                        .Item("ParentID") = ""
                         .EndEdit()
-                        dtParent.AcceptChanges()
-                        frmParent.grdItemCOView.BestFitColumns()
                         Exit For
                     End If
                 End With
             Next
         End If
+        dtParent.AcceptChanges()
+        frmParent.grdItemCOView.BestFitColumns()
+
+        '# Delete Sub Item Exists
+        For Each dr As DataRow In dtParentSub.Rows
+            If dr.Item("ParentID") = strID Then dr.Delete()
+        Next
+        dtParentSub.AcceptChanges()
+
+        For Each dr As DataRow In dtSubItem.Rows
+            Dim drSub As DataRow = dtSubItem.NewRow
+            With drSub
+                .BeginEdit()
+                .Item("ID") = Guid.NewGuid.ToString
+                .Item("SCID") = ""
+                .Item("CODetailID") = strCODetailID
+                .Item("GroupID") = 0
+                .Item("CONumber") = txtCONumber.Text.Trim
+                .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
+                .Item("ItemID") = drSub.Item("ItemID")
+                .Item("ItemCode") = drSub.Item("ItemID")
+                .Item("ItemName") = drSub.Item("ItemID")
+                .Item("Thick") = drSub.Item("ItemID")
+                .Item("Width") = drSub.Item("ItemID")
+                .Item("Length") = drSub.Item("ItemID")
+                .Item("ItemSpecificationID") = drSub.Item("ItemID")
+                .Item("ItemSpecificationName") = drSub.Item("ItemID")
+                .Item("ItemTypeID") = drSub.Item("ItemID")
+                .Item("ItemTypeName") = drSub.Item("ItemID")
+                .Item("Quantity") = drSub.Item("ItemID")
+                .Item("Weight") = drSub.Item("ItemID")
+                .Item("TotalWeight") = drSub.Item("ItemID")
+                .Item("MaxTotalWeight") = drSub.Item("ItemID")
+                .Item("UnitPrice") = drSub.Item("ItemID")
+                .Item("TotalPrice") = drSub.Item("ItemID")
+                .Item("Remarks") = drSub.Item("ItemID")
+                .Item("LevelItem") = drSub.Item("LevelItem")
+                .Item("ParentID") = drSub.Item("ParentID")
+                drSub.EndEdit()
+            End With
+            dtParentSub.Rows.Add(drSub)
+        Next
+        dtParentSub.AcceptChanges()
+        prvClear()
         Me.Close()
     End Sub
 
@@ -257,6 +353,28 @@
         txtTotalPrice.Value = txtUnitPrice.Value * txtTotalWeight.Value
     End Sub
 
+    Private Sub prvSumGrid()
+        '# Item
+        Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0}")
+        Dim SumGrandTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
+        Dim SumGrandTotalPrice As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
+
+        If grdItemView.Columns("Quantity").SummaryText.Trim = "" Then
+            grdItemView.Columns("Quantity").Summary.Add(SumTotalQuantity)
+        End If
+
+        If grdItemView.Columns("TotalWeight").SummaryText.Trim = "" Then
+            grdItemView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeight)
+        End If
+
+        If grdItemView.Columns("TotalPrice").SummaryText.Trim = "" Then
+            grdItemView.Columns("TotalPrice").Summary.Add(SumGrandTotalPrice)
+        End If
+
+        If grdItemView.GroupCount > 0 Then grdItemView.ExpandAllGroups()
+        grdItemView.BestFitColumns(True)
+    End Sub
+
     Private Sub prvClear()
         strID = ""
         strCODetailID = ""
@@ -292,6 +410,7 @@
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         ToolBarSubItem.SetIcon(Me)
+        prvSetGrid()
         prvFillForm()
         If bolIsAutoSearch Then prvChooseItem()
     End Sub

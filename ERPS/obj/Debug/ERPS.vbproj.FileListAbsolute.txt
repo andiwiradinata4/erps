@@ -551,7 +551,6 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestDetItem.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestOutstandingItem.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContract.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDet.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItem.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCO.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractOutstandingDelivery.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractOutstandingDeliveryItem.resources
@@ -809,3 +808,8 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbproj.CoreCompileIn
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbproj.Up2Date
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestOutstandingItemVer1.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderOutstandingSalesContractVer1.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderOutstandingSalesContractVer1.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestOutstandingItemVer1.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCOVer1.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer1.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetVer1.resources

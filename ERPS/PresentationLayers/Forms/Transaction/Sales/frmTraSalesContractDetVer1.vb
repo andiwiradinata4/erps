@@ -590,7 +590,32 @@ Public Class frmTraSalesContractDetVer1
         pgMain.Value = 30
 
         Try
-            dtItem = BL.SalesContract.ListDataDetail(pubID.Trim)
+            dtItem = BL.SalesContract.ListDataDetail(pubID.Trim, "")
+            dtSubItem = New DataTable
+            If dtItem.Rows.Count = 0 Then dtSubItem = dtItem.Clone
+            For Each dr As DataRow In dtItem.Rows
+                dtSubItem.Merge(BL.SalesContract.ListDataDetail(pubID.Trim, dr.Item("ID")))
+            Next
+
+            '# Remap ID using Guid
+            For Each dr As DataRow In dtItem.Rows
+                Dim strPrevID As String = dr.Item("ID")
+                Dim strNewID As String = Guid.NewGuid.ToString
+                For Each drSub As DataRow In dtSubItem.Rows
+                    If drSub.Item("ParentID") = strPrevID Then
+                        drSub.BeginEdit()
+                        drSub.Item("ParentID") = strNewID
+                        drSub.EndEdit()
+                    End If
+                Next
+                dtSubItem.AcceptChanges()
+
+                dr.BeginEdit()
+                dr.Item("ID") = strNewID
+                dr.EndEdit()
+            Next
+            dtItem.AcceptChanges()
+
             grdItem.DataSource = dtItem
             prvSumGrid()
             grdItemView.BestFitColumns()
@@ -601,7 +626,6 @@ Public Class frmTraSalesContractDetVer1
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-
             prvSetButtonItem()
             prvResetProgressBar()
         End Try
@@ -616,6 +640,7 @@ Public Class frmTraSalesContractDetVer1
         Dim frmDetail As New frmTraSalesContractDetItemVer1
         With frmDetail
             .pubIsNew = True
+            .pubID = Guid.NewGuid.ToString
             .pubCS = pubCS
             .pubBPID = intBPID
             .pubTableItem = dtItem
