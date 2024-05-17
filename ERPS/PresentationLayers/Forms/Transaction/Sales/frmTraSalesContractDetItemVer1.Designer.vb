@@ -24,7 +24,7 @@ Partial Class frmTraSalesContractDetItemVer1
     Private Sub InitializeComponent()
         Dim GridLevelNode1 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraSalesContractDetItemVer1))
-        Me.grdSubItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.grdSubItemCOView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.grdItemCO = New DevExpress.XtraGrid.GridControl()
         Me.grdItemCOView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
@@ -77,7 +77,7 @@ Partial Class frmTraSalesContractDetItemVer1
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarEditItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
-        CType(Me.grdSubItemView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdSubItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemCO, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -93,14 +93,14 @@ Partial Class frmTraSalesContractDetItemVer1
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'grdSubItemView
+        'grdSubItemCOView
         '
-        Me.grdSubItemView.GridControl = Me.grdItemCO
-        Me.grdSubItemView.Name = "grdSubItemView"
-        Me.grdSubItemView.OptionsCustomization.AllowGroup = False
-        Me.grdSubItemView.OptionsView.ColumnAutoWidth = False
-        Me.grdSubItemView.OptionsView.ShowFooter = True
-        Me.grdSubItemView.OptionsView.ShowGroupPanel = False
+        Me.grdSubItemCOView.GridControl = Me.grdItemCO
+        Me.grdSubItemCOView.Name = "grdSubItemCOView"
+        Me.grdSubItemCOView.OptionsCustomization.AllowGroup = False
+        Me.grdSubItemCOView.OptionsView.ColumnAutoWidth = False
+        Me.grdSubItemCOView.OptionsView.ShowFooter = True
+        Me.grdSubItemCOView.OptionsView.ShowGroupPanel = False
         '
         'grdItemCO
         '
@@ -119,17 +119,17 @@ Partial Class frmTraSalesContractDetItemVer1
         Me.grdItemCO.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdItemCO.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdItemCO.EmbeddedNavigator.Buttons.Remove.Visible = False
-        GridLevelNode1.LevelTemplate = Me.grdSubItemView
+        GridLevelNode1.LevelTemplate = Me.grdSubItemCOView
         GridLevelNode1.RelationName = "SubView"
         Me.grdItemCO.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1})
-        Me.grdItemCO.Location = New System.Drawing.Point(607, 78)
+        Me.grdItemCO.Location = New System.Drawing.Point(607, 76)
         Me.grdItemCO.MainView = Me.grdItemCOView
         Me.grdItemCO.Name = "grdItemCO"
         Me.grdItemCO.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItemCO.Size = New System.Drawing.Size(557, 333)
+        Me.grdItemCO.Size = New System.Drawing.Size(557, 335)
         Me.grdItemCO.TabIndex = 4
         Me.grdItemCO.UseEmbeddedNavigator = True
-        Me.grdItemCO.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemCOView, Me.grdSubItemView})
+        Me.grdItemCO.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemCOView, Me.grdSubItemCOView})
         '
         'grdItemCOView
         '
@@ -699,11 +699,12 @@ Partial Class frmTraSalesContractDetItemVer1
         '
         Me.ToolBarItemCO.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
         Me.ToolBarItemCO.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarEditItemOrder, Me.BarDeleteItemOrder})
+        Me.ToolBarItemCO.Divider = False
         Me.ToolBarItemCO.DropDownArrows = True
         Me.ToolBarItemCO.Location = New System.Drawing.Point(607, 50)
         Me.ToolBarItemCO.Name = "ToolBarItemCO"
         Me.ToolBarItemCO.ShowToolTips = True
-        Me.ToolBarItemCO.Size = New System.Drawing.Size(557, 28)
+        Me.ToolBarItemCO.Size = New System.Drawing.Size(557, 26)
         Me.ToolBarItemCO.TabIndex = 3
         Me.ToolBarItemCO.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -741,7 +742,7 @@ Partial Class frmTraSalesContractDetItemVer1
         Me.MinimizeBox = False
         Me.Name = "frmTraSalesContractDetItemVer1"
         Me.Text = "Barang"
-        CType(Me.grdSubItemView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdSubItemCOView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItemCO, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItemCOView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -811,7 +812,7 @@ Partial Class frmTraSalesContractDetItemVer1
     Friend WithEvents BarEditItemOrder As ToolBarButton
     Friend WithEvents BarDeleteItemOrder As ToolBarButton
     Friend WithEvents grdItemCO As DevExpress.XtraGrid.GridControl
-    Friend WithEvents grdSubItemView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents grdSubItemCOView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents grdItemCOView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
 End Class

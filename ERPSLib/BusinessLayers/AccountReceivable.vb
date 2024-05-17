@@ -272,7 +272,7 @@
                 If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then
                     DL.SalesContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
 
-                    dtReferencesItem = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID)
+                    dtReferencesItem = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID, "")
                     For Each dr As DataRow In dtReferencesItem.Rows
                         DL.SalesContract.CalculateTotalUsedReceiveItemPaymentVer01(sqlCon, sqlTrans, dr.Item("ID"))
                     Next
@@ -429,7 +429,7 @@
                 '# Calculate Sales Contract
                 If strModules.Trim = VO.AccountReceivable.ReceivePayment Then
                     DL.SalesContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsExists.ReferencesID)
-                    dtReferencesItem = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsExists.ReferencesID)
+                    dtReferencesItem = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsExists.ReferencesID, "")
                     For Each dr As DataRow In dtReferencesItem.Rows
                         DL.SalesContract.CalculateTotalUsedReceiveItemPaymentVer01(sqlCon, sqlTrans, dr.Item("ID"))
                     Next

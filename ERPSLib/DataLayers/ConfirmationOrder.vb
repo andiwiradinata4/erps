@@ -509,7 +509,8 @@
                     "SELECT " & vbNewLine &
                     "	COD.ID, COD.COID, COH.CONumber, COD.OrderNumberSupplier, COD.DeliveryAddress, COD.ItemID, MI.ItemCode, MI.ItemName, " & vbNewLine &
                     "   MI.Thick, MI.Width, MI.Length, MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, " & vbNewLine &
-                    "   MIT.Description AS ItemTypeName, COD.Quantity-COD.PCQuantity AS Quantity, COD.Weight, COD.TotalWeight-COD.PCWeight AS TotalWeight, COD.UnitPrice, COD.TotalPrice, POD.RoundingWeight 	" & vbNewLine &
+                    "   MIT.Description AS ItemTypeName, COD.Quantity-COD.PCQuantity AS Quantity, COD.Weight, COD.TotalWeight-COD.PCWeight AS TotalWeight, " & vbNewLine &
+                    "   COD.UnitPrice, COD.TotalPrice, POD.RoundingWeight 	" & vbNewLine &
                     "FROM traPurchaseOrderDet POD 	" & vbNewLine &
                     "INNER JOIN traPurchaseOrder POH ON 	" & vbNewLine &
                     "	POD.POID=POH.ID 	" & vbNewLine &
@@ -525,11 +526,11 @@
                     "	MI.ItemTypeID=MIT.ID  	" & vbNewLine &
                     "WHERE 	" & vbNewLine &
                     "	COH.IsDeleted=0 	" & vbNewLine &
-                    "   AND COH.ProgramID=@ProgramID " & vbNewLine &
-                    "   AND COH.CompanyID=@CompanyID " & vbNewLine &
-                    "	AND COH.StatusID=@StatusID 	" & vbNewLine &
-                    "	AND COH.BPID=@BPID " & vbNewLine &
-                    "	AND COD.TotalWeight+COD.RoundingWeight-COD.PCWeight>0 	" & vbNewLine
+                    "   And COH.ProgramID=@ProgramID " & vbNewLine &
+                    "   And COH.CompanyID=@CompanyID " & vbNewLine &
+                    "	And COH.StatusID=@StatusID 	" & vbNewLine &
+                    "	And COH.BPID=@BPID " & vbNewLine &
+                    "	And COD.TotalWeight+COD.RoundingWeight-COD.PCWeight>0 	" & vbNewLine
 
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
@@ -553,7 +554,8 @@
                     "   COD.ID, COD.COID, COH.CONumber, COD.OrderNumberSupplier, COD.ItemID, B.ItemCode, " & vbNewLine &
                     "	B.ItemName, B.Thick, B.Width, B.Length, C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, " & vbNewLine &
                     "	D.ID AS ItemTypeID, D.Description AS ItemTypeName, COD.Quantity-COD.SCQuantity AS Quantity, " & vbNewLine &
-                    "   COD.Weight, COD.TotalWeight-COD.SCWeight AS TotalWeight, COD.UnitPrice, COD.TotalPrice, COD.TotalWeight+COD.RoundingWeight-COD.SCWeight AS MaxTotalWeight, COD.RoundingWeight 	" & vbNewLine &
+                    "   COD.Weight, COD.TotalWeight-COD.SCWeight AS TotalWeight, COD.UnitPrice, COD.TotalPrice, " & vbNewLine &
+                    "   COD.TotalWeight+COD.RoundingWeight-COD.SCWeight AS MaxTotalWeight, COD.RoundingWeight, COD.LevelItem, COD.ParentID 	" & vbNewLine &
                     "FROM traConfirmationOrderDet COD 	" & vbNewLine &
                     "INNER JOIN traConfirmationOrder COH ON 	" & vbNewLine &
                     "	COD.COID=COH.ID 	" & vbNewLine &
@@ -565,8 +567,8 @@
                     "    B.ItemTypeID=D.ID  	" & vbNewLine &
                     "WHERE 	" & vbNewLine &
                     "   COH.ProgramID=@ProgramID " & vbNewLine &
-                    "   AND COH.CompanyID=@CompanyID " & vbNewLine &
-                    "	AND COH.SubmitBy<>''	" & vbNewLine &
+                    "   And COH.CompanyID=@CompanyID " & vbNewLine &
+                    "	And COH.SubmitBy<>''	" & vbNewLine &
                     "	AND COH.IsDeleted=0 	" & vbNewLine &
                     "	AND COH.StatusID=@StatusID 	" & vbNewLine &
                     "	AND COD.TotalWeight+COD.RoundingWeight-COD.SCWeight>0	" & vbNewLine &

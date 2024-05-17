@@ -88,8 +88,8 @@ Public Class frmTraSalesContractDetVer1
         UI.usForm.SetGrid(grdItemCOView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemCOView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemCOView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemCOView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
-        UI.usForm.SetGrid(grdItemCOView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemCOView, "Quantity", "Quantity", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemCOView, "Weight", "Weight", 100, UI.usDefGrid.gReal1Num)
         UI.usForm.SetGrid(grdItemCOView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemCOView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemCOView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
@@ -108,20 +108,20 @@ Public Class frmTraSalesContractDetVer1
         UI.usForm.SetGrid(grdSubItemCOView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdSubItemCOView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdSubItemCOView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdSubItemCOView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdSubItemCOView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdSubItemCOView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdSubItemCOView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSubItemCOView, "ItemName", "Nama Barang", 200, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubItemCOView, "Thick", "Tebal", 70, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubItemCOView, "Width", "Lebar", 70, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSubItemCOView, "Length", "Panjang", 70, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdSubItemCOView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdSubItemCOView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdSubItemCOView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdSubItemCOView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdSubItemCOView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
-        UI.usForm.SetGrid(grdSubItemCOView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
-        UI.usForm.SetGrid(grdSubItemCOView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdSubItemCOView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubItemCOView, "ItemTypeName", "Tipe", 70, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubItemCOView, "Quantity", "Quantity", 150, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSubItemCOView, "Weight", "Weight", 70, UI.usDefGrid.gReal1Num)
+        UI.usForm.SetGrid(grdSubItemCOView, "TotalWeight", "Total Berat", 250, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubItemCOView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdSubItemCOView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdSubItemCOView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubItemCOView, "TotalPrice", "Total Harga", 250, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdSubItemCOView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdSubItemCOView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdSubItemCOView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
@@ -643,10 +643,10 @@ Public Class frmTraSalesContractDetVer1
             .pubID = Guid.NewGuid.ToString
             .pubCS = pubCS
             .pubBPID = intBPID
-            .pubTableItem = dtItem
-            .pubTableSubItem = dtSubItem
-            .pubTableCOItemParent = dtItemConfirmationOrder
-            .pubTableCOSubItemParent = dtSubItemConfirmationOrder
+            .pubTableParentItem = dtItem
+            .pubTableParentSubItem = dtSubItem
+            .pubTableParentCOItem = dtItemConfirmationOrder
+            .pubTableParentCOSubItem = dtSubItemConfirmationOrder
             .pubIsAutoSearch = True
             .pubLevelItem = 0
             .StartPosition = FormStartPosition.CenterParent
@@ -654,6 +654,7 @@ Public Class frmTraSalesContractDetVer1
             prvSetButtonItem()
             prvCalculate()
             prvSetupTools()
+            prvSumGrid()
         End With
     End Sub
 
@@ -665,10 +666,10 @@ Public Class frmTraSalesContractDetVer1
             .pubIsNew = False
             .pubCS = pubCS
             .pubBPID = intBPID
-            .pubTableItem = dtItem
-            .pubTableSubItem = dtSubItem
-            .pubTableCOItemParent = dtItemConfirmationOrder
-            .pubTableCOSubItemParent = dtSubItemConfirmationOrder
+            .pubTableParentItem = dtItem
+            .pubTableParentSubItem = dtSubItem
+            .pubTableParentCOItem = dtItemConfirmationOrder
+            .pubTableParentCOSubItem = dtSubItemConfirmationOrder
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .pubLevelItem = 0
             .StartPosition = FormStartPosition.CenterParent
@@ -676,6 +677,7 @@ Public Class frmTraSalesContractDetVer1
             prvSetButtonItem()
             prvCalculate()
             prvSetupTools()
+            prvSumGrid()
         End With
     End Sub
 
@@ -691,11 +693,18 @@ Public Class frmTraSalesContractDetVer1
         Next
         dtItem.AcceptChanges()
 
+        '# Delete Item
+        For Each dr As DataRow In dtSubItem.Rows
+            If dr.Item("ParentID") = strID Then dr.Delete() : Exit For
+        Next
+        dtSubItem.AcceptChanges()
+
         '# Delete Item Confirmation Order
         For Each dr As DataRow In dtItemConfirmationOrder.Rows
             If dr.Item("GroupID") = intGroupID Then dr.Delete()
         Next
         dtItemConfirmationOrder.AcceptChanges()
+        dtSubItemConfirmationOrder.AcceptChanges()
 
         '# Update Group ID Item
         For Each dr As DataRow In dtItem.Rows
@@ -713,10 +722,20 @@ Public Class frmTraSalesContractDetVer1
                 dr.BeginEdit()
                 dr.Item("GroupID") = dr.Item("GroupID") - 1
                 dr.EndEdit()
+
+                For Each drSub As DataRow In dtSubItemConfirmationOrder.Rows
+                    If dr.Item("ID") = drSub.Item("ParentID") Then
+                        drSub.BeginEdit()
+                        drSub.Item("GroupID") = dr.Item("GroupID")
+                        drSub.EndEdit()
+                    End If
+                Next
+                dtSubItemConfirmationOrder.AcceptChanges()
             End If
         Next
         dtItemConfirmationOrder.AcceptChanges()
 
+        prvSumGrid()
         prvCalculate()
         prvSetButtonItem()
         prvSetupTools()

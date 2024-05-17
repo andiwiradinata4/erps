@@ -13,10 +13,10 @@ Public Class frmTraSalesContractDetItemVer1
     Private intPos As Integer = 0
     Private intGroupID As Integer = 0
     Private clsCS As VO.CS
-    Private dtCOItemParent As New DataTable
-    Private dtCOSubItemParent As New DataTable
-    Private dtItem As New DataTable
-    Private dtSubItem As New DataTable
+    Private dtParentCOItem As New DataTable
+    Private dtParentCOSubItem As New DataTable
+    Private dtParentItem As New DataTable
+    Private dtParentSubItem As New DataTable
     Private drSelectedItem As DataRow
     Private dtCO As New DataTable
     Private dtCOSub As New DataTable
@@ -29,27 +29,27 @@ Public Class frmTraSalesContractDetItemVer1
         End Set
     End Property
 
-    Public WriteOnly Property pubTableCOItemParent As DataTable
+    Public WriteOnly Property pubTableParentCOItem As DataTable
         Set(value As DataTable)
-            dtCOItemParent = value
+            dtParentCOItem = value
         End Set
     End Property
 
-    Public WriteOnly Property pubTableCOSubItemParent As DataTable
+    Public WriteOnly Property pubTableParentCOSubItem As DataTable
         Set(value As DataTable)
-            dtCOSubItemParent = value
+            dtParentCOSubItem = value
         End Set
     End Property
 
-    Public WriteOnly Property pubTableItem As DataTable
+    Public WriteOnly Property pubTableParentItem As DataTable
         Set(value As DataTable)
-            dtItem = value
+            dtParentItem = value
         End Set
     End Property
 
-    Public WriteOnly Property pubTableSubItem As DataTable
+    Public WriteOnly Property pubTableParentSubItem As DataTable
         Set(value As DataTable)
-            dtSubItem = value
+            dtParentSubItem = value
         End Set
     End Property
 
@@ -118,8 +118,8 @@ Public Class frmTraSalesContractDetItemVer1
         UI.usForm.SetGrid(grdItemCOView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemCOView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemCOView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemCOView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
-        UI.usForm.SetGrid(grdItemCOView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemCOView, "Quantity", "Quantity", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemCOView, "Weight", "Weight", 100, UI.usDefGrid.gReal1Num)
         UI.usForm.SetGrid(grdItemCOView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemCOView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemCOView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
@@ -127,6 +127,33 @@ Public Class frmTraSalesContractDetItemVer1
         UI.usForm.SetGrid(grdItemCOView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemCOView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemCOView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
+
+        UI.usForm.SetGrid(grdSubItemCOView, "ID", "ID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSubItemCOView, "SCID", "SCID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSubItemCOView, "CODetailID", "CODetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSubItemCOView, "OrderRequestDetailID", "OrderRequestDetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSubItemCOView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSubItemCOView, "CONumber", "Nomor Konfirmasi", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSubItemCOView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSubItemCOView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSubItemCOView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubItemCOView, "ItemName", "Nama Barang", 200, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubItemCOView, "Thick", "Tebal", 70, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubItemCOView, "Width", "Lebar", 70, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSubItemCOView, "Length", "Panjang", 70, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSubItemCOView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSubItemCOView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubItemCOView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSubItemCOView, "ItemTypeName", "Tipe", 70, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubItemCOView, "Quantity", "Quantity", 150, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSubItemCOView, "Weight", "Weight", 70, UI.usDefGrid.gReal1Num)
+        UI.usForm.SetGrid(grdSubItemCOView, "TotalWeight", "Total Berat", 250, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubItemCOView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdSubItemCOView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubItemCOView, "TotalPrice", "Total Harga", 250, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubItemCOView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubItemCOView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSubItemCOView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
     End Sub
 
     Private Sub prvFillCombo()
@@ -146,7 +173,7 @@ Public Class frmTraSalesContractDetItemVer1
 
     Private Sub prvSumGrid()
         '# Confirmation Order
-        Dim SumTotalQuantityOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
+        Dim SumTotalQuantityOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0}")
         Dim SumGrandTotalWeightOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
         Dim SumGrandTotalPriceOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
 
@@ -162,13 +189,35 @@ Public Class frmTraSalesContractDetItemVer1
             grdItemCOView.Columns("TotalPrice").Summary.Add(SumGrandTotalPriceOrder)
         End If
         grdItemCOView.BestFitColumns()
+
+        For i As Integer = 0 To grdItemCOView.RowCount - 1
+            grdItemCOView.ExpandMasterRow(i, "SubItem")
+        Next
+
+        '# Confirmation Order
+        Dim SumTotalQuantitySubItemOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0}")
+        Dim SumGrandTotalWeightSubItemOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
+        Dim SumGrandTotalPriceSubItemOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
+
+        If grdSubItemCOView.Columns("Quantity").SummaryText.Trim = "" Then
+            grdSubItemCOView.Columns("Quantity").Summary.Add(SumTotalQuantitySubItemOrder)
+        End If
+
+        If grdSubItemCOView.Columns("TotalWeight").SummaryText.Trim = "" Then
+            grdSubItemCOView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeightSubItemOrder)
+        End If
+
+        If grdSubItemCOView.Columns("TotalPrice").SummaryText.Trim = "" Then
+            grdSubItemCOView.Columns("TotalPrice").Summary.Add(SumGrandTotalPriceSubItemOrder)
+        End If
+        grdSubItemCOView.BestFitColumns()
     End Sub
 
     Private Sub prvFillForm()
         Me.Cursor = Cursors.WaitCursor
         Try
             prvFillCombo()
-            dtCO = dtCOItemParent.Clone
+            dtCO = dtParentCOItem.Clone
             Me.Cursor = Cursors.Default
             If bolIsNew Then
                 prvClear()
@@ -190,18 +239,27 @@ Public Class frmTraSalesContractDetItemVer1
                 txtUnitPrice.Value = drSelectedItem.Item("UnitPrice")
                 txtQuantity.Value = drSelectedItem.Item("Quantity")
                 txtRemarks.Text = drSelectedItem.Item("Remarks")
-
-                For Each dr As DataRow In dtCOItemParent.Rows
-                    If dr.Item("GroupID") = intGroupID Then dtCO.ImportRow(dr)
-                Next
-                dtCO.AcceptChanges()
-
-                For Each dr As DataRow In dtCOSubItemParent.Rows
-                    If dr.Item("GroupID") = intGroupID Then dtCOSub.ImportRow(dr)
-                Next
-                dtCOSub.AcceptChanges()
-
             End If
+
+            dtCO = dtParentCOItem.Clone
+            For Each dr As DataRow In dtParentCOItem.Rows
+                If dr.Item("GroupID") = intGroupID Then dtCO.ImportRow(dr)
+            Next
+            dtCO.AcceptChanges()
+
+            dtCOSub = dtParentCOSubItem.Clone
+            For Each dr As DataRow In dtParentCOSubItem.Rows
+                If dr.Item("GroupID") = intGroupID Then dtCOSub.ImportRow(dr)
+            Next
+            dtCOSub.AcceptChanges()
+
+            Dim dsMain As New DataSet
+            dsMain.Tables.Add(dtCO)
+            dsMain.Tables.Add(dtCOSub)
+            dsMain.Relations.Add("SubItem", dtCO.Columns.Item("ID"), dtCOSub.Columns.Item("ParentID"))
+            grdItemCO.DataSource = dtCO
+            grdItemCO.LevelTree.Nodes.Add("SubItem", grdSubItemCOView)
+            grdItemCO.Refresh()
             prvCalculate()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -242,8 +300,8 @@ Public Class frmTraSalesContractDetItemVer1
 
         '# Item Handle
         If bolIsNew Then
-            Dim drItem As DataRow = dtItem.NewRow
-            intGroupID = dtItem.Rows.Count + 1
+            Dim drItem As DataRow = dtParentItem.NewRow
+            intGroupID = dtParentItem.Rows.Count + 1
             With drItem
                 .BeginEdit()
                 .Item("ID") = strID
@@ -273,9 +331,9 @@ Public Class frmTraSalesContractDetItemVer1
                 .Item("LevelItem") = 0
                 .EndEdit()
             End With
-            dtItem.Rows.Add(drItem)
+            dtParentItem.Rows.Add(drItem)
         Else
-            For Each dr As DataRow In dtItem.Rows
+            For Each dr As DataRow In dtParentItem.Rows
                 With dr
                     If .Item("ID") = strID Then
                         .BeginEdit()
@@ -308,85 +366,83 @@ Public Class frmTraSalesContractDetItemVer1
                 End With
             Next
         End If
-        dtItem.AcceptChanges()
+        dtParentItem.AcceptChanges()
         frmParent.grdItemView.BestFitColumns()
 
         '# Delete Sub Item Exists with Parent ID
-        For Each dr As DataRow In dtSubItem.Rows
-            If dr.Item("ParentID") = strID Then dr.Delete()
+        For Each dr As DataRow In dtParentSubItem.Rows
+            If dr.Item("GroupID") = intGroupID Then dr.Delete()
         Next
-        dtSubItem.AcceptChanges()
-
-        For Each dr As DataRow In dtCOSubItemParent.Rows
-            Dim drSubItem As DataRow = dtSubItem.NewRow
-            With drSubItem
-                .BeginEdit()
-                .Item("ID") = Guid.NewGuid.ToString
-                .Item("SCID") = ""
-                .Item("ORDetailID") = strORDetailID
-                .Item("RequestNumber") = txtRequestNumber.Text.Trim
-                .Item("GroupID") = intGroupID
-                .Item("ItemID") = dr.Item("ItemID")
-                .Item("ItemCode") = dr.Item("ItemCode")
-                .Item("ItemName") = dr.Item("ItemName")
-                .Item("Thick") = dr.Item("Thick")
-                .Item("Width") = dr.Item("Width")
-                .Item("Length") = dr.Item("Length")
-                .Item("ItemSpecificationID") = dr.Item("ItemSpecificationID")
-                .Item("ItemSpecificationName") = dr.Item("ItemSpecificationName")
-                .Item("ItemTypeID") = dr.Item("ItemTypeID")
-                .Item("ItemTypeName") = dr.Item("ItemTypeName")
-                .Item("Quantity") = dr.Item("Quantity")
-                .Item("Weight") = dr.Item("Weight")
-                .Item("TotalWeight") = dr.Item("TotalWeight")
-                .Item("MaxTotalWeight") = dr.Item("MaxTotalWeight")
-                .Item("UnitPrice") = dr.Item("UnitPrice")
-                .Item("TotalPrice") = dr.Item("TotalPrice")
-                .Item("Remarks") = dr.Item("Remarks")
-                .Item("OrderNumberSupplier") = dr.Item("OrderNumberSupplier")
-                .Item("LevelItem") = dr.Item("LevelItem")
-                .Item("ParentID") = strID
-                .EndEdit()
-            End With
-            dtSubItem.Rows.Add(drSubItem)
-        Next
-        dtSubItem.AcceptChanges()
+        dtParentSubItem.AcceptChanges()
 
         '# Delete Confirmation Order Item
-        For Each dr As DataRow In dtCOItemParent.Rows
+        For Each dr As DataRow In dtParentCOItem.Rows
             If dr.Item("GroupID") = intGroupID Then dr.Delete()
         Next
-        dtCOItemParent.AcceptChanges()
-
-        '# Delete Confirmation Order Sub Item
-        For Each dr As DataRow In dtCOSubItemParent.Rows
-            If dr.Item("GroupID") = intGroupID Then dr.Delete()
-        Next
-        dtCOSubItemParent.AcceptChanges()
+        dtParentCOItem.AcceptChanges()
+        dtParentCOSubItem.AcceptChanges()
 
         '# Import Confirmation Order
         For Each dr As DataRow In dtCO.Rows
             dr.BeginEdit()
             dr.Item("GroupID") = intGroupID
             dr.EndEdit()
-            dtCOItemParent.ImportRow(dr)
+            dtParentCOItem.ImportRow(dr)
         Next
-        dtCOItemParent.AcceptChanges()
+        dtParentCOItem.AcceptChanges()
 
         '# Import Confirmation Order Sub Item
         For Each dr As DataRow In dtCOSub.Rows
             dr.BeginEdit()
             dr.Item("GroupID") = intGroupID
             dr.EndEdit()
-            dtCOSubItemParent.ImportRow(dr)
+            dtParentCOSubItem.ImportRow(dr)
         Next
-        dtCOSubItemParent.AcceptChanges()
+        dtParentCOSubItem.AcceptChanges()
+
+        '# Save Sub Item Parent
+        For Each dr As DataRow In dtParentCOSubItem.Rows
+            If dr.Item("GroupID") = intGroupID Then
+                Dim drSubItem As DataRow = dtParentSubItem.NewRow
+                With drSubItem
+                    .BeginEdit()
+                    .Item("ID") = Guid.NewGuid.ToString
+                    .Item("SCID") = ""
+                    .Item("ORDetailID") = strORDetailID
+                    .Item("RequestNumber") = txtRequestNumber.Text.Trim
+                    .Item("GroupID") = intGroupID
+                    .Item("ItemID") = dr.Item("ItemID")
+                    .Item("ItemCode") = dr.Item("ItemCode")
+                    .Item("ItemName") = dr.Item("ItemName")
+                    .Item("Thick") = dr.Item("Thick")
+                    .Item("Width") = dr.Item("Width")
+                    .Item("Length") = dr.Item("Length")
+                    .Item("ItemSpecificationID") = dr.Item("ItemSpecificationID")
+                    .Item("ItemSpecificationName") = dr.Item("ItemSpecificationName")
+                    .Item("ItemTypeID") = dr.Item("ItemTypeID")
+                    .Item("ItemTypeName") = dr.Item("ItemTypeName")
+                    .Item("Quantity") = dr.Item("Quantity")
+                    .Item("Weight") = dr.Item("Weight")
+                    .Item("TotalWeight") = dr.Item("TotalWeight")
+                    .Item("MaxTotalWeight") = dr.Item("MaxTotalWeight")
+                    .Item("UnitPrice") = dr.Item("UnitPrice")
+                    .Item("TotalPrice") = dr.Item("TotalPrice")
+                    .Item("Remarks") = dr.Item("Remarks")
+                    .Item("OrderNumberSupplier") = dr.Item("OrderNumberSupplier")
+                    .Item("LevelItem") = dr.Item("LevelItem")
+                    .Item("ParentID") = strID
+                    .EndEdit()
+                End With
+                dtParentSubItem.Rows.Add(drSubItem)
+            End If
+        Next
+        dtParentSubItem.AcceptChanges()
+
         frmParent.grdItemCOView.BestFitColumns()
         Me.Close()
     End Sub
 
     Private Sub prvClear()
-        strID = ""
         txtRequestNumber.Text = ""
         txtRequestNumber.Focus()
         strORDetailID = ""
@@ -411,7 +467,7 @@ Public Class frmTraSalesContractDetItemVer1
     Private Sub prvChooseItem()
         Dim frmDetail As New frmTraOrderRequestOutstandingItemVer1
         With frmDetail
-            .pubParentItem = dtItem
+            .pubParentItem = dtParentItem
             .pubBPID = intBPID
             .pubCS = clsCS
             .StartPosition = FormStartPosition.CenterParent
@@ -455,7 +511,7 @@ Public Class frmTraSalesContractDetItemVer1
     Private Sub prvSetButtonItemConfirmationOrder()
         Dim bolEnabled As Boolean = IIf(grdItemCOView.RowCount = 0, False, True)
         With ToolBarItemCO
-            .Buttons(cAdd).Enabled = Not bolEnabled
+            '.Buttons(cAdd).Enabled = Not bolEnabled
             .Buttons(cEdit).Enabled = bolEnabled
             .Buttons(cDelete).Enabled = bolEnabled
         End With
@@ -470,11 +526,11 @@ Public Class frmTraSalesContractDetItemVer1
 
         Dim dtAllCO As DataTable = dtCO.Clone
         dtAllCO.Merge(dtCO)
-        dtAllCO.Merge(dtCOItemParent)
+        dtAllCO.Merge(dtParentCOItem)
 
         Dim dtAllCOSub As DataTable = dtCOSub.Clone
         dtAllCOSub.Merge(dtCOSub)
-        dtAllCOSub.Merge(dtCOSubItemParent)
+        dtAllCOSub.Merge(dtParentCOSubItem)
 
         Dim frmDetail As New frmTraSalesContractDetItemCOVer1
         With frmDetail
@@ -490,6 +546,7 @@ Public Class frmTraSalesContractDetItemVer1
             .pubShowDialog(Me)
             prvSetButtonItemConfirmationOrder()
             prvToolsHandles()
+            prvSumGrid()
         End With
     End Sub
 
@@ -499,11 +556,9 @@ Public Class frmTraSalesContractDetItemVer1
 
         Dim dtAllCO As DataTable = dtCO.Clone
         dtAllCO.Merge(dtCO)
-        dtAllCO.Merge(dtCOItemParent)
 
         Dim dtAllCOSub As DataTable = dtCOSub.Clone
         dtAllCOSub.Merge(dtCOSub)
-        dtAllCOSub.Merge(dtCOSubItemParent)
 
         Dim frmDetail As New frmTraSalesContractDetItemCOVer1
         With frmDetail
@@ -518,6 +573,7 @@ Public Class frmTraSalesContractDetItemVer1
             .pubShowDialog(Me)
             prvSetButtonItemConfirmationOrder()
             prvToolsHandles()
+            prvSumGrid()
         End With
     End Sub
 
@@ -529,6 +585,8 @@ Public Class frmTraSalesContractDetItemVer1
             If dr.Item("ID") = strID Then dr.Delete() : Exit For
         Next
         dtCO.AcceptChanges()
+        dtCOSub.AcceptChanges()
+        prvSumGrid()
         prvToolsHandles()
     End Sub
 

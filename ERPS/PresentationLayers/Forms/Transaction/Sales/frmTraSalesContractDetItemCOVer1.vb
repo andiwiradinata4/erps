@@ -16,6 +16,7 @@ Public Class frmTraSalesContractDetItemCOVer1
     Private strID As String = ""
     Private strCODetailID As String
     Private clsCS As VO.CS
+    Private intPos As Integer
     Private bolIsAutoSearch As Boolean
 
     Public WriteOnly Property pubIsNew As Boolean
@@ -89,8 +90,8 @@ Public Class frmTraSalesContractDetItemCOVer1
         UI.usForm.SetGrid(grdItemView, "CODetailID", "CODetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "OrderRequestDetailID", "OrderRequestDetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdItemView, "CONumber", "Nomor Konfirmasi", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "CONumber", "Nomor Konfirmasi", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
@@ -279,37 +280,7 @@ Public Class frmTraSalesContractDetItemCOVer1
         dtParentSub.AcceptChanges()
 
         For Each dr As DataRow In dtSubItem.Rows
-            Dim drSub As DataRow = dtSubItem.NewRow
-            With drSub
-                .BeginEdit()
-                .Item("ID") = Guid.NewGuid.ToString
-                .Item("SCID") = ""
-                .Item("CODetailID") = strCODetailID
-                .Item("GroupID") = 0
-                .Item("CONumber") = txtCONumber.Text.Trim
-                .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
-                .Item("ItemID") = drSub.Item("ItemID")
-                .Item("ItemCode") = drSub.Item("ItemID")
-                .Item("ItemName") = drSub.Item("ItemID")
-                .Item("Thick") = drSub.Item("ItemID")
-                .Item("Width") = drSub.Item("ItemID")
-                .Item("Length") = drSub.Item("ItemID")
-                .Item("ItemSpecificationID") = drSub.Item("ItemID")
-                .Item("ItemSpecificationName") = drSub.Item("ItemID")
-                .Item("ItemTypeID") = drSub.Item("ItemID")
-                .Item("ItemTypeName") = drSub.Item("ItemID")
-                .Item("Quantity") = drSub.Item("ItemID")
-                .Item("Weight") = drSub.Item("ItemID")
-                .Item("TotalWeight") = drSub.Item("ItemID")
-                .Item("MaxTotalWeight") = drSub.Item("ItemID")
-                .Item("UnitPrice") = drSub.Item("ItemID")
-                .Item("TotalPrice") = drSub.Item("ItemID")
-                .Item("Remarks") = drSub.Item("ItemID")
-                .Item("LevelItem") = drSub.Item("LevelItem")
-                .Item("ParentID") = drSub.Item("ParentID")
-                drSub.EndEdit()
-            End With
-            dtParentSub.Rows.Add(drSub)
+            dtParentSub.ImportRow(dr)
         Next
         dtParentSub.AcceptChanges()
         prvClear()
@@ -376,7 +347,6 @@ Public Class frmTraSalesContractDetItemCOVer1
     End Sub
 
     Private Sub prvClear()
-        strID = ""
         strCODetailID = ""
         txtCONumber.Text = ""
         txtOrderNumberSupplier.Text = ""
@@ -395,6 +365,67 @@ Public Class frmTraSalesContractDetItemCOVer1
         txtRemarks.Text = ""
         txtItemCode.Focus()
     End Sub
+
+#Region "Sub Item"
+
+    Private Sub prvAddSubItem()
+        If intItemID = 0 Then
+            UI.usForm.frmMessageBox("Pilih konfirmasi pesanan terlebih dahulu")
+            txtItemCode.Focus()
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraSalesContractDetItemCOSubVer1
+        With frmDetail
+            .pubIsNew = True
+            .pubCS = clsCS
+            .pubParentID = strID
+            .pubParentCODetailID = strCODetailID
+            .pubTableParent = dtSubItem
+            .pubIsAutoSearch = True
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            prvSetButton()
+        End With
+    End Sub
+
+    Private Sub prvEditSubItem()
+        intPos = grdItemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        If intItemID = 0 Then
+            UI.usForm.frmMessageBox("Pilih konfirmasi pesanan terlebih dahulu")
+            txtItemCode.Focus()
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraSalesContractDetItemCOSubVer1
+        With frmDetail
+            .pubIsNew = False
+            .pubCS = clsCS
+            .pubParentID = strID
+            .pubParentCODetailID = strCODetailID
+            .pubTableParent = dtSubItem
+            .pubDataRowSelected = grdItemView.GetDataRow(intPos)
+            .pubIsAutoSearch = False
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            prvSetButton()
+        End With
+    End Sub
+
+    Private Sub prvDeleteSubItem()
+        intPos = grdItemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdItemView.GetRowCellValue(intPos, "ID")
+
+        '# Delete Item
+        For Each dr As DataRow In dtSubItem.Rows
+            If dr.Item("ID") = strID Then dr.Delete() : Exit For
+        Next
+        dtSubItem.AcceptChanges()
+    End Sub
+
+#End Region
 
 #Region "Form Handle"
 
@@ -419,6 +450,14 @@ Public Class frmTraSalesContractDetItemCOVer1
         Select Case e.Button.Text.Trim
             Case "Simpan" : prvSave()
             Case "Tutup" : Me.Close()
+        End Select
+    End Sub
+
+    Private Sub ToolBarSubItem_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarSubItem.ButtonClick
+        Select Case e.Button.Text.Trim
+            Case "Tambah" : prvAddSubItem()
+            Case "Edit" : prvEditSubItem()
+            Case "Hapus" : prvDeleteSubItem()
         End Select
     End Sub
 
