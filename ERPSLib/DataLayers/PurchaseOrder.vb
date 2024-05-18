@@ -700,6 +700,7 @@
                     "		WHERE 	" & vbNewLine &
                     "			COD.PODetailID=@PODetailID " & vbNewLine &
                     "			AND COH.IsDeleted=0 	" & vbNewLine &
+                    "			AND COD.ParentID='' 	" & vbNewLine &
                     "	), 	" & vbNewLine &
                     "	COQuantity=	" & vbNewLine &
                     "	(	" & vbNewLine &
@@ -711,6 +712,7 @@
                     "		WHERE 	" & vbNewLine &
                     "			COD.PODetailID=@PODetailID " & vbNewLine &
                     "			AND COH.IsDeleted=0 	" & vbNewLine &
+                    "			AND COD.ParentID='' 	" & vbNewLine &
                     "	) 	" & vbNewLine &
                     "WHERE ID=@PODetailID	" & vbNewLine
 

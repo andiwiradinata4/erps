@@ -74,6 +74,7 @@ Public Class frmTraDelivery
             .Item(cDelete).Enabled = bolEnable
             .Item(cSubmit).Enabled = bolEnable
             .Item(cCancelSubmit).Enabled = bolEnable
+            .Item(cPaymentTransport).Enabled = bolEnable
             .Item(cPrint).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
         End With

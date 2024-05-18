@@ -18,6 +18,8 @@
         Property TotalPriceTransport As Decimal
         Property DPAmountTransport As Decimal
         Property ReceiveAmountTransport As Decimal
+        Property LevelItem As Integer
+        Property ParentID As String
         Property RoundingWeight As Decimal
     End Class
 End Namespace

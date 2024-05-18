@@ -182,7 +182,7 @@
                 .Parameters.Add("@IsDP", SqlDbType.Decimal).Value = clsData.IsDP
                 .Parameters.Add("@DPAmount", SqlDbType.Decimal).Value = clsData.DPAmount
                 .Parameters.Add("@ReceiveAmount", SqlDbType.Decimal).Value = clsData.ReceiveAmount
-                .Parameters.Add("@IsUseSubItem", SqlDbType.Decimal).Value = clsData.IsUseSubItem
+                .Parameters.Add("@IsUseSubItem", SqlDbType.Bit).Value = clsData.IsUseSubItem
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

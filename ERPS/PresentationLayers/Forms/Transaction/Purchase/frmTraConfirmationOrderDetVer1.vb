@@ -208,17 +208,15 @@ Public Class frmTraConfirmationOrderDetVer1
         If dtSubItem.Rows.Count > 0 Then
             For Each dr As DataRow In dtItem.Rows
                 If dr.Item("ParentID") = "" Then
-                    Dim decTotalQuantity As Decimal = 0, decTotalWeight As Decimal = 0, decTotalPrice As Decimal = 0
+                    Dim decTotalWeight As Decimal = 0, decTotalPrice As Decimal = 0
                     For Each drS As DataRow In dtSubItem.Rows
                         If drS.Item("ParentID") = dr.Item("ID") Then
-                            decTotalQuantity += drS.Item("Quantity")
                             decTotalWeight += drS.Item("TotalWeight")
                             decTotalPrice += drS.Item("TotalPrice")
                         End If
                     Next
-                    If decTotalQuantity > 0 Or decTotalWeight > 0 Or decTotalPrice > 0 Then
+                    If decTotalWeight > 0 Or decTotalPrice > 0 Then
                         dr.BeginEdit()
-                        dr.Item("Quantity") = decTotalQuantity
                         dr.Item("TotalWeight") = decTotalWeight
                         dr.Item("TotalPrice") = decTotalPrice
                         dr.EndEdit()

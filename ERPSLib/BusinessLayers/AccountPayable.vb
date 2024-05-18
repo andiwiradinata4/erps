@@ -267,9 +267,6 @@ Namespace BL
                         End If
                     Next
 
-                    '# Revert Purchase Contract Receive Payment
-                    If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then DL.PurchaseContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
-
                     '# Revert Purchase Contract Detail Receive Amount
                     If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
                         '# Calculate Sub Item if Exists
@@ -296,10 +293,11 @@ Namespace BL
                             For Each dr As DataRow In dtReferencesItem.Rows
                                 DL.PurchaseContract.CalculateTotalUsedReceiveItemPaymentParentVer01(sqlCon, sqlTrans, dr.Item("ID"))
                             Next
-
-                            '# Calculate Purchase Contract Header
-                            DL.PurchaseContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
                         End If
+
+                        '# Calculate Purchase Contract Header
+                        DL.PurchaseContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
+
                     End If
                     '# -------------------
 
@@ -395,8 +393,6 @@ Namespace BL
                 '# Add Validation, if Total DP Amount Used more than Total DP on going to Save.
 
                 If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
-                    '# Calculate Purchase Contract
-                    DL.PurchaseContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
 
                     '# Calculate Sub Item if Exists
                     For Each dr As DataRow In dtReferencesSubItem.Rows
@@ -419,9 +415,10 @@ Namespace BL
                             DL.PurchaseContract.CalculateTotalUsedReceiveItemPaymentParentVer01(sqlCon, sqlTrans, dr.Item("ID"))
                         Next
 
-                        '# Calculate Purchase Contract Header
-                        DL.PurchaseContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
                     End If
+
+                    '# Calculate Purchase Contract Header
+                    DL.PurchaseContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
 
                 ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
                     '# Calculate Purchase Order

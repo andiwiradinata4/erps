@@ -164,7 +164,16 @@
         Public Shared Function SaveDataVer01(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                              ByVal bolNew As Boolean, ByVal clsData As VO.AccountReceivable) As String
             Try
+                Dim clsHelper As New DataSetHelper
                 Dim dtReferencesItem As New DataTable
+                Dim dtReferencesSubItem As New DataTable
+                If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then
+                    dtReferencesItem = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID, "")
+                    For Each dr As DataRow In dtReferencesItem.Rows
+                        dtReferencesSubItem.Merge(DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID, dr.Item("ID")))
+                    Next
+                End If
+
                 If bolNew Then
                     clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.ARDate, clsData.CompanyID, clsData.ProgramID, clsData.Modules)
                     clsData.ARNumber = GetNewNo(sqlCon, sqlTrans, clsData.ARDate, clsData.CompanyID, clsData.ProgramID)
@@ -175,29 +184,70 @@
                         dtItem = DL.AccountReceivable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, clsData.ID)
                     ElseIf clsData.Modules.Trim = VO.AccountReceivable.DownPayment Or
                         clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then
+
                         dtItem = DL.AccountReceivable.ListDataDetailOnly(sqlCon, sqlTrans, clsData.ID)
                         dtDetailItem = DL.ARAP.ListDataDetailItemOnly(sqlCon, sqlTrans, clsData.ID)
                     End If
 
-                    DL.AccountReceivable.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
-
-                    '# Revert Payment Amount
-                    For Each dr As DataRow In dtItem.Rows
-                        If clsData.Modules.Trim = VO.AccountReceivable.SalesBalance Then
-                            DL.BusinessPartnerARBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("InvoiceID"))
-                        ElseIf clsData.Modules.Trim = VO.AccountReceivable.DownPayment Then
-                            DL.SalesContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("InvoiceID"))
-                        ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then
-                            DL.Delivery.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("InvoiceID"))
-                        End If
-                    Next
-
-                    '# Revert Payment Item Amount
                     DL.ARAP.DeleteDataItem(sqlCon, sqlTrans, clsData.ID)
                     For Each dr As DataRow In dtDetailItem.Rows
+                        '# Revert Payment Item Amount
                         If clsData.Modules.Trim = VO.AccountReceivable.DownPayment Then DL.SalesContract.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
                         If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then DL.Delivery.CalculateItemTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
                     Next
+
+                    clsHelper = New DataSetHelper
+                    Dim dtReferencesParentID As DataTable = clsHelper.SelectGroupByInto("ReferencesParentID", dtDetailItem, "ReferencesParentID", "", "ReferencesParentID")
+                    For Each dr As DataRow In dtReferencesParentID.Rows
+                        '# Revert Payment Item Parent Amount
+                        If clsData.Modules.Trim = VO.AccountReceivable.DownPayment And dr.Item("ReferencesParentID") <> "" Then DL.SalesContract.CalculateItemTotalUsedDownPaymentParent(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
+                        If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment And dr.Item("ReferencesParentID") <> "" Then DL.Delivery.CalculateItemTotalUsedReceivePaymentParent(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
+                    Next
+
+                    '# Revert Payment Amount
+                    DL.AccountReceivable.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
+                    For Each dr As DataRow In dtItem.Rows
+                        If clsData.Modules.Trim = VO.AccountReceivable.DownPayment Then DL.SalesContract.CalculateTotalUsedDownPaymentVer1(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                        If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then DL.Delivery.CalculateTotalUsedReceivePaymentVer1(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+
+                        If clsData.Modules.Trim = VO.AccountReceivable.SalesBalance Then
+                            DL.BusinessPartnerARBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                        End If
+                    Next
+
+                    '# Revert Sales Contract Detail Receive Amount
+                    If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then
+                        '# Calculate Sub Item if Exists
+                        For Each dr As DataRow In dtReferencesSubItem.Rows
+                            DL.SalesContract.CalculateTotalUsedReceiveItemPaymentVer01(sqlCon, sqlTrans, dr.Item("ID"))
+                        Next
+
+                        '# Calculate Item
+                        For Each dr As DataRow In dtReferencesItem.Rows
+                            DL.SalesContract.CalculateTotalUsedReceiveItemPaymentVer01(sqlCon, sqlTrans, dr.Item("ID"))
+                        Next
+
+                        If dtReferencesSubItem.Rows.Count > 0 Then
+                            'Calculate Header
+                            Dim strPrevSalesID As String = ""
+                            For Each clsDet As VO.AccountReceivableDet In clsData.Detail
+                                If strPrevSalesID <> clsDet.SalesID Then
+                                    DL.Delivery.CalculateTotalUsedReceivePaymentSubItemVer1(sqlCon, sqlTrans, clsDet.SalesID)
+                                    strPrevSalesID = clsDet.SalesID
+                                End If
+                            Next
+
+                            '# Calculate Sales Detail Item Parent
+                            For Each dr As DataRow In dtReferencesItem.Rows
+                                DL.SalesContract.CalculateTotalUsedReceiveItemPaymentParentVer01(sqlCon, sqlTrans, dr.Item("ID"))
+                            Next
+                        End If
+
+                        '# Calculate Sales Contract Header
+                        DL.SalesContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
+
+                    End If
+                    '# -------------------
 
                     '# Revert Down Payment
                     Dim dtDownPayment As DataTable = DL.AccountReceivable.ListDataDownPayment(sqlCon, sqlTrans, clsData.ID)
@@ -247,8 +297,16 @@
                     '# Calculate Payment Amount Item
                     If clsData.Modules.Trim = VO.AccountReceivable.DownPayment Then DL.SalesContract.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, clsItem.ReferencesID, clsItem.ReferencesDetailID)
                     If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then DL.Delivery.CalculateItemTotalUsedReceivePayment(sqlCon, sqlTrans, clsItem.ReferencesID, clsItem.ReferencesDetailID)
-
                     intCount += 1
+                Next
+
+                Dim strReferencesParentIDExists As String = ""
+                For Each clsItem As VO.ARAPItem In clsData.ARAPItem
+                    If strReferencesParentIDExists <> clsItem.ReferencesParentID Then
+                        If clsData.Modules.Trim = VO.AccountReceivable.DownPayment And clsItem.ReferencesParentID.Trim <> "" Then DL.SalesContract.CalculateItemTotalUsedDownPaymentParent(sqlCon, sqlTrans, clsItem.ReferencesParentID)
+                        If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment And clsItem.ReferencesParentID.Trim <> "" Then DL.Delivery.CalculateItemTotalUsedReceivePaymentParent(sqlCon, sqlTrans, clsItem.ReferencesParentID)
+                        strReferencesParentIDExists = clsItem.ReferencesParentID
+                    End If
                 Next
 
                 '# Save Data Down Payment
@@ -263,19 +321,41 @@
 
                 '# Calculate Payment Amount
                 For Each clsDet As VO.AccountReceivableDet In clsData.Detail
-                    If clsData.Modules = VO.AccountReceivable.SalesBalance Then DL.BusinessPartnerARBalance.CalculateTotalUsed(sqlCon, sqlTrans, clsDet.SalesID)
-                    If clsData.Modules.Trim = VO.AccountReceivable.DownPayment Then DL.SalesContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, clsDet.SalesID)
-                    If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then DL.Delivery.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, clsDet.SalesID)
+                    'If clsData.Modules = VO.AccountReceivable.SalesBalance Then DL.BusinessPartnerARBalance.CalculateTotalUsed(sqlCon, sqlTrans, clsDet.SalesID)
+                    If clsData.Modules.Trim = VO.AccountReceivable.DownPayment Then DL.SalesContract.CalculateTotalUsedDownPaymentVer1(sqlCon, sqlTrans, clsDet.SalesID)
+                    If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then DL.Delivery.CalculateTotalUsedReceivePaymentVer1(sqlCon, sqlTrans, clsDet.SalesID)
                 Next
 
                 '# Calculate Sales Contract
                 If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then
+                    '# Calculate Sales Contract
                     DL.SalesContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
 
-                    dtReferencesItem = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID, "")
+                    '# Calculate Sub Item if Exists
+                    For Each dr As DataRow In dtReferencesSubItem.Rows
+                        DL.SalesContract.CalculateTotalUsedReceiveItemPaymentVer01(sqlCon, sqlTrans, dr.Item("ID"))
+                    Next
+
+                    '# Calculate Item
                     For Each dr As DataRow In dtReferencesItem.Rows
                         DL.SalesContract.CalculateTotalUsedReceiveItemPaymentVer01(sqlCon, sqlTrans, dr.Item("ID"))
                     Next
+
+                    If dtReferencesSubItem.Rows.Count > 0 Then
+                        'Calculate Header
+                        For Each clsDet As VO.AccountReceivableDet In clsData.Detail
+                            DL.Delivery.CalculateTotalUsedReceivePaymentSubItemVer1(sqlCon, sqlTrans, clsDet.SalesID)
+                        Next
+
+                        '# Calculate Purchase Detail Item Parent
+                        For Each dr As DataRow In dtReferencesItem.Rows
+                            DL.SalesContract.CalculateTotalUsedReceiveItemPaymentParentVer01(sqlCon, sqlTrans, dr.Item("ID"))
+                        Next
+
+                        '# Calculate Purchase Contract Header
+                        DL.SalesContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
+                    End If
+
                 End If
 
                 '# Save Data Status
@@ -383,6 +463,7 @@
                 End If
 
                 Dim dtReferencesItem As New DataTable
+                Dim dtReferencesSubItem As New DataTable
                 Dim dtDetail As New DataTable
                 Dim dtDetailItem As New DataTable
                 If strModules.Trim = VO.AccountReceivable.SalesBalance Then
@@ -392,8 +473,9 @@
                     dtDetail = DL.AccountReceivable.ListDataDetailOnly(sqlCon, sqlTrans, strID)
                     dtDetailItem = DL.ARAP.ListDataDetailItemOnly(sqlCon, sqlTrans, strID)
 
-                    For Each dr As DataRow In dtDetail.Rows
-
+                    dtReferencesItem = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsExists.ReferencesID, "")
+                    For Each dr As DataRow In dtReferencesItem.Rows
+                        dtReferencesSubItem.Merge(DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsExists.ReferencesID, dr.Item("ID")))
                     Next
                 End If
 
@@ -401,22 +483,31 @@
                 DL.AccountReceivable.DeleteDataDetail(sqlCon, sqlTrans, strID)
                 DL.ARAP.DeleteDataItem(sqlCon, sqlTrans, strID)
 
-                '# Revert Payment Amount
-                For Each dr As DataRow In dtDetail.Rows
-                    If strModules.Trim = VO.AccountReceivable.SalesBalance Then
-                        DL.BusinessPartnerARBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("InvoiceID"))
-                    ElseIf strModules.Trim = VO.AccountReceivable.DownPayment Then
-                        DL.SalesContract.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("InvoiceID"))
-                    ElseIf strModules.Trim = VO.AccountReceivable.ReceivePayment Then
-                        DL.Delivery.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("InvoiceID"))
-                    End If
-                Next
-
                 '# Revert Payment Item Amount
                 DL.ARAP.DeleteDataItem(sqlCon, sqlTrans, strID)
                 For Each dr As DataRow In dtDetailItem.Rows
                     If strModules.Trim = VO.AccountReceivable.DownPayment Then DL.SalesContract.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
                     If strModules.Trim = VO.AccountReceivable.ReceivePayment Then DL.Delivery.CalculateItemTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
+                Next
+
+                Dim clsHelper As New DataSetHelper
+                Dim dtReferencesParentID As DataTable = clsHelper.SelectGroupByInto("ReferencesParentID", dtDetailItem, "ReferencesParentID", "", "ReferencesParentID")
+                For Each dr As DataRow In dtReferencesParentID.Rows
+                    '# Revert Payment Item Parent Amount
+                    If strModules.Trim = VO.AccountReceivable.DownPayment And dr.Item("ReferencesParentID") <> "" Then DL.SalesContract.CalculateItemTotalUsedDownPaymentParent(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
+                    If strModules.Trim = VO.AccountReceivable.ReceivePayment And dr.Item("ReferencesParentID") <> "" Then DL.Delivery.CalculateItemTotalUsedReceivePaymentParent(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
+
+                Next
+
+                '# Revert Payment Amount
+                For Each dr As DataRow In dtDetail.Rows
+                    If strModules.Trim = VO.AccountReceivable.SalesBalance Then
+                        DL.BusinessPartnerARBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                    ElseIf strModules.Trim = VO.AccountReceivable.DownPayment Then
+                        DL.SalesContract.CalculateTotalUsedDownPaymentVer1(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                    ElseIf strModules.Trim = VO.AccountReceivable.ReceivePayment Then
+                        DL.Delivery.CalculateTotalUsedReceivePaymentVer1(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                    End If
                 Next
 
                 '# Revert Down Payment
@@ -428,11 +519,35 @@
 
                 '# Calculate Sales Contract
                 If strModules.Trim = VO.AccountReceivable.ReceivePayment Then
-                    DL.SalesContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsExists.ReferencesID)
-                    dtReferencesItem = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsExists.ReferencesID, "")
+
+                    '# Calculate Sub Item if Exists
+                    For Each dr As DataRow In dtReferencesSubItem.Rows
+                        DL.SalesContract.CalculateTotalUsedReceiveItemPaymentVer01(sqlCon, sqlTrans, dr.Item("ID"))
+                    Next
+
                     For Each dr As DataRow In dtReferencesItem.Rows
                         DL.SalesContract.CalculateTotalUsedReceiveItemPaymentVer01(sqlCon, sqlTrans, dr.Item("ID"))
                     Next
+
+                    If dtReferencesSubItem.Rows.Count > 0 Then
+                        'Calculate Header
+                        Dim strInvoiceID As String = ""
+                        For Each dr As DataRow In dtDetail.Rows
+                            If strInvoiceID <> dr.Item("InvoiceID") Then
+                                DL.Delivery.CalculateTotalUsedReceivePaymentSubItemVer1(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                                strInvoiceID = dr.Item("InvoiceID")
+                            End If
+                        Next
+
+                        '# Calculate Sales Detail Item Parent
+                        For Each dr As DataRow In dtReferencesItem.Rows
+                            DL.SalesContract.CalculateTotalUsedReceiveItemPaymentParentVer01(sqlCon, sqlTrans, dr.Item("ID"))
+                        Next
+                    End If
+
+                    '# Calculate Sales Contract
+                    DL.SalesContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsExists.ReferencesID)
+
                 End If
 
                 '# Save Data Status
@@ -1129,11 +1244,11 @@
         End Function
 
         Public Shared Function ListDataDetailItemDPWithOutstandingRev02(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
-                                                                  ByVal intBPID As Integer, ByVal strAPID As String,
-                                                                  ByVal strReferencesID As String) As DataTable
+                                                                        ByVal intBPID As Integer, ByVal strAPID As String,
+                                                                        ByVal strReferencesID As String, ByVal bolIsUseSubItem As Boolean) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.AccountReceivable.ListDataDetailItemDPWithOutstandingVer01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID)
+                Return DL.AccountReceivable.ListDataDetailItemDPWithOutstandingVer01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID, bolIsUseSubItem)
             End Using
         End Function
 

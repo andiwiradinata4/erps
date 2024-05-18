@@ -242,11 +242,6 @@
                     Dim dtSubItem As New DataTable
                     Dim dtItem As DataTable = DL.ConfirmationOrder.ListDataDetail(sqlCon, sqlTrans, strID, "")
 
-                    For Each dr As DataRow In dtItem.Rows
-                        '# Calculate Parent ID
-                        'dtSubItem.Merge(DL.ConfirmationOrder.ListDataDetail(sqlCon, sqlTrans, strID, dr.Item("ID")))
-                    Next
-
                     DL.ConfirmationOrder.DeleteData(sqlCon, sqlTrans, strID)
 
                     '# Revert CO Quantity

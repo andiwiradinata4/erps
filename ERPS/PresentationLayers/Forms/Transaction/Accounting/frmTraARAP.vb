@@ -341,7 +341,6 @@ Public Class frmTraARAP
         Try
             BL.ARAP.DeleteData(clsData.ID, clsData.Modules, clsData.Remarks, enumARAPType)
             pgMain.Value = 100
-
             UI.usForm.frmMessageBox("Hapus data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "TransNumber"))
         Catch ex As Exception

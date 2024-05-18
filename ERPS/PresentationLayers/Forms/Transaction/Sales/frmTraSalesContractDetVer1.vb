@@ -293,10 +293,74 @@ Public Class frmTraSalesContractDetVer1
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
 
+        If dtSubItem.Rows.Count > 0 Then
+            For Each dr As DataRow In dtItem.Rows
+                If dr.Item("ParentID") = "" Then
+                    Dim decTotalWeight As Decimal = 0, decTotalPrice As Decimal = 0
+                    For Each drS As DataRow In dtSubItem.Rows
+                        If drS.Item("ParentID") = dr.Item("ID") Then
+                            decTotalWeight += drS.Item("TotalWeight")
+                            decTotalPrice += drS.Item("TotalPrice")
+                        End If
+                    Next
+                    If decTotalWeight > 0 Or decTotalPrice > 0 Then
+                        dr.BeginEdit()
+                        dr.Item("TotalWeight") = decTotalWeight
+                        dr.Item("TotalPrice") = decTotalPrice
+                        dr.EndEdit()
+                    End If
+                End If
+            Next
+            dtItem.AcceptChanges()
+        End If
+
+        If dtSubItemConfirmationOrder.Rows.Count > 0 Then
+            For Each dr As DataRow In dtItemConfirmationOrder.Rows
+                If dr.Item("ParentID") = "" Then
+                    Dim decTotalWeight As Decimal = 0, decTotalPrice As Decimal = 0
+                    For Each drS As DataRow In dtSubItemConfirmationOrder.Rows
+                        If drS.Item("ParentID") = dr.Item("ID") Then
+                            decTotalWeight += drS.Item("TotalWeight")
+                            decTotalPrice += drS.Item("TotalPrice")
+                        End If
+                    Next
+                    If decTotalWeight > 0 Or decTotalPrice > 0 Then
+                        dr.BeginEdit()
+                        dr.Item("TotalWeight") = decTotalWeight
+                        dr.Item("TotalPrice") = decTotalPrice
+                        dr.EndEdit()
+                    End If
+                End If
+            Next
+            dtItemConfirmationOrder.AcceptChanges()
+        End If
+
+        prvCalculate()
+
         Dim listDetail As New List(Of VO.SalesContractDet)
         For Each dr As DataRow In dtItem.Rows
             listDetail.Add(New ERPSLib.VO.SalesContractDet With
                            {
+                               .ID = dr.Item("ID"),
+                               .ORDetailID = dr.Item("ORDetailID"),
+                               .GroupID = dr.Item("GroupID"),
+                               .ItemID = dr.Item("ItemID"),
+                               .Quantity = dr.Item("Quantity"),
+                               .Weight = dr.Item("Weight"),
+                               .TotalWeight = dr.Item("TotalWeight"),
+                               .UnitPrice = dr.Item("UnitPrice"),
+                               .TotalPrice = dr.Item("TotalPrice"),
+                               .Remarks = dr.Item("Remarks"),
+                               .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                               .LevelItem = dr.Item("LevelItem"),
+                               .ParentID = dr.Item("ParentID")
+                           })
+        Next
+
+        For Each dr As DataRow In dtSubItem.Rows
+            listDetail.Add(New ERPSLib.VO.SalesContractDet With
+                           {
+                               .ID = dr.Item("ID"),
                                .ORDetailID = dr.Item("ORDetailID"),
                                .GroupID = dr.Item("GroupID"),
                                .ItemID = dr.Item("ItemID"),
@@ -316,6 +380,25 @@ Public Class frmTraSalesContractDetVer1
         For Each dr As DataRow In dtItemConfirmationOrder.Rows
             listDetailConfirmationOrder.Add(New ERPSLib.VO.SalesContractDetConfirmationOrder With
                                 {
+                                    .ID = dr.Item("ID"),
+                                    .CODetailID = dr.Item("CODetailID"),
+                                    .GroupID = dr.Item("GroupID"),
+                                    .ItemID = dr.Item("ItemID"),
+                                    .Quantity = dr.Item("Quantity"),
+                                    .Weight = dr.Item("Weight"),
+                                    .TotalWeight = dr.Item("TotalWeight"),
+                                    .UnitPrice = dr.Item("UnitPrice"),
+                                    .TotalPrice = dr.Item("TotalPrice"),
+                                    .Remarks = dr.Item("Remarks"),
+                                    .LevelItem = dr.Item("LevelItem"),
+                                    .ParentID = dr.Item("ParentID")
+                                })
+        Next
+
+        For Each dr As DataRow In dtSubItemConfirmationOrder.Rows
+            listDetailConfirmationOrder.Add(New ERPSLib.VO.SalesContractDetConfirmationOrder With
+                                {
+                                    .ID = dr.Item("ID"),
                                     .CODetailID = dr.Item("CODetailID"),
                                     .GroupID = dr.Item("GroupID"),
                                     .ItemID = dr.Item("ItemID"),
@@ -754,7 +837,7 @@ Public Class frmTraSalesContractDetVer1
             dtSubItemConfirmationOrder = New DataTable
             If dtItemConfirmationOrder.Rows.Count = 0 Then dtSubItemConfirmationOrder = dtItemConfirmationOrder.Clone()
             For Each dr As DataRow In dtItemConfirmationOrder.Rows
-                dtSubItemConfirmationOrder.Merge(BL.ConfirmationOrder.ListDataDetail(pubID, dr.Item("ID")))
+                dtSubItemConfirmationOrder.Merge(BL.SalesContract.ListDataDetailCO(pubID, dr.Item("ID")))
             Next
 
             '# Remap ID using Guid

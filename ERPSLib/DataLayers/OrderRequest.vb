@@ -603,6 +603,7 @@
                     "			SCD.SCID=SCH.ID 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			SCD.ORDetailID=@OrderRequestDetailID 	" & vbNewLine &
+                    "			AND SCD.ParentID='' 	" & vbNewLine &
                     "			AND SCH.IsDeleted=0 	" & vbNewLine &
                     "	), 	" & vbNewLine &
                     "	SCQuantity=	" & vbNewLine &
@@ -614,6 +615,7 @@
                     "			SCD.SCID=SCH.ID 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			SCD.ORDetailID=@OrderRequestDetailID 	" & vbNewLine &
+                    "			AND SCD.ParentID='' 	" & vbNewLine &
                     "			AND SCH.IsDeleted=0 	" & vbNewLine &
                     "	) 	" & vbNewLine &
                     "WHERE ID=@OrderRequestDetailID	" & vbNewLine

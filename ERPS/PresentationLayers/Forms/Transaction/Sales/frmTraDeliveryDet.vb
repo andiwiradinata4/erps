@@ -11,6 +11,7 @@ Public Class frmTraDeliveryDet
     Private dtItem As New DataTable
     Private dtPaymentTerm As New DataTable
     Private intPos As Integer = 0
+    Private bolIsUseSubItem As Boolean
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
@@ -64,6 +65,9 @@ Public Class frmTraDeliveryDet
         UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "RoundingWeight", "RoundingWeight", 100, UI.usDefGrid.gReal4Num, False)
 
         '# History
         UI.usForm.SetGrid(grdStatusView, "ID", "ID", 100, UI.usDefGrid.gString, False)
@@ -124,6 +128,7 @@ Public Class frmTraDeliveryDet
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
+                bolIsUseSubItem = clsData.IsUseSubItem
 
                 'dtpDeliveryDate.Enabled = False
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
@@ -204,7 +209,9 @@ Public Class frmTraDeliveryDet
                                .Remarks = dr.Item("Remarks"),
                                .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
                                .UnitPriceTransport = txtUnitPriceTransport.Value,
-                               .TotalPriceTransport = dr.Item("TotalWeight") * txtUnitPriceTransport.Value
+                               .TotalPriceTransport = dr.Item("TotalWeight") * txtUnitPriceTransport.Value,
+                               .LevelItem = dr.Item("LevelItem"),
+                               .ParentID = dr.Item("ParentID")
                            })
         Next
 
@@ -238,6 +245,7 @@ Public Class frmTraDeliveryDet
         clsData.IsFreePPNTransport = chkIsFreePPNTransport.Checked
         clsData.PPHTransport = txtPPHTransport.Value
         clsData.IsFreePPHTransport = chkIsFreePPHTransport.Checked
+        clsData.IsUseSubItem = bolIsUseSubItem
         clsData.Detail = listDetail
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
@@ -359,6 +367,7 @@ Public Class frmTraDeliveryDet
 
                 strSCID = .pubLUdtRow.Item("ID")
                 txtSCNumber.Text = .pubLUdtRow.Item("SCNumber")
+                bolIsUseSubItem = .pubLUdtRow.Item("IsUseSubItem")
             End If
         End With
     End Sub
@@ -471,6 +480,7 @@ Public Class frmTraDeliveryDet
             .pubSCID = strSCID
             .pubTableItem = dtItem
             .pubIsAutoSearch = True
+            .pubIsUseSubItem = bolIsUseSubItem
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -489,6 +499,7 @@ Public Class frmTraDeliveryDet
             .pubSCID = strSCID
             .pubTableItem = dtItem
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
+            .pubIsUseSubItem = bolIsUseSubItem
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()

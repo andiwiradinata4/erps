@@ -211,7 +211,7 @@ Namespace DL
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandText =
-"SELECT SUM(TCD.TotalWeight) AS TotalWeight " & vbNewLine &
+"SELECT ISNULL(SUM(TCD.TotalWeight),0) AS TotalWeight " & vbNewLine &
 "FROM traCutting TCH " & vbNewLine &
 "INNER JOIN traCuttingDet TCD ON " & vbNewLine &
 "   TCH.ID=TCD.CuttingID " & vbNewLine &

@@ -249,7 +249,9 @@ Namespace BL
                                         .PPH = cls.PPH,
                                         .Remarks = cls.Remarks,
                                         .DPAmount = cls.DPAmount,
-                                        .Rounding = cls.Rounding
+                                        .Rounding = cls.Rounding,
+                                        .LevelItem = cls.LevelItem,
+                                        .ReferencesParentID = cls.ReferencesParentID
                                     })
                         Next
 
@@ -777,7 +779,7 @@ Namespace BL
                                                                        ByVal enumARAPType As VO.ARAP.ARAPTypeValue, ByVal strReferencesID As String,
                                                                        ByVal bolIsUseSubItem As Boolean) As DataTable
             If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
-                Return BL.AccountReceivable.ListDataDetailItemDPWithOutstandingRev02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
+                Return BL.AccountReceivable.ListDataDetailItemDPWithOutstandingRev02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID, bolIsUseSubItem)
             Else
                 Return BL.AccountPayable.ListDataDetailItemDPWithOutstandingRev02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID, bolIsUseSubItem)
             End If

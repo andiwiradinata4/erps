@@ -81,8 +81,17 @@
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.SCDate, clsData.CompanyID, clsData.ProgramID)
                         If clsData.SCNumber.Trim = "" Then clsData.SCNumber = GetNewNo(sqlCon, sqlTrans, clsData.SCDate, clsData.BPID, clsData.CompanyID, clsData.ProgramID)
                     Else
+                        Dim dtSubItem As New DataTable
                         Dim dtItem As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsData.ID, "")
+                        For Each dr As DataRow In dtItem.Rows
+                            dtSubItem.Merge(DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsData.ID, dr.Item("ID")))
+                        Next
+
+                        Dim dtSubItemCO As New DataTable
                         Dim dtItemCO As DataTable = DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, clsData.ID, "")
+                        For Each dr As DataRow In dtItemCO.Rows
+                            dtSubItemCO.Merge(DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, clsData.ID, dr.Item("ID")))
+                        Next
 
                         DL.SalesContract.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
                         DL.SalesContract.DeleteDataDetailCO(sqlCon, sqlTrans, clsData.ID)
@@ -95,6 +104,9 @@
 
                         '# Revert SC Quantity in Confirmation Order
                         For Each dr As DataRow In dtItemCO.Rows
+                            DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
+                        Next
+                        For Each dr As DataRow In dtSubItemCO.Rows
                             DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
                         Next
 
@@ -122,7 +134,13 @@
                     '# Save Data Detail
                     Dim intCount As Integer = 1
                     For Each clsDet As VO.SalesContractDet In clsData.Detail
+                        Dim prevID As String = clsDet.ID
                         clsDet.ID = clsData.ID & "-" & 1 & "-" & Format(intCount, "000")
+
+                        For Each clsDetChild As VO.SalesContractDet In clsData.Detail
+                            If clsDetChild.ParentID = prevID Then clsDetChild.ParentID = clsDet.ID
+                        Next
+
                         clsDet.SCID = clsData.ID
                         DL.SalesContract.SaveDataDetail(sqlCon, sqlTrans, clsDet)
                         intCount += 1
@@ -131,7 +149,13 @@
                     '# Save Data Detail Confirmation Order
                     intCount = 1
                     For Each clsDet As VO.SalesContractDetConfirmationOrder In clsData.DetailConfirmationOrder
+                        Dim prevID As String = clsDet.ID
                         clsDet.ID = clsData.ID & "-" & 2 & "-" & Format(intCount, "000")
+
+                        For Each clsDetChild As VO.SalesContractDetConfirmationOrder In clsData.DetailConfirmationOrder
+                            If clsDetChild.ParentID = prevID Then clsDetChild.ParentID = clsDet.ID
+                        Next
+
                         clsDet.SCID = clsData.ID
                         DL.SalesContract.SaveDataDetailCO(sqlCon, sqlTrans, clsDet)
                         intCount += 1
@@ -193,15 +217,22 @@
 
                     Dim dtItem As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, strID, "")
                     Dim dtItemCO As DataTable = DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, strID, "")
+                    Dim dtSubItemCO As New DataTable
+                    For Each dr As DataRow In dtItemCO.Rows
+                        dtSubItemCO.Merge(DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, strID, dr.Item("ID")))
+                    Next
 
                     DL.SalesContract.DeleteData(sqlCon, sqlTrans, strID)
 
                     '# Revert SC Quantity in Order Request
-                    For Each dr As DataRow In dtItem.Rows
+                    Dim clsHelper As New DataSetHelper
+                    Dim dtItemGroup As DataTable = clsHelper.SelectGroupByInto("ItemGroup", dtItem, "ORDetailID", "", "ORDetailID")
+                    For Each dr As DataRow In dtItemGroup.Rows
                         DL.OrderRequest.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("ORDetailID"))
                     Next
 
                     '# Revert SC Quantity in Confirmation Order
+                    dtItemCO.Merge(dtSubItemCO)
                     For Each dr As DataRow In dtItemCO.Rows
                         DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
                     Next
@@ -420,7 +451,8 @@
             BL.Server.ServerDefault()
             Dim dtReturn As New DataTable
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                dtReturn = DL.SalesContract.PrintSCCOVer00(sqlCon, Nothing, intProgramID, intCompanyID, strID)
+                Dim clsData As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, Nothing, strID)
+                dtReturn = DL.SalesContract.PrintSCCOVer00(sqlCon, Nothing, intProgramID, intCompanyID, strID, clsData.IsUseSubItem)
 
                 '# Combine AllItemName
                 Dim strItemType As String = ""

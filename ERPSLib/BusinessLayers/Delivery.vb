@@ -49,6 +49,13 @@
                             DL.PurchaseOrderTransport.CalculateDoneTotalUsed(sqlCon, sqlTrans, dr.Item("PODetailID"))
                         Next
 
+                        Dim clsHelper As New DataSetHelper
+                        Dim dtParentID As DataTable = clsHelper.SelectGroupByInto("ParentID", dtItem, "ParentID", "", "ParentID")
+                        For Each dr As DataRow In dtParentID.Rows
+                            '# Revert Payment Item Parent Amount
+                            If dr.Item("ParentID") <> "" Then DL.SalesContract.CalculateDCTotalUsedParent(sqlCon, sqlTrans, dr.Item("ParentID"))
+                        Next
+
                         Dim clsExists As VO.Delivery = DL.Delivery.GetDetail(sqlCon, sqlTrans, clsData.ID)
                         If clsExists.DPAmount > 0 Or clsExists.TotalPayment > 0 Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pembayaran")
@@ -125,6 +132,14 @@
                         DL.SalesContract.CalculateDCTotalUsed(sqlCon, sqlTrans, clsDet.SCDetailID)
                     Next
 
+                    Dim strParentIDExists As String = ""
+                    For Each clsDet As VO.DeliveryDet In clsData.Detail
+                        If strParentIDExists <> clsDet.ParentID Then
+                            If clsDet.ParentID <> "" Then DL.SalesContract.CalculateDCTotalUsedParent(sqlCon, sqlTrans, clsDet.ParentID)
+                            strParentIDExists = clsDet.ParentID
+                        End If
+                    Next
+
                     '# Calculate Done Quantity
                     If clsData.DetailTransport IsNot Nothing Then
                         For Each clsDet As VO.DeliveryDetTransport In clsData.DetailTransport
@@ -185,6 +200,13 @@
                     '# Revert Done Quantity
                     For Each dr As DataRow In dtItemTransport.Rows
                         DL.PurchaseOrderTransport.CalculateDoneTotalUsed(sqlCon, sqlTrans, dr.Item("PODetailID"))
+                    Next
+
+                    Dim clsHelper As New DataSetHelper
+                    Dim dtParentID As DataTable = clsHelper.SelectGroupByInto("ParentID", dtItem, "ParentID", "", "ParentID")
+                    For Each dr As DataRow In dtParentID.Rows
+                        '# Revert Payment Item Parent Amount
+                        If dr.Item("ParentID") <> "" Then DL.SalesContract.CalculateDCTotalUsedParent(sqlCon, sqlTrans, dr.Item("ParentID"))
                     Next
 
                     '# Save Data Status

@@ -67,6 +67,7 @@ Public Class frmTraSalesContract
         UI.usForm.SetGrid(grdView, "LogDate", "Tanggal Edit", 100, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdView, "LogInc", "LogInc", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdView, "StatusInfo", "Status", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "IsUseSubItem", "IsUseSubItem", 100, UI.usDefGrid.gBoolean, False)
     End Sub
 
     Private Sub prvSetButton()
@@ -194,6 +195,7 @@ Public Class frmTraSalesContract
         clsReturn.LogDate = grdView.GetRowCellValue(intPos, "LogDate")
         clsReturn.LogInc = grdView.GetRowCellValue(intPos, "LogInc")
         clsReturn.StatusInfo = grdView.GetRowCellValue(intPos, "StatusInfo")
+        clsReturn.IsUseSubItem = grdView.GetRowCellValue(intPos, "IsUseSubItem")
         Return clsReturn
     End Function
 
@@ -403,6 +405,7 @@ Public Class frmTraSalesContract
             .pubBPID = clsData.BPID
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
+            .pubIsUseSubItem = clsData.IsUseSubItem
             .ShowDialog()
         End With
     End Sub

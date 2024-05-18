@@ -124,11 +124,11 @@
                         "INSERT INTO traAccountReceivable " & vbNewLine &
                         "   (ID, CompanyID, ProgramID, ARNumber, BPID, CoAIDOfIncomePayment, Modules, ReferencesID, ReferencesNote, " & vbNewLine &
                         "    ARDate, DueDateValue, DueDate, TotalAmount, Percentage, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, " & vbNewLine &
-                        "    TotalPPN, TotalPPH, IsDP, DPAmount, ReceiveAmount) " & vbNewLine &
+                        "    TotalPPN, TotalPPH, IsDP, DPAmount, ReceiveAmount, IsUseSubItem) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @CompanyID, @ProgramID, @ARNumber, @BPID, @CoAIDOfIncomePayment, @Modules, @ReferencesID, @ReferencesNote, " & vbNewLine &
                         "    @ARDate, @DueDateValue, @DueDate, @TotalAmount, @Percentage, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), " & vbNewLine &
-                        "    @TotalPPN, @TotalPPH, @IsDP, @DPAmount, @ReceiveAmount) " & vbNewLine
+                        "    @TotalPPN, @TotalPPH, @IsDP, @DPAmount, @ReceiveAmount, @IsUseSubItem) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE traAccountReceivable SET " & vbNewLine &
@@ -154,7 +154,8 @@
                         "    LogDate=GETDATE(), " & vbNewLine &
                         "    IsDP=@IsDP, " & vbNewLine &
                         "    DPAmount=@DPAmount, " & vbNewLine &
-                        "    ReceiveAmount=@ReceiveAmount " & vbNewLine &
+                        "    ReceiveAmount=@ReceiveAmount, " & vbNewLine &
+                        "    IsUseSubItem=@IsUseSubItem " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -181,6 +182,7 @@
                 .Parameters.Add("@IsDP", SqlDbType.Bit).Value = clsData.IsDP
                 .Parameters.Add("@DPAmount", SqlDbType.Decimal).Value = clsData.DPAmount
                 .Parameters.Add("@ReceiveAmount", SqlDbType.Decimal).Value = clsData.ReceiveAmount
+                .Parameters.Add("@IsUseSubItem", SqlDbType.Bit).Value = clsData.IsUseSubItem
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -1125,9 +1127,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traAccountReceivableDet " & vbNewLine &
-                    "   (ID, ARID, SalesID, Amount, Remarks, PPN, PPH, DPAmount, Rounding) " & vbNewLine &
+                    "   (ID, ARID, SalesID, Amount, Remarks, PPN, PPH, DPAmount, Rounding, LevelItem, ReferencesParentID) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @ARID, @SalesID, @Amount, @Remarks, @PPN, @PPH, @DPAmount, @Rounding) " & vbNewLine
+                    "   (@ID, @ARID, @SalesID, @Amount, @Remarks, @PPN, @PPH, @DPAmount, @Rounding, @LevelItem, @ReferencesParentID) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@ARID", SqlDbType.VarChar, 100).Value = clsData.ARID
@@ -1138,6 +1140,8 @@
                 .Parameters.Add("@PPH", SqlDbType.Decimal).Value = clsData.PPH
                 .Parameters.Add("@DPAmount", SqlDbType.Decimal).Value = clsData.DPAmount
                 .Parameters.Add("@Rounding", SqlDbType.Decimal).Value = clsData.Rounding
+                .Parameters.Add("@LevelItem", SqlDbType.Int).Value = clsData.LevelItem
+                .Parameters.Add("@ReferencesParentID", SqlDbType.VarChar, 100).Value = clsData.ReferencesParentID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -1311,7 +1315,7 @@
         Public Shared Function ListDataDetailItemDPWithOutstandingVer01(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                                         ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
                                                                         ByVal intBPID As Integer, ByVal strARID As String,
-                                                                        ByVal strReferencesID As String) As DataTable
+                                                                        ByVal strReferencesID As String, ByVal bolIsUseSubItem As Boolean) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -1322,7 +1326,7 @@
                     "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, B.TotalPrice AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
                     "   B.TotalPrice-B.DPAmount-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID " & vbNewLine &
                     "FROM traARAPItem A " & vbNewLine &
                     "INNER JOIN traSalesContractDet B ON " & vbNewLine &
                     "   A.ReferencesID=B.SCID " & vbNewLine &
@@ -1341,19 +1345,14 @@
                 .CommandText +=
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
-                    "   CAST(0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.SCID AS ReferencesID, A.ID AS ReferencesDetailID, C.OrderNumberSupplier, " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.SCID AS ReferencesID, A.ID AS ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, A.TotalPrice AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, CAST(0 AS DECIMAL(18,2)) AS DPAmount, B.PPN AS PPNPercent, B.PPH AS PPHPercent, " & vbNewLine &
                     "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
                     "   A.TotalPrice-A.DPAmount-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID " & vbNewLine &
                     "FROM traSalesContractDet A " & vbNewLine &
                     "INNER JOIN traSalesContract B ON " & vbNewLine &
                     "   A.SCID=B.ID " & vbNewLine &
-                    "INNER JOIN traSalesContractDetConfirmationOrder B1 ON " & vbNewLine &
-                    "   A.SCID=B1.SCID " & vbNewLine &
-                    "   AND A.GroupID=B1.GroupID " & vbNewLine &
-                    "INNER JOIN traConfirmationOrderDet C ON " & vbNewLine &
-                    "   B1.CODetailID=C.ID " & vbNewLine &
                     "INNER JOIN mstItem MI ON " & vbNewLine &
                     "   A.ItemID=MI.ID " & vbNewLine &
                     "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
@@ -1366,7 +1365,11 @@
                     "   AND B.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.SCID=@ReferencesID " & vbNewLine &
                     "   AND B.ApprovedBy<>'' " & vbNewLine &
-                    "   AND A.TotalPrice-A.DPAmount-A.ReceiveAmount>0 " & vbNewLine &
+                    "   AND A.TotalPrice-A.DPAmount-A.ReceiveAmount>0 " & vbNewLine
+
+                If bolIsUseSubItem Then .CommandText += "   AND A.ParentID<>'' " & vbNewLine
+
+                .CommandText +=
                     "   AND A.ID NOT IN " & vbNewLine &
                     "       ( " & vbNewLine &
                     "           SELECT ARD.ReferencesDetailID 	" & vbNewLine &

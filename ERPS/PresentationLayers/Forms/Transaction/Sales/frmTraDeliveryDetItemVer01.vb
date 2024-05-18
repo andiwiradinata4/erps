@@ -14,6 +14,9 @@
     Private dtItem As New DataTable
     Private drSelectedItem As DataRow
     Private bolIsAutoSearch As Boolean
+    Private bolIsUseSubItem As Boolean
+    Private intLevelItem As Integer
+    Private strParentID As String
 
     Public WriteOnly Property pubSCID As String
         Set(value As String)
@@ -48,6 +51,12 @@
     Public WriteOnly Property pubCS As VO.CS
         Set(value As VO.CS)
             clsCS = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubIsUseSubItem As Boolean
+        Set(value As Boolean)
+            bolIsUseSubItem = value
         End Set
     End Property
 
@@ -100,6 +109,8 @@
                 txtUnitPrice.Value = drSelectedItem.Item("UnitPrice")
                 txtQuantity.Value = drSelectedItem.Item("Quantity")
                 txtRemarks.Text = drSelectedItem.Item("Remarks")
+                intLevelItem = drSelectedItem.Item("LevelItem")
+                strParentID = drSelectedItem.Item("ParentID")
             End If
             prvCalculate()
         Catch ex As Exception
@@ -159,6 +170,8 @@
                 .Item("UnitPrice") = txtUnitPrice.Value
                 .Item("TotalPrice") = txtTotalPrice.Value
                 .Item("Remarks") = txtRemarks.Text.Trim
+                .Item("LevelItem") = intLevelItem
+                .Item("ParentID") = strParentID
                 .EndEdit()
             End With
             dtItem.Rows.Add(drItem)
@@ -188,6 +201,8 @@
                         .Item("UnitPrice") = txtUnitPrice.Value
                         .Item("TotalPrice") = txtTotalPrice.Value
                         .Item("Remarks") = txtRemarks.Text.Trim
+                        .Item("LevelItem") = intLevelItem
+                        .Item("ParentID") = strParentID
                         .EndEdit()
                     End If
                 End With
@@ -195,7 +210,8 @@
         End If
         dtItem.AcceptChanges()
         frmParent.grdItemView.BestFitColumns()
-        Me.Close()
+        prvClear()
+        If Not bolIsNew Then Me.Close()
     End Sub
 
     Private Sub prvClear()
@@ -219,6 +235,8 @@
         txtTotalWeight.Value = 0
         txtTotalPrice.Value = 0
         txtRemarks.Text = ""
+        intLevelItem = 0
+        strParentID = ""
     End Sub
 
     Private Sub prvChooseItem()
@@ -227,6 +245,7 @@
             .pubParentItem = dtItem
             .pubSCID = strSCID
             .pubCS = clsCS
+            .pubIsUseSubItem = bolIsUseSubItem
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             If .pubIsLookupGet Then
@@ -244,6 +263,8 @@
                 txtMaxTotalWeight.Value = .pubLUdtRow.Item("MaxTotalWeight")
                 txtUnitPrice.Value = .pubLUdtRow.Item("UnitPrice")
                 txtQuantity.Value = .pubLUdtRow.Item("Quantity")
+                intLevelItem = .pubLUdtRow.Item("LevelItem")
+                strParentID = .pubLUdtRow.Item("ParentID")
                 txtQuantity.Focus()
                 txtRemarks.Text = ""
                 bolIsAutoSearch = False
