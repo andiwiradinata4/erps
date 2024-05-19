@@ -66,6 +66,7 @@
         With frmDetail
             .pubIsLookUp = True
             .pubCompanyID = pubCompanyID
+            .StartPosition = FormStartPosition.CenterParent
             .ShowDialog()
             If .pubIsLookUpGet Then
                 If enumChoose = ChooseBankAccount.BankAccount1 Then

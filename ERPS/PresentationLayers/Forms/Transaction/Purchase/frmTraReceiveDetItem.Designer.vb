@@ -28,6 +28,8 @@ Partial Class frmTraReceiveDetItem
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.txtOrderNumberSupplier = New ERPS.usTextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtPCNumber = New ERPS.usTextBox()
         Me.btnPC = New DevExpress.XtraEditors.SimpleButton()
@@ -67,8 +69,6 @@ Partial Class frmTraReceiveDetItem
         Me.txtThick = New ERPS.usNumeric()
         Me.txtMaxTotalWeight = New ERPS.usNumeric()
         Me.txtWeight = New ERPS.usNumeric()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.txtOrderNumberSupplier = New ERPS.usTextBox()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -167,6 +167,28 @@ Partial Class frmTraReceiveDetItem
         Me.pnlDetail.Name = "pnlDetail"
         Me.pnlDetail.Size = New System.Drawing.Size(693, 411)
         Me.pnlDetail.TabIndex = 2
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
+        Me.Label5.ForeColor = System.Drawing.Color.Black
+        Me.Label5.Location = New System.Drawing.Point(31, 44)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(127, 13)
+        Me.Label5.TabIndex = 193
+        Me.Label5.Text = "Nomor Pesanan Pemasok"
+        '
+        'txtOrderNumberSupplier
+        '
+        Me.txtOrderNumberSupplier.BackColor = System.Drawing.Color.Azure
+        Me.txtOrderNumberSupplier.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtOrderNumberSupplier.Location = New System.Drawing.Point(166, 40)
+        Me.txtOrderNumberSupplier.MaxLength = 250
+        Me.txtOrderNumberSupplier.Name = "txtOrderNumberSupplier"
+        Me.txtOrderNumberSupplier.ReadOnly = True
+        Me.txtOrderNumberSupplier.Size = New System.Drawing.Size(170, 21)
+        Me.txtOrderNumberSupplier.TabIndex = 2
         '
         'Label4
         '
@@ -269,7 +291,6 @@ Partial Class frmTraReceiveDetItem
         '
         'txtQuantity
         '
-        Me.txtQuantity.DecimalPlaces = 2
         Me.txtQuantity.Location = New System.Drawing.Point(477, 177)
         Me.txtQuantity.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtQuantity.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
@@ -607,7 +628,7 @@ Partial Class frmTraReceiveDetItem
         'txtWeight
         '
         Me.txtWeight.BackColor = System.Drawing.Color.White
-        Me.txtWeight.DecimalPlaces = 4
+        Me.txtWeight.DecimalPlaces = 1
         Me.txtWeight.Location = New System.Drawing.Point(166, 232)
         Me.txtWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
@@ -616,28 +637,6 @@ Partial Class frmTraReceiveDetItem
         Me.txtWeight.TabIndex = 10
         Me.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtWeight.ThousandsSeparator = True
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.BackColor = System.Drawing.Color.Transparent
-        Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(31, 44)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(127, 13)
-        Me.Label5.TabIndex = 193
-        Me.Label5.Text = "Nomor Pesanan Pemasok"
-        '
-        'txtOrderNumberSupplier
-        '
-        Me.txtOrderNumberSupplier.BackColor = System.Drawing.Color.Azure
-        Me.txtOrderNumberSupplier.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtOrderNumberSupplier.Location = New System.Drawing.Point(166, 40)
-        Me.txtOrderNumberSupplier.MaxLength = 250
-        Me.txtOrderNumberSupplier.Name = "txtOrderNumberSupplier"
-        Me.txtOrderNumberSupplier.ReadOnly = True
-        Me.txtOrderNumberSupplier.Size = New System.Drawing.Size(170, 21)
-        Me.txtOrderNumberSupplier.TabIndex = 2
         '
         'frmTraReceiveDetItem
         '

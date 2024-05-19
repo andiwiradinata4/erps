@@ -144,8 +144,7 @@ Public Class frmTraConfirmationOrderDetItemVer1
             If Not bolIsNew Then
                 For Each dr As DataRow In dtParentItem.Rows
                     txtOrderNumberSupplier.Text = strOrderNumberSupplier
-                    txtDeliveryAddress.Text = dr.Item("DeliveryAddress")
-                    If dr.Item("OrderNumberSupplier") = strOrderNumberSupplier Then dtItem.ImportRow(dr)
+                    If dr.Item("OrderNumberSupplier") = strOrderNumberSupplier Then dtItem.ImportRow(dr) : txtDeliveryAddress.Text = dr.Item("DeliveryAddress")
                 Next
                 dtItem.AcceptChanges()
 
@@ -290,6 +289,10 @@ Public Class frmTraConfirmationOrderDetItemVer1
         For Each drItem As DataRow In dtItem.Rows
             For Each drSubItem As DataRow In dtSubItem.Rows
                 If drItem.Item("ID") = drSubItem.Item("ParentID") Then
+                    drSubItem.BeginEdit()
+                    drSubItem.Item("DeliveryAddress") = txtDeliveryAddress.Text.Trim
+                    drSubItem.Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
+                    drSubItem.EndEdit()
                     dtParentSubItem.ImportRow(drSubItem)
                 End If
             Next
@@ -312,17 +315,29 @@ Public Class frmTraConfirmationOrderDetItemVer1
 
     Public Function pubGetAllData() As DataTable
         Dim dtData As DataTable = dtParentItem.Clone
-        For Each dr As DataRow In dtItem.Rows
+        For Each dr As DataRow In dtParentItem.Rows
             dtData.ImportRow(dr)
         Next
+
+        For Each dr As DataRow In dtItem.Rows
+            Dim drSelected() As DataRow = dtData.Select("PODetailID='" & dr.Item("PODetailID") & "'")
+            If drSelected.Length = 0 Then dtData.ImportRow(dr)
+        Next
+
         Return dtData
     End Function
 
     Public Function pubGetAllDataSubItem() As DataTable
         Dim dtData As DataTable = dtParentSubItem.Clone
-        For Each dr As DataRow In dtSubItem.Rows
+        For Each dr As DataRow In dtParentSubItem.Rows
             dtData.ImportRow(dr)
         Next
+
+        For Each dr As DataRow In dtSubItem.Rows
+            Dim drSelected() As DataRow = dtData.Select("PODetailID='" & dr.Item("PODetailID") & "'")
+            If drSelected.Length = 0 Then dtData.ImportRow(dr)
+        Next
+
         Return dtData
     End Function
 

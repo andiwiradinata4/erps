@@ -144,6 +144,8 @@ Public Class frmTraARAPDetVer4
         UI.usForm.SetGrid(grdItemView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "ReferencesParentID", "ReferencesParentID", 100, UI.usDefGrid.gString, False)
         grdItemView.Columns("Amount").ColumnEdit = rpiValue
         grdItemView.Columns("PPN").ColumnEdit = rpiValue
         grdItemView.Columns("PPH").ColumnEdit = rpiValue

@@ -1365,7 +1365,8 @@
                     "   AND B.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.SCID=@ReferencesID " & vbNewLine &
                     "   AND B.ApprovedBy<>'' " & vbNewLine &
-                    "   AND A.TotalPrice-A.DPAmount-A.ReceiveAmount>0 " & vbNewLine
+                    "   AND A.TotalPrice-A.DPAmount-A.ReceiveAmount>0 " & vbNewLine &
+                    "   AND A.TotalWeight-A.DCWeight>0 " & vbNewLine
 
                 If bolIsUseSubItem Then .CommandText += "   AND A.ParentID<>'' " & vbNewLine
 
@@ -1406,8 +1407,8 @@
                     "SELECT " & vbNewLine &
                     "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, B.TotalPrice AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
-                    "   B.TotalPrice-B.DPAmount-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName " & vbNewLine &
+                    "   B.TotalPrice-B.DPAmount-B.ReceiveAmount+A.Amount+A.DPAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID  " & vbNewLine &
                     "FROM traARAPItem A " & vbNewLine &
                     "INNER JOIN traDeliveryDet B ON " & vbNewLine &
                     "   A.ReferencesID=B.DeliveryID " & vbNewLine &
@@ -1421,16 +1422,15 @@
                     "INNER JOIN mstItemType MIT ON " & vbNewLine &
                     "   MI.ItemTypeID=MIT.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
-                    "   A.ParentID=@ARID " & vbNewLine
-
-                .CommandText +=
+                    "   A.ParentID=@ARID " & vbNewLine &
+                    "" & vbNewLine &
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
                     "   CAST(0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.DeliveryID AS ReferencesID, A.ID AS ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, A.TotalPrice AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, CAST(0 AS DECIMAL(18,2)) AS DPAmount, B.PPN AS PPNPercent, B.PPH AS PPHPercent, " & vbNewLine &
                     "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
                     "   A.TotalPrice-A.DPAmount-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID " & vbNewLine &
                     "FROM traDeliveryDet A " & vbNewLine &
                     "INNER JOIN traDelivery B ON " & vbNewLine &
                     "   A.DeliveryID=B.ID " & vbNewLine &

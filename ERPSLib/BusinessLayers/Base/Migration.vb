@@ -28,6 +28,7 @@
                 DevelopOnProgress_ID21(sqlCon, Nothing)
                 DevelopOnProgress_ID22(sqlCon, Nothing)
                 DevelopOnProgress_ID23(sqlCon, Nothing)
+                DevelopOnProgress_ID24(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -658,6 +659,21 @@
                 "ALTER TABLE traCuttingDetResult ADD ParentID varchar(100) NOT NULL CONSTRAINT DF_traCuttingDetResult_ParentID DEFAULT ('') " & vbNewLine &
                 "ALTER TABLE traStockIn ADD OutTotalWeightProcess decimal(18,4) NOT NULL CONSTRAINT DF_traStockIn_OutTotalWeightProcess DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traStockIn ADD OutTotalQuantityProcess decimal(18,4) NOT NULL CONSTRAINT DF_traStockIn_OutTotalQuantityProcess DEFAULT ((0)) " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 24
+        Private Shared Sub DevelopOnProgress_ID24(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 24
+            clsData.Name = "Develop On Progress 24"
+            clsData.Scripts =
+                "ALTER TABLE traSalesContractDet ADD UnitPriceHPP decimal(18,4) NOT NULL CONSTRAINT DF_traSalesContractDet_UnitPriceHPP DEFAULT ((0)) " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

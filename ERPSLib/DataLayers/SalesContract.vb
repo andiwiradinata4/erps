@@ -119,9 +119,9 @@
                     "   A.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.CompanyID=@CompanyID " & vbNewLine &
                     "   AND A.BPID=@BPID " & vbNewLine &
-                    "   AND A1.Quantity-A1.DCQuantity>0" & vbNewLine &
-                    "   AND A1.TotalWeight-A1.DCWeight>0" & vbNewLine &
-                    "   AND A.StatusID=@StatusID " & vbNewLine
+                    "   AND A1.TotalWeight-A1.RoundingWeight-A1.DCWeight>0 " & vbNewLine &
+                    "   AND A.StatusID=@StatusID " & vbNewLine &
+                    "   AND (A1.TotalPrice-A1.ReceiveAmount-A1.DPAmount<=0 Or A1.IsIgnoreValidationPayment=1) " & vbNewLine
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
@@ -820,7 +820,7 @@
                     "			ISNULL(SUM(TDH.TotalPayment),0) ReceiveAmount " & vbNewLine &
                     "		FROM traDelivery TDH " & vbNewLine &
                     "		WHERE 	" & vbNewLine &
-                    "			TDD.DeliveryID=@ID 	" & vbNewLine &
+                    "			TDH.SCID=@ID 	" & vbNewLine &
                     "			AND TDH.IsDeleted=0 	" & vbNewLine &
                     "	) " & vbNewLine &
                     "WHERE ID=@ID " & vbNewLine
@@ -1079,7 +1079,7 @@
                     "    A.ID, A.SCID, A.ORDetailID, A3.ID AS RequestNumber, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  	" & vbNewLine &
                     "    C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  	" & vbNewLine &
                     "    A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight, " & vbNewLine &
-                    "    A.Remarks, A.IsIgnoreValidationPayment, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID " & vbNewLine &
+                    "    A.Remarks, A.IsIgnoreValidationPayment, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceHPP " & vbNewLine &
                     "FROM traSalesContractDet A  	" & vbNewLine &
                     "INNER JOIN traOrderRequestDet A1 ON  	" & vbNewLine &
                     "    A.ORDetailID=A1.ID  	" & vbNewLine &
@@ -1196,10 +1196,10 @@
                     "   B.ItemTypeID=D.ID  	" & vbNewLine &
                     "WHERE  	" & vbNewLine &
                     "   A1.ProgramID=@ProgramID " & vbNewLine &
-                    "   And A1.CompanyID=@CompanyID " & vbNewLine &
-                    "   And A.SCID=@SCID	" & vbNewLine &
-                    "   And A.TotalWeight+A.RoundingWeight-A.DCWeight>0 " & vbNewLine &
-                    "   And (A.TotalPrice-A.ReceiveAmount-A.DPAmount<=0 Or A.IsIgnoreValidationPayment=1) " & vbNewLine
+                    "   AND A1.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A.SCID=@SCID	" & vbNewLine &
+                    "   AND A.TotalWeight+A.RoundingWeight-A.DCWeight>0 " & vbNewLine &
+                    "   AND (A.TotalPrice-A.ReceiveAmount-A.DPAmount<=0 Or A.IsIgnoreValidationPayment=1) " & vbNewLine
 
                 If bolIsUseSubItem Then .CommandText += "   AND A.ParentID<>'' " & vbNewLine
 
@@ -1219,9 +1219,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traSalesContractDet " & vbNewLine &
-                    "   ( ID, SCID, ORDetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, OrderNumberSupplier, RoundingWeight, LevelItem, ParentID) " & vbNewLine &
+                    "   ( ID, SCID, ORDetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, OrderNumberSupplier, RoundingWeight, LevelItem, ParentID, UnitPriceHPP) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   ( @ID, @SCID, @ORDetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @OrderNumberSupplier, @RoundingWeight, @LevelItem, @ParentID) " & vbNewLine
+                    "   ( @ID, @SCID, @ORDetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @OrderNumberSupplier, @RoundingWeight, @LevelItem, @ParentID, @UnitPriceHPP) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = clsData.SCID
@@ -1240,6 +1240,7 @@
                 .Parameters.Add("@RoundingWeight", SqlDbType.Decimal).Value = clsData.RoundingWeight
                 .Parameters.Add("@LevelItem", SqlDbType.Int).Value = clsData.LevelItem
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
+                .Parameters.Add("@UnitPriceHPP", SqlDbType.Decimal).Value = clsData.UnitPriceHPP
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -1376,7 +1377,7 @@
                     "	DCQuantity=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(DD.Quantity+DD.RoundingWeight),0) TotalQuantity    " & vbNewLine &
+                    "			ISNULL(SUM(DD.Quantity),0) TotalQuantity    " & vbNewLine &
                     "		FROM traDeliveryDet DD 	" & vbNewLine &
                     "		INNER JOIN traDelivery DH ON	" & vbNewLine &
                     "			DD.DeliveryID=DH.ID 	" & vbNewLine &

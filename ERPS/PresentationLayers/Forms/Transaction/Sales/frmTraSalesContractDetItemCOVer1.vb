@@ -321,6 +321,12 @@ Public Class frmTraSalesContractDetItemCOVer1
 
     Private Sub prvCalculate()
         txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
+        Dim decTotalWeight As Decimal = 0
+        For Each dr As DataRow In dtSubItem.Rows
+            decTotalWeight += dr.Item("TotalWeight")
+        Next
+        If decTotalWeight > 0 Then txtWeight.Value = decTotalWeight : txtTotalWeight.Value = decTotalWeight
+
         txtTotalPrice.Value = txtUnitPrice.Value * txtTotalWeight.Value
     End Sub
 
@@ -386,6 +392,7 @@ Public Class frmTraSalesContractDetItemCOVer1
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButton()
+            prvCalculate()
         End With
     End Sub
 
@@ -410,6 +417,7 @@ Public Class frmTraSalesContractDetItemCOVer1
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButton()
+            prvCalculate()
         End With
     End Sub
 
@@ -423,6 +431,7 @@ Public Class frmTraSalesContractDetItemCOVer1
             If dr.Item("ID") = strID Then dr.Delete() : Exit For
         Next
         dtSubItem.AcceptChanges()
+        prvCalculate()
     End Sub
 
 #End Region

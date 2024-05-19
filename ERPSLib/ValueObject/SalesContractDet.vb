@@ -19,5 +19,6 @@
         Property RoundingWeight As Decimal
         Property LevelItem As Integer
         Property ParentID As String = ""
+        Property UnitPriceHPP As Decimal
     End Class
 End Namespace

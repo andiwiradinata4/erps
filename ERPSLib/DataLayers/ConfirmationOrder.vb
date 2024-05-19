@@ -572,6 +572,7 @@
                     "	AND COH.IsDeleted=0 	" & vbNewLine &
                     "	AND COH.StatusID=@StatusID 	" & vbNewLine &
                     "	AND COD.TotalWeight+COD.RoundingWeight-COD.SCWeight>0	" & vbNewLine &
+                    "	AND COD.PCWeight>0	" & vbNewLine &
                     "	AND COD.ParentID=@ParentID " & vbNewLine
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID

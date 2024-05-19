@@ -63,12 +63,12 @@
                         "   (ID, ProgramID, CompanyID, DeliveryNumber, DeliveryDate, BPID, SCID, PlatNumber, Driver, ReferencesNumber, " & vbNewLine &
                         "    PPN, PPH, TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, TotalDPPTransport, TotalPPNTransport, " & vbNewLine &
                         "    TotalPPHTransport, RoundingManual, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, TotalCostRawMaterial, " & vbNewLine &
-                        "    TransporterID, UnitPriceTransport, PPNTransport, PPHTransport, IsFreePPNTransport, IsFreePPHTransport) " & vbNewLine &
+                        "    TransporterID, UnitPriceTransport, PPNTransport, PPHTransport, IsFreePPNTransport, IsFreePPHTransport, IsUseSubItem) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @ProgramID, @CompanyID, @DeliveryNumber, @DeliveryDate, @BPID, @SCID, @PlatNumber, @Driver, @ReferencesNumber, " & vbNewLine &
                         "    @PPN, @PPH, @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @TotalDPPTransport, @TotalPPNTransport, " & vbNewLine &
                         "    @TotalPPHTransport, @RoundingManual, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @TotalCostRawMaterial, " & vbNewLine &
-                        "    @TransporterID, @UnitPriceTransport, @PPNTransport, @PPHTransport, @IsFreePPNTransport, @IsFreePPHTransport) " & vbNewLine
+                        "    @TransporterID, @UnitPriceTransport, @PPNTransport, @PPHTransport, @IsFreePPNTransport, @IsFreePPHTransport, @IsUseSubItem) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE traDelivery SET " & vbNewLine &
@@ -103,7 +103,8 @@
                         "   PPNTransport=@PPNTransport, " & vbNewLine &
                         "   PPHTransport=@PPHTransport, " & vbNewLine &
                         "   IsFreePPNTransport=@IsFreePPNTransport, " & vbNewLine &
-                        "   IsFreePPHTransport=@IsFreePPHTransport " & vbNewLine &
+                        "   IsFreePPHTransport=@IsFreePPHTransport, " & vbNewLine &
+                        "   IsUseSubItem=@IsUseSubItem " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -137,8 +138,9 @@
                 .Parameters.Add("@UnitPriceTransport", SqlDbType.Decimal).Value = clsData.UnitPriceTransport
                 .Parameters.Add("@PPNTransport", SqlDbType.Decimal).Value = clsData.PPNTransport
                 .Parameters.Add("@PPHTransport", SqlDbType.Decimal).Value = clsData.PPHTransport
-                .Parameters.Add("@IsFreePPNTransport", SqlDbType.Decimal).Value = clsData.IsFreePPNTransport
-                .Parameters.Add("@IsFreePPHTransport", SqlDbType.Decimal).Value = clsData.IsFreePPHTransport
+                .Parameters.Add("@IsFreePPNTransport", SqlDbType.Bit).Value = clsData.IsFreePPNTransport
+                .Parameters.Add("@IsFreePPHTransport", SqlDbType.Bit).Value = clsData.IsFreePPHTransport
+                .Parameters.Add("@IsUseSubItem", SqlDbType.Bit).Value = clsData.IsUseSubItem
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -559,7 +561,7 @@
                     "	TotalPayment=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(TDD.DeliveryAmount),0) DeliveryAmount		" & vbNewLine &
+                    "			ISNULL(SUM(TDD.ReceiveAmount),0) DeliveryAmount		" & vbNewLine &
                     "		FROM traDeliveryDet TDD 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			TDD.DeliveryID=@ID 	" & vbNewLine &
@@ -597,7 +599,7 @@
                     "	TotalPayment=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(TDD.DeliveryAmount),0) DeliveryAmount " & vbNewLine &
+                    "			ISNULL(SUM(TDD.ReceiveAmount),0) DeliveryAmount " & vbNewLine &
                     "		FROM traDeliveryDet TDD " & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			TDD.DeliveryID=@ID 	" & vbNewLine &
@@ -873,7 +875,7 @@
         End Sub
 
         Public Shared Function GetTotalCostRawMaterial(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                       ByVal strID As String) As Decimal
+                                                       ByVal strID As String, ByVal bolIsUseSubItem As Boolean) As Decimal
             Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim decReturn As Decimal = 0
             Try
@@ -881,18 +883,30 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText =
-                        "SELECT  " & vbNewLine & _
-                        "	SUM(DD.TotalWeight*PCD.UnitPrice) TotalCostRawMaterial  " & vbNewLine & _
-                        "FROM traPurchaseContractDet PCD  " & vbNewLine & _
-                        "INNER JOIN  traSalesContractDetConfirmationOrder SCDCO ON  " & vbNewLine & _
-                        "	PCD.CODetailID=SCDCO.CODetailID  " & vbNewLine & _
-                        "INNER JOIN traSalesContractDet SCD ON  " & vbNewLine & _
-                        "	SCDCO.SCID=SCD.SCID  " & vbNewLine & _
-                        "	AND SCDCO.GroupID=SCD.GroupID  " & vbNewLine & _
-                        "INNER JOIN traDeliveryDet DD ON  " & vbNewLine & _
-                        "	SCD.ID=DD.SCDetailID  " & vbNewLine & _
-                        "WHERE DD.DeliveryID=@DeliveryID " & vbNewLine
+                    If bolIsUseSubItem Then
+                        .CommandText =
+                            "SELECT  " & vbNewLine &
+                            "	SUM(DD.TotalWeight*SCD.UnitPriceHPP) AS TotalCostRawMaterial " & vbNewLine &
+                            "FROM traDeliveryDet DD  " & vbNewLine &
+                            "INNER JOIN traSalesContractDet SCD ON  " & vbNewLine &
+                            "	DD.SCDetailID=SCD.ID  " & vbNewLine &
+                            "WHERE " & vbNewLine &
+                            "   DD.DeliveryID=@DeliveryID " & vbNewLine
+                    Else
+                        .CommandText =
+                            "SELECT  " & vbNewLine &
+                            "	SUM(DD.TotalWeight*PCD.UnitPrice) TotalCostRawMaterial  " & vbNewLine &
+                            "FROM traPurchaseContractDet PCD  " & vbNewLine &
+                            "INNER JOIN traSalesContractDetConfirmationOrder SCDCO ON  " & vbNewLine &
+                            "	PCD.CODetailID=SCDCO.CODetailID  " & vbNewLine &
+                            "INNER JOIN traSalesContractDet SCD ON  " & vbNewLine &
+                            "	SCDCO.SCID=SCD.SCID  " & vbNewLine &
+                            "	AND SCDCO.GroupID=SCD.GroupID  " & vbNewLine &
+                            "INNER JOIN traDeliveryDet DD ON  " & vbNewLine &
+                            "	SCD.ID=DD.SCDetailID  " & vbNewLine &
+                            "WHERE " & vbNewLine &
+                            "   DD.DeliveryID=@DeliveryID " & vbNewLine
+                    End If
 
                     .Parameters.Add("@DeliveryID", SqlDbType.VarChar, 100).Value = strID
                 End With
@@ -956,9 +970,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traDeliveryDet " & vbNewLine &
-                    "   (ID, DeliveryID, SCDetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, OrderNumberSupplier, UnitPriceTransport, TotalPriceTransport, RoundingWeight) " & vbNewLine &
+                    "   (ID, DeliveryID, SCDetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, OrderNumberSupplier, UnitPriceTransport, TotalPriceTransport, LevelItem, ParentID, RoundingWeight) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @DeliveryID, @SCDetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @OrderNumberSupplier, @UnitPriceTransport, @TotalPriceTransport, @RoundingWeight) " & vbNewLine
+                    "   (@ID, @DeliveryID, @SCDetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @OrderNumberSupplier, @UnitPriceTransport, @TotalPriceTransport, @LevelItem, @ParentID, @RoundingWeight) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@DeliveryID", SqlDbType.VarChar, 100).Value = clsData.DeliveryID
@@ -975,6 +989,8 @@
                 .Parameters.Add("@UnitPriceTransport", SqlDbType.Decimal).Value = clsData.UnitPriceTransport
                 .Parameters.Add("@TotalPriceTransport", SqlDbType.Decimal).Value = clsData.TotalPriceTransport
                 .Parameters.Add("@RoundingWeight", SqlDbType.Decimal).Value = clsData.RoundingWeight
+                .Parameters.Add("@LevelItem", SqlDbType.Int).Value = clsData.LevelItem
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

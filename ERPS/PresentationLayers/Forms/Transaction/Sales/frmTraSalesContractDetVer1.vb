@@ -60,8 +60,8 @@ Public Class frmTraSalesContractDetVer1
         UI.usForm.SetGrid(grdItemView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
-        UI.usForm.SetGrid(grdItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemView, "Quantity", "Quantity", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal1Num)
         UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
@@ -70,6 +70,7 @@ Public Class frmTraSalesContractDetVer1
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "UnitPriceHPP", "ParentID", 100, UI.usDefGrid.gReal4Num, False)
 
         '# CO Item
         UI.usForm.SetGrid(grdItemCOView, "ID", "ID", 100, UI.usDefGrid.gString, False)
@@ -293,47 +294,46 @@ Public Class frmTraSalesContractDetVer1
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
 
-        If dtSubItem.Rows.Count > 0 Then
-            For Each dr As DataRow In dtItem.Rows
-                If dr.Item("ParentID") = "" Then
-                    Dim decTotalWeight As Decimal = 0, decTotalPrice As Decimal = 0
-                    For Each drS As DataRow In dtSubItem.Rows
-                        If drS.Item("ParentID") = dr.Item("ID") Then
-                            decTotalWeight += drS.Item("TotalWeight")
-                            decTotalPrice += drS.Item("TotalPrice")
-                        End If
-                    Next
-                    If decTotalWeight > 0 Or decTotalPrice > 0 Then
-                        dr.BeginEdit()
-                        dr.Item("TotalWeight") = decTotalWeight
-                        dr.Item("TotalPrice") = decTotalPrice
-                        dr.EndEdit()
-                    End If
-                End If
-            Next
-            dtItem.AcceptChanges()
-        End If
+        'If dtSubItem.Rows.Count > 0 Then
+        '    For Each dr As DataRow In dtItem.Rows
+        '        If dr.Item("ParentID") = "" Then
+        '            Dim decTotalWeight As Decimal = 0
+        '            For Each drS As DataRow In dtSubItem.Rows
+        '                If drS.Item("ParentID") = dr.Item("ID") Then
+        '                    decTotalWeight += drS.Item("TotalWeight")
+        '                End If
+        '            Next
+        '            If decTotalWeight > 0 Then
+        '                dr.BeginEdit()
+        '                dr.Item("TotalWeight") = decTotalWeight
+        '                dr.Item("TotalPrice") = dr.Item("UnitPrice") * dr.Item("TotalWeight")
+        '                dr.EndEdit()
+        '            End If
+        '        End If
+        '    Next
+        '    dtItem.AcceptChanges()
+        'End If
 
-        If dtSubItemConfirmationOrder.Rows.Count > 0 Then
-            For Each dr As DataRow In dtItemConfirmationOrder.Rows
-                If dr.Item("ParentID") = "" Then
-                    Dim decTotalWeight As Decimal = 0, decTotalPrice As Decimal = 0
-                    For Each drS As DataRow In dtSubItemConfirmationOrder.Rows
-                        If drS.Item("ParentID") = dr.Item("ID") Then
-                            decTotalWeight += drS.Item("TotalWeight")
-                            decTotalPrice += drS.Item("TotalPrice")
-                        End If
-                    Next
-                    If decTotalWeight > 0 Or decTotalPrice > 0 Then
-                        dr.BeginEdit()
-                        dr.Item("TotalWeight") = decTotalWeight
-                        dr.Item("TotalPrice") = decTotalPrice
-                        dr.EndEdit()
-                    End If
-                End If
-            Next
-            dtItemConfirmationOrder.AcceptChanges()
-        End If
+        'If dtSubItemConfirmationOrder.Rows.Count > 0 Then
+        '    For Each dr As DataRow In dtItemConfirmationOrder.Rows
+        '        If dr.Item("ParentID") = "" Then
+        '            Dim decTotalWeight As Decimal = 0, decTotalPrice As Decimal = 0
+        '            For Each drS As DataRow In dtSubItemConfirmationOrder.Rows
+        '                If drS.Item("ParentID") = dr.Item("ID") Then
+        '                    decTotalWeight += drS.Item("TotalWeight")
+        '                    decTotalPrice += drS.Item("TotalPrice")
+        '                End If
+        '            Next
+        '            If decTotalWeight > 0 Or decTotalPrice > 0 Then
+        '                dr.BeginEdit()
+        '                dr.Item("TotalWeight") = decTotalWeight
+        '                dr.Item("TotalPrice") = decTotalPrice
+        '                dr.EndEdit()
+        '            End If
+        '        End If
+        '    Next
+        '    dtItemConfirmationOrder.AcceptChanges()
+        'End If
 
         prvCalculate()
 
@@ -353,7 +353,8 @@ Public Class frmTraSalesContractDetVer1
                                .Remarks = dr.Item("Remarks"),
                                .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
                                .LevelItem = dr.Item("LevelItem"),
-                               .ParentID = dr.Item("ParentID")
+                               .ParentID = dr.Item("ParentID"),
+                               .UnitPriceHPP = 0
                            })
         Next
 
@@ -372,7 +373,8 @@ Public Class frmTraSalesContractDetVer1
                                .Remarks = dr.Item("Remarks"),
                                .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
                                .LevelItem = dr.Item("LevelItem"),
-                               .ParentID = dr.Item("ParentID")
+                               .ParentID = dr.Item("ParentID"),
+                               .UnitPriceHPP = dr.Item("UnitPriceHPP")
                            })
         Next
 

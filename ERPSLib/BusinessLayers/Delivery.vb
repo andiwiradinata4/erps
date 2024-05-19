@@ -320,7 +320,7 @@
                 '# Generate Journal
                 Dim intGroupID As Integer = 1
                 Dim decTotalAmount As Decimal = 0
-                Dim decTotalCostRawMaterial As Decimal = DL.Delivery.GetTotalCostRawMaterial(sqlCon, sqlTrans, strID)
+                Dim decTotalCostRawMaterial As Decimal = DL.Delivery.GetTotalCostRawMaterial(sqlCon, sqlTrans, strID, clsData.IsUseSubItem)
                 Dim clsJournalDetail As New List(Of VO.JournalDet)
                 decTotalAmount += clsData.TotalDPP + clsData.RoundingManual
                 '# Akun Piutang Usaha Belum ditagih -> Debit

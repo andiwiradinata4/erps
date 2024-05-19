@@ -67,8 +67,8 @@ Partial Class frmTraDeliveryDetItem
         Me.txtItemName = New ERPS.usTextBox()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.grdItemTransportView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.grdItemTransport = New DevExpress.XtraGrid.GridControl()
+        Me.grdItemTransportView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarEditItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
@@ -86,8 +86,8 @@ Partial Class frmTraDeliveryDetItem
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdItemTransportView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemTransport, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdItemTransportView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -300,7 +300,6 @@ Partial Class frmTraDeliveryDetItem
         '
         'txtQuantity
         '
-        Me.txtQuantity.DecimalPlaces = 2
         Me.txtQuantity.Location = New System.Drawing.Point(429, 126)
         Me.txtQuantity.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtQuantity.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
@@ -470,7 +469,7 @@ Partial Class frmTraDeliveryDetItem
         'txtWeight
         '
         Me.txtWeight.BackColor = System.Drawing.Color.White
-        Me.txtWeight.DecimalPlaces = 4
+        Me.txtWeight.DecimalPlaces = 1
         Me.txtWeight.Location = New System.Drawing.Point(133, 208)
         Me.txtWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
@@ -613,17 +612,6 @@ Partial Class frmTraDeliveryDetItem
         Me.GridView1.GridControl = Me.grdItemTransport
         Me.GridView1.Name = "GridView1"
         '
-        'grdItemTransportView
-        '
-        Me.grdItemTransportView.GridControl = Me.grdItemTransport
-        Me.grdItemTransportView.Name = "grdItemTransportView"
-        Me.grdItemTransportView.OptionsCustomization.AllowColumnMoving = False
-        Me.grdItemTransportView.OptionsCustomization.AllowGroup = False
-        Me.grdItemTransportView.OptionsView.ColumnAutoWidth = False
-        Me.grdItemTransportView.OptionsView.ShowAutoFilterRow = True
-        Me.grdItemTransportView.OptionsView.ShowFooter = True
-        Me.grdItemTransportView.OptionsView.ShowGroupPanel = False
-        '
         'grdItemTransport
         '
         Me.grdItemTransport.Dock = System.Windows.Forms.DockStyle.Fill
@@ -649,6 +637,17 @@ Partial Class frmTraDeliveryDetItem
         Me.grdItemTransport.TabIndex = 5
         Me.grdItemTransport.UseEmbeddedNavigator = True
         Me.grdItemTransport.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemTransportView, Me.GridView1})
+        '
+        'grdItemTransportView
+        '
+        Me.grdItemTransportView.GridControl = Me.grdItemTransport
+        Me.grdItemTransportView.Name = "grdItemTransportView"
+        Me.grdItemTransportView.OptionsCustomization.AllowColumnMoving = False
+        Me.grdItemTransportView.OptionsCustomization.AllowGroup = False
+        Me.grdItemTransportView.OptionsView.ColumnAutoWidth = False
+        Me.grdItemTransportView.OptionsView.ShowAutoFilterRow = True
+        Me.grdItemTransportView.OptionsView.ShowFooter = True
+        Me.grdItemTransportView.OptionsView.ShowGroupPanel = False
         '
         'BarDeleteItemOrder
         '
@@ -723,8 +722,8 @@ Partial Class frmTraDeliveryDetItem
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdItemTransportView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItemTransport, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdItemTransportView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

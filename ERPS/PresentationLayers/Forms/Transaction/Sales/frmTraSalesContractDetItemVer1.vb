@@ -425,12 +425,13 @@ Public Class frmTraSalesContractDetItemVer1
                     .Item("Weight") = dr.Item("Weight")
                     .Item("TotalWeight") = dr.Item("TotalWeight")
                     .Item("MaxTotalWeight") = dr.Item("MaxTotalWeight")
-                    .Item("UnitPrice") = dr.Item("UnitPrice")
-                    .Item("TotalPrice") = dr.Item("TotalPrice")
+                    .Item("UnitPrice") = txtUnitPrice.Value
+                    .Item("TotalPrice") = txtUnitPrice.Value * dr.Item("TotalWeight")
                     .Item("Remarks") = dr.Item("Remarks")
                     .Item("OrderNumberSupplier") = dr.Item("OrderNumberSupplier")
                     .Item("LevelItem") = dr.Item("LevelItem")
                     .Item("ParentID") = strID
+                    .Item("UnitPriceHPP") = dr.Item("UnitPrice")
                     .EndEdit()
                 End With
                 dtParentSubItem.Rows.Add(drSubItem)
@@ -498,6 +499,13 @@ Public Class frmTraSalesContractDetItemVer1
 
     Private Sub prvCalculate()
         txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
+
+        Dim decTotalWeight As Decimal = 0
+        For Each dr As DataRow In dtCOSub.Rows
+            decTotalWeight += dr.Item("TotalWeight")
+        Next
+        If decTotalWeight > 0 Then txtWeight.Value = decTotalWeight : txtTotalWeight.Value = decTotalWeight
+
         txtTotalPrice.Value = txtUnitPrice.Value * txtTotalWeight.Value
     End Sub
 
@@ -546,6 +554,7 @@ Public Class frmTraSalesContractDetItemVer1
             .pubShowDialog(Me)
             prvSetButtonItemConfirmationOrder()
             prvToolsHandles()
+            prvCalculate()
             prvSumGrid()
         End With
     End Sub
@@ -573,6 +582,7 @@ Public Class frmTraSalesContractDetItemVer1
             .pubShowDialog(Me)
             prvSetButtonItemConfirmationOrder()
             prvToolsHandles()
+            prvCalculate()
             prvSumGrid()
         End With
     End Sub
@@ -587,6 +597,7 @@ Public Class frmTraSalesContractDetItemVer1
         dtCO.AcceptChanges()
         dtCOSub.AcceptChanges()
         prvSumGrid()
+        prvCalculate()
         prvToolsHandles()
     End Sub
 

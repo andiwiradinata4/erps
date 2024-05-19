@@ -301,11 +301,11 @@ Public Class frmTraPurchaseOrderCuttingDet
             Dim strPONumber As String = BL.PurchaseOrderCutting.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strPONumber)
             pgMain.Value = 80
-
             frmParent.pubRefresh(strPONumber)
             If pubIsNew Then
                 prvClear()
                 prvQueryItem()
+                prvQueryItemResult()
                 prvQueryHistory()
                 prvQueryPaymentTerm()
             Else

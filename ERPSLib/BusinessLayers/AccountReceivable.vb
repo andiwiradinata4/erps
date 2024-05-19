@@ -328,8 +328,6 @@
 
                 '# Calculate Sales Contract
                 If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then
-                    '# Calculate Sales Contract
-                    DL.SalesContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
 
                     '# Calculate Sub Item if Exists
                     For Each dr As DataRow In dtReferencesSubItem.Rows
@@ -351,10 +349,10 @@
                         For Each dr As DataRow In dtReferencesItem.Rows
                             DL.SalesContract.CalculateTotalUsedReceiveItemPaymentParentVer01(sqlCon, sqlTrans, dr.Item("ID"))
                         Next
-
-                        '# Calculate Purchase Contract Header
-                        DL.SalesContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
                     End If
+
+                    '# Calculate Purchase Contract Header
+                    DL.SalesContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
 
                 End If
 
@@ -712,12 +710,12 @@
                     Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
                 End If
 
-                'Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
-                ''# Cancel Approve Journal
-                'BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+                Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
+                '# Cancel Approve Journal
+                BL.Journal.Unapprove(clsData.JournalID.Trim, "")
 
-                ''# Cancel Submit Journal
-                'BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+                '# Cancel Submit Journal
+                BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
 
                 '# Unapprove Account Receivable
                 DL.AccountReceivable.Unapprove(sqlCon, sqlTrans, strID)

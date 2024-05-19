@@ -319,10 +319,10 @@
         prvChooseItem()
     End Sub
 
-    Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtUnitPrice.ValueChanged, txtQuantity.ValueChanged
+    Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtUnitPrice.ValueChanged, txtQuantity.ValueChanged, txtWeight.ValueChanged
         prvCalculate()
     End Sub
 
 #End Region
-    
+
 End Class
