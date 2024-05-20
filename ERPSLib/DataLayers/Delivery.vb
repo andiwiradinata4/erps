@@ -883,8 +883,7 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    If bolIsUseSubItem Then
-                        .CommandText =
+                    .CommandText =
                             "SELECT  " & vbNewLine &
                             "	SUM(DD.TotalWeight*SCD.UnitPriceHPP) AS TotalCostRawMaterial " & vbNewLine &
                             "FROM traDeliveryDet DD  " & vbNewLine &
@@ -892,21 +891,30 @@
                             "	DD.SCDetailID=SCD.ID  " & vbNewLine &
                             "WHERE " & vbNewLine &
                             "   DD.DeliveryID=@DeliveryID " & vbNewLine
-                    Else
-                        .CommandText =
-                            "SELECT  " & vbNewLine &
-                            "	SUM(DD.TotalWeight*PCD.UnitPrice) TotalCostRawMaterial  " & vbNewLine &
-                            "FROM traPurchaseContractDet PCD  " & vbNewLine &
-                            "INNER JOIN traSalesContractDetConfirmationOrder SCDCO ON  " & vbNewLine &
-                            "	PCD.CODetailID=SCDCO.CODetailID  " & vbNewLine &
-                            "INNER JOIN traSalesContractDet SCD ON  " & vbNewLine &
-                            "	SCDCO.SCID=SCD.SCID  " & vbNewLine &
-                            "	AND SCDCO.GroupID=SCD.GroupID  " & vbNewLine &
-                            "INNER JOIN traDeliveryDet DD ON  " & vbNewLine &
-                            "	SCD.ID=DD.SCDetailID  " & vbNewLine &
-                            "WHERE " & vbNewLine &
-                            "   DD.DeliveryID=@DeliveryID " & vbNewLine
-                    End If
+                    'If bolIsUseSubItem Then
+                    '    .CommandText =
+                    '        "SELECT  " & vbNewLine &
+                    '        "	SUM(DD.TotalWeight*SCD.UnitPriceHPP) AS TotalCostRawMaterial " & vbNewLine &
+                    '        "FROM traDeliveryDet DD  " & vbNewLine &
+                    '        "INNER JOIN traSalesContractDet SCD ON  " & vbNewLine &
+                    '        "	DD.SCDetailID=SCD.ID  " & vbNewLine &
+                    '        "WHERE " & vbNewLine &
+                    '        "   DD.DeliveryID=@DeliveryID " & vbNewLine
+                    'Else
+                    '    .CommandText =
+                    '        "SELECT  " & vbNewLine &
+                    '        "	SUM(DD.TotalWeight*PCD.UnitPrice) TotalCostRawMaterial  " & vbNewLine &
+                    '        "FROM traPurchaseContractDet PCD  " & vbNewLine &
+                    '        "INNER JOIN traSalesContractDetConfirmationOrder SCDCO ON  " & vbNewLine &
+                    '        "	PCD.CODetailID=SCDCO.CODetailID  " & vbNewLine &
+                    '        "INNER JOIN traSalesContractDet SCD ON  " & vbNewLine &
+                    '        "	SCDCO.SCID=SCD.SCID  " & vbNewLine &
+                    '        "	AND SCDCO.GroupID=SCD.GroupID  " & vbNewLine &
+                    '        "INNER JOIN traDeliveryDet DD ON  " & vbNewLine &
+                    '        "	SCD.ID=DD.SCDetailID  " & vbNewLine &
+                    '        "WHERE " & vbNewLine &
+                    '        "   DD.DeliveryID=@DeliveryID " & vbNewLine
+                    'End If
 
                     .Parameters.Add("@DeliveryID", SqlDbType.VarChar, 100).Value = strID
                 End With

@@ -658,6 +658,47 @@
             End Try
         End Sub
 
+        Public Shared Function OrderNumberSupplierExists(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                         ByVal strID As String, ByVal strOrderNumberSupplier As String,
+                                                         ByVal intItemID As Integer) As String
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim strReturn As String = ""
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   COH.CONumber " & vbNewLine &
+                        "FROM traConfirmationOrderDet COD " & vbNewLine &
+                        "INNER JOIN traConfirmationOrder COH ON " & vbNewLine &
+                        "   COD.COID=COH.ID " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   COD.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
+                        "   AND COD.ItemID=@ItemID " & vbNewLine &
+                        "   AND COH.IsDeleted=0 " & vbNewLine &
+                        "   AND COH.ID<>@ID " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                    .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
+                    .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        strReturn = .Item("CONumber")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return strReturn
+        End Function
+
         Public Shared Sub CalculatePCTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                ByVal strCODetailID As String)
             Dim sqlCmdExecute As New SqlCommand

@@ -294,47 +294,6 @@ Public Class frmTraSalesContractDetVer1
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
 
-        'If dtSubItem.Rows.Count > 0 Then
-        '    For Each dr As DataRow In dtItem.Rows
-        '        If dr.Item("ParentID") = "" Then
-        '            Dim decTotalWeight As Decimal = 0
-        '            For Each drS As DataRow In dtSubItem.Rows
-        '                If drS.Item("ParentID") = dr.Item("ID") Then
-        '                    decTotalWeight += drS.Item("TotalWeight")
-        '                End If
-        '            Next
-        '            If decTotalWeight > 0 Then
-        '                dr.BeginEdit()
-        '                dr.Item("TotalWeight") = decTotalWeight
-        '                dr.Item("TotalPrice") = dr.Item("UnitPrice") * dr.Item("TotalWeight")
-        '                dr.EndEdit()
-        '            End If
-        '        End If
-        '    Next
-        '    dtItem.AcceptChanges()
-        'End If
-
-        'If dtSubItemConfirmationOrder.Rows.Count > 0 Then
-        '    For Each dr As DataRow In dtItemConfirmationOrder.Rows
-        '        If dr.Item("ParentID") = "" Then
-        '            Dim decTotalWeight As Decimal = 0, decTotalPrice As Decimal = 0
-        '            For Each drS As DataRow In dtSubItemConfirmationOrder.Rows
-        '                If drS.Item("ParentID") = dr.Item("ID") Then
-        '                    decTotalWeight += drS.Item("TotalWeight")
-        '                    decTotalPrice += drS.Item("TotalPrice")
-        '                End If
-        '            Next
-        '            If decTotalWeight > 0 Or decTotalPrice > 0 Then
-        '                dr.BeginEdit()
-        '                dr.Item("TotalWeight") = decTotalWeight
-        '                dr.Item("TotalPrice") = decTotalPrice
-        '                dr.EndEdit()
-        '            End If
-        '        End If
-        '    Next
-        '    dtItemConfirmationOrder.AcceptChanges()
-        'End If
-
         prvCalculate()
 
         Dim listDetail As New List(Of VO.SalesContractDet)
@@ -354,7 +313,7 @@ Public Class frmTraSalesContractDetVer1
                                .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
                                .LevelItem = dr.Item("LevelItem"),
                                .ParentID = dr.Item("ParentID"),
-                               .UnitPriceHPP = 0
+                               .UnitPriceHPP = dr.Item("UnitPriceHPP")
                            })
         Next
 

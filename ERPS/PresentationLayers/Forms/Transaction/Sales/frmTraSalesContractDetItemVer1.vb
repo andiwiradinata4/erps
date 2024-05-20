@@ -298,6 +298,12 @@ Public Class frmTraSalesContractDetItemVer1
             If Not UI.usForm.frmAskQuestion("Total Berat melebihi Maks. Total Berat, Apakah anda yakin ingin melanjutkannya?") Then Exit Sub
         End If
 
+        Dim decGrandTotalCO As Decimal = 0
+        For Each dr As DataRow In dtCO.Rows
+            decGrandTotalCO += dr.Item("TotalPrice")
+        Next
+        Dim decHPPFromAllCO As Decimal = decGrandTotalCO / txtTotalWeight.Value
+
         '# Item Handle
         If bolIsNew Then
             Dim drItem As DataRow = dtParentItem.NewRow
@@ -329,6 +335,7 @@ Public Class frmTraSalesContractDetItemVer1
                 .Item("OrderNumberSupplier") = grdItemCOView.GetRowCellValue(0, "OrderNumberSupplier")
                 .Item("ParentID") = ""
                 .Item("LevelItem") = 0
+                .Item("UnitPriceHPP") = decHPPFromAllCO
                 .EndEdit()
             End With
             dtParentItem.Rows.Add(drItem)
@@ -361,6 +368,7 @@ Public Class frmTraSalesContractDetItemVer1
                         .Item("OrderNumberSupplier") = grdItemCOView.GetRowCellValue(0, "OrderNumberSupplier")
                         .Item("ParentID") = ""
                         .Item("LevelItem") = 0
+                        .Item("UnitPriceHPP") = decHPPFromAllCO
                         .EndEdit()
                     End If
                 End With

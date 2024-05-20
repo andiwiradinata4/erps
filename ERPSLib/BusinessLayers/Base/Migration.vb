@@ -29,6 +29,7 @@
                 DevelopOnProgress_ID22(sqlCon, Nothing)
                 DevelopOnProgress_ID23(sqlCon, Nothing)
                 DevelopOnProgress_ID24(sqlCon, Nothing)
+                CreateTableAppVersion_ID25(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -675,6 +676,29 @@
             clsData.Scripts =
                 "ALTER TABLE traSalesContractDet ADD UnitPriceHPP decimal(18,4) NOT NULL CONSTRAINT DF_traSalesContractDet_UnitPriceHPP DEFAULT ((0)) " & vbNewLine
 
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 25
+        Private Shared Sub CreateTableAppVersion_ID25(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 25
+            clsData.Name = "Create Table App Version"
+            clsData.Scripts =
+"CREATE TABLE [dbo].[sysAppVersion](" & vbNewLine &
+"	[ID] [int] NOT NULL CONSTRAINT [DF_sysAppVersion_ID]  DEFAULT ((0)), " & vbNewLine &
+"	[Version] [varchar](100) NOT NULL CONSTRAINT [DF_sysAppVersion_Version]  DEFAULT (''), " & vbNewLine &
+"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_sysAppVersion_LogDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"   CONSTRAINT [PK_sysAppVersion] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine &
+"" & vbNewLine
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
