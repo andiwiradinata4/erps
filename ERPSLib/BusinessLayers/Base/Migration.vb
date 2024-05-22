@@ -30,6 +30,8 @@
                 DevelopOnProgress_ID23(sqlCon, Nothing)
                 DevelopOnProgress_ID24(sqlCon, Nothing)
                 CreateTableAppVersion_ID25(sqlCon, Nothing)
+                DevelopOnProgress_ID26(sqlCon, Nothing)
+                DevelopOnProgress_ID27(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -699,6 +701,57 @@
 "   ) " & vbNewLine &
 ") " & vbNewLine &
 "" & vbNewLine
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 26
+        Private Shared Sub DevelopOnProgress_ID26(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 26
+            clsData.Name = "Develop On Progress 26"
+            clsData.Scripts =
+                "ALTER TABLE traOrderRequestDet ADD OrderNumberSupplier [varchar](100) NOT NULL CONSTRAINT DF_traOrderRequestDet_OrderNumberSupplier DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traDelivery ADD IsStock [bit] NOT NULL CONSTRAINT DF_traDelivery_IsStock DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traOrderRequest ADD IsStock [bit] NOT NULL CONSTRAINT DF_traOrderRequest_IsStock DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traOrderRequest ADD IsDone [bit] NOT NULL CONSTRAINT DF_traOrderRequest_IsDone DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traOrderRequest ADD DoneBy [varchar](20) NOT NULL CONSTRAINT DF_traOrderRequest_DoneBy DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traOrderRequest ADD DoneDate [datetime] NOT NULL CONSTRAINT DF_traOrderRequest_DoneDate DEFAULT (GETDATE()) " & vbNewLine &
+                "ALTER TABLE traSalesContract ADD IsDone [bit] NOT NULL CONSTRAINT DF_traSalesContract_IsDone DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesContract ADD DoneBy [varchar](20) NOT NULL CONSTRAINT DF_traSalesContract_DoneBy DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traSalesContract ADD DoneDate [datetime] NOT NULL CONSTRAINT DF_traSalesContract_DoneDate DEFAULT (GETDATE()) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrder ADD IsDone [bit] NOT NULL CONSTRAINT DF_traPurchaseOrder_IsDone DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrder ADD DoneBy [varchar](20) NOT NULL CONSTRAINT DF_traPurchaseOrder_DoneBy DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traPurchaseOrder ADD DoneDate [datetime] NOT NULL CONSTRAINT DF_traPurchaseOrder_DoneDate DEFAULT (GETDATE()) " & vbNewLine &
+                "ALTER TABLE traConfirmationOrder ADD IsDone [bit] NOT NULL CONSTRAINT DF_traConfirmationOrder_IsDone DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traConfirmationOrder ADD DoneBy [varchar](20) NOT NULL CONSTRAINT DF_traConfirmationOrder_DoneBy DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traConfirmationOrder ADD DoneDate [datetime] NOT NULL CONSTRAINT DF_traConfirmationOrder_DoneDate DEFAULT (GETDATE()) " & vbNewLine &
+                "ALTER TABLE traPurchaseContract ADD IsDone [bit] NOT NULL CONSTRAINT DF_traPurchaseContract_IsDone DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseContract ADD DoneBy [varchar](20) NOT NULL CONSTRAINT DF_traPurchaseContract_DoneBy DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traPurchaseContract ADD DoneDate [datetime] NOT NULL CONSTRAINT DF_traPurchaseContract_DoneDate DEFAULT (GETDATE()) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCutting ADD IsDone [bit] NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_IsDone DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCutting ADD DoneBy [varchar](20) NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_DoneBy DEFAULT ('') " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCutting ADD DoneDate [datetime] NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_DoneDate DEFAULT (GETDATE()) " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 27
+        Private Shared Sub DevelopOnProgress_ID27(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 27
+            clsData.Name = "Develop On Progress 27"
+            clsData.Scripts =
+                "ALTER TABLE traOrderRequestDet ADD UnitPriceHPP [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_UnitPriceHPP DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traStockIn ADD UnitPrice [decimal](18,4) NOT NULL CONSTRAINT DF_traStockIn_UnitPrice DEFAULT ((0)) " & vbNewLine
+
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

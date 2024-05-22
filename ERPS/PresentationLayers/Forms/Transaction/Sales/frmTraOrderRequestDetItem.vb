@@ -9,6 +9,7 @@
     Private drSelected As DataRow
     Private strID As String = ""
     Private bolIsAutoSearch As Boolean
+    Private bolIsStock As Boolean
 
     Public WriteOnly Property pubTableParent As DataTable
         Set(value As DataTable)
@@ -37,6 +38,12 @@
     Public WriteOnly Property pubIsAutoSearch As Boolean
         Set(value As Boolean)
             bolIsAutoSearch = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubIsStock As Boolean
+        Set(value As Boolean)
+            bolIsStock = value
         End Set
     End Property
 
@@ -100,6 +107,8 @@
                 txtTotalWeight.Value = drSelected.Item("TotalWeight")
                 txtTotalPrice.Value = drSelected.Item("TotalPrice")
                 txtRemarks.Text = drSelected.Item("Remarks")
+                txtOrderNumberSupplier.Text = drSelected.Item("OrderNumberSupplier")
+                txtUnitPriceHPP.Value = drSelected.Item("UnitPriceHPP")
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -153,6 +162,8 @@
             dr.Item("UnitPrice") = txtUnitPrice.Value
             dr.Item("TotalPrice") = txtTotalPrice.Value
             dr.Item("Remarks") = txtRemarks.Text.Trim
+            dr.Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
+            dr.Item("UnitPriceHPP") = txtUnitPriceHPP.Value
             dr.EndEdit()
             dtParent.Rows.Add(dr)
             dtParent.AcceptChanges()
@@ -180,6 +191,8 @@
                     dr.Item("UnitPrice") = txtUnitPrice.Value
                     dr.Item("TotalPrice") = txtTotalPrice.Value
                     dr.Item("Remarks") = txtRemarks.Text.Trim
+                    dr.Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
+                    dr.Item("UnitPriceHPP") = txtUnitPriceHPP.Value
                     dr.EndEdit()
                     dtParent.AcceptChanges()
                     frmParent.grdItemView.BestFitColumns()
@@ -192,33 +205,69 @@
     End Sub
 
     Private Sub prvChooseItem()
-        Dim frmDetail As New frmMstItem
-        With frmDetail
-            .pubIsLookUp = True
-            .StartPosition = FormStartPosition.CenterScreen
-            .ShowDialog()
-            If .pubIsLookUpGet Then
-                intItemID = .pubLUdtRow.Item("ID")
-                txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
-                cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
-                txtItemName.Text = .pubLUdtRow.Item("ItemName")
-                txtThick.Value = .pubLUdtRow.Item("Thick")
-                txtWidth.Value = .pubLUdtRow.Item("Width")
-                txtLength.Value = .pubLUdtRow.Item("Length")
-                cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
-                txtWeight.Value = .pubLUdtRow.Item("Weight")
-                txtUnitPrice.Value = .pubLUdtRow.Item("BasePrice")
-                txtQuantity.Value = 0
-                txtUnitPrice.Focus()
-                txtRemarks.Text = ""
-                bolIsAutoSearch = False
-            End If
-        End With
+        If bolIsStock Then
+            Dim frmDetail As New frmMstStock
+            With frmDetail
+                .pubIsLookUp = True
+                .StartPosition = FormStartPosition.CenterScreen
+                .ShowDialog()
+                If .pubIsLookUpGet Then
+                    intItemID = .pubLUdtRow.Item("ID")
+                    txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
+                    cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
+                    txtItemName.Text = .pubLUdtRow.Item("ItemName")
+                    txtThick.Value = .pubLUdtRow.Item("Thick")
+                    txtWidth.Value = .pubLUdtRow.Item("Width")
+                    txtLength.Value = .pubLUdtRow.Item("Length")
+                    cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
+                    txtWeight.Value = .pubLUdtRow.Item("Weight")
+                    txtUnitPrice.Value = .pubLUdtRow.Item("BasePrice")
+                    txtQuantity.Value = 0
+                    txtUnitPrice.Focus()
+                    txtRemarks.Text = ""
+                    txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
+                    txtUnitPriceHPP.Value = .pubLUdtRow.Item("UnitPrice")
+                    bolIsAutoSearch = False
+                End If
+            End With
+        Else
+            Dim frmDetail As New frmMstItem
+            With frmDetail
+                .pubIsLookUp = True
+                .StartPosition = FormStartPosition.CenterScreen
+                .ShowDialog()
+                If .pubIsLookUpGet Then
+                    intItemID = .pubLUdtRow.Item("ID")
+                    txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
+                    cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
+                    txtItemName.Text = .pubLUdtRow.Item("ItemName")
+                    txtThick.Value = .pubLUdtRow.Item("Thick")
+                    txtWidth.Value = .pubLUdtRow.Item("Width")
+                    txtLength.Value = .pubLUdtRow.Item("Length")
+                    cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
+                    txtWeight.Value = .pubLUdtRow.Item("Weight")
+                    txtUnitPrice.Value = .pubLUdtRow.Item("BasePrice")
+                    txtQuantity.Value = 0
+                    txtUnitPrice.Focus()
+                    txtRemarks.Text = ""
+                    txtOrderNumberSupplier.Text = ""
+                    txtUnitPriceHPP.Value = 0
+                    bolIsAutoSearch = False
+                End If
+            End With
+        End If
     End Sub
 
     Private Sub prvCalculate()
         txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
         txtTotalPrice.Value = txtTotalWeight.Value * txtUnitPrice.Value
+    End Sub
+
+    Private Sub prvSetupTools()
+        lblOrderNumberSupplier.Visible = bolIsStock
+        txtOrderNumberSupplier.Visible = bolIsStock
+        lblUnitPriceHPP.Visible = bolIsStock
+        txtUnitPriceHPP.Visible = bolIsStock
     End Sub
 
 #Region "Form Handle"
@@ -234,6 +283,7 @@
     Private Sub frmTraOrderRequestDetItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
+        prvSetupTools()
         prvFillForm()
         If bolIsAutoSearch Then prvChooseItem()
     End Sub

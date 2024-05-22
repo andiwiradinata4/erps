@@ -111,6 +111,7 @@
     <Compile Include="BusinessLayers\Receive.vb" />
     <Compile Include="BusinessLayers\Reports.vb" />
     <Compile Include="BusinessLayers\SalesContract.vb" />
+    <Compile Include="BusinessLayers\Stock.vb" />
     <Compile Include="BusinessLayers\StockIn.vb" />
     <Compile Include="BusinessLayers\StockOut.vb" />
     <Compile Include="DataLayers\AccountPayable.vb" />
@@ -161,6 +162,7 @@
     <Compile Include="DataLayers\Receive.vb" />
     <Compile Include="DataLayers\Reports.vb" />
     <Compile Include="DataLayers\SalesContract.vb" />
+    <Compile Include="DataLayers\Stock.vb" />
     <Compile Include="DataLayers\StockIn.vb" />
     <Compile Include="DataLayers\StockOut.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

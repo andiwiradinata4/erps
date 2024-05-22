@@ -21,6 +21,10 @@
         Property StatusID As Integer
         Property SubmitBy As String
         Property SubmitDate As DateTime
+        Property IsStock As Boolean
+        Property IsDoneBy As Boolean
+        Property DoneBy As String
+        Property DoneDate As DateTime
         Property Detail As List(Of VO.OrderRequestDet)
         Property Save As VO.Save.Action
     End Class

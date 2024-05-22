@@ -34,6 +34,7 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Dim clsDataStockIN As New List(Of VO.StockIn)
                 Try
                     If bolNew Then
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.OrderDate, clsData.CompanyID, clsData.ProgramID)
@@ -62,12 +63,28 @@
                         clsDet.OrderRequestID = clsData.ID
                         DL.OrderRequest.SaveDataDetail(sqlCon, sqlTrans, clsDet)
                         intCount += 1
+
+                        clsDataStockIN.Add(New VO.StockIn With
+                                           {
+                                                .ParentID = "",
+                                                .ParentDetailID = "",
+                                                .OrderNumberSupplier = clsDet.OrderNumberSupplier,
+                                                .SourceData = "",
+                                                .ItemID = clsDet.ItemID,
+                                                .InQuantity = 0,
+                                                .InWeight = 0,
+                                                .InTotalWeight = 0,
+                                                .UnitPrice = 0
+                                           })
                     Next
 
                     '# Save Data Status
                     BL.OrderRequest.SaveDataStatus(sqlCon, sqlTrans, clsData.ID, IIf(bolNew, "BARU", "EDIT"), ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
 
                     If clsData.Save = VO.Save.Action.SaveAndSubmit Then Submit(sqlCon, sqlTrans, clsData.ID, clsData.Remarks)
+
+                    '# Save Data Stock IN
+                    BL.StockIn.SaveData(sqlCon, sqlTrans, clsDataStockIN)
 
                     sqlTrans.Commit()
                 Catch ex As Exception
@@ -103,6 +120,14 @@
 
                     '# Save Data Status
                     BL.OrderRequest.SaveDataStatus(sqlCon, sqlTrans, strID, "HAPUS", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+                    Dim dtItem As DataTable = DL.OrderRequest.ListDataDetail(sqlCon, sqlTrans, strID)
+
+                    '# Calculate Stock In
+                    For Each dr As DataRow In dtItem.Rows
+                        BL.StockIn.CalculateStockIn(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
+                    Next
+
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()

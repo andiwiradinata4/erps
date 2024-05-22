@@ -444,6 +444,12 @@
     <Compile Include="PresentationLayers\Forms\Master\frmMstStatusModules.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstStock.Designer.vb">
+      <DependentUpon>frmMstStock.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstStock.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstUOM.designer.vb">
       <DependentUpon>frmMstUOM.vb</DependentUpon>
     </Compile>
@@ -1394,6 +1400,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstStatusModules.resx">
       <DependentUpon>frmMstStatusModules.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstStock.resx">
+      <DependentUpon>frmMstStock.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstUOM.resx">
       <DependentUpon>frmMstUOM.vb</DependentUpon>

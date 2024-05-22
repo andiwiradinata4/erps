@@ -1,11 +1,22 @@
 ﻿Imports DevExpress.XtraGrid
 Public Class frmTraOrderRequest
 
+#Region "Properties"
+
     Private intPos As Integer = 0
     Private clsData As New VO.OrderRequest
     Private intProgramID As Integer
     Private intCompanyID As Integer
     Private dtData As New DataTable
+    Private bolIsStock As Boolean
+
+    Public WriteOnly Property pubIsStock As Boolean
+        Set(value As Boolean)
+            bolIsStock = value
+        End Set
+    End Property
+
+#End Region
 
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,

@@ -16,6 +16,7 @@
     Dim frmMainMstItemType As frmMstItemType
     Dim frmMainMstItemSpecification As frmMstItemSpecification
     Dim frmMainMstItem As frmMstItem
+    Dim frmMainMstStock As frmMstStock
     Dim frmMainBusinessPartner As frmMstBusinessPartner
     Dim frmMainMstCompanyBankAccount As frmMstCompanyBankAccount
     Dim frmMainMstPaymentTypeCategory As frmMstPaymentTypeCategory
@@ -27,6 +28,10 @@
     Dim frmMainTraOrderRequest As frmTraOrderRequest
     Dim frmMainTraSalesContract As frmTraSalesContract
     Dim frmMainTraDelivery As frmTraDelivery
+
+    '## Sales Stock
+    Dim frmMainTraOrderRequestStock As frmTraOrderRequest
+    Dim frmMainTraDeliveryStock As frmTraDelivery
 
     '## Purchase
     Dim frmMainTraPurchaseOrder As frmTraPurchaseOrder
@@ -251,6 +256,10 @@
         UI.usForm.frmOpen(frmMainMstItem, "frmMstItem", Me)
     End Sub
 
+    Private Sub mnuMasterPersediaan_Click(sender As Object, e As EventArgs) Handles mnuMasterPersediaan.Click
+        UI.usForm.frmOpen(frmMainMstStock, "frmMstStock", Me)
+    End Sub
+
     Private Sub mnuMasterRekanBisnis_Click(sender As Object, e As EventArgs) Handles mnuMasterRekanBisnis.Click
         UI.usForm.frmOpen(frmMainBusinessPartner, "frmMstBusinessPartner", Me)
     End Sub
@@ -274,7 +283,26 @@
 #Region "Sales"
 
     Private Sub mnuTransaksiPenjualanPermintaanPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPermintaanPenjualan.Click
-        UI.usForm.frmOpen(frmMainTraOrderRequest, "frmTraOrderRequest", Me)
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraOrderRequest"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraOrderRequest) Then
+            If Not frmMainTraOrderRequest.IsDisposed Then
+                frmMainTraOrderRequest.WindowState = FormWindowState.Normal
+                frmMainTraOrderRequest.BringToFront()
+                frmMainTraOrderRequest.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraOrderRequest = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraOrderRequest.MdiParent = Me
+                frmMainTraOrderRequest.pubIsStock = False
+                frmMainTraOrderRequest.Show()
+            End If
+        Else
+            frmMainTraOrderRequest = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraOrderRequest.MdiParent = Me
+            frmMainTraOrderRequest.pubIsStock = False
+            frmMainTraOrderRequest.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
     End Sub
 
     Private Sub mnuTransaksiPenjualanKontrakPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanKontrakPenjualan.Click
@@ -283,6 +311,37 @@
 
     Private Sub mnuTransaksiPenjualanPengirimanPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPengirimanPenjualan.Click
         UI.usForm.frmOpen(frmMainTraDelivery, "frmTraDelivery", Me)
+    End Sub
+
+#End Region
+
+#Region "Sales Stock"
+
+    Private Sub mnuTransaksiPenjualanStockPermintaanPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanStockPermintaanPenjualan.Click
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraOrderRequest"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraOrderRequestStock) Then
+            If Not frmMainTraOrderRequestStock.IsDisposed Then
+                frmMainTraOrderRequestStock.WindowState = FormWindowState.Normal
+                frmMainTraOrderRequestStock.BringToFront()
+                frmMainTraOrderRequestStock.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraOrderRequestStock = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraOrderRequestStock.MdiParent = Me
+                frmMainTraOrderRequestStock.pubIsStock = True
+                frmMainTraOrderRequestStock.Show()
+            End If
+        Else
+            frmMainTraOrderRequestStock = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraOrderRequestStock.MdiParent = Me
+            frmMainTraOrderRequestStock.pubIsStock = True
+            frmMainTraOrderRequestStock.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
+    End Sub
+
+    Private Sub mnuTransaksiPenjualanStockPengirimanPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanStockPengirimanPenjualan.Click
+
     End Sub
 
 #End Region

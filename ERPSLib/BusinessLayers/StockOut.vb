@@ -29,6 +29,7 @@ Namespace BL
                 For Each clsData As VO.StockOut In clsDataAll
                     Dim decTotalWeightDelivery As Decimal = DL.StockOut.GetTotalWeightStockOutDelivery(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
                     Dim decTotalWeightCutting As Decimal = DL.StockOut.GetTotalWeightStockOutCutting(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
+                    Dim decOutTotalWeightProcess As Decimal = DL.StockIn.GetTotalWeightStockOutOrderRequest(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
                     Dim clsExists As VO.StockOut = DL.StockOut.DataExists(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
                     Dim bolNew As Boolean
                     If clsExists.ID = "" Then
@@ -41,7 +42,7 @@ Namespace BL
                     clsData.TotalWeight = decTotalWeightDelivery + decTotalWeightCutting
                     DL.StockOut.SaveData(sqlCon, sqlTrans, bolNew, clsData)
 
-                    DL.StockIn.CalculateStockOut(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
+                    DL.StockIn.CalculateStockOut(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID, decOutTotalWeightProcess)
                 Next
             Catch ex As Exception
                 Throw ex
@@ -53,12 +54,13 @@ Namespace BL
             Try
                 Dim decTotalWeightDelivery As Decimal = DL.StockOut.GetTotalWeightStockOutDelivery(sqlCon, sqlTrans, strOrderNumberSupplier, intItemID)
                 Dim decTotalWeightCutting As Decimal = DL.StockOut.GetTotalWeightStockOutCutting(sqlCon, sqlTrans, strOrderNumberSupplier, intItemID)
+                Dim decOutTotalWeightProcess As Decimal = DL.StockIn.GetTotalWeightStockOutOrderRequest(sqlCon, sqlTrans, strOrderNumberSupplier, intItemID)
                 Dim clsExists As VO.StockIn = DL.StockIn.DataExists(sqlCon, sqlTrans, strOrderNumberSupplier, intItemID)
                 If clsExists.ID <> "" Then
                     DL.StockOut.UpdateStockOutTotalWeight(sqlCon, sqlTrans, clsExists.ID, decTotalWeightDelivery + decTotalWeightCutting)
                 End If
 
-                DL.StockIn.CalculateStockOut(sqlCon, sqlTrans, strOrderNumberSupplier, intItemID)
+                DL.StockIn.CalculateStockOut(sqlCon, sqlTrans, strOrderNumberSupplier, intItemID, decOutTotalWeightProcess)
             Catch ex As Exception
                 Throw ex
             End Try

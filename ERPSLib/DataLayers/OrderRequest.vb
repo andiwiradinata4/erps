@@ -477,7 +477,7 @@
                     "   A.ID, A.OrderRequestID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, " & vbNewLine &
                     "   D.Description AS ItemTypeName, A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, " & vbNewLine &
-                    "   A.Remarks, A.RoundingWeight " & vbNewLine &
+                    "   A.Remarks, A.RoundingWeight, A.OrderNumberSupplier, A.UnitPriceHPP " & vbNewLine &
                     "FROM traOrderRequestDet A " & vbNewLine &
                     "INNER JOIN mstItem B ON " & vbNewLine &
                     "   A.ItemID=B.ID " & vbNewLine &
@@ -542,9 +542,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traOrderRequestDet " & vbNewLine &
-                    "     (ID, OrderRequestID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, RoundingWeight) " & vbNewLine &
+                    "     (ID, OrderRequestID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, RoundingWeight, OrderNumberSupplier, UnitPriceHPP) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "     (@ID, @OrderRequestID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @RoundingWeight) " & vbNewLine
+                    "     (@ID, @OrderRequestID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @RoundingWeight, @OrderNumberSupplier, @UnitPriceHPP) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@OrderRequestID", SqlDbType.VarChar, 100).Value = clsData.OrderRequestID
@@ -556,6 +556,8 @@
                 .Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = clsData.TotalPrice
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
                 .Parameters.Add("@RoundingWeight", SqlDbType.Decimal).Value = clsData.RoundingWeight
+                .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = clsData.OrderNumberSupplier
+                .Parameters.Add("@UnitPriceHPP", SqlDbType.Decimal).Value = clsData.UnitPriceHPP
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -617,6 +619,50 @@
                     "			SCD.ORDetailID=@OrderRequestDetailID 	" & vbNewLine &
                     "			AND SCD.ParentID='' 	" & vbNewLine &
                     "			AND SCH.IsDeleted=0 	" & vbNewLine &
+                    "	) 	" & vbNewLine &
+                    "WHERE ID=@OrderRequestDetailID	" & vbNewLine
+
+                .Parameters.Add("@OrderRequestDetailID", SqlDbType.VarChar, 100).Value = strOrderRequestDetailID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateTotalUsedDeliveryStock(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                          ByVal strOrderRequestDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traOrderRequestDet SET 	" & vbNewLine &
+                    "	SCWeight=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.TotalWeight+TDD.RoundingWeight),0) TotalWeight " & vbNewLine &
+                    "		FROM traDeliveryDet TDD 	" & vbNewLine &
+                    "		INNER JOIN traDelivery TDH ON	" & vbNewLine &
+                    "			TDD.DeliveryID=TDH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.SCDetailID=@OrderRequestDetailID 	" & vbNewLine &
+                    "			AND TDD.ParentID='' 	" & vbNewLine &
+                    "			AND TDH.IsDeleted=0 	" & vbNewLine &
+                    "	), 	" & vbNewLine &
+                    "	SCQuantity=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.Quantity+TDD.RoundingWeight),0) TotalQuantity " & vbNewLine &
+                    "		FROM traDeliveryDet TDD 	" & vbNewLine &
+                    "		INNER JOIN traDelivery TDH ON	" & vbNewLine &
+                    "			TDD.DeliveryID=TDH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.SCDetailID=@OrderRequestDetailID 	" & vbNewLine &
+                    "			AND TDD.ParentID='' 	" & vbNewLine &
+                    "			AND TDH.IsDeleted=0 	" & vbNewLine &
                     "	) 	" & vbNewLine &
                     "WHERE ID=@OrderRequestDetailID	" & vbNewLine
 

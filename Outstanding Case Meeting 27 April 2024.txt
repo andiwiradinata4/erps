@@ -22,7 +22,7 @@
 16.6 Pembayaran biaya transport -- Done -> Testing -> Done.
 
 --- On Progress
-16.2 Setiap receive harus generate di table stock in dan setiap keluar atau potong harus ada proses stock in dan out. -- Done -> Testing -> Done. - Checking Cutting Process u/Masuk Stock -> Done -> Testing ->
+16.2 Setiap receive harus generate di table stock in dan setiap keluar atau potong harus ada proses stock in dan out. -- Done -> Testing -> Done. - Checking Cutting Process u/Masuk Stock -> Done -> Testing -> Done.
 17. Laporan untuk Mengetahui QS dan Item KO ke PI Customer apa saja dan setiap Sales Contract Detail Item harus ada QS nya
 18. Payment Schedule harus input rencana bayar ketika sudah lewat jatuh tempo.
 19. Penjualan Stok tidak perlu ada kontrak penjualan, langsung penjualan dan harus references dari QS yang sudah masuk.

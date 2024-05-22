@@ -8,9 +8,17 @@ Public Class frmTraOrderRequestDet
     Private intBPID As Integer = 0
     Private dtItem As New DataTable
     Private intPos As Integer = 0
+    Private bolIsStock As Boolean
+
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
+
+    Public WriteOnly Property pubIsStock As Boolean
+        Set(value As Boolean)
+            bolIsStock = value
+        End Set
+    End Property
 
     Public Sub pubShowDialog(ByVal frmGetParent As Form)
         frmParent = frmGetParent
@@ -40,6 +48,7 @@ Public Class frmTraOrderRequestDet
         '# Item
         UI.usForm.SetGrid(grdItemView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "OrderRequestID", "OrderRequestID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "No. Pesanan Pemasok", 100, UI.usDefGrid.gString, bolIsStock)
         UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
@@ -99,11 +108,11 @@ Public Class frmTraOrderRequestDet
                 txtTotalPPH.Value = clsData.TotalPPH
                 cboStatus.SelectedValue = clsData.StatusID
                 txtRemarks.Text = clsData.Remarks
+                bolIsStock = clsData.IsStock
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
 
-                'dtpOrderDate.Enabled = False
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
             End If
         Catch ex As Exception
@@ -148,7 +157,6 @@ Public Class frmTraOrderRequestDet
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
 
-
         Dim listDetail As New List(Of VO.OrderRequestDet)
         For Each dr As DataRow In dtItem.Rows
             listDetail.Add(New ERPSLib.VO.OrderRequestDet With
@@ -161,7 +169,9 @@ Public Class frmTraOrderRequestDet
                                .TotalWeight = dr.Item("TotalWeight"),
                                .UnitPrice = dr.Item("UnitPrice"),
                                .TotalPrice = dr.Item("TotalPrice"),
-                               .Remarks = dr.Item("Remarks")
+                               .Remarks = dr.Item("Remarks"),
+                               .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                               .UnitPriceHPP = dr.Item("UnitPriceHPP")
                            })
         Next
 
@@ -183,18 +193,17 @@ Public Class frmTraOrderRequestDet
         clsData.RoundingManual = 0
         clsData.Remarks = txtRemarks.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
+        clsData.IsStock = bolIsStock
         clsData.Detail = listDetail
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
 
         pgMain.Value = 60
 
-
         Try
             Dim strOrderNumber As String = BL.OrderRequest.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strOrderNumber)
             pgMain.Value = 80
-
             frmParent.pubRefresh(strOrderNumber)
             If pubIsNew Then
                 prvClear()
@@ -207,7 +216,6 @@ Public Class frmTraOrderRequestDet
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-
             prvResetProgressBar()
         End Try
     End Sub
@@ -305,7 +313,6 @@ Public Class frmTraOrderRequestDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-
             prvSetButtonItem()
             prvResetProgressBar()
         End Try
@@ -317,6 +324,7 @@ Public Class frmTraOrderRequestDet
             .pubIsNew = True
             .pubTableParent = dtItem
             .pubIsAutoSearch = True
+            .pubIsStock = bolIsStock
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -331,6 +339,7 @@ Public Class frmTraOrderRequestDet
             .pubIsNew = False
             .pubTableParent = dtItem
             .pubDatRowSelected = grdItemView.GetDataRow(intPos)
+            .pubIsStock = bolIsStock
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButtonItem()

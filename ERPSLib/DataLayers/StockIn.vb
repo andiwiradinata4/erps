@@ -256,8 +256,46 @@ Namespace DL
             Return decReturn
         End Function
 
+        Public Shared Function GetTotalWeightStockOutOrderRequest(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                  ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer) As Decimal
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim decReturn As Decimal = 0
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandText =
+"SELECT ISNULL(SUM(ORD.TotalWeight+ORD.RoundingWeight-ORD.SCWeight),0) AS TotalWeight " & vbNewLine &
+"FROM traOrderRequest ORH " & vbNewLine &
+"INNER JOIN traOrderRequestDet ORD ON " & vbNewLine &
+"   ORH.ID=ORD.OrderRequestID " & vbNewLine &
+"WHERE " & vbNewLine &
+"	ORD.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
+"	AND ORD.ItemID=@ItemID " & vbNewLine &
+"	AND ORH.IsStock=1 " & vbNewLine &
+"	AND ORH.IsDeleted=0 " & vbNewLine
+
+                    .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
+                    .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        decReturn = .Item("TotalWeight")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If sqlrdData IsNot Nothing Then sqlrdData.Close()
+            End Try
+            Return decReturn
+        End Function
+
         Public Shared Sub CalculateStockOut(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                            ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer)
+                                            ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer,
+                                            ByVal decOutTotalWeightProcess As Decimal)
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
                 .Connection = sqlCon
@@ -265,13 +303,15 @@ Namespace DL
                 .CommandText =
 "UPDATE traStockIn SET " & vbNewLine &
 "   OutQuantity=(SELECT ISNULL(SUM(Quantity),0) AS TotalQuantity FROM traStockOut WHERE OrderNumberSupplier=@OrderNumberSupplier AND ItemID=@ItemID), " & vbNewLine &
-"   OutTotalWeight=(SELECT ISNULL(SUM(TotalWeight),0) AS TotalQuantity FROM traStockOut WHERE OrderNumberSupplier=@OrderNumberSupplier AND ItemID=@ItemID) " & vbNewLine &
+"   OutTotalWeight=(SELECT ISNULL(SUM(TotalWeight),0) AS TotalQuantity FROM traStockOut WHERE OrderNumberSupplier=@OrderNumberSupplier AND ItemID=@ItemID), " & vbNewLine &
+"   OutTotalWeightProcess=@OutTotalWeightProcess " & vbNewLine &
 "WHERE " & vbNewLine &
 "	OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
 "   AND ItemID=@ItemID " & vbNewLine
 
                 .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
                 .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
+                .Parameters.Add("@OutTotalWeightProcess", SqlDbType.Decimal).Value = decOutTotalWeightProcess
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
