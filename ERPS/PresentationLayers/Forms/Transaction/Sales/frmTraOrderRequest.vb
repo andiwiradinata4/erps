@@ -182,6 +182,7 @@ Public Class frmTraOrderRequest
         With frmDetail
             .pubIsNew = True
             .pubCS = prvGetCS()
+            .pubIsStock = bolIsStock
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
         End With
@@ -197,6 +198,7 @@ Public Class frmTraOrderRequest
             .pubIsNew = False
             .pubCS = prvGetCS()
             .pubID = clsData.ID
+            .pubIsStock = bolIsStock
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
         End With
@@ -370,6 +372,7 @@ Public Class frmTraOrderRequest
         prvDefaultFilter()
         prvQuery()
         prvUserAccess()
+        If bolIsStock Then Me.Text += " [Stock] "
         Me.WindowState = FormWindowState.Maximized
     End Sub
 

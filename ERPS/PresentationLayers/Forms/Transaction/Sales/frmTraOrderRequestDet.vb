@@ -32,6 +32,7 @@ Public Class frmTraOrderRequestDet
        cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2
 
     Private Sub prvSetTitleForm()
+        If bolIsStock Then Me.Text += " [Stock]"
         If pubIsNew Then
             Me.Text += " [baru] "
         Else
@@ -86,7 +87,6 @@ Public Class frmTraOrderRequestDet
 
     Private Sub prvFillForm()
         pgMain.Value = 30
-
         Me.Cursor = Cursors.WaitCursor
         prvFillCombo()
         Try
@@ -121,7 +121,6 @@ Public Class frmTraOrderRequestDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-
             prvResetProgressBar()
         End Try
     End Sub

@@ -28,6 +28,11 @@ Partial Class frmTraOrderRequestDetItem
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.lblUnitPriceHPP = New System.Windows.Forms.Label()
+        Me.txtUnitPriceHPP = New ERPS.usNumeric()
+        Me.lblOrderNumberSupplier = New System.Windows.Forms.Label()
+        Me.txtOrderNumberSupplier = New ERPS.usTextBox()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.txtTotalPrice = New ERPS.usNumeric()
@@ -62,12 +67,8 @@ Partial Class frmTraOrderRequestDetItem
         Me.txtItemCode = New ERPS.usTextBox()
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtItemName = New ERPS.usTextBox()
-        Me.lblOrderNumberSupplier = New System.Windows.Forms.Label()
-        Me.txtOrderNumberSupplier = New ERPS.usTextBox()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.lblUnitPriceHPP = New System.Windows.Forms.Label()
-        Me.txtUnitPriceHPP = New ERPS.usNumeric()
         Me.pnlDetail.SuspendLayout()
+        CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtUnitPrice, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -76,7 +77,6 @@ Partial Class frmTraOrderRequestDetItem
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -163,6 +163,62 @@ Partial Class frmTraOrderRequestDetItem
         Me.pnlDetail.Name = "pnlDetail"
         Me.pnlDetail.Size = New System.Drawing.Size(647, 332)
         Me.pnlDetail.TabIndex = 2
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.BackColor = System.Drawing.Color.Transparent
+        Me.Label18.ForeColor = System.Drawing.Color.Black
+        Me.Label18.Location = New System.Drawing.Point(591, 215)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(19, 13)
+        Me.Label18.TabIndex = 196
+        Me.Label18.Text = "Kg"
+        '
+        'lblUnitPriceHPP
+        '
+        Me.lblUnitPriceHPP.AutoSize = True
+        Me.lblUnitPriceHPP.BackColor = System.Drawing.Color.Transparent
+        Me.lblUnitPriceHPP.ForeColor = System.Drawing.Color.Black
+        Me.lblUnitPriceHPP.Location = New System.Drawing.Point(362, 215)
+        Me.lblUnitPriceHPP.Name = "lblUnitPriceHPP"
+        Me.lblUnitPriceHPP.Size = New System.Drawing.Size(55, 13)
+        Me.lblUnitPriceHPP.TabIndex = 195
+        Me.lblUnitPriceHPP.Text = "Harga Beli"
+        '
+        'txtUnitPriceHPP
+        '
+        Me.txtUnitPriceHPP.DecimalPlaces = 2
+        Me.txtUnitPriceHPP.Location = New System.Drawing.Point(427, 211)
+        Me.txtUnitPriceHPP.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtUnitPriceHPP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtUnitPriceHPP.Name = "txtUnitPriceHPP"
+        Me.txtUnitPriceHPP.Size = New System.Drawing.Size(160, 21)
+        Me.txtUnitPriceHPP.TabIndex = 194
+        Me.txtUnitPriceHPP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtUnitPriceHPP.ThousandsSeparator = True
+        '
+        'lblOrderNumberSupplier
+        '
+        Me.lblOrderNumberSupplier.AutoSize = True
+        Me.lblOrderNumberSupplier.BackColor = System.Drawing.Color.Transparent
+        Me.lblOrderNumberSupplier.ForeColor = System.Drawing.Color.Black
+        Me.lblOrderNumberSupplier.Location = New System.Drawing.Point(290, 24)
+        Me.lblOrderNumberSupplier.Name = "lblOrderNumberSupplier"
+        Me.lblOrderNumberSupplier.Size = New System.Drawing.Size(127, 13)
+        Me.lblOrderNumberSupplier.TabIndex = 193
+        Me.lblOrderNumberSupplier.Text = "Nomor Pesanan Pemasok"
+        '
+        'txtOrderNumberSupplier
+        '
+        Me.txtOrderNumberSupplier.BackColor = System.Drawing.Color.Azure
+        Me.txtOrderNumberSupplier.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtOrderNumberSupplier.Location = New System.Drawing.Point(427, 20)
+        Me.txtOrderNumberSupplier.MaxLength = 250
+        Me.txtOrderNumberSupplier.Name = "txtOrderNumberSupplier"
+        Me.txtOrderNumberSupplier.ReadOnly = True
+        Me.txtOrderNumberSupplier.Size = New System.Drawing.Size(160, 21)
+        Me.txtOrderNumberSupplier.TabIndex = 2
         '
         'Label24
         '
@@ -552,62 +608,6 @@ Partial Class frmTraOrderRequestDetItem
         Me.txtItemName.Size = New System.Drawing.Size(477, 48)
         Me.txtItemName.TabIndex = 3
         '
-        'lblOrderNumberSupplier
-        '
-        Me.lblOrderNumberSupplier.AutoSize = True
-        Me.lblOrderNumberSupplier.BackColor = System.Drawing.Color.Transparent
-        Me.lblOrderNumberSupplier.ForeColor = System.Drawing.Color.Black
-        Me.lblOrderNumberSupplier.Location = New System.Drawing.Point(290, 24)
-        Me.lblOrderNumberSupplier.Name = "lblOrderNumberSupplier"
-        Me.lblOrderNumberSupplier.Size = New System.Drawing.Size(127, 13)
-        Me.lblOrderNumberSupplier.TabIndex = 193
-        Me.lblOrderNumberSupplier.Text = "Nomor Pesanan Pemasok"
-        '
-        'txtOrderNumberSupplier
-        '
-        Me.txtOrderNumberSupplier.BackColor = System.Drawing.Color.Azure
-        Me.txtOrderNumberSupplier.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtOrderNumberSupplier.Location = New System.Drawing.Point(427, 21)
-        Me.txtOrderNumberSupplier.MaxLength = 250
-        Me.txtOrderNumberSupplier.Name = "txtOrderNumberSupplier"
-        Me.txtOrderNumberSupplier.ReadOnly = True
-        Me.txtOrderNumberSupplier.Size = New System.Drawing.Size(160, 21)
-        Me.txtOrderNumberSupplier.TabIndex = 2
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.BackColor = System.Drawing.Color.Transparent
-        Me.Label18.ForeColor = System.Drawing.Color.Black
-        Me.Label18.Location = New System.Drawing.Point(591, 214)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(19, 13)
-        Me.Label18.TabIndex = 196
-        Me.Label18.Text = "Kg"
-        '
-        'lblUnitPriceHPP
-        '
-        Me.lblUnitPriceHPP.AutoSize = True
-        Me.lblUnitPriceHPP.BackColor = System.Drawing.Color.Transparent
-        Me.lblUnitPriceHPP.ForeColor = System.Drawing.Color.Black
-        Me.lblUnitPriceHPP.Location = New System.Drawing.Point(362, 214)
-        Me.lblUnitPriceHPP.Name = "lblUnitPriceHPP"
-        Me.lblUnitPriceHPP.Size = New System.Drawing.Size(55, 13)
-        Me.lblUnitPriceHPP.TabIndex = 195
-        Me.lblUnitPriceHPP.Text = "Harga Beli"
-        '
-        'txtUnitPriceHPP
-        '
-        Me.txtUnitPriceHPP.DecimalPlaces = 2
-        Me.txtUnitPriceHPP.Location = New System.Drawing.Point(427, 210)
-        Me.txtUnitPriceHPP.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtUnitPriceHPP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtUnitPriceHPP.Name = "txtUnitPriceHPP"
-        Me.txtUnitPriceHPP.Size = New System.Drawing.Size(160, 21)
-        Me.txtUnitPriceHPP.TabIndex = 194
-        Me.txtUnitPriceHPP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtUnitPriceHPP.ThousandsSeparator = True
-        '
         'frmTraOrderRequestDetItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -624,6 +624,7 @@ Partial Class frmTraOrderRequestDetItem
         Me.Text = "Barang"
         Me.pnlDetail.ResumeLayout(False)
         Me.pnlDetail.PerformLayout()
+        CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtUnitPrice, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).EndInit()
@@ -632,7 +633,6 @@ Partial Class frmTraOrderRequestDetItem
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

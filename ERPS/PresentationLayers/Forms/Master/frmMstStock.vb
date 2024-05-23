@@ -100,6 +100,9 @@
         If grdView.GetRowCellValue(intPos, "StatusID") = VO.Status.Values.InActive Then
             UI.usForm.frmMessageBox("Tidak dapat pilih barang " & grdView.GetRowCellValue(intPos, "ItemCode") & " | " & grdView.GetRowCellValue(intPos, "ItemName") & ". Dikarenakan data tersebut sudah tidak aktif")
             Exit Sub
+        ElseIf grdView.GetRowCellValue(intPos, "Balance") <= 0 Then
+            UI.usForm.frmMessageBox("Tidak dapat pilih barang " & grdView.GetRowCellValue(intPos, "ItemCode") & " | " & grdView.GetRowCellValue(intPos, "ItemName") & ". Dikarenakan Sisa Stock lebih kecil atau sama dengan 0")
+            Exit Sub
         Else
             drLUdtRow = grdView.GetDataRow(grdView.FocusedRowHandle)
             bolIsLookUpGet = True

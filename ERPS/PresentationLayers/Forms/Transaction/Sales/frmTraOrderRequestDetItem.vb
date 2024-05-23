@@ -138,6 +138,14 @@
             UI.usForm.frmMessageBox("Berat harus lebih besar dari 0")
             txtWeight.Focus()
             Exit Sub
+        ElseIf bolIsStock And txtOrderNumberSupplier.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Nomor Pesanan Pemasok tidak boleh kosong")
+            txtOrderNumberSupplier.Focus()
+            Exit Sub
+        ElseIf bolIsStock And txtUnitPriceHPP.Value <= 0 Then
+            UI.usForm.frmMessageBox("Harga Beli harus lebih besar dari 0 agar HPP Penjualan dapat diperoleh saat pengiriman")
+            txtUnitPriceHPP.Focus()
+            Exit Sub
         End If
 
         If bolIsNew Then
@@ -228,6 +236,8 @@
                     txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
                     txtUnitPriceHPP.Value = .pubLUdtRow.Item("UnitPrice")
                     bolIsAutoSearch = False
+                Else
+                    If bolIsAutoSearch Then Me.Close()
                 End If
             End With
         Else
@@ -253,6 +263,8 @@
                     txtOrderNumberSupplier.Text = ""
                     txtUnitPriceHPP.Value = 0
                     bolIsAutoSearch = False
+                Else
+                    If bolIsAutoSearch Then Me.Close()
                 End If
             End With
         End If

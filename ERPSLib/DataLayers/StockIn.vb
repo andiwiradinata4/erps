@@ -26,10 +26,10 @@ Namespace DL
                     .CommandText =
 "INSERT INTO traStockIn " & vbNewLine &
 "	(ID, ParentID, ParentDetailID, OrderNumberSupplier, SourceData, ItemID, InQuantity,  " & vbNewLine &
-"	 InWeight, InTotalWeight, OutQuantity, OutWeight, OutTotalWeight, OutTotalWeightProcess, OutTotalQuantityProcess) " & vbNewLine &
+"	 InWeight, InTotalWeight, OutQuantity, OutWeight, OutTotalWeight, OutTotalWeightProcess, OutTotalQuantityProcess, UnitPrice) " & vbNewLine &
 "VALUES  " & vbNewLine &
 "	(@ID, @ParentID, @ParentDetailID, @OrderNumberSupplier, @SourceData, @ItemID, @InQuantity,  " & vbNewLine &
-"	 @InWeight, @InTotalWeight, @OutQuantity, @OutWeight, @OutTotalWeight, @OutTotalWeightProcess, @OutTotalQuantityProcess) " & vbNewLine
+"	 @InWeight, @InTotalWeight, @OutQuantity, @OutWeight, @OutTotalWeight, @OutTotalWeightProcess, @OutTotalQuantityProcess, @UnitPrice) " & vbNewLine
                 Else
                     .CommandText =
 "UPDATE traStockIn SET  " & vbNewLine &
@@ -45,7 +45,8 @@ Namespace DL
 "	OutWeight=@OutWeight,  " & vbNewLine &
 "	OutTotalWeight=@OutTotalWeight, " & vbNewLine &
 "	OutTotalWeightProcess=@OutTotalWeightProcess, " & vbNewLine &
-"	OutTotalQuantityProcess=@OutTotalQuantityProcess " & vbNewLine &
+"	OutTotalQuantityProcess=@OutTotalQuantityProcess, " & vbNewLine &
+"	UnitPrice=@UnitPrice " & vbNewLine &
 "WHERE " & vbNewLine &
 "	ID=@ID " & vbNewLine
                 End If
@@ -64,6 +65,7 @@ Namespace DL
                 .Parameters.Add("@OutTotalWeight", SqlDbType.Decimal).Value = clsData.OutTotalWeight
                 .Parameters.Add("@OutTotalWeightProcess", SqlDbType.Decimal).Value = clsData.OutTotalWeightProcess
                 .Parameters.Add("@OutTotalQuantityProcess", SqlDbType.Decimal).Value = clsData.OutTotalQuantityProcess
+                .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = clsData.UnitPrice
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -82,7 +84,7 @@ Namespace DL
                     .CommandText =
 "SELECT TOP 1  " & vbNewLine &
 "	A.ID, A.ParentID, A.ParentDetailID, A.OrderNumberSupplier, A.SourceData, A.ItemID, A.InQuantity,  " & vbNewLine &
-"	A.InWeight, A.InTotalWeight, A.OutQuantity, A.OutWeight, A.OutTotalWeight, A.OutTotalWeightProcess, A.OutTotalQuantityProcess " & vbNewLine &
+"	A.InWeight, A.InTotalWeight, A.OutQuantity, A.OutWeight, A.OutTotalWeight, A.OutTotalWeightProcess, A.OutTotalQuantityProcess, A.UnitPrice " & vbNewLine &
 "FROM traStockIn A " & vbNewLine &
 "WHERE " & vbNewLine &
 "	A.ID=@ID " & vbNewLine
@@ -107,6 +109,7 @@ Namespace DL
                         voReturn.OutTotalWeight = .Item("OutTotalWeight")
                         voReturn.OutTotalWeightProcess = .Item("OutTotalWeightProcess")
                         voReturn.OutTotalQuantityProcess = .Item("OutTotalQuantityProcess")
+                        voReturn.UnitPrice = .Item("UnitPrice")
                     End If
                 End With
             Catch ex As Exception
@@ -128,7 +131,7 @@ Namespace DL
                     .CommandText =
 "SELECT TOP 1  " & vbNewLine &
 "	A.ID, A.ParentID, A.ParentDetailID, A.OrderNumberSupplier, A.SourceData, A.ItemID, A.InQuantity,  " & vbNewLine &
-"	A.InWeight, A.InTotalWeight, A.OutQuantity, A.OutWeight, A.OutTotalWeight, A.OutTotalWeightProcess, A.OutTotalQuantityProcess  " & vbNewLine &
+"	A.InWeight, A.InTotalWeight, A.OutQuantity, A.OutWeight, A.OutTotalWeight, A.OutTotalWeightProcess, A.OutTotalQuantityProcess, A.UnitPrice  " & vbNewLine &
 "FROM traStockIn A " & vbNewLine &
 "WHERE " & vbNewLine &
 "	A.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
@@ -155,6 +158,7 @@ Namespace DL
                         voReturn.OutTotalWeight = .Item("OutTotalWeight")
                         voReturn.OutTotalWeightProcess = .Item("OutTotalWeightProcess")
                         voReturn.OutTotalQuantityProcess = .Item("OutTotalQuantityProcess")
+                        voReturn.UnitPrice = .Item("UnitPrice")
                     End If
                 End With
             Catch ex As Exception

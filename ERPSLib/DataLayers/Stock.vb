@@ -28,7 +28,7 @@
 "	SELECT  " & vbNewLine &
 "       TSI.ItemID, TSI.OrderNumberSupplier, TSI.UnitPrice, SUM(TSI.InTotalWeight)-SUM(TSI.OutWeight)-SUM(TSI.OutTotalWeightProcess) Balance, SUM(TSI.OutTotalWeightProcess) AS OnProgressBalance  " & vbNewLine &
 "	FROM traStockIn TSI  " & vbNewLine &
-"	GROUP BY TSI.ItemID  " & vbNewLine &
+"	GROUP BY TSI.ItemID, TSI.OrderNumberSupplier, TSI.UnitPrice  " & vbNewLine &
 ") TSI ON MI.ID=TSI.ItemID  " & vbNewLine
                 Else
                     .CommandText +=
