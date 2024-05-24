@@ -33,7 +33,7 @@ Partial Class frmTraDeliveryDet
         Me.txtTransporterName = New ERPS.usTextBox()
         Me.btnTransporter = New DevExpress.XtraEditors.SimpleButton()
         Me.Label22 = New System.Windows.Forms.Label()
-        Me.Label21 = New System.Windows.Forms.Label()
+        Me.lblReferencesNumber = New System.Windows.Forms.Label()
         Me.txtSCNumber = New ERPS.usTextBox()
         Me.btnSC = New DevExpress.XtraEditors.SimpleButton()
         Me.txtDriver = New ERPS.usTextBox()
@@ -201,7 +201,7 @@ Partial Class frmTraDeliveryDet
         Me.tpMain.Controls.Add(Me.txtTransporterName)
         Me.tpMain.Controls.Add(Me.btnTransporter)
         Me.tpMain.Controls.Add(Me.Label22)
-        Me.tpMain.Controls.Add(Me.Label21)
+        Me.tpMain.Controls.Add(Me.lblReferencesNumber)
         Me.tpMain.Controls.Add(Me.txtSCNumber)
         Me.tpMain.Controls.Add(Me.btnSC)
         Me.tpMain.Controls.Add(Me.txtDriver)
@@ -271,16 +271,16 @@ Partial Class frmTraDeliveryDet
         Me.Label22.TabIndex = 199
         Me.Label22.Text = "Transporter"
         '
-        'Label21
+        'lblReferencesNumber
         '
-        Me.Label21.AutoSize = True
-        Me.Label21.BackColor = System.Drawing.Color.Transparent
-        Me.Label21.ForeColor = System.Drawing.Color.Black
-        Me.Label21.Location = New System.Drawing.Point(28, 101)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(114, 13)
-        Me.Label21.TabIndex = 195
-        Me.Label21.Text = "No. Kontrak Penjualan"
+        Me.lblReferencesNumber.AutoSize = True
+        Me.lblReferencesNumber.BackColor = System.Drawing.Color.Transparent
+        Me.lblReferencesNumber.ForeColor = System.Drawing.Color.Black
+        Me.lblReferencesNumber.Location = New System.Drawing.Point(28, 101)
+        Me.lblReferencesNumber.Name = "lblReferencesNumber"
+        Me.lblReferencesNumber.Size = New System.Drawing.Size(114, 13)
+        Me.lblReferencesNumber.TabIndex = 195
+        Me.lblReferencesNumber.Text = "No. Kontrak Penjualan"
         '
         'txtSCNumber
         '
@@ -1285,7 +1285,7 @@ Partial Class frmTraDeliveryDet
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents txtDriver As ERPS.usTextBox
     Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents Label21 As System.Windows.Forms.Label
+    Friend WithEvents lblReferencesNumber As System.Windows.Forms.Label
     Friend WithEvents txtSCNumber As ERPS.usTextBox
     Friend WithEvents btnSC As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents txtTransporterCode As ERPS.usTextBox

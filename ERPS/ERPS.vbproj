@@ -966,6 +966,18 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDetItem.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingDelivery.Designer.vb">
+      <DependentUpon>frmTraOrderRequestOutstandingDelivery.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingDelivery.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingDeliveryItemVer01.Designer.vb">
+      <DependentUpon>frmTraOrderRequestOutstandingDeliveryItemVer01.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingDeliveryItemVer01.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingItem.Designer.vb">
       <DependentUpon>frmTraOrderRequestOutstandingItem.vb</DependentUpon>
     </Compile>
@@ -1658,6 +1670,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDetItem.resx">
       <DependentUpon>frmTraOrderRequestDetItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingDelivery.resx">
+      <DependentUpon>frmTraOrderRequestOutstandingDelivery.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingDeliveryItemVer01.resx">
+      <DependentUpon>frmTraOrderRequestOutstandingDeliveryItemVer01.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingItem.resx">
       <DependentUpon>frmTraOrderRequestOutstandingItem.vb</DependentUpon>

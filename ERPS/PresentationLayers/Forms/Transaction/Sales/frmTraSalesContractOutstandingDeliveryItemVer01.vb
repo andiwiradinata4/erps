@@ -129,7 +129,6 @@ Public Class frmTraSalesContractOutstandingDeliveryItemVer01
         End If
     End Sub
 
-
 #Region "Form Handle"
 
     Private Sub frmTraSalesContractOutstandingDeliveryItemVer01_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown

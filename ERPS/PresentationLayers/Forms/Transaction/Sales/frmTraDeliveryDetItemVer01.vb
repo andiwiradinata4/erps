@@ -17,6 +17,7 @@
     Private bolIsUseSubItem As Boolean
     Private intLevelItem As Integer
     Private strParentID As String
+    Private bolIsStock As Boolean
 
     Public WriteOnly Property pubSCID As String
         Set(value As String)
@@ -63,6 +64,12 @@
     Public WriteOnly Property pubIsAutoSearch As Boolean
         Set(value As Boolean)
             bolIsAutoSearch = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubIsStock As Boolean
+        Set(value As Boolean)
+            bolIsStock = value
         End Set
     End Property
 
@@ -240,38 +247,72 @@
     End Sub
 
     Private Sub prvChooseItem()
-        Dim frmDetail As New frmTraSalesContractOutstandingDeliveryItemVer01
-        With frmDetail
-            .pubParentItem = dtItem
-            .pubSCID = strSCID
-            .pubCS = clsCS
-            .pubIsUseSubItem = bolIsUseSubItem
-            .StartPosition = FormStartPosition.CenterParent
-            .pubShowDialog(Me)
-            If .pubIsLookupGet Then
-                strSCDetailID = .pubLUdtRow.Item("ID")
-                txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
-                intItemID = .pubLUdtRow.Item("ItemID")
-                cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
-                txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
-                txtItemName.Text = .pubLUdtRow.Item("ItemName")
-                cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
-                txtThick.Value = .pubLUdtRow.Item("Thick")
-                txtWidth.Value = .pubLUdtRow.Item("Width")
-                txtLength.Value = .pubLUdtRow.Item("Length")
-                txtWeight.Value = .pubLUdtRow.Item("Weight")
-                txtMaxTotalWeight.Value = .pubLUdtRow.Item("MaxTotalWeight")
-                txtUnitPrice.Value = .pubLUdtRow.Item("UnitPrice")
-                txtQuantity.Value = .pubLUdtRow.Item("Quantity")
-                intLevelItem = .pubLUdtRow.Item("LevelItem")
-                strParentID = .pubLUdtRow.Item("ParentID")
-                txtQuantity.Focus()
-                txtRemarks.Text = ""
-                bolIsAutoSearch = False
-            Else
-                If bolIsAutoSearch Then Me.Close()
-            End If
-        End With
+        If bolIsStock Then
+            Dim frmDetail As New frmTraOrderRequestOutstandingDeliveryItemVer01
+            With frmDetail
+                .pubParentItem = dtItem
+                .pubOrderRequestID = strSCID
+                .pubCS = clsCS
+                .StartPosition = FormStartPosition.CenterParent
+                .pubShowDialog(Me)
+                If .pubIsLookupGet Then
+                    strSCDetailID = .pubLUdtRow.Item("ID")
+                    txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
+                    intItemID = .pubLUdtRow.Item("ItemID")
+                    cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
+                    txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
+                    txtItemName.Text = .pubLUdtRow.Item("ItemName")
+                    cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
+                    txtThick.Value = .pubLUdtRow.Item("Thick")
+                    txtWidth.Value = .pubLUdtRow.Item("Width")
+                    txtLength.Value = .pubLUdtRow.Item("Length")
+                    txtWeight.Value = .pubLUdtRow.Item("Weight")
+                    txtMaxTotalWeight.Value = .pubLUdtRow.Item("MaxTotalWeight")
+                    txtUnitPrice.Value = .pubLUdtRow.Item("UnitPrice")
+                    txtQuantity.Value = .pubLUdtRow.Item("Quantity")
+                    intLevelItem = 0
+                    strParentID = ""
+                    txtQuantity.Focus()
+                    txtRemarks.Text = ""
+                    bolIsAutoSearch = False
+                Else
+                    If bolIsAutoSearch Then Me.Close()
+                End If
+            End With
+        Else
+            Dim frmDetail As New frmTraSalesContractOutstandingDeliveryItemVer01
+            With frmDetail
+                .pubParentItem = dtItem
+                .pubSCID = strSCID
+                .pubCS = clsCS
+                .pubIsUseSubItem = bolIsUseSubItem
+                .StartPosition = FormStartPosition.CenterParent
+                .pubShowDialog(Me)
+                If .pubIsLookupGet Then
+                    strSCDetailID = .pubLUdtRow.Item("ID")
+                    txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
+                    intItemID = .pubLUdtRow.Item("ItemID")
+                    cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
+                    txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
+                    txtItemName.Text = .pubLUdtRow.Item("ItemName")
+                    cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
+                    txtThick.Value = .pubLUdtRow.Item("Thick")
+                    txtWidth.Value = .pubLUdtRow.Item("Width")
+                    txtLength.Value = .pubLUdtRow.Item("Length")
+                    txtWeight.Value = .pubLUdtRow.Item("Weight")
+                    txtMaxTotalWeight.Value = .pubLUdtRow.Item("MaxTotalWeight")
+                    txtUnitPrice.Value = .pubLUdtRow.Item("UnitPrice")
+                    txtQuantity.Value = .pubLUdtRow.Item("Quantity")
+                    intLevelItem = .pubLUdtRow.Item("LevelItem")
+                    strParentID = .pubLUdtRow.Item("ParentID")
+                    txtQuantity.Focus()
+                    txtRemarks.Text = ""
+                    bolIsAutoSearch = False
+                Else
+                    If bolIsAutoSearch Then Me.Close()
+                End If
+            End With
+        End If
     End Sub
 
     Private Sub prvCalculate()

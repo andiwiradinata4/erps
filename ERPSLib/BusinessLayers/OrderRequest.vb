@@ -191,10 +191,10 @@
         End Function
 
         Public Shared Function ListDataDetailOutstanding(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                         ByVal intBPID As Integer) As DataTable
+                                                         ByVal intBPID As Integer, ByVal strOrderRequestID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.OrderRequest.ListDataDetailOutstanding(sqlCon, Nothing, intProgramID, intCompanyID, intBPID)
+                Return DL.OrderRequest.ListDataDetailOutstanding(sqlCon, Nothing, intProgramID, intCompanyID, intBPID, strOrderRequestID)
             End Using
         End Function
 

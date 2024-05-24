@@ -12,9 +12,16 @@ Public Class frmTraDeliveryDet
     Private dtPaymentTerm As New DataTable
     Private intPos As Integer = 0
     Private bolIsUseSubItem As Boolean
+    Private bolIsStock As Boolean
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
+
+    Public WriteOnly Property pubIsStock As Boolean
+        Set(value As Boolean)
+            bolIsStock = value
+        End Set
+    End Property
 
     Public Sub pubShowDialog(ByVal frmGetParent As Form)
         frmParent = frmGetParent
@@ -352,24 +359,27 @@ Public Class frmTraDeliveryDet
     End Sub
 
     Private Sub prvChooseSC()
-        Dim frmDetail As New frmTraSalesContractOutstandingDelivery
-        With frmDetail
-            .pubCS = pubCS
-            .pubBPID = intBPID
-            .StartPosition = FormStartPosition.CenterScreen
-            .ShowDialog()
-            If .pubIsLookupGet Then
-                If strSCID.Trim <> .pubLUdtRow.Item("ID") Then
-                    Dim clsSC As VO.SalesContract = BL.SalesContract.GetDetail(.pubLUdtRow.Item("ID"))
-                    txtPPN.Value = clsSC.PPN
-                    txtPPH.Value = clsSC.PPH
-                End If
+        If bolIsStock Then
+        Else
+            Dim frmDetail As New frmTraSalesContractOutstandingDelivery
+            With frmDetail
+                .pubCS = pubCS
+                .pubBPID = intBPID
+                .StartPosition = FormStartPosition.CenterScreen
+                .ShowDialog()
+                If .pubIsLookupGet Then
+                    If strSCID.Trim <> .pubLUdtRow.Item("ID") Then
+                        Dim clsSC As VO.SalesContract = BL.SalesContract.GetDetail(.pubLUdtRow.Item("ID"))
+                        txtPPN.Value = clsSC.PPN
+                        txtPPH.Value = clsSC.PPH
+                    End If
 
-                strSCID = .pubLUdtRow.Item("ID")
-                txtSCNumber.Text = .pubLUdtRow.Item("SCNumber")
-                bolIsUseSubItem = .pubLUdtRow.Item("IsUseSubItem")
-            End If
-        End With
+                    strSCID = .pubLUdtRow.Item("ID")
+                    txtSCNumber.Text = .pubLUdtRow.Item("SCNumber")
+                    bolIsUseSubItem = .pubLUdtRow.Item("IsUseSubItem")
+                End If
+            End With
+        End If
     End Sub
 
     Private Sub prvSumGrid()
@@ -481,6 +491,7 @@ Public Class frmTraDeliveryDet
             .pubTableItem = dtItem
             .pubIsAutoSearch = True
             .pubIsUseSubItem = bolIsUseSubItem
+            .pubIsStock = bolIsStock
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -500,6 +511,7 @@ Public Class frmTraDeliveryDet
             .pubTableItem = dtItem
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .pubIsUseSubItem = bolIsUseSubItem
+            .pubIsStock = bolIsStock
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -585,6 +597,7 @@ Public Class frmTraDeliveryDet
         prvCalculate()
         prvQueryHistory()
         prvUserAccess()
+        If bolIsStock Then lblReferencesNumber.Text = "No. Permintaan Pesanan"
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick

@@ -495,7 +495,7 @@
 
         Public Shared Function ListDataDetailOutstanding(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                          ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                         ByVal intBPID As Integer) As DataTable
+                                                         ByVal intBPID As Integer, ByVal strOrderRequestID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -506,7 +506,7 @@
                     "   A.ID, A.OrderRequestID, A1.OrderNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, " & vbNewLine &
                     "   D.Description AS ItemTypeName, A.UnitPrice, A.Quantity-A.SCQuantity AS Quantity, A.Weight, " & vbNewLine &
-                    "   A.TotalWeight-A.SCWeight AS MaxTotalWeight, A.Remarks, A.RoundingWeight " & vbNewLine &
+                    "   A.TotalWeight+A.RoundingWeight-A.SCWeight AS MaxTotalWeight, A.Remarks, A.RoundingWeight " & vbNewLine &
                     "FROM traOrderRequestDet A " & vbNewLine &
                     "INNER JOIN traOrderRequest A1 ON " & vbNewLine &
                     "   A.OrderRequestID=A1.ID " & vbNewLine &
@@ -525,10 +525,13 @@
                     "   AND A1.SubmitBy<>'' " & vbNewLine &
                     "   AND A.TotalWeight+A.RoundingWeight-A.SCWeight>0 " & vbNewLine
 
+                If strOrderRequestID.Trim <> "" Then .CommandText += "  AND A.OrderRequestID=@OrderRequestID " & vbNewLine
+
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+                .Parameters.Add("@OrderRequestID", SqlDbType.VarChar, 100).Value = strOrderRequestID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function

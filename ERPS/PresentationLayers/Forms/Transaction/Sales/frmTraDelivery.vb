@@ -7,6 +7,13 @@ Public Class frmTraDelivery
     Private intCompanyID As Integer
     Private dtData As New DataTable
     Private bolExport As Boolean
+    Private bolIsStock As Boolean
+
+    Public WriteOnly Property pubIsStock As Boolean
+        Set(value As Boolean)
+            bolIsStock = value
+        End Set
+    End Property
 
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
@@ -197,6 +204,7 @@ Public Class frmTraDelivery
         With frmDetail
             .pubIsNew = True
             .pubCS = prvGetCS()
+            .pubIsStock = bolIsStock
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
         End With
@@ -212,6 +220,7 @@ Public Class frmTraDelivery
             .pubIsNew = False
             .pubCS = prvGetCS()
             .pubID = clsData.ID
+            .pubIsStock = bolIsStock
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
         End With
