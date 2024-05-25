@@ -6,12 +6,11 @@ Public Class frmTraOrderRequestOutstandingDeliveryItemVer01
     Private frmParent As frmTraDeliveryDetItemVer01
     Private intPos As Integer = 0
     Private clsCS As VO.CS
-    Private strOrderRequestID As String
     Private dtData As New DataTable
     Private drLookupGet As DataRow
     Private bolIsLookupGet As Boolean = False
     Private dtParent As New DataTable
-    Private intBPID As Integer
+    Private strOrderRequestID As String
 
     Public WriteOnly Property pubCS As VO.CS
         Set(value As VO.CS)
@@ -85,7 +84,7 @@ Public Class frmTraOrderRequestOutstandingDeliveryItemVer01
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         Try
-            dtData = BL.OrderRequest.ListDataDetailOutstanding(clsCS.ProgramID, clsCS.CompanyID, intBPID, strOrderRequestID)
+            dtData = BL.OrderRequest.ListDataDetailOutstanding(clsCS.ProgramID, clsCS.CompanyID, 0, strOrderRequestID)
             For Each drParent As DataRow In dtParent.Rows
                 For Each dr As DataRow In dtData.Rows
                     If drParent.Item("SCDetailID") = dr.Item("ID") Then dr.Delete()

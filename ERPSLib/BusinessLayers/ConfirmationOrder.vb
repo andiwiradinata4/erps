@@ -55,7 +55,7 @@
 
                     For Each clsDet As VO.ConfirmationOrderDet In clsData.Detail
                         Dim strValue As String = DL.ConfirmationOrder.OrderNumberSupplierExists(sqlCon, sqlTrans, clsData.ID, clsDet.OrderNumberSupplier, clsDet.ItemID)
-                        If strValue.Trim <> "" Then Err.Raise(515, "", "Tidak dapat disimpan. Nomor " & clsData.CONumber & " sudah ada.")
+                        If strValue.Trim <> "" Then Err.Raise(515, "", "Tidak dapat disimpan. Nomor Pesanan Pemasok " & clsDet.OrderNumberSupplier & " sudah dipakai di Nomor " & strValue & ".")
                     Next
 
                     DL.ConfirmationOrder.SaveData(sqlCon, sqlTrans, bolNew, clsData)

@@ -217,6 +217,7 @@
             Dim frmDetail As New frmMstStock
             With frmDetail
                 .pubIsLookUp = True
+                .pubDataParent = dtParent
                 .StartPosition = FormStartPosition.CenterScreen
                 .ShowDialog()
                 If .pubIsLookUpGet Then
@@ -229,7 +230,7 @@
                     txtLength.Value = .pubLUdtRow.Item("Length")
                     cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
                     txtWeight.Value = .pubLUdtRow.Item("Weight")
-                    txtUnitPrice.Value = .pubLUdtRow.Item("BasePrice")
+                    txtUnitPrice.Value = 0
                     txtQuantity.Value = 0
                     txtUnitPrice.Focus()
                     txtRemarks.Text = ""
@@ -280,6 +281,7 @@
         txtOrderNumberSupplier.Visible = bolIsStock
         lblUnitPriceHPP.Visible = bolIsStock
         txtUnitPriceHPP.Visible = bolIsStock
+        lblUomUnitPriceHPP.Visible = bolIsStock
     End Sub
 
 #Region "Form Handle"

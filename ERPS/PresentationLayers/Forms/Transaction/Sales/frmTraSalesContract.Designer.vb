@@ -35,6 +35,7 @@ Partial Class frmTraSalesContract
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
         Me.BarDownPayment = New System.Windows.Forms.ToolBarButton()
         Me.BarReceive = New System.Windows.Forms.ToolBarButton()
+        Me.BarSetupDelivery = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarPrint = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
@@ -57,8 +58,7 @@ Partial Class frmTraSalesContract
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.BarSetupDelivery = New System.Windows.Forms.ToolBarButton()
-        Me.BarCancelSetupDelivery = New System.Windows.Forms.ToolBarButton()
+        Me.BarCancelDelivery = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -68,7 +68,7 @@ Partial Class frmTraSalesContract
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarDownPayment, Me.BarReceive, Me.BarSetupDelivery, Me.BarCancelSetupDelivery, Me.BarSep3, Me.BarPrint, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarDownPayment, Me.BarReceive, Me.BarSetupDelivery, Me.BarCancelDelivery, Me.BarSep3, Me.BarPrint, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -140,6 +140,12 @@ Partial Class frmTraSalesContract
         Me.BarReceive.Name = "BarReceive"
         Me.BarReceive.Tag = "Calculation"
         Me.BarReceive.Text = "Pelunasan"
+        '
+        'BarSetupDelivery
+        '
+        Me.BarSetupDelivery.Name = "BarSetupDelivery"
+        Me.BarSetupDelivery.Tag = "Shipped"
+        Me.BarSetupDelivery.Text = "Set Pengiriman"
         '
         'BarSep3
         '
@@ -356,17 +362,11 @@ Partial Class frmTraSalesContract
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
-        'BarSetupDelivery
+        'BarCancelDelivery
         '
-        Me.BarSetupDelivery.Name = "BarSetupDelivery"
-        Me.BarSetupDelivery.Tag = "Shipped"
-        Me.BarSetupDelivery.Text = "Set Pengiriman"
-        '
-        'BarCancelSetupDelivery
-        '
-        Me.BarCancelSetupDelivery.Name = "ToolBarButton1"
-        Me.BarCancelSetupDelivery.Tag = "Cancel"
-        Me.BarCancelSetupDelivery.Text = "Batal Set Pengiriman"
+        Me.BarCancelDelivery.Name = "BarCancelDelivery"
+        Me.BarCancelDelivery.Tag = "Cancel"
+        Me.BarCancelDelivery.Text = "Batal Set Pengiriman"
         '
         'frmTraSalesContract
         '
@@ -426,4 +426,5 @@ Partial Class frmTraSalesContract
     Friend WithEvents BarSep4 As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarSetupDelivery As ToolBarButton
     Friend WithEvents BarCancelSetupDelivery As ToolBarButton
+    Friend WithEvents BarCancelDelivery As ToolBarButton
 End Class

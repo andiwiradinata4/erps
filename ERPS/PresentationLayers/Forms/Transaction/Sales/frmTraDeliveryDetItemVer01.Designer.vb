@@ -89,7 +89,7 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.lblInfo.Name = "lblInfo"
         Me.lblInfo.Size = New System.Drawing.Size(684, 22)
         Me.lblInfo.TabIndex = 1
-        Me.lblInfo.Text = "« Kontrak Penjualan"
+        Me.lblInfo.Text = "« Pengiriman Penjualan"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'pnlDetail

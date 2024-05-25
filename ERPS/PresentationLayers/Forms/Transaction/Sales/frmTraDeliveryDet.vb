@@ -1,4 +1,5 @@
-﻿Imports DevExpress.XtraGrid
+﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip
+Imports DevExpress.XtraGrid
 Public Class frmTraDeliveryDet
 
 #Region "Property"
@@ -35,6 +36,7 @@ Public Class frmTraDeliveryDet
        cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2
 
     Private Sub prvSetTitleForm()
+        If bolIsStock Then Me.Text += " [Stock]"
         If pubIsNew Then
             Me.Text += " [baru] "
         Else
@@ -136,8 +138,7 @@ Public Class frmTraDeliveryDet
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
                 bolIsUseSubItem = clsData.IsUseSubItem
-
-                'dtpDeliveryDate.Enabled = False
+                bolIsStock = clsData.IsStock
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
             End If
         Catch ex As Exception
@@ -253,6 +254,7 @@ Public Class frmTraDeliveryDet
         clsData.PPHTransport = txtPPHTransport.Value
         clsData.IsFreePPHTransport = chkIsFreePPHTransport.Checked
         clsData.IsUseSubItem = bolIsUseSubItem
+        clsData.IsStock = bolIsStock
         clsData.Detail = listDetail
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
@@ -360,6 +362,20 @@ Public Class frmTraDeliveryDet
 
     Private Sub prvChooseSC()
         If bolIsStock Then
+            Dim frmDetail As New frmTraOrderRequestOutstandingDelivery
+            With frmDetail
+                .pubCS = pubCS
+                .pubBPID = intBPID
+                .StartPosition = FormStartPosition.CenterScreen
+                .ShowDialog()
+                If .pubIsLookupGet Then
+                    strSCID = .pubLUdtRow.Item("ID")
+                    txtSCNumber.Text = .pubLUdtRow.Item("OrderNumber")
+                    bolIsUseSubItem = 0
+                    txtPPN.Value = .pubLUdtRow.Item("PPN")
+                    txtPPH.Value = .pubLUdtRow.Item("PPH")
+                End If
+            End With
         Else
             Dim frmDetail As New frmTraSalesContractOutstandingDelivery
             With frmDetail
@@ -368,15 +384,11 @@ Public Class frmTraDeliveryDet
                 .StartPosition = FormStartPosition.CenterScreen
                 .ShowDialog()
                 If .pubIsLookupGet Then
-                    If strSCID.Trim <> .pubLUdtRow.Item("ID") Then
-                        Dim clsSC As VO.SalesContract = BL.SalesContract.GetDetail(.pubLUdtRow.Item("ID"))
-                        txtPPN.Value = clsSC.PPN
-                        txtPPH.Value = clsSC.PPH
-                    End If
-
                     strSCID = .pubLUdtRow.Item("ID")
                     txtSCNumber.Text = .pubLUdtRow.Item("SCNumber")
                     bolIsUseSubItem = .pubLUdtRow.Item("IsUseSubItem")
+                    txtPPN.Value = .pubLUdtRow.Item("PPN")
+                    txtPPH.Value = .pubLUdtRow.Item("PPH")
                 End If
             End With
         End If

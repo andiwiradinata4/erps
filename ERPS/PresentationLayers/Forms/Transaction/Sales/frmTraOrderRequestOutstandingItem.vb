@@ -83,7 +83,7 @@ Public Class frmTraOrderRequestOutstandingItem
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         Try
-            dtData = BL.OrderRequest.ListDataDetailOutstanding(clsCS.ProgramID, clsCS.CompanyID, intBPID)
+            dtData = BL.OrderRequest.ListDataDetailOutstanding(clsCS.ProgramID, clsCS.CompanyID, intBPID, "")
             For Each drParent As DataRow In dtParent.Rows
                 For Each dr As DataRow In dtData.Rows
                     If drParent.Item("ORDetailID") = dr.Item("ID") Then dr.Delete()

@@ -298,12 +298,6 @@ Public Class frmTraSalesContractDetItemVer1
             If Not UI.usForm.frmAskQuestion("Total Berat melebihi Maks. Total Berat, Apakah anda yakin ingin melanjutkannya?") Then Exit Sub
         End If
 
-        Dim decGrandTotalCO As Decimal = 0
-        For Each dr As DataRow In dtCO.Rows
-            decGrandTotalCO += dr.Item("TotalPrice")
-        Next
-        Dim decHPPFromAllCO As Decimal = decGrandTotalCO / txtTotalWeight.Value
-
         '# Item Handle
         If bolIsNew Then
             Dim drItem As DataRow = dtParentItem.NewRow
@@ -335,7 +329,7 @@ Public Class frmTraSalesContractDetItemVer1
                 .Item("OrderNumberSupplier") = grdItemCOView.GetRowCellValue(0, "OrderNumberSupplier")
                 .Item("ParentID") = ""
                 .Item("LevelItem") = 0
-                .Item("UnitPriceHPP") = decHPPFromAllCO
+                .Item("UnitPriceHPP") = txtUnitPriceHPP.Value
                 .EndEdit()
             End With
             dtParentItem.Rows.Add(drItem)
@@ -368,7 +362,7 @@ Public Class frmTraSalesContractDetItemVer1
                         .Item("OrderNumberSupplier") = grdItemCOView.GetRowCellValue(0, "OrderNumberSupplier")
                         .Item("ParentID") = ""
                         .Item("LevelItem") = 0
-                        .Item("UnitPriceHPP") = decHPPFromAllCO
+                        .Item("UnitPriceHPP") = txtUnitPriceHPP.Value
                         .EndEdit()
                     End If
                 End With
@@ -515,6 +509,26 @@ Public Class frmTraSalesContractDetItemVer1
         If decTotalWeight > 0 Then txtWeight.Value = decTotalWeight : txtTotalWeight.Value = decTotalWeight
 
         txtTotalPrice.Value = txtUnitPrice.Value * txtTotalWeight.Value
+
+
+        '# Calculate Unit Price HPP
+        Dim decUnitPriceHPP As Decimal = 0
+        Dim bolIsDifferentUnitPriceHPP As Boolean
+        If dtCO.Rows.Count > 0 Then decUnitPriceHPP = dtCO.Rows(0).Item("UnitPrice")
+        For Each dr As DataRow In dtCO.Rows
+            If dr.Item("UnitPrice") <> decUnitPriceHPP Then bolIsDifferentUnitPriceHPP = True : Exit For
+        Next
+
+        If bolIsDifferentUnitPriceHPP Then
+            Dim decGrandTotalCO As Decimal = 0
+            For Each dr As DataRow In dtCO.Rows
+                decGrandTotalCO += dr.Item("TotalPrice")
+            Next
+            decUnitPriceHPP = decGrandTotalCO / txtTotalWeight.Value
+        End If
+
+        txtUnitPriceHPP.Value = decUnitPriceHPP
+        '# ------------------------------------
     End Sub
 
     Private Sub prvToolsHandles()

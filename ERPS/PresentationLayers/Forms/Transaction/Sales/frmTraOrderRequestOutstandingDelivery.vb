@@ -50,15 +50,11 @@
         UI.usForm.SetGrid(grdView, "ProgramName", "ProgramName", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "CompanyID", "CompanyID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "CompanyName", "CompanyName", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdView, "SCNumber", "Nomor", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "SCDate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
+        UI.usForm.SetGrid(grdView, "OrderNumber", "Nomor", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "OrderDate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "BPCode", "Kode Pelanggan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "BPName", "Nama Pelanggan", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "DeliveryPeriodFrom", "Periode Dari", 100, UI.usDefGrid.gDateMonthYear)
-        UI.usForm.SetGrid(grdView, "DeliveryPeriodTo", "Periode Sampai", 100, UI.usDefGrid.gDateMonthYear)
-        UI.usForm.SetGrid(grdView, "AllowanceProduction", "AllowanceProduction", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "Franco", "Franco", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "TotalQuantity", "Total Quantity", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "PPN", "PPN", 100, UI.usDefGrid.gReal2Num)
@@ -68,12 +64,6 @@
         UI.usForm.SetGrid(grdView, "TotalPPH", "Total PPh", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "GrandTotal", "Grand Total", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "Remarks", "Keterangan", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "CreatedBy", "Dibuat Oleh", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "CreatedDate", "Tanggal Buat", 100, UI.usDefGrid.gFullDate)
-        UI.usForm.SetGrid(grdView, "LogBy", "Diedit Oleh", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "LogDate", "Tanggal Edit", 100, UI.usDefGrid.gFullDate)
-        UI.usForm.SetGrid(grdView, "LogInc", "LogInc", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdView, "IsUseSubItem", "IsUseSubItem", 100, UI.usDefGrid.gBoolean)
     End Sub
 
     Private Sub prvSetButton()
@@ -86,7 +76,7 @@
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         Try
-            dtData = BL.SalesContract.ListDataOustandingDelivery(clsCS.ProgramID, clsCS.CompanyID, intBPID)
+            dtData = BL.OrderRequest.ListDataOustandingDelivery(clsCS.ProgramID, clsCS.CompanyID, intBPID)
             grdMain.DataSource = dtData
             grdView.BestFitColumns()
         Catch ex As Exception

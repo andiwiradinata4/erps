@@ -1,8 +1,18 @@
 ﻿Public Class frmMstStock
 
+#Region "Properties"
+
+    Private dtData As New DataTable
+    Private dtParent As New DataTable
     Private drLUdtRow As DataRow
     Private bolIsLookUp As Boolean = False
     Private bolIsLookUpGet As Boolean = False
+
+    Public WriteOnly Property pubDataParent As DataTable
+        Set(value As DataTable)
+            dtParent = value
+        End Set
+    End Property
 
     Public ReadOnly Property pubLUdtRow As DataRow
         Get
@@ -22,7 +32,7 @@
         End Get
     End Property
 
-    Private dtData As New DataTable
+#End Region
 
     Private Const _
        cGet As Byte = 0, cSep1 As Byte = 1, cRefresh As Byte = 2, cClose As Byte = 3
@@ -75,7 +85,15 @@
 
     Private Sub prvQuery()
         Try
-            grdMain.DataSource = BL.Stock.ListData(cboItemType.SelectedValue, cboItemSpecification.SelectedValue, chkShowAll.Checked, bolIsLookUp)
+            dtData = BL.Stock.ListData(cboItemType.SelectedValue, cboItemSpecification.SelectedValue, chkShowAll.Checked, bolIsLookUp)
+
+            For Each dr As DataRow In dtData.Rows
+                Dim drExists() As DataRow = dtParent.Select("OrderNumberSupplier='" & dr.Item("OrderNumberSupplier") & "' AND ItemID=" & dr.Item("ID"))
+                If drExists.Length > 0 Then dr.Delete()
+            Next
+            dtData.AcceptChanges()
+
+            grdMain.DataSource = dtData
             grdView.BestFitColumns()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)

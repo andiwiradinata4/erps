@@ -41,7 +41,7 @@ Public Class frmTraDelivery
         UI.usForm.SetGrid(grdView, "TransporterCode", "Kode Transporter", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "TransporterName", "Nama Transporter", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "SCID", "SCID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdView, "SCNumber", "No. Kontrak Penjualan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "SCNumber", IIf(bolIsStock, "No. Permintaan Pesanan", "No. Kontrak Penjualan"), 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ReferencesNumber", "No. Referensi", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PlatNumber", "No. Plat", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "Driver", "Nama Supirt", 100, UI.usDefGrid.gString)
@@ -119,7 +119,7 @@ Public Class frmTraDelivery
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
         Try
-            dtData = BL.Delivery.ListData(intProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue)
+            dtData = BL.Delivery.ListData(intProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue, bolIsStock)
             grdMain.DataSource = dtData
             pgMain.Value = 80
             prvSumGrid()
@@ -509,6 +509,7 @@ Public Class frmTraDelivery
         prvDefaultFilter()
         prvQuery()
         prvUserAccess()
+        If bolIsStock Then Me.Text += " [Stock] "
         Me.WindowState = FormWindowState.Maximized
     End Sub
 

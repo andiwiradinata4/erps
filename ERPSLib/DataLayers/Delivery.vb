@@ -6,7 +6,7 @@
         Public Shared Function ListData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                         ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
-                                        ByVal intStatusID As Integer) As DataTable
+                                        ByVal intStatusID As Integer, ByVal bolIsStock As Boolean) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -15,15 +15,17 @@
                 .CommandText =
                     "SELECT " & vbNewLine &
                     "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.DeliveryNumber, A.DeliveryDate, " & vbNewLine &
-                    "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.SCID, A1.SCNumber, A.PlatNumber, A.Driver, A.ReferencesNumber, A.PPN, " & vbNewLine &
+                    "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.SCID, ISNULL(A1.SCNumber,A2.OrderNumber) AS SCNumber, A.PlatNumber, A.Driver, A.ReferencesNumber, A.PPN, " & vbNewLine &
                     "   A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine &
                     "   A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.TotalDPPTransport+TotalPPNTransport+A.TotalPPHTransport AS GrandTotalTransport, " & vbNewLine &
                     "   A.RoundingManual, A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, " & vbNewLine &
                     "   A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, StatusInfo=B.Name, A.TransporterID, TP.Code AS TransporterCode, TP.Name AS TransporterName,  " & vbNewLine &
                     "   A.UnitPriceTransport, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport " & vbNewLine &
                     "FROM traDelivery A " & vbNewLine &
-                    "INNER JOIN traSalesContract A1 ON " & vbNewLine &
+                    "LEFT JOIN traSalesContract A1 ON " & vbNewLine &
                     "   A.SCID=A1.ID " & vbNewLine &
+                    "LEFT JOIN traOrderRequest A2 ON " & vbNewLine &
+                    "   A.SCID=A2.ID " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
                     "INNER JOIN mstBusinessPartner C ON " & vbNewLine &
@@ -37,6 +39,7 @@
                     "WHERE " & vbNewLine &
                     "   A.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A.IsStock=@IsStock " & vbNewLine &
                     "   AND A.DeliveryDate>=@DateFrom AND A.DeliveryDate<=@DateTo " & vbNewLine
 
                 If intStatusID > 0 Then .CommandText += "   AND A.StatusID=@StatusID " & vbNewLine
@@ -46,6 +49,7 @@
                 .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
                 .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = intStatusID
+                .Parameters.Add("@IsStock", SqlDbType.Bit).Value = bolIsStock
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
@@ -63,12 +67,12 @@
                         "   (ID, ProgramID, CompanyID, DeliveryNumber, DeliveryDate, BPID, SCID, PlatNumber, Driver, ReferencesNumber, " & vbNewLine &
                         "    PPN, PPH, TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, TotalDPPTransport, TotalPPNTransport, " & vbNewLine &
                         "    TotalPPHTransport, RoundingManual, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, TotalCostRawMaterial, " & vbNewLine &
-                        "    TransporterID, UnitPriceTransport, PPNTransport, PPHTransport, IsFreePPNTransport, IsFreePPHTransport, IsUseSubItem) " & vbNewLine &
+                        "    TransporterID, UnitPriceTransport, PPNTransport, PPHTransport, IsFreePPNTransport, IsFreePPHTransport, IsUseSubItem, IsStock) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @ProgramID, @CompanyID, @DeliveryNumber, @DeliveryDate, @BPID, @SCID, @PlatNumber, @Driver, @ReferencesNumber, " & vbNewLine &
                         "    @PPN, @PPH, @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @TotalDPPTransport, @TotalPPNTransport, " & vbNewLine &
                         "    @TotalPPHTransport, @RoundingManual, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @TotalCostRawMaterial, " & vbNewLine &
-                        "    @TransporterID, @UnitPriceTransport, @PPNTransport, @PPHTransport, @IsFreePPNTransport, @IsFreePPHTransport, @IsUseSubItem) " & vbNewLine
+                        "    @TransporterID, @UnitPriceTransport, @PPNTransport, @PPHTransport, @IsFreePPNTransport, @IsFreePPHTransport, @IsUseSubItem, @IsStock) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE traDelivery SET " & vbNewLine &
@@ -104,7 +108,8 @@
                         "   PPHTransport=@PPHTransport, " & vbNewLine &
                         "   IsFreePPNTransport=@IsFreePPNTransport, " & vbNewLine &
                         "   IsFreePPHTransport=@IsFreePPHTransport, " & vbNewLine &
-                        "   IsUseSubItem=@IsUseSubItem " & vbNewLine &
+                        "   IsUseSubItem=@IsUseSubItem, " & vbNewLine &
+                        "   IsStock=@IsStock " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -141,6 +146,7 @@
                 .Parameters.Add("@IsFreePPNTransport", SqlDbType.Bit).Value = clsData.IsFreePPNTransport
                 .Parameters.Add("@IsFreePPHTransport", SqlDbType.Bit).Value = clsData.IsFreePPHTransport
                 .Parameters.Add("@IsUseSubItem", SqlDbType.Bit).Value = clsData.IsUseSubItem
+                .Parameters.Add("@IsStock", SqlDbType.Bit).Value = clsData.IsStock
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -160,15 +166,17 @@
                     .CommandType = CommandType.Text
                     .CommandText =
                         "SELECT TOP 1 " & vbNewLine &
-                        "   A.ID, A.ProgramID, A.CompanyID, A.DeliveryNumber, A.DeliveryDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, " & vbNewLine &
-                        "   A.SCID, A1.SCNumber, A.PlatNumber, A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, " & vbNewLine &
+                        "   A.ID, A.ProgramID, A.CompanyID, A.DeliveryNumber, A.DeliveryDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.SCID, " & vbNewLine &
+                        "   ISNULL(A1.SCNumber,A2.OrderNumber) AS SCNumber, A.PlatNumber, A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, " & vbNewLine &
                         "   A.TotalPPN, A.TotalPPH, A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.RoundingManual, A.IsDeleted, A.Remarks, " & vbNewLine &
                         "   A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.TotalPayment, " & vbNewLine &
                         "   A.JournalID, A.JournalIDTransport, A.TotalCostRawMaterial, A.TransporterID, TP.Code AS TransporterCode, TP.Name AS TransporterName, " & vbNewLine &
-                        "   A.UnitPriceTransport, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, A.IsUseSubItem " & vbNewLine &
+                        "   A.UnitPriceTransport, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, A.IsUseSubItem, A.IsStock " & vbNewLine &
                         "FROM traDelivery A " & vbNewLine &
-                        "INNER JOIN traSalesContract A1 ON " & vbNewLine &
+                        "LEFT JOIN traSalesContract A1 ON " & vbNewLine &
                         "   A.SCID=A1.ID " & vbNewLine &
+                        "LEFT JOIN traOrderRequest A2 ON " & vbNewLine &
+                        "   A.SCID=A2.ID " & vbNewLine &
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
                         "   A.BPID=B.ID " & vbNewLine &
                         "INNER JOIN mstBusinessPartner TP ON " & vbNewLine &
@@ -230,6 +238,7 @@
                         voReturn.IsFreePPNTransport = .Item("IsFreePPNTransport")
                         voReturn.IsFreePPHTransport = .Item("IsFreePPHTransport")
                         voReturn.IsUseSubItem = .Item("IsUseSubItem")
+                        voReturn.IsStock = .Item("IsStock")
                     End If
                 End With
             Catch ex As Exception
@@ -875,7 +884,7 @@
         End Sub
 
         Public Shared Function GetTotalCostRawMaterial(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                       ByVal strID As String, ByVal bolIsUseSubItem As Boolean) As Decimal
+                                                       ByVal strID As String) As Decimal
             Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim decReturn As Decimal = 0
             Try
@@ -885,36 +894,14 @@
                     .CommandType = CommandType.Text
                     .CommandText =
                             "SELECT  " & vbNewLine &
-                            "	SUM(DD.TotalWeight*SCD.UnitPriceHPP) AS TotalCostRawMaterial " & vbNewLine &
+                            "	SUM(DD.TotalWeight*ISNULL(SCD.UnitPriceHPP,ORD.UnitPriceHPP)) AS TotalCostRawMaterial " & vbNewLine &
                             "FROM traDeliveryDet DD  " & vbNewLine &
-                            "INNER JOIN traSalesContractDet SCD ON  " & vbNewLine &
+                            "LEFT JOIN traSalesContractDet SCD ON  " & vbNewLine &
                             "	DD.SCDetailID=SCD.ID  " & vbNewLine &
+                            "LEFT JOIN traOrderRequestDet ORD ON  " & vbNewLine &
+                            "	DD.SCDetailID=ORD.ID  " & vbNewLine &
                             "WHERE " & vbNewLine &
                             "   DD.DeliveryID=@DeliveryID " & vbNewLine
-                    'If bolIsUseSubItem Then
-                    '    .CommandText =
-                    '        "SELECT  " & vbNewLine &
-                    '        "	SUM(DD.TotalWeight*SCD.UnitPriceHPP) AS TotalCostRawMaterial " & vbNewLine &
-                    '        "FROM traDeliveryDet DD  " & vbNewLine &
-                    '        "INNER JOIN traSalesContractDet SCD ON  " & vbNewLine &
-                    '        "	DD.SCDetailID=SCD.ID  " & vbNewLine &
-                    '        "WHERE " & vbNewLine &
-                    '        "   DD.DeliveryID=@DeliveryID " & vbNewLine
-                    'Else
-                    '    .CommandText =
-                    '        "SELECT  " & vbNewLine &
-                    '        "	SUM(DD.TotalWeight*PCD.UnitPrice) TotalCostRawMaterial  " & vbNewLine &
-                    '        "FROM traPurchaseContractDet PCD  " & vbNewLine &
-                    '        "INNER JOIN traSalesContractDetConfirmationOrder SCDCO ON  " & vbNewLine &
-                    '        "	PCD.CODetailID=SCDCO.CODetailID  " & vbNewLine &
-                    '        "INNER JOIN traSalesContractDet SCD ON  " & vbNewLine &
-                    '        "	SCDCO.SCID=SCD.SCID  " & vbNewLine &
-                    '        "	AND SCDCO.GroupID=SCD.GroupID  " & vbNewLine &
-                    '        "INNER JOIN traDeliveryDet DD ON  " & vbNewLine &
-                    '        "	SCD.ID=DD.SCDetailID  " & vbNewLine &
-                    '        "WHERE " & vbNewLine &
-                    '        "   DD.DeliveryID=@DeliveryID " & vbNewLine
-                    'End If
 
                     .Parameters.Add("@DeliveryID", SqlDbType.VarChar, 100).Value = strID
                 End With
@@ -955,6 +942,27 @@
                     "   A.SCDetailID=A1.ID " & vbNewLine &
                     "INNER JOIN traSalesContract A2 ON " & vbNewLine &
                     "   A1.SCID=A2.ID " & vbNewLine &
+                    "INNER JOIN mstItem B ON " & vbNewLine &
+                    "   A.ItemID=B.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification C ON " & vbNewLine &
+                    "   B.ItemSpecificationID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItemType D ON " & vbNewLine &
+                    "   B.ItemTypeID=D.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.DeliveryID=@DeliveryID " & vbNewLine
+
+                .CommandText +=
+                    "UNION ALL " & vbNewLine &
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.DeliveryID, A.SCDetailID, A2.OrderNumber AS SCNumber, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight, " & vbNewLine &
+                    "   A.Remarks, A.OrderNumberSupplier, A.LevelItem, A.ParentID, A.RoundingWeight " & vbNewLine &
+                    "FROM traDeliveryDet A " & vbNewLine &
+                    "INNER JOIN traOrderRequestDet A1 ON " & vbNewLine &
+                    "   A.SCDetailID=A1.ID " & vbNewLine &
+                    "INNER JOIN traOrderRequest A2 ON " & vbNewLine &
+                    "   A1.OrderRequestID=A2.ID " & vbNewLine &
                     "INNER JOIN mstItem B ON " & vbNewLine &
                     "   A.ItemID=B.ID " & vbNewLine &
                     "INNER JOIN mstItemSpecification C ON " & vbNewLine &

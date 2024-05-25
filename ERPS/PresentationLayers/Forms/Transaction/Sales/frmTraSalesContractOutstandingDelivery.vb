@@ -1,5 +1,4 @@
-﻿Imports DevExpress.XtraGrid
-Public Class frmTraSalesContractOutstandingDelivery
+﻿Public Class frmTraSalesContractOutstandingDelivery
 
 #Region "Properties"
 

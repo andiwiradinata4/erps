@@ -5,10 +5,10 @@
 
         Public Shared Function ListData(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                         ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
-                                        ByVal intStatusID As Integer) As DataTable
+                                        ByVal intStatusID As Integer, ByVal bolIsStock As Boolean) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.Delivery.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID)
+                Return DL.Delivery.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID, bolIsStock)
             End Using
         End Function
 
@@ -38,10 +38,14 @@
 
                         For Each dr As DataRow In dtItem.Rows
                             '# Revert DC Quantity
-                            DL.SalesContract.CalculateDCTotalUsed(sqlCon, sqlTrans, dr.Item("SCDetailID"))
+                            If clsData.IsStock Then
+                                DL.OrderRequest.CalculateDCTotalUsed(sqlCon, sqlTrans, dr.Item("SCDetailID"))
+                            Else
+                                DL.SalesContract.CalculateDCTotalUsed(sqlCon, sqlTrans, dr.Item("SCDetailID"))
+                            End If
 
                             '# Delete Stock Out
-                            BL.StockOut.DeleteData(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
+                            BL.StockOut.CalculateStockOut(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
                         Next
 
                         '# Revert Done Quantity
@@ -129,7 +133,11 @@
 
                     '# Calculate DC Quantity
                     For Each clsDet As VO.DeliveryDet In clsData.Detail
-                        DL.SalesContract.CalculateDCTotalUsed(sqlCon, sqlTrans, clsDet.SCDetailID)
+                        If clsData.IsStock Then
+                            DL.OrderRequest.CalculateDCTotalUsed(sqlCon, sqlTrans, clsDet.SCDetailID)
+                        Else
+                            DL.SalesContract.CalculateDCTotalUsed(sqlCon, sqlTrans, clsDet.SCDetailID)
+                        End If
                     Next
 
                     Dim strParentIDExists As String = ""
@@ -238,7 +246,6 @@
 
         Public Shared Sub Submit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                  ByVal strID As String, ByVal strRemarks As String)
-            Dim bolReturn As Boolean = False
             Dim intStatusID As Integer = DL.Delivery.GetStatusID(sqlCon, sqlTrans, strID)
             If intStatusID = VO.Status.Values.Submit Then
                 Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan status data telah SUBMIT")
@@ -320,7 +327,9 @@
                 '# Generate Journal
                 Dim intGroupID As Integer = 1
                 Dim decTotalAmount As Decimal = 0
-                Dim decTotalCostRawMaterial As Decimal = DL.Delivery.GetTotalCostRawMaterial(sqlCon, sqlTrans, strID, clsData.IsUseSubItem)
+                Dim decTotalCostRawMaterial As Decimal = DL.Delivery.GetTotalCostRawMaterial(sqlCon, sqlTrans, strID)
+                If decTotalCostRawMaterial <= 0 Then Err.Raise(515, "", "Data tidak dapat di Proses. Dikarenakan data pengiriman tidak memiliki nilai HPP")
+
                 Dim clsJournalDetail As New List(Of VO.JournalDet)
                 decTotalAmount += clsData.TotalDPP + clsData.RoundingManual
                 '# Akun Piutang Usaha Belum ditagih -> Debit

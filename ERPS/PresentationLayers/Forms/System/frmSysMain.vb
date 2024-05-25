@@ -310,7 +310,26 @@
     End Sub
 
     Private Sub mnuTransaksiPenjualanPengirimanPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPengirimanPenjualan.Click
-        UI.usForm.frmOpen(frmMainTraDelivery, "frmTraDelivery", Me)
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraDelivery"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraDelivery) Then
+            If Not frmMainTraDelivery.IsDisposed Then
+                frmMainTraDelivery.WindowState = FormWindowState.Normal
+                frmMainTraDelivery.BringToFront()
+                frmMainTraDelivery.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraDelivery = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraDelivery.MdiParent = Me
+                frmMainTraDelivery.pubIsStock = False
+                frmMainTraDelivery.Show()
+            End If
+        Else
+            frmMainTraDelivery = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraDelivery.MdiParent = Me
+            frmMainTraDelivery.pubIsStock = False
+            frmMainTraDelivery.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
     End Sub
 
 #End Region
@@ -341,7 +360,26 @@
     End Sub
 
     Private Sub mnuTransaksiPenjualanStockPengirimanPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanStockPengirimanPenjualan.Click
-
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraDelivery"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraDeliveryStock) Then
+            If Not frmMainTraDeliveryStock.IsDisposed Then
+                frmMainTraDeliveryStock.WindowState = FormWindowState.Normal
+                frmMainTraDeliveryStock.BringToFront()
+                frmMainTraDeliveryStock.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraDeliveryStock = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraDeliveryStock.MdiParent = Me
+                frmMainTraDeliveryStock.pubIsStock = True
+                frmMainTraDeliveryStock.Show()
+            End If
+        Else
+            frmMainTraDeliveryStock = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraDeliveryStock.MdiParent = Me
+            frmMainTraDeliveryStock.pubIsStock = True
+            frmMainTraDeliveryStock.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
     End Sub
 
 #End Region

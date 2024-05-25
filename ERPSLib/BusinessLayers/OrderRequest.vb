@@ -6,10 +6,18 @@
 
         Public Shared Function ListData(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                         ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
-                                        ByVal intStatusID As Integer) As DataTable
+                                        ByVal intStatusID As Integer, ByVal bolIsStock As Boolean) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.OrderRequest.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID)
+                Return DL.OrderRequest.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID, bolIsStock)
+            End Using
+        End Function
+
+        Public Shared Function ListDataOustandingDelivery(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                          ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.OrderRequest.ListDataOutstandingDelivery(sqlCon, Nothing, intProgramID, intCompanyID, intBPID)
             End Using
         End Function
 

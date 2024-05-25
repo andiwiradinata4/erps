@@ -31,8 +31,10 @@ Partial Class frmTraOrderRequest
         Me.BarSubmit = New System.Windows.Forms.ToolBarButton()
         Me.BarCancelSubmit = New System.Windows.Forms.ToolBarButton()
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
-        Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
+        Me.BarDownPayment = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
+        Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
@@ -51,6 +53,9 @@ Partial Class frmTraOrderRequest
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.BarReceive = New System.Windows.Forms.ToolBarButton()
+        Me.BarSetupDelivery = New System.Windows.Forms.ToolBarButton()
+        Me.BarCancelSetupDelivery = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -60,7 +65,7 @@ Partial Class frmTraOrderRequest
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarSep2, Me.BarExportExcel, Me.BarSep3, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarSep2, Me.BarDownPayment, Me.BarReceive, Me.BarSetupDelivery, Me.BarCancelSetupDelivery, Me.BarSep3, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -109,16 +114,27 @@ Partial Class frmTraOrderRequest
         Me.BarSep2.Name = "BarSep2"
         Me.BarSep2.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
+        'BarDownPayment
+        '
+        Me.BarDownPayment.Name = "BarDownPayment"
+        Me.BarDownPayment.Tag = "Alt"
+        Me.BarDownPayment.Text = "Down Payment"
+        '
+        'BarSep3
+        '
+        Me.BarSep3.Name = "BarSep3"
+        Me.BarSep3.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
         'BarExportExcel
         '
         Me.BarExportExcel.Name = "BarExportExcel"
         Me.BarExportExcel.Tag = "Excel"
         Me.BarExportExcel.Text = "Export Excel"
         '
-        'BarSep3
+        'BarSep4
         '
-        Me.BarSep3.Name = "BarSep3"
-        Me.BarSep3.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        Me.BarSep4.Name = "BarSep4"
+        Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
         'BarRefresh
         '
@@ -313,6 +329,24 @@ Partial Class frmTraOrderRequest
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
+        'BarReceive
+        '
+        Me.BarReceive.Name = "BarReceive"
+        Me.BarReceive.Tag = "Calculation"
+        Me.BarReceive.Text = "Pelunasan"
+        '
+        'BarSetupDelivery
+        '
+        Me.BarSetupDelivery.Name = "BarSetupDelivery"
+        Me.BarSetupDelivery.Tag = "Shipped"
+        Me.BarSetupDelivery.Text = "Set Pengiriman"
+        '
+        'BarCancelSetupDelivery
+        '
+        Me.BarCancelSetupDelivery.Name = "BarCancelSetupDelivery"
+        Me.BarCancelSetupDelivery.Tag = "Cancel"
+        Me.BarCancelSetupDelivery.Text = "Batal Set Pengiriman"
+        '
         'frmTraOrderRequest
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -363,4 +397,9 @@ Partial Class frmTraOrderRequest
     Friend WithEvents BarSep3 As System.Windows.Forms.ToolBarButton
     Friend WithEvents grdMain As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents BarDownPayment As ToolBarButton
+    Friend WithEvents BarSep4 As ToolBarButton
+    Friend WithEvents BarReceive As ToolBarButton
+    Friend WithEvents BarSetupDelivery As ToolBarButton
+    Friend WithEvents BarCancelSetupDelivery As ToolBarButton
 End Class

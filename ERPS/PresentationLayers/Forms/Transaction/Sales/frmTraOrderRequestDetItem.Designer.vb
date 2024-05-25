@@ -28,7 +28,7 @@ Partial Class frmTraOrderRequestDetItem
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
-        Me.Label18 = New System.Windows.Forms.Label()
+        Me.lblUomUnitPriceHPP = New System.Windows.Forms.Label()
         Me.lblUnitPriceHPP = New System.Windows.Forms.Label()
         Me.txtUnitPriceHPP = New ERPS.usNumeric()
         Me.lblOrderNumberSupplier = New System.Windows.Forms.Label()
@@ -119,7 +119,7 @@ Partial Class frmTraOrderRequestDetItem
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.pnlDetail.Controls.Add(Me.Label18)
+        Me.pnlDetail.Controls.Add(Me.lblUomUnitPriceHPP)
         Me.pnlDetail.Controls.Add(Me.lblUnitPriceHPP)
         Me.pnlDetail.Controls.Add(Me.txtUnitPriceHPP)
         Me.pnlDetail.Controls.Add(Me.lblOrderNumberSupplier)
@@ -164,16 +164,16 @@ Partial Class frmTraOrderRequestDetItem
         Me.pnlDetail.Size = New System.Drawing.Size(647, 332)
         Me.pnlDetail.TabIndex = 2
         '
-        'Label18
+        'lblUomUnitPriceHPP
         '
-        Me.Label18.AutoSize = True
-        Me.Label18.BackColor = System.Drawing.Color.Transparent
-        Me.Label18.ForeColor = System.Drawing.Color.Black
-        Me.Label18.Location = New System.Drawing.Point(591, 215)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(19, 13)
-        Me.Label18.TabIndex = 196
-        Me.Label18.Text = "Kg"
+        Me.lblUomUnitPriceHPP.AutoSize = True
+        Me.lblUomUnitPriceHPP.BackColor = System.Drawing.Color.Transparent
+        Me.lblUomUnitPriceHPP.ForeColor = System.Drawing.Color.Black
+        Me.lblUomUnitPriceHPP.Location = New System.Drawing.Point(591, 215)
+        Me.lblUomUnitPriceHPP.Name = "lblUomUnitPriceHPP"
+        Me.lblUomUnitPriceHPP.Size = New System.Drawing.Size(19, 13)
+        Me.lblUomUnitPriceHPP.TabIndex = 196
+        Me.lblUomUnitPriceHPP.Text = "Kg"
         '
         'lblUnitPriceHPP
         '
@@ -678,7 +678,7 @@ Partial Class frmTraOrderRequestDetItem
     Friend WithEvents txtTotalPrice As ERPS.usNumeric
     Friend WithEvents lblOrderNumberSupplier As Label
     Friend WithEvents txtOrderNumberSupplier As usTextBox
-    Friend WithEvents Label18 As Label
+    Friend WithEvents lblUomUnitPriceHPP As Label
     Friend WithEvents lblUnitPriceHPP As Label
     Friend WithEvents txtUnitPriceHPP As usNumeric
 End Class
