@@ -462,6 +462,40 @@
             Return bolDataExists
         End Function
 
+        Public Shared Function IsAlreadyPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                ByVal strID As String) As Boolean
+            Dim bolDataExists As Boolean = False
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT " & vbNewLine &
+                        "   ID " & vbNewLine &
+                        "FROM traOrderRequestDet " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   OrderRequestID=@ID " & vbNewLine &
+                        "   AND DPAmount+ReceiveAmount>0 "
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        bolDataExists = True
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return bolDataExists
+        End Function
+
 #End Region
 
 #Region "Detail"

@@ -356,15 +356,9 @@
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
                     ElseIf DL.SalesContract.IsAlreadyPayment(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses pembayaran")
+                    ElseIf DL.SalesContract.IsAlreadyPayment(sqlCon, sqlTrans, strID) Then
+                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses pengiriman")
                     End If
-
-                    'Dim clsData As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, sqlTrans, strID)
-
-                    ''# Cancel Approve Journal
-                    'BL.Journal.Unapprove(clsData.JournalID.Trim, "")
-
-                    ''# Cancel Submit Journal
-                    'BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
 
                     DL.SalesContract.Unapprove(sqlCon, sqlTrans, strID)
 

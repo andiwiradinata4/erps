@@ -171,6 +171,8 @@
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
                     ElseIf DL.OrderRequest.IsAlreadySalesContract(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dilanjutkan proses Kontrak Penjualan")
+                    ElseIf DL.OrderRequest.IsAlreadyPayment(sqlCon, sqlTrans, strID) Then
+                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dilanjutkan proses pembayaran")
                     End If
 
                     DL.OrderRequest.Unsubmit(sqlCon, sqlTrans, strID)

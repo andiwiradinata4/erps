@@ -308,6 +308,51 @@ Public Class frmTraOrderRequest
         End Try
     End Sub
 
+    Private Sub prvDownPayment()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+
+        If clsData.StatusID <> VO.Status.Values.Approved Then
+            UI.usForm.frmMessageBox("Status Data harus disetujui terlebih dahulu")
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraARAP
+        With frmDetail
+            .pubModules = VO.AccountReceivable.DownPayment
+            .pubARAPType = VO.ARAP.ARAPTypeValue.Sales
+            .pubBPID = clsData.BPID
+            .pubCS = prvGetCS()
+            .pubReferencesID = clsData.ID
+            .ShowDialog()
+        End With
+    End Sub
+
+    Private Sub prvReceivePayment()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+
+        If clsData.StatusID <> VO.Status.Values.Approved Then
+            UI.usForm.frmMessageBox("Status Data harus disetujui terlebih dahulu")
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraARAP
+        With frmDetail
+            .pubModules = VO.AccountReceivable.ReceivePayment
+            .pubARAPType = VO.ARAP.ARAPTypeValue.Sales
+            .pubBPID = clsData.BPID
+            .pubBPCode = clsData.BPCode
+            .pubBPName = clsData.BPName
+            .pubCS = prvGetCS()
+            .pubReferencesID = clsData.ID
+            .pubReferencesNumber = clsData.OrderNumber
+            .ShowDialog()
+        End With
+    End Sub
+
     Private Sub prvClear()
         grdMain.DataSource = Nothing
         grdView.Columns.Clear()
