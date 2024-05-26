@@ -189,14 +189,19 @@ Public Class frmTraARAPDetVer3
     End Sub
 
     Private Sub prvGetAmount()
+        Dim clsReferences As New Object
         If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
-            Dim clsReferences As VO.SalesContract = BL.SalesContract.GetDetail(strReferencesID)
+            If strModules = VO.AccountReceivable.DownPaymentOrderRequest Then
+                clsReferences = BL.OrderRequest.GetDetail(strReferencesID)
+            ElseIf strModules = VO.AccountReceivable.DownPayment Then
+                clsReferences = BL.SalesContract.GetDetail(strReferencesID)
+            End If
+
             txtGrandTotalContract.Value = clsReferences.TotalDPP
             txtTotalPayment.Value = clsReferences.DPAmount + clsReferences.ReceiveAmount - txtTotalAmount.Value
             decPPN = clsReferences.PPN
             decPPH = clsReferences.PPH
         Else
-            Dim clsReferences As New Object
             If strModules = VO.AccountPayable.DownPaymentCutting Or strModules = VO.AccountPayable.ReceivePaymentCutting Then
                 clsReferences = BL.PurchaseOrderCutting.GetDetail(strReferencesID)
             ElseIf strModules = VO.AccountPayable.DownPaymentTransport Or strModules = VO.AccountPayable.ReceivePaymentTransport Then

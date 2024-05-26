@@ -313,14 +313,14 @@ Public Class frmTraOrderRequest
         If intPos < 0 Then Exit Sub
         clsData = prvGetData()
 
-        If clsData.StatusID <> VO.Status.Values.Approved Then
-            UI.usForm.frmMessageBox("Status Data harus disetujui terlebih dahulu")
+        If clsData.StatusID <> VO.Status.Values.Submit Then
+            UI.usForm.frmMessageBox("Status Data harus disubmit terlebih dahulu")
             Exit Sub
         End If
 
         Dim frmDetail As New frmTraARAP
         With frmDetail
-            .pubModules = VO.AccountReceivable.DownPayment
+            .pubModules = VO.AccountReceivable.DownPaymentOrderRequest
             .pubARAPType = VO.ARAP.ARAPTypeValue.Sales
             .pubBPID = clsData.BPID
             .pubCS = prvGetCS()
@@ -334,14 +334,14 @@ Public Class frmTraOrderRequest
         If intPos < 0 Then Exit Sub
         clsData = prvGetData()
 
-        If clsData.StatusID <> VO.Status.Values.Approved Then
-            UI.usForm.frmMessageBox("Status Data harus disetujui terlebih dahulu")
+        If clsData.StatusID <> VO.Status.Values.Submit Then
+            UI.usForm.frmMessageBox("Status Data harus disubmit terlebih dahulu")
             Exit Sub
         End If
 
         Dim frmDetail As New frmTraARAP
         With frmDetail
-            .pubModules = VO.AccountReceivable.ReceivePayment
+            .pubModules = VO.AccountReceivable.ReceivePaymentOrderRequest
             .pubARAPType = VO.ARAP.ARAPTypeValue.Sales
             .pubBPID = clsData.BPID
             .pubBPCode = clsData.BPCode

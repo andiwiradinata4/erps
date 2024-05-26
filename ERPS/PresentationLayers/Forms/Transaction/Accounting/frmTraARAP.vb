@@ -258,6 +258,7 @@ Public Class frmTraARAP
         If strModules = VO.AccountPayable.DownPayment Or
             strModules = VO.AccountPayable.DownPaymentCutting Or
             strModules = VO.AccountPayable.DownPaymentTransport Or
+            strModules = VO.AccountReceivable.DownPaymentOrderRequest Or
             strModules = VO.AccountReceivable.DownPayment Then
             frmDetail = New frmTraARAPDetVer3
         Else
@@ -291,6 +292,7 @@ Public Class frmTraARAP
         If strModules = VO.AccountPayable.DownPayment Or
             strModules = VO.AccountPayable.DownPaymentCutting Or
             strModules = VO.AccountPayable.DownPaymentTransport Or
+            strModules = VO.AccountReceivable.DownPaymentOrderRequest Or
             strModules = VO.AccountReceivable.DownPayment Then
             frmDetail = New frmTraARAPDetVer3
         Else

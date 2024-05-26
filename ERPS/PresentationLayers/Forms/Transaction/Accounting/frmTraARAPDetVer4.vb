@@ -576,6 +576,7 @@ Public Class frmTraARAPDetVer4
         If strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then strDPModules = VO.AccountPayable.DownPaymentTransport
 
         If strModules.Trim = VO.AccountReceivable.ReceivePayment Then strDPModules = VO.AccountReceivable.DownPayment
+        If strModules.Trim = VO.AccountReceivable.ReceivePaymentOrderRequest Then strDPModules = VO.AccountReceivable.DownPaymentOrderRequest
         Try
             If clsData.IsDeleted Then
                 grdDownPayment.DataSource = BL.ARAP.ListDataDownpayment(strID, enumARAPType)
