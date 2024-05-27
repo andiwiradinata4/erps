@@ -505,7 +505,7 @@
         End Function
 
         Public Shared Sub CalculateTotalUsedReceivePayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                           ByVal strID As String)
+                                                           ByVal strID As String, ByVal strModules As String)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -540,7 +540,7 @@
                     "WHERE ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
-                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountReceivable.ReceivePayment
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = strModules
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -579,7 +579,6 @@
                     "WHERE ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
-                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePayment
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -671,7 +670,8 @@
         End Sub
 
         Public Shared Sub CalculateItemTotalUsedReceivePayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                               ByVal strReferencesID As String, ByVal strReferencesDetailID As String)
+                                                               ByVal strReferencesID As String, ByVal strReferencesDetailID As String,
+                                                               ByVal strModules As String)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -710,7 +710,7 @@
 
                 .Parameters.Add("@ReferencesID", SqlDbType.VarChar, 100).Value = strReferencesID
                 .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strReferencesDetailID
-                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountReceivable.ReceivePayment
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = strModules
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

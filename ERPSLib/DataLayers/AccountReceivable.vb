@@ -1020,7 +1020,7 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText =
+                .CommandText +=
                     "SELECT " & vbNewLine &
                     "   CAST (1 AS BIT) AS Pick, A.SalesID AS InvoiceID, B.SCNumber AS InvoiceNumber, B.SCDate AS InvoiceDate, " & vbNewLine &
                     "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual AS SalesAmount, A.Amount, " & vbNewLine &
@@ -1028,6 +1028,19 @@
                     "   A.Remarks, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
                     "FROM traAccountReceivableDet A " & vbNewLine &
                     "INNER JOIN traSalesContract B ON " & vbNewLine &
+                    "   A.SalesID=B.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ARID=@ARID " & vbNewLine
+
+                .CommandText +=
+                    "UNION ALL " & vbNewLine &
+                    "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.SalesID AS InvoiceID, B.OrderNumber AS InvoiceNumber, B.OrderDate AS InvoiceDate, " & vbNewLine &
+                    "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual AS SalesAmount, A.Amount, " & vbNewLine &
+                    "   B.TotalDPP+B.TotalPPN-B.TotalPPH+B.RoundingManual-B.DPAmount-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, " & vbNewLine &
+                    "   A.Remarks, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
+                    "FROM traAccountReceivableDet A " & vbNewLine &
+                    "INNER JOIN traOrderRequest B ON " & vbNewLine &
                     "   A.SalesID=B.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   A.ARID=@ARID " & vbNewLine
@@ -1178,7 +1191,7 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText =
+                .CommandText +=
                     "SELECT " & vbNewLine &
                     "   CAST (1 AS BIT) AS Pick, A.SalesID AS InvoiceID, B.SCNumber AS InvoiceNumber, B.SCDate AS InvoiceDate, " & vbNewLine &
                     "   B.TotalDPP+B.RoundingManual AS InvoiceAmount, A.Amount, " & vbNewLine &
@@ -1186,6 +1199,18 @@
                     "   A.Remarks, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
                     "FROM traAccountReceivableDet A " & vbNewLine &
                     "INNER JOIN traSalesContract B ON " & vbNewLine &
+                    "   A.SalesID=B.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ARID=@ARID " & vbNewLine
+
+                .CommandText +=
+                    "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.SalesID AS InvoiceID, B.OrderNumber AS InvoiceNumber, B.OrderDate AS InvoiceDate, " & vbNewLine &
+                    "   B.TotalDPP+B.RoundingManual AS InvoiceAmount, A.Amount, " & vbNewLine &
+                    "   B.TotalDPP+B.RoundingManual-B.DPAmount-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, " & vbNewLine &
+                    "   A.Remarks, A.PPN, A.PPH, A.DPAmount, A.Rounding " & vbNewLine &
+                    "FROM traAccountReceivableDet A " & vbNewLine &
+                    "INNER JOIN traOrderRequest B ON " & vbNewLine &
                     "   A.SalesID=B.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   A.ARID=@ARID " & vbNewLine

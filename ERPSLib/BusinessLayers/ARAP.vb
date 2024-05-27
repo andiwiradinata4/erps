@@ -41,14 +41,27 @@ Namespace BL
 
         Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsDataARAP As VO.ARAP) As String
             BL.Server.ServerDefault()
+            Dim clsReferences As New Object
+            Dim strReferencesNumber As String = ""
             Dim strARAPNumber As String = ""
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
                     If clsDataARAP.ARAPType = VO.ARAP.ARAPTypeValue.Sales Then
-                        Dim clsReferences As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
-                        If clsReferences.StatusID <> VO.Status.Values.Approved Then
+                        If clsDataARAP.Modules = VO.AccountReceivable.DownPayment Or clsDataARAP.Modules = VO.AccountReceivable.ReceivePayment Then
+                            clsReferences = DL.SalesContract.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesNumber = clsReferences.SCNumber
+                        ElseIf clsDataARAP.Modules = VO.AccountReceivable.DownPaymentOrderRequest Or clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentOrderRequest Then
+                            clsReferences = DL.OrderRequest.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesNumber = clsReferences.OrderNumber
+                        Else
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Modules tidak terdaftar")
+                        End If
+
+                        If clsReferences.StatusID <> VO.Status.Values.Approved And (clsDataARAP.Modules = VO.AccountReceivable.DownPayment Or clsDataARAP.Modules = VO.AccountReceivable.ReceivePayment) Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Data Kontrak harus disetujui terlebih dahulu")
+                        ElseIf clsReferences.StatusID <> VO.Status.Values.Submit And (clsDataARAP.Modules = VO.AccountReceivable.DownPaymentOrderRequest Or clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentOrderRequest) Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Data Permintaan harus disubmit terlebih dahulu")
                         End If
 
                         '# Save Data Detail
@@ -90,7 +103,7 @@ Namespace BL
                         clsData.BPID = clsDataARAP.BPID
                         clsData.CoAIDOfIncomePayment = clsDataARAP.CoAID
                         clsData.ReferencesID = clsDataARAP.ReferencesID
-                        clsData.ReferencesNote = clsReferences.SCNumber
+                        clsData.ReferencesNote = strReferencesNumber
                         clsData.TotalAmount = clsDataARAP.TotalAmount
                         clsData.TotalPPN = clsDataARAP.TotalPPN
                         clsData.TotalPPH = clsDataARAP.TotalPPH
@@ -117,8 +130,6 @@ Namespace BL
 
                         strARAPNumber = clsData.ARNumber
                     Else
-                        Dim clsReferences As New Object
-                        Dim strReferencesNumber As String = ""
                         If clsDataARAP.Modules = VO.AccountPayable.DownPaymentCutting Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentCutting Then
                             clsReferences = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                             strReferencesNumber = clsReferences.PONumber
@@ -226,14 +237,27 @@ Namespace BL
 
         Public Shared Function SaveDataVer2(ByVal bolNew As Boolean, ByVal clsDataARAP As VO.ARAP) As String
             BL.Server.ServerDefault()
+            Dim clsReferences As New Object
+            Dim strReferencesNumber As String = ""
             Dim strARAPNumber As String = ""
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
                     If clsDataARAP.ARAPType = VO.ARAP.ARAPTypeValue.Sales Then
-                        Dim clsReferences As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
-                        If clsReferences.StatusID <> VO.Status.Values.Approved Then
+                        If clsDataARAP.Modules = VO.AccountReceivable.DownPayment Or clsDataARAP.Modules = VO.AccountReceivable.ReceivePayment Then
+                            clsReferences = DL.SalesContract.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesNumber = clsReferences.SCNumber
+                        ElseIf clsDataARAP.Modules = VO.AccountReceivable.DownPaymentOrderRequest Or clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentOrderRequest Then
+                            clsReferences = DL.OrderRequest.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesNumber = clsReferences.OrderNumber
+                        Else
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Modules tidak terdaftar")
+                        End If
+
+                        If clsReferences.StatusID <> VO.Status.Values.Approved And (clsDataARAP.Modules = VO.AccountReceivable.DownPayment Or clsDataARAP.Modules = VO.AccountReceivable.ReceivePayment) Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Data Kontrak harus disetujui terlebih dahulu")
+                        ElseIf clsReferences.StatusID <> VO.Status.Values.Submit And (clsDataARAP.Modules = VO.AccountReceivable.DownPaymentOrderRequest Or clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentOrderRequest) Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Data Permintaan harus disubmit terlebih dahulu")
                         End If
 
                         '# Save Data Detail
@@ -264,7 +288,7 @@ Namespace BL
                         clsData.BPID = clsDataARAP.BPID
                         clsData.CoAIDOfIncomePayment = clsDataARAP.CoAID
                         clsData.ReferencesID = clsDataARAP.ReferencesID
-                        clsData.ReferencesNote = clsReferences.SCNumber
+                        clsData.ReferencesNote = strReferencesNumber
                         clsData.TotalAmount = clsDataARAP.TotalAmount
                         clsData.TotalPPN = clsDataARAP.TotalPPN
                         clsData.TotalPPH = clsDataARAP.TotalPPH
@@ -293,8 +317,6 @@ Namespace BL
 
                         strARAPNumber = clsData.ARNumber
                     Else
-                        Dim clsReferences As New Object
-                        Dim strReferencesNumber As String = ""
                         If clsDataARAP.Modules = VO.AccountPayable.DownPaymentCutting Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentCutting Then
                             clsReferences = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                             strReferencesNumber = clsReferences.PONumber
@@ -715,10 +737,10 @@ Namespace BL
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
 
                 dtReturn = DL.ARAP.PrintVer01(sqlCon, Nothing, intProgramID, intCompanyID, strID)
-                Dim dtPurchaseContractNumber As New DataTable
+                Dim dtReferencesNumber As New DataTable
                 Dim strPurchaseContractNumber As String = ""
-                If dtReturn.Rows.Count > 0 Then dtPurchaseContractNumber = DL.SalesContract.ListDataPurchaseContractNumber(sqlCon, Nothing, intProgramID, intCompanyID, dtReturn.Rows(0).Item("ReferencesID"))
-                For Each dr As DataRow In dtPurchaseContractNumber.Rows
+                If dtReturn.Rows.Count > 0 Then dtReferencesNumber = DL.SalesContract.ListDataPurchaseContractNumber(sqlCon, Nothing, intProgramID, intCompanyID, dtReturn.Rows(0).Item("ReferencesID"))
+                For Each dr As DataRow In dtReferencesNumber.Rows
                     strPurchaseContractNumber += IIf(strPurchaseContractNumber.Trim = "", "", ", ") & dr.Item("PCNumber")
                 Next
 

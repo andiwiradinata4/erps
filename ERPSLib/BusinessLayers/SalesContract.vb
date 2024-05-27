@@ -547,12 +547,16 @@
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
 
-                    Dim intStatusID As Integer = DL.SalesContract.GetStatusID(sqlCon, sqlTrans, strID)
-                    If intStatusID <> VO.Status.Values.Approved Then
+                    Dim clsData As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, sqlTrans, strID)
+                    If clsData.StatusID <> VO.Status.Values.Approved Then
                         Err.Raise(515, "", "Data tidak dapat " & IIf(bolValue = False, "batal ", "") & "set pengiriman. Status data harus APPROVED terlebih dahulu")
                     ElseIf DL.SalesContract.IsDeleted(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat " & IIf(bolValue = False, "batal ", "") & "set pengiriman. Dikarenakan data telah dihapus")
                     End If
+
+                    Dim dtDetail As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, strID, "")
+                    Dim drDelivery() As DataRow = dtDetail.Select("DCWeight>0")
+                    If Not bolValue And drDelivery.Length > 0 Then Err.Raise(515, "", "Data tidak dapat " & IIf(bolValue = False, "batal ", "") & "set pengiriman. Dikarenakan data telah diproses pengiriman")
 
                     DL.SalesContract.SetupIsIgnoreValidationPayment(sqlCon, sqlTrans, strID, bolValue)
 

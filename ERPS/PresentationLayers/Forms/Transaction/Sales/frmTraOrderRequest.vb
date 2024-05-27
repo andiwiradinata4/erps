@@ -353,6 +353,41 @@ Public Class frmTraOrderRequest
         End With
     End Sub
 
+    Private Sub prvSetupDelivery(ByVal bolValue As Boolean)
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+        If Not UI.usForm.frmAskQuestion(IIf(bolValue = False, "Batal ", "") & "Set Pengiriman Nomor " & clsData.OrderNumber & "?") Then Exit Sub
+
+        Dim frmDetail As New usFormRemarks
+        With frmDetail
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsSave Then
+                clsData.Remarks = .pubValue
+            Else
+                Exit Sub
+            End If
+        End With
+
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+
+        Try
+            BL.OrderRequest.SetupIsIgnoreValidationPayment(clsData.ID, bolValue, clsData.Remarks)
+            pgMain.Value = 100
+            UI.usForm.frmMessageBox(IIf(bolValue = False, "Batal ", "") & "Set Pengiriman Nomor berhasil.")
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+
+            prvResetProgressBar()
+        End Try
+    End Sub
+
     Private Sub prvClear()
         grdMain.DataSource = Nothing
         grdView.Columns.Clear()
@@ -446,6 +481,10 @@ Public Class frmTraOrderRequest
                 Case ToolBar.Buttons(cDelete).Name : prvDelete()
                 Case ToolBar.Buttons(cSubmit).Name : prvSubmit()
                 Case ToolBar.Buttons(cCancelSubmit).Name : prvCancelSubmit()
+                Case ToolBar.Buttons(cDownPayment).Name : prvDownPayment()
+                Case ToolBar.Buttons(cReceive).Name : prvReceivePayment()
+                Case ToolBar.Buttons(cSetupDelivery).Name : prvSetupDelivery(True)
+                Case ToolBar.Buttons(cCancelSetupDelivery).Name : prvSetupDelivery(False)
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If

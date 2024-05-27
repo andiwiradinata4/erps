@@ -189,6 +189,34 @@
             Return bolReturn
         End Function
 
+        Public Shared Sub SetupIsIgnoreValidationPayment(ByVal strID As String, ByVal bolValue As Boolean, ByVal strRemarks As String)
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Dim clsData As VO.OrderRequest = DL.OrderRequest.GetDetail(sqlCon, sqlTrans, strID)
+                    If clsData.StatusID <> VO.Status.Values.Submit Then
+                        Err.Raise(515, "", "Data tidak dapat " & IIf(bolValue = False, "batal ", "") & "set pengiriman. Status data harus SUBMIT terlebih dahulu")
+                    ElseIf DL.OrderRequest.IsDeleted(sqlCon, sqlTrans, strID) Then
+                        Err.Raise(515, "", "Data tidak dapat " & IIf(bolValue = False, "batal ", "") & "set pengiriman. Dikarenakan data telah dihapus")
+                    End If
+
+                    Dim dtDetail As DataTable = DL.OrderRequest.ListDataDetail(sqlCon, sqlTrans, strID)
+                    Dim drDelivery() As DataRow = dtDetail.Select("SCWeight>0")
+                    If Not bolValue And drDelivery.Length > 0 Then Err.Raise(515, "", "Data tidak dapat " & IIf(bolValue = False, "batal ", "") & "set pengiriman. Dikarenakan data telah diproses pengiriman")
+
+                    DL.OrderRequest.SetupIsIgnoreValidationPayment(sqlCon, sqlTrans, strID, bolValue)
+
+                    '# Save Data Status
+                    BL.OrderRequest.SaveDataStatus(sqlCon, sqlTrans, strID, IIf(bolValue = False, "BATAL ", "") & "SET PENGIRIMAN", ERPSLib.UI.usUserApp.UserID, strRemarks)
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+        End Sub
+
 #End Region
 
 #Region "Detail"
