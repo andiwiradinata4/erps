@@ -71,6 +71,7 @@
         strID = ""
         intItemID = 0
         txtItemCode.Text = ""
+        txtOrderNumberSupplier.Text = ""
         cboItemType.SelectedIndex = -1
         txtItemName.Text = ""
         txtThick.Value = 0
@@ -83,6 +84,8 @@
         txtTotalWeight.Value = 0
         txtTotalPrice.Value = 0
         txtRemarks.Text = ""
+        txtUnitPriceHPP.Value = 0
+        txtMaxTotalWeight.Value = 0
     End Sub
 
     Private Sub prvFillForm()
@@ -146,6 +149,10 @@
             UI.usForm.frmMessageBox("Harga Beli harus lebih besar dari 0 agar HPP Penjualan dapat diperoleh saat pengiriman")
             txtUnitPriceHPP.Focus()
             Exit Sub
+            'ElseIf bolIsStock And txtTotalWeight.Value > txtMaxTotalWeight.Value Then
+            '    UI.usForm.frmMessageBox("Total Berat tidak boleh melebihi Maks Total Berat")
+            '    txtQuantity.Focus()
+            '    Exit Sub
         End If
 
         If bolIsNew Then
@@ -236,6 +243,7 @@
                     txtRemarks.Text = ""
                     txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
                     txtUnitPriceHPP.Value = .pubLUdtRow.Item("UnitPrice")
+                    txtMaxTotalWeight.Value = .pubLUdtRow.Item("Balance")
                     bolIsAutoSearch = False
                 Else
                     If bolIsAutoSearch Then Me.Close()
@@ -282,6 +290,9 @@
         lblUnitPriceHPP.Visible = bolIsStock
         txtUnitPriceHPP.Visible = bolIsStock
         lblUomUnitPriceHPP.Visible = bolIsStock
+        lblMaxTotalWeight.Visible = False 'bolIsStock
+        txtMaxTotalWeight.Visible = False 'bolIsStock
+        lblUomMaxTotalWeight.Visible = False 'bolIsStock
     End Sub
 
 #Region "Form Handle"

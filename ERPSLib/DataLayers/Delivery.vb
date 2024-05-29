@@ -465,7 +465,7 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText =
+                .CommandText +=
                     "SELECT  " & vbNewLine &
                     "   DH.ID, DH.ProgramID, MP.Name AS ProgramName, DH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress, DH.DeliveryNumber AS TransNumber,  " & vbNewLine &
                     "   DH.DeliveryDate AS TransDate, DH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, SCH.SCNumber, DH.PlatNumber, DH.Driver, DH.ReferencesNumber, " & vbNewLine &
@@ -490,8 +490,37 @@
                     "    MI.ItemTypeID=IT.ID 	 	   " & vbNewLine &
                     "INNER JOIN mstItemSpecification MIS ON 	 	   " & vbNewLine &
                     "    MI.ItemSpecificationID=MIS.ID 	 	   " & vbNewLine &
-                    "INNER JOIN mstCompanyBankAccount MBC ON  " & vbNewLine &
-                    "    SCH.CompanyBankAccountID=MBC.ID " & vbNewLine &
+                    "WHERE 	 " & vbNewLine &
+                    "    DH.ProgramID=@ProgramID  " & vbNewLine &
+                    "    AND DH.CompanyID=@CompanyID  " & vbNewLine &
+                    "    AND DH.ID=@ID" & vbNewLine
+
+                .CommandText +=
+                    "UNION ALL " & vbNewLine &
+                    "SELECT  " & vbNewLine &
+                    "   DH.ID, DH.ProgramID, MP.Name AS ProgramName, DH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress, DH.DeliveryNumber AS TransNumber,  " & vbNewLine &
+                    "   DH.DeliveryDate AS TransDate, DH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, ORH.OrderNumber AS SCNumber, DH.PlatNumber, DH.Driver, DH.ReferencesNumber, " & vbNewLine &
+                    "   DH.TotalQuantity, DH.TotalWeight, DH.StatusID, MIS.Description AS ItemSpec, IT.Description AS ItemType, IT.Description AS ItemCodeExternal, MI.Thick AS ItemThick, MI.Width AS ItemWidth,  " & vbNewLine &
+                    "   MI.Length AS ItemLength, MI.Weight, DD.Quantity, DD.TotalWeight AS TotalWeightItem, DD.Remarks AS ItemRemarks, DH.CreatedBy " & vbNewLine &
+                    "FROM traDelivery DH  " & vbNewLine &
+                    "INNER JOIN traOrderRequest ORH ON " & vbNewLine &
+                    "	DH.SCID=ORH.ID " & vbNewLine &
+                    "INNER JOIN traDeliveryDet DD ON  " & vbNewLine &
+                    "    DH.ID=DD.DeliveryID " & vbNewLine &
+                    "INNER JOIN mstStatus B ON  " & vbNewLine &
+                    "    DH.StatusID=B.ID  " & vbNewLine &
+                    "INNER JOIN mstBusinessPartner C ON  " & vbNewLine &
+                    "    DH.BPID=C.ID  " & vbNewLine &
+                    "INNER JOIN mstCompany MC ON  " & vbNewLine &
+                    "    DH.CompanyID=MC.ID  " & vbNewLine &
+                    "INNER JOIN mstProgram MP ON  " & vbNewLine &
+                    "    DH.ProgramID=MP.ID  " & vbNewLine &
+                    "INNER JOIN mstItem MI ON 	   " & vbNewLine &
+                    "    DD.ItemID=MI.ID 	   " & vbNewLine &
+                    "INNER JOIN mstItemType IT ON 	 	   " & vbNewLine &
+                    "    MI.ItemTypeID=IT.ID 	 	   " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON 	 	   " & vbNewLine &
+                    "    MI.ItemSpecificationID=MIS.ID 	 	   " & vbNewLine &
                     "WHERE 	 " & vbNewLine &
                     "    DH.ProgramID=@ProgramID  " & vbNewLine &
                     "    AND DH.CompanyID=@CompanyID  " & vbNewLine &

@@ -88,6 +88,7 @@
             dtData = BL.Stock.ListData(cboItemType.SelectedValue, cboItemSpecification.SelectedValue, chkShowAll.Checked, bolIsLookUp)
 
             For Each dr As DataRow In dtData.Rows
+                If dtParent.Rows.Count = 0 Then Exit For
                 Dim drExists() As DataRow = dtParent.Select("OrderNumberSupplier='" & dr.Item("OrderNumberSupplier") & "' AND ItemID=" & dr.Item("ID"))
                 If drExists.Length > 0 Then dr.Delete()
             Next

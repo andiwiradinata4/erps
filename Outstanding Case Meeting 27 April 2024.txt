@@ -51,7 +51,7 @@ Plat -> Loco KP (Ambil Sendiri) -> Ongkos Transportasi
 5. Buat Payment Schedule
 6. Buat Retur
 7. Lakukan Testing secara keseluruhan
-
+8. Check Printout Invoice DP Penjualan Stok
 
 
 

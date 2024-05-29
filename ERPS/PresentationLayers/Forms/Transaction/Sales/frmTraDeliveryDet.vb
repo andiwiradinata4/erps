@@ -643,7 +643,8 @@ Public Class frmTraDeliveryDet
         prvChooseTransporter()
     End Sub
 
-    Private Sub txtUnitPriceTransport_ValueChanged(sender As Object, e As EventArgs) Handles txtUnitPriceTransport.ValueChanged
+    Private Sub txtUnitPriceTransport_ValueChanged(sender As Object, e As EventArgs) Handles txtUnitPriceTransport.ValueChanged,
+        txtPPNTransport.ValueChanged, txtPPHTransport.ValueChanged
         prvCalculate()
     End Sub
 

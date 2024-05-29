@@ -35,7 +35,7 @@
 "LEFT JOIN  " & vbNewLine &
 "( " & vbNewLine &
 "	SELECT  " & vbNewLine &
-"       TSI.ItemID, CAST('' AS VARCHAR(100)) AS OrderNumberSupplier, CAST('' AS DECIMAL(18,4)) AS UnitPrice, SUM(TSI.InTotalWeight)-SUM(TSI.OutWeight)-SUM(TSI.OutTotalWeightProcess) Balance, SUM(TSI.OutTotalWeightProcess) AS OnProgressBalance  " & vbNewLine &
+"       TSI.ItemID, CAST('' AS VARCHAR(100)) AS OrderNumberSupplier, CAST(0 AS DECIMAL(18,4)) AS UnitPrice, SUM(TSI.InTotalWeight)-SUM(TSI.OutWeight)-SUM(TSI.OutTotalWeightProcess) Balance, SUM(TSI.OutTotalWeightProcess) AS OnProgressBalance  " & vbNewLine &
 "	FROM traStockIn TSI  " & vbNewLine &
 "	GROUP BY TSI.ItemID  " & vbNewLine &
 ") TSI ON MI.ID=TSI.ItemID  " & vbNewLine
@@ -45,12 +45,12 @@
 
                 If Not bolShowAll Then
                     If intItemTypeID > 0 Then
-                        .CommandText += "   AND A.ItemTypeID=@ItemTypeID "
+                        .CommandText += "   AND MI.ItemTypeID=@ItemTypeID "
                         .Parameters.Add("@ItemTypeID", SqlDbType.Int).Value = intItemTypeID
                     End If
 
                     If intItemSpecificationID > 0 Then
-                        .CommandText += "   AND A.ItemSpecificationID=@ItemSpecificationID "
+                        .CommandText += "   AND MI.ItemSpecificationID=@ItemSpecificationID "
                         .Parameters.Add("@ItemSpecificationID", SqlDbType.Int).Value = intItemSpecificationID
                     End If
                 End If

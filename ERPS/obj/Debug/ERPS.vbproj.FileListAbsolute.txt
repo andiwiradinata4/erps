@@ -613,7 +613,6 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseContractDetVer1.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseContractFranco.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderCuttingDetItemResult.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderCuttingDetItemResultOustandingCutting.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraReceiveDetVer1.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraDeliveryDetItemVer01.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractOutstandingDeliveryItemVer01.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPS.exe.config
@@ -817,3 +816,8 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractD
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstStock.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestOutstandingDelivery.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestOutstandingDeliveryItemVer01.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmMstStock.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderOutstandingSalesContractSubItemVer1.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestOutstandingDelivery.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestOutstandingDeliveryItemVer01.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCOSubVer1.resources

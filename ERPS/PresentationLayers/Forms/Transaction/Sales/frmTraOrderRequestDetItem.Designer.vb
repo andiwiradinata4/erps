@@ -67,6 +67,9 @@ Partial Class frmTraOrderRequestDetItem
         Me.txtItemCode = New ERPS.usTextBox()
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtItemName = New ERPS.usTextBox()
+        Me.lblUomMaxTotalWeight = New System.Windows.Forms.Label()
+        Me.lblMaxTotalWeight = New System.Windows.Forms.Label()
+        Me.txtMaxTotalWeight = New ERPS.usNumeric()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -77,6 +80,7 @@ Partial Class frmTraOrderRequestDetItem
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtMaxTotalWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -119,6 +123,9 @@ Partial Class frmTraOrderRequestDetItem
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.lblUomMaxTotalWeight)
+        Me.pnlDetail.Controls.Add(Me.lblMaxTotalWeight)
+        Me.pnlDetail.Controls.Add(Me.txtMaxTotalWeight)
         Me.pnlDetail.Controls.Add(Me.lblUomUnitPriceHPP)
         Me.pnlDetail.Controls.Add(Me.lblUnitPriceHPP)
         Me.pnlDetail.Controls.Add(Me.txtUnitPriceHPP)
@@ -194,7 +201,7 @@ Partial Class frmTraOrderRequestDetItem
         Me.txtUnitPriceHPP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtUnitPriceHPP.Name = "txtUnitPriceHPP"
         Me.txtUnitPriceHPP.Size = New System.Drawing.Size(160, 21)
-        Me.txtUnitPriceHPP.TabIndex = 194
+        Me.txtUnitPriceHPP.TabIndex = 14
         Me.txtUnitPriceHPP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtUnitPriceHPP.ThousandsSeparator = True
         '
@@ -286,7 +293,7 @@ Partial Class frmTraOrderRequestDetItem
         Me.txtUnitPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtUnitPrice.Name = "txtUnitPrice"
         Me.txtUnitPrice.Size = New System.Drawing.Size(135, 21)
-        Me.txtUnitPrice.TabIndex = 8
+        Me.txtUnitPrice.TabIndex = 9
         Me.txtUnitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtUnitPrice.ThousandsSeparator = True
         '
@@ -300,7 +307,7 @@ Partial Class frmTraOrderRequestDetItem
         Me.txtLength.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtLength.Name = "txtLength"
         Me.txtLength.Size = New System.Drawing.Size(135, 21)
-        Me.txtLength.TabIndex = 6
+        Me.txtLength.TabIndex = 7
         Me.txtLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtLength.ThousandsSeparator = True
         '
@@ -314,7 +321,7 @@ Partial Class frmTraOrderRequestDetItem
         Me.txtWidth.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtWidth.Name = "txtWidth"
         Me.txtWidth.Size = New System.Drawing.Size(135, 21)
-        Me.txtWidth.TabIndex = 5
+        Me.txtWidth.TabIndex = 6
         Me.txtWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtWidth.ThousandsSeparator = True
         '
@@ -328,7 +335,7 @@ Partial Class frmTraOrderRequestDetItem
         Me.txtThick.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtThick.Name = "txtThick"
         Me.txtThick.Size = New System.Drawing.Size(135, 21)
-        Me.txtThick.TabIndex = 4
+        Me.txtThick.TabIndex = 5
         Me.txtThick.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtThick.ThousandsSeparator = True
         '
@@ -396,7 +403,7 @@ Partial Class frmTraOrderRequestDetItem
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(477, 48)
-        Me.txtRemarks.TabIndex = 14
+        Me.txtRemarks.TabIndex = 16
         '
         'Label12
         '
@@ -484,7 +491,7 @@ Partial Class frmTraOrderRequestDetItem
         Me.txtWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtWeight.Name = "txtWeight"
         Me.txtWeight.Size = New System.Drawing.Size(135, 21)
-        Me.txtWeight.TabIndex = 7
+        Me.txtWeight.TabIndex = 8
         Me.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtWeight.ThousandsSeparator = True
         '
@@ -550,7 +557,7 @@ Partial Class frmTraOrderRequestDetItem
         Me.cboItemType.Location = New System.Drawing.Point(110, 102)
         Me.cboItemType.Name = "cboItemType"
         Me.cboItemType.Size = New System.Drawing.Size(135, 21)
-        Me.cboItemType.TabIndex = 9
+        Me.cboItemType.TabIndex = 4
         '
         'Label2
         '
@@ -608,6 +615,42 @@ Partial Class frmTraOrderRequestDetItem
         Me.txtItemName.Size = New System.Drawing.Size(477, 48)
         Me.txtItemName.TabIndex = 3
         '
+        'lblUomMaxTotalWeight
+        '
+        Me.lblUomMaxTotalWeight.AutoSize = True
+        Me.lblUomMaxTotalWeight.BackColor = System.Drawing.Color.Transparent
+        Me.lblUomMaxTotalWeight.ForeColor = System.Drawing.Color.Black
+        Me.lblUomMaxTotalWeight.Location = New System.Drawing.Point(591, 242)
+        Me.lblUomMaxTotalWeight.Name = "lblUomMaxTotalWeight"
+        Me.lblUomMaxTotalWeight.Size = New System.Drawing.Size(19, 13)
+        Me.lblUomMaxTotalWeight.TabIndex = 199
+        Me.lblUomMaxTotalWeight.Text = "Kg"
+        '
+        'lblMaxTotalWeight
+        '
+        Me.lblMaxTotalWeight.AutoSize = True
+        Me.lblMaxTotalWeight.BackColor = System.Drawing.Color.Transparent
+        Me.lblMaxTotalWeight.ForeColor = System.Drawing.Color.Black
+        Me.lblMaxTotalWeight.Location = New System.Drawing.Point(326, 242)
+        Me.lblMaxTotalWeight.Name = "lblMaxTotalWeight"
+        Me.lblMaxTotalWeight.Size = New System.Drawing.Size(91, 13)
+        Me.lblMaxTotalWeight.TabIndex = 198
+        Me.lblMaxTotalWeight.Text = "Maks. Total Berat"
+        '
+        'txtMaxTotalWeight
+        '
+        Me.txtMaxTotalWeight.BackColor = System.Drawing.Color.Azure
+        Me.txtMaxTotalWeight.DecimalPlaces = 2
+        Me.txtMaxTotalWeight.Enabled = False
+        Me.txtMaxTotalWeight.Location = New System.Drawing.Point(427, 238)
+        Me.txtMaxTotalWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtMaxTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtMaxTotalWeight.Name = "txtMaxTotalWeight"
+        Me.txtMaxTotalWeight.Size = New System.Drawing.Size(160, 21)
+        Me.txtMaxTotalWeight.TabIndex = 15
+        Me.txtMaxTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtMaxTotalWeight.ThousandsSeparator = True
+        '
         'frmTraOrderRequestDetItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -633,6 +676,7 @@ Partial Class frmTraOrderRequestDetItem
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtMaxTotalWeight, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -681,4 +725,7 @@ Partial Class frmTraOrderRequestDetItem
     Friend WithEvents lblUomUnitPriceHPP As Label
     Friend WithEvents lblUnitPriceHPP As Label
     Friend WithEvents txtUnitPriceHPP As usNumeric
+    Friend WithEvents lblUomMaxTotalWeight As Label
+    Friend WithEvents lblMaxTotalWeight As Label
+    Friend WithEvents txtMaxTotalWeight As usNumeric
 End Class

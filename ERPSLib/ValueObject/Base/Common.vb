@@ -109,6 +109,10 @@
                 Return "Down Payment"
             ElseIf strModules = VO.AccountReceivable.ReceivePayment Then
                 Return "Pelunasan"
+            ElseIf strModules = VO.AccountReceivable.DownPaymentOrderRequest Then
+                Return "Down Payment"
+            ElseIf strModules = VO.AccountReceivable.ReceivePaymentOrderRequest Then
+                Return "Pelunasan"
             End If
             Return ""
         End Function
@@ -137,6 +141,10 @@
             ElseIf strModules = VO.AccountReceivable.DownPayment Then
                 Return "DP"
             ElseIf strModules = VO.AccountReceivable.ReceivePayment Then
+                Return " "
+            ElseIf strModules = VO.AccountReceivable.DownPaymentOrderRequest Then
+                Return "DP"
+            ElseIf strModules = VO.AccountReceivable.ReceivePaymentOrderRequest Then
                 Return " "
             End If
             Return " "
