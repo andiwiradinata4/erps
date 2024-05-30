@@ -541,6 +541,7 @@ Public Class frmTraARAPDetVer3
         prvQueryHistory()
         prvUserAccess()
         txtDueDateValue.Minimum = 0
+        txtPercentage.Maximum = 100
         AddHandler txtPercentage.ValueChanged, AddressOf txtPercentage_ValueChanged
         AddHandler chkUsePercentage.CheckedChanged, AddressOf chkUsePercentage_CheckedChanged
     End Sub

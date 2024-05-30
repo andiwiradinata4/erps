@@ -45,13 +45,11 @@ Jenis NOP
 Plat -> Loco KP (Ambil Sendiri) -> Ongkos Transportasi
 				-> Ongkos Potong
      -> Coil
-2. Persediaan yg masuk dari KP itu ke Persediaan
-3. Konsep Sub Item dimana semua Item memiliki Sub Item sehingga nantinya semua Pembayaran mengacu pada sub item dan pengiriman juga mengacu pada sub item
-4. Testing DP Permintaan Pesanan
+2. Persediaan yg masuk dari KP itu ke Persediaan, Done.
+3. Konsep Sub Item dimana semua Item memiliki Sub Item sehingga nantinya semua Pembayaran mengacu pada sub item dan pengiriman juga mengacu pada sub item, Done.
 5. Buat Payment Schedule
 6. Buat Retur
-7. Lakukan Testing secara keseluruhan
-8. Check Printout Invoice DP Penjualan Stok
+7. Lakukan Testing secara keseluruhan -> Testing Pembelian Stok dan Penjualan Stok, Done. -> 
 
 
 
