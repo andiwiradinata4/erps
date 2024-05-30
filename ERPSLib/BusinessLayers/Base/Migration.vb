@@ -33,6 +33,7 @@
                 DevelopOnProgress_ID26(sqlCon, Nothing)
                 DevelopOnProgress_ID27(sqlCon, Nothing)
                 DevelopOnProgress_ID28(sqlCon, Nothing)
+                DevelopOnProgress_ID29(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -777,6 +778,25 @@
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
                 DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
             End If
+        End Sub
+
+        '# ID = 29
+        Private Shared Sub DevelopOnProgress_ID29(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            'Dim clsData As New VO.Migration
+            'clsData.ID = 29
+            'clsData.Name = "Develop On Progress 29"
+            'clsData.Scripts =
+            '    "ALTER TABLE traOrderRequest ADD DPAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequest_DPAmount DEFAULT ((0)) " & vbNewLine &
+            '    "ALTER TABLE traOrderRequest ADD ReceiveAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequest_ReceiveAmount DEFAULT ((0)) " & vbNewLine &
+            '    "ALTER TABLE traOrderRequestDet ADD DPAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_DPAmount DEFAULT ((0)) " & vbNewLine &
+            '    "ALTER TABLE traOrderRequestDet ADD ReceiveAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_ReceiveAmount DEFAULT ((0)) " & vbNewLine &
+            '    "ALTER TABLE traOrderRequestDet ADD IsIgnoreValidationPayment [bit] NOT NULL CONSTRAINT DF_traOrderRequestDet_IsIgnoreValidationPayment DEFAULT ((0)) " & vbNewLine
+
+            'clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            'If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+            '    DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+            '    DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            'End If
         End Sub
 
     End Class
