@@ -782,21 +782,80 @@
 
         '# ID = 29
         Private Shared Sub DevelopOnProgress_ID29(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
-            'Dim clsData As New VO.Migration
-            'clsData.ID = 29
-            'clsData.Name = "Develop On Progress 29"
-            'clsData.Scripts =
-            '    "ALTER TABLE traOrderRequest ADD DPAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequest_DPAmount DEFAULT ((0)) " & vbNewLine &
-            '    "ALTER TABLE traOrderRequest ADD ReceiveAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequest_ReceiveAmount DEFAULT ((0)) " & vbNewLine &
-            '    "ALTER TABLE traOrderRequestDet ADD DPAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_DPAmount DEFAULT ((0)) " & vbNewLine &
-            '    "ALTER TABLE traOrderRequestDet ADD ReceiveAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_ReceiveAmount DEFAULT ((0)) " & vbNewLine &
-            '    "ALTER TABLE traOrderRequestDet ADD IsIgnoreValidationPayment [bit] NOT NULL CONSTRAINT DF_traOrderRequestDet_IsIgnoreValidationPayment DEFAULT ((0)) " & vbNewLine
+            Dim clsData As New VO.Migration
+            clsData.ID = 29
+            clsData.Name = "Develop On Progress 29"
+            clsData.Scripts =
+                "ALTER TABLE traCutting ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCutting ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCutting ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCutting ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCuttingDet ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCuttingDet ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCuttingDet ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCuttingDet ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDelivery ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDelivery ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDelivery ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDelivery ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDelivery ADD DPAmountPPNTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_DPAmountPPNTransport DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDelivery ADD DPAmountPPHTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_DPAmountPPHTransport DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDelivery ADD ReceiveAmountPPNTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_ReceiveAmountPPNTransport DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDelivery ADD ReceiveAmountPPHTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_ReceiveAmountPPHTransport DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD DPAmountPPNTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_DPAmountPPNTransport DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD DPAmountPPHTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_DPAmountPPHTransport DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD ReceiveAmountPPNTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_ReceiveAmountPPNTransport DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD ReceiveAmountPPHTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_ReceiveAmountPPHTransport DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traOrderRequest ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequest_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traOrderRequest ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequest_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traOrderRequest ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequest_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traOrderRequest ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequest_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traOrderRequestDet ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traOrderRequestDet ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traOrderRequestDet ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traOrderRequestDet ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseContract ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseContract_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseContract ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseContract_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseContract ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseContract_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseContract ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseContract_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseContractDet ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseContractDet_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseContractDet ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseContractDet_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseContractDet ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseContractDet_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseContractDet ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseContractDet_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCutting ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCutting ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCutting ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCutting ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDet ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDet ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDet ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDet ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traReceive ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traReceive_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traReceive ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traReceive_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traReceive ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traReceive_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traReceive ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traReceive_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traReceiveDet ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traReceiveDet_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traReceiveDet ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traReceiveDet_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traReceiveDet ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traReceiveDet_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traReceiveDet ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traReceiveDet_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesContract ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesContract_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesContract ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesContract_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesContract ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesContract_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesContract ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesContract_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesContractDet ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesContractDet_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesContractDet ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesContractDet_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesContractDet ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesContractDet_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesContractDet ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesContractDet_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine
 
-            'clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-            'If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
-            '    DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
-            '    DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
-            'End If
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
         End Sub
 
     End Class
