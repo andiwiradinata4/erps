@@ -27,6 +27,10 @@
         Property DoneDate As DateTime
         Property DPAmount As Decimal
         Property ReceiveAmount As Decimal
+        Property DPAmountPPN As Decimal
+        Property DPAmountPPH As Decimal
+        Property ReceiveAmountPPN As Decimal
+        Property ReceiveAmountPPH As Decimal
         Property Detail As List(Of VO.OrderRequestDet)
         Property Save As VO.Save.Action
     End Class

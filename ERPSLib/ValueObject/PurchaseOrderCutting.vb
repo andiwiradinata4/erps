@@ -31,6 +31,10 @@
         Property DPAmount As Decimal
         Property ReceiveAmount As Decimal
         Property TotalDPPRawMaterial As Decimal
+        Property DPAmountPPN As Decimal
+        Property DPAmountPPH As Decimal
+        Property ReceiveAmountPPN As Decimal
+        Property ReceiveAmountPPH As Decimal
         Property Detail As List(Of VO.PurchaseOrderCuttingDet)
         Property DetailResult As List(Of VO.PurchaseOrderCuttingDetResult)
         Property PaymentTerm As List(Of VO.PurchaseOrderPaymentTerm)

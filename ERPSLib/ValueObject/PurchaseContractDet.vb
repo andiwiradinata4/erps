@@ -21,5 +21,9 @@
         Property LevelItem As Integer
         Property ParentID As String
         Property RoundingWeight As Decimal
+        Property DPAmountPPN As Decimal
+        Property DPAmountPPH As Decimal
+        Property ReceivePPN As Decimal
+        Property ReceivePPH As Decimal
     End Class
 End Namespace

@@ -31,6 +31,10 @@
         Property CoACodeOfStock As String
         Property CoANameOfStock As String
         Property IsUseSubItem As Boolean
+        Property DPAmountPPN As Decimal
+        Property DPAmountPPH As Decimal
+        Property TotalPaymentPPN As Decimal
+        Property TotalPaymentPPH As Decimal
         Property Detail As List(Of VO.ReceiveDet)
         Property Save As VO.Save.Action
     End Class

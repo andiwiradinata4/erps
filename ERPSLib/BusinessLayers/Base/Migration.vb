@@ -788,24 +788,24 @@
             clsData.Scripts =
                 "ALTER TABLE traCutting ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traCutting ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
-                "ALTER TABLE traCutting ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
-                "ALTER TABLE traCutting ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCutting ADD TotalPaymentPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_TotalPaymentPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCutting ADD TotalPaymentPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_TotalPaymentPPH DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traCuttingDet ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traCuttingDet ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traCuttingDet ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traCuttingDet ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traDelivery ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traDelivery ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
-                "ALTER TABLE traDelivery ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
-                "ALTER TABLE traDelivery ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDelivery ADD TotalPaymentPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_TotalPaymentPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDelivery ADD TotalPaymentPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_TotalPaymentPPH DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traDeliveryDet ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traDeliveryDet ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traDeliveryDet ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traDeliveryDet ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traDelivery ADD DPAmountPPNTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_DPAmountPPNTransport DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traDelivery ADD DPAmountPPHTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_DPAmountPPHTransport DEFAULT ((0)) " & vbNewLine &
-                "ALTER TABLE traDelivery ADD ReceiveAmountPPNTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_ReceiveAmountPPNTransport DEFAULT ((0)) " & vbNewLine &
-                "ALTER TABLE traDelivery ADD ReceiveAmountPPHTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_ReceiveAmountPPHTransport DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDelivery ADD TotalPaymentPPNTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_TotalPaymentPPNTransport DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDelivery ADD TotalPaymentPPHTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDelivery_TotalPaymentPPHTransport DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traDeliveryDet ADD DPAmountPPNTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_DPAmountPPNTransport DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traDeliveryDet ADD DPAmountPPHTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_DPAmountPPHTransport DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traDeliveryDet ADD ReceiveAmountPPNTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_ReceiveAmountPPNTransport DEFAULT ((0)) " & vbNewLine &
@@ -836,8 +836,8 @@
                 "ALTER TABLE traPurchaseOrderCuttingDet ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traReceive ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traReceive_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traReceive ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traReceive_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
-                "ALTER TABLE traReceive ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traReceive_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
-                "ALTER TABLE traReceive ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traReceive_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traReceive ADD TotalPaymentPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traReceive_TotalPaymentPPN DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traReceive ADD TotalPaymentPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traReceive_TotalPaymentPPH DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traReceiveDet ADD DPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traReceiveDet_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traReceiveDet ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traReceiveDet_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traReceiveDet ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traReceiveDet_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &

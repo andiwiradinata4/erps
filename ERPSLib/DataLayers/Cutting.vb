@@ -433,6 +433,30 @@
                     "		WHERE 	" & vbNewLine &
                     "			APD.PurchaseID=@ID 	" & vbNewLine &
                     "			AND APH.IsDeleted=0 	" & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	TotalPaymentPPN=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(APD.PPN),0) TotalPayment		" & vbNewLine &
+                    "		FROM traAccountPayableDet APD 	" & vbNewLine &
+                    "		INNER JOIN traAccountPayable APH ON	" & vbNewLine &
+                    "			APD.APID=APH.ID 	" & vbNewLine &
+                    "			AND APH.Modules=@Modules " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			APD.PurchaseID=@ID 	" & vbNewLine &
+                    "			AND APH.IsDeleted=0 	" & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	TotalPaymentPPH=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(APD.PPH),0) TotalPayment		" & vbNewLine &
+                    "		FROM traAccountPayableDet APD 	" & vbNewLine &
+                    "		INNER JOIN traAccountPayable APH ON	" & vbNewLine &
+                    "			APD.APID=APH.ID 	" & vbNewLine &
+                    "			AND APH.Modules=@Modules " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			APD.PurchaseID=@ID 	" & vbNewLine &
+                    "			AND APH.IsDeleted=0 	" & vbNewLine &
                     "	) " & vbNewLine &
                     "WHERE ID=@ID " & vbNewLine
 
@@ -472,6 +496,32 @@
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(APD.Amount),0) TotalPayment " & vbNewLine &
+                    "		FROM traARAPItem APD 	" & vbNewLine &
+                    "		INNER JOIN traAccountPayable APH ON	" & vbNewLine &
+                    "			APD.ParentID=APH.ID 	" & vbNewLine &
+                    "			AND APH.Modules=@Modules " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			APD.ReferencesID=@ReferencesID 	" & vbNewLine &
+                    "			AND APD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND APH.IsDeleted=0 	" & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	ReceiveAmountPPN=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(APD.PPN),0) TotalPayment " & vbNewLine &
+                    "		FROM traARAPItem APD 	" & vbNewLine &
+                    "		INNER JOIN traAccountPayable APH ON	" & vbNewLine &
+                    "			APD.ParentID=APH.ID 	" & vbNewLine &
+                    "			AND APH.Modules=@Modules " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			APD.ReferencesID=@ReferencesID 	" & vbNewLine &
+                    "			AND APD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND APH.IsDeleted=0 	" & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	ReceiveAmountPPH=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(APD.PPH),0) TotalPayment " & vbNewLine &
                     "		FROM traARAPItem APD 	" & vbNewLine &
                     "		INNER JOIN traAccountPayable APH ON	" & vbNewLine &
                     "			APD.ParentID=APH.ID 	" & vbNewLine &

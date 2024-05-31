@@ -32,6 +32,10 @@
         Property ReceiveAmount As Decimal
         Property IsAutoGenerate As Boolean
         Property IsUseSubItem As Boolean
+        Property DPAmountPPN As Decimal
+        Property DPAmountPPH As Decimal
+        Property ReceiveAmountPPN As Decimal
+        Property ReceiveAmountPPH As Decimal
         Property Detail As List(Of VO.PurchaseContractDet)
         Property PaymentTerm As List(Of VO.PurchaseContractPaymentTerm)
         Property Save As VO.Save.Action

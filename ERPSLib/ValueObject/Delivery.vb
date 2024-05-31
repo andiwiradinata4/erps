@@ -46,6 +46,10 @@
         Property IsFreePPHTransport As Decimal
         Property IsUseSubItem As Boolean
         Property IsStock As Boolean
+        Property DPAmountPPN As Decimal
+        Property DPAmountPPH As Decimal
+        Property TotalPaymentPPN As Decimal
+        Property TotalPaymentPPH As Decimal
         Property Detail As List(Of VO.DeliveryDet)
         Property DeliveryTransport As List(Of VO.DeliveryTransport)
         Property DetailTransport As List(Of VO.DeliveryDetTransport)

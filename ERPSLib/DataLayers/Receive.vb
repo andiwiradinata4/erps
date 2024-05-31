@@ -566,10 +566,46 @@
                     "			RVD.ReceiveID=@ID 	" & vbNewLine &
                     "			AND RVD.ParentID='' " & vbNewLine &
                     "	), " & vbNewLine &
+                    "	DPAmountPPN=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(RVD.DPAmountPPN),0) DPAmount		" & vbNewLine &
+                    "		FROM traReceiveDet RVD 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			RVD.ReceiveID=@ID 	" & vbNewLine &
+                    "			AND RVD.ParentID='' " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	DPAmountPPH=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(RVD.DPAmountPPH),0) DPAmount		" & vbNewLine &
+                    "		FROM traReceiveDet RVD 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			RVD.ReceiveID=@ID 	" & vbNewLine &
+                    "			AND RVD.ParentID='' " & vbNewLine &
+                    "	), " & vbNewLine &
                     "	TotalPayment=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(RVD.ReceiveAmount),0) ReceiveAmount		" & vbNewLine &
+                    "		FROM traReceiveDet RVD 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			RVD.ReceiveID=@ID 	" & vbNewLine &
+                    "			AND RVD.ParentID='' " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	TotalPaymentPPN=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(RVD.ReceiveAmountPPN),0) ReceiveAmount		" & vbNewLine &
+                    "		FROM traReceiveDet RVD 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			RVD.ReceiveID=@ID 	" & vbNewLine &
+                    "			AND RVD.ParentID='' " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	TotalPaymentPPH=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(RVD.ReceiveAmountPPH),0) ReceiveAmount		" & vbNewLine &
                     "		FROM traReceiveDet RVD 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			RVD.ReceiveID=@ID 	" & vbNewLine &
@@ -608,6 +644,22 @@
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(RVD.ReceiveAmount),0) ReceiveAmount		" & vbNewLine &
+                    "		FROM traReceiveDet RVD 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			RVD.ReceiveID=@ID 	" & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	TotalPaymentPPN=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(RVD.ReceiveAmountPPN),0) ReceiveAmount		" & vbNewLine &
+                    "		FROM traReceiveDet RVD 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			RVD.ReceiveID=@ID 	" & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	TotalPaymentPPH=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(RVD.ReceiveAmountPPH),0) ReceiveAmount		" & vbNewLine &
                     "		FROM traReceiveDet RVD 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			RVD.ReceiveID=@ID 	" & vbNewLine &
@@ -658,6 +710,32 @@
                     "			APD.ReferencesID=@ReferencesID 	" & vbNewLine &
                     "			AND APD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
                     "			AND APH.IsDeleted=0 	" & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	ReceiveAmountPPN=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(APD.PPN),0) TotalPayment " & vbNewLine &
+                    "		FROM traARAPItem APD 	" & vbNewLine &
+                    "		INNER JOIN traAccountPayable APH ON	" & vbNewLine &
+                    "			APD.ParentID=APH.ID 	" & vbNewLine &
+                    "			AND APH.Modules=@Modules " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			APD.ReferencesID=@ReferencesID 	" & vbNewLine &
+                    "			AND APD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND APH.IsDeleted=0 	" & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	ReceiveAmountPPH=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(APD.PPH),0) TotalPayment " & vbNewLine &
+                    "		FROM traARAPItem APD 	" & vbNewLine &
+                    "		INNER JOIN traAccountPayable APH ON	" & vbNewLine &
+                    "			APD.ParentID=APH.ID 	" & vbNewLine &
+                    "			AND APH.Modules=@Modules " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			APD.ReferencesID=@ReferencesID 	" & vbNewLine &
+                    "			AND APD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND APH.IsDeleted=0 	" & vbNewLine &
                     "	) " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   ID=@ReferencesDetailID " & vbNewLine
@@ -697,6 +775,28 @@
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(RVD.ReceiveAmount),0) TotalPayment " & vbNewLine &
+                    "		FROM traReceiveDet RVD 	" & vbNewLine &
+                    "		INNER JOIN traReceive RVH ON " & vbNewLine &
+                    "		    RVD.ReceiveID=RVH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			RVD.ParentID=@ID " & vbNewLine &
+                    "			AND RVH.IsDeleted=0 " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	ReceiveAmountPPN=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(RVD.ReceiveAmountPPN),0) TotalPayment " & vbNewLine &
+                    "		FROM traReceiveDet RVD 	" & vbNewLine &
+                    "		INNER JOIN traReceive RVH ON " & vbNewLine &
+                    "		    RVD.ReceiveID=RVH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			RVD.ParentID=@ID " & vbNewLine &
+                    "			AND RVH.IsDeleted=0 " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	ReceiveAmountPPH=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(RVD.ReceiveAmountPPH),0) TotalPayment " & vbNewLine &
                     "		FROM traReceiveDet RVD 	" & vbNewLine &
                     "		INNER JOIN traReceive RVH ON " & vbNewLine &
                     "		    RVD.ReceiveID=RVH.ID 	" & vbNewLine &

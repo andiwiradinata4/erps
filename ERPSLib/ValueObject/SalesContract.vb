@@ -42,6 +42,10 @@
         Property BPLocationID As Integer
         Property BPLocationAddress As String
         Property IsUseSubItem As Boolean
+        Property DPAmountPPN As Decimal
+        Property DPAmountPPH As Decimal
+        Property ReceiveAmountPPN As Decimal
+        Property ReceiveAmountPPH As Decimal
         Property Detail As List(Of VO.SalesContractDet)
         Property DetailConfirmationOrder As List(Of VO.SalesContractDetConfirmationOrder)
         Property PaymentTerm As List(Of VO.SalesContractPaymentTerm)

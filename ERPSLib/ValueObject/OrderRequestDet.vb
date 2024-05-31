@@ -14,5 +14,9 @@
         Property RoundingWeight As Decimal
         Property OrderNumberSupplier As String
         Property UnitPriceHPP As Decimal
+        Property DPAmountPPN As Decimal
+        Property DPAmountPPH As Decimal
+        Property ReceivePPN As Decimal
+        Property ReceivePPH As Decimal
     End Class
 End Namespace

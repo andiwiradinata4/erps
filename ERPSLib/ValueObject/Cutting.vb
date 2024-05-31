@@ -27,6 +27,10 @@
         Property CoAIDofStock As Integer
         Property CoACodeofStock As String
         Property CoANameofStock As String
+        Property DPAmountPPN As Decimal
+        Property DPAmountPPH As Decimal
+        Property TotalPaymentPPN As Decimal
+        Property TotalPaymentPPH As Decimal
         Property Detail As List(Of VO.CuttingDet)
         Property DetailResult As List(Of VO.CuttingDetResult)
         Property Save As VO.Save.Action

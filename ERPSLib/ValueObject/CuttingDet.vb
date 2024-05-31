@@ -16,6 +16,10 @@
         Property OrderNumberSupplier As String
         Property RoundingWeight As Decimal
         Property LevelItem As Integer
+        Property DPAmountPPN As Decimal
+        Property DPAmountPPH As Decimal
+        Property ReceivePPN As Decimal
+        Property ReceivePPH As Decimal
         Property ParentID As String = ""
     End Class
 End Namespace
