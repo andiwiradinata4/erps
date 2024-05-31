@@ -358,12 +358,14 @@ Partial Class frmTraARAPDetVer4
         '
         'txtTotalPPH
         '
-        Me.txtTotalPPH.BackColor = System.Drawing.Color.White
+        Me.txtTotalPPH.BackColor = System.Drawing.Color.LightYellow
         Me.txtTotalPPH.DecimalPlaces = 2
+        Me.txtTotalPPH.Enabled = False
         Me.txtTotalPPH.Location = New System.Drawing.Point(578, 124)
         Me.txtTotalPPH.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPPH.Name = "txtTotalPPH"
+        Me.txtTotalPPH.ReadOnly = True
         Me.txtTotalPPH.Size = New System.Drawing.Size(249, 21)
         Me.txtTotalPPH.TabIndex = 16
         Me.txtTotalPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -440,12 +442,14 @@ Partial Class frmTraARAPDetVer4
         '
         'txtTotalPPN
         '
-        Me.txtTotalPPN.BackColor = System.Drawing.Color.White
+        Me.txtTotalPPN.BackColor = System.Drawing.Color.LightYellow
         Me.txtTotalPPN.DecimalPlaces = 2
+        Me.txtTotalPPN.Enabled = False
         Me.txtTotalPPN.Location = New System.Drawing.Point(578, 97)
         Me.txtTotalPPN.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalPPN.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPPN.Name = "txtTotalPPN"
+        Me.txtTotalPPN.ReadOnly = True
         Me.txtTotalPPN.Size = New System.Drawing.Size(249, 21)
         Me.txtTotalPPN.TabIndex = 15
         Me.txtTotalPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -610,7 +614,7 @@ Partial Class frmTraARAPDetVer4
         Me.tpDownPayment.Controls.Add(Me.grdDownPayment)
         Me.tpDownPayment.Location = New System.Drawing.Point(4, 25)
         Me.tpDownPayment.Name = "tpDownPayment"
-        Me.tpDownPayment.Size = New System.Drawing.Size(882, 226)
+        Me.tpDownPayment.Size = New System.Drawing.Size(876, 226)
         Me.tpDownPayment.TabIndex = 2
         Me.tpDownPayment.Text = "Panjar - F2"
         Me.tpDownPayment.UseVisualStyleBackColor = True
@@ -636,7 +640,7 @@ Partial Class frmTraARAPDetVer4
         Me.grdDownPayment.MainView = Me.grdDownPaymentView
         Me.grdDownPayment.Name = "grdDownPayment"
         Me.grdDownPayment.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiDPAmount})
-        Me.grdDownPayment.Size = New System.Drawing.Size(882, 226)
+        Me.grdDownPayment.Size = New System.Drawing.Size(876, 226)
         Me.grdDownPayment.TabIndex = 14
         Me.grdDownPayment.UseEmbeddedNavigator = True
         Me.grdDownPayment.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdDownPaymentView})
@@ -662,7 +666,7 @@ Partial Class frmTraARAPDetVer4
         Me.tpHistory.Controls.Add(Me.grdStatus)
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
-        Me.tpHistory.Size = New System.Drawing.Size(882, 226)
+        Me.tpHistory.Size = New System.Drawing.Size(876, 226)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -687,7 +691,7 @@ Partial Class frmTraARAPDetVer4
         Me.grdStatus.Location = New System.Drawing.Point(0, 0)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(882, 226)
+        Me.grdStatus.Size = New System.Drawing.Size(876, 226)
         Me.grdStatus.TabIndex = 14
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})

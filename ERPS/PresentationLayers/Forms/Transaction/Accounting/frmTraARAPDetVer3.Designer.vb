@@ -248,12 +248,14 @@ Partial Class frmTraARAPDetVer3
         '
         'txtTotalPPH
         '
-        Me.txtTotalPPH.BackColor = System.Drawing.Color.White
+        Me.txtTotalPPH.BackColor = System.Drawing.Color.LightYellow
         Me.txtTotalPPH.DecimalPlaces = 2
+        Me.txtTotalPPH.Enabled = False
         Me.txtTotalPPH.Location = New System.Drawing.Point(588, 97)
         Me.txtTotalPPH.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPPH.Name = "txtTotalPPH"
+        Me.txtTotalPPH.ReadOnly = True
         Me.txtTotalPPH.Size = New System.Drawing.Size(249, 21)
         Me.txtTotalPPH.TabIndex = 13
         Me.txtTotalPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -272,12 +274,14 @@ Partial Class frmTraARAPDetVer3
         '
         'txtTotalPPN
         '
-        Me.txtTotalPPN.BackColor = System.Drawing.Color.White
+        Me.txtTotalPPN.BackColor = System.Drawing.Color.LightYellow
         Me.txtTotalPPN.DecimalPlaces = 2
+        Me.txtTotalPPN.Enabled = False
         Me.txtTotalPPN.Location = New System.Drawing.Point(588, 70)
         Me.txtTotalPPN.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalPPN.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPPN.Name = "txtTotalPPN"
+        Me.txtTotalPPN.ReadOnly = True
         Me.txtTotalPPN.Size = New System.Drawing.Size(249, 21)
         Me.txtTotalPPN.TabIndex = 12
         Me.txtTotalPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
