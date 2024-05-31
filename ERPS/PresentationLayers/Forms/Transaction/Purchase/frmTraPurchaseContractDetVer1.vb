@@ -126,8 +126,8 @@ Public Class frmTraPurchaseContractDetVer1
                 txtBPCode.Text = clsData.BPCode
                 txtBPName.Text = clsData.BPName
                 dtpPCDate.Value = clsData.PCDate
-                dtpDeliveryPeriodFrom.Value = clsData.DeliveryPeriodFrom
-                dtpDeliveryPeriodTo.Value = clsData.DeliveryPeriodTo
+                dtpDeliveryPeriodFrom.EditValue = clsData.DeliveryPeriodFrom
+                dtpDeliveryPeriodTo.EditValue = clsData.DeliveryPeriodTo
                 txtFranco.Text = clsData.Franco
                 txtAllowanceProduction.Text = clsData.AllowanceProduction
                 txtPPN.Value = clsData.PPN
@@ -140,8 +140,6 @@ Public Class frmTraPurchaseContractDetVer1
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
-
-                'dtpPCDate.Enabled = False
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
             End If
         Catch ex As Exception
@@ -177,7 +175,7 @@ Public Class frmTraPurchaseContractDetVer1
             tcHeader.SelectedTab = tpMain
             txtAllowanceProduction.Focus()
             Exit Sub
-        ElseIf Format(dtpDeliveryPeriodFrom.Value, "yyyyMM") > Format(dtpDeliveryPeriodTo.Value, "yyyyMM") Then
+        ElseIf dtpDeliveryPeriodFrom.EditValue > dtpDeliveryPeriodTo.EditValue Then
             UI.usForm.frmMessageBox("Periode pengiriman tidak valid")
             tcHeader.SelectedTab = tpMain
             dtpDeliveryPeriodFrom.Focus()
@@ -256,8 +254,8 @@ Public Class frmTraPurchaseContractDetVer1
             .PCNumber = txtPCNumber.Text.Trim,
             .PCDate = dtpPCDate.Value.Date,
             .BPID = intBPID,
-            .DeliveryPeriodFrom = dtpDeliveryPeriodFrom.Value.Date,
-            .DeliveryPeriodTo = dtpDeliveryPeriodTo.Value.Date,
+            .DeliveryPeriodFrom = dtpDeliveryPeriodFrom.EditValue,
+            .DeliveryPeriodTo = dtpDeliveryPeriodTo.EditValue,
             .Franco = txtFranco.Text.Trim,
             .AllowanceProduction = txtAllowanceProduction.Value,
             .PPN = txtPPN.Value,
@@ -282,7 +280,6 @@ Public Class frmTraPurchaseContractDetVer1
             Dim strPCNumber As String = BL.PurchaseContract.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strPCNumber)
             pgMain.Value = 80
-
             frmParent.pubRefresh(strPCNumber)
             If pubIsNew Then
                 prvClear()
@@ -310,8 +307,8 @@ Public Class frmTraPurchaseContractDetVer1
         txtBPCode.Text = ""
         txtBPName.Text = ""
         dtpPCDate.Value = Now
-        dtpDeliveryPeriodFrom.Value = Now
-        dtpDeliveryPeriodTo.Value = Now
+        dtpDeliveryPeriodFrom.EditValue = New DateTime(Now.Year, Now.Month, 1)
+        dtpDeliveryPeriodTo.EditValue = New DateTime(Now.Year, Now.Month, 1)
         txtAllowanceProduction.Value = 0
         txtFranco.Text = ""
         txtPPN.Value = 0

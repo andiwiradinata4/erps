@@ -105,8 +105,8 @@ Public Class frmTraConfirmationOrderDet
                 txtBPCode.Text = clsData.BPCode
                 txtBPName.Text = clsData.BPName
                 dtpCODate.Value = clsData.CODate
-                dtpDeliveryPeriodFrom.Value = clsData.DeliveryPeriodFrom
-                dtpDeliveryPeriodTo.Value = clsData.DeliveryPeriodTo
+                dtpDeliveryPeriodFrom.EditValue = clsData.DeliveryPeriodFrom
+                dtpDeliveryPeriodTo.EditValue = clsData.DeliveryPeriodTo
                 txtAllowanceProduction.Value = clsData.AllowanceProduction
                 txtPPN.Value = clsData.PPN
                 txtPPH.Value = clsData.PPH
@@ -121,8 +121,6 @@ Public Class frmTraConfirmationOrderDet
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
-
-                'dtpCODate.Enabled = False
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
             End If
         Catch ex As Exception
@@ -148,7 +146,7 @@ Public Class frmTraConfirmationOrderDet
             tcHeader.SelectedTab = tpMain
             cboStatus.Focus()
             Exit Sub
-        ElseIf Format(dtpDeliveryPeriodFrom.Value, "yyyyMM") > Format(dtpDeliveryPeriodTo.Value, "yyyyMM") Then
+        ElseIf dtpDeliveryPeriodFrom.EditValue > dtpDeliveryPeriodTo.EditValue Then
             UI.usForm.frmMessageBox("Periode pengiriman tidak valid")
             tcHeader.SelectedTab = tpMain
             dtpDeliveryPeriodFrom.Focus()
@@ -212,8 +210,8 @@ Public Class frmTraConfirmationOrderDet
         clsData.CODate = dtpCODate.Value.Date
         clsData.BPID = intBPID
         clsData.AllowanceProduction = txtAllowanceProduction.Value
-        clsData.DeliveryPeriodFrom = dtpDeliveryPeriodFrom.Value.Date
-        clsData.DeliveryPeriodTo = dtpDeliveryPeriodTo.Value.Date
+        clsData.DeliveryPeriodFrom = dtpDeliveryPeriodFrom.EditValue
+        clsData.DeliveryPeriodTo = dtpDeliveryPeriodTo.EditValue
         clsData.PPN = txtPPN.Value
         clsData.PPH = txtPPH.Value
         clsData.TotalQuantity = grdItemView.Columns("Quantity").SummaryItem.SummaryValue
@@ -230,8 +228,6 @@ Public Class frmTraConfirmationOrderDet
         clsData.Save = intSave
 
         pgMain.Value = 60
-
-
         Try
             Dim strCONumber As String = BL.ConfirmationOrder.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strCONumber)
@@ -265,8 +261,8 @@ Public Class frmTraConfirmationOrderDet
         txtBPName.Text = ""
         dtpCODate.Value = Now
         txtAllowanceProduction.Value = 0
-        dtpDeliveryPeriodFrom.Value = Now
-        dtpDeliveryPeriodTo.Value = Now
+        dtpDeliveryPeriodFrom.EditValue = New DateTime(Now.Year, Now.Month, 1)
+        dtpDeliveryPeriodTo.EditValue = New DateTime(Now.Year, Now.Month, 1)
         txtPPN.Value = 0
         txtPPH.Value = 0
         txtTotalDPP.Value = 0

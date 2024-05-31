@@ -93,8 +93,8 @@ Public Class frmTraPurchaseOrderDet
                 txtBPName.Text = clsData.BPName
                 dtpPODate.Value = clsData.PODate
                 txtPersonInCharge.Text = clsData.PersonInCharge
-                dtpDeliveryPeriodFrom.Value = clsData.DeliveryPeriodFrom
-                dtpDeliveryPeriodTo.Value = clsData.DeliveryPeriodTo
+                dtpDeliveryPeriodFrom.EditValue = clsData.DeliveryPeriodFrom
+                dtpDeliveryPeriodTo.EditValue = clsData.DeliveryPeriodTo
                 txtDeliveryAddress.Text = clsData.DeliveryAddress
                 txtValidity.Text = clsData.Validity
                 txtPPN.Value = clsData.PPN
@@ -139,7 +139,7 @@ Public Class frmTraPurchaseOrderDet
             tcHeader.SelectedTab = tpMain
             txtPersonInCharge.Focus()
             Exit Sub
-        ElseIf Format(dtpDeliveryPeriodFrom.Value, "yyyyMM") > Format(dtpDeliveryPeriodTo.Value, "yyyyMM") Then
+        ElseIf dtpDeliveryPeriodFrom.EditValue > dtpDeliveryPeriodTo.EditValue Then
             UI.usForm.frmMessageBox("Periode pengiriman tidak valid")
             tcHeader.SelectedTab = tpMain
             dtpDeliveryPeriodFrom.Focus()
@@ -198,8 +198,8 @@ Public Class frmTraPurchaseOrderDet
         clsData.PODate = dtpPODate.Value.Date
         clsData.BPID = intBPID
         clsData.PersonInCharge = txtPersonInCharge.Text.Trim
-        clsData.DeliveryPeriodFrom = dtpDeliveryPeriodFrom.Value.Date
-        clsData.DeliveryPeriodTo = dtpDeliveryPeriodTo.Value.Date
+        clsData.DeliveryPeriodFrom = dtpDeliveryPeriodFrom.EditValue
+        clsData.DeliveryPeriodTo = dtpDeliveryPeriodTo.EditValue
         clsData.DeliveryAddress = txtDeliveryAddress.Text.Trim.ToUpper
         clsData.Validity = txtValidity.Text.Trim
         clsData.PPN = txtPPN.Value
@@ -219,12 +219,10 @@ Public Class frmTraPurchaseOrderDet
 
         pgMain.Value = 60
 
-
         Try
             Dim strPONumber As String = BL.PurchaseOrder.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strPONumber)
             pgMain.Value = 80
-
             frmParent.pubRefresh(strPONumber)
             If pubIsNew Then
                 prvClear()
@@ -252,8 +250,8 @@ Public Class frmTraPurchaseOrderDet
         txtBPName.Text = ""
         dtpPODate.Value = Now
         txtPersonInCharge.Text = ""
-        dtpDeliveryPeriodFrom.Value = Now
-        dtpDeliveryPeriodTo.Value = Now
+        dtpDeliveryPeriodFrom.EditValue = New DateTime(Now.Year, Now.Month, 1)
+        dtpDeliveryPeriodTo.EditValue = New DateTime(Now.Year, Now.Month, 1)
         txtDeliveryAddress.Text = ""
         txtValidity.Text = ""
         txtPPN.Value = 0

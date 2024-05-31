@@ -801,9 +801,6 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\aa\ERPS.resources.dll
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.pdb
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbproj.AssemblyReference.cache
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbproj.CoreCompileInputs.cache
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbproj.Up2Date
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestOutstandingItemVer1.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderOutstandingSalesContractVer1.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderOutstandingSalesContractVer1.resources
@@ -821,3 +818,4 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderOutstandingSales
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestOutstandingDelivery.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestOutstandingDeliveryItemVer01.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCOSubVer1.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbprojResolveAssemblyReference.cache
