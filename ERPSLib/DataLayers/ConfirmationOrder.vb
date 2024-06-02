@@ -458,6 +458,56 @@
             End Try
         End Sub
 
+        Public Shared Sub Done(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                 ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traConfirmationOrder SET " & vbNewLine &
+                    "    StatusID=@StatusID, " & vbNewLine &
+                    "    DoneBy=@LogBy, " & vbNewLine &
+                    "    DoneDate=GETDATE() " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Done
+                .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = ERPSLib.UI.usUserApp.UserID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub Undone(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                 ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traConfirmationOrder SET " & vbNewLine &
+                    "    StatusID=@StatusID, " & vbNewLine &
+                    "    DoneBy='' " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail"
@@ -574,7 +624,8 @@
                     "	AND COH.StatusID=@StatusID 	" & vbNewLine &
                     "	AND COD.TotalWeight+COD.RoundingWeight-COD.SCWeight>0	" & vbNewLine &
                     "	AND COD.PCWeight>0	" & vbNewLine &
-                    "	AND COD.ParentID=@ParentID " & vbNewLine
+                    "	AND COD.ParentID=@ParentID " & vbNewLine &
+                    "	AND COH.DoneBy='' " & vbNewLine
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID

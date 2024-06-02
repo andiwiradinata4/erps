@@ -174,8 +174,8 @@ Public Class frmTraSalesContractDetVer1
                 txtBPCode.Text = clsData.BPCode
                 txtBPName.Text = clsData.BPName
                 dtpSCDate.Value = clsData.SCDate
-                dtpDeliveryPeriodFrom.Value = clsData.DeliveryPeriodFrom
-                dtpDeliveryPeriodTo.Value = clsData.DeliveryPeriodTo
+                dtpDeliveryPeriodFrom.EditValue = clsData.DeliveryPeriodFrom
+                dtpDeliveryPeriodTo.EditValue = clsData.DeliveryPeriodTo
                 txtFranco.Text = clsData.Franco
                 txtAllowanceProduction.Text = clsData.AllowanceProduction
                 txtPPN.Value = clsData.PPN
@@ -235,7 +235,7 @@ Public Class frmTraSalesContractDetVer1
             tcHeader.SelectedTab = tpMain
             txtAllowanceProduction.Focus()
             Exit Sub
-        ElseIf Format(dtpDeliveryPeriodFrom.Value, "yyyyMM") > Format(dtpDeliveryPeriodTo.Value, "yyyyMM") Then
+        ElseIf dtpDeliveryPeriodFrom.EditValue > dtpDeliveryPeriodTo.EditValue Then
             UI.usForm.frmMessageBox("Periode pengiriman tidak valid")
             tcHeader.SelectedTab = tpMain
             dtpDeliveryPeriodFrom.Focus()
@@ -393,8 +393,8 @@ Public Class frmTraSalesContractDetVer1
         clsData.SCNumber = txtSCNumber.Text.Trim
         clsData.SCDate = dtpSCDate.Value.Date
         clsData.BPID = intBPID
-        clsData.DeliveryPeriodFrom = dtpDeliveryPeriodFrom.Value.Date
-        clsData.DeliveryPeriodTo = dtpDeliveryPeriodTo.Value.Date
+        clsData.DeliveryPeriodFrom = dtpDeliveryPeriodFrom.EditValue
+        clsData.DeliveryPeriodTo = dtpDeliveryPeriodTo.EditValue
         clsData.Franco = txtFranco.Text.Trim
         clsData.AllowanceProduction = txtAllowanceProduction.Value
         clsData.PPN = txtPPN.Value
@@ -454,8 +454,8 @@ Public Class frmTraSalesContractDetVer1
         txtBPCode.Text = ""
         txtBPName.Text = ""
         dtpSCDate.Value = Now
-        dtpDeliveryPeriodFrom.Value = Now
-        dtpDeliveryPeriodTo.Value = Now
+        dtpDeliveryPeriodFrom.EditValue = New DateTime(Now.Year, Now.Month, 1)
+        dtpDeliveryPeriodTo.EditValue = New DateTime(Now.Year, Now.Month, 1)
         txtAllowanceProduction.Value = 0
         txtFranco.Text = ""
         txtPPN.Value = 0

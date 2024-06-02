@@ -10,9 +10,9 @@ Public Class frmTraConfirmationOrder
 
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
-       cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cSep2 As Byte = 6, cPrint As Byte = 7,
-       cExportExcel As Byte = 8, cSep3 As Byte = 9, cRefresh As Byte = 10,
-       cClose As Byte = 11
+       cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cSep2 As Byte = 6, cDone As Byte = 7,
+       cCancelDone As Byte = 8, cSep3 As Byte = 9, cPrint As Byte = 10, cExportExcel As Byte = 11,
+       cSep4 As Byte = 12, cRefresh As Byte = 13, cClose As Byte = 14
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -62,6 +62,8 @@ Public Class frmTraConfirmationOrder
             .Item(cDelete).Enabled = bolEnable
             .Item(cSubmit).Enabled = bolEnable
             .Item(cCancelSubmit).Enabled = bolEnable
+            .Item(cDone).Enabled = bolEnable
+            .Item(cCancelDone).Enabled = bolEnable
             .Item(cPrint).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
         End With
@@ -298,6 +300,69 @@ Public Class frmTraConfirmationOrder
         End Try
     End Sub
 
+    Private Sub prvDone()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+        If Not UI.usForm.frmAskQuestion("Submit Nomor " & clsData.CONumber & "?") Then Exit Sub
+
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+
+        Try
+            BL.ConfirmationOrder.Done(clsData.ID, "")
+            pgMain.Value = 100
+
+            UI.usForm.frmMessageBox("Proses selesai berhasil.")
+            pubRefresh(grdView.GetRowCellValue(intPos, "CONumber"))
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+    Private Sub prvCancelDone()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+        If Not UI.usForm.frmAskQuestion("Batal Selesai Nomor " & clsData.CONumber & "?") Then Exit Sub
+
+        Dim frmDetail As New usFormRemarks
+        With frmDetail
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsSave Then
+                clsData.Remarks = .pubValue
+            Else
+                Exit Sub
+            End If
+        End With
+
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+
+        Try
+            BL.ConfirmationOrder.Undone(clsData.ID, clsData.Remarks)
+            pgMain.Value = 100
+
+            UI.usForm.frmMessageBox("Batal selesai data berhasil.")
+            pubRefresh(grdView.GetRowCellValue(intPos, "CONumber"))
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+
+            prvResetProgressBar()
+        End Try
+    End Sub
+
     Private Sub prvExportExcel()
         Dim dxExporter As New DX.usDXHelper
         dxExporter.DevExport(Me, grdMain, Me.Text, Me.Text, DX.usDxExportFormat.fXls, True, True, DX.usDXExportType.etDefault)
@@ -406,6 +471,8 @@ Public Class frmTraConfirmationOrder
                 Case ToolBar.Buttons(cDelete).Name : prvDelete()
                 Case ToolBar.Buttons(cSubmit).Name : prvSubmit()
                 Case ToolBar.Buttons(cCancelSubmit).Name : prvCancelSubmit()
+                Case ToolBar.Buttons(cDone).Name : prvDone()
+                Case ToolBar.Buttons(cCancelDone).Name : prvCancelDone()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If

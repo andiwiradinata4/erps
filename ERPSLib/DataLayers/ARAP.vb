@@ -314,7 +314,7 @@
 "GROUP BY     " & vbNewLine &
 "	ARH.ID, ARH.ProgramID, MP.Name, ARH.CompanyID, MC.Name, MC.Address, MC.Warehouse, ARH.ARNumber, ARH.ARDate, ARH.BPID, C.Code, C.Name, C.Address, ARH.ReferencesID, ARH.ReferencesNote, " & vbNewLine &
 "	ORH.PPN, ORH.PPH, C.PICName, MBC1.AccountName, MBC1.BankName, MBC1.AccountNumber, MBC2.AccountName, MBC2.BankName, MBC2.AccountNumber, ARH.StatusID, MIS.Description, ARI.OrderNumberSupplier, " & vbNewLine &
-"	MI.Thick, MI.Width, MI.Length, ORD.Weight, ORD.Quantity, ORD.TotalWeight, ORD.UnitPrice, ORD.TotalPrice, ARH.TotalAmount, ARH.TotalPPN, ARH.TotalPPN, ARH.Percentage, ARH.Modules, ARH.CreatedDate, ARH.TaxInvoiceNumber, C.NPWP, ORH.ReferencesNumber" & vbNewLine
+"	MI.Thick, MI.Width, MI.Length, ORD.Weight, ORD.Quantity, ORD.TotalWeight, ORD.UnitPrice, ORD.TotalPrice, ARH.TotalAmount, ARH.TotalPPN, ARH.TotalPPH, ARH.Percentage, ARH.Modules, ARH.CreatedDate, ARH.TaxInvoiceNumber, C.NPWP, ORH.ReferencesNumber" & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
@@ -334,7 +334,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT " & vbNewLine &
-                    "	ARD.Amount, ARH.Modules, ARH.Percentage, ARH.ARDate, ARH.CreatedDate  " & vbNewLine &
+                    "	ARD.Amount+ARD.PPN-ARD.PPH AS Amount, ARH.Modules, ARH.Percentage, ARH.ARDate, ARH.CreatedDate  " & vbNewLine &
                     "FROM traAccountReceivable ARH " & vbNewLine &
                     "INNER JOIN traAccountReceivableDet ARD ON " & vbNewLine &
                     "	ARH.ID=ARD.ARID " & vbNewLine &
