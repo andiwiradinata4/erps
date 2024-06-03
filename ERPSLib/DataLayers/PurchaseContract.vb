@@ -1069,30 +1069,32 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = <a>
-SELECT  
-    PCD.ID, PCD.PCID, PCH.PCNumber, PCD.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  
-    C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  
-    PCD.Quantity-PCD.CuttingQuantity AS Quantity, PCD.Weight, PCD.TotalWeight-PCD.CuttingWeight AS TotalWeight, PCD.UnitPrice, 
-    PCD.TotalPrice, COD.OrderNumberSupplier, PCD.RoundingWeight
-FROM traPurchaseContractDet PCD  
-INNER JOIN traConfirmationOrderDet COD ON  
-    PCD.CODetailID=COD.ID  
-INNER JOIN traPurchaseContract PCH ON  
-    PCD.PCID=PCH.ID  
-INNER JOIN mstItem B ON  
-    PCD.ItemID=B.ID  
-INNER JOIN mstItemSpecification C ON  
-    B.ItemSpecificationID=C.ID  
-INNER JOIN mstItemType D ON  
-    B.ItemTypeID=D.ID  
-WHERE  
-    PCH.IsDeleted=0 
-	AND PCH.ProgramID=@ProgramID 
-	AND PCH.CompanyID=@CompanyID 
-    AND PCH.StatusID=@StatusID  
-    AND PCD.TotalWeight+PCD.RoundingWeight-PCD.CuttingWeight>0
-</a>.Value
+                .CommandText =
+"SELECT  " & vbNewLine &
+"    PCD.ID, PCD.PCID, PCH.PCNumber, PCD.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  " & vbNewLine &
+"    C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  " & vbNewLine &
+"    PCD.Quantity-PCD.CuttingQuantity AS Quantity, PCD.Weight, PCD.TotalWeight-PCD.CuttingWeight AS TotalWeight, PCD.UnitPrice, " & vbNewLine &
+"    PCD.TotalPrice, COD.OrderNumberSupplier, PCD.RoundingWeight" & vbNewLine &
+"FROM traPurchaseContractDet PCD  " & vbNewLine &
+"INNER JOIN traConfirmationOrderDet COD ON  " & vbNewLine &
+"    PCD.CODetailID=COD.ID  " & vbNewLine &
+"INNER JOIN traConfirmationOrder COH ON  " & vbNewLine &
+"    COD.COID=COH.ID  " & vbNewLine &
+"INNER JOIN traPurchaseContract PCH ON  " & vbNewLine &
+"    PCD.PCID=PCH.ID  " & vbNewLine &
+"INNER JOIN mstItem B ON  " & vbNewLine &
+"    PCD.ItemID=B.ID  " & vbNewLine &
+"INNER JOIN mstItemSpecification C ON  " & vbNewLine &
+"    B.ItemSpecificationID=C.ID  " & vbNewLine &
+"INNER JOIN mstItemType D ON  " & vbNewLine &
+"    B.ItemTypeID=D.ID  " & vbNewLine &
+"WHERE  " & vbNewLine &
+"   PCH.IsDeleted=0 " & vbNewLine &
+"	AND PCH.ProgramID=@ProgramID " & vbNewLine &
+"	AND PCH.CompanyID=@CompanyID " & vbNewLine &
+"   AND PCH.StatusID=@StatusID  " & vbNewLine &
+"   AND PCD.TotalWeight+PCD.RoundingWeight-PCD.CuttingWeight>0 " & vbNewLine &
+"   AND COH.DoneBy=''" & vbNewLine
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
