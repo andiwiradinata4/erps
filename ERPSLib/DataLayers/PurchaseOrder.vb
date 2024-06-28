@@ -573,7 +573,20 @@
                     "SELECT " & vbNewLine &
                     "   A.ID, A.POID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
-                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A.Remarks, A.RoundingWeight " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A.Remarks, A.RoundingWeight, " & vbNewLine &
+                    "   CONumber=" & vbNewLine & _
+                    "	ISNULL(STUFF	 " & vbNewLine & _
+                    "        ( 	 " & vbNewLine & _
+                    "            ( 	 " & vbNewLine & _
+                    "				SELECT DISTINCT 	 " & vbNewLine & _
+                    "						';' + COH.CONumber  	 " & vbNewLine & _
+                    "				FROM traConfirmationOrderDet COD " & vbNewLine & _
+                    "				INNER JOIN traConfirmationOrder COH ON " & vbNewLine & _
+                    "					COD.COID=COH.ID " & vbNewLine & _
+                    "					AND COD.PODetailID=A.ID " & vbNewLine & _
+                    "                FOR XML PATH('') 	 " & vbNewLine & _
+                    "            ), 1,1,'' 	 " & vbNewLine & _
+                    "        ),'')" & vbNewLine & _
                     "FROM traPurchaseOrderDet A " & vbNewLine &
                     "INNER JOIN mstItem B ON " & vbNewLine &
                     "   A.ItemID=B.ID " & vbNewLine &
@@ -581,6 +594,10 @@
                     "   B.ItemSpecificationID=C.ID " & vbNewLine &
                     "INNER JOIN mstItemType D ON " & vbNewLine &
                     "   B.ItemTypeID=D.ID " & vbNewLine &
+                    "LEFT JOIN traConfirmationOrderDet COD ON " & vbNewLine &
+                    "   A.ID=COD.PODetailID " & vbNewLine &
+                    "LEFT JOIN traConfirmationOrder COH ON " & vbNewLine &
+                    "   COD.COID=COH.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   A.POID=@POID " & vbNewLine
 
