@@ -648,6 +648,14 @@ Public Class frmTraDeliveryDet
         prvCalculate()
     End Sub
 
+    Private Sub chkIsFreeTaxTransport_CheckedChanged(sender As Object, e As EventArgs) Handles chkIsFreePPNTransport.CheckedChanged,
+        chkIsFreePPHTransport.CheckedChanged
+        txtPPNTransport.Enabled = Not chkIsFreePPNTransport.Checked
+        If chkIsFreePPNTransport.Checked Then txtPPNTransport.Value = 0
+        txtPPHTransport.Enabled = Not chkIsFreePPHTransport.Checked
+        If chkIsFreePPHTransport.Checked Then txtPPHTransport.Value = 0
+    End Sub
+
 #End Region
 
 End Class
