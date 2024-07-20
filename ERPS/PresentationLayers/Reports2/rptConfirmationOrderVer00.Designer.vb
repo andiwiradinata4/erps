@@ -409,7 +409,7 @@ Partial Public Class rptConfirmationOrderVer00
         '
         'XrLabel32
         '
-        Me.XrLabel32.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CompanyDirectorName")})
+        Me.XrLabel32.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DelegationSeller")})
         Me.XrLabel32.Dpi = 100.0!
         Me.XrLabel32.Font = New System.Drawing.Font("Tahoma", 7.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle))
         Me.XrLabel32.LocationFloat = New DevExpress.Utils.PointFloat(507.0006!, 149.6726!)
@@ -435,6 +435,7 @@ Partial Public Class rptConfirmationOrderVer00
         '
         'XrLabel33
         '
+        Me.XrLabel33.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DelegationPositionSeller")})
         Me.XrLabel33.Dpi = 100.0!
         Me.XrLabel33.Font = New System.Drawing.Font("Tahoma", 7.0!, System.Drawing.FontStyle.Bold)
         Me.XrLabel33.LocationFloat = New DevExpress.Utils.PointFloat(507.0006!, 169.6726!)
@@ -443,7 +444,6 @@ Partial Public Class rptConfirmationOrderVer00
         Me.XrLabel33.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
         Me.XrLabel33.StylePriority.UseFont = False
         Me.XrLabel33.StylePriority.UseTextAlignment = False
-        Me.XrLabel33.Text = "DIRECTOR"
         Me.XrLabel33.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
         '
         'XrTableCell8
@@ -715,7 +715,7 @@ Partial Public Class rptConfirmationOrderVer00
         '
         'XrLabel12
         '
-        Me.XrLabel12.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BPPIC")})
+        Me.XrLabel12.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DelegationBuyer")})
         Me.XrLabel12.Dpi = 100.0!
         Me.XrLabel12.Font = New System.Drawing.Font("Tahoma", 7.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle))
         Me.XrLabel12.LocationFloat = New DevExpress.Utils.PointFloat(0.0006811959!, 149.6726!)
@@ -728,6 +728,7 @@ Partial Public Class rptConfirmationOrderVer00
         '
         'XrLabel13
         '
+        Me.XrLabel13.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DelegationPositionBuyer")})
         Me.XrLabel13.Dpi = 100.0!
         Me.XrLabel13.Font = New System.Drawing.Font("Tahoma", 7.0!, System.Drawing.FontStyle.Bold)
         Me.XrLabel13.LocationFloat = New DevExpress.Utils.PointFloat(0.0006811959!, 169.6726!)
@@ -736,7 +737,6 @@ Partial Public Class rptConfirmationOrderVer00
         Me.XrLabel13.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
         Me.XrLabel13.StylePriority.UseFont = False
         Me.XrLabel13.StylePriority.UseTextAlignment = False
-        Me.XrLabel13.Text = "DIRECTOR"
         Me.XrLabel13.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
         '
         'XrLabel14

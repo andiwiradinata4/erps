@@ -13,6 +13,13 @@
             Return ("SERVER [" & strServername & "]" & vbCrLf & strErrMessage)
         End Function
 
+        Public Shared Sub CheckingAppVersion(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim voAppVersion As VO.AppVersion = DL.AppVersion.GetDetail(sqlCon, sqlTrans)
+            If ERPSLib.UI.usUserApp.AppVersion.Trim <> voAppVersion.Version.Trim Then
+                Throw New Exception("Versi Program Anda tidak valid." & vbCrLf & "Pastikan Versi program Anda " & voAppVersion.Version.Trim & "." & vbCrLf & "Tutup dan masuk kembali program Anda untuk menggunakan versi terbaru")
+            End If
+        End Sub
+
 #Region "Using Shared Connection"
 
         <System.Diagnostics.DebuggerStepThrough()>
@@ -230,6 +237,8 @@ returnValue:
                 If (sqlCon Is Nothing) Then
                     GoTo returnValue
                 End If
+
+                CheckingAppVersion(sqlCon, sqlTran)
 
                 sqlCmd.CommandTimeout = 300
                 If (sqlParams IsNot Nothing) Then

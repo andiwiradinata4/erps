@@ -34,6 +34,7 @@
                 DevelopOnProgress_ID27(sqlCon, Nothing)
                 DevelopOnProgress_ID28(sqlCon, Nothing)
                 DevelopOnProgress_ID29(sqlCon, Nothing)
+                DevelopOnProgress_ID30(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -850,6 +851,20 @@
                 "ALTER TABLE traSalesContractDet ADD DPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesContractDet_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traSalesContractDet ADD ReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesContractDet_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traSalesContractDet ADD ReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesContractDet_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 30
+        Private Shared Sub DevelopOnProgress_ID30(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 30
+            clsData.Name = "Develop On Progress 30"
+            clsData.Scripts = "ALTER TABLE traSalesContractDetConfirmationOrder ADD LocationID [int] NOT NULL CONSTRAINT DF_traSalesContractDetConfirmationOrder_LocationID DEFAULT ((0)) " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

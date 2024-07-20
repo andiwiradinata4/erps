@@ -13,7 +13,6 @@ Public Class frmTraSalesContractDetVer1
     Private dtSubItemConfirmationOrder As New DataTable
     Private dtPaymentTerm As New DataTable
     Private intPos As Integer = 0
-    Private intBPLocationID As Integer = 0
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
@@ -96,6 +95,8 @@ Public Class frmTraSalesContractDetVer1
         UI.usForm.SetGrid(grdItemCOView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemCOView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemCOView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemCOView, "LocationID", "LocationID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemCOView, "DeliveryAddress", "Alamat Pengiriman", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemCOView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemCOView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
         grdItemCOView.Columns("GroupID").GroupIndex = 0
@@ -193,8 +194,6 @@ Public Class frmTraSalesContractDetVer1
                 txtDelegationSeller.Text = clsData.DelegationSeller
                 txtDelegationPositionSeller.Text = clsData.DelegationPositionSeller
                 cboStatus.SelectedValue = clsData.StatusID
-                intBPLocationID = clsData.BPLocationID
-                txtBPLocationAddress.Text = clsData.BPLocationAddress
                 txtRemarks.Text = clsData.Remarks
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
@@ -239,11 +238,6 @@ Public Class frmTraSalesContractDetVer1
             UI.usForm.frmMessageBox("Periode pengiriman tidak valid")
             tcHeader.SelectedTab = tpMain
             dtpDeliveryPeriodFrom.Focus()
-            Exit Sub
-        ElseIf intBPLocationID = 0 Or txtBPLocationAddress.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Alamat Pengiriman harus dipilih terlebih dahulu")
-            tcHeader.SelectedTab = tpMain
-            txtBPLocationAddress.Focus()
             Exit Sub
         ElseIf grdItemView.RowCount = 0 Then
             UI.usForm.frmMessageBox("Item kosong. Mohon untuk diinput item terlebih dahulu")
@@ -352,11 +346,18 @@ Public Class frmTraSalesContractDetVer1
                                     .TotalPrice = dr.Item("TotalPrice"),
                                     .Remarks = dr.Item("Remarks"),
                                     .LevelItem = dr.Item("LevelItem"),
-                                    .ParentID = dr.Item("ParentID")
+                                    .ParentID = dr.Item("ParentID"),
+                                    .LocationID = dr.Item("LocationID")
                                 })
         Next
 
         For Each dr As DataRow In dtSubItemConfirmationOrder.Rows
+            Dim drParentLocationID() As DataRow = dtItemConfirmationOrder.Select("ParentID='" & dr.Item("ParentID") & "'")
+            Dim intParentLocationID As Integer = 0
+            For Each drSelected As DataRow In drParentLocationID
+                intParentLocationID = drSelected.Item("LocationID")
+                Exit For
+            Next
             listDetailConfirmationOrder.Add(New ERPSLib.VO.SalesContractDetConfirmationOrder With
                                 {
                                     .ID = dr.Item("ID"),
@@ -370,7 +371,8 @@ Public Class frmTraSalesContractDetVer1
                                     .TotalPrice = dr.Item("TotalPrice"),
                                     .Remarks = dr.Item("Remarks"),
                                     .LevelItem = dr.Item("LevelItem"),
-                                    .ParentID = dr.Item("ParentID")
+                                    .ParentID = dr.Item("ParentID"),
+                                    .LocationID = intParentLocationID
                                 })
         Next
 
@@ -412,8 +414,6 @@ Public Class frmTraSalesContractDetVer1
         clsData.DelegationSeller = txtDelegationSeller.Text.Trim
         clsData.DelegationPositionSeller = txtDelegationPositionSeller.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
-        clsData.BPLocationID = intBPLocationID
-        clsData.BPLocationAddress = txtBPLocationAddress.Text.Trim
         clsData.IsUseSubItem = IIf(dtSubItemConfirmationOrder.Rows.Count > 0, True, False)
         clsData.Detail = listDetail
         clsData.DetailConfirmationOrder = listDetailConfirmationOrder
@@ -465,17 +465,15 @@ Public Class frmTraSalesContractDetVer1
         txtTotalPPH.Value = 0
         txtGrandTotal.Value = 0
         txtRemarks.Text = ""
-        intBPLocationID = 0
-        txtBPLocationAddress.Text = ""
         intCompanyBankAccountID = 0
         txtAccountName.Text = ""
         txtBankName.Text = ""
         txtAccountNumber.Text = ""
         txtCurrencyBank.Text = ""
         txtDelegationBuyer.Text = ""
-        txtDelegationPositionBuyer.Text = "DIRECTOR"
+        txtDelegationPositionBuyer.Text = "DIREKTUR"
         txtDelegationSeller.Text = ""
-        txtDelegationPositionSeller.Text = "DIRECTOR"
+        txtDelegationPositionSeller.Text = "DIREKTUR UTAMA"
         cboStatus.SelectedValue = VO.Status.Values.Draft
         ToolStripLogInc.Text = "Jumlah Edit : -"
         ToolStripLogBy.Text = "Dibuat Oleh : -"
@@ -492,12 +490,6 @@ Public Class frmTraSalesContractDetVer1
                 intBPID = .pubLUdtRow.Item("ID")
                 txtBPCode.Text = .pubLUdtRow.Item("Code")
                 txtBPName.Text = .pubLUdtRow.Item("Name")
-
-                Dim clsBPLocation As VO.BusinessPartnerLocation = BL.BusinessPartner.GetDetailLocation(intBPID, True)
-                If clsBPLocation.ID <> 0 Then
-                    intBPLocationID = clsBPLocation.ID
-                    txtBPLocationAddress.Text = clsBPLocation.Address
-                End If
             End If
         End With
     End Sub
@@ -514,20 +506,6 @@ Public Class frmTraSalesContractDetVer1
                 txtBankName.Text = .pubLUdtRow.Item("BankName")
                 txtAccountNumber.Text = .pubLUdtRow.Item("AccountNumber")
                 txtCurrencyBank.Text = .pubLUdtRow.Item("Currency")
-            End If
-        End With
-    End Sub
-
-    Private Sub prvChooseBPLocation()
-        Dim frmDetail As New frmMstBusinessPartnerLocation
-        With frmDetail
-            .pubIsLookUp = True
-            .pubBPID = intBPID
-            .StartPosition = FormStartPosition.CenterScreen
-            .ShowDialog()
-            If .pubIsLookUpGet Then
-                intBPLocationID = .pubLUdtRow.Item("ID")
-                txtBPLocationAddress.Text = .pubLUdtRow.Item("Address")
             End If
         End With
     End Sub
@@ -681,6 +659,7 @@ Public Class frmTraSalesContractDetVer1
             txtBPCode.Focus()
             Exit Sub
         End If
+
         Dim frmDetail As New frmTraSalesContractDetItemVer1
         With frmDetail
             .pubIsNew = True
@@ -693,6 +672,7 @@ Public Class frmTraSalesContractDetVer1
             .pubTableParentCOSubItem = dtSubItemConfirmationOrder
             .pubIsAutoSearch = True
             .pubLevelItem = 0
+            .pubBPID = intBPID
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -705,6 +685,7 @@ Public Class frmTraSalesContractDetVer1
     Private Sub prvEditItem()
         intPos = grdItemView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
+
         Dim frmDetail As New frmTraSalesContractDetItemVer1
         With frmDetail
             .pubIsNew = False
@@ -716,6 +697,7 @@ Public Class frmTraSalesContractDetVer1
             .pubTableParentCOSubItem = dtSubItemConfirmationOrder
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .pubLevelItem = 0
+            .pubBPID = intBPID
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -983,10 +965,6 @@ Public Class frmTraSalesContractDetVer1
             Case "Edit" : prvEditItem()
             Case "Hapus" : prvDeleteItem()
         End Select
-    End Sub
-
-    Private Sub btnBPLocation_Click(sender As Object, e As EventArgs) Handles btnBPLocation.Click
-        prvChooseBPLocation()
     End Sub
 
     Private Sub ToolBarPaymentTerm_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarPaymentTerm.ButtonClick

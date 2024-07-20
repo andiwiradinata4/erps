@@ -1062,6 +1062,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractOutstandingPOTransport.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractPrint.Designer.vb">
+      <DependentUpon>frmTraSalesContractPrint.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractPrint.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\View\frmViewCompany.designer.vb">
       <DependentUpon>frmViewCompany.vb</DependentUpon>
     </Compile>
@@ -1715,6 +1721,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractOutstandingPOTransport.resx">
       <DependentUpon>frmTraSalesContractOutstandingPOTransport.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractPrint.resx">
+      <DependentUpon>frmTraSalesContractPrint.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports1\frmReportPreview.resx">
       <DependentUpon>frmReportPreview.vb</DependentUpon>

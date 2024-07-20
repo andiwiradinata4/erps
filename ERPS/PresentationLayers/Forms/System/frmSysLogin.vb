@@ -35,15 +35,24 @@
         Dim strPassword As String = Encryption.Encrypt(txtPassword.Text.Trim)
         Dim dtUserValid As DataTable = BL.User.ListDataByUserIDAndPassword(txtUserID.Text.Trim, Encryption.Encrypt(txtPassword.Text.Trim))
         If dtUserValid.Rows.Count > 0 Then
+            Dim voAppVersion As VO.AppVersion = BL.AppVersion.GetDetail
+
             ERPSLib.UI.usUserApp.IsSuperUser = dtUserValid.Rows(0).Item("IsSuperUser")
             ERPSLib.UI.usUserApp.IsFirstCreated = dtUserValid.Rows(0).Item("IsFirstCreated")
             ERPSLib.UI.usUserApp.AccessList = BL.UserAccess.ListDataWithCompany(ERPSLib.UI.usUserApp.UserID, 0)
             ERPSLib.UI.usUserApp.ServerName = VO.DefaultServer.Server & "|" & VO.DefaultServer.Database
+            ERPSLib.UI.usUserApp.AppVersion = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion
 
             Me.Hide()
 
             '# Run Migration
             BL.Migration.Migrate()
+
+            '# Validate App Version
+            If ERPSLib.UI.usUserApp.AppVersion <> voAppVersion.Version.Trim Then
+                UI.usForm.frmMessageBox("Versi Program Anda tidak valid." & vbCrLf & "Pastikan Versi program Anda " & voAppVersion.Version.Trim & "." & vbCrLf & "Tutup dan masuk kembali program Anda untuk menggunakan versi terbaru")
+                Application.Exit()
+            End If
 
             If ERPSLib.UI.usUserApp.AccessList.Rows.Count = 1 Then
                 ERPSLib.UI.usUserApp.ProgramID = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("ProgramID")
@@ -112,5 +121,5 @@
     End Sub
 
 #End Region
-    
+
 End Class

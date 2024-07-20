@@ -125,6 +125,8 @@ Public Class frmTraSalesContractDetItemVer1
         UI.usForm.SetGrid(grdItemCOView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemCOView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemCOView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemCOView, "LocationID", "LocationID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemCOView, "DeliveryAddress", "Alamat Pengiriman", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemCOView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemCOView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
 
@@ -572,6 +574,7 @@ Public Class frmTraSalesContractDetItemVer1
             .pubTableParentAllSub = dtAllCOSub
             .pubCS = clsCS
             .pubIsAutoSearch = True
+            .pubBPID = intBPID
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButtonItemConfirmationOrder()
@@ -600,6 +603,7 @@ Public Class frmTraSalesContractDetItemVer1
             .pubTableParentAllSub = dtAllCOSub
             .pubCS = clsCS
             .pubDataRowSelected = grdItemCOView.GetDataRow(intPos)
+            .pubBPID = intBPID
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButtonItemConfirmationOrder()

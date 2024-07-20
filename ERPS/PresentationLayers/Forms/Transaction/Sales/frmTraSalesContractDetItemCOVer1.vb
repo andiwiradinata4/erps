@@ -18,6 +18,9 @@ Public Class frmTraSalesContractDetItemCOVer1
     Private clsCS As VO.CS
     Private intPos As Integer
     Private bolIsAutoSearch As Boolean
+    Private intBPID As Integer = 0
+    Private intLocationID As Integer = 0
+    Private strDeliveryAddress As String = ""
 
     Public WriteOnly Property pubIsNew As Boolean
         Set(value As Boolean)
@@ -70,6 +73,18 @@ Public Class frmTraSalesContractDetItemCOVer1
     Public WriteOnly Property pubIsAutoSearch As Boolean
         Set(value As Boolean)
             bolIsAutoSearch = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubBPID As Integer
+        Set(value As Integer)
+            intBPID = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubDeliveryAddress As String
+        Set(value As String)
+            strDeliveryAddress = value
         End Set
     End Property
 
@@ -155,6 +170,8 @@ Public Class frmTraSalesContractDetItemCOVer1
                 txtUnitPrice.Value = drSelected.Item("UnitPrice")
                 txtQuantity.Value = drSelected.Item("Quantity")
                 txtRemarks.Text = drSelected.Item("Remarks")
+                intLocationID = drSelected.Item("LocationID")
+                txtBPLocationAddress.Text = drSelected.Item("DeliveryAddress")
             End If
 
             dtSubItem = dtParentSub.Clone
@@ -202,6 +219,10 @@ Public Class frmTraSalesContractDetItemCOVer1
             UI.usForm.frmMessageBox("Berat harus lebih besar dari 0")
             txtWeight.Focus()
             Exit Sub
+        ElseIf intLocationID = 0 Or txtBPLocationAddress.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih alamat pengiriman terlebih dahulu")
+            txtBPLocationAddress.Focus()
+            Exit Sub
         End If
 
         If bolIsNew Then
@@ -233,6 +254,8 @@ Public Class frmTraSalesContractDetItemCOVer1
                 .Item("Remarks") = txtRemarks.Text.Trim
                 .Item("LevelItem") = 0
                 .Item("ParentID") = ""
+                .Item("LocationID") = intLocationID
+                .Item("DeliveryAddress") = txtBPLocationAddress.Text.Trim
                 dr.EndEdit()
                 dtParent.Rows.Add(dr)
                 prvClear()
@@ -264,6 +287,8 @@ Public Class frmTraSalesContractDetItemCOVer1
                         .Item("Remarks") = txtRemarks.Text.Trim
                         .Item("LevelItem") = 0
                         .Item("ParentID") = ""
+                        .Item("LocationID") = intLocationID
+                        .Item("DeliveryAddress") = txtBPLocationAddress.Text.Trim
                         .EndEdit()
                         Exit For
                     End If
@@ -353,6 +378,7 @@ Public Class frmTraSalesContractDetItemCOVer1
     End Sub
 
     Private Sub prvClear()
+        Dim clsBPLocation As VO.BusinessPartnerLocation = BL.BusinessPartner.GetDetailLocation(intBPID, True)
         strCODetailID = ""
         txtCONumber.Text = ""
         txtOrderNumberSupplier.Text = ""
@@ -369,7 +395,23 @@ Public Class frmTraSalesContractDetItemCOVer1
         txtQuantity.Value = 0
         txtMaxTotalWeight.Value = 0
         txtRemarks.Text = ""
+        intLocationID = clsBPLocation.ID
+        txtBPLocationAddress.Text = clsBPLocation.Address
         txtItemCode.Focus()
+    End Sub
+
+    Private Sub prvChooseBPLocation()
+        Dim frmDetail As New frmMstBusinessPartnerLocation
+        With frmDetail
+            .pubIsLookUp = True
+            .pubBPID = intBPID
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intLocationID = .pubLUdtRow.Item("ID")
+                txtBPLocationAddress.Text = .pubLUdtRow.Item("Address")
+            End If
+        End With
     End Sub
 
 #Region "Sub Item"
@@ -476,6 +518,10 @@ Public Class frmTraSalesContractDetItemCOVer1
 
     Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtUnitPrice.ValueChanged, txtQuantity.ValueChanged, txtWeight.ValueChanged
         prvCalculate()
+    End Sub
+
+    Private Sub btnBPLocation_Click(sender As Object, e As EventArgs) Handles btnBPLocation.Click
+        prvChooseBPLocation()
     End Sub
 
 #End Region

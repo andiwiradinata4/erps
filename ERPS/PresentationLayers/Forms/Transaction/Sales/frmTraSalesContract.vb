@@ -470,12 +470,23 @@ Public Class frmTraSalesContract
     End Sub
 
     Private Sub prvPrint()
+        Dim enumPrintType As VO.SalesContract.PrintType = VO.SalesContract.PrintType.None
+        Using frmDetail As New frmTraSalesContractPrint
+            frmDetail.StartPosition = FormStartPosition.CenterParent
+            frmDetail.ShowDialog()
+            If frmDetail.pubType = VO.SalesContract.PrintType.None Then Exit Sub
+            enumPrintType = frmDetail.pubType
+        End Using
+        prvPrintSCCO()
+        prvPrintSC(enumPrintType)
+    End Sub
+
+    Private Sub prvPrintSC(ByVal enumPrintType As VO.SalesContract.PrintType)
         intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-
 
         Try
             Dim dtData As DataTable = BL.SalesContract.PrintVer00(intProgramID, intCompanyID, strID)
@@ -486,6 +497,7 @@ Public Class frmTraSalesContract
             Next
 
             Dim crReport As New rptSalesContractVer00
+            crReport.PaperKind = System.Drawing.Printing.PaperKind.Legal
 
             '# Setup Watermark Report
             If intStatusID <> VO.Status.Values.Approved Then
@@ -496,8 +508,8 @@ Public Class frmTraSalesContract
                 crReport.Watermark.TextTransparency = 150
             End If
 
-            Dim dtDataco As DataTable = BL.SalesContract.PrintSCCOVer00(intProgramID, intCompanyID, strID)
-
+            '# Report Section Handle
+            crReport.shTerm4SKBDN.Visible = IIf(enumPrintType = VO.SalesContract.PrintType.SKBDN, True, False)
             crReport.DataSource = dtData
             crReport.CreateDocument(True)
             crReport.ShowPreviewMarginLines = False
@@ -515,7 +527,6 @@ Public Class frmTraSalesContract
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-
             prvResetProgressBar()
         End Try
     End Sub
@@ -537,6 +548,7 @@ Public Class frmTraSalesContract
             Next
 
             Dim crReport As New rptConfirmationOrderVer00
+            crReport.PaperKind = System.Drawing.Printing.PaperKind.Legal
 
             '# Setup Watermark Report
             If intStatusID <> VO.Status.Values.Approved Then
@@ -701,7 +713,7 @@ Public Class frmTraSalesContract
                 Case ToolBar.Buttons(cReceive).Name : prvReceivePayment()
                 Case ToolBar.Buttons(cSetupDelivery).Name : prvSetupDelivery(True)
                 Case ToolBar.Buttons(cCancelSetupDelivery).Name : prvSetupDelivery(False)
-                Case ToolBar.Buttons(cPrint).Name : prvPrintSCCO() : prvPrint()
+                Case ToolBar.Buttons(cPrint).Name : prvPrint()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If

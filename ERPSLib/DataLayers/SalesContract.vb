@@ -21,7 +21,7 @@
                     "   A.DPAmount, A.ReceiveAmount, (A.TotalDPP+A.RoundingManual)-(A.DPAmount+A.ReceiveAmount) AS OutstandingPayment, " & vbNewLine &
                     "   A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine &
                     "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, " & vbNewLine &
-                    "   StatusInfo=B.Name, A.BPLocationID, BPL.Address AS BPLocationAddress, A.IsUseSubItem " & vbNewLine &
+                    "   StatusInfo=B.Name, A.BPLocationID, ISNULL(BPL.Address,'') AS BPLocationAddress, A.IsUseSubItem " & vbNewLine &
                     "FROM traSalesContract A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -31,7 +31,7 @@
                     "   A.CompanyID=MC.ID " & vbNewLine &
                     "INNER JOIN mstProgram MP ON " & vbNewLine &
                     "   A.ProgramID=MP.ID " & vbNewLine &
-                    "INNER JOIN mstBusinessPartnerLocation BPL ON " & vbNewLine &
+                    "LEFT JOIN mstBusinessPartnerLocation BPL ON " & vbNewLine &
                     "   A.BPLocationID=BPL.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   A.ProgramID=@ProgramID " & vbNewLine &
@@ -270,13 +270,13 @@
                         "   A.DelegationSeller, A.DelegationPositionSeller, A.DelegationBuyer, A.DelegationPositionBuyer, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, " & vbNewLine &
                         "   A.RoundingManual, A.IsDeleted, A.Remarks, A.JournalID, A.StatusID, A.CompanyBankAccountID, C.AccountName, C.BankName, C.AccountNumber, C.Currency AS CurrencyBank, A.SubmitBy, A.SubmitDate, " & vbNewLine &
                         "   A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.ReceiveAmount, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual, " & vbNewLine &
-                        "   A.BPLocationID, BPL.Address AS BPLocationAddress, A.IsUseSubItem " & vbNewLine &
+                        "   A.BPLocationID, ISNULL(BPL.Address,'') AS BPLocationAddress, A.IsUseSubItem " & vbNewLine &
                         "FROM traSalesContract A " & vbNewLine &
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
                         "   A.BPID=B.ID " & vbNewLine &
                         "INNER JOIN mstCompanyBankAccount C ON " & vbNewLine &
                         "   A.CompanyBankAccountID=C.ID " & vbNewLine &
-                        "INNER JOIN mstBusinessPartnerLocation BPL ON " & vbNewLine &
+                        "LEFT JOIN mstBusinessPartnerLocation BPL ON " & vbNewLine &
                         "   A.BPLocationID=BPL.ID " & vbNewLine &
                         "WHERE " & vbNewLine &
                         "   A.ID=@ID " & vbNewLine
@@ -1171,7 +1171,8 @@
                     "	MIS.Description AS ItemSpec, MI.Thick AS ItemThick, MI.Width AS ItemWidth, MI.Length AS ItemLength, MI.Weight, SCD.Quantity, " & vbNewLine &
                     "	SCD.TotalWeight AS TotalWeightItem, SCD.UnitPrice, SCD.TotalPrice, (SCD.TotalPrice*SCH.PPN/100) AS TotalPPNItem, SCD.TotalPrice + (SCD.TotalPrice*SCH.PPN/100) AS TotalPriceIncPPN, " & vbNewLine &
                     "	CAST('' AS VARCHAR(1000)) AS NumericToString, BP.PICName AS BPPIC, MC.DirectorName AS CompanyDirectorName, MBC.AccountName, MBC.BankName, MBC.AccountNumber, " & vbNewLine &
-                    "   SCH.TotalDPP + SCH.TotalPPN - SCH.TotalPPH + SCH.RoundingManual AS GrandTotal, SCH.PPN, SCH.StatusID " & vbNewLine &
+                    "   SCH.TotalDPP + SCH.TotalPPN - SCH.TotalPPH + SCH.RoundingManual AS GrandTotal, SCH.PPN, SCH.StatusID, SCH.DelegationSeller, SCH.DelegationPositionSeller, " & vbNewLine &
+                    "   SCH.DelegationBuyer, SCH.DelegationPositionBuyer " & vbNewLine &
                     "FROM traSalesContract SCH " & vbNewLine &
                     "INNER JOIN mstCompany MC ON " & vbNewLine &
                     "	SCH.CompanyID=MC.ID " & vbNewLine &
@@ -1193,7 +1194,7 @@
                     "INNER JOIN mstBusinessPartner BP ON	" & vbNewLine &
                     "	SCH.BPID=BP.ID " & vbNewLine &
                     "INNER JOIN mstBusinessPartnerLocation BPL ON	" & vbNewLine &
-                    "	SCH.BPLocationID=BPL.ID " & vbNewLine &
+                    "	SCDCO.LocationID=BPL.ID " & vbNewLine &
                     "WHERE 	" & vbNewLine &
                     "	SCH.ProgramID=@ProgramID " & vbNewLine &
                     "	AND SCH.CompanyID=@CompanyID " & vbNewLine &
@@ -1583,7 +1584,8 @@
                     "SELECT	" & vbNewLine &
                     "   A.ID, A.SCID, A.CODetailID, A3.ID AS CONumber, A1.OrderNumberSupplier, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, A.Quantity, A.Weight, " & vbNewLine &
-                    "   A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight, A.Remarks, A.RoundingWeight, A.LevelItem, A.ParentID " & vbNewLine &
+                    "   A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight, A.Remarks, A.RoundingWeight, A.LevelItem, A.ParentID, " & vbNewLine &
+                    "   A.LocationID, BPL.Address AS DeliveryAddress " & vbNewLine &
                     "FROM traSalesContractDetConfirmationOrder A  	" & vbNewLine &
                     "INNER JOIN traConfirmationOrderDet A1 ON  	" & vbNewLine &
                     "    A.CODetailID=A1.ID  	" & vbNewLine &
@@ -1595,6 +1597,8 @@
                     "    B.ItemSpecificationID=C.ID  	" & vbNewLine &
                     "INNER JOIN mstItemType D ON  	" & vbNewLine &
                     "    B.ItemTypeID=D.ID  	" & vbNewLine &
+                    "INNER JOIN mstBusinessPartnerLocation BPL ON	" & vbNewLine &
+                    "	A.LocationID=BPL.ID " & vbNewLine &
                     "WHERE  	" & vbNewLine &
                     "    A.SCID=@SCID	" & vbNewLine &
                     "    AND A.ParentID=@ParentID " & vbNewLine
@@ -1614,9 +1618,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traSalesContractDetConfirmationOrder " & vbNewLine &
-                    "   (ID, SCID, CODetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, RoundingWeight, LevelItem, ParentID) " & vbNewLine &
+                    "   (ID, SCID, CODetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, RoundingWeight, LevelItem, ParentID, LocationID) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @SCID, @CODetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @RoundingWeight, @LevelItem, @ParentID) " & vbNewLine
+                    "   (@ID, @SCID, @CODetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @RoundingWeight, @LevelItem, @ParentID, @LocationID) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = clsData.SCID
@@ -1632,6 +1636,7 @@
                 .Parameters.Add("@RoundingWeight", SqlDbType.Decimal).Value = clsData.RoundingWeight
                 .Parameters.Add("@LevelItem", SqlDbType.Int).Value = clsData.LevelItem
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
+                .Parameters.Add("@LocationID", SqlDbType.Int).Value = clsData.LocationID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

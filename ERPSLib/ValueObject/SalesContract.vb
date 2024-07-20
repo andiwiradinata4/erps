@@ -50,5 +50,11 @@
         Property DetailConfirmationOrder As List(Of VO.SalesContractDetConfirmationOrder)
         Property PaymentTerm As List(Of VO.SalesContractPaymentTerm)
         Property Save As VO.Save.Action
+
+        Public Enum PrintType
+            None
+            DefaultValue
+            SKBDN
+        End Enum
     End Class
 End Namespace

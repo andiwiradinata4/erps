@@ -15,5 +15,6 @@
         Property RoundingWeight As Decimal
         Property LevelItem As Integer
         Property ParentID As String = ""
+        Property LocationID As Integer
     End Class
 End Namespace

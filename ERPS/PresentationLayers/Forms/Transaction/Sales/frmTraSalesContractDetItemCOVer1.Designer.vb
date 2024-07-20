@@ -27,6 +27,9 @@ Partial Class frmTraSalesContractDetItemCOVer1
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.txtBPLocationAddress = New ERPS.usTextBox()
+        Me.btnBPLocation = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label18 = New System.Windows.Forms.Label()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.txtOrderNumberSupplier = New ERPS.usTextBox()
@@ -120,6 +123,9 @@ Partial Class frmTraSalesContractDetItemCOVer1
         '
         'pnlDetail
         '
+        Me.pnlDetail.Controls.Add(Me.txtBPLocationAddress)
+        Me.pnlDetail.Controls.Add(Me.btnBPLocation)
+        Me.pnlDetail.Controls.Add(Me.Label18)
         Me.pnlDetail.Controls.Add(Me.lblInfo)
         Me.pnlDetail.Controls.Add(Me.Label5)
         Me.pnlDetail.Controls.Add(Me.txtOrderNumberSupplier)
@@ -165,8 +171,39 @@ Partial Class frmTraSalesContractDetItemCOVer1
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlDetail.Location = New System.Drawing.Point(0, 28)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(667, 383)
+        Me.pnlDetail.Size = New System.Drawing.Size(667, 453)
         Me.pnlDetail.TabIndex = 1
+        '
+        'txtBPLocationAddress
+        '
+        Me.txtBPLocationAddress.BackColor = System.Drawing.Color.Azure
+        Me.txtBPLocationAddress.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtBPLocationAddress.Location = New System.Drawing.Point(166, 305)
+        Me.txtBPLocationAddress.MaxLength = 250
+        Me.txtBPLocationAddress.Multiline = True
+        Me.txtBPLocationAddress.Name = "txtBPLocationAddress"
+        Me.txtBPLocationAddress.ReadOnly = True
+        Me.txtBPLocationAddress.Size = New System.Drawing.Size(457, 48)
+        Me.txtBPLocationAddress.TabIndex = 192
+        '
+        'btnBPLocation
+        '
+        Me.btnBPLocation.Image = CType(resources.GetObject("btnBPLocation.Image"), System.Drawing.Image)
+        Me.btnBPLocation.Location = New System.Drawing.Point(627, 305)
+        Me.btnBPLocation.Name = "btnBPLocation"
+        Me.btnBPLocation.Size = New System.Drawing.Size(23, 23)
+        Me.btnBPLocation.TabIndex = 193
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.BackColor = System.Drawing.Color.Transparent
+        Me.Label18.ForeColor = System.Drawing.Color.Black
+        Me.Label18.Location = New System.Drawing.Point(27, 309)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(95, 13)
+        Me.Label18.TabIndex = 194
+        Me.Label18.Text = "Alamat Pengiriman"
         '
         'lblInfo
         '
@@ -389,7 +426,7 @@ Partial Class frmTraSalesContractDetItemCOVer1
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(27, 308)
+        Me.Label13.Location = New System.Drawing.Point(27, 362)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 170
@@ -399,7 +436,7 @@ Partial Class frmTraSalesContractDetItemCOVer1
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(166, 305)
+        Me.txtRemarks.Location = New System.Drawing.Point(166, 359)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
@@ -715,7 +752,7 @@ Partial Class frmTraSalesContractDetItemCOVer1
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItem.Size = New System.Drawing.Size(497, 335)
+        Me.grdItem.Size = New System.Drawing.Size(497, 405)
         Me.grdItem.TabIndex = 4
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView, Me.GridView1})
@@ -748,7 +785,7 @@ Partial Class frmTraSalesContractDetItemCOVer1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1164, 411)
+        Me.ClientSize = New System.Drawing.Size(1164, 481)
         Me.Controls.Add(Me.grdItem)
         Me.Controls.Add(Me.ToolBarSubItem)
         Me.Controls.Add(Me.Label11)
@@ -835,4 +872,7 @@ Partial Class frmTraSalesContractDetItemCOVer1
     Friend WithEvents grdItemView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents txtBPLocationAddress As ERPS.usTextBox
+    Friend WithEvents btnBPLocation As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label18 As System.Windows.Forms.Label
 End Class

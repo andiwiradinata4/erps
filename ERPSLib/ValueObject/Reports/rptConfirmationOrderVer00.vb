@@ -22,6 +22,10 @@
         Property CompanySubDistrict As String
         Property CompanyDirectorName As String
         Property NumericToString As String
+        Property DelegationSeller As String
+        Property DelegationPositionSeller As String
+        Property DelegationBuyer As String
+        Property DelegationPositionBuyer As String
 
         '# Items
         Property DeliveryAddress As String

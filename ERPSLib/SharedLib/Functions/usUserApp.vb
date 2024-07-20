@@ -15,6 +15,7 @@
         Public Shared IsFirstCreated As Boolean
         Public Shared JournalPost As VO.JournalPost
         Public Shared ServerName As String
+        Public Shared AppVersion As String
     End Class
 
 End Namespace
