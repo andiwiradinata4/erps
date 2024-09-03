@@ -156,7 +156,7 @@ Public Class frmTraConfirmationOrderDetVer1
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
 
                 'dtpCODate.Enabled = False
-                txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
+                txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value + txtTotalPPH.Value
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -422,7 +422,7 @@ Public Class frmTraConfirmationOrderDetVer1
         Next
         txtTotalPPN.Value = txtTotalDPP.Value * (txtPPN.Value / 100)
         txtTotalPPH.Value = txtTotalDPP.Value * (txtPPH.Value / 100)
-        txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
+        txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value + txtTotalPPH.Value
     End Sub
 
     Private Sub prvUserAccess()
