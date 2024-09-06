@@ -32,6 +32,9 @@ Partial Class frmTraOrderRequest
         Me.BarCancelSubmit = New System.Windows.Forms.ToolBarButton()
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
         Me.BarDownPayment = New System.Windows.Forms.ToolBarButton()
+        Me.BarReceive = New System.Windows.Forms.ToolBarButton()
+        Me.BarSetupDelivery = New System.Windows.Forms.ToolBarButton()
+        Me.BarCancelSetupDelivery = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
         Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
@@ -53,9 +56,8 @@ Partial Class frmTraOrderRequest
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.BarReceive = New System.Windows.Forms.ToolBarButton()
-        Me.BarSetupDelivery = New System.Windows.Forms.ToolBarButton()
-        Me.BarCancelSetupDelivery = New System.Windows.Forms.ToolBarButton()
+        Me.BarMapConfirmationOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep5 = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -65,7 +67,7 @@ Partial Class frmTraOrderRequest
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarSep2, Me.BarDownPayment, Me.BarReceive, Me.BarSetupDelivery, Me.BarCancelSetupDelivery, Me.BarSep3, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarSep2, Me.BarDownPayment, Me.BarReceive, Me.BarSetupDelivery, Me.BarCancelSetupDelivery, Me.BarSep3, Me.BarMapConfirmationOrder, Me.BarSep4, Me.BarExportExcel, Me.BarSep5, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -119,6 +121,24 @@ Partial Class frmTraOrderRequest
         Me.BarDownPayment.Name = "BarDownPayment"
         Me.BarDownPayment.Tag = "Alt"
         Me.BarDownPayment.Text = "Down Payment"
+        '
+        'BarReceive
+        '
+        Me.BarReceive.Name = "BarReceive"
+        Me.BarReceive.Tag = "Calculation"
+        Me.BarReceive.Text = "Pelunasan"
+        '
+        'BarSetupDelivery
+        '
+        Me.BarSetupDelivery.Name = "BarSetupDelivery"
+        Me.BarSetupDelivery.Tag = "Shipped"
+        Me.BarSetupDelivery.Text = "Set Pengiriman"
+        '
+        'BarCancelSetupDelivery
+        '
+        Me.BarCancelSetupDelivery.Name = "BarCancelSetupDelivery"
+        Me.BarCancelSetupDelivery.Tag = "Cancel"
+        Me.BarCancelSetupDelivery.Text = "Batal Set Pengiriman"
         '
         'BarSep3
         '
@@ -329,23 +349,16 @@ Partial Class frmTraOrderRequest
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
-        'BarReceive
+        'BarMapConfirmationOrder
         '
-        Me.BarReceive.Name = "BarReceive"
-        Me.BarReceive.Tag = "Calculation"
-        Me.BarReceive.Text = "Pelunasan"
+        Me.BarMapConfirmationOrder.Name = "BarMapConfirmationOrder"
+        Me.BarMapConfirmationOrder.Tag = "Misc"
+        Me.BarMapConfirmationOrder.Text = "Map Konfirmasi Pesanan"
         '
-        'BarSetupDelivery
+        'BarSep5
         '
-        Me.BarSetupDelivery.Name = "BarSetupDelivery"
-        Me.BarSetupDelivery.Tag = "Shipped"
-        Me.BarSetupDelivery.Text = "Set Pengiriman"
-        '
-        'BarCancelSetupDelivery
-        '
-        Me.BarCancelSetupDelivery.Name = "BarCancelSetupDelivery"
-        Me.BarCancelSetupDelivery.Tag = "Cancel"
-        Me.BarCancelSetupDelivery.Text = "Batal Set Pengiriman"
+        Me.BarSep5.Name = "BarSep5"
+        Me.BarSep5.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
         'frmTraOrderRequest
         '
@@ -402,4 +415,6 @@ Partial Class frmTraOrderRequest
     Friend WithEvents BarReceive As ToolBarButton
     Friend WithEvents BarSetupDelivery As ToolBarButton
     Friend WithEvents BarCancelSetupDelivery As ToolBarButton
+    Friend WithEvents BarMapConfirmationOrder As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarSep5 As System.Windows.Forms.ToolBarButton
 End Class

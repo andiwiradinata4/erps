@@ -22,7 +22,6 @@ Partial Class frmTraSalesContractDetItem
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraSalesContractDetItem))
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
@@ -408,7 +407,7 @@ Partial Class frmTraSalesContractDetItem
         '
         'btnRequestItem
         '
-        Me.btnRequestItem.Image = CType(resources.GetObject("btnRequestItem.Image"), System.Drawing.Image)
+        Me.btnRequestItem.ImageUri.Uri = "Zoom;Size16x16"
         Me.btnRequestItem.Location = New System.Drawing.Point(274, 15)
         Me.btnRequestItem.Name = "btnRequestItem"
         Me.btnRequestItem.Size = New System.Drawing.Size(23, 23)

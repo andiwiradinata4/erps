@@ -62,6 +62,7 @@
     <Reference Include="DevExpress.DataAccess.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>False</Private>
     </Reference>
+    <Reference Include="DevExpress.Images.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Office.v16.2.Core, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
@@ -966,6 +967,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDetItem.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestMapConfirmationOrder.Designer.vb">
+      <DependentUpon>frmTraOrderRequestMapConfirmationOrder.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestMapConfirmationOrder.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingDelivery.Designer.vb">
       <DependentUpon>frmTraOrderRequestOutstandingDelivery.vb</DependentUpon>
     </Compile>
@@ -1677,6 +1684,9 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDetItem.resx">
       <DependentUpon>frmTraOrderRequestDetItem.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestMapConfirmationOrder.resx">
+      <DependentUpon>frmTraOrderRequestMapConfirmationOrder.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingDelivery.resx">
       <DependentUpon>frmTraOrderRequestOutstandingDelivery.vb</DependentUpon>
     </EmbeddedResource>
@@ -1694,6 +1704,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDet.resx">
       <DependentUpon>frmTraSalesContractDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetItem.resx">
+      <DependentUpon>frmTraSalesContractDetItem.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetItemCO.resx">
       <DependentUpon>frmTraSalesContractDetItemCO.vb</DependentUpon>

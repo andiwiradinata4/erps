@@ -19,5 +19,7 @@
         Property LevelItem As Integer
         Property ParentID As String
         Property RoundingWeight As Decimal
+        Property ORQuantity As Decimal
+        Property ORWeight As Decimal
     End Class
 End Namespace

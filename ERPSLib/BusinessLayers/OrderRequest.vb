@@ -59,6 +59,7 @@
                     For Each clsDet As VO.OrderRequestDet In clsData.Detail
                         clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
                         clsDet.OrderRequestID = clsData.ID
+                        clsDet.GroupID = intCount
                         DL.OrderRequest.SaveDataDetail(sqlCon, sqlTrans, clsDet)
                         intCount += 1
 
@@ -216,6 +217,55 @@
                 End Try
             End Using
         End Sub
+
+        Public Shared Function MapConfirmationOrder(ByVal clsDataItemAll As List(Of VO.OrderRequestDet), ByVal clsDataItemCOAll As List(Of VO.OrderRequestDetConfirmationOrder)) As Boolean
+            BL.Server.ServerDefault()
+            Dim bolSuccess As Boolean = False
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    DL.OrderRequest.DeleteDataDetailCO(sqlCon, sqlTrans, clsDataItemAll.First.ID)
+
+                    '# Calculate OR Quantity in Confirmation Order Detail
+                    Dim dtItemCO As DataTable = DL.OrderRequest.ListDataDetailCO(sqlCon, sqlTrans, clsDataItemAll.First.ID)
+                    For Each dr As DataRow In dtItemCO.Rows
+                        DL.ConfirmationOrder.CalculateORTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
+                    Next
+
+                    Dim intStatusID As Integer = DL.OrderRequest.GetStatusID(sqlCon, sqlTrans, clsDataItemAll.First.ID)
+                    If intStatusID <> VO.Status.Values.Submit Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Submit data terlebih dahulu")
+                    ElseIf DL.OrderRequest.IsDeleted(sqlCon, sqlTrans, clsDataItemAll.First.ID) Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
+                    End If
+
+                    For Each cls As VO.OrderRequestDet In clsDataItemAll
+                        '# Update Unit Price HPP
+                        '# Update Order Number Supplier
+                    Next
+
+                    Dim intCount As Integer = 1
+                    For Each cls As VO.OrderRequestDetConfirmationOrder In clsDataItemCOAll
+                        cls.ID = clsDataItemAll.First.ID & "-" & Format(intCount, "000")
+                        cls.OrderRequestID = clsDataItemAll.First.ID
+                        DL.OrderRequest.SaveDataDetailCO(sqlCon, sqlTrans, cls)
+
+                        '# Calculate OR Quantity in Confirmation Order Detail
+                        DL.ConfirmationOrder.CalculateORTotalUsed(sqlCon, sqlTrans, cls.CODetailID)
+                    Next
+
+                    '# Save Data Status
+                    BL.OrderRequest.SaveDataStatus(sqlCon, sqlTrans, clsDataItemAll.First.ID, "MAP KONFIRMASI PESANAN", ERPSLib.UI.usUserApp.UserID, "")
+
+                    sqlTrans.Commit()
+                    bolSuccess = True
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolSuccess
+        End Function
 
 #End Region
 

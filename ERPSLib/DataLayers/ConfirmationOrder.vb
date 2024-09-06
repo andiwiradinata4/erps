@@ -774,7 +774,7 @@
                     "	PCQuantity=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(PCD.Quantity+PCD.RoundingWeight),0) TotalQuantity " & vbNewLine &
+                    "			ISNULL(SUM(PCD.Quantity),0) TotalQuantity " & vbNewLine &
                     "		FROM traPurchaseContractDet PCD 	" & vbNewLine &
                     "		INNER JOIN traPurchaseContract PCH ON	" & vbNewLine &
                     "			PCD.PCID=PCH.ID 	" & vbNewLine &
@@ -816,7 +816,7 @@
                     "	SCQuantity=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(SCD.Quantity+SCD.RoundingWeight),0) TotalQuantity " & vbNewLine &
+                    "			ISNULL(SUM(SCD.Quantity),0) TotalQuantity " & vbNewLine &
                     "		FROM traSalesContractDetConfirmationOrder SCD 	" & vbNewLine &
                     "		INNER JOIN traSalesContract SCH ON	" & vbNewLine &
                     "			SCD.SCID=SCH.ID 	" & vbNewLine &
@@ -824,6 +824,48 @@
                     "			SCD.CODetailID=@CODetailID 	" & vbNewLine &
                     "			AND SCH.IsDeleted=0 	" & vbNewLine &
                     "	) 	" & vbNewLine &
+                    "WHERE ID=@CODetailID	" & vbNewLine
+
+                .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateORTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal strCODetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traConfirmationOrderDet SET 	" & vbNewLine &
+                    "	ORWeight=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(ORD.TotalWeight+ORD.RoundingWeight),0) TotalWeight " & vbNewLine &
+                    "		FROM traOrderRequestDetConfirmationOrder ORD 	" & vbNewLine &
+                    "		INNER JOIN traOrderRequest ORH ON	" & vbNewLine &
+                    "			ORD.SCID=ORH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			ORD.CODetailID=@CODetailID 	" & vbNewLine &
+                    "			AND ORH.IsDeleted=0 	" & vbNewLine &
+                    "	), 	" & vbNewLine &
+                    "	ORQuantity=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(ORD.Quantity),0) TotalWeight " & vbNewLine &
+                    "		FROM traOrderRequestDetConfirmationOrder ORD 	" & vbNewLine &
+                    "		INNER JOIN traOrderRequest ORH ON	" & vbNewLine &
+                    "			ORD.SCID=ORH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			ORD.CODetailID=@CODetailID 	" & vbNewLine &
+                    "			AND ORH.IsDeleted=0 	" & vbNewLine &
+                    "	), 	" & vbNewLine &
                     "WHERE ID=@CODetailID	" & vbNewLine
 
                 .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID

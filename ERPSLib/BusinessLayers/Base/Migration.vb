@@ -35,6 +35,7 @@
                 DevelopOnProgress_ID28(sqlCon, Nothing)
                 DevelopOnProgress_ID29(sqlCon, Nothing)
                 DevelopOnProgress_ID30(sqlCon, Nothing)
+                DevelopOnProgress_ID31(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -865,6 +866,63 @@
             clsData.ID = 30
             clsData.Name = "Develop On Progress 30"
             clsData.Scripts = "ALTER TABLE traSalesContractDetConfirmationOrder ADD LocationID [int] NOT NULL CONSTRAINT DF_traSalesContractDetConfirmationOrder_LocationID DEFAULT ((0)) " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 31
+        Private Shared Sub DevelopOnProgress_ID31(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 31
+            clsData.Name = "Create Table traOrderRequestDetConfirmationOrder"
+            clsData.Scripts = _
+"GO" & vbNewLine & _
+"" & vbNewLine & _
+"/****** Object:  Table [dbo].[traOrderRequestDetConfirmationOrder]    Script Date: 9/5/2024 9:21:12 PM ******/" & vbNewLine & _
+"SET ANSI_NULLS ON" & vbNewLine & _
+"GO" & vbNewLine & _
+"" & vbNewLine & _
+"SET QUOTED_IDENTIFIER ON" & vbNewLine & _
+"GO" & vbNewLine & _
+"" & vbNewLine & _
+"SET ANSI_PADDING ON" & vbNewLine & _
+"GO" & vbNewLine & _
+"" & vbNewLine & _
+"CREATE TABLE [dbo].[traOrderRequestDetConfirmationOrder](" & vbNewLine & _
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_ID]  DEFAULT ('')," & vbNewLine & _
+"	[OrderRequestID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_OrderRequestID]  DEFAULT ('')," & vbNewLine & _
+"	[CODetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_CODetailID]  DEFAULT ('')," & vbNewLine & _
+"	[GroupID] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_GroupID]  DEFAULT ((0))," & vbNewLine & _
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_ItemID]  DEFAULT ((0))," & vbNewLine & _
+"	[Quantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_Quantity]  DEFAULT ((0))," & vbNewLine & _
+"	[Weight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_Weight]  DEFAULT ((0))," & vbNewLine & _
+"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_TotalWeight]  DEFAULT ((0))," & vbNewLine & _
+"	[UnitPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_UnitPrice]  DEFAULT ((0))," & vbNewLine & _
+"	[TotalPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_TotalPrice]  DEFAULT ((0))," & vbNewLine & _
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_Remarks]  DEFAULT ('')," & vbNewLine & _
+"	[RoundingWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_RoundingWeight]  DEFAULT ((0))," & vbNewLine & _
+"	[LevelItem] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_LevelItem]  DEFAULT ((0))," & vbNewLine & _
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_ParentID]  DEFAULT ('')," & vbNewLine & _
+"	[LocationID] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_LocationID]  DEFAULT ((0))," & vbNewLine & _
+"	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_OrderNumberSupplier]  DEFAULT ('')," & vbNewLine & _
+" CONSTRAINT [PK_traOrderRequestDetConfirmationOrder] PRIMARY KEY CLUSTERED " & vbNewLine & _
+"(" & vbNewLine & _
+"	[ID] ASC" & vbNewLine & _
+")WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]" & vbNewLine & _
+") ON [PRIMARY]" & vbNewLine & _
+"" & vbNewLine & _
+"GO" & vbNewLine & _
+"" & vbNewLine & _
+"SET ANSI_PADDING OFF" & vbNewLine & _
+"GO" & vbNewLine & _
+"" & vbNewLine & _
+"ALTER TABLE traOrderRequestDet ADD GroupID [int] NOT NULL CONSTRAINT DF_traOrderRequestDet_GroupID DEFAULT ((0)) " & vbNewLine & _
+"ALTER TABLE traConfirmationOrderDet ADD ORQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traConfirmationOrderDet_ORQuantity DEFAULT ((0)) " & vbNewLine & _
+"ALTER TABLE traConfirmationOrderDet ADD ORWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traConfirmationOrderDet_ORWeight DEFAULT ((0)) " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
