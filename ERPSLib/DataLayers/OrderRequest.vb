@@ -982,6 +982,32 @@
             End Try
         End Sub
 
+        Public Shared Sub MapDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                    ByVal strID As String, ByVal strOrderNumberSupplier As String,
+                                    ByVal decUnitPriceHPP As Decimal)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traOrderRequestDet SET " & vbNewLine &
+                    "   OrderNumberSupplier=@OrderNumberSupplier, " & vbNewLine &
+                    "   UnitPriceHPP=@UnitPriceHPP " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
+                .Parameters.Add("@UnitPriceHPP", SqlDbType.Decimal).Value = decUnitPriceHPP
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail CO"
@@ -995,10 +1021,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT " & vbNewLine &
-                    "   A.ID, A.OrderRequestID, A.CODetailID, A.GroupID, A.OrderNumberSupplier, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
-                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, " & vbNewLine &
-                    "   D.Description AS ItemTypeName, A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, " & vbNewLine &
-                    "   A.Remarks, A.RoundingWeight, A.LevelItem, A.ParentID, A.LocationID " & vbNewLine &
+                    "   A.ID, A.OrderRequestID, A.CODetailID, A.GroupID, F.CONumber, A.OrderNumberSupplier, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, A.Quantity, A.Weight, A.TotalWeight, " & vbNewLine &
+                    "   0 AS MaxTotalWeight, A.UnitPrice, A.TotalPrice, A.Remarks, A.RoundingWeight, A.LevelItem, A.ParentID, A.LocationID " & vbNewLine &
                     "FROM traOrderRequestDetConfirmationOrder A " & vbNewLine &
                     "INNER JOIN mstItem B ON " & vbNewLine &
                     "   A.ItemID=B.ID " & vbNewLine &
@@ -1006,6 +1031,10 @@
                     "   B.ItemSpecificationID=C.ID " & vbNewLine &
                     "INNER JOIN mstItemType D ON " & vbNewLine &
                     "   B.ItemTypeID=D.ID " & vbNewLine &
+                    "INNER JOIN traConfirmationOrderDet E ON " & vbNewLine &
+                    "   A.CODetailID=E.ID " & vbNewLine &
+                    "INNER JOIN traConfirmationOrder F ON " & vbNewLine &
+                    "   E.COID=F.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   A.OrderRequestID=@OrderRequestID " & vbNewLine
 

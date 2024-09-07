@@ -224,6 +224,15 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
+                    '# Validation
+                    Dim intStatusID As Integer = DL.OrderRequest.GetStatusID(sqlCon, sqlTrans, clsDataItemAll.First.ID)
+                    If intStatusID <> VO.Status.Values.Submit Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Submit data terlebih dahulu")
+                    ElseIf DL.OrderRequest.IsDeleted(sqlCon, sqlTrans, clsDataItemAll.First.ID) Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
+                    End If
+
+                    '# Delete Detail Confirmation Order
                     DL.OrderRequest.DeleteDataDetailCO(sqlCon, sqlTrans, clsDataItemAll.First.ID)
 
                     '# Calculate OR Quantity in Confirmation Order Detail
@@ -232,16 +241,14 @@
                         DL.ConfirmationOrder.CalculateORTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
                     Next
 
-                    Dim intStatusID As Integer = DL.OrderRequest.GetStatusID(sqlCon, sqlTrans, clsDataItemAll.First.ID)
-                    If intStatusID <> VO.Status.Values.Submit Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Submit data terlebih dahulu")
-                    ElseIf DL.OrderRequest.IsDeleted(sqlCon, sqlTrans, clsDataItemAll.First.ID) Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
-                    End If
+                    '# Revert Order Number Supplier and Unit Price HPP
+                    Dim dtItem As DataTable = DL.OrderRequest.ListDataDetail(sqlCon, sqlTrans, clsDataItemAll.First.ID)
+                    For Each dr As DataRow In dtItemCO.Rows
+                        DL.OrderRequest.MapDetail(sqlCon, sqlTrans, dr.Item("ID"), "", 0)
+                    Next
 
                     For Each cls As VO.OrderRequestDet In clsDataItemAll
-                        '# Update Unit Price HPP
-                        '# Update Order Number Supplier
+                        DL.OrderRequest.MapDetail(sqlCon, sqlTrans, cls.ID, cls.OrderNumberSupplier, cls.UnitPriceHPP)
                     Next
 
                     Dim intCount As Integer = 1
@@ -283,6 +290,17 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.OrderRequest.ListDataDetailOutstanding(sqlCon, Nothing, intProgramID, intCompanyID, intBPID, strOrderRequestID)
+            End Using
+        End Function
+
+#End Region
+
+#Region "Detail CO"
+
+        Public Shared Function ListDataDetailCO(ByVal strOrderRequestID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.OrderRequest.ListDataDetailCO(sqlCon, Nothing, strOrderRequestID)
             End Using
         End Function
 

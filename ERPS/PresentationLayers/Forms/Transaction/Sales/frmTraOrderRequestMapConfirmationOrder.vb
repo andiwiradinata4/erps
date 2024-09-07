@@ -21,8 +21,7 @@ Public Class frmTraOrderRequestMapConfirmationOrder
 #End Region
 
     Private Const _
-       cSave As Byte = 0, cClose As Byte = 1, _
-       cMapItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2
+       cSave As Byte = 0, cClose As Byte = 1, cMapItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2
 
     Private Sub prvSetTitleForm()
         Me.Text += " [Map Konfirmasi Pesanan] "
@@ -119,30 +118,12 @@ Public Class frmTraOrderRequestMapConfirmationOrder
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
 
-        Dim listDetail As New List(Of VO.OrderRequestDet)
-        For Each dr As DataRow In dtItem.Rows
-            listDetail.Add(New ERPSLib.VO.OrderRequestDet With
-                           {
-                               .ID = dr.Item("ID"),
-                               .OrderRequestID = pubID,
-                               .ItemID = dr.Item("ItemID"),
-                               .Quantity = dr.Item("Quantity"),
-                               .Weight = dr.Item("Weight"),
-                               .TotalWeight = dr.Item("TotalWeight"),
-                               .UnitPrice = dr.Item("UnitPrice"),
-                               .TotalPrice = dr.Item("TotalPrice"),
-                               .Remarks = dr.Item("Remarks"),
-                               .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
-                               .UnitPriceHPP = dr.Item("UnitPriceHPP")
-                           })
-        Next
-
         Dim clsDataItemAll As New List(Of VO.OrderRequestDet)
         For Each dr As DataRow In dtItem.Rows
             clsDataItemAll.Add(New VO.OrderRequestDet() With
                                {
                                    .ID = dr.Item("ID"),
-                                   .OrderRequestID = dr.Item("OrderRequestID"),
+                                   .OrderRequestID = pubID,
                                    .GroupID = dr.Item("GroupID"),
                                    .ItemID = dr.Item("ItemID"),
                                    .Quantity = dr.Item("Quantity"),
@@ -161,7 +142,7 @@ Public Class frmTraOrderRequestMapConfirmationOrder
             clsDataItemCOAll.Add(New VO.OrderRequestDetConfirmationOrder() With
                                {
                                    .ID = dr.Item("ID"),
-                                   .OrderRequestID = dr.Item("OrderRequestID"),
+                                   .OrderRequestID = pubID,
                                    .CODetailID = dr.Item("CODetailID"),
                                    .GroupID = dr.Item("GroupID"),
                                    .ItemID = dr.Item("ItemID"),
@@ -183,8 +164,8 @@ Public Class frmTraOrderRequestMapConfirmationOrder
         pgMain.Value = 60
 
         Try
-            'Dim strOrderNumber As String = BL.OrderRequest.SaveData(pubIsNew, clsData)
-            UI.usForm.frmMessageBox("Data berhasil disimpan.")
+            Dim bolIsSuccess As Boolean = BL.OrderRequest.MapConfirmationOrder(clsDataItemAll, clsDataItemCOAll)
+            UI.usForm.frmMessageBox("Mapping Data Berhasil.")
             pgMain.Value = 80
             Me.Close()
         Catch ex As Exception
@@ -285,19 +266,16 @@ Public Class frmTraOrderRequestMapConfirmationOrder
 
     Private Sub prvQueryItemCO()
         Me.Cursor = Cursors.WaitCursor
-        pgMain.Value = 30
-
         Try
-            'dtItem = BL.OrderRequest.ListDataDetail(pubID.Trim)
-            'grdItem.DataSource = dtItem
-            'prvSumGrid()
-            'grdItemView.BestFitColumns()
+            dtItemCO = BL.OrderRequest.ListDataDetailCO(pubID.Trim)
+            grdItemCO.DataSource = dtItemCO
+            prvSumGrid()
+            grdItemCOView.BestFitColumns()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
         Finally
             Me.Cursor = Cursors.Default
-            pgMain.Value = 100
             prvSetButtonItem()
             prvResetProgressBar()
         End Try
