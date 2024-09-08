@@ -879,51 +879,96 @@
             Dim clsData As New VO.Migration
             clsData.ID = 31
             clsData.Name = "Create Table traOrderRequestDetConfirmationOrder"
-            clsData.Scripts = _
-"GO   " & vbNewLine & _
-"   " & vbNewLine & _
-"/****** Object:  Table [dbo].[traOrderRequestDetConfirmationOrder]    Script Date: 9/5/2024 9:21:12 PM ******/   " & vbNewLine & _
-"SET ANSI_NULLS ON   " & vbNewLine & _
-"GO   " & vbNewLine & _
-"   " & vbNewLine & _
-"SET QUOTED_IDENTIFIER ON   " & vbNewLine & _
-"GO   " & vbNewLine & _
-"   " & vbNewLine & _
-"SET ANSI_PADDING ON   " & vbNewLine & _
-"GO   " & vbNewLine & _
-"   " & vbNewLine & _
-"CREATE TABLE [dbo].[traOrderRequestDetConfirmationOrder](   " & vbNewLine & _
-"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_ID]  DEFAULT (''),   " & vbNewLine & _
-"	[OrderRequestID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_OrderRequestID]  DEFAULT (''),   " & vbNewLine & _
-"	[ORDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_ORDetailID]  DEFAULT (''),   " & vbNewLine & _
-"	[CODetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_CODetailID]  DEFAULT (''),   " & vbNewLine & _
-"	[GroupID] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_GroupID]  DEFAULT ((0)),   " & vbNewLine & _
-"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_ItemID]  DEFAULT ((0)),   " & vbNewLine & _
-"	[Quantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_Quantity]  DEFAULT ((0)),   " & vbNewLine & _
-"	[Weight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_Weight]  DEFAULT ((0)),   " & vbNewLine & _
-"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_TotalWeight]  DEFAULT ((0)),   " & vbNewLine & _
-"	[UnitPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_UnitPrice]  DEFAULT ((0)),   " & vbNewLine & _
-"	[TotalPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_TotalPrice]  DEFAULT ((0)),   " & vbNewLine & _
-"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_Remarks]  DEFAULT (''),   " & vbNewLine & _
-"	[RoundingWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_RoundingWeight]  DEFAULT ((0)),   " & vbNewLine & _
-"	[LevelItem] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_LevelItem]  DEFAULT ((0)),   " & vbNewLine & _
-"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_ParentID]  DEFAULT (''),   " & vbNewLine & _
-"	[LocationID] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_LocationID]  DEFAULT ((0)),   " & vbNewLine & _
-"	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_OrderNumberSupplier]  DEFAULT (''),   " & vbNewLine & _
-" CONSTRAINT [PK_traOrderRequestDetConfirmationOrder] PRIMARY KEY CLUSTERED    " & vbNewLine & _
-"(   " & vbNewLine & _
-"	[ID] ASC   " & vbNewLine & _
-")WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]   " & vbNewLine & _
-") ON [PRIMARY]   " & vbNewLine & _
-"   " & vbNewLine & _
-"GO   " & vbNewLine & _
-"   " & vbNewLine & _
-"SET ANSI_PADDING OFF   " & vbNewLine & _
-"GO   " & vbNewLine & _
-"   " & vbNewLine & _
-"ALTER TABLE traConfirmationOrderDet ADD ORQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traConfirmationOrderDet_ORQuantity DEFAULT ((0))    " & vbNewLine & _
-"ALTER TABLE traConfirmationOrderDet ADD ORWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traConfirmationOrderDet_ORWeight DEFAULT ((0))   " & vbNewLine & _
-"ALTER TABLE traOrderRequestDet ADD COQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_COQuantity DEFAULT ((0))    " & vbNewLine & _
+            clsData.Scripts =
+"GO   " & vbNewLine &
+"   " & vbNewLine &
+"/****** Object:  Table [dbo].[traOrderRequestDetConfirmationOrder]    Script Date: 9/5/2024 9:21:12 PM ******/   " & vbNewLine &
+"SET ANSI_NULLS ON   " & vbNewLine &
+"GO   " & vbNewLine &
+"   " & vbNewLine &
+"SET QUOTED_IDENTIFIER ON   " & vbNewLine &
+"GO   " & vbNewLine &
+"   " & vbNewLine &
+"SET ANSI_PADDING ON   " & vbNewLine &
+"GO   " & vbNewLine &
+"   " & vbNewLine &
+"CREATE TABLE [dbo].[traOrderRequestDetConfirmationOrder](   " & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_ID]  DEFAULT (''),   " & vbNewLine &
+"	[MapID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_MapID]  DEFAULT (''),   " & vbNewLine &
+"	[OrderRequestID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_OrderRequestID]  DEFAULT (''),   " & vbNewLine &
+"	[ORDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_ORDetailID]  DEFAULT (''),   " & vbNewLine &
+"	[COID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_COID]  DEFAULT (''),   " & vbNewLine &
+"	[CODetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_CODetailID]  DEFAULT (''),   " & vbNewLine &
+"	[GroupID] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_GroupID]  DEFAULT ((0)),   " & vbNewLine &
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_ItemID]  DEFAULT ((0)),   " & vbNewLine &
+"	[Quantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_Quantity]  DEFAULT ((0)),   " & vbNewLine &
+"	[Weight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_Weight]  DEFAULT ((0)),   " & vbNewLine &
+"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_TotalWeight]  DEFAULT ((0)),   " & vbNewLine &
+"	[UnitPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_UnitPrice]  DEFAULT ((0)),   " & vbNewLine &
+"	[TotalPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_TotalPrice]  DEFAULT ((0)),   " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_Remarks]  DEFAULT (''),   " & vbNewLine &
+"	[RoundingWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_RoundingWeight]  DEFAULT ((0)),   " & vbNewLine &
+"	[LevelItem] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_LevelItem]  DEFAULT ((0)),   " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_ParentID]  DEFAULT (''),   " & vbNewLine &
+"	[LocationID] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_LocationID]  DEFAULT ((0)),   " & vbNewLine &
+"	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrder_OrderNumberSupplier]  DEFAULT (''),   " & vbNewLine &
+" CONSTRAINT [PK_traOrderRequestDetConfirmationOrder] PRIMARY KEY CLUSTERED    " & vbNewLine &
+"(   " & vbNewLine &
+"	[ID] ASC   " & vbNewLine &
+")WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]   " & vbNewLine &
+") ON [PRIMARY]   " & vbNewLine &
+"   " & vbNewLine &
+"GO   " & vbNewLine &
+"   " & vbNewLine &
+"SET ANSI_PADDING OFF   " & vbNewLine &
+"GO   " & vbNewLine &
+"   " & vbNewLine &
+"GO   " & vbNewLine &
+"   " & vbNewLine &
+"/****** Object:  Table [dbo].[traOrderRequestDetConfirmationOrderDet]    Script Date: 9/5/2024 9:21:12 PM ******/   " & vbNewLine &
+"SET ANSI_NULLS ON   " & vbNewLine &
+"GO   " & vbNewLine &
+"   " & vbNewLine &
+"SET QUOTED_IDENTIFIER ON   " & vbNewLine &
+"GO   " & vbNewLine &
+"   " & vbNewLine &
+"SET ANSI_PADDING ON   " & vbNewLine &
+"GO   " & vbNewLine &
+"   " & vbNewLine &
+"CREATE TABLE [dbo].[traOrderRequestDetConfirmationOrderDet](   " & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_ID]  DEFAULT (''),   " & vbNewLine &
+"	[MapID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_MapID]  DEFAULT (''),   " & vbNewLine &
+"	[OrderRequestID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_OrderRequestID]  DEFAULT (''),   " & vbNewLine &
+"	[ORDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_ORDetailID]  DEFAULT (''),   " & vbNewLine &
+"	[COID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_COID]  DEFAULT (''),   " & vbNewLine &
+"	[CODetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_CODetailID]  DEFAULT (''),   " & vbNewLine &
+"	[GroupID] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_GroupID]  DEFAULT ((0)),   " & vbNewLine &
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_ItemID]  DEFAULT ((0)),   " & vbNewLine &
+"	[Quantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_Quantity]  DEFAULT ((0)),   " & vbNewLine &
+"	[Weight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_Weight]  DEFAULT ((0)),   " & vbNewLine &
+"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_TotalWeight]  DEFAULT ((0)),   " & vbNewLine &
+"	[UnitPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_UnitPrice]  DEFAULT ((0)),   " & vbNewLine &
+"	[TotalPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_TotalPrice]  DEFAULT ((0)),   " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_Remarks]  DEFAULT (''),   " & vbNewLine &
+"	[RoundingWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_RoundingWeight]  DEFAULT ((0)),   " & vbNewLine &
+"	[LevelItem] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_LevelItem]  DEFAULT ((0)),   " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_ParentID]  DEFAULT (''),   " & vbNewLine &
+"	[LocationID] [int] NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_LocationID]  DEFAULT ((0)),   " & vbNewLine &
+"	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traOrderRequestDetConfirmationOrderDet_OrderNumberSupplier]  DEFAULT (''),   " & vbNewLine &
+" CONSTRAINT [PK_traOrderRequestDetConfirmationOrderDet] PRIMARY KEY CLUSTERED    " & vbNewLine &
+"(   " & vbNewLine &
+"	[ID] ASC   " & vbNewLine &
+")WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]   " & vbNewLine &
+") ON [PRIMARY]   " & vbNewLine &
+"   " & vbNewLine &
+"GO   " & vbNewLine &
+"   " & vbNewLine &
+"SET ANSI_PADDING OFF   " & vbNewLine &
+"GO   " & vbNewLine &
+"   " & vbNewLine &
+"ALTER TABLE traConfirmationOrderDet ADD ORQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traConfirmationOrderDet_ORQuantity DEFAULT ((0))    " & vbNewLine &
+"ALTER TABLE traConfirmationOrderDet ADD ORWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traConfirmationOrderDet_ORWeight DEFAULT ((0))   " & vbNewLine &
+"ALTER TABLE traOrderRequestDet ADD COQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_COQuantity DEFAULT ((0))    " & vbNewLine &
 "ALTER TABLE traOrderRequestDet ADD COWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_COWeight DEFAULT ((0))   " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
