@@ -260,8 +260,9 @@
     <Compile Include="ValueObject\JournalDet.vb" />
     <Compile Include="ValueObject\JournalStatus.vb" />
     <Compile Include="ValueObject\OrderRequest.vb" />
+    <Compile Include="ValueObject\OrderRequestConfirmationOrder.vb" />
+    <Compile Include="ValueObject\OrderRequestConfirmationOrderDet.vb" />
     <Compile Include="ValueObject\OrderRequestDet.vb" />
-    <Compile Include="ValueObject\OrderRequestDetConfirmationOrder.vb" />
     <Compile Include="ValueObject\OrderRequestStatus.vb" />
     <Compile Include="ValueObject\Base\PaymentTypeCategory.vb" />
     <Compile Include="ValueObject\PurchaseContract.vb" />

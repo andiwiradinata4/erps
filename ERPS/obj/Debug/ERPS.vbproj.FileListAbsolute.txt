@@ -857,3 +857,6 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptNeracaSaldoVer00.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptNeracaVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbprojResolveAssemblyReference.cache
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractPrint.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestMapConfirmationOrder.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestMapConfirmationOrderDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItem.resources

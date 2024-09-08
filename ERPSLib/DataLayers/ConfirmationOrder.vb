@@ -847,24 +847,28 @@
                     "	ORWeight=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(ORD.TotalWeight+ORD.RoundingWeight),0) TotalWeight " & vbNewLine &
-                    "		FROM traOrderRequestDetConfirmationOrder ORD 	" & vbNewLine &
-                    "		INNER JOIN traOrderRequest ORH ON	" & vbNewLine &
-                    "			ORD.SCID=ORH.ID 	" & vbNewLine &
+                    "			ISNULL(SUM(ORD.TotalWeightCO+ORD.RoundingWeightCO),0) TotalWeight " & vbNewLine &
+                    "		FROM traOrderRequestConfirmationOrderDet ORD 	" & vbNewLine &
+                    "		INNER JOIN traOrderRequestConfirmationOrder ORH ON	" & vbNewLine &
+                    "			ORD.ID=ORH.ParentID 	" & vbNewLine &
+                    "		INNER JOIN traOrderRequest ORH1 ON	" & vbNewLine &
+                    "			ORH.OrderRequestID=ORH1.ID 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			ORD.CODetailID=@CODetailID 	" & vbNewLine &
-                    "			AND ORH.IsDeleted=0 	" & vbNewLine &
+                    "			AND ORH1.IsDeleted=0 	" & vbNewLine &
                     "	), 	" & vbNewLine &
                     "	ORQuantity=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(ORD.Quantity),0) TotalWeight " & vbNewLine &
-                    "		FROM traOrderRequestDetConfirmationOrder ORD 	" & vbNewLine &
-                    "		INNER JOIN traOrderRequest ORH ON	" & vbNewLine &
-                    "			ORD.SCID=ORH.ID 	" & vbNewLine &
+                    "			ISNULL(SUM(ORD.QuantityCO),0) TotalQuantity " & vbNewLine &
+                    "		FROM traOrderRequestConfirmationOrderDet ORD 	" & vbNewLine &
+                    "		INNER JOIN traOrderRequestConfirmationOrder ORH ON	" & vbNewLine &
+                    "			ORD.ID=ORH.ParentID 	" & vbNewLine &
+                    "		INNER JOIN traOrderRequest ORH1 ON	" & vbNewLine &
+                    "			ORH.OrderRequestID=ORH1.ID 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			ORD.CODetailID=@CODetailID 	" & vbNewLine &
-                    "			AND ORH.IsDeleted=0 	" & vbNewLine &
+                    "			AND ORH1.IsDeleted=0 	" & vbNewLine &
                     "	), 	" & vbNewLine &
                     "WHERE ID=@CODetailID	" & vbNewLine
 

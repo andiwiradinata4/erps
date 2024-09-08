@@ -1010,10 +1010,10 @@
 
 #End Region
 
-#Region "Detail CO"
+#Region "Detail CO Detail"
 
-        Public Shared Function ListDataDetailCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                ByVal strOrderRequestID As String) As DataTable
+        Public Shared Function ListDataDetailCODet(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal strParentID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -1024,7 +1024,7 @@
                     "   A.ID, A.OrderRequestID, A.CODetailID, A.GroupID, F.CONumber, A.OrderNumberSupplier, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, A.Quantity, A.Weight, A.TotalWeight, " & vbNewLine &
                     "   0 AS MaxTotalWeight, A.UnitPrice, A.TotalPrice, A.Remarks, A.RoundingWeight, A.LevelItem, A.ParentID, A.LocationID " & vbNewLine &
-                    "FROM traOrderRequestDetConfirmationOrder A " & vbNewLine &
+                    "FROM traOrderRequestConfirmationOrderDet A " & vbNewLine &
                     "INNER JOIN mstItem B ON " & vbNewLine &
                     "   A.ItemID=B.ID " & vbNewLine &
                     "INNER JOIN mstItemSpecification C ON " & vbNewLine &
@@ -1036,28 +1036,34 @@
                     "INNER JOIN traConfirmationOrder F ON " & vbNewLine &
                     "   E.COID=F.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
-                    "   A.OrderRequestID=@OrderRequestID " & vbNewLine
+                    "   A.ParentID=@ParentID " & vbNewLine
 
-                .Parameters.Add("@OrderRequestID", SqlDbType.VarChar, 100).Value = strOrderRequestID
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
-        Public Shared Sub SaveDataDetailCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                         ByVal clsData As VO.OrderRequestDetConfirmationOrder)
+        Public Shared Sub SaveDataDetailCODet(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal clsData As VO.OrderRequestConfirmationOrderDet)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText =
-                    "INSERT INTO traOrderRequestDetConfirmationOrder " & vbNewLine &
-                    "     (ID, OrderRequestID, CODetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, RoundingWeight, LevelItem, ParentID, LocationID, OrderNumberSupplier) " & vbNewLine &
-                    "VALUES " & vbNewLine &
-                    "     (@ID, @OrderRequestID, @CODetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @RoundingWeight, @LevelItem, @ParentID, @LocationID, @OrderNumberSupplier) " & vbNewLine
+"INSERT INTO traOrderRequestConfirmationOrderDet " & vbNewLine & _
+"	(ID, ParentID, ORDetailID, CODetailID, GroupID, ItemID, Quantity,  " & vbNewLine & _
+"	 Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, RoundingWeight,  " & vbNewLine & _
+"	 QuantityCO, WeightCO, TotalWeightCO, UnitPriceCO, TotalPriceCO, RoundingWeightCO,  " & vbNewLine & _
+"	 LevelItem, LocationID, OrderNumberSupplier, UnitPriceHPP) " & vbNewLine & _
+"VALUES  " & vbNewLine & _
+"	(@ID, @ParentID, @ORDetailID, @CODetailID, @GroupID, @ItemID, @Quantity,  " & vbNewLine & _
+"	 @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @RoundingWeight,  " & vbNewLine & _
+"	 @QuantityCO, @WeightCO, @TotalWeightCO, @UnitPriceCO, @TotalPriceCO, @RoundingWeightCO,  " & vbNewLine & _
+"	 @LevelItem, @LocationID, @OrderNumberSupplier, @UnitPriceHPP) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
-                .Parameters.Add("@OrderRequestID", SqlDbType.VarChar, 100).Value = clsData.OrderRequestID
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
+                .Parameters.Add("@ORDetailID", SqlDbType.VarChar, 100).Value = clsData.ORDetailID
                 .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = clsData.CODetailID
                 .Parameters.Add("@GroupID", SqlDbType.Int).Value = clsData.GroupID
                 .Parameters.Add("@ItemID", SqlDbType.Int).Value = clsData.ItemID
@@ -1068,10 +1074,16 @@
                 .Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = clsData.TotalPrice
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
                 .Parameters.Add("@RoundingWeight", SqlDbType.Decimal).Value = clsData.RoundingWeight
+                .Parameters.Add("@QuantityCO", SqlDbType.Decimal).Value = clsData.QuantityCO
+                .Parameters.Add("@WeightCO", SqlDbType.Decimal).Value = clsData.WeightCO
+                .Parameters.Add("@TotalWeightCO", SqlDbType.Decimal).Value = clsData.TotalWeightCO
+                .Parameters.Add("@UnitPriceCO", SqlDbType.Decimal).Value = clsData.UnitPriceCO
+                .Parameters.Add("@TotalPriceCO", SqlDbType.Decimal).Value = clsData.TotalPriceCO
+                .Parameters.Add("@RoundingWeightCO", SqlDbType.Decimal).Value = clsData.RoundingWeightCO
                 .Parameters.Add("@LevelItem", SqlDbType.Int).Value = clsData.LevelItem
-                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
                 .Parameters.Add("@LocationID", SqlDbType.Int).Value = clsData.LocationID
                 .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = clsData.OrderNumberSupplier
+                .Parameters.Add("@UnitPriceHPP", SqlDbType.Decimal).Value = clsData.UnitPriceHPP
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -1080,19 +1092,19 @@
             End Try
         End Sub
 
-        Public Shared Sub DeleteDataDetailCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                             ByVal strOrderRequestID As String)
+        Public Shared Sub DeleteDataDetailCODet(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                ByVal strParentID As String)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText =
-                    "DELETE FROM traOrderRequestDetConfirmationOrder     " & vbNewLine &
+                    "DELETE FROM traOrderRequestConfirmationOrderDet     " & vbNewLine &
                     "WHERE " & vbNewLine &
-                    "   OrderRequestID=@OrderRequestID" & vbNewLine
+                    "   ParentID=@ParentID" & vbNewLine
 
-                .Parameters.Add("@OrderRequestID", SqlDbType.VarChar, 100).Value = strOrderRequestID
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
