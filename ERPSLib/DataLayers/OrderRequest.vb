@@ -1012,6 +1012,50 @@
 
 #Region "Detail CO Detail"
 
+        Public Shared Function GetDetailCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strID As String) As VO.OrderRequestConfirmationOrder
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim voReturn As New VO.OrderRequestConfirmationOrder
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandText =
+"SELECT TOP 1  " & vbNewLine & _
+"	A.ID, A.ProgramID, A.CompanyID, A.OrderRequestID, B.OrderNumber, A.TransactionNumber, A.Remarks, A.CreatedBy,  " & vbNewLine & _
+"	A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine & _
+"FROM traOrderRequestConfirmationOrder A " & vbNewLine & _
+"INNER JOIN traOrderRequest B ON " & vbNewLine & _
+"   A.OrderRequestID=B.ID " & vbNewLine & _
+"WHERE " & vbNewLine & _
+"	A.ID=@ID " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        voReturn.ID = .Item("ID")
+                        voReturn.ProgramID = .Item("ProgramID")
+                        voReturn.CompanyID = .Item("CompanyID")
+                        voReturn.OrderRequestID = .Item("OrderRequestID")
+                        voReturn.TransactionNumber = .Item("TransactionNumber")
+                        voReturn.Remarks = .Item("Remarks")
+                        voReturn.CreatedBy = .Item("CreatedBy")
+                        voReturn.CreatedDate = .Item("CreatedDate")
+                        voReturn.LogBy = .Item("LogBy")
+                        voReturn.LogDate = .Item("LogDate")
+                        voReturn.LogInc = .Item("LogInc")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If sqlrdData IsNot Nothing Then sqlrdData.Close()
+            End Try
+            Return voReturn
+        End Function
+
         Public Shared Function ListDataDetailCODet(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                    ByVal strParentID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
@@ -1021,9 +1065,12 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT " & vbNewLine &
-                    "   A.ID, A.OrderRequestID, A.CODetailID, A.GroupID, F.CONumber, A.OrderNumberSupplier, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+                    "   A.ID, A.ParentID, A.ORDetailID, A.CODetailID, A.GroupID, F.CONumber, A.OrderNumberSupplier, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, A.Quantity, A.Weight, A.TotalWeight, " & vbNewLine &
-                    "   0 AS MaxTotalWeight, A.UnitPrice, A.TotalPrice, A.Remarks, A.RoundingWeight, A.LevelItem, A.ParentID, A.LocationID " & vbNewLine &
+                    "   0 AS MaxTotalWeight, A.UnitPrice, A.TotalPrice, A.Remarks, A.RoundingWeight, E.ItemID AS ItemIDCO, B.ItemCode AS ItemCodeCO, B.ItemName AS ItemNameCO, " & vbNewLine &
+                    "   B.Thick AS ThickCO, B.Width AS WidthCO, B.Length AS LengthCO, CCO.ID AS ItemSpecificationIDCO, CCO.Description AS ItemSpecificationNameCO, DCO.ID AS ItemTypeIDCO, " & vbNewLine &
+                    "   DCO.Description AS ItemTypeNameCO, A.QuantityCO, A.WeightCO, A.TotalWeightCO, A.UnitPriceCO, A.TotalPriceCO, A.RoundingWeightCO, " & vbNewLine &
+                    "   A.LevelItem, A.LocationID, A.UnitPriceHPP " & vbNewLine &
                     "FROM traOrderRequestConfirmationOrderDet A " & vbNewLine &
                     "INNER JOIN mstItem B ON " & vbNewLine &
                     "   A.ItemID=B.ID " & vbNewLine &
@@ -1035,6 +1082,12 @@
                     "   A.CODetailID=E.ID " & vbNewLine &
                     "INNER JOIN traConfirmationOrder F ON " & vbNewLine &
                     "   E.COID=F.ID " & vbNewLine &
+                    "INNER JOIN mstItem BCO ON " & vbNewLine &
+                    "   E.ItemID=BCO.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification CCO ON " & vbNewLine &
+                    "   BCO.ItemSpecificationID=CCO.ID " & vbNewLine &
+                    "INNER JOIN mstItemType DCO ON " & vbNewLine &
+                    "   BCO.ItemTypeID=DCO.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   A.ParentID=@ParentID " & vbNewLine
 

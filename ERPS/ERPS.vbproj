@@ -979,6 +979,18 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestMapConfirmationOrderDet.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingMapConfirmationOrder.Designer.vb">
+      <DependentUpon>frmTraOrderRequestOutstandingMapConfirmationOrder.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingMapConfirmationOrder.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingMapConfirmationOrderItem.Designer.vb">
+      <DependentUpon>frmTraOrderRequestOutstandingMapConfirmationOrderItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingMapConfirmationOrderItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingDelivery.Designer.vb">
       <DependentUpon>frmTraOrderRequestOutstandingDelivery.vb</DependentUpon>
     </Compile>
@@ -1696,6 +1708,9 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestMapConfirmationOrderDet.resx">
       <DependentUpon>frmTraOrderRequestMapConfirmationOrderDet.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingMapConfirmationOrder.resx">
+      <DependentUpon>frmTraOrderRequestOutstandingMapConfirmationOrder.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingDelivery.resx">
       <DependentUpon>frmTraOrderRequestOutstandingDelivery.vb</DependentUpon>
     </EmbeddedResource>
@@ -1707,6 +1722,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingItemVer1.resx">
       <DependentUpon>frmTraOrderRequestOutstandingItemVer1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestOutstandingMapConfirmationOrderItem.resx">
+      <DependentUpon>frmTraOrderRequestOutstandingMapConfirmationOrderItem.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContract.resx">
       <DependentUpon>frmTraSalesContract.vb</DependentUpon>

@@ -88,6 +88,13 @@
             End Using
         End Function
 
+        Public Shared Function GetDetailCO(ByVal strID As String) As VO.OrderRequestConfirmationOrder
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.OrderRequest.GetDetailCO(sqlCon, Nothing, strID)
+            End Using
+        End Function
+
         Public Shared Sub DeleteData(ByVal strID As String, ByVal strRemarks As String)
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection

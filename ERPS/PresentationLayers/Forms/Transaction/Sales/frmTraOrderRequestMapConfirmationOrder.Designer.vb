@@ -22,92 +22,29 @@ Partial Class frmTraOrderRequestMapConfirmationOrder
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim GridLevelNode1 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
-        Me.grdSubItemCOView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.grdItemCO = New DevExpress.XtraGrid.GridControl()
-        Me.grdItemCOView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
-        Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.pgMain = New System.Windows.Forms.ProgressBar()
+        Me.lblInfo = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtOrderNumber = New ERPS.usTextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtTransactionNumber = New ERPS.usTextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.ToolBarDetail = New ERPS.usToolBar()
+        Me.BarAdd = New System.Windows.Forms.ToolBarButton()
+        Me.BarEdit = New System.Windows.Forms.ToolBarButton()
+        Me.BarDelete = New System.Windows.Forms.ToolBarButton()
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.ToolBarItemOrderRequest = New ERPS.usToolBar()
-        Me.BarMap = New System.Windows.Forms.ToolBarButton()
-        Me.lblInfo = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.ToolBarItemCO = New ERPS.usToolBar()
-        Me.BarEditItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.pgMain = New System.Windows.Forms.ProgressBar()
-        CType(Me.grdSubItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdItemCO, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.pnlDetail.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'grdSubItemCOView
-        '
-        Me.grdSubItemCOView.GridControl = Me.grdItemCO
-        Me.grdSubItemCOView.Name = "grdSubItemCOView"
-        Me.grdSubItemCOView.OptionsCustomization.AllowGroup = False
-        Me.grdSubItemCOView.OptionsView.ColumnAutoWidth = False
-        Me.grdSubItemCOView.OptionsView.ShowFooter = True
-        Me.grdSubItemCOView.OptionsView.ShowGroupPanel = False
-        '
-        'grdItemCO
-        '
-        Me.grdItemCO.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdItemCO.EmbeddedNavigator.Buttons.Append.Enabled = False
-        Me.grdItemCO.EmbeddedNavigator.Buttons.Append.Visible = False
-        Me.grdItemCO.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
-        Me.grdItemCO.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
-        Me.grdItemCO.EmbeddedNavigator.Buttons.Edit.Enabled = False
-        Me.grdItemCO.EmbeddedNavigator.Buttons.Edit.Visible = False
-        Me.grdItemCO.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
-        Me.grdItemCO.EmbeddedNavigator.Buttons.EndEdit.Visible = False
-        Me.grdItemCO.EmbeddedNavigator.Buttons.NextPage.Enabled = False
-        Me.grdItemCO.EmbeddedNavigator.Buttons.NextPage.Visible = False
-        Me.grdItemCO.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
-        Me.grdItemCO.EmbeddedNavigator.Buttons.PrevPage.Visible = False
-        Me.grdItemCO.EmbeddedNavigator.Buttons.Remove.Enabled = False
-        Me.grdItemCO.EmbeddedNavigator.Buttons.Remove.Visible = False
-        GridLevelNode1.LevelTemplate = Me.grdSubItemCOView
-        GridLevelNode1.RelationName = "SubView"
-        Me.grdItemCO.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1})
-        Me.grdItemCO.Location = New System.Drawing.Point(607, 76)
-        Me.grdItemCO.MainView = Me.grdItemCOView
-        Me.grdItemCO.Name = "grdItemCO"
-        Me.grdItemCO.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItemCO.Size = New System.Drawing.Size(642, 316)
-        Me.grdItemCO.TabIndex = 3
-        Me.grdItemCO.UseEmbeddedNavigator = True
-        Me.grdItemCO.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemCOView, Me.grdSubItemCOView})
-        '
-        'grdItemCOView
-        '
-        Me.grdItemCOView.GridControl = Me.grdItemCO
-        Me.grdItemCOView.Name = "grdItemCOView"
-        Me.grdItemCOView.OptionsCustomization.AllowColumnMoving = False
-        Me.grdItemCOView.OptionsCustomization.AllowGroup = False
-        Me.grdItemCOView.OptionsView.ColumnAutoWidth = False
-        Me.grdItemCOView.OptionsView.ShowAutoFilterRow = True
-        Me.grdItemCOView.OptionsView.ShowFooter = True
-        Me.grdItemCOView.OptionsView.ShowGroupPanel = False
-        '
-        'RepositoryItemTextEdit1
-        '
-        Me.RepositoryItemTextEdit1.AutoHeight = False
-        Me.RepositoryItemTextEdit1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.RepositoryItemTextEdit1.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.RepositoryItemTextEdit1.Name = "RepositoryItemTextEdit1"
-        Me.RepositoryItemTextEdit1.NullText = "0.00"
         '
         'ToolBar
         '
@@ -117,7 +54,7 @@ Partial Class frmTraOrderRequestMapConfirmationOrder
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(1249, 28)
+        Me.ToolBar.Size = New System.Drawing.Size(755, 28)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -133,16 +70,125 @@ Partial Class frmTraOrderRequestMapConfirmationOrder
         Me.BarClose.Tag = "Close"
         Me.BarClose.Text = "Tutup"
         '
-        'pnlDetail
+        'pgMain
         '
-        Me.pnlDetail.Controls.Add(Me.grdItem)
-        Me.pnlDetail.Controls.Add(Me.ToolBarItemOrderRequest)
-        Me.pnlDetail.Controls.Add(Me.lblInfo)
-        Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Left
-        Me.pnlDetail.Location = New System.Drawing.Point(0, 28)
-        Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(607, 364)
-        Me.pnlDetail.TabIndex = 2
+        Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.pgMain.Location = New System.Drawing.Point(0, 486)
+        Me.pgMain.Name = "pgMain"
+        Me.pgMain.Size = New System.Drawing.Size(755, 23)
+        Me.pgMain.TabIndex = 6
+        '
+        'lblInfo
+        '
+        Me.lblInfo.BackColor = System.Drawing.Color.CadetBlue
+        Me.lblInfo.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblInfo.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblInfo.ForeColor = System.Drawing.Color.White
+        Me.lblInfo.Location = New System.Drawing.Point(0, 28)
+        Me.lblInfo.Name = "lblInfo"
+        Me.lblInfo.Size = New System.Drawing.Size(755, 22)
+        Me.lblInfo.TabIndex = 1
+        Me.lblInfo.Text = "« Mapping Konfirmasi Pesanan"
+        Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.txtTransactionNumber)
+        Me.Panel1.Controls.Add(Me.Label1)
+        Me.Panel1.Controls.Add(Me.Label2)
+        Me.Panel1.Controls.Add(Me.txtOrderNumber)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(0, 50)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(755, 64)
+        Me.Panel1.TabIndex = 2
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.ForeColor = System.Drawing.Color.Black
+        Me.Label2.Location = New System.Drawing.Point(392, 22)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(95, 13)
+        Me.Label2.TabIndex = 99
+        Me.Label2.Text = "Nomor Permintaan"
+        '
+        'txtOrderNumber
+        '
+        Me.txtOrderNumber.BackColor = System.Drawing.Color.Azure
+        Me.txtOrderNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtOrderNumber.Location = New System.Drawing.Point(504, 18)
+        Me.txtOrderNumber.MaxLength = 250
+        Me.txtOrderNumber.Name = "txtOrderNumber"
+        Me.txtOrderNumber.ReadOnly = True
+        Me.txtOrderNumber.Size = New System.Drawing.Size(167, 21)
+        Me.txtOrderNumber.TabIndex = 1
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
+        Me.Label1.ForeColor = System.Drawing.Color.Black
+        Me.Label1.Location = New System.Drawing.Point(34, 21)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(81, 13)
+        Me.Label1.TabIndex = 100
+        Me.Label1.Text = "Nomor Mapping"
+        '
+        'txtTransactionNumber
+        '
+        Me.txtTransactionNumber.BackColor = System.Drawing.Color.Azure
+        Me.txtTransactionNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtTransactionNumber.Location = New System.Drawing.Point(146, 18)
+        Me.txtTransactionNumber.MaxLength = 250
+        Me.txtTransactionNumber.Name = "txtTransactionNumber"
+        Me.txtTransactionNumber.ReadOnly = True
+        Me.txtTransactionNumber.Size = New System.Drawing.Size(167, 21)
+        Me.txtTransactionNumber.TabIndex = 0
+        '
+        'Label3
+        '
+        Me.Label3.BackColor = System.Drawing.Color.CadetBlue
+        Me.Label3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label3.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.ForeColor = System.Drawing.Color.White
+        Me.Label3.Location = New System.Drawing.Point(0, 114)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(755, 22)
+        Me.Label3.TabIndex = 3
+        Me.Label3.Text = "« Item"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'ToolBarDetail
+        '
+        Me.ToolBarDetail.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAdd, Me.BarEdit, Me.BarDelete})
+        Me.ToolBarDetail.DropDownArrows = True
+        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 136)
+        Me.ToolBarDetail.Name = "ToolBarDetail"
+        Me.ToolBarDetail.ShowToolTips = True
+        Me.ToolBarDetail.Size = New System.Drawing.Size(755, 28)
+        Me.ToolBarDetail.TabIndex = 4
+        Me.ToolBarDetail.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'BarAdd
+        '
+        Me.BarAdd.Name = "BarAdd"
+        Me.BarAdd.Tag = "Add"
+        Me.BarAdd.Text = "Tambah"
+        '
+        'BarEdit
+        '
+        Me.BarEdit.Name = "BarEdit"
+        Me.BarEdit.Tag = "Edit"
+        Me.BarEdit.Text = "Edit"
+        '
+        'BarDelete
+        '
+        Me.BarDelete.Name = "BarDelete"
+        Me.BarDelete.Tag = "Delete"
+        Me.BarDelete.Text = "Hapus"
         '
         'grdItem
         '
@@ -161,12 +207,12 @@ Partial Class frmTraOrderRequestMapConfirmationOrder
         Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdItem.Location = New System.Drawing.Point(0, 48)
+        Me.grdItem.Location = New System.Drawing.Point(0, 164)
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
-        Me.grdItem.Size = New System.Drawing.Size(607, 316)
-        Me.grdItem.TabIndex = 2
+        Me.grdItem.Size = New System.Drawing.Size(755, 322)
+        Me.grdItem.TabIndex = 5
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
         '
@@ -189,93 +235,16 @@ Partial Class frmTraOrderRequestMapConfirmationOrder
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
         '
-        'ToolBarItemOrderRequest
-        '
-        Me.ToolBarItemOrderRequest.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarItemOrderRequest.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarMap})
-        Me.ToolBarItemOrderRequest.Divider = False
-        Me.ToolBarItemOrderRequest.DropDownArrows = True
-        Me.ToolBarItemOrderRequest.Location = New System.Drawing.Point(0, 22)
-        Me.ToolBarItemOrderRequest.Name = "ToolBarItemOrderRequest"
-        Me.ToolBarItemOrderRequest.ShowToolTips = True
-        Me.ToolBarItemOrderRequest.Size = New System.Drawing.Size(607, 26)
-        Me.ToolBarItemOrderRequest.TabIndex = 1
-        Me.ToolBarItemOrderRequest.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
-        'BarMap
-        '
-        Me.BarMap.Name = "BarMap"
-        Me.BarMap.Tag = "Approved"
-        Me.BarMap.Text = "Map Konfirmasi Pesanan"
-        '
-        'lblInfo
-        '
-        Me.lblInfo.BackColor = System.Drawing.Color.CadetBlue
-        Me.lblInfo.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblInfo.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblInfo.ForeColor = System.Drawing.Color.White
-        Me.lblInfo.Location = New System.Drawing.Point(0, 0)
-        Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(607, 22)
-        Me.lblInfo.TabIndex = 0
-        Me.lblInfo.Text = "« Permintaan Penjualan"
-        Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label5
-        '
-        Me.Label5.BackColor = System.Drawing.Color.CadetBlue
-        Me.Label5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Label5.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.ForeColor = System.Drawing.Color.White
-        Me.Label5.Location = New System.Drawing.Point(607, 28)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(642, 22)
-        Me.Label5.TabIndex = 1
-        Me.Label5.Text = "« Konfirmasi Pesanan"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'ToolBarItemCO
-        '
-        Me.ToolBarItemCO.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarItemCO.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarEditItemOrder, Me.BarDeleteItemOrder})
-        Me.ToolBarItemCO.Divider = False
-        Me.ToolBarItemCO.DropDownArrows = True
-        Me.ToolBarItemCO.Location = New System.Drawing.Point(607, 50)
-        Me.ToolBarItemCO.Name = "ToolBarItemCO"
-        Me.ToolBarItemCO.ShowToolTips = True
-        Me.ToolBarItemCO.Size = New System.Drawing.Size(642, 26)
-        Me.ToolBarItemCO.TabIndex = 2
-        Me.ToolBarItemCO.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
-        'BarEditItemOrder
-        '
-        Me.BarEditItemOrder.Name = "BarEditItemOrder"
-        Me.BarEditItemOrder.Tag = "Edit"
-        Me.BarEditItemOrder.Text = "Edit"
-        '
-        'BarDeleteItemOrder
-        '
-        Me.BarDeleteItemOrder.Name = "BarDeleteItemOrder"
-        Me.BarDeleteItemOrder.Tag = "Delete"
-        Me.BarDeleteItemOrder.Text = "Hapus"
-        '
-        'pgMain
-        '
-        Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pgMain.Location = New System.Drawing.Point(0, 392)
-        Me.pgMain.Name = "pgMain"
-        Me.pgMain.Size = New System.Drawing.Size(1249, 23)
-        Me.pgMain.TabIndex = 8
-        '
         'frmTraOrderRequestMapConfirmationOrder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1249, 415)
-        Me.Controls.Add(Me.grdItemCO)
-        Me.Controls.Add(Me.ToolBarItemCO)
-        Me.Controls.Add(Me.Label5)
-        Me.Controls.Add(Me.pnlDetail)
+        Me.ClientSize = New System.Drawing.Size(755, 509)
+        Me.Controls.Add(Me.grdItem)
+        Me.Controls.Add(Me.ToolBarDetail)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
         Me.Controls.Add(Me.pgMain)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
@@ -284,12 +253,8 @@ Partial Class frmTraOrderRequestMapConfirmationOrder
         Me.MinimizeBox = False
         Me.Name = "frmTraOrderRequestMapConfirmationOrder"
         Me.Text = "Permintaan Penjualan"
-        CType(Me.grdSubItemCOView, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdItemCO, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdItemCOView, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.pnlDetail.ResumeLayout(False)
-        Me.pnlDetail.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
@@ -300,20 +265,19 @@ Partial Class frmTraOrderRequestMapConfirmationOrder
     Friend WithEvents ToolBar As ERPS.usToolBar
     Friend WithEvents BarRefresh As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarClose As System.Windows.Forms.ToolBarButton
-    Friend WithEvents pnlDetail As System.Windows.Forms.Panel
+    Friend WithEvents pgMain As System.Windows.Forms.ProgressBar
     Friend WithEvents lblInfo As System.Windows.Forms.Label
-    Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents ToolBarItemCO As ERPS.usToolBar
-    Friend WithEvents BarEditItemOrder As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarDeleteItemOrder As System.Windows.Forms.ToolBarButton
-    Friend WithEvents grdItemCO As DevExpress.XtraGrid.GridControl
-    Friend WithEvents grdSubItemCOView As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents grdItemCOView As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents txtOrderNumber As ERPS.usTextBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents txtTransactionNumber As ERPS.usTextBox
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents ToolBarDetail As ERPS.usToolBar
+    Friend WithEvents BarAdd As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarEdit As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarDelete As System.Windows.Forms.ToolBarButton
     Friend WithEvents grdItem As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdItemView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents rpiValue As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
-    Friend WithEvents ToolBarItemOrderRequest As ERPS.usToolBar
-    Friend WithEvents BarMap As System.Windows.Forms.ToolBarButton
-    Friend WithEvents pgMain As System.Windows.Forms.ProgressBar
 End Class
