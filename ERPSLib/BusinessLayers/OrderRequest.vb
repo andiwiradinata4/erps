@@ -21,6 +21,13 @@
             End Using
         End Function
 
+        Public Shared Function ListDataMapCO(ByVal strID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.OrderRequest.ListDataMapCO(sqlCon, Nothing, strID)
+            End Using
+        End Function
+
         Public Shared Function GetNewID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer, ByVal intProgramID As Integer) As String
             Dim clsCompany As VO.Company = DL.Company.GetDetail(sqlCon, sqlTrans, intCompanyID)
@@ -120,6 +127,40 @@
                     For Each dr As DataRow In dtItem.Rows
                         BL.StockIn.CalculateStockIn(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
                     Next
+
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+        End Sub
+
+        Public Shared Sub DeleteDataMapCO(ByVal strID As String, ByVal strTransactionNumber As String, ByVal strRemarks As String)
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Dim dtDetail As DataTable = DL.OrderRequest.ListDataDetailCODet(sqlCon, sqlTrans, strID)
+                    Dim drNextProcess() As DataRow = dtDetail.Select("DPAmount>0 OR ReceiveAmount>0")
+                    If drNextProcess.Count > 0 Then
+                        For Each dr As DataRow In drNextProcess
+                            If dr.Item("DPAmount") > 0 Then Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah dilakukan proses pembayaran Down Payment")
+                            If dr.Item("ReceiveAmount") > 0 Then Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah dilakukan proses pelunasan")
+                        Next
+                    End If
+
+                    DL.OrderRequest.DeleteDataMapCO(sqlCon, sqlTrans, strID)
+                    DL.OrderRequest.DeleteDataDetailCODet(sqlCon, sqlTrans, strID)
+
+                    '# Calculate OR Quantity in Confirmation Order Detail and in Order Request Detail
+                    For Each dr As DataRow In dtDetail.Rows
+                        DL.OrderRequest.CalculateCOTotalUsed(sqlCon, sqlTrans, dr.Item("ORDetailID"))
+                        DL.ConfirmationOrder.CalculateORTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
+                    Next
+
+                    '# Save Data Status
+                    BL.OrderRequest.SaveDataStatus(sqlCon, sqlTrans, strID, "HAPUS DATA MAPPING - " & strTransactionNumber, ERPSLib.UI.usUserApp.UserID, strRemarks)
 
                     sqlTrans.Commit()
                 Catch ex As Exception
@@ -239,29 +280,24 @@
                         Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
                     End If
 
-
                     '# Save Data Order Request Confirmation Order Header
-                    '# If New Get New ID with Order Request ID + Running Number
+                    If bolNew Then
+                        clsData.ID = clsData.OrderRequestID & "-" & Format(DL.OrderRequest.GetMaxIDMapCO(sqlCon, sqlTrans, clsData.OrderRequestID) + 1, "000")
+                        If clsData.TransactionNumber.Trim = "" Then clsData.TransactionNumber = clsData.ID
+                    End If
 
                     '# Delete Detail Confirmation Order
+                    Dim dtItemCO As DataTable = DL.OrderRequest.ListDataDetailCODet(sqlCon, sqlTrans, clsData.ID)
                     DL.OrderRequest.DeleteDataDetailCODet(sqlCon, sqlTrans, clsData.ID)
 
-                    '# Calculate OR Quantity in Confirmation Order Detail
-                    Dim dtItemCO As DataTable = DL.OrderRequest.ListDataDetailCODet(sqlCon, sqlTrans, clsData.ID)
+                    '# Calculate OR Quantity in Confirmation Order Detail and in Order Request Detail
                     For Each dr As DataRow In dtItemCO.Rows
+                        DL.OrderRequest.CalculateCOTotalUsed(sqlCon, sqlTrans, dr.Item("ORDetailID"))
                         DL.ConfirmationOrder.CalculateORTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
                     Next
 
-                    '# Unused dikarenakan ada kemungkinan 1 Order Request Detail memiliki beberapa Konfirmasi Pesanan yang membuat Nomor QS berbeda dalam 1 item dan Unit Price HPP menjadi berbeda
-                    '# Revert Order Number Supplier and Unit Price HPP
-                    'Dim dtItem As DataTable = DL.OrderRequest.ListDataDetail(sqlCon, sqlTrans, clsData.OrderRequestID)
-                    'For Each dr As DataRow In dtItem.Rows
-                    '    'Set Combine 
-                    '    'DL.OrderRequest.MapDetail(sqlCon, sqlTrans, dr.Item("ID"), "", 0)
-                    'Next
-                    'For Each cls As VO.OrderRequestDet In clsDataItemAll
-                    '    DL.OrderRequest.MapDetail(sqlCon, sqlTrans, cls.ID, cls.OrderNumberSupplier, cls.UnitPriceHPP)
-                    'Next
+                    '# Save Data
+                    DL.OrderRequest.SaveDataMapCO(sqlCon, sqlTrans, bolNew, clsData)
 
                     Dim intCount As Integer = 1
                     For Each cls As VO.OrderRequestConfirmationOrderDet In clsData.Detail
@@ -269,12 +305,14 @@
                         cls.ParentID = clsData.ID
                         DL.OrderRequest.SaveDataDetailCODet(sqlCon, sqlTrans, cls)
 
-                        '# Calculate OR Quantity in Confirmation Order Detail
+                        '# Calculate OR Quantity in Confirmation Order Detail and in Order Request Detail
+                        DL.OrderRequest.CalculateCOTotalUsed(sqlCon, sqlTrans, cls.ORDetailID)
                         DL.ConfirmationOrder.CalculateORTotalUsed(sqlCon, sqlTrans, cls.CODetailID)
+                        intCount += 1
                     Next
 
                     '# Save Data Status
-                    BL.OrderRequest.SaveDataStatus(sqlCon, sqlTrans, clsData.OrderRequestID, "MAP KONFIRMASI PESANAN", ERPSLib.UI.usUserApp.UserID, "")
+                    BL.OrderRequest.SaveDataStatus(sqlCon, sqlTrans, clsData.OrderRequestID, IIf(bolNew, "TAMBAH", "EDIT") & " DATA MAPPING - " & clsData.TransactionNumber, ERPSLib.UI.usUserApp.UserID, "")
 
                     sqlTrans.Commit()
                     bolSuccess = True
@@ -302,6 +340,14 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.OrderRequest.ListDataDetailOutstanding(sqlCon, Nothing, intProgramID, intCompanyID, intBPID, strOrderRequestID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailOutstandingMapConfirmationOrder(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                             ByVal strOrderRequestID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.OrderRequest.ListDataDetailOutstandingMapConfirmationOrder(sqlCon, Nothing, intProgramID, intCompanyID, strOrderRequestID)
             End Using
         End Function
 

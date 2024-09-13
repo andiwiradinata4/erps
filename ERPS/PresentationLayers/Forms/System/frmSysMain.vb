@@ -26,6 +26,7 @@
     '# Transaction
     '## Sales
     Dim frmMainTraOrderRequest As frmTraOrderRequest
+    Dim frmMainTraOrderRequestVer2 As frmTraOrderRequestVer2
     Dim frmMainTraSalesContract As frmTraSalesContract
     Dim frmMainTraDelivery As frmTraDelivery
 
@@ -283,24 +284,45 @@
 #Region "Sales"
 
     Private Sub mnuTransaksiPenjualanPermintaanPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPermintaanPenjualan.Click
-        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraOrderRequest"
+        'Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraOrderRequest"
+        'Me.Cursor = Cursors.WaitCursor
+        'If Not IsNothing(frmMainTraOrderRequest) Then
+        '    If Not frmMainTraOrderRequest.IsDisposed Then
+        '        frmMainTraOrderRequest.WindowState = FormWindowState.Normal
+        '        frmMainTraOrderRequest.BringToFront()
+        '        frmMainTraOrderRequest.WindowState = FormWindowState.Maximized
+        '    Else
+        '        frmMainTraOrderRequest = Activator.CreateInstance(Type.GetType(s_fT))
+        '        frmMainTraOrderRequest.MdiParent = Me
+        '        frmMainTraOrderRequest.pubIsStock = False
+        '        frmMainTraOrderRequest.Show()
+        '    End If
+        'Else
+        '    frmMainTraOrderRequest = Activator.CreateInstance(Type.GetType(s_fT))
+        '    frmMainTraOrderRequest.MdiParent = Me
+        '    frmMainTraOrderRequest.pubIsStock = False
+        '    frmMainTraOrderRequest.Show()
+        'End If
+        'Me.Cursor = Cursors.Arrow
+
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraOrderRequestVer2"
         Me.Cursor = Cursors.WaitCursor
-        If Not IsNothing(frmMainTraOrderRequest) Then
-            If Not frmMainTraOrderRequest.IsDisposed Then
-                frmMainTraOrderRequest.WindowState = FormWindowState.Normal
-                frmMainTraOrderRequest.BringToFront()
-                frmMainTraOrderRequest.WindowState = FormWindowState.Maximized
+        If Not IsNothing(frmMainTraOrderRequestVer2) Then
+            If Not frmMainTraOrderRequestVer2.IsDisposed Then
+                frmMainTraOrderRequestVer2.WindowState = FormWindowState.Normal
+                frmMainTraOrderRequestVer2.BringToFront()
+                frmMainTraOrderRequestVer2.WindowState = FormWindowState.Maximized
             Else
-                frmMainTraOrderRequest = Activator.CreateInstance(Type.GetType(s_fT))
-                frmMainTraOrderRequest.MdiParent = Me
-                frmMainTraOrderRequest.pubIsStock = False
-                frmMainTraOrderRequest.Show()
+                frmMainTraOrderRequestVer2 = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraOrderRequestVer2.MdiParent = Me
+                frmMainTraOrderRequestVer2.pubIsStock = False
+                frmMainTraOrderRequestVer2.Show()
             End If
         Else
-            frmMainTraOrderRequest = Activator.CreateInstance(Type.GetType(s_fT))
-            frmMainTraOrderRequest.MdiParent = Me
-            frmMainTraOrderRequest.pubIsStock = False
-            frmMainTraOrderRequest.Show()
+            frmMainTraOrderRequestVer2 = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraOrderRequestVer2.MdiParent = Me
+            frmMainTraOrderRequestVer2.pubIsStock = False
+            frmMainTraOrderRequestVer2.Show()
         End If
         Me.Cursor = Cursors.Arrow
     End Sub

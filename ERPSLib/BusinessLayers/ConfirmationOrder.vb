@@ -432,6 +432,13 @@
             End Using
         End Function
 
+        Public Shared Function ListDataDetailOutstandingOrderRequest(ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ConfirmationOrder.ListDataDetailOutstandingOrderRequest(sqlCon, Nothing, intProgramID, intCompanyID)
+            End Using
+        End Function
+
         Public Shared Function ListDataDeliveryAddressDetail() As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection

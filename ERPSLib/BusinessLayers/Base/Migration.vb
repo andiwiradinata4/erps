@@ -36,6 +36,7 @@
                 DevelopOnProgress_ID29(sqlCon, Nothing)
                 DevelopOnProgress_ID30(sqlCon, Nothing)
                 DevelopOnProgress_ID31(sqlCon, Nothing)
+                DevelopOnProgress_ID32(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -937,6 +938,21 @@
 "ALTER TABLE traConfirmationOrderDet ADD ORWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traConfirmationOrderDet_ORWeight DEFAULT ((0))   " & vbNewLine &
 "ALTER TABLE traOrderRequestDet ADD COQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_COQuantity DEFAULT ((0))    " & vbNewLine &
 "ALTER TABLE traOrderRequestDet ADD COWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_COWeight DEFAULT ((0))   " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 32
+        Private Shared Sub DevelopOnProgress_ID32(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 32
+            clsData.Name = "Alter Table traOrderRequestDet Add GroupID"
+            clsData.Scripts =
+"ALTER TABLE traOrderRequestDet ADD GroupID [int] NOT NULL CONSTRAINT DF_traOrderRequestDet_GroupID DEFAULT ((0))    " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

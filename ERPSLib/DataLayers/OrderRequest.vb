@@ -87,6 +87,26 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataMapCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                             ByVal strID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT  " & vbNewLine & _
+                    "	A.ID, A.ProgramID, A.CompanyID, A.OrderRequestID, A.TransactionNumber, A.Remarks, A.CreatedBy,  " & vbNewLine & _
+                    "	A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine & _
+                    "FROM traOrderRequestConfirmationOrder A " & vbNewLine & _
+                    "WHERE " & vbNewLine &
+                    "   A.OrderRequestID=@OrderRequestID " & vbNewLine
+
+                .Parameters.Add("@OrderRequestID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                    ByVal bolNew As Boolean, ByVal clsData As VO.OrderRequest)
             Dim sqlCmdExecute As New SqlCommand
@@ -238,6 +258,26 @@
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Deleted
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataMapCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "DELETE traOrderRequestConfirmationOrder " & vbNewLine &
+                    "WHERE ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -817,6 +857,123 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailOutstandingMapConfirmationOrder(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                             ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                             ByVal strOrderRequestID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.OrderRequestID, A1.OrderNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, " & vbNewLine &
+                    "   D.Description AS ItemTypeName, A.UnitPrice, A.Quantity-A.COWeight AS Quantity, A.Weight, " & vbNewLine &
+                    "   A.TotalWeight+A.RoundingWeight-A.COWeight AS MaxTotalWeight, A.Remarks, A.RoundingWeight, A.OrderNumberSupplier " & vbNewLine &
+                    "FROM traOrderRequestDet A " & vbNewLine &
+                    "INNER JOIN traOrderRequest A1 ON " & vbNewLine &
+                    "   A.OrderRequestID=A1.ID " & vbNewLine &
+                    "INNER JOIN mstItem B ON " & vbNewLine &
+                    "   A.ItemID=B.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification C ON " & vbNewLine &
+                    "   B.ItemSpecificationID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItemType D ON " & vbNewLine &
+                    "   B.ItemTypeID=D.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A1.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A1.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A1.IsDeleted=0 " & vbNewLine &
+                    "   AND A1.StatusID=@StatusID " & vbNewLine &
+                    "   AND A1.SubmitBy<>'' " & vbNewLine &
+                    "   AND A.TotalWeight+A.RoundingWeight-A.COWeight>0 " & vbNewLine
+
+                If strOrderRequestID.Trim <> "" Then .CommandText += "  AND A.OrderRequestID=@OrderRequestID " & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+                .Parameters.Add("@OrderRequestID", SqlDbType.VarChar, 100).Value = strOrderRequestID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function GetMaxIDMapCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                             ByVal strOrderRequestID As String) As Integer
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim intReturn As Integer = 0
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT " & vbNewLine &
+                        "   COUNT(OrderRequestID) Total " & vbNewLine &
+                        "FROM traOrderRequestConfirmationOrder " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   OrderRequestID=@OrderRequestID " & vbNewLine 
+
+                    .Parameters.Add("@OrderRequestID", SqlDbType.VarChar, 100).Value = strOrderRequestID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        intReturn = .Item("Total")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return intReturn
+        End Function
+
+        Public Shared Sub SaveDataMapCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal bolNew As Boolean, ByVal clsData As VO.OrderRequestConfirmationOrder)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                If bolNew Then
+                    .CommandText =
+"INSERT INTO traOrderRequestConfirmationOrder " & vbNewLine & _
+"	(ID, ProgramID, CompanyID, OrderRequestID, TransactionNumber, Remarks, CreatedBy,  " & vbNewLine & _
+"	 CreatedDate, LogBy, LogDate) " & vbNewLine & _
+"VALUES " & vbNewLine & _
+"	(@ID, @ProgramID, @CompanyID, @OrderRequestID, @TransactionNumber, @Remarks, @LogBy,  " & vbNewLine & _
+"	 GETDATE(), @LogBy, GETDATE()) " & vbNewLine
+                Else
+                    .CommandText =
+"UPDATE traOrderRequestConfirmationOrder SET  " & vbNewLine & _
+"	ProgramID=@ProgramID,  " & vbNewLine & _
+"	CompanyID=@CompanyID,  " & vbNewLine & _
+"	OrderRequestID=@OrderRequestID,  " & vbNewLine & _
+"	TransactionNumber=@TransactionNumber,  " & vbNewLine & _
+"	Remarks=@Remarks,  " & vbNewLine & _
+"	LogBy=@LogBy,  " & vbNewLine & _
+"	LogDate=GETDATE(),  " & vbNewLine & _
+"   LogInc = LogInc + 1 " & vbNewLine & _
+"WHERE " & vbNewLine & _
+"	ID=@ID " & vbNewLine
+                End If
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = clsData.ProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = clsData.CompanyID
+                .Parameters.Add("@OrderRequestID", SqlDbType.VarChar, 100).Value = clsData.OrderRequestID
+                .Parameters.Add("@TransactionNumber", SqlDbType.VarChar, 100).Value = clsData.TransactionNumber
+                .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
+                .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
+
         Public Shared Sub SaveDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                          ByVal clsData As VO.OrderRequestDet)
             Dim sqlCmdExecute As New SqlCommand
@@ -896,7 +1053,7 @@
                     "	SCQuantity=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(SCD.Quantity+SCD.RoundingWeight),0) TotalQuantity " & vbNewLine &
+                    "			ISNULL(SUM(SCD.Quantity),0) TotalQuantity " & vbNewLine &
                     "		FROM traSalesContractDet SCD 	" & vbNewLine &
                     "		INNER JOIN traSalesContract SCH ON	" & vbNewLine &
                     "			SCD.SCID=SCH.ID 	" & vbNewLine &
@@ -940,7 +1097,7 @@
                     "	SCQuantity=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(TDD.Quantity+TDD.RoundingWeight),0) TotalQuantity " & vbNewLine &
+                    "			ISNULL(SUM(TDD.Quantity),0) TotalQuantity " & vbNewLine &
                     "		FROM traDeliveryDet TDD 	" & vbNewLine &
                     "		INNER JOIN traDelivery TDH ON	" & vbNewLine &
                     "			TDD.DeliveryID=TDH.ID 	" & vbNewLine &
@@ -948,6 +1105,42 @@
                     "			TDD.SCDetailID=@OrderRequestDetailID 	" & vbNewLine &
                     "			AND TDD.ParentID='' 	" & vbNewLine &
                     "			AND TDH.IsDeleted=0 	" & vbNewLine &
+                    "	) 	" & vbNewLine &
+                    "WHERE ID=@OrderRequestDetailID	" & vbNewLine
+
+                .Parameters.Add("@OrderRequestDetailID", SqlDbType.VarChar, 100).Value = strOrderRequestDetailID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateCOTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                    ByVal strOrderRequestDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traOrderRequestDet SET 	" & vbNewLine &
+                    "	COWeight=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(ORCOD.TotalWeight+ORCOD.RoundingWeight),0) TotalWeight " & vbNewLine &
+                    "		FROM traOrderRequestConfirmationOrderDet ORCOD 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			ORCOD.ORDetailID=@OrderRequestDetailID 	" & vbNewLine &
+                    "	), 	" & vbNewLine &
+                    "	COQuantity=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(ORCOD.Quantity),0) TotalQuantity " & vbNewLine &
+                    "		FROM traOrderRequestConfirmationOrderDet ORCOD 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			ORCOD.ORDetailID=@OrderRequestDetailID 	" & vbNewLine &
                     "	) 	" & vbNewLine &
                     "WHERE ID=@OrderRequestDetailID	" & vbNewLine
 
@@ -1070,7 +1263,7 @@
                     "   0 AS MaxTotalWeight, A.UnitPrice, A.TotalPrice, A.Remarks, A.RoundingWeight, E.ItemID AS ItemIDCO, B.ItemCode AS ItemCodeCO, B.ItemName AS ItemNameCO, " & vbNewLine &
                     "   B.Thick AS ThickCO, B.Width AS WidthCO, B.Length AS LengthCO, CCO.ID AS ItemSpecificationIDCO, CCO.Description AS ItemSpecificationNameCO, DCO.ID AS ItemTypeIDCO, " & vbNewLine &
                     "   DCO.Description AS ItemTypeNameCO, A.QuantityCO, A.WeightCO, A.TotalWeightCO, A.UnitPriceCO, A.TotalPriceCO, A.RoundingWeightCO, " & vbNewLine &
-                    "   A.LevelItem, A.LocationID, A.UnitPriceHPP " & vbNewLine &
+                    "   A.LevelItem, A.LocationID, A.UnitPriceHPP, A.DPAmount, A.ReceiveAmount " & vbNewLine &
                     "FROM traOrderRequestConfirmationOrderDet A " & vbNewLine &
                     "INNER JOIN mstItem B ON " & vbNewLine &
                     "   A.ItemID=B.ID " & vbNewLine &

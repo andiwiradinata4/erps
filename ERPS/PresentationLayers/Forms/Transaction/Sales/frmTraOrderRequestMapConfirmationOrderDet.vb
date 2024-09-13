@@ -1,45 +1,27 @@
-﻿Public Class frmTraOrderRequestMapConfirmationOrderDet
+﻿Imports DevExpress.XtraGrid
+Public Class frmTraOrderRequestMapConfirmationOrderDet
 
 #Region "Property"
 
     Private frmParent As frmTraOrderRequestMapConfirmationOrder
-    Private dtParent As New DataTable
-    Private bolIsNew As Boolean = False
-    Private intItemID As Integer = 0
-    Private intItemIDCO As Integer = 0
-    Private drSelected As DataRow
-    Private strID As String = ""
-    Private bolIsAutoSearch As Boolean
-    Private strORDetailID As String = ""
-    Private strCODetailID As String = ""
+    Private clsData As VO.OrderRequestConfirmationOrder
+    Private dtItem As New DataTable
+    Private intPos As Integer = 0
+    Private strOrderRequestID As String
+    Private bolIsNew As Boolean
 
-    Public WriteOnly Property pubTableParent As DataTable
-        Set(value As DataTable)
-            dtParent = value
+    Property pubID As String = ""
+    Property pubCS As New VO.CS
+
+    Public WriteOnly Property pubOrderRequestID As String
+        Set(value As String)
+            strOrderRequestID = value
         End Set
     End Property
 
     Public WriteOnly Property pubIsNew As Boolean
         Set(value As Boolean)
             bolIsNew = value
-        End Set
-    End Property
-
-    Public WriteOnly Property pubDatRowSelected As DataRow
-        Set(value As DataRow)
-            drSelected = value
-        End Set
-    End Property
-
-    Public WriteOnly Property pubID As String
-        Set(value As String)
-            strID = value
-        End Set
-    End Property
-
-    Public WriteOnly Property pubIsAutoSearch As Boolean
-        Set(value As Boolean)
-            bolIsAutoSearch = value
         End Set
     End Property
 
@@ -51,337 +33,272 @@
 #End Region
 
     Private Const _
-       cSave As Byte = 0, cClose As Byte = 1
+       cSave As Byte = 0, cClose As Byte = 1, cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2
 
-    Private Sub prvFillCombo()
-        Try
-            Dim dtItemType As DataTable = BL.ItemType.ListDataForCombo
-            Dim dtItemSpecification As DataTable = BL.ItemSpecification.ListDataForCombo
-            UI.usForm.FillComboBox(cboItemType, dtItemType, "ID", "Description")
-            UI.usForm.FillComboBox(cboItemSpecification, dtItemSpecification, "ID", "Description")
-            UI.usForm.FillComboBox(cboItemTypeCO, dtItemType, "ID", "Description")
-            UI.usForm.FillComboBox(cboItemSpecificationCO, dtItemSpecification, "ID", "Description")
-        Catch ex As Exception
-            UI.usForm.frmMessageBox(ex.Message)
-        End Try
+    Private Sub prvSetTitleForm()
+        Me.Text += " [Map Konfirmasi Pesanan] "
     End Sub
 
-    Private Sub prvClear()
-        txtItemCode.Focus()
-        strID = ""
-        strORDetailID = ""
-        intItemID = 0
-        txtItemCode.Text = ""
-        cboItemType.SelectedIndex = -1
-        txtItemName.Text = ""
-        txtThick.Value = 0
-        txtWidth.Value = 0
-        txtLength.Value = 0
-        txtWeight.Value = 0
-        txtUnitPrice.Value = 0
-        cboItemSpecification.SelectedIndex = -1
-        txtQuantity.Value = 0
-        txtTotalWeight.Value = 0
-        txtTotalPrice.Value = 0
-        txtRemarks.Text = ""
-        txtUnitPriceHPP.Value = 0
-        txtMaxTotalWeight.Value = 0
+    Private Sub prvResetProgressBar()
+        pgMain.Value = 0
+        Me.Cursor = Cursors.Default
+    End Sub
 
-        strCODetailID = ""
-        intItemIDCO = 0
-        txtItemCodeCO.Text = ""
-        txtOrderNumberSupplier.Text = ""
-        cboItemTypeCO.SelectedIndex = -1
-        txtItemNameCO.Text = ""
-        txtThickCO.Value = 0
-        txtWidthCO.Value = 0
-        txtLengthCO.Value = 0
-        txtWeightCO.Value = 0
-        txtUnitPriceCO.Value = 0
-        cboItemSpecificationCO.SelectedIndex = -1
-        txtQuantityCO.Value = 0
-        txtTotalWeightCO.Value = 0
-        txtTotalPriceCO.Value = 0
-        txtMaxTotalWeightCO.Value = 0
+    Private Sub prvSetGrid()
+        '# Item
+        UI.usForm.SetGrid(grdItemView, "ID", "ID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "ORDetailID", "ORDetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "CODetailID", "CODetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "GroupID", "GroupID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "CONumber", "No. Konfirmasi Pesanan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "No. Pesanan Pemasok", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "RoundingWeight", "RoundingWeight", 100, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdItemView, "ItemIDCO", "ItemIDCO", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "ItemCodeCO", "Kode Barang Konfirmasi Pesanan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "ItemNameCO", "Nama Barang Konfirmasi Pesanan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "ThickCO", "Tebal Konfirmasi Pesanan", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "WidthCO", "Lebar Konfirmasi Pesanan", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemView, "LengthCO", "Panjang Konfirmasi Pesanan", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemView, "ItemSpecificationIDCO", "ItemSpecificationIDCO", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "ItemSpecificationNameCO", "Spec Konfirmasi Pesanan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "ItemTypeIDCO", "ItemTypeIDCO", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "ItemTypeNameCO", "Tipe Konfirmasi Pesanan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "QuantityCO", "Quantity Konfirmasi Pesanan", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemView, "WeightCO", "Weight Konfirmasi Pesanan", 100, UI.usDefGrid.gReal4Num)
+        UI.usForm.SetGrid(grdItemView, "TotalWeightCO", "Total Berat Konfirmasi Pesanan", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "UnitPriceCO", "Harga Konfirmasi Pesanan", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "TotalPriceCO", "Total Harga Konfirmasi Pesanan", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "RoundingWeightCO", "RoundingWeightCO", 100, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdItemView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "LocationID", "LocationID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdItemView, "UnitPriceHPP", "Unit Price HPP", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
     End Sub
 
     Private Sub prvFillForm()
+        pgMain.Value = 30
         Me.Cursor = Cursors.WaitCursor
         Try
-            prvFillCombo()
             If bolIsNew Then
-                prvClear()
+                Dim clsOrderRequest As VO.OrderRequest = BL.OrderRequest.GetDetail(strOrderRequestID)
+                txtOrderNumber.Text = clsOrderRequest.OrderNumber
             Else
-                strID = drSelected.Item("ID")
-                strORDetailID = drSelected.Item("ORDetailID")
-                intItemID = drSelected.Item("ItemID")
-                txtItemCode.Text = drSelected.Item("ItemCode")
-                txtItemName.Text = drSelected.Item("ItemName")
-                cboItemType.SelectedValue = drSelected.Item("ItemTypeID")
-                txtThick.Value = drSelected.Item("Thick")
-                txtWidth.Value = drSelected.Item("Width")
-                txtLength.Value = drSelected.Item("Length")
-                txtWeight.Value = drSelected.Item("Weight")
-                txtUnitPrice.Value = drSelected.Item("UnitPrice")
-                cboItemSpecification.SelectedValue = drSelected.Item("ItemSpecificationID")
-                txtQuantity.Value = drSelected.Item("Quantity")
-                txtTotalWeight.Value = drSelected.Item("TotalWeight")
-                txtTotalPrice.Value = drSelected.Item("TotalPrice")
-                txtRemarks.Text = drSelected.Item("Remarks")
-                txtOrderNumberSupplier.Text = drSelected.Item("OrderNumberSupplier")
-                txtUnitPriceHPP.Value = drSelected.Item("UnitPriceHPP")
-
-                strCODetailID = drSelected.Item("CODetailID")
-                intItemIDCO = drSelected.Item("ItemIDCO")
-                txtItemCodeCO.Text = drSelected.Item("ItemCodeCO")
-                txtItemNameCO.Text = drSelected.Item("ItemNameCO")
-                cboItemTypeCO.SelectedValue = drSelected.Item("ItemTypeIDCO")
-                txtThickCO.Value = drSelected.Item("ThickCO")
-                txtWidthCO.Value = drSelected.Item("WidthCO")
-                txtLengthCO.Value = drSelected.Item("LengthCO")
-                txtWeightCO.Value = drSelected.Item("WeightCO")
-                txtUnitPriceCO.Value = drSelected.Item("UnitPriceCO")
-                cboItemSpecificationCO.SelectedValue = drSelected.Item("ItemSpecificationIDCO")
-                txtQuantityCO.Value = drSelected.Item("QuantityCO")
-                txtTotalWeightCO.Value = drSelected.Item("TotalWeightCO")
-                txtTotalPriceCO.Value = drSelected.Item("TotalPriceCO")
+                clsData = New VO.OrderRequestConfirmationOrder
+                clsData = BL.OrderRequest.GetDetailCO(pubID)
+                strOrderRequestID = clsData.OrderRequestID
+                txtOrderNumber.Text = clsData.OrderNumber
+                txtTransactionNumber.Text = clsData.TransactionNumber
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
+            Me.Close()
         Finally
             Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+            prvResetProgressBar()
         End Try
     End Sub
 
     Private Sub prvSave()
-        If txtItemCode.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih item terlebih dahulu")
-            txtItemCode.Focus()
-            Exit Sub
-        ElseIf cboItemType.SelectedIndex = -1 Then
-            UI.usForm.frmMessageBox("Jenis barang tidak valid")
-            cboItemType.Focus()
-            Exit Sub
-        ElseIf cboItemSpecification.SelectedIndex = -1 Then
-            UI.usForm.frmMessageBox("Spesifikasi barang tidak valid")
-            cboItemSpecification.Focus()
-            Exit Sub
-        ElseIf txtQuantity.Value <= 0 Then
-            UI.usForm.frmMessageBox("Jumlah harus lebih besar dari 0")
-            txtQuantity.Focus()
-            Exit Sub
-        ElseIf txtWeight.Value <= 0 Then
-            UI.usForm.frmMessageBox("Berat harus lebih besar dari 0")
-            txtWeight.Focus()
-            Exit Sub
-        ElseIf txtOrderNumberSupplier.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Nomor Pesanan Pemasok tidak boleh kosong")
-            txtOrderNumberSupplier.Focus()
-            Exit Sub
-        ElseIf txtUnitPriceHPP.Value <= 0 Then
-            UI.usForm.frmMessageBox("Harga Beli harus lebih besar dari 0 agar HPP Penjualan dapat diperoleh saat pengiriman")
-            txtUnitPriceHPP.Focus()
-            Exit Sub
-        ElseIf txtItemCodeCO.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih item konfirmasi pesanan terlebih dahulu")
-            txtItemCodeCO.Focus()
-            Exit Sub
-        ElseIf cboItemTypeCO.SelectedIndex = -1 Then
-            UI.usForm.frmMessageBox("Jenis barang konfirmasi pesanan tidak valid")
-            cboItemTypeCO.Focus()
-            Exit Sub
-        ElseIf cboItemSpecificationCO.SelectedIndex = -1 Then
-            UI.usForm.frmMessageBox("Spesifikasi barang konfirmasi pesanan tidak valid")
-            cboItemSpecificationCO.Focus()
-            Exit Sub
-        ElseIf txtQuantityCO.Value <= 0 Then
-            UI.usForm.frmMessageBox("Jumlah konfirmasi pesanan harus lebih besar dari 0")
-            txtQuantityCO.Focus()
-            Exit Sub
-        ElseIf txtWeightCO.Value <= 0 Then
-            UI.usForm.frmMessageBox("Berat konfirmasi pesanan harus lebih besar dari 0")
-            txtWeightCO.Focus()
+        ToolBar.Focus()
+        If grdItemView.RowCount = 0 Then
+            UI.usForm.frmMessageBox("Item kosong. Mohon untuk diinput item terlebih dahulu")
+            grdItemView.Focus()
             Exit Sub
         End If
 
-        If bolIsNew Then
-            Dim dr As DataRow
-            dr = dtParent.NewRow
-            dr.BeginEdit()
-            dr.Item("ID") = Guid.NewGuid
-            dr.Item("OrderRequestID") = ""
-            dr.Item("ORDetailID") = strORDetailID
-            dr.Item("ItemID") = intItemID
-            dr.Item("ItemCode") = txtItemCode.Text.Trim
-            dr.Item("ItemName") = txtItemName.Text.Trim
-            dr.Item("Thick") = txtThick.Value
-            dr.Item("Width") = txtWidth.Value
-            dr.Item("Length") = txtLength.Value
-            dr.Item("ItemSpecificationID") = cboItemSpecification.SelectedValue
-            dr.Item("ItemSpecificationName") = cboItemSpecification.Text.Trim
-            dr.Item("ItemTypeID") = cboItemType.SelectedValue
-            dr.Item("ItemTypeName") = cboItemType.Text.Trim
-            dr.Item("Quantity") = txtQuantity.Value
-            dr.Item("Weight") = txtWeight.Value
-            dr.Item("TotalWeight") = txtTotalWeight.Value
-            dr.Item("UnitPrice") = txtUnitPrice.Value
-            dr.Item("TotalPrice") = txtTotalPrice.Value
-            dr.Item("Remarks") = txtRemarks.Text.Trim
-            dr.Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
-            dr.Item("UnitPriceHPP") = txtUnitPriceHPP.Value
+        If Not UI.usForm.frmAskQuestion("Simpan data?") Then Exit Sub
 
-            dr.Item("CODetailID") = strCODetailID
-            dr.Item("ItemIDCO") = intItemIDCO
-            dr.Item("ItemCodeCO") = txtItemCodeCO.Text.Trim
-            dr.Item("ItemNameCO") = txtItemNameCO.Text.Trim
-            dr.Item("ThickCO") = txtThickCO.Value
-            dr.Item("WidthCO") = txtWidthCO.Value
-            dr.Item("LengthCO") = txtLengthCO.Value
-            dr.Item("ItemSpecificationIDCO") = cboItemSpecificationCO.SelectedValue
-            dr.Item("ItemSpecificationNameCO") = cboItemSpecificationCO.Text.Trim
-            dr.Item("ItemTypeIDCO") = cboItemTypeCO.SelectedValue
-            dr.Item("ItemTypeNameCO") = cboItemTypeCO.Text.Trim
-            dr.Item("QuantityCO") = txtQuantityCO.Value
-            dr.Item("WeightCO") = txtWeightCO.Value
-            dr.Item("TotalWeightCO") = txtTotalWeightCO.Value
-            dr.Item("UnitPriceCO") = txtUnitPriceCO.Value
-            dr.Item("TotalPriceCO") = txtTotalPriceCO.Value
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 30
 
-            dr.EndEdit()
-            dtParent.Rows.Add(dr)
-            dtParent.AcceptChanges()
-            frmParent.grdItemView.BestFitColumns()
-            prvClear()
-        Else
-            For Each dr As DataRow In dtParent.Rows
-                If dr.Item("ID") = strID Then
-                    dr.BeginEdit()
-                    dr.Item("OrderRequestID") = ""
-                    dr.Item("ORDetailID") = strORDetailID
-                    dr.Item("ItemID") = intItemID
-                    dr.Item("ItemCode") = txtItemCode.Text.Trim
-                    dr.Item("ItemName") = txtItemName.Text.Trim
-                    dr.Item("Thick") = txtThick.Value
-                    dr.Item("Width") = txtWidth.Value
-                    dr.Item("Length") = txtLength.Value
-                    dr.Item("ItemSpecificationID") = cboItemSpecification.SelectedValue
-                    dr.Item("ItemSpecificationName") = cboItemSpecification.Text.Trim
-                    dr.Item("ItemTypeID") = cboItemType.SelectedValue
-                    dr.Item("ItemTypeName") = cboItemType.Text.Trim
-                    dr.Item("Quantity") = txtQuantity.Value
-                    dr.Item("Weight") = txtWeight.Value
-                    dr.Item("TotalWeight") = txtTotalWeight.Value
-                    dr.Item("UnitPrice") = txtUnitPrice.Value
-                    dr.Item("TotalPrice") = txtTotalPrice.Value
-                    dr.Item("Remarks") = txtRemarks.Text.Trim
-                    dr.Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
-                    dr.Item("UnitPriceHPP") = txtUnitPriceHPP.Value
+        Dim clsDataItemAll As New List(Of VO.OrderRequestConfirmationOrderDet)
+        For Each dr As DataRow In dtItem.Rows
+            clsDataItemAll.Add(New VO.OrderRequestConfirmationOrderDet() With
+                               {
+                                   .ID = dr.Item("ID"),
+                                   .ParentID = pubID,
+                                   .ORDetailID = dr.Item("ORDetailID"),
+                                   .CODetailID = dr.Item("CODetailID"),
+                                   .GroupID = 0,
+                                   .ItemID = dr.Item("ItemID"),
+                                   .Quantity = dr.Item("Quantity"),
+                                   .Weight = dr.Item("Weight"),
+                                   .TotalWeight = dr.Item("TotalWeight"),
+                                   .UnitPrice = dr.Item("UnitPrice"),
+                                   .TotalPrice = dr.Item("TotalPrice"),
+                                   .Remarks = dr.Item("Remarks"),
+                                   .RoundingWeight = dr.Item("RoundingWeight"),
+                                   .QuantityCO = dr.Item("QuantityCO"),
+                                   .WeightCO = dr.Item("WeightCO"),
+                                   .TotalWeightCO = dr.Item("TotalWeightCO"),
+                                   .UnitPriceCO = dr.Item("UnitPriceCO"),
+                                   .TotalPriceCO = dr.Item("TotalPriceCO"),
+                                   .RoundingWeightCO = dr.Item("RoundingWeightCO"),
+                                   .LevelItem = 0,
+                                   .LocationID = 0,
+                                   .UnitPriceHPP = dr.Item("UnitPriceHPP"),
+                                   .OrderNumberSupplier = dr.Item("OrderNumberSupplier")
+                               })
+        Next
 
-                    dr.Item("CODetailID") = strCODetailID
-                    dr.Item("ItemIDCO") = intItemIDCO
-                    dr.Item("ItemCodeCO") = txtItemCodeCO.Text.Trim
-                    dr.Item("ItemNameCO") = txtItemNameCO.Text.Trim
-                    dr.Item("ThickCO") = txtThickCO.Value
-                    dr.Item("WidthCO") = txtWidthCO.Value
-                    dr.Item("LengthCO") = txtLengthCO.Value
-                    dr.Item("ItemSpecificationIDCO") = cboItemSpecificationCO.SelectedValue
-                    dr.Item("ItemSpecificationNameCO") = cboItemSpecificationCO.Text.Trim
-                    dr.Item("ItemTypeIDCO") = cboItemTypeCO.SelectedValue
-                    dr.Item("ItemTypeNameCO") = cboItemTypeCO.Text.Trim
-                    dr.Item("QuantityCO") = txtQuantityCO.Value
-                    dr.Item("WeightCO") = txtWeightCO.Value
-                    dr.Item("TotalWeightCO") = txtTotalWeightCO.Value
-                    dr.Item("UnitPriceCO") = txtUnitPriceCO.Value
-                    dr.Item("TotalPriceCO") = txtTotalPriceCO.Value
-                    dr.EndEdit()
-                    dtParent.AcceptChanges()
-                    frmParent.grdItemView.BestFitColumns()
-                    Exit For
-                End If
-            Next
+        clsData = New VO.OrderRequestConfirmationOrder() With
+            {
+                .ProgramID = pubCS.ProgramID,
+                .CompanyID = pubCS.CompanyID,
+                .ID = pubID,
+                .TransactionNumber = txtTransactionNumber.Text.Trim,
+                .OrderRequestID = strOrderRequestID,
+                .LogBy = ERPSLib.UI.usUserApp.UserID,
+                .Detail = clsDataItemAll
+            }
+
+        pgMain.Value = 60
+
+        Try
+            Dim bolIsSuccess As Boolean = BL.OrderRequest.MapConfirmationOrder(bolIsNew, clsData)
+            UI.usForm.frmMessageBox("Mapping Data Berhasil.")
+            pgMain.Value = 80
             Me.Close()
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            pgMain.Value = 100
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+    Private Sub prvSumGrid()
+        Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
+        Dim SumGrandTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
+        Dim SumGrandTotalPrice As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
+
+        Dim SumTotalQuantityCO As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "QuantityCO", "Total Quantity Konfirmasi Pesanan: {0:#,##0.0000}")
+        Dim SumGrandTotalWeightCO As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeightCO", "Total Berat Keseluruhan Konfirmasi Pesanan: {0:#,##0.00}")
+        Dim SumGrandTotalPriceCO As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPriceCO", "Total Harga Keseluruhan Konfirmasi Pesanan: {0:#,##0.00}")
+
+        If grdItemView.Columns("Quantity").SummaryText.Trim = "" Then
+            grdItemView.Columns("Quantity").Summary.Add(SumTotalQuantity)
+        End If
+
+        If grdItemView.Columns("TotalWeight").SummaryText.Trim = "" Then
+            grdItemView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeight)
+        End If
+
+        If grdItemView.Columns("TotalPrice").SummaryText.Trim = "" Then
+            grdItemView.Columns("TotalPrice").Summary.Add(SumGrandTotalPrice)
+        End If
+
+        If grdItemView.Columns("QuantityCO").SummaryText.Trim = "" Then
+            grdItemView.Columns("QuantityCO").Summary.Add(SumTotalQuantityCO)
+        End If
+
+        If grdItemView.Columns("TotalWeightCO").SummaryText.Trim = "" Then
+            grdItemView.Columns("TotalWeightCO").Summary.Add(SumGrandTotalWeightCO)
+        End If
+
+        If grdItemView.Columns("TotalPriceCO").SummaryText.Trim = "" Then
+            grdItemView.Columns("TotalPriceCO").Summary.Add(SumGrandTotalPriceCO)
         End If
     End Sub
 
-    Private Sub prvRequestItem()
-        'If bolIsStock Then
-        '    Dim frmDetail As New frmMstStock
-        '    With frmDetail
-        '        .pubIsLookUp = True
-        '        .pubDataParent = dtParent
-        '        .StartPosition = FormStartPosition.CenterScreen
-        '        .ShowDialog()
-        '        If .pubIsLookUpGet Then
-        '            intItemID = .pubLUdtRow.Item("ID")
-        '            txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
-        '            cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
-        '            txtItemName.Text = .pubLUdtRow.Item("ItemName")
-        '            txtThick.Value = .pubLUdtRow.Item("Thick")
-        '            txtWidth.Value = .pubLUdtRow.Item("Width")
-        '            txtLength.Value = .pubLUdtRow.Item("Length")
-        '            cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
-        '            txtWeight.Value = .pubLUdtRow.Item("Weight")
-        '            txtUnitPrice.Value = 0
-        '            txtQuantity.Value = 0
-        '            txtUnitPrice.Focus()
-        '            txtRemarks.Text = ""
-        '            txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
-        '            txtUnitPriceHPP.Value = .pubLUdtRow.Item("UnitPrice")
-        '            txtMaxTotalWeight.Value = .pubLUdtRow.Item("Balance")
-        '            bolIsAutoSearch = False
-        '        Else
-        '            If bolIsAutoSearch Then Me.Close()
-        '        End If
-        '    End With
-        'Else
-        '    Dim frmDetail As New frmMstItem
-        '    With frmDetail
-        '        .pubIsLookUp = True
-        '        .StartPosition = FormStartPosition.CenterScreen
-        '        .ShowDialog()
-        '        If .pubIsLookUpGet Then
-        '            intItemID = .pubLUdtRow.Item("ID")
-        '            txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
-        '            cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
-        '            txtItemName.Text = .pubLUdtRow.Item("ItemName")
-        '            txtThick.Value = .pubLUdtRow.Item("Thick")
-        '            txtWidth.Value = .pubLUdtRow.Item("Width")
-        '            txtLength.Value = .pubLUdtRow.Item("Length")
-        '            cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
-        '            txtWeight.Value = .pubLUdtRow.Item("Weight")
-        '            txtUnitPrice.Value = .pubLUdtRow.Item("BasePrice")
-        '            txtQuantity.Value = 0
-        '            txtUnitPrice.Focus()
-        '            txtRemarks.Text = ""
-        '            txtOrderNumberSupplier.Text = ""
-        '            txtUnitPriceHPP.Value = 0
-        '            bolIsAutoSearch = False
-        '        Else
-        '            If bolIsAutoSearch Then Me.Close()
-        '        End If
-        '    End With
-        'End If
+#Region "Item Handle"
+
+    Private Sub prvSetButtonItem()
+        Dim bolEnabled As Boolean = IIf(grdItemView.RowCount = 0, False, True)
+        With ToolBarDetail
+            .Buttons(cEditItem).Enabled = bolEnabled
+            .Buttons(cDeleteItem).Enabled = bolEnabled
+        End With
     End Sub
 
-    Private Sub prvCOItem()
+    Private Sub prvQueryItem()
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 30
 
+        Try
+            dtItem = BL.OrderRequest.ListDataDetailCO(pubID.Trim)
+            grdItem.DataSource = dtItem
+            prvSumGrid()
+            grdItemView.BestFitColumns()
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+            Me.Close()
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+            prvSetButtonItem()
+            prvResetProgressBar()
+        End Try
     End Sub
 
-    Private Sub prvCalculate()
-        txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
-        txtTotalPrice.Value = txtTotalWeight.Value * txtUnitPrice.Value
-
-        txtTotalWeightCO.Value = txtWeightCO.Value * txtQuantityCO.Value
-        txtTotalPriceCO.Value = txtTotalWeightCO.Value * txtUnitPriceCO.Value
-
-        '# Calculate Unit Price HPP
-        txtUnitPriceHPP.Value = txtTotalPriceCO.Value / txtTotalWeight.Value
-        '# ------------------------------------
+    Private Sub prvAddItem()
+        Dim frmDetail As New frmTraOrderRequestMapConfirmationOrderDetItem
+        With frmDetail
+            .pubIsNew = True
+            .pubTableParent = dtItem
+            .pubCS = pubCS
+            .pubIsAutoSearch = True
+            .pubOrderRequestID = strOrderRequestID
+            .StartPosition = FormStartPosition.CenterScreen
+            .pubShowDialog(Me)
+            prvSetButtonItem()
+        End With
     End Sub
+
+    Private Sub prvEditItem()
+        intPos = grdItemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim frmDetail As New frmTraOrderRequestMapConfirmationOrderDetItem
+        With frmDetail
+            .pubIsNew = False
+            .pubTableParent = dtItem
+            .pubCS = pubCS
+            .pubIsAutoSearch = False
+            .pubOrderRequestID = strOrderRequestID
+            .pubDatRowSelected = grdItemView.GetDataRow(intPos)
+            .StartPosition = FormStartPosition.CenterScreen
+            .pubShowDialog(Me)
+            prvSetButtonItem()
+        End With
+    End Sub
+
+    Private Sub prvDeleteItem()
+        intPos = grdItemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdItemView.GetRowCellValue(intPos, "ID")
+        For i As Integer = 0 To dtItem.Rows.Count - 1
+            If dtItem.Rows(i).Item("ID") = strID Then
+                dtItem.Rows(i).Delete()
+                Exit For
+            End If
+        Next
+        dtItem.AcceptChanges()
+        grdItem.DataSource = dtItem
+        prvSetButtonItem()
+    End Sub
+
+#End Region
 
 #Region "Form Handle"
 
-    Private Sub frmTraOrderRequestMapConfirmationOrderDet_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+    Private Sub frmTraOrderRequestMapConfirmationOrder_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
         ElseIf (e.Control And e.KeyCode = Keys.S) Then
@@ -389,11 +306,14 @@
         End If
     End Sub
 
-    Private Sub frmTraOrderRequestMapConfirmationOrderDet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmTraOrderRequestMapConfirmationOrder_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
+        ToolBarDetail.SetIcon(Me)
+        prvSetTitleForm()
+        prvSetGrid()
         prvFillForm()
-        If bolIsAutoSearch Then prvRequestItem()
+        prvQueryItem()
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
@@ -403,12 +323,12 @@
         End Select
     End Sub
 
-    Private Sub btnRequestItem_Click(sender As Object, e As EventArgs) Handles btnRequestItem.Click
-        prvRequestItem()
-    End Sub
-
-    Private Sub btnCO_Click(sender As Object, e As EventArgs) Handles btnCO.Click
-        prvCOItem()
+    Private Sub ToolBarDetail_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarDetail.ButtonClick
+        Select Case e.Button.Text.Trim
+            Case "Tambah" : prvAddItem()
+            Case "Edit" : prvEditItem()
+            Case "Hapus" : prvDeleteItem()
+        End Select
     End Sub
 
 #End Region

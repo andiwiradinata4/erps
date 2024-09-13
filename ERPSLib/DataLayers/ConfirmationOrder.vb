@@ -635,6 +635,42 @@
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailOutstandingOrderRequest(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                     ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "	COD.ID, COD.COID, COH.CONumber, COD.OrderNumberSupplier, COD.DeliveryAddress, COD.ItemID, MI.ItemCode, MI.ItemName, " & vbNewLine &
+                    "   MI.Thick, MI.Width, MI.Length, MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, " & vbNewLine &
+                    "   MIT.Description AS ItemTypeName, COD.Quantity-COD.ORQuantity AS Quantity, COD.Weight, COD.TotalWeight-COD.ORWeight AS TotalWeight, " & vbNewLine &
+                    "   COD.UnitPrice, COD.TotalPrice " & vbNewLine &
+                    "FROM traConfirmationOrderDet COD 	" & vbNewLine &
+                    "INNER JOIN traConfirmationOrder COH ON 	" & vbNewLine &
+                    "	COD.COID=COH.ID 	" & vbNewLine &
+                    "INNER JOIN mstItem MI ON 	" & vbNewLine &
+                    "	COD.ItemID=MI.ID 	" & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON 	" & vbNewLine &
+                    "	MI.ItemSpecificationID=MIS.ID 	" & vbNewLine &
+                    "INNER JOIN mstItemType MIT ON 	" & vbNewLine &
+                    "	MI.ItemTypeID=MIT.ID  	" & vbNewLine &
+                    "WHERE 	" & vbNewLine &
+                    "	COH.IsDeleted=0 	" & vbNewLine &
+                    "   AND COH.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND COH.CompanyID=@CompanyID " & vbNewLine &
+                    "	AND COH.StatusID=@StatusID 	" & vbNewLine &
+                    "	AND COD.TotalWeight+COD.RoundingWeight-COD.ORWeight>0 	" & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
         Public Shared Function ListDataDeliveryAddressDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction) As DataTable
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
@@ -849,27 +885,17 @@
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(ORD.TotalWeightCO+ORD.RoundingWeightCO),0) TotalWeight " & vbNewLine &
                     "		FROM traOrderRequestConfirmationOrderDet ORD 	" & vbNewLine &
-                    "		INNER JOIN traOrderRequestConfirmationOrder ORH ON	" & vbNewLine &
-                    "			ORD.ID=ORH.ParentID 	" & vbNewLine &
-                    "		INNER JOIN traOrderRequest ORH1 ON	" & vbNewLine &
-                    "			ORH.OrderRequestID=ORH1.ID 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			ORD.CODetailID=@CODetailID 	" & vbNewLine &
-                    "			AND ORH1.IsDeleted=0 	" & vbNewLine &
                     "	), 	" & vbNewLine &
                     "	ORQuantity=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(ORD.QuantityCO),0) TotalQuantity " & vbNewLine &
                     "		FROM traOrderRequestConfirmationOrderDet ORD 	" & vbNewLine &
-                    "		INNER JOIN traOrderRequestConfirmationOrder ORH ON	" & vbNewLine &
-                    "			ORD.ID=ORH.ParentID 	" & vbNewLine &
-                    "		INNER JOIN traOrderRequest ORH1 ON	" & vbNewLine &
-                    "			ORH.OrderRequestID=ORH1.ID 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			ORD.CODetailID=@CODetailID 	" & vbNewLine &
-                    "			AND ORH1.IsDeleted=0 	" & vbNewLine &
-                    "	), 	" & vbNewLine &
+                    "	) 	" & vbNewLine &
                     "WHERE ID=@CODetailID	" & vbNewLine
 
                 .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID

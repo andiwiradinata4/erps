@@ -21,8 +21,7 @@ Public Class frmTraOrderRequest
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3, cSubmit As Byte = 4, cCancelSubmit As Byte = 5,
        cSep2 As Byte = 6, cDownPayment As Byte = 7, cReceive As Byte = 8, cSetupDelivery As Byte = 9, cCancelSetupDelivery As Byte = 10,
-       cSep3 As Byte = 11, cExportExcel As Byte = 12, cSep4 As Byte = 13, cMapConfirmationOrder As Byte = 14, cSep5 As Byte = 15,
-       cRefresh As Byte = 16, cClose As Byte = 17
+       cSep3 As Byte = 11, cSep4 As Byte = 12, cExportExcel As Byte = 13, cSep5 As Byte = 14, cRefresh As Byte = 15, cClose As Byte = 16
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -77,7 +76,6 @@ Public Class frmTraOrderRequest
             .Item(cReceive).Enabled = bolEnable
             .Item(cSetupDelivery).Enabled = bolEnable
             .Item(cCancelSetupDelivery).Enabled = bolEnable
-            .Item(cMapConfirmationOrder).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
         End With
     End Sub
@@ -385,10 +383,6 @@ Public Class frmTraOrderRequest
             pgMain.Value = 100
             prvResetProgressBar()
         End Try
-    End Sub
-
-    Private Sub prvMapConfirmationOrder()
-
     End Sub
 
     Private Sub prvClear()
