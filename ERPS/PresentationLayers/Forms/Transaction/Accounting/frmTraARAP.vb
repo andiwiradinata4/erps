@@ -259,6 +259,7 @@ Public Class frmTraARAP
             strModules = VO.AccountPayable.DownPaymentCutting Or
             strModules = VO.AccountPayable.DownPaymentTransport Or
             strModules = VO.AccountReceivable.DownPaymentOrderRequest Or
+            strModules = VO.AccountReceivable.DownPaymentOrderRequestVer2 Or
             strModules = VO.AccountReceivable.DownPayment Then
             frmDetail = New frmTraARAPDetVer3
         Else

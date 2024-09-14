@@ -56,7 +56,9 @@
         Public Const DownPayment As String = "SDP"
         Public Const ReceivePayment As String = "SI"
         Public Const DownPaymentOrderRequest As String = "ODP"
+        Public Const DownPaymentOrderRequestVer2 As String = "DP2"
         Public Const ReceivePaymentOrderRequest As String = "SI2"
+        Public Const ReceivePaymentOrderRequestVer2 As String = "PI2"
 
     End Class
 End Namespace

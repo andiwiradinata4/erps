@@ -205,6 +205,7 @@
                     For Each dr As DataRow In dtDetailItem.Rows
                         '# Revert Payment Item Amount
                         If clsData.Modules.Trim = VO.AccountReceivable.DownPayment Then DL.SalesContract.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
+                        '# TODO -> Calculate Total Receive in Sales Contract
                         If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Or clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentOrderRequest Then DL.Delivery.CalculateItemTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"), clsData.Modules.Trim)
                         If clsData.Modules.Trim = VO.AccountReceivable.DownPaymentOrderRequest Then DL.OrderRequest.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
                     Next
@@ -1367,7 +1368,8 @@
                                                                              ByVal strReferencesID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.AccountReceivable.ListDataDetailItemReceiveWithOutstandingVer01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID)
+                Return DL.AccountReceivable.ListDataDetailItemReceiveWithOutstandingVer02(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID)
+                'Return DL.AccountReceivable.ListDataDetailItemReceiveWithOutstandingVer01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID)
             End Using
         End Function
 

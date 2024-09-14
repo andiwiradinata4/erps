@@ -296,6 +296,8 @@
                         DL.ConfirmationOrder.CalculateORTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
                     Next
 
+                    Dim dtORDetail As DataTable = DL.OrderRequest.ListDataDetail(sqlCon, sqlTrans, clsData.OrderRequestID)
+
                     '# Save Data
                     DL.OrderRequest.SaveDataMapCO(sqlCon, sqlTrans, bolNew, clsData)
 
@@ -308,8 +310,39 @@
                         '# Calculate OR Quantity in Confirmation Order Detail and in Order Request Detail
                         DL.OrderRequest.CalculateCOTotalUsed(sqlCon, sqlTrans, cls.ORDetailID)
                         DL.ConfirmationOrder.CalculateORTotalUsed(sqlCon, sqlTrans, cls.CODetailID)
+
+                        '# Update Order Request Detail
+                        Dim drDetailSelected() As DataRow = dtORDetail.Select("ID='" & cls.ORDetailID & "'")
+                        If drDetailSelected.Count > 0 Then
+                            For Each dr As DataRow In drDetailSelected
+                                Dim clsDetail As New VO.OrderRequestDet
+                                clsDetail.ID = cls.ORDetailID
+                                clsDetail.Quantity = dr.Item("Quantity")
+                                clsDetail.Weight = dr.Item("Quantity")
+                                clsDetail.TotalWeight = dr.Item("TotalWeight")
+                                clsDetail.UnitPrice = cls.UnitPrice
+                                clsDetail.TotalPrice = dr.Item("TotalWeight") * cls.UnitPrice
+                                clsDetail.RoundingWeight = dr.Item("RoundingWeight")
+                                clsDetail.OrderNumberSupplier = cls.OrderNumberSupplier
+                                clsDetail.UnitPriceHPP = cls.UnitPriceHPP
+                                DL.OrderRequest.UpdateDetail(sqlCon, sqlTrans, clsDetail)
+                                Exit For
+                            Next
+                        End If
+
                         intCount += 1
                     Next
+
+                    '# Update Price Order Request
+                    dtORDetail = DL.OrderRequest.ListDataDetail(sqlCon, sqlTrans, clsData.OrderRequestID)
+                    Dim clsOR As VO.OrderRequest = DL.OrderRequest.GetDetail(sqlCon, sqlTrans, clsData.OrderRequestID)
+                    clsOR.TotalDPP = 0
+                    For Each dr As DataRow In dtORDetail.Rows
+                        clsOR.TotalDPP += dr.Item("TotalPrice")
+                    Next
+                    clsOR.TotalPPN = SharedLib.Math.Round(clsOR.TotalDPP * (clsOR.PPN / 100), 2)
+                    clsOR.TotalPPH = SharedLib.Math.Round(clsOR.TotalDPP * (clsOR.PPH / 100), 2)
+                    DL.OrderRequest.UpdatePrice(sqlCon, sqlTrans, clsOR)
 
                     '# Save Data Status
                     BL.OrderRequest.SaveDataStatus(sqlCon, sqlTrans, clsData.OrderRequestID, IIf(bolNew, "TAMBAH", "EDIT") & " DATA MAPPING - " & clsData.TransactionNumber, ERPSLib.UI.usUserApp.UserID, "")

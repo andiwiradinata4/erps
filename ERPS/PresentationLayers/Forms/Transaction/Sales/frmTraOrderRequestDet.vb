@@ -3,7 +3,7 @@ Public Class frmTraOrderRequestDet
 
 #Region "Property"
 
-    Private frmParent As frmTraOrderRequest
+    Private frmParent As Object
     Private clsData As VO.OrderRequest
     Private intBPID As Integer = 0
     Private dtItem As New DataTable

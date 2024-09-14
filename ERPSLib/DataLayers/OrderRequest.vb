@@ -780,6 +780,33 @@
             End Try
         End Sub
 
+        Public Shared Sub UpdatePrice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                      ByVal clsData As VO.OrderRequest)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                        "UPDATE traOrderRequest SET " & vbNewLine &
+                        "    TotalDPP=@TotalDPP, " & vbNewLine &
+                        "    TotalPPN=@TotalPPN, " & vbNewLine &
+                        "    TotalPPH=@TotalPPH " & vbNewLine &
+                        "WHERE   " & vbNewLine &
+                        "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@TotalDPP", SqlDbType.Decimal).Value = clsData.TotalDPP
+                .Parameters.Add("@TotalPPN", SqlDbType.Decimal).Value = clsData.TotalPPN
+                .Parameters.Add("@TotalPPH", SqlDbType.Decimal).Value = clsData.TotalPPH
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail"
@@ -1004,6 +1031,41 @@
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
             Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub UpdateDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal clsData As VO.OrderRequestDet)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandText =
+"UPDATE traOrderRequestDet SET  " & vbNewLine & _
+"	Quantity=@Quantity,  " & vbNewLine & _
+"	Weight=@Weight,  " & vbNewLine & _
+"	TotalWeight=@TotalWeight,  " & vbNewLine & _
+"	UnitPrice=@UnitPrice,  " & vbNewLine & _
+"	TotalPrice=@TotalPrice,  " & vbNewLine & _
+"	RoundingWeight=@RoundingWeight,  " & vbNewLine & _
+"	OrderNumberSupplier=@OrderNumberSupplier,  " & vbNewLine & _
+"	UnitPriceHPP=@UnitPriceHPP  " & vbNewLine & _
+"WHERE " & vbNewLine & _
+"	ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@Quantity", SqlDbType.Decimal).Value = clsData.Quantity
+                .Parameters.Add("@Weight", SqlDbType.Decimal).Value = clsData.Weight
+                .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
+                .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = clsData.UnitPrice
+                .Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = clsData.TotalPrice
+                .Parameters.Add("@RoundingWeight", SqlDbType.Decimal).Value = clsData.RoundingWeight
+                .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = clsData.OrderNumberSupplier
+                .Parameters.Add("@UnitPriceHPP", SqlDbType.Decimal).Value = clsData.UnitPriceHPP
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
                 Throw ex
             End Try
         End Sub
