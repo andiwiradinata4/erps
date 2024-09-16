@@ -1,4 +1,5 @@
-﻿Imports ERPSLib.VO
+﻿Imports System.Diagnostics.Contracts
+Imports ERPSLib.VO
 
 Namespace BL
     Public Class AccountPayable
@@ -440,6 +441,160 @@ Namespace BL
             Return clsData.APNumber
         End Function
 
+        Public Shared Function SaveDataVer02_ReceivePayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                             ByVal bolNew As Boolean, ByVal clsData As VO.AccountPayable) As String
+            Try
+                Dim clsHelper As New DataSetHelper
+                Dim dtReferencesItem As New DataTable
+                Dim dtReferencesSubItem As New DataTable
+                If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
+                    dtReferencesItem = DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID, "")
+                    For Each dr As DataRow In dtReferencesItem.Rows
+                        dtReferencesSubItem.Merge(DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID, dr.Item("ID")))
+                    Next
+                End If
+
+                If bolNew Then
+                    clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.APDate, clsData.CompanyID, clsData.ProgramID, clsData.Modules)
+                    clsData.APNumber = GetNewNo(sqlCon, sqlTrans, clsData.APDate, clsData.CompanyID, clsData.ProgramID)
+                Else
+                    Dim dtDetail As New DataTable
+                    Dim dtDetailItem As New DataTable
+                    If clsData.Modules.Trim = VO.AccountPayable.PurchaseBalance Then
+                        dtDetail = DL.AccountPayable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, clsData.ID)
+                    ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Or
+                        clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Or
+                        clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+
+                        dtDetail = DL.AccountPayable.ListDataDetailOnly(sqlCon, sqlTrans, clsData.ID)
+                        dtDetailItem = DL.ARAP.ListDataDetailItemOnly(sqlCon, sqlTrans, clsData.ID)
+                    End If
+
+                    DL.ARAP.DeleteDataItem(sqlCon, sqlTrans, clsData.ID)
+                    For Each dr As DataRow In dtDetailItem.Rows
+                        '# Revert Payment Item Amount / Transaction Detail Item
+                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then DL.PurchaseContract.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
+                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.Cutting.CalculateItemTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
+                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then DL.Delivery.CalculateItemTotalUsedReceivePaymentTransport(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
+                    Next
+
+                    clsHelper = New DataSetHelper
+                    Dim dtReferencesParentID As DataTable = clsHelper.SelectGroupByInto("ReferencesParentID", dtDetailItem, "ReferencesParentID", "", "ReferencesParentID")
+                    For Each dr As DataRow In dtReferencesParentID.Rows
+                        '# Revert Payment Item Parent Amount
+                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment And dr.Item("ReferencesParentID") <> "" Then DL.PurchaseContract.CalculateItemTotalUsedReceivePaymentParent(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
+                    Next
+
+                    '# Revert Payment Amount
+                    DL.AccountPayable.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
+                    For Each dr As DataRow In dtDetail.Rows
+                        '# Calculate Header
+                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
+                            DL.PurchaseContract.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                        ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                            DL.Cutting.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                        ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                            DL.Delivery.CalculateTotalUsedReceivePaymentTransport(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                        End If
+                    Next
+
+                    '# Revert Down Payment
+                    Dim dtDownPayment As DataTable = DL.AccountPayable.ListDataDownPayment(sqlCon, sqlTrans, clsData.ID)
+                    DL.ARAP.DeleteDataDP(sqlCon, sqlTrans, clsData.ID)
+                    For Each dr As DataRow In dtDownPayment.Rows
+                        DL.ARAP.CalculateTotalAmountUsed(sqlCon, sqlTrans, dr.Item("DPID"), VO.ARAP.ARAPTypeValue.Purchase)
+                    Next
+
+                    Dim clsExists As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, clsData.ID)
+                    If clsExists.TotalAmountUsed > 0 Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah dipakai ditransaksi lain")
+                    End If
+                End If
+
+                Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, clsData.ID)
+                If intStatusID = VO.Status.Values.Approved Then
+                    Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di approve")
+                ElseIf intStatusID = VO.Status.Values.Submit Then
+                    Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di submit")
+                ElseIf intStatusID = VO.Status.Values.Payment Then
+                    Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan status data telah DIBAYAR")
+                ElseIf DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, clsData.ID) Then
+                    Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
+                ElseIf DL.AccountPayable.DataExists(sqlCon, sqlTrans, clsData.APNumber, clsData.ID) Then
+                    Err.Raise(515, "", "Tidak dapat disimpan. Nomor " & clsData.APNumber & " sudah ada.")
+                End If
+
+                clsData.DueDate = clsData.APDate.AddDays(clsData.DueDateValue)
+                DL.AccountPayable.SaveData(sqlCon, sqlTrans, bolNew, clsData)
+
+                '# Save Data Detail
+                Dim intCount As Integer = 1
+                For Each clsDet As VO.AccountPayableDet In clsData.Detail
+                    clsDet.ID = clsData.ID & "-" & 1 & "-" & Format(intCount, "000")
+                    clsDet.APID = clsData.ID
+                    DL.AccountPayable.SaveDataDetail(sqlCon, sqlTrans, clsDet)
+                    intCount += 1
+                Next
+
+                '# Save Data Detail Item
+                intCount = 1
+                For Each clsItem As VO.ARAPItem In clsData.ARAPItem
+                    clsItem.ID = clsData.ID & "-" & 2 & "-" & Format(intCount, "000")
+                    clsItem.ParentID = clsData.ID
+                    DL.ARAP.SaveDataItem(sqlCon, sqlTrans, clsItem)
+
+                    '# Calculate Payment Item Amount / Transaction Detail Item
+                    If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then DL.PurchaseContract.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
+                    If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.Cutting.CalculateItemTotalUsedReceivePayment(sqlCon, sqlTrans, clsItem.ReferencesID, clsItem.ReferencesDetailID)
+                    If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then DL.Delivery.CalculateItemTotalUsedReceivePaymentTransport(sqlCon, sqlTrans, clsItem.ReferencesID, clsItem.ReferencesDetailID)
+                    intCount += 1
+                Next
+
+                '# Calculate Parent Item / Parent Sub Item
+                Dim strReferencesParentIDExists As String = ""
+                For Each clsItem As VO.ARAPItem In clsData.ARAPItem
+                    If strReferencesParentIDExists <> clsItem.ReferencesParentID Then
+                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment And clsItem.ReferencesParentID.Trim <> "" Then DL.PurchaseContract.CalculateItemTotalUsedReceivePaymentParent(sqlCon, sqlTrans, clsItem.ReferencesParentID)
+                        strReferencesParentIDExists = clsItem.ReferencesParentID
+                    End If
+                Next
+
+                '# Save Data Down Payment
+                intCount = 1
+                For Each clsDet As VO.ARAPDP In clsData.ARAPDownPayment
+                    clsDet.ID = clsData.ID & "-" & 1 & "-" & Format(intCount, "000")
+                    clsDet.ParentID = clsData.ID
+                    DL.ARAP.SaveDataDP(sqlCon, sqlTrans, clsDet)
+                    DL.ARAP.CalculateTotalAmountUsed(sqlCon, sqlTrans, clsDet.DPID, VO.ARAP.ARAPTypeValue.Purchase)
+                    intCount += 1
+                Next
+
+                '# Add Validation, if DP Amount or Receive Amount more than Total Transaction Amount
+                '# Add Validation, if Total DP Amount Used more than Total DP on going to Save.
+
+                '# Calculate Transaction Header
+                If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then DL.PurchaseContract.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, clsData.ReferencesID)
+
+                'If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                '    '# Calculate Purchase Order
+                '    DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsData.ReferencesID)
+
+                '    dtReferencesItem = DL.PurchaseOrderCutting.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID)
+                '    For Each dr As DataRow In dtReferencesItem.Rows
+                '        DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentVer01(sqlCon, sqlTrans, dr.Item("ID"))
+                '    Next
+                'End If
+
+                '# Save Data Status
+                BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, clsData.ID, IIf(bolNew, "BARU", "EDIT"), ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
+
+                If clsData.Save = VO.Save.Action.SaveAndSubmit Then Submit(sqlCon, sqlTrans, clsData.ID, clsData.Remarks)
+            Catch ex As Exception
+                Throw ex
+            End Try
+            Return clsData.APNumber
+        End Function
+
         Public Shared Function GetDetail(ByVal strID As String) As VO.AccountPayable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
@@ -656,6 +811,110 @@ Namespace BL
                     DL.PurchaseContract.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsExists.ReferencesID)
 
                 ElseIf strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                    '# Calculate Purchase Contract / Purchase Order
+                    DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsExists.ReferencesID)
+                    dtReferencesItem = DL.PurchaseOrderCutting.ListDataDetail(sqlCon, sqlTrans, clsExists.ReferencesID)
+                    For Each dr As DataRow In dtReferencesItem.Rows
+                        DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentVer01(sqlCon, sqlTrans, dr.Item("ID"))
+                    Next
+                End If
+
+                '# Save Data Status
+                BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "HAPUS", ERPSLib.UI.usUserApp.UserID, strRemarks)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataVer02(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal strID As String, ByVal strModules As String, ByVal strRemarks As String)
+            Try
+                Dim clsExists As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
+                Dim intStatusID As Integer = DL.AccountPayable.GetStatusID(sqlCon, sqlTrans, strID)
+                If intStatusID = VO.Status.Values.Submit Then
+                    Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah di submit")
+                ElseIf intStatusID = VO.Status.Values.Approved Then
+                    Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah di setujui")
+                ElseIf intStatusID = VO.Status.Values.Payment Then
+                    Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan status data telah DIBAYAR")
+                ElseIf DL.AccountPayable.IsDeleted(sqlCon, sqlTrans, strID) Then
+                    Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
+                ElseIf clsExists.TotalAmountUsed > 0 Then
+                    Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah dipakai ditransaksi lain")
+                End If
+
+                Dim dtReferencesItem As New DataTable
+                Dim dtReferencesSubItem As New DataTable
+                Dim dtDetail As New DataTable
+                Dim dtDetailItem As New DataTable
+                If strModules.Trim = VO.AccountPayable.PurchaseBalance Then
+                    dtDetail = DL.AccountPayable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, strID)
+                ElseIf strModules.Trim = VO.AccountPayable.DownPayment Or
+                    strModules.Trim = VO.AccountPayable.ReceivePayment Or
+                    strModules.Trim = VO.AccountPayable.DownPaymentCutting Or
+                    strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Or
+                    strModules.Trim = VO.AccountPayable.DownPaymentTransport Or
+                    strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+
+                    dtDetail = DL.AccountPayable.ListDataDetailOnly(sqlCon, sqlTrans, strID)
+                    dtDetailItem = DL.ARAP.ListDataDetailItemOnly(sqlCon, sqlTrans, strID)
+
+                    dtReferencesItem = DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, clsExists.ReferencesID, "")
+                    For Each dr As DataRow In dtReferencesItem.Rows
+                        dtReferencesSubItem.Merge(DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, clsExists.ReferencesID, dr.Item("ID")))
+                    Next
+                End If
+
+                DL.AccountPayable.DeleteData(sqlCon, sqlTrans, strID)
+                DL.AccountPayable.DeleteDataDetail(sqlCon, sqlTrans, strID)
+                DL.ARAP.DeleteDataItem(sqlCon, sqlTrans, strID)
+
+                '# Revert Payment Item Amount
+                DL.ARAP.DeleteDataItem(sqlCon, sqlTrans, strID)
+                For Each dr As DataRow In dtDetailItem.Rows
+                    If strModules.Trim = VO.AccountPayable.DownPayment Then DL.PurchaseContract.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
+                    If strModules.Trim = VO.AccountPayable.ReceivePayment Then DL.PurchaseContract.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
+                    If strModules.Trim = VO.AccountPayable.DownPaymentCutting Then DL.PurchaseOrderCutting.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
+                    If strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.Cutting.CalculateItemTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
+                    If strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then DL.Delivery.CalculateItemTotalUsedReceivePaymentTransport(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
+                Next
+
+                Dim clsHelper As New DataSetHelper
+                Dim dtReferencesParentID As DataTable = clsHelper.SelectGroupByInto("ReferencesParentID", dtDetailItem, "ReferencesParentID", "", "ReferencesParentID")
+                For Each dr As DataRow In dtReferencesParentID.Rows
+                    '# Revert Payment Item Parent Amount
+                    If strModules.Trim = VO.AccountPayable.DownPayment And dr.Item("ReferencesParentID") <> "" Then DL.PurchaseContract.CalculateItemTotalUsedDownPaymentParent(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
+                    If strModules.Trim = VO.AccountPayable.ReceivePayment And dr.Item("ReferencesParentID") <> "" Then DL.PurchaseContract.CalculateItemTotalUsedReceivePaymentParent(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
+
+                Next
+
+                '# Revert Payment Amount
+                For Each dr As DataRow In dtDetail.Rows
+                    If strModules.Trim = VO.AccountPayable.PurchaseBalance Then
+                        DL.BusinessPartnerAPBalance.CalculateTotalUsed(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                    ElseIf strModules.Trim = VO.AccountPayable.DownPayment Then
+                        DL.PurchaseContract.CalculateTotalUsedDownPaymentVer1(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                    ElseIf strModules.Trim = VO.AccountPayable.ReceivePayment Then
+                        DL.PurchaseContract.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                    ElseIf strModules.Trim = VO.AccountPayable.DownPaymentCutting Then
+                        DL.PurchaseOrderCutting.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                    ElseIf strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                        DL.Cutting.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                    ElseIf strModules.Trim = VO.AccountPayable.DownPaymentTransport Then
+                        DL.PurchaseOrderTransport.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                    ElseIf strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                        DL.Delivery.CalculateTotalUsedReceivePaymentTransport(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                    End If
+                Next
+
+                '# Revert Down Payment
+                Dim dtDownPayment As DataTable = DL.AccountPayable.ListDataDownPayment(sqlCon, sqlTrans, strID)
+                DL.ARAP.DeleteDataDP(sqlCon, sqlTrans, strID)
+                For Each dr As DataRow In dtDownPayment.Rows
+                    DL.ARAP.CalculateTotalAmountUsed(sqlCon, sqlTrans, dr.Item("DPID"), VO.ARAP.ARAPTypeValue.Purchase)
+                Next
+
+                If strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
                     '# Calculate Purchase Contract / Purchase Order
                     DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsExists.ReferencesID)
                     dtReferencesItem = DL.PurchaseOrderCutting.ListDataDetail(sqlCon, sqlTrans, clsExists.ReferencesID)
@@ -1399,7 +1658,8 @@ Namespace BL
                                                                         ByVal strReferencesID As String, ByVal bolIsUseSubItem As Boolean) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.AccountPayable.ListDataDetailItemDPWithOutstandingVer01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID, bolIsUseSubItem)
+                Return DL.AccountPayable.ListDataDetailItemDPWithOutstandingVer02(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID, bolIsUseSubItem)
+                'Return DL.AccountPayable.ListDataDetailItemDPWithOutstandingVer01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID, bolIsUseSubItem)
             End Using
         End Function
 
@@ -1408,7 +1668,8 @@ Namespace BL
                                                                   ByVal strReferencesID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.AccountPayable.ListDataDetailItemReceiveWithOutstandingVer01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID)
+                Return DL.AccountPayable.ListDataDetailItemReceiveWithOutstandingVer02(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID)
+                'Return DL.AccountPayable.ListDataDetailItemReceiveWithOutstandingVer01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID)
             End Using
         End Function
 

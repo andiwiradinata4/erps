@@ -263,6 +263,7 @@ Public Class frmTraARAP
             strModules = VO.AccountReceivable.DownPayment Then
             frmDetail = New frmTraARAPDetVer3
         Else
+            '# Only for Receive Payment
             frmDetail = New frmTraARAPDetVer4
             frmDetail.pubBPCode = strBPCode
             frmDetail.pubBPName = strBPName

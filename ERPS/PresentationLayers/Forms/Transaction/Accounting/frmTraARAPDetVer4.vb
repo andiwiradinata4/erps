@@ -370,7 +370,7 @@ Public Class frmTraARAPDetVer4
         pgMain.Value = 60
 
         Try
-            Dim strARAPNumber As String = BL.ARAP.SaveDataVer2(bolIsNew, clsData)
+            Dim strARAPNumber As String = BL.ARAP.SaveDataVer3_ReceivePayment(bolIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strARAPNumber)
             pgMain.Value = 80
             frmParent.pubRefresh(strARAPNumber)

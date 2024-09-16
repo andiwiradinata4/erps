@@ -1054,15 +1054,15 @@
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
                     .CommandText =
-                            "SELECT  " & vbNewLine &
-                            "	SUM(DD.TotalWeight*ISNULL(SCD.UnitPriceHPP,ORD.UnitPriceHPP)) AS TotalCostRawMaterial " & vbNewLine &
-                            "FROM traDeliveryDet DD  " & vbNewLine &
-                            "LEFT JOIN traSalesContractDet SCD ON  " & vbNewLine &
-                            "	DD.SCDetailID=SCD.ID  " & vbNewLine &
-                            "LEFT JOIN traOrderRequestDet ORD ON  " & vbNewLine &
-                            "	DD.SCDetailID=ORD.ID  " & vbNewLine &
-                            "WHERE " & vbNewLine &
-                            "   DD.DeliveryID=@DeliveryID " & vbNewLine
+                        "SELECT  " & vbNewLine &
+                        "	SUM(DD.TotalWeight*ISNULL(SCD.UnitPriceHPP,ORD.UnitPriceHPP)) AS TotalCostRawMaterial " & vbNewLine &
+                        "FROM traDeliveryDet DD  " & vbNewLine &
+                        "LEFT JOIN traSalesContractDet SCD ON  " & vbNewLine &
+                        "	DD.SCDetailID=SCD.ID  " & vbNewLine &
+                        "LEFT JOIN traOrderRequestDet ORD ON  " & vbNewLine &
+                        "	DD.SCDetailID=ORD.ID  " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   DD.DeliveryID=@DeliveryID " & vbNewLine
 
                     .Parameters.Add("@DeliveryID", SqlDbType.VarChar, 100).Value = strID
                 End With
