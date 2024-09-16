@@ -867,3 +867,12 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.Images.v16.2.d
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbproj.AssemblyReference.cache
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbproj.CoreCompileInputs.cache
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbproj.Up2Date
+C:\Project\Toni\erps\ERPS\bin\Debug\DevExpress.Images.v16.2.dll
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestMapConfirmationOrder.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestMapConfirmationOrderDet.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestMapConfirmationOrderDetItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestOutstandingMapConfirmationOrder.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestOutstandingMapConfirmationOrderItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestVer2.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractPrint.resources

@@ -558,10 +558,20 @@ Public Class frmTraSalesContractDetItemVer1
 
         Dim dtAllCO As DataTable = dtCO.Clone
         dtAllCO.Merge(dtCO)
+        For Each dr As DataRow In dtAllCO.Rows
+            Dim drSelected() As DataRow = dtParentCOItem.Select("ID='" & dr.Item("ID") & "'")
+            If drSelected.Count > 0 Then dr.Delete()
+        Next
+        dtAllCO.AcceptChanges()
         dtAllCO.Merge(dtParentCOItem)
 
         Dim dtAllCOSub As DataTable = dtCOSub.Clone
         dtAllCOSub.Merge(dtCOSub)
+        For Each dr As DataRow In dtAllCOSub.Rows
+            Dim drSelected() As DataRow = dtParentCOSubItem.Select("ID='" & dr.Item("ID") & "'")
+            If drSelected.Count > 0 Then dr.Delete()
+        Next
+        dtAllCOSub.AcceptChanges()
         dtAllCOSub.Merge(dtParentCOSubItem)
 
         Dim frmDetail As New frmTraSalesContractDetItemCOVer1
