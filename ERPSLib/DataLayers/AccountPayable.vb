@@ -1663,7 +1663,7 @@
                     "SELECT " & vbNewLine &
                     "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, B.TotalPrice AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
-                    "   B.TotalPrice-B.AllocateDPAmount-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   CASE WHEN B.AllocateDPAmount>0 THEN B.TotalPrice-B.AllocateDPAmount-B.ReceiveAmount+A.Amount ELSE B.TotalPrice-B.DPAmount-B.ReceiveAmount+A.Amount END AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
                     "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID " & vbNewLine &
                     "FROM traARAPItem A " & vbNewLine &
                     "INNER JOIN traPurchaseContractDet B ON " & vbNewLine &
