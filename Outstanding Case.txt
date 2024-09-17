@@ -45,3 +45,12 @@ Penambahan Table ARAPDP dengan Kolom:
 
 -- Dilaporan Kartu Hutang Piutang - Pemasok diganti menjadi Rekan Bisnis
 -> Done.
+
+
+
+Proses Checking
+1. Buat DP dan Pelunasan Kontrak Pembelian.
+2. Buat DP PO Potong dan proses pemotongan.
+3. Buat DP dan Pelunasan Kontrak Penjualan.
+4. Buat DP dan Pelunasan PO Penjualan.
+

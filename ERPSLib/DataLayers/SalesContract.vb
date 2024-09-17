@@ -1431,7 +1431,7 @@
                     "   AND A1.CompanyID=@CompanyID " & vbNewLine &
                     "   AND A.SCID=@SCID	" & vbNewLine &
                     "   AND A.TotalWeight+A.RoundingWeight-A.DCWeight>0 " & vbNewLine &
-                    "   AND (A.TotalPrice-A.ReceiveAmount-A.DPAmount<=0 Or A.IsIgnoreValidationPayment=1) " & vbNewLine
+                    "   AND (A.TotalPrice-A.ReceiveAmount-A.AllocateDPAmount<=0 Or A.IsIgnoreValidationPayment=1) " & vbNewLine
 
                 If bolIsUseSubItem Then .CommandText += "   AND A.ParentID<>'' " & vbNewLine
 

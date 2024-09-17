@@ -1,0 +1,4 @@
+Perhitungan HPP ketika proses produksi bagaimana?
+1. Apakah dari total biaya bahan yang mau dipotong dibagi total tonase kemudian ditambah harga potong per KG?
+Tujuan ini agar saat terjadi penjualan stok diketahui HPP barang tersebut.
+

@@ -984,7 +984,7 @@
                     "   AND A1.StatusID=@StatusID " & vbNewLine &
                     "   AND A1.SubmitBy<>'' " & vbNewLine &
                     "   AND A.TotalWeight+A.RoundingWeight-A.SCWeight>0 " & vbNewLine &
-                    "   AND (((A.TotalPrice-A.ReceiveAmount-A.DPAmount<=0 Or A.IsIgnoreValidationPayment=1) AND A1.IsStock=1) OR A1.IsStock=0) " & vbNewLine
+                    "   AND (((A.TotalPrice-A.ReceiveAmount-A.AllocateDPAmount<=0 Or A.IsIgnoreValidationPayment=1) AND A1.IsStock=1) OR A1.IsStock=0) " & vbNewLine
 
                 If intBPID <> 0 Then .CommandText += "   AND A1.BPID=@BPID " & vbNewLine
                 If strOrderRequestID.Trim <> "" Then .CommandText += "  AND A.OrderRequestID=@OrderRequestID " & vbNewLine
