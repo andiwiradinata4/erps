@@ -474,7 +474,7 @@ Namespace BL
                     For Each dr As DataRow In dtDetailItem.Rows
                         '# Revert Payment Item Amount / Transaction Detail Item
                         If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then DL.PurchaseContract.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
-                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.Cutting.CalculateItemTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
+                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                         If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then DL.Delivery.CalculateItemTotalUsedReceivePaymentTransport(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
                     Next
 
@@ -483,17 +483,17 @@ Namespace BL
                     For Each dr As DataRow In dtReferencesParentID.Rows
                         '# Revert Payment Item Parent Amount
                         If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment And dr.Item("ReferencesParentID") <> "" Then DL.PurchaseContract.CalculateItemTotalUsedReceivePaymentParent(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
+                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting And dr.Item("ReferencesParentID") <> "" Then DL.PurchaseOrderCutting.CalculateItemTotalUsedReceivePaymentParent(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
                     Next
 
                     '# Revert Payment Amount
                     DL.AccountPayable.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
                     For Each dr As DataRow In dtDetail.Rows
                         '# Calculate Header
-                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then
-                            DL.PurchaseContract.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
-                        ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
-                            DL.Cutting.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("InvoiceID"))
-                        ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then DL.PurchaseContract.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+
+                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
                             DL.Delivery.CalculateTotalUsedReceivePaymentTransport(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                         End If
                     Next
@@ -545,7 +545,7 @@ Namespace BL
 
                     '# Calculate Payment Item Amount / Transaction Detail Item
                     If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then DL.PurchaseContract.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
-                    If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.Cutting.CalculateItemTotalUsedReceivePayment(sqlCon, sqlTrans, clsItem.ReferencesID, clsItem.ReferencesDetailID)
+                    If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
                     If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then DL.Delivery.CalculateItemTotalUsedReceivePaymentTransport(sqlCon, sqlTrans, clsItem.ReferencesID, clsItem.ReferencesDetailID)
                     intCount += 1
                 Next
@@ -555,6 +555,7 @@ Namespace BL
                 For Each clsItem As VO.ARAPItem In clsData.ARAPItem
                     If strReferencesParentIDExists <> clsItem.ReferencesParentID Then
                         If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment And clsItem.ReferencesParentID.Trim <> "" Then DL.PurchaseContract.CalculateItemTotalUsedReceivePaymentParent(sqlCon, sqlTrans, clsItem.ReferencesParentID)
+                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting And clsItem.ReferencesParentID.Trim <> "" Then DL.PurchaseOrderCutting.CalculateItemTotalUsedReceivePaymentParent(sqlCon, sqlTrans, clsItem.ReferencesParentID)
                         strReferencesParentIDExists = clsItem.ReferencesParentID
                     End If
                 Next
@@ -574,6 +575,7 @@ Namespace BL
 
                 '# Calculate Transaction Header
                 If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then DL.PurchaseContract.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, clsData.ReferencesID)
+                If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, clsData.ReferencesID)
 
                 'If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
                 '    '# Calculate Purchase Order
@@ -875,7 +877,7 @@ Namespace BL
                     If strModules.Trim = VO.AccountPayable.DownPayment Then DL.PurchaseContract.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
                     If strModules.Trim = VO.AccountPayable.ReceivePayment Then DL.PurchaseContract.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                     If strModules.Trim = VO.AccountPayable.DownPaymentCutting Then DL.PurchaseOrderCutting.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
-                    If strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.Cutting.CalculateItemTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
+                    If strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                     If strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then DL.Delivery.CalculateItemTotalUsedReceivePaymentTransport(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
                 Next
 
@@ -885,6 +887,7 @@ Namespace BL
                     '# Revert Payment Item Parent Amount
                     If strModules.Trim = VO.AccountPayable.DownPayment And dr.Item("ReferencesParentID") <> "" Then DL.PurchaseContract.CalculateItemTotalUsedDownPaymentParent(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
                     If strModules.Trim = VO.AccountPayable.ReceivePayment And dr.Item("ReferencesParentID") <> "" Then DL.PurchaseContract.CalculateItemTotalUsedReceivePaymentParent(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
+                    If strModules.Trim = VO.AccountPayable.ReceivePaymentCutting And dr.Item("ReferencesParentID") <> "" Then DL.PurchaseOrderCutting.CalculateItemTotalUsedReceivePaymentParent(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
 
                 Next
 
@@ -899,7 +902,7 @@ Namespace BL
                     ElseIf strModules.Trim = VO.AccountPayable.DownPaymentCutting Then
                         DL.PurchaseOrderCutting.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                     ElseIf strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
-                        DL.Cutting.CalculateTotalUsedReceivePayment(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                        DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                     ElseIf strModules.Trim = VO.AccountPayable.DownPaymentTransport Then
                         DL.PurchaseOrderTransport.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                     ElseIf strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
@@ -913,15 +916,6 @@ Namespace BL
                 For Each dr As DataRow In dtDownPayment.Rows
                     DL.ARAP.CalculateTotalAmountUsed(sqlCon, sqlTrans, dr.Item("DPID"), VO.ARAP.ARAPTypeValue.Purchase)
                 Next
-
-                If strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
-                    '# Calculate Purchase Contract / Purchase Order
-                    DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentVer01(sqlCon, sqlTrans, clsExists.ReferencesID)
-                    dtReferencesItem = DL.PurchaseOrderCutting.ListDataDetail(sqlCon, sqlTrans, clsExists.ReferencesID)
-                    For Each dr As DataRow In dtReferencesItem.Rows
-                        DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentVer01(sqlCon, sqlTrans, dr.Item("ID"))
-                    Next
-                End If
 
                 '# Save Data Status
                 BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "HAPUS", ERPSLib.UI.usUserApp.UserID, strRemarks)
