@@ -40,6 +40,7 @@
                 DevelopOnProgress_ID33(sqlCon, Nothing)
                 DevelopOnProgress_ID34(sqlCon, Nothing)
                 DevelopOnProgress_ID35(sqlCon, Nothing)
+                DevelopOnProgress_ID36(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1001,6 +1002,20 @@
             clsData.ID = 35
             clsData.Name = "Alter Table Purchase Order Cutting Add Allocate DP Amount"
             clsData.Scripts = "ALTER TABLE traPurchaseOrderCuttingDet ADD AllocateDPAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_AllocateDPAmount DEFAULT ((0))    " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 36
+        Private Shared Sub DevelopOnProgress_ID36(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 36
+            clsData.Name = "Alter Table Cutting Detail Result Add HPP"
+            clsData.Scripts = "ALTER TABLE traCuttingDetResult ADD UnitPriceHPP [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_UnitPriceHPP DEFAULT ((0))    " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

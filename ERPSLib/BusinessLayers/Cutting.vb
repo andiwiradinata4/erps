@@ -102,7 +102,8 @@
                             .ItemID = clsDet.ItemID,
                             .InQuantity = 0,
                             .InWeight = 0,
-                            .InTotalWeight = 0
+                            .InTotalWeight = 0,
+                            .UnitPrice = clsDet.UnitPriceHPP
                        })
                     Next
 

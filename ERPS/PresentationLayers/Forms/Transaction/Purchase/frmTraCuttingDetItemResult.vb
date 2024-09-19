@@ -97,6 +97,7 @@
                 txtWeight.Value = drSelected.Item("Weight")
                 txtQuantity.Value = drSelected.Item("Quantity")
                 txtRemarks.Text = drSelected.Item("Remarks")
+                txtUnitPriceHPP.Value = drSelected.Item("UnitPriceHPP")
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -121,6 +122,10 @@
         ElseIf txtQuantity.Value <= 0 Then
             UI.usForm.frmMessageBox("Jumlah harus lebih besar dari 0")
             txtQuantity.Focus()
+            Exit Sub
+        ElseIf txtUnitPriceHPP.Value <= 0 Then
+            UI.usForm.frmMessageBox("HPP harus lebih besar dari 0")
+            txtUnitPriceHPP.Focus()
             Exit Sub
         End If
 
@@ -147,6 +152,7 @@
                 .Item("Weight") = txtWeight.Value
                 .Item("TotalWeight") = txtTotalWeight.Value
                 .Item("Remarks") = txtRemarks.Text.Trim
+                .Item("UnitPriceHPP") = txtUnitPriceHPP.Value
                 dr.EndEdit()
                 dtItemResultParent.Rows.Add(dr)
                 dtItemResultParent.AcceptChanges()
@@ -174,6 +180,7 @@
                         .Item("Weight") = txtWeight.Value
                         .Item("TotalWeight") = txtTotalWeight.Value
                         .Item("Remarks") = txtRemarks.Text.Trim
+                        .Item("UnitPriceHPP") = txtUnitPriceHPP.Value
                         .EndEdit()
                         dtItemResultParent.AcceptChanges()
                         frmParent.grdItemResultView.BestFitColumns()
@@ -235,6 +242,7 @@
         txtWeight.Value = 0
         txtQuantity.Value = 0
         txtRemarks.Text = ""
+        txtUnitPriceHPP.Value = 0
         txtItemCode.Focus()
     End Sub
 

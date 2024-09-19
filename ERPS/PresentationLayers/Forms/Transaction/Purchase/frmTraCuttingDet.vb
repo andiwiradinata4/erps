@@ -86,6 +86,7 @@ Public Class frmTraCuttingDet
         UI.usForm.SetGrid(grdItemResultView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdItemResultView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemResultView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemResultView, "UnitPriceHPP", "HPP", 300, UI.usDefGrid.gReal2Num)
         grdItemResultView.Columns("GroupID").GroupIndex = 0
 
         '# History
@@ -222,7 +223,8 @@ Public Class frmTraCuttingDet
                                     .TotalWeight = dr.Item("TotalWeight"),
                                     .Remarks = dr.Item("Remarks"),
                                     .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
-                                    .PODetailResultID = dr.Item("PODetailResultID")
+                                    .PODetailResultID = dr.Item("PODetailResultID"),
+                                    .UnitPriceHPP = dr.Item("UnitPriceHPP")
                                 })
         Next
 

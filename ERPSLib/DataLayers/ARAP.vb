@@ -274,7 +274,7 @@
 "	ARH.ID, ARH.ProgramID, MP.Name AS ProgramName, ARH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress,     " & vbNewLine &
 "	ARH.ARNumber AS TransNumber, ARH.ARDate AS TransDate, ARH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, ARH.ReferencesID, ARH.ReferencesNote,     " & vbNewLine &
 "	ORH.PPN, ORH.PPH, SUM(ORD.TotalPrice) AS TotalDPP, SUM(ORD.TotalPrice)*ORH.PPN/100 AS TotalPPN, SUM(ORD.TotalPrice)*ORH.PPH/100 AS TotalPPH,  " & vbNewLine &
-"	GrandTotal=SUM(ORD.TotalPrice)+(SUM(ORD.TotalPrice)*ORH.PPN/100)-(SUM(ORD.TotalPrice)*ORH.PPH/100), C.PICName AS DirectorName,  " & vbNewLine &
+"	GrandTotal=SUM(ORD.TotalPrice)+(SUM(ORD.TotalPrice)*ORH.PPN/100)-(SUM(ORD.TotalPrice)*ORH.PPH/100), MC.DirectorName,  " & vbNewLine &
 "	ISNULL(MBC1.AccountName,'') AS BankAccountName1, ISNULL(MBC1.BankName,'') AS BankAccountBankName1, ISNULL(MBC1.AccountNumber,'') AS BankAccountNumber1,  " & vbNewLine &
 "	ISNULL(MBC2.AccountName,'') AS BankAccountName2, ISNULL(MBC2.BankName,'') AS BankAccountBankName2, ISNULL(MBC2.AccountNumber,'') AS BankAccountNumber2, ARH.StatusID,  " & vbNewLine &
 "	MIS.Description AS ItemSpec, ARI.OrderNumberSupplier AS ItemType, MI.Thick AS ItemThick, MI.Width AS ItemWidth, MI.Length AS ItemLength, ORD.Weight, ORD.Quantity,  " & vbNewLine &
@@ -313,7 +313,7 @@
 "	AND ARH.ID=@ID 	    " & vbNewLine &
 "GROUP BY     " & vbNewLine &
 "	ARH.ID, ARH.ProgramID, MP.Name, ARH.CompanyID, MC.Name, MC.Address, MC.Warehouse, ARH.ARNumber, ARH.ARDate, ARH.BPID, C.Code, C.Name, C.Address, ARH.ReferencesID, ARH.ReferencesNote, " & vbNewLine &
-"	ORH.PPN, ORH.PPH, C.PICName, MBC1.AccountName, MBC1.BankName, MBC1.AccountNumber, MBC2.AccountName, MBC2.BankName, MBC2.AccountNumber, ARH.StatusID, MIS.Description, ARI.OrderNumberSupplier, " & vbNewLine &
+"	ORH.PPN, ORH.PPH, MC.DirectorName, MBC1.AccountName, MBC1.BankName, MBC1.AccountNumber, MBC2.AccountName, MBC2.BankName, MBC2.AccountNumber, ARH.StatusID, MIS.Description, ARI.OrderNumberSupplier, " & vbNewLine &
 "	MI.Thick, MI.Width, MI.Length, ORD.Weight, ORD.Quantity, ORD.TotalWeight, ORD.UnitPrice, ORD.TotalPrice, ARH.TotalAmount, ARH.TotalPPN, ARH.TotalPPH, ARH.Percentage, ARH.Modules, ARH.CreatedDate, ARH.TaxInvoiceNumber, C.NPWP, ORH.ReferencesNumber" & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID

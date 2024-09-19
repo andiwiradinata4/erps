@@ -492,6 +492,18 @@ Public Class frmTraARAPDetVer4
                     dtItem = BL.ARAP.ListDataDetailItemReceiveWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID)
                 End If
             End If
+
+            '# Delete Item Parent if already have sub item
+            Dim drSelected() As DataRow = dtItem.Select("ReferencesParentID<>''")
+            If drSelected.Length > 0 Then
+                For Each drChild As DataRow In drSelected
+                    For Each dr As DataRow In dtItem.Rows
+                        If dr.Item("ReferencesDetailID") = drChild.Item("ReferencesParentID") Then dr.Delete()
+                    Next
+                    dtItem.AcceptChanges()
+                Next
+            End If
+
             grdItem.DataSource = dtItem
             grdItemView.BestFitColumns()
             pgMain.Value = 100
