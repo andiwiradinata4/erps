@@ -161,6 +161,11 @@
 
                     DL.Cutting.DeleteData(sqlCon, sqlTrans, strID)
 
+                    '# Revert Done Quantity PO Detail Result
+                    For Each dr As DataRow In dtItemResult.Rows
+                        DL.PurchaseOrderCutting.CalculateDoneTotalUsedDetailResult(sqlCon, sqlTrans, dr.Item("PODetailResultID"))
+                    Next
+
                     For Each dr As DataRow In dtItem.Rows
                         '# Revert Done Quantity
                         DL.PurchaseOrderCutting.CalculateDoneTotalUsedDetail(sqlCon, sqlTrans, dr.Item("PODetailID"))

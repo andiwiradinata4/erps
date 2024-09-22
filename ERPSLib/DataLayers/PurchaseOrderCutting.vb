@@ -100,7 +100,7 @@
                     "   AND A.CompanyID=@CompanyID " & vbNewLine &
                     "   AND A.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.ApprovedBy<>'' " & vbNewLine &
-                    "   AND POD.Quantity-POD.DoneQuantity>0 " & vbNewLine &
+                    "   --AND POD.Quantity-POD.DoneQuantity>0 " & vbNewLine &
                     "   AND POD.TotalWeight-POD.DoneWeight>0 " & vbNewLine
 
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
