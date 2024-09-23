@@ -25,8 +25,6 @@ Partial Public Class rptProformaInvoice
         Dim XrSummary3 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary4 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary5 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary6 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary7 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(rptProformaInvoice))
         Me.XrLabel39 = New DevExpress.XtraReports.UI.XRLabel()
         Me.sbNumberToString = New DevExpress.XtraReports.UI.SubBand()
@@ -506,7 +504,7 @@ Partial Public Class rptProformaInvoice
         'XrTableCell29
         '
         Me.XrTableCell29.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top Or DevExpress.XtraPrinting.BorderSide.Right), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell29.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "GrandTotal")})
+        Me.XrTableCell29.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "GrandTotal", "{0:n0}")})
         Me.XrTableCell29.Dpi = 100.0!
         Me.XrTableCell29.Multiline = True
         Me.XrTableCell29.Name = "XrTableCell29"
@@ -515,7 +513,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell29.StylePriority.UsePadding = False
         Me.XrTableCell29.StylePriority.UseTextAlignment = False
         XrSummary4.FormatString = "{0:n0}"
-        XrSummary4.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.XrTableCell29.Summary = XrSummary4
         Me.XrTableCell29.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.XrTableCell29.Weight = 0.91292666858489335R
@@ -566,7 +563,7 @@ Partial Public Class rptProformaInvoice
         'XrTableCell27
         '
         Me.XrTableCell27.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top Or DevExpress.XtraPrinting.BorderSide.Right), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell27.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPPN")})
+        Me.XrTableCell27.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPPN", "{0:n0}")})
         Me.XrTableCell27.Dpi = 100.0!
         Me.XrTableCell27.Multiline = True
         Me.XrTableCell27.Name = "XrTableCell27"
@@ -574,9 +571,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell27.StylePriority.UseBorders = False
         Me.XrTableCell27.StylePriority.UsePadding = False
         Me.XrTableCell27.StylePriority.UseTextAlignment = False
-        XrSummary5.FormatString = "{0:n0}"
-        XrSummary5.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.XrTableCell27.Summary = XrSummary5
         Me.XrTableCell27.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.XrTableCell27.Weight = 0.91292666858489335R
         '
@@ -626,7 +620,7 @@ Partial Public Class rptProformaInvoice
         'XrTableCell38
         '
         Me.XrTableCell38.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top Or DevExpress.XtraPrinting.BorderSide.Right), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell38.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalDPP")})
+        Me.XrTableCell38.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalDPP", "{0:n0}")})
         Me.XrTableCell38.Dpi = 100.0!
         Me.XrTableCell38.Multiline = True
         Me.XrTableCell38.Name = "XrTableCell38"
@@ -634,9 +628,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell38.StylePriority.UseBorders = False
         Me.XrTableCell38.StylePriority.UsePadding = False
         Me.XrTableCell38.StylePriority.UseTextAlignment = False
-        XrSummary6.FormatString = "{0:n0}"
-        XrSummary6.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.XrTableCell38.Summary = XrSummary6
         Me.XrTableCell38.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.XrTableCell38.Weight = 0.91292666858489335R
         '
@@ -1997,10 +1988,10 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell24.Name = "XrTableCell24"
         Me.XrTableCell24.StylePriority.UseBorders = False
         Me.XrTableCell24.StylePriority.UseTextAlignment = False
-        XrSummary7.FormatString = "{0:n0}"
-        XrSummary7.Func = DevExpress.XtraReports.UI.SummaryFunc.RecordNumber
-        XrSummary7.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.XrTableCell24.Summary = XrSummary7
+        XrSummary5.FormatString = "{0:n0}"
+        XrSummary5.Func = DevExpress.XtraReports.UI.SummaryFunc.RecordNumber
+        XrSummary5.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.XrTableCell24.Summary = XrSummary5
         Me.XrTableCell24.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
         Me.XrTableCell24.Weight = 0.33354050444028438R
         '

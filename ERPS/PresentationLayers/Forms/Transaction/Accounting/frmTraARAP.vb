@@ -693,28 +693,28 @@ Public Class frmTraARAP
                 Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
                 crReport.sbPayment1.Visible = True
                 crReport.DescPayment1.Value = VO.ARAP.GetPaymentType(dtData.Rows(0).Item("Modules")) & " " & IIf(intValue = 0, "", intValue & "%")
-                crReport.AmountPayment1.Value = dtData.Rows(0).Item("TotalAmount")
+                crReport.AmountPayment1.Value = dtData.Rows(0).Item("GrandTotal") - dtData.Rows(0).Item("DPAmount")
             End If
 
             If dtPaymentHistory.Rows.Count = 1 Then
                 Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
                 crReport.sbPayment2.Visible = True
                 crReport.DescPayment2.Value = VO.ARAP.GetPaymentType(dtData.Rows(0).Item("Modules")) & " " & IIf(intValue = 0, "", intValue & "%")
-                crReport.AmountPayment2.Value = dtData.Rows(0).Item("TotalAmount")
+                crReport.AmountPayment2.Value = dtData.Rows(0).Item("GrandTotal") - dtData.Rows(0).Item("DPAmount")
             End If
 
             If dtPaymentHistory.Rows.Count = 2 Then
                 Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
                 crReport.sbPayment3.Visible = True
                 crReport.DescPayment3.Value = VO.ARAP.GetPaymentType(dtData.Rows(0).Item("Modules")) & " " & IIf(intValue = 0, "", intValue & "%")
-                crReport.AmountPayment3.Value = dtData.Rows(0).Item("TotalAmount")
+                crReport.AmountPayment3.Value = dtData.Rows(0).Item("GrandTotal") - dtData.Rows(0).Item("DPAmount")
             End If
 
             If dtPaymentHistory.Rows.Count = 3 Then
                 Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
                 crReport.sbPayment4.Visible = True
                 crReport.DescPayment4.Value = VO.ARAP.GetPaymentType(dtData.Rows(0).Item("Modules")) & " " & IIf(intValue = 0, "", intValue & "%")
-                crReport.AmountPayment4.Value = dtData.Rows(0).Item("TotalAmount")
+                crReport.AmountPayment4.Value = dtData.Rows(0).Item("GrandTotal") - dtData.Rows(0).Item("DPAmount")
             End If
 
             For i As Integer = 0 To dtPaymentHistory.Rows.Count - 1
