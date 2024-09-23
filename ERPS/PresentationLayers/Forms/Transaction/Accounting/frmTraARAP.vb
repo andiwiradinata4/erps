@@ -719,7 +719,7 @@ Public Class frmTraARAP
 
             For i As Integer = 0 To dtPaymentHistory.Rows.Count - 1
                 Dim strDescPayment As String = VO.Common.GetPaymentType(dtPaymentHistory.Rows(i).Item("Modules")) & IIf(dtPaymentHistory.Rows(i).Item("Percentage") > 0, " " & CInt(dtPaymentHistory.Rows(i).Item("Percentage")) & "%", "")
-                Dim decAmountPayment As Decimal = dtPaymentHistory.Rows(i).Item("Amount")
+                Dim decAmountPayment As Decimal = dtData.Rows(i).Item("DPAmount")
                 If i = 0 Then
                     crReport.sbPayment1.Visible = True
                     crReport.DescPayment1.Value = strDescPayment

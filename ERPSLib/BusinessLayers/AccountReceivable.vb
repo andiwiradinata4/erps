@@ -186,7 +186,7 @@
 
                 If bolNew Then
                     clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.ARDate, clsData.CompanyID, clsData.ProgramID, clsData.Modules)
-                    clsData.ARNumber = GetNewNo(sqlCon, sqlTrans, clsData.ARDate, clsData.CompanyID, clsData.ProgramID)
+                    If clsData.ARNumber.Trim = "" Then clsData.ARNumber = GetNewNo(sqlCon, sqlTrans, clsData.ARDate, clsData.CompanyID, clsData.ProgramID)
                 Else
                     Dim dtItem As New DataTable
                     Dim dtDetailItem As New DataTable
@@ -458,7 +458,7 @@
 
                 If bolNew Then
                     clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.ARDate, clsData.CompanyID, clsData.ProgramID, clsData.Modules)
-                    clsData.ARNumber = GetNewNo(sqlCon, sqlTrans, clsData.ARDate, clsData.CompanyID, clsData.ProgramID)
+                    If clsData.ARNumber = "" Then clsData.ARNumber = GetNewNo(sqlCon, sqlTrans, clsData.ARDate, clsData.CompanyID, clsData.ProgramID)
                 Else
                     Dim dtItem As New DataTable
                     Dim dtDetailItem As New DataTable

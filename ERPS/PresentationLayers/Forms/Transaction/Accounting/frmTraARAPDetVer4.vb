@@ -126,17 +126,21 @@ Public Class frmTraARAPDetVer4
         UI.usForm.SetGrid(grdItemView, "ReferencesDetailID", "ReferencesDetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "InvoiceAmount", "InvoiceAmount", 250, UI.usDefGrid.gReal2Num, False)
-        UI.usForm.SetGrid(grdItemView, "Amount", "Total Tagihan", 150, UI.usDefGrid.gReal2Num, True, False)
+        UI.usForm.SetGrid(grdItemView, "Quantity", "Jumlah", 150, UI.usDefGrid.gReal2Num, True, False)
+        UI.usForm.SetGrid(grdItemView, "Weight", "Berat", 150, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 150, UI.usDefGrid.gReal2Num, True, False)
+        UI.usForm.SetGrid(grdItemView, "Amount", "Total Tagihan", 150, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "DPAmount", "Total Panjar", 150, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "PPNPercent", "PPNPercent", 150, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemView, "PPHPercent", "PPHPercent", 150, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemView, "PPN", "PPN", 150, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "PPH", "PPH", 150, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "MaxPaymentAmount", "Total Maksimal Tagihan", 150, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "MaxTotalWeight", "Total Maksimal Berat", 150, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 250, UI.usDefGrid.gString, True, False)
         UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemView, "ItemName", "Nama Barang", 250, UI.usDefGrid.gSmallDate)
+        UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "ItemName", "Nama Barang", 250, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdItemView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
@@ -157,6 +161,7 @@ Public Class frmTraARAPDetVer4
         UI.usForm.SetGrid(grdDownPaymentView, "DPDate", "Tanggal Panjar", 250, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdDownPaymentView, "DPAmount", "Total Panjar", 250, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdDownPaymentView, "MaxDPAmount", "Total Maksimal Panjar", 150, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdDownPaymentView, "Percentage", "Percentage", 100, UI.usDefGrid.gReal2Num)
         grdItemView.Columns("DPAmount").ColumnEdit = rpiDPAmount
 
         '# History
@@ -219,6 +224,14 @@ Public Class frmTraARAPDetVer4
     Private Sub prvSave()
         ToolBar.Focus()
         If Not bolValid Then Exit Sub
+
+        Dim drPick() As DataRow = dtItem.Select("Pick=True")
+        If drPick.Count = 0 Then
+            UI.usForm.frmMessageBox("Tidak ada item yang tercentang")
+            Exit Sub
+        End If
+
+
         If txtBPCode.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Pilih pelanggan terlebih dahulu")
             tcHeader.SelectedTab = tpMain
@@ -256,11 +269,29 @@ Public Class frmTraARAPDetVer4
             decTotalDPUsed += grdItemView.GetRowCellValue(i, "DPAmount")
         Next
 
-        If txtTotalDP.Value <> decTotalDPUsed Then
-            UI.usForm.frmMessageBox("Total Panjar dan Total Alokasi Panjar harus sesuai")
-            grdItemView.Focus()
-            Exit Sub
+        If decTotalDPUsed > 0 Then
+            Dim decAllocateDP As Decimal = decTotalDPUsed
+            With grdDownPaymentView
+                For i As Integer = 0 To .RowCount - 1
+                    If decAllocateDP <= 0 Then Exit For
+                    If .GetRowCellValue(i, "MaxDPAmount") > decAllocateDP Then
+                        .SetRowCellValue(i, "DPAmount", decAllocateDP)
+                        .UpdateCurrentRow()
+                        decAllocateDP = 0
+                    Else
+                        .SetRowCellValue(i, "DPAmount", .GetRowCellValue(i, "MaxDPAmount"))
+                        .UpdateCurrentRow()
+                        decAllocateDP -= .GetRowCellValue(i, "MaxDPAmount")
+                    End If
+                Next
+            End With
         End If
+
+        'If txtTotalDP.Value <> decTotalDPUsed Then
+        '    UI.usForm.frmMessageBox("Total Panjar dan Total Alokasi Panjar harus sesuai")
+        '    grdItemView.Focus()
+        '    Exit Sub
+        'End If
 
         With grdItemView
             For i As Integer = 0 To .RowCount - 1
@@ -302,12 +333,15 @@ Public Class frmTraARAPDetVer4
                 clsDetailItem.Rounding = dr.Item("Rounding")
                 clsDetailItem.LevelItem = dr.Item("LevelItem")
                 clsDetailItem.ReferencesParentID = dr.Item("ReferencesParentID")
+                clsDetailItem.Quantity = dr.Item("Quantity")
+                clsDetailItem.Weight = dr.Item("Weight")
+                clsDetailItem.TotalWeight = dr.Item("TotalWeight")
                 listDetailItem.Add(clsDetailItem)
             End If
         Next
 
         Dim dsHelper As New DataSetHelper
-        Dim dtARAPDet As DataTable = dsHelper.SelectGroupByInto("ARAPDet", dtItem, "Pick, ReferencesID, SUM(Amount) Amount, SUM(PPN) PPN, SUM(PPH) PPH, SUM(DPAmount) DPAmount, LevelItem, ReferencesParentID", "Pick=True", "Pick, ReferencesID, LevelItem, ReferencesParentID")
+        Dim dtARAPDet As DataTable = dsHelper.SelectGroupByInto("ARAPDet", dtItem, "Pick, ReferencesID, SUM(Amount) Amount, SUM(PPN) PPN, SUM(PPH) PPH, SUM(DPAmount) DPAmount, SUM(Quantity) Quantity, Weight, SUM(TotalWeight) TotalWeight, LevelItem, ReferencesParentID", "Pick=True", "Pick, ReferencesID, Weight, LevelItem, ReferencesParentID")
         Dim listDetail As New List(Of VO.ARAPDet)
         For Each dr As DataRow In dtARAPDet.Rows
             listDetail.Add(New ERPSLib.VO.ARAPDet With
@@ -321,7 +355,10 @@ Public Class frmTraARAPDetVer4
                            .Remarks = "",
                            .DPAmount = UCase(dr.Item("DPAmount")),
                            .LevelItem = dr.Item("LevelItem"),
-                           .ReferencesParentID = dr.Item("ReferencesParentID")
+                           .ReferencesParentID = dr.Item("ReferencesParentID"),
+                           .Quantity = dr.Item("Quantity"),
+                           .Weight = dr.Item("Weight"),
+                           .TotalWeight = dr.Item("TotalWeight")
                        })
         Next
 
@@ -386,7 +423,7 @@ Public Class frmTraARAPDetVer4
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -526,21 +563,24 @@ Public Class frmTraARAPDetVer4
                 If .GetRowCellValue(i, "Amount") > 0 And .GetRowCellValue(i, "PPHPercent") > 0 Then .SetRowCellValue(i, "PPH", ERPSLib.SharedLib.Math.Round(.GetRowCellValue(i, "Amount") * .GetRowCellValue(i, "PPHPercent") / 100, 2)) Else .SetRowCellValue(i, "PPH", 0)
                 .UpdateCurrentRow()
             Next
+            grdItemView.BestFitColumns()
         End With
 
         For Each dr As DataRow In dtItem.Rows
             decDPAllocate += dr.Item("DPAmount")
             decAmount += dr.Item("Amount")
-            decPPN += dr.Item("PPN") 'ERPSLib.SharedLib.Math.Round(dr.Item("Amount") * dr.Item("PPNPercent") / 100, 2)
-            decPPH += dr.Item("PPH") 'ERPSLib.SharedLib.Math.Round(dr.Item("Amount") * dr.Item("PPHPercent") / 100, 2)
+            decPPN += dr.Item("PPN")
+            decPPH += dr.Item("PPH")
         Next
         txtDPAllocate.Value = decDPAllocate
         txtTotalAmount.Value = decAmount
         txtTotalPPN.Value = decPPN
         txtTotalPPH.Value = decPPH
+        txtGrandTotal.Value = decAmount + decPPN - decPPH
     End Sub
 
-    Private Sub prvChangeCheckedValue(ByVal bolValue As Boolean)
+    Private Sub prvChangeCheckedValueOld(ByVal bolValue As Boolean)
+
         With grdItemView
             For i As Integer = 0 To .RowCount - 1
                 .SetRowCellValue(i, "Pick", bolValue)
@@ -565,15 +605,42 @@ Public Class frmTraARAPDetVer4
         End With
     End Sub
 
+    Private Sub prvChangeCheckedValue(ByVal bolValue As Boolean)
+        With grdItemView
+            For i As Integer = 0 To .RowCount - 1
+                .SetRowCellValue(i, "Pick", bolValue)
+                .UpdateCurrentRow()
+            Next
+            prvAllocateDP()
+            For i As Integer = 0 To .RowCount - 1
+                If grdItemView.GetRowCellValue(i, "Pick") Then
+                    prvSetAmount(i)
+                    Dim decAmount As Decimal = .GetRowCellValue(i, "UnitPrice") * .GetRowCellValue(i, "TotalWeight")
+                    Dim decPPNPercent As Decimal = .GetRowCellValue(i, "PPNPercent")
+                    Dim decPPHPercent As Decimal = .GetRowCellValue(i, "PPHPercent")
+                    If decPPNPercent > 0 Then .SetRowCellValue(i, "PPN", ERPSLib.SharedLib.Math.Round(decAmount * decPPNPercent / 100, 2))
+                    If decPPHPercent > 0 Then .SetRowCellValue(i, "PPH", ERPSLib.SharedLib.Math.Round(decAmount * decPPHPercent / 100, 2))
+                End If
+                .UpdateCurrentRow()
+            Next
+            ToolBarDetail.Focus()
+            prvCalculate()
+            .BestFitColumns()
+        End With
+    End Sub
+
 #End Region
 
 #Region "Down Payment"
 
     Private Sub prvCalculateDP()
         txtTotalDP.Value = 0
+        Dim decDPPercentage As Decimal = 0
         With grdDownPaymentView
             For i As Integer = 0 To .RowCount - 1
-                If .GetRowCellValue(i, "Pick") Then txtTotalDP.Value += .GetRowCellValue(i, "DPAmount")
+                If .GetRowCellValue(i, "Pick") Then
+                    If .GetRowCellValue(i, "Pick") Then txtTotalDP.Value += .GetRowCellValue(i, "DPAmount")
+                End If
             Next
         End With
     End Sub
@@ -601,7 +668,7 @@ Public Class frmTraARAPDetVer4
                 With grdDownPaymentView
                     For i As Integer = 0 To .RowCount - 1
                         .SetRowCellValue(i, "Pick", True)
-                        .SetRowCellValue(i, "DPAmount", .GetRowCellValue(i, "MaxDPAmount"))
+                        .SetRowCellValue(i, "DPAmount", 0)
                     Next
                     .UpdateCurrentRow()
                 End With
@@ -621,8 +688,11 @@ Public Class frmTraARAPDetVer4
     Private Sub prvAllocateDP()
         ToolBarDetail.Focus()
         Dim decOutstandingDP As Decimal = txtTotalDP.Value
-        With grdItemView
 
+        Dim decDPPercentage As Decimal = 0
+        If grdDownPaymentView.RowCount > 0 Then decDPPercentage = grdDownPaymentView.GetRowCellValue(0, "Percentage")
+
+        With grdItemView
             '# Reset Value
             For i As Integer = 0 To .RowCount - 1
                 .SetRowCellValue(i, "DPAmount", 0)
@@ -631,23 +701,16 @@ Public Class frmTraARAPDetVer4
             Next
 
             For i As Integer = 0 To .RowCount - 1
-                If .GetRowCellValue(i, "Pick") Then
-                    If decOutstandingDP > 0 Then
-                        If .GetRowCellValue(i, "MaxPaymentAmount") > decOutstandingDP Then
-                            .SetRowCellValue(i, "DPAmount", decOutstandingDP)
-                            .SetRowCellValue(i, "Amount", .GetRowCellValue(i, "MaxPaymentAmount") - decOutstandingDP)
-                            decOutstandingDP = 0
-                        Else
-                            .SetRowCellValue(i, "DPAmount", .GetRowCellValue(i, "MaxPaymentAmount"))
-                            .SetRowCellValue(i, "Amount", 0)
-                            decOutstandingDP -= .GetRowCellValue(i, "MaxPaymentAmount")
-                        End If
-                    Else
-                        .SetRowCellValue(i, "Amount", .GetRowCellValue(i, "MaxPaymentAmount"))
-                    End If
+                Dim decPaymentAmount As Decimal = grdItemView.GetRowCellValue(i, "TotalWeight") * grdItemView.GetRowCellValue(i, "UnitPrice")
+                Dim decDPAllocateAmount = decPaymentAmount * (decDPPercentage / 100)
+                If .GetRowCellValue(i, "Pick") And decDPPercentage > 0 Then
+                    .SetRowCellValue(i, "DPAmount", decDPAllocateAmount)
+                    .SetRowCellValue(i, "Amount", decPaymentAmount - decDPAllocateAmount)
+                ElseIf .GetRowCellValue(i, "Pick") And decDPPercentage = 0 Then
+                    .SetRowCellValue(i, "Amount", decPaymentAmount)
                 End If
-                .UpdateCurrentRow()
             Next
+            .UpdateCurrentRow()
             ToolBarDetail.Focus()
             prvCalculate()
             .BestFitColumns()
@@ -784,8 +847,23 @@ Public Class frmTraARAPDetVer4
                 End If
             ElseIf col.Name = "Pick" Then
                 .SetRowCellValue(intFocus, col.Name, e.Value)
+                prvSetTotalWeight(intFocus)
                 .UpdateCurrentRow()
                 prvAllocateDP()
+                prvSetAmount(intFocus)
+                prvCalculate()
+            ElseIf col.Name = "TotalWeight" Then
+                .SetRowCellValue(intFocus, col.Name, e.Value)
+                prvAllocateDP()
+                prvSetAmount(intFocus)
+                .UpdateCurrentRow()
+                prvCalculate()
+            ElseIf col.Name = "Quantity" Then
+                .SetRowCellValue(intFocus, col.Name, e.Value)
+                prvSetTotalWeight(intFocus)
+                prvAllocateDP()
+                prvSetAmount(intFocus)
+                .UpdateCurrentRow()
                 prvCalculate()
             ElseIf col.Name = "DPAmount" Then
                 Dim newValue As Decimal = IIf((e.Value = "") Or (e.Value.Equals(DBNull.Value) Or (e.Value = ".")), 0, e.Value)
@@ -797,6 +875,26 @@ Public Class frmTraARAPDetVer4
                 prvCalculate()
             End If
         End With
+    End Sub
+
+    Private Sub prvSetAmount(ByVal intPos As Integer)
+        Dim decMaxAmount As Decimal = grdItemView.GetRowCellValue(intPos, "MaxPaymentAmount")
+        Dim decUnitPrice As Decimal = grdItemView.GetRowCellValue(intPos, "UnitPrice")
+        Dim decTotalWeight As Decimal = grdItemView.GetRowCellValue(intPos, "TotalWeight")
+        Dim decAmount As Decimal = decUnitPrice * decTotalWeight
+        decAmount = decAmount - grdItemView.GetRowCellValue(intPos, "DPAmount")
+        If decAmount > decMaxAmount Then
+            UI.usForm.frmMessageBox("Total tagihan baris ke " & intPos & "tidak boleh lebih besar dari total maksimal tagihan")
+            Exit Sub
+        End If
+
+        grdItemView.SetRowCellValue(intPos, "Amount", decAmount)
+    End Sub
+
+    Private Sub prvSetTotalWeight(ByVal intPos As Integer)
+        Dim decAllocateTotalWeight As Decimal = grdItemView.GetRowCellValue(intPos, "Quantity") * grdItemView.GetRowCellValue(intPos, "Weight")
+        grdItemView.SetRowCellValue(intPos, "TotalWeight", IIf(decAllocateTotalWeight > grdItemView.GetRowCellValue(intPos, "MaxTotalWeight"), grdItemView.GetRowCellValue(intPos, "MaxTotalWeight"), decAllocateTotalWeight))
+        grdItemView.UpdateCurrentRow()
     End Sub
 
     Private Sub grdDownPaymentView_ValidatingEditor(sender As Object, e As DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventArgs) Handles grdDownPaymentView.ValidatingEditor

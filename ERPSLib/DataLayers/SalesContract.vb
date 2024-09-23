@@ -119,9 +119,8 @@
                     "   A.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.CompanyID=@CompanyID " & vbNewLine &
                     "   AND A.BPID=@BPID " & vbNewLine &
-                    "   AND A1.TotalWeight-A1.RoundingWeight-A1.DCWeight>0 " & vbNewLine &
-                    "   AND A.StatusID=@StatusID " & vbNewLine &
-                    "   AND (A1.TotalPrice-A1.ReceiveAmount-A1.DPAmount<=0 Or A1.IsIgnoreValidationPayment=1) " & vbNewLine
+                    "   AND (A1.InvoiceTotalWeight-A1.DCWeight>0 OR A1.IsIgnoreValidationPayment=1) " & vbNewLine &
+                    "   AND A.StatusID=@StatusID " & vbNewLine
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
@@ -1080,6 +1079,30 @@
                     "			TDD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
                     "			AND AR.IsDeleted=0 " & vbNewLine &
                     "			AND AR.Modules=@Modules " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	InvoiceQuantity=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.Quantity),0) Quantity " & vbNewLine &
+                    "		FROM traARAPItem TDD " & vbNewLine &
+                    "		INNER JOIN traAccountReceivable AR ON " & vbNewLine &
+                    "		    TDD.ParentID=AR.ID  " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND AR.IsDeleted=0 " & vbNewLine &
+                    "			AND AR.Modules=@Modules " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	InvoiceTotalWeight=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.TotalWeight),0) Weight " & vbNewLine &
+                    "		FROM traARAPItem TDD " & vbNewLine &
+                    "		INNER JOIN traAccountReceivable AR ON " & vbNewLine &
+                    "		    TDD.ParentID=AR.ID  " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND AR.IsDeleted=0 " & vbNewLine &
+                    "			AND AR.Modules=@Modules " & vbNewLine &
                     "	) " & vbNewLine &
                     "WHERE ID=@ReferencesDetailID " & vbNewLine
 
@@ -1415,7 +1438,9 @@
                     "SELECT	" & vbNewLine &
                     "   A.ID, A.SCID, A1.SCNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  	" & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  	" & vbNewLine &
-                    "   A.UnitPrice, A.Quantity-A.DCQuantity AS Quantity, A.Weight, A.TotalWeight-A.DCWeight AS TotalWeight, A.TotalWeight-A.DCWeight AS MaxTotalWeight, " & vbNewLine &
+                    "   A.UnitPrice, CASE WHEN A.Quantity-A.DCQuantity <=0 THEN 1 ELSE A.Quantity-A.DCQuantity END AS Quantity, A.Weight, " & vbNewLine &
+                    "   CASE WHEN A.IsIgnoreValidationPayment=1 THEN A.TotalWeight-A.DCWeight ELSE A.InvoiceTotalWeight-A.DCWeight END AS TotalWeight, " & vbNewLine &
+                    "   CASE WHEN A.IsIgnoreValidationPayment=1 THEN A.TotalWeight-A.DCWeight ELSE A.InvoiceTotalWeight-A.DCWeight END AS MaxTotalWeight, " & vbNewLine &
                     "   A.Remarks, A.OrderNumberSupplier, A.LevelItem, A.ParentID, A.RoundingWeight " & vbNewLine &
                     "FROM traSalesContractDet A  	" & vbNewLine &
                     "INNER JOIN traSalesContract A1 ON  	" & vbNewLine &
@@ -1428,12 +1453,11 @@
                     "   B.ItemTypeID=D.ID  	" & vbNewLine &
                     "WHERE  	" & vbNewLine &
                     "   A1.ProgramID=@ProgramID " & vbNewLine &
-                    "   AND A1.CompanyID=@CompanyID " & vbNewLine &
-                    "   AND A.SCID=@SCID	" & vbNewLine &
-                    "   AND A.TotalWeight+A.RoundingWeight-A.DCWeight>0 " & vbNewLine &
-                    "   AND (A.TotalPrice-A.ReceiveAmount-A.AllocateDPAmount<=0 Or A.IsIgnoreValidationPayment=1) " & vbNewLine
+                    "   And A1.CompanyID=@CompanyID " & vbNewLine &
+                    "   And A.SCID=@SCID	" & vbNewLine &
+                    "   And (A.InvoiceTotalWeight-A.DCWeight>0 OR A.IsIgnoreValidationPayment=1) " & vbNewLine
 
-                If bolIsUseSubItem Then .CommandText += "   AND A.ParentID<>'' " & vbNewLine
+                If bolIsUseSubItem Then .CommandText += "   And A.ParentID<>'' " & vbNewLine
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID

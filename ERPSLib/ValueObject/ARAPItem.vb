@@ -13,5 +13,8 @@
         Property Rounding As Decimal
         Property LevelItem As Integer
         Property ReferencesParentID As String
+        Property Quantity As Decimal
+        Property Weight As Decimal
+        Property TotalWeight As Decimal
     End Class
 End Namespace

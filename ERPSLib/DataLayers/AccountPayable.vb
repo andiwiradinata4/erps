@@ -2303,7 +2303,8 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT " & vbNewLine &
-                    "   CAST(1 AS BIT) AS Pick, A.DPID, B.APNumber AS DPNumber, B.APDate AS DPDate, A.DPAmount, MaxDPAmount=B.TotalAmount-B.TotalAmountUsed+A.DPAmount " & vbNewLine &
+                    "   CAST(1 AS BIT) AS Pick, A.DPID, B.APNumber AS DPNumber, B.APDate AS DPDate, A.DPAmount, MaxDPAmount=B.TotalAmount-B.TotalAmountUsed+A.DPAmount, " & vbNewLine &
+                    "   A.Percentage " & vbNewLine &
                     "FROM traARAPDP A " & vbNewLine &
                     "INNER JOIN traAccountPayable B ON " & vbNewLine &
                     "   A.DPID=B.ID " & vbNewLine &

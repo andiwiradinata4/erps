@@ -585,12 +585,11 @@ Partial Class frmTraARAPDetVer3
         '
         'txtDPNumber
         '
-        Me.txtDPNumber.BackColor = System.Drawing.Color.LightYellow
+        Me.txtDPNumber.BackColor = System.Drawing.Color.White
         Me.txtDPNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtDPNumber.Location = New System.Drawing.Point(141, 16)
         Me.txtDPNumber.MaxLength = 250
         Me.txtDPNumber.Name = "txtDPNumber"
-        Me.txtDPNumber.ReadOnly = True
         Me.txtDPNumber.Size = New System.Drawing.Size(167, 21)
         Me.txtDPNumber.TabIndex = 0
         '

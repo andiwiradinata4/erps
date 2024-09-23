@@ -35,6 +35,8 @@ Partial Class frmTraARAPDetVer4
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.txtGrandTotal = New ERPS.usNumeric()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.txtReferencesNumber = New ERPS.usTextBox()
         Me.btnReferences = New DevExpress.XtraEditors.SimpleButton()
         Me.Label15 = New System.Windows.Forms.Label()
@@ -87,6 +89,7 @@ Partial Class frmTraARAPDetVer4
         Me.StatusStrip.SuspendLayout()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
+        CType(Me.txtGrandTotal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtDPAllocate, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -203,12 +206,14 @@ Partial Class frmTraARAPDetVer4
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(884, 255)
+        Me.tcHeader.Size = New System.Drawing.Size(884, 248)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.txtGrandTotal)
+        Me.tpMain.Controls.Add(Me.Label16)
         Me.tpMain.Controls.Add(Me.txtReferencesNumber)
         Me.tpMain.Controls.Add(Me.btnReferences)
         Me.tpMain.Controls.Add(Me.Label15)
@@ -244,10 +249,36 @@ Partial Class frmTraARAPDetVer4
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(876, 226)
+        Me.tpMain.Size = New System.Drawing.Size(876, 219)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'txtGrandTotal
+        '
+        Me.txtGrandTotal.BackColor = System.Drawing.Color.LightYellow
+        Me.txtGrandTotal.DecimalPlaces = 2
+        Me.txtGrandTotal.Enabled = False
+        Me.txtGrandTotal.Location = New System.Drawing.Point(578, 124)
+        Me.txtGrandTotal.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtGrandTotal.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtGrandTotal.Name = "txtGrandTotal"
+        Me.txtGrandTotal.ReadOnly = True
+        Me.txtGrandTotal.Size = New System.Drawing.Size(249, 21)
+        Me.txtGrandTotal.TabIndex = 17
+        Me.txtGrandTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtGrandTotal.ThousandsSeparator = True
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.BackColor = System.Drawing.Color.Transparent
+        Me.Label16.ForeColor = System.Drawing.Color.Black
+        Me.Label16.Location = New System.Drawing.Point(463, 128)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(63, 13)
+        Me.Label16.TabIndex = 175
+        Me.Label16.Text = "Grand Total"
         '
         'txtReferencesNumber
         '
@@ -325,7 +356,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtDPAllocate.BackColor = System.Drawing.Color.LightYellow
         Me.txtDPAllocate.DecimalPlaces = 2
         Me.txtDPAllocate.Enabled = False
-        Me.txtDPAllocate.Location = New System.Drawing.Point(578, 43)
+        Me.txtDPAllocate.Location = New System.Drawing.Point(578, 16)
         Me.txtDPAllocate.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtDPAllocate.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtDPAllocate.Name = "txtDPAllocate"
@@ -339,7 +370,7 @@ Partial Class frmTraARAPDetVer4
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(463, 47)
+        Me.Label1.Location = New System.Drawing.Point(463, 20)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(101, 13)
         Me.Label1.TabIndex = 166
@@ -361,7 +392,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtTotalPPH.BackColor = System.Drawing.Color.LightYellow
         Me.txtTotalPPH.DecimalPlaces = 2
         Me.txtTotalPPH.Enabled = False
-        Me.txtTotalPPH.Location = New System.Drawing.Point(578, 124)
+        Me.txtTotalPPH.Location = New System.Drawing.Point(578, 97)
         Me.txtTotalPPH.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPPH.Name = "txtTotalPPH"
@@ -373,12 +404,11 @@ Partial Class frmTraARAPDetVer4
         '
         'txtARAPNumber
         '
-        Me.txtARAPNumber.BackColor = System.Drawing.Color.LightYellow
+        Me.txtARAPNumber.BackColor = System.Drawing.Color.White
         Me.txtARAPNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtARAPNumber.Location = New System.Drawing.Point(134, 16)
         Me.txtARAPNumber.MaxLength = 250
         Me.txtARAPNumber.Name = "txtARAPNumber"
-        Me.txtARAPNumber.ReadOnly = True
         Me.txtARAPNumber.Size = New System.Drawing.Size(167, 21)
         Me.txtARAPNumber.TabIndex = 0
         '
@@ -387,7 +417,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtTotalAmount.BackColor = System.Drawing.Color.LightYellow
         Me.txtTotalAmount.DecimalPlaces = 2
         Me.txtTotalAmount.Enabled = False
-        Me.txtTotalAmount.Location = New System.Drawing.Point(578, 70)
+        Me.txtTotalAmount.Location = New System.Drawing.Point(578, 43)
         Me.txtTotalAmount.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalAmount.Name = "txtTotalAmount"
@@ -401,7 +431,7 @@ Partial Class frmTraARAPDetVer4
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(463, 128)
+        Me.Label3.Location = New System.Drawing.Point(463, 101)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(53, 13)
         Me.Label3.TabIndex = 164
@@ -412,7 +442,7 @@ Partial Class frmTraARAPDetVer4
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.ForeColor = System.Drawing.Color.Black
-        Me.Label7.Location = New System.Drawing.Point(463, 74)
+        Me.Label7.Location = New System.Drawing.Point(463, 47)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(63, 13)
         Me.Label7.TabIndex = 140
@@ -445,7 +475,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtTotalPPN.BackColor = System.Drawing.Color.LightYellow
         Me.txtTotalPPN.DecimalPlaces = 2
         Me.txtTotalPPN.Enabled = False
-        Me.txtTotalPPN.Location = New System.Drawing.Point(578, 97)
+        Me.txtTotalPPN.Location = New System.Drawing.Point(578, 70)
         Me.txtTotalPPN.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalPPN.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPPN.Name = "txtTotalPPN"
@@ -484,13 +514,14 @@ Partial Class frmTraARAPDetVer4
         Me.Label4.Size = New System.Drawing.Size(65, 13)
         Me.Label4.TabIndex = 156
         Me.Label4.Text = "Total Panjar"
+        Me.Label4.Visible = False
         '
         'Label11
         '
         Me.Label11.AutoSize = True
         Me.Label11.BackColor = System.Drawing.Color.Transparent
         Me.Label11.ForeColor = System.Drawing.Color.Black
-        Me.Label11.Location = New System.Drawing.Point(463, 101)
+        Me.Label11.Location = New System.Drawing.Point(463, 74)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(53, 13)
         Me.Label11.TabIndex = 163
@@ -531,6 +562,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtTotalDP.TabIndex = 12
         Me.txtTotalDP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalDP.ThousandsSeparator = True
+        Me.txtTotalDP.Visible = False
         '
         'cboStatus
         '
@@ -584,7 +616,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 17
+        Me.txtRemarks.TabIndex = 18
         '
         'Label13
         '
@@ -614,7 +646,7 @@ Partial Class frmTraARAPDetVer4
         Me.tpDownPayment.Controls.Add(Me.grdDownPayment)
         Me.tpDownPayment.Location = New System.Drawing.Point(4, 25)
         Me.tpDownPayment.Name = "tpDownPayment"
-        Me.tpDownPayment.Size = New System.Drawing.Size(876, 226)
+        Me.tpDownPayment.Size = New System.Drawing.Size(876, 251)
         Me.tpDownPayment.TabIndex = 2
         Me.tpDownPayment.Text = "Panjar - F2"
         Me.tpDownPayment.UseVisualStyleBackColor = True
@@ -640,7 +672,7 @@ Partial Class frmTraARAPDetVer4
         Me.grdDownPayment.MainView = Me.grdDownPaymentView
         Me.grdDownPayment.Name = "grdDownPayment"
         Me.grdDownPayment.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiDPAmount})
-        Me.grdDownPayment.Size = New System.Drawing.Size(876, 226)
+        Me.grdDownPayment.Size = New System.Drawing.Size(876, 251)
         Me.grdDownPayment.TabIndex = 14
         Me.grdDownPayment.UseEmbeddedNavigator = True
         Me.grdDownPayment.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdDownPaymentView})
@@ -666,7 +698,7 @@ Partial Class frmTraARAPDetVer4
         Me.tpHistory.Controls.Add(Me.grdStatus)
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
-        Me.tpHistory.Size = New System.Drawing.Size(876, 226)
+        Me.tpHistory.Size = New System.Drawing.Size(876, 251)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -691,7 +723,7 @@ Partial Class frmTraARAPDetVer4
         Me.grdStatus.Location = New System.Drawing.Point(0, 0)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(876, 226)
+        Me.grdStatus.Size = New System.Drawing.Size(876, 251)
         Me.grdStatus.TabIndex = 14
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -711,7 +743,7 @@ Partial Class frmTraARAPDetVer4
         Me.Label14.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label14.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.ForeColor = System.Drawing.Color.White
-        Me.Label14.Location = New System.Drawing.Point(0, 305)
+        Me.Label14.Location = New System.Drawing.Point(0, 298)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(884, 22)
         Me.Label14.TabIndex = 3
@@ -723,7 +755,7 @@ Partial Class frmTraARAPDetVer4
         Me.ToolBarDetail.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
         Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarCheckAll, Me.BarUncheckAll, Me.BarSep1Item, Me.BarAllocateDP})
         Me.ToolBarDetail.DropDownArrows = True
-        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 327)
+        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 320)
         Me.ToolBarDetail.Name = "ToolBarDetail"
         Me.ToolBarDetail.ShowToolTips = True
         Me.ToolBarDetail.Size = New System.Drawing.Size(884, 28)
@@ -770,11 +802,11 @@ Partial Class frmTraARAPDetVer4
         Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdItem.Location = New System.Drawing.Point(0, 355)
+        Me.grdItem.Location = New System.Drawing.Point(0, 348)
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
-        Me.grdItem.Size = New System.Drawing.Size(884, 232)
+        Me.grdItem.Size = New System.Drawing.Size(884, 239)
         Me.grdItem.TabIndex = 5
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
@@ -825,6 +857,7 @@ Partial Class frmTraARAPDetVer4
         Me.tcHeader.ResumeLayout(False)
         Me.tpMain.ResumeLayout(False)
         Me.tpMain.PerformLayout()
+        CType(Me.txtGrandTotal, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtDPAllocate, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).EndInit()
@@ -907,4 +940,6 @@ Partial Class frmTraARAPDetVer4
     Friend WithEvents grdItemView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents rpiValue As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents pgMain As ProgressBar
+    Friend WithEvents txtGrandTotal As usNumeric
+    Friend WithEvents Label16 As Label
 End Class
