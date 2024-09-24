@@ -43,6 +43,7 @@
                 DevelopOnProgress_ID36(sqlCon, Nothing)
                 DevelopOnProgress_ID37(sqlCon, Nothing)
                 DevelopOnProgress_ID38(sqlCon, Nothing)
+                DevelopOnProgress_ID39(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1065,6 +1066,30 @@
                 "ALTER TABLE traAccountReceivable ADD PaymentTerm8 [varchar](5000) NOT NULL CONSTRAINT DF_traAccountReceivable_PaymentTerm8 DEFAULT ('')  " & vbNewLine &
                 "ALTER TABLE traAccountReceivable ADD PaymentTerm9 [varchar](5000) NOT NULL CONSTRAINT DF_traAccountReceivable_PaymentTerm9 DEFAULT ('')  " & vbNewLine &
                 "ALTER TABLE traAccountReceivable ADD PaymentTerm10 [varchar](5000) NOT NULL CONSTRAINT DF_traAccountReceivable_PaymentTerm10 DEFAULT ('')  " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 39
+        Private Shared Sub DevelopOnProgress_ID39(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 39
+            clsData.Name = "Alter Table traAccountPayable | List Payment Term"
+            clsData.Scripts =
+                "ALTER TABLE traAccountPayable ADD PaymentTerm1 [varchar](5000) NOT NULL CONSTRAINT DF_traAccountPayable_PaymentTerm1 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD PaymentTerm2 [varchar](5000) NOT NULL CONSTRAINT DF_traAccountPayable_PaymentTerm2 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD PaymentTerm3 [varchar](5000) NOT NULL CONSTRAINT DF_traAccountPayable_PaymentTerm3 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD PaymentTerm4 [varchar](5000) NOT NULL CONSTRAINT DF_traAccountPayable_PaymentTerm4 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD PaymentTerm5 [varchar](5000) NOT NULL CONSTRAINT DF_traAccountPayable_PaymentTerm5 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD PaymentTerm6 [varchar](5000) NOT NULL CONSTRAINT DF_traAccountPayable_PaymentTerm6 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD PaymentTerm7 [varchar](5000) NOT NULL CONSTRAINT DF_traAccountPayable_PaymentTerm7 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD PaymentTerm8 [varchar](5000) NOT NULL CONSTRAINT DF_traAccountPayable_PaymentTerm8 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD PaymentTerm9 [varchar](5000) NOT NULL CONSTRAINT DF_traAccountPayable_PaymentTerm9 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD PaymentTerm10 [varchar](5000) NOT NULL CONSTRAINT DF_traAccountPayable_PaymentTerm10 DEFAULT ('')  " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

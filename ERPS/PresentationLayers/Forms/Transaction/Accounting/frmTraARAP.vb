@@ -132,6 +132,16 @@ Public Class frmTraARAP
         UI.usForm.SetGrid(grdView, "IsDP", "IsDP", 100, UI.usDefGrid.gBoolean, False)
         UI.usForm.SetGrid(grdView, "CompanyBankAccountID1", "CompanyBankAccountID1", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "CompanyBankAccountID2", "CompanyBankAccountID2", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm1", "PaymentTerm1", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm2", "PaymentTerm2", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm3", "PaymentTerm3", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm4", "PaymentTerm4", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm5", "PaymentTerm5", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm6", "PaymentTerm6", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm7", "PaymentTerm7", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm8", "PaymentTerm8", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm9", "PaymentTerm9", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm10", "PaymentTerm10", 100, UI.usDefGrid.gSmallDate, False)
     End Sub
 
     Private Sub prvSetButton()
@@ -249,6 +259,16 @@ Public Class frmTraARAP
         clsReturn.CompanyBankAccountID1 = grdView.GetRowCellValue(intPos, "CompanyBankAccountID1")
         clsReturn.CompanyBankAccountID2 = grdView.GetRowCellValue(intPos, "CompanyBankAccountID2")
         clsReturn.InvoiceNumberSupplier = grdView.GetRowCellValue(intPos, "InvoiceNumberBP")
+        clsReturn.PaymentTerm1 = grdView.GetRowCellValue(intPos, "PaymentTerm1")
+        clsReturn.PaymentTerm2 = grdView.GetRowCellValue(intPos, "PaymentTerm2")
+        clsReturn.PaymentTerm3 = grdView.GetRowCellValue(intPos, "PaymentTerm3")
+        clsReturn.PaymentTerm4 = grdView.GetRowCellValue(intPos, "PaymentTerm4")
+        clsReturn.PaymentTerm5 = grdView.GetRowCellValue(intPos, "PaymentTerm5")
+        clsReturn.PaymentTerm6 = grdView.GetRowCellValue(intPos, "PaymentTerm6")
+        clsReturn.PaymentTerm7 = grdView.GetRowCellValue(intPos, "PaymentTerm7")
+        clsReturn.PaymentTerm8 = grdView.GetRowCellValue(intPos, "PaymentTerm8")
+        clsReturn.PaymentTerm9 = grdView.GetRowCellValue(intPos, "PaymentTerm9")
+        clsReturn.PaymentTerm10 = grdView.GetRowCellValue(intPos, "PaymentTerm10")
         Return clsReturn
     End Function
 
@@ -734,6 +754,46 @@ Public Class frmTraARAP
                     crReport.AmountPayment3.Value = decAmountPayment
                 End If
             Next
+
+            clsData = BL.ARAP.GetDetail(clsData.ID, enumARAPType)
+            crReport.PaymentTerm1.Value = clsData.PaymentTerm1.Trim
+            crReport.PaymentTerm2.Value = clsData.PaymentTerm2.Trim
+            crReport.PaymentTerm3.Value = clsData.PaymentTerm3.Trim
+
+            If clsData.PaymentTerm4.Trim <> "" Then
+                crReport.sbPaymentTerm4.Visible = True
+                crReport.PaymentTerm4.Value = clsData.PaymentTerm4.Trim
+            End If
+
+            If clsData.PaymentTerm5.Trim <> "" Then
+                crReport.sbPaymentTerm5.Visible = True
+                crReport.PaymentTerm5.Value = clsData.PaymentTerm5.Trim
+            End If
+
+            If clsData.PaymentTerm6.Trim <> "" Then
+                crReport.sbPaymentTerm6.Visible = True
+                crReport.PaymentTerm6.Value = clsData.PaymentTerm6.Trim
+            End If
+
+            If clsData.PaymentTerm7.Trim <> "" Then
+                crReport.sbPaymentTerm7.Visible = True
+                crReport.PaymentTerm7.Value = clsData.PaymentTerm7.Trim
+            End If
+
+            If clsData.PaymentTerm8.Trim <> "" Then
+                crReport.sbPaymentTerm8.Visible = True
+                crReport.PaymentTerm8.Value = clsData.PaymentTerm8.Trim
+            End If
+
+            If clsData.PaymentTerm9.Trim <> "" Then
+                crReport.sbPaymentTerm9.Visible = True
+                crReport.PaymentTerm9.Value = clsData.PaymentTerm9.Trim
+            End If
+
+            If clsData.PaymentTerm10.Trim <> "" Then
+                crReport.sbPaymentTerm10.Visible = True
+                crReport.PaymentTerm10.Value = clsData.PaymentTerm10.Trim
+            End If
 
             For Each dr As DataRow In dtData.Rows
                 If dr.Item("BankAccountName2") = "" Then crReport.sbCompanyBankAccount2.Visible = False

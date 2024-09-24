@@ -658,6 +658,16 @@ Namespace BL
                     clsReturn.DPAmount = clsData.DPAmount
                     clsReturn.ReceiveAmount = clsData.ReceiveAmount
                     clsReturn.TotalAmountUsed = clsData.TotalAmountUsed
+                    clsReturn.PaymentTerm1 = clsData.PaymentTerm1
+                    clsReturn.PaymentTerm2 = clsData.PaymentTerm2
+                    clsReturn.PaymentTerm3 = clsData.PaymentTerm3
+                    clsReturn.PaymentTerm4 = clsData.PaymentTerm4
+                    clsReturn.PaymentTerm5 = clsData.PaymentTerm5
+                    clsReturn.PaymentTerm6 = clsData.PaymentTerm6
+                    clsReturn.PaymentTerm7 = clsData.PaymentTerm7
+                    clsReturn.PaymentTerm8 = clsData.PaymentTerm8
+                    clsReturn.PaymentTerm9 = clsData.PaymentTerm9
+                    clsReturn.PaymentTerm10 = clsData.PaymentTerm10
                     Return clsReturn
                 Else
                     Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, Nothing, strID)
@@ -708,6 +718,16 @@ Namespace BL
                     clsReturn.DPAmount = clsData.DPAmount
                     clsReturn.ReceiveAmount = clsData.ReceiveAmount
                     clsReturn.TotalAmountUsed = clsData.TotalAmountUsed
+                    clsReturn.PaymentTerm1 = clsData.PaymentTerm1
+                    clsReturn.PaymentTerm2 = clsData.PaymentTerm2
+                    clsReturn.PaymentTerm3 = clsData.PaymentTerm3
+                    clsReturn.PaymentTerm4 = clsData.PaymentTerm4
+                    clsReturn.PaymentTerm5 = clsData.PaymentTerm5
+                    clsReturn.PaymentTerm6 = clsData.PaymentTerm6
+                    clsReturn.PaymentTerm7 = clsData.PaymentTerm7
+                    clsReturn.PaymentTerm8 = clsData.PaymentTerm8
+                    clsReturn.PaymentTerm9 = clsData.PaymentTerm9
+                    clsReturn.PaymentTerm10 = clsData.PaymentTerm10
                     Return clsReturn
                 End If
             End Using

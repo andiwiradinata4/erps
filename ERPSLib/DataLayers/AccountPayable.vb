@@ -24,6 +24,7 @@
                     "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
                     "   A.LogInc, A.LogBy, A.LogDate, A.APNumber AS TransNumber, A.APDate AS TransDate, A.CoAIDOfOutgoingPayment AS CoAID, " & vbNewLine &
                     "   ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName, A.TotalPPN, A.TotalPPH, A.DPAmount, A.ReceiveAmount, A.IsDP, A.InvoiceNumberBP, A.CompanyBankAccountID1, A.CompanyBankAccountID2, A.IsUseSubItem  " & vbNewLine &
+                    "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10 " & vbNewLine &
                     "FROM traAccountPayable A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -208,6 +209,7 @@
                         "   A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.PaymentBy, A.PaymentDate, A.TaxInvoiceNumber, " & vbNewLine &
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
                         "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice, A.InvoiceNumberBP, A.IsUseSubItem " & vbNewLine &
+                        "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10 " & vbNewLine &
                         "FROM traAccountPayable A " & vbNewLine &
                         "INNER JOIN mstStatus B ON " & vbNewLine &
                         "   A.StatusID=B.ID " & vbNewLine &
@@ -276,6 +278,16 @@
                         voReturn.JournalIDInvoice = .Item("JournalIDInvoice")
                         voReturn.InvoiceNumberBP = .Item("InvoiceNumberBP")
                         voReturn.IsUseSubItem = .Item("IsUseSubItem")
+                        voReturn.PaymentTerm1 = .Item("PaymentTerm1")
+                        voReturn.PaymentTerm2 = .Item("PaymentTerm2")
+                        voReturn.PaymentTerm3 = .Item("PaymentTerm3")
+                        voReturn.PaymentTerm4 = .Item("PaymentTerm4")
+                        voReturn.PaymentTerm5 = .Item("PaymentTerm5")
+                        voReturn.PaymentTerm6 = .Item("PaymentTerm6")
+                        voReturn.PaymentTerm7 = .Item("PaymentTerm7")
+                        voReturn.PaymentTerm8 = .Item("PaymentTerm8")
+                        voReturn.PaymentTerm9 = .Item("PaymentTerm9")
+                        voReturn.PaymentTerm10 = .Item("PaymentTerm10")
                     End If
                 End With
             Catch ex As Exception
