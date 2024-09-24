@@ -23,7 +23,7 @@
                     "   CASE WHEN A.PaymentBy = '' THEN NULL ELSE A.PaymentDate END AS PaymentDate, A.TaxInvoiceNumber, " & vbNewLine &
                     "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
                     "   A.LogInc, A.LogBy, A.LogDate, A.APNumber AS TransNumber, A.APDate AS TransDate, A.CoAIDOfOutgoingPayment AS CoAID, " & vbNewLine &
-                    "   ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName, A.TotalPPN, A.TotalPPH, A.DPAmount, A.ReceiveAmount, A.IsDP, A.InvoiceNumberBP, A.CompanyBankAccountID1, A.CompanyBankAccountID2, A.IsUseSubItem  " & vbNewLine &
+                    "   ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName, A.TotalPPN, A.TotalPPH, A.DPAmount, A.ReceiveAmount, A.IsDP, A.InvoiceNumberBP, A.CompanyBankAccountID1, A.CompanyBankAccountID2, A.IsUseSubItem, " & vbNewLine &
                     "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10 " & vbNewLine &
                     "FROM traAccountPayable A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
@@ -2007,7 +2007,6 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-
                 '# Receive
                 .CommandText +=
                     "SELECT " & vbNewLine &
@@ -2134,7 +2133,7 @@
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
                     "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
-                    "   A.ItemID, B.TotalPriceTransport AS InvoiceAmount, A.Amount, A.DPAmount, C.PPNTransport AS PPNPercent, C.PPHTransport AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
+                    "   A.ItemID, A.Quantity, A.Weight, A.TotalWeight, B.TotalPriceTransport AS InvoiceAmount, A.Amount, A.DPAmount, C.PPNTransport AS PPNPercent, C.PPHTransport AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
                     "   B.TotalPriceTransport-B.DPAmountTransport-B.ReceiveAmountTransport+A.Amount+A.DPAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
                     "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID  " & vbNewLine &
                     "FROM traARAPItem A " & vbNewLine &
@@ -2316,7 +2315,7 @@
                 .CommandText =
                     "SELECT " & vbNewLine &
                     "   CAST(1 AS BIT) AS Pick, A.DPID, B.APNumber AS DPNumber, B.APDate AS DPDate, A.DPAmount, MaxDPAmount=B.TotalAmount-B.TotalAmountUsed+A.DPAmount, " & vbNewLine &
-                    "   A.Percentage " & vbNewLine &
+                    "   B.Percentage " & vbNewLine &
                     "FROM traARAPDP A " & vbNewLine &
                     "INNER JOIN traAccountPayable B ON " & vbNewLine &
                     "   A.DPID=B.ID " & vbNewLine &
@@ -2327,7 +2326,8 @@
                 .CommandText +=
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
-                    "   CAST(0 AS BIT) AS Pick, A.ID AS DPID, A.APNumber AS DPNumber, A.APDate AS DPDate, A.TotalAmount, MaxDPAmount=A.TotalAmount-A.TotalAmountUsed " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, A.ID AS DPID, A.APNumber AS DPNumber, A.APDate AS DPDate, A.TotalAmount, MaxDPAmount=A.TotalAmount-A.TotalAmountUsed, " & vbNewLine &
+                    "   A.Percentage " & vbNewLine &
                     "FROM traAccountPayable A " & vbNewLine &
                     "WHERE  " & vbNewLine &
                     "   A.BPID=@BPID " & vbNewLine &

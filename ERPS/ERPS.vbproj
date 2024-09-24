@@ -913,6 +913,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraReceiveDetOutstandingContract.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraUpdatePaymentType.Designer.vb">
+      <DependentUpon>frmTraUpdatePaymentType.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraUpdatePaymentType.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraDelivery.Designer.vb">
       <DependentUpon>frmTraDelivery.vb</DependentUpon>
     </Compile>
@@ -1686,6 +1692,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraReceiveDetOutstandingContract.resx">
       <DependentUpon>frmTraReceiveDetOutstandingContract.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraUpdatePaymentType.resx">
+      <DependentUpon>frmTraUpdatePaymentType.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraDelivery.resx">
       <DependentUpon>frmTraDelivery.vb</DependentUpon>

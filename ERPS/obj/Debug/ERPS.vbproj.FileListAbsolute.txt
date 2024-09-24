@@ -882,3 +882,4 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.vbproj.Up2Date
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.exe
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.xml
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.pdb
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraUpdatePaymentType.resources

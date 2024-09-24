@@ -46,6 +46,7 @@
                 DevelopOnProgress_ID39(sqlCon, Nothing)
                 DevelopOnProgress_ID40(sqlCon, Nothing)
                 DevelopOnProgress_ID41(sqlCon, Nothing)
+                DevelopOnProgress_ID42(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1123,6 +1124,35 @@
                 "ALTER TABLE traConfirmationOrder ADD PaymentTypeID [int] NOT NULL CONSTRAINT DF_traConfirmationOrder_PaymentTypeID DEFAULT ((0))  " & vbNewLine &
                 "ALTER TABLE traPurchaseContract ADD PaymentTypeID [int] NOT NULL CONSTRAINT DF_traPurchaseContract_PaymentTypeID DEFAULT ((0))  " & vbNewLine &
                 "INSERT INTO mstPaymentType (ID, Code, Name, PaymentTypeCategoryID, StatusID) VALUES (14, 'TT30DAYS', 'TT 30 HARI', 2, 1)" & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 42
+        Private Shared Sub DevelopOnProgress_ID42(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 42
+            clsData.Name = "Alter Table Delivery Detail / Cutting Detail / AP Detail | Add Invoice Quantity dan Weight"
+            clsData.Scripts =
+                "ALTER TABLE traDeliveryDet ADD InvoiceQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_InvoiceQuantity DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD InvoiceWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_InvoiceWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD InvoiceTotalWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_InvoiceTotalWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCuttingDet ADD InvoiceQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_InvoiceQuantity DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCuttingDet ADD InvoiceWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_InvoiceWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCuttingDet ADD InvoiceTotalWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_InvoiceTotalWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseContractDet ADD InvoiceQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseContractDet_InvoiceQuantity DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseContractDet ADD InvoiceWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseContractDet_InvoiceWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseContractDet ADD InvoiceTotalWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseContractDet_InvoiceTotalWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traReceiveDet ADD InvoiceQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traReceiveDet_InvoiceQuantity DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traReceiveDet ADD InvoiceWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traReceiveDet_InvoiceWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traReceiveDet ADD InvoiceTotalWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traReceiveDet_InvoiceTotalWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountPayableDet ADD Quantity [decimal](18,4) NOT NULL CONSTRAINT DF_traAccountPayableDet_Quantity DEFAULT ((0))  " & vbNewLine &
+                "ALTER TABLE traAccountPayableDet ADD Weight [decimal](18,4) NOT NULL CONSTRAINT DF_traAccountPayableDet_Weight DEFAULT ((0))  " & vbNewLine &
+                "ALTER TABLE traAccountPayableDet ADD TotalWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traAccountPayableDet_TotalWeight DEFAULT ((0)) " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
