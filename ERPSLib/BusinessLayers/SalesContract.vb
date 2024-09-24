@@ -379,11 +379,13 @@
             Dim dtReturn As New DataTable
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 dtReturn = DL.SalesContract.PrintVer00(sqlCon, Nothing, intProgramID, intCompanyID, strID)
+                Dim clsHelper As New DataSetHelper
+                Dim dtItemTypeAndSpec As DataTable = clsHelper.SelectGroupByInto("ItemTypeAndSpec", dtReturn, "ItemTypeAndSpec", "", "ItemTypeAndSpec")
 
                 '# Combine AllItemName
                 Dim strItemTypeAndSpec As String = ""
                 Dim strAllItemTypeAndSpec As String = ""
-                For Each dr As DataRow In dtReturn.Rows
+                For Each dr As DataRow In dtItemTypeAndSpec.Rows
                     If dr.Item("ItemTypeAndSpec") <> strItemTypeAndSpec Then
                         strItemTypeAndSpec = dr.Item("ItemTypeAndSpec")
                         If strAllItemTypeAndSpec.Trim <> "" Then strAllItemTypeAndSpec += ", "
