@@ -1565,7 +1565,7 @@
                                                    ByVal strPaymentTerm4 As String, ByVal strPaymentTerm5 As String,
                                                    ByVal strPaymentTerm6 As String, ByVal strPaymentTerm7 As String,
                                                    ByVal strPaymentTerm8 As String, ByVal strPaymentTerm9 As String,
-                                                   ByVal strPaymentTerm10 As String)
+                                                   ByVal strPaymentTerm10 As String, ByVal strSCID As String, ByVal strReferencesNumber As String)
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
@@ -1573,6 +1573,8 @@
                     DL.AccountReceivable.UpdateCompanyBankAccount(sqlCon, sqlTrans, strID, intCompanyBankAccountID1, intCompanyBankAccountID2,
                                                                   strPaymentTerm1, strPaymentTerm2, strPaymentTerm3, strPaymentTerm4, strPaymentTerm5,
                                                                   strPaymentTerm6, strPaymentTerm7, strPaymentTerm8, strPaymentTerm9, strPaymentTerm10)
+
+                    DL.SalesContract.UpdateReferencesNumber(sqlCon, sqlTrans, strSCID, strReferencesNumber)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()

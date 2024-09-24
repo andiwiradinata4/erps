@@ -687,7 +687,6 @@ Public Class frmTraARAPDetVer4
 
     Private Sub prvAllocateDP()
         ToolBarDetail.Focus()
-        Dim decOutstandingDP As Decimal = txtTotalDP.Value
 
         Dim decDPPercentage As Decimal = 0
         If grdDownPaymentView.RowCount > 0 Then decDPPercentage = grdDownPaymentView.GetRowCellValue(0, "Percentage")
@@ -707,7 +706,18 @@ Public Class frmTraARAPDetVer4
                     .SetRowCellValue(i, "DPAmount", decDPAllocateAmount)
                     .SetRowCellValue(i, "Amount", decPaymentAmount - decDPAllocateAmount)
                 ElseIf .GetRowCellValue(i, "Pick") And decDPPercentage = 0 Then
-                    .SetRowCellValue(i, "Amount", decPaymentAmount)
+                    Dim decOutstandingDPAmount As Decimal = 0
+                    If grdDownPaymentView.RowCount > 0 Then decOutstandingDPAmount = grdDownPaymentView.GetRowCellValue(0, "MaxDPAmount")
+                    If decOutstandingDPAmount < 0 Then Continue For
+                    If decOutstandingDPAmount <= decPaymentAmount Then
+                        .SetRowCellValue(i, "DPAmount", decOutstandingDPAmount)
+                        .SetRowCellValue(i, "Amount", decPaymentAmount - decOutstandingDPAmount)
+                        decOutstandingDPAmount = 0
+                    Else
+                        .SetRowCellValue(i, "DPAmount", decPaymentAmount)
+                        .SetRowCellValue(i, "Amount", 0)
+                        decOutstandingDPAmount -= decPaymentAmount
+                    End If
                 End If
             Next
             .UpdateCurrentRow()
@@ -870,8 +880,9 @@ Public Class frmTraARAPDetVer4
                 .SetRowCellValue(intFocus, col.Name, newValue)
                 If decPPNPercent > 0 Then .SetRowCellValue(intFocus, "PPN", ERPSLib.SharedLib.Math.Round(newValue * decPPNPercent / 100, 2))
                 If decPPHPercent > 0 Then .SetRowCellValue(intFocus, "PPH", ERPSLib.SharedLib.Math.Round(newValue * decPPHPercent / 100, 2))
-
+                prvSetAmount(intFocus)
                 .UpdateCurrentRow()
+                .BestFitColumns()
                 prvCalculate()
             End If
         End With

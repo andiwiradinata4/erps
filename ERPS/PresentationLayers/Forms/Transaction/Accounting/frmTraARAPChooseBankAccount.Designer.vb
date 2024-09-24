@@ -26,6 +26,27 @@ Partial Class frmTraARAPChooseBankAccount
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.pnlMain = New System.Windows.Forms.Panel()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtPaymentTerm10 = New ERPS.usTextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.txtPaymentTerm9 = New ERPS.usTextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.txtPaymentTerm8 = New ERPS.usTextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.txtPaymentTerm7 = New ERPS.usTextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.txtPaymentTerm6 = New ERPS.usTextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.txtPaymentTerm5 = New ERPS.usTextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.txtPaymentTerm4 = New ERPS.usTextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.txtPaymentTerm3 = New ERPS.usTextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtPaymentTerm2 = New ERPS.usTextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtPaymentTerm1 = New ERPS.usTextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.gboCompanyBankAccount2 = New System.Windows.Forms.GroupBox()
         Me.btnBankAccount2 = New DevExpress.XtraEditors.SimpleButton()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -49,31 +70,12 @@ Partial Class frmTraARAPChooseBankAccount
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.txtPaymentTerm1 = New ERPS.usTextBox()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.txtPaymentTerm2 = New ERPS.usTextBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.txtPaymentTerm3 = New ERPS.usTextBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.txtPaymentTerm4 = New ERPS.usTextBox()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.txtPaymentTerm5 = New ERPS.usTextBox()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.txtPaymentTerm6 = New ERPS.usTextBox()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.txtPaymentTerm7 = New ERPS.usTextBox()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.txtPaymentTerm8 = New ERPS.usTextBox()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.txtPaymentTerm9 = New ERPS.usTextBox()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.txtPaymentTerm10 = New ERPS.usTextBox()
-        Me.Label17 = New System.Windows.Forms.Label()
+        Me.txtPurchaseNumber = New ERPS.usTextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
         Me.pnlMain.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.gboCompanyBankAccount2.SuspendLayout()
         Me.gboCompanyBankAccount1.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblInfo
@@ -92,7 +94,7 @@ Partial Class frmTraARAPChooseBankAccount
         'pgMain
         '
         Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pgMain.Location = New System.Drawing.Point(0, 391)
+        Me.pgMain.Location = New System.Drawing.Point(0, 447)
         Me.pgMain.Name = "pgMain"
         Me.pgMain.Size = New System.Drawing.Size(1211, 23)
         Me.pgMain.TabIndex = 3
@@ -100,14 +102,255 @@ Partial Class frmTraARAPChooseBankAccount
         'pnlMain
         '
         Me.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlMain.Controls.Add(Me.txtPurchaseNumber)
+        Me.pnlMain.Controls.Add(Me.Label18)
         Me.pnlMain.Controls.Add(Me.GroupBox1)
         Me.pnlMain.Controls.Add(Me.gboCompanyBankAccount2)
         Me.pnlMain.Controls.Add(Me.gboCompanyBankAccount1)
         Me.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlMain.Location = New System.Drawing.Point(0, 50)
         Me.pnlMain.Name = "pnlMain"
-        Me.pnlMain.Size = New System.Drawing.Size(1211, 341)
+        Me.pnlMain.Size = New System.Drawing.Size(1211, 397)
         Me.pnlMain.TabIndex = 2
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm10)
+        Me.GroupBox1.Controls.Add(Me.Label17)
+        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm9)
+        Me.GroupBox1.Controls.Add(Me.Label16)
+        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm8)
+        Me.GroupBox1.Controls.Add(Me.Label15)
+        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm7)
+        Me.GroupBox1.Controls.Add(Me.Label14)
+        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm6)
+        Me.GroupBox1.Controls.Add(Me.Label13)
+        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm5)
+        Me.GroupBox1.Controls.Add(Me.Label12)
+        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm4)
+        Me.GroupBox1.Controls.Add(Me.Label11)
+        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm3)
+        Me.GroupBox1.Controls.Add(Me.Label10)
+        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm2)
+        Me.GroupBox1.Controls.Add(Me.Label9)
+        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm1)
+        Me.GroupBox1.Controls.Add(Me.Label8)
+        Me.GroupBox1.Location = New System.Drawing.Point(548, 15)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(649, 300)
+        Me.GroupBox1.TabIndex = 2
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Syarat Pembayaran"
+        '
+        'txtPaymentTerm10
+        '
+        Me.txtPaymentTerm10.BackColor = System.Drawing.Color.White
+        Me.txtPaymentTerm10.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPaymentTerm10.Location = New System.Drawing.Point(103, 263)
+        Me.txtPaymentTerm10.MaxLength = 250
+        Me.txtPaymentTerm10.Name = "txtPaymentTerm10"
+        Me.txtPaymentTerm10.Size = New System.Drawing.Size(527, 21)
+        Me.txtPaymentTerm10.TabIndex = 147
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.BackColor = System.Drawing.Color.Transparent
+        Me.Label17.ForeColor = System.Drawing.Color.Black
+        Me.Label17.Location = New System.Drawing.Point(28, 267)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(60, 13)
+        Me.Label17.TabIndex = 148
+        Me.Label17.Text = "Baris Ke 10"
+        '
+        'txtPaymentTerm9
+        '
+        Me.txtPaymentTerm9.BackColor = System.Drawing.Color.White
+        Me.txtPaymentTerm9.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPaymentTerm9.Location = New System.Drawing.Point(103, 236)
+        Me.txtPaymentTerm9.MaxLength = 250
+        Me.txtPaymentTerm9.Name = "txtPaymentTerm9"
+        Me.txtPaymentTerm9.Size = New System.Drawing.Size(527, 21)
+        Me.txtPaymentTerm9.TabIndex = 145
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.BackColor = System.Drawing.Color.Transparent
+        Me.Label16.ForeColor = System.Drawing.Color.Black
+        Me.Label16.Location = New System.Drawing.Point(28, 240)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(54, 13)
+        Me.Label16.TabIndex = 146
+        Me.Label16.Text = "Baris Ke 9"
+        '
+        'txtPaymentTerm8
+        '
+        Me.txtPaymentTerm8.BackColor = System.Drawing.Color.White
+        Me.txtPaymentTerm8.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPaymentTerm8.Location = New System.Drawing.Point(103, 209)
+        Me.txtPaymentTerm8.MaxLength = 250
+        Me.txtPaymentTerm8.Name = "txtPaymentTerm8"
+        Me.txtPaymentTerm8.Size = New System.Drawing.Size(527, 21)
+        Me.txtPaymentTerm8.TabIndex = 143
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.BackColor = System.Drawing.Color.Transparent
+        Me.Label15.ForeColor = System.Drawing.Color.Black
+        Me.Label15.Location = New System.Drawing.Point(28, 213)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(54, 13)
+        Me.Label15.TabIndex = 144
+        Me.Label15.Text = "Baris Ke 8"
+        '
+        'txtPaymentTerm7
+        '
+        Me.txtPaymentTerm7.BackColor = System.Drawing.Color.White
+        Me.txtPaymentTerm7.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPaymentTerm7.Location = New System.Drawing.Point(103, 182)
+        Me.txtPaymentTerm7.MaxLength = 250
+        Me.txtPaymentTerm7.Name = "txtPaymentTerm7"
+        Me.txtPaymentTerm7.Size = New System.Drawing.Size(527, 21)
+        Me.txtPaymentTerm7.TabIndex = 141
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.BackColor = System.Drawing.Color.Transparent
+        Me.Label14.ForeColor = System.Drawing.Color.Black
+        Me.Label14.Location = New System.Drawing.Point(28, 186)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(54, 13)
+        Me.Label14.TabIndex = 142
+        Me.Label14.Text = "Baris Ke 7"
+        '
+        'txtPaymentTerm6
+        '
+        Me.txtPaymentTerm6.BackColor = System.Drawing.Color.White
+        Me.txtPaymentTerm6.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPaymentTerm6.Location = New System.Drawing.Point(103, 155)
+        Me.txtPaymentTerm6.MaxLength = 250
+        Me.txtPaymentTerm6.Name = "txtPaymentTerm6"
+        Me.txtPaymentTerm6.Size = New System.Drawing.Size(527, 21)
+        Me.txtPaymentTerm6.TabIndex = 139
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.BackColor = System.Drawing.Color.Transparent
+        Me.Label13.ForeColor = System.Drawing.Color.Black
+        Me.Label13.Location = New System.Drawing.Point(28, 159)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(54, 13)
+        Me.Label13.TabIndex = 140
+        Me.Label13.Text = "Baris Ke 6"
+        '
+        'txtPaymentTerm5
+        '
+        Me.txtPaymentTerm5.BackColor = System.Drawing.Color.White
+        Me.txtPaymentTerm5.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPaymentTerm5.Location = New System.Drawing.Point(103, 128)
+        Me.txtPaymentTerm5.MaxLength = 250
+        Me.txtPaymentTerm5.Name = "txtPaymentTerm5"
+        Me.txtPaymentTerm5.Size = New System.Drawing.Size(527, 21)
+        Me.txtPaymentTerm5.TabIndex = 137
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.BackColor = System.Drawing.Color.Transparent
+        Me.Label12.ForeColor = System.Drawing.Color.Black
+        Me.Label12.Location = New System.Drawing.Point(28, 132)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(54, 13)
+        Me.Label12.TabIndex = 138
+        Me.Label12.Text = "Baris Ke 5"
+        '
+        'txtPaymentTerm4
+        '
+        Me.txtPaymentTerm4.BackColor = System.Drawing.Color.White
+        Me.txtPaymentTerm4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPaymentTerm4.Location = New System.Drawing.Point(103, 101)
+        Me.txtPaymentTerm4.MaxLength = 250
+        Me.txtPaymentTerm4.Name = "txtPaymentTerm4"
+        Me.txtPaymentTerm4.Size = New System.Drawing.Size(527, 21)
+        Me.txtPaymentTerm4.TabIndex = 135
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.BackColor = System.Drawing.Color.Transparent
+        Me.Label11.ForeColor = System.Drawing.Color.Black
+        Me.Label11.Location = New System.Drawing.Point(28, 105)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(54, 13)
+        Me.Label11.TabIndex = 136
+        Me.Label11.Text = "Baris Ke 4"
+        '
+        'txtPaymentTerm3
+        '
+        Me.txtPaymentTerm3.BackColor = System.Drawing.Color.White
+        Me.txtPaymentTerm3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPaymentTerm3.Location = New System.Drawing.Point(103, 74)
+        Me.txtPaymentTerm3.MaxLength = 250
+        Me.txtPaymentTerm3.Name = "txtPaymentTerm3"
+        Me.txtPaymentTerm3.Size = New System.Drawing.Size(527, 21)
+        Me.txtPaymentTerm3.TabIndex = 133
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.BackColor = System.Drawing.Color.Transparent
+        Me.Label10.ForeColor = System.Drawing.Color.Black
+        Me.Label10.Location = New System.Drawing.Point(28, 78)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(54, 13)
+        Me.Label10.TabIndex = 134
+        Me.Label10.Text = "Baris Ke 3"
+        '
+        'txtPaymentTerm2
+        '
+        Me.txtPaymentTerm2.BackColor = System.Drawing.Color.White
+        Me.txtPaymentTerm2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPaymentTerm2.Location = New System.Drawing.Point(103, 47)
+        Me.txtPaymentTerm2.MaxLength = 250
+        Me.txtPaymentTerm2.Name = "txtPaymentTerm2"
+        Me.txtPaymentTerm2.Size = New System.Drawing.Size(527, 21)
+        Me.txtPaymentTerm2.TabIndex = 131
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.BackColor = System.Drawing.Color.Transparent
+        Me.Label9.ForeColor = System.Drawing.Color.Black
+        Me.Label9.Location = New System.Drawing.Point(28, 51)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(54, 13)
+        Me.Label9.TabIndex = 132
+        Me.Label9.Text = "Baris Ke 2"
+        '
+        'txtPaymentTerm1
+        '
+        Me.txtPaymentTerm1.BackColor = System.Drawing.Color.White
+        Me.txtPaymentTerm1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPaymentTerm1.Location = New System.Drawing.Point(103, 20)
+        Me.txtPaymentTerm1.MaxLength = 250
+        Me.txtPaymentTerm1.Name = "txtPaymentTerm1"
+        Me.txtPaymentTerm1.Size = New System.Drawing.Size(527, 21)
+        Me.txtPaymentTerm1.TabIndex = 128
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.BackColor = System.Drawing.Color.Transparent
+        Me.Label8.ForeColor = System.Drawing.Color.Black
+        Me.Label8.Location = New System.Drawing.Point(28, 24)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(54, 13)
+        Me.Label8.TabIndex = 130
+        Me.Label8.Text = "Baris Ke 1"
         '
         'gboCompanyBankAccount2
         '
@@ -361,250 +604,33 @@ Partial Class frmTraARAPChooseBankAccount
         Me.BarClose.Tag = "Close"
         Me.BarClose.Text = "Tutup"
         '
-        'Label8
+        'txtPurchaseNumber
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.BackColor = System.Drawing.Color.Transparent
-        Me.Label8.ForeColor = System.Drawing.Color.Black
-        Me.Label8.Location = New System.Drawing.Point(28, 24)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(54, 13)
-        Me.Label8.TabIndex = 130
-        Me.Label8.Text = "Baris Ke 1"
+        Me.txtPurchaseNumber.BackColor = System.Drawing.Color.White
+        Me.txtPurchaseNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPurchaseNumber.Location = New System.Drawing.Point(153, 321)
+        Me.txtPurchaseNumber.MaxLength = 250
+        Me.txtPurchaseNumber.Multiline = True
+        Me.txtPurchaseNumber.Name = "txtPurchaseNumber"
+        Me.txtPurchaseNumber.Size = New System.Drawing.Size(1025, 54)
+        Me.txtPurchaseNumber.TabIndex = 3
         '
-        'txtPaymentTerm1
+        'Label18
         '
-        Me.txtPaymentTerm1.BackColor = System.Drawing.Color.White
-        Me.txtPaymentTerm1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPaymentTerm1.Location = New System.Drawing.Point(103, 20)
-        Me.txtPaymentTerm1.MaxLength = 250
-        Me.txtPaymentTerm1.Name = "txtPaymentTerm1"
-        Me.txtPaymentTerm1.Size = New System.Drawing.Size(527, 21)
-        Me.txtPaymentTerm1.TabIndex = 128
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm10)
-        Me.GroupBox1.Controls.Add(Me.Label17)
-        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm9)
-        Me.GroupBox1.Controls.Add(Me.Label16)
-        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm8)
-        Me.GroupBox1.Controls.Add(Me.Label15)
-        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm7)
-        Me.GroupBox1.Controls.Add(Me.Label14)
-        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm6)
-        Me.GroupBox1.Controls.Add(Me.Label13)
-        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm5)
-        Me.GroupBox1.Controls.Add(Me.Label12)
-        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm4)
-        Me.GroupBox1.Controls.Add(Me.Label11)
-        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm3)
-        Me.GroupBox1.Controls.Add(Me.Label10)
-        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm2)
-        Me.GroupBox1.Controls.Add(Me.Label9)
-        Me.GroupBox1.Controls.Add(Me.txtPaymentTerm1)
-        Me.GroupBox1.Controls.Add(Me.Label8)
-        Me.GroupBox1.Location = New System.Drawing.Point(548, 15)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(649, 300)
-        Me.GroupBox1.TabIndex = 131
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Syarat Pembayaran"
-        '
-        'txtPaymentTerm2
-        '
-        Me.txtPaymentTerm2.BackColor = System.Drawing.Color.White
-        Me.txtPaymentTerm2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPaymentTerm2.Location = New System.Drawing.Point(103, 47)
-        Me.txtPaymentTerm2.MaxLength = 250
-        Me.txtPaymentTerm2.Name = "txtPaymentTerm2"
-        Me.txtPaymentTerm2.Size = New System.Drawing.Size(527, 21)
-        Me.txtPaymentTerm2.TabIndex = 131
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.BackColor = System.Drawing.Color.Transparent
-        Me.Label9.ForeColor = System.Drawing.Color.Black
-        Me.Label9.Location = New System.Drawing.Point(28, 51)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(54, 13)
-        Me.Label9.TabIndex = 132
-        Me.Label9.Text = "Baris Ke 2"
-        '
-        'txtPaymentTerm3
-        '
-        Me.txtPaymentTerm3.BackColor = System.Drawing.Color.White
-        Me.txtPaymentTerm3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPaymentTerm3.Location = New System.Drawing.Point(103, 74)
-        Me.txtPaymentTerm3.MaxLength = 250
-        Me.txtPaymentTerm3.Name = "txtPaymentTerm3"
-        Me.txtPaymentTerm3.Size = New System.Drawing.Size(527, 21)
-        Me.txtPaymentTerm3.TabIndex = 133
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.BackColor = System.Drawing.Color.Transparent
-        Me.Label10.ForeColor = System.Drawing.Color.Black
-        Me.Label10.Location = New System.Drawing.Point(28, 78)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(54, 13)
-        Me.Label10.TabIndex = 134
-        Me.Label10.Text = "Baris Ke 3"
-        '
-        'txtPaymentTerm4
-        '
-        Me.txtPaymentTerm4.BackColor = System.Drawing.Color.White
-        Me.txtPaymentTerm4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPaymentTerm4.Location = New System.Drawing.Point(103, 101)
-        Me.txtPaymentTerm4.MaxLength = 250
-        Me.txtPaymentTerm4.Name = "txtPaymentTerm4"
-        Me.txtPaymentTerm4.Size = New System.Drawing.Size(527, 21)
-        Me.txtPaymentTerm4.TabIndex = 135
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.BackColor = System.Drawing.Color.Transparent
-        Me.Label11.ForeColor = System.Drawing.Color.Black
-        Me.Label11.Location = New System.Drawing.Point(28, 105)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(54, 13)
-        Me.Label11.TabIndex = 136
-        Me.Label11.Text = "Baris Ke 4"
-        '
-        'txtPaymentTerm5
-        '
-        Me.txtPaymentTerm5.BackColor = System.Drawing.Color.White
-        Me.txtPaymentTerm5.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPaymentTerm5.Location = New System.Drawing.Point(103, 128)
-        Me.txtPaymentTerm5.MaxLength = 250
-        Me.txtPaymentTerm5.Name = "txtPaymentTerm5"
-        Me.txtPaymentTerm5.Size = New System.Drawing.Size(527, 21)
-        Me.txtPaymentTerm5.TabIndex = 137
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.BackColor = System.Drawing.Color.Transparent
-        Me.Label12.ForeColor = System.Drawing.Color.Black
-        Me.Label12.Location = New System.Drawing.Point(28, 132)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(54, 13)
-        Me.Label12.TabIndex = 138
-        Me.Label12.Text = "Baris Ke 5"
-        '
-        'txtPaymentTerm6
-        '
-        Me.txtPaymentTerm6.BackColor = System.Drawing.Color.White
-        Me.txtPaymentTerm6.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPaymentTerm6.Location = New System.Drawing.Point(103, 155)
-        Me.txtPaymentTerm6.MaxLength = 250
-        Me.txtPaymentTerm6.Name = "txtPaymentTerm6"
-        Me.txtPaymentTerm6.Size = New System.Drawing.Size(527, 21)
-        Me.txtPaymentTerm6.TabIndex = 139
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.BackColor = System.Drawing.Color.Transparent
-        Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(28, 159)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(54, 13)
-        Me.Label13.TabIndex = 140
-        Me.Label13.Text = "Baris Ke 6"
-        '
-        'txtPaymentTerm7
-        '
-        Me.txtPaymentTerm7.BackColor = System.Drawing.Color.White
-        Me.txtPaymentTerm7.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPaymentTerm7.Location = New System.Drawing.Point(103, 182)
-        Me.txtPaymentTerm7.MaxLength = 250
-        Me.txtPaymentTerm7.Name = "txtPaymentTerm7"
-        Me.txtPaymentTerm7.Size = New System.Drawing.Size(527, 21)
-        Me.txtPaymentTerm7.TabIndex = 141
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.ForeColor = System.Drawing.Color.Black
-        Me.Label14.Location = New System.Drawing.Point(28, 186)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(54, 13)
-        Me.Label14.TabIndex = 142
-        Me.Label14.Text = "Baris Ke 7"
-        '
-        'txtPaymentTerm8
-        '
-        Me.txtPaymentTerm8.BackColor = System.Drawing.Color.White
-        Me.txtPaymentTerm8.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPaymentTerm8.Location = New System.Drawing.Point(103, 209)
-        Me.txtPaymentTerm8.MaxLength = 250
-        Me.txtPaymentTerm8.Name = "txtPaymentTerm8"
-        Me.txtPaymentTerm8.Size = New System.Drawing.Size(527, 21)
-        Me.txtPaymentTerm8.TabIndex = 143
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.BackColor = System.Drawing.Color.Transparent
-        Me.Label15.ForeColor = System.Drawing.Color.Black
-        Me.Label15.Location = New System.Drawing.Point(28, 213)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(54, 13)
-        Me.Label15.TabIndex = 144
-        Me.Label15.Text = "Baris Ke 8"
-        '
-        'txtPaymentTerm9
-        '
-        Me.txtPaymentTerm9.BackColor = System.Drawing.Color.White
-        Me.txtPaymentTerm9.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPaymentTerm9.Location = New System.Drawing.Point(103, 236)
-        Me.txtPaymentTerm9.MaxLength = 250
-        Me.txtPaymentTerm9.Name = "txtPaymentTerm9"
-        Me.txtPaymentTerm9.Size = New System.Drawing.Size(527, 21)
-        Me.txtPaymentTerm9.TabIndex = 145
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.BackColor = System.Drawing.Color.Transparent
-        Me.Label16.ForeColor = System.Drawing.Color.Black
-        Me.Label16.Location = New System.Drawing.Point(28, 240)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(54, 13)
-        Me.Label16.TabIndex = 146
-        Me.Label16.Text = "Baris Ke 9"
-        '
-        'txtPaymentTerm10
-        '
-        Me.txtPaymentTerm10.BackColor = System.Drawing.Color.White
-        Me.txtPaymentTerm10.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPaymentTerm10.Location = New System.Drawing.Point(103, 263)
-        Me.txtPaymentTerm10.MaxLength = 250
-        Me.txtPaymentTerm10.Name = "txtPaymentTerm10"
-        Me.txtPaymentTerm10.Size = New System.Drawing.Size(527, 21)
-        Me.txtPaymentTerm10.TabIndex = 147
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.BackColor = System.Drawing.Color.Transparent
-        Me.Label17.ForeColor = System.Drawing.Color.Black
-        Me.Label17.Location = New System.Drawing.Point(28, 267)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(60, 13)
-        Me.Label17.TabIndex = 148
-        Me.Label17.Text = "Baris Ke 10"
+        Me.Label18.AutoSize = True
+        Me.Label18.BackColor = System.Drawing.Color.Transparent
+        Me.Label18.ForeColor = System.Drawing.Color.Black
+        Me.Label18.Location = New System.Drawing.Point(30, 325)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(91, 13)
+        Me.Label18.TabIndex = 133
+        Me.Label18.Text = "Purchase Number"
         '
         'frmTraARAPChooseBankAccount
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1211, 414)
+        Me.ClientSize = New System.Drawing.Size(1211, 470)
         Me.Controls.Add(Me.pnlMain)
         Me.Controls.Add(Me.pgMain)
         Me.Controls.Add(Me.lblInfo)
@@ -613,12 +639,13 @@ Partial Class frmTraARAPChooseBankAccount
         Me.Name = "frmTraARAPChooseBankAccount"
         Me.Text = "Akun Bank"
         Me.pnlMain.ResumeLayout(False)
+        Me.pnlMain.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.gboCompanyBankAccount2.ResumeLayout(False)
         Me.gboCompanyBankAccount2.PerformLayout()
         Me.gboCompanyBankAccount1.ResumeLayout(False)
         Me.gboCompanyBankAccount1.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -670,4 +697,6 @@ Partial Class frmTraARAPChooseBankAccount
     Friend WithEvents Label9 As Label
     Friend WithEvents txtPaymentTerm1 As usTextBox
     Friend WithEvents Label8 As Label
+    Friend WithEvents txtPurchaseNumber As usTextBox
+    Friend WithEvents Label18 As Label
 End Class

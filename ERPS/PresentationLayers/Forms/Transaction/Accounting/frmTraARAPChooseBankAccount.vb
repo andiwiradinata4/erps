@@ -4,12 +4,14 @@
 
     Private frmParent As frmTraARAP
     Private clsDataAll As List(Of VO.CompanyBankAccount)
+    Private clsSC As New VO.SalesContract
     Property pubCompanyID As Integer = 0
     Property pubIsNew As Boolean = False
     Property pubIsSave As Boolean = False
     Property pubCompanyBankAccount1 As Integer
     Property pubCompanyBankAccount2 As Integer
     Property pubID As String
+
 
     Enum ChooseBankAccount
         BankAccount1
@@ -47,7 +49,6 @@
             txtCurrency2.Text = clsData.Currency
 
             Dim clsDetail As VO.AccountReceivable = BL.AccountReceivable.GetDetail(pubID)
-
             txtPaymentTerm1.Text = IIf(clsDetail.PaymentTerm1.Trim = "", "Pembayaran dapat dilakukan dengan SKBDN", clsDetail.PaymentTerm1.Trim)
             txtPaymentTerm2.Text = IIf(clsDetail.PaymentTerm2.Trim = "", "Pembayaran Cash DP 10% maksimal 7 Hari dari tanggal PI", clsDetail.PaymentTerm2.Trim)
             txtPaymentTerm3.Text = IIf(clsDetail.PaymentTerm3.Trim = "", "Pembayaran Cash DP 90% paling lambat 7 Hari dari tanggal PI", clsDetail.PaymentTerm3.Trim)
@@ -58,6 +59,9 @@
             txtPaymentTerm8.Text = clsDetail.PaymentTerm8
             txtPaymentTerm9.Text = clsDetail.PaymentTerm9
             txtPaymentTerm10.Text = clsDetail.PaymentTerm10
+
+            clsSC = BL.SalesContract.GetDetail(clsDetail.ReferencesID)
+            txtPurchaseNumber.Text = clsSC.ReferencesNumber
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -71,7 +75,8 @@
                                                           txtPaymentTerm3.Text.Trim, txtPaymentTerm4.Text.Trim,
                                                           txtPaymentTerm5.Text.Trim, txtPaymentTerm6.Text.Trim,
                                                           txtPaymentTerm7.Text.Trim, txtPaymentTerm8.Text.Trim,
-                                                          txtPaymentTerm9.Text.Trim, txtPaymentTerm10.Text.Trim)
+                                                          txtPaymentTerm9.Text.Trim, txtPaymentTerm10.Text.Trim,
+                                                          clsSC.ID, txtPurchaseNumber.Text.Trim)
             pubIsSave = True
             Me.Close()
         Catch ex As Exception

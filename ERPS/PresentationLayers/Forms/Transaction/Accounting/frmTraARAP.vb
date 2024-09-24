@@ -813,6 +813,7 @@ Public Class frmTraARAP
                 .WindowState = FormWindowState.Maximized
                 .Show()
             End With
+            pubRefresh()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally

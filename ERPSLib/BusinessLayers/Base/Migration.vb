@@ -44,6 +44,7 @@
                 DevelopOnProgress_ID37(sqlCon, Nothing)
                 DevelopOnProgress_ID38(sqlCon, Nothing)
                 DevelopOnProgress_ID39(sqlCon, Nothing)
+                DevelopOnProgress_ID40(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1090,6 +1091,20 @@
                 "ALTER TABLE traAccountPayable ADD PaymentTerm8 [varchar](5000) NOT NULL CONSTRAINT DF_traAccountPayable_PaymentTerm8 DEFAULT ('')  " & vbNewLine &
                 "ALTER TABLE traAccountPayable ADD PaymentTerm9 [varchar](5000) NOT NULL CONSTRAINT DF_traAccountPayable_PaymentTerm9 DEFAULT ('')  " & vbNewLine &
                 "ALTER TABLE traAccountPayable ADD PaymentTerm10 [varchar](5000) NOT NULL CONSTRAINT DF_traAccountPayable_PaymentTerm10 DEFAULT ('')  " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 40
+        Private Shared Sub DevelopOnProgress_ID40(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 40
+            clsData.Name = "Alter Table traSalesContract | References Number"
+            clsData.Scripts = "ALTER TABLE traSalesContract ADD ReferencesNumber [varchar](5000) NOT NULL CONSTRAINT DF_traSalesContract_ReferencesNumber DEFAULT ('')  " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

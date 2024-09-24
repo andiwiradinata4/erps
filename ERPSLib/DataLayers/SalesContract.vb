@@ -269,7 +269,7 @@
                         "   A.DelegationSeller, A.DelegationPositionSeller, A.DelegationBuyer, A.DelegationPositionBuyer, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, " & vbNewLine &
                         "   A.RoundingManual, A.IsDeleted, A.Remarks, A.JournalID, A.StatusID, A.CompanyBankAccountID, C.AccountName, C.BankName, C.AccountNumber, C.Currency AS CurrencyBank, A.SubmitBy, A.SubmitDate, " & vbNewLine &
                         "   A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.ReceiveAmount, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual, " & vbNewLine &
-                        "   A.BPLocationID, ISNULL(BPL.Address,'') AS BPLocationAddress, A.IsUseSubItem " & vbNewLine &
+                        "   A.BPLocationID, ISNULL(BPL.Address,'') AS BPLocationAddress, A.IsUseSubItem, A.ReferencesNumber " & vbNewLine &
                         "FROM traSalesContract A " & vbNewLine &
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
                         "   A.BPID=B.ID " & vbNewLine &
@@ -336,6 +336,7 @@
                         voReturn.BPLocationID = .Item("BPLocationID")
                         voReturn.BPLocationAddress = .Item("BPLocationAddress")
                         voReturn.IsUseSubItem = .Item("IsUseSubItem")
+                        voReturn.ReferencesNumber = .Item("ReferencesNumber")
                     End If
                 End With
             Catch ex As Exception
@@ -1316,6 +1317,29 @@
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
+
+        Public Shared Sub UpdateReferencesNumber(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                 ByVal strID As String, ByVal strReferencesNumber As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesContract SET " & vbNewLine &
+                    "    ReferencesNumber=@ReferencesNumber " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@ReferencesNumber", SqlDbType.VarChar, 5000).Value = strReferencesNumber
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
 
 #End Region
 

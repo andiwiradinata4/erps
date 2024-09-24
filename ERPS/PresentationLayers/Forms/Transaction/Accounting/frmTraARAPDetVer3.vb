@@ -617,6 +617,7 @@ Public Class frmTraARAPDetVer3
                     If decPPHPercent > 0 Then .SetRowCellValue(intFocus, "PPH", ERPSLib.SharedLib.Math.Round(newValue * decPPHPercent / 100, 2))
 
                     .UpdateCurrentRow()
+                    .BestFitColumns()
                     prvCalculate()
                 End If
             ElseIf col.Name = "Pick" Then

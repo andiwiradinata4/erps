@@ -50,6 +50,7 @@
         Property DetailConfirmationOrder As List(Of VO.SalesContractDetConfirmationOrder)
         Property PaymentTerm As List(Of VO.SalesContractPaymentTerm)
         Property Save As VO.Save.Action
+        Property ReferencesNumber As String
 
         Public Enum PrintType
             None

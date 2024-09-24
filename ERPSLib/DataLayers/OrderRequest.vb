@@ -921,6 +921,42 @@
             End Try
         End Sub
 
+        Public Shared Function GetReferencesNumberBySCID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strID As String) As String
+            Dim strReturn As String = ""
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ORH.ReferencesNumber " & vbNewLine &
+                        "FROM traOrderRequest ORH " & vbNewLine &
+                        "INNER JOIN traOrderRequestDet ORD ON " & vbNewLine &
+                        "   ORH.ID=ORD.OrderRequestID " & vbNewLine &
+                        "INNER JOIN traSalesContractDet SCD ON " & vbNewLine &
+                        "   ORD.ID=SCD.ORDetailID " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   SCD.SCID=@ID " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        strReturn = .Item("ReferencesNumber")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return strReturn
+        End Function
+
 #End Region
 
 #Region "Detail"

@@ -444,8 +444,9 @@ Partial Class frmTraARAPDetVer3
         '
         'txtTotalAmount
         '
-        Me.txtTotalAmount.BackColor = System.Drawing.Color.White
+        Me.txtTotalAmount.BackColor = System.Drawing.Color.LightYellow
         Me.txtTotalAmount.DecimalPlaces = 2
+        Me.txtTotalAmount.Enabled = False
         Me.txtTotalAmount.Location = New System.Drawing.Point(141, 97)
         Me.txtTotalAmount.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})

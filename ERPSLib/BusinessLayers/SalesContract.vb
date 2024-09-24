@@ -197,7 +197,9 @@
         Public Shared Function GetDetail(ByVal strID As String) As VO.SalesContract
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.SalesContract.GetDetail(sqlCon, Nothing, strID)
+                Dim clsData As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, Nothing, strID)
+                If clsData.ReferencesNumber.Trim = "" Then clsData.ReferencesNumber = DL.OrderRequest.GetReferencesNumberBySCID(sqlCon, Nothing, strID)
+                Return clsData
             End Using
         End Function
 
