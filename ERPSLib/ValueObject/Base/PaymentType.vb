@@ -7,6 +7,12 @@ Namespace VO
         Property PaymentTypeCategoryID As Integer
         Property PaymentTypeCategoryName As String
         Property StatusID As Integer
+
+        Enum Values
+            CBD = 12
+            TT30Days = 13
+        End Enum
+
     End Class
 End Namespace
 

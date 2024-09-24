@@ -207,7 +207,8 @@
                         "   A.Modules, A.ReferencesID, A.ReferencesNote, A.ARDate, A.DueDateValue, A.DueDate, A.TotalAmount, A.Percentage, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine &
                         "   A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.PaymentBy, A.PaymentDate, A.TaxInvoiceNumber, " & vbNewLine &
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
-                        "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice, A.InvoiceNumberBP " & vbNewLine &
+                        "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice, A.InvoiceNumberBP, " & vbNewLine &
+                        "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10 " & vbNewLine &
                         "FROM traAccountReceivable A " & vbNewLine &
                         "INNER JOIN mstStatus B ON " & vbNewLine &
                         "   A.StatusID=B.ID " & vbNewLine &
@@ -275,6 +276,16 @@
                         voReturn.TotalAmountUsed = .Item("TotalAmountUsed")
                         voReturn.JournalIDInvoice = .Item("JournalIDInvoice")
                         voReturn.InvoiceNumberBP = .Item("InvoiceNumberBP")
+                        voReturn.PaymentTerm1 = .Item("PaymentTerm1")
+                        voReturn.PaymentTerm2 = .Item("PaymentTerm2")
+                        voReturn.PaymentTerm3 = .Item("PaymentTerm3")
+                        voReturn.PaymentTerm4 = .Item("PaymentTerm4")
+                        voReturn.PaymentTerm5 = .Item("PaymentTerm5")
+                        voReturn.PaymentTerm6 = .Item("PaymentTerm6")
+                        voReturn.PaymentTerm7 = .Item("PaymentTerm7")
+                        voReturn.PaymentTerm8 = .Item("PaymentTerm8")
+                        voReturn.PaymentTerm9 = .Item("PaymentTerm9")
+                        voReturn.PaymentTerm10 = .Item("PaymentTerm10")
                     End If
                 End With
             Catch ex As Exception
@@ -901,7 +912,12 @@
 
         Public Shared Sub UpdateCompanyBankAccount(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                    ByVal strID As String, ByVal intCompanyBankAccountID1 As Integer,
-                                                   ByVal intCompanyBankAccountID2 As Integer)
+                                                   ByVal intCompanyBankAccountID2 As Integer, ByVal strPaymentTerm1 As String,
+                                                   ByVal strPaymentTerm2 As String, ByVal strPaymentTerm3 As String,
+                                                   ByVal strPaymentTerm4 As String, ByVal strPaymentTerm5 As String,
+                                                   ByVal strPaymentTerm6 As String, ByVal strPaymentTerm7 As String,
+                                                   ByVal strPaymentTerm8 As String, ByVal strPaymentTerm9 As String,
+                                                   ByVal strPaymentTerm10 As String)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -910,13 +926,33 @@
                 .CommandText =
                     "UPDATE traAccountReceivable SET " & vbNewLine &
                     "   CompanyBankAccountID1=@CompanyBankAccountID1, " & vbNewLine &
-                    "   CompanyBankAccountID2=@CompanyBankAccountID2 " & vbNewLine &
+                    "   CompanyBankAccountID2=@CompanyBankAccountID2, " & vbNewLine &
+                    "   PaymentTerm1=@PaymentTerm1, " & vbNewLine &
+                    "   PaymentTerm2=@PaymentTerm2, " & vbNewLine &
+                    "   PaymentTerm3=@PaymentTerm3, " & vbNewLine &
+                    "   PaymentTerm4=@PaymentTerm4, " & vbNewLine &
+                    "   PaymentTerm5=@PaymentTerm5, " & vbNewLine &
+                    "   PaymentTerm6=@PaymentTerm6, " & vbNewLine &
+                    "   PaymentTerm7=@PaymentTerm7, " & vbNewLine &
+                    "   PaymentTerm8=@PaymentTerm8, " & vbNewLine &
+                    "   PaymentTerm9=@PaymentTerm9, " & vbNewLine &
+                    "   PaymentTerm10=@PaymentTerm10 " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@CompanyBankAccountID1", SqlDbType.Int).Value = intCompanyBankAccountID1
                 .Parameters.Add("@CompanyBankAccountID2", SqlDbType.Int).Value = intCompanyBankAccountID2
+                .Parameters.Add("@PaymentTerm1", SqlDbType.VarChar, 5000).Value = strPaymentTerm1
+                .Parameters.Add("@PaymentTerm2", SqlDbType.VarChar, 5000).Value = strPaymentTerm2
+                .Parameters.Add("@PaymentTerm3", SqlDbType.VarChar, 5000).Value = strPaymentTerm3
+                .Parameters.Add("@PaymentTerm4", SqlDbType.VarChar, 5000).Value = strPaymentTerm4
+                .Parameters.Add("@PaymentTerm5", SqlDbType.VarChar, 5000).Value = strPaymentTerm5
+                .Parameters.Add("@PaymentTerm6", SqlDbType.VarChar, 5000).Value = strPaymentTerm6
+                .Parameters.Add("@PaymentTerm7", SqlDbType.VarChar, 5000).Value = strPaymentTerm7
+                .Parameters.Add("@PaymentTerm8", SqlDbType.VarChar, 5000).Value = strPaymentTerm8
+                .Parameters.Add("@PaymentTerm9", SqlDbType.VarChar, 5000).Value = strPaymentTerm9
+                .Parameters.Add("@PaymentTerm10", SqlDbType.VarChar, 5000).Value = strPaymentTerm10
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

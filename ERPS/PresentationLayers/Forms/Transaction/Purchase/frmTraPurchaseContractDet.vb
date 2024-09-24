@@ -111,6 +111,8 @@ Public Class frmTraPurchaseContractDet
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
+                cboPaymentType.SelectedValue = clsData.PaymentType
+
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -463,6 +465,10 @@ Public Class frmTraPurchaseContractDet
         prvQueryItem()
         prvQueryHistory()
         prvUserAccess()
+    End Sub
+
+    Private Sub tpMain_Click(sender As Object, e As EventArgs) Handles tpMain.Click
+
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick

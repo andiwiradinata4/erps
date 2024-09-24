@@ -21,18 +21,21 @@ Namespace DL
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
-        Public Shared Function ListDataForCombo(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction) As DataTable
+        Public Shared Function ListDataForCombo(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                ByVal strFilterID As String) As DataTable
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                   "SELECT " & vbNewLine & _
-                   "     A.ID, A.Name " & vbNewLine & _
-                   "FROM mstPaymentType A " & vbNewLine & _
-                   "WHERE " & vbNewLine & _
+                .CommandText =
+                   "SELECT " & vbNewLine &
+                   "     A.ID, A.Name " & vbNewLine &
+                   "FROM mstPaymentType A " & vbNewLine &
+                   "WHERE " & vbNewLine &
                    "    A.StatusID=@StatusID" & vbNewLine
+
+                If strFilterID.Trim <> "" Then .CommandText += "    AND A.ID IN (" & strFilterID & ")" & vbNewLine
 
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Active
             End With

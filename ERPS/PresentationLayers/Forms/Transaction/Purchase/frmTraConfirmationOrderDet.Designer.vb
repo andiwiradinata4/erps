@@ -50,6 +50,10 @@ Partial Class frmTraConfirmationOrderDet
         Me.GridView4 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.cboPaymentType = New ERPS.usComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.dtpDeliveryPeriodTo = New DevExpress.XtraEditors.DateEdit()
+        Me.dtpDeliveryPeriodFrom = New DevExpress.XtraEditors.DateEdit()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtFranco = New ERPS.usTextBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -90,8 +94,6 @@ Partial Class frmTraConfirmationOrderDet
         Me.tpHistory = New System.Windows.Forms.TabPage()
         Me.grdStatus = New DevExpress.XtraGrid.GridControl()
         Me.grdStatusView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.dtpDeliveryPeriodTo = New DevExpress.XtraEditors.DateEdit()
-        Me.dtpDeliveryPeriodFrom = New DevExpress.XtraEditors.DateEdit()
         Me.tcDetail.SuspendLayout()
         Me.tpItem.SuspendLayout()
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -102,6 +104,10 @@ Partial Class frmTraConfirmationOrderDet
         CType(Me.GridView4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
+        CType(Me.dtpDeliveryPeriodTo.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtpDeliveryPeriodTo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtpDeliveryPeriodFrom.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtpDeliveryPeriodFrom.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtAllowanceProduction, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpAmount.SuspendLayout()
         Me.gboPesanan.SuspendLayout()
@@ -114,10 +120,6 @@ Partial Class frmTraConfirmationOrderDet
         Me.tpHistory.SuspendLayout()
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dtpDeliveryPeriodTo.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dtpDeliveryPeriodTo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dtpDeliveryPeriodFrom.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dtpDeliveryPeriodFrom.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -174,7 +176,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(0, 245)
+        Me.Label1.Location = New System.Drawing.Point(0, 269)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(890, 22)
         Me.Label1.TabIndex = 3
@@ -194,10 +196,10 @@ Partial Class frmTraConfirmationOrderDet
         Me.tcDetail.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tcDetail.Controls.Add(Me.tpItem)
         Me.tcDetail.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tcDetail.Location = New System.Drawing.Point(0, 267)
+        Me.tcDetail.Location = New System.Drawing.Point(0, 291)
         Me.tcDetail.Name = "tcDetail"
         Me.tcDetail.SelectedIndex = 0
-        Me.tcDetail.Size = New System.Drawing.Size(890, 371)
+        Me.tcDetail.Size = New System.Drawing.Size(890, 347)
         Me.tcDetail.TabIndex = 4
         '
         'tpItem
@@ -208,7 +210,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.tpItem.Location = New System.Drawing.Point(4, 25)
         Me.tpItem.Name = "tpItem"
         Me.tpItem.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpItem.Size = New System.Drawing.Size(882, 342)
+        Me.tpItem.Size = New System.Drawing.Size(882, 318)
         Me.tpItem.TabIndex = 1
         Me.tpItem.Text = "Item - F4"
         Me.tpItem.UseVisualStyleBackColor = True
@@ -234,7 +236,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItem.Size = New System.Drawing.Size(876, 286)
+        Me.grdItem.Size = New System.Drawing.Size(876, 262)
         Me.grdItem.TabIndex = 1
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
@@ -261,7 +263,7 @@ Partial Class frmTraConfirmationOrderDet
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(3, 317)
+        Me.StatusStrip.Location = New System.Drawing.Point(3, 293)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(876, 22)
         Me.StatusStrip.TabIndex = 10
@@ -356,12 +358,14 @@ Partial Class frmTraConfirmationOrderDet
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(890, 195)
+        Me.tcHeader.Size = New System.Drawing.Size(890, 219)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.cboPaymentType)
+        Me.tpMain.Controls.Add(Me.Label4)
         Me.tpMain.Controls.Add(Me.dtpDeliveryPeriodTo)
         Me.tpMain.Controls.Add(Me.dtpDeliveryPeriodFrom)
         Me.tpMain.Controls.Add(Me.Label3)
@@ -388,10 +392,61 @@ Partial Class frmTraConfirmationOrderDet
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(882, 166)
+        Me.tpMain.Size = New System.Drawing.Size(882, 190)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'cboPaymentType
+        '
+        Me.cboPaymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboPaymentType.Enabled = False
+        Me.cboPaymentType.FormattingEnabled = True
+        Me.cboPaymentType.Location = New System.Drawing.Point(160, 150)
+        Me.cboPaymentType.Name = "cboPaymentType"
+        Me.cboPaymentType.Size = New System.Drawing.Size(249, 21)
+        Me.cboPaymentType.TabIndex = 8
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.Transparent
+        Me.Label4.ForeColor = System.Drawing.Color.Black
+        Me.Label4.Location = New System.Drawing.Point(28, 154)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(94, 13)
+        Me.Label4.TabIndex = 145
+        Me.Label4.Text = "Jenis Pembayaran"
+        '
+        'dtpDeliveryPeriodTo
+        '
+        Me.dtpDeliveryPeriodTo.EditValue = New Date(2024, 5, 31, 14, 21, 51, 3)
+        Me.dtpDeliveryPeriodTo.Location = New System.Drawing.Point(293, 124)
+        Me.dtpDeliveryPeriodTo.Name = "dtpDeliveryPeriodTo"
+        Me.dtpDeliveryPeriodTo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.dtpDeliveryPeriodTo.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.dtpDeliveryPeriodTo.Properties.DisplayFormat.FormatString = "MMMM yyyy"
+        Me.dtpDeliveryPeriodTo.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom
+        Me.dtpDeliveryPeriodTo.Properties.EditFormat.FormatString = "MMMM yyyy"
+        Me.dtpDeliveryPeriodTo.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Custom
+        Me.dtpDeliveryPeriodTo.Properties.Mask.EditMask = "y"
+        Me.dtpDeliveryPeriodTo.Size = New System.Drawing.Size(116, 20)
+        Me.dtpDeliveryPeriodTo.TabIndex = 7
+        '
+        'dtpDeliveryPeriodFrom
+        '
+        Me.dtpDeliveryPeriodFrom.EditValue = New Date(2024, 5, 31, 14, 21, 51, 3)
+        Me.dtpDeliveryPeriodFrom.Location = New System.Drawing.Point(160, 124)
+        Me.dtpDeliveryPeriodFrom.Name = "dtpDeliveryPeriodFrom"
+        Me.dtpDeliveryPeriodFrom.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.dtpDeliveryPeriodFrom.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.dtpDeliveryPeriodFrom.Properties.DisplayFormat.FormatString = "MMMM yyyy"
+        Me.dtpDeliveryPeriodFrom.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom
+        Me.dtpDeliveryPeriodFrom.Properties.EditFormat.FormatString = "MMMM yyyy"
+        Me.dtpDeliveryPeriodFrom.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Custom
+        Me.dtpDeliveryPeriodFrom.Properties.Mask.EditMask = "y"
+        Me.dtpDeliveryPeriodFrom.Size = New System.Drawing.Size(116, 20)
+        Me.dtpDeliveryPeriodFrom.TabIndex = 6
         '
         'Label3
         '
@@ -413,7 +468,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.txtFranco.Name = "txtFranco"
         Me.txtFranco.ReadOnly = True
         Me.txtFranco.Size = New System.Drawing.Size(249, 21)
-        Me.txtFranco.TabIndex = 11
+        Me.txtFranco.TabIndex = 12
         '
         'Label2
         '
@@ -435,7 +490,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.txtPCNumber.Name = "txtPCNumber"
         Me.txtPCNumber.ReadOnly = True
         Me.txtPCNumber.Size = New System.Drawing.Size(249, 21)
-        Me.txtPCNumber.TabIndex = 10
+        Me.txtPCNumber.TabIndex = 11
         '
         'Label9
         '
@@ -513,7 +568,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 9
+        Me.txtRemarks.TabIndex = 10
         '
         'cboStatus
         '
@@ -522,8 +577,8 @@ Partial Class frmTraConfirmationOrderDet
         Me.cboStatus.FormattingEnabled = True
         Me.cboStatus.Location = New System.Drawing.Point(611, 16)
         Me.cboStatus.Name = "cboStatus"
-        Me.cboStatus.Size = New System.Drawing.Size(109, 21)
-        Me.cboStatus.TabIndex = 8
+        Me.cboStatus.Size = New System.Drawing.Size(249, 21)
+        Me.cboStatus.TabIndex = 9
         '
         'Label5
         '
@@ -632,7 +687,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.tpAmount.Controls.Add(Me.txtPPN)
         Me.tpAmount.Location = New System.Drawing.Point(4, 25)
         Me.tpAmount.Name = "tpAmount"
-        Me.tpAmount.Size = New System.Drawing.Size(882, 166)
+        Me.tpAmount.Size = New System.Drawing.Size(882, 190)
         Me.tpAmount.TabIndex = 2
         Me.tpAmount.Text = "Harga - F2"
         Me.tpAmount.UseVisualStyleBackColor = True
@@ -829,7 +884,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(882, 181)
+        Me.tpHistory.Size = New System.Drawing.Size(882, 190)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -854,7 +909,7 @@ Partial Class frmTraConfirmationOrderDet
         Me.grdStatus.Location = New System.Drawing.Point(3, 3)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(872, 171)
+        Me.grdStatus.Size = New System.Drawing.Size(872, 180)
         Me.grdStatus.TabIndex = 13
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -867,36 +922,6 @@ Partial Class frmTraConfirmationOrderDet
         Me.grdStatusView.OptionsCustomization.AllowGroup = False
         Me.grdStatusView.OptionsView.ColumnAutoWidth = False
         Me.grdStatusView.OptionsView.ShowGroupPanel = False
-        '
-        'dtpDeliveryPeriodTo
-        '
-        Me.dtpDeliveryPeriodTo.EditValue = New Date(2024, 5, 31, 14, 21, 51, 3)
-        Me.dtpDeliveryPeriodTo.Location = New System.Drawing.Point(293, 124)
-        Me.dtpDeliveryPeriodTo.Name = "dtpDeliveryPeriodTo"
-        Me.dtpDeliveryPeriodTo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtpDeliveryPeriodTo.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtpDeliveryPeriodTo.Properties.DisplayFormat.FormatString = "MMMM yyyy"
-        Me.dtpDeliveryPeriodTo.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom
-        Me.dtpDeliveryPeriodTo.Properties.EditFormat.FormatString = "MMMM yyyy"
-        Me.dtpDeliveryPeriodTo.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Custom
-        Me.dtpDeliveryPeriodTo.Properties.Mask.EditMask = "y"
-        Me.dtpDeliveryPeriodTo.Size = New System.Drawing.Size(116, 20)
-        Me.dtpDeliveryPeriodTo.TabIndex = 7
-        '
-        'dtpDeliveryPeriodFrom
-        '
-        Me.dtpDeliveryPeriodFrom.EditValue = New Date(2024, 5, 31, 14, 21, 51, 3)
-        Me.dtpDeliveryPeriodFrom.Location = New System.Drawing.Point(160, 124)
-        Me.dtpDeliveryPeriodFrom.Name = "dtpDeliveryPeriodFrom"
-        Me.dtpDeliveryPeriodFrom.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtpDeliveryPeriodFrom.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtpDeliveryPeriodFrom.Properties.DisplayFormat.FormatString = "MMMM yyyy"
-        Me.dtpDeliveryPeriodFrom.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom
-        Me.dtpDeliveryPeriodFrom.Properties.EditFormat.FormatString = "MMMM yyyy"
-        Me.dtpDeliveryPeriodFrom.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Custom
-        Me.dtpDeliveryPeriodFrom.Properties.Mask.EditMask = "y"
-        Me.dtpDeliveryPeriodFrom.Size = New System.Drawing.Size(116, 20)
-        Me.dtpDeliveryPeriodFrom.TabIndex = 6
         '
         'frmTraConfirmationOrderDet
         '
@@ -928,6 +953,10 @@ Partial Class frmTraConfirmationOrderDet
         Me.tcHeader.ResumeLayout(False)
         Me.tpMain.ResumeLayout(False)
         Me.tpMain.PerformLayout()
+        CType(Me.dtpDeliveryPeriodTo.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtpDeliveryPeriodTo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtpDeliveryPeriodFrom.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtpDeliveryPeriodFrom.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtAllowanceProduction, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpAmount.ResumeLayout(False)
         Me.tpAmount.PerformLayout()
@@ -942,10 +971,6 @@ Partial Class frmTraConfirmationOrderDet
         Me.tpHistory.ResumeLayout(False)
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dtpDeliveryPeriodTo.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dtpDeliveryPeriodTo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dtpDeliveryPeriodFrom.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dtpDeliveryPeriodFrom.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1019,4 +1044,6 @@ Partial Class frmTraConfirmationOrderDet
     Friend WithEvents txtPCNumber As usTextBox
     Friend WithEvents dtpDeliveryPeriodTo As DevExpress.XtraEditors.DateEdit
     Friend WithEvents dtpDeliveryPeriodFrom As DevExpress.XtraEditors.DateEdit
+    Friend WithEvents cboPaymentType As usComboBox
+    Friend WithEvents Label4 As Label
 End Class

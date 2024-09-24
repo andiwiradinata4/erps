@@ -39,5 +39,6 @@
         Property Detail As List(Of VO.PurchaseContractDet)
         Property PaymentTerm As List(Of VO.PurchaseContractPaymentTerm)
         Property Save As VO.Save.Action
+        Property PaymentType As Integer
     End Class
 End Namespace

@@ -693,7 +693,7 @@ Public Class frmTraARAP
                 Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
                 crReport.sbPayment1.Visible = True
                 crReport.DescPayment1.Value = VO.ARAP.GetPaymentType(dtData.Rows(0).Item("Modules")) & " " & IIf(intValue = 0, "", intValue & "%")
-                crReport.AmountPayment1.Value = dtData.Rows(0).Item("GrandTotal") - dtData.Rows(0).Item("DPAmount")
+                crReport.AmountPayment1.Value = IIf(clsData.IsDP, dtData.Rows(0).Item("DPAmount"), dtData.Rows(0).Item("GrandTotal") - dtData.Rows(0).Item("DPAmount"))
             End If
 
             If dtPaymentHistory.Rows.Count = 1 Then

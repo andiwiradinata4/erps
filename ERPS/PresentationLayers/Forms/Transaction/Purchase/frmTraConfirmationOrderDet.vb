@@ -83,6 +83,7 @@ Public Class frmTraConfirmationOrderDet
     Private Sub prvFillCombo()
         Try
             UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionConfirmationOrder), "StatusID", "StatusName")
+            UI.usForm.FillComboBox(cboPaymentType, BL.PaymentType.ListDataForCombo("12,13"), "ID", "Name")
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -122,6 +123,7 @@ Public Class frmTraConfirmationOrderDet
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
+                cboPaymentType.SelectedValue = clsData.PaymentType
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)

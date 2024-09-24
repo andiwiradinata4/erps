@@ -45,6 +45,19 @@
             txtBankName2.Text = clsData.BankName
             txtAccountNumber2.Text = clsData.AccountNumber
             txtCurrency2.Text = clsData.Currency
+
+            Dim clsDetail As VO.AccountReceivable = BL.AccountReceivable.GetDetail(pubID)
+
+            txtPaymentTerm1.Text = IIf(clsDetail.PaymentTerm1.Trim = "", "Pembayaran dapat dilakukan dengan SKBDN", clsDetail.PaymentTerm1.Trim)
+            txtPaymentTerm2.Text = IIf(clsDetail.PaymentTerm2.Trim = "", "Pembayaran Cash DP 10% maksimal 7 Hari dari tanggal PI", clsDetail.PaymentTerm2.Trim)
+            txtPaymentTerm3.Text = IIf(clsDetail.PaymentTerm3.Trim = "", "Pembayaran Cash DP 90% paling lambat 7 Hari dari tanggal PI", clsDetail.PaymentTerm3.Trim)
+            txtPaymentTerm4.Text = IIf(clsDetail.PaymentTerm4.Trim = "", "Pembayaran Cash lebih dari 7 Hari akan dikenakan sanksi pembelian berikutnya dengan DP 20%", clsDetail.PaymentTerm4.Trim)
+            txtPaymentTerm5.Text = IIf(clsDetail.PaymentTerm5.Trim = "", "Toleransi Produksi Lebih Kurang 10%", clsDetail.PaymentTerm5.Trim)
+            txtPaymentTerm6.Text = clsDetail.PaymentTerm6
+            txtPaymentTerm7.Text = clsDetail.PaymentTerm7
+            txtPaymentTerm8.Text = clsDetail.PaymentTerm8
+            txtPaymentTerm9.Text = clsDetail.PaymentTerm9
+            txtPaymentTerm10.Text = clsDetail.PaymentTerm10
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -53,7 +66,12 @@
 
     Private Sub prvSave()
         Try
-            BL.AccountReceivable.UpdateCompanyBankAccount(pubID, pubCompanyBankAccount1, pubCompanyBankAccount2)
+            BL.AccountReceivable.UpdateCompanyBankAccount(pubID, pubCompanyBankAccount1, pubCompanyBankAccount2,
+                                                          txtPaymentTerm1.Text.Trim, txtPaymentTerm2.Text.Trim,
+                                                          txtPaymentTerm3.Text.Trim, txtPaymentTerm4.Text.Trim,
+                                                          txtPaymentTerm5.Text.Trim, txtPaymentTerm6.Text.Trim,
+                                                          txtPaymentTerm7.Text.Trim, txtPaymentTerm8.Text.Trim,
+                                                          txtPaymentTerm9.Text.Trim, txtPaymentTerm10.Text.Trim)
             pubIsSave = True
             Me.Close()
         Catch ex As Exception
@@ -107,6 +125,16 @@
     Private Sub frmTraARAPChooseBankAccount_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
+        txtPaymentTerm1.CharacterCasing = CharacterCasing.Normal
+        txtPaymentTerm2.CharacterCasing = CharacterCasing.Normal
+        txtPaymentTerm3.CharacterCasing = CharacterCasing.Normal
+        txtPaymentTerm4.CharacterCasing = CharacterCasing.Normal
+        txtPaymentTerm5.CharacterCasing = CharacterCasing.Normal
+        txtPaymentTerm6.CharacterCasing = CharacterCasing.Normal
+        txtPaymentTerm7.CharacterCasing = CharacterCasing.Normal
+        txtPaymentTerm8.CharacterCasing = CharacterCasing.Normal
+        txtPaymentTerm9.CharacterCasing = CharacterCasing.Normal
+        txtPaymentTerm10.CharacterCasing = CharacterCasing.Normal
         prvFillForm()
     End Sub
 

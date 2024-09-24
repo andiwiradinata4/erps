@@ -8,10 +8,10 @@ Namespace BL
             End Using
         End Function
 
-        Public Shared Function ListDataForCombo() As DataTable
+        Public Shared Function ListDataForCombo(Optional ByVal strFilterID As String = "") As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.PaymentType.ListDataForCombo(sqlCon, Nothing)
+                Return DL.PaymentType.ListDataForCombo(sqlCon, Nothing, strFilterID)
             End Using
         End Function
 

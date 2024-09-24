@@ -933,7 +933,7 @@ Namespace BL
 
                 For Each dr As DataRow In dtReturn.Rows
                     dr.BeginEdit()
-                    dr.Item("NumericToString") = SharedLib.Math.NumberToString(dr.Item("GrandTotal") - dr.Item("DPAmount"))
+                    dr.Item("NumericToString") = IIf(dr.Item("IsDP"), SharedLib.Math.NumberToString(dr.Item("DPAmount")), SharedLib.Math.NumberToString(dr.Item("GrandTotal") - dr.Item("DPAmount")))
                     dr.Item("ContractNumber") = strPurchaseContractNumber
                     dr.EndEdit()
                 Next

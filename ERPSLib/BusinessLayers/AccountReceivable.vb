@@ -1560,12 +1560,19 @@
         End Sub
 
         Public Shared Sub UpdateCompanyBankAccount(ByVal strID As String, ByVal intCompanyBankAccountID1 As Integer,
-                                                   ByVal intCompanyBankAccountID2 As Integer)
+                                                   ByVal intCompanyBankAccountID2 As Integer, ByVal strPaymentTerm1 As String,
+                                                   ByVal strPaymentTerm2 As String, ByVal strPaymentTerm3 As String,
+                                                   ByVal strPaymentTerm4 As String, ByVal strPaymentTerm5 As String,
+                                                   ByVal strPaymentTerm6 As String, ByVal strPaymentTerm7 As String,
+                                                   ByVal strPaymentTerm8 As String, ByVal strPaymentTerm9 As String,
+                                                   ByVal strPaymentTerm10 As String)
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    DL.AccountReceivable.UpdateCompanyBankAccount(sqlCon, sqlTrans, strID, intCompanyBankAccountID1, intCompanyBankAccountID2)
+                    DL.AccountReceivable.UpdateCompanyBankAccount(sqlCon, sqlTrans, strID, intCompanyBankAccountID1, intCompanyBankAccountID2,
+                                                                  strPaymentTerm1, strPaymentTerm2, strPaymentTerm3, strPaymentTerm4, strPaymentTerm5,
+                                                                  strPaymentTerm6, strPaymentTerm7, strPaymentTerm8, strPaymentTerm9, strPaymentTerm10)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()

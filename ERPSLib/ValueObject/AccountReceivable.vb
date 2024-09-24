@@ -49,6 +49,17 @@
         Property ARAPDownPayment As New List(Of VO.ARAPDP)
         Property ARAPItem As New List(Of VO.ARAPItem)
         Property Save As VO.Save.Action
+        Property PaymentTerm1 As String
+        Property PaymentTerm2 As String
+        Property PaymentTerm3 As String
+        Property PaymentTerm4 As String
+        Property PaymentTerm5 As String
+        Property PaymentTerm6 As String
+        Property PaymentTerm7 As String
+        Property PaymentTerm8 As String
+        Property PaymentTerm9 As String
+        Property PaymentTerm10 As String
+
 
         Public Const All As String = "AR"
         Public Const SalesBalance As String = "SB"
