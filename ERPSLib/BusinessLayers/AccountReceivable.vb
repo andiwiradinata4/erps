@@ -1058,7 +1058,8 @@
                 '# Save Data Status
                 BL.AccountReceivable.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
-                GenerateJournal(sqlCon, sqlTrans, strID)
+                Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
+                If Not clsData.IsDP Then GenerateJournal(sqlCon, sqlTrans, strID)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -1097,11 +1098,13 @@
                 End If
 
                 Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
-                '# Cancel Approve Journal
-                BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+                If Not clsData.IsDP Then
+                    '# Cancel Approve Journal
+                    BL.Journal.Unapprove(clsData.JournalID.Trim, "")
 
-                '# Cancel Submit Journal
-                BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+                    '# Cancel Submit Journal
+                    BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+                End If
 
                 '# Unapprove Account Receivable
                 DL.AccountReceivable.Unapprove(sqlCon, sqlTrans, strID)
@@ -1152,7 +1155,11 @@
 
                 '# Generate Journal
                 Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
-                If Not clsData.IsDP Then GenerateJournalInvoice(sqlCon, sqlTrans, strID)
+                If clsData.IsDP Then
+                    GenerateJournal(sqlCon, sqlTrans, strID)
+                Else
+                    GenerateJournalInvoice(sqlCon, sqlTrans, strID)
+                End If
                 bolReturn = True
             Catch ex As Exception
                 Throw ex
@@ -1188,7 +1195,13 @@
                 End If
 
                 Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
-                If Not clsData.IsDP Then
+                If clsData.IsDP Then
+                    '# Cancel Approve Journal
+                    BL.Journal.Unapprove(sqlCon, sqlTrans, clsData.JournalID.Trim, "")
+
+                    '# Cancel Submit Journal
+                    BL.Journal.Unsubmit(sqlCon, sqlTrans, clsData.JournalID.Trim, "")
+                Else
                     '# Cancel Approve Journal
                     BL.Journal.Unapprove(sqlCon, sqlTrans, clsData.JournalIDInvoice.Trim, "")
 

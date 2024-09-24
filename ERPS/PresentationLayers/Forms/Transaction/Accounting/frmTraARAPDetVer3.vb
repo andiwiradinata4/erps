@@ -221,12 +221,12 @@ Public Class frmTraARAPDetVer3
 
     Private Sub prvSave()
         ToolBar.Focus()
-        If txtCoACode.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih akun terlebih dahulu")
-            tcHeader.SelectedTab = tpMain
-            txtCoACode.Focus()
-            Exit Sub
-        ElseIf txtTotalAmount.Value <= 0 Then
+        'If txtCoACode.Text.Trim = "" Then
+        '    UI.usForm.frmMessageBox("Pilih akun terlebih dahulu")
+        '    tcHeader.SelectedTab = tpMain
+        '    txtCoACode.Focus()
+        '    Exit Sub
+        If txtTotalAmount.Value <= 0 Then
             UI.usForm.frmMessageBox("Total Bayar harus lebih besar dari 0")
             tcHeader.SelectedTab = tpMain
             txtTotalAmount.Focus()

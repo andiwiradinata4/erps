@@ -489,7 +489,7 @@ Public Class frmTraARAP
 
         Dim frmDetail As New frmTraAccountSetPaymentDate
         With frmDetail
-            .pubChooseCoA = IIf(clsData.IsDP, False, True)
+            .pubChooseCoA = True 'IIf(clsData.IsDP, False, True)
             .pubCoAID = clsData.CoAID
             .pubCoACode = clsData.CoACode
             .pubCoAName = clsData.CoAName

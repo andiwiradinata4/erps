@@ -479,6 +479,7 @@ Partial Class frmTraARAPDetVer3
         '
         'btnCoAOfOutgoingPayment
         '
+        Me.btnCoAOfOutgoingPayment.Enabled = False
         Me.btnCoAOfOutgoingPayment.Image = CType(resources.GetObject("btnCoAOfOutgoingPayment.Image"), System.Drawing.Image)
         Me.btnCoAOfOutgoingPayment.Location = New System.Drawing.Point(396, 42)
         Me.btnCoAOfOutgoingPayment.Name = "btnCoAOfOutgoingPayment"

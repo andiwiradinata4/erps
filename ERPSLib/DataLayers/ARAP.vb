@@ -105,12 +105,13 @@
 "SELECT     " & vbNewLine &
 "	ARH.ID, ARH.ProgramID, MP.Name AS ProgramName, ARH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress,     " & vbNewLine &
 "	ARH.ARNumber AS TransNumber, ARH.ARDate AS TransDate, ARH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, ARH.ReferencesID, ARH.ReferencesNote,     " & vbNewLine &
-"	SCH.PPN, SCH.PPH, ARH.ReceiveAmount+ARH.DPAmount AS TotalDPP, (ARH.ReceiveAmount+ARH.DPAmount)*SCH.PPN/100 AS TotalPPN, (ARH.ReceiveAmount+ARH.DPAmount)*SCH.PPH/100 AS TotalPPH,  " & vbNewLine &
-"	GrandTotal=(ARH.ReceiveAmount+ARH.DPAmount)+((ARH.ReceiveAmount+ARH.DPAmount)*SCH.PPN/100)-((ARH.ReceiveAmount+ARH.DPAmount)*SCH.PPH/100), SCH.DelegationSeller AS DirectorName,  " & vbNewLine &
+"	SCH.PPN, SCH.PPH, CASE WHEN ARH.IsDP=1 THEN ARH.TotalAmount ELSE ARH.ReceiveAmount+ARH.DPAmount END AS TotalDPP, (CASE WHEN ARH.IsDP=1 THEN ARH.TotalAmount ELSE ARH.ReceiveAmount+ARH.DPAmount END)*SCH.PPN/100 AS TotalPPN, " & vbNewLine &
+"   (CASE WHEN ARH.IsDP=1 THEN ARH.TotalAmount ELSE ARH.ReceiveAmount+ARH.DPAmount END)*SCH.PPH/100 AS TotalPPH,  " & vbNewLine &
+"	GrandTotal=(CASE WHEN ARH.IsDP=1 THEN ARH.TotalAmount ELSE ARH.ReceiveAmount+ARH.DPAmount END)+((CASE WHEN ARH.IsDP=1 THEN ARH.TotalAmount ELSE ARH.ReceiveAmount+ARH.DPAmount END)*SCH.PPN/100)-((CASE WHEN ARH.IsDP=1 THEN ARH.TotalAmount ELSE ARH.ReceiveAmount+ARH.DPAmount END)*SCH.PPH/100), SCH.DelegationSeller AS DirectorName,  " & vbNewLine &
 "	ISNULL(MBC1.AccountName,MBC.AccountName) AS BankAccountName1, ISNULL(MBC1.BankName,MBC.BankName) AS BankAccountBankName1, ISNULL(MBC1.AccountNumber,MBC.AccountNumber) AS BankAccountNumber1,  " & vbNewLine &
 "	ISNULL(MBC2.AccountName,'') AS BankAccountName2, ISNULL(MBC2.BankName,'') AS BankAccountBankName2, ISNULL(MBC2.AccountNumber,'') AS BankAccountNumber2, ARH.StatusID,  " & vbNewLine &
-"	MIS.Description AS ItemSpec, ARI.OrderNumberSupplier AS ItemType, MI.Thick AS ItemThick, MI.Width AS ItemWidth, MI.Length AS ItemLength, SCD.Weight, ARI.Quantity,  " & vbNewLine &
-"	ARI.TotalWeight AS TotalWeightItem, SCD.UnitPrice, ARI.Amount+ARI.DPAmount AS TotalPrice, ARI.Amount+ARI.PPN-ARI.PPH AS TotalAmount, ARH.Percentage, CAST('' AS VARCHAR(1000)) AS NumericToString, ARH.Modules, ARH.CreatedDate,  " & vbNewLine &
+"	MIS.Description AS ItemSpec, ARI.OrderNumberSupplier AS ItemType, MI.Thick AS ItemThick, MI.Width AS ItemWidth, MI.Length AS ItemLength, SCD.Weight, Quantity=CASE WHEN ARH.IsDP=1 THEN SCD.Quantity ELSE ARI.Quantity END,  " & vbNewLine &
+"	CASE WHEN ARH.IsDP=1 THEN SCH.TotalWeight ELSE ARI.TotalWeight END AS TotalWeightItem, SCD.UnitPrice, ARI.Amount+ARI.DPAmount AS TotalPrice, ARI.Amount+ARI.PPN-ARI.PPH AS TotalAmount, ARH.Percentage, CAST('' AS VARCHAR(1000)) AS NumericToString, ARH.Modules, ARH.CreatedDate,  " & vbNewLine &
 "	ARH.TaxInvoiceNumber, C.NPWP, ORH.ReferencesNumber AS PurchaseNumber, CAST('' AS VARCHAR(1000)) AS ContractNumber, ARH.DPAmount+(ARH.DPAmount*SCH.PPN/100) AS DPAmount  " & vbNewLine &
 "FROM traAccountReceivable ARH     " & vbNewLine &
 "INNER JOIN traAccountReceivableDet ARD ON     " & vbNewLine &
@@ -153,7 +154,8 @@
 "	ARH.ID, ARH.ProgramID, MP.Name, ARH.CompanyID, MC.Name, MC.Address, MC.Warehouse, ARH.ARNumber, ARH.ARDate, ARH.BPID, C.Code, C.Name, C.Address, ARH.ReferencesID,     " & vbNewLine &
 "	ARH.ReferencesNote, SCH.PPN, SCH.PPH, SCH.DelegationSeller, MBC.AccountName, MBC.BankName, MBC.AccountNumber, MBC1.AccountName, MBC1.BankName, MBC1.AccountNumber,  " & vbNewLine &
 "	MBC2.AccountName, MBC2.BankName, MBC2.AccountNumber, ARH.StatusID, MIS.Description, ARI.OrderNumberSupplier, MI.Thick, MI.Width, MI.Length, SCD.Weight, ARI.Quantity,  " & vbNewLine &
-"	ARI.TotalWeight, SCD.UnitPrice, ARI.Amount, ARI.DPAmount, ARH.ReceiveAmount, ARH.DPAmount, ARI.PPN, ARI.PPH, ARH.Percentage, ARH.Modules, ARH.CreatedDate, ARH.TaxInvoiceNumber, C.NPWP, ORH.ReferencesNumber  " & vbNewLine
+"	ARI.TotalWeight, SCD.UnitPrice, ARI.Amount, ARI.DPAmount, ARH.ReceiveAmount, ARH.DPAmount, ARI.PPN, ARI.PPH, ARH.Percentage, ARH.Modules, ARH.CreatedDate, ARH.TaxInvoiceNumber, " & vbNewLine &
+"   C.NPWP, ORH.ReferencesNumber, ARH.IsDP, ARH.TotalAmount, SCD.Quantity, SCH.TotalWeight   " & vbNewLine
 
                 .CommandText +=
 "UNION ALL " & vbNewLine &
@@ -342,6 +344,7 @@
                     "	ARD.SalesID=@ReferencesID " & vbNewLine &
                     "	AND ARH.ProgramID=@ProgramID" & vbNewLine &
                     "	AND ARH.CompanyID=@CompanyID " & vbNewLine &
+                    "	AND ARH.ID<>@ID  " & vbNewLine &
                     "	AND ARH.IsDP=1 " & vbNewLine &
                     "	AND ARH.IsDeleted=0" & vbNewLine &
                     "ORDER BY ARH.ARDate, ARH.CreatedDate "
