@@ -18,7 +18,8 @@
                     "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.AllowanceProduction, " & vbNewLine &
                     "   A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, " & vbNewLine &
                     "   A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, A.IsDeleted, A.Remarks, A.StatusID, B.Name AS StatusInfo, " & vbNewLine &
-                    "   A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.IsUseSubItem " & vbNewLine &
+                    "   A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, " & vbNewLine &
+                    "   A.IsUseSubItem, A.PaymentTypeID, ISNULL(MPT.Name, '') AS PaymentTypeName " & vbNewLine &
                     "FROM traConfirmationOrder A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -28,12 +29,14 @@
                     "   A.CompanyID=MC.ID " & vbNewLine &
                     "INNER JOIN mstProgram MP ON " & vbNewLine &
                     "   A.ProgramID=MP.ID " & vbNewLine &
+                    "LEFT JOIN mstPaymentType MPT ON " & vbNewLine &
+                    "   A.PaymentTypeID=MPT.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   A.ProgramID=@ProgramID " & vbNewLine &
-                    "   AND A.CompanyID=@CompanyID " & vbNewLine &
-                    "   AND A.CODate>=@DateFrom AND A.CODate<=@DateTo " & vbNewLine
+                    "   And A.CompanyID=@CompanyID " & vbNewLine &
+                    "   And A.CODate>=@DateFrom And A.CODate<=@DateTo " & vbNewLine
 
-                If intStatusID > 0 Then .CommandText += "   AND A.StatusID=@StatusID " & vbNewLine
+                If intStatusID > 0 Then .CommandText += "   And A.StatusID=@StatusID " & vbNewLine
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
@@ -56,11 +59,11 @@
                         "INSERT INTO traConfirmationOrder " & vbNewLine &
                         "   (ID, ProgramID, CompanyID, CONumber, CODate, BPID, DeliveryPeriodFrom, DeliveryPeriodTo, " & vbNewLine &
                         "    AllowanceProduction, PPN, PPH, TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, " & vbNewLine &
-                        "    RoundingManual, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, IsUseSubItem) " & vbNewLine &
+                        "    RoundingManual, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, IsUseSubItem, PaymentType) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @ProgramID, @CompanyID, @CONumber, @CODate, @BPID, @DeliveryPeriodFrom, @DeliveryPeriodTo, " & vbNewLine &
                         "    @AllowanceProduction, @PPN, @PPH, @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, " & vbNewLine &
-                        "    @RoundingManual, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @IsUseSubItem) " & vbNewLine
+                        "    @RoundingManual, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @IsUseSubItem, @PaymentType) " & vbNewLine
 
 
                 Else
@@ -87,7 +90,8 @@
                         "    LogInc=LogInc+1, " & vbNewLine &
                         "    LogBy=@LogBy, " & vbNewLine &
                         "    LogDate=GETDATE(), " & vbNewLine &
-                        "    IsUseSubItem=@IsUseSubItem " & vbNewLine &
+                        "    IsUseSubItem=@IsUseSubItem, " & vbNewLine &
+                        "    PaymentType=@PaymentType " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -113,6 +117,7 @@
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@IsUseSubItem", SqlDbType.Bit).Value = clsData.IsUseSubItem
+                .Parameters.Add("@PaymentType", SqlDbType.Int).Value = clsData.PaymentTypeID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -158,7 +163,7 @@
                         "   A.ID, A.ProgramID, A.CompanyID, A.CONumber, A.CODate, A.BPID, B.Code AS BPCode, B.Name AS BPName, " & vbNewLine &
                         "   A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.AllowanceProduction, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, " & vbNewLine &
                         "   A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy, A.CreatedDate, " & vbNewLine &
-                        "   A.LogInc, A.LogBy, A.LogDate, A.PCID, ISNULL(PC.PCNumber,'') AS PCNumber, ISNULL(PC.Franco,'') AS Franco, A.IsUseSubItem " & vbNewLine &
+                        "   A.LogInc, A.LogBy, A.LogDate, A.PCID, ISNULL(PC.PCNumber,'') AS PCNumber, ISNULL(PC.Franco,'') AS Franco, A.IsUseSubItem, A.PaymentType " & vbNewLine &
                         "FROM traConfirmationOrder A " & vbNewLine &
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
                         "   A.BPID=B.ID " & vbNewLine &
@@ -206,6 +211,7 @@
                         voReturn.PCNumber = .Item("PCNumber")
                         voReturn.Franco = .Item("Franco")
                         voReturn.IsUseSubItem = .Item("IsUseSubItem")
+                        voReturn.PaymentTypeID = .Item("PaymentType")
                     End If
                 End With
             Catch ex As Exception

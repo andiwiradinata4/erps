@@ -111,7 +111,7 @@ Public Class frmTraPurchaseContractDet
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
-                cboPaymentType.SelectedValue = clsData.PaymentType
+                cboPaymentType.SelectedValue = clsData.PaymentTypeID
 
             End If
         Catch ex As Exception

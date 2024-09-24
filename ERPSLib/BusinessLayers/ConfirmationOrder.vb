@@ -210,7 +210,8 @@
                     .PaymentTerm = listPaymentTerm,
                     .LogBy = ERPSLib.UI.usUserApp.UserID,
                     .IsUseSubItem = clsData.IsUseSubItem,
-                    .Save = VO.Save.Action.SaveAndSubmit
+                    .Save = VO.Save.Action.SaveAndSubmit,
+                    .PaymentTypeID = clsData.PaymentTypeID
                 }
 
                 '# Save and Submit Purchase Contract

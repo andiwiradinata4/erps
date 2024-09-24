@@ -116,6 +116,7 @@ Public Class frmTraConfirmationOrderDetVer1
     Private Sub prvFillCombo()
         Try
             UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionConfirmationOrder), "StatusID", "StatusName")
+            UI.usForm.FillComboBox(cboPaymentType, BL.PaymentType.ListDataForCombo("13,14"), "ID", "Name")
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -157,6 +158,7 @@ Public Class frmTraConfirmationOrderDetVer1
 
                 'dtpCODate.Enabled = False
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value + txtTotalPPH.Value
+                cboPaymentType.SelectedValue = clsData.PaymentTypeID
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -190,6 +192,11 @@ Public Class frmTraConfirmationOrderDetVer1
             UI.usForm.frmMessageBox("Item kosong. Mohon untuk diinput item terlebih dahulu")
             tcDetail.SelectedTab = tpItem
             grdItemView.Focus()
+            Exit Sub
+        ElseIf cboPaymentType.SelectedIndex = -1 Then
+            UI.usForm.frmMessageBox("Pilih jenis pembayaran terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            cboPaymentType.Focus()
             Exit Sub
         End If
 
@@ -303,8 +310,9 @@ Public Class frmTraConfirmationOrderDetVer1
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.IsUseSubItem = IIf(dtSubItem.Rows.Count > 0, True, False)
         clsData.Save = intSave
-
+        clsData.PaymentTypeID = cboPaymentType.SelectedValue
         pgMain.Value = 60
+
         Try
             Dim strCONumber As String = BL.ConfirmationOrder.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strCONumber)

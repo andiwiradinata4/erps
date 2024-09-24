@@ -11,8 +11,8 @@ Public Class frmTraConfirmationOrder
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cSep2 As Byte = 6, cDone As Byte = 7,
-       cCancelDone As Byte = 8, cSep3 As Byte = 9, cPrint As Byte = 10, cExportExcel As Byte = 11,
-       cSep4 As Byte = 12, cRefresh As Byte = 13, cClose As Byte = 14
+       cCancelDone As Byte = 8, cUpdatePaymentType As Byte = 9, cSep3 As Byte = 10, cPrint As Byte = 11,
+       cExportExcel As Byte = 12, cSep4 As Byte = 13, cRefresh As Byte = 14, cClose As Byte = 15
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -41,6 +41,7 @@ Public Class frmTraConfirmationOrder
         UI.usForm.SetGrid(grdView, "TotalPPN", "Total PPN", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalPPH", "Total PPh", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "GrandTotal", "Grand Total", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "PaymentTypeName", "Jenis Pembayaran", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "RoundingManual", "RoundingManual", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdView, "SubmitBy", "Disubmit Oleh", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "SubmitDate", "Tanggal Disubmit", 100, UI.usDefGrid.gFullDate)
@@ -53,6 +54,7 @@ Public Class frmTraConfirmationOrder
         UI.usForm.SetGrid(grdView, "LogDate", "Tanggal Edit", 100, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdView, "LogInc", "LogInc", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdView, "StatusInfo", "Status", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "PaymentTypeID", "PaymentTypeID", 100, UI.usDefGrid.gIntNum, False)
     End Sub
 
     Private Sub prvSetButton()
@@ -171,6 +173,8 @@ Public Class frmTraConfirmationOrder
         clsReturn.LogDate = grdView.GetRowCellValue(intPos, "LogDate")
         clsReturn.LogInc = grdView.GetRowCellValue(intPos, "LogInc")
         clsReturn.StatusInfo = grdView.GetRowCellValue(intPos, "StatusInfo")
+        clsReturn.PaymentTypeID = grdView.GetRowCellValue(intPos, "PaymentTypeID")
+        clsReturn.PaymentTypeName = grdView.GetRowCellValue(intPos, "PaymentTypeName")
         Return clsReturn
     End Function
 
@@ -436,6 +440,20 @@ Public Class frmTraConfirmationOrder
         End With
     End Sub
 
+    Private Sub prvUpdatePaymentType()
+        'Dim frmDetail As New frmViewCompany
+        'With frmDetail
+        '    .StartPosition = FormStartPosition.CenterScreen
+        '    .ShowDialog()
+        '    If .pubIsLookUpGet Then
+        '        intCompanyID = .pubLUdtRow.Item("CompanyID")
+        '        txtCompanyName.Text = .pubLUdtRow.Item("CompanyName")
+        '        prvClear()
+        '        btnExecute.Focus()
+        '    End If
+        'End With
+    End Sub
+
 #Region "Form Handle"
 
     Private Sub frmTraConfirmationOrder_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -473,6 +491,7 @@ Public Class frmTraConfirmationOrder
                 Case ToolBar.Buttons(cCancelSubmit).Name : prvCancelSubmit()
                 Case ToolBar.Buttons(cDone).Name : prvDone()
                 Case ToolBar.Buttons(cCancelDone).Name : prvCancelDone()
+                Case ToolBar.Buttons(cUpdatePaymentType).Name : prvUpdatePaymentType()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If

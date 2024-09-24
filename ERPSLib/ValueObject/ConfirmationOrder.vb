@@ -30,6 +30,7 @@
         Property Detail As List(Of VO.ConfirmationOrderDet)
         Property PaymentTerm As List(Of VO.ConfirmationOrderPaymentTerm)
         Property Save As VO.Save.Action
-        Property PaymentType As Integer
+        Property PaymentTypeID As Integer
+        Property PaymentTypeName As String
     End Class
 End Namespace

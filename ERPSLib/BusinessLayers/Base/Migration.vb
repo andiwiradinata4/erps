@@ -45,6 +45,7 @@
                 DevelopOnProgress_ID38(sqlCon, Nothing)
                 DevelopOnProgress_ID39(sqlCon, Nothing)
                 DevelopOnProgress_ID40(sqlCon, Nothing)
+                DevelopOnProgress_ID41(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1105,6 +1106,23 @@
             clsData.ID = 40
             clsData.Name = "Alter Table traSalesContract | References Number"
             clsData.Scripts = "ALTER TABLE traSalesContract ADD ReferencesNumber [varchar](5000) NOT NULL CONSTRAINT DF_traSalesContract_ReferencesNumber DEFAULT ('')  " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 41
+        Private Shared Sub DevelopOnProgress_ID41(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 41
+            clsData.Name = "Alter Table traConfirmationOrder and traPurchaseContract | Payment Type ID"
+            clsData.Scripts =
+                "ALTER TABLE traConfirmationOrder ADD PaymentTypeID [int] NOT NULL CONSTRAINT DF_traConfirmationOrder_PaymentTypeID DEFAULT ((0))  " & vbNewLine &
+                "ALTER TABLE traPurchaseContract ADD PaymentTypeID [int] NOTNOT NULL CONSTRAINT DF_traPurchaseContract_PaymentTypeID DEFAULT ((0))  " & vbNewLine &
+                "INSERT INTO mstPaymentType (ID, Code, Name, PaymentTypeCategoryID, StatusID) VALUES (14, 'TT30DAYS', 'TT 30 HARI', 2, 1)" & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

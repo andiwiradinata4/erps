@@ -19,7 +19,8 @@
                     "   A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine &
                     "   A.DPAmount, A.ReceiveAmount, (A.TotalDPP+A.RoundingManual)-(A.DPAmount+A.ReceiveAmount) AS OutstandingPayment, A.IsDeleted, A.Remarks, A.StatusID, " & vbNewLine &
                     "   B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine &
-                    "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.IsAutoGenerate, A.IsUseSubItem " & vbNewLine &
+                    "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.IsAutoGenerate, " & vbNewLine &
+                    "   A.IsUseSubItem, A.PaymentTypeID, ISNULL(MPT.Name, '') AS PaymentTypeName " & vbNewLine &
                     "FROM traPurchaseContract A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -29,6 +30,8 @@
                     "   A.CompanyID=MC.ID " & vbNewLine &
                     "INNER JOIN mstProgram MP ON " & vbNewLine &
                     "   A.ProgramID=MP.ID " & vbNewLine &
+                    "LEFT JOIN mstPaymentType MPT ON " & vbNewLine &
+                    "   A.PaymentTypeID=MPT.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   A.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.CompanyID=@CompanyID " & vbNewLine &
@@ -136,11 +139,11 @@
                         "INSERT INTO traPurchaseContract " & vbNewLine &
                         "   (ID, ProgramID, CompanyID, PCNumber, PCDate, BPID, DeliveryPeriodFrom, DeliveryPeriodTo, AllowanceProduction, " & vbNewLine &
                         "    Franco, PPN, PPH, TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, RoundingManual, Remarks, " & vbNewLine &
-                        "    StatusID, CreatedBy, CreatedDate, LogBy, LogDate, IsAutoGenerate, IsUseSubItem) " & vbNewLine &
+                        "    StatusID, CreatedBy, CreatedDate, LogBy, LogDate, IsAutoGenerate, IsUseSubItem, PaymentTypeID) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @ProgramID, @CompanyID, @PCNumber, @PCDate, @BPID, @DeliveryPeriodFrom, @DeliveryPeriodTo, @AllowanceProduction, " & vbNewLine &
                         "    @Franco, @PPN, @PPH, @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @RoundingManual, @Remarks, " & vbNewLine &
-                        "    @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @IsAutoGenerate, @IsUseSubItem) " & vbNewLine
+                        "    @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @IsAutoGenerate, @IsUseSubItem, @PaymentTypeID) " & vbNewLine
                 Else
                     .CommandText =
                     "UPDATE traPurchaseContract SET " & vbNewLine &
@@ -166,7 +169,8 @@
                     "    LogInc=LogInc+1, " & vbNewLine &
                     "    LogBy=@LogBy, " & vbNewLine &
                     "    LogDate=GETDATE(), " & vbNewLine &
-                    "    IsUseSubItem=@IsUseSubItem " & vbNewLine &
+                    "    IsUseSubItem=@IsUseSubItem, " & vbNewLine &
+                    "    PaymentTypeID=@PaymentTypeID " & vbNewLine &
                     "WHERE   " & vbNewLine &
                     "    ID=@ID " & vbNewLine
                 End If
@@ -194,6 +198,7 @@
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@IsAutogenerate", SqlDbType.Bit).Value = clsData.IsAutoGenerate
                 .Parameters.Add("@IsUseSubItem", SqlDbType.Bit).Value = clsData.IsUseSubItem
+                .Parameters.Add("@PaymentTypeID", SqlDbType.Int).Value = clsData.PaymentTypeID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -215,7 +220,7 @@
                         "SELECT TOP 1 " & vbNewLine &
                         "   A.ID, A.ProgramID, A.CompanyID, A.PCNumber, A.PCDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.AllowanceProduction, A.Franco, " & vbNewLine &
                         "   A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.JournalID, A.StatusID, A.SubmitBy, A.SubmitDate, A.ApproveL1, " & vbNewLine &
-                        "   A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.ReceiveAmount, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual, A.IsAutoGenerate, A.IsUseSubItem " & vbNewLine &
+                        "   A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.ReceiveAmount, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual, A.IsAutoGenerate, A.IsUseSubItem, A.PaymentTypeID  " & vbNewLine &
                         "FROM traPurchaseContract A " & vbNewLine &
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
                         "   A.BPID=B.ID " & vbNewLine &
@@ -268,6 +273,7 @@
                         voReturn.GrandTotal = .Item("GrandTotal")
                         voReturn.IsAutoGenerate = .Item("IsAutoGenerate")
                         voReturn.IsUseSubItem = .Item("IsUseSubItem")
+                        voReturn.PaymentTypeID = .Item("PaymentTypeID")
                     End If
                 End With
             Catch ex As Exception
