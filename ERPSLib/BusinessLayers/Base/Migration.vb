@@ -879,7 +879,6 @@
             clsData.ID = 30
             clsData.Name = "Develop On Progress 30"
             clsData.Scripts = "ALTER TABLE traSalesContractDetConfirmationOrder ADD LocationID [int] NOT NULL CONSTRAINT DF_traSalesContractDetConfirmationOrder_LocationID DEFAULT ((0)) " & vbNewLine
-
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
@@ -963,9 +962,7 @@
             Dim clsData As New VO.Migration
             clsData.ID = 32
             clsData.Name = "Alter Table traOrderRequestDet Add GroupID"
-            clsData.Scripts =
-"ALTER TABLE traOrderRequestDet ADD GroupID [int] NOT NULL CONSTRAINT DF_traOrderRequestDet_GroupID DEFAULT ((0))    " & vbNewLine
-
+            clsData.Scripts = "ALTER TABLE traOrderRequestDet ADD GroupID [int] NOT NULL CONSTRAINT DF_traOrderRequestDet_GroupID DEFAULT ((0))    " & vbNewLine
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
@@ -994,9 +991,7 @@
             Dim clsData As New VO.Migration
             clsData.ID = 34
             clsData.Name = "Alter Table Order Request Add Allocate DP Amount"
-            clsData.Scripts =
-"ALTER TABLE traOrderRequestDet ADD AllocateDPAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_AllocateDPAmount DEFAULT ((0))    " & vbNewLine
-
+            clsData.Scripts = "ALTER TABLE traOrderRequestDet ADD AllocateDPAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_AllocateDPAmount DEFAULT ((0))    " & vbNewLine
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

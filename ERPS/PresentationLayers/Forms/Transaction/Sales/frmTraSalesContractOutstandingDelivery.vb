@@ -50,6 +50,7 @@
         UI.usForm.SetGrid(grdView, "ProgramName", "ProgramName", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "CompanyID", "CompanyID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "CompanyName", "CompanyName", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "ARNumber", "Nomor Invoice", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "SCNumber", "Nomor", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "SCDate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)

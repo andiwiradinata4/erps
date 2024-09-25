@@ -208,7 +208,7 @@
                         "   A.Modules, A.ReferencesID, A.ReferencesNote, A.APDate, A.DueDateValue, A.DueDate, A.TotalAmount, A.Percentage, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine &
                         "   A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.PaymentBy, A.PaymentDate, A.TaxInvoiceNumber, " & vbNewLine &
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
-                        "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice, A.InvoiceNumberBP, A.IsUseSubItem " & vbNewLine &
+                        "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice, A.InvoiceNumberBP, A.IsUseSubItem, " & vbNewLine &
                         "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10 " & vbNewLine &
                         "FROM traAccountPayable A " & vbNewLine &
                         "INNER JOIN mstStatus B ON " & vbNewLine &
@@ -1093,9 +1093,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traAccountPayableDet " & vbNewLine &
-                    "   (ID, APID, PurchaseID, Amount, Remarks, PPN, PPH, DPAmount, Rounding, LevelItem, ReferencesParentID) " & vbNewLine &
+                    "   (ID, APID, PurchaseID, Amount, Remarks, PPN, PPH, DPAmount, Rounding, LevelItem, ReferencesParentID, Quantity, Weight, TotalWeight) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @APID, @PurchaseID, @Amount, @Remarks, @PPN, @PPH, @DPAmount, @Rounding, @LevelItem, @ReferencesParentID) " & vbNewLine
+                    "   (@ID, @APID, @PurchaseID, @Amount, @Remarks, @PPN, @PPH, @DPAmount, @Rounding, @LevelItem, @ReferencesParentID, @Quantity, @Weight, @TotalWeight) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@APID", SqlDbType.VarChar, 100).Value = clsData.APID
@@ -1108,6 +1108,9 @@
                 .Parameters.Add("@Rounding", SqlDbType.Decimal).Value = clsData.Rounding
                 .Parameters.Add("@LevelItem", SqlDbType.Int).Value = clsData.LevelItem
                 .Parameters.Add("@ReferencesParentID", SqlDbType.VarChar, 100).Value = clsData.ReferencesParentID
+                .Parameters.Add("@Quantity", SqlDbType.Decimal).Value = clsData.Quantity
+                .Parameters.Add("@Weight", SqlDbType.Decimal).Value = clsData.Weight
+                .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

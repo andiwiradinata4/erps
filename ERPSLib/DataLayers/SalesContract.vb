@@ -100,8 +100,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT DISTINCT " & vbNewLine &
-                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.SCNumber, A.SCDate, " & vbNewLine &
-                    "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.AllowanceProduction, A.Franco, " & vbNewLine &
+                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, " & vbNewLine &
+                    "   ARNumber=STUFF((SELECT DISTINCT '; ' + ARNumber FROM traAccountReceivable WHERE ReferencesID=A.ID AND IsDeleted=0 AND ApprovedBy<>'' FOR XML PATH('')),1,2,''), " & vbNewLine &
+                    "   A.SCNumber, A.SCDate, A.BPID, C.Code AS BPCode, C.Name AS BPName, A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.AllowanceProduction, A.Franco, " & vbNewLine &
                     "   A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine &
                     "   A.Remarks, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.IsUseSubItem " & vbNewLine &
                     "FROM traSalesContract A " & vbNewLine &
