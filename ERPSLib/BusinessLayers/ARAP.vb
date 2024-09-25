@@ -537,7 +537,10 @@ Namespace BL
                                             .DPAmount = cls.DPAmount,
                                             .Rounding = cls.Rounding,
                                             .LevelItem = cls.LevelItem,
-                                            .ReferencesParentID = cls.ReferencesParentID
+                                            .ReferencesParentID = cls.ReferencesParentID,
+                                            .Quantity = cls.Quantity,
+                                            .Weight = cls.Weight,
+                                            .TotalWeight = cls.TotalWeight
                                         })
                         Next
 

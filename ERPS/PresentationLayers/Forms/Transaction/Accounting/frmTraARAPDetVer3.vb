@@ -574,14 +574,14 @@ Public Class frmTraARAPDetVer3
             txtPercentage.Enabled = True
             txtPercentage.BackColor = Color.White
             txtTotalAmount.Value = 0
-            txtTotalAmount.Enabled = False
-            txtTotalAmount.BackColor = Color.LightYellow
+            'txtTotalAmount.Enabled = False
+            'txtTotalAmount.BackColor = Color.LightYellow
         Else
             txtPercentage.Value = 0
             txtPercentage.Enabled = False
             txtPercentage.BackColor = Color.LightYellow
-            txtTotalAmount.Enabled = True
-            txtTotalAmount.BackColor = Color.White
+            'txtTotalAmount.Enabled = True
+            'txtTotalAmount.BackColor = Color.White
         End If
     End Sub
 

@@ -47,6 +47,8 @@
                 DevelopOnProgress_ID40(sqlCon, Nothing)
                 DevelopOnProgress_ID41(sqlCon, Nothing)
                 DevelopOnProgress_ID42(sqlCon, Nothing)
+                DevelopOnProgress_ID43(sqlCon, Nothing)
+                DevelopOnProgress_ID44(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1153,6 +1155,38 @@
                 "ALTER TABLE traAccountPayableDet ADD Quantity [decimal](18,4) NOT NULL CONSTRAINT DF_traAccountPayableDet_Quantity DEFAULT ((0))  " & vbNewLine &
                 "ALTER TABLE traAccountPayableDet ADD Weight [decimal](18,4) NOT NULL CONSTRAINT DF_traAccountPayableDet_Weight DEFAULT ((0))  " & vbNewLine &
                 "ALTER TABLE traAccountPayableDet ADD TotalWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traAccountPayableDet_TotalWeight DEFAULT ((0)) " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 43
+        Private Shared Sub DevelopOnProgress_ID43(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 43
+            clsData.Name = "Alter Table Delivery | Add BP Location ID"
+            clsData.Scripts = "ALTER TABLE traDelivery ADD BPLocationID [int] NOT NULL CONSTRAINT DF_traDelivery_BPLocationID DEFAULT ((0)) " & vbNewLine
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 44
+        Private Shared Sub DevelopOnProgress_ID44(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 44
+            clsData.Name = "Alter Table Delivery Detail | Add Invoice Quantity dan Weight Transport"
+            clsData.Scripts =
+                "ALTER TABLE traDeliveryDet ADD InvoiceQuantityTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_InvoiceQuantityTransport DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD InvoiceWeightTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_InvoiceWeightTransport DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD InvoiceTotalWeightTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_InvoiceTotalWeightTransport DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD AllocateDPAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_AllocateDPAmount DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traDeliveryDet ADD AllocateDPAmountTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_AllocateDPAmountTransport DEFAULT ((0)) " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

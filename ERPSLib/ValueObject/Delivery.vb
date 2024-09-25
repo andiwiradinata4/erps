@@ -54,5 +54,7 @@
         Property DeliveryTransport As List(Of VO.DeliveryTransport)
         Property DetailTransport As List(Of VO.DeliveryDetTransport)
         Property Save As VO.Save.Action
+        Property BPLocationID As Integer
+        Property BPLocationName As String
     End Class
 End Namespace

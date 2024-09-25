@@ -464,7 +464,9 @@
                     Dim dtDetailItem As New DataTable
                     If clsData.Modules.Trim = VO.AccountReceivable.SalesBalance Then
                         dtItem = DL.AccountReceivable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, clsData.ID)
-                    ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Or clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentOrderRequest Then
+                    ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Or
+                        clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentOrderRequest Then
+
                         dtItem = DL.AccountReceivable.ListDataDetailOnly(sqlCon, sqlTrans, clsData.ID)
                         dtDetailItem = DL.ARAP.ListDataDetailItemOnly(sqlCon, sqlTrans, clsData.ID)
                     End If

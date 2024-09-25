@@ -452,6 +452,7 @@ Public Class frmTraARAPDetVer4
         ToolStripLogInc.Text = "Jumlah Edit : -"
         ToolStripLogBy.Text = "Dibuat Oleh : -"
         ToolStripLogDate.Text = Format(Now, UI.usDefCons.DateFull)
+        txtGrandTotal.Value = 0
     End Sub
 
     Private Sub prvChooseBP()
@@ -544,6 +545,7 @@ Public Class frmTraARAPDetVer4
             grdItem.DataSource = dtItem
             grdItemView.BestFitColumns()
             pgMain.Value = 100
+            prvCalculate()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -579,36 +581,11 @@ Public Class frmTraARAPDetVer4
         txtGrandTotal.Value = decAmount + decPPN - decPPH
     End Sub
 
-    Private Sub prvChangeCheckedValueOld(ByVal bolValue As Boolean)
-
-        With grdItemView
-            For i As Integer = 0 To .RowCount - 1
-                .SetRowCellValue(i, "Pick", bolValue)
-                If bolValue Then
-                    Dim decAmount As Decimal = .GetRowCellValue(i, "MaxPaymentAmount") - .GetRowCellValue(i, "DPAmount")
-                    Dim decPPNPercent As Decimal = .GetRowCellValue(i, "PPNPercent")
-                    Dim decPPHPercent As Decimal = .GetRowCellValue(i, "PPHPercent")
-                    .SetRowCellValue(i, "Amount", decAmount)
-                    If decPPNPercent > 0 Then .SetRowCellValue(i, "PPN", ERPSLib.SharedLib.Math.Round(decAmount * decPPNPercent / 100, 2))
-                    If decPPHPercent > 0 Then .SetRowCellValue(i, "PPH", ERPSLib.SharedLib.Math.Round(decAmount * decPPHPercent / 100, 2))
-                Else
-                    .SetRowCellValue(i, "Amount", 0)
-                    .SetRowCellValue(i, "PPN", 0)
-                    .SetRowCellValue(i, "PPH", 0)
-                End If
-                .UpdateCurrentRow()
-            Next
-            ToolBarDetail.Focus()
-            prvAllocateDP()
-            prvCalculate()
-            .BestFitColumns()
-        End With
-    End Sub
-
     Private Sub prvChangeCheckedValue(ByVal bolValue As Boolean)
         With grdItemView
             For i As Integer = 0 To .RowCount - 1
                 .SetRowCellValue(i, "Pick", bolValue)
+                If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And strModules = VO.AccountPayable.ReceivePaymentTransport Then .SetRowCellValue(i, "TotalWeight", .GetRowCellValue(i, "Quantity") * .GetRowCellValue(i, "Weight"))
                 .UpdateCurrentRow()
             Next
             prvAllocateDP()

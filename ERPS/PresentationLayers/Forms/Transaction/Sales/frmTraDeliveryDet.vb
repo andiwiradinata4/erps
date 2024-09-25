@@ -1,5 +1,4 @@
-﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip
-Imports DevExpress.XtraGrid
+﻿Imports DevExpress.XtraGrid
 Public Class frmTraDeliveryDet
 
 #Region "Property"
@@ -14,6 +13,7 @@ Public Class frmTraDeliveryDet
     Private intPos As Integer = 0
     Private bolIsUseSubItem As Boolean
     Private bolIsStock As Boolean
+    Private intBPLocationID As Integer
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
@@ -140,6 +140,8 @@ Public Class frmTraDeliveryDet
                 bolIsUseSubItem = clsData.IsUseSubItem
                 bolIsStock = clsData.IsStock
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
+                intBPLocationID = clsData.BPLocationID
+                txtBPLocationAddress.Text = clsData.BPLocationName
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -187,6 +189,11 @@ Public Class frmTraDeliveryDet
             UI.usForm.frmMessageBox("Harga Pengiriman harus lebih besar dari 0")
             tcHeader.SelectedTab = tpTransport
             txtUnitPriceTransport.Focus()
+            Exit Sub
+        ElseIf intBPLocationID = 0 Or txtBPLocationAddress.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih alamat pengiriman terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtBPLocationAddress.Focus()
             Exit Sub
         End If
 
@@ -258,6 +265,7 @@ Public Class frmTraDeliveryDet
         clsData.Detail = listDetail
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
+        clsData.BPLocationID = intBPLocationID
 
         pgMain.Value = 60
         Try
@@ -317,6 +325,8 @@ Public Class frmTraDeliveryDet
         ToolStripLogInc.Text = "Jumlah Edit : -"
         ToolStripLogBy.Text = "Dibuat Oleh : -"
         ToolStripLogDate.Text = Format(Now, UI.usDefCons.DateFull)
+        intBPLocationID = 0
+        txtBPLocationAddress.Text = ""
     End Sub
 
     Private Sub prvChooseBP()
@@ -335,6 +345,12 @@ Public Class frmTraDeliveryDet
                 intBPID = .pubLUdtRow.Item("ID")
                 txtBPCode.Text = .pubLUdtRow.Item("Code")
                 txtBPName.Text = .pubLUdtRow.Item("Name")
+
+                Dim clsBPLocation As VO.BusinessPartnerLocation = BL.BusinessPartner.GetDetailLocation(intBPID, True)
+                If clsBPLocation.ID <> 0 Then
+                    intBPLocationID = clsBPLocation.ID
+                    txtBPLocationAddress.Text = clsBPLocation.Address
+                End If
             End If
         End With
     End Sub
@@ -440,6 +456,20 @@ Public Class frmTraDeliveryDet
 
     Private Sub prvUserAccess()
         ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesDelivery, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
+    End Sub
+
+    Private Sub prvChooseBPLocation()
+        Dim frmDetail As New frmMstBusinessPartnerLocation
+        With frmDetail
+            .pubIsLookUp = True
+            .pubBPID = intBPID
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intBPLocationID = .pubLUdtRow.Item("ID")
+                txtBPLocationAddress.Text = .pubLUdtRow.Item("Address")
+            End If
+        End With
     End Sub
 
     Private Sub prvSetupTools()
@@ -633,6 +663,10 @@ Public Class frmTraDeliveryDet
 
     Private Sub btnSC_Click(sender As Object, e As EventArgs) Handles btnSC.Click
         prvChooseSC()
+    End Sub
+
+    Private Sub btnBPLocation_Click(sender As Object, e As EventArgs) Handles btnBPLocation.Click
+        prvChooseBPLocation()
     End Sub
 
     Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtPPN.ValueChanged, txtPPH.ValueChanged

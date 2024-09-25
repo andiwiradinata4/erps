@@ -111,6 +111,9 @@ Partial Class frmTraDeliveryDet
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.txtBPLocationAddress = New ERPS.usTextBox()
+        Me.btnBPLocation = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label21 = New System.Windows.Forms.Label()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         Me.tpAmount.SuspendLayout()
@@ -191,12 +194,15 @@ Partial Class frmTraDeliveryDet
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(914, 221)
+        Me.tcHeader.Size = New System.Drawing.Size(914, 265)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.txtBPLocationAddress)
+        Me.tpMain.Controls.Add(Me.btnBPLocation)
+        Me.tpMain.Controls.Add(Me.Label21)
         Me.tpMain.Controls.Add(Me.txtTransporterCode)
         Me.tpMain.Controls.Add(Me.txtTransporterName)
         Me.tpMain.Controls.Add(Me.btnTransporter)
@@ -225,7 +231,7 @@ Partial Class frmTraDeliveryDet
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(906, 192)
+        Me.tpMain.Size = New System.Drawing.Size(906, 236)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
@@ -234,38 +240,38 @@ Partial Class frmTraDeliveryDet
         '
         Me.txtTransporterCode.BackColor = System.Drawing.Color.Azure
         Me.txtTransporterCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtTransporterCode.Location = New System.Drawing.Point(159, 70)
+        Me.txtTransporterCode.Location = New System.Drawing.Point(159, 65)
         Me.txtTransporterCode.MaxLength = 250
         Me.txtTransporterCode.Name = "txtTransporterCode"
         Me.txtTransporterCode.ReadOnly = True
         Me.txtTransporterCode.Size = New System.Drawing.Size(83, 21)
-        Me.txtTransporterCode.TabIndex = 196
+        Me.txtTransporterCode.TabIndex = 4
         '
         'txtTransporterName
         '
         Me.txtTransporterName.BackColor = System.Drawing.Color.Azure
         Me.txtTransporterName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtTransporterName.Location = New System.Drawing.Point(241, 70)
+        Me.txtTransporterName.Location = New System.Drawing.Point(241, 65)
         Me.txtTransporterName.MaxLength = 250
         Me.txtTransporterName.Name = "txtTransporterName"
         Me.txtTransporterName.ReadOnly = True
         Me.txtTransporterName.Size = New System.Drawing.Size(167, 21)
-        Me.txtTransporterName.TabIndex = 197
+        Me.txtTransporterName.TabIndex = 5
         '
         'btnTransporter
         '
         Me.btnTransporter.Image = CType(resources.GetObject("btnTransporter.Image"), System.Drawing.Image)
-        Me.btnTransporter.Location = New System.Drawing.Point(414, 69)
+        Me.btnTransporter.Location = New System.Drawing.Point(414, 64)
         Me.btnTransporter.Name = "btnTransporter"
         Me.btnTransporter.Size = New System.Drawing.Size(23, 23)
-        Me.btnTransporter.TabIndex = 198
+        Me.btnTransporter.TabIndex = 6
         '
         'Label22
         '
         Me.Label22.AutoSize = True
         Me.Label22.BackColor = System.Drawing.Color.Transparent
         Me.Label22.ForeColor = System.Drawing.Color.Black
-        Me.Label22.Location = New System.Drawing.Point(28, 74)
+        Me.Label22.Location = New System.Drawing.Point(28, 69)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(64, 13)
         Me.Label22.TabIndex = 199
@@ -276,7 +282,7 @@ Partial Class frmTraDeliveryDet
         Me.lblReferencesNumber.AutoSize = True
         Me.lblReferencesNumber.BackColor = System.Drawing.Color.Transparent
         Me.lblReferencesNumber.ForeColor = System.Drawing.Color.Black
-        Me.lblReferencesNumber.Location = New System.Drawing.Point(28, 101)
+        Me.lblReferencesNumber.Location = New System.Drawing.Point(28, 96)
         Me.lblReferencesNumber.Name = "lblReferencesNumber"
         Me.lblReferencesNumber.Size = New System.Drawing.Size(114, 13)
         Me.lblReferencesNumber.TabIndex = 195
@@ -286,37 +292,37 @@ Partial Class frmTraDeliveryDet
         '
         Me.txtSCNumber.BackColor = System.Drawing.Color.Azure
         Me.txtSCNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtSCNumber.Location = New System.Drawing.Point(159, 97)
+        Me.txtSCNumber.Location = New System.Drawing.Point(159, 92)
         Me.txtSCNumber.MaxLength = 250
         Me.txtSCNumber.Name = "txtSCNumber"
         Me.txtSCNumber.ReadOnly = True
         Me.txtSCNumber.Size = New System.Drawing.Size(249, 21)
-        Me.txtSCNumber.TabIndex = 4
+        Me.txtSCNumber.TabIndex = 7
         '
         'btnSC
         '
         Me.btnSC.Image = CType(resources.GetObject("btnSC.Image"), System.Drawing.Image)
-        Me.btnSC.Location = New System.Drawing.Point(414, 96)
+        Me.btnSC.Location = New System.Drawing.Point(414, 91)
         Me.btnSC.Name = "btnSC"
         Me.btnSC.Size = New System.Drawing.Size(23, 23)
-        Me.btnSC.TabIndex = 5
+        Me.btnSC.TabIndex = 8
         '
         'txtDriver
         '
         Me.txtDriver.BackColor = System.Drawing.Color.White
         Me.txtDriver.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtDriver.Location = New System.Drawing.Point(622, 43)
+        Me.txtDriver.Location = New System.Drawing.Point(159, 199)
         Me.txtDriver.MaxLength = 250
         Me.txtDriver.Name = "txtDriver"
         Me.txtDriver.Size = New System.Drawing.Size(249, 21)
-        Me.txtDriver.TabIndex = 9
+        Me.txtDriver.TabIndex = 12
         '
         'Label9
         '
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.ForeColor = System.Drawing.Color.Black
-        Me.Label9.Location = New System.Drawing.Point(513, 47)
+        Me.Label9.Location = New System.Drawing.Point(28, 203)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(61, 13)
         Me.Label9.TabIndex = 147
@@ -326,18 +332,18 @@ Partial Class frmTraDeliveryDet
         '
         Me.txtPlatNumber.BackColor = System.Drawing.Color.White
         Me.txtPlatNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPlatNumber.Location = New System.Drawing.Point(622, 16)
+        Me.txtPlatNumber.Location = New System.Drawing.Point(159, 172)
         Me.txtPlatNumber.MaxLength = 250
         Me.txtPlatNumber.Name = "txtPlatNumber"
         Me.txtPlatNumber.Size = New System.Drawing.Size(249, 21)
-        Me.txtPlatNumber.TabIndex = 8
+        Me.txtPlatNumber.TabIndex = 11
         '
         'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(513, 20)
+        Me.Label5.Location = New System.Drawing.Point(28, 176)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(45, 13)
         Me.Label5.TabIndex = 145
@@ -347,18 +353,18 @@ Partial Class frmTraDeliveryDet
         '
         Me.txtReferencesNumber.BackColor = System.Drawing.Color.White
         Me.txtReferencesNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtReferencesNumber.Location = New System.Drawing.Point(159, 150)
+        Me.txtReferencesNumber.Location = New System.Drawing.Point(159, 145)
         Me.txtReferencesNumber.MaxLength = 250
         Me.txtReferencesNumber.Name = "txtReferencesNumber"
         Me.txtReferencesNumber.Size = New System.Drawing.Size(249, 21)
-        Me.txtReferencesNumber.TabIndex = 7
+        Me.txtReferencesNumber.TabIndex = 10
         '
         'Label19
         '
         Me.Label19.AutoSize = True
         Me.Label19.BackColor = System.Drawing.Color.Transparent
         Me.Label19.ForeColor = System.Drawing.Color.Black
-        Me.Label19.Location = New System.Drawing.Point(28, 154)
+        Me.Label19.Location = New System.Drawing.Point(28, 149)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(73, 13)
         Me.Label19.TabIndex = 144
@@ -368,18 +374,18 @@ Partial Class frmTraDeliveryDet
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(622, 96)
+        Me.txtRemarks.Location = New System.Drawing.Point(599, 119)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 11
+        Me.txtRemarks.Size = New System.Drawing.Size(249, 74)
+        Me.txtRemarks.TabIndex = 16
         '
         'txtBPCode
         '
         Me.txtBPCode.BackColor = System.Drawing.Color.Azure
         Me.txtBPCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtBPCode.Location = New System.Drawing.Point(159, 43)
+        Me.txtBPCode.Location = New System.Drawing.Point(159, 38)
         Me.txtBPCode.MaxLength = 250
         Me.txtBPCode.Name = "txtBPCode"
         Me.txtBPCode.ReadOnly = True
@@ -390,7 +396,7 @@ Partial Class frmTraDeliveryDet
         '
         Me.txtBPName.BackColor = System.Drawing.Color.Azure
         Me.txtBPName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtBPName.Location = New System.Drawing.Point(241, 43)
+        Me.txtBPName.Location = New System.Drawing.Point(241, 38)
         Me.txtBPName.MaxLength = 250
         Me.txtBPName.Name = "txtBPName"
         Me.txtBPName.ReadOnly = True
@@ -401,7 +407,7 @@ Partial Class frmTraDeliveryDet
         '
         Me.txtDeliveryNumber.BackColor = System.Drawing.Color.White
         Me.txtDeliveryNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtDeliveryNumber.Location = New System.Drawing.Point(159, 16)
+        Me.txtDeliveryNumber.Location = New System.Drawing.Point(159, 11)
         Me.txtDeliveryNumber.MaxLength = 250
         Me.txtDeliveryNumber.Name = "txtDeliveryNumber"
         Me.txtDeliveryNumber.Size = New System.Drawing.Size(167, 21)
@@ -412,7 +418,7 @@ Partial Class frmTraDeliveryDet
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(513, 100)
+        Me.Label13.Location = New System.Drawing.Point(486, 122)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 129
@@ -423,17 +429,17 @@ Partial Class frmTraDeliveryDet
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(622, 69)
+        Me.cboStatus.Location = New System.Drawing.Point(599, 92)
         Me.cboStatus.Name = "cboStatus"
-        Me.cboStatus.Size = New System.Drawing.Size(105, 21)
-        Me.cboStatus.TabIndex = 10
+        Me.cboStatus.Size = New System.Drawing.Size(249, 21)
+        Me.cboStatus.TabIndex = 15
         '
         'lblStatusID
         '
         Me.lblStatusID.AutoSize = True
         Me.lblStatusID.BackColor = System.Drawing.Color.Transparent
         Me.lblStatusID.ForeColor = System.Drawing.Color.Black
-        Me.lblStatusID.Location = New System.Drawing.Point(513, 73)
+        Me.lblStatusID.Location = New System.Drawing.Point(486, 96)
         Me.lblStatusID.Name = "lblStatusID"
         Me.lblStatusID.Size = New System.Drawing.Size(38, 13)
         Me.lblStatusID.TabIndex = 128
@@ -444,10 +450,10 @@ Partial Class frmTraDeliveryDet
         Me.dtpDeliveryDate.CustomFormat = "dd/MM/yyyy"
         Me.dtpDeliveryDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpDeliveryDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpDeliveryDate.Location = New System.Drawing.Point(159, 123)
+        Me.dtpDeliveryDate.Location = New System.Drawing.Point(159, 118)
         Me.dtpDeliveryDate.Name = "dtpDeliveryDate"
         Me.dtpDeliveryDate.Size = New System.Drawing.Size(105, 21)
-        Me.dtpDeliveryDate.TabIndex = 6
+        Me.dtpDeliveryDate.TabIndex = 9
         Me.dtpDeliveryDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
         'Label4
@@ -455,7 +461,7 @@ Partial Class frmTraDeliveryDet
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.ForeColor = System.Drawing.Color.Black
-        Me.Label4.Location = New System.Drawing.Point(28, 127)
+        Me.Label4.Location = New System.Drawing.Point(28, 122)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(45, 13)
         Me.Label4.TabIndex = 124
@@ -464,7 +470,7 @@ Partial Class frmTraDeliveryDet
         'btnBP
         '
         Me.btnBP.Image = CType(resources.GetObject("btnBP.Image"), System.Drawing.Image)
-        Me.btnBP.Location = New System.Drawing.Point(414, 42)
+        Me.btnBP.Location = New System.Drawing.Point(414, 37)
         Me.btnBP.Name = "btnBP"
         Me.btnBP.Size = New System.Drawing.Size(23, 23)
         Me.btnBP.TabIndex = 3
@@ -474,7 +480,7 @@ Partial Class frmTraDeliveryDet
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(28, 47)
+        Me.Label3.Location = New System.Drawing.Point(28, 42)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(57, 13)
         Me.Label3.TabIndex = 122
@@ -485,7 +491,7 @@ Partial Class frmTraDeliveryDet
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(28, 20)
+        Me.Label2.Location = New System.Drawing.Point(28, 15)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(38, 13)
         Me.Label2.TabIndex = 97
@@ -1010,7 +1016,7 @@ Partial Class frmTraDeliveryDet
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(0, 271)
+        Me.Label1.Location = New System.Drawing.Point(0, 315)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(914, 22)
         Me.Label1.TabIndex = 3
@@ -1022,10 +1028,10 @@ Partial Class frmTraDeliveryDet
         Me.tcDetail.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tcDetail.Controls.Add(Me.tpItem)
         Me.tcDetail.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tcDetail.Location = New System.Drawing.Point(0, 293)
+        Me.tcDetail.Location = New System.Drawing.Point(0, 337)
         Me.tcDetail.Name = "tcDetail"
         Me.tcDetail.SelectedIndex = 0
-        Me.tcDetail.Size = New System.Drawing.Size(914, 345)
+        Me.tcDetail.Size = New System.Drawing.Size(914, 301)
         Me.tcDetail.TabIndex = 4
         '
         'tpItem
@@ -1036,7 +1042,7 @@ Partial Class frmTraDeliveryDet
         Me.tpItem.Location = New System.Drawing.Point(4, 25)
         Me.tpItem.Name = "tpItem"
         Me.tpItem.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpItem.Size = New System.Drawing.Size(906, 316)
+        Me.tpItem.Size = New System.Drawing.Size(906, 272)
         Me.tpItem.TabIndex = 1
         Me.tpItem.Text = "Item - F5"
         Me.tpItem.UseVisualStyleBackColor = True
@@ -1062,7 +1068,7 @@ Partial Class frmTraDeliveryDet
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItem.Size = New System.Drawing.Size(900, 260)
+        Me.grdItem.Size = New System.Drawing.Size(900, 216)
         Me.grdItem.TabIndex = 1
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
@@ -1090,7 +1096,7 @@ Partial Class frmTraDeliveryDet
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(3, 291)
+        Me.StatusStrip.Location = New System.Drawing.Point(3, 247)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(900, 22)
         Me.StatusStrip.TabIndex = 2
@@ -1166,6 +1172,37 @@ Partial Class frmTraDeliveryDet
         Me.BarDeleteItemOrder.Name = "BarDeleteItemOrder"
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
+        '
+        'txtBPLocationAddress
+        '
+        Me.txtBPLocationAddress.BackColor = System.Drawing.Color.Azure
+        Me.txtBPLocationAddress.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtBPLocationAddress.Location = New System.Drawing.Point(599, 11)
+        Me.txtBPLocationAddress.MaxLength = 250
+        Me.txtBPLocationAddress.Multiline = True
+        Me.txtBPLocationAddress.Name = "txtBPLocationAddress"
+        Me.txtBPLocationAddress.ReadOnly = True
+        Me.txtBPLocationAddress.Size = New System.Drawing.Size(249, 75)
+        Me.txtBPLocationAddress.TabIndex = 13
+        '
+        'btnBPLocation
+        '
+        Me.btnBPLocation.Image = CType(resources.GetObject("btnBPLocation.Image"), System.Drawing.Image)
+        Me.btnBPLocation.Location = New System.Drawing.Point(853, 10)
+        Me.btnBPLocation.Name = "btnBPLocation"
+        Me.btnBPLocation.Size = New System.Drawing.Size(23, 23)
+        Me.btnBPLocation.TabIndex = 14
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.BackColor = System.Drawing.Color.Transparent
+        Me.Label21.ForeColor = System.Drawing.Color.Black
+        Me.Label21.Location = New System.Drawing.Point(486, 15)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(95, 13)
+        Me.Label21.TabIndex = 202
+        Me.Label21.Text = "Alamat Pengiriman"
         '
         'frmTraDeliveryDet
         '
@@ -1313,4 +1350,7 @@ Partial Class frmTraDeliveryDet
     Friend WithEvents txtUnitPriceTransport As ERPS.usNumeric
     Friend WithEvents chkIsFreePPNTransport As DevExpress.XtraEditors.CheckEdit
     Friend WithEvents chkIsFreePPHTransport As DevExpress.XtraEditors.CheckEdit
+    Friend WithEvents txtBPLocationAddress As usTextBox
+    Friend WithEvents btnBPLocation As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label21 As Label
 End Class

@@ -442,7 +442,7 @@ Namespace BL
         End Function
 
         Public Shared Function SaveDataVer02_ReceivePayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                             ByVal bolNew As Boolean, ByVal clsData As VO.AccountPayable) As String
+                                                            ByVal bolNew As Boolean, ByVal clsData As VO.AccountPayable) As String
             Try
                 Dim clsHelper As New DataSetHelper
                 Dim dtReferencesItem As New DataTable
@@ -456,7 +456,7 @@ Namespace BL
 
                 If bolNew Then
                     clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.APDate, clsData.CompanyID, clsData.ProgramID, clsData.Modules)
-                    clsData.APNumber = GetNewNo(sqlCon, sqlTrans, clsData.APDate, clsData.CompanyID, clsData.ProgramID)
+                    If clsData.APNumber = "" Then clsData.APNumber = GetNewNo(sqlCon, sqlTrans, clsData.APDate, clsData.CompanyID, clsData.ProgramID)
                 Else
                     Dim dtDetail As New DataTable
                     Dim dtDetailItem As New DataTable
@@ -473,8 +473,8 @@ Namespace BL
                     DL.ARAP.DeleteDataItem(sqlCon, sqlTrans, clsData.ID)
                     For Each dr As DataRow In dtDetailItem.Rows
                         '# Revert Payment Item Amount / Transaction Detail Item
-                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then DL.PurchaseContract.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
-                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
+                        'If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Then DL.PurchaseContract.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
+                        'If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                         If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then DL.Delivery.CalculateItemTotalUsedReceivePaymentTransport(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
                     Next
 
