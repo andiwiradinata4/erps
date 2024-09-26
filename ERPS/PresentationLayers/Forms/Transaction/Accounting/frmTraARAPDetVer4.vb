@@ -21,6 +21,7 @@ Public Class frmTraARAPDetVer4
     Private bolIsLookup As Boolean = False
     Private bolValid As Boolean = True
     Private bolIsUseSubItem As Boolean = True
+    Private intPaymentTypeID As Integer = 0
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -91,6 +92,12 @@ Public Class frmTraARAPDetVer4
     Public WriteOnly Property pubIsUseSubItem As Boolean
         Set(value As Boolean)
             bolIsUseSubItem = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubPaymentTypeID As Integer
+        Set(value As Integer)
+            intPaymentTypeID = value
         End Set
     End Property
 
@@ -403,7 +410,7 @@ Public Class frmTraARAPDetVer4
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.ARAPType = enumARAPType
         clsData.Save = intSave
-
+        clsData.PaymentTypeID = intPaymentTypeID
         pgMain.Value = 60
 
         Try
@@ -522,12 +529,12 @@ Public Class frmTraARAPDetVer4
             pgMain.Value = 30
             Me.Cursor = Cursors.WaitCursor
             If bolIsNew Then
-                dtItem = BL.ARAP.ListDataDetailItemReceiveWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID)
+                dtItem = BL.ARAP.ListDataDetailItemReceiveWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID, intPaymentTypeID)
             Else
                 If clsData.IsDeleted Then
                     dtItem = BL.ARAP.ListDataDetailVer2(strID, enumARAPType)
                 Else
-                    dtItem = BL.ARAP.ListDataDetailItemReceiveWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID)
+                    dtItem = BL.ARAP.ListDataDetailItemReceiveWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID, intPaymentTypeID)
                 End If
             End If
 
@@ -586,6 +593,7 @@ Public Class frmTraARAPDetVer4
             For i As Integer = 0 To .RowCount - 1
                 .SetRowCellValue(i, "Pick", bolValue)
                 If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And strModules = VO.AccountPayable.ReceivePaymentTransport Then .SetRowCellValue(i, "TotalWeight", .GetRowCellValue(i, "Quantity") * .GetRowCellValue(i, "Weight"))
+                If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And strModules = VO.AccountPayable.ReceivePayment And intPaymentTypeID = VO.PaymentType.Values.TT30Days Then .SetRowCellValue(i, "TotalWeight", .GetRowCellValue(i, "Quantity") * .GetRowCellValue(i, "Weight"))
                 .UpdateCurrentRow()
             Next
             prvAllocateDP()

@@ -29,6 +29,10 @@ Partial Class frmTraReceiveDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.txtCoACodeOfStock = New ERPS.usTextBox()
+        Me.btnCoAOfStock = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.txtCoANameOfStock = New ERPS.usTextBox()
         Me.txtPCNumber = New ERPS.usTextBox()
         Me.btnPurchaseContract = New DevExpress.XtraEditors.SimpleButton()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -86,10 +90,6 @@ Partial Class frmTraReceiveDet
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.txtCoACodeOfStock = New ERPS.usTextBox()
-        Me.btnCoAOfStock = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.txtCoANameOfStock = New ERPS.usTextBox()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         Me.tpAmount.SuspendLayout()
@@ -196,6 +196,47 @@ Partial Class frmTraReceiveDet
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'txtCoACodeOfStock
+        '
+        Me.txtCoACodeOfStock.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeOfStock.Location = New System.Drawing.Point(145, 125)
+        Me.txtCoACodeOfStock.MaxLength = 250
+        Me.txtCoACodeOfStock.Name = "txtCoACodeOfStock"
+        Me.txtCoACodeOfStock.ReadOnly = True
+        Me.txtCoACodeOfStock.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeOfStock.TabIndex = 146
+        '
+        'btnCoAOfStock
+        '
+        Me.btnCoAOfStock.Image = CType(resources.GetObject("btnCoAOfStock.Image"), System.Drawing.Image)
+        Me.btnCoAOfStock.Location = New System.Drawing.Point(400, 124)
+        Me.btnCoAOfStock.Name = "btnCoAOfStock"
+        Me.btnCoAOfStock.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAOfStock.TabIndex = 148
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.BackColor = System.Drawing.Color.Transparent
+        Me.Label12.ForeColor = System.Drawing.Color.Black
+        Me.Label12.Location = New System.Drawing.Point(28, 129)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(87, 13)
+        Me.Label12.TabIndex = 149
+        Me.Label12.Text = "Akun Persediaan"
+        '
+        'txtCoANameOfStock
+        '
+        Me.txtCoANameOfStock.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameOfStock.Location = New System.Drawing.Point(227, 125)
+        Me.txtCoANameOfStock.MaxLength = 250
+        Me.txtCoANameOfStock.Name = "txtCoANameOfStock"
+        Me.txtCoANameOfStock.ReadOnly = True
+        Me.txtCoANameOfStock.Size = New System.Drawing.Size(167, 21)
+        Me.txtCoANameOfStock.TabIndex = 147
         '
         'txtPCNumber
         '
@@ -429,7 +470,7 @@ Partial Class frmTraReceiveDet
         Me.tpAmount.Controls.Add(Me.txtPPN)
         Me.tpAmount.Location = New System.Drawing.Point(4, 25)
         Me.tpAmount.Name = "tpAmount"
-        Me.tpAmount.Size = New System.Drawing.Size(876, 180)
+        Me.tpAmount.Size = New System.Drawing.Size(876, 199)
         Me.tpAmount.TabIndex = 2
         Me.tpAmount.Text = "Harga - F2"
         Me.tpAmount.UseVisualStyleBackColor = True
@@ -626,7 +667,7 @@ Partial Class frmTraReceiveDet
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(876, 180)
+        Me.tpHistory.Size = New System.Drawing.Size(876, 199)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -651,7 +692,7 @@ Partial Class frmTraReceiveDet
         Me.grdStatus.Location = New System.Drawing.Point(3, 3)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(866, 170)
+        Me.grdStatus.Size = New System.Drawing.Size(866, 189)
         Me.grdStatus.TabIndex = 13
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -835,47 +876,6 @@ Partial Class frmTraReceiveDet
         Me.BarDeleteItemOrder.Name = "BarDeleteItemOrder"
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
-        '
-        'txtCoACodeOfStock
-        '
-        Me.txtCoACodeOfStock.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeOfStock.Location = New System.Drawing.Point(145, 125)
-        Me.txtCoACodeOfStock.MaxLength = 250
-        Me.txtCoACodeOfStock.Name = "txtCoACodeOfStock"
-        Me.txtCoACodeOfStock.ReadOnly = True
-        Me.txtCoACodeOfStock.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeOfStock.TabIndex = 146
-        '
-        'btnCoAOfStock
-        '
-        Me.btnCoAOfStock.Image = CType(resources.GetObject("btnCoAOfStock.Image"), System.Drawing.Image)
-        Me.btnCoAOfStock.Location = New System.Drawing.Point(400, 124)
-        Me.btnCoAOfStock.Name = "btnCoAOfStock"
-        Me.btnCoAOfStock.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAOfStock.TabIndex = 148
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.BackColor = System.Drawing.Color.Transparent
-        Me.Label12.ForeColor = System.Drawing.Color.Black
-        Me.Label12.Location = New System.Drawing.Point(28, 129)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(87, 13)
-        Me.Label12.TabIndex = 149
-        Me.Label12.Text = "Akun Persediaan"
-        '
-        'txtCoANameOfStock
-        '
-        Me.txtCoANameOfStock.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameOfStock.Location = New System.Drawing.Point(227, 125)
-        Me.txtCoANameOfStock.MaxLength = 250
-        Me.txtCoANameOfStock.Name = "txtCoANameOfStock"
-        Me.txtCoANameOfStock.ReadOnly = True
-        Me.txtCoANameOfStock.Size = New System.Drawing.Size(167, 21)
-        Me.txtCoANameOfStock.TabIndex = 147
         '
         'frmTraReceiveDet
         '

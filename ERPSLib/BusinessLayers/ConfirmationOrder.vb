@@ -406,6 +406,40 @@
             Return bolReturn
         End Function
 
+        Public Shared Function UpdatePaymentType(ByVal strID As String, ByVal intPaymentTypeID As Integer) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Dim clsData As VO.ConfirmationOrder = DL.ConfirmationOrder.GetDetail(sqlCon, sqlTrans, strID)
+                    Dim intStatusID As Integer = DL.ConfirmationOrder.GetStatusID(sqlCon, sqlTrans, strID)
+                    If intStatusID = VO.Status.Values.Done Then
+                        Err.Raise(515, "", "Data tidak dapat di proses Selesai. Dikarenakan status data telah SELESAI")
+                    ElseIf DL.ConfirmationOrder.IsDeleted(sqlCon, sqlTrans, strID) Then
+                        Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan data telah dihapus")
+                    End If
+
+                    DL.ConfirmationOrder.UpdatePaymentType(sqlCon, sqlTrans, strID, intPaymentTypeID)
+
+                    '# Save Data Status
+                    BL.ConfirmationOrder.SaveDataStatus(sqlCon, sqlTrans, strID, "UPDATE JENIS PEMBAYARAN", ERPSLib.UI.usUserApp.UserID, "")
+
+                    DL.PurchaseContract.UpdatePaymentType(sqlCon, sqlTrans, clsData.PCID, intPaymentTypeID)
+
+                    '# Save Data Status
+                    BL.PurchaseContract.SaveDataStatus(sqlCon, sqlTrans, clsData.PCID, "UPDATE JENIS PEMBAYARAN", ERPSLib.UI.usUserApp.UserID, "")
+
+                    sqlTrans.Commit()
+                    bolReturn = True
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
 #End Region
 
 #Region "Detail"

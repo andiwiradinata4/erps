@@ -52,6 +52,8 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.GridView4 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.cboPaymentType = New ERPS.usComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.dtpDeliveryPeriodTo = New DevExpress.XtraEditors.DateEdit()
         Me.dtpDeliveryPeriodFrom = New DevExpress.XtraEditors.DateEdit()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -94,8 +96,6 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.tpHistory = New System.Windows.Forms.TabPage()
         Me.grdStatus = New DevExpress.XtraGrid.GridControl()
         Me.grdStatusView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.cboPaymentType = New ERPS.usComboBox()
-        Me.Label4 = New System.Windows.Forms.Label()
         CType(Me.grdSubItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -413,6 +413,26 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
         '
+        'cboPaymentType
+        '
+        Me.cboPaymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboPaymentType.FormattingEnabled = True
+        Me.cboPaymentType.Location = New System.Drawing.Point(160, 150)
+        Me.cboPaymentType.Name = "cboPaymentType"
+        Me.cboPaymentType.Size = New System.Drawing.Size(249, 21)
+        Me.cboPaymentType.TabIndex = 8
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.Transparent
+        Me.Label4.ForeColor = System.Drawing.Color.Black
+        Me.Label4.Location = New System.Drawing.Point(28, 154)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(94, 13)
+        Me.Label4.TabIndex = 147
+        Me.Label4.Text = "Jenis Pembayaran"
+        '
         'dtpDeliveryPeriodTo
         '
         Me.dtpDeliveryPeriodTo.EditValue = New Date(2024, 5, 31, 14, 21, 51, 3)
@@ -682,7 +702,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.tpAmount.Controls.Add(Me.txtPPN)
         Me.tpAmount.Location = New System.Drawing.Point(4, 25)
         Me.tpAmount.Name = "tpAmount"
-        Me.tpAmount.Size = New System.Drawing.Size(976, 173)
+        Me.tpAmount.Size = New System.Drawing.Size(976, 191)
         Me.tpAmount.TabIndex = 2
         Me.tpAmount.Text = "Harga - F2"
         Me.tpAmount.UseVisualStyleBackColor = True
@@ -879,7 +899,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(976, 173)
+        Me.tpHistory.Size = New System.Drawing.Size(976, 191)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -904,7 +924,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.grdStatus.Location = New System.Drawing.Point(3, 3)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(966, 163)
+        Me.grdStatus.Size = New System.Drawing.Size(966, 181)
         Me.grdStatus.TabIndex = 13
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -917,27 +937,6 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.grdStatusView.OptionsCustomization.AllowGroup = False
         Me.grdStatusView.OptionsView.ColumnAutoWidth = False
         Me.grdStatusView.OptionsView.ShowGroupPanel = False
-        '
-        'cboPaymentType
-        '
-        Me.cboPaymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboPaymentType.Enabled = False
-        Me.cboPaymentType.FormattingEnabled = True
-        Me.cboPaymentType.Location = New System.Drawing.Point(160, 150)
-        Me.cboPaymentType.Name = "cboPaymentType"
-        Me.cboPaymentType.Size = New System.Drawing.Size(249, 21)
-        Me.cboPaymentType.TabIndex = 8
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.ForeColor = System.Drawing.Color.Black
-        Me.Label4.Location = New System.Drawing.Point(28, 154)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(94, 13)
-        Me.Label4.TabIndex = 147
-        Me.Label4.Text = "Jenis Pembayaran"
         '
         'frmTraConfirmationOrderDetVer1
         '

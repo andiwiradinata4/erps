@@ -151,7 +151,7 @@
     <value>ToolBar</value>
   </data>
   <data name="&gt;&gt;ToolBar.Type" xml:space="preserve">
-    <value>ERPS.usToolBar, ERPS, Version=1.0.0.7, Culture=neutral, PublicKeyToken=null</value>
+    <value>ERPS.usToolBar, ERPS, Version=1.0.0.19, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ToolBar.Parent" xml:space="preserve">
     <value>$this</value>
@@ -196,7 +196,7 @@
     <value>Bottom</value>
   </data>
   <data name="pgMain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 158</value>
+    <value>0, 156</value>
   </data>
   <data name="pgMain.Size" type="System.Drawing.Size, System.Drawing">
     <value>551, 23</value>
@@ -244,7 +244,7 @@
     <value>23, 23</value>
   </data>
   <data name="btnFranco.TabIndex" type="System.Int32, mscorlib">
-    <value>102</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;btnFranco.Name" xml:space="preserve">
     <value>btnFranco</value>
@@ -304,7 +304,7 @@
     <value>txtFranco</value>
   </data>
   <data name="&gt;&gt;txtFranco.Type" xml:space="preserve">
-    <value>ERPS.usTextBox, ERPS, Version=1.0.0.7, Culture=neutral, PublicKeyToken=null</value>
+    <value>ERPS.usTextBox, ERPS, Version=1.0.0.19, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;txtFranco.Parent" xml:space="preserve">
     <value>pnlMain</value>
@@ -355,7 +355,7 @@
     <value>txtPCNumber</value>
   </data>
   <data name="&gt;&gt;txtPCNumber.Type" xml:space="preserve">
-    <value>ERPS.usTextBox, ERPS, Version=1.0.0.7, Culture=neutral, PublicKeyToken=null</value>
+    <value>ERPS.usTextBox, ERPS, Version=1.0.0.19, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;txtPCNumber.Parent" xml:space="preserve">
     <value>pnlMain</value>
@@ -370,7 +370,7 @@
     <value>0, 50</value>
   </data>
   <data name="pnlMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>551, 108</value>
+    <value>551, 106</value>
   </data>
   <data name="pnlMain.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -394,7 +394,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>551, 181</value>
+    <value>551, 179</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt</value>

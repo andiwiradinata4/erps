@@ -59,11 +59,11 @@
                         "INSERT INTO traConfirmationOrder " & vbNewLine &
                         "   (ID, ProgramID, CompanyID, CONumber, CODate, BPID, DeliveryPeriodFrom, DeliveryPeriodTo, " & vbNewLine &
                         "    AllowanceProduction, PPN, PPH, TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, " & vbNewLine &
-                        "    RoundingManual, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, IsUseSubItem, PaymentType) " & vbNewLine &
+                        "    RoundingManual, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, IsUseSubItem, PaymentTypeID) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @ProgramID, @CompanyID, @CONumber, @CODate, @BPID, @DeliveryPeriodFrom, @DeliveryPeriodTo, " & vbNewLine &
                         "    @AllowanceProduction, @PPN, @PPH, @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, " & vbNewLine &
-                        "    @RoundingManual, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @IsUseSubItem, @PaymentType) " & vbNewLine
+                        "    @RoundingManual, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @IsUseSubItem, @PaymentTypeID) " & vbNewLine
 
 
                 Else
@@ -91,7 +91,7 @@
                         "    LogBy=@LogBy, " & vbNewLine &
                         "    LogDate=GETDATE(), " & vbNewLine &
                         "    IsUseSubItem=@IsUseSubItem, " & vbNewLine &
-                        "    PaymentType=@PaymentType " & vbNewLine &
+                        "    PaymentTypeID=@PaymentTypeID " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -117,7 +117,7 @@
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@IsUseSubItem", SqlDbType.Bit).Value = clsData.IsUseSubItem
-                .Parameters.Add("@PaymentType", SqlDbType.Int).Value = clsData.PaymentTypeID
+                .Parameters.Add("@PaymentTypeID", SqlDbType.Int).Value = clsData.PaymentTypeID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -163,7 +163,7 @@
                         "   A.ID, A.ProgramID, A.CompanyID, A.CONumber, A.CODate, A.BPID, B.Code AS BPCode, B.Name AS BPName, " & vbNewLine &
                         "   A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.AllowanceProduction, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, " & vbNewLine &
                         "   A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy, A.CreatedDate, " & vbNewLine &
-                        "   A.LogInc, A.LogBy, A.LogDate, A.PCID, ISNULL(PC.PCNumber,'') AS PCNumber, ISNULL(PC.Franco,'') AS Franco, A.IsUseSubItem, A.PaymentType " & vbNewLine &
+                        "   A.LogInc, A.LogBy, A.LogDate, A.PCID, ISNULL(PC.PCNumber,'') AS PCNumber, ISNULL(PC.Franco,'') AS Franco, A.IsUseSubItem, A.PaymentTypeID " & vbNewLine &
                         "FROM traConfirmationOrder A " & vbNewLine &
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
                         "   A.BPID=B.ID " & vbNewLine &
@@ -211,7 +211,7 @@
                         voReturn.PCNumber = .Item("PCNumber")
                         voReturn.Franco = .Item("Franco")
                         voReturn.IsUseSubItem = .Item("IsUseSubItem")
-                        voReturn.PaymentTypeID = .Item("PaymentType")
+                        voReturn.PaymentTypeID = .Item("PaymentTypeID")
                     End If
                 End With
             Catch ex As Exception
@@ -506,6 +506,29 @@
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub UpdatePaymentType(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                            ByVal strID As String, ByVal intPaymentTypeID As Integer)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traConfirmationOrder SET " & vbNewLine &
+                    "    PaymentTypeID=@PaymentTypeID " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@PaymentTypeID", SqlDbType.Int).Value = intPaymentTypeID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

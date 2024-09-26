@@ -30,6 +30,7 @@ Public Class frmTraConfirmationOrder
         UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "BPCode", "Kode Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "BPName", "Nama Pemasok", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "PaymentTypeName", "Jenis Pembayaran", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "AllowanceProduction", "Allowance Production [%]", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "DeliveryPeriodFrom", "Periode Dari", 100, UI.usDefGrid.gDateMonthYear)
         UI.usForm.SetGrid(grdView, "DeliveryPeriodTo", "Periode Sampai", 100, UI.usDefGrid.gDateMonthYear)
@@ -41,7 +42,6 @@ Public Class frmTraConfirmationOrder
         UI.usForm.SetGrid(grdView, "TotalPPN", "Total PPN", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalPPH", "Total PPh", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "GrandTotal", "Grand Total", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "PaymentTypeName", "Jenis Pembayaran", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "RoundingManual", "RoundingManual", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdView, "SubmitBy", "Disubmit Oleh", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "SubmitDate", "Tanggal Disubmit", 100, UI.usDefGrid.gFullDate)
@@ -441,17 +441,17 @@ Public Class frmTraConfirmationOrder
     End Sub
 
     Private Sub prvUpdatePaymentType()
-        'Dim frmDetail As New frmViewCompany
-        'With frmDetail
-        '    .StartPosition = FormStartPosition.CenterScreen
-        '    .ShowDialog()
-        '    If .pubIsLookUpGet Then
-        '        intCompanyID = .pubLUdtRow.Item("CompanyID")
-        '        txtCompanyName.Text = .pubLUdtRow.Item("CompanyName")
-        '        prvClear()
-        '        btnExecute.Focus()
-        '    End If
-        'End With
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+        Dim frmDetail As New frmTraUpdatePaymentType
+        With frmDetail
+            .StartPosition = FormStartPosition.CenterScreen
+            .pubID = clsData.ID
+            .ShowDialog()
+            If .pubIsSave Then pubRefresh()
+        End With
     End Sub
 
 #Region "Form Handle"

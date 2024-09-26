@@ -10,8 +10,8 @@ Public Class frmTraReceive
 
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
-       cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cSep2 As Byte = 6, cExportExcel As Byte = 7,
-       cSep3 As Byte = 8, cRefresh As Byte = 9, cClose As Byte = 10
+       cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cSep2 As Byte = 6, cPayment As Byte = 7, cSep3 As Byte = 8,
+       cExportExcel As Byte = 9, cSep4 As Byte = 10, cRefresh As Byte = 11, cClose As Byte = 12
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -29,8 +29,10 @@ Public Class frmTraReceive
         UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "BPCode", "Kode Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "BPName", "Nama Pemasok", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "PCID", "PCID", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "PCID", "PCID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "PCNumber", "Nomor Kontrak", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "PaymentTypeID", "PaymentTypeID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdView, "PaymentTypeName", "Jenis Pembayaran", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "CoAofStock", "Akun Persediaan", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "CoACodeofStock", "Kode Akun Persediaan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "CoANameofStock", "Nama Akun Persediaan", 100, UI.usDefGrid.gString)
@@ -172,6 +174,7 @@ Public Class frmTraReceive
         clsReturn.LogDate = grdView.GetRowCellValue(intPos, "LogDate")
         clsReturn.LogInc = grdView.GetRowCellValue(intPos, "LogInc")
         clsReturn.StatusInfo = grdView.GetRowCellValue(intPos, "StatusInfo")
+        clsReturn.PaymentTypeID = grdView.GetRowCellValue(intPos, "PaymentTypeID")
         Return clsReturn
     End Function
 
@@ -361,6 +364,36 @@ Public Class frmTraReceive
         grdView.BestFitColumns()
     End Sub
 
+    Private Sub prvReceivePayment()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+
+        If clsData.StatusID <> VO.Status.Values.Submit Then
+            UI.usForm.frmMessageBox("Status Data harus disubmit terlebih dahulu")
+            Exit Sub
+        ElseIf clsData.PaymentTypeID <> VO.PaymentType.Values.TT30Days Then
+            UI.usForm.frmMessageBox("Pembayaran hanya bisa dibuat jika jenis pembayaran adalah TT 30 Hari")
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraARAP
+        With frmDetail
+            .pubModules = VO.AccountPayable.ReceivePayment
+            .pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
+            .pubBPID = clsData.BPID
+            .pubBPCode = clsData.BPCode
+            .pubBPName = clsData.BPName
+            .pubCS = prvGetCS()
+            .pubReferencesID = clsData.ID
+            .pubReferencesNumber = clsData.ReceiveNumber
+            .pubIsLookup = True
+            .pubIsUseSubItem = clsData.IsUseSubItem
+            .pubPaymentTypeID = clsData.PaymentTypeID
+            .ShowDialog()
+        End With
+    End Sub
+
     Private Sub prvUserAccess()
         With ToolBar.Buttons
             .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionReceive, VO.Access.Values.NewAccess)
@@ -407,6 +440,7 @@ Public Class frmTraReceive
                 Case ToolBar.Buttons(cDelete).Name : prvDelete()
                 Case ToolBar.Buttons(cSubmit).Name : prvSubmit()
                 Case ToolBar.Buttons(cCancelSubmit).Name : prvCancelSubmit()
+                Case ToolBar.Buttons(cPayment).Name : prvReceivePayment()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If

@@ -37,5 +37,6 @@
         Property TotalPaymentPPH As Decimal
         Property Detail As List(Of VO.ReceiveDet)
         Property Save As VO.Save.Action
+        Property PaymentTypeID As Integer
     End Class
 End Namespace

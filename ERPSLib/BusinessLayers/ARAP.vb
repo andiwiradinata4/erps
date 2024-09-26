@@ -504,19 +504,27 @@ Namespace BL
 
                         strARAPNumber = clsData.ARNumber
                     Else
-                        If clsDataARAP.Modules = VO.AccountPayable.DownPaymentCutting Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentCutting Then
+                        If clsDataARAP.Modules = VO.AccountPayable.DownPaymentCutting Or
+                            clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentCutting Then
                             clsReferences = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                             strReferencesNumber = clsReferences.PONumber
-                        ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPaymentTransport Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport Then
+                        ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPaymentTransport Or
+                            clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport Then
                             clsReferences = DL.Delivery.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                             strReferencesNumber = clsReferences.DeliveryNumber
-                        ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPayment Or clsDataARAP.Modules = VO.AccountPayable.ReceivePayment Then
-                            clsReferences = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
-                            strReferencesNumber = clsReferences.PCNumber
+                        ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPayment Or
+                            clsDataARAP.Modules = VO.AccountPayable.ReceivePayment Then
+                            If clsDataARAP.PaymentTypeID = VO.PaymentType.Values.CBD Then
+                                clsReferences = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                                strReferencesNumber = clsReferences.PCNumber
+                            ElseIf clsDataARAP.PaymentTypeID = VO.PaymentType.Values.TT30Days Then
+                                clsReferences = DL.Receive.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                                strReferencesNumber = clsReferences.ReceiveNumber
+                            End If
                         Else
                             Err.Raise(515, "", "Data tidak dapat disimpan. Modules tidak terdaftar")
                         End If
-                        If clsReferences.StatusID <> VO.Status.Values.Approved And clsDataARAP.Modules <> VO.AccountPayable.ReceivePaymentTransport Then
+                        If clsReferences.StatusID <> VO.Status.Values.Approved And clsDataARAP.Modules = VO.AccountPayable.ReceivePayment And clsDataARAP.PaymentTypeID = VO.PaymentType.Values.CBD Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Data Kontrak harus disetujui terlebih dahulu")
                         ElseIf clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport And clsReferences.StatusID <> VO.Status.Values.Submit Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Data Pengiriman harus disubmit terlebih dahulu")
@@ -572,6 +580,7 @@ Namespace BL
                         clsData.LogBy = clsDataARAP.LogBy
                         clsData.IsUseSubItem = clsDataARAP.IsUseSubItem
                         clsData.Save = clsDataARAP.Save
+                        clsData.PaymentTypeID = clsDataARAP.PaymentTypeID
 
                         BL.AccountPayable.SaveDataVer02_ReceivePayment(sqlCon, sqlTrans, bolNew, clsData)
 
@@ -582,8 +591,13 @@ Namespace BL
                             clsReferences = DL.Delivery.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                             strReferencesNumber = clsReferences.DeliveryNumber
                         ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPayment Or clsDataARAP.Modules = VO.AccountPayable.ReceivePayment Then
-                            clsReferences = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
-                            strReferencesNumber = clsReferences.PCNumber
+                            If clsDataARAP.PaymentTypeID = VO.PaymentType.Values.CBD Then
+                                clsReferences = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                                strReferencesNumber = clsReferences.PCNumber
+                            ElseIf clsDataARAP.PaymentTypeID = VO.PaymentType.Values.TT30Days Then
+                                clsReferences = DL.Receive.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                                strReferencesNumber = clsReferences.ReceiveNumber
+                            End If
                         Else
                             Err.Raise(515, "", "Data tidak dapat disimpan. Modules tidak terdaftar")
                         End If
@@ -593,8 +607,14 @@ Namespace BL
                                 Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Total DPP Transaksi Transporter")
                             End If
                         Else
-                            If clsReferences.DPAmount + clsReferences.ReceiveAmount > clsReferences.TotalDPP Then
-                                Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Total DPP Transaksi")
+                            If clsDataARAP.PaymentTypeID = VO.PaymentType.Values.CBD Then
+                                If clsReferences.DPAmount + clsReferences.ReceiveAmount > clsReferences.TotalDPP Then
+                                    Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Total DPP Transaksi")
+                                End If
+                            ElseIf clsDataARAP.PaymentTypeID = VO.PaymentType.Values.TT30Days Then
+                                If clsReferences.DPAmount + clsReferences.TotalPayment > clsReferences.TotalDPP Then
+                                    Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Total DPP Transaksi")
+                                End If
                             End If
                         End If
                         strARAPNumber = clsData.APNumber
@@ -737,7 +757,8 @@ Namespace BL
         End Function
 
         Public Shared Sub DeleteData(ByVal strID As String, ByVal strModules As String,
-                                     ByVal strRemarks As String, ByVal enumDPType As VO.ARAP.ARAPTypeValue)
+                                     ByVal strRemarks As String, ByVal enumDPType As VO.ARAP.ARAPTypeValue,
+                                     ByVal intPaymentTypeID As Integer)
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
@@ -745,7 +766,7 @@ Namespace BL
                     If enumDPType = VO.ARAP.ARAPTypeValue.Sales Then
                         BL.AccountReceivable.DeleteDataVer02(sqlCon, sqlTrans, strID, strModules, strRemarks)
                     Else
-                        BL.AccountPayable.DeleteDataVer02(sqlCon, sqlTrans, strID, strModules, strRemarks)
+                        BL.AccountPayable.DeleteDataVer02(sqlCon, sqlTrans, strID, strModules, strRemarks, intPaymentTypeID)
                     End If
 
                     sqlTrans.Commit()
@@ -1018,12 +1039,13 @@ Namespace BL
         End Function
 
         Public Shared Function ListDataDetailItemReceiveWithOutstandingVer2(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
-                                                                 ByVal intBPID As Integer, ByVal strParentID As String,
-                                                                 ByVal enumARAPType As VO.ARAP.ARAPTypeValue, ByVal strReferencesID As String) As DataTable
+                                                                            ByVal intBPID As Integer, ByVal strParentID As String,
+                                                                            ByVal enumARAPType As VO.ARAP.ARAPTypeValue, ByVal strReferencesID As String,
+                                                                            ByVal intPaymentTypeID As Integer) As DataTable
             If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
                 Return BL.AccountReceivable.ListDataDetailItemReceiveWithOutstandingVer02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
             Else
-                Return BL.AccountPayable.ListDataDetailItemReceiveWithOutstandingRev02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
+                Return BL.AccountPayable.ListDataDetailItemReceiveWithOutstandingRev02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID, intPaymentTypeID)
             End If
         End Function
 

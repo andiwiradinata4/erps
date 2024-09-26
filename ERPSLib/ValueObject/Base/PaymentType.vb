@@ -9,8 +9,8 @@ Namespace VO
         Property StatusID As Integer
 
         Enum Values
-            CBD = 12
-            TT30Days = 13
+            CBD = 13
+            TT30Days = 14
         End Enum
 
     End Class

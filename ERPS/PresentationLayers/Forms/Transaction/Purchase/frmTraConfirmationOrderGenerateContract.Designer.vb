@@ -29,11 +29,11 @@ Partial Class frmTraConfirmationOrderGenerateContract
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.pnlMain = New System.Windows.Forms.Panel()
+        Me.btnFranco = New DevExpress.XtraEditors.SimpleButton()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtFranco = New ERPS.usTextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.txtPCNumber = New ERPS.usTextBox()
-        Me.btnFranco = New DevExpress.XtraEditors.SimpleButton()
         Me.pnlMain.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -78,6 +78,12 @@ Partial Class frmTraConfirmationOrderGenerateContract
         resources.ApplyResources(Me.pnlMain, "pnlMain")
         Me.pnlMain.Name = "pnlMain"
         '
+        'btnFranco
+        '
+        Me.btnFranco.Image = CType(resources.GetObject("btnFranco.Image"), System.Drawing.Image)
+        resources.ApplyResources(Me.btnFranco, "btnFranco")
+        Me.btnFranco.Name = "btnFranco"
+        '
         'Label1
         '
         resources.ApplyResources(Me.Label1, "Label1")
@@ -105,12 +111,6 @@ Partial Class frmTraConfirmationOrderGenerateContract
         Me.txtPCNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         resources.ApplyResources(Me.txtPCNumber, "txtPCNumber")
         Me.txtPCNumber.Name = "txtPCNumber"
-        '
-        'btnFranco
-        '
-        Me.btnFranco.Image = CType(resources.GetObject("btnFranco.Image"), System.Drawing.Image)
-        resources.ApplyResources(Me.btnFranco, "btnFranco")
-        Me.btnFranco.Name = "btnFranco"
         '
         'frmTraConfirmationOrderGenerateContract
         '

@@ -1579,8 +1579,9 @@
                     "   CAST(0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.SCID AS ReferencesID, A.ID AS ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, A.TotalPrice AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, CAST(0 AS DECIMAL(18,2)) AS DPAmount, B.PPN AS PPNPercent, B.PPH AS PPHPercent, " & vbNewLine &
                     "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
-                    "   A.TotalPrice-A.DPAmount-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID " & vbNewLine &
+                    "   A.TotalPrice-A.DPAmount-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length, " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, " & vbNewLine &
+                    "   A.LevelItem, A.ParentID AS ReferencesParentID " & vbNewLine &
                     "FROM traSalesContractDet A " & vbNewLine &
                     "INNER JOIN traSalesContract B ON " & vbNewLine &
                     "   A.SCID=B.ID " & vbNewLine &
@@ -1592,10 +1593,10 @@
                     "   MI.ItemTypeID=MIT.ID " & vbNewLine &
                     "WHERE  " & vbNewLine &
                     "   B.BPID=@BPID " & vbNewLine &
-                    "   AND B.CompanyID=@CompanyID " & vbNewLine &
-                    "   AND B.ProgramID=@ProgramID " & vbNewLine &
-                    "   AND A.SCID=@ReferencesID " & vbNewLine &
-                    "   AND B.ApprovedBy<>'' " & vbNewLine &
+                    "   And B.CompanyID=@CompanyID " & vbNewLine &
+                    "   And B.ProgramID=@ProgramID " & vbNewLine &
+                    "   And A.SCID=@ReferencesID " & vbNewLine &
+                    "   And B.ApprovedBy<>'' " & vbNewLine &
                     "   AND A.TotalPrice-A.DPAmount-A.ReceiveAmount>0 " & vbNewLine &
                     "   AND A.TotalWeight-A.DCWeight>0 " & vbNewLine
 

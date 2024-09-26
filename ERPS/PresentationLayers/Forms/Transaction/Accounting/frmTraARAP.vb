@@ -17,6 +17,7 @@ Public Class frmTraARAP
     Private bolExport As Boolean = True
     Private bolIsLookup As Boolean = False
     Private bolIsUseSubItem As Boolean = False
+    Private intPaymentTypeID As Integer = 0
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -75,6 +76,12 @@ Public Class frmTraARAP
     Public WriteOnly Property pubIsUseSubItem As Boolean
         Set(value As Boolean)
             bolIsUseSubItem = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubPaymentTypeID As Integer
+        Set(value As Integer)
+            intPaymentTypeID = value
         End Set
     End Property
 
@@ -289,6 +296,7 @@ Public Class frmTraARAP
             frmDetail.pubBPName = strBPName
             frmDetail.pubReferencesNumber = strReferencesNumber
             frmDetail.pubIsLookup = True
+            frmDetail.pubPaymentTypeID = intPaymentTypeID
         End If
 
         With frmDetail
@@ -323,6 +331,7 @@ Public Class frmTraARAP
             frmDetail.pubBPName = strBPName
             frmDetail.pubReferencesNumber = strReferencesNumber
             frmDetail.pubIsLookup = True
+            frmDetail.pubPaymentTypeID = intPaymentTypeID
         End If
 
         With frmDetail
@@ -363,7 +372,7 @@ Public Class frmTraARAP
         pgMain.Value = 40
 
         Try
-            BL.ARAP.DeleteData(clsData.ID, clsData.Modules, clsData.Remarks, enumARAPType)
+            BL.ARAP.DeleteData(clsData.ID, clsData.Modules, clsData.Remarks, enumARAPType, intPaymentTypeID)
             pgMain.Value = 100
             UI.usForm.frmMessageBox("Hapus data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "TransNumber"))

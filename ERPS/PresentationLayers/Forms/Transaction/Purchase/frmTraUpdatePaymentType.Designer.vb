@@ -70,7 +70,6 @@ Partial Class frmTraUpdatePaymentType
         'cboPaymentType
         '
         Me.cboPaymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboPaymentType.Enabled = False
         Me.cboPaymentType.FormattingEnabled = True
         Me.cboPaymentType.Location = New System.Drawing.Point(159, 75)
         Me.cboPaymentType.Name = "cboPaymentType"
