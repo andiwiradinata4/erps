@@ -49,6 +49,7 @@
                 DevelopOnProgress_ID42(sqlCon, Nothing)
                 DevelopOnProgress_ID43(sqlCon, Nothing)
                 DevelopOnProgress_ID44(sqlCon, Nothing)
+                DevelopOnProgress_ID45(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1183,6 +1184,19 @@
                 "ALTER TABLE traDeliveryDet ADD AllocateDPAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_AllocateDPAmount DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traDeliveryDet ADD AllocateDPAmountTransport [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_AllocateDPAmountTransport DEFAULT ((0)) " & vbNewLine
 
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 45
+        Private Shared Sub DevelopOnProgress_ID45(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 45
+            clsData.Name = "Alter Table Purchase Contract Detail | Add Order Number Supplier"
+            clsData.Scripts = "ALTER TABLE traPurchaseContractDet ADD OrderNumberSupplier [varchar](100) NOT NULL CONSTRAINT DF_traPurchaseContractDet_OrderNumberSupplier DEFAULT ('') " & vbNewLine
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

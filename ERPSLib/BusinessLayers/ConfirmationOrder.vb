@@ -91,9 +91,7 @@
 
                     '# Save Data Status
                     BL.ConfirmationOrder.SaveDataStatus(sqlCon, sqlTrans, clsData.ID, IIf(bolNew, "BARU", "EDIT"), ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
-
                     If clsData.Save = VO.Save.Action.SaveAndSubmit Then Submit(sqlCon, sqlTrans, clsData.ID, clsData.Remarks)
-
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -150,7 +148,8 @@
                         .TotalPrice = dr.Item("TotalPrice"),
                         .Remarks = dr.Item("Remarks"),
                         .LevelItem = dr.Item("LevelItem"),
-                        .ParentID = dr.Item("ParentID")
+                        .ParentID = dr.Item("ParentID"),
+                        .OrderNumberSupplier = dr.Item("OrderNumberSupplier")
                     })
                 Next
 
@@ -167,7 +166,8 @@
                         .TotalPrice = dr.Item("TotalPrice"),
                         .Remarks = dr.Item("Remarks"),
                         .LevelItem = dr.Item("LevelItem"),
-                        .ParentID = dr.Item("ParentID")
+                        .ParentID = dr.Item("ParentID"),
+                        .OrderNumberSupplier = dr.Item("OrderNumberSupplier")
                     })
                 Next
 

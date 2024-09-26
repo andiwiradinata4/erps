@@ -463,6 +463,9 @@ Public Class frmTraConfirmationOrderDetItemOrderVer1
         ToolBarSubItem.SetIcon(Me)
         prvSetGrid()
         prvFillForm()
+        '# Control Subitem in Purchase Contract
+        ToolBarSubItem.Visible = True
+
         If bolIsAutoSearch Then prvChooseItem()
     End Sub
 

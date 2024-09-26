@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmTraPurchaseContractDetVer1
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmTraPurchaseContractDetVer1
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim GridLevelNode1 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraPurchaseContractDetVer1))
@@ -35,6 +35,8 @@ Partial Class frmTraPurchaseContractDetVer1
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.cboPaymentType = New ERPS.usComboBox()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.dtpDeliveryPeriodTo = New DevExpress.XtraEditors.DateEdit()
         Me.dtpDeliveryPeriodFrom = New DevExpress.XtraEditors.DateEdit()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -88,8 +90,6 @@ Partial Class frmTraPurchaseContractDetVer1
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.cboPaymentType = New ERPS.usComboBox()
-        Me.Label10 = New System.Windows.Forms.Label()
         CType(Me.grdSubItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -265,6 +265,27 @@ Partial Class frmTraPurchaseContractDetVer1
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'cboPaymentType
+        '
+        Me.cboPaymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboPaymentType.Enabled = False
+        Me.cboPaymentType.FormattingEnabled = True
+        Me.cboPaymentType.Location = New System.Drawing.Point(603, 16)
+        Me.cboPaymentType.Name = "cboPaymentType"
+        Me.cboPaymentType.Size = New System.Drawing.Size(249, 21)
+        Me.cboPaymentType.TabIndex = 8
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.BackColor = System.Drawing.Color.Transparent
+        Me.Label10.ForeColor = System.Drawing.Color.Black
+        Me.Label10.Location = New System.Drawing.Point(471, 20)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(94, 13)
+        Me.Label10.TabIndex = 149
+        Me.Label10.Text = "Jenis Pembayaran"
         '
         'dtpDeliveryPeriodTo
         '
@@ -865,27 +886,6 @@ Partial Class frmTraPurchaseContractDetVer1
         Me.BarDeleteItemOrder.Name = "BarDeleteItemOrder"
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
-        '
-        'cboPaymentType
-        '
-        Me.cboPaymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboPaymentType.Enabled = False
-        Me.cboPaymentType.FormattingEnabled = True
-        Me.cboPaymentType.Location = New System.Drawing.Point(603, 16)
-        Me.cboPaymentType.Name = "cboPaymentType"
-        Me.cboPaymentType.Size = New System.Drawing.Size(249, 21)
-        Me.cboPaymentType.TabIndex = 8
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.BackColor = System.Drawing.Color.Transparent
-        Me.Label10.ForeColor = System.Drawing.Color.Black
-        Me.Label10.Location = New System.Drawing.Point(471, 20)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(94, 13)
-        Me.Label10.TabIndex = 149
-        Me.Label10.Text = "Jenis Pembayaran"
         '
         'frmTraPurchaseContractDetVer1
         '

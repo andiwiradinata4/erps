@@ -1,5 +1,4 @@
 ﻿Imports DevExpress.XtraGrid
-
 Public Class frmTraPurchaseContractDetItemVer1
 
 #Region "Property"
@@ -16,6 +15,7 @@ Public Class frmTraPurchaseContractDetItemVer1
     Private strID As String = ""
     Private intPos As Integer = 0
     Private clsCS As VO.CS
+    Private strPCID As String = ""
 
     Public WriteOnly Property pubBPID As Integer
         Set(value As Integer)
@@ -56,6 +56,12 @@ Public Class frmTraPurchaseContractDetItemVer1
     Public WriteOnly Property pubCS As VO.CS
         Set(value As VO.CS)
             clsCS = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubPCID As String
+        Set(value As String)
+            strPCID = value
         End Set
     End Property
 
@@ -372,33 +378,50 @@ Public Class frmTraPurchaseContractDetItemVer1
 
 #Region "Sub Item"
 
+    Private Sub prvQuerySubItem()
+        Try
+            grdItem.DataSource = BL.PurchaseContract.ListDataDetail(strPCID, strID)
+            grdItemView.BestFitColumns()
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        End Try
+    End Sub
+
     Private Sub prvAddSubItem()
-        Dim frmDetail As New frmTraConfirmationOrderDetItemOrderSubItem
+        Dim dr() As DataRow = dtParentItem.Select("ID='" & strID & "'")
+        Dim frmDetail As New frmTraPurchaseContractDetItemOrderSubItem
         With frmDetail
             .pubIsNew = True
             .pubParentID = strID
+            .pubPCID = strPCID
             .pubItemLevel = 1
             .pubTableParentSubItem = dtSubItem
             .pubIsAutoSearch = True
+            .pubRowParentItem = dr.First
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButton()
+            prvQuerySubItem()
         End With
     End Sub
 
     Private Sub prvEditSubItem()
         intPos = grdItemView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
-        Dim frmDetail As New frmTraConfirmationOrderDetItemOrderSubItem
+        Dim dr() As DataRow = dtParentItem.Select("ID='" & strID & "'")
+        Dim frmDetail As New frmTraPurchaseContractDetItemOrderSubItem
         With frmDetail
             .pubIsNew = False
             .pubParentID = strID
+            .pubPCID = strPCID
             .pubItemLevel = 1
             .pubTableParentSubItem = dtSubItem
+            .pubRowParentItem = dr.First
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButton()
+            prvQuerySubItem()
         End With
     End Sub
 
@@ -406,11 +429,22 @@ Public Class frmTraPurchaseContractDetItemVer1
         intPos = grdItemView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         Dim strID As String = grdItemView.GetRowCellValue(intPos, "ID")
-        For Each dr As DataRow In dtSubItem.Rows
-            If dr.Item("ID") = strID Then dr.Delete() : Exit For
-        Next
-        dtSubItem.AcceptChanges()
-        prvSetButton()
+
+        If Not UI.usForm.frmAskQuestion("Hapus data yang dipilih?") Then Exit Sub
+
+        If BL.PurchaseContract.IsAlreadyPaymentSubitem(strID) Then
+            UI.usForm.frmMessageBox("Data tidak dapat disimpan. Dikarenakan data telah diproses pembayaran")
+            Exit Sub
+        End If
+
+        Try
+            BL.PurchaseContract.DeleteSubItem(strID)
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            prvQuerySubItem()
+            prvSetButton()
+        End Try
     End Sub
 
 #End Region
@@ -431,9 +465,9 @@ Public Class frmTraPurchaseContractDetItemVer1
         ToolBarSubItem.SetIcon(Me)
         prvSetGrid()
         prvFillForm()
+        prvQuerySubItem()
 
         '# Control Purchase Contract From Confirmation Order
-        ToolBarSubItem.Visible = False
         ToolBar.Buttons(cSave).Visible = False
     End Sub
 

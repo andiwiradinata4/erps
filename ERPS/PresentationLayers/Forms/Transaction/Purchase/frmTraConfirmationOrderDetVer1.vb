@@ -24,7 +24,7 @@ Public Class frmTraConfirmationOrderDetVer1
 #End Region
 
     Private Const _
-       cSave As Byte = 0, cClose As Byte = 1, cSep As Byte = 2, cGenerateContract As Byte = 3,
+       cSave As Byte = 0, cClose As Byte = 1, cSep1 As Byte = 2, cGenerateContract As Byte = 3,
        cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2
 
     Private Sub prvSetTitleForm()
@@ -468,6 +468,10 @@ Public Class frmTraConfirmationOrderDetVer1
         End With
     End Sub
 
+    Private Sub prvUpdateSubItem()
+
+    End Sub
+
 #Region "Item Handle"
 
     Private Sub prvSetButtonItem()
@@ -650,6 +654,7 @@ Public Class frmTraConfirmationOrderDetVer1
             Case "Simpan" : prvSave()
             Case "Tutup" : Me.Close()
             Case "Generate Kontrak" : prvGenerateContract()
+            Case "Update Subitem" : prvUpdateSubItem()
         End Select
     End Sub
 

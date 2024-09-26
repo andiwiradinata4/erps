@@ -50,6 +50,13 @@
             Return strNewID
         End Function
 
+        Public Shared Function GetNewIDSubitem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal strPCID As String) As String
+            Dim strNewID As String = strPCID & "-"
+            strNewID &= Format(DL.PurchaseContract.GetMaxIDDetail(sqlCon, sqlTrans, strNewID) + 1, "000")
+            Return strNewID
+        End Function
+
         Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.PurchaseContract) As String
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
@@ -424,6 +431,52 @@
                 Return DL.PurchaseContract.ListDataDetailOutstandingCutting(sqlCon, Nothing, intProgramID, intCompanyID)
             End Using
         End Function
+
+        Public Shared Function SaveDataSubitem(ByVal bolNew As Boolean, ByVal strPCID As String,
+                                               ByVal clsData As VO.PurchaseContractDet) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    If bolNew Then
+                        If clsData.ID.Trim = "" Then clsData.ID = GetNewIDSubitem(sqlCon, sqlTrans, strPCID)
+                    Else
+                        Dim intStatusID As Integer = DL.PurchaseContract.GetStatusID(sqlCon, sqlTrans, clsData.ID)
+                        If intStatusID <> VO.Status.Values.Approved Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data belum di approve")
+                        ElseIf DL.PurchaseContract.IsDeleted(sqlCon, sqlTrans, clsData.ID) Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
+                        ElseIf DL.PurchaseContract.IsAlreadyPaymentSubitem(sqlCon, sqlTrans, clsData.ID) Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pembayaran")
+                        Else
+                            DL.PurchaseContract.DeleteDataDetailByID(sqlCon, sqlTrans, clsData.ID)
+                        End If
+                    End If
+
+                    DL.PurchaseContract.SaveDataDetail(sqlCon, sqlTrans, clsData)
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function IsAlreadyPaymentSubitem(ByVal strID As String) As Boolean
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseContract.IsAlreadyPaymentSubitem(sqlCon, Nothing, strID)
+            End Using
+        End Function
+
+        Public Shared Sub DeleteSubItem(ByVal strID As String)
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                DL.PurchaseContract.DeleteDataDetailByID(sqlCon, Nothing, strID)
+            End Using
+        End Sub
 
 #End Region
 

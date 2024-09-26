@@ -410,6 +410,93 @@ Public Class frmTraPurchaseContractDetVer1
         btnBP.Enabled = bolEnabled
     End Sub
 
+    Private Sub prvUpdateSubItem()
+        ToolBar.Focus()
+        If Not UI.usForm.frmAskQuestion("Update Subitem?") Then Exit Sub
+
+        Dim listDetailOrder As New List(Of VO.PurchaseContractDet)
+        For Each dr As DataRow In dtItem.Rows
+            listDetailOrder.Add(New ERPSLib.VO.PurchaseContractDet With
+                                {
+                                    .ID = dr.Item("ID"),
+                                    .CODetailID = dr.Item("CODetailID"),
+                                    .ItemID = dr.Item("ItemID"),
+                                    .Quantity = dr.Item("Quantity"),
+                                    .Weight = dr.Item("Weight"),
+                                    .TotalWeight = dr.Item("TotalWeight"),
+                                    .UnitPrice = dr.Item("UnitPrice"),
+                                    .TotalPrice = dr.Item("TotalPrice"),
+                                    .Remarks = dr.Item("Remarks"),
+                                    .LevelItem = dr.Item("LevelItem"),
+                                    .ParentID = dr.Item("ParentID")
+                                })
+        Next
+
+        For Each dr As DataRow In dtSubItem.Rows
+            listDetailOrder.Add(New ERPSLib.VO.PurchaseContractDet With
+                                {
+                                    .ID = dr.Item("ID"),
+                                    .CODetailID = dr.Item("CODetailID"),
+                                    .ItemID = dr.Item("ItemID"),
+                                    .Quantity = dr.Item("Quantity"),
+                                    .Weight = dr.Item("Weight"),
+                                    .TotalWeight = dr.Item("TotalWeight"),
+                                    .UnitPrice = dr.Item("UnitPrice"),
+                                    .TotalPrice = dr.Item("TotalPrice"),
+                                    .Remarks = dr.Item("Remarks"),
+                                    .LevelItem = dr.Item("LevelItem"),
+                                    .ParentID = dr.Item("ParentID")
+                                })
+        Next
+
+        clsData = New VO.PurchaseContract With {
+            .ID = pubID,
+            .ProgramID = pubCS.ProgramID,
+            .CompanyID = pubCS.CompanyID,
+            .PCNumber = txtPCNumber.Text.Trim,
+            .PCDate = dtpPCDate.Value.Date,
+            .BPID = intBPID,
+            .DeliveryPeriodFrom = dtpDeliveryPeriodFrom.EditValue,
+            .DeliveryPeriodTo = dtpDeliveryPeriodTo.EditValue,
+            .Franco = txtFranco.Text.Trim,
+            .AllowanceProduction = txtAllowanceProduction.Value,
+            .PPN = txtPPN.Value,
+            .PPH = txtPPH.Value,
+            .TotalQuantity = grdItemView.Columns("Quantity").SummaryItem.SummaryValue,
+            .TotalWeight = grdItemView.Columns("TotalWeight").SummaryItem.SummaryValue,
+            .TotalDPP = txtTotalDPP.Value,
+            .TotalPPN = txtTotalPPN.Value,
+            .TotalPPH = txtTotalPPH.Value,
+            .RoundingManual = 0,
+            .Remarks = txtRemarks.Text.Trim,
+            .StatusID = cboStatus.SelectedValue,
+            .Detail = listDetailOrder,
+            .LogBy = ERPSLib.UI.usUserApp.UserID,
+            .IsUseSubItem = IIf(dtSubItem.Rows.Count > 0, True, False),
+            .PaymentTypeID = cboPaymentType.SelectedValue
+        }
+        Try
+            Dim strPCNumber As String = BL.PurchaseContract.SaveData(pubIsNew, clsData)
+            UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strPCNumber)
+            pgMain.Value = 80
+            frmParent.pubRefresh(strPCNumber)
+            If pubIsNew Then
+                prvClear()
+                prvQueryItem()
+                prvQueryHistory()
+                prvSetupTools()
+            Else
+                Me.Close()
+            End If
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            pgMain.Value = 100
+
+            prvResetProgressBar()
+        End Try
+    End Sub
+
 #Region "Item Handle"
 
     Private Sub prvSetButtonItem()
@@ -433,24 +520,24 @@ Public Class frmTraPurchaseContractDetVer1
                 dtSubItem.Merge(BL.PurchaseContract.ListDataDetail(pubID, dr.Item("ID")))
             Next
 
-            '# Remap ID using Guid
-            For Each dr As DataRow In dtItem.Rows
-                Dim strPrevID As String = dr.Item("ID")
-                Dim strNewID As String = Guid.NewGuid.ToString
-                For Each drSub As DataRow In dtSubItem.Rows
-                    If drSub.Item("ParentID") = strPrevID Then
-                        drSub.BeginEdit()
-                        drSub.Item("ParentID") = strNewID
-                        drSub.EndEdit()
-                    End If
-                Next
-                dtSubItem.AcceptChanges()
+            ''# Remap ID using Guid
+            'For Each dr As DataRow In dtItem.Rows
+            '    Dim strPrevID As String = dr.Item("ID")
+            '    Dim strNewID As String = Guid.NewGuid.ToString
+            '    For Each drSub As DataRow In dtSubItem.Rows
+            '        If drSub.Item("ParentID") = strPrevID Then
+            '            drSub.BeginEdit()
+            '            drSub.Item("ParentID") = strNewID
+            '            drSub.EndEdit()
+            '        End If
+            '    Next
+            '    dtSubItem.AcceptChanges()
 
-                dr.BeginEdit()
-                dr.Item("ID") = strNewID
-                dr.EndEdit()
-            Next
-            dtItem.AcceptChanges()
+            '    dr.BeginEdit()
+            '    dr.Item("ID") = strNewID
+            '    dr.EndEdit()
+            'Next
+            'dtItem.AcceptChanges()
 
             dsMain.Tables.Add(dtItem)
             dsMain.Tables.Add(dtSubItem)
@@ -484,6 +571,7 @@ Public Class frmTraPurchaseContractDetVer1
             .pubBPID = intBPID
             .pubTableParentItem = dtItem
             .pubTableParentSubItem = dtSubItem
+            .pubPCID = pubID
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -503,6 +591,7 @@ Public Class frmTraPurchaseContractDetVer1
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .pubTableParentItem = dtItem
             .pubTableParentSubItem = dtSubItem
+            .pubPCID = pubID
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
