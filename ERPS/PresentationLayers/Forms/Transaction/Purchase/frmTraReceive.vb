@@ -32,7 +32,7 @@ Public Class frmTraReceive
         UI.usForm.SetGrid(grdView, "PCID", "PCID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "PCNumber", "Nomor Kontrak", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PaymentTypeID", "PaymentTypeID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdView, "PaymentTypeName", "Jenis Pembayaran", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "PaymentTypeName", "Jenis Pembayaran", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "CoAofStock", "Akun Persediaan", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "CoACodeofStock", "Kode Akun Persediaan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "CoANameofStock", "Nama Akun Persediaan", 100, UI.usDefGrid.gString)
@@ -424,6 +424,8 @@ Public Class frmTraReceive
         prvDefaultFilter()
         prvQuery()
         prvUserAccess()
+        ToolBar.Buttons(cPayment).Visible = False
+        ToolBar.Buttons(cSep3).Visible = False
         Me.WindowState = FormWindowState.Maximized
     End Sub
 

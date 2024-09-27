@@ -543,9 +543,16 @@ Public Class frmTraSalesContractDetItemVer1
     Private Sub prvSetButtonItemConfirmationOrder()
         Dim bolEnabled As Boolean = IIf(grdItemCOView.RowCount = 0, False, True)
         With ToolBarItemCO
-            '.Buttons(cAdd).Enabled = Not bolEnabled
             .Buttons(cEdit).Enabled = bolEnabled
             .Buttons(cDelete).Enabled = bolEnabled
+        End With
+
+        With ToolBarItemSubitem
+            .Buttons(cAdd).Enabled = bolEnabled
+
+            Dim bolEnabledSubitem As Boolean = IIf(grdSubitemView.RowCount = 0, False, True)
+            .Buttons(cEdit).Enabled = bolEnabledSubitem
+            .Buttons(cDelete).Enabled = bolEnabledSubitem
         End With
     End Sub
 
@@ -639,6 +646,69 @@ Public Class frmTraSalesContractDetItemVer1
 
 #End Region
 
+#Region "Sub Item"
+
+    Private Sub prvAddSubItem()
+        If intItemID = 0 Then
+            UI.usForm.frmMessageBox("Pilih konfirmasi pesanan terlebih dahulu")
+            txtItemCode.Focus()
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraSalesContractDetItemCOSubVer1
+        With frmDetail
+            .pubIsNew = True
+            .pubCS = clsCS
+            .pubParentID = strID
+            .pubParentCODetailID = grdItemCOView.GetRowCellValue(0, "ID")
+            .pubIsAutoSearch = True
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            prvSetButtonItemConfirmationOrder()
+            prvCalculate()
+        End With
+    End Sub
+
+    Private Sub prvEditSubItem()
+        'intPos = grdSubitemView.FocusedRowHandle
+        'If intPos < 0 Then Exit Sub
+        'If intItemID = 0 Then
+        '    UI.usForm.frmMessageBox("Pilih konfirmasi pesanan terlebih dahulu")
+        '    txtItemCode.Focus()
+        '    Exit Sub
+        'End If
+
+        'Dim frmDetail As New frmTraSalesContractDetItemCOSubVer1
+        'With frmDetail
+        '    .pubIsNew = False
+        '    .pubCS = clsCS
+        '    .pubParentID = strID
+        '    .pubParentCODetailID = grdItemCOView.GetRowCellValue(0, "ID")
+        '    .pubTableParent = dtSubItem
+        '    .pubDataRowSelected = grdSubitemView.GetDataRow(intPos)
+        '    .pubIsAutoSearch = False
+        '    .StartPosition = FormStartPosition.CenterParent
+        '    .pubShowDialog(Me)
+        '    prvSetButtonItemConfirmationOrder()
+        '    prvCalculate()
+        'End With
+    End Sub
+
+    Private Sub prvDeleteSubItem()
+        'intPos = grdSubitemView.FocusedRowHandle
+        'If intPos < 0 Then Exit Sub
+        'Dim strID As String = grdSubitemView.GetRowCellValue(intPos, "ID")
+
+        ''# Delete Item
+        'For Each dr As DataRow In dtSubItem.Rows
+        '    If dr.Item("ID") = strID Then dr.Delete() : Exit For
+        'Next
+        'dtSubItem.AcceptChanges()
+        'prvCalculate()
+    End Sub
+
+#End Region
+
 #Region "Form Handle"
 
     Private Sub frmTraSalesContractDetItemVer1_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
@@ -653,10 +723,19 @@ Public Class frmTraSalesContractDetItemVer1
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         ToolBarItemCO.SetIcon(Me)
+        ToolBarItemSubitem.SetIcon(Me)
         prvSetGrid()
         prvFillForm()
         prvQuery()
         If bolIsAutoSearch Then prvChooseItem()
+    End Sub
+
+    Private Sub ToolBarItemSubitem_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarItemSubitem.ButtonClick
+        Select Case e.Button.Text.Trim
+            Case "Tambah" : prvAddSubItem()
+            Case "Edit" : prvEditSubItem()
+            Case "Hapus" : prvDeleteSubItem()
+        End Select
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick

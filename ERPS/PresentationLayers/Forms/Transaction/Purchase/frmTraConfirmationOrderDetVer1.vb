@@ -193,11 +193,11 @@ Public Class frmTraConfirmationOrderDetVer1
             tcDetail.SelectedTab = tpItem
             grdItemView.Focus()
             Exit Sub
-        ElseIf cboPaymentType.SelectedIndex = -1 Then
-            UI.usForm.frmMessageBox("Pilih jenis pembayaran terlebih dahulu")
-            tcHeader.SelectedTab = tpMain
-            cboPaymentType.Focus()
-            Exit Sub
+            'ElseIf cboPaymentType.SelectedIndex = -1 Then
+            '    UI.usForm.frmMessageBox("Pilih jenis pembayaran terlebih dahulu")
+            '    tcHeader.SelectedTab = tpMain
+            '    cboPaymentType.Focus()
+            '    Exit Sub
         End If
 
         Dim frmDetail As New usFormSave

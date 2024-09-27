@@ -59,9 +59,11 @@ Public Class frmTraPurchaseContractDetVer1
         UI.usForm.SetGrid(grdItemView, "Quantity", "Quantity", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal1Num)
         UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "DCWeight", "Total Berat Diterima", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "OutstandingDeliveryWeight", "Sisa Berat Yang Belum Diterima", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
@@ -172,11 +174,11 @@ Public Class frmTraPurchaseContractDetVer1
             tcHeader.SelectedTab = tpMain
             txtFranco.Focus()
             Exit Sub
-        ElseIf txtAllowanceProduction.Value <= 0 Then
-            UI.usForm.frmMessageBox("Allowance produksi harus lebih besar dari 0")
-            tcHeader.SelectedTab = tpMain
-            txtAllowanceProduction.Focus()
-            Exit Sub
+            'ElseIf txtAllowanceProduction.Value <= 0 Then
+            '    UI.usForm.frmMessageBox("Allowance produksi harus lebih besar dari 0")
+            '    tcHeader.SelectedTab = tpMain
+            '    txtAllowanceProduction.Focus()
+            '    Exit Sub
         ElseIf dtpDeliveryPeriodFrom.EditValue > dtpDeliveryPeriodTo.EditValue Then
             UI.usForm.frmMessageBox("Periode pengiriman tidak valid")
             tcHeader.SelectedTab = tpMain
@@ -187,11 +189,11 @@ Public Class frmTraPurchaseContractDetVer1
             tcDetail.SelectedTab = tpItem
             grdItemView.Focus()
             Exit Sub
-        ElseIf cboPaymentType.SelectedIndex = -1 Then
-            UI.usForm.frmMessageBox("Pilih jenis pembayaran terlebih dahulu")
-            tcHeader.SelectedTab = tpMain
-            cboPaymentType.Focus()
-            Exit Sub
+            'ElseIf cboPaymentType.SelectedIndex = -1 Then
+            '    UI.usForm.frmMessageBox("Pilih jenis pembayaran terlebih dahulu")
+            '    tcHeader.SelectedTab = tpMain
+            '    cboPaymentType.Focus()
+            '    Exit Sub
         End If
 
         Dim frmDetail As New usFormSave
@@ -221,7 +223,8 @@ Public Class frmTraPurchaseContractDetVer1
                                     .TotalPrice = dr.Item("TotalPrice"),
                                     .Remarks = dr.Item("Remarks"),
                                     .LevelItem = dr.Item("LevelItem"),
-                                    .ParentID = dr.Item("ParentID")
+                                    .ParentID = dr.Item("ParentID"),
+                                    .OrderNumberSupplier = dr.Item("OrderNumberSupplier")
                                 })
         Next
 
@@ -238,7 +241,8 @@ Public Class frmTraPurchaseContractDetVer1
                                     .TotalPrice = dr.Item("TotalPrice"),
                                     .Remarks = dr.Item("Remarks"),
                                     .LevelItem = dr.Item("LevelItem"),
-                                    .ParentID = dr.Item("ParentID")
+                                    .ParentID = dr.Item("ParentID"),
+                                    .OrderNumberSupplier = dr.Item("OrderNumberSupplier")
                                 })
         Next
 
@@ -350,6 +354,8 @@ Public Class frmTraPurchaseContractDetVer1
         '# Item
         Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0}")
         Dim SumGrandTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
+        Dim SumDCTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DCWeight", "Total Berat Diterima: {0:#,##0.00}")
+        Dim SumOutstandingDCTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "OutstandingDeliveryWeight", "Total Berat Yang Belum Diterima: {0:#,##0.00}")
         Dim SumGrandTotalPrice As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
 
         If grdItemView.Columns("Quantity").SummaryText.Trim = "" Then
@@ -364,12 +370,20 @@ Public Class frmTraPurchaseContractDetVer1
             grdItemView.Columns("TotalPrice").Summary.Add(SumGrandTotalPrice)
         End If
 
+        If grdItemView.Columns("DCWeight").SummaryText.Trim = "" Then
+            grdItemView.Columns("DCWeight").Summary.Add(SumDCTotalWeight)
+        End If
+
+        If grdItemView.Columns("OutstandingDeliveryWeight").SummaryText.Trim = "" Then
+            grdItemView.Columns("OutstandingDeliveryWeight").Summary.Add(SumOutstandingDCTotalWeight)
+        End If
+
         If grdItemView.GroupCount > 0 Then grdItemView.ExpandAllGroups()
         grdItemView.BestFitColumns(True)
 
-        For i As Integer = 0 To grdItemView.RowCount - 1
-            grdItemView.ExpandMasterRow(i, "SubItem")
-        Next
+        'For i As Integer = 0 To grdItemView.RowCount - 1
+        '    grdItemView.ExpandMasterRow(i, "SubItem")
+        'Next
 
         '# Sub Item
         Dim SumTotalQuantitySubItem As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0}")

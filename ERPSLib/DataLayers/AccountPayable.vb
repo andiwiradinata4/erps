@@ -1721,10 +1721,11 @@
                     "   And B.ProgramID=@ProgramID " & vbNewLine &
                     "   And A.PCID=@ReferencesID " & vbNewLine &
                     "   And B.ApprovedBy<>'' " & vbNewLine &
+                    "   And A.ParentID='' " & vbNewLine &
                     "   AND A.TotalPrice-A.DPAmount-A.ReceiveAmount>0 " & vbNewLine &
                     "   AND A.TotalWeight-A.DCWeight>0 " & vbNewLine
 
-                If bolIsUseSubItem Then .CommandText += "   AND A.ParentID<>'' " & vbNewLine
+                'If bolIsUseSubItem Then .CommandText += "   AND A.ParentID<>'' " & vbNewLine
 
                 .CommandText +=
                     "   AND A.ID NOT IN " & vbNewLine &
@@ -2009,7 +2010,8 @@
         Public Shared Function ListDataDetailItemReceiveWithOutstandingVer02(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                                              ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
                                                                              ByVal intBPID As Integer, ByVal strAPID As String,
-                                                                             ByVal strReferencesID As String, ByVal intPaymentTypeID As Integer) As DataTable
+                                                                             ByVal strReferencesID As String, ByVal intPaymentTypeID As Integer,
+                                                                             ByVal bolIsUseSubitem As Boolean) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -2066,6 +2068,7 @@
                     "   And B.ID=@ReferencesID " & vbNewLine &
                     "   And B.ApprovedBy<>'' " & vbNewLine &
                     "   AND A.TotalPrice-A.AllocateDPAmount-A.ReceiveAmount>0 " & vbNewLine &
+                    "   AND A.TotalWeight-A.InvoiceTotalWeight>0 " & vbNewLine &
                     "   AND A.ID NOT IN " & vbNewLine &
                     "       ( " & vbNewLine &
                     "           SELECT ARD.ReferencesDetailID 	" & vbNewLine &
@@ -2079,6 +2082,9 @@
                     "	            AND ARH.IsDeleted=0	" & vbNewLine &
                     "	            AND ARH.ID=@APID " & vbNewLine &
                     "       ) " & vbNewLine
+
+                    If bolIsUseSubitem Then .CommandText += "   AND A.ParentID<>'' " & vbNewLine
+
                 ElseIf intPaymentTypeID = VO.PaymentType.Values.TT30Days Then
                     .CommandText +=
                     "SELECT " & vbNewLine &
@@ -2138,6 +2144,8 @@
                     "	            AND ARH.IsDeleted=0	" & vbNewLine &
                     "	            AND ARH.ID=@APID " & vbNewLine &
                     "       ) " & vbNewLine
+
+                    If bolIsUseSubitem Then .CommandText += "   AND A.ParentID<>'' " & vbNewLine
                 End If
                 ''# Cutting
                 '.CommandText +=

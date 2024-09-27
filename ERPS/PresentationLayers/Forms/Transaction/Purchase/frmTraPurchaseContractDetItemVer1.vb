@@ -432,13 +432,8 @@ Public Class frmTraPurchaseContractDetItemVer1
 
         If Not UI.usForm.frmAskQuestion("Hapus data yang dipilih?") Then Exit Sub
 
-        If BL.PurchaseContract.IsAlreadyPaymentSubitem(strID) Then
-            UI.usForm.frmMessageBox("Data tidak dapat disimpan. Dikarenakan data telah diproses pembayaran")
-            Exit Sub
-        End If
-
         Try
-            BL.PurchaseContract.DeleteSubItem(strID)
+            BL.PurchaseContract.DeleteSubItem(strID, strPCID)
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally

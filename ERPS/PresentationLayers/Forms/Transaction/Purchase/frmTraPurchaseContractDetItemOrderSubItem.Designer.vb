@@ -411,7 +411,7 @@ Partial Class frmTraPurchaseContractDetItemOrderSubItem
         'txtWeight
         '
         Me.txtWeight.BackColor = System.Drawing.Color.White
-        Me.txtWeight.DecimalPlaces = 1
+        Me.txtWeight.DecimalPlaces = 2
         Me.txtWeight.Location = New System.Drawing.Point(110, 184)
         Me.txtWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})

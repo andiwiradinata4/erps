@@ -22,7 +22,7 @@ Partial Class frmTraSalesContractDetItemVer1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim GridLevelNode1 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
+        Dim GridLevelNode2 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraSalesContractDetItemVer1))
         Me.grdSubItemCOView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.grdItemCO = New DevExpress.XtraGrid.GridControl()
@@ -32,6 +32,9 @@ Partial Class frmTraSalesContractDetItemVer1
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.txtUnitPriceHPP = New ERPS.usNumeric()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtRequestNumber = New ERPS.usTextBox()
@@ -72,19 +75,26 @@ Partial Class frmTraSalesContractDetItemVer1
         Me.txtItemCode = New ERPS.usTextBox()
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtItemName = New ERPS.usTextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.ToolBarItemCO = New ERPS.usToolBar()
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarEditItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.txtUnitPriceHPP = New ERPS.usNumeric()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.ToolBarItemSubitem = New ERPS.usToolBar()
+        Me.BarAddSubitem = New System.Windows.Forms.ToolBarButton()
+        Me.BarEditSubitem = New System.Windows.Forms.ToolBarButton()
+        Me.BarDeleteSubitem = New System.Windows.Forms.ToolBarButton()
+        Me.grdSubitem = New DevExpress.XtraGrid.GridControl()
+        Me.grdSubitemView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.Label19 = New System.Windows.Forms.Label()
         CType(Me.grdSubItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemCO, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlDetail.SuspendLayout()
+        CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtThick, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -94,7 +104,10 @@ Partial Class frmTraSalesContractDetItemVer1
         CType(Me.txtUnitPrice, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
+        CType(Me.grdSubitem, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdSubitemView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'grdSubItemCOView
@@ -123,15 +136,15 @@ Partial Class frmTraSalesContractDetItemVer1
         Me.grdItemCO.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdItemCO.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdItemCO.EmbeddedNavigator.Buttons.Remove.Visible = False
-        GridLevelNode1.LevelTemplate = Me.grdSubItemCOView
-        GridLevelNode1.RelationName = "SubView"
-        Me.grdItemCO.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1})
-        Me.grdItemCO.Location = New System.Drawing.Point(607, 76)
+        GridLevelNode2.LevelTemplate = Me.grdSubItemCOView
+        GridLevelNode2.RelationName = "SubView"
+        Me.grdItemCO.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode2})
+        Me.grdItemCO.Location = New System.Drawing.Point(618, 48)
         Me.grdItemCO.MainView = Me.grdItemCOView
         Me.grdItemCO.Name = "grdItemCO"
         Me.grdItemCO.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItemCO.Size = New System.Drawing.Size(557, 335)
-        Me.grdItemCO.TabIndex = 4
+        Me.grdItemCO.Size = New System.Drawing.Size(546, 306)
+        Me.grdItemCO.TabIndex = 3
         Me.grdItemCO.UseEmbeddedNavigator = True
         Me.grdItemCO.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemCOView, Me.grdSubItemCOView})
         '
@@ -224,10 +237,44 @@ Partial Class frmTraSalesContractDetItemVer1
         Me.pnlDetail.Controls.Add(Me.lblName)
         Me.pnlDetail.Controls.Add(Me.txtItemName)
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Left
-        Me.pnlDetail.Location = New System.Drawing.Point(0, 28)
+        Me.pnlDetail.Location = New System.Drawing.Point(0, 0)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(607, 383)
-        Me.pnlDetail.TabIndex = 1
+        Me.pnlDetail.Size = New System.Drawing.Size(618, 354)
+        Me.pnlDetail.TabIndex = 0
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.BackColor = System.Drawing.Color.Transparent
+        Me.Label11.ForeColor = System.Drawing.Color.Black
+        Me.Label11.Location = New System.Drawing.Point(563, 257)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(19, 13)
+        Me.Label11.TabIndex = 189
+        Me.Label11.Text = "Kg"
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.BackColor = System.Drawing.Color.Transparent
+        Me.Label18.ForeColor = System.Drawing.Color.Black
+        Me.Label18.Location = New System.Drawing.Point(331, 257)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(55, 13)
+        Me.Label18.TabIndex = 188
+        Me.Label18.Text = "Harga Beli"
+        '
+        'txtUnitPriceHPP
+        '
+        Me.txtUnitPriceHPP.DecimalPlaces = 2
+        Me.txtUnitPriceHPP.Location = New System.Drawing.Point(399, 253)
+        Me.txtUnitPriceHPP.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtUnitPriceHPP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtUnitPriceHPP.Name = "txtUnitPriceHPP"
+        Me.txtUnitPriceHPP.Size = New System.Drawing.Size(160, 21)
+        Me.txtUnitPriceHPP.TabIndex = 17
+        Me.txtUnitPriceHPP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtUnitPriceHPP.ThousandsSeparator = True
         '
         'lblInfo
         '
@@ -237,7 +284,7 @@ Partial Class frmTraSalesContractDetItemVer1
         Me.lblInfo.ForeColor = System.Drawing.Color.White
         Me.lblInfo.Location = New System.Drawing.Point(0, 0)
         Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(607, 22)
+        Me.lblInfo.Size = New System.Drawing.Size(618, 22)
         Me.lblInfo.TabIndex = 0
         Me.lblInfo.Text = "« Permintaan Penjualan"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -374,7 +421,7 @@ Partial Class frmTraSalesContractDetItemVer1
         Me.txtTotalPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPrice.Name = "txtTotalPrice"
         Me.txtTotalPrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalPrice.TabIndex = 15
+        Me.txtTotalPrice.TabIndex = 16
         Me.txtTotalPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPrice.ThousandsSeparator = True
         '
@@ -396,7 +443,7 @@ Partial Class frmTraSalesContractDetItemVer1
         Me.txtQuantity.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtQuantity.Name = "txtQuantity"
         Me.txtQuantity.Size = New System.Drawing.Size(160, 21)
-        Me.txtQuantity.TabIndex = 13
+        Me.txtQuantity.TabIndex = 14
         Me.txtQuantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtQuantity.ThousandsSeparator = True
         '
@@ -430,7 +477,7 @@ Partial Class frmTraSalesContractDetItemVer1
         Me.txtUnitPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtUnitPrice.Name = "txtUnitPrice"
         Me.txtUnitPrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtUnitPrice.TabIndex = 12
+        Me.txtUnitPrice.TabIndex = 13
         Me.txtUnitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtUnitPrice.ThousandsSeparator = True
         '
@@ -466,7 +513,7 @@ Partial Class frmTraSalesContractDetItemVer1
         Me.txtTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalWeight.Name = "txtTotalWeight"
         Me.txtTotalWeight.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalWeight.TabIndex = 14
+        Me.txtTotalWeight.TabIndex = 15
         Me.txtTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalWeight.ThousandsSeparator = True
         '
@@ -498,7 +545,7 @@ Partial Class frmTraSalesContractDetItemVer1
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(426, 48)
-        Me.txtRemarks.TabIndex = 16
+        Me.txtRemarks.TabIndex = 12
         '
         'Label12
         '
@@ -688,18 +735,17 @@ Partial Class frmTraSalesContractDetItemVer1
         Me.txtItemName.Size = New System.Drawing.Size(426, 48)
         Me.txtItemName.TabIndex = 6
         '
-        'Label5
+        'Panel1
         '
-        Me.Label5.BackColor = System.Drawing.Color.CadetBlue
-        Me.Label5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Label5.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.ForeColor = System.Drawing.Color.White
-        Me.Label5.Location = New System.Drawing.Point(607, 28)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(557, 22)
-        Me.Label5.TabIndex = 2
-        Me.Label5.Text = "« Konfirmasi Pesanan"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Panel1.Controls.Add(Me.grdItemCO)
+        Me.Panel1.Controls.Add(Me.ToolBarItemCO)
+        Me.Panel1.Controls.Add(Me.Label5)
+        Me.Panel1.Controls.Add(Me.pnlDetail)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(0, 28)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(1164, 354)
+        Me.Panel1.TabIndex = 5
         '
         'ToolBarItemCO
         '
@@ -707,11 +753,11 @@ Partial Class frmTraSalesContractDetItemVer1
         Me.ToolBarItemCO.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarEditItemOrder, Me.BarDeleteItemOrder})
         Me.ToolBarItemCO.Divider = False
         Me.ToolBarItemCO.DropDownArrows = True
-        Me.ToolBarItemCO.Location = New System.Drawing.Point(607, 50)
+        Me.ToolBarItemCO.Location = New System.Drawing.Point(618, 22)
         Me.ToolBarItemCO.Name = "ToolBarItemCO"
         Me.ToolBarItemCO.ShowToolTips = True
-        Me.ToolBarItemCO.Size = New System.Drawing.Size(557, 26)
-        Me.ToolBarItemCO.TabIndex = 3
+        Me.ToolBarItemCO.Size = New System.Drawing.Size(546, 26)
+        Me.ToolBarItemCO.TabIndex = 2
         Me.ToolBarItemCO.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
         'BarAddItemOrder
@@ -732,49 +778,117 @@ Partial Class frmTraSalesContractDetItemVer1
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
         '
-        'Label11
+        'Label5
         '
-        Me.Label11.AutoSize = True
-        Me.Label11.BackColor = System.Drawing.Color.Transparent
-        Me.Label11.ForeColor = System.Drawing.Color.Black
-        Me.Label11.Location = New System.Drawing.Point(563, 257)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(19, 13)
-        Me.Label11.TabIndex = 189
-        Me.Label11.Text = "Kg"
+        Me.Label5.BackColor = System.Drawing.Color.CadetBlue
+        Me.Label5.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label5.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.ForeColor = System.Drawing.Color.White
+        Me.Label5.Location = New System.Drawing.Point(618, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(546, 22)
+        Me.Label5.TabIndex = 1
+        Me.Label5.Text = "« Konfirmasi Pesanan"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Label18
+        'ToolBarItemSubitem
         '
-        Me.Label18.AutoSize = True
-        Me.Label18.BackColor = System.Drawing.Color.Transparent
-        Me.Label18.ForeColor = System.Drawing.Color.Black
-        Me.Label18.Location = New System.Drawing.Point(331, 257)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(55, 13)
-        Me.Label18.TabIndex = 188
-        Me.Label18.Text = "Harga Beli"
+        Me.ToolBarItemSubitem.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBarItemSubitem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddSubitem, Me.BarEditSubitem, Me.BarDeleteSubitem})
+        Me.ToolBarItemSubitem.Divider = False
+        Me.ToolBarItemSubitem.DropDownArrows = True
+        Me.ToolBarItemSubitem.Location = New System.Drawing.Point(0, 404)
+        Me.ToolBarItemSubitem.Name = "ToolBarItemSubitem"
+        Me.ToolBarItemSubitem.ShowToolTips = True
+        Me.ToolBarItemSubitem.Size = New System.Drawing.Size(1164, 26)
+        Me.ToolBarItemSubitem.TabIndex = 2
+        Me.ToolBarItemSubitem.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
-        'txtUnitPriceHPP
+        'BarAddSubitem
         '
-        Me.txtUnitPriceHPP.DecimalPlaces = 2
-        Me.txtUnitPriceHPP.Location = New System.Drawing.Point(399, 253)
-        Me.txtUnitPriceHPP.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtUnitPriceHPP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtUnitPriceHPP.Name = "txtUnitPriceHPP"
-        Me.txtUnitPriceHPP.Size = New System.Drawing.Size(160, 21)
-        Me.txtUnitPriceHPP.TabIndex = 187
-        Me.txtUnitPriceHPP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtUnitPriceHPP.ThousandsSeparator = True
+        Me.BarAddSubitem.Name = "BarAddSubitem"
+        Me.BarAddSubitem.Tag = "Add"
+        Me.BarAddSubitem.Text = "Tambah"
+        '
+        'BarEditSubitem
+        '
+        Me.BarEditSubitem.Name = "BarEditSubitem"
+        Me.BarEditSubitem.Tag = "Edit"
+        Me.BarEditSubitem.Text = "Edit"
+        '
+        'BarDeleteSubitem
+        '
+        Me.BarDeleteSubitem.Name = "BarDeleteSubitem"
+        Me.BarDeleteSubitem.Tag = "Delete"
+        Me.BarDeleteSubitem.Text = "Hapus"
+        '
+        'grdSubitem
+        '
+        Me.grdSubitem.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdSubitem.EmbeddedNavigator.Buttons.Append.Enabled = False
+        Me.grdSubitem.EmbeddedNavigator.Buttons.Append.Visible = False
+        Me.grdSubitem.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
+        Me.grdSubitem.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
+        Me.grdSubitem.EmbeddedNavigator.Buttons.Edit.Enabled = False
+        Me.grdSubitem.EmbeddedNavigator.Buttons.Edit.Visible = False
+        Me.grdSubitem.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
+        Me.grdSubitem.EmbeddedNavigator.Buttons.EndEdit.Visible = False
+        Me.grdSubitem.EmbeddedNavigator.Buttons.NextPage.Enabled = False
+        Me.grdSubitem.EmbeddedNavigator.Buttons.NextPage.Visible = False
+        Me.grdSubitem.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
+        Me.grdSubitem.EmbeddedNavigator.Buttons.PrevPage.Visible = False
+        Me.grdSubitem.EmbeddedNavigator.Buttons.Remove.Enabled = False
+        Me.grdSubitem.EmbeddedNavigator.Buttons.Remove.Visible = False
+        Me.grdSubitem.Location = New System.Drawing.Point(0, 430)
+        Me.grdSubitem.MainView = Me.grdSubitemView
+        Me.grdSubitem.Name = "grdSubitem"
+        Me.grdSubitem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit2})
+        Me.grdSubitem.Size = New System.Drawing.Size(1164, 188)
+        Me.grdSubitem.TabIndex = 3
+        Me.grdSubitem.UseEmbeddedNavigator = True
+        Me.grdSubitem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdSubitemView})
+        '
+        'grdSubitemView
+        '
+        Me.grdSubitemView.GridControl = Me.grdSubitem
+        Me.grdSubitemView.Name = "grdSubitemView"
+        Me.grdSubitemView.OptionsCustomization.AllowColumnMoving = False
+        Me.grdSubitemView.OptionsCustomization.AllowGroup = False
+        Me.grdSubitemView.OptionsView.ColumnAutoWidth = False
+        Me.grdSubitemView.OptionsView.ShowAutoFilterRow = True
+        Me.grdSubitemView.OptionsView.ShowFooter = True
+        Me.grdSubitemView.OptionsView.ShowGroupPanel = False
+        '
+        'RepositoryItemTextEdit2
+        '
+        Me.RepositoryItemTextEdit2.AutoHeight = False
+        Me.RepositoryItemTextEdit2.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.RepositoryItemTextEdit2.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.RepositoryItemTextEdit2.Name = "RepositoryItemTextEdit2"
+        Me.RepositoryItemTextEdit2.NullText = "0.00"
+        '
+        'Label19
+        '
+        Me.Label19.BackColor = System.Drawing.Color.CadetBlue
+        Me.Label19.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label19.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.ForeColor = System.Drawing.Color.White
+        Me.Label19.Location = New System.Drawing.Point(0, 382)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(1164, 22)
+        Me.Label19.TabIndex = 1
+        Me.Label19.Text = "« Subitem"
+        Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'frmTraSalesContractDetItemVer1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1164, 411)
-        Me.Controls.Add(Me.grdItemCO)
-        Me.Controls.Add(Me.ToolBarItemCO)
-        Me.Controls.Add(Me.Label5)
-        Me.Controls.Add(Me.pnlDetail)
+        Me.ClientSize = New System.Drawing.Size(1164, 618)
+        Me.Controls.Add(Me.grdSubitem)
+        Me.Controls.Add(Me.ToolBarItemSubitem)
+        Me.Controls.Add(Me.Label19)
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.KeyPreview = True
@@ -788,6 +902,7 @@ Partial Class frmTraSalesContractDetItemVer1
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlDetail.ResumeLayout(False)
         Me.pnlDetail.PerformLayout()
+        CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtThick, System.ComponentModel.ISupportInitialize).EndInit()
@@ -797,7 +912,11 @@ Partial Class frmTraSalesContractDetItemVer1
         CType(Me.txtUnitPrice, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        CType(Me.grdSubitem, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdSubitemView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -847,16 +966,25 @@ Partial Class frmTraSalesContractDetItemVer1
     Friend WithEvents txtItemCode As usTextBox
     Friend WithEvents lblName As Label
     Friend WithEvents txtItemName As usTextBox
-    Friend WithEvents Label5 As Label
-    Friend WithEvents ToolBarItemCO As usToolBar
-    Friend WithEvents BarAddItemOrder As ToolBarButton
-    Friend WithEvents BarEditItemOrder As ToolBarButton
-    Friend WithEvents BarDeleteItemOrder As ToolBarButton
+    Friend WithEvents Label11 As Label
+    Friend WithEvents Label18 As Label
+    Friend WithEvents txtUnitPriceHPP As usNumeric
+    Friend WithEvents Panel1 As Panel
     Friend WithEvents grdItemCO As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdSubItemCOView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents grdItemCOView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
-    Friend WithEvents Label11 As Label
-    Friend WithEvents Label18 As Label
-    Friend WithEvents txtUnitPriceHPP As usNumeric
+    Friend WithEvents ToolBarItemCO As usToolBar
+    Friend WithEvents BarAddItemOrder As ToolBarButton
+    Friend WithEvents BarEditItemOrder As ToolBarButton
+    Friend WithEvents BarDeleteItemOrder As ToolBarButton
+    Friend WithEvents Label5 As Label
+    Friend WithEvents ToolBarItemSubitem As usToolBar
+    Friend WithEvents BarAddSubitem As ToolBarButton
+    Friend WithEvents BarEditSubitem As ToolBarButton
+    Friend WithEvents BarDeleteSubitem As ToolBarButton
+    Friend WithEvents grdSubitem As DevExpress.XtraGrid.GridControl
+    Friend WithEvents grdSubitemView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents RepositoryItemTextEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents Label19 As Label
 End Class

@@ -30,7 +30,7 @@ Public Class frmTraConfirmationOrder
         UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "BPCode", "Kode Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "BPName", "Nama Pemasok", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "PaymentTypeName", "Jenis Pembayaran", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "PaymentTypeName", "Jenis Pembayaran", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "AllowanceProduction", "Allowance Production [%]", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "DeliveryPeriodFrom", "Periode Dari", 100, UI.usDefGrid.gDateMonthYear)
         UI.usForm.SetGrid(grdView, "DeliveryPeriodTo", "Periode Sampai", 100, UI.usDefGrid.gDateMonthYear)

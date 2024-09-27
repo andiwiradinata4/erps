@@ -1716,10 +1716,11 @@ Namespace BL
 
         Public Shared Function ListDataDetailItemReceiveWithOutstandingRev02(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
                                                                              ByVal intBPID As Integer, ByVal strAPID As String,
-                                                                             ByVal strReferencesID As String, ByVal intPaymentTypeID As Integer) As DataTable
+                                                                             ByVal strReferencesID As String, ByVal intPaymentTypeID As Integer,
+                                                                             ByVal bolIsUseSubitem As Boolean) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.AccountPayable.ListDataDetailItemReceiveWithOutstandingVer02(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID, intPaymentTypeID)
+                Return DL.AccountPayable.ListDataDetailItemReceiveWithOutstandingVer02(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID, intPaymentTypeID, bolIsUseSubitem)
                 'Return DL.AccountPayable.ListDataDetailItemReceiveWithOutstandingVer01(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID, strReferencesID)
             End Using
         End Function

@@ -22,7 +22,7 @@ Partial Class frmTraConfirmationOrderDetVer1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim GridLevelNode2 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
+        Dim GridLevelNode1 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraConfirmationOrderDetVer1))
         Me.grdSubItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
@@ -151,14 +151,14 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Visible = False
-        GridLevelNode2.LevelTemplate = Me.grdSubItemView
-        GridLevelNode2.RelationName = "SubView"
-        Me.grdItem.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode2})
+        GridLevelNode1.LevelTemplate = Me.grdSubItemView
+        GridLevelNode1.RelationName = "SubView"
+        Me.grdItem.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1})
         Me.grdItem.Location = New System.Drawing.Point(3, 31)
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItem.Size = New System.Drawing.Size(970, 311)
+        Me.grdItem.Size = New System.Drawing.Size(970, 336)
         Me.grdItem.TabIndex = 1
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView, Me.grdSubItemView})
@@ -236,7 +236,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(0, 270)
+        Me.Label1.Location = New System.Drawing.Point(0, 245)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(984, 22)
         Me.Label1.TabIndex = 3
@@ -256,10 +256,10 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.tcDetail.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tcDetail.Controls.Add(Me.tpItem)
         Me.tcDetail.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tcDetail.Location = New System.Drawing.Point(0, 292)
+        Me.tcDetail.Location = New System.Drawing.Point(0, 267)
         Me.tcDetail.Name = "tcDetail"
         Me.tcDetail.SelectedIndex = 0
-        Me.tcDetail.Size = New System.Drawing.Size(984, 396)
+        Me.tcDetail.Size = New System.Drawing.Size(984, 421)
         Me.tcDetail.TabIndex = 4
         '
         'tpItem
@@ -270,7 +270,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.tpItem.Location = New System.Drawing.Point(4, 25)
         Me.tpItem.Name = "tpItem"
         Me.tpItem.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpItem.Size = New System.Drawing.Size(976, 367)
+        Me.tpItem.Size = New System.Drawing.Size(976, 392)
         Me.tpItem.TabIndex = 1
         Me.tpItem.Text = "Item - F4"
         Me.tpItem.UseVisualStyleBackColor = True
@@ -279,7 +279,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(3, 342)
+        Me.StatusStrip.Location = New System.Drawing.Point(3, 367)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(970, 22)
         Me.StatusStrip.TabIndex = 10
@@ -374,7 +374,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(984, 220)
+        Me.tcHeader.Size = New System.Drawing.Size(984, 195)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
@@ -408,7 +408,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(976, 191)
+        Me.tpMain.Size = New System.Drawing.Size(976, 166)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
@@ -421,6 +421,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.cboPaymentType.Name = "cboPaymentType"
         Me.cboPaymentType.Size = New System.Drawing.Size(249, 21)
         Me.cboPaymentType.TabIndex = 8
+        Me.cboPaymentType.Visible = False
         '
         'Label4
         '
@@ -432,6 +433,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.Label4.Size = New System.Drawing.Size(94, 13)
         Me.Label4.TabIndex = 147
         Me.Label4.Text = "Jenis Pembayaran"
+        Me.Label4.Visible = False
         '
         'dtpDeliveryPeriodTo
         '
@@ -483,7 +485,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.txtFranco.Name = "txtFranco"
         Me.txtFranco.ReadOnly = True
         Me.txtFranco.Size = New System.Drawing.Size(249, 21)
-        Me.txtFranco.TabIndex = 12
+        Me.txtFranco.TabIndex = 11
         '
         'Label2
         '
@@ -505,7 +507,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.txtPCNumber.Name = "txtPCNumber"
         Me.txtPCNumber.ReadOnly = True
         Me.txtPCNumber.Size = New System.Drawing.Size(249, 21)
-        Me.txtPCNumber.TabIndex = 11
+        Me.txtPCNumber.TabIndex = 10
         '
         'Label9
         '
@@ -583,7 +585,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 10
+        Me.txtRemarks.TabIndex = 9
         '
         'cboStatus
         '
@@ -593,7 +595,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.cboStatus.Location = New System.Drawing.Point(611, 16)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(249, 21)
-        Me.cboStatus.TabIndex = 9
+        Me.cboStatus.TabIndex = 8
         '
         'Label5
         '

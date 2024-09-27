@@ -183,7 +183,6 @@ Partial Class frmMstItemDet
         Me.Label15.Size = New System.Drawing.Size(115, 13)
         Me.Label15.TabIndex = 118
         Me.Label15.Text = "Kode Barang Eksternal"
-        Me.Label15.Visible = False
         '
         'txtItemCodeExternal
         '
@@ -194,7 +193,6 @@ Partial Class frmMstItemDet
         Me.txtItemCodeExternal.Name = "txtItemCodeExternal"
         Me.txtItemCodeExternal.Size = New System.Drawing.Size(135, 21)
         Me.txtItemCodeExternal.TabIndex = 11
-        Me.txtItemCodeExternal.Visible = False
         '
         'txtLength
         '

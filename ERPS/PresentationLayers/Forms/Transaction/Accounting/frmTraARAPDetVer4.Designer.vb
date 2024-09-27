@@ -646,7 +646,7 @@ Partial Class frmTraARAPDetVer4
         Me.tpDownPayment.Controls.Add(Me.grdDownPayment)
         Me.tpDownPayment.Location = New System.Drawing.Point(4, 25)
         Me.tpDownPayment.Name = "tpDownPayment"
-        Me.tpDownPayment.Size = New System.Drawing.Size(876, 251)
+        Me.tpDownPayment.Size = New System.Drawing.Size(876, 219)
         Me.tpDownPayment.TabIndex = 2
         Me.tpDownPayment.Text = "Panjar - F2"
         Me.tpDownPayment.UseVisualStyleBackColor = True
@@ -672,7 +672,7 @@ Partial Class frmTraARAPDetVer4
         Me.grdDownPayment.MainView = Me.grdDownPaymentView
         Me.grdDownPayment.Name = "grdDownPayment"
         Me.grdDownPayment.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiDPAmount})
-        Me.grdDownPayment.Size = New System.Drawing.Size(876, 251)
+        Me.grdDownPayment.Size = New System.Drawing.Size(876, 219)
         Me.grdDownPayment.TabIndex = 14
         Me.grdDownPayment.UseEmbeddedNavigator = True
         Me.grdDownPayment.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdDownPaymentView})
@@ -698,7 +698,7 @@ Partial Class frmTraARAPDetVer4
         Me.tpHistory.Controls.Add(Me.grdStatus)
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
-        Me.tpHistory.Size = New System.Drawing.Size(876, 251)
+        Me.tpHistory.Size = New System.Drawing.Size(876, 219)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -723,7 +723,7 @@ Partial Class frmTraARAPDetVer4
         Me.grdStatus.Location = New System.Drawing.Point(0, 0)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(876, 251)
+        Me.grdStatus.Size = New System.Drawing.Size(876, 219)
         Me.grdStatus.TabIndex = 14
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -819,6 +819,7 @@ Partial Class frmTraARAPDetVer4
         Me.grdItemView.OptionsCustomization.AllowGroup = False
         Me.grdItemView.OptionsView.ColumnAutoWidth = False
         Me.grdItemView.OptionsView.ShowAutoFilterRow = True
+        Me.grdItemView.OptionsView.ShowFooter = True
         Me.grdItemView.OptionsView.ShowGroupPanel = False
         '
         'rpiValue

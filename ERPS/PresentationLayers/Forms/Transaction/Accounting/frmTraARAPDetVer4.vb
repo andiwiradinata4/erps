@@ -1,4 +1,5 @@
-﻿Imports DevExpress.XtraGrid.Columns
+﻿Imports DevExpress.XtraGrid
+Imports DevExpress.XtraGrid.Columns
 Public Class frmTraARAPDetVer4
 
 #Region "Property"
@@ -137,7 +138,7 @@ Public Class frmTraARAPDetVer4
         UI.usForm.SetGrid(grdItemView, "Weight", "Berat", 150, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 150, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "Amount", "Total Tagihan", 150, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemView, "DPAmount", "Total Panjar", 150, UI.usDefGrid.gReal2Num, True, False)
+        UI.usForm.SetGrid(grdItemView, "DPAmount", "Total DP", 150, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "PPNPercent", "PPNPercent", 150, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemView, "PPHPercent", "PPHPercent", 150, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemView, "PPN", "PPN", 150, UI.usDefGrid.gReal2Num, True, False)
@@ -529,12 +530,12 @@ Public Class frmTraARAPDetVer4
             pgMain.Value = 30
             Me.Cursor = Cursors.WaitCursor
             If bolIsNew Then
-                dtItem = BL.ARAP.ListDataDetailItemReceiveWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID, intPaymentTypeID)
+                dtItem = BL.ARAP.ListDataDetailItemReceiveWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID, intPaymentTypeID, bolIsUseSubItem)
             Else
                 If clsData.IsDeleted Then
                     dtItem = BL.ARAP.ListDataDetailVer2(strID, enumARAPType)
                 Else
-                    dtItem = BL.ARAP.ListDataDetailItemReceiveWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID, intPaymentTypeID)
+                    dtItem = BL.ARAP.ListDataDetailItemReceiveWithOutstandingVer2(clsCS.CompanyID, clsCS.ProgramID, intBPID, strID, enumARAPType, strReferencesID, intPaymentTypeID, bolIsUseSubItem)
                 End If
             End If
 
@@ -557,6 +558,7 @@ Public Class frmTraARAPDetVer4
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
         Finally
+            prvSumGrid()
             prvSetButton()
             prvResetProgressBar()
             Me.Cursor = Cursors.Default
@@ -612,6 +614,33 @@ Public Class frmTraARAPDetVer4
             prvCalculate()
             .BestFitColumns()
         End With
+    End Sub
+
+    Private Sub prvSumGrid()
+        '# Item
+        Dim SumTotalDP As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DPAmount", "Total DP: {0:#,##0.00}")
+        Dim SumTotalAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Amount", "Total Tagihan: {0:#,##0.00}")
+        Dim SumTotalPPN As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PPN", "Total PPN: {0:#,##0.00}")
+        Dim SumTotalPPH As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PPH", "Total PPH: {0:#,##0.00}")
+
+        If grdItemView.Columns("DPAmount").SummaryText.Trim = "" Then
+            grdItemView.Columns("DPAmount").Summary.Add(SumTotalDP)
+        End If
+
+        If grdItemView.Columns("Amount").SummaryText.Trim = "" Then
+            grdItemView.Columns("Amount").Summary.Add(SumTotalAmount)
+        End If
+
+        If grdItemView.Columns("PPN").SummaryText.Trim = "" Then
+            grdItemView.Columns("PPN").Summary.Add(SumTotalPPN)
+        End If
+
+        If grdItemView.Columns("PPH").SummaryText.Trim = "" Then
+            grdItemView.Columns("PPH").Summary.Add(SumTotalPPH)
+        End If
+
+        If grdItemView.GroupCount > 0 Then grdItemView.ExpandAllGroups()
+        grdItemView.BestFitColumns(True)
     End Sub
 
 #End Region

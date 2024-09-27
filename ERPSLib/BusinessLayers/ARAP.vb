@@ -607,15 +607,16 @@ Namespace BL
                                 Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Total DPP Transaksi Transporter")
                             End If
                         Else
-                            If clsDataARAP.PaymentTypeID = VO.PaymentType.Values.CBD Then
-                                If clsReferences.DPAmount + clsReferences.ReceiveAmount > clsReferences.TotalDPP Then
-                                    Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Total DPP Transaksi")
-                                End If
-                            ElseIf clsDataARAP.PaymentTypeID = VO.PaymentType.Values.TT30Days Then
-                                If clsReferences.DPAmount + clsReferences.TotalPayment > clsReferences.TotalDPP Then
-                                    Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Total DPP Transaksi")
-                                End If
-                            End If
+                            '# TODO Check Max Amount base on Total Item
+                            'If clsDataARAP.PaymentTypeID = VO.PaymentType.Values.CBD Then
+                            '    If clsReferences.DPAmount + clsReferences.ReceiveAmount > clsReferences.TotalDPP Then
+                            '        Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Total DPP Transaksi")
+                            '    End If
+                            'ElseIf clsDataARAP.PaymentTypeID = VO.PaymentType.Values.TT30Days Then
+                            '    If clsReferences.DPAmount + clsReferences.TotalPayment > clsReferences.TotalDPP Then
+                            '        Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Total DPP Transaksi")
+                            '    End If
+                            'End If
                         End If
                         strARAPNumber = clsData.APNumber
                     End If
@@ -1041,11 +1042,11 @@ Namespace BL
         Public Shared Function ListDataDetailItemReceiveWithOutstandingVer2(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
                                                                             ByVal intBPID As Integer, ByVal strParentID As String,
                                                                             ByVal enumARAPType As VO.ARAP.ARAPTypeValue, ByVal strReferencesID As String,
-                                                                            ByVal intPaymentTypeID As Integer) As DataTable
+                                                                            ByVal intPaymentTypeID As Integer, ByVal bolIsUseSubitem As Boolean) As DataTable
             If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
                 Return BL.AccountReceivable.ListDataDetailItemReceiveWithOutstandingVer02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID)
             Else
-                Return BL.AccountPayable.ListDataDetailItemReceiveWithOutstandingRev02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID, intPaymentTypeID)
+                Return BL.AccountPayable.ListDataDetailItemReceiveWithOutstandingRev02(intCompanyID, intProgramID, intBPID, strParentID, strReferencesID, intPaymentTypeID, bolIsUseSubitem)
             End If
         End Function
 

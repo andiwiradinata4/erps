@@ -50,6 +50,8 @@
                 DevelopOnProgress_ID43(sqlCon, Nothing)
                 DevelopOnProgress_ID44(sqlCon, Nothing)
                 DevelopOnProgress_ID45(sqlCon, Nothing)
+                DevelopOnProgress_ID46(sqlCon, Nothing)
+                DevelopOnProgress_ID47(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1197,6 +1199,38 @@
             clsData.ID = 45
             clsData.Name = "Alter Table Purchase Contract Detail | Add Order Number Supplier"
             clsData.Scripts = "ALTER TABLE traPurchaseContractDet ADD OrderNumberSupplier [varchar](100) NOT NULL CONSTRAINT DF_traPurchaseContractDet_OrderNumberSupplier DEFAULT ('') " & vbNewLine
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 46
+        Private Shared Sub DevelopOnProgress_ID46(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 46
+            clsData.Name = "Alter Table Sales Contract Detail | Add CODetailID"
+            clsData.Scripts = "ALTER TABLE traSalesContractDet ADD CODetailID [varchar](100) NOT NULL CONSTRAINT DF_traSalesContractDet_CODetailID DEFAULT ('') " & vbNewLine
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 47
+        Private Shared Sub DevelopOnProgress_ID47(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 47
+            clsData.Name = "Alter Table Purchase Order Cutting Result | Add Unit Price and Total Price Raw Material"
+            clsData.Scripts +=
+                "ALTER TABLE traPurchaseOrderCuttingDetResult ADD UnitPriceRawMaterial [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_UnitPriceRawMaterial DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDetResult ADD TotalPriceRawMaterial [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_TotalPriceRawMaterial DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCuttingDet ADD UnitPriceRawMaterial [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_UnitPriceRawMaterial DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCuttingDet ADD TotalPriceRawMaterial [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_TotalPriceRawMaterial DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traCuttingDetResult ADD TotalPriceHPP [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_TotalPriceHPP DEFAULT ((0)) " & vbNewLine
+
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

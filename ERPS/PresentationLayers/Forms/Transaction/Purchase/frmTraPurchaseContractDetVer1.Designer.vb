@@ -271,21 +271,23 @@ Partial Class frmTraPurchaseContractDetVer1
         Me.cboPaymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPaymentType.Enabled = False
         Me.cboPaymentType.FormattingEnabled = True
-        Me.cboPaymentType.Location = New System.Drawing.Point(603, 16)
+        Me.cboPaymentType.Location = New System.Drawing.Point(609, 124)
         Me.cboPaymentType.Name = "cboPaymentType"
         Me.cboPaymentType.Size = New System.Drawing.Size(249, 21)
         Me.cboPaymentType.TabIndex = 8
+        Me.cboPaymentType.Visible = False
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.BackColor = System.Drawing.Color.Transparent
         Me.Label10.ForeColor = System.Drawing.Color.Black
-        Me.Label10.Location = New System.Drawing.Point(471, 20)
+        Me.Label10.Location = New System.Drawing.Point(477, 128)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(94, 13)
         Me.Label10.TabIndex = 149
         Me.Label10.Text = "Jenis Pembayaran"
+        Me.Label10.Visible = False
         '
         'dtpDeliveryPeriodTo
         '
@@ -322,7 +324,7 @@ Partial Class frmTraPurchaseContractDetVer1
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.ForeColor = System.Drawing.Color.Black
-        Me.Label9.Location = New System.Drawing.Point(717, 47)
+        Me.Label9.Location = New System.Drawing.Point(723, 20)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(18, 13)
         Me.Label9.TabIndex = 139
@@ -331,12 +333,12 @@ Partial Class frmTraPurchaseContractDetVer1
         'txtAllowanceProduction
         '
         Me.txtAllowanceProduction.DecimalPlaces = 2
-        Me.txtAllowanceProduction.Location = New System.Drawing.Point(603, 43)
+        Me.txtAllowanceProduction.Location = New System.Drawing.Point(609, 16)
         Me.txtAllowanceProduction.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtAllowanceProduction.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtAllowanceProduction.Name = "txtAllowanceProduction"
         Me.txtAllowanceProduction.Size = New System.Drawing.Size(109, 21)
-        Me.txtAllowanceProduction.TabIndex = 9
+        Me.txtAllowanceProduction.TabIndex = 8
         Me.txtAllowanceProduction.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtAllowanceProduction.ThousandsSeparator = True
         '
@@ -376,12 +378,12 @@ Partial Class frmTraPurchaseContractDetVer1
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(603, 97)
+        Me.txtRemarks.Location = New System.Drawing.Point(609, 70)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 11
+        Me.txtRemarks.TabIndex = 10
         '
         'txtBPCode
         '
@@ -431,7 +433,7 @@ Partial Class frmTraPurchaseContractDetVer1
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(471, 47)
+        Me.Label5.Location = New System.Drawing.Point(477, 20)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(109, 13)
         Me.Label5.TabIndex = 131
@@ -442,7 +444,7 @@ Partial Class frmTraPurchaseContractDetVer1
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(471, 101)
+        Me.Label13.Location = New System.Drawing.Point(477, 74)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 129
@@ -453,17 +455,17 @@ Partial Class frmTraPurchaseContractDetVer1
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(603, 70)
+        Me.cboStatus.Location = New System.Drawing.Point(609, 43)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(109, 21)
-        Me.cboStatus.TabIndex = 10
+        Me.cboStatus.TabIndex = 9
         '
         'lblStatusID
         '
         Me.lblStatusID.AutoSize = True
         Me.lblStatusID.BackColor = System.Drawing.Color.Transparent
         Me.lblStatusID.ForeColor = System.Drawing.Color.Black
-        Me.lblStatusID.Location = New System.Drawing.Point(471, 74)
+        Me.lblStatusID.Location = New System.Drawing.Point(477, 47)
         Me.lblStatusID.Name = "lblStatusID"
         Me.lblStatusID.Size = New System.Drawing.Size(38, 13)
         Me.lblStatusID.TabIndex = 128

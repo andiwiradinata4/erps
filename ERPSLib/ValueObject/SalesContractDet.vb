@@ -24,5 +24,6 @@
         Property DPAmountPPH As Decimal
         Property ReceivePPN As Decimal
         Property ReceivePPH As Decimal
+        Property CODetailID As String = ""
     End Class
 End Namespace

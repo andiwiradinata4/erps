@@ -31,7 +31,7 @@ Public Class frmTraPurchaseContract
         UI.usForm.SetGrid(grdView, "BPCode", "Kode Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "BPName", "Nama Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PaymentTypeID", "PaymentTypeID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdView, "PaymentTypeName", "Jenis Pembayaran", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "PaymentTypeName", "Jenis Pembayaran", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "DeliveryPeriodFrom", "Periode Dari", 100, UI.usDefGrid.gDateMonthYear)
         UI.usForm.SetGrid(grdView, "DeliveryPeriodTo", "Periode Sampai", 100, UI.usDefGrid.gDateMonthYear)
         UI.usForm.SetGrid(grdView, "AllowanceProduction", "AllowanceProduction", 100, UI.usDefGrid.gReal2Num)
@@ -212,6 +212,7 @@ Public Class frmTraPurchaseContract
             .pubID = clsData.ID
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
+            pubRefresh()
         End With
     End Sub
 
@@ -386,9 +387,9 @@ Public Class frmTraPurchaseContract
         If clsData.StatusID <> VO.Status.Values.Approved Then
             UI.usForm.frmMessageBox("Status Data harus disetujui terlebih dahulu")
             Exit Sub
-        ElseIf clsData.PaymentTypeID <> VO.PaymentType.Values.CBD Then
-            UI.usForm.frmMessageBox("Down Payment hanya bisa dibuat jika jenis pembayaran adalah Cash Before Delivery / CBD")
-            Exit Sub
+            'ElseIf clsData.PaymentTypeID <> VO.PaymentType.Values.CBD Then
+            '    UI.usForm.frmMessageBox("Down Payment hanya bisa dibuat jika jenis pembayaran adalah Cash Before Delivery / CBD")
+            '    Exit Sub
         End If
 
         Dim frmDetail As New frmTraARAP
@@ -425,7 +426,7 @@ Public Class frmTraPurchaseContract
             .pubReferencesNumber = clsData.PCNumber
             .pubIsLookup = True
             .pubIsUseSubItem = clsData.IsUseSubItem
-            .pubPaymentTypeID = clsData.PaymentTypeID
+            .pubPaymentTypeID = VO.PaymentType.Values.CBD '# Set agar bisa input DP dan Receive secara flexible
             .ShowDialog()
         End With
     End Sub

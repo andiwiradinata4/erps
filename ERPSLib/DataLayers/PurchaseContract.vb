@@ -1265,6 +1265,29 @@
             End Try
         End Sub
 
+        Public Shared Sub SetIsUseSubitem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal strID As String, ByVal bolValue As Boolean)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traPurchaseContract SET " & vbNewLine &
+                    "    IsUseSubItem=@Value " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@Value", SqlDbType.Int).Value = bolValue
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail"
@@ -1281,7 +1304,7 @@
                     "   A.ID, A.PCID, A.CODetailID, A2.CONumber, A1.OrderNumberSupplier, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
                     "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.PCWeight AS MaxTotalWeight, " & vbNewLine &
-                    "   A.Remarks, A.LevelItem, A.ParentID, A.RoundingWeight, A.ReceiveAmount, A.DPAmount, A.InvoiceQuantity, A.InvoiceTotalWeight " & vbNewLine &
+                    "   A.Remarks, A.LevelItem, A.ParentID, A.RoundingWeight, A.ReceiveAmount, A.DPAmount, A.InvoiceQuantity, A.InvoiceTotalWeight, A.DCWeight, OutstandingDeliveryWeight=A.TotalWeight-A.DCWeight " & vbNewLine &
                     "FROM traPurchaseContractDet A " & vbNewLine &
                     "INNER JOIN traConfirmationOrderDet A1 ON " & vbNewLine &
                     "   A.CODetailID=A1.ID " & vbNewLine &
@@ -1641,7 +1664,40 @@
                         "FROM traPurchaseContractDet " & vbNewLine &
                         "WHERE  " & vbNewLine &
                         "   ID=@ID " & vbNewLine &
-                        "   AND (DPAmount+ReceiveAmount>0) OR InvoiceQuantity>0 OR InvoiceTotalWeight>0 " & vbNewLine
+                        "   AND (DPAmount>0 OR ReceiveAmount>0 OR InvoiceQuantity>0 OR InvoiceTotalWeight>0) " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        bolReturn = True
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return bolReturn
+        End Function
+
+        Public Shared Function IsAlreadyReceiveSubitem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strID As String) As Boolean
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim bolReturn As Boolean = False
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID " & vbNewLine &
+                        "FROM traPurchaseContractDet " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   ID=@ID " & vbNewLine &
+                        "   AND (DCWeight>0 OR DCQuantity>0) " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 End With

@@ -33,6 +33,7 @@ Partial Class frmTraConfirmationOrder
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
         Me.BarDone = New System.Windows.Forms.ToolBarButton()
         Me.BarUndone = New System.Windows.Forms.ToolBarButton()
+        Me.BarUpdatePaymentType = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarPrint = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
@@ -55,7 +56,6 @@ Partial Class frmTraConfirmationOrder
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.BarUpdatePaymentType = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -125,6 +125,12 @@ Partial Class frmTraConfirmationOrder
         Me.BarUndone.Name = "BarUndone"
         Me.BarUndone.Tag = "Cancel"
         Me.BarUndone.Text = "Batal Selesai"
+        '
+        'BarUpdatePaymentType
+        '
+        Me.BarUpdatePaymentType.Name = "BarUpdatePaymentType"
+        Me.BarUpdatePaymentType.Tag = "Hold"
+        Me.BarUpdatePaymentType.Text = "Update Jenis Pembayaran"
         '
         'BarSep3
         '
@@ -340,12 +346,6 @@ Partial Class frmTraConfirmationOrder
         Me.grdView.OptionsView.ColumnAutoWidth = False
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
-        '
-        'BarUpdatePaymentType
-        '
-        Me.BarUpdatePaymentType.Name = "BarUpdatePaymentType"
-        Me.BarUpdatePaymentType.Tag = "Hold"
-        Me.BarUpdatePaymentType.Text = "Update Payment Type"
         '
         'frmTraConfirmationOrder
         '

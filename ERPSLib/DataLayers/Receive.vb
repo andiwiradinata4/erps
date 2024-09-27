@@ -19,7 +19,7 @@
                     "    COA.Name AS CoANameofStock, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, " & vbNewLine &
                     "    A.RoundingManual, A.IsDeleted, A.Remarks, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine &
                     "    A.StatusID, B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, " & vbNewLine &
-                    "    A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.IsUseSubItem, PC.PaymentTypeID, MPT.Name AS PaymentTypeName  " & vbNewLine &
+                    "    A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.IsUseSubItem, PC.PaymentTypeID, ISNULL(MPT.Name,'') AS PaymentTypeName  " & vbNewLine &
                     "FROM traReceive A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -31,7 +31,7 @@
                     "   A.ProgramID=MP.ID " & vbNewLine &
                     "INNER JOIN traPurchaseContract PC ON " & vbNewLine &
                     "   A.PCID=PC.ID " & vbNewLine &
-                    "INNER JOIN mstPaymentType MPT ON " & vbNewLine &
+                    "LEFT JOIN mstPaymentType MPT ON " & vbNewLine &
                     "   PC.PaymentTypeID=MPT.ID " & vbNewLine &
                     "INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
                     "   A.CoAofStock=COA.ID " & vbNewLine &
