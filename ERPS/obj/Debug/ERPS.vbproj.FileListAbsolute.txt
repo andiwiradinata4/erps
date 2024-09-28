@@ -682,7 +682,6 @@ C:\Project\Toni\erps\ERPS\bin\Debug\ERPS.exe
 C:\Project\Toni\erps\ERPS\bin\Debug\ERPS.pdb
 C:\Project\Toni\erps\ERPS\bin\Debug\ERPS.xml
 C:\Project\Toni\erps\ERPS\bin\Debug\aa\ERPS.resources.dll
-C:\Project\Toni\erps\ERPS\bin\Debug\DevExpress.Images.v16.2.dll
 C:\Project\Toni\erps\ERPS\bin\Debug\ERPSLib.dll
 C:\Project\Toni\erps\ERPS\bin\Debug\ERPSLib.pdb
 C:\Project\Toni\erps\ERPS\bin\Debug\ERPSLib.xml
@@ -884,3 +883,5 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.xml
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.pdb
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraUpdatePaymentType.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseContractDetItemOrderSubItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPInvoice.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPInvoiceDet.resources

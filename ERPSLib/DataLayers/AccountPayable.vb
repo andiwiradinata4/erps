@@ -213,7 +213,8 @@
                         "   A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.PaymentBy, A.PaymentDate, A.TaxInvoiceNumber, " & vbNewLine &
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
                         "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice, A.InvoiceNumberBP, A.IsUseSubItem, " & vbNewLine &
-                        "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, A.PPNPercentage, A.PPHPercentage " & vbNewLine &
+                        "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, A.PPNPercentage, A.PPHPercentage, " & vbNewLine &
+                        "   A.PPNPercentage, A.PPHPercentage, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount " & vbNewLine &
                         "FROM traAccountPayable A " & vbNewLine &
                         "INNER JOIN mstStatus B ON " & vbNewLine &
                         "   A.StatusID=B.ID " & vbNewLine &
@@ -294,6 +295,10 @@
                         voReturn.PaymentTerm10 = .Item("PaymentTerm10")
                         voReturn.PPNPercentage = .Item("PPNPercentage")
                         voReturn.PPHPercentage = .Item("PPHPercentage")
+                        voReturn.TotalInvoiceAmount = .Item("TotalInvoiceAmount")
+                        voReturn.TotalDPPInvoiceAmount = .Item("TotalDPPInvoiceAmount")
+                        voReturn.TotalPPNInvoiceAmount = .Item("TotalPPNInvoiceAmount")
+                        voReturn.TotalPPHInvoiceAmount = .Item("TotalPPHInvoiceAmount")
                     End If
                 End With
             Catch ex As Exception

@@ -307,6 +307,8 @@ Namespace BL
                         clsData.LogBy = clsDataARAP.LogBy
                         clsData.IsUseSubItem = clsDataARAP.IsUseSubItem
                         clsData.Save = clsDataARAP.Save
+                        clsData.PPNPercentage = clsDataARAP.PPNPercentage
+                        clsData.PPHPercentage = clsDataARAP.PPHPercentage
 
                         BL.AccountReceivable.SaveDataVer01(sqlCon, sqlTrans, bolNew, clsData)
 
@@ -382,6 +384,8 @@ Namespace BL
                         clsData.LogBy = clsDataARAP.LogBy
                         clsData.IsUseSubItem = clsDataARAP.IsUseSubItem
                         clsData.Save = clsDataARAP.Save
+                        clsData.PPNPercentage = clsDataARAP.PPNPercentage
+                        clsData.PPHPercentage = clsDataARAP.PPHPercentage
 
                         BL.AccountPayable.SaveDataVer01(sqlCon, sqlTrans, bolNew, clsData)
 
@@ -633,128 +637,147 @@ Namespace BL
         Public Shared Function GetDetail(ByVal strID As String, ByVal enumARAPType As VO.ARAP.ARAPTypeValue) As VO.ARAP
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
-                    Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, Nothing, strID)
-                    Dim clsReturn As New VO.ARAP
-                    clsReturn.ID = clsData.ID
-                    clsReturn.CompanyID = clsData.CompanyID
-                    clsReturn.ProgramID = clsData.ProgramID
-                    clsReturn.TransNumber = clsData.ARNumber
-                    clsReturn.BPID = clsData.BPID
-                    clsReturn.BPCode = clsData.BPCode
-                    clsReturn.BPName = clsData.BPName
-                    clsReturn.CoAID = clsData.CoAIDOfIncomePayment
-                    clsReturn.CoACode = clsData.CoACodeOfIncomePayment
-                    clsReturn.CoAName = clsData.CoANameOfIncomePayment
-                    clsReturn.Modules = clsData.Modules
-                    clsReturn.ReferencesID = clsData.ReferencesID
-                    clsReturn.ReferencesNote = clsData.ReferencesNote
-                    clsReturn.TransDate = clsData.ARDate
-                    clsReturn.DueDateValue = clsData.DueDateValue
-                    clsReturn.TotalAmount = clsData.TotalAmount
-                    clsReturn.TotalPPN = clsData.TotalPPN
-                    clsReturn.TotalPPH = clsData.TotalPPH
-                    clsReturn.Percentage = clsData.Percentage
-                    clsReturn.JournalID = clsData.JournalID
-                    clsReturn.SubmitBy = clsData.SubmitBy
-                    clsReturn.SubmitDate = clsData.SubmitDate
-                    clsReturn.ApproveL1 = clsData.ApproveL1
-                    clsReturn.ApproveL1Date = clsData.ApproveL1Date
-                    clsReturn.ApprovedBy = clsData.ApprovedBy
-                    clsReturn.ApprovedDate = clsData.ApprovedDate
-                    clsReturn.PaymentBy = clsData.PaymentBy
-                    clsReturn.PaymentDate = clsData.PaymentDate
-                    clsReturn.TaxInvoiceNumber = clsData.TaxInvoiceNumber
-                    clsReturn.IsClosedPeriod = clsData.IsClosedPeriod
-                    clsReturn.ClosedPeriodBy = clsData.ClosedPeriodBy
-                    clsReturn.ClosedPeriodDate = clsData.ClosedPeriodDate
-                    clsReturn.IsDeleted = clsData.IsDeleted
-                    clsReturn.Remarks = clsData.Remarks
-                    clsReturn.StatusID = clsData.StatusID
-                    clsReturn.CreatedBy = clsData.CreatedBy
-                    clsReturn.CreatedDate = clsData.CreatedDate
-                    clsReturn.LogInc = clsData.LogInc
-                    clsReturn.LogBy = clsData.LogBy
-                    clsReturn.LogDate = clsData.LogDate
-                    clsReturn.TotalPPN = clsData.TotalPPN
-                    clsReturn.TotalPPH = clsData.TotalPPH
-                    clsReturn.IsDP = clsData.IsDP
-                    clsReturn.DPAmount = clsData.DPAmount
-                    clsReturn.ReceiveAmount = clsData.ReceiveAmount
-                    clsReturn.TotalAmountUsed = clsData.TotalAmountUsed
-                    clsReturn.PaymentTerm1 = clsData.PaymentTerm1
-                    clsReturn.PaymentTerm2 = clsData.PaymentTerm2
-                    clsReturn.PaymentTerm3 = clsData.PaymentTerm3
-                    clsReturn.PaymentTerm4 = clsData.PaymentTerm4
-                    clsReturn.PaymentTerm5 = clsData.PaymentTerm5
-                    clsReturn.PaymentTerm6 = clsData.PaymentTerm6
-                    clsReturn.PaymentTerm7 = clsData.PaymentTerm7
-                    clsReturn.PaymentTerm8 = clsData.PaymentTerm8
-                    clsReturn.PaymentTerm9 = clsData.PaymentTerm9
-                    clsReturn.PaymentTerm10 = clsData.PaymentTerm10
-                    Return clsReturn
-                Else
-                    Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, Nothing, strID)
-                    Dim clsReturn As New VO.ARAP
-                    clsReturn.ID = clsData.ID
-                    clsReturn.CompanyID = clsData.CompanyID
-                    clsReturn.ProgramID = clsData.ProgramID
-                    clsReturn.TransNumber = clsData.APNumber
-                    clsReturn.BPID = clsData.BPID
-                    clsReturn.BPCode = clsData.BPCode
-                    clsReturn.BPName = clsData.BPName
-                    clsReturn.CoAID = clsData.CoAIDOfOutgoingPayment
-                    clsReturn.CoACode = clsData.CoACodeOfOutgoingPayment
-                    clsReturn.CoAName = clsData.CoANameOfOutgoingPayment
-                    clsReturn.Modules = clsData.Modules
-                    clsReturn.ReferencesID = clsData.ReferencesID
-                    clsReturn.ReferencesNote = clsData.ReferencesNote
-                    clsReturn.TransDate = clsData.APDate
-                    clsReturn.DueDateValue = clsData.DueDateValue
-                    clsReturn.TotalAmount = clsData.TotalAmount
-                    clsReturn.TotalPPN = clsData.TotalPPN
-                    clsReturn.TotalPPH = clsData.TotalPPH
-                    clsReturn.Percentage = clsData.Percentage
-                    clsReturn.JournalID = clsData.JournalID
-                    clsReturn.SubmitBy = clsData.SubmitBy
-                    clsReturn.SubmitDate = clsData.SubmitDate
-                    clsReturn.ApproveL1 = clsData.ApproveL1
-                    clsReturn.ApproveL1Date = clsData.ApproveL1Date
-                    clsReturn.ApprovedBy = clsData.ApprovedBy
-                    clsReturn.ApprovedDate = clsData.ApprovedDate
-                    clsReturn.PaymentBy = clsData.PaymentBy
-                    clsReturn.PaymentDate = clsData.PaymentDate
-                    clsReturn.TaxInvoiceNumber = clsData.TaxInvoiceNumber
-                    clsReturn.IsClosedPeriod = clsData.IsClosedPeriod
-                    clsReturn.ClosedPeriodBy = clsData.ClosedPeriodBy
-                    clsReturn.ClosedPeriodDate = clsData.ClosedPeriodDate
-                    clsReturn.IsDeleted = clsData.IsDeleted
-                    clsReturn.Remarks = clsData.Remarks
-                    clsReturn.StatusID = clsData.StatusID
-                    clsReturn.CreatedBy = clsData.CreatedBy
-                    clsReturn.CreatedDate = clsData.CreatedDate
-                    clsReturn.LogInc = clsData.LogInc
-                    clsReturn.LogBy = clsData.LogBy
-                    clsReturn.LogDate = clsData.LogDate
-                    clsReturn.TotalPPN = clsData.TotalPPN
-                    clsReturn.TotalPPH = clsData.TotalPPH
-                    clsReturn.IsDP = clsData.IsDP
-                    clsReturn.DPAmount = clsData.DPAmount
-                    clsReturn.ReceiveAmount = clsData.ReceiveAmount
-                    clsReturn.TotalAmountUsed = clsData.TotalAmountUsed
-                    clsReturn.PaymentTerm1 = clsData.PaymentTerm1
-                    clsReturn.PaymentTerm2 = clsData.PaymentTerm2
-                    clsReturn.PaymentTerm3 = clsData.PaymentTerm3
-                    clsReturn.PaymentTerm4 = clsData.PaymentTerm4
-                    clsReturn.PaymentTerm5 = clsData.PaymentTerm5
-                    clsReturn.PaymentTerm6 = clsData.PaymentTerm6
-                    clsReturn.PaymentTerm7 = clsData.PaymentTerm7
-                    clsReturn.PaymentTerm8 = clsData.PaymentTerm8
-                    clsReturn.PaymentTerm9 = clsData.PaymentTerm9
-                    clsReturn.PaymentTerm10 = clsData.PaymentTerm10
-                    Return clsReturn
-                End If
+                Return BL.ARAP.GetDetail(sqlCon, Nothing, strID, enumARAPType)
             End Using
+        End Function
+
+        Public Shared Function GetDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                         ByVal strID As String, ByVal enumARAPType As VO.ARAP.ARAPTypeValue) As VO.ARAP
+            If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
+                Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
+                Dim clsReturn As New VO.ARAP
+                clsReturn.ARAPType = VO.ARAP.ARAPTypeValue.Sales
+                clsReturn.ID = clsData.ID
+                clsReturn.CompanyID = clsData.CompanyID
+                clsReturn.ProgramID = clsData.ProgramID
+                clsReturn.TransNumber = clsData.ARNumber
+                clsReturn.BPID = clsData.BPID
+                clsReturn.BPCode = clsData.BPCode
+                clsReturn.BPName = clsData.BPName
+                clsReturn.CoAID = clsData.CoAIDOfIncomePayment
+                clsReturn.CoACode = clsData.CoACodeOfIncomePayment
+                clsReturn.CoAName = clsData.CoANameOfIncomePayment
+                clsReturn.Modules = clsData.Modules
+                clsReturn.ReferencesID = clsData.ReferencesID
+                clsReturn.ReferencesNote = clsData.ReferencesNote
+                clsReturn.TransDate = clsData.ARDate
+                clsReturn.DueDateValue = clsData.DueDateValue
+                clsReturn.TotalAmount = clsData.TotalAmount
+                clsReturn.TotalPPN = clsData.TotalPPN
+                clsReturn.TotalPPH = clsData.TotalPPH
+                clsReturn.Percentage = clsData.Percentage
+                clsReturn.JournalID = clsData.JournalID
+                clsReturn.SubmitBy = clsData.SubmitBy
+                clsReturn.SubmitDate = clsData.SubmitDate
+                clsReturn.ApproveL1 = clsData.ApproveL1
+                clsReturn.ApproveL1Date = clsData.ApproveL1Date
+                clsReturn.ApprovedBy = clsData.ApprovedBy
+                clsReturn.ApprovedDate = clsData.ApprovedDate
+                clsReturn.PaymentBy = clsData.PaymentBy
+                clsReturn.PaymentDate = clsData.PaymentDate
+                clsReturn.TaxInvoiceNumber = clsData.TaxInvoiceNumber
+                clsReturn.IsClosedPeriod = clsData.IsClosedPeriod
+                clsReturn.ClosedPeriodBy = clsData.ClosedPeriodBy
+                clsReturn.ClosedPeriodDate = clsData.ClosedPeriodDate
+                clsReturn.IsDeleted = clsData.IsDeleted
+                clsReturn.Remarks = clsData.Remarks
+                clsReturn.StatusID = clsData.StatusID
+                clsReturn.CreatedBy = clsData.CreatedBy
+                clsReturn.CreatedDate = clsData.CreatedDate
+                clsReturn.LogInc = clsData.LogInc
+                clsReturn.LogBy = clsData.LogBy
+                clsReturn.LogDate = clsData.LogDate
+                clsReturn.TotalPPN = clsData.TotalPPN
+                clsReturn.TotalPPH = clsData.TotalPPH
+                clsReturn.IsDP = clsData.IsDP
+                clsReturn.DPAmount = clsData.DPAmount
+                clsReturn.ReceiveAmount = clsData.ReceiveAmount
+                clsReturn.TotalAmountUsed = clsData.TotalAmountUsed
+                clsReturn.PaymentTerm1 = clsData.PaymentTerm1
+                clsReturn.PaymentTerm2 = clsData.PaymentTerm2
+                clsReturn.PaymentTerm3 = clsData.PaymentTerm3
+                clsReturn.PaymentTerm4 = clsData.PaymentTerm4
+                clsReturn.PaymentTerm5 = clsData.PaymentTerm5
+                clsReturn.PaymentTerm6 = clsData.PaymentTerm6
+                clsReturn.PaymentTerm7 = clsData.PaymentTerm7
+                clsReturn.PaymentTerm8 = clsData.PaymentTerm8
+                clsReturn.PaymentTerm9 = clsData.PaymentTerm9
+                clsReturn.PaymentTerm10 = clsData.PaymentTerm10
+                clsReturn.PPNPercentage = clsData.PPNPercentage
+                clsReturn.PPHPercentage = clsData.PPHPercentage
+                clsReturn.TotalInvoiceAmount = clsData.TotalInvoiceAmount
+                clsReturn.TotalDPPInvoiceAmount = clsData.TotalDPPInvoiceAmount
+                clsReturn.TotalPPNInvoiceAmount = clsData.TotalPPNInvoiceAmount
+                clsReturn.TotalPPHInvoiceAmount = clsData.TotalPPHInvoiceAmount
+                Return clsReturn
+            Else
+                Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
+                Dim clsReturn As New VO.ARAP
+                clsReturn.ARAPType = VO.ARAP.ARAPTypeValue.Purchase
+                clsReturn.ID = clsData.ID
+                clsReturn.CompanyID = clsData.CompanyID
+                clsReturn.ProgramID = clsData.ProgramID
+                clsReturn.TransNumber = clsData.APNumber
+                clsReturn.BPID = clsData.BPID
+                clsReturn.BPCode = clsData.BPCode
+                clsReturn.BPName = clsData.BPName
+                clsReturn.CoAID = clsData.CoAIDOfOutgoingPayment
+                clsReturn.CoACode = clsData.CoACodeOfOutgoingPayment
+                clsReturn.CoAName = clsData.CoANameOfOutgoingPayment
+                clsReturn.Modules = clsData.Modules
+                clsReturn.ReferencesID = clsData.ReferencesID
+                clsReturn.ReferencesNote = clsData.ReferencesNote
+                clsReturn.TransDate = clsData.APDate
+                clsReturn.DueDateValue = clsData.DueDateValue
+                clsReturn.TotalAmount = clsData.TotalAmount
+                clsReturn.TotalPPN = clsData.TotalPPN
+                clsReturn.TotalPPH = clsData.TotalPPH
+                clsReturn.Percentage = clsData.Percentage
+                clsReturn.JournalID = clsData.JournalID
+                clsReturn.SubmitBy = clsData.SubmitBy
+                clsReturn.SubmitDate = clsData.SubmitDate
+                clsReturn.ApproveL1 = clsData.ApproveL1
+                clsReturn.ApproveL1Date = clsData.ApproveL1Date
+                clsReturn.ApprovedBy = clsData.ApprovedBy
+                clsReturn.ApprovedDate = clsData.ApprovedDate
+                clsReturn.PaymentBy = clsData.PaymentBy
+                clsReturn.PaymentDate = clsData.PaymentDate
+                clsReturn.TaxInvoiceNumber = clsData.TaxInvoiceNumber
+                clsReturn.IsClosedPeriod = clsData.IsClosedPeriod
+                clsReturn.ClosedPeriodBy = clsData.ClosedPeriodBy
+                clsReturn.ClosedPeriodDate = clsData.ClosedPeriodDate
+                clsReturn.IsDeleted = clsData.IsDeleted
+                clsReturn.Remarks = clsData.Remarks
+                clsReturn.StatusID = clsData.StatusID
+                clsReturn.CreatedBy = clsData.CreatedBy
+                clsReturn.CreatedDate = clsData.CreatedDate
+                clsReturn.LogInc = clsData.LogInc
+                clsReturn.LogBy = clsData.LogBy
+                clsReturn.LogDate = clsData.LogDate
+                clsReturn.TotalPPN = clsData.TotalPPN
+                clsReturn.TotalPPH = clsData.TotalPPH
+                clsReturn.IsDP = clsData.IsDP
+                clsReturn.DPAmount = clsData.DPAmount
+                clsReturn.ReceiveAmount = clsData.ReceiveAmount
+                clsReturn.TotalAmountUsed = clsData.TotalAmountUsed
+                clsReturn.PaymentTerm1 = clsData.PaymentTerm1
+                clsReturn.PaymentTerm2 = clsData.PaymentTerm2
+                clsReturn.PaymentTerm3 = clsData.PaymentTerm3
+                clsReturn.PaymentTerm4 = clsData.PaymentTerm4
+                clsReturn.PaymentTerm5 = clsData.PaymentTerm5
+                clsReturn.PaymentTerm6 = clsData.PaymentTerm6
+                clsReturn.PaymentTerm7 = clsData.PaymentTerm7
+                clsReturn.PaymentTerm8 = clsData.PaymentTerm8
+                clsReturn.PaymentTerm9 = clsData.PaymentTerm9
+                clsReturn.PaymentTerm10 = clsData.PaymentTerm10
+                clsReturn.PPNPercentage = clsData.PPNPercentage
+                clsReturn.PPHPercentage = clsData.PPHPercentage
+                clsReturn.TotalInvoiceAmount = clsData.TotalInvoiceAmount
+                clsReturn.TotalDPPInvoiceAmount = clsData.TotalDPPInvoiceAmount
+                clsReturn.TotalPPNInvoiceAmount = clsData.TotalPPNInvoiceAmount
+                clsReturn.TotalPPHInvoiceAmount = clsData.TotalPPHInvoiceAmount
+                Return clsReturn
+            End If
         End Function
 
         Public Shared Sub DeleteData(ByVal strID As String, ByVal strModules As String,
@@ -1090,36 +1113,110 @@ Namespace BL
             End Using
         End Function
 
+        Public Shared Function GetDetailInvoice(ByVal strID As String) As VO.ARAPInvoice
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ARAP.GetDetailInvoice(sqlCon, Nothing, strID)
+            End Using
+        End Function
+
         Public Shared Function SaveDataInvoice(ByVal bolNew As Boolean, ByVal clsData As VO.ARAPInvoice) As String
             Dim strReturn As String = ""
-            Dim clsARAP As New VO.ARAP
-            Try
-                clsARAP = BL.ARAP.GetDetail(clsData.ParentID, VO.ARAP.ARAPTypeValue.Purchase)
-                If clsARAP.ID Is Nothing Then clsARAP = BL.ARAP.GetDetail(clsData.ParentID, VO.ARAP.ARAPTypeValue.Sales)
-            Catch ex As Exception
-                Throw ex
-            End Try
-
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    DL.ARAP.SaveDataInvoice(sqlCon, sqlTrans, bolNew, clsData)
+                    Dim clsARAP As VO.ARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsData.ParentID, VO.ARAP.ARAPTypeValue.Purchase)
+                    If clsARAP.ID Is Nothing Then clsARAP = BL.ARAP.GetDetail(clsData.ParentID, VO.ARAP.ARAPTypeValue.Sales)
 
                     Dim decTotalInvoice, decTotalDPPInvoice, decTotalPPNInvoice, decTotalPPHInvoice As Decimal
+
+                    If bolNew Then
+                        clsData.ID = clsARAP.ID & "-" & Format(DL.ARAP.GetMaxIDInvoice(sqlCon, sqlTrans, clsARAP.ID & "-") + 1, "000")
+                        If clsData.InvoiceNumber.Trim = "" Then clsData.InvoiceNumber = clsData.ID
+                    End If
+
+                    DL.ARAP.SaveDataInvoice(sqlCon, sqlTrans, bolNew, clsData)
+
+                    '# Update Total Used ARAP
                     Dim dtInvoice As DataTable = DL.ARAP.ListDataInvoice(sqlCon, sqlTrans, clsARAP.ID)
-                    For Each dr As DataRow In dtInvoice.Rows
-                        decTotalInvoice += dr.Item("TotalInvoice")
+                    Dim drValid() As DataRow = dtInvoice.Select("IsDeleted=0")
+                    For Each dr As DataRow In drValid
+                        decTotalInvoice += dr.Item("TotalAmount")
                         decTotalDPPInvoice += dr.Item("TotalDPP")
                         decTotalPPNInvoice += dr.Item("TotalPPN")
                         decTotalPPHInvoice += dr.Item("TotalPPH")
                     Next
 
-                    '# Update Total Used ARAP
-                    If clsARAP.Modules = "" Then
+                    Dim strTableName As String = "traAccountPayable"
+                    If clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Sales Then strTableName = "traAccountReceivable"
+                    DL.ARAP.UpdateInvoiceAmount(sqlCon, sqlTrans, strTableName, clsARAP.ID, decTotalInvoice, decTotalDPPInvoice, decTotalPPNInvoice, decTotalPPHInvoice)
 
+                    '# Alokasi selisih amount di akhir invoice
+                    clsARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsData.ParentID, VO.ARAP.ARAPTypeValue.Purchase)
+                    If clsARAP.ID Is Nothing Then clsARAP = BL.ARAP.GetDetail(clsData.ParentID, VO.ARAP.ARAPTypeValue.Sales)
+                    If clsARAP.TotalAmount - decTotalDPPInvoice = 0 Then
+                        If clsARAP.TotalPPN - decTotalPPNInvoice > 0 Then decTotalPPNInvoice += clsARAP.TotalPPN - decTotalPPNInvoice
+                        If clsARAP.TotalPPH - decTotalPPHInvoice > 0 Then decTotalPPHInvoice += clsARAP.TotalPPH - decTotalPPHInvoice
+                        DL.ARAP.UpdateInvoiceAmount(sqlCon, sqlTrans, strTableName, clsARAP.ID, decTotalInvoice, decTotalDPPInvoice, decTotalPPNInvoice, decTotalPPHInvoice)
                     End If
 
+                    If clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Purchase Then
+                        DL.AccountPayable.SetupPayment(sqlCon, sqlTrans, clsARAP.ID, Now, 0)
+                    ElseIf clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Sales Then
+                        DL.AccountReceivable.SetupPayment(sqlCon, sqlTrans, clsARAP.ID, Now, 0)
+                    End If
+
+                    '# Validasi
+                    If decTotalDPPInvoice > clsARAP.TotalAmount Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Total DPP PI")
+                    End If
+                    strReturn = clsData.InvoiceNumber
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return strReturn
+        End Function
+
+        Public Shared Function DeleteDataInvoice(ByVal clsData As VO.ARAPInvoice) As String
+            Dim strReturn As String = ""
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Dim clsARAP As VO.ARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsData.ParentID, VO.ARAP.ARAPTypeValue.Purchase)
+                    If clsARAP.ID Is Nothing Then clsARAP = BL.ARAP.GetDetail(clsData.ParentID, VO.ARAP.ARAPTypeValue.Sales)
+
+                    Dim decTotalInvoice, decTotalDPPInvoice, decTotalPPNInvoice, decTotalPPHInvoice As Decimal
+
+                    DL.ARAP.DeleteDataInvoice(sqlCon, sqlTrans, clsData.ID)
+
+                    '# Update Total Used ARAP
+                    Dim dtInvoice As DataTable = DL.ARAP.ListDataInvoice(sqlCon, sqlTrans, clsARAP.ID)
+                    Dim drValid() As DataRow = dtInvoice.Select("IsDeleted=0")
+                    For Each dr As DataRow In drValid
+                        decTotalInvoice += dr.Item("TotalAmount")
+                        decTotalDPPInvoice += dr.Item("TotalDPP")
+                        decTotalPPNInvoice += dr.Item("TotalPPN")
+                        decTotalPPHInvoice += dr.Item("TotalPPH")
+                    Next
+
+                    Dim strTableName As String = "traAccountPayable"
+                    If clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Sales Then strTableName = "traAccountReceivable"
+                    DL.ARAP.UpdateInvoiceAmount(sqlCon, sqlTrans, strTableName, clsARAP.ID, decTotalInvoice, decTotalDPPInvoice, decTotalPPNInvoice, decTotalPPHInvoice)
+
+                    If decTotalInvoice = 0 Then
+                        If clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Purchase Then
+                            DL.AccountPayable.SetupCancelPayment(sqlCon, sqlTrans, clsARAP.ID)
+                        ElseIf clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Sales Then
+                            DL.AccountReceivable.SetupCancelPayment(sqlCon, sqlTrans, clsARAP.ID)
+                        End If
+                    End If
+
+                    '# Validasi
                     If decTotalDPPInvoice > clsARAP.TotalAmount Then
                         Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Total DPP PI")
                     End If
@@ -1133,6 +1230,334 @@ Namespace BL
             Return strReturn
         End Function
 
+        Public Shared Function SubmitInvoice(ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    bolReturn = SubmitInvoice(sqlCon, sqlTrans, strID, strRemarks)
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function SubmitInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                             ByVal strID As String, ByVal strRemarks As String)
+            Dim bolReturn As Boolean = False
+            Dim clsData As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, sqlTrans, strID)
+            If clsData.StatusID = VO.Status.Values.Submit Then
+                Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan status data telah SUBMIT")
+            ElseIf clsData.StatusID = VO.Status.Values.Approved Then
+                Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan status data telah APPROVED")
+            ElseIf clsData.IsDeleted Then
+                Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan data telah dihapus")
+            End If
+
+            DL.ARAP.SubmitInvoice(sqlCon, sqlTrans, strID)
+
+            bolReturn = True
+            Return bolReturn
+        End Function
+
+        Public Shared Function UnsubmitInvoice(ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    bolReturn = UnsubmitInvoice(sqlCon, sqlTrans, strID, strRemarks)
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function UnsubmitInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+
+            Try
+                Dim clsData As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, sqlTrans, strID)
+                If clsData.StatusID = VO.Status.Values.Draft Then
+                    Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah DRAFT")
+                ElseIf clsData.StatusID = VO.Status.Values.Approved Then
+                    Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah APPROVED")
+                ElseIf clsData.IsDeleted Then
+                    Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
+                End If
+
+                DL.ARAP.UnsubmitInvoice(sqlCon, sqlTrans, strID)
+                bolReturn = True
+            Catch ex As Exception
+                Throw ex
+            End Try
+            Return bolReturn
+        End Function
+
+        Public Shared Function ApproveInvoice(ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    bolReturn = ApproveInvoice(sqlCon, sqlTrans, strID, strRemarks)
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function ApproveInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            Try
+                Dim clsData As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, sqlTrans, strID)
+                If clsData.StatusID = VO.Status.Values.Draft Then
+                    Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data masih DRAFT")
+                ElseIf clsData.StatusID = VO.Status.Values.Approved Then
+                    Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data telah APPROVED")
+                ElseIf clsData.StatusID = VO.Status.Values.Payment Then
+                    Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data telah DIBAYAR")
+                ElseIf clsData.IsDeleted Then
+                    Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan data telah dihapus")
+                End If
+
+                DL.ARAP.ApproveInvoice(sqlCon, sqlTrans, strID)
+
+                GenerateJournalInvoice(sqlCon, sqlTrans, strID)
+                bolReturn = True
+            Catch ex As Exception
+                Throw ex
+            End Try
+            Return bolReturn
+        End Function
+
+        Public Shared Function UnapproveInvoice(ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    UnapproveInvoice(sqlCon, sqlTrans, strID, strRemarks)
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function UnapproveInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                         ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            Try
+                Dim clsData As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, sqlTrans, strID)
+                If clsData.StatusID = VO.Status.Values.Draft Then
+                    Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data masih DRAFT")
+                ElseIf clsData.StatusID = VO.Status.Values.Submit Then
+                    Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data telah SUBMIT")
+                ElseIf clsData.StatusID = VO.Status.Values.Payment Then
+                    Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data telah DIBAYAR")
+                ElseIf clsData.IsDeleted Then
+                    Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
+                End If
+
+                '# Cancel Approve Journal
+                BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+
+                '# Cancel Submit Journal
+                BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+
+                '# Unapprove Account Receivable
+                DL.ARAP.UnapproveInvoice(sqlCon, sqlTrans, strID)
+                bolReturn = True
+            Catch ex As Exception
+                Throw ex
+            End Try
+            Return bolReturn
+        End Function
+
+        Public Shared Sub GenerateJournalInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                 ByVal strID As String)
+            Try
+                Dim clsARAPInvoice As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, sqlTrans, strID)
+                Dim clsARAP As VO.ARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsARAPInvoice.ParentID, VO.ARAP.ARAPTypeValue.Purchase)
+                If clsARAP.ID Is Nothing Then clsARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsARAPInvoice.ParentID, VO.ARAP.ARAPTypeValue.Sales)
+
+                '# Generate Journal
+                Dim clsJournalDetail As New List(Of VO.JournalDet)
+                Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsARAPInvoice.JournalID)
+                Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
+                Dim intGroupID As Integer = 1
+                Dim decTotalAmount As Decimal = 0
+                Dim strJournalDetailRemarks As String = ""
+
+                If clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Purchase Then
+                    Dim intCoAofReceivePaymentAccountOutstandingPayment As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableOutstandingPayment
+                    Dim intCoAofReceivePaymentAccount As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayable
+                    Dim intCoAofDownPaymentAccount As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncome
+
+                    If clsARAP.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
+                        intCoAofReceivePaymentAccountOutstandingPayment = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableCuttingOutstandingPayment
+                        intCoAofReceivePaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableCutting
+                        intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeCutting
+                    End If
+                    If clsARAP.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                        intCoAofReceivePaymentAccountOutstandingPayment = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableTransportOutstandingPayment
+                        intCoAofReceivePaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableTransport
+                        intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeTransport
+                    End If
+
+                    '# Akun Hutang Usaha -> Debit
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = intCoAofReceivePaymentAccount,
+                                             .DebitAmount = clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN,
+                                             .CreditAmount = 0,
+                                             .Remarks = strJournalDetailRemarks,
+                                             .GroupID = intGroupID,
+                                             .BPID = clsARAP.BPID
+                                         })
+
+                    '# Akun Kas / Bank - Kredit
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = clsARAPInvoice.CoAID,
+                                             .DebitAmount = 0,
+                                             .CreditAmount = clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN,
+                                             .Remarks = strJournalDetailRemarks,
+                                             .GroupID = intGroupID,
+                                             .BPID = clsARAP.BPID
+                                         })
+                    decTotalAmount += clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN
+
+                    '# Setup Akun PPH
+                    If clsARAPInvoice.TotalPPH > 0 Then
+                        intGroupID += 1
+
+                        '# Akun Kas / Bank -> Debit
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = clsARAPInvoice.CoAID,
+                                             .DebitAmount = clsARAPInvoice.TotalPPH,
+                                             .CreditAmount = 0,
+                                             .Remarks = strJournalDetailRemarks,
+                                             .GroupID = intGroupID,
+                                             .BPID = clsARAP.BPID
+                                         })
+
+                        '# Akun PPH -> Kredit
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPPHPurchase,
+                                             .DebitAmount = 0,
+                                             .CreditAmount = clsARAPInvoice.TotalPPH,
+                                             .Remarks = strJournalDetailRemarks,
+                                             .GroupID = intGroupID,
+                                             .BPID = clsARAP.BPID
+                                         })
+                        decTotalAmount += clsARAPInvoice.TotalPPH
+                    End If
+
+                ElseIf clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Sales Then
+                    '# Akun Kas / Bank -> Debit
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                             {
+                                                 .CoAID = clsARAPInvoice.CoAID,
+                                                 .DebitAmount = clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN,
+                                                 .CreditAmount = 0,
+                                                 .Remarks = "",
+                                                 .GroupID = intGroupID,
+                                                 .BPID = clsARAP.BPID
+                                             })
+
+                    '# Akun Piutang Usaha -> Kredit
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                             {
+                                                 .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountReceivable,
+                                                 .DebitAmount = 0,
+                                                 .CreditAmount = clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN,
+                                                 .Remarks = "",
+                                                 .GroupID = intGroupID,
+                                                 .BPID = clsARAP.BPID
+                                             })
+                    decTotalAmount += clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN
+
+                    '# Setup Akun PPH
+                    If clsARAPInvoice.TotalPPH > 0 Then
+                        intGroupID += 1
+
+                        '# Akun PPH -> Debit
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPPHSales,
+                                             .DebitAmount = clsARAPInvoice.TotalPPH,
+                                             .CreditAmount = 0,
+                                             .Remarks = "",
+                                             .GroupID = intGroupID,
+                                             .BPID = clsARAP.BPID
+                                         })
+
+                        '# Akun Kas / Bank -> Kredit
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = clsARAPInvoice.CoAID,
+                                             .DebitAmount = 0,
+                                             .CreditAmount = clsARAPInvoice.TotalPPH,
+                                             .Remarks = "",
+                                             .GroupID = intGroupID,
+                                             .BPID = clsARAP.BPID
+                                         })
+
+                        decTotalAmount += clsARAPInvoice.TotalPPH
+                    End If
+                End If
+
+                Dim clsJournal As New VO.Journal With
+                        {
+                            .ProgramID = clsARAP.ProgramID,
+                            .CompanyID = clsARAP.CompanyID,
+                            .ID = PrevJournal.ID,
+                            .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                            .ReferencesID = clsARAPInvoice.ID,
+                            .JournalDate = clsARAPInvoice.InvoiceDate,
+                            .TotalAmount = decTotalAmount,
+                            .IsAutoGenerate = True,
+                            .StatusID = VO.Status.Values.Draft,
+                            .Remarks = clsARAPInvoice.Remarks,
+                            .LogBy = ERPSLib.UI.usUserApp.UserID,
+                            .Initial = "",
+                            .ReferencesNo = clsARAPInvoice.InvoiceNumber,
+                            .Detail = clsJournalDetail,
+                            .Save = VO.Save.Action.SaveAndSubmit
+                        }
+
+                '# Save Journal
+                Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
+
+                '# Approve Journal
+                BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
+
+                '# Update Journal ID in Account Payable
+                DL.ARAP.UpdateJournalIDInvoice(sqlCon, sqlTrans, clsARAPInvoice.ID, strJournalID)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
+
     End Class
 End Namespace

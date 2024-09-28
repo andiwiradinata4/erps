@@ -59,6 +59,7 @@ Partial Class frmTraARAP
         Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
         Me.btnExecute = New DevExpress.XtraEditors.SimpleButton()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.BarInvoice = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -110,7 +111,7 @@ Partial Class frmTraARAP
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarSetPaymentDate, Me.BarDeletePaymentDate, Me.BarSetTaxInvoiceNumber, Me.BarSetInvoiceNumberBP, Me.BarSep3, Me.BarPrint, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarSetPaymentDate, Me.BarDeletePaymentDate, Me.BarSetTaxInvoiceNumber, Me.BarSetInvoiceNumberBP, Me.BarInvoice, Me.BarSep3, Me.BarPrint, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -368,6 +369,12 @@ Partial Class frmTraARAP
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Query berdasarkan:"
         '
+        'BarInvoice
+        '
+        Me.BarInvoice.Name = "BarInvoice"
+        Me.BarInvoice.Tag = "Misc"
+        Me.BarInvoice.Text = "Invoice"
+        '
         'frmTraARAP
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -425,4 +432,5 @@ Partial Class frmTraARAP
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents BarPrint As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarSetInvoiceNumberBP As ToolBarButton
+    Friend WithEvents BarInvoice As ToolBarButton
 End Class

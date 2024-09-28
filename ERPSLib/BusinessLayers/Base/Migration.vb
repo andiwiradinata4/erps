@@ -1230,9 +1230,17 @@
                 "ALTER TABLE traCuttingDet ADD UnitPriceRawMaterial [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_UnitPriceRawMaterial DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traCuttingDet ADD TotalPriceRawMaterial [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_TotalPriceRawMaterial DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traCuttingDetResult ADD TotalPriceHPP [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_TotalPriceHPP DEFAULT ((0)) " & vbNewLine &
-                "ALTER TABLE traAccountPayable ADD InvoiceAmount [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountPayable_InvoiceAmount DEFAULT ((0)) " & vbNewLine &
-                "ALTER TABLE traAccountReceivable ADD InvoiceAmount [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountReceivable_InvoiceAmount DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD TotalInvoiceAmount [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountPayable_TotalInvoiceAmount DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD TotalDPPInvoiceAmount [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountPayable_TotalDPPInvoiceAmount DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD TotalPPNInvoiceAmount [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountPayable_TotalPPNInvoiceAmount DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD TotalPPHInvoiceAmount [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountPayable_TotalPPHInvoiceAmount DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traAccountPayable ADD PPNPercentage [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountPayable_PPNPercentage DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD PPHPercentage [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountPayable_PPHPercentage DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountReceivable ADD TotalInvoiceAmount [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountReceivable_TotalInvoiceAmount DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountReceivable ADD TotalDPPInvoiceAmount [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountReceivable_TotalDPPInvoiceAmount DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountReceivable ADD TotalPPNInvoiceAmount [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountReceivable_TotalPPNInvoiceAmount DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountReceivable ADD TotalPPHInvoiceAmount [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountReceivable_TotalPPHInvoiceAmount DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountReceivable ADD PPNPercentage [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountReceivable_PPNPercentage DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traAccountReceivable ADD PPHPercentage [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountReceivable_PPHPercentage DEFAULT ((0)) " & vbNewLine
 
             clsData.Scripts +=
@@ -1257,8 +1265,8 @@
 "	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPInvoice_SubmitDate]  DEFAULT (GETDATE()), " & vbNewLine &
 "	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traARAPInvoice_ApproveL1]  DEFAULT (''), " & vbNewLine &
 "	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traARAPInvoice_ApproveL1Date]  DEFAULT (GETDATE()), " & vbNewLine &
-"	[ApproveBy] [varchar](20) NOT NULL CONSTRAINT [DF_traARAPInvoice_ApproveBy]  DEFAULT (''), " & vbNewLine &
-"	[ApproveDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPInvoice_ApproveDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traARAPInvoice_ApprovedBy]  DEFAULT (''), " & vbNewLine &
+"	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPInvoice_ApprovedDate]  DEFAULT (GETDATE()), " & vbNewLine &
 "	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoice_JournalID]  DEFAULT (''), " & vbNewLine &
 "	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traARAPInvoice_Remarks]  DEFAULT (''), " & vbNewLine &
 "	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traARAPInvoice_CreatedBy]  DEFAULT (''), " & vbNewLine &

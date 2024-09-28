@@ -61,7 +61,10 @@
         Property PaymentTypeID As Integer
         Property PPNPercentage As Decimal
         Property PPHPercentage As Decimal
-
+        Property TotalInvoiceAmount As Decimal
+        Property TotalDPPInvoiceAmount As Decimal
+        Property TotalPPNInvoiceAmount As Decimal
+        Property TotalPPHInvoiceAmount As Decimal
         Public Const All As String = "AP"
         Public Const PurchaseBalance As String = "PB"
         Public Const DownPaymentManual As String = "PDM"

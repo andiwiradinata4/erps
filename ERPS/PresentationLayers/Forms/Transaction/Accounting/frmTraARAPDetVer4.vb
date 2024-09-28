@@ -426,6 +426,8 @@ Public Class frmTraARAPDetVer4
         clsData.ARAPType = enumARAPType
         clsData.Save = intSave
         clsData.PaymentTypeID = intPaymentTypeID
+        clsData.PPNPercentage = decPPNPercentage
+        clsData.PPHPercentage = decPPHPercentage
         pgMain.Value = 60
 
         Try

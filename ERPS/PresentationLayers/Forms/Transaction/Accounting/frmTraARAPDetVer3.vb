@@ -343,6 +343,8 @@ Public Class frmTraARAPDetVer3
         clsData.DetailItem = listDetailItem
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.IsUseSubItem = bolIsUseSubItem
+        clsData.PPNPercentage = decPPNPercentage
+        clsData.PPHPercentage = decPPHPercentage
         clsData.Save = intSave
 
         pgMain.Value = 60

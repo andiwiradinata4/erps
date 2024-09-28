@@ -105,8 +105,8 @@ Public Class frmTraARAP
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
        cSep2 As Byte = 8, cSetPaymentDate As Byte = 9, cDeletePaymentDate As Byte = 10, cSetTaxInvoiceNumber As Byte = 11,
-       cSetInvoiceNumberBP As Byte = 12, cSep3 As Byte = 13, cPrint As Byte = 14, cExportExcel As Byte = 15, cSep4 As Byte = 16,
-       cRefresh As Byte = 17, cClose As Byte = 18
+       cSetInvoiceNumberBP As Byte = 12, cInvoice As Byte = 13, cSep3 As Byte = 14, cPrint As Byte = 15, cExportExcel As Byte = 16,
+       cSep4 As Byte = 17, cRefresh As Byte = 18, cClose As Byte = 19
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -270,6 +270,7 @@ Public Class frmTraARAP
         clsReturn.CoACode = grdView.GetRowCellValue(intPos, "CoACode")
         clsReturn.CoAName = grdView.GetRowCellValue(intPos, "CoAName")
         clsReturn.Modules = grdView.GetRowCellValue(intPos, "Modules")
+        clsReturn.StatusID = grdView.GetRowCellValue(intPos, "StatusID")
         clsReturn.ReferencesID = grdView.GetRowCellValue(intPos, "ReferencesID")
         clsReturn.TotalAmount = grdView.GetRowCellValue(intPos, "TotalAmount")
         clsReturn.TotalPPN = grdView.GetRowCellValue(intPos, "TotalPPN")
@@ -321,6 +322,8 @@ Public Class frmTraARAP
             .pubARAPType = enumARAPType
             .pubReferencesID = strReferencesID
             .pubIsUseSubItem = bolIsUseSubItem
+            .pubPPHPercentage = decPPHPercentage
+            .pubPPNPercentage = decPPNPercentage
             .Text = Me.Text
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
@@ -357,6 +360,8 @@ Public Class frmTraARAP
             .pubARAPType = enumARAPType
             .pubReferencesID = strReferencesID
             .pubIsUseSubItem = bolIsUseSubItem
+            .pubPPHPercentage = decPPHPercentage
+            .pubPPNPercentage = decPPNPercentage
             .Text = Me.Text
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
@@ -899,11 +904,34 @@ Public Class frmTraARAP
             .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelSubmitAccess)
             .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.ApproveAccess)
             .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelApproveAccess)
-            .Item(cSetPaymentDate).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.PaymentAccess)
-            .Item(cDeletePaymentDate).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelPaymentAccess)
-            .Item(cSetTaxInvoiceNumber).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.TaxInvoiceNumberAccess)
-            .Item(cSetInvoiceNumberBP).Visible = enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.InvoiceNumberBusinessPartner)
+            .Item(cSetPaymentDate).Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.PaymentAccess)
+            .Item(cDeletePaymentDate).Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelPaymentAccess)
+            .Item(cSetTaxInvoiceNumber).Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.TaxInvoiceNumberAccess)
+            .Item(cSetInvoiceNumberBP).Visible = False 'enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.InvoiceNumberBusinessPartner)
+            .Item(cSep3).Visible = False
             If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase Then .Item(cPrint).Visible = False
+        End With
+    End Sub
+
+    Private Sub prvInvoice()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+
+        If clsData.StatusID <> VO.Status.Values.Approved And clsData.StatusID <> VO.Status.Values.Payment Then
+            UI.usForm.frmMessageBox("Data harus di setujui terlebih dahulu")
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraARAPInvoice
+        With frmDetail
+            .pubParentID = clsData.ID
+            .pubPPNPercentage = decPPNPercentage
+            .pubPPHPercentage = decPPHPercentage
+            .pubParentID = clsData.ID
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsSave Then pubRefresh()
         End With
     End Sub
 
@@ -949,6 +977,7 @@ Public Class frmTraARAP
                 Case ToolBar.Buttons(cDeletePaymentDate).Name : prvSetupCancelPaymentDate()
                 Case ToolBar.Buttons(cSetTaxInvoiceNumber).Name : prvSetupTaxInvoiceNumber()
                 Case ToolBar.Buttons(cSetInvoiceNumberBP).Name : prvSetupInvoiceNumberSupplier()
+                Case ToolBar.Buttons(cInvoice).Name : prvInvoice()
                 Case ToolBar.Buttons(cPrint).Name : prvPrint()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select

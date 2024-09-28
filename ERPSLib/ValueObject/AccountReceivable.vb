@@ -61,6 +61,10 @@
         Property PaymentTerm10 As String
         Property PPNPercentage As Decimal
         Property PPHPercentage As Decimal
+        Property TotalInvoiceAmount As Decimal
+        Property TotalDPPInvoiceAmount As Decimal
+        Property TotalPPNInvoiceAmount As Decimal
+        Property TotalPPHInvoiceAmount As Decimal
 
         Public Const All As String = "AR"
         Public Const SalesBalance As String = "SB"

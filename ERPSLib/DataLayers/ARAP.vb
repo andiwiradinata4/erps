@@ -449,6 +449,41 @@
             End Try
         End Sub
 
+        Public Shared Function GetMaxIDInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal strNewID As String) As Integer
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim intReturn As Integer = 0
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ISNULL(RIGHT(ID, 3),'000') AS ID " & vbNewLine &
+                        "FROM traARAPInvoice " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   LEFT(ID,@Length)=@ID " & vbNewLine &
+                        "ORDER BY ID DESC " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, strNewID.Length).Value = strNewID
+                    .Parameters.Add("@Length", SqlDbType.Int).Value = strNewID.Length
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        intReturn = .Item("ID")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return intReturn
+        End Function
+
 #End Region
 
 #Region "Invoice"
@@ -471,7 +506,7 @@
                     "	ARI.CoAID=COA.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "	ARI.ParentID=@ParentID " & vbNewLine &
-                    "ORDER BY ARH.InvoiceNumber "
+                    "ORDER BY ARI.InvoiceNumber "
 
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
             End With
@@ -487,13 +522,13 @@
                 .CommandType = CommandType.Text
                 If bolNew Then
                     .CommandText =
-                    "INSERT INTO traARAPDP " & vbNewLine &
+                    "INSERT INTO traARAPInvoice " & vbNewLine &
                     "   (ID, ParentID, InvoiceNumber, InvoiceDate, CoAID, PPN, PPH, TotalAmount, TotalDPP, TotalPPN, TotalPPH, StatusID, ReferencesNumber) " & vbNewLine &
                     "VALUES " & vbNewLine &
                     "   (@ID, @ParentID, @InvoiceNumber, @InvoiceDate, @CoAID, @PPN, @PPH, @TotalAmount, @TotalDPP, @TotalPPN, @TotalPPH, @StatusID, @ReferencesNumber) " & vbNewLine
                 Else
                     .CommandText =
-                    "UPDATE traARAPDP SET " & vbNewLine &
+                    "UPDATE traARAPInvoice SET " & vbNewLine &
                     "   ID=@ID," & vbNewLine &
                     "   ParentID=@ParentID," & vbNewLine &
                     "   InvoiceNumber=@InvoiceNumber," & vbNewLine &
@@ -548,6 +583,263 @@
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Deleted
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub UpdateInvoiceAmount(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal strTable As String, ByVal strID As String,
+                                              ByVal decTotalInvoiceAmount As Decimal, ByVal decTotalDPPInvoiceAmount As Decimal,
+                                              ByVal decTotalPPNInvoiceAmount As Decimal, ByVal decTotalPPHInvoiceAmount As Decimal)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE " & strTable & " SET " & vbNewLine &
+                    "    TotalInvoiceAmount=@TotalInvoiceAmount, " & vbNewLine &
+                    "    TotalDPPInvoiceAmount=@TotalDPPInvoiceAmount, " & vbNewLine &
+                    "    TotalPPNInvoiceAmount=@TotalPPNInvoiceAmount, " & vbNewLine &
+                    "    TotalPPHInvoiceAmount=@TotalPPHInvoiceAmount " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@TotalInvoiceAmount", SqlDbType.Decimal).Value = decTotalInvoiceAmount
+                .Parameters.Add("@TotalDPPInvoiceAmount", SqlDbType.Decimal).Value = decTotalDPPInvoiceAmount
+                .Parameters.Add("@TotalPPNInvoiceAmount", SqlDbType.Decimal).Value = decTotalPPNInvoiceAmount
+                .Parameters.Add("@TotalPPHInvoiceAmount", SqlDbType.Decimal).Value = decTotalPPHInvoiceAmount
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Function GetStatusIDInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strID As String) As Integer
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim intReturn As Integer = 0
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   StatusID " & vbNewLine &
+                        "FROM traARAPInvoice " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   ID=@ID " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        intReturn = .Item("StatusID")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return intReturn
+        End Function
+
+        Public Shared Sub SubmitInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                        ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traARAPInvoice SET " & vbNewLine &
+                    "    StatusID=@StatusID, " & vbNewLine &
+                    "    SubmitBy=@LogBy, " & vbNewLine &
+                    "    SubmitDate=GETDATE() " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+                .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = ERPSLib.UI.usUserApp.UserID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub UnsubmitInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traARAPInvoice SET " & vbNewLine &
+                    "    StatusID=@StatusID, " & vbNewLine &
+                    "    SubmitBy='' " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Draft
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub ApproveInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                         ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traARAPInvoice SET " & vbNewLine &
+                    "    StatusID=@StatusID, " & vbNewLine &
+                    "    ApproveL1=@LogBy, " & vbNewLine &
+                    "    ApproveL1Date=GETDATE(), " & vbNewLine &
+                    "    ApprovedBy=@LogBy, " & vbNewLine &
+                    "    ApprovedDate=GETDATE() " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
+                .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = ERPSLib.UI.usUserApp.UserID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub UnapproveInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                           ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traARAPInvoice SET " & vbNewLine &
+                    "    StatusID=@StatusID, " & vbNewLine &
+                    "    ApproveL1='', " & vbNewLine &
+                    "    ApprovedBy='' " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Function GetDetailInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                ByVal strID As String) As VO.ARAPInvoice
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim voReturn As New VO.ARAPInvoice
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "	ARI.ID, ARI.ParentID, ARI.InvoiceNumber, ARI.InvoiceDate, ARI.CoAID, COA.Code AS CoACode, COA.Name AS CoAName, " & vbNewLine &
+                        "	ARI.PPN, ARI.PPH, ARI.TotalAmount, ARI.TotalDPP, ARI.TotalPPN, ARI.TotalPPH, ARI.StatusID, ARI.IsDeleted, ARI.ReferencesNumber, " & vbNewLine &
+                        "   ARI.TaxInvoiceNumber, ARI.InvoiceNumberExternal, ARI.SubmitBy, ARI.SubmitDate, ARI.ApproveL1, ARI.ApproveL1Date, ARI.ApprovedBy, ARI.ApprovedDate, " & vbNewLine &
+                        "   ARI.JournalID, ARI.Remarks, ARI.CreatedBy, ARI.CreatedDate, ARI.LogBy, ARI.LogDate, ARI.LogInc " & vbNewLine &
+                        "FROM traARAPInvoice ARI " & vbNewLine &
+                        "INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
+                        "	ARI.CoAID=COA.ID " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "	ARI.ID=@ID " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        voReturn.ID = .Item("ID")
+                        voReturn.ParentID = .Item("ParentID")
+                        voReturn.InvoiceNumber = .Item("InvoiceNumber")
+                        voReturn.InvoiceDate = .Item("InvoiceDate")
+                        voReturn.CoAID = .Item("CoAID")
+                        voReturn.CoACode = .Item("CoACode")
+                        voReturn.CoAName = .Item("CoAName")
+                        voReturn.PPN = .Item("PPN")
+                        voReturn.PPH = .Item("PPH")
+                        voReturn.TotalAmount = .Item("TotalAmount")
+                        voReturn.TotalDPP = .Item("TotalDPP")
+                        voReturn.TotalPPN = .Item("TotalPPN")
+                        voReturn.TotalPPH = .Item("TotalPPH")
+                        voReturn.StatusID = .Item("StatusID")
+                        voReturn.IsDeleted = .Item("IsDeleted")
+                        voReturn.ReferencesNumber = .Item("ReferencesNumber")
+                        voReturn.TaxInvoiceNumber = .Item("TaxInvoiceNumber")
+                        voReturn.InvoiceNumberExternal = .Item("InvoiceNumberExternal")
+                        voReturn.SubmitBy = .Item("SubmitBy")
+                        voReturn.SubmitDate = .Item("SubmitDate")
+                        voReturn.ApproveL1 = .Item("ApproveL1")
+                        voReturn.ApproveL1Date = .Item("ApproveL1Date")
+                        voReturn.ApprovedBy = .Item("ApprovedBy")
+                        voReturn.ApprovedDate = .Item("ApprovedDate")
+                        voReturn.JournalID = .Item("JournalID")
+                        voReturn.Remarks = .Item("Remarks")
+                        voReturn.CreatedBy = .Item("CreatedBy")
+                        voReturn.CreatedDate = .Item("CreatedDate")
+                        voReturn.LogBy = .Item("LogBy")
+                        voReturn.LogDate = .Item("LogDate")
+                        voReturn.LogInc = .Item("LogInc")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return voReturn
+        End Function
+
+        Public Shared Sub UpdateJournalIDInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                 ByVal strID As String, ByVal strJournalID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traARAPInvoice SET " & vbNewLine &
+                    "    JournalID=@JournalID " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@JournalID", SqlDbType.VarChar, 100).Value = strJournalID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
