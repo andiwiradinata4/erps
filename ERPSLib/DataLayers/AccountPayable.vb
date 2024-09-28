@@ -24,7 +24,7 @@
                     "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
                     "   A.LogInc, A.LogBy, A.LogDate, A.APNumber AS TransNumber, A.APDate AS TransDate, A.CoAIDOfOutgoingPayment AS CoAID, " & vbNewLine &
                     "   ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName, A.TotalPPN, A.TotalPPH, A.DPAmount, A.ReceiveAmount, A.IsDP, A.InvoiceNumberBP, A.CompanyBankAccountID1, A.CompanyBankAccountID2, A.IsUseSubItem, " & vbNewLine &
-                    "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10 " & vbNewLine &
+                    "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, A.PPNPercentage, A.PPHPercentage " & vbNewLine &
                     "FROM traAccountPayable A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -125,11 +125,11 @@
                         "INSERT INTO traAccountPayable " & vbNewLine &
                         "   (ID, CompanyID, ProgramID, APNumber, BPID, CoAIDOfOutgoingPayment, Modules, ReferencesID, ReferencesNote, " & vbNewLine &
                         "    APDate, DueDateValue, DueDate, TotalAmount, Percentage, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, " & vbNewLine &
-                        "    TotalPPN, TotalPPH, IsDP, DPAmount, ReceiveAmount, IsUseSubItem) " & vbNewLine &
+                        "    TotalPPN, TotalPPH, IsDP, DPAmount, ReceiveAmount, IsUseSubItem, PPNPercentage, PPHPercentage) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @CompanyID, @ProgramID, @APNumber, @BPID, @CoAIDOfOutgoingPayment, @Modules, @ReferencesID, @ReferencesNote, " & vbNewLine &
                         "    @APDate, @DueDateValue, @DueDate, @TotalAmount, @Percentage, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), " & vbNewLine &
-                        "    @TotalPPN, @TotalPPH, @IsDP, @DPAmount, @ReceiveAmount, @IsUseSubItem) " & vbNewLine
+                        "    @TotalPPN, @TotalPPH, @IsDP, @DPAmount, @ReceiveAmount, @IsUseSubItem, @PPNPercentage, @PPHPercentage) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE traAccountPayable SET " & vbNewLine &
@@ -156,7 +156,9 @@
                         "    IsDP=@IsDP, " & vbNewLine &
                         "    DPAmount=@DPAmount, " & vbNewLine &
                         "    ReceiveAmount=@ReceiveAmount, " & vbNewLine &
-                        "    IsUseSubItem=@IsUseSubItem " & vbNewLine &
+                        "    IsUseSubItem=@IsUseSubItem, " & vbNewLine &
+                        "    PPNPercentage=@PPNPercentage, " & vbNewLine &
+                        "    PPHPercentage=@PPHPercentage " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -184,6 +186,8 @@
                 .Parameters.Add("@DPAmount", SqlDbType.Decimal).Value = clsData.DPAmount
                 .Parameters.Add("@ReceiveAmount", SqlDbType.Decimal).Value = clsData.ReceiveAmount
                 .Parameters.Add("@IsUseSubItem", SqlDbType.Bit).Value = clsData.IsUseSubItem
+                .Parameters.Add("@PPNPercentage", SqlDbType.Decimal).Value = clsData.PPNPercentage
+                .Parameters.Add("@PPHPercentage", SqlDbType.Decimal).Value = clsData.PPHPercentage
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -209,7 +213,7 @@
                         "   A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.PaymentBy, A.PaymentDate, A.TaxInvoiceNumber, " & vbNewLine &
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
                         "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice, A.InvoiceNumberBP, A.IsUseSubItem, " & vbNewLine &
-                        "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10 " & vbNewLine &
+                        "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, A.PPNPercentage, A.PPHPercentage " & vbNewLine &
                         "FROM traAccountPayable A " & vbNewLine &
                         "INNER JOIN mstStatus B ON " & vbNewLine &
                         "   A.StatusID=B.ID " & vbNewLine &
@@ -288,6 +292,8 @@
                         voReturn.PaymentTerm8 = .Item("PaymentTerm8")
                         voReturn.PaymentTerm9 = .Item("PaymentTerm9")
                         voReturn.PaymentTerm10 = .Item("PaymentTerm10")
+                        voReturn.PPNPercentage = .Item("PPNPercentage")
+                        voReturn.PPHPercentage = .Item("PPHPercentage")
                     End If
                 End With
             Catch ex As Exception

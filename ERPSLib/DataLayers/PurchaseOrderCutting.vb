@@ -1315,7 +1315,7 @@
                     "SELECT " & vbNewLine &
                     "   A.ID, A.POID, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
-                    "   A.Quantity, A.Weight, A.TotalWeight, A.OrderNumberSupplier, A.Remarks, A.RoundingWeight, A.LevelItem, A.ParentID " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.OrderNumberSupplier, A.Remarks, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceRawMaterial, A.TotalPriceRawMaterial " & vbNewLine &
                     "FROM traPurchaseOrderCuttingDetResult A " & vbNewLine &
                     "INNER JOIN mstItem B ON " & vbNewLine &
                     "   A.ItemID=B.ID " & vbNewLine &
@@ -1340,9 +1340,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traPurchaseOrderCuttingDetResult " & vbNewLine &
-                    "   (ID, POID, GroupID, ItemID, Quantity, Weight, TotalWeight, OrderNumberSupplier, Remarks, RoundingWeight, LevelItem, ParentID) " & vbNewLine &
+                    "   (ID, POID, GroupID, ItemID, Quantity, Weight, TotalWeight, OrderNumberSupplier, Remarks, RoundingWeight, LevelItem, ParentID, UnitPriceRawMaterial, TotalPriceRawMaterial) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @POID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @OrderNumberSupplier, @Remarks, @RoundingWeight, @LevelItem, @ParentID) " & vbNewLine
+                    "   (@ID, @POID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @OrderNumberSupplier, @Remarks, @RoundingWeight, @LevelItem, @ParentID, @UnitPriceRawMaterial, @TotalPriceRawMaterial) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = clsData.POID
@@ -1356,6 +1356,8 @@
                 .Parameters.Add("@RoundingWeight", SqlDbType.Decimal).Value = clsData.RoundingWeight
                 .Parameters.Add("@LevelItem", SqlDbType.Int).Value = clsData.LevelItem
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
+                .Parameters.Add("@UnitPriceRawMaterial", SqlDbType.Decimal).Value = clsData.UnitPriceRawMaterial
+                .Parameters.Add("@TotalPriceRawMaterial", SqlDbType.Decimal).Value = clsData.TotalPriceRawMaterial
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

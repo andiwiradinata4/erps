@@ -389,6 +389,8 @@ Public Class frmTraPurchaseOrderCutting
             .pubBPID = clsData.BPID
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
+            .pubPPNPercentage = clsData.PPN
+            .pubPPHPercentage = clsData.PPH
             .ShowDialog()
         End With
     End Sub
@@ -413,6 +415,8 @@ Public Class frmTraPurchaseOrderCutting
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
             .pubReferencesNumber = clsData.PONumber
+            .pubPPNPercentage = clsData.PPN
+            .pubPPHPercentage = clsData.PPH
             .ShowDialog()
         End With
     End Sub

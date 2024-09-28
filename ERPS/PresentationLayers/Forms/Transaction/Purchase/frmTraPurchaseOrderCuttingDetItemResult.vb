@@ -10,6 +10,7 @@
     Private strID As String = ""
     Private clsCS As VO.CS
     Private bolIsAutoSearch As Boolean
+    Private decUnitPriceRawMaterial As Decimal
 
     Public WriteOnly Property pubIsNew As Boolean
         Set(value As Boolean)
@@ -38,6 +39,12 @@
     Public WriteOnly Property pubIsAutoSearch As Boolean
         Set(value As Boolean)
             bolIsAutoSearch = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubUnitPriceRawMaterial As Decimal
+        Set(value As Decimal)
+            decUnitPriceRawMaterial = value
         End Set
     End Property
 
@@ -128,6 +135,8 @@
                 .Item("Weight") = txtWeight.Value
                 .Item("TotalWeight") = txtTotalWeight.Value
                 .Item("Remarks") = txtRemarks.Text.Trim
+                .Item("UnitPriceRawMaterial") = decUnitPriceRawMaterial
+                .Item("TotalPriceRawMaterial") = decUnitPriceRawMaterial * txtTotalWeight.Value
                 dr.EndEdit()
                 dtParent.Rows.Add(dr)
                 dtParent.AcceptChanges()
@@ -153,6 +162,8 @@
                         .Item("Weight") = txtWeight.Value
                         .Item("TotalWeight") = txtTotalWeight.Value
                         .Item("Remarks") = txtRemarks.Text.Trim
+                        .Item("UnitPriceRawMaterial") = decUnitPriceRawMaterial
+                        .Item("TotalPriceRawMaterial") = decUnitPriceRawMaterial * txtTotalWeight.Value
                         .EndEdit()
                         dtParent.AcceptChanges()
                         frmParent.grdItemResultView.BestFitColumns()

@@ -54,6 +54,8 @@ Public Class frmTraDelivery
         UI.usForm.SetGrid(grdView, "TotalPPH", "Total PPh", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "GrandTotal", "Grand Total", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "UnitPriceTransport", "Harga Pengiriman", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "PPNTransport", "PPN Transport", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "PPHTransport", "PPH Transport", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalDPPTransport", "Total DPP Transport", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalPPNTransport", "Total PPN Transport", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "IsFreePPNTransport", "Free PPN Transport ?", 100, UI.usDefGrid.gReal2Num)
@@ -181,6 +183,8 @@ Public Class frmTraDelivery
         clsReturn.TotalPPN = grdView.GetRowCellValue(intPos, "TotalPPN")
         clsReturn.TotalPPH = grdView.GetRowCellValue(intPos, "TotalPPH")
         clsReturn.GrandTotal = grdView.GetRowCellValue(intPos, "GrandTotal")
+        clsReturn.PPNTransport = grdView.GetRowCellValue(intPos, "PPNTransport")
+        clsReturn.PPHTransport = grdView.GetRowCellValue(intPos, "PPHTransport")
         clsReturn.TotalDPPTransport = grdView.GetRowCellValue(intPos, "TotalDPPTransport")
         clsReturn.TotalPPNTransport = grdView.GetRowCellValue(intPos, "TotalPPNTransport")
         clsReturn.TotalPPHTransport = grdView.GetRowCellValue(intPos, "TotalPPHTransport")
@@ -473,6 +477,8 @@ Public Class frmTraDelivery
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
             .pubReferencesNumber = clsData.DeliveryNumber
+            .pubPPNPercentage = clsData.PPNTransport
+            .pubPPHPercentage = clsData.PPHTransport
             .ShowDialog()
         End With
     End Sub

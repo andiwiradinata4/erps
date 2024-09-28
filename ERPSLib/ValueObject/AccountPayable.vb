@@ -59,6 +59,8 @@
         Property PaymentTerm9 As String
         Property PaymentTerm10 As String
         Property PaymentTypeID As Integer
+        Property PPNPercentage As Decimal
+        Property PPHPercentage As Decimal
 
         Public Const All As String = "AP"
         Public Const PurchaseBalance As String = "PB"

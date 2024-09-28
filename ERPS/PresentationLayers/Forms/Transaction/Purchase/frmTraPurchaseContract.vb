@@ -400,6 +400,8 @@ Public Class frmTraPurchaseContract
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
             .pubIsUseSubItem = clsData.IsUseSubItem
+            .pubPPNPercentage = clsData.PPN
+            .pubPPHPercentage = clsData.PPH
             .ShowDialog()
         End With
     End Sub
@@ -426,6 +428,8 @@ Public Class frmTraPurchaseContract
             .pubReferencesNumber = clsData.PCNumber
             .pubIsLookup = True
             .pubIsUseSubItem = clsData.IsUseSubItem
+            .pubPPNPercentage = clsData.PPN
+            .pubPPHPercentage = clsData.PPH
             .pubPaymentTypeID = VO.PaymentType.Values.CBD '# Set agar bisa input DP dan Receive secara flexible
             .ShowDialog()
         End With

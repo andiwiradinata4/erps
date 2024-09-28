@@ -88,6 +88,8 @@ Public Class frmTraPurchaseOrderCuttingDetItem
         UI.usForm.SetGrid(grdItemResultView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdItemResultView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdItemResultView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemResultView, "UnitPriceRawMaterial", "UnitPriceRawMaterial", 100, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdItemResultView, "TotalPriceRawMaterial", "TotalPriceRawMaterial", 100, UI.usDefGrid.gReal2Num, False)
     End Sub
 
     Private Sub prvFillCombo()
@@ -370,6 +372,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
             .pubIsNew = True
             .pubTableParent = dtResult
             .pubIsAutoSearch = True
+            .pubUnitPriceRawMaterial = txtUnitPriceRawMaterial.Value
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButtonItemResult()
@@ -386,6 +389,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
             .pubIsNew = False
             .pubTableParent = dtResult
             .pubDataRowSelected = grdItemResultView.GetDataRow(intPos)
+            .pubUnitPriceRawMaterial = txtUnitPriceRawMaterial.Value
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             prvSetButtonItemResult()

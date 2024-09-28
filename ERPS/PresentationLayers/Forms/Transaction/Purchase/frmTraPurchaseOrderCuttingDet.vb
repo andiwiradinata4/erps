@@ -86,6 +86,8 @@ Public Class frmTraPurchaseOrderCuttingDet
         UI.usForm.SetGrid(grdItemResultView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdItemResultView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemResultView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemResultView, "UnitPriceRawMaterial", "UnitPriceRawMaterial", 100, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdItemResultView, "TotalPriceRawMaterial", "TotalPriceRawMaterial", 100, UI.usDefGrid.gReal2Num, False)
         grdItemResultView.Columns("GroupID").GroupIndex = 0
 
         '# PO Payment Term
@@ -252,7 +254,9 @@ Public Class frmTraPurchaseOrderCuttingDet
                                     .Weight = dr.Item("Weight"),
                                     .TotalWeight = dr.Item("TotalWeight"),
                                     .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
-                                    .Remarks = dr.Item("Remarks")
+                                    .Remarks = dr.Item("Remarks"),
+                                    .UnitPriceRawMaterial = dr.Item("UnitPriceRawMaterial"),
+                                    .TotalPriceRawMaterial = dr.Item("TotalPriceRawMaterial")
                                 })
         Next
 

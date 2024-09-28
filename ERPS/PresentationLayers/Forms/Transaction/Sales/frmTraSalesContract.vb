@@ -406,6 +406,8 @@ Public Class frmTraSalesContract
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
             .pubIsUseSubItem = clsData.IsUseSubItem
+            .pubPPNPercentage = clsData.PPN
+            .pubPPHPercentage = clsData.PPH
             .ShowDialog()
         End With
     End Sub
@@ -430,6 +432,8 @@ Public Class frmTraSalesContract
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
             .pubReferencesNumber = clsData.SCNumber
+            .pubPPNPercentage = clsData.PPN
+            .pubPPHPercentage = clsData.PPH
             .ShowDialog()
         End With
     End Sub

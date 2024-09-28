@@ -59,7 +59,8 @@
         Property PaymentTerm9 As String
         Property PaymentTerm10 As String
         Property PaymentTypeID As Integer
-
+        Property PPNPercentage As Decimal
+        Property PPHPercentage As Decimal
         Enum ARAPTypeValue
             All
             Sales

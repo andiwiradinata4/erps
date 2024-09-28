@@ -25,6 +25,8 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraPurchaseOrderCuttingDetItem))
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.txtOrderNumberSupplier = New ERPS.usTextBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.txtTotalPriceRawMaterial = New ERPS.usNumeric()
@@ -82,8 +84,6 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.grdItemResultView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.Label21 = New System.Windows.Forms.Label()
-        Me.txtOrderNumberSupplier = New ERPS.usTextBox()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtTotalPriceRawMaterial, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtUnitPriceRawMaterial, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -170,6 +170,28 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.pnlDetail.Name = "pnlDetail"
         Me.pnlDetail.Size = New System.Drawing.Size(694, 405)
         Me.pnlDetail.TabIndex = 2
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.BackColor = System.Drawing.Color.Transparent
+        Me.Label21.ForeColor = System.Drawing.Color.Black
+        Me.Label21.Location = New System.Drawing.Point(31, 44)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(127, 13)
+        Me.Label21.TabIndex = 197
+        Me.Label21.Text = "Nomor Pesanan Pemasok"
+        '
+        'txtOrderNumberSupplier
+        '
+        Me.txtOrderNumberSupplier.BackColor = System.Drawing.Color.Azure
+        Me.txtOrderNumberSupplier.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtOrderNumberSupplier.Location = New System.Drawing.Point(166, 40)
+        Me.txtOrderNumberSupplier.MaxLength = 250
+        Me.txtOrderNumberSupplier.Name = "txtOrderNumberSupplier"
+        Me.txtOrderNumberSupplier.ReadOnly = True
+        Me.txtOrderNumberSupplier.Size = New System.Drawing.Size(170, 21)
+        Me.txtOrderNumberSupplier.TabIndex = 2
         '
         'Label18
         '
@@ -806,28 +828,6 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         '
         Me.GridView1.GridControl = Me.grdItemResult
         Me.GridView1.Name = "GridView1"
-        '
-        'Label21
-        '
-        Me.Label21.AutoSize = True
-        Me.Label21.BackColor = System.Drawing.Color.Transparent
-        Me.Label21.ForeColor = System.Drawing.Color.Black
-        Me.Label21.Location = New System.Drawing.Point(31, 44)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(127, 13)
-        Me.Label21.TabIndex = 197
-        Me.Label21.Text = "Nomor Pesanan Pemasok"
-        '
-        'txtOrderNumberSupplier
-        '
-        Me.txtOrderNumberSupplier.BackColor = System.Drawing.Color.Azure
-        Me.txtOrderNumberSupplier.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtOrderNumberSupplier.Location = New System.Drawing.Point(166, 40)
-        Me.txtOrderNumberSupplier.MaxLength = 250
-        Me.txtOrderNumberSupplier.Name = "txtOrderNumberSupplier"
-        Me.txtOrderNumberSupplier.ReadOnly = True
-        Me.txtOrderNumberSupplier.Size = New System.Drawing.Size(170, 21)
-        Me.txtOrderNumberSupplier.TabIndex = 2
         '
         'frmTraPurchaseOrderCuttingDetItem
         '

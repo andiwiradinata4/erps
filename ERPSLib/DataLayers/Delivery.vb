@@ -20,7 +20,7 @@
                     "   A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.TotalDPPTransport+TotalPPNTransport+A.TotalPPHTransport AS GrandTotalTransport, " & vbNewLine &
                     "   A.RoundingManual, A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, " & vbNewLine &
                     "   A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, StatusInfo=B.Name, A.TransporterID, TP.Code AS TransporterCode, TP.Name AS TransporterName,  " & vbNewLine &
-                    "   A.UnitPriceTransport, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, A.BPLocationID, BPLocationName=BPL.Address  " & vbNewLine &
+                    "   A.PPNTransport, A.PPHTransport, A.UnitPriceTransport, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, A.BPLocationID, BPLocationName=BPL.Address  " & vbNewLine &
                     "FROM traDelivery A " & vbNewLine &
                     "LEFT JOIN traSalesContract A1 ON " & vbNewLine &
                     "   A.SCID=A1.ID " & vbNewLine &

@@ -18,6 +18,8 @@ Public Class frmTraARAP
     Private bolIsLookup As Boolean = False
     Private bolIsUseSubItem As Boolean = False
     Private intPaymentTypeID As Integer = 0
+    Private decPPNPercentage As Decimal = 0
+    Private decPPHPercentage As Decimal = 0
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -82,6 +84,18 @@ Public Class frmTraARAP
     Public WriteOnly Property pubPaymentTypeID As Integer
         Set(value As Integer)
             intPaymentTypeID = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubPPNPercentage As Decimal
+        Set(value As Decimal)
+            decPPNPercentage = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubPPHPercentage As Decimal
+        Set(value As Decimal)
+            decPPHPercentage = value
         End Set
     End Property
 

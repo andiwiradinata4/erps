@@ -1229,8 +1229,32 @@
                 "ALTER TABLE traPurchaseOrderCuttingDetResult ADD TotalPriceRawMaterial [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_TotalPriceRawMaterial DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traCuttingDet ADD UnitPriceRawMaterial [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_UnitPriceRawMaterial DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traCuttingDet ADD TotalPriceRawMaterial [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_TotalPriceRawMaterial DEFAULT ((0)) " & vbNewLine &
-                "ALTER TABLE traCuttingDetResult ADD TotalPriceHPP [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_TotalPriceHPP DEFAULT ((0)) " & vbNewLine
+                "ALTER TABLE traCuttingDetResult ADD TotalPriceHPP [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_TotalPriceHPP DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD InvoiceAmount [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountPayable_InvoiceAmount DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountReceivable ADD InvoiceAmount [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountReceivable_InvoiceAmount DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD PPNPercentage [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountPayable_PPNPercentage DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traAccountReceivable ADD PPHPercentage [decimal](18,2) NOT NULL CONSTRAINT DF_traAccountReceivable_PPHPercentage DEFAULT ((0)) " & vbNewLine
 
+            clsData.Scripts +=
+"CREATE TABLE [dbo].[traARAPInvoice](   " & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoice_ID]  DEFAULT (''),   " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoice_ParentID]  DEFAULT (''),   " & vbNewLine &
+"	[InvoiceDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPInvoice_InvoiceDate]  DEFAULT (GETDATE()),   " & vbNewLine &
+"	[Amount] [decimal](18,2) NOT NULL CONSTRAINT [DF_traARAPInvoice_Amount]  DEFAULT ((0)),   " & vbNewLine &
+"	[PPN] [decimal](18,2) NOT NULL CONSTRAINT [DF_traARAPInvoice_PPN]  DEFAULT ((0)),   " & vbNewLine &
+"	[PPH] [decimal](18,2) NOT NULL CONSTRAINT [DF_traARAPInvoice_PPH]  DEFAULT ((0)),   " & vbNewLine &
+"	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoice_JournalID]  DEFAULT (''), " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traARAPInvoice_Remarks]  DEFAULT (''), " & vbNewLine &
+"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traARAPInvoice_CreatedBy]  DEFAULT (''), " & vbNewLine &
+"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPInvoice_CreatedDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traARAPInvoice_LogBy]  DEFAULT (''), " & vbNewLine &
+"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPInvoice_LogDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[LogInc] [int] NOT NULL CONSTRAINT [DF_traARAPInvoice_LogInc]  DEFAULT ((0)), " & vbNewLine &
+"   CONSTRAINT [PK_traARAPInvoice] PRIMARY KEY CLUSTERED    " & vbNewLine &
+"   (   " & vbNewLine &
+"   	[ID] ASC   " & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

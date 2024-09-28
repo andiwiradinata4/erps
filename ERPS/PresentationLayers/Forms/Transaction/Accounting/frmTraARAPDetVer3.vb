@@ -18,6 +18,8 @@ Public Class frmTraARAPDetVer3
     Private dtItem As New DataTable
     Private bolValid As Boolean = True
     Private bolIsUseSubItem As Boolean
+    Private decPPNPercentage As Decimal = 0
+    Private decPPHPercentage As Decimal = 0
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -64,6 +66,18 @@ Public Class frmTraARAPDetVer3
     Public WriteOnly Property pubIsUseSubItem As Boolean
         Set(value As Boolean)
             bolIsUseSubItem = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubPPNPercentage As Decimal
+        Set(value As Decimal)
+            decPPNPercentage = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubPPHPercentage As Decimal
+        Set(value As Decimal)
+            decPPHPercentage = value
         End Set
     End Property
 

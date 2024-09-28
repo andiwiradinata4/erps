@@ -14,5 +14,7 @@
         Property RoundingWeight As Decimal
         Property LevelItem As Decimal
         Property ParentID As String = ""
+        Property UnitPriceRawMaterial As Decimal
+        Property TotalPriceRawMaterial As Decimal
     End Class
 End Namespace
