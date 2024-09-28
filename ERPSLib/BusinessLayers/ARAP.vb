@@ -1081,5 +1081,58 @@ Namespace BL
 
 #End Region
 
+#Region "Invoice"
+
+        Public Shared Function ListDataInvoice(ByVal strParentID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ARAP.ListDataInvoice(sqlCon, Nothing, strParentID)
+            End Using
+        End Function
+
+        Public Shared Function SaveDataInvoice(ByVal bolNew As Boolean, ByVal clsData As VO.ARAPInvoice) As String
+            Dim strReturn As String = ""
+            Dim clsARAP As New VO.ARAP
+            Try
+                clsARAP = BL.ARAP.GetDetail(clsData.ParentID, VO.ARAP.ARAPTypeValue.Purchase)
+                If clsARAP.ID Is Nothing Then clsARAP = BL.ARAP.GetDetail(clsData.ParentID, VO.ARAP.ARAPTypeValue.Sales)
+            Catch ex As Exception
+                Throw ex
+            End Try
+
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    DL.ARAP.SaveDataInvoice(sqlCon, sqlTrans, bolNew, clsData)
+
+                    Dim decTotalInvoice, decTotalDPPInvoice, decTotalPPNInvoice, decTotalPPHInvoice As Decimal
+                    Dim dtInvoice As DataTable = DL.ARAP.ListDataInvoice(sqlCon, sqlTrans, clsARAP.ID)
+                    For Each dr As DataRow In dtInvoice.Rows
+                        decTotalInvoice += dr.Item("TotalInvoice")
+                        decTotalDPPInvoice += dr.Item("TotalDPP")
+                        decTotalPPNInvoice += dr.Item("TotalPPN")
+                        decTotalPPHInvoice += dr.Item("TotalPPH")
+                    Next
+
+                    '# Update Total Used ARAP
+                    If clsARAP.Modules = "" Then
+
+                    End If
+
+                    If decTotalDPPInvoice > clsARAP.TotalAmount Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Total DPP PI")
+                    End If
+
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return strReturn
+        End Function
+
+#End Region
     End Class
 End Namespace

@@ -451,6 +451,113 @@
 
 #End Region
 
+#Region "Invoice"
+
+        Public Shared Function ListDataInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal strParentID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "	ARI.ID, ARI.ParentID, ARI.InvoiceNumber, ARI.InvoiceDate, ARI.CoAID, COA.Code AS CoACode, COA.Name AS CoAName, " & vbNewLine &
+                    "	ARI.PPN, ARI.PPH, ARI.TotalAmount, ARI.TotalDPP, ARI.TotalPPN, ARI.TotalPPH, ARI.TaxInvoiceNumber, ARI.InvoiceNumberExternal, " & vbNewLine &
+                    "	ARI.SubmitBy, ARI.SubmitDate, ARI.ApprovedBy, ARI.ApprovedDate, ARI.IsDeleted, ARI.Remarks, ARI.CreatedBy, ARI.CreatedDate, " & vbNewLine &
+                    "	ARI.LogBy, ARI.LogDate, ARI.LogInc " & vbNewLine &
+                    "FROM traARAPInvoice ARI " & vbNewLine &
+                    "INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
+                    "	ARI.CoAID=COA.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "	ARI.ParentID=@ParentID " & vbNewLine &
+                    "ORDER BY ARH.InvoiceNumber "
+
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Sub SaveDataInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal bolNew As Boolean, ByVal clsData As VO.ARAPInvoice)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                If bolNew Then
+                    .CommandText =
+                    "INSERT INTO traARAPDP " & vbNewLine &
+                    "   (ID, ParentID, InvoiceNumber, InvoiceDate, CoAID, PPN, PPH, TotalAmount, TotalDPP, TotalPPN, TotalPPH, StatusID, ReferencesNumber) " & vbNewLine &
+                    "VALUES " & vbNewLine &
+                    "   (@ID, @ParentID, @InvoiceNumber, @InvoiceDate, @CoAID, @PPN, @PPH, @TotalAmount, @TotalDPP, @TotalPPN, @TotalPPH, @StatusID, @ReferencesNumber) " & vbNewLine
+                Else
+                    .CommandText =
+                    "UPDATE traARAPDP SET " & vbNewLine &
+                    "   ID=@ID," & vbNewLine &
+                    "   ParentID=@ParentID," & vbNewLine &
+                    "   InvoiceNumber=@InvoiceNumber," & vbNewLine &
+                    "   InvoiceDate=@InvoiceDate," & vbNewLine &
+                    "   CoAID=@CoAID," & vbNewLine &
+                    "   PPN=@PPN," & vbNewLine &
+                    "   PPH=@PPH," & vbNewLine &
+                    "   TotalAmount=@TotalAmount," & vbNewLine &
+                    "   TotalDPP=@TotalDPP," & vbNewLine &
+                    "   TotalPPN=@TotalPPN," & vbNewLine &
+                    "   TotalPPH=@TotalPPH," & vbNewLine &
+                    "   StatusID=@StatusID," & vbNewLine &
+                    "   ReferencesNumber=@ReferencesNumber " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ID=@ID " & vbNewLine
+                End If
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
+                .Parameters.Add("@InvoiceNumber", SqlDbType.VarChar, 100).Value = clsData.InvoiceNumber
+                .Parameters.Add("@InvoiceDate", SqlDbType.DateTime).Value = clsData.InvoiceDate
+                .Parameters.Add("@CoAID", SqlDbType.Int).Value = clsData.CoAID
+                .Parameters.Add("@PPN", SqlDbType.Decimal).Value = clsData.PPN
+                .Parameters.Add("@PPH", SqlDbType.Decimal).Value = clsData.PPH
+                .Parameters.Add("@TotalAmount", SqlDbType.Decimal).Value = clsData.TotalAmount
+                .Parameters.Add("@TotalDPP", SqlDbType.Decimal).Value = clsData.TotalDPP
+                .Parameters.Add("@TotalPPN", SqlDbType.Decimal).Value = clsData.TotalPPN
+                .Parameters.Add("@TotalPPH", SqlDbType.Decimal).Value = clsData.TotalPPH
+                .Parameters.Add("@StatusID", SqlDbType.Decimal).Value = clsData.StatusID
+                .Parameters.Add("@ReferencesNumber", SqlDbType.VarChar, 100).Value = clsData.ReferencesNumber
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                            ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traARAPInvoice SET " & vbNewLine &
+                    "   StatusID=@StatusID, " & vbNewLine &
+                    "   IsDeleted=1, " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Deleted
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+#End Region
+
 #Region "Item"
 
         Public Shared Function ListDataDetailItemOnly(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,

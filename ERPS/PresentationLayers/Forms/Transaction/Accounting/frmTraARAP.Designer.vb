@@ -39,6 +39,7 @@ Partial Class frmTraARAP
         Me.BarSetPaymentDate = New System.Windows.Forms.ToolBarButton()
         Me.BarDeletePaymentDate = New System.Windows.Forms.ToolBarButton()
         Me.BarSetTaxInvoiceNumber = New System.Windows.Forms.ToolBarButton()
+        Me.BarSetInvoiceNumberBP = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarPrint = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
@@ -58,7 +59,6 @@ Partial Class frmTraARAP
         Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
         Me.btnExecute = New DevExpress.XtraEditors.SimpleButton()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.BarSetInvoiceNumberBP = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -188,6 +188,12 @@ Partial Class frmTraARAP
         Me.BarSetTaxInvoiceNumber.Name = "BarSetTaxInvoiceNumber"
         Me.BarSetTaxInvoiceNumber.Tag = "Checked"
         Me.BarSetTaxInvoiceNumber.Text = "Set Nomor Faktur Pajak"
+        '
+        'BarSetInvoiceNumberBP
+        '
+        Me.BarSetInvoiceNumberBP.Name = "BarSetInvoiceNumberBP"
+        Me.BarSetInvoiceNumberBP.Tag = "Sub"
+        Me.BarSetInvoiceNumberBP.Text = "Set Nomor Invoice Pemasok"
         '
         'BarSep3
         '
@@ -361,12 +367,6 @@ Partial Class frmTraARAP
         Me.Label1.Size = New System.Drawing.Size(145, 17)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Query berdasarkan:"
-        '
-        'BarSetInvoiceNumberBP
-        '
-        Me.BarSetInvoiceNumberBP.Name = "BarSetInvoiceNumberBP"
-        Me.BarSetInvoiceNumberBP.Tag = "Sub"
-        Me.BarSetInvoiceNumberBP.Text = "Set Nomor Invoice Pemasok"
         '
         'frmTraARAP
         '

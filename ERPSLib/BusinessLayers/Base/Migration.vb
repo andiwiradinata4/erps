@@ -1239,17 +1239,33 @@
 "CREATE TABLE [dbo].[traARAPInvoice](   " & vbNewLine &
 "	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoice_ID]  DEFAULT (''),   " & vbNewLine &
 "	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoice_ParentID]  DEFAULT (''),   " & vbNewLine &
+"	[InvoiceNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoice_InvoiceNumber]  DEFAULT (''),   " & vbNewLine &
 "	[InvoiceDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPInvoice_InvoiceDate]  DEFAULT (GETDATE()),   " & vbNewLine &
-"	[Amount] [decimal](18,2) NOT NULL CONSTRAINT [DF_traARAPInvoice_Amount]  DEFAULT ((0)),   " & vbNewLine &
+"	[CoAID] [int] NOT NULL CONSTRAINT [DF_traARAPInvoice_CoAID]  DEFAULT ((0)), " & vbNewLine &
 "	[PPN] [decimal](18,2) NOT NULL CONSTRAINT [DF_traARAPInvoice_PPN]  DEFAULT ((0)),   " & vbNewLine &
 "	[PPH] [decimal](18,2) NOT NULL CONSTRAINT [DF_traARAPInvoice_PPH]  DEFAULT ((0)),   " & vbNewLine &
+"	[TotalAmount] [decimal](18,2) NOT NULL CONSTRAINT [DF_traARAPInvoice_TotalAmount]  DEFAULT ((0)),   " & vbNewLine &
+"	[TotalDPP] [decimal](18,2) NOT NULL CONSTRAINT [DF_traARAPInvoice_TotalDPP]  DEFAULT ((0)),   " & vbNewLine &
+"	[TotalPPN] [decimal](18,2) NOT NULL CONSTRAINT [DF_traARAPInvoice_TotalPPN]  DEFAULT ((0)),   " & vbNewLine &
+"	[TotalPPH] [decimal](18,2) NOT NULL CONSTRAINT [DF_traARAPInvoice_TotalPPH]  DEFAULT ((0)),   " & vbNewLine &
+"	[StatusID] [int] NOT NULL CONSTRAINT [DF_traARAPInvoice_StatusID]  DEFAULT ((0)), " & vbNewLine &
+"	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traARAPInvoice_IsDeleted]  DEFAULT ((0)), " & vbNewLine &
+"	[ReferencesNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoice_ReferencesNumber]  DEFAULT (''), " & vbNewLine &
+"	[TaxInvoiceNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoice_TaxInvoiceNumber]  DEFAULT (''), " & vbNewLine &
+"	[InvoiceNumberExternal] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoice_InvoiceNumberExternal]  DEFAULT (''), " & vbNewLine &
+"	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traARAPInvoice_SubmitBy]  DEFAULT (''), " & vbNewLine &
+"	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPInvoice_SubmitDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traARAPInvoice_ApproveL1]  DEFAULT (''), " & vbNewLine &
+"	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traARAPInvoice_ApproveL1Date]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[ApproveBy] [varchar](20) NOT NULL CONSTRAINT [DF_traARAPInvoice_ApproveBy]  DEFAULT (''), " & vbNewLine &
+"	[ApproveDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPInvoice_ApproveDate]  DEFAULT (GETDATE()), " & vbNewLine &
 "	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoice_JournalID]  DEFAULT (''), " & vbNewLine &
 "	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traARAPInvoice_Remarks]  DEFAULT (''), " & vbNewLine &
 "	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traARAPInvoice_CreatedBy]  DEFAULT (''), " & vbNewLine &
 "	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPInvoice_CreatedDate]  DEFAULT (GETDATE()), " & vbNewLine &
 "	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traARAPInvoice_LogBy]  DEFAULT (''), " & vbNewLine &
 "	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPInvoice_LogDate]  DEFAULT (GETDATE()), " & vbNewLine &
-"	[LogInc] [int] NOT NULL CONSTRAINT [DF_traARAPInvoice_LogInc]  DEFAULT ((0)), " & vbNewLine &
+"	[LogInc] [int] NOT NULL CONSTRAINT [DF_traARAPInvoice_LogInc]  DEFAULT ((0)) " & vbNewLine &
 "   CONSTRAINT [PK_traARAPInvoice] PRIMARY KEY CLUSTERED    " & vbNewLine &
 "   (   " & vbNewLine &
 "   	[ID] ASC   " & vbNewLine &
