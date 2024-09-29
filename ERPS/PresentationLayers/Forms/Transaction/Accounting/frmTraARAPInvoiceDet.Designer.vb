@@ -26,31 +26,34 @@ Partial Class frmTraARAPInvoiceDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlMain = New System.Windows.Forms.Panel()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.cboStatus = New ERPS.usComboBox()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.txtTotalAmount = New ERPS.usNumeric()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtTotalPPH = New ERPS.usNumeric()
-        Me.txtPPH = New ERPS.usNumeric()
-        Me.txtTotalDPP = New ERPS.usNumeric()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.txtTotalPPN = New ERPS.usNumeric()
-        Me.txtPPN = New ERPS.usNumeric()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.txtInvoiceNumber = New ERPS.usTextBox()
-        Me.txtCoACode = New ERPS.usTextBox()
         Me.btnCoA = New DevExpress.XtraEditors.SimpleButton()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.txtCoAName = New ERPS.usTextBox()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.txtRemarks = New ERPS.usTextBox()
         Me.dtpInvoiceDate = New System.Windows.Forms.DateTimePicker()
         Me.Label6 = New System.Windows.Forms.Label()
+        Me.chkChangeTotalDPP = New System.Windows.Forms.CheckBox()
+        Me.chkChangeTotalPPN = New System.Windows.Forms.CheckBox()
+        Me.chkChangeTotalPPH = New System.Windows.Forms.CheckBox()
+        Me.cboStatus = New ERPS.usComboBox()
+        Me.txtTotalAmount = New ERPS.usNumeric()
+        Me.txtTotalPPH = New ERPS.usNumeric()
+        Me.txtPPH = New ERPS.usNumeric()
+        Me.txtTotalDPP = New ERPS.usNumeric()
+        Me.txtTotalPPN = New ERPS.usNumeric()
+        Me.txtPPN = New ERPS.usNumeric()
+        Me.txtInvoiceNumber = New ERPS.usTextBox()
+        Me.txtCoACode = New ERPS.usTextBox()
+        Me.txtCoAName = New ERPS.usTextBox()
+        Me.txtRemarks = New ERPS.usTextBox()
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
@@ -79,6 +82,9 @@ Partial Class frmTraARAPInvoiceDet
         'pnlMain
         '
         Me.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlMain.Controls.Add(Me.chkChangeTotalPPH)
+        Me.pnlMain.Controls.Add(Me.chkChangeTotalPPN)
+        Me.pnlMain.Controls.Add(Me.chkChangeTotalDPP)
         Me.pnlMain.Controls.Add(Me.Label5)
         Me.pnlMain.Controls.Add(Me.cboStatus)
         Me.pnlMain.Controls.Add(Me.Label15)
@@ -122,16 +128,6 @@ Partial Class frmTraARAPInvoiceDet
         Me.Label5.TabIndex = 155
         Me.Label5.Text = "Status"
         '
-        'cboStatus
-        '
-        Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboStatus.Enabled = False
-        Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(125, 156)
-        Me.cboStatus.Name = "cboStatus"
-        Me.cboStatus.Size = New System.Drawing.Size(118, 21)
-        Me.cboStatus.TabIndex = 154
-        '
         'Label15
         '
         Me.Label15.AutoSize = True
@@ -143,25 +139,12 @@ Partial Class frmTraARAPInvoiceDet
         Me.Label15.TabIndex = 125
         Me.Label15.Text = "Total Bayar"
         '
-        'txtTotalAmount
-        '
-        Me.txtTotalAmount.BackColor = System.Drawing.Color.White
-        Me.txtTotalAmount.DecimalPlaces = 2
-        Me.txtTotalAmount.Location = New System.Drawing.Point(125, 129)
-        Me.txtTotalAmount.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtTotalAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalAmount.Name = "txtTotalAmount"
-        Me.txtTotalAmount.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalAmount.TabIndex = 3
-        Me.txtTotalAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalAmount.ThousandsSeparator = True
-        '
         'Label7
         '
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.ForeColor = System.Drawing.Color.Black
-        Me.Label7.Location = New System.Drawing.Point(756, 52)
+        Me.Label7.Location = New System.Drawing.Point(779, 52)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(18, 13)
         Me.Label7.TabIndex = 153
@@ -183,51 +166,11 @@ Partial Class frmTraARAPInvoiceDet
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(638, 52)
+        Me.Label1.Location = New System.Drawing.Point(661, 52)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(25, 13)
         Me.Label1.TabIndex = 152
         Me.Label1.Text = "PPh"
-        '
-        'txtTotalPPH
-        '
-        Me.txtTotalPPH.BackColor = System.Drawing.Color.White
-        Me.txtTotalPPH.DecimalPlaces = 2
-        Me.txtTotalPPH.Location = New System.Drawing.Point(125, 102)
-        Me.txtTotalPPH.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtTotalPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalPPH.Name = "txtTotalPPH"
-        Me.txtTotalPPH.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalPPH.TabIndex = 2
-        Me.txtTotalPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalPPH.ThousandsSeparator = True
-        '
-        'txtPPH
-        '
-        Me.txtPPH.BackColor = System.Drawing.Color.LightYellow
-        Me.txtPPH.DecimalPlaces = 2
-        Me.txtPPH.Enabled = False
-        Me.txtPPH.Location = New System.Drawing.Point(676, 48)
-        Me.txtPPH.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtPPH.Name = "txtPPH"
-        Me.txtPPH.Size = New System.Drawing.Size(77, 21)
-        Me.txtPPH.TabIndex = 149
-        Me.txtPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtPPH.ThousandsSeparator = True
-        '
-        'txtTotalDPP
-        '
-        Me.txtTotalDPP.BackColor = System.Drawing.Color.White
-        Me.txtTotalDPP.DecimalPlaces = 2
-        Me.txtTotalDPP.Location = New System.Drawing.Point(125, 48)
-        Me.txtTotalDPP.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtTotalDPP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalDPP.Name = "txtTotalDPP"
-        Me.txtTotalDPP.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalDPP.TabIndex = 0
-        Me.txtTotalDPP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalDPP.ThousandsSeparator = True
         '
         'Label17
         '
@@ -245,7 +188,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(589, 52)
+        Me.Label3.Location = New System.Drawing.Point(612, 52)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(18, 13)
         Me.Label3.TabIndex = 151
@@ -267,16 +210,175 @@ Partial Class frmTraARAPInvoiceDet
         Me.Label11.AutoSize = True
         Me.Label11.BackColor = System.Drawing.Color.Transparent
         Me.Label11.ForeColor = System.Drawing.Color.Black
-        Me.Label11.Location = New System.Drawing.Point(432, 52)
+        Me.Label11.Location = New System.Drawing.Point(455, 52)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(26, 13)
         Me.Label11.TabIndex = 150
         Me.Label11.Text = "PPN"
         '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.BackColor = System.Drawing.Color.Transparent
+        Me.Label8.ForeColor = System.Drawing.Color.Black
+        Me.Label8.Location = New System.Drawing.Point(29, 25)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(38, 13)
+        Me.Label8.TabIndex = 146
+        Me.Label8.Text = "Nomor"
+        '
+        'btnCoA
+        '
+        Me.btnCoA.Image = CType(resources.GetObject("btnCoA.Image"), System.Drawing.Image)
+        Me.btnCoA.Location = New System.Drawing.Point(784, 73)
+        Me.btnCoA.Name = "btnCoA"
+        Me.btnCoA.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoA.TabIndex = 3
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.ForeColor = System.Drawing.Color.Black
+        Me.Label2.Location = New System.Drawing.Point(455, 78)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(52, 13)
+        Me.Label2.TabIndex = 141
+        Me.Label2.Text = "Pilih Akun"
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.BackColor = System.Drawing.Color.Transparent
+        Me.Label13.ForeColor = System.Drawing.Color.Black
+        Me.Label13.Location = New System.Drawing.Point(455, 105)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(63, 13)
+        Me.Label13.TabIndex = 131
+        Me.Label13.Text = "Keterangan"
+        '
+        'dtpInvoiceDate
+        '
+        Me.dtpInvoiceDate.CustomFormat = "dd/MM/yyyy"
+        Me.dtpInvoiceDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpInvoiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpInvoiceDate.Location = New System.Drawing.Point(529, 21)
+        Me.dtpInvoiceDate.Name = "dtpInvoiceDate"
+        Me.dtpInvoiceDate.Size = New System.Drawing.Size(127, 21)
+        Me.dtpInvoiceDate.TabIndex = 0
+        Me.dtpInvoiceDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.BackColor = System.Drawing.Color.Transparent
+        Me.Label6.ForeColor = System.Drawing.Color.Black
+        Me.Label6.Location = New System.Drawing.Point(455, 25)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(45, 13)
+        Me.Label6.TabIndex = 126
+        Me.Label6.Text = "Tanggal"
+        '
+        'chkChangeTotalDPP
+        '
+        Me.chkChangeTotalDPP.AutoSize = True
+        Me.chkChangeTotalDPP.Location = New System.Drawing.Point(379, 51)
+        Me.chkChangeTotalDPP.Name = "chkChangeTotalDPP"
+        Me.chkChangeTotalDPP.Size = New System.Drawing.Size(51, 17)
+        Me.chkChangeTotalDPP.TabIndex = 156
+        Me.chkChangeTotalDPP.Text = "Ubah"
+        Me.chkChangeTotalDPP.UseVisualStyleBackColor = True
+        '
+        'chkChangeTotalPPN
+        '
+        Me.chkChangeTotalPPN.AutoSize = True
+        Me.chkChangeTotalPPN.Location = New System.Drawing.Point(379, 78)
+        Me.chkChangeTotalPPN.Name = "chkChangeTotalPPN"
+        Me.chkChangeTotalPPN.Size = New System.Drawing.Size(51, 17)
+        Me.chkChangeTotalPPN.TabIndex = 157
+        Me.chkChangeTotalPPN.Text = "Ubah"
+        Me.chkChangeTotalPPN.UseVisualStyleBackColor = True
+        '
+        'chkChangeTotalPPH
+        '
+        Me.chkChangeTotalPPH.AutoSize = True
+        Me.chkChangeTotalPPH.Location = New System.Drawing.Point(380, 104)
+        Me.chkChangeTotalPPH.Name = "chkChangeTotalPPH"
+        Me.chkChangeTotalPPH.Size = New System.Drawing.Size(51, 17)
+        Me.chkChangeTotalPPH.TabIndex = 158
+        Me.chkChangeTotalPPH.Text = "Ubah"
+        Me.chkChangeTotalPPH.UseVisualStyleBackColor = True
+        '
+        'cboStatus
+        '
+        Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboStatus.Enabled = False
+        Me.cboStatus.FormattingEnabled = True
+        Me.cboStatus.Location = New System.Drawing.Point(125, 156)
+        Me.cboStatus.Name = "cboStatus"
+        Me.cboStatus.Size = New System.Drawing.Size(118, 21)
+        Me.cboStatus.TabIndex = 154
+        '
+        'txtTotalAmount
+        '
+        Me.txtTotalAmount.BackColor = System.Drawing.Color.White
+        Me.txtTotalAmount.DecimalPlaces = 2
+        Me.txtTotalAmount.Location = New System.Drawing.Point(125, 129)
+        Me.txtTotalAmount.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalAmount.Name = "txtTotalAmount"
+        Me.txtTotalAmount.Size = New System.Drawing.Size(249, 21)
+        Me.txtTotalAmount.TabIndex = 3
+        Me.txtTotalAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalAmount.ThousandsSeparator = True
+        '
+        'txtTotalPPH
+        '
+        Me.txtTotalPPH.BackColor = System.Drawing.Color.LightYellow
+        Me.txtTotalPPH.DecimalPlaces = 2
+        Me.txtTotalPPH.Enabled = False
+        Me.txtTotalPPH.Location = New System.Drawing.Point(125, 102)
+        Me.txtTotalPPH.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalPPH.Name = "txtTotalPPH"
+        Me.txtTotalPPH.Size = New System.Drawing.Size(249, 21)
+        Me.txtTotalPPH.TabIndex = 2
+        Me.txtTotalPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalPPH.ThousandsSeparator = True
+        '
+        'txtPPH
+        '
+        Me.txtPPH.BackColor = System.Drawing.Color.LightYellow
+        Me.txtPPH.DecimalPlaces = 2
+        Me.txtPPH.Enabled = False
+        Me.txtPPH.Location = New System.Drawing.Point(699, 48)
+        Me.txtPPH.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtPPH.Name = "txtPPH"
+        Me.txtPPH.Size = New System.Drawing.Size(77, 21)
+        Me.txtPPH.TabIndex = 149
+        Me.txtPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtPPH.ThousandsSeparator = True
+        '
+        'txtTotalDPP
+        '
+        Me.txtTotalDPP.BackColor = System.Drawing.Color.LightYellow
+        Me.txtTotalDPP.DecimalPlaces = 2
+        Me.txtTotalDPP.Enabled = False
+        Me.txtTotalDPP.Location = New System.Drawing.Point(125, 48)
+        Me.txtTotalDPP.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalDPP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalDPP.Name = "txtTotalDPP"
+        Me.txtTotalDPP.Size = New System.Drawing.Size(249, 21)
+        Me.txtTotalDPP.TabIndex = 0
+        Me.txtTotalDPP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalDPP.ThousandsSeparator = True
+        '
         'txtTotalPPN
         '
-        Me.txtTotalPPN.BackColor = System.Drawing.Color.White
+        Me.txtTotalPPN.BackColor = System.Drawing.Color.LightYellow
         Me.txtTotalPPN.DecimalPlaces = 2
+        Me.txtTotalPPN.Enabled = False
         Me.txtTotalPPN.Location = New System.Drawing.Point(125, 75)
         Me.txtTotalPPN.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalPPN.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
@@ -291,7 +393,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtPPN.BackColor = System.Drawing.Color.LightYellow
         Me.txtPPN.DecimalPlaces = 2
         Me.txtPPN.Enabled = False
-        Me.txtPPN.Location = New System.Drawing.Point(506, 48)
+        Me.txtPPN.Location = New System.Drawing.Point(529, 48)
         Me.txtPPN.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtPPN.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtPPN.Name = "txtPPN"
@@ -299,17 +401,6 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtPPN.TabIndex = 148
         Me.txtPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtPPN.ThousandsSeparator = True
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.BackColor = System.Drawing.Color.Transparent
-        Me.Label8.ForeColor = System.Drawing.Color.Black
-        Me.Label8.Location = New System.Drawing.Point(29, 25)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(38, 13)
-        Me.Label8.TabIndex = 146
-        Me.Label8.Text = "Nomor"
         '
         'txtInvoiceNumber
         '
@@ -325,86 +416,34 @@ Partial Class frmTraARAPInvoiceDet
         '
         Me.txtCoACode.BackColor = System.Drawing.Color.Azure
         Me.txtCoACode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACode.Location = New System.Drawing.Point(506, 74)
+        Me.txtCoACode.Location = New System.Drawing.Point(529, 74)
         Me.txtCoACode.MaxLength = 250
         Me.txtCoACode.Name = "txtCoACode"
         Me.txtCoACode.ReadOnly = True
         Me.txtCoACode.Size = New System.Drawing.Size(83, 21)
         Me.txtCoACode.TabIndex = 1
         '
-        'btnCoA
-        '
-        Me.btnCoA.Image = CType(resources.GetObject("btnCoA.Image"), System.Drawing.Image)
-        Me.btnCoA.Location = New System.Drawing.Point(761, 73)
-        Me.btnCoA.Name = "btnCoA"
-        Me.btnCoA.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoA.TabIndex = 3
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(432, 78)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(52, 13)
-        Me.Label2.TabIndex = 141
-        Me.Label2.Text = "Pilih Akun"
-        '
         'txtCoAName
         '
         Me.txtCoAName.BackColor = System.Drawing.Color.Azure
         Me.txtCoAName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoAName.Location = New System.Drawing.Point(588, 74)
+        Me.txtCoAName.Location = New System.Drawing.Point(611, 74)
         Me.txtCoAName.MaxLength = 250
         Me.txtCoAName.Name = "txtCoAName"
         Me.txtCoAName.ReadOnly = True
         Me.txtCoAName.Size = New System.Drawing.Size(167, 21)
         Me.txtCoAName.TabIndex = 2
         '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.BackColor = System.Drawing.Color.Transparent
-        Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(432, 105)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(63, 13)
-        Me.Label13.TabIndex = 131
-        Me.Label13.Text = "Keterangan"
-        '
         'txtRemarks
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(506, 101)
+        Me.txtRemarks.Location = New System.Drawing.Point(529, 101)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
         Me.txtRemarks.TabIndex = 4
-        '
-        'dtpInvoiceDate
-        '
-        Me.dtpInvoiceDate.CustomFormat = "dd/MM/yyyy"
-        Me.dtpInvoiceDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtpInvoiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpInvoiceDate.Location = New System.Drawing.Point(506, 21)
-        Me.dtpInvoiceDate.Name = "dtpInvoiceDate"
-        Me.dtpInvoiceDate.Size = New System.Drawing.Size(127, 21)
-        Me.dtpInvoiceDate.TabIndex = 0
-        Me.dtpInvoiceDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.BackColor = System.Drawing.Color.Transparent
-        Me.Label6.ForeColor = System.Drawing.Color.Black
-        Me.Label6.Location = New System.Drawing.Point(432, 25)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(45, 13)
-        Me.Label6.TabIndex = 126
-        Me.Label6.Text = "Tanggal"
         '
         'ToolBar
         '
@@ -486,4 +525,7 @@ Partial Class frmTraARAPInvoiceDet
     Friend WithEvents txtPPN As usNumeric
     Friend WithEvents Label5 As Label
     Friend WithEvents cboStatus As usComboBox
+    Friend WithEvents chkChangeTotalPPH As CheckBox
+    Friend WithEvents chkChangeTotalPPN As CheckBox
+    Friend WithEvents chkChangeTotalDPP As CheckBox
 End Class

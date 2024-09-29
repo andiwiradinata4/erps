@@ -125,17 +125,23 @@ Public Class frmTraARAP
         UI.usForm.SetGrid(grdView, "DueDateValue", "Jatuh Tempo", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdView, "DueDate", "Tanggal Jatuh Tempo", 100, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdView, "CoAID", "ID Akun", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdView, "CoACode", "Kode Akun", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "CoAName", "Nama Akun", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "CoACode", "Kode Akun", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "CoAName", "Nama Akun", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "Modules", "Modules", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdView, "ReferencesID", "No. Referensi", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "TotalAmount", "Total Bayar", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "TotalPPN", "Total PPN Dibayar", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "TotalPPH", "Total PPH Dibayar", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "PaymentBy", "Dibayar Oleh", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "PaymentDate", "Tanggal Bayar", 100, UI.usDefGrid.gFullDate)
-        UI.usForm.SetGrid(grdView, "TaxInvoiceNumber", "No. Faktur Pajak", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "InvoiceNumberBP", "Nomor Invoice", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "ReferencesID", "No. Referensi", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "ReferencesNote", "Referensi", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "TotalAmount", "Total DPP", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "TotalPPN", "Total PPN", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "TotalPPH", "Total PPH", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "GrandTotal", "Grand Total", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "TotalDPPInvoiceAmount", "Total DPP Invoice", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "TotalPPNInvoiceAmount", "Total PPN Invoice", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "TotalPPHInvoiceAmount", "Total PPH Invoice", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "TotalInvoiceAmount", "Grand Total Invoice", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "PaymentBy", "Dibayar Oleh", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "PaymentDate", "Tanggal Bayar", 100, UI.usDefGrid.gFullDate, False)
+        UI.usForm.SetGrid(grdView, "TaxInvoiceNumber", "No. Faktur Pajak", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "InvoiceNumberBP", "Nomor Invoice", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "SubmitBy", "Disubmit Oleh", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "SubmitDate", "Tanggal Disubmit", 100, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdView, "ApprovedBy", "Diapprove Oleh", 100, UI.usDefGrid.gString)
@@ -178,6 +184,7 @@ Public Class frmTraARAP
             .Item(cDeletePaymentDate).Enabled = bolEnable
             .Item(cSetTaxInvoiceNumber).Enabled = bolEnable
             .Item(cSetInvoiceNumberBP).Enabled = bolEnable
+            .Item(cInvoice).Enabled = bolEnable
             .Item(cPrint).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
         End With
@@ -878,9 +885,14 @@ Public Class frmTraARAP
     End Sub
 
     Private Sub prvSumGrid()
-        Dim SumTotalAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalAmount", "Total Bayar: {0:#,##0.00}")
-        Dim SumTotalPPN As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPN", "Total PPN Dibayar: {0:#,##0.00}")
-        Dim SumTotalPPH As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPH", "Total PPH Dibayar: {0:#,##0.00}")
+        Dim SumTotalAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalAmount", "Total DPP: {0:#,##0.00}")
+        Dim SumTotalPPN As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPN", "Total PPN: {0:#,##0.00}")
+        Dim SumTotalPPH As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPH", "Total PPH: {0:#,##0.00}")
+        Dim SumGrandTotal As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "GrandTotal", "Grand Total: {0:#,##0.00}")
+        Dim SumTotalDPPInvoiceAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalDPPInvoiceAmount", "Total DPP Invoice: {0:#,##0.00}")
+        Dim SumTotalPPNInvoiceAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPNInvoiceAmount", "Total PPN Invoice: {0:#,##0.00}")
+        Dim SumTotalPPHInvoiceAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPHInvoiceAmount", "Total PPH Invoice: {0:#,##0.00}")
+        Dim SumGrandTotalInvoiceAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalInvoiceAmount", "Grand Total Invoice: {0:#,##0.00}")
 
         If grdView.Columns("TotalAmount").SummaryText.Trim = "" Then
             grdView.Columns("TotalAmount").Summary.Add(SumTotalAmount)
@@ -892,6 +904,26 @@ Public Class frmTraARAP
 
         If grdView.Columns("TotalPPH").SummaryText.Trim = "" Then
             grdView.Columns("TotalPPH").Summary.Add(SumTotalPPH)
+        End If
+
+        If grdView.Columns("GrandTotal").SummaryText.Trim = "" Then
+            grdView.Columns("GrandTotal").Summary.Add(SumGrandTotal)
+        End If
+
+        If grdView.Columns("TotalDPPInvoiceAmount").SummaryText.Trim = "" Then
+            grdView.Columns("TotalDPPInvoiceAmount").Summary.Add(SumTotalDPPInvoiceAmount)
+        End If
+
+        If grdView.Columns("TotalPPNInvoiceAmount").SummaryText.Trim = "" Then
+            grdView.Columns("TotalPPNInvoiceAmount").Summary.Add(SumTotalPPNInvoiceAmount)
+        End If
+
+        If grdView.Columns("TotalPPHInvoiceAmount").SummaryText.Trim = "" Then
+            grdView.Columns("TotalPPHInvoiceAmount").Summary.Add(SumTotalPPHInvoiceAmount)
+        End If
+
+        If grdView.Columns("TotalInvoiceAmount").SummaryText.Trim = "" Then
+            grdView.Columns("TotalInvoiceAmount").Summary.Add(SumGrandTotalInvoiceAmount)
         End If
     End Sub
 

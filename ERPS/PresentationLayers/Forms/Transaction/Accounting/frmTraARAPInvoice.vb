@@ -142,6 +142,7 @@ Public Class frmTraARAPInvoice
     Private Function prvGetData() As VO.ARAPInvoice
         Return New VO.ARAPInvoice With {
             .ID = grdView.GetRowCellValue(intPos, "ID"),
+            .ParentID = strParentID,
             .InvoiceNumber = grdView.GetRowCellValue(intPos, "InvoiceNumber"),
             .InvoiceDate = grdView.GetRowCellValue(intPos, "InvoiceDate"),
             .CoAID = grdView.GetRowCellValue(intPos, "CoAID"),
@@ -208,32 +209,27 @@ Public Class frmTraARAPInvoice
 
         If Not UI.usForm.frmAskQuestion("Hapus Nomor " & clsData.InvoiceNumber & "?") Then Exit Sub
 
-        'Dim frmDetail As New usFormRemarks
-        'With frmDetail
-        '    .StartPosition = FormStartPosition.CenterParent
-        '    .ShowDialog()
-        '    If .pubIsSave Then
-        '        clsData.Remarks = .pubValue
-        '    Else
-        '        Exit Sub
-        '    End If
-        'End With
+        Dim frmDetail As New usFormRemarks
+        With frmDetail
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsSave Then
+                clsData.Remarks = .pubValue
+            Else
+                Exit Sub
+            End If
+        End With
 
-        'Me.Cursor = Cursors.WaitCursor
-        'pgMain.Value = 40
-
-        'Try
-        '    BL.ARAP.DeleteData(clsData.ID, clsData.Modules, clsData.Remarks, enumARAPType, intPaymentTypeID)
-        '    pgMain.Value = 100
-        '    UI.usForm.frmMessageBox("Hapus data berhasil.")
-        '    pubRefresh(grdView.GetRowCellValue(intPos, "TransNumber"))
-        'Catch ex As Exception
-        '    UI.usForm.frmMessageBox(ex.Message)
-        'Finally
-        '    Me.Cursor = Cursors.Default
-        '    pgMain.Value = 100
-        '    prvResetProgressBar()
-        'End Try
+        Me.Cursor = Cursors.WaitCursor
+        Try
+            BL.ARAP.DeleteDataInvoice(clsData)
+            UI.usForm.frmMessageBox("Hapus data berhasil.")
+            pubRefresh(grdView.GetRowCellValue(intPos, "InvoiceNumber"))
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+        End Try
     End Sub
 
     Private Sub prvSubmit()

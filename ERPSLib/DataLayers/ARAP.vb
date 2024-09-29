@@ -577,7 +577,7 @@
                 .CommandText =
                     "UPDATE traARAPInvoice SET " & vbNewLine &
                     "   StatusID=@StatusID, " & vbNewLine &
-                    "   IsDeleted=1, " & vbNewLine &
+                    "   IsDeleted=1 " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   ID=@ID " & vbNewLine
 

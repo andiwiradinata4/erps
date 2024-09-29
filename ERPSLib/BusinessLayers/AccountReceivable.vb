@@ -1044,14 +1044,14 @@
                                        ByVal strID As String, ByVal strRemarks As String) As Boolean
             Dim bolReturn As Boolean = False
             Try
-                Dim intStatusID As Integer = DL.AccountReceivable.GetStatusID(sqlCon, sqlTrans, strID)
-                If intStatusID = VO.Status.Values.Draft Then
+                Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
+                If clsData.StatusID = VO.Status.Values.Draft Then
                     Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data masih DRAFT")
-                ElseIf intStatusID = VO.Status.Values.Approved Then
+                ElseIf clsData.StatusID = VO.Status.Values.Approved Then
                     Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data telah APPROVED")
-                ElseIf intStatusID = VO.Status.Values.Payment Then
+                ElseIf clsData.StatusID = VO.Status.Values.Payment Then
                     Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data telah DIBAYAR")
-                ElseIf DL.AccountReceivable.IsDeleted(sqlCon, sqlTrans, strID) Then
+                ElseIf clsData.IsDeleted Then
                     Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan data telah dihapus")
                 End If
 
@@ -1060,7 +1060,6 @@
                 '# Save Data Status
                 BL.AccountReceivable.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
-                Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
                 If Not clsData.IsDP Then GenerateJournal(sqlCon, sqlTrans, strID)
             Catch ex As Exception
                 Throw ex
@@ -1088,18 +1087,17 @@
                                          ByVal strID As String, ByVal strRemarks As String) As Boolean
             Dim bolReturn As Boolean = False
             Try
-                Dim intStatusID As Integer = DL.AccountReceivable.GetStatusID(sqlCon, sqlTrans, strID)
-                If intStatusID = VO.Status.Values.Draft Then
+                Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
+                If clsData.StatusID = VO.Status.Values.Draft Then
                     Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data masih DRAFT")
-                ElseIf intStatusID = VO.Status.Values.Submit Then
+                ElseIf clsData.StatusID = VO.Status.Values.Submit Then
                     Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data telah SUBMIT")
-                ElseIf intStatusID = VO.Status.Values.Payment Then
+                ElseIf clsData.StatusID = VO.Status.Values.Payment Then
                     Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data telah DIBAYAR")
-                ElseIf DL.AccountReceivable.IsDeleted(sqlCon, sqlTrans, strID) Then
+                ElseIf clsData.IsDeleted Then
                     Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
                 End If
 
-                Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
                 If Not clsData.IsDP Then
                     '# Cancel Approve Journal
                     BL.Journal.Unapprove(clsData.JournalID.Trim, "")

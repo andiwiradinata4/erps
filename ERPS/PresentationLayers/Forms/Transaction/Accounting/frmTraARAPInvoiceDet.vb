@@ -168,6 +168,10 @@
         End Try
     End Sub
 
+    Private Sub prvCalculate()
+        txtTotalAmount.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
+    End Sub
+
 #Region "Form Handle"
 
     Private Sub frmTraARAPInvoiceDet_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -197,6 +201,7 @@
     End Sub
 
     Private Sub txtTotalAmount_ValueChanged(sender As Object, e As EventArgs)
+        If chkChangeTotalDPP.Checked Or chkChangeTotalPPN.Checked Or chkChangeTotalPPH.Checked Then Exit Sub
         If txtPPN.Value > 0 Then
             txtTotalDPP.Value = txtTotalAmount.Value / (1 + (txtPPN.Value / 100))
             txtTotalPPN.Value = txtTotalDPP.Value * txtPPN.Value / 100
@@ -206,14 +211,55 @@
         End If
     End Sub
 
-    Private Sub prvCalculate()
-        'txtTotalPPN.Value = txtTotalDPP.Value * txtPPN.Value / 100
-        'txtTotalPPH.Value = txtTotalDPP.Value * txtPPH.Value / 100
-        'txtTotalAmount.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
+    Private Sub txtTotalDPP_ValueChanged(sender As Object, e As EventArgs) Handles txtTotalDPP.ValueChanged
+        If Not chkChangeTotalDPP.Checked Then Exit Sub
+        prvCalculate()
     End Sub
 
-    Private Sub txtTotalDPP_ValueChanged(sender As Object, e As EventArgs) Handles txtTotalDPP.ValueChanged
+    Private Sub txtTotalPPN_ValueChanged(sender As Object, e As EventArgs) Handles txtTotalPPN.ValueChanged
+        If Not chkChangeTotalPPN.Checked Then Exit Sub
         prvCalculate()
+    End Sub
+
+    Private Sub txtTotalPPH_ValueChanged(sender As Object, e As EventArgs) Handles txtTotalPPH.ValueChanged
+        If Not chkChangeTotalPPH.Checked Then Exit Sub
+        prvCalculate()
+    End Sub
+
+    Private Sub chkChangeTotalDPP_CheckedChanged(sender As Object, e As EventArgs) Handles chkChangeTotalDPP.CheckedChanged
+        If chkChangeTotalDPP.Checked Then
+            txtTotalDPP.BackColor = System.Drawing.Color.White
+            txtTotalAmount.BackColor = System.Drawing.Color.LightYellow
+        Else
+            txtTotalDPP.BackColor = System.Drawing.Color.LightYellow
+            txtTotalAmount.BackColor = System.Drawing.Color.White
+        End If
+        txtTotalDPP.Enabled = chkChangeTotalDPP.Checked
+        If chkChangeTotalDPP.Checked Or chkChangeTotalPPN.Checked Or chkChangeTotalPPH.Checked Then txtTotalAmount.Enabled = False Else txtTotalAmount.Enabled = True
+    End Sub
+
+    Private Sub chkChangeTotalPPN_CheckedChanged(sender As Object, e As EventArgs) Handles chkChangeTotalPPN.CheckedChanged
+        If chkChangeTotalPPN.Checked Then
+            txtTotalPPN.BackColor = System.Drawing.Color.White
+            txtTotalAmount.BackColor = System.Drawing.Color.LightYellow
+        Else
+            txtTotalPPN.BackColor = System.Drawing.Color.LightYellow
+            txtTotalAmount.BackColor = System.Drawing.Color.White
+        End If
+        txtTotalPPN.Enabled = chkChangeTotalPPN.Checked
+        If chkChangeTotalDPP.Checked Or chkChangeTotalPPN.Checked Or chkChangeTotalPPH.Checked Then txtTotalAmount.Enabled = False Else txtTotalAmount.Enabled = True
+    End Sub
+
+    Private Sub chkChangeTotalPPH_CheckedChanged(sender As Object, e As EventArgs) Handles chkChangeTotalPPH.CheckedChanged
+        If chkChangeTotalPPH.Checked Then
+            txtTotalPPH.BackColor = System.Drawing.Color.White
+            txtTotalAmount.BackColor = System.Drawing.Color.LightYellow
+        Else
+            txtTotalPPH.BackColor = System.Drawing.Color.LightYellow
+            txtTotalAmount.BackColor = System.Drawing.Color.White
+        End If
+        txtTotalPPH.Enabled = chkChangeTotalPPH.Checked
+        If chkChangeTotalDPP.Checked Or chkChangeTotalPPN.Checked Or chkChangeTotalPPH.Checked Then txtTotalAmount.Enabled = False Else txtTotalAmount.Enabled = True
     End Sub
 
 #End Region
