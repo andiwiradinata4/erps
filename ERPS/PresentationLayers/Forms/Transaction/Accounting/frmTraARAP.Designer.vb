@@ -40,6 +40,7 @@ Partial Class frmTraARAP
         Me.BarDeletePaymentDate = New System.Windows.Forms.ToolBarButton()
         Me.BarSetTaxInvoiceNumber = New System.Windows.Forms.ToolBarButton()
         Me.BarSetInvoiceNumberBP = New System.Windows.Forms.ToolBarButton()
+        Me.BarInvoice = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarPrint = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
@@ -59,7 +60,7 @@ Partial Class frmTraARAP
         Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
         Me.btnExecute = New DevExpress.XtraEditors.SimpleButton()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.BarInvoice = New System.Windows.Forms.ToolBarButton()
+        Me.BarExtendDueDate = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -91,10 +92,10 @@ Partial Class frmTraARAP
         Me.grdMain.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdMain.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdMain.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdMain.Location = New System.Drawing.Point(0, 213)
+        Me.grdMain.Location = New System.Drawing.Point(0, 257)
         Me.grdMain.MainView = Me.grdView
         Me.grdMain.Name = "grdMain"
-        Me.grdMain.Size = New System.Drawing.Size(984, 376)
+        Me.grdMain.Size = New System.Drawing.Size(984, 332)
         Me.grdMain.TabIndex = 2
         Me.grdMain.UseEmbeddedNavigator = True
         Me.grdMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdView})
@@ -111,12 +112,12 @@ Partial Class frmTraARAP
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarSetPaymentDate, Me.BarDeletePaymentDate, Me.BarSetTaxInvoiceNumber, Me.BarSetInvoiceNumberBP, Me.BarInvoice, Me.BarSep3, Me.BarPrint, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarSetPaymentDate, Me.BarDeletePaymentDate, Me.BarSetTaxInvoiceNumber, Me.BarSetInvoiceNumberBP, Me.BarInvoice, Me.BarExtendDueDate, Me.BarSep3, Me.BarPrint, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(984, 72)
+        Me.ToolBar.Size = New System.Drawing.Size(984, 116)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -196,6 +197,12 @@ Partial Class frmTraARAP
         Me.BarSetInvoiceNumberBP.Tag = "Sub"
         Me.BarSetInvoiceNumberBP.Text = "Set Nomor Invoice Pemasok"
         '
+        'BarInvoice
+        '
+        Me.BarInvoice.Name = "BarInvoice"
+        Me.BarInvoice.Tag = "Misc"
+        Me.BarInvoice.Text = "Invoice"
+        '
         'BarSep3
         '
         Me.BarSep3.Name = "BarSep3"
@@ -245,7 +252,7 @@ Partial Class frmTraARAP
         Me.PanelControl1.Controls.Add(Me.btnExecute)
         Me.PanelControl1.Controls.Add(Me.Label1)
         Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelControl1.Location = New System.Drawing.Point(0, 72)
+        Me.PanelControl1.Location = New System.Drawing.Point(0, 116)
         Me.PanelControl1.Name = "PanelControl1"
         Me.PanelControl1.Size = New System.Drawing.Size(984, 141)
         Me.PanelControl1.TabIndex = 1
@@ -369,11 +376,11 @@ Partial Class frmTraARAP
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Query berdasarkan:"
         '
-        'BarInvoice
+        'BarExtendDueDate
         '
-        Me.BarInvoice.Name = "BarInvoice"
-        Me.BarInvoice.Tag = "Misc"
-        Me.BarInvoice.Text = "Invoice"
+        Me.BarExtendDueDate.Name = "BarExtendDueDate"
+        Me.BarExtendDueDate.Tag = "Hold"
+        Me.BarExtendDueDate.Text = "Update Tanggal Jatuh Tempo"
         '
         'frmTraARAP
         '
@@ -433,4 +440,5 @@ Partial Class frmTraARAP
     Friend WithEvents BarPrint As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarSetInvoiceNumberBP As ToolBarButton
     Friend WithEvents BarInvoice As ToolBarButton
+    Friend WithEvents BarExtendDueDate As System.Windows.Forms.ToolBarButton
 End Class

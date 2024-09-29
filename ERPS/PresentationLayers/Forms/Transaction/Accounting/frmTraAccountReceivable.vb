@@ -17,37 +17,41 @@ Public Class frmTraAccountReceivable
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
        cSep2 As Byte = 8, cSetPaymentDate As Byte = 9, cDeletePaymentDate As Byte = 10, cSetTaxInvoiceNumber As Byte = 11,
-       cSep3 As Byte = 12, cExportExcel As Byte = 13, cSep4 As Byte = 14, cRefresh As Byte = 15, cClose As Byte = 16
+       cInvoice As Byte = 12, cExtendDueDate As Byte = 13, cSep3 As Byte = 14, cExportExcel As Byte = 15, cSep4 As Byte = 16,
+       cRefresh As Byte = 17, cClose As Byte = 18
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
     End Sub
 
     Private Sub prvSetGrid()
-        UI.usForm.SetGrid(grdView, "Pick", "Pilih", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "ProgramID", "ProgramID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "ProgramName", "Program", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "CompanyID", "CompanyID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "CompanyName", "Perusahaan", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "ID", "Nomor", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdView, "ARNumber", "Nomor", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "ARDate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
+        UI.usForm.SetGrid(grdView, "TransNumber", "Nomor", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "TransDate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdView, "DueDateValue", "Jatuh Tempo", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdView, "DueDate", "Tanggal Jatuh Tempo", 100, UI.usDefGrid.gSmallDate)
-        UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdView, "BPCode", "Kode Pelanggan", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "BPName", "Nama Pelanggan", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "CoAIDOfIncomePayment", "ID Akun", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdView, "CoACodeOfIncomePayment", "Kode Akun", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "CoANameOfIncomePayment", "Nama Akun", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "CoAID", "ID Akun", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdView, "CoACode", "Kode Akun", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "CoAName", "Nama Akun", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "Modules", "Modules", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdView, "ReferencesID", "No. Referensi", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "TotalAmount", "Total Bayar", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "TotalPPN", "Total PPN Dibayar", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "TotalPPH", "Total PPH Dibayar", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "PaymentBy", "Dibayar Oleh", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "PaymentDate", "Tanggal Bayar", 100, UI.usDefGrid.gFullDate)
-        UI.usForm.SetGrid(grdView, "TaxInvoiceNumber", "No. Faktur Pajak", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "ReferencesID", "No. Referensi", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "ReferencesNote", "Referensi", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "TotalAmount", "Total DPP", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "TotalPPN", "Total PPN", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "TotalPPH", "Total PPH", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "GrandTotal", "Grand Total", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "TotalDPPInvoiceAmount", "Total DPP Invoice", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "TotalPPNInvoiceAmount", "Total PPN Invoice", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "TotalPPHInvoiceAmount", "Total PPH Invoice", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "TotalInvoiceAmount", "Grand Total Invoice", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "PaymentBy", "Dibayar Oleh", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "PaymentDate", "Tanggal Bayar", 100, UI.usDefGrid.gFullDate, False)
+        UI.usForm.SetGrid(grdView, "TaxInvoiceNumber", "No. Faktur Pajak", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "InvoiceNumberBP", "Nomor Invoice", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "SubmitBy", "Disubmit Oleh", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "SubmitDate", "Tanggal Disubmit", 100, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdView, "ApprovedBy", "Diapprove Oleh", 100, UI.usDefGrid.gString)
@@ -62,7 +66,19 @@ Public Class frmTraAccountReceivable
         UI.usForm.SetGrid(grdView, "LogDate", "Tanggal Edit", 100, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdView, "LogInc", "LogInc", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdView, "StatusInfo", "Status", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "IsDP", "IsDP", 100, UI.usDefGrid.gBoolean)
+        UI.usForm.SetGrid(grdView, "IsDP", "IsDP", 100, UI.usDefGrid.gBoolean, False)
+        UI.usForm.SetGrid(grdView, "CompanyBankAccountID1", "CompanyBankAccountID1", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdView, "CompanyBankAccountID2", "CompanyBankAccountID2", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm1", "PaymentTerm1", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm2", "PaymentTerm2", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm3", "PaymentTerm3", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm4", "PaymentTerm4", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm5", "PaymentTerm5", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm6", "PaymentTerm6", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm7", "PaymentTerm7", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm8", "PaymentTerm8", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm9", "PaymentTerm9", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PaymentTerm10", "PaymentTerm10", 100, UI.usDefGrid.gSmallDate, False)
     End Sub
 
     Private Sub prvSetButton()
@@ -134,10 +150,10 @@ Public Class frmTraAccountReceivable
     Public Sub pubRefresh(Optional ByVal strSearch As String = "")
         With grdView
             If Not grdView.FocusedValue Is Nothing And strSearch = "" Then
-                strSearch = grdView.GetDataRow(grdView.FocusedRowHandle).Item("ARNumber")
+                strSearch = grdView.GetDataRow(grdView.FocusedRowHandle).Item("TransNumber")
             End If
             prvQuery()
-            If grdView.RowCount > 0 Then UI.usForm.GridMoveRow(grdView, "ARNumber", strSearch)
+            If grdView.RowCount > 0 Then UI.usForm.GridMoveRow(grdView, "TransNumber", strSearch)
         End With
     End Sub
 

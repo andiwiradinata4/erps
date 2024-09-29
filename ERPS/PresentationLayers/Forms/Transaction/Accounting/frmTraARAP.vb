@@ -20,6 +20,7 @@ Public Class frmTraARAP
     Private intPaymentTypeID As Integer = 0
     Private decPPNPercentage As Decimal = 0
     Private decPPHPercentage As Decimal = 0
+    Private bolIsControlARAP As Boolean = False
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -99,14 +100,20 @@ Public Class frmTraARAP
         End Set
     End Property
 
+    Public WriteOnly Property pubIsControlARAP As Boolean
+        Set(value As Boolean)
+            bolIsControlARAP = value
+        End Set
+    End Property
+
 #End Region
 
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
        cSep2 As Byte = 8, cSetPaymentDate As Byte = 9, cDeletePaymentDate As Byte = 10, cSetTaxInvoiceNumber As Byte = 11,
-       cSetInvoiceNumberBP As Byte = 12, cInvoice As Byte = 13, cSep3 As Byte = 14, cPrint As Byte = 15, cExportExcel As Byte = 16,
-       cSep4 As Byte = 17, cRefresh As Byte = 18, cClose As Byte = 19
+       cSetInvoiceNumberBP As Byte = 12, cInvoice As Byte = 13, cExtendDueDate As Byte = 14, cSep3 As Byte = 15, cPrint As Byte = 16,
+       cExportExcel As Byte = 17, cSep4 As Byte = 18, cRefresh As Byte = 19, cClose As Byte = 20
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -122,8 +129,9 @@ Public Class frmTraARAP
         UI.usForm.SetGrid(grdView, "ID", "Nomor", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "TransNumber", "Nomor", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "TransDate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
-        UI.usForm.SetGrid(grdView, "DueDateValue", "Jatuh Tempo", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdView, "DueDateValue", "Jatuh Tempo", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "DueDate", "Tanggal Jatuh Tempo", 100, UI.usDefGrid.gSmallDate)
+        UI.usForm.SetGrid(grdView, "DueDateVSNowValue", "Jatuh Tempo", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdView, "CoAID", "ID Akun", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "CoACode", "Kode Akun", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "CoAName", "Nama Akun", 100, UI.usDefGrid.gString, False)
@@ -169,6 +177,8 @@ Public Class frmTraARAP
         UI.usForm.SetGrid(grdView, "PaymentTerm8", "PaymentTerm8", 100, UI.usDefGrid.gSmallDate, False)
         UI.usForm.SetGrid(grdView, "PaymentTerm9", "PaymentTerm9", 100, UI.usDefGrid.gSmallDate, False)
         UI.usForm.SetGrid(grdView, "PaymentTerm10", "PaymentTerm10", 100, UI.usDefGrid.gSmallDate, False)
+        UI.usForm.SetGrid(grdView, "PPNPercentage", "PPNPercentage", 100, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdView, "PPHPercentage", "PPHPercentage", 100, UI.usDefGrid.gReal2Num, False)
     End Sub
 
     Private Sub prvSetButton()
@@ -185,6 +195,7 @@ Public Class frmTraARAP
             .Item(cSetTaxInvoiceNumber).Enabled = bolEnable
             .Item(cSetInvoiceNumberBP).Enabled = bolEnable
             .Item(cInvoice).Enabled = bolEnable
+            .Item(cExtendDueDate).Enabled = bolEnable
             .Item(cPrint).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
         End With
@@ -298,6 +309,8 @@ Public Class frmTraARAP
         clsReturn.PaymentTerm8 = grdView.GetRowCellValue(intPos, "PaymentTerm8")
         clsReturn.PaymentTerm9 = grdView.GetRowCellValue(intPos, "PaymentTerm9")
         clsReturn.PaymentTerm10 = grdView.GetRowCellValue(intPos, "PaymentTerm10")
+        clsReturn.PPNPercentage = grdView.GetRowCellValue(intPos, "PPNPercentage")
+        clsReturn.PPHPercentage = grdView.GetRowCellValue(intPos, "PPHPercentage")
         Return clsReturn
     End Function
 
@@ -930,12 +943,21 @@ Public Class frmTraARAP
     Private Sub prvUserAccess()
         Dim intModules As Integer = VO.Common.GetModuleID(strModules)
         With ToolBar.Buttons
-            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.NewAccess)
-            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.DeleteAccess)
-            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.SubmitAccess)
-            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelSubmitAccess)
-            .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.ApproveAccess)
-            .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelApproveAccess)
+            If bolIsControlARAP Then
+                .Item(cNew).Visible = False
+                .Item(cDelete).Visible = False
+                .Item(cSubmit).Visible = False
+                .Item(cCancelSubmit).Visible = False
+                .Item(cApprove).Visible = False
+                .Item(cCancelApprove).Visible = False
+            Else
+                .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.NewAccess)
+                .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.DeleteAccess)
+                .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.SubmitAccess)
+                .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelSubmitAccess)
+                .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.ApproveAccess)
+                .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelApproveAccess)
+            End If
             .Item(cSetPaymentDate).Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.PaymentAccess)
             .Item(cDeletePaymentDate).Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelPaymentAccess)
             .Item(cSetTaxInvoiceNumber).Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.TaxInvoiceNumberAccess)
@@ -958,13 +980,17 @@ Public Class frmTraARAP
         Dim frmDetail As New frmTraARAPInvoice
         With frmDetail
             .pubParentID = clsData.ID
-            .pubPPNPercentage = decPPNPercentage
-            .pubPPHPercentage = decPPHPercentage
+            .pubPPNPercentage = clsData.PPNPercentage
+            .pubPPHPercentage = clsData.PPHPercentage
             .pubParentID = clsData.ID
             .StartPosition = FormStartPosition.CenterParent
             .ShowDialog()
             If .pubIsSave Then pubRefresh()
         End With
+    End Sub
+
+    Private Sub prvExtendDueDate()
+
     End Sub
 
 #Region "Form Handle"
@@ -1010,6 +1036,7 @@ Public Class frmTraARAP
                 Case ToolBar.Buttons(cSetTaxInvoiceNumber).Name : prvSetupTaxInvoiceNumber()
                 Case ToolBar.Buttons(cSetInvoiceNumberBP).Name : prvSetupInvoiceNumberSupplier()
                 Case ToolBar.Buttons(cInvoice).Name : prvInvoice()
+                Case ToolBar.Buttons(cExtendDueDate).Name : prvExtendDueDate()
                 Case ToolBar.Buttons(cPrint).Name : prvPrint()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select

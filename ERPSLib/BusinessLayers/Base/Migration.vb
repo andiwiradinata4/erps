@@ -52,6 +52,7 @@
                 DevelopOnProgress_ID45(sqlCon, Nothing)
                 DevelopOnProgress_ID46(sqlCon, Nothing)
                 DevelopOnProgress_ID47(sqlCon, Nothing)
+                DevelopOnProgress_ID48(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1275,6 +1276,34 @@
 "	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPInvoice_LogDate]  DEFAULT (GETDATE()), " & vbNewLine &
 "	[LogInc] [int] NOT NULL CONSTRAINT [DF_traARAPInvoice_LogInc]  DEFAULT ((0)) " & vbNewLine &
 "   CONSTRAINT [PK_traARAPInvoice] PRIMARY KEY CLUSTERED    " & vbNewLine &
+"   (   " & vbNewLine &
+"   	[ID] ASC   " & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 48
+        Private Shared Sub DevelopOnProgress_ID48(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 48
+            clsData.Name = "Create Table traARAPDueDateHistory"
+            clsData.Scripts +=
+"CREATE TABLE [dbo].[traARAPDueDateHistory](   " & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPDueDateHistory_ID]  DEFAULT (''),   " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPDueDateHistory_ParentID]  DEFAULT (''),   " & vbNewLine &
+"	[DueDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPDueDateHistory_DueDate]  DEFAULT (GETDATE()),   " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traARAPDueDateHistory_Remarks]  DEFAULT (''), " & vbNewLine &
+"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traARAPDueDateHistory_CreatedBy]  DEFAULT (''), " & vbNewLine &
+"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPDueDateHistory_CreatedDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traARAPDueDateHistory_LogBy]  DEFAULT (''), " & vbNewLine &
+"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPDueDateHistory_LogDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[LogInc] [int] NOT NULL CONSTRAINT [DF_traARAPDueDateHistory_LogInc]  DEFAULT ((0)) " & vbNewLine &
+"   CONSTRAINT [PK_traARAPDueDateHistory] PRIMARY KEY CLUSTERED    " & vbNewLine &
 "   (   " & vbNewLine &
 "   	[ID] ASC   " & vbNewLine &
 "   ) " & vbNewLine &

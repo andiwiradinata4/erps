@@ -25,6 +25,7 @@ Public Class frmTraARAPDetVer4
     Private intPaymentTypeID As Integer = 0
     Private decPPNPercentage As Decimal = 0
     Private decPPHPercentage As Decimal = 0
+    Private bolIsControlARAP As Boolean = False
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -113,6 +114,12 @@ Public Class frmTraARAPDetVer4
     Public WriteOnly Property pubPPHPercentage As Decimal
         Set(value As Decimal)
             decPPHPercentage = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubIsControlARAP As Boolean
+        Set(value As Boolean)
+            bolIsControlARAP = value
         End Set
     End Property
 
@@ -527,7 +534,11 @@ Public Class frmTraARAPDetVer4
     End Sub
 
     Private Sub prvUserAccess()
-        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, IIf(bolIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
+        If bolIsControlARAP Then
+            ToolBar.Buttons(cSave).Visible = False
+        Else
+            ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, IIf(bolIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
+        End If
     End Sub
 
 #Region "Item Handle"

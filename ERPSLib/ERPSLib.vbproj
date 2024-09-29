@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="BusinessLayers\AccountPayable.vb" />
     <Compile Include="BusinessLayers\AccountReceivable.vb" />
+    <Compile Include="BusinessLayers\ARAPDueDateHistory.vb" />
     <Compile Include="BusinessLayers\Base\Access.vb" />
     <Compile Include="BusinessLayers\Base\AppVersion.vb" />
     <Compile Include="BusinessLayers\Base\ChartOfAccount.vb" />
@@ -117,6 +118,7 @@
     <Compile Include="BusinessLayers\StockOut.vb" />
     <Compile Include="DataLayers\AccountPayable.vb" />
     <Compile Include="DataLayers\AccountReceivable.vb" />
+    <Compile Include="DataLayers\ARAPDueDateHistory.vb" />
     <Compile Include="DataLayers\Base\Access.vb" />
     <Compile Include="DataLayers\Base\AppVersion.vb" />
     <Compile Include="DataLayers\Base\ChartOfAccount.vb" />
@@ -197,6 +199,7 @@
     <Compile Include="ValueObject\ARAPDet.vb" />
     <Compile Include="ValueObject\ARAPDP.vb" />
     <Compile Include="ValueObject\ARAPDPDet.vb" />
+    <Compile Include="ValueObject\ARAPDueDateHistory.vb" />
     <Compile Include="ValueObject\ARAPInvoice.vb" />
     <Compile Include="ValueObject\ARAPItem.vb" />
     <Compile Include="ValueObject\Base\Access.vb" />

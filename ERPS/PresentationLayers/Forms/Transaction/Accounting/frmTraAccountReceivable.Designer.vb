@@ -34,7 +34,10 @@ Partial Class frmTraAccountReceivable
         Me.BarCancelApprove = New System.Windows.Forms.ToolBarButton()
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
         Me.BarSetPaymentDate = New System.Windows.Forms.ToolBarButton()
+        Me.BarDeletePaymentDate = New System.Windows.Forms.ToolBarButton()
         Me.BarSetTaxInvoiceNumber = New System.Windows.Forms.ToolBarButton()
+        Me.BarInvoice = New System.Windows.Forms.ToolBarButton()
+        Me.BarExtendDueDate = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
         Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
@@ -56,7 +59,6 @@ Partial Class frmTraAccountReceivable
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.BarDeletePaymentDate = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -66,7 +68,7 @@ Partial Class frmTraAccountReceivable
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarSetPaymentDate, Me.BarDeletePaymentDate, Me.BarSetTaxInvoiceNumber, Me.BarSep3, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarSetPaymentDate, Me.BarDeletePaymentDate, Me.BarSetTaxInvoiceNumber, Me.BarInvoice, Me.BarExtendDueDate, Me.BarSep3, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -133,11 +135,29 @@ Partial Class frmTraAccountReceivable
         Me.BarSetPaymentDate.Tag = "Hold"
         Me.BarSetPaymentDate.Text = "Set Tanggal Pembayaran"
         '
+        'BarDeletePaymentDate
+        '
+        Me.BarDeletePaymentDate.Name = "BarDeletePaymentDate"
+        Me.BarDeletePaymentDate.Tag = "Cancel"
+        Me.BarDeletePaymentDate.Text = "Hapus Tanggal Bayar"
+        '
         'BarSetTaxInvoiceNumber
         '
         Me.BarSetTaxInvoiceNumber.Name = "BarSetTaxInvoiceNumber"
         Me.BarSetTaxInvoiceNumber.Tag = "Checked"
         Me.BarSetTaxInvoiceNumber.Text = "Set Nomor Faktur Pajak"
+        '
+        'BarInvoice
+        '
+        Me.BarInvoice.Name = "BarInvoice"
+        Me.BarInvoice.Tag = "Misc"
+        Me.BarInvoice.Text = "Invoice"
+        '
+        'BarExtendDueDate
+        '
+        Me.BarExtendDueDate.Name = "BarExtendDueDate"
+        Me.BarExtendDueDate.Tag = "Hold"
+        Me.BarExtendDueDate.Text = "Set Jatuh Tempo"
         '
         'BarSep3
         '
@@ -348,12 +368,6 @@ Partial Class frmTraAccountReceivable
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
-        'BarDeletePaymentDate
-        '
-        Me.BarDeletePaymentDate.Name = "BarDeletePaymentDate"
-        Me.BarDeletePaymentDate.Tag = "Cancel"
-        Me.BarDeletePaymentDate.Text = "Hapus Tanggal Bayar"
-        '
         'frmTraAccountReceivable
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -410,4 +424,6 @@ Partial Class frmTraAccountReceivable
     Friend WithEvents BarSetTaxInvoiceNumber As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarSep4 As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarDeletePaymentDate As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarInvoice As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarExtendDueDate As System.Windows.Forms.ToolBarButton
 End Class

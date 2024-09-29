@@ -79,8 +79,8 @@
                 txtTotalAmount.Value = clsData.TotalAmount
                 cboStatus.SelectedValue = clsData.StatusID
                 txtRemarks.Text = clsData.Remarks
-                txtPPN.Value = decPPNPercentage
-                txtPPH.Value = decPPHPercentage
+                txtPPN.Value = clsData.PPN
+                txtPPH.Value = clsData.PPH
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)

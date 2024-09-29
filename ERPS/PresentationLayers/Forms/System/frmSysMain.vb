@@ -57,6 +57,8 @@
     Dim frmMainTraAccountPayableReceivePaymentCutting As frmTraAccountPayable
     Dim frmMainTraAccountPayableDPTransport As frmTraAccountPayable
     Dim frmMainTraAccountPayableReceivePaymentTransport As frmTraAccountPayable
+    Dim frmMainTraARAPPayable As frmTraARAP
+    Dim frmMainTraARAPReceivable As frmTraARAP
 
     Dim frmMainTraAccountPayable As frmTraAccountPayable
 
@@ -717,11 +719,65 @@
     End Sub
 
     Private Sub mnuTransaksiPembukuanPembayaran_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPembayaran.Click
-        UI.usForm.frmOpen(frmMainTraAccountPayable, "frmTraAccountPayable", Me)
+        'UI.usForm.frmOpen(frmMainTraAccountPayable, "frmTraAccountPayable", Me)
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraARAP"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraARAPPayable) Then
+            If Not frmMainTraARAPPayable.IsDisposed Then
+                frmMainTraARAPPayable.pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
+                frmMainTraARAPReceivable.pubModules = VO.AccountPayable.All
+                frmMainTraARAPPayable.pubIsControlARAP = True
+                frmMainTraARAPPayable.WindowState = FormWindowState.Normal
+                frmMainTraARAPPayable.BringToFront()
+                frmMainTraARAPPayable.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraARAPPayable = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraARAPPayable.MdiParent = Me
+                frmMainTraARAPPayable.pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
+                frmMainTraARAPReceivable.pubModules = VO.AccountPayable.All
+                frmMainTraARAPPayable.pubIsControlARAP = True
+                frmMainTraARAPPayable.Show()
+            End If
+        Else
+            frmMainTraARAPPayable = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraARAPPayable.MdiParent = Me
+            frmMainTraARAPPayable.pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
+            frmMainTraARAPReceivable.pubModules = VO.AccountPayable.All
+            frmMainTraARAPPayable.pubIsControlARAP = True
+            frmMainTraARAPPayable.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
     End Sub
 
     Private Sub mnuTransaksiPembukuanPelunasan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPelunasan.Click
-        UI.usForm.frmOpen(frmMainTraAccountReceivable, "frmTraAccountReceivable", Me)
+        'UI.usForm.frmOpen(frmMainTraAccountReceivable, "frmTraAccountReceivable", Me)
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraARAP"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraARAPReceivable) Then
+            If Not frmMainTraARAPReceivable.IsDisposed Then
+                frmMainTraARAPReceivable.pubARAPType = VO.ARAP.ARAPTypeValue.Sales
+                frmMainTraARAPReceivable.pubModules = VO.AccountReceivable.All
+                frmMainTraARAPReceivable.pubIsControlARAP = True
+                frmMainTraARAPReceivable.WindowState = FormWindowState.Normal
+                frmMainTraARAPReceivable.BringToFront()
+                frmMainTraARAPReceivable.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraARAPReceivable = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraARAPReceivable.MdiParent = Me
+                frmMainTraARAPReceivable.pubARAPType = VO.ARAP.ARAPTypeValue.Sales
+                frmMainTraARAPReceivable.pubModules = VO.AccountReceivable.All
+                frmMainTraARAPReceivable.pubIsControlARAP = True
+                frmMainTraARAPReceivable.Show()
+            End If
+        Else
+            frmMainTraARAPReceivable = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraARAPReceivable.MdiParent = Me
+            frmMainTraARAPReceivable.pubARAPType = VO.ARAP.ARAPTypeValue.Sales
+            frmMainTraARAPReceivable.pubModules = VO.AccountReceivable.All
+            frmMainTraARAPReceivable.pubIsControlARAP = True
+            frmMainTraARAPReceivable.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
     End Sub
 
     Private Sub mnuTransaksiPembukuanPembayaranBiaya_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPembayaranBiaya.Click

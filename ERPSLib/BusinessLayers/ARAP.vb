@@ -1,6 +1,4 @@
-﻿Imports System.Runtime.Remoting.Metadata.W3cXsd2001
-
-Namespace BL
+﻿Namespace BL
     Public Class ARAP
 
 #Region "Main"
@@ -498,6 +496,8 @@ Namespace BL
                         clsData.LogBy = clsDataARAP.LogBy
                         clsData.IsUseSubItem = clsDataARAP.IsUseSubItem
                         clsData.Save = clsDataARAP.Save
+                        clsData.PPNPercentage = clsDataARAP.PPNPercentage
+                        clsData.PPHPercentage = clsDataARAP.PPHPercentage
 
                         BL.AccountReceivable.SaveDataVer02_ReceivePayment(sqlCon, sqlTrans, bolNew, clsData)
 
@@ -585,6 +585,8 @@ Namespace BL
                         clsData.IsUseSubItem = clsDataARAP.IsUseSubItem
                         clsData.Save = clsDataARAP.Save
                         clsData.PaymentTypeID = clsDataARAP.PaymentTypeID
+                        clsData.PPNPercentage = clsDataARAP.PPNPercentage
+                        clsData.PPHPercentage = clsDataARAP.PPHPercentage
 
                         BL.AccountPayable.SaveDataVer02_ReceivePayment(sqlCon, sqlTrans, bolNew, clsData)
 
