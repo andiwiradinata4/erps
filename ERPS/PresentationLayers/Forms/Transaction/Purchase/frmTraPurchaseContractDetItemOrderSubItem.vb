@@ -208,8 +208,8 @@
         txtTotalPrice.Value = txtTotalWeight.Value * txtUnitPrice.Value
     End Sub
 
-
 #Region "Form Handle"
+
     Private Sub frmTraPurchaseContractDetItemOrderSubItem_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()

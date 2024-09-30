@@ -53,6 +53,7 @@
                 DevelopOnProgress_ID46(sqlCon, Nothing)
                 DevelopOnProgress_ID47(sqlCon, Nothing)
                 DevelopOnProgress_ID48(sqlCon, Nothing)
+                DevelopOnProgress_ID49(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1308,6 +1309,23 @@
 "   	[ID] ASC   " & vbNewLine &
 "   ) " & vbNewLine &
 ") " & vbNewLine
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 49
+        Private Shared Sub DevelopOnProgress_ID47(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 49
+            clsData.Name = "Alter Table Purchase Contract Detail | Add SC Quantity and SC Weight"
+            clsData.Scripts +=
+                "ALTER TABLE traPurchaseContractDet ADD SCQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseContractDet_SCQuantity DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseContractDet ADD SCWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseContractDet_SCWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesContractDet ADD PCDetailID [varchar](100) NOT NULL CONSTRAINT DF_traSalesContractDet_PCDetailID DEFAULT ('') " & vbNewLine
+
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

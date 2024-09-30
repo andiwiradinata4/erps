@@ -580,7 +580,6 @@ Public Class frmTraSalesContract
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-
             prvResetProgressBar()
         End Try
     End Sub

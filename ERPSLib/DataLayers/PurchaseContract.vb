@@ -1412,6 +1412,40 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailOutstandingSC(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                           ByVal strCOID As String, ByVal strParentID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine & _
+                    "	MI.ID, MI.ItemCode, MI.ItemCodeExternal, MI.ItemName,  " & vbNewLine & _
+                    "	MI.ItemTypeID, IT.Description AS ItemTypeName, MI.ItemSpecificationID, MIS.Description AS ItemSpecificationName,  " & vbNewLine & _
+                    "	MI.Thick, MI.Width, MI.Length, MI.Weight, MI.BasePrice, MI.StatusID, PCD.Remarks, PCH.CreatedBy, PCH.CreatedDate, PCH.LogBy, " & vbNewLine & _
+                    "	PCH.LogDate, PCH.LogInc   " & vbNewLine & _
+                    "FROM traPurchaseContract PCH " & vbNewLine & _
+                    "INNER JOIN traPurchaseContractDet PCD ON " & vbNewLine & _
+                    "	PCH.ID=PCD.PCID " & vbNewLine & _
+                    "INNER JOIN traConfirmationOrderDet COD ON " & vbNewLine & _
+                    "	PCD.CODetailID=COD.ID " & vbNewLine & _
+                    "INNER JOIN mstItem MI ON " & vbNewLine & _
+                    "	PCD.ItemID=MI.ID " & vbNewLine & _
+                    "INNER JOIN mstItemType IT ON  " & vbNewLine & _
+                    "    MI.ItemTypeID=IT.ID  " & vbNewLine & _
+                    "INNER JOIN mstItemSpecification MIS ON  " & vbNewLine & _
+                    "    MI.ItemSpecificationID=MIS.ID  " & vbNewLine & _
+                    "WHERE " & vbNewLine & _
+                    "	COD.COID=@COID" & vbNewLine & _
+                    "	AND PCD.ParentID<>'' " & vbNewLine & _
+                    "	AND PCD.TotalWeight-PCD.SCWeight>0 " & vbNewLine
+
+                .Parameters.Add("@COID", SqlDbType.VarChar, 100).Value = strCOID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                          ByVal clsData As VO.PurchaseContractDet)
             Dim sqlCmdExecute As New SqlCommand
@@ -1582,6 +1616,48 @@
                     "		WHERE 	" & vbNewLine &
                     "			POD.PCDetailID=@PCDetailID 	" & vbNewLine &
                     "			AND POH.IsDeleted=0 	" & vbNewLine &
+                    "	) 	" & vbNewLine &
+                    "WHERE ID=@PCDetailID	" & vbNewLine
+
+                .Parameters.Add("@PCDetailID", SqlDbType.VarChar, 100).Value = strPCDetailID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateSCTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal strPCDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traPurchaseContractDet SET 	" & vbNewLine &
+                    "	SCWeight=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(SCD.TotalWeight+SCD.RoundingWeight),0) TotalWeight		" & vbNewLine &
+                    "		FROM traSalesContractDet SCD 	" & vbNewLine &
+                    "		INNER JOIN traSalesContract SCH ON	" & vbNewLine &
+                    "			SCD.SCID=SCH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			SCD.PCDetailID=@PCDetailID 	" & vbNewLine &
+                    "			AND SCH.IsDeleted=0 	" & vbNewLine &
+                    "	), 	" & vbNewLine &
+                    "	SCQuantity=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(SCD.Quantity+SCD.RoundingWeight),0) TotalQuantity " & vbNewLine &
+                    "		FROM traSalesContractDet SCD 	" & vbNewLine &
+                    "		INNER JOIN traSalesContract SCH ON	" & vbNewLine &
+                    "			SCD.SCID=SCH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			SCD.PCDetailID=@PCDetailID 	" & vbNewLine &
+                    "			AND SCH.IsDeleted=0 	" & vbNewLine &
                     "	) 	" & vbNewLine &
                     "WHERE ID=@PCDetailID	" & vbNewLine
 
