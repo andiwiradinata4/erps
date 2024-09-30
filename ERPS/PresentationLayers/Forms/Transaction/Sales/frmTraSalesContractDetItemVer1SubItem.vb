@@ -1,0 +1,3 @@
+﻿Public Class frmTraSalesContractDetItemVer1SubItem
+
+End Class

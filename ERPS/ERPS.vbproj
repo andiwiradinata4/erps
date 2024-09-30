@@ -1095,6 +1095,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetItemVer1.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetItemVer1SubItem.Designer.vb">
+      <DependentUpon>frmTraSalesContractDetItemVer1SubItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetItemVer1SubItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetVer1.Designer.vb">
       <DependentUpon>frmTraSalesContractDetVer1.vb</DependentUpon>
     </Compile>
@@ -1802,6 +1808,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetItemVer1.resx">
       <DependentUpon>frmTraSalesContractDetItemVer1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetItemVer1SubItem.resx">
+      <DependentUpon>frmTraSalesContractDetItemVer1SubItem.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetVer1.resx">
       <DependentUpon>frmTraSalesContractDetVer1.vb</DependentUpon>

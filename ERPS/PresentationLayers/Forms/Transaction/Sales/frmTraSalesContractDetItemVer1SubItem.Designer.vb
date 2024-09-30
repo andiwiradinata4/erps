@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmTraConfirmationOrderDetItemOrderSubItem
+Partial Class frmTraSalesContractDetItemVer1SubItem
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,11 +22,10 @@ Partial Class frmTraConfirmationOrderDetItemOrderSubItem
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraConfirmationOrderDetItemOrderSubItem))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraSalesContractDetItemVer1SubItem))
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.Label25 = New System.Windows.Forms.Label()
@@ -62,6 +61,42 @@ Partial Class frmTraConfirmationOrderDetItemOrderSubItem
         Me.txtItemCode = New ERPS.usTextBox()
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtItemName = New ERPS.usTextBox()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.UsNumeric1 = New ERPS.usNumeric()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.UsNumeric2 = New ERPS.usNumeric()
+        Me.UsNumeric3 = New ERPS.usNumeric()
+        Me.UsNumeric4 = New ERPS.usNumeric()
+        Me.UsNumeric5 = New ERPS.usNumeric()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.UsNumeric6 = New ERPS.usNumeric()
+        Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.UsTextBox1 = New ERPS.usTextBox()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.UsNumeric7 = New ERPS.usNumeric()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.UsNumeric8 = New ERPS.usNumeric()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.UsComboBox1 = New ERPS.usComboBox()
+        Me.Label38 = New System.Windows.Forms.Label()
+        Me.UsComboBox2 = New ERPS.usComboBox()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.UsTextBox2 = New ERPS.usTextBox()
+        Me.Label41 = New System.Windows.Forms.Label()
+        Me.UsTextBox3 = New ERPS.usTextBox()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtUnitPrice, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -71,6 +106,15 @@ Partial Class frmTraConfirmationOrderDetItemOrderSubItem
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
+        CType(Me.UsNumeric1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.UsNumeric2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.UsNumeric3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.UsNumeric4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.UsNumeric5, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.UsNumeric6, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.UsNumeric7, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.UsNumeric8, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -82,7 +126,7 @@ Partial Class frmTraConfirmationOrderDetItemOrderSubItem
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
         Me.ToolBar.Size = New System.Drawing.Size(610, 28)
-        Me.ToolBar.TabIndex = 1
+        Me.ToolBar.TabIndex = 2
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
         'BarRefresh
@@ -96,19 +140,6 @@ Partial Class frmTraConfirmationOrderDetItemOrderSubItem
         Me.BarClose.Name = "BarClose"
         Me.BarClose.Tag = "Close"
         Me.BarClose.Text = "Tutup"
-        '
-        'Label5
-        '
-        Me.Label5.BackColor = System.Drawing.Color.CadetBlue
-        Me.Label5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Label5.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.ForeColor = System.Drawing.Color.White
-        Me.Label5.Location = New System.Drawing.Point(0, 28)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(610, 22)
-        Me.Label5.TabIndex = 5
-        Me.Label5.Text = "« Sub Item"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'pnlDetail
         '
@@ -151,7 +182,7 @@ Partial Class frmTraConfirmationOrderDetItemOrderSubItem
         Me.pnlDetail.Location = New System.Drawing.Point(0, 50)
         Me.pnlDetail.Name = "pnlDetail"
         Me.pnlDetail.Size = New System.Drawing.Size(610, 325)
-        Me.pnlDetail.TabIndex = 6
+        Me.pnlDetail.TabIndex = 8
         '
         'Label24
         '
@@ -541,19 +572,464 @@ Partial Class frmTraConfirmationOrderDetItemOrderSubItem
         Me.txtItemName.Size = New System.Drawing.Size(433, 48)
         Me.txtItemName.TabIndex = 3
         '
-        'frmTraConfirmationOrderDetItemOrderSubItem
+        'Label19
+        '
+        Me.Label19.BackColor = System.Drawing.Color.CadetBlue
+        Me.Label19.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label19.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.ForeColor = System.Drawing.Color.White
+        Me.Label19.Location = New System.Drawing.Point(0, 28)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(610, 22)
+        Me.Label19.TabIndex = 7
+        Me.Label19.Text = "« Sub Item"
+        Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Panel1
+        '
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.Label20)
+        Me.Panel1.Controls.Add(Me.Label21)
+        Me.Panel1.Controls.Add(Me.UsNumeric1)
+        Me.Panel1.Controls.Add(Me.Label22)
+        Me.Panel1.Controls.Add(Me.Label23)
+        Me.Panel1.Controls.Add(Me.UsNumeric2)
+        Me.Panel1.Controls.Add(Me.UsNumeric3)
+        Me.Panel1.Controls.Add(Me.UsNumeric4)
+        Me.Panel1.Controls.Add(Me.UsNumeric5)
+        Me.Panel1.Controls.Add(Me.Label26)
+        Me.Panel1.Controls.Add(Me.Label27)
+        Me.Panel1.Controls.Add(Me.UsNumeric6)
+        Me.Panel1.Controls.Add(Me.SimpleButton1)
+        Me.Panel1.Controls.Add(Me.Label28)
+        Me.Panel1.Controls.Add(Me.UsTextBox1)
+        Me.Panel1.Controls.Add(Me.Label29)
+        Me.Panel1.Controls.Add(Me.Label30)
+        Me.Panel1.Controls.Add(Me.UsNumeric7)
+        Me.Panel1.Controls.Add(Me.Label31)
+        Me.Panel1.Controls.Add(Me.Label32)
+        Me.Panel1.Controls.Add(Me.Label33)
+        Me.Panel1.Controls.Add(Me.Label34)
+        Me.Panel1.Controls.Add(Me.UsNumeric8)
+        Me.Panel1.Controls.Add(Me.Label35)
+        Me.Panel1.Controls.Add(Me.Label36)
+        Me.Panel1.Controls.Add(Me.Label37)
+        Me.Panel1.Controls.Add(Me.UsComboBox1)
+        Me.Panel1.Controls.Add(Me.Label38)
+        Me.Panel1.Controls.Add(Me.UsComboBox2)
+        Me.Panel1.Controls.Add(Me.Label39)
+        Me.Panel1.Controls.Add(Me.Label40)
+        Me.Panel1.Controls.Add(Me.UsTextBox2)
+        Me.Panel1.Controls.Add(Me.Label41)
+        Me.Panel1.Controls.Add(Me.UsTextBox3)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.Location = New System.Drawing.Point(0, 50)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(610, 325)
+        Me.Panel1.TabIndex = 10
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.BackColor = System.Drawing.Color.Transparent
+        Me.Label20.ForeColor = System.Drawing.Color.Black
+        Me.Label20.Location = New System.Drawing.Point(547, 187)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(19, 13)
+        Me.Label20.TabIndex = 185
+        Me.Label20.Text = "Kg"
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.BackColor = System.Drawing.Color.Transparent
+        Me.Label21.ForeColor = System.Drawing.Color.Black
+        Me.Label21.Location = New System.Drawing.Point(310, 187)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(63, 13)
+        Me.Label21.TabIndex = 184
+        Me.Label21.Text = "Total Harga"
+        '
+        'UsNumeric1
+        '
+        Me.UsNumeric1.BackColor = System.Drawing.Color.Azure
+        Me.UsNumeric1.DecimalPlaces = 2
+        Me.UsNumeric1.Enabled = False
+        Me.UsNumeric1.Location = New System.Drawing.Point(383, 183)
+        Me.UsNumeric1.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.UsNumeric1.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.UsNumeric1.Name = "UsNumeric1"
+        Me.UsNumeric1.Size = New System.Drawing.Size(160, 21)
+        Me.UsNumeric1.TabIndex = 12
+        Me.UsNumeric1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.UsNumeric1.ThousandsSeparator = True
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.BackColor = System.Drawing.Color.Transparent
+        Me.Label22.ForeColor = System.Drawing.Color.Black
+        Me.Label22.Location = New System.Drawing.Point(251, 215)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(19, 13)
+        Me.Label22.TabIndex = 176
+        Me.Label22.Text = "Kg"
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.BackColor = System.Drawing.Color.Transparent
+        Me.Label23.ForeColor = System.Drawing.Color.Black
+        Me.Label23.Location = New System.Drawing.Point(26, 215)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(36, 13)
+        Me.Label23.TabIndex = 175
+        Me.Label23.Text = "Harga"
+        '
+        'UsNumeric2
+        '
+        Me.UsNumeric2.DecimalPlaces = 2
+        Me.UsNumeric2.Location = New System.Drawing.Point(110, 211)
+        Me.UsNumeric2.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.UsNumeric2.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.UsNumeric2.Name = "UsNumeric2"
+        Me.UsNumeric2.Size = New System.Drawing.Size(135, 21)
+        Me.UsNumeric2.TabIndex = 8
+        Me.UsNumeric2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.UsNumeric2.ThousandsSeparator = True
+        '
+        'UsNumeric3
+        '
+        Me.UsNumeric3.BackColor = System.Drawing.Color.Azure
+        Me.UsNumeric3.DecimalPlaces = 2
+        Me.UsNumeric3.Enabled = False
+        Me.UsNumeric3.Location = New System.Drawing.Point(110, 156)
+        Me.UsNumeric3.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.UsNumeric3.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.UsNumeric3.Name = "UsNumeric3"
+        Me.UsNumeric3.Size = New System.Drawing.Size(135, 21)
+        Me.UsNumeric3.TabIndex = 6
+        Me.UsNumeric3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.UsNumeric3.ThousandsSeparator = True
+        '
+        'UsNumeric4
+        '
+        Me.UsNumeric4.BackColor = System.Drawing.Color.Azure
+        Me.UsNumeric4.DecimalPlaces = 2
+        Me.UsNumeric4.Enabled = False
+        Me.UsNumeric4.Location = New System.Drawing.Point(110, 129)
+        Me.UsNumeric4.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.UsNumeric4.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.UsNumeric4.Name = "UsNumeric4"
+        Me.UsNumeric4.Size = New System.Drawing.Size(135, 21)
+        Me.UsNumeric4.TabIndex = 5
+        Me.UsNumeric4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.UsNumeric4.ThousandsSeparator = True
+        '
+        'UsNumeric5
+        '
+        Me.UsNumeric5.BackColor = System.Drawing.Color.Azure
+        Me.UsNumeric5.DecimalPlaces = 2
+        Me.UsNumeric5.Enabled = False
+        Me.UsNumeric5.Location = New System.Drawing.Point(110, 102)
+        Me.UsNumeric5.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.UsNumeric5.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.UsNumeric5.Name = "UsNumeric5"
+        Me.UsNumeric5.Size = New System.Drawing.Size(135, 21)
+        Me.UsNumeric5.TabIndex = 4
+        Me.UsNumeric5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.UsNumeric5.ThousandsSeparator = True
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.BackColor = System.Drawing.Color.Transparent
+        Me.Label26.ForeColor = System.Drawing.Color.Black
+        Me.Label26.Location = New System.Drawing.Point(547, 160)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(19, 13)
+        Me.Label26.TabIndex = 120
+        Me.Label26.Text = "Kg"
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.BackColor = System.Drawing.Color.Transparent
+        Me.Label27.ForeColor = System.Drawing.Color.Black
+        Me.Label27.Location = New System.Drawing.Point(310, 160)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(60, 13)
+        Me.Label27.TabIndex = 119
+        Me.Label27.Text = "Total Berat"
+        '
+        'UsNumeric6
+        '
+        Me.UsNumeric6.BackColor = System.Drawing.Color.Azure
+        Me.UsNumeric6.DecimalPlaces = 2
+        Me.UsNumeric6.Enabled = False
+        Me.UsNumeric6.Location = New System.Drawing.Point(383, 156)
+        Me.UsNumeric6.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.UsNumeric6.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.UsNumeric6.Name = "UsNumeric6"
+        Me.UsNumeric6.Size = New System.Drawing.Size(160, 21)
+        Me.UsNumeric6.TabIndex = 11
+        Me.UsNumeric6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.UsNumeric6.ThousandsSeparator = True
+        '
+        'SimpleButton1
+        '
+        Me.SimpleButton1.Image = CType(resources.GetObject("SimpleButton1.Image"), System.Drawing.Image)
+        Me.SimpleButton1.Location = New System.Drawing.Point(251, 19)
+        Me.SimpleButton1.Name = "SimpleButton1"
+        Me.SimpleButton1.Size = New System.Drawing.Size(23, 23)
+        Me.SimpleButton1.TabIndex = 1
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.BackColor = System.Drawing.Color.Transparent
+        Me.Label28.ForeColor = System.Drawing.Color.Black
+        Me.Label28.Location = New System.Drawing.Point(26, 241)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(63, 13)
+        Me.Label28.TabIndex = 115
+        Me.Label28.Text = "Keterangan"
+        '
+        'UsTextBox1
+        '
+        Me.UsTextBox1.BackColor = System.Drawing.Color.White
+        Me.UsTextBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.UsTextBox1.Location = New System.Drawing.Point(110, 238)
+        Me.UsTextBox1.MaxLength = 250
+        Me.UsTextBox1.Multiline = True
+        Me.UsTextBox1.Name = "UsTextBox1"
+        Me.UsTextBox1.Size = New System.Drawing.Size(433, 48)
+        Me.UsTextBox1.TabIndex = 13
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.BackColor = System.Drawing.Color.Transparent
+        Me.Label29.ForeColor = System.Drawing.Color.Black
+        Me.Label29.Location = New System.Drawing.Point(251, 188)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(19, 13)
+        Me.Label29.TabIndex = 113
+        Me.Label29.Text = "Kg"
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.BackColor = System.Drawing.Color.Transparent
+        Me.Label30.ForeColor = System.Drawing.Color.Black
+        Me.Label30.Location = New System.Drawing.Point(310, 133)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(40, 13)
+        Me.Label30.TabIndex = 112
+        Me.Label30.Text = "Jumlah"
+        '
+        'UsNumeric7
+        '
+        Me.UsNumeric7.Location = New System.Drawing.Point(383, 129)
+        Me.UsNumeric7.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.UsNumeric7.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.UsNumeric7.Name = "UsNumeric7"
+        Me.UsNumeric7.Size = New System.Drawing.Size(160, 21)
+        Me.UsNumeric7.TabIndex = 10
+        Me.UsNumeric7.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.UsNumeric7.ThousandsSeparator = True
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.BackColor = System.Drawing.Color.Transparent
+        Me.Label31.ForeColor = System.Drawing.Color.Black
+        Me.Label31.Location = New System.Drawing.Point(251, 160)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(23, 13)
+        Me.Label31.TabIndex = 110
+        Me.Label31.Text = "mm"
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.BackColor = System.Drawing.Color.Transparent
+        Me.Label32.ForeColor = System.Drawing.Color.Black
+        Me.Label32.Location = New System.Drawing.Point(251, 133)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(23, 13)
+        Me.Label32.TabIndex = 109
+        Me.Label32.Text = "mm"
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.BackColor = System.Drawing.Color.Transparent
+        Me.Label33.ForeColor = System.Drawing.Color.Black
+        Me.Label33.Location = New System.Drawing.Point(251, 106)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(23, 13)
+        Me.Label33.TabIndex = 108
+        Me.Label33.Text = "mm"
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.BackColor = System.Drawing.Color.Transparent
+        Me.Label34.ForeColor = System.Drawing.Color.Black
+        Me.Label34.Location = New System.Drawing.Point(26, 188)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(33, 13)
+        Me.Label34.TabIndex = 107
+        Me.Label34.Text = "Berat"
+        '
+        'UsNumeric8
+        '
+        Me.UsNumeric8.BackColor = System.Drawing.Color.White
+        Me.UsNumeric8.DecimalPlaces = 1
+        Me.UsNumeric8.Location = New System.Drawing.Point(110, 184)
+        Me.UsNumeric8.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.UsNumeric8.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.UsNumeric8.Name = "UsNumeric8"
+        Me.UsNumeric8.Size = New System.Drawing.Size(135, 21)
+        Me.UsNumeric8.TabIndex = 7
+        Me.UsNumeric8.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.UsNumeric8.ThousandsSeparator = True
+        '
+        'Label35
+        '
+        Me.Label35.AutoSize = True
+        Me.Label35.BackColor = System.Drawing.Color.Transparent
+        Me.Label35.ForeColor = System.Drawing.Color.Black
+        Me.Label35.Location = New System.Drawing.Point(26, 160)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(46, 13)
+        Me.Label35.TabIndex = 105
+        Me.Label35.Text = "Panjang"
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.BackColor = System.Drawing.Color.Transparent
+        Me.Label36.ForeColor = System.Drawing.Color.Black
+        Me.Label36.Location = New System.Drawing.Point(26, 133)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(34, 13)
+        Me.Label36.TabIndex = 103
+        Me.Label36.Text = "Lebar"
+        '
+        'Label37
+        '
+        Me.Label37.AutoSize = True
+        Me.Label37.BackColor = System.Drawing.Color.Transparent
+        Me.Label37.ForeColor = System.Drawing.Color.Black
+        Me.Label37.Location = New System.Drawing.Point(26, 106)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(33, 13)
+        Me.Label37.TabIndex = 101
+        Me.Label37.Text = "Tebal"
+        '
+        'UsComboBox1
+        '
+        Me.UsComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.UsComboBox1.Enabled = False
+        Me.UsComboBox1.FormattingEnabled = True
+        Me.UsComboBox1.Location = New System.Drawing.Point(383, 102)
+        Me.UsComboBox1.Name = "UsComboBox1"
+        Me.UsComboBox1.Size = New System.Drawing.Size(160, 21)
+        Me.UsComboBox1.TabIndex = 9
+        '
+        'Label38
+        '
+        Me.Label38.AutoSize = True
+        Me.Label38.BackColor = System.Drawing.Color.Transparent
+        Me.Label38.ForeColor = System.Drawing.Color.Black
+        Me.Label38.Location = New System.Drawing.Point(310, 106)
+        Me.Label38.Name = "Label38"
+        Me.Label38.Size = New System.Drawing.Size(30, 13)
+        Me.Label38.TabIndex = 99
+        Me.Label38.Text = "Spec"
+        '
+        'UsComboBox2
+        '
+        Me.UsComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.UsComboBox2.Enabled = False
+        Me.UsComboBox2.FormattingEnabled = True
+        Me.UsComboBox2.Location = New System.Drawing.Point(383, 20)
+        Me.UsComboBox2.Name = "UsComboBox2"
+        Me.UsComboBox2.Size = New System.Drawing.Size(160, 21)
+        Me.UsComboBox2.TabIndex = 2
+        '
+        'Label39
+        '
+        Me.Label39.AutoSize = True
+        Me.Label39.BackColor = System.Drawing.Color.Transparent
+        Me.Label39.ForeColor = System.Drawing.Color.Black
+        Me.Label39.Location = New System.Drawing.Point(310, 24)
+        Me.Label39.Name = "Label39"
+        Me.Label39.Size = New System.Drawing.Size(31, 13)
+        Me.Label39.TabIndex = 97
+        Me.Label39.Text = "Jenis"
+        '
+        'Label40
+        '
+        Me.Label40.AutoSize = True
+        Me.Label40.BackColor = System.Drawing.Color.Transparent
+        Me.Label40.ForeColor = System.Drawing.Color.Black
+        Me.Label40.Location = New System.Drawing.Point(26, 24)
+        Me.Label40.Name = "Label40"
+        Me.Label40.Size = New System.Drawing.Size(68, 13)
+        Me.Label40.TabIndex = 95
+        Me.Label40.Text = "Kode Barang"
+        '
+        'UsTextBox2
+        '
+        Me.UsTextBox2.BackColor = System.Drawing.Color.Azure
+        Me.UsTextBox2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.UsTextBox2.Location = New System.Drawing.Point(110, 20)
+        Me.UsTextBox2.MaxLength = 250
+        Me.UsTextBox2.Name = "UsTextBox2"
+        Me.UsTextBox2.ReadOnly = True
+        Me.UsTextBox2.Size = New System.Drawing.Size(135, 21)
+        Me.UsTextBox2.TabIndex = 0
+        '
+        'Label41
+        '
+        Me.Label41.AutoSize = True
+        Me.Label41.BackColor = System.Drawing.Color.Transparent
+        Me.Label41.ForeColor = System.Drawing.Color.Black
+        Me.Label41.Location = New System.Drawing.Point(26, 51)
+        Me.Label41.Name = "Label41"
+        Me.Label41.Size = New System.Drawing.Size(71, 13)
+        Me.Label41.TabIndex = 93
+        Me.Label41.Text = "Nama Barang"
+        '
+        'UsTextBox3
+        '
+        Me.UsTextBox3.BackColor = System.Drawing.Color.Azure
+        Me.UsTextBox3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.UsTextBox3.Location = New System.Drawing.Point(110, 48)
+        Me.UsTextBox3.MaxLength = 250
+        Me.UsTextBox3.Multiline = True
+        Me.UsTextBox3.Name = "UsTextBox3"
+        Me.UsTextBox3.ReadOnly = True
+        Me.UsTextBox3.Size = New System.Drawing.Size(433, 48)
+        Me.UsTextBox3.TabIndex = 3
+        '
+        'frmTraSalesContractDetItemVer1SubItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(610, 375)
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.pnlDetail)
-        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.Label19)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmTraConfirmationOrderDetItemOrderSubItem"
+        Me.Name = "frmTraSalesContractDetItemVer1SubItem"
         Me.Text = "Subitem"
         Me.pnlDetail.ResumeLayout(False)
         Me.pnlDetail.PerformLayout()
@@ -565,6 +1041,16 @@ Partial Class frmTraConfirmationOrderDetItemOrderSubItem
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        CType(Me.UsNumeric1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.UsNumeric2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.UsNumeric3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.UsNumeric4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.UsNumeric5, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.UsNumeric6, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.UsNumeric7, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.UsNumeric8, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -573,7 +1059,6 @@ Partial Class frmTraConfirmationOrderDetItemOrderSubItem
     Friend WithEvents ToolBar As usToolBar
     Friend WithEvents BarRefresh As ToolBarButton
     Friend WithEvents BarClose As ToolBarButton
-    Friend WithEvents Label5 As Label
     Friend WithEvents pnlDetail As Panel
     Friend WithEvents Label24 As Label
     Friend WithEvents Label25 As Label
@@ -609,4 +1094,40 @@ Partial Class frmTraConfirmationOrderDetItemOrderSubItem
     Friend WithEvents txtItemCode As usTextBox
     Friend WithEvents lblName As Label
     Friend WithEvents txtItemName As usTextBox
+    Friend WithEvents Label19 As Label
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents Label20 As Label
+    Friend WithEvents Label21 As Label
+    Friend WithEvents UsNumeric1 As usNumeric
+    Friend WithEvents Label22 As Label
+    Friend WithEvents Label23 As Label
+    Friend WithEvents UsNumeric2 As usNumeric
+    Friend WithEvents UsNumeric3 As usNumeric
+    Friend WithEvents UsNumeric4 As usNumeric
+    Friend WithEvents UsNumeric5 As usNumeric
+    Friend WithEvents Label26 As Label
+    Friend WithEvents Label27 As Label
+    Friend WithEvents UsNumeric6 As usNumeric
+    Friend WithEvents SimpleButton1 As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label28 As Label
+    Friend WithEvents UsTextBox1 As usTextBox
+    Friend WithEvents Label29 As Label
+    Friend WithEvents Label30 As Label
+    Friend WithEvents UsNumeric7 As usNumeric
+    Friend WithEvents Label31 As Label
+    Friend WithEvents Label32 As Label
+    Friend WithEvents Label33 As Label
+    Friend WithEvents Label34 As Label
+    Friend WithEvents UsNumeric8 As usNumeric
+    Friend WithEvents Label35 As Label
+    Friend WithEvents Label36 As Label
+    Friend WithEvents Label37 As Label
+    Friend WithEvents UsComboBox1 As usComboBox
+    Friend WithEvents Label38 As Label
+    Friend WithEvents UsComboBox2 As usComboBox
+    Friend WithEvents Label39 As Label
+    Friend WithEvents Label40 As Label
+    Friend WithEvents UsTextBox2 As usTextBox
+    Friend WithEvents Label41 As Label
+    Friend WithEvents UsTextBox3 As usTextBox
 End Class

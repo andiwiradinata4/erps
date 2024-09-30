@@ -746,7 +746,7 @@ Public Class frmTraARAP
 
             '# Set Default Value Payment
             crReport.InvoiceType.Value = VO.ARAP.GetPaymentTypeInitial(clsData.Modules)
-            crReport.HeaderType.Value = IIf(clsData.PaymentBy.Trim <> "", "", "PERFORMA ") & "INVOICE"
+            crReport.HeaderType.Value = "PERFORMA INVOICE" 'IIf(clsData.PaymentBy.Trim <> "", "", "PERFORMA ") & "INVOICE"
             crReport.DescPayment1.Value = ""
             crReport.DescPayment2.Value = ""
             crReport.DescPayment3.Value = ""

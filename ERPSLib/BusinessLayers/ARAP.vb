@@ -639,7 +639,13 @@
         Public Shared Function GetDetail(ByVal strID As String, ByVal enumARAPType As VO.ARAP.ARAPTypeValue) As VO.ARAP
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return BL.ARAP.GetDetail(sqlCon, Nothing, strID, enumARAPType)
+                If enumARAPType = VO.ARAP.ARAPTypeValue.All Then
+                    Dim clsData As VO.ARAP = BL.ARAP.GetDetail(sqlCon, Nothing, strID, VO.ARAP.ARAPTypeValue.Sales)
+                    If clsData.ID Is Nothing Then clsData = BL.ARAP.GetDetail(sqlCon, Nothing, strID, VO.ARAP.ARAPTypeValue.Purchase)
+                    Return clsData
+                Else
+                    Return BL.ARAP.GetDetail(sqlCon, Nothing, strID, enumARAPType)
+                End If
             End Using
         End Function
 
@@ -988,7 +994,8 @@
             Return dtReturn
         End Function
 
-        Public Shared Function PrintVer01(ByVal intProgramID As Integer, ByVal intCompanyID As Integer, ByVal strID As String) As DataTable
+        Public Shared Function PrintVer01(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                          ByVal strID As String, Optional ByVal strInvoiceID As String = "") As DataTable
             BL.Server.ServerDefault()
             Dim dtReturn As New DataTable
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
@@ -1000,6 +1007,11 @@
                 For Each dr As DataRow In dtReferencesNumber.Rows
                     strPurchaseContractNumber += IIf(strPurchaseContractNumber.Trim = "", "", ", ") & dr.Item("PCNumber")
                 Next
+
+                'Dim clsInvoice As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, Nothing, strInvoiceID)
+                'If strInvoiceID.Trim <> "" Then
+
+                'End If
 
                 For Each dr As DataRow In dtReturn.Rows
                     dr.BeginEdit()

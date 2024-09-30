@@ -405,163 +405,160 @@ Public Class frmTraARAPInvoice
     End Sub
 
     Private Sub prvPrint()
-        'intPos = grdView.FocusedRowHandle
-        'If intPos < 0 Then Exit Sub
-        'Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
-        'Me.Cursor = Cursors.WaitCursor
-        'pgMain.Value = 40
-
-        'prvGetCS()
-        'clsData = prvGetData()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
+        Me.Cursor = Cursors.WaitCursor
+        clsData = prvGetData()
         Try
-            '    If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
-            '        Dim frmChooseBankAccount As New frmTraARAPChooseBankAccount
-            '        With frmChooseBankAccount
-            '            .pubID = strID
-            '            .pubCompanyBankAccount1 = clsData.CompanyBankAccountID1
-            '            .pubCompanyBankAccount2 = clsData.CompanyBankAccountID2
-            '            .StartPosition = FormStartPosition.CenterParent
-            '            .pubShowDialog(Me)
-            '            If Not .pubIsSave Then Exit Sub
-            '        End With
-            '    End If
+            Dim clsARAP As VO.ARAP = BL.ARAP.GetDetail(clsData.ParentID, ARAP.ARAPTypeValue.All)
+            If clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Sales Then
+                Dim frmChooseBankAccount As New frmTraARAPChooseBankAccount
+                With frmChooseBankAccount
+                    .pubID = strID
+                    .pubCompanyBankAccount1 = clsARAP.CompanyBankAccountID1
+                    .pubCompanyBankAccount2 = clsARAP.CompanyBankAccountID2
+                    .StartPosition = FormStartPosition.CenterParent
+                    .pubShowDialog(Me)
+                    If Not .pubIsSave Then Exit Sub
+                End With
+            End If
 
-            '    Dim dtData As DataTable = BL.ARAP.PrintVer01(clsCS.ProgramID, intCompanyID, strID)
-            '    Dim intStatusID As Integer = 0
-            '    For Each dr As DataRow In dtData.Rows
-            '        intStatusID = dr.Item("StatusID")
-            '        Exit For
-            '    Next
+            Dim dtData As DataTable = BL.ARAP.PrintVer01(clsARAP.ProgramID, clsARAP.CompanyID, clsARAP.ID, strID)
+            Dim intStatusID As Integer = 0
+            For Each dr As DataRow In dtData.Rows
+                intStatusID = dr.Item("StatusID")
+                Exit For
+            Next
 
-            '    Dim crReport As New rptProformaInvoice
+            Dim crReport As New rptProformaInvoice
 
-            '    '# Setup Watermark Report
-            '    If intStatusID <> VO.Status.Values.Approved And intStatusID <> VO.Status.Values.Payment Then
-            '        crReport.Watermark.ShowBehind = False
-            '        crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
-            '        crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
-            '        crReport.Watermark.Font = New System.Drawing.Font("Tahoma", 70.0!, System.Drawing.FontStyle.Bold)
-            '        crReport.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.Horizontal
-            '        crReport.Watermark.TextTransparency = 150
-            '    End If
+            '# Setup Watermark Report
+            If intStatusID <> VO.Status.Values.Approved And intStatusID <> VO.Status.Values.Payment Then
+                crReport.Watermark.ShowBehind = False
+                crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
+                crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
+                crReport.Watermark.Font = New System.Drawing.Font("Tahoma", 70.0!, System.Drawing.FontStyle.Bold)
+                crReport.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.Horizontal
+                crReport.Watermark.TextTransparency = 150
+            End If
 
-            '    '# Set Default Value Payment
-            '    crReport.InvoiceType.Value = VO.ARAP.GetPaymentTypeInitial(clsData.Modules)
-            '    crReport.HeaderType.Value = IIf(clsData.PaymentBy.Trim <> "", "", "PERFORMA ") & "INVOICE"
-            '    crReport.DescPayment1.Value = ""
-            '    crReport.DescPayment2.Value = ""
-            '    crReport.DescPayment3.Value = ""
-            '    crReport.DescPayment4.Value = ""
-            '    crReport.AmountPayment1.Value = 0
-            '    crReport.AmountPayment2.Value = 0
-            '    crReport.AmountPayment3.Value = 0
-            '    crReport.AmountPayment4.Value = 0
+            '# Set Default Value Payment
+            crReport.InvoiceType.Value = VO.ARAP.GetPaymentTypeInitial(clsARAP.Modules)
+            crReport.HeaderType.Value = "INVOICE"
+            crReport.DescPayment1.Value = ""
+            crReport.DescPayment2.Value = ""
+            crReport.DescPayment3.Value = ""
+            crReport.DescPayment4.Value = ""
+            crReport.AmountPayment1.Value = 0
+            crReport.AmountPayment2.Value = 0
+            crReport.AmountPayment3.Value = 0
+            crReport.AmountPayment4.Value = 0
 
-            '    Dim dtPaymentHistory As DataTable = BL.ARAP.ListPaymentHistory(clsCS.ProgramID, intCompanyID, strReferencesID, clsData.TransDate.Date, clsData.ID)
-            '    If dtPaymentHistory.Rows.Count = 0 Then
-            '        Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
-            '        crReport.sbPayment1.Visible = True
-            '        crReport.DescPayment1.Value = VO.ARAP.GetPaymentType(dtData.Rows(0).Item("Modules")) & " " & IIf(intValue = 0, "", intValue & "%")
-            '        crReport.AmountPayment1.Value = IIf(clsData.IsDP, dtData.Rows(0).Item("DPAmount"), dtData.Rows(0).Item("GrandTotal") - dtData.Rows(0).Item("DPAmount"))
-            '    End If
+            Dim dtPaymentHistory As DataTable = BL.ARAP.ListPaymentHistory(clsARAP.ProgramID, clsARAP.CompanyID, clsARAP.ReferencesID, clsARAP.TransDate.Date, clsData.ID)
+            If dtPaymentHistory.Rows.Count = 0 Then
+                Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
+                crReport.sbPayment1.Visible = True
+                crReport.DescPayment1.Value = VO.ARAP.GetPaymentType(dtData.Rows(0).Item("Modules")) & " " & IIf(intValue = 0, "", intValue & "%")
+                crReport.AmountPayment1.Value = IIf(clsARAP.IsDP, dtData.Rows(0).Item("DPAmount"), dtData.Rows(0).Item("GrandTotal") - dtData.Rows(0).Item("DPAmount"))
+            End If
 
-            '    If dtPaymentHistory.Rows.Count = 1 Then
-            '        Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
-            '        crReport.sbPayment2.Visible = True
-            '        crReport.DescPayment2.Value = VO.ARAP.GetPaymentType(dtData.Rows(0).Item("Modules")) & " " & IIf(intValue = 0, "", intValue & "%")
-            '        crReport.AmountPayment2.Value = dtData.Rows(0).Item("GrandTotal") - dtData.Rows(0).Item("DPAmount")
-            '    End If
+            If dtPaymentHistory.Rows.Count = 1 Then
+                Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
+                crReport.sbPayment2.Visible = True
+                crReport.DescPayment2.Value = VO.ARAP.GetPaymentType(dtData.Rows(0).Item("Modules")) & " " & IIf(intValue = 0, "", intValue & "%")
+                crReport.AmountPayment2.Value = dtData.Rows(0).Item("GrandTotal") - dtData.Rows(0).Item("DPAmount")
+            End If
 
-            '    If dtPaymentHistory.Rows.Count = 2 Then
-            '        Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
-            '        crReport.sbPayment3.Visible = True
-            '        crReport.DescPayment3.Value = VO.ARAP.GetPaymentType(dtData.Rows(0).Item("Modules")) & " " & IIf(intValue = 0, "", intValue & "%")
-            '        crReport.AmountPayment3.Value = dtData.Rows(0).Item("GrandTotal") - dtData.Rows(0).Item("DPAmount")
-            '    End If
+            If dtPaymentHistory.Rows.Count = 2 Then
+                Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
+                crReport.sbPayment3.Visible = True
+                crReport.DescPayment3.Value = VO.ARAP.GetPaymentType(dtData.Rows(0).Item("Modules")) & " " & IIf(intValue = 0, "", intValue & "%")
+                crReport.AmountPayment3.Value = dtData.Rows(0).Item("GrandTotal") - dtData.Rows(0).Item("DPAmount")
+            End If
 
-            '    If dtPaymentHistory.Rows.Count = 3 Then
-            '        Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
-            '        crReport.sbPayment4.Visible = True
-            '        crReport.DescPayment4.Value = VO.ARAP.GetPaymentType(dtData.Rows(0).Item("Modules")) & " " & IIf(intValue = 0, "", intValue & "%")
-            '        crReport.AmountPayment4.Value = dtData.Rows(0).Item("GrandTotal") - dtData.Rows(0).Item("DPAmount")
-            '    End If
+            If dtPaymentHistory.Rows.Count = 3 Then
+                Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
+                crReport.sbPayment4.Visible = True
+                crReport.DescPayment4.Value = VO.ARAP.GetPaymentType(dtData.Rows(0).Item("Modules")) & " " & IIf(intValue = 0, "", intValue & "%")
+                crReport.AmountPayment4.Value = dtData.Rows(0).Item("GrandTotal") - dtData.Rows(0).Item("DPAmount")
+            End If
 
-            '    For i As Integer = 0 To dtPaymentHistory.Rows.Count - 1
-            '        Dim strDescPayment As String = VO.Common.GetPaymentType(dtPaymentHistory.Rows(i).Item("Modules")) & IIf(dtPaymentHistory.Rows(i).Item("Percentage") > 0, " " & CInt(dtPaymentHistory.Rows(i).Item("Percentage")) & "%", "")
-            '        Dim decAmountPayment As Decimal = dtData.Rows(i).Item("DPAmount")
-            '        If i = 0 Then
-            '            crReport.sbPayment1.Visible = True
-            '            crReport.DescPayment1.Value = strDescPayment
-            '            crReport.AmountPayment1.Value = decAmountPayment
-            '        ElseIf i = 1 Then
-            '            crReport.sbPayment2.Visible = True
-            '            crReport.DescPayment2.Value = strDescPayment
-            '            crReport.AmountPayment2.Value = decAmountPayment
-            '        ElseIf i = 2 Then
-            '            crReport.sbPayment3.Visible = True
-            '            crReport.DescPayment3.Value = strDescPayment
-            '            crReport.AmountPayment3.Value = decAmountPayment
-            '        End If
-            '    Next
+            For i As Integer = 0 To dtPaymentHistory.Rows.Count - 1
+                Dim strDescPayment As String = VO.Common.GetPaymentType(dtPaymentHistory.Rows(i).Item("Modules")) & IIf(dtPaymentHistory.Rows(i).Item("Percentage") > 0, " " & CInt(dtPaymentHistory.Rows(i).Item("Percentage")) & "%", "")
+                Dim decAmountPayment As Decimal = dtData.Rows(i).Item("DPAmount")
+                If i = 0 Then
+                    crReport.sbPayment1.Visible = True
+                    crReport.DescPayment1.Value = strDescPayment
+                    crReport.AmountPayment1.Value = decAmountPayment
+                ElseIf i = 1 Then
+                    crReport.sbPayment2.Visible = True
+                    crReport.DescPayment2.Value = strDescPayment
+                    crReport.AmountPayment2.Value = decAmountPayment
+                ElseIf i = 2 Then
+                    crReport.sbPayment3.Visible = True
+                    crReport.DescPayment3.Value = strDescPayment
+                    crReport.AmountPayment3.Value = decAmountPayment
+                End If
+            Next
 
-            '    clsData = BL.ARAP.GetDetail(clsData.ID, enumARAPType)
-            '    crReport.PaymentTerm1.Value = clsData.PaymentTerm1.Trim
-            '    crReport.PaymentTerm2.Value = clsData.PaymentTerm2.Trim
-            '    crReport.PaymentTerm3.Value = clsData.PaymentTerm3.Trim
+            crReport.PaymentTerm1.Value = clsARAP.PaymentTerm1.Trim
+            crReport.PaymentTerm2.Value = clsARAP.PaymentTerm2.Trim
+            crReport.PaymentTerm3.Value = clsARAP.PaymentTerm3.Trim
 
-            '    If clsData.PaymentTerm4.Trim <> "" Then
-            '        crReport.sbPaymentTerm4.Visible = True
-            '        crReport.PaymentTerm4.Value = clsData.PaymentTerm4.Trim
-            '    End If
+            If clsARAP.PaymentTerm4.Trim <> "" Then
+                crReport.sbPaymentTerm4.Visible = True
+                crReport.PaymentTerm4.Value = clsARAP.PaymentTerm4.Trim
+            End If
 
-            '    If clsData.PaymentTerm5.Trim <> "" Then
-            '        crReport.sbPaymentTerm5.Visible = True
-            '        crReport.PaymentTerm5.Value = clsData.PaymentTerm5.Trim
-            '    End If
+            If clsARAP.PaymentTerm5.Trim <> "" Then
+                crReport.sbPaymentTerm5.Visible = True
+                crReport.PaymentTerm5.Value = clsARAP.PaymentTerm5.Trim
+            End If
 
-            '    If clsData.PaymentTerm6.Trim <> "" Then
-            '        crReport.sbPaymentTerm6.Visible = True
-            '        crReport.PaymentTerm6.Value = clsData.PaymentTerm6.Trim
-            '    End If
+            If clsARAP.PaymentTerm6.Trim <> "" Then
+                crReport.sbPaymentTerm6.Visible = True
+                crReport.PaymentTerm6.Value = clsARAP.PaymentTerm6.Trim
+            End If
 
-            '    If clsData.PaymentTerm7.Trim <> "" Then
-            '        crReport.sbPaymentTerm7.Visible = True
-            '        crReport.PaymentTerm7.Value = clsData.PaymentTerm7.Trim
-            '    End If
+            If clsARAP.PaymentTerm7.Trim <> "" Then
+                crReport.sbPaymentTerm7.Visible = True
+                crReport.PaymentTerm7.Value = clsARAP.PaymentTerm7.Trim
+            End If
 
-            '    If clsData.PaymentTerm8.Trim <> "" Then
-            '        crReport.sbPaymentTerm8.Visible = True
-            '        crReport.PaymentTerm8.Value = clsData.PaymentTerm8.Trim
-            '    End If
+            If clsARAP.PaymentTerm8.Trim <> "" Then
+                crReport.sbPaymentTerm8.Visible = True
+                crReport.PaymentTerm8.Value = clsARAP.PaymentTerm8.Trim
+            End If
 
-            '    If clsData.PaymentTerm9.Trim <> "" Then
-            '        crReport.sbPaymentTerm9.Visible = True
-            '        crReport.PaymentTerm9.Value = clsData.PaymentTerm9.Trim
-            '    End If
+            If clsARAP.PaymentTerm9.Trim <> "" Then
+                crReport.sbPaymentTerm9.Visible = True
+                crReport.PaymentTerm9.Value = clsARAP.PaymentTerm9.Trim
+            End If
 
-            '    If clsData.PaymentTerm10.Trim <> "" Then
-            '        crReport.sbPaymentTerm10.Visible = True
-            '        crReport.PaymentTerm10.Value = clsData.PaymentTerm10.Trim
-            '    End If
+            If clsARAP.PaymentTerm10.Trim <> "" Then
+                crReport.sbPaymentTerm10.Visible = True
+                crReport.PaymentTerm10.Value = clsARAP.PaymentTerm10.Trim
+            End If
 
-            '    For Each dr As DataRow In dtData.Rows
-            '        If dr.Item("BankAccountName2") = "" Then crReport.sbCompanyBankAccount2.Visible = False
-            '        Exit For
-            '    Next
+            For Each dr As DataRow In dtData.Rows
+                If dr.Item("BankAccountName2") = "" Then crReport.sbCompanyBankAccount2.Visible = False
+                Exit For
+            Next
 
-            '    crReport.DataSource = dtData
-            '    crReport.CreateDocument(True)
-            '    crReport.ShowPreviewMarginLines = False
-            '    crReport.ShowPrintMarginsWarning = False
+            crReport.DataSource = dtData
+            crReport.CreateDocument(True)
+            crReport.ShowPreviewMarginLines = False
+            crReport.ShowPrintMarginsWarning = False
 
-            '    Dim frmDetail As New frmReportPreview
-            '    With frmDetail
-            '        .docViewer.DocumentSource = crReport
-            '        .pgExportButton.Enabled = bolExport
-            '        .Text = Me.Text & " - " & VO.Reports.PrintOut
-            '        .WindowState = FormWindowState.Maximized
-            '        .Show()
-            '    End With
+            Dim frmDetail As New frmReportPreview
+            With frmDetail
+                .docViewer.DocumentSource = crReport
+                .pgExportButton.Enabled = True
+                .Text = Me.Text & " - " & VO.Reports.PrintOut
+                .WindowState = FormWindowState.Maximized
+                .Show()
+            End With
             pubRefresh()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
