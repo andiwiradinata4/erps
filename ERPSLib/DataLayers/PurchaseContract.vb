@@ -1413,7 +1413,7 @@
         End Function
 
         Public Shared Function ListDataDetailOutstandingSC(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                           ByVal strCOID As String, ByVal strParentID As String) As DataTable
+                                                           ByVal strCODetailID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -1421,10 +1421,10 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT " & vbNewLine & _
-                    "	MI.ID, MI.ItemCode, MI.ItemCodeExternal, MI.ItemName,  " & vbNewLine & _
+                    "	PCD.OrderNumberSupplier, PCD.UnitPrice, PCD.CODetailID, PCD.ItemID, MI.ItemCode, MI.ItemCodeExternal, MI.ItemName,  " & vbNewLine & _
                     "	MI.ItemTypeID, IT.Description AS ItemTypeName, MI.ItemSpecificationID, MIS.Description AS ItemSpecificationName,  " & vbNewLine & _
-                    "	MI.Thick, MI.Width, MI.Length, MI.Weight, MI.BasePrice, MI.StatusID, PCD.Remarks, PCH.CreatedBy, PCH.CreatedDate, PCH.LogBy, " & vbNewLine & _
-                    "	PCH.LogDate, PCH.LogInc   " & vbNewLine & _
+                    "	MI.Thick, MI.Width, MI.Length, PCD.Weight, PCD.Quantity, PCD.TotalWeight, PCD.Remarks, PCH.CreatedBy, PCH.CreatedDate, PCH.LogBy, " & vbNewLine & _
+                    "	PCH.LogDate, PCH.LogInc, PCD.ID AS PCDetailID   " & vbNewLine & _
                     "FROM traPurchaseContract PCH " & vbNewLine & _
                     "INNER JOIN traPurchaseContractDet PCD ON " & vbNewLine & _
                     "	PCH.ID=PCD.PCID " & vbNewLine & _
@@ -1437,11 +1437,12 @@
                     "INNER JOIN mstItemSpecification MIS ON  " & vbNewLine & _
                     "    MI.ItemSpecificationID=MIS.ID  " & vbNewLine & _
                     "WHERE " & vbNewLine & _
-                    "	COD.COID=@COID" & vbNewLine & _
+                    "	PCD.CODetailID=@CODetailID" & vbNewLine & _
                     "	AND PCD.ParentID<>'' " & vbNewLine & _
-                    "	AND PCD.TotalWeight-PCD.SCWeight>0 " & vbNewLine
+                    "	AND PCD.TotalWeight-PCD.SCWeight>0 " & vbNewLine & _
+                    "	AND PCD.ID NOT IN (SELECT SCD.PCDetailID FROM traSalesContractDet SCD INNER JOIN traSalesContract SCH ON SCD.SCID=SCH.ID WHERE SCH.IsDeleted=0 AND SCD.CODetailID<>'') " & vbNewLine
 
-                .Parameters.Add("@COID", SqlDbType.VarChar, 100).Value = strCOID
+                .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function

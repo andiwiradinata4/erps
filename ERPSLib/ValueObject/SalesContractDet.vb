@@ -25,5 +25,6 @@
         Property ReceivePPN As Decimal
         Property ReceivePPH As Decimal
         Property CODetailID As String = ""
+        Property PCDetailID As String = ""
     End Class
 End Namespace

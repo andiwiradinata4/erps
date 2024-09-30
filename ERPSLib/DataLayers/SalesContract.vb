@@ -1382,7 +1382,7 @@
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  	" & vbNewLine &
                     "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight, " & vbNewLine &
                     "   A.Remarks, A.IsIgnoreValidationPayment, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceHPP, " & vbNewLine &
-                    "   A.DCQuantity, A.DCWeight, A.CODetailID " & vbNewLine &
+                    "   A.DCQuantity, A.DCWeight, A.CODetailID, A.PCDetailID " & vbNewLine &
                     "FROM traSalesContractDet A  	" & vbNewLine &
                     "INNER JOIN traOrderRequestDet A1 ON  	" & vbNewLine &
                     "    A.ORDetailID=A1.ID  	" & vbNewLine &
@@ -1523,9 +1523,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traSalesContractDet " & vbNewLine &
-                    "   ( ID, SCID, ORDetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, OrderNumberSupplier, RoundingWeight, LevelItem, ParentID, UnitPriceHPP, CODetailID) " & vbNewLine &
+                    "   ( ID, SCID, ORDetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, OrderNumberSupplier, RoundingWeight, LevelItem, ParentID, UnitPriceHPP, CODetailID, PCDetailID) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   ( @ID, @SCID, @ORDetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @OrderNumberSupplier, @RoundingWeight, @LevelItem, @ParentID, @UnitPriceHPP, @CODetailID) " & vbNewLine
+                    "   ( @ID, @SCID, @ORDetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @OrderNumberSupplier, @RoundingWeight, @LevelItem, @ParentID, @UnitPriceHPP, @CODetailID, @PCDetailID) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = clsData.SCID
@@ -1546,6 +1546,7 @@
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
                 .Parameters.Add("@UnitPriceHPP", SqlDbType.Decimal).Value = clsData.UnitPriceHPP
                 .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = clsData.CODetailID
+                .Parameters.Add("@PCDetailID", SqlDbType.VarChar, 100).Value = clsData.PCDetailID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

@@ -432,6 +432,13 @@
             End Using
         End Function
 
+        Public Shared Function ListDataDetailOutstandingSC(ByVal strCODetailID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseContract.ListDataDetailOutstandingSC(sqlCon, Nothing, strCODetailID)
+            End Using
+        End Function
+
         Public Shared Function SaveDataSubitem(ByVal bolNew As Boolean, ByVal strPCID As String,
                                                ByVal clsData As VO.PurchaseContractDet) As Boolean
             Dim bolReturn As Boolean = False

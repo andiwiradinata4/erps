@@ -62,6 +62,8 @@ Partial Class frmTraSalesContractDetItemVer1SubItem
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtItemName = New ERPS.usTextBox()
         Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.txtOrderNumberSupplier = New ERPS.usTextBox()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtUnitPrice, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -81,7 +83,7 @@ Partial Class frmTraSalesContractDetItemVer1SubItem
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(610, 28)
+        Me.ToolBar.Size = New System.Drawing.Size(650, 28)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -100,6 +102,8 @@ Partial Class frmTraSalesContractDetItemVer1SubItem
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.Label5)
+        Me.pnlDetail.Controls.Add(Me.txtOrderNumberSupplier)
         Me.pnlDetail.Controls.Add(Me.Label24)
         Me.pnlDetail.Controls.Add(Me.Label25)
         Me.pnlDetail.Controls.Add(Me.txtTotalPrice)
@@ -137,15 +141,15 @@ Partial Class frmTraSalesContractDetItemVer1SubItem
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlDetail.Location = New System.Drawing.Point(0, 50)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(610, 325)
-        Me.pnlDetail.TabIndex = 8
+        Me.pnlDetail.Size = New System.Drawing.Size(650, 325)
+        Me.pnlDetail.TabIndex = 2
         '
         'Label24
         '
         Me.Label24.AutoSize = True
         Me.Label24.BackColor = System.Drawing.Color.Transparent
         Me.Label24.ForeColor = System.Drawing.Color.Black
-        Me.Label24.Location = New System.Drawing.Point(547, 187)
+        Me.Label24.Location = New System.Drawing.Point(590, 214)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(19, 13)
         Me.Label24.TabIndex = 185
@@ -156,7 +160,7 @@ Partial Class frmTraSalesContractDetItemVer1SubItem
         Me.Label25.AutoSize = True
         Me.Label25.BackColor = System.Drawing.Color.Transparent
         Me.Label25.ForeColor = System.Drawing.Color.Black
-        Me.Label25.Location = New System.Drawing.Point(310, 187)
+        Me.Label25.Location = New System.Drawing.Point(374, 214)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(63, 13)
         Me.Label25.TabIndex = 184
@@ -167,12 +171,12 @@ Partial Class frmTraSalesContractDetItemVer1SubItem
         Me.txtTotalPrice.BackColor = System.Drawing.Color.Azure
         Me.txtTotalPrice.DecimalPlaces = 2
         Me.txtTotalPrice.Enabled = False
-        Me.txtTotalPrice.Location = New System.Drawing.Point(383, 183)
+        Me.txtTotalPrice.Location = New System.Drawing.Point(451, 210)
         Me.txtTotalPrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPrice.Name = "txtTotalPrice"
-        Me.txtTotalPrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalPrice.TabIndex = 12
+        Me.txtTotalPrice.Size = New System.Drawing.Size(135, 21)
+        Me.txtTotalPrice.TabIndex = 14
         Me.txtTotalPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPrice.ThousandsSeparator = True
         '
@@ -257,7 +261,7 @@ Partial Class frmTraSalesContractDetItemVer1SubItem
         Me.Label15.AutoSize = True
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.ForeColor = System.Drawing.Color.Black
-        Me.Label15.Location = New System.Drawing.Point(547, 160)
+        Me.Label15.Location = New System.Drawing.Point(590, 187)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(19, 13)
         Me.Label15.TabIndex = 120
@@ -268,7 +272,7 @@ Partial Class frmTraSalesContractDetItemVer1SubItem
         Me.Label16.AutoSize = True
         Me.Label16.BackColor = System.Drawing.Color.Transparent
         Me.Label16.ForeColor = System.Drawing.Color.Black
-        Me.Label16.Location = New System.Drawing.Point(310, 160)
+        Me.Label16.Location = New System.Drawing.Point(377, 187)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(60, 13)
         Me.Label16.TabIndex = 119
@@ -279,12 +283,12 @@ Partial Class frmTraSalesContractDetItemVer1SubItem
         Me.txtTotalWeight.BackColor = System.Drawing.Color.Azure
         Me.txtTotalWeight.DecimalPlaces = 2
         Me.txtTotalWeight.Enabled = False
-        Me.txtTotalWeight.Location = New System.Drawing.Point(383, 156)
+        Me.txtTotalWeight.Location = New System.Drawing.Point(451, 183)
         Me.txtTotalWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalWeight.Name = "txtTotalWeight"
-        Me.txtTotalWeight.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalWeight.TabIndex = 11
+        Me.txtTotalWeight.Size = New System.Drawing.Size(135, 21)
+        Me.txtTotalWeight.TabIndex = 13
         Me.txtTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalWeight.ThousandsSeparator = True
         '
@@ -315,8 +319,8 @@ Partial Class frmTraSalesContractDetItemVer1SubItem
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(433, 48)
-        Me.txtRemarks.TabIndex = 13
+        Me.txtRemarks.Size = New System.Drawing.Size(476, 48)
+        Me.txtRemarks.TabIndex = 9
         '
         'Label12
         '
@@ -334,7 +338,7 @@ Partial Class frmTraSalesContractDetItemVer1SubItem
         Me.Label11.AutoSize = True
         Me.Label11.BackColor = System.Drawing.Color.Transparent
         Me.Label11.ForeColor = System.Drawing.Color.Black
-        Me.Label11.Location = New System.Drawing.Point(310, 133)
+        Me.Label11.Location = New System.Drawing.Point(397, 160)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(40, 13)
         Me.Label11.TabIndex = 112
@@ -342,12 +346,12 @@ Partial Class frmTraSalesContractDetItemVer1SubItem
         '
         'txtQuantity
         '
-        Me.txtQuantity.Location = New System.Drawing.Point(383, 129)
+        Me.txtQuantity.Location = New System.Drawing.Point(451, 156)
         Me.txtQuantity.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtQuantity.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtQuantity.Name = "txtQuantity"
-        Me.txtQuantity.Size = New System.Drawing.Size(160, 21)
-        Me.txtQuantity.TabIndex = 10
+        Me.txtQuantity.Size = New System.Drawing.Size(135, 21)
+        Me.txtQuantity.TabIndex = 12
         Me.txtQuantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtQuantity.ThousandsSeparator = True
         '
@@ -446,17 +450,17 @@ Partial Class frmTraSalesContractDetItemVer1SubItem
         Me.cboItemSpecification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboItemSpecification.Enabled = False
         Me.cboItemSpecification.FormattingEnabled = True
-        Me.cboItemSpecification.Location = New System.Drawing.Point(383, 102)
+        Me.cboItemSpecification.Location = New System.Drawing.Point(451, 129)
         Me.cboItemSpecification.Name = "cboItemSpecification"
-        Me.cboItemSpecification.Size = New System.Drawing.Size(160, 21)
-        Me.cboItemSpecification.TabIndex = 9
+        Me.cboItemSpecification.Size = New System.Drawing.Size(135, 21)
+        Me.cboItemSpecification.TabIndex = 11
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(310, 106)
+        Me.Label3.Location = New System.Drawing.Point(407, 133)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(30, 13)
         Me.Label3.TabIndex = 99
@@ -467,17 +471,17 @@ Partial Class frmTraSalesContractDetItemVer1SubItem
         Me.cboItemType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboItemType.Enabled = False
         Me.cboItemType.FormattingEnabled = True
-        Me.cboItemType.Location = New System.Drawing.Point(383, 20)
+        Me.cboItemType.Location = New System.Drawing.Point(451, 102)
         Me.cboItemType.Name = "cboItemType"
-        Me.cboItemType.Size = New System.Drawing.Size(160, 21)
-        Me.cboItemType.TabIndex = 2
+        Me.cboItemType.Size = New System.Drawing.Size(135, 21)
+        Me.cboItemType.TabIndex = 10
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(310, 24)
+        Me.Label2.Location = New System.Drawing.Point(406, 106)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(31, 13)
         Me.Label2.TabIndex = 97
@@ -525,7 +529,7 @@ Partial Class frmTraSalesContractDetItemVer1SubItem
         Me.txtItemName.Multiline = True
         Me.txtItemName.Name = "txtItemName"
         Me.txtItemName.ReadOnly = True
-        Me.txtItemName.Size = New System.Drawing.Size(433, 48)
+        Me.txtItemName.Size = New System.Drawing.Size(476, 48)
         Me.txtItemName.TabIndex = 3
         '
         'Label19
@@ -536,16 +540,38 @@ Partial Class frmTraSalesContractDetItemVer1SubItem
         Me.Label19.ForeColor = System.Drawing.Color.White
         Me.Label19.Location = New System.Drawing.Point(0, 28)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(610, 22)
+        Me.Label19.Size = New System.Drawing.Size(650, 22)
         Me.Label19.TabIndex = 1
         Me.Label19.Text = "« Sub Item"
         Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
+        Me.Label5.ForeColor = System.Drawing.Color.Black
+        Me.Label5.Location = New System.Drawing.Point(310, 24)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(127, 13)
+        Me.Label5.TabIndex = 187
+        Me.Label5.Text = "Nomor Pesanan Pemasok"
+        '
+        'txtOrderNumberSupplier
+        '
+        Me.txtOrderNumberSupplier.BackColor = System.Drawing.Color.Azure
+        Me.txtOrderNumberSupplier.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtOrderNumberSupplier.Location = New System.Drawing.Point(451, 20)
+        Me.txtOrderNumberSupplier.MaxLength = 250
+        Me.txtOrderNumberSupplier.Name = "txtOrderNumberSupplier"
+        Me.txtOrderNumberSupplier.ReadOnly = True
+        Me.txtOrderNumberSupplier.Size = New System.Drawing.Size(135, 21)
+        Me.txtOrderNumberSupplier.TabIndex = 2
         '
         'frmTraSalesContractDetItemVer1SubItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(610, 375)
+        Me.ClientSize = New System.Drawing.Size(650, 375)
         Me.Controls.Add(Me.pnlDetail)
         Me.Controls.Add(Me.Label19)
         Me.Controls.Add(Me.ToolBar)
@@ -609,4 +635,6 @@ Partial Class frmTraSalesContractDetItemVer1SubItem
     Friend WithEvents lblName As Label
     Friend WithEvents txtItemName As usTextBox
     Friend WithEvents Label19 As Label
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents txtOrderNumberSupplier As ERPS.usTextBox
 End Class

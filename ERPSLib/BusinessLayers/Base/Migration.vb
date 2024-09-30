@@ -1317,7 +1317,7 @@
         End Sub
 
         '# ID = 49
-        Private Shared Sub DevelopOnProgress_ID47(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+        Private Shared Sub DevelopOnProgress_ID49(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
             Dim clsData As New VO.Migration
             clsData.ID = 49
             clsData.Name = "Alter Table Purchase Contract Detail | Add SC Quantity and SC Weight"

@@ -156,6 +156,37 @@ Public Class frmTraSalesContractDetItemVer1
         UI.usForm.SetGrid(grdSubItemCOView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdSubItemCOView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdSubItemCOView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
+
+        '# SC Detail
+        UI.usForm.SetGrid(grdSubitemView, "ID", "ID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSubitemView, "SCID", "SCID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSubitemView, "ORDetailID", "ORDetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSubitemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubitemView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSubitemView, "RequestNumber", "Nomor Permintaan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubitemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSubitemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubitemView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubitemView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubitemView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSubitemView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSubitemView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSubitemView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubitemView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSubitemView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubitemView, "Quantity", "Quantity", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSubitemView, "Weight", "Weight", 100, UI.usDefGrid.gReal1Num)
+        UI.usForm.SetGrid(grdSubitemView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubitemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubitemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubitemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSubitemView, "IsIgnoreValidationPayment", "Set Pengiriman", 100, UI.usDefGrid.gBoolean)
+        UI.usForm.SetGrid(grdSubitemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSubitemView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSubitemView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSubitemView, "UnitPriceHPP", "UnitPriceHPP", 100, UI.usDefGrid.gReal4Num, False)
+        UI.usForm.SetGrid(grdSubitemView, "CODetailID", "CODetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSubitemView, "PCDetailID", "PCDetailID", 100, UI.usDefGrid.gString, False)
     End Sub
 
     Private Sub prvFillCombo()
@@ -648,63 +679,87 @@ Public Class frmTraSalesContractDetItemVer1
 
 #Region "Sub Item"
 
+    Private Sub prvQuerySubItem()
+        Try
+            grdSubitem.DataSource = BL.SalesContract.ListDataDetail(drSelectedItem.Item("SCID"), strID)
+            grdSubitemView.BestFitColumns()
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            prvSetButtonItemConfirmationOrder()
+        End Try
+    End Sub
+
+    Private Sub prvSetButton()
+        Dim bolEnable As Boolean = IIf(grdSubitemView.RowCount > 0, True, False)
+        With ToolBarItemSubitem.Buttons
+            .Item(cEdit).Enabled = bolEnable
+            .Item(cDelete).Enabled = bolEnable
+        End With
+    End Sub
+
     Private Sub prvAddSubItem()
         If intItemID = 0 Then
-            UI.usForm.frmMessageBox("Pilih konfirmasi pesanan terlebih dahulu")
+            UI.usForm.frmMessageBox("Pilih item terlebih dahulu")
             txtItemCode.Focus()
             Exit Sub
         End If
 
-        Dim frmDetail As New frmTraSalesContractDetItemCOSubVer1
+        Dim frmDetail As New frmTraSalesContractDetItemVer1SubItem
         With frmDetail
             .pubIsNew = True
-            .pubCS = clsCS
             .pubParentID = strID
-            .pubParentCODetailID = grdItemCOView.GetRowCellValue(0, "ID")
+            .pubDtCO = dtCO
+            .pubRowParentItem = drSelectedItem
             .pubIsAutoSearch = True
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItemConfirmationOrder()
+            prvQuerySubItem()
             prvCalculate()
         End With
     End Sub
 
     Private Sub prvEditSubItem()
-        'intPos = grdSubitemView.FocusedRowHandle
-        'If intPos < 0 Then Exit Sub
-        'If intItemID = 0 Then
-        '    UI.usForm.frmMessageBox("Pilih konfirmasi pesanan terlebih dahulu")
-        '    txtItemCode.Focus()
-        '    Exit Sub
-        'End If
+        intPos = grdSubitemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        If intItemID = 0 Then
+            UI.usForm.frmMessageBox("Pilih item terlebih dahulu")
+            txtItemCode.Focus()
+            Exit Sub
+        End If
 
-        'Dim frmDetail As New frmTraSalesContractDetItemCOSubVer1
-        'With frmDetail
-        '    .pubIsNew = False
-        '    .pubCS = clsCS
-        '    .pubParentID = strID
-        '    .pubParentCODetailID = grdItemCOView.GetRowCellValue(0, "ID")
-        '    .pubTableParent = dtSubItem
-        '    .pubDataRowSelected = grdSubitemView.GetDataRow(intPos)
-        '    .pubIsAutoSearch = False
-        '    .StartPosition = FormStartPosition.CenterParent
-        '    .pubShowDialog(Me)
-        '    prvSetButtonItemConfirmationOrder()
-        '    prvCalculate()
-        'End With
+        Dim frmDetail As New frmTraSalesContractDetItemVer1SubItem
+        With frmDetail
+            .pubIsNew = False
+            .pubParentID = strID
+            .pubDtCO = dtCO
+            .pubRowParentItem = drSelectedItem
+            .pubDataRowSelected = grdSubitemView.GetDataRow(intPos)
+            .pubIsAutoSearch = True
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            prvSetButtonItemConfirmationOrder()
+            prvQuerySubItem()
+            prvCalculate()
+        End With
     End Sub
 
     Private Sub prvDeleteSubItem()
-        'intPos = grdSubitemView.FocusedRowHandle
-        'If intPos < 0 Then Exit Sub
-        'Dim strID As String = grdSubitemView.GetRowCellValue(intPos, "ID")
+        intPos = grdSubitemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdSubitemView.GetRowCellValue(intPos, "ID")
 
-        ''# Delete Item
-        'For Each dr As DataRow In dtSubItem.Rows
-        '    If dr.Item("ID") = strID Then dr.Delete() : Exit For
-        'Next
-        'dtSubItem.AcceptChanges()
-        'prvCalculate()
+        If Not UI.usForm.frmAskQuestion("Hapus data yang dipilih?") Then Exit Sub
+
+        Try
+            BL.SalesContract.DeleteSubItem(strID, drSelectedItem.Item("SCID"), grdSubitemView.GetRowCellValue(intPos, "PCDetailID"))
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            prvQuerySubItem()
+            prvSetButton()
+        End Try
     End Sub
 
 #End Region
@@ -727,6 +782,7 @@ Public Class frmTraSalesContractDetItemVer1
         prvSetGrid()
         prvFillForm()
         prvQuery()
+        prvQuerySubItem()
         If bolIsAutoSearch Then prvChooseItem()
     End Sub
 

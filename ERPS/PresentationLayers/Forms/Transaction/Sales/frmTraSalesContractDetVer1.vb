@@ -69,7 +69,9 @@ Public Class frmTraSalesContractDetVer1
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemView, "UnitPriceHPP", "ParentID", 100, UI.usDefGrid.gReal4Num, False)
+        UI.usForm.SetGrid(grdItemView, "UnitPriceHPP", "UnitPriceHPP", 100, UI.usDefGrid.gReal4Num, False)
+        UI.usForm.SetGrid(grdItemView, "CODetailID", "CODetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "PCDetailID", "PCDetailID", 100, UI.usDefGrid.gString, False)
 
         '# CO Item
         UI.usForm.SetGrid(grdItemCOView, "ID", "ID", 100, UI.usDefGrid.gString, False)
@@ -619,24 +621,24 @@ Public Class frmTraSalesContractDetVer1
                 dtSubItem.Merge(BL.SalesContract.ListDataDetail(pubID.Trim, dr.Item("ID")))
             Next
 
-            '# Remap ID using Guid
-            For Each dr As DataRow In dtItem.Rows
-                Dim strPrevID As String = dr.Item("ID")
-                Dim strNewID As String = Guid.NewGuid.ToString
-                For Each drSub As DataRow In dtSubItem.Rows
-                    If drSub.Item("ParentID") = strPrevID Then
-                        drSub.BeginEdit()
-                        drSub.Item("ParentID") = strNewID
-                        drSub.EndEdit()
-                    End If
-                Next
-                dtSubItem.AcceptChanges()
+            ''# Remap ID using Guid
+            'For Each dr As DataRow In dtItem.Rows
+            '    Dim strPrevID As String = dr.Item("ID")
+            '    Dim strNewID As String = Guid.NewGuid.ToString
+            '    For Each drSub As DataRow In dtSubItem.Rows
+            '        If drSub.Item("ParentID") = strPrevID Then
+            '            drSub.BeginEdit()
+            '            drSub.Item("ParentID") = strNewID
+            '            drSub.EndEdit()
+            '        End If
+            '    Next
+            '    dtSubItem.AcceptChanges()
 
-                dr.BeginEdit()
-                dr.Item("ID") = strNewID
-                dr.EndEdit()
-            Next
-            dtItem.AcceptChanges()
+            '    dr.BeginEdit()
+            '    dr.Item("ID") = strNewID
+            '    dr.EndEdit()
+            'Next
+            'dtItem.AcceptChanges()
 
             grdItem.DataSource = dtItem
             prvSumGrid()
