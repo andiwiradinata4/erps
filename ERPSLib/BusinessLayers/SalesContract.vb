@@ -51,6 +51,13 @@
             Return strNewID
         End Function
 
+        Public Shared Function GetNewIDDetailCOSubitem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                       ByVal strSCCOID As String) As String
+            Dim strNewID As String = strSCCOID & "-"
+            strNewID &= Format(DL.SalesContract.GetMaxIDDetailCO(sqlCon, sqlTrans, strNewID) + 1, "000")
+            Return strNewID
+        End Function
+
         Public Shared Function GetNewNo(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal dtmTransDate As DateTime, ByVal intBPID As Integer,
                                         ByVal intCompanyID As Integer, ByVal intProgramID As Integer) As String
@@ -645,7 +652,6 @@
                     End If
 
                     DL.SalesContract.SaveDataDetail(sqlCon, sqlTrans, clsData)
-                    DL.PurchaseContract.CalculateSCTotalUsed(sqlCon, sqlTrans, clsData.PCDetailID)
                     DL.SalesContract.SetIsUseSubitem(sqlCon, sqlTrans, strSCID, True)
                     sqlTrans.Commit()
                 Catch ex As Exception
@@ -675,7 +681,6 @@
                     End If
 
                     DL.SalesContract.DeleteDataDetailByID(sqlCon, sqlTrans, strID)
-                    DL.PurchaseContract.CalculateSCTotalUsed(sqlCon, sqlTrans, strPCDetailID)
 
                     Dim bolIsSubitem As Boolean = False
                     Dim dtDetail As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, strSCID, "")
@@ -705,6 +710,52 @@
                 Return DL.SalesContract.ListDataDetailCO(sqlCon, Nothing, strSCID, strParentID)
             End Using
         End Function
+
+        Public Shared Function SaveDataDetailCOSubitem(ByVal bolNew As Boolean, ByVal strSCID As String,
+                                                       ByVal clsData As VO.SalesContractDetConfirmationOrder) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    If bolNew Then
+                        If clsData.ID.Trim = "" Then clsData.ID = GetNewIDDetailCOSubitem(sqlCon, sqlTrans, clsData.ParentID)
+                    Else
+                        Dim clsSC As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, sqlTrans, strSCID)
+                        If clsSC.StatusID <> VO.Status.Values.Approved Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data belum di approve")
+                        ElseIf clsSC.IsDeleted Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
+                        Else
+                            DL.SalesContract.DeleteDataDetailCOByID(sqlCon, sqlTrans, clsData.ID)
+                        End If
+                    End If
+
+                    DL.SalesContract.SaveDataDetailCO(sqlCon, sqlTrans, clsData)
+                    DL.PurchaseContract.CalculateSCTotalUsed(sqlCon, sqlTrans, clsData.PCDetailID)
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Sub DeleteDetailCOSubItem(ByVal strID As String, ByVal strSCID As String, ByVal strPCDetailID As String)
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    DL.SalesContract.DeleteDataDetailCOByID(sqlCon, sqlTrans, strID)
+                    DL.PurchaseContract.CalculateSCTotalUsed(sqlCon, sqlTrans, strPCDetailID)
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+        End Sub
 
 #End Region
 

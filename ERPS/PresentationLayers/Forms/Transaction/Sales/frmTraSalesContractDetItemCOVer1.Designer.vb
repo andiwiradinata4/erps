@@ -756,7 +756,6 @@ Partial Class frmTraSalesContractDetItemCOVer1
         Me.ToolBarSubItem.Size = New System.Drawing.Size(497, 26)
         Me.ToolBarSubItem.TabIndex = 3
         Me.ToolBarSubItem.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        Me.ToolBarSubItem.Visible = False
         '
         'Label11
         '

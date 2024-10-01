@@ -4,7 +4,7 @@ Public Class frmTraOrderRequestOutstandingItemVer1
 
 #Region "Properties"
 
-    Private frmParent As frmTraSalesContractDetItemVer1
+    Private frmParent As frmTraSalesContractDetItemVer2
     Private intPos As Integer = 0
     Private clsCS As VO.CS
     Private intBPID As Integer

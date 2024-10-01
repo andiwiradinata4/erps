@@ -2,19 +2,15 @@
 
 #Region "Property"
 
-    Private frmParent As frmTraSalesContractDetItemVer1
+    Private frmParent As frmTraSalesContractDetItemVer2
     Private bolIsNew As Boolean = False
     Private intItemID As Integer = 0
     Private drSelected As DataRow
     Private strID As String = Guid.NewGuid.ToString
-    Private strParentID As String = ""
     Private bolIsAutoSearch As Boolean
-    Private strCODetailID As String = ""
     Private drParentItem As DataRow
-    Private dtCO As DataTable
     Private decUnitPriceHPP As Decimal = 0
     Private decUnitPrice As Decimal = 0
-    Private strPCDetailID As String = ""
 
     Public WriteOnly Property pubIsNew As Boolean
         Set(value As Boolean)
@@ -25,12 +21,6 @@
     Public WriteOnly Property pubDataRowSelected As DataRow
         Set(value As DataRow)
             drSelected = value
-        End Set
-    End Property
-
-    Public WriteOnly Property pubParentID As String
-        Set(value As String)
-            strParentID = value
         End Set
     End Property
 
@@ -46,15 +36,15 @@
         End Set
     End Property
 
-    Public WriteOnly Property pubDtCO As DataTable
-        Set(value As DataTable)
-            dtCO = value
-        End Set
-    End Property
-
     Public WriteOnly Property pubUnitPrice As Decimal
         Set(value As Decimal)
             decUnitPrice = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubUnitPriceHPP As Decimal
+        Set(value As Decimal)
+            decUnitPriceHPP = value
         End Set
     End Property
 
@@ -94,6 +84,7 @@
         txtTotalWeight.Value = 0
         txtTotalPrice.Value = 0
         txtRemarks.Text = ""
+        txtOrderNumberSupplier.Text = drParentItem.Item("OrderNumberSupplier")
     End Sub
 
     Private Sub prvFillForm()
@@ -119,8 +110,6 @@
                 txtTotalPrice.Value = drSelected.Item("TotalPrice")
                 txtRemarks.Text = drSelected.Item("Remarks")
                 txtOrderNumberSupplier.Text = drSelected.Item("OrderNumberSupplier")
-                strCODetailID = drSelected.Item("CODetailID")
-                strPCDetailID = drSelected.Item("PCDetailID")
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -154,26 +143,23 @@
 
         Try
             BL.SalesContract.SaveDataSubitem(bolIsNew, drParentItem.Item("SCID"), New VO.SalesContractDet With
-                                                {
-                                                    .ID = strID,
-                                                    .SCID = drParentItem.Item("SCID"),
-                                                    .ORDetailID = drParentItem.Item("ORDetailID"),
-                                                    .GroupID = drParentItem.Item("GroupID"),
-                                                    .ItemID = intItemID,
-                                                    .Quantity = txtQuantity.Value,
-                                                    .Weight = txtWeight.Value,
-                                                    .TotalWeight = txtTotalWeight.Value,
-                                                    .UnitPrice = drParentItem.Item("UnitPrice"),
-                                                    .TotalPrice = txtTotalPrice.Value,
-                                                    .Remarks = txtRemarks.Text.Trim,
-                                                    .OrderNumberSupplier = txtOrderNumberSupplier.Text.Trim,
-                                                    .LevelItem = drParentItem.Item("LevelItem") + 1,
-                                                    .ParentID = drParentItem.Item("ID"),
-                                                    .UnitPriceHPP = decUnitPriceHPP,
-                                                    .CODetailID = strCODetailID,
-                                                    .PCDetailID = strPCDetailID
-                                                })
-
+                                                                                  {
+                                                                                    .ID = strID,
+                                                                                    .SCID = drParentItem.Item("SCID"),
+                                                                                    .ORDetailID = drParentItem.Item("ORDetailID"),
+                                                                                    .GroupID = drParentItem.Item("GroupID"),
+                                                                                    .ItemID = intItemID,
+                                                                                    .Quantity = txtQuantity.Value,
+                                                                                    .Weight = txtWeight.Value,
+                                                                                    .TotalWeight = txtTotalWeight.Value,
+                                                                                    .UnitPrice = drParentItem.Item("UnitPrice"),
+                                                                                    .TotalPrice = txtTotalPrice.Value,
+                                                                                    .Remarks = txtRemarks.Text.Trim,
+                                                                                    .OrderNumberSupplier = txtOrderNumberSupplier.Text.Trim,
+                                                                                    .LevelItem = drParentItem.Item("LevelItem") + 1,
+                                                                                    .ParentID = drParentItem.Item("ID"),
+                                                                                    .UnitPriceHPP = decUnitPriceHPP
+                                                                                })
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         End Try
@@ -181,16 +167,14 @@
     End Sub
 
     Private Sub prvChooseItem()
-        Dim frmDetail As New frmTraSalesContractDetItemVer1SubItemOutstanding
+        Dim frmDetail As New frmMstItem
         With frmDetail
-            .pubCO = dtCO
+            .pubIsLookUp = True
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
             If .pubIsLookUpGet Then
-                txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
-                decUnitPriceHPP = .pubLUdtRow.Item("UnitPrice")
-                strCODetailID = .pubLUdtRow.Item("CODetailID")
-                intItemID = .pubLUdtRow.Item("ItemID")
+                txtOrderNumberSupplier.Text = drParentItem.Item("OrderNumberSupplier")
+                intItemID = .pubLUdtRow.Item("ID")
                 txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
                 cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
                 txtItemName.Text = .pubLUdtRow.Item("ItemName")
@@ -199,8 +183,9 @@
                 txtLength.Value = .pubLUdtRow.Item("Length")
                 cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
                 txtWeight.Value = .pubLUdtRow.Item("Weight")
-                txtQuantity.Value = .pubLUdtRow.Item("Quantity")
-                strPCDetailID = .pubLUdtRow.Item("PCDetailID")
+                txtQuantity.Value = 0
+                txtUnitPrice.Focus()
+                txtRemarks.Text = ""
                 bolIsAutoSearch = False
             Else
                 If bolIsAutoSearch Then Me.Close()

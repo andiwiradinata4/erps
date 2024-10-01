@@ -14,12 +14,11 @@ Public Class frmTraSalesContractDetItemVer1
     Private intGroupID As Integer = 0
     Private clsCS As VO.CS
     Private dtParentCOItem As New DataTable
-    Private dtParentCOSubItem As New DataTable
+    'Private dtParentCOSubItem As New DataTable
     Private dtParentItem As New DataTable
-    Private dtParentSubItem As New DataTable
     Private drSelectedItem As DataRow
     Private dtCO As New DataTable
-    Private dtCOSub As New DataTable
+    'Private dtCOSub As New DataTable
     Private bolIsAutoSearch As Boolean
     Private intLevelItem As Integer = 0
 
@@ -35,21 +34,9 @@ Public Class frmTraSalesContractDetItemVer1
         End Set
     End Property
 
-    Public WriteOnly Property pubTableParentCOSubItem As DataTable
-        Set(value As DataTable)
-            dtParentCOSubItem = value
-        End Set
-    End Property
-
     Public WriteOnly Property pubTableParentItem As DataTable
         Set(value As DataTable)
             dtParentItem = value
-        End Set
-    End Property
-
-    Public WriteOnly Property pubTableParentSubItem As DataTable
-        Set(value As DataTable)
-            dtParentSubItem = value
         End Set
     End Property
 
@@ -280,18 +267,18 @@ Public Class frmTraSalesContractDetItemVer1
             Next
             dtCO.AcceptChanges()
 
-            dtCOSub = dtParentCOSubItem.Clone
-            For Each dr As DataRow In dtParentCOSubItem.Rows
-                If dr.Item("GroupID") = intGroupID Then dtCOSub.ImportRow(dr)
-            Next
-            dtCOSub.AcceptChanges()
+            'dtCOSub = dtParentCOSubItem.Clone
+            'For Each dr As DataRow In dtParentCOSubItem.Rows
+            '    If dr.Item("GroupID") = intGroupID Then dtCOSub.ImportRow(dr)
+            'Next
+            'dtCOSub.AcceptChanges()
 
-            Dim dsMain As New DataSet
-            dsMain.Tables.Add(dtCO)
-            dsMain.Tables.Add(dtCOSub)
-            dsMain.Relations.Add("SubItem", dtCO.Columns.Item("ID"), dtCOSub.Columns.Item("ParentID"))
+            'Dim dsMain As New DataSet
+            'dsMain.Tables.Add(dtCO)
+            'dsMain.Tables.Add(dtCOSub)
+            'dsMain.Relations.Add("SubItem", dtCO.Columns.Item("ID"), dtCOSub.Columns.Item("ParentID"))
             grdItemCO.DataSource = dtCO
-            grdItemCO.LevelTree.Nodes.Add("SubItem", grdSubItemCOView)
+            'grdItemCO.LevelTree.Nodes.Add("SubItem", grdSubItemCOView)
             grdItemCO.Refresh()
             prvCalculate()
         Catch ex As Exception
@@ -404,18 +391,18 @@ Public Class frmTraSalesContractDetItemVer1
         dtParentItem.AcceptChanges()
         frmParent.grdItemView.BestFitColumns()
 
-        '# Delete Sub Item Exists with Parent ID
-        For Each dr As DataRow In dtParentSubItem.Rows
-            If dr.Item("GroupID") = intGroupID Then dr.Delete()
-        Next
-        dtParentSubItem.AcceptChanges()
+        ''# Delete Sub Item Exists with Parent ID
+        'For Each dr As DataRow In dtParentSubItem.Rows
+        '    If dr.Item("GroupID") = intGroupID Then dr.Delete()
+        'Next
+        'dtParentSubItem.AcceptChanges()
 
-        '# Delete Confirmation Order Item
-        For Each dr As DataRow In dtParentCOItem.Rows
-            If dr.Item("GroupID") = intGroupID Then dr.Delete()
-        Next
-        dtParentCOItem.AcceptChanges()
-        dtParentCOSubItem.AcceptChanges()
+        ''# Delete Confirmation Order Item
+        'For Each dr As DataRow In dtParentCOItem.Rows
+        '    If dr.Item("GroupID") = intGroupID Then dr.Delete()
+        'Next
+        'dtParentCOItem.AcceptChanges()
+        'dtParentCOSubItem.AcceptChanges()
 
         '# Import Confirmation Order
         For Each dr As DataRow In dtCO.Rows

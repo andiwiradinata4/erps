@@ -1424,7 +1424,7 @@
                     "	PCD.OrderNumberSupplier, PCD.UnitPrice, PCD.CODetailID, PCD.ItemID, MI.ItemCode, MI.ItemCodeExternal, MI.ItemName,  " & vbNewLine & _
                     "	MI.ItemTypeID, IT.Description AS ItemTypeName, MI.ItemSpecificationID, MIS.Description AS ItemSpecificationName,  " & vbNewLine & _
                     "	MI.Thick, MI.Width, MI.Length, PCD.Weight, PCD.Quantity, PCD.TotalWeight, PCD.Remarks, PCH.CreatedBy, PCH.CreatedDate, PCH.LogBy, " & vbNewLine & _
-                    "	PCH.LogDate, PCH.LogInc, PCD.ID AS PCDetailID   " & vbNewLine & _
+                    "	PCH.LogDate, PCH.LogInc, PCD.ID AS PCDetailID, MI.ItemCodeExternal, PCD.LevelItem " & vbNewLine & _
                     "FROM traPurchaseContract PCH " & vbNewLine & _
                     "INNER JOIN traPurchaseContractDet PCD ON " & vbNewLine & _
                     "	PCH.ID=PCD.PCID " & vbNewLine & _
@@ -1440,7 +1440,7 @@
                     "	PCD.CODetailID=@CODetailID" & vbNewLine & _
                     "	AND PCD.ParentID<>'' " & vbNewLine & _
                     "	AND PCD.TotalWeight-PCD.SCWeight>0 " & vbNewLine & _
-                    "	AND PCD.ID NOT IN (SELECT SCD.PCDetailID FROM traSalesContractDet SCD INNER JOIN traSalesContract SCH ON SCD.SCID=SCH.ID WHERE SCH.IsDeleted=0 AND SCD.CODetailID<>'') " & vbNewLine
+                    "	AND PCD.ID NOT IN (SELECT SCD.PCDetailID FROM traSalesContractDetConfirmationOrder SCD INNER JOIN traSalesContract SCH ON SCD.SCID=SCH.ID WHERE SCH.IsDeleted=0 AND SCD.CODetailID<>'') " & vbNewLine
 
                 .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
             End With
@@ -1642,7 +1642,7 @@
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(SCD.TotalWeight+SCD.RoundingWeight),0) TotalWeight		" & vbNewLine &
-                    "		FROM traSalesContractDet SCD 	" & vbNewLine &
+                    "		FROM traSalesContractDetConfirmationOrder SCD 	" & vbNewLine &
                     "		INNER JOIN traSalesContract SCH ON	" & vbNewLine &
                     "			SCD.SCID=SCH.ID 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
@@ -1653,7 +1653,7 @@
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(SCD.Quantity),0) TotalQuantity " & vbNewLine &
-                    "		FROM traSalesContractDet SCD 	" & vbNewLine &
+                    "		FROM traSalesContractDetConfirmationOrder SCD 	" & vbNewLine &
                     "		INNER JOIN traSalesContract SCH ON	" & vbNewLine &
                     "			SCD.SCID=SCH.ID 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &

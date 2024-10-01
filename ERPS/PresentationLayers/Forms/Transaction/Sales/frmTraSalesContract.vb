@@ -201,7 +201,7 @@ Public Class frmTraSalesContract
 
     Private Sub prvNew()
         prvResetProgressBar()
-        Dim frmDetail As New frmTraSalesContractDetVer1
+        Dim frmDetail As New frmTraSalesContractDetVer2
         With frmDetail
             .pubIsNew = True
             .pubCS = prvGetCS()
@@ -215,7 +215,7 @@ Public Class frmTraSalesContract
         intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         clsData = prvGetData()
-        Dim frmDetail As New frmTraSalesContractDetVer1
+        Dim frmDetail As New frmTraSalesContractDetVer2
         With frmDetail
             .pubIsNew = False
             .pubCS = prvGetCS()

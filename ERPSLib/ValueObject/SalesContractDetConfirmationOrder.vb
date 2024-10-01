@@ -16,5 +16,7 @@
         Property LevelItem As Integer
         Property ParentID As String = ""
         Property LocationID As Integer
+        Property PCDetailID As String = ""
+        Property OrderNumberSupplier As String = ""
     End Class
 End Namespace

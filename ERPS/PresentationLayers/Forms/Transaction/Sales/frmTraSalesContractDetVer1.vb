@@ -8,9 +8,7 @@ Public Class frmTraSalesContractDetVer1
     Private intBPID As Integer = 0
     Private intCompanyBankAccountID As Integer = 0
     Private dtItem As New DataTable
-    Private dtSubItem As New DataTable
     Private dtItemConfirmationOrder As New DataTable
-    Private dtSubItemConfirmationOrder As New DataTable
     Private dtPaymentTerm As New DataTable
     Private intPos As Integer = 0
     Property pubID As String = ""
@@ -615,11 +613,11 @@ Public Class frmTraSalesContractDetVer1
 
         Try
             dtItem = BL.SalesContract.ListDataDetail(pubID.Trim, "")
-            dtSubItem = New DataTable
-            If dtItem.Rows.Count = 0 Then dtSubItem = dtItem.Clone
-            For Each dr As DataRow In dtItem.Rows
-                dtSubItem.Merge(BL.SalesContract.ListDataDetail(pubID.Trim, dr.Item("ID")))
-            Next
+            'dtSubItem = New DataTable
+            'If dtItem.Rows.Count = 0 Then dtSubItem = dtItem.Clone
+            'For Each dr As DataRow In dtItem.Rows
+            '    dtSubItem.Merge(BL.SalesContract.ListDataDetail(pubID.Trim, dr.Item("ID")))
+            'Next
 
             ''# Remap ID using Guid
             'For Each dr As DataRow In dtItem.Rows
@@ -669,9 +667,7 @@ Public Class frmTraSalesContractDetVer1
             .pubCS = pubCS
             .pubBPID = intBPID
             .pubTableParentItem = dtItem
-            .pubTableParentSubItem = dtSubItem
             .pubTableParentCOItem = dtItemConfirmationOrder
-            .pubTableParentCOSubItem = dtSubItemConfirmationOrder
             .pubIsAutoSearch = True
             .pubLevelItem = 0
             .pubBPID = intBPID
@@ -694,9 +690,7 @@ Public Class frmTraSalesContractDetVer1
             .pubCS = pubCS
             .pubBPID = intBPID
             .pubTableParentItem = dtItem
-            .pubTableParentSubItem = dtSubItem
             .pubTableParentCOItem = dtItemConfirmationOrder
-            .pubTableParentCOSubItem = dtSubItemConfirmationOrder
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .pubLevelItem = 0
             .pubBPID = intBPID
@@ -721,47 +715,47 @@ Public Class frmTraSalesContractDetVer1
         Next
         dtItem.AcceptChanges()
 
-        '# Delete Item
-        For Each dr As DataRow In dtSubItem.Rows
-            If dr.Item("ParentID") = strID Then dr.Delete() : Exit For
-        Next
-        dtSubItem.AcceptChanges()
+        ''# Delete Item
+        'For Each dr As DataRow In dtSubItem.Rows
+        '    If dr.Item("ParentID") = strID Then dr.Delete() : Exit For
+        'Next
+        'dtSubItem.AcceptChanges()
 
         '# Delete Item Confirmation Order
         For Each dr As DataRow In dtItemConfirmationOrder.Rows
             If dr.Item("GroupID") = intGroupID Then dr.Delete()
         Next
         dtItemConfirmationOrder.AcceptChanges()
-        dtSubItemConfirmationOrder.AcceptChanges()
+        'dtSubItemConfirmationOrder.AcceptChanges()
 
-        '# Update Group ID Item
-        For Each dr As DataRow In dtItem.Rows
-            If dr.Item("GroupID") > intGroupID Then
-                dr.BeginEdit()
-                dr.Item("GroupID") = dr.Item("GroupID") - 1
-                dr.EndEdit()
-            End If
-        Next
-        dtItem.AcceptChanges()
+        ''# Update Group ID Item
+        'For Each dr As DataRow In dtItem.Rows
+        '    If dr.Item("GroupID") > intGroupID Then
+        '        dr.BeginEdit()
+        '        dr.Item("GroupID") = dr.Item("GroupID") - 1
+        '        dr.EndEdit()
+        '    End If
+        'Next
+        'dtItem.AcceptChanges()
 
-        '# Update Group ID Confirmation Order
-        For Each dr As DataRow In dtItemConfirmationOrder.Rows
-            If dr.Item("GroupID") > intGroupID Then
-                dr.BeginEdit()
-                dr.Item("GroupID") = dr.Item("GroupID") - 1
-                dr.EndEdit()
+        ''# Update Group ID Confirmation Order
+        'For Each dr As DataRow In dtItemConfirmationOrder.Rows
+        '    If dr.Item("GroupID") > intGroupID Then
+        '        dr.BeginEdit()
+        '        dr.Item("GroupID") = dr.Item("GroupID") - 1
+        '        dr.EndEdit()
 
-                For Each drSub As DataRow In dtSubItemConfirmationOrder.Rows
-                    If dr.Item("ID") = drSub.Item("ParentID") Then
-                        drSub.BeginEdit()
-                        drSub.Item("GroupID") = dr.Item("GroupID")
-                        drSub.EndEdit()
-                    End If
-                Next
-                dtSubItemConfirmationOrder.AcceptChanges()
-            End If
-        Next
-        dtItemConfirmationOrder.AcceptChanges()
+        '        For Each drSub As DataRow In dtSubItemConfirmationOrder.Rows
+        '            If dr.Item("ID") = drSub.Item("ParentID") Then
+        '                drSub.BeginEdit()
+        '                drSub.Item("GroupID") = dr.Item("GroupID")
+        '                drSub.EndEdit()
+        '            End If
+        '        Next
+        '        dtSubItemConfirmationOrder.AcceptChanges()
+        '    End If
+        'Next
+        'dtItemConfirmationOrder.AcceptChanges()
 
         prvSumGrid()
         prvCalculate()
@@ -779,35 +773,35 @@ Public Class frmTraSalesContractDetVer1
         Try
             Dim dsMain As New DataSet
             dtItemConfirmationOrder = BL.SalesContract.ListDataDetailCO(pubID.Trim, "")
-            dtSubItemConfirmationOrder = New DataTable
-            If dtItemConfirmationOrder.Rows.Count = 0 Then dtSubItemConfirmationOrder = dtItemConfirmationOrder.Clone()
-            For Each dr As DataRow In dtItemConfirmationOrder.Rows
-                dtSubItemConfirmationOrder.Merge(BL.SalesContract.ListDataDetailCO(pubID, dr.Item("ID")))
-            Next
+            'dtSubItemConfirmationOrder = New DataTable
+            'If dtItemConfirmationOrder.Rows.Count = 0 Then dtSubItemConfirmationOrder = dtItemConfirmationOrder.Clone()
+            'For Each dr As DataRow In dtItemConfirmationOrder.Rows
+            '    dtSubItemConfirmationOrder.Merge(BL.SalesContract.ListDataDetailCO(pubID, dr.Item("ID")))
+            'Next
 
-            '# Remap ID using Guid
-            For Each dr As DataRow In dtItemConfirmationOrder.Rows
-                Dim strPrevID As String = dr.Item("ID")
-                Dim strNewID As String = Guid.NewGuid.ToString
-                For Each drSub As DataRow In dtSubItemConfirmationOrder.Rows
-                    If drSub.Item("ParentID") = strPrevID Then
-                        drSub.BeginEdit()
-                        drSub.Item("ParentID") = strNewID
-                        drSub.EndEdit()
-                    End If
-                Next
-                dtSubItemConfirmationOrder.AcceptChanges()
+            ''# Remap ID using Guid
+            'For Each dr As DataRow In dtItemConfirmationOrder.Rows
+            '    Dim strPrevID As String = dr.Item("ID")
+            '    Dim strNewID As String = Guid.NewGuid.ToString
+            '    For Each drSub As DataRow In dtSubItemConfirmationOrder.Rows
+            '        If drSub.Item("ParentID") = strPrevID Then
+            '            drSub.BeginEdit()
+            '            drSub.Item("ParentID") = strNewID
+            '            drSub.EndEdit()
+            '        End If
+            '    Next
+            '    dtSubItemConfirmationOrder.AcceptChanges()
 
-                dr.BeginEdit()
-                dr.Item("ID") = strNewID
-                dr.EndEdit()
-            Next
-            dtItemConfirmationOrder.AcceptChanges()
-            dsMain.Tables.Add(dtItemConfirmationOrder)
-            dsMain.Tables.Add(dtSubItemConfirmationOrder)
-            dsMain.Relations.Add("SubItem", dtItemConfirmationOrder.Columns.Item("ID"), dtSubItemConfirmationOrder.Columns.Item("ParentID"))
+            '    dr.BeginEdit()
+            '    dr.Item("ID") = strNewID
+            '    dr.EndEdit()
+            'Next
+            'dtItemConfirmationOrder.AcceptChanges()
+            'dsMain.Tables.Add(dtItemConfirmationOrder)
+            'dsMain.Tables.Add(dtSubItemConfirmationOrder)
+            'dsMain.Relations.Add("SubItem", dtItemConfirmationOrder.Columns.Item("ID"), dtSubItemConfirmationOrder.Columns.Item("ParentID"))
             grdItemCO.DataSource = dtItemConfirmationOrder
-            grdItemCO.LevelTree.Nodes.Add("SubItem", grdSubItemCOView)
+            'grdItemCO.LevelTree.Nodes.Add("SubItem", grdSubItemCOView)
             grdItem.Refresh()
             prvSumGrid()
             prvSetupTools()
