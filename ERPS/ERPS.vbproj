@@ -939,24 +939,6 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryDet.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryDetItem.Designer.vb">
-      <DependentUpon>frmTraDeliveryDetItem.vb</DependentUpon>
-    </Compile>
-    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryDetItem.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryDetItemTransport.Designer.vb">
-      <DependentUpon>frmTraDeliveryDetItemTransport.vb</DependentUpon>
-    </Compile>
-    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryDetItemTransport.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryDetItemTransportOutstanding.Designer.vb">
-      <DependentUpon>frmTraDeliveryDetItemTransportOutstanding.vb</DependentUpon>
-    </Compile>
-    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryDetItemTransportOutstanding.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryDetItemVer01.Designer.vb">
       <DependentUpon>frmTraDeliveryDetItemVer01.vb</DependentUpon>
     </Compile>
@@ -1700,15 +1682,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryDet.resx">
       <DependentUpon>frmTraDeliveryDet.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryDetItem.resx">
-      <DependentUpon>frmTraDeliveryDetItem.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryDetItemTransport.resx">
-      <DependentUpon>frmTraDeliveryDetItemTransport.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryDetItemTransportOutstanding.resx">
-      <DependentUpon>frmTraDeliveryDetItemTransportOutstanding.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryDetItemVer01.resx">
       <DependentUpon>frmTraDeliveryDetItemVer01.vb</DependentUpon>
