@@ -107,6 +107,7 @@ Public Class frmTraPurchaseContractDetItemVer1
     Private Sub prvSetButton()
         Dim bolEnable As Boolean = IIf(grdItemView.RowCount > 0, True, False)
         With ToolBarSubItem.Buttons
+            .Item(cAdd).Enabled = IIf(bolIsNew, False, True)
             .Item(cEdit).Enabled = bolEnable
             .Item(cDelete).Enabled = bolEnable
         End With
@@ -380,10 +381,12 @@ Public Class frmTraPurchaseContractDetItemVer1
 
     Private Sub prvQuerySubItem()
         Try
-            grdItem.DataSource = BL.PurchaseContract.ListDataDetail(strPCID, strID)
+            grdItem.DataSource = BL.PurchaseContract.ListDataDetail(strPCID, IIf(strID.Trim = "", "-", strID))
             grdItemView.BestFitColumns()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            prvSetButton()
         End Try
     End Sub
 

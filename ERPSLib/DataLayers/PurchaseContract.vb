@@ -1652,7 +1652,7 @@
                     "	SCQuantity=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(SCD.Quantity+SCD.RoundingWeight),0) TotalQuantity " & vbNewLine &
+                    "			ISNULL(SUM(SCD.Quantity),0) TotalQuantity " & vbNewLine &
                     "		FROM traSalesContractDet SCD 	" & vbNewLine &
                     "		INNER JOIN traSalesContract SCH ON	" & vbNewLine &
                     "			SCD.SCID=SCH.ID 	" & vbNewLine &
@@ -1775,6 +1775,39 @@
                         "WHERE  " & vbNewLine &
                         "   ID=@ID " & vbNewLine &
                         "   AND (DCWeight>0 OR DCQuantity>0) " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        bolReturn = True
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return bolReturn
+        End Function
+
+        Public Shared Function IsAlreadySCSubitem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strID As String) As Boolean
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim bolReturn As Boolean = False
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID " & vbNewLine &
+                        "FROM traPurchaseContractDet " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   ID=@ID " & vbNewLine &
+                        "   AND (SCWeight>0 OR SCQuantity>0) " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 End With

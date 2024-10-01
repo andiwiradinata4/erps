@@ -640,6 +640,10 @@
                         End If
                     End If
 
+                    If DL.SalesContract.IsAlreadyReceiveSubitem(sqlCon, sqlTrans, clsData.ParentID) Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data induk telah diproses penerimaan")
+                    End If
+
                     DL.SalesContract.SaveDataDetail(sqlCon, sqlTrans, clsData)
                     DL.PurchaseContract.CalculateSCTotalUsed(sqlCon, sqlTrans, clsData.PCDetailID)
                     DL.SalesContract.SetIsUseSubitem(sqlCon, sqlTrans, strSCID, True)

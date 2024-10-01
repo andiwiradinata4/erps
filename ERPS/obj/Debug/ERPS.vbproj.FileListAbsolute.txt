@@ -667,7 +667,6 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestOu
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestOutstandingMapConfirmationOrderItem.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestMapConfirmationOrderDetItem.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestVer2.resources
-C:\Project\Tony\ERPS\ERPS\bin\Debug\DevExpress.Images.v16.2.dll
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestMapConfirmationOrder.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestMapConfirmationOrderDet.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestMapConfirmationOrderDetItem.resources
@@ -891,3 +890,9 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseContra
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraUpdatePaymentType.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer1SubItem.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer1SubItemOutstanding.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPInvoice.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPInvoiceDet.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseContractDetItemOrderSubItem.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraUpdatePaymentType.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer1SubItem.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer1SubItemOutstanding.resources

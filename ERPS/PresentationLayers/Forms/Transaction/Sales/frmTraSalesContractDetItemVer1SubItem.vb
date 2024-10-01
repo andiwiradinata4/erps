@@ -119,6 +119,8 @@
                 txtTotalPrice.Value = drSelected.Item("TotalPrice")
                 txtRemarks.Text = drSelected.Item("Remarks")
                 txtOrderNumberSupplier.Text = drSelected.Item("OrderNumberSupplier")
+                strCODetailID = drSelected.Item("CODetailID")
+                strPCDetailID = drSelected.Item("PCDetailID")
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)

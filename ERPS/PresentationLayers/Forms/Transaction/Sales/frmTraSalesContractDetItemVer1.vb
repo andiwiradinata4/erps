@@ -579,8 +579,7 @@ Public Class frmTraSalesContractDetItemVer1
         End With
 
         With ToolBarItemSubitem
-            .Buttons(cAdd).Enabled = bolEnabled
-
+            .Buttons(cAdd).Enabled = IIf(bolIsNew, False, True)
             Dim bolEnabledSubitem As Boolean = IIf(grdSubitemView.RowCount = 0, False, True)
             .Buttons(cEdit).Enabled = bolEnabledSubitem
             .Buttons(cDelete).Enabled = bolEnabledSubitem
@@ -681,7 +680,7 @@ Public Class frmTraSalesContractDetItemVer1
 
     Private Sub prvQuerySubItem()
         Try
-            grdSubitem.DataSource = BL.SalesContract.ListDataDetail(drSelectedItem.Item("SCID"), strID)
+            If Not bolIsNew Then grdSubitem.DataSource = BL.SalesContract.ListDataDetail(drSelectedItem.Item("SCID"), strID)
             grdSubitemView.BestFitColumns()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -736,7 +735,7 @@ Public Class frmTraSalesContractDetItemVer1
             .pubDtCO = dtCO
             .pubRowParentItem = drSelectedItem
             .pubDataRowSelected = grdSubitemView.GetDataRow(intPos)
-            .pubIsAutoSearch = True
+            .pubIsAutoSearch = False
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItemConfirmationOrder()

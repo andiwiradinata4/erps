@@ -458,9 +458,15 @@
                             Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pembayaran")
                         ElseIf DL.PurchaseContract.IsAlreadyReceiveSubitem(sqlCon, sqlTrans, clsData.ID) Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses penerimaan")
+                        ElseIf DL.PurchaseContract.IsAlreadySCSubitem(sqlCon, sqlTrans, clsdata.ID) Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses kontrak penjualan")
                         Else
                             DL.PurchaseContract.DeleteDataDetailByID(sqlCon, sqlTrans, clsData.ID)
                         End If
+                    End If
+
+                    If DL.PurchaseContract.IsAlreadyReceiveSubitem(sqlCon, sqlTrans, clsData.ParentID) Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data induk telah diproses penerimaan")
                     End If
 
                     DL.PurchaseContract.SaveDataDetail(sqlCon, sqlTrans, clsData)
@@ -487,9 +493,11 @@
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
                     If DL.PurchaseContract.IsAlreadyReceiveSubitem(sqlCon, sqlTrans, strID) Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses penerimaan")
+                        Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah diproses penerimaan")
                     ElseIf DL.PurchaseContract.IsAlreadyPaymentSubitem(sqlCon, sqlTrans, strID) Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pembayaran")
+                        Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah diproses pembayaran")
+                    ElseIf DL.PurchaseContract.IsAlreadySCSubitem(sqlCon, sqlTrans, strID) Then
+                        Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah diproses kontrak penjualan")
                     End If
 
                     DL.PurchaseContract.DeleteDataDetailByID(sqlCon, sqlTrans, strID)
