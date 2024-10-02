@@ -1143,6 +1143,15 @@
                     Dim clsARAP As VO.ARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsData.ParentID, VO.ARAP.ARAPTypeValue.Purchase)
                     If clsARAP.ID Is Nothing Then clsARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsData.ParentID, VO.ARAP.ARAPTypeValue.Sales)
 
+                    Dim clsInvoice As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, sqlTrans, clsData.ID)
+                    If clsInvoice.StatusID = VO.Status.Values.Approved Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di approve")
+                    ElseIf clsInvoice.StatusID = VO.Status.Values.Submit Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di submit")
+                    ElseIf clsInvoice.IsDeleted Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
+                    End If
+
                     Dim decTotalInvoice, decTotalDPPInvoice, decTotalPPNInvoice, decTotalPPHInvoice As Decimal
 
                     If bolNew Then
@@ -1185,6 +1194,9 @@
                     If decTotalDPPInvoice > clsARAP.TotalAmount Then
                         Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Total DPP PI")
                     End If
+
+                    '# Save Data Status
+                    BL.ARAP.SaveDataInvoiceStatus(sqlCon, sqlTrans, clsData.ID, IIf(bolNew, "BARU", "EDIT"), ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
                     strReturn = clsData.InvoiceNumber
                     sqlTrans.Commit()
                 Catch ex As Exception
@@ -1203,6 +1215,15 @@
                 Try
                     Dim clsARAP As VO.ARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsData.ParentID, VO.ARAP.ARAPTypeValue.Purchase)
                     If clsARAP.ID Is Nothing Then clsARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsData.ParentID, VO.ARAP.ARAPTypeValue.Sales)
+
+                    Dim clsInvoice As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, sqlTrans, clsData.ID)
+                    If clsInvoice.StatusID = VO.Status.Values.Approved Then
+                        Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah di approve")
+                    ElseIf clsInvoice.StatusID = VO.Status.Values.Submit Then
+                        Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah di submit")
+                    ElseIf clsInvoice.IsDeleted Then
+                        Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
+                    End If
 
                     Dim decTotalInvoice, decTotalDPPInvoice, decTotalPPNInvoice, decTotalPPHInvoice As Decimal
 
@@ -1234,6 +1255,9 @@
                     If decTotalDPPInvoice > clsARAP.TotalAmount Then
                         Err.Raise(515, "", "Data tidak dapat disimpan. Total Pembayaran telah melebihi nilai Total DPP PI")
                     End If
+
+                    '# Save Data Status
+                    BL.ARAP.SaveDataInvoiceStatus(sqlCon, sqlTrans, clsData.ID, "HAPUS", ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
 
                     sqlTrans.Commit()
                 Catch ex As Exception
@@ -1274,6 +1298,8 @@
 
             DL.ARAP.SubmitInvoice(sqlCon, sqlTrans, strID)
 
+            '# Save Data Status
+            BL.ARAP.SaveDataInvoiceStatus(sqlCon, sqlTrans, strID, "SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
             bolReturn = True
             Return bolReturn
         End Function
@@ -1309,6 +1335,9 @@
                 End If
 
                 DL.ARAP.UnsubmitInvoice(sqlCon, sqlTrans, strID)
+
+                '# Save Data Status
+                BL.ARAP.SaveDataInvoiceStatus(sqlCon, sqlTrans, strID, "BATAL SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
                 bolReturn = True
             Catch ex As Exception
                 Throw ex
@@ -1349,6 +1378,9 @@
 
                 DL.ARAP.ApproveInvoice(sqlCon, sqlTrans, strID)
 
+                '# Save Data Status
+                BL.ARAP.SaveDataInvoiceStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
                 GenerateJournalInvoice(sqlCon, sqlTrans, strID)
                 bolReturn = True
             Catch ex As Exception
@@ -1374,7 +1406,7 @@
         End Function
 
         Public Shared Function UnapproveInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                         ByVal strID As String, ByVal strRemarks As String) As Boolean
+                                                ByVal strID As String, ByVal strRemarks As String) As Boolean
             Dim bolReturn As Boolean = False
             Try
                 Dim clsData As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, sqlTrans, strID)
@@ -1394,14 +1426,97 @@
                 '# Cancel Submit Journal
                 BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
 
-                '# Unapprove Account Receivable
+                '# Unapprove ARAP Invoice
                 DL.ARAP.UnapproveInvoice(sqlCon, sqlTrans, strID)
+
+                '# Save Data Status
+                BL.ARAP.SaveDataInvoiceStatus(sqlCon, sqlTrans, strID, "BATAL APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
                 bolReturn = True
             Catch ex As Exception
                 Throw ex
             End Try
             Return bolReturn
         End Function
+
+        Public Shared Function UpdateInvoiceTaxInvoiceNumber(ByVal strID As String, ByVal strTaxInvoiceNumber As String,
+                                                             ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Dim clsInvoice As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, sqlTrans, strID)
+                    If clsInvoice.StatusID <> VO.Status.Values.Approved Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data belum di approve")
+                    ElseIf clsInvoice.IsDeleted Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
+                    End If
+
+                    DL.ARAP.UpdateTaxInvoiceNumber(sqlCon, sqlTrans, strID, strTaxInvoiceNumber, strRemarks)
+
+                    '# Save Data Status
+                    BL.ARAP.SaveDataInvoiceStatus(sqlCon, sqlTrans, strID, "UPDATE NOMOR FAKTUR PAJAK", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+                    bolReturn = True
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function UpdateInvoiceNumberSupplier(ByVal strID As String, ByVal strInvoiceNumberExternal As String,
+                                                           ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Dim clsInvoice As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, sqlTrans, strID)
+                    If clsInvoice.StatusID <> VO.Status.Values.Approved Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data belum di approve")
+                    ElseIf clsInvoice.IsDeleted Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
+                    End If
+
+                    DL.ARAP.UpdateInvoiceNumberExternal(sqlCon, sqlTrans, strID, strInvoiceNumberExternal, strRemarks)
+
+                    '# Save Data Status
+                    BL.ARAP.SaveDataInvoiceStatus(sqlCon, sqlTrans, strID, "UPDATE NOMOR INVOICE EXTERNAL", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function ListDataInvoiceStatus(ByVal strID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ARAP.ListDataInvoiceStatus(sqlCon, Nothing, strID)
+            End Using
+        End Function
+
+        Public Shared Sub SaveDataInvoiceStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                ByVal strParentID As String, ByVal strStatus As String,
+                                                ByVal strStatusBy As String, ByVal strRemarks As String)
+            Dim strNewID As String = strParentID & "-" & Format(DL.ARAP.GetMaxIDInvoiceStatus(sqlCon, sqlTrans, strParentID) + 1, "000")
+            Dim clsData As New VO.ARAPInvoiceStatus With
+                {
+                    .ID = strNewID,
+                    .ParentID = strParentID,
+                    .Status = strStatus,
+                    .StatusBy = strStatusBy,
+                    .Remarks = strRemarks
+                }
+            DL.ARAP.SaveDataInvoiceStatus(sqlCon, sqlTrans, clsData)
+        End Sub
 
         Public Shared Sub GenerateJournalInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                  ByVal strID As String)

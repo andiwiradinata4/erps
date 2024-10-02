@@ -135,7 +135,7 @@ Public Class frmTraARAPInvoice
                 strSearch = grdView.GetDataRow(grdView.FocusedRowHandle).Item("InvoiceNumber")
             End If
             prvQuery()
-            If grdView.RowCount > 0 Then UI.usForm.GridMoveRow(grdView, "TransNumber", strSearch)
+            If grdView.RowCount > 0 Then UI.usForm.GridMoveRow(grdView, "InvoiceNumber", strSearch)
         End With
     End Sub
 
@@ -333,75 +333,63 @@ Public Class frmTraARAPInvoice
     End Sub
 
     Private Sub prvSetupTaxInvoiceNumber()
-        'intPos = grdView.FocusedRowHandle
-        'If intPos < 0 Then Exit Sub
-        'clsData = prvGetData()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
 
-        'Dim frmDetail As New frmTraAccountSetTaxInvoiceNumber
-        'With frmDetail
-        '    .pubTaxInvoiceNumber = clsData.TaxInvoiceNumber
-        '    .StartPosition = FormStartPosition.CenterParent
-        '    .ShowDialog()
-        '    If .pubIsSave Then
-        '        clsData.TaxInvoiceNumber = .pubTaxInvoiceNumber
-        '        clsData.Remarks = .pubRemarks
-        '    Else
-        '        Exit Sub
-        '    End If
-        'End With
+        Dim frmDetail As New frmTraAccountSetTaxInvoiceNumber
+        With frmDetail
+            .pubTaxInvoiceNumber = clsData.TaxInvoiceNumber
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsSave Then
+                clsData.TaxInvoiceNumber = .pubTaxInvoiceNumber
+                clsData.Remarks = .pubRemarks
+            Else
+                Exit Sub
+            End If
+        End With
 
-        'Me.Cursor = Cursors.WaitCursor
-        'pgMain.Value = 40
-
-        'Try
-        '    BL.ARAP.UpdateTaxInvoiceNumber(clsData.ID, clsData.TaxInvoiceNumber, clsData.Remarks, enumARAPType)
-        '    pgMain.Value = 100
-        '    UI.usForm.frmMessageBox("Update nomor faktur pajak berhasil.")
-        '    pubRefresh(grdView.GetRowCellValue(intPos, "TransNumber"))
-        'Catch ex As Exception
-        '    UI.usForm.frmMessageBox(ex.Message)
-        'Finally
-        '    Me.Cursor = Cursors.Default
-        '    pgMain.Value = 100
-
-        '    prvResetProgressBar()
-        'End Try
+        Me.Cursor = Cursors.WaitCursor
+        Try
+            BL.ARAP.UpdateInvoiceTaxInvoiceNumber(clsData.ID, clsData.TaxInvoiceNumber, clsData.Remarks)
+            UI.usForm.frmMessageBox("Update nomor faktur pajak berhasil.")
+            pubRefresh(grdView.GetRowCellValue(intPos, "InvoiceNumber"))
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+        End Try
     End Sub
 
     Private Sub prvSetupInvoiceNumberSupplier()
-        'intPos = grdView.FocusedRowHandle
-        'If intPos < 0 Then Exit Sub
-        'clsData = prvGetData()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
 
-        'Dim frmDetail As New frmTraAccountSetInvoiceNumberBP
-        'With frmDetail
-        '    .pubInvoiceNumberSupplier = clsData.InvoiceNumberSupplier
-        '    .StartPosition = FormStartPosition.CenterParent
-        '    .ShowDialog()
-        '    If .pubIsSave Then
-        '        clsData.InvoiceNumberSupplier = .pubInvoiceNumberSupplier
-        '        clsData.Remarks = .pubRemarks
-        '    Else
-        '        Exit Sub
-        '    End If
-        'End With
+        Dim frmDetail As New frmTraAccountSetInvoiceNumberBP
+        With frmDetail
+            .pubInvoiceNumberSupplier = clsData.InvoiceNumberExternal
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsSave Then
+                clsData.InvoiceNumberExternal = .pubInvoiceNumberSupplier
+                clsData.Remarks = .pubRemarks
+            Else
+                Exit Sub
+            End If
+        End With
 
-        'Me.Cursor = Cursors.WaitCursor
-        'pgMain.Value = 40
-
-        'Try
-        '    BL.ARAP.UpdateInvoiceNumberSupplier(clsData.ID, clsData.InvoiceNumberSupplier, clsData.Remarks, enumARAPType)
-        '    pgMain.Value = 100
-        '    UI.usForm.frmMessageBox("Update nomor invoice pajak berhasil.")
-        '    pubRefresh(grdView.GetRowCellValue(intPos, "TransNumber"))
-        'Catch ex As Exception
-        '    UI.usForm.frmMessageBox(ex.Message)
-        'Finally
-        '    Me.Cursor = Cursors.Default
-        '    pgMain.Value = 100
-
-        '    prvResetProgressBar()
-        'End Try
+        Me.Cursor = Cursors.WaitCursor
+        Try
+            BL.ARAP.UpdateInvoiceNumberSupplier(clsData.ID, clsData.InvoiceNumberExternal, clsData.Remarks)
+            UI.usForm.frmMessageBox("Update nomor invoice external berhasil.")
+            pubRefresh(grdView.GetRowCellValue(intPos, "InvoiceNumber"))
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+        End Try
     End Sub
 
     Private Sub prvPrint()
@@ -577,7 +565,7 @@ Public Class frmTraARAPInvoice
         ToolBar.SetIcon(Me)
         prvSetGrid()
         prvQuery()
-        'prvUserAccess()
+        ToolBar.Buttons.Item(cPrint).Visible = False
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick

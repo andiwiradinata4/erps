@@ -59,6 +59,16 @@
         End Try
     End Sub
 
+    Private Sub prvSetGrid()
+        '# History
+        UI.usForm.SetGrid(grdStatusView, "ID", "ID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdStatusView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdStatusView, "Status", "Status", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdStatusView, "StatusBy", "Oleh", 200, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdStatusView, "StatusDate", "Tanggal", 180, UI.usDefGrid.gFullDate)
+        UI.usForm.SetGrid(grdStatusView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+    End Sub
+
     Private Sub prvFillForm()
         Me.Cursor = Cursors.WaitCursor
         prvFillCombo()
@@ -172,11 +182,32 @@
         txtTotalAmount.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
     End Sub
 
+#Region "History Handle"
+
+    Private Sub prvQueryHistory()
+        Me.Cursor = Cursors.WaitCursor
+        Try
+            grdStatus.DataSource = BL.ARAP.ListDataInvoiceStatus(strID)
+            grdStatusView.BestFitColumns()
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+            Me.Close()
+        Finally
+            Me.Cursor = Cursors.Default
+        End Try
+    End Sub
+
+#End Region
+
 #Region "Form Handle"
 
     Private Sub frmTraARAPInvoiceDet_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
+        ElseIf e.KeyCode = Keys.F1 Then
+            tcMain.SelectedTab = tpMain
+        ElseIf e.KeyCode = Keys.F2 Then
+            tcMain.SelectedTab = tpHistory
         ElseIf (e.Control And e.KeyCode = Keys.S) Then
             prvSave()
         End If
@@ -185,7 +216,8 @@
     Private Sub frmTraARAPInvoiceDet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ToolBar.SetIcon(Me)
         prvFillForm()
-
+        prvSetGrid()
+        prvQueryHistory()
         AddHandler txtTotalAmount.ValueChanged, AddressOf txtTotalAmount_ValueChanged
     End Sub
 

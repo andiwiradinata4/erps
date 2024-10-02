@@ -55,6 +55,7 @@
                 DevelopOnProgress_ID48(sqlCon, Nothing)
                 DevelopOnProgress_ID49(sqlCon, Nothing)
                 DevelopOnProgress_ID50(sqlCon, Nothing)
+                DevelopOnProgress_ID51(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1340,6 +1341,31 @@
             clsData.ID = 50
             clsData.Name = "Alter Table Sales Contract Detail Confirmation Order | Add PCDetailID"
             clsData.Scripts += "ALTER TABLE traSalesContractDetConfirmationOrder ADD PCDetailID [varchar](100) NOT NULL CONSTRAINT DF_traSalesContractDetConfirmationOrder_PCDetailID DEFAULT ('') " & vbNewLine
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 51
+        Private Shared Sub DevelopOnProgress_ID51(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 51
+            clsData.Name = "Create Table traARAPInvoiceStatus"
+            clsData.Scripts +=
+"CREATE TABLE [dbo].[traARAPInvoiceStatus](   " & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoiceStatus_ID]  DEFAULT (''),   " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoiceStatus_ParentID]  DEFAULT (''),   " & vbNewLine &
+"	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoiceStatus_Status]  DEFAULT (''),   " & vbNewLine &
+"	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traARAPInvoiceStatus_StatusBy]  DEFAULT (''), " & vbNewLine &
+"	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPInvoiceStatus_StatusDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traARAPInvoiceStatus_Remarks]  DEFAULT (''), " & vbNewLine &
+"   CONSTRAINT [PK_traARAPInvoiceStatus] PRIMARY KEY CLUSTERED    " & vbNewLine &
+"   (   " & vbNewLine &
+"   	[ID] ASC   " & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

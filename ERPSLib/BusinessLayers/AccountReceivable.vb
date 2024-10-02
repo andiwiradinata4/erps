@@ -1288,7 +1288,7 @@
                 DL.AccountReceivable.UpdateInvoiceNumberSupplier(sqlCon, sqlTrans, strID, strInvoiceNumberSupplier)
 
                 '# Save Data Status
-                BL.AccountReceivable.SaveDataStatus(sqlCon, sqlTrans, strID, "UPDATE NOMOR FAKTUR PAJAK", ERPSLib.UI.usUserApp.UserID, strRemarks)
+                BL.AccountReceivable.SaveDataStatus(sqlCon, sqlTrans, strID, "UPDATE NOMOR INVOICE EXTERNAL", ERPSLib.UI.usUserApp.UserID, strRemarks)
                 bolReturn = True
             Catch ex As Exception
                 Throw ex

@@ -506,7 +506,7 @@
                     "	ARI.CoAID=COA.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "	ARI.ParentID=@ParentID " & vbNewLine &
-                    "ORDER BY ARI.InvoiceNumber "
+                    "ORDER BY ARI.InvoiceDate "
 
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
             End With
@@ -847,6 +847,134 @@
                 Throw ex
             End Try
         End Sub
+
+        Public Shared Sub UpdateTaxInvoiceNumber(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                 ByVal strID As String, ByVal strTaxInvoiceNumber As String,
+                                                 ByVal strRemarks As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traARAPInvoice SET " & vbNewLine &
+                    "    TaxInvoiceNumber=@TaxInvoiceNumber " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@TaxInvoiceNumber", SqlDbType.VarChar, 100).Value = strTaxInvoiceNumber
+                .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = strRemarks
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub UpdateInvoiceNumberExternal(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                      ByVal strID As String, ByVal strInvoiceNumberExternal As String,
+                                                      ByVal strRemarks As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traARAPInvoice SET " & vbNewLine &
+                    "    InvoiceNumberExternal=@InvoiceNumberExternal " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@InvoiceNumberExternal", SqlDbType.VarChar, 100).Value = strInvoiceNumberExternal
+                .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = strRemarks
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Function ListDataInvoiceStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal strParentID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "SELECT " & vbNewLine & _
+                    "   A.ID, A.ParentID, A.Status, A.StatusBy, A.StatusDate, A.Remarks " & vbNewLine & _
+                    "FROM traARAPInvoiceStatus A " & vbNewLine & _
+                    "WHERE " & vbNewLine & _
+                    "   A.ParentID=@ParentID " & vbNewLine
+
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Sub SaveDataInvoiceStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                ByVal clsData As VO.ARAPInvoiceStatus)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "INSERT INTO traARAPInvoiceStatus " & vbNewLine & _
+                    "   (ID, ParentID, Status, StatusBy, StatusDate, Remarks) " & vbNewLine & _
+                    "VALUES " & vbNewLine & _
+                    "   (@ID, @ParentID, @Status, @StatusBy, GETDATE(), @Remarks) " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
+                .Parameters.Add("@Status", SqlDbType.VarChar, 100).Value = clsData.Status
+                .Parameters.Add("@StatusBy", SqlDbType.VarChar, 20).Value = clsData.StatusBy
+                .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Function GetMaxIDInvoiceStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                     ByVal strParentID As String) As Integer
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim intReturn As Integer = 0
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText = _
+                        "SELECT TOP 1 ISNULL(RIGHT(ID,3),'000') AS ID " & vbNewLine & _
+                        "FROM traARAPInvoiceStatus " & vbNewLine & _
+                        "WHERE " & vbNewLine & _
+                        "   ParentID=@ParentID " & vbNewLine & _
+                        "ORDER BY ID DESC " & vbNewLine
+
+                    .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        intReturn = .Item("ID")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return intReturn
+        End Function
 
 #End Region
 

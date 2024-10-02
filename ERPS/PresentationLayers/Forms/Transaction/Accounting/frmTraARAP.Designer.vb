@@ -41,6 +41,7 @@ Partial Class frmTraARAP
         Me.BarSetTaxInvoiceNumber = New System.Windows.Forms.ToolBarButton()
         Me.BarSetInvoiceNumberBP = New System.Windows.Forms.ToolBarButton()
         Me.BarInvoice = New System.Windows.Forms.ToolBarButton()
+        Me.BarExtendDueDate = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarPrint = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
@@ -60,7 +61,7 @@ Partial Class frmTraARAP
         Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
         Me.btnExecute = New DevExpress.XtraEditors.SimpleButton()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.BarExtendDueDate = New System.Windows.Forms.ToolBarButton()
+        Me.BarPrintInvoice = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -112,7 +113,7 @@ Partial Class frmTraARAP
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarSetPaymentDate, Me.BarDeletePaymentDate, Me.BarSetTaxInvoiceNumber, Me.BarSetInvoiceNumberBP, Me.BarInvoice, Me.BarExtendDueDate, Me.BarSep3, Me.BarPrint, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarSetPaymentDate, Me.BarDeletePaymentDate, Me.BarSetTaxInvoiceNumber, Me.BarSetInvoiceNumberBP, Me.BarInvoice, Me.BarExtendDueDate, Me.BarSep3, Me.BarPrint, Me.BarPrintInvoice, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -203,6 +204,12 @@ Partial Class frmTraARAP
         Me.BarInvoice.Tag = "Misc"
         Me.BarInvoice.Text = "Invoice"
         '
+        'BarExtendDueDate
+        '
+        Me.BarExtendDueDate.Name = "BarExtendDueDate"
+        Me.BarExtendDueDate.Tag = "Hold"
+        Me.BarExtendDueDate.Text = "Update Tanggal Jatuh Tempo"
+        '
         'BarSep3
         '
         Me.BarSep3.Name = "BarSep3"
@@ -212,7 +219,7 @@ Partial Class frmTraARAP
         '
         Me.BarPrint.Name = "BarPrint"
         Me.BarPrint.Tag = "Print"
-        Me.BarPrint.Text = "Print"
+        Me.BarPrint.Text = "Print Performa Invoice"
         '
         'BarExportExcel
         '
@@ -376,11 +383,11 @@ Partial Class frmTraARAP
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Query berdasarkan:"
         '
-        'BarExtendDueDate
+        'BarPrintInvoice
         '
-        Me.BarExtendDueDate.Name = "BarExtendDueDate"
-        Me.BarExtendDueDate.Tag = "Hold"
-        Me.BarExtendDueDate.Text = "Update Tanggal Jatuh Tempo"
+        Me.BarPrintInvoice.Name = "BarPrintInvoice"
+        Me.BarPrintInvoice.Tag = "Print"
+        Me.BarPrintInvoice.Text = "Print Invoice"
         '
         'frmTraARAP
         '
@@ -441,4 +448,5 @@ Partial Class frmTraARAP
     Friend WithEvents BarSetInvoiceNumberBP As ToolBarButton
     Friend WithEvents BarInvoice As ToolBarButton
     Friend WithEvents BarExtendDueDate As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarPrintInvoice As System.Windows.Forms.ToolBarButton
 End Class

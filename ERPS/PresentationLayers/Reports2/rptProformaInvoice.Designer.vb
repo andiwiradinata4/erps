@@ -93,7 +93,59 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell54 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell45 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.AmountPayment4 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.sbInvoice1 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrTable10 = New DevExpress.XtraReports.UI.XRTable()
+        Me.XrTableRow11 = New DevExpress.XtraReports.UI.XRTableRow()
+        Me.XrTableCell55 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.DescInvoice1 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.XrTableCell56 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell57 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.AmountInvoice1 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.sbInvoice2 = New DevExpress.XtraReports.UI.SubBand()
+        Me.sbInvoice3 = New DevExpress.XtraReports.UI.SubBand()
+        Me.sbInvoice4 = New DevExpress.XtraReports.UI.SubBand()
+        Me.sbInvoice5 = New DevExpress.XtraReports.UI.SubBand()
         Me.sbPaymentTerm1_3 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel21 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel15 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel16 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.PaymentTerm3 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.XrLabel14 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.PaymentTerm2 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.XrLabel13 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.PaymentTerm1 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.XrLabel12 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel10 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel6 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.sbPaymentTerm4 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel18 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel17 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.PaymentTerm4 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.sbPaymentTerm5 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel19 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel20 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.PaymentTerm5 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.sbPaymentTerm6 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel64 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.PaymentTerm6 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.XrLabel65 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.sbPaymentTerm7 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel66 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel67 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.PaymentTerm7 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.sbPaymentTerm8 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel68 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.PaymentTerm8 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.XrLabel69 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.sbPaymentTerm9 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel70 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel71 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.PaymentTerm9 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.sbPaymentTerm10 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel72 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.PaymentTerm10 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.XrLabel73 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.sbCompanyBankAccount1 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel47 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel46 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel42 = New DevExpress.XtraReports.UI.XRLabel()
@@ -107,18 +159,6 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel24 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel23 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel22 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel21 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel19 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel20 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel17 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel18 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel15 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel16 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel14 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel13 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel12 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel10 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel6 = New DevExpress.XtraReports.UI.XRLabel()
         Me.sbCompanyBankAccount2 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel58 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel50 = New DevExpress.XtraReports.UI.XRLabel()
@@ -148,10 +188,12 @@ Partial Public Class rptProformaInvoice
         Me.XrTable1 = New DevExpress.XtraReports.UI.XRTable()
         Me.XrLabel43 = New DevExpress.XtraReports.UI.XRLabel()
         Me.PageHeader = New DevExpress.XtraReports.UI.PageHeaderBand()
+        Me.sbBPInfo = New DevExpress.XtraReports.UI.SubBand()
+        Me.sbTaxInfo = New DevExpress.XtraReports.UI.SubBand()
+        Me.sbItemHeader = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel11 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel3 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel1 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.sbBPInfo = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel49 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel37 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel35 = New DevExpress.XtraReports.UI.XRLabel()
@@ -166,14 +208,12 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel7 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel4 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel2 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.sbTaxInfo = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel61 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel62 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel63 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel48 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel59 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel60 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.sbItemHeader = New DevExpress.XtraReports.UI.SubBand()
         Me.XrTableRow2 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.XrTableCell24 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell14 = New DevExpress.XtraReports.UI.XRTableCell()
@@ -191,6 +231,9 @@ Partial Public Class rptProformaInvoice
         Me.XrPictureBox2 = New DevExpress.XtraReports.UI.XRPictureBox()
         Me.sbTitle = New DevExpress.XtraReports.UI.SubBand()
         Me.XrRichText1 = New DevExpress.XtraReports.UI.XRRichText()
+        Me.rhTransNumber = New DevExpress.XtraReports.UI.SubBand()
+        Me.rhBPInfo = New DevExpress.XtraReports.UI.SubBand()
+        Me.rhTaxInfo = New DevExpress.XtraReports.UI.SubBand()
         Me.InvoiceType = New DevExpress.XtraReports.Parameters.Parameter()
         Me.xtDetail = New DevExpress.XtraReports.UI.XRTable()
         Me.Detail = New DevExpress.XtraReports.UI.DetailBand()
@@ -200,38 +243,36 @@ Partial Public Class rptProformaInvoice
         Me.SharedImageCollection1 = New DevExpress.Utils.SharedImageCollection(Me.components)
         Me.ImageCollection3 = New DevExpress.Utils.ImageCollection(Me.components)
         Me.HeaderType = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.PaymentTerm1 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.PaymentTerm2 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.PaymentTerm3 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.PaymentTerm4 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.PaymentTerm5 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.PaymentTerm6 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.PaymentTerm7 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.PaymentTerm8 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.PaymentTerm9 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.PaymentTerm10 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.sbPaymentTerm4 = New DevExpress.XtraReports.UI.SubBand()
-        Me.sbPaymentTerm5 = New DevExpress.XtraReports.UI.SubBand()
-        Me.sbPaymentTerm6 = New DevExpress.XtraReports.UI.SubBand()
-        Me.sbPaymentTerm7 = New DevExpress.XtraReports.UI.SubBand()
-        Me.sbPaymentTerm8 = New DevExpress.XtraReports.UI.SubBand()
-        Me.sbPaymentTerm9 = New DevExpress.XtraReports.UI.SubBand()
-        Me.sbPaymentTerm10 = New DevExpress.XtraReports.UI.SubBand()
-        Me.sbCompanyBankAccount1 = New DevExpress.XtraReports.UI.SubBand()
-        Me.XrLabel64 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel65 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel66 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel67 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel68 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel69 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel70 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel71 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel72 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel73 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.DescInvoice2 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.DescInvoice3 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.DescInvoice4 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.DescInvoice5 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.AmountInvoice2 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.AmountInvoice3 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.AmountInvoice4 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.AmountInvoice5 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.XrTable11 = New DevExpress.XtraReports.UI.XRTable()
+        Me.XrTableRow12 = New DevExpress.XtraReports.UI.XRTableRow()
+        Me.XrTableCell58 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell59 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell60 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTable12 = New DevExpress.XtraReports.UI.XRTable()
+        Me.XrTableRow13 = New DevExpress.XtraReports.UI.XRTableRow()
+        Me.XrTableCell61 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell62 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell63 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTable13 = New DevExpress.XtraReports.UI.XRTable()
+        Me.XrTableRow14 = New DevExpress.XtraReports.UI.XRTableRow()
+        Me.XrTableCell64 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell65 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell66 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTable14 = New DevExpress.XtraReports.UI.XRTable()
+        Me.XrTableRow15 = New DevExpress.XtraReports.UI.XRTableRow()
+        Me.XrTableCell67 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell68 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell69 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.ObjectDataSource1 = New DevExpress.DataAccess.ObjectBinding.ObjectDataSource(Me.components)
-        Me.rhBPInfo = New DevExpress.XtraReports.UI.SubBand()
-        Me.rhTransNumber = New DevExpress.XtraReports.UI.SubBand()
-        Me.rhTaxInfo = New DevExpress.XtraReports.UI.SubBand()
+        Me.ghColumnName = New DevExpress.XtraReports.UI.GroupHeaderBand()
         CType(Me.XrTable2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -240,6 +281,7 @@ Partial Public Class rptProformaInvoice
         CType(Me.XrTable7, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable8, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable9, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.XrTable10, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrRichText1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.xtDetail, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -248,6 +290,10 @@ Partial Public Class rptProformaInvoice
         CType(Me.SharedImageCollection1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SharedImageCollection1.ImageSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ImageCollection3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.XrTable11, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.XrTable12, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.XrTable13, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.XrTable14, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ObjectDataSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
@@ -356,7 +402,7 @@ Partial Public Class rptProformaInvoice
         Me.ReportFooter.Dpi = 100.0!
         Me.ReportFooter.HeightF = 20.0!
         Me.ReportFooter.Name = "ReportFooter"
-        Me.ReportFooter.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.sbTotalDPP, Me.sbPayment1, Me.sbPayment2, Me.sbPayment3, Me.sbPayment4, Me.sbNumberToString, Me.sbPaymentTerm1_3, Me.sbPaymentTerm4, Me.sbPaymentTerm5, Me.sbPaymentTerm6, Me.sbPaymentTerm7, Me.sbPaymentTerm8, Me.sbPaymentTerm9, Me.sbPaymentTerm10, Me.sbCompanyBankAccount1, Me.sbCompanyBankAccount2})
+        Me.ReportFooter.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.sbTotalDPP, Me.sbPayment1, Me.sbPayment2, Me.sbPayment3, Me.sbPayment4, Me.sbInvoice1, Me.sbInvoice2, Me.sbInvoice3, Me.sbInvoice4, Me.sbInvoice5, Me.sbNumberToString, Me.sbPaymentTerm1_3, Me.sbPaymentTerm4, Me.sbPaymentTerm5, Me.sbPaymentTerm6, Me.sbPaymentTerm7, Me.sbPaymentTerm8, Me.sbPaymentTerm9, Me.sbPaymentTerm10, Me.sbCompanyBankAccount1, Me.sbCompanyBankAccount2})
         '
         'XrTable2
         '
@@ -986,12 +1032,548 @@ Partial Public Class rptProformaInvoice
         Me.AmountPayment4.Type = GetType(Decimal)
         Me.AmountPayment4.ValueInfo = "0"
         '
+        'sbInvoice1
+        '
+        Me.sbInvoice1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable10})
+        Me.sbInvoice1.Dpi = 100.0!
+        Me.sbInvoice1.HeightF = 20.0!
+        Me.sbInvoice1.Name = "sbInvoice1"
+        Me.sbInvoice1.Visible = False
+        '
+        'XrTable10
+        '
+        Me.XrTable10.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.XrTable10.BorderColor = System.Drawing.Color.Black
+        Me.XrTable10.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrTable10.Dpi = 100.0!
+        Me.XrTable10.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrTable10.LocationFloat = New DevExpress.Utils.PointFloat(0.0007629395!, 0.0!)
+        Me.XrTable10.Name = "XrTable10"
+        Me.XrTable10.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow11})
+        Me.XrTable10.SizeF = New System.Drawing.SizeF(806.9985!, 20.0!)
+        Me.XrTable10.StylePriority.UseBackColor = False
+        Me.XrTable10.StylePriority.UseBorderColor = False
+        Me.XrTable10.StylePriority.UseBorders = False
+        Me.XrTable10.StylePriority.UseFont = False
+        Me.XrTable10.StylePriority.UseTextAlignment = False
+        Me.XrTable10.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'XrTableRow11
+        '
+        Me.XrTableRow11.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell55, Me.XrTableCell56, Me.XrTableCell57})
+        Me.XrTableRow11.Dpi = 100.0!
+        Me.XrTableRow11.Name = "XrTableRow11"
+        Me.XrTableRow11.Weight = 1.0R
+        '
+        'XrTableCell55
+        '
+        Me.XrTableCell55.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell55.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.DescInvoice1, "Text", "")})
+        Me.XrTableCell55.Dpi = 100.0!
+        Me.XrTableCell55.Name = "XrTableCell55"
+        Me.XrTableCell55.StylePriority.UseBorders = False
+        Me.XrTableCell55.Weight = 5.18700419649548R
+        '
+        'DescInvoice1
+        '
+        Me.DescInvoice1.Description = "Parameter1"
+        Me.DescInvoice1.Name = "DescInvoice1"
+        '
+        'XrTableCell56
+        '
+        Me.XrTableCell56.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell56.Dpi = 100.0!
+        Me.XrTableCell56.Name = "XrTableCell56"
+        Me.XrTableCell56.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell56.StylePriority.UseBorders = False
+        Me.XrTableCell56.StylePriority.UsePadding = False
+        Me.XrTableCell56.StylePriority.UseTextAlignment = False
+        Me.XrTableCell56.Text = "IDR"
+        Me.XrTableCell56.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell56.Weight = 0.26007423419212705R
+        '
+        'XrTableCell57
+        '
+        Me.XrTableCell57.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top Or DevExpress.XtraPrinting.BorderSide.Right), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell57.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.AmountInvoice1, "Text", "{0:n0}")})
+        Me.XrTableCell57.Dpi = 100.0!
+        Me.XrTableCell57.Multiline = True
+        Me.XrTableCell57.Name = "XrTableCell57"
+        Me.XrTableCell57.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell57.StylePriority.UseBorders = False
+        Me.XrTableCell57.StylePriority.UsePadding = False
+        Me.XrTableCell57.StylePriority.UseTextAlignment = False
+        Me.XrTableCell57.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell57.Weight = 0.91292618756449107R
+        '
+        'AmountInvoice1
+        '
+        Me.AmountInvoice1.Description = "AmountInvoice1"
+        Me.AmountInvoice1.Name = "AmountInvoice1"
+        Me.AmountInvoice1.Type = GetType(Integer)
+        Me.AmountInvoice1.ValueInfo = "0"
+        '
+        'sbInvoice2
+        '
+        Me.sbInvoice2.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable11})
+        Me.sbInvoice2.Dpi = 100.0!
+        Me.sbInvoice2.HeightF = 20.0!
+        Me.sbInvoice2.Name = "sbInvoice2"
+        Me.sbInvoice2.Visible = False
+        '
+        'sbInvoice3
+        '
+        Me.sbInvoice3.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable12})
+        Me.sbInvoice3.Dpi = 100.0!
+        Me.sbInvoice3.HeightF = 20.0!
+        Me.sbInvoice3.Name = "sbInvoice3"
+        Me.sbInvoice3.Visible = False
+        '
+        'sbInvoice4
+        '
+        Me.sbInvoice4.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable13})
+        Me.sbInvoice4.Dpi = 100.0!
+        Me.sbInvoice4.HeightF = 20.0!
+        Me.sbInvoice4.Name = "sbInvoice4"
+        Me.sbInvoice4.Visible = False
+        '
+        'sbInvoice5
+        '
+        Me.sbInvoice5.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable14})
+        Me.sbInvoice5.Dpi = 100.0!
+        Me.sbInvoice5.HeightF = 20.0!
+        Me.sbInvoice5.Name = "sbInvoice5"
+        Me.sbInvoice5.Visible = False
+        '
         'sbPaymentTerm1_3
         '
         Me.sbPaymentTerm1_3.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel21, Me.XrLabel15, Me.XrLabel16, Me.XrLabel14, Me.XrLabel13, Me.XrLabel12, Me.XrLabel10, Me.XrLabel6})
         Me.sbPaymentTerm1_3.Dpi = 100.0!
         Me.sbPaymentTerm1_3.HeightF = 90.00003!
         Me.sbPaymentTerm1_3.Name = "sbPaymentTerm1_3"
+        '
+        'XrLabel21
+        '
+        Me.XrLabel21.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CompanyName")})
+        Me.XrLabel21.Dpi = 100.0!
+        Me.XrLabel21.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel21.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.XrLabel21.LocationFloat = New DevExpress.Utils.PointFloat(524.8304!, 9.999974!)
+        Me.XrLabel21.Name = "XrLabel21"
+        Me.XrLabel21.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel21.SizeF = New System.Drawing.SizeF(282.1704!, 80.00005!)
+        Me.XrLabel21.StylePriority.UseFont = False
+        Me.XrLabel21.StylePriority.UseForeColor = False
+        Me.XrLabel21.StylePriority.UsePadding = False
+        Me.XrLabel21.StylePriority.UseTextAlignment = False
+        Me.XrLabel21.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel15
+        '
+        Me.XrLabel15.Dpi = 100.0!
+        Me.XrLabel15.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel15.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 70.00002!)
+        Me.XrLabel15.Name = "XrLabel15"
+        Me.XrLabel15.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel15.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
+        Me.XrLabel15.StylePriority.UseFont = False
+        Me.XrLabel15.StylePriority.UsePadding = False
+        Me.XrLabel15.StylePriority.UseTextAlignment = False
+        Me.XrLabel15.Text = "3."
+        Me.XrLabel15.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'XrLabel16
+        '
+        Me.XrLabel16.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm3, "Text", "")})
+        Me.XrLabel16.Dpi = 100.0!
+        Me.XrLabel16.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel16.LocationFloat = New DevExpress.Utils.PointFloat(30.00069!, 70.00002!)
+        Me.XrLabel16.Name = "XrLabel16"
+        Me.XrLabel16.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel16.SizeF = New System.Drawing.SizeF(494.8297!, 20.0!)
+        Me.XrLabel16.StylePriority.UseFont = False
+        Me.XrLabel16.StylePriority.UsePadding = False
+        Me.XrLabel16.StylePriority.UseTextAlignment = False
+        Me.XrLabel16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'PaymentTerm3
+        '
+        Me.PaymentTerm3.Description = "PaymentTerm3"
+        Me.PaymentTerm3.Name = "PaymentTerm3"
+        '
+        'XrLabel14
+        '
+        Me.XrLabel14.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm2, "Text", "")})
+        Me.XrLabel14.Dpi = 100.0!
+        Me.XrLabel14.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel14.LocationFloat = New DevExpress.Utils.PointFloat(30.00078!, 50.0!)
+        Me.XrLabel14.Name = "XrLabel14"
+        Me.XrLabel14.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel14.SizeF = New System.Drawing.SizeF(494.8297!, 20.0!)
+        Me.XrLabel14.StylePriority.UseFont = False
+        Me.XrLabel14.StylePriority.UsePadding = False
+        Me.XrLabel14.StylePriority.UseTextAlignment = False
+        Me.XrLabel14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'PaymentTerm2
+        '
+        Me.PaymentTerm2.Description = "PaymentTerm2"
+        Me.PaymentTerm2.Name = "PaymentTerm2"
+        '
+        'XrLabel13
+        '
+        Me.XrLabel13.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm1, "Text", "")})
+        Me.XrLabel13.Dpi = 100.0!
+        Me.XrLabel13.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel13.LocationFloat = New DevExpress.Utils.PointFloat(30.00069!, 29.99999!)
+        Me.XrLabel13.Name = "XrLabel13"
+        Me.XrLabel13.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel13.SizeF = New System.Drawing.SizeF(494.8297!, 20.0!)
+        Me.XrLabel13.StylePriority.UseFont = False
+        Me.XrLabel13.StylePriority.UsePadding = False
+        Me.XrLabel13.StylePriority.UseTextAlignment = False
+        Me.XrLabel13.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'PaymentTerm1
+        '
+        Me.PaymentTerm1.Description = "Payment Term 1"
+        Me.PaymentTerm1.Name = "PaymentTerm1"
+        '
+        'XrLabel12
+        '
+        Me.XrLabel12.Dpi = 100.0!
+        Me.XrLabel12.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel12.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 50.0!)
+        Me.XrLabel12.Name = "XrLabel12"
+        Me.XrLabel12.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel12.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
+        Me.XrLabel12.StylePriority.UseFont = False
+        Me.XrLabel12.StylePriority.UsePadding = False
+        Me.XrLabel12.StylePriority.UseTextAlignment = False
+        Me.XrLabel12.Text = "2."
+        Me.XrLabel12.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'XrLabel10
+        '
+        Me.XrLabel10.Dpi = 100.0!
+        Me.XrLabel10.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel10.LocationFloat = New DevExpress.Utils.PointFloat(0.0006993611!, 29.99999!)
+        Me.XrLabel10.Name = "XrLabel10"
+        Me.XrLabel10.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel10.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
+        Me.XrLabel10.StylePriority.UseFont = False
+        Me.XrLabel10.StylePriority.UsePadding = False
+        Me.XrLabel10.StylePriority.UseTextAlignment = False
+        Me.XrLabel10.Text = "1."
+        Me.XrLabel10.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'XrLabel6
+        '
+        Me.XrLabel6.Dpi = 100.0!
+        Me.XrLabel6.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel6.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 9.999974!)
+        Me.XrLabel6.Name = "XrLabel6"
+        Me.XrLabel6.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel6.SizeF = New System.Drawing.SizeF(524.8304!, 20.0!)
+        Me.XrLabel6.StylePriority.UseFont = False
+        Me.XrLabel6.StylePriority.UsePadding = False
+        Me.XrLabel6.StylePriority.UseTextAlignment = False
+        Me.XrLabel6.Text = "Syarat Pembayaran :"
+        Me.XrLabel6.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'sbPaymentTerm4
+        '
+        Me.sbPaymentTerm4.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel18, Me.XrLabel17})
+        Me.sbPaymentTerm4.Dpi = 100.0!
+        Me.sbPaymentTerm4.HeightF = 20.0!
+        Me.sbPaymentTerm4.Name = "sbPaymentTerm4"
+        Me.sbPaymentTerm4.Visible = False
+        '
+        'XrLabel18
+        '
+        Me.XrLabel18.Dpi = 100.0!
+        Me.XrLabel18.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel18.LocationFloat = New DevExpress.Utils.PointFloat(0.0001271566!, 0.0!)
+        Me.XrLabel18.Name = "XrLabel18"
+        Me.XrLabel18.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel18.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
+        Me.XrLabel18.StylePriority.UseFont = False
+        Me.XrLabel18.StylePriority.UsePadding = False
+        Me.XrLabel18.StylePriority.UseTextAlignment = False
+        Me.XrLabel18.Text = "4."
+        Me.XrLabel18.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'XrLabel17
+        '
+        Me.XrLabel17.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm4, "Text", "")})
+        Me.XrLabel17.Dpi = 100.0!
+        Me.XrLabel17.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel17.LocationFloat = New DevExpress.Utils.PointFloat(30.00081!, 0.0!)
+        Me.XrLabel17.Name = "XrLabel17"
+        Me.XrLabel17.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel17.SizeF = New System.Drawing.SizeF(494.8299!, 20.0!)
+        Me.XrLabel17.StylePriority.UseFont = False
+        Me.XrLabel17.StylePriority.UsePadding = False
+        Me.XrLabel17.StylePriority.UseTextAlignment = False
+        Me.XrLabel17.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'PaymentTerm4
+        '
+        Me.PaymentTerm4.Description = "PaymentTerm4"
+        Me.PaymentTerm4.Name = "PaymentTerm4"
+        '
+        'sbPaymentTerm5
+        '
+        Me.sbPaymentTerm5.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel19, Me.XrLabel20})
+        Me.sbPaymentTerm5.Dpi = 100.0!
+        Me.sbPaymentTerm5.HeightF = 20.0!
+        Me.sbPaymentTerm5.Name = "sbPaymentTerm5"
+        Me.sbPaymentTerm5.Visible = False
+        '
+        'XrLabel19
+        '
+        Me.XrLabel19.Dpi = 100.0!
+        Me.XrLabel19.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel19.LocationFloat = New DevExpress.Utils.PointFloat(0.0006993611!, 0.0!)
+        Me.XrLabel19.Name = "XrLabel19"
+        Me.XrLabel19.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel19.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
+        Me.XrLabel19.StylePriority.UseFont = False
+        Me.XrLabel19.StylePriority.UsePadding = False
+        Me.XrLabel19.StylePriority.UseTextAlignment = False
+        Me.XrLabel19.Text = "5."
+        Me.XrLabel19.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'XrLabel20
+        '
+        Me.XrLabel20.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm5, "Text", "")})
+        Me.XrLabel20.Dpi = 100.0!
+        Me.XrLabel20.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel20.LocationFloat = New DevExpress.Utils.PointFloat(30.00081!, 0.0!)
+        Me.XrLabel20.Name = "XrLabel20"
+        Me.XrLabel20.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel20.SizeF = New System.Drawing.SizeF(494.8299!, 20.0!)
+        Me.XrLabel20.StylePriority.UseFont = False
+        Me.XrLabel20.StylePriority.UsePadding = False
+        Me.XrLabel20.StylePriority.UseTextAlignment = False
+        Me.XrLabel20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'PaymentTerm5
+        '
+        Me.PaymentTerm5.Description = "PaymentTerm5"
+        Me.PaymentTerm5.Name = "PaymentTerm5"
+        '
+        'sbPaymentTerm6
+        '
+        Me.sbPaymentTerm6.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel64, Me.XrLabel65})
+        Me.sbPaymentTerm6.Dpi = 100.0!
+        Me.sbPaymentTerm6.HeightF = 20.0!
+        Me.sbPaymentTerm6.Name = "sbPaymentTerm6"
+        Me.sbPaymentTerm6.Visible = False
+        '
+        'XrLabel64
+        '
+        Me.XrLabel64.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm6, "Text", "")})
+        Me.XrLabel64.Dpi = 100.0!
+        Me.XrLabel64.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel64.LocationFloat = New DevExpress.Utils.PointFloat(30.00069!, 0.0!)
+        Me.XrLabel64.Name = "XrLabel64"
+        Me.XrLabel64.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel64.SizeF = New System.Drawing.SizeF(494.83!, 20.0!)
+        Me.XrLabel64.StylePriority.UseFont = False
+        Me.XrLabel64.StylePriority.UsePadding = False
+        Me.XrLabel64.StylePriority.UseTextAlignment = False
+        Me.XrLabel64.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'PaymentTerm6
+        '
+        Me.PaymentTerm6.Description = "PaymentTerm6"
+        Me.PaymentTerm6.Name = "PaymentTerm6"
+        '
+        'XrLabel65
+        '
+        Me.XrLabel65.Dpi = 100.0!
+        Me.XrLabel65.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel65.LocationFloat = New DevExpress.Utils.PointFloat(0.0005722046!, 0.0!)
+        Me.XrLabel65.Name = "XrLabel65"
+        Me.XrLabel65.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel65.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
+        Me.XrLabel65.StylePriority.UseFont = False
+        Me.XrLabel65.StylePriority.UsePadding = False
+        Me.XrLabel65.StylePriority.UseTextAlignment = False
+        Me.XrLabel65.Text = "6."
+        Me.XrLabel65.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'sbPaymentTerm7
+        '
+        Me.sbPaymentTerm7.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel66, Me.XrLabel67})
+        Me.sbPaymentTerm7.Dpi = 100.0!
+        Me.sbPaymentTerm7.HeightF = 20.0!
+        Me.sbPaymentTerm7.Name = "sbPaymentTerm7"
+        Me.sbPaymentTerm7.Visible = False
+        '
+        'XrLabel66
+        '
+        Me.XrLabel66.Dpi = 100.0!
+        Me.XrLabel66.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel66.LocationFloat = New DevExpress.Utils.PointFloat(0.0005404155!, 0.0!)
+        Me.XrLabel66.Name = "XrLabel66"
+        Me.XrLabel66.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel66.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
+        Me.XrLabel66.StylePriority.UseFont = False
+        Me.XrLabel66.StylePriority.UsePadding = False
+        Me.XrLabel66.StylePriority.UseTextAlignment = False
+        Me.XrLabel66.Text = "7."
+        Me.XrLabel66.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'XrLabel67
+        '
+        Me.XrLabel67.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm7, "Text", "")})
+        Me.XrLabel67.Dpi = 100.0!
+        Me.XrLabel67.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel67.LocationFloat = New DevExpress.Utils.PointFloat(30.00065!, 0.0!)
+        Me.XrLabel67.Name = "XrLabel67"
+        Me.XrLabel67.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel67.SizeF = New System.Drawing.SizeF(494.8299!, 20.0!)
+        Me.XrLabel67.StylePriority.UseFont = False
+        Me.XrLabel67.StylePriority.UsePadding = False
+        Me.XrLabel67.StylePriority.UseTextAlignment = False
+        Me.XrLabel67.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'PaymentTerm7
+        '
+        Me.PaymentTerm7.Description = "PaymentTerm7"
+        Me.PaymentTerm7.Name = "PaymentTerm7"
+        '
+        'sbPaymentTerm8
+        '
+        Me.sbPaymentTerm8.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel68, Me.XrLabel69})
+        Me.sbPaymentTerm8.Dpi = 100.0!
+        Me.sbPaymentTerm8.HeightF = 20.0!
+        Me.sbPaymentTerm8.Name = "sbPaymentTerm8"
+        Me.sbPaymentTerm8.Visible = False
+        '
+        'XrLabel68
+        '
+        Me.XrLabel68.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm8, "Text", "")})
+        Me.XrLabel68.Dpi = 100.0!
+        Me.XrLabel68.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel68.LocationFloat = New DevExpress.Utils.PointFloat(30.00065!, 0.0!)
+        Me.XrLabel68.Name = "XrLabel68"
+        Me.XrLabel68.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel68.SizeF = New System.Drawing.SizeF(494.8299!, 20.0!)
+        Me.XrLabel68.StylePriority.UseFont = False
+        Me.XrLabel68.StylePriority.UsePadding = False
+        Me.XrLabel68.StylePriority.UseTextAlignment = False
+        Me.XrLabel68.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'PaymentTerm8
+        '
+        Me.PaymentTerm8.Description = "PaymentTerm8"
+        Me.PaymentTerm8.Name = "PaymentTerm8"
+        '
+        'XrLabel69
+        '
+        Me.XrLabel69.Dpi = 100.0!
+        Me.XrLabel69.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel69.LocationFloat = New DevExpress.Utils.PointFloat(0.0005404155!, 0.0!)
+        Me.XrLabel69.Name = "XrLabel69"
+        Me.XrLabel69.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel69.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
+        Me.XrLabel69.StylePriority.UseFont = False
+        Me.XrLabel69.StylePriority.UsePadding = False
+        Me.XrLabel69.StylePriority.UseTextAlignment = False
+        Me.XrLabel69.Text = "8."
+        Me.XrLabel69.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'sbPaymentTerm9
+        '
+        Me.sbPaymentTerm9.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel70, Me.XrLabel71})
+        Me.sbPaymentTerm9.Dpi = 100.0!
+        Me.sbPaymentTerm9.HeightF = 20.0!
+        Me.sbPaymentTerm9.Name = "sbPaymentTerm9"
+        Me.sbPaymentTerm9.Visible = False
+        '
+        'XrLabel70
+        '
+        Me.XrLabel70.Dpi = 100.0!
+        Me.XrLabel70.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel70.LocationFloat = New DevExpress.Utils.PointFloat(0.0005404155!, 0.0!)
+        Me.XrLabel70.Name = "XrLabel70"
+        Me.XrLabel70.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel70.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
+        Me.XrLabel70.StylePriority.UseFont = False
+        Me.XrLabel70.StylePriority.UsePadding = False
+        Me.XrLabel70.StylePriority.UseTextAlignment = False
+        Me.XrLabel70.Text = "9."
+        Me.XrLabel70.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'XrLabel71
+        '
+        Me.XrLabel71.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm9, "Text", "")})
+        Me.XrLabel71.Dpi = 100.0!
+        Me.XrLabel71.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel71.LocationFloat = New DevExpress.Utils.PointFloat(30.00065!, 0.0!)
+        Me.XrLabel71.Name = "XrLabel71"
+        Me.XrLabel71.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel71.SizeF = New System.Drawing.SizeF(494.8299!, 20.0!)
+        Me.XrLabel71.StylePriority.UseFont = False
+        Me.XrLabel71.StylePriority.UsePadding = False
+        Me.XrLabel71.StylePriority.UseTextAlignment = False
+        Me.XrLabel71.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'PaymentTerm9
+        '
+        Me.PaymentTerm9.Description = "PaymentTerm9"
+        Me.PaymentTerm9.Name = "PaymentTerm9"
+        '
+        'sbPaymentTerm10
+        '
+        Me.sbPaymentTerm10.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel72, Me.XrLabel73})
+        Me.sbPaymentTerm10.Dpi = 100.0!
+        Me.sbPaymentTerm10.HeightF = 20.0!
+        Me.sbPaymentTerm10.Name = "sbPaymentTerm10"
+        Me.sbPaymentTerm10.Visible = False
+        '
+        'XrLabel72
+        '
+        Me.XrLabel72.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm10, "Text", "")})
+        Me.XrLabel72.Dpi = 100.0!
+        Me.XrLabel72.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel72.LocationFloat = New DevExpress.Utils.PointFloat(30.00065!, 0.0!)
+        Me.XrLabel72.Name = "XrLabel72"
+        Me.XrLabel72.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel72.SizeF = New System.Drawing.SizeF(494.8299!, 20.0!)
+        Me.XrLabel72.StylePriority.UseFont = False
+        Me.XrLabel72.StylePriority.UsePadding = False
+        Me.XrLabel72.StylePriority.UseTextAlignment = False
+        Me.XrLabel72.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'PaymentTerm10
+        '
+        Me.PaymentTerm10.Description = "PaymentTerm10"
+        Me.PaymentTerm10.Name = "PaymentTerm10"
+        '
+        'XrLabel73
+        '
+        Me.XrLabel73.Dpi = 100.0!
+        Me.XrLabel73.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel73.LocationFloat = New DevExpress.Utils.PointFloat(0.0005404155!, 0.0!)
+        Me.XrLabel73.Name = "XrLabel73"
+        Me.XrLabel73.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel73.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
+        Me.XrLabel73.StylePriority.UseFont = False
+        Me.XrLabel73.StylePriority.UsePadding = False
+        Me.XrLabel73.StylePriority.UseTextAlignment = False
+        Me.XrLabel73.Text = "10."
+        Me.XrLabel73.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'sbCompanyBankAccount1
+        '
+        Me.sbCompanyBankAccount1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel47, Me.XrLabel46, Me.XrLabel42, Me.XrLabel44, Me.XrLabel45, Me.XrLabel33, Me.XrLabel38, Me.XrLabel40, Me.XrLabel32, Me.XrLabel25, Me.XrLabel24, Me.XrLabel23, Me.XrLabel22})
+        Me.sbCompanyBankAccount1.Dpi = 100.0!
+        Me.sbCompanyBankAccount1.HeightF = 138.5417!
+        Me.sbCompanyBankAccount1.Name = "sbCompanyBankAccount1"
         '
         'XrLabel47
         '
@@ -1174,176 +1756,6 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel22.StylePriority.UseTextAlignment = False
         Me.XrLabel22.Text = "Pembayaran dapat Di transfer ke rekening kami"
         Me.XrLabel22.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'XrLabel21
-        '
-        Me.XrLabel21.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CompanyName")})
-        Me.XrLabel21.Dpi = 100.0!
-        Me.XrLabel21.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel21.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.XrLabel21.LocationFloat = New DevExpress.Utils.PointFloat(524.8304!, 9.999974!)
-        Me.XrLabel21.Name = "XrLabel21"
-        Me.XrLabel21.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel21.SizeF = New System.Drawing.SizeF(282.1704!, 80.00005!)
-        Me.XrLabel21.StylePriority.UseFont = False
-        Me.XrLabel21.StylePriority.UseForeColor = False
-        Me.XrLabel21.StylePriority.UsePadding = False
-        Me.XrLabel21.StylePriority.UseTextAlignment = False
-        Me.XrLabel21.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
-        '
-        'XrLabel19
-        '
-        Me.XrLabel19.Dpi = 100.0!
-        Me.XrLabel19.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel19.LocationFloat = New DevExpress.Utils.PointFloat(0.0006993611!, 0.0!)
-        Me.XrLabel19.Name = "XrLabel19"
-        Me.XrLabel19.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel19.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
-        Me.XrLabel19.StylePriority.UseFont = False
-        Me.XrLabel19.StylePriority.UsePadding = False
-        Me.XrLabel19.StylePriority.UseTextAlignment = False
-        Me.XrLabel19.Text = "5."
-        Me.XrLabel19.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'XrLabel20
-        '
-        Me.XrLabel20.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm5, "Text", "")})
-        Me.XrLabel20.Dpi = 100.0!
-        Me.XrLabel20.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel20.LocationFloat = New DevExpress.Utils.PointFloat(30.00081!, 0.0!)
-        Me.XrLabel20.Name = "XrLabel20"
-        Me.XrLabel20.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel20.SizeF = New System.Drawing.SizeF(494.8299!, 20.0!)
-        Me.XrLabel20.StylePriority.UseFont = False
-        Me.XrLabel20.StylePriority.UsePadding = False
-        Me.XrLabel20.StylePriority.UseTextAlignment = False
-        Me.XrLabel20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'XrLabel17
-        '
-        Me.XrLabel17.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm4, "Text", "")})
-        Me.XrLabel17.Dpi = 100.0!
-        Me.XrLabel17.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel17.LocationFloat = New DevExpress.Utils.PointFloat(30.00081!, 0.0!)
-        Me.XrLabel17.Name = "XrLabel17"
-        Me.XrLabel17.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel17.SizeF = New System.Drawing.SizeF(494.8299!, 20.0!)
-        Me.XrLabel17.StylePriority.UseFont = False
-        Me.XrLabel17.StylePriority.UsePadding = False
-        Me.XrLabel17.StylePriority.UseTextAlignment = False
-        Me.XrLabel17.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'XrLabel18
-        '
-        Me.XrLabel18.Dpi = 100.0!
-        Me.XrLabel18.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel18.LocationFloat = New DevExpress.Utils.PointFloat(0.0001271566!, 0.0!)
-        Me.XrLabel18.Name = "XrLabel18"
-        Me.XrLabel18.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel18.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
-        Me.XrLabel18.StylePriority.UseFont = False
-        Me.XrLabel18.StylePriority.UsePadding = False
-        Me.XrLabel18.StylePriority.UseTextAlignment = False
-        Me.XrLabel18.Text = "4."
-        Me.XrLabel18.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'XrLabel15
-        '
-        Me.XrLabel15.Dpi = 100.0!
-        Me.XrLabel15.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel15.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 70.00002!)
-        Me.XrLabel15.Name = "XrLabel15"
-        Me.XrLabel15.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel15.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
-        Me.XrLabel15.StylePriority.UseFont = False
-        Me.XrLabel15.StylePriority.UsePadding = False
-        Me.XrLabel15.StylePriority.UseTextAlignment = False
-        Me.XrLabel15.Text = "3."
-        Me.XrLabel15.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'XrLabel16
-        '
-        Me.XrLabel16.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm3, "Text", "")})
-        Me.XrLabel16.Dpi = 100.0!
-        Me.XrLabel16.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel16.LocationFloat = New DevExpress.Utils.PointFloat(30.00069!, 70.00002!)
-        Me.XrLabel16.Name = "XrLabel16"
-        Me.XrLabel16.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel16.SizeF = New System.Drawing.SizeF(494.8297!, 20.0!)
-        Me.XrLabel16.StylePriority.UseFont = False
-        Me.XrLabel16.StylePriority.UsePadding = False
-        Me.XrLabel16.StylePriority.UseTextAlignment = False
-        Me.XrLabel16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'XrLabel14
-        '
-        Me.XrLabel14.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm2, "Text", "")})
-        Me.XrLabel14.Dpi = 100.0!
-        Me.XrLabel14.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel14.LocationFloat = New DevExpress.Utils.PointFloat(30.00078!, 50.0!)
-        Me.XrLabel14.Name = "XrLabel14"
-        Me.XrLabel14.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel14.SizeF = New System.Drawing.SizeF(494.8297!, 20.0!)
-        Me.XrLabel14.StylePriority.UseFont = False
-        Me.XrLabel14.StylePriority.UsePadding = False
-        Me.XrLabel14.StylePriority.UseTextAlignment = False
-        Me.XrLabel14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'XrLabel13
-        '
-        Me.XrLabel13.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm1, "Text", "")})
-        Me.XrLabel13.Dpi = 100.0!
-        Me.XrLabel13.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel13.LocationFloat = New DevExpress.Utils.PointFloat(30.00069!, 29.99999!)
-        Me.XrLabel13.Name = "XrLabel13"
-        Me.XrLabel13.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel13.SizeF = New System.Drawing.SizeF(494.8297!, 20.0!)
-        Me.XrLabel13.StylePriority.UseFont = False
-        Me.XrLabel13.StylePriority.UsePadding = False
-        Me.XrLabel13.StylePriority.UseTextAlignment = False
-        Me.XrLabel13.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'XrLabel12
-        '
-        Me.XrLabel12.Dpi = 100.0!
-        Me.XrLabel12.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel12.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 50.0!)
-        Me.XrLabel12.Name = "XrLabel12"
-        Me.XrLabel12.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel12.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
-        Me.XrLabel12.StylePriority.UseFont = False
-        Me.XrLabel12.StylePriority.UsePadding = False
-        Me.XrLabel12.StylePriority.UseTextAlignment = False
-        Me.XrLabel12.Text = "2."
-        Me.XrLabel12.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'XrLabel10
-        '
-        Me.XrLabel10.Dpi = 100.0!
-        Me.XrLabel10.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel10.LocationFloat = New DevExpress.Utils.PointFloat(0.0006993611!, 29.99999!)
-        Me.XrLabel10.Name = "XrLabel10"
-        Me.XrLabel10.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel10.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
-        Me.XrLabel10.StylePriority.UseFont = False
-        Me.XrLabel10.StylePriority.UsePadding = False
-        Me.XrLabel10.StylePriority.UseTextAlignment = False
-        Me.XrLabel10.Text = "1."
-        Me.XrLabel10.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'XrLabel6
-        '
-        Me.XrLabel6.Dpi = 100.0!
-        Me.XrLabel6.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel6.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 9.999974!)
-        Me.XrLabel6.Name = "XrLabel6"
-        Me.XrLabel6.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel6.SizeF = New System.Drawing.SizeF(524.8304!, 20.0!)
-        Me.XrLabel6.StylePriority.UseFont = False
-        Me.XrLabel6.StylePriority.UsePadding = False
-        Me.XrLabel6.StylePriority.UseTextAlignment = False
-        Me.XrLabel6.Text = "Syarat Pembayaran :"
-        Me.XrLabel6.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
         'sbCompanyBankAccount2
         '
@@ -1646,7 +2058,7 @@ Partial Public Class rptProformaInvoice
         Me.XrTable1.Borders = DevExpress.XtraPrinting.BorderSide.None
         Me.XrTable1.Dpi = 100.0!
         Me.XrTable1.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrTable1.LocationFloat = New DevExpress.Utils.PointFloat(0.0004334883!, 13.0!)
+        Me.XrTable1.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
         Me.XrTable1.Name = "XrTable1"
         Me.XrTable1.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow1})
         Me.XrTable1.SizeF = New System.Drawing.SizeF(807.0002!, 41.20368!)
@@ -1676,6 +2088,24 @@ Partial Public Class rptProformaInvoice
         Me.PageHeader.HeightF = 0.0!
         Me.PageHeader.Name = "PageHeader"
         Me.PageHeader.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.sbBPInfo, Me.sbTaxInfo, Me.sbItemHeader})
+        '
+        'sbBPInfo
+        '
+        Me.sbBPInfo.Dpi = 100.0!
+        Me.sbBPInfo.HeightF = 0.0!
+        Me.sbBPInfo.Name = "sbBPInfo"
+        '
+        'sbTaxInfo
+        '
+        Me.sbTaxInfo.Dpi = 100.0!
+        Me.sbTaxInfo.HeightF = 0.0!
+        Me.sbTaxInfo.Name = "sbTaxInfo"
+        '
+        'sbItemHeader
+        '
+        Me.sbItemHeader.Dpi = 100.0!
+        Me.sbItemHeader.HeightF = 0.0!
+        Me.sbItemHeader.Name = "sbItemHeader"
         '
         'XrLabel11
         '
@@ -1716,12 +2146,6 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel1.StylePriority.UseTextAlignment = False
         Me.XrLabel1.Text = "Nomor"
         Me.XrLabel1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'sbBPInfo
-        '
-        Me.sbBPInfo.Dpi = 100.0!
-        Me.sbBPInfo.HeightF = 0.0!
-        Me.sbBPInfo.Name = "sbBPInfo"
         '
         'XrLabel49
         '
@@ -1909,12 +2333,6 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel2.Text = "Dibebankan / By Order and Account of mesrrs : "
         Me.XrLabel2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
-        'sbTaxInfo
-        '
-        Me.sbTaxInfo.Dpi = 100.0!
-        Me.sbTaxInfo.HeightF = 0.0!
-        Me.sbTaxInfo.Name = "sbTaxInfo"
-        '
         'XrLabel61
         '
         Me.XrLabel61.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "NPWP")})
@@ -1992,13 +2410,6 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel60.StylePriority.UseFont = False
         Me.XrLabel60.StylePriority.UseTextAlignment = False
         Me.XrLabel60.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'sbItemHeader
-        '
-        Me.sbItemHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable1})
-        Me.sbItemHeader.Dpi = 100.0!
-        Me.sbItemHeader.HeightF = 54.20368!
-        Me.sbItemHeader.Name = "sbItemHeader"
         '
         'XrTableRow2
         '
@@ -2199,6 +2610,27 @@ Partial Public Class rptProformaInvoice
         Me.XrRichText1.StylePriority.UseBorders = False
         Me.XrRichText1.StylePriority.UseFont = False
         '
+        'rhTransNumber
+        '
+        Me.rhTransNumber.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel39, Me.XrLabel41, Me.XrLabel1, Me.XrLabel11, Me.XrLabel3, Me.XrLabel43})
+        Me.rhTransNumber.Dpi = 100.0!
+        Me.rhTransNumber.HeightF = 20.0!
+        Me.rhTransNumber.Name = "rhTransNumber"
+        '
+        'rhBPInfo
+        '
+        Me.rhBPInfo.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel49, Me.XrLabel37, Me.XrLabel35, Me.XrLabel36, Me.XrLabel31, Me.XrLabel34, Me.XrLabel30, Me.XrLabel29, Me.XrLabel28, Me.XrLabel27, Me.XrLabel26, Me.XrLabel7, Me.XrLabel4, Me.XrLabel2})
+        Me.rhBPInfo.Dpi = 100.0!
+        Me.rhBPInfo.HeightF = 79.99997!
+        Me.rhBPInfo.Name = "rhBPInfo"
+        '
+        'rhTaxInfo
+        '
+        Me.rhTaxInfo.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel61, Me.XrLabel62, Me.XrLabel63, Me.XrLabel48, Me.XrLabel59, Me.XrLabel60})
+        Me.rhTaxInfo.Dpi = 100.0!
+        Me.rhTaxInfo.HeightF = 34.58335!
+        Me.rhTaxInfo.Name = "rhTaxInfo"
+        '
         'InvoiceType
         '
         Me.InvoiceType.Description = "Invoice Type"
@@ -2264,288 +2696,313 @@ Partial Public Class rptProformaInvoice
         Me.HeaderType.Name = "HeaderType"
         Me.HeaderType.ValueInfo = "PROFORMA INVOICE"
         '
-        'PaymentTerm1
+        'DescInvoice2
         '
-        Me.PaymentTerm1.Description = "Payment Term 1"
-        Me.PaymentTerm1.Name = "PaymentTerm1"
+        Me.DescInvoice2.Description = "DescInvoice2"
+        Me.DescInvoice2.Name = "DescInvoice2"
         '
-        'PaymentTerm2
+        'DescInvoice3
         '
-        Me.PaymentTerm2.Description = "PaymentTerm2"
-        Me.PaymentTerm2.Name = "PaymentTerm2"
+        Me.DescInvoice3.Name = "DescInvoice3"
         '
-        'PaymentTerm3
+        'DescInvoice4
         '
-        Me.PaymentTerm3.Description = "PaymentTerm3"
-        Me.PaymentTerm3.Name = "PaymentTerm3"
+        Me.DescInvoice4.Description = "DescInvoice4"
+        Me.DescInvoice4.Name = "DescInvoice4"
         '
-        'PaymentTerm4
+        'DescInvoice5
         '
-        Me.PaymentTerm4.Description = "PaymentTerm4"
-        Me.PaymentTerm4.Name = "PaymentTerm4"
+        Me.DescInvoice5.Description = "DescInvoice5"
+        Me.DescInvoice5.Name = "DescInvoice5"
         '
-        'PaymentTerm5
+        'AmountInvoice2
         '
-        Me.PaymentTerm5.Description = "PaymentTerm5"
-        Me.PaymentTerm5.Name = "PaymentTerm5"
+        Me.AmountInvoice2.Description = "AmountInvoice2"
+        Me.AmountInvoice2.Name = "AmountInvoice2"
+        Me.AmountInvoice2.Type = GetType(Integer)
+        Me.AmountInvoice2.ValueInfo = "0"
         '
-        'PaymentTerm6
+        'AmountInvoice3
         '
-        Me.PaymentTerm6.Description = "PaymentTerm6"
-        Me.PaymentTerm6.Name = "PaymentTerm6"
+        Me.AmountInvoice3.Description = "AmountInvoice3"
+        Me.AmountInvoice3.Name = "AmountInvoice3"
+        Me.AmountInvoice3.Type = GetType(Integer)
+        Me.AmountInvoice3.ValueInfo = "0"
         '
-        'PaymentTerm7
+        'AmountInvoice4
         '
-        Me.PaymentTerm7.Description = "PaymentTerm7"
-        Me.PaymentTerm7.Name = "PaymentTerm7"
+        Me.AmountInvoice4.Description = "AmountInvoice14"
+        Me.AmountInvoice4.Name = "AmountInvoice4"
+        Me.AmountInvoice4.Type = GetType(Integer)
+        Me.AmountInvoice4.ValueInfo = "0"
         '
-        'PaymentTerm8
+        'AmountInvoice5
         '
-        Me.PaymentTerm8.Description = "PaymentTerm8"
-        Me.PaymentTerm8.Name = "PaymentTerm8"
+        Me.AmountInvoice5.Description = "AmountInvoice15"
+        Me.AmountInvoice5.Name = "AmountInvoice5"
+        Me.AmountInvoice5.Type = GetType(Integer)
+        Me.AmountInvoice5.ValueInfo = "0"
         '
-        'PaymentTerm9
+        'XrTable11
         '
-        Me.PaymentTerm9.Description = "PaymentTerm9"
-        Me.PaymentTerm9.Name = "PaymentTerm9"
+        Me.XrTable11.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.XrTable11.BorderColor = System.Drawing.Color.Black
+        Me.XrTable11.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrTable11.Dpi = 100.0!
+        Me.XrTable11.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrTable11.LocationFloat = New DevExpress.Utils.PointFloat(0.002447764!, 0.0!)
+        Me.XrTable11.Name = "XrTable11"
+        Me.XrTable11.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow12})
+        Me.XrTable11.SizeF = New System.Drawing.SizeF(806.9985!, 20.0!)
+        Me.XrTable11.StylePriority.UseBackColor = False
+        Me.XrTable11.StylePriority.UseBorderColor = False
+        Me.XrTable11.StylePriority.UseBorders = False
+        Me.XrTable11.StylePriority.UseFont = False
+        Me.XrTable11.StylePriority.UseTextAlignment = False
+        Me.XrTable11.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
         '
-        'PaymentTerm10
+        'XrTableRow12
         '
-        Me.PaymentTerm10.Description = "PaymentTerm10"
-        Me.PaymentTerm10.Name = "PaymentTerm10"
+        Me.XrTableRow12.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell58, Me.XrTableCell59, Me.XrTableCell60})
+        Me.XrTableRow12.Dpi = 100.0!
+        Me.XrTableRow12.Name = "XrTableRow12"
+        Me.XrTableRow12.Weight = 1.0R
         '
-        'sbPaymentTerm4
+        'XrTableCell58
         '
-        Me.sbPaymentTerm4.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel18, Me.XrLabel17})
-        Me.sbPaymentTerm4.Dpi = 100.0!
-        Me.sbPaymentTerm4.HeightF = 20.0!
-        Me.sbPaymentTerm4.Name = "sbPaymentTerm4"
-        Me.sbPaymentTerm4.Visible = False
+        Me.XrTableCell58.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell58.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.DescInvoice2, "Text", "")})
+        Me.XrTableCell58.Dpi = 100.0!
+        Me.XrTableCell58.Name = "XrTableCell58"
+        Me.XrTableCell58.StylePriority.UseBorders = False
+        Me.XrTableCell58.Weight = 5.18700419649548R
         '
-        'sbPaymentTerm5
+        'XrTableCell59
         '
-        Me.sbPaymentTerm5.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel19, Me.XrLabel20})
-        Me.sbPaymentTerm5.Dpi = 100.0!
-        Me.sbPaymentTerm5.HeightF = 20.0!
-        Me.sbPaymentTerm5.Name = "sbPaymentTerm5"
-        Me.sbPaymentTerm5.Visible = False
+        Me.XrTableCell59.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell59.Dpi = 100.0!
+        Me.XrTableCell59.Name = "XrTableCell59"
+        Me.XrTableCell59.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell59.StylePriority.UseBorders = False
+        Me.XrTableCell59.StylePriority.UsePadding = False
+        Me.XrTableCell59.StylePriority.UseTextAlignment = False
+        Me.XrTableCell59.Text = "IDR"
+        Me.XrTableCell59.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell59.Weight = 0.26007423419212705R
         '
-        'sbPaymentTerm6
+        'XrTableCell60
         '
-        Me.sbPaymentTerm6.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel64, Me.XrLabel65})
-        Me.sbPaymentTerm6.Dpi = 100.0!
-        Me.sbPaymentTerm6.HeightF = 20.0!
-        Me.sbPaymentTerm6.Name = "sbPaymentTerm6"
-        Me.sbPaymentTerm6.Visible = False
+        Me.XrTableCell60.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top Or DevExpress.XtraPrinting.BorderSide.Right), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell60.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.AmountInvoice2, "Text", "{0:n0}")})
+        Me.XrTableCell60.Dpi = 100.0!
+        Me.XrTableCell60.Multiline = True
+        Me.XrTableCell60.Name = "XrTableCell60"
+        Me.XrTableCell60.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell60.StylePriority.UseBorders = False
+        Me.XrTableCell60.StylePriority.UsePadding = False
+        Me.XrTableCell60.StylePriority.UseTextAlignment = False
+        Me.XrTableCell60.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell60.Weight = 0.91292618756449107R
         '
-        'sbPaymentTerm7
+        'XrTable12
         '
-        Me.sbPaymentTerm7.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel66, Me.XrLabel67})
-        Me.sbPaymentTerm7.Dpi = 100.0!
-        Me.sbPaymentTerm7.HeightF = 20.0!
-        Me.sbPaymentTerm7.Name = "sbPaymentTerm7"
-        Me.sbPaymentTerm7.Visible = False
+        Me.XrTable12.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.XrTable12.BorderColor = System.Drawing.Color.Black
+        Me.XrTable12.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrTable12.Dpi = 100.0!
+        Me.XrTable12.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrTable12.LocationFloat = New DevExpress.Utils.PointFloat(0.002447764!, 0.0!)
+        Me.XrTable12.Name = "XrTable12"
+        Me.XrTable12.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow13})
+        Me.XrTable12.SizeF = New System.Drawing.SizeF(806.9985!, 20.0!)
+        Me.XrTable12.StylePriority.UseBackColor = False
+        Me.XrTable12.StylePriority.UseBorderColor = False
+        Me.XrTable12.StylePriority.UseBorders = False
+        Me.XrTable12.StylePriority.UseFont = False
+        Me.XrTable12.StylePriority.UseTextAlignment = False
+        Me.XrTable12.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
         '
-        'sbPaymentTerm8
+        'XrTableRow13
         '
-        Me.sbPaymentTerm8.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel68, Me.XrLabel69})
-        Me.sbPaymentTerm8.Dpi = 100.0!
-        Me.sbPaymentTerm8.HeightF = 20.0!
-        Me.sbPaymentTerm8.Name = "sbPaymentTerm8"
-        Me.sbPaymentTerm8.Visible = False
+        Me.XrTableRow13.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell61, Me.XrTableCell62, Me.XrTableCell63})
+        Me.XrTableRow13.Dpi = 100.0!
+        Me.XrTableRow13.Name = "XrTableRow13"
+        Me.XrTableRow13.Weight = 1.0R
         '
-        'sbPaymentTerm9
+        'XrTableCell61
         '
-        Me.sbPaymentTerm9.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel70, Me.XrLabel71})
-        Me.sbPaymentTerm9.Dpi = 100.0!
-        Me.sbPaymentTerm9.HeightF = 20.0!
-        Me.sbPaymentTerm9.Name = "sbPaymentTerm9"
-        Me.sbPaymentTerm9.Visible = False
+        Me.XrTableCell61.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell61.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.DescInvoice3, "Text", "")})
+        Me.XrTableCell61.Dpi = 100.0!
+        Me.XrTableCell61.Name = "XrTableCell61"
+        Me.XrTableCell61.StylePriority.UseBorders = False
+        Me.XrTableCell61.Weight = 5.18700419649548R
         '
-        'sbPaymentTerm10
+        'XrTableCell62
         '
-        Me.sbPaymentTerm10.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel72, Me.XrLabel73})
-        Me.sbPaymentTerm10.Dpi = 100.0!
-        Me.sbPaymentTerm10.HeightF = 20.0!
-        Me.sbPaymentTerm10.Name = "sbPaymentTerm10"
-        Me.sbPaymentTerm10.Visible = False
+        Me.XrTableCell62.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell62.Dpi = 100.0!
+        Me.XrTableCell62.Name = "XrTableCell62"
+        Me.XrTableCell62.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell62.StylePriority.UseBorders = False
+        Me.XrTableCell62.StylePriority.UsePadding = False
+        Me.XrTableCell62.StylePriority.UseTextAlignment = False
+        Me.XrTableCell62.Text = "IDR"
+        Me.XrTableCell62.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell62.Weight = 0.26007423419212705R
         '
-        'sbCompanyBankAccount1
+        'XrTableCell63
         '
-        Me.sbCompanyBankAccount1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel47, Me.XrLabel46, Me.XrLabel42, Me.XrLabel44, Me.XrLabel45, Me.XrLabel33, Me.XrLabel38, Me.XrLabel40, Me.XrLabel32, Me.XrLabel25, Me.XrLabel24, Me.XrLabel23, Me.XrLabel22})
-        Me.sbCompanyBankAccount1.Dpi = 100.0!
-        Me.sbCompanyBankAccount1.HeightF = 138.5417!
-        Me.sbCompanyBankAccount1.Name = "sbCompanyBankAccount1"
+        Me.XrTableCell63.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top Or DevExpress.XtraPrinting.BorderSide.Right), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell63.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.AmountInvoice3, "Text", "{0:n0}")})
+        Me.XrTableCell63.Dpi = 100.0!
+        Me.XrTableCell63.Multiline = True
+        Me.XrTableCell63.Name = "XrTableCell63"
+        Me.XrTableCell63.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell63.StylePriority.UseBorders = False
+        Me.XrTableCell63.StylePriority.UsePadding = False
+        Me.XrTableCell63.StylePriority.UseTextAlignment = False
+        Me.XrTableCell63.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell63.Weight = 0.91292618756449107R
         '
-        'XrLabel64
+        'XrTable13
         '
-        Me.XrLabel64.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm6, "Text", "")})
-        Me.XrLabel64.Dpi = 100.0!
-        Me.XrLabel64.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel64.LocationFloat = New DevExpress.Utils.PointFloat(30.00069!, 0.0!)
-        Me.XrLabel64.Name = "XrLabel64"
-        Me.XrLabel64.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel64.SizeF = New System.Drawing.SizeF(494.83!, 20.0!)
-        Me.XrLabel64.StylePriority.UseFont = False
-        Me.XrLabel64.StylePriority.UsePadding = False
-        Me.XrLabel64.StylePriority.UseTextAlignment = False
-        Me.XrLabel64.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.XrTable13.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.XrTable13.BorderColor = System.Drawing.Color.Black
+        Me.XrTable13.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrTable13.Dpi = 100.0!
+        Me.XrTable13.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrTable13.LocationFloat = New DevExpress.Utils.PointFloat(0.002447764!, 0.0!)
+        Me.XrTable13.Name = "XrTable13"
+        Me.XrTable13.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow14})
+        Me.XrTable13.SizeF = New System.Drawing.SizeF(806.9985!, 20.0!)
+        Me.XrTable13.StylePriority.UseBackColor = False
+        Me.XrTable13.StylePriority.UseBorderColor = False
+        Me.XrTable13.StylePriority.UseBorders = False
+        Me.XrTable13.StylePriority.UseFont = False
+        Me.XrTable13.StylePriority.UseTextAlignment = False
+        Me.XrTable13.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
         '
-        'XrLabel65
+        'XrTableRow14
         '
-        Me.XrLabel65.Dpi = 100.0!
-        Me.XrLabel65.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel65.LocationFloat = New DevExpress.Utils.PointFloat(0.0005722046!, 0.0!)
-        Me.XrLabel65.Name = "XrLabel65"
-        Me.XrLabel65.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel65.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
-        Me.XrLabel65.StylePriority.UseFont = False
-        Me.XrLabel65.StylePriority.UsePadding = False
-        Me.XrLabel65.StylePriority.UseTextAlignment = False
-        Me.XrLabel65.Text = "6."
-        Me.XrLabel65.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.XrTableRow14.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell64, Me.XrTableCell65, Me.XrTableCell66})
+        Me.XrTableRow14.Dpi = 100.0!
+        Me.XrTableRow14.Name = "XrTableRow14"
+        Me.XrTableRow14.Weight = 1.0R
         '
-        'XrLabel66
+        'XrTableCell64
         '
-        Me.XrLabel66.Dpi = 100.0!
-        Me.XrLabel66.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel66.LocationFloat = New DevExpress.Utils.PointFloat(0.0005404155!, 0.0!)
-        Me.XrLabel66.Name = "XrLabel66"
-        Me.XrLabel66.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel66.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
-        Me.XrLabel66.StylePriority.UseFont = False
-        Me.XrLabel66.StylePriority.UsePadding = False
-        Me.XrLabel66.StylePriority.UseTextAlignment = False
-        Me.XrLabel66.Text = "7."
-        Me.XrLabel66.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.XrTableCell64.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell64.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.DescInvoice4, "Text", "")})
+        Me.XrTableCell64.Dpi = 100.0!
+        Me.XrTableCell64.Name = "XrTableCell64"
+        Me.XrTableCell64.StylePriority.UseBorders = False
+        Me.XrTableCell64.Weight = 5.18700419649548R
         '
-        'XrLabel67
+        'XrTableCell65
         '
-        Me.XrLabel67.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm7, "Text", "")})
-        Me.XrLabel67.Dpi = 100.0!
-        Me.XrLabel67.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel67.LocationFloat = New DevExpress.Utils.PointFloat(30.00065!, 0.0!)
-        Me.XrLabel67.Name = "XrLabel67"
-        Me.XrLabel67.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel67.SizeF = New System.Drawing.SizeF(494.8299!, 20.0!)
-        Me.XrLabel67.StylePriority.UseFont = False
-        Me.XrLabel67.StylePriority.UsePadding = False
-        Me.XrLabel67.StylePriority.UseTextAlignment = False
-        Me.XrLabel67.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.XrTableCell65.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell65.Dpi = 100.0!
+        Me.XrTableCell65.Name = "XrTableCell65"
+        Me.XrTableCell65.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell65.StylePriority.UseBorders = False
+        Me.XrTableCell65.StylePriority.UsePadding = False
+        Me.XrTableCell65.StylePriority.UseTextAlignment = False
+        Me.XrTableCell65.Text = "IDR"
+        Me.XrTableCell65.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell65.Weight = 0.26007423419212705R
         '
-        'XrLabel68
+        'XrTableCell66
         '
-        Me.XrLabel68.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm8, "Text", "")})
-        Me.XrLabel68.Dpi = 100.0!
-        Me.XrLabel68.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel68.LocationFloat = New DevExpress.Utils.PointFloat(30.00065!, 0.0!)
-        Me.XrLabel68.Name = "XrLabel68"
-        Me.XrLabel68.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel68.SizeF = New System.Drawing.SizeF(494.8299!, 20.0!)
-        Me.XrLabel68.StylePriority.UseFont = False
-        Me.XrLabel68.StylePriority.UsePadding = False
-        Me.XrLabel68.StylePriority.UseTextAlignment = False
-        Me.XrLabel68.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.XrTableCell66.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top Or DevExpress.XtraPrinting.BorderSide.Right), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell66.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.AmountInvoice4, "Text", "{0:n0}")})
+        Me.XrTableCell66.Dpi = 100.0!
+        Me.XrTableCell66.Multiline = True
+        Me.XrTableCell66.Name = "XrTableCell66"
+        Me.XrTableCell66.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell66.StylePriority.UseBorders = False
+        Me.XrTableCell66.StylePriority.UsePadding = False
+        Me.XrTableCell66.StylePriority.UseTextAlignment = False
+        Me.XrTableCell66.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell66.Weight = 0.91292618756449107R
         '
-        'XrLabel69
+        'XrTable14
         '
-        Me.XrLabel69.Dpi = 100.0!
-        Me.XrLabel69.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel69.LocationFloat = New DevExpress.Utils.PointFloat(0.0005404155!, 0.0!)
-        Me.XrLabel69.Name = "XrLabel69"
-        Me.XrLabel69.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel69.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
-        Me.XrLabel69.StylePriority.UseFont = False
-        Me.XrLabel69.StylePriority.UsePadding = False
-        Me.XrLabel69.StylePriority.UseTextAlignment = False
-        Me.XrLabel69.Text = "8."
-        Me.XrLabel69.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.XrTable14.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.XrTable14.BorderColor = System.Drawing.Color.Black
+        Me.XrTable14.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrTable14.Dpi = 100.0!
+        Me.XrTable14.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.XrTable14.LocationFloat = New DevExpress.Utils.PointFloat(0.002447764!, 0.0!)
+        Me.XrTable14.Name = "XrTable14"
+        Me.XrTable14.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow15})
+        Me.XrTable14.SizeF = New System.Drawing.SizeF(806.9985!, 20.0!)
+        Me.XrTable14.StylePriority.UseBackColor = False
+        Me.XrTable14.StylePriority.UseBorderColor = False
+        Me.XrTable14.StylePriority.UseBorders = False
+        Me.XrTable14.StylePriority.UseFont = False
+        Me.XrTable14.StylePriority.UseTextAlignment = False
+        Me.XrTable14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
         '
-        'XrLabel70
+        'XrTableRow15
         '
-        Me.XrLabel70.Dpi = 100.0!
-        Me.XrLabel70.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel70.LocationFloat = New DevExpress.Utils.PointFloat(0.0005404155!, 0.0!)
-        Me.XrLabel70.Name = "XrLabel70"
-        Me.XrLabel70.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel70.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
-        Me.XrLabel70.StylePriority.UseFont = False
-        Me.XrLabel70.StylePriority.UsePadding = False
-        Me.XrLabel70.StylePriority.UseTextAlignment = False
-        Me.XrLabel70.Text = "9."
-        Me.XrLabel70.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.XrTableRow15.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell67, Me.XrTableCell68, Me.XrTableCell69})
+        Me.XrTableRow15.Dpi = 100.0!
+        Me.XrTableRow15.Name = "XrTableRow15"
+        Me.XrTableRow15.Weight = 1.0R
         '
-        'XrLabel71
+        'XrTableCell67
         '
-        Me.XrLabel71.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm9, "Text", "")})
-        Me.XrLabel71.Dpi = 100.0!
-        Me.XrLabel71.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel71.LocationFloat = New DevExpress.Utils.PointFloat(30.00065!, 0.0!)
-        Me.XrLabel71.Name = "XrLabel71"
-        Me.XrLabel71.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel71.SizeF = New System.Drawing.SizeF(494.8299!, 20.0!)
-        Me.XrLabel71.StylePriority.UseFont = False
-        Me.XrLabel71.StylePriority.UsePadding = False
-        Me.XrLabel71.StylePriority.UseTextAlignment = False
-        Me.XrLabel71.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.XrTableCell67.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell67.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.DescInvoice5, "Text", "")})
+        Me.XrTableCell67.Dpi = 100.0!
+        Me.XrTableCell67.Name = "XrTableCell67"
+        Me.XrTableCell67.StylePriority.UseBorders = False
+        Me.XrTableCell67.Weight = 5.18700419649548R
         '
-        'XrLabel72
+        'XrTableCell68
         '
-        Me.XrLabel72.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm10, "Text", "")})
-        Me.XrLabel72.Dpi = 100.0!
-        Me.XrLabel72.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel72.LocationFloat = New DevExpress.Utils.PointFloat(30.00065!, 0.0!)
-        Me.XrLabel72.Name = "XrLabel72"
-        Me.XrLabel72.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel72.SizeF = New System.Drawing.SizeF(494.8299!, 20.0!)
-        Me.XrLabel72.StylePriority.UseFont = False
-        Me.XrLabel72.StylePriority.UsePadding = False
-        Me.XrLabel72.StylePriority.UseTextAlignment = False
-        Me.XrLabel72.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.XrTableCell68.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell68.Dpi = 100.0!
+        Me.XrTableCell68.Name = "XrTableCell68"
+        Me.XrTableCell68.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell68.StylePriority.UseBorders = False
+        Me.XrTableCell68.StylePriority.UsePadding = False
+        Me.XrTableCell68.StylePriority.UseTextAlignment = False
+        Me.XrTableCell68.Text = "IDR"
+        Me.XrTableCell68.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell68.Weight = 0.26007423419212705R
         '
-        'XrLabel73
+        'XrTableCell69
         '
-        Me.XrLabel73.Dpi = 100.0!
-        Me.XrLabel73.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel73.LocationFloat = New DevExpress.Utils.PointFloat(0.0005404155!, 0.0!)
-        Me.XrLabel73.Name = "XrLabel73"
-        Me.XrLabel73.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel73.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
-        Me.XrLabel73.StylePriority.UseFont = False
-        Me.XrLabel73.StylePriority.UsePadding = False
-        Me.XrLabel73.StylePriority.UseTextAlignment = False
-        Me.XrLabel73.Text = "10."
-        Me.XrLabel73.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.XrTableCell69.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top Or DevExpress.XtraPrinting.BorderSide.Right), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell69.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.AmountInvoice5, "Text", "{0:n0}")})
+        Me.XrTableCell69.Dpi = 100.0!
+        Me.XrTableCell69.Multiline = True
+        Me.XrTableCell69.Name = "XrTableCell69"
+        Me.XrTableCell69.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell69.StylePriority.UseBorders = False
+        Me.XrTableCell69.StylePriority.UsePadding = False
+        Me.XrTableCell69.StylePriority.UseTextAlignment = False
+        Me.XrTableCell69.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell69.Weight = 0.91292618756449107R
         '
         'ObjectDataSource1
         '
         Me.ObjectDataSource1.DataSource = GetType(ERPSLib.VO.rptProformaInvoice)
         Me.ObjectDataSource1.Name = "ObjectDataSource1"
         '
-        'rhBPInfo
+        'ghColumnName
         '
-        Me.rhBPInfo.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel49, Me.XrLabel37, Me.XrLabel35, Me.XrLabel36, Me.XrLabel31, Me.XrLabel34, Me.XrLabel30, Me.XrLabel29, Me.XrLabel28, Me.XrLabel27, Me.XrLabel26, Me.XrLabel7, Me.XrLabel4, Me.XrLabel2})
-        Me.rhBPInfo.Dpi = 100.0!
-        Me.rhBPInfo.HeightF = 79.99997!
-        Me.rhBPInfo.Name = "rhBPInfo"
-        '
-        'rhTransNumber
-        '
-        Me.rhTransNumber.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel39, Me.XrLabel41, Me.XrLabel1, Me.XrLabel11, Me.XrLabel3, Me.XrLabel43})
-        Me.rhTransNumber.Dpi = 100.0!
-        Me.rhTransNumber.HeightF = 20.0!
-        Me.rhTransNumber.Name = "rhTransNumber"
-        '
-        'rhTaxInfo
-        '
-        Me.rhTaxInfo.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel61, Me.XrLabel62, Me.XrLabel63, Me.XrLabel48, Me.XrLabel59, Me.XrLabel60})
-        Me.rhTaxInfo.Dpi = 100.0!
-        Me.rhTaxInfo.HeightF = 20.0!
-        Me.rhTaxInfo.Name = "rhTaxInfo"
+        Me.ghColumnName.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable1})
+        Me.ghColumnName.Dpi = 100.0!
+        Me.ghColumnName.HeightF = 41.20368!
+        Me.ghColumnName.Name = "ghColumnName"
+        Me.ghColumnName.RepeatEveryPage = True
         '
         'rptProformaInvoice
         '
-        Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail, Me.TopMargin, Me.BottomMargin, Me.ReportHeader, Me.PageHeader, Me.ReportFooter, Me.PageFooter})
+        Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail, Me.TopMargin, Me.BottomMargin, Me.ReportHeader, Me.PageHeader, Me.ReportFooter, Me.PageFooter, Me.ghColumnName})
         Me.ComponentStorage.AddRange(New System.ComponentModel.IComponent() {Me.ObjectDataSource1})
         Me.DataSource = Me.ObjectDataSource1
         Me.DisplayName = "Proforma Invoice"
@@ -2555,7 +3012,7 @@ Partial Public Class rptProformaInvoice
         Me.PageHeight = 1169
         Me.PageWidth = 827
         Me.PaperKind = System.Drawing.Printing.PaperKind.A4
-        Me.Parameters.AddRange(New DevExpress.XtraReports.Parameters.Parameter() {Me.InvoiceType, Me.DescPayment1, Me.DescPayment2, Me.DescPayment3, Me.AmountPayment1, Me.AmountPayment2, Me.AmountPayment3, Me.DescPayment4, Me.AmountPayment4, Me.HeaderType, Me.PaymentTerm1, Me.PaymentTerm2, Me.PaymentTerm3, Me.PaymentTerm4, Me.PaymentTerm5, Me.PaymentTerm6, Me.PaymentTerm7, Me.PaymentTerm8, Me.PaymentTerm9, Me.PaymentTerm10})
+        Me.Parameters.AddRange(New DevExpress.XtraReports.Parameters.Parameter() {Me.InvoiceType, Me.DescPayment1, Me.DescPayment2, Me.DescPayment3, Me.AmountPayment1, Me.AmountPayment2, Me.AmountPayment3, Me.DescPayment4, Me.AmountPayment4, Me.HeaderType, Me.PaymentTerm1, Me.PaymentTerm2, Me.PaymentTerm3, Me.PaymentTerm4, Me.PaymentTerm5, Me.PaymentTerm6, Me.PaymentTerm7, Me.PaymentTerm8, Me.PaymentTerm9, Me.PaymentTerm10, Me.DescInvoice1, Me.DescInvoice2, Me.DescInvoice3, Me.DescInvoice4, Me.DescInvoice5, Me.AmountInvoice1, Me.AmountInvoice2, Me.AmountInvoice3, Me.AmountInvoice4, Me.AmountInvoice5})
         Me.ScriptLanguage = DevExpress.XtraReports.ScriptLanguage.VisualBasic
         Me.Version = "16.2"
         CType(Me.XrTable2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2566,6 +3023,7 @@ Partial Public Class rptProformaInvoice
         CType(Me.XrTable7, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.XrTable8, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.XrTable9, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.XrTable10, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.XrTable1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.XrRichText1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.xtDetail, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2574,6 +3032,10 @@ Partial Public Class rptProformaInvoice
         CType(Me.SharedImageCollection1.ImageSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.SharedImageCollection1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ImageCollection3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.XrTable11, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.XrTable12, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.XrTable13, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.XrTable14, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ObjectDataSource1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
@@ -2784,4 +3246,45 @@ Partial Public Class rptProformaInvoice
     Friend WithEvents rhTransNumber As DevExpress.XtraReports.UI.SubBand
     Friend WithEvents rhBPInfo As DevExpress.XtraReports.UI.SubBand
     Friend WithEvents rhTaxInfo As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents sbInvoice1 As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents sbInvoice2 As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents sbInvoice3 As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents sbInvoice4 As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents sbInvoice5 As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents DescInvoice1 As DevExpress.XtraReports.Parameters.Parameter
+    Friend WithEvents DescInvoice2 As DevExpress.XtraReports.Parameters.Parameter
+    Friend WithEvents DescInvoice3 As DevExpress.XtraReports.Parameters.Parameter
+    Friend WithEvents DescInvoice4 As DevExpress.XtraReports.Parameters.Parameter
+    Friend WithEvents DescInvoice5 As DevExpress.XtraReports.Parameters.Parameter
+    Friend WithEvents XrTable10 As DevExpress.XtraReports.UI.XRTable
+    Friend WithEvents XrTableRow11 As DevExpress.XtraReports.UI.XRTableRow
+    Friend WithEvents XrTableCell55 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrTableCell56 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrTableCell57 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents AmountInvoice1 As DevExpress.XtraReports.Parameters.Parameter
+    Friend WithEvents AmountInvoice2 As DevExpress.XtraReports.Parameters.Parameter
+    Friend WithEvents AmountInvoice3 As DevExpress.XtraReports.Parameters.Parameter
+    Friend WithEvents AmountInvoice4 As DevExpress.XtraReports.Parameters.Parameter
+    Friend WithEvents AmountInvoice5 As DevExpress.XtraReports.Parameters.Parameter
+    Friend WithEvents XrTable11 As DevExpress.XtraReports.UI.XRTable
+    Friend WithEvents XrTableRow12 As DevExpress.XtraReports.UI.XRTableRow
+    Friend WithEvents XrTableCell58 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrTableCell59 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrTableCell60 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrTable12 As DevExpress.XtraReports.UI.XRTable
+    Friend WithEvents XrTableRow13 As DevExpress.XtraReports.UI.XRTableRow
+    Friend WithEvents XrTableCell61 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrTableCell62 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrTableCell63 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrTable13 As DevExpress.XtraReports.UI.XRTable
+    Friend WithEvents XrTableRow14 As DevExpress.XtraReports.UI.XRTableRow
+    Friend WithEvents XrTableCell64 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrTableCell65 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrTableCell66 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrTable14 As DevExpress.XtraReports.UI.XRTable
+    Friend WithEvents XrTableRow15 As DevExpress.XtraReports.UI.XRTableRow
+    Friend WithEvents XrTableCell67 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrTableCell68 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrTableCell69 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents ghColumnName As DevExpress.XtraReports.UI.GroupHeaderBand
 End Class
