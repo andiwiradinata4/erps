@@ -10,7 +10,8 @@ Public Class frmTraPurchaseOrderCuttingDet
     Private dtItemResult As New DataTable
     Private dtPaymentTerm As New DataTable
     Private intPos As Integer = 0
-    Private decTotalDPPRawaMaterial As Decimal = 0
+    Private decTotalDPPRawMaterial As Decimal = 0
+    Private intCustomerID As Integer
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
@@ -44,6 +45,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         UI.usForm.SetGrid(grdItemView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "POID", "POID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "PCDetailID", "PCDetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "ReceiveDetailID", "ReceiveDetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
@@ -151,9 +153,11 @@ Public Class frmTraPurchaseOrderCuttingDet
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
-
-                'dtpPODate.Enabled = False
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
+                chkIsClaimCustomer.Checked = clsData.IsClaimCustomer
+                intCustomerID = clsData.CustomerID
+                txtCustomerCode.Text = clsData.CustomerCode
+                txtCustomerName.Text = clsData.CustomerName
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -208,6 +212,11 @@ Public Class frmTraPurchaseOrderCuttingDet
             tcHeader.SelectedTab = tpPaymentTerm
             grdPaymentTermView.Focus()
             Exit Sub
+        ElseIf txtCustomerCode.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih pelanggan terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtCustomerCode.Focus()
+            Exit Sub
         End If
 
         Dim frmDetail As New usFormSave
@@ -222,9 +231,8 @@ Public Class frmTraPurchaseOrderCuttingDet
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
 
-
         Dim listDetail As New List(Of VO.PurchaseOrderCuttingDet)
-        decTotalDPPRawaMaterial = 0
+        decTotalDPPRawMaterial = 0
         For Each dr As DataRow In dtItem.Rows
             listDetail.Add(New ERPSLib.VO.PurchaseOrderCuttingDet With
                                 {
@@ -239,9 +247,10 @@ Public Class frmTraPurchaseOrderCuttingDet
                                     .UnitPriceRawMaterial = dr.Item("UnitPriceRawMaterial"),
                                     .TotalPriceRawMaterial = dr.Item("TotalPriceRawMaterial"),
                                     .GroupID = dr.Item("GroupID"),
-                                    .OrderNumberSupplier = dr.Item("OrderNumberSupplier")
+                                    .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                                    .ReceiveDetailID = dr.Item("ReceiveDetailID")
                                 })
-            decTotalDPPRawaMaterial += dr.Item("TotalPriceRawMaterial")
+            decTotalDPPRawMaterial += dr.Item("TotalPriceRawMaterial")
         Next
 
         Dim listDetailResult As New List(Of VO.PurchaseOrderCuttingDetResult)
@@ -256,7 +265,8 @@ Public Class frmTraPurchaseOrderCuttingDet
                                     .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
                                     .Remarks = dr.Item("Remarks"),
                                     .UnitPriceRawMaterial = dr.Item("UnitPriceRawMaterial"),
-                                    .TotalPriceRawMaterial = dr.Item("TotalPriceRawMaterial")
+                                    .TotalPriceRawMaterial = dr.Item("TotalPriceRawMaterial"),
+                                    .IsShowPrintOut = True
                                 })
         Next
 
@@ -292,13 +302,15 @@ Public Class frmTraPurchaseOrderCuttingDet
         clsData.TotalPPH = txtTotalPPH.Value
         clsData.RoundingManual = 0
         clsData.Remarks = txtRemarks.Text.Trim
-        clsData.TotalDPPRawMaterial = decTotalDPPRawaMaterial
+        clsData.TotalDPPRawMaterial = decTotalDPPRawMaterial
         clsData.StatusID = cboStatus.SelectedValue
         clsData.Detail = listDetail
         clsData.DetailResult = listDetailResult
         clsData.PaymentTerm = listPaymentTerm
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
+        clsData.CustomerID = intCustomerID
+        clsData.IsClaimCustomer = chkIsClaimCustomer.Checked
 
         pgMain.Value = 60
         Try
@@ -319,7 +331,6 @@ Public Class frmTraPurchaseOrderCuttingDet
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-
             prvResetProgressBar()
         End Try
     End Sub
@@ -348,6 +359,8 @@ Public Class frmTraPurchaseOrderCuttingDet
         ToolStripLogInc.Text = "Jumlah Edit : -"
         ToolStripLogBy.Text = "Dibuat Oleh : -"
         ToolStripLogDate.Text = Format(Now, UI.usDefCons.DateFull)
+        intCustomerID = 0
+        chkIsClaimCustomer.Checked = False
     End Sub
 
     Private Sub prvChooseBP()
@@ -360,6 +373,20 @@ Public Class frmTraPurchaseOrderCuttingDet
                 intBPID = .pubLUdtRow.Item("ID")
                 txtBPCode.Text = .pubLUdtRow.Item("Code")
                 txtBPName.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub prvChooseCustomer()
+        Dim frmDetail As New frmMstBusinessPartner
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCustomerID = .pubLUdtRow.Item("ID")
+                txtCustomerCode.Text = .pubLUdtRow.Item("Code")
+                txtCustomerName.Text = .pubLUdtRow.Item("Name")
             End If
         End With
     End Sub
@@ -709,6 +736,10 @@ Public Class frmTraPurchaseOrderCuttingDet
 
     Private Sub btnBP_Click(sender As Object, e As EventArgs) Handles btnBP.Click
         prvChooseBP()
+    End Sub
+
+    Private Sub btnCustomer_Click(sender As Object, e As EventArgs) Handles btnCustomer.Click
+        prvChooseCustomer()
     End Sub
 
     Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtPPN.ValueChanged, txtPPH.ValueChanged

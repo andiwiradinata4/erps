@@ -1526,7 +1526,7 @@
                     "	DCQuantity=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(RVD.Quantity+RVD.RoundingWeight),0) TotalQuantity " & vbNewLine &
+                    "			ISNULL(SUM(RVD.Quantity),0) TotalQuantity " & vbNewLine &
                     "		FROM traReceiveDet RVD 	" & vbNewLine &
                     "		INNER JOIN traReceive RVH ON	" & vbNewLine &
                     "			RVD.ReceiveID=RVH.ID 	" & vbNewLine &
@@ -1568,7 +1568,7 @@
                     "	DCQuantity=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(RVD.Quantity+RVD.RoundingWeight),0) TotalQuantity " & vbNewLine &
+                    "			ISNULL(SUM(RVD.Quantity),0) TotalQuantity " & vbNewLine &
                     "		FROM traReceiveDet RVD 	" & vbNewLine &
                     "		INNER JOIN traReceive RVH ON " & vbNewLine &
                     "		    RVD.ReceiveID=RVH.ID " & vbNewLine &
@@ -1610,7 +1610,7 @@
                     "	CuttingQuantity=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(POD.Quantity+POD.RoundingWeight),0) TotalQuantity " & vbNewLine &
+                    "			ISNULL(SUM(POD.Quantity),0) TotalQuantity " & vbNewLine &
                     "		FROM traPurchaseOrderCuttingDet POD 	" & vbNewLine &
                     "		INNER JOIN traPurchaseOrderCutting POH ON	" & vbNewLine &
                     "			POD.POID=POH.ID 	" & vbNewLine &

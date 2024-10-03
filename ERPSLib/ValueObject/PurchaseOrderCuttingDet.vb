@@ -25,5 +25,12 @@
         Property DPAmountPPH As Decimal
         Property ReceivePPN As Decimal
         Property ReceivePPH As Decimal
+        Property ReceiveDetailID As String
+        Property ClaimDPAmount As Decimal
+        Property ClaimDPAmountPPN As Decimal
+        Property ClaimDPAmountPPH As Decimal
+        Property ClaimReceiveAmount As Decimal
+        Property ClaimReceivePPN As Decimal
+        Property ClaimReceivePPH As Decimal
     End Class
 End Namespace

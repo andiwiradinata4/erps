@@ -176,7 +176,7 @@
 
                     For Each dr As DataRow In dtItemResult.Rows
                         '# Delete Stock In
-                        BL.StockIn.CalculateStockIn(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
+                        'BL.StockIn.CalculateStockIn(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
                     Next
 
                     '# Save Data Status

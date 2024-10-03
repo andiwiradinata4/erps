@@ -16,5 +16,6 @@
         Property ParentID As String = ""
         Property UnitPriceRawMaterial As Decimal
         Property TotalPriceRawMaterial As Decimal
+        Property IsShowPrintOut As Boolean
     End Class
 End Namespace

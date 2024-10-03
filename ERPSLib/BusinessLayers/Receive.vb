@@ -31,15 +31,29 @@
                         If clsData.ReceiveNumber.Trim = "" Then clsData.ReceiveNumber = clsData.ID
                     Else
                         Dim dtItem As DataTable = DL.Receive.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
-
                         DL.Receive.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
 
                         For Each dr As DataRow In dtItem.Rows
                             '# Revert DC Quantity
                             DL.PurchaseContract.CalculateDCTotalUsed(sqlCon, sqlTrans, dr.Item("PCDetailID"))
 
-                            '# Delete Stock In
-                            BL.StockIn.DeleteData(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
+                            '# Recalculate Stock In
+                            clsDataStockIN = New List(Of VO.StockIn)
+                            clsDataStockIN.Add(New VO.StockIn With
+                                               {
+                                                   .ParentID = "",
+                                                   .ParentDetailID = "",
+                                                   .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                                                   .SourceData = dr.Item("ID"),
+                                                   .ItemID = dr.Item("ItemID"),
+                                                   .InQuantity = 0,
+                                                   .InWeight = 0,
+                                                   .InTotalWeight = 0,
+                                                   .UnitPrice = dr.Item("UnitPrice")
+                                               })
+                            BL.StockIn.SaveData(sqlCon, sqlTrans, clsDataStockIN)
+
+                            'BL.StockIn.DeleteData(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
                         Next
 
                         Dim clsHelper As New DataSetHelper
@@ -68,6 +82,7 @@
 
                     '# Save Data Detail
                     Dim intCount As Integer = 1
+                    clsDataStockIN = New List(Of VO.StockIn)
                     For Each clsDet As VO.ReceiveDet In clsData.Detail
                         clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
                         clsDet.ReceiveID = clsData.ID
@@ -79,7 +94,7 @@
                                                 .ParentID = "",
                                                 .ParentDetailID = "",
                                                 .OrderNumberSupplier = clsDet.OrderNumberSupplier,
-                                                .SourceData = "",
+                                                .SourceData = clsDet.ID,
                                                 .ItemID = clsDet.ItemID,
                                                 .InQuantity = 0,
                                                 .InWeight = 0,
@@ -127,6 +142,7 @@
 
         Public Shared Sub DeleteData(ByVal strID As String, ByVal strRemarks As String)
             BL.Server.ServerDefault()
+            Dim clsDataStockIN As New List(Of VO.StockIn)
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
@@ -145,8 +161,23 @@
                         '# Revert DC Quantity
                         DL.PurchaseContract.CalculateDCTotalUsed(sqlCon, sqlTrans, dr.Item("PCDetailID"))
 
-                        '# Delete Stock In
-                        BL.StockIn.CalculateStockIn(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
+                        '# Recalculate Stock In
+                        clsDataStockIN = New List(Of VO.StockIn)
+                        clsDataStockIN.Add(New VO.StockIn With
+                                           {
+                                               .ParentID = "",
+                                               .ParentDetailID = "",
+                                               .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                                               .SourceData = dr.Item("ID"),
+                                               .ItemID = dr.Item("ItemID"),
+                                               .InQuantity = 0,
+                                               .InWeight = 0,
+                                               .InTotalWeight = 0,
+                                               .UnitPrice = dr.Item("UnitPrice")
+                                           })
+                        BL.StockIn.SaveData(sqlCon, sqlTrans, clsDataStockIN)
+
+                        'BL.StockIn.CalculateStockIn(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
                     Next
 
                     Dim clsHelper As New DataSetHelper
@@ -311,6 +342,14 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.Receive.ListDataDetail(sqlCon, Nothing, strReceiveID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailOutstandingPOCutting(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                  ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.Receive.ListDataDetailOutstandingPOCutting(sqlCon, Nothing, intProgramID, intCompanyID, intBPID)
             End Using
         End Function
 

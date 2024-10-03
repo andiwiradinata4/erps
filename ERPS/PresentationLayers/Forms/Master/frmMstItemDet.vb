@@ -59,6 +59,8 @@
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
+                cboUom.SelectedValue = clsData.UOMID
+                txtLengthInitial.Text = clsData.LengthInitial
 
                 If cboStatus.SelectedValue = VO.Status.Values.InActive Then cboStatus.Enabled = True
             End If
@@ -120,6 +122,8 @@
         clsData.StatusID = cboStatus.SelectedValue
         clsData.Remarks = txtRemarks.Text.Trim
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+        clsData.UOMID = cboUom.SelectedValue
+        clsData.LengthInitial = txtLengthInitial.Text.Trim
 
         Try
             Dim strCode As String = BL.Item.SaveData(pubIsNew, clsData)
@@ -148,6 +152,8 @@
         ToolStripLogInc.Text = "Jumlah Edit : -"
         ToolStripLogBy.Text = "Dibuat Oleh : -"
         ToolStripLogDate.Text = Format(Now, UI.usDefCons.DateFull)
+        cboUom.SelectedValue = 0
+        txtLengthInitial.Text = ""
     End Sub
 
     Private Sub prvUserAccess()

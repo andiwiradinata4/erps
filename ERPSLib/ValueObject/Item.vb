@@ -15,5 +15,6 @@
         Property BasePrice As Decimal
         Property StatusID As Integer
         Property Remarks As String
+        Property LengthInitial As String
     End Class
 End Namespace

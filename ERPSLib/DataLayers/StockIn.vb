@@ -33,19 +33,9 @@ Namespace DL
                 Else
                     .CommandText =
 "UPDATE traStockIn SET  " & vbNewLine &
-"	ParentID=@ParentID,  " & vbNewLine &
-"	ParentDetailID=@ParentDetailID,  " & vbNewLine &
-"	OrderNumberSupplier=@OrderNumberSupplier,  " & vbNewLine &
-"	SourceData=@SourceData,  " & vbNewLine &
-"	ItemID=@ItemID,  " & vbNewLine &
 "	InQuantity=@InQuantity,  " & vbNewLine &
 "	InWeight=@InWeight,  " & vbNewLine &
 "	InTotalWeight=@InTotalWeight,  " & vbNewLine &
-"	OutQuantity=@OutQuantity,  " & vbNewLine &
-"	OutWeight=@OutWeight,  " & vbNewLine &
-"	OutTotalWeight=@OutTotalWeight, " & vbNewLine &
-"	OutTotalWeightProcess=@OutTotalWeightProcess, " & vbNewLine &
-"	OutTotalQuantityProcess=@OutTotalQuantityProcess, " & vbNewLine &
 "	UnitPrice=@UnitPrice " & vbNewLine &
 "WHERE " & vbNewLine &
 "	ID=@ID " & vbNewLine

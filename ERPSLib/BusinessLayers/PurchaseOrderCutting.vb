@@ -53,6 +53,7 @@
 
                         '# Revert Cutting Quantity
                         For Each dr As DataRow In dtItem.Rows
+                            DL.Receive.CalculateCuttingTotalUsed(sqlCon, sqlTrans, dr.Item("ReceiveDetailID"))
                             DL.PurchaseContract.CalculateCuttingTotalUsed(sqlCon, sqlTrans, dr.Item("PCDetailID"))
                         Next
 
@@ -106,6 +107,7 @@
 
                     '# Calculate DC Quantity
                     For Each clsDet As VO.PurchaseOrderCuttingDet In clsData.Detail
+                        DL.Receive.CalculateCuttingTotalUsed(sqlCon, sqlTrans, clsDet.ReceiveDetailID)
                         DL.PurchaseContract.CalculateCuttingTotalUsed(sqlCon, sqlTrans, clsDet.PCDetailID)
                     Next
 
@@ -150,6 +152,7 @@
 
                     '# Revert Cutting Quantity
                     For Each dr As DataRow In dtItem.Rows
+                        DL.Receive.CalculateCuttingTotalUsed(sqlCon, sqlTrans, dr.Item("ReceiveDetailID"))
                         DL.PurchaseContract.CalculateCuttingTotalUsed(sqlCon, sqlTrans, dr.Item("PCDetailID"))
                     Next
 

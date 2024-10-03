@@ -49,9 +49,9 @@
                 If bolNew Then
                     .CommandText =
                         "INSERT INTO mstItem " & vbNewLine &
-                        "     (ID, ItemCode, ItemCodeExternal, ItemName, ItemTypeID, ItemSpecificationID, Thick, Width, Length, Weight, BasePrice, StatusID, Remarks, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine &
+                        "     (ID, ItemCode, ItemCodeExternal, ItemName, ItemTypeID, ItemSpecificationID, Thick, Width, Length, Weight, BasePrice, StatusID, Remarks, CreatedBy, CreatedDate, LogBy, LogDate, UomID, LengthInitial) " & vbNewLine &
                         "VALUES " & vbNewLine &
-                        "     (@ID, @ItemCode, @ItemCodeExternal, @ItemName, @ItemTypeID, @ItemSpecificationID, @Thick, @Width, @Length, @Weight, @BasePrice, @StatusID, @Remarks, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
+                        "     (@ID, @ItemCode, @ItemCodeExternal, @ItemName, @ItemTypeID, @ItemSpecificationID, @Thick, @Width, @Length, @Weight, @BasePrice, @StatusID, @Remarks, @LogBy, GETDATE(), @LogBy, GETDATE(), @UomID, @LengthInitial) " & vbNewLine
 
                 Else
                     .CommandText =
@@ -70,7 +70,9 @@
                         "    Remarks=@Remarks, " & vbNewLine &
                         "    LogBy=@LogBy, " & vbNewLine &
                         "    LogDate=GETDATE(), " & vbNewLine &
-                        "    LogInc=LogInc+1 " & vbNewLine &
+                        "    LogInc=LogInc+1, " & vbNewLine &
+                        "    UomID=@UomID, " & vbNewLine &
+                        "    LengthInitial=@LengthInitial " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -89,6 +91,8 @@
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 500).Value = clsData.Remarks
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
+                .Parameters.Add("@UomID", SqlDbType.Int).Value = clsData.UOMID
+                .Parameters.Add("@LengthInitial", SqlDbType.VarChar, 100).Value = clsData.LengthInitial
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -110,7 +114,7 @@
                         "SELECT TOP 1 " & vbNewLine &
                         "   A.ID, A.ItemCode, A.ItemCodeExternal, A.ItemName, A.ItemTypeID, A.ItemSpecificationID, " & vbNewLine &
                         "   A.Thick, A.Width, A.Length, A.Weight, A.BasePrice, A.StatusID, " & vbNewLine &
-                        "   A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine &
+                        "   A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc, A.UomID, A.LengthInitial " & vbNewLine &
                         "FROM mstItem A " & vbNewLine &
                         "WHERE " & vbNewLine &
                         "   A.ID=@ID " & vbNewLine
@@ -139,6 +143,8 @@
                         voReturn.LogBy = .Item("LogBy")
                         voReturn.LogDate = .Item("LogDate")
                         voReturn.LogInc = .Item("LogInc")
+                        voReturn.UOMID = .Item("UomID")
+                        voReturn.LengthInitial = .Item("LengthInitial")
                     End If
                 End With
             Catch ex As Exception

@@ -39,5 +39,9 @@
         Property DetailResult As List(Of VO.PurchaseOrderCuttingDetResult)
         Property PaymentTerm As List(Of VO.PurchaseOrderPaymentTerm)
         Property Save As VO.Save.Action
+        Property CustomerID As Integer
+        Property CustomerCode As String
+        Property CustomerName As String
+        Property IsClaimCustomer As Boolean
     End Class
 End Namespace

@@ -1221,6 +1221,12 @@
     <Compile Include="PresentationLayers\Reports2\rptPurchaseOrder.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptPurchaseOrderCutting.Designer.vb">
+      <DependentUpon>rptPurchaseOrderCutting.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptPurchaseOrderCutting.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Reports2\rptSalesContractVer00.Designer.vb">
       <DependentUpon>rptSalesContractVer00.vb</DependentUpon>
     </Compile>
@@ -1814,6 +1820,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptPurchaseOrder.resx">
       <DependentUpon>rptPurchaseOrder.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports2\rptPurchaseOrderCutting.resx">
+      <DependentUpon>rptPurchaseOrderCutting.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptSalesContractVer00.resx">
       <DependentUpon>rptSalesContractVer00.vb</DependentUpon>

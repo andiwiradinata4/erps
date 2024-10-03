@@ -123,12 +123,12 @@
                         "   (ID, ProgramID, CompanyID, PONumber, PODate, BPID, PersonInCharge, " & vbNewLine &
                         "    DeliveryPeriodFrom, DeliveryPeriodTo, DeliveryAddress, PPN, PPH, TotalQuantity, " & vbNewLine &
                         "    TotalWeight, TotalDPP, TotalPPN, TotalPPH, RoundingManual, Remarks, StatusID, CreatedBy, " & vbNewLine &
-                        "    CreatedDate, LogBy, LogDate, TotalDPPRawMaterial) " & vbNewLine &
+                        "    CreatedDate, LogBy, LogDate, TotalDPPRawMaterial, CustomerID, IsClaimCustomer) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @ProgramID, @CompanyID, @PONumber, @PODate, @BPID, @PersonInCharge, " & vbNewLine &
                         "    @DeliveryPeriodFrom, @DeliveryPeriodTo, @DeliveryAddress, @PPN, @PPH, @TotalQuantity, " & vbNewLine &
                         "    @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @RoundingManual, @Remarks, @StatusID, @LogBy, " & vbNewLine &
-                        "    GETDATE(), @LogBy, GETDATE(), @TotalDPPRawMaterial) " & vbNewLine
+                        "    GETDATE(), @LogBy, GETDATE(), @TotalDPPRawMaterial, @CustomerID, @IsClaimCustomer) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE traPurchaseOrderCutting SET " & vbNewLine &
@@ -154,7 +154,9 @@
                         "    LogInc=LogInc+1, " & vbNewLine &
                         "    LogBy=@LogBy, " & vbNewLine &
                         "    LogDate=GETDATE(), " & vbNewLine &
-                        "    TotalDPPRawMaterial=@TotalDPPRawMaterial " & vbNewLine &
+                        "    TotalDPPRawMaterial=@TotalDPPRawMaterial, " & vbNewLine &
+                        "    CustomerID=@CustomerID, " & vbNewLine &
+                        "    IsClaimCustomer=@IsClaimCustomer " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -181,6 +183,8 @@
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@TotalDPPRawMaterial", SqlDbType.Decimal).Value = clsData.TotalDPPRawMaterial
+                .Parameters.Add("@CustomerID", SqlDbType.Int).Value = clsData.CustomerID
+                .Parameters.Add("@IsClaimCustomer", SqlDbType.Decimal).Value = clsData.IsClaimCustomer
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -200,14 +204,17 @@
                     .CommandType = CommandType.Text
                     .CommandText =
                         "SELECT TOP 1 " & vbNewLine &
-                        "   A.ID, A.ProgramID, A.CompanyID, A.PONumber, A.PODate, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.PersonInCharge, " & vbNewLine &
+                        "   A.ID, A.ProgramID, A.CompanyID, A.PONumber, A.PODate, A.BPID, BP.Code AS BPCode, BP.Name AS BPName, A.PersonInCharge, " & vbNewLine &
                         "   A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.DeliveryAddress, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, " & vbNewLine &
                         "   A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.JournalID, A.StatusID, A.SubmitBy, A.SubmitDate, " & vbNewLine &
                         "   A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, " & vbNewLine &
-                        "   A.ReceiveAmount, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual, A.TotalDPPRawMaterial " & vbNewLine &
+                        "   A.ReceiveAmount, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual, A.TotalDPPRawMaterial, A.CustomerID, CP.Code AS CustomerCode, CP.Name AS CustomerName, " & vbNewLine &
+                        "   A.IsClaimCustomer " & vbNewLine &
                         "FROM traPurchaseOrderCutting A " & vbNewLine &
-                        "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
-                        "   A.BPID=B.ID " & vbNewLine &
+                        "INNER JOIN mstBusinessPartner BP ON " & vbNewLine &
+                        "   A.BPID=BP.ID " & vbNewLine &
+                        "INNER JOIN mstBusinessPartner CP ON " & vbNewLine &
+                        "   A.CustomerID=CP.ID " & vbNewLine &
                         "WHERE " & vbNewLine &
                         "   A.ID=@ID " & vbNewLine
 

@@ -71,7 +71,7 @@
                         intCount += 1
 
                         '# Calculate Stock In
-                        BL.StockIn.CalculateStockIn(sqlCon, sqlTrans, clsDet.OrderNumberSupplier, clsDet.ItemID)
+                        'BL.StockIn.CalculateStockIn(sqlCon, sqlTrans, clsDet.OrderNumberSupplier, clsDet.ItemID)
                         BL.StockOut.CalculateStockOut(sqlCon, sqlTrans, clsDet.OrderNumberSupplier, clsDet.ItemID)
                     Next
 
@@ -126,7 +126,7 @@
 
                     '# Calculate Stock In
                     For Each dr As DataRow In dtItem.Rows
-                        BL.StockIn.CalculateStockIn(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
+                        'BL.StockIn.CalculateStockIn(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
                     Next
 
                     sqlTrans.Commit()

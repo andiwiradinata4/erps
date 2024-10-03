@@ -56,6 +56,7 @@
                 DevelopOnProgress_ID49(sqlCon, Nothing)
                 DevelopOnProgress_ID50(sqlCon, Nothing)
                 DevelopOnProgress_ID51(sqlCon, Nothing)
+                DevelopOnProgress_ID52(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1366,6 +1367,40 @@
 "   	[ID] ASC   " & vbNewLine &
 "   ) " & vbNewLine &
 ") " & vbNewLine
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 52
+        Private Shared Sub DevelopOnProgress_ID52(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 52
+            clsData.Name = "Alter Table PO Cutting Header and Detail | Add CustomerID and ReceiveDetailID"
+            clsData.Scripts +=
+"ALTER TABLE traPurchaseOrderCutting ADD CustomerID [int] NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_CustomerID DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCutting ADD IsClaimCustomer [bit] NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_IsClaimCustomer DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCutting ADD ClaimDPAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_ClaimDPAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCutting ADD ClaimDPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_ClaimDPAmountPPN DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCutting ADD ClaimDPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_ClaimDPAmountPPH DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCutting ADD ClaimReceiveAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_ClaimReceiveAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCutting ADD ClaimReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_ClaimReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCutting ADD ClaimReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_ClaimReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCutting ADD PickupDate [datetime] NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_PickupDate DEFAULT (GETDATE()) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCutting ADD RemarksResult [varchar](1000) NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_RemarksResult DEFAULT ('') " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCuttingDet ADD ClaimDPAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ClaimDPAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCuttingDet ADD ClaimDPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ClaimDPAmountPPN DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCuttingDet ADD ClaimDPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ClaimDPAmountPPH DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCuttingDet ADD ClaimReceiveAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ClaimReceiveAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCuttingDet ADD ClaimReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ClaimReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCuttingDet ADD ClaimReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ClaimReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCuttingDet ADD ReceiveDetailID [varchar](100) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ReceiveDetailID DEFAULT ('') " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCuttingDetResult ADD IsShowPrintOut [bit] NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_IsShowPrintOut DEFAULT ((1)) " & vbNewLine &
+"ALTER TABLE mstItem ADD LengthInitial [varchar](100) NOT NULL CONSTRAINT DF_mstItem_LengthInitial DEFAULT ('') " & vbNewLine &
+"ALTER TABLE mstItem ADD UomID [int] NOT NULL CONSTRAINT DF_mstItem_UomID DEFAULT ((0)) " & vbNewLine
+
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

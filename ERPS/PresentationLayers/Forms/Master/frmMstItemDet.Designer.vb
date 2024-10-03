@@ -62,6 +62,10 @@ Partial Class frmMstItemDet
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.txtLengthInitial = New ERPS.usTextBox()
+        Me.cboUom = New ERPS.usComboBox()
+        Me.Label17 = New System.Windows.Forms.Label()
         Me.StatusStrip.SuspendLayout()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -138,6 +142,10 @@ Partial Class frmMstItemDet
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.cboUom)
+        Me.pnlDetail.Controls.Add(Me.Label17)
+        Me.pnlDetail.Controls.Add(Me.Label16)
+        Me.pnlDetail.Controls.Add(Me.txtLengthInitial)
         Me.pnlDetail.Controls.Add(Me.Label15)
         Me.pnlDetail.Controls.Add(Me.txtItemCodeExternal)
         Me.pnlDetail.Controls.Add(Me.txtLength)
@@ -192,7 +200,7 @@ Partial Class frmMstItemDet
         Me.txtItemCodeExternal.MaxLength = 250
         Me.txtItemCodeExternal.Name = "txtItemCodeExternal"
         Me.txtItemCodeExternal.Size = New System.Drawing.Size(135, 21)
-        Me.txtItemCodeExternal.TabIndex = 11
+        Me.txtItemCodeExternal.TabIndex = 8
         '
         'txtLength
         '
@@ -288,12 +296,12 @@ Partial Class frmMstItemDet
         'txtBasePrice
         '
         Me.txtBasePrice.DecimalPlaces = 2
-        Me.txtBasePrice.Location = New System.Drawing.Point(410, 120)
+        Me.txtBasePrice.Location = New System.Drawing.Point(435, 120)
         Me.txtBasePrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtBasePrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtBasePrice.Name = "txtBasePrice"
-        Me.txtBasePrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtBasePrice.TabIndex = 9
+        Me.txtBasePrice.Size = New System.Drawing.Size(135, 21)
+        Me.txtBasePrice.TabIndex = 10
         Me.txtBasePrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtBasePrice.ThousandsSeparator = True
         '
@@ -390,10 +398,10 @@ Partial Class frmMstItemDet
         '
         Me.cboItemSpecification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboItemSpecification.FormattingEnabled = True
-        Me.cboItemSpecification.Location = New System.Drawing.Point(410, 93)
+        Me.cboItemSpecification.Location = New System.Drawing.Point(435, 93)
         Me.cboItemSpecification.Name = "cboItemSpecification"
-        Me.cboItemSpecification.Size = New System.Drawing.Size(160, 21)
-        Me.cboItemSpecification.TabIndex = 8
+        Me.cboItemSpecification.Size = New System.Drawing.Size(135, 21)
+        Me.cboItemSpecification.TabIndex = 9
         '
         'Label3
         '
@@ -410,9 +418,9 @@ Partial Class frmMstItemDet
         '
         Me.cboItemType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboItemType.FormattingEnabled = True
-        Me.cboItemType.Location = New System.Drawing.Point(410, 12)
+        Me.cboItemType.Location = New System.Drawing.Point(435, 12)
         Me.cboItemType.Name = "cboItemType"
-        Me.cboItemType.Size = New System.Drawing.Size(160, 21)
+        Me.cboItemType.Size = New System.Drawing.Size(135, 21)
         Me.cboItemType.TabIndex = 1
         '
         'Label2
@@ -452,10 +460,10 @@ Partial Class frmMstItemDet
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(410, 147)
+        Me.cboStatus.Location = New System.Drawing.Point(435, 147)
         Me.cboStatus.Name = "cboStatus"
-        Me.cboStatus.Size = New System.Drawing.Size(160, 21)
-        Me.cboStatus.TabIndex = 10
+        Me.cboStatus.Size = New System.Drawing.Size(135, 21)
+        Me.cboStatus.TabIndex = 11
         '
         'lblName
         '
@@ -513,6 +521,48 @@ Partial Class frmMstItemDet
         Me.BarClose.Name = "BarClose"
         Me.BarClose.Tag = "Close"
         Me.BarClose.Text = "Tutup"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.BackColor = System.Drawing.Color.Transparent
+        Me.Label16.ForeColor = System.Drawing.Color.Black
+        Me.Label16.Location = New System.Drawing.Point(346, 259)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(73, 13)
+        Me.Label16.TabIndex = 120
+        Me.Label16.Text = "Kode Panjang"
+        '
+        'txtLengthInitial
+        '
+        Me.txtLengthInitial.BackColor = System.Drawing.Color.White
+        Me.txtLengthInitial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtLengthInitial.Location = New System.Drawing.Point(435, 255)
+        Me.txtLengthInitial.MaxLength = 250
+        Me.txtLengthInitial.Name = "txtLengthInitial"
+        Me.txtLengthInitial.Size = New System.Drawing.Size(135, 21)
+        Me.txtLengthInitial.TabIndex = 13
+        '
+        'cboUom
+        '
+        Me.cboUom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboUom.Enabled = False
+        Me.cboUom.FormattingEnabled = True
+        Me.cboUom.Location = New System.Drawing.Point(435, 174)
+        Me.cboUom.Name = "cboUom"
+        Me.cboUom.Size = New System.Drawing.Size(135, 21)
+        Me.cboUom.TabIndex = 12
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.BackColor = System.Drawing.Color.Transparent
+        Me.Label17.ForeColor = System.Drawing.Color.Black
+        Me.Label17.Location = New System.Drawing.Point(346, 178)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(41, 13)
+        Me.Label17.TabIndex = 122
+        Me.Label17.Text = "Satuan"
         '
         'frmMstItemDet
         '
@@ -582,4 +632,8 @@ Partial Class frmMstItemDet
     Friend WithEvents txtThick As ERPS.usNumeric
     Friend WithEvents Label15 As Label
     Friend WithEvents txtItemCodeExternal As usTextBox
+    Friend WithEvents Label16 As System.Windows.Forms.Label
+    Friend WithEvents txtLengthInitial As ERPS.usTextBox
+    Friend WithEvents cboUom As ERPS.usComboBox
+    Friend WithEvents Label17 As System.Windows.Forms.Label
 End Class

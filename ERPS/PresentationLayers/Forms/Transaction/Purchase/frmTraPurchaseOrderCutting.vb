@@ -422,52 +422,51 @@ Public Class frmTraPurchaseOrderCutting
     End Sub
 
     Private Sub prvPrint()
-        'intPos = grdView.FocusedRowHandle
-        'If intPos < 0 Then Exit Sub
-        'Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
-        'Me.Cursor = Cursors.WaitCursor
-        'pgMain.Value = 40
-        '
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
 
-        'Try
-        '    Dim dtData As DataTable = BL.PurchaseOrderCutting.Print(intProgramID, intCompanyID, strID)
-        '    Dim intStatusID As Integer = 0
-        '    For Each dr As DataRow In dtData.Rows
-        '        intStatusID = dr.Item("StatusID")
-        '        Exit For
-        '    Next
+        Try
+            Dim dtData As DataTable = BL.PurchaseOrderCutting.Print(intProgramID, intCompanyID, strID)
+            Dim intStatusID As Integer = 0
+            For Each dr As DataRow In dtData.Rows
+                intStatusID = dr.Item("StatusID")
+                Exit For
+            Next
 
-        '    Dim crReport As New rptPurchaseOrderCutting
+            Dim crReport As New rptPurchaseOrderCutting
 
-        '    '# Setup Watermark Report
-        '    If intStatusID <> VO.Status.Values.Approved Then
-        '        crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
-        '        crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
-        '        crReport.Watermark.Font = New System.Drawing.Font("Tahoma", 70.0!, System.Drawing.FontStyle.Bold)
-        '        crReport.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.Horizontal
-        '        crReport.Watermark.TextTransparency = 150
-        '    End If
+            '# Setup Watermark Report
+            If intStatusID <> VO.Status.Values.Approved Then
+                crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
+                crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
+                crReport.Watermark.Font = New System.Drawing.Font("Tahoma", 70.0!, System.Drawing.FontStyle.Bold)
+                crReport.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.Horizontal
+                crReport.Watermark.TextTransparency = 150
+            End If
 
-        '    crReport.DataSource = dtData
-        '    crReport.CreateDocument(True)
-        '    crReport.ShowPreviewMarginLines = False
-        '    crReport.ShowPrintMarginsWarning = False
+            crReport.DataSource = dtData
+            crReport.CreateDocument(True)
+            crReport.ShowPreviewMarginLines = False
+            crReport.ShowPrintMarginsWarning = False
 
-        '    Dim frmDetail As New frmReportPreview
-        '    With frmDetail
-        '        .docViewer.DocumentSource = crReport
-        '        .pgExportButton.Enabled = bolExport
-        '        .Text = Me.Text & " - " & VO.Reports.PrintOut
-        '        .WindowState = FormWindowState.Maximized
-        '        .Show()
-        '    End With
-        'Catch ex As Exception
-        '    UI.usForm.frmMessageBox(ex.Message)
-        'Finally
-        '    pgMain.Value = 100
-        '    
-        '    prvResetProgressBar()
-        'End Try
+            Dim frmDetail As New frmReportPreview
+            With frmDetail
+                .docViewer.DocumentSource = crReport
+                .pgExportButton.Enabled = bolExport
+                .Text = Me.Text & " - " & VO.Reports.PrintOut
+                .WindowState = FormWindowState.Maximized
+                .Show()
+            End With
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            pgMain.Value = 100
+
+            prvResetProgressBar()
+        End Try
     End Sub
 
     Private Sub prvExportExcel()

@@ -1174,7 +1174,7 @@ Public Class frmTraARAP
             .Item(cSetTaxInvoiceNumber).Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.TaxInvoiceNumberAccess)
             .Item(cSetInvoiceNumberBP).Visible = False 'enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.InvoiceNumberBusinessPartner)
             .Item(cSep3).Visible = False
-            If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase Then .Item(cPrintPI).Visible = False
+            If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase Then .Item(cPrintPI).Visible = False : .Item(cPrintInvoice).Visible = False
         End With
     End Sub
 
