@@ -1380,6 +1380,10 @@
             clsData.ID = 52
             clsData.Name = "Alter Table PO Cutting Header and Detail | Add CustomerID and ReceiveDetailID"
             clsData.Scripts +=
+"ALTER TABLE sysStockIn ADD ProgramID [int] NOT NULL CONSTRAINT DF_sysStockIn_ProgramID DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE sysStockIn ADD CompanyID [int] NOT NULL CONSTRAINT DF_sysStockIn_CompanyID DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE sysStockOut ADD ProgramID [int] NOT NULL CONSTRAINT DF_sysStockOut_ProgramID DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE sysStockOut ADD CompanyID [int] NOT NULL CONSTRAINT DF_sysStockOut_CompanyID DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE traPurchaseOrderCutting ADD CustomerID [int] NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_CustomerID DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE traPurchaseOrderCutting ADD IsClaimCustomer [bit] NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_IsClaimCustomer DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE traPurchaseOrderCutting ADD ClaimDPAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCutting_ClaimDPAmount DEFAULT ((0)) " & vbNewLine &
