@@ -10,7 +10,7 @@
                 .CommandText = _
                     "SELECT " & vbNewLine & _
                     "     A.ID, A.Description, A.StatusID, B.Name AS StatusInfo,  " & vbNewLine & _
-                    "     A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine & _
+                    "     A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc, A.LengthInitial " & vbNewLine & _
                     "FROM mstItemType A " & vbNewLine & _
                     "INNER JOIN mstStatus B ON " & vbNewLine & _
                     "    A.StatusID=B.ID " & vbNewLine
@@ -46,9 +46,9 @@
                 If bolNew Then
                     .CommandText = _
                         "INSERT INTO mstItemType " & vbNewLine & _
-                        "     (ID, Description, StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine & _
+                        "     (ID, Description, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, LengthInitial) " & vbNewLine & _
                         "VALUES " & vbNewLine & _
-                        "     (@ID, @Description, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
+                        "     (@ID, @Description, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @LengthInitial) " & vbNewLine
 
 
                 Else
@@ -58,7 +58,8 @@
                         "    StatusID=@StatusID, " & vbNewLine & _
                         "    LogBy=@LogBy, " & vbNewLine & _
                         "    LogDate=GETDATE(), " & vbNewLine & _
-                        "    LogInc=LogInc+1 " & vbNewLine & _
+                        "    LogInc=LogInc+1, " & vbNewLine & _
+                        "    LengthInitial=@LengthInitial " & vbNewLine & _
                         "WHERE   " & vbNewLine & _
                         "    ID=@ID " & vbNewLine
 
@@ -67,6 +68,7 @@
                 .Parameters.Add("@Description", SqlDbType.VarChar, 500).Value = clsData.Description
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
+                .Parameters.Add("@LengthInitial", SqlDbType.VarChar, 100).Value = clsData.LengthInitial
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -86,7 +88,7 @@
                     .CommandType = CommandType.Text
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
-                        "     A.ID, A.Description, A.StatusID, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine & _
+                        "     A.ID, A.Description, A.StatusID, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc, A.LengthInitial " & vbNewLine & _
                         "FROM mstItemType A " & vbNewLine & _
                         "WHERE " & vbNewLine & _
                         "    ID=@ID " & vbNewLine
@@ -105,6 +107,7 @@
                         voReturn.LogBy = .Item("LogBy")
                         voReturn.LogDate = .Item("LogDate")
                         voReturn.LogInc = .Item("LogInc")
+                        voReturn.LengthInitial = .Item("LengthInitial")
                     End If
                 End With
             Catch ex As Exception

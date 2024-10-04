@@ -412,26 +412,21 @@ Public Class frmTraOrderRequest
         Dim SumDPAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DPAmount", "Total Panjar: {0:#,##0.00}")
         Dim SumReceiveAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ReceiveAmount", "Total Pembayaran: {0:#,##0.00}")
         Dim SumOutstandingPayment As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "OutstandingPayment", "Sisa Hutang: {0:#,##0.00}")
+        Dim SumTotalDPP As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalDPP", "Total DPP: {0:#,##0.00}")
+        Dim SumTotalPPN As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPN", "Total PPN: {0:#,##0.00}")
+        Dim SumTotalPPH As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPH", "Total PPH: {0:#,##0.00}")
+        Dim SumGrandTotal As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "GrandTotal", "Grand Total: {0:#,##0.00}")
 
-        If grdView.Columns("TotalQuantity").SummaryText.Trim = "" Then
-            grdView.Columns("TotalQuantity").Summary.Add(SumTotalQuantity)
-        End If
+        If grdView.Columns("TotalQuantity").SummaryText.Trim = "" Then grdView.Columns("TotalQuantity").Summary.Add(SumTotalQuantity)
+        If grdView.Columns("TotalWeight").SummaryText.Trim = "" Then grdView.Columns("TotalWeight").Summary.Add(SumTotalWeight)
+        If grdView.Columns("DPAmount").SummaryText.Trim = "" Then grdView.Columns("DPAmount").Summary.Add(SumDPAmount)
+        If grdView.Columns("ReceiveAmount").SummaryText.Trim = "" Then grdView.Columns("ReceiveAmount").Summary.Add(SumReceiveAmount)
+        If grdView.Columns("OutstandingPayment").SummaryText.Trim = "" Then grdView.Columns("OutstandingPayment").Summary.Add(SumOutstandingPayment)
+        If grdView.Columns("TotalDPP").SummaryText.Trim = "" Then grdView.Columns("TotalDPP").Summary.Add(SumTotalDPP)
+        If grdView.Columns("TotalPPN").SummaryText.Trim = "" Then grdView.Columns("TotalPPN").Summary.Add(SumTotalPPN)
+        If grdView.Columns("TotalPPH").SummaryText.Trim = "" Then grdView.Columns("TotalPPH").Summary.Add(SumTotalPPH)
+        If grdView.Columns("GrandTotal").SummaryText.Trim = "" Then grdView.Columns("GrandTotal").Summary.Add(SumGrandTotal)
 
-        If grdView.Columns("TotalWeight").SummaryText.Trim = "" Then
-            grdView.Columns("TotalWeight").Summary.Add(SumTotalWeight)
-        End If
-
-        If grdView.Columns("DPAmount").SummaryText.Trim = "" Then
-            grdView.Columns("DPAmount").Summary.Add(SumDPAmount)
-        End If
-
-        If grdView.Columns("ReceiveAmount").SummaryText.Trim = "" Then
-            grdView.Columns("ReceiveAmount").Summary.Add(SumReceiveAmount)
-        End If
-
-        If grdView.Columns("OutstandingPayment").SummaryText.Trim = "" Then
-            grdView.Columns("OutstandingPayment").Summary.Add(SumOutstandingPayment)
-        End If
         grdView.BestFitColumns()
     End Sub
 

@@ -1264,7 +1264,7 @@
 
         Public Shared Function PrintSCCOVer00(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                               ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                              ByVal strID As String, ByVal bolIsUseSubItem As Boolean) As DataTable
+                                              ByVal strID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -1273,12 +1273,12 @@
                 .CommandText =
                     "SELECT DISTINCT " & vbNewLine &
                     "	BP.Name AS BPName, IT.Description AS ItemTypeName, SCH.SCNumber AS TransNumber, CAST('' AS VARCHAR(1000)) AS AllItemName, " & vbNewLine &
-                    "	CAST('' AS VARCHAR(500)) AS AllOrderNumberSupplier, SCH.SCDate AS TransDate, BPL.Address AS DeliveryAddress, COD.OrderNumberSupplier, " & vbNewLine &
-                    "	MIS.Description AS ItemSpec, MI.Thick AS ItemThick, MI.Width AS ItemWidth, MI.Length AS ItemLength, MI.Weight, SCD.Quantity, " & vbNewLine &
-                    "	SCD.TotalWeight AS TotalWeightItem, SCD.UnitPrice, SCD.TotalPrice, (SCD.TotalPrice*SCH.PPN/100) AS TotalPPNItem, SCD.TotalPrice + (SCD.TotalPrice*SCH.PPN/100) AS TotalPriceIncPPN, " & vbNewLine &
-                    "	CAST('' AS VARCHAR(1000)) AS NumericToString, BP.PICName AS BPPIC, MC.DirectorName AS CompanyDirectorName, MBC.AccountName, MBC.BankName, MBC.AccountNumber, " & vbNewLine &
-                    "   SCH.TotalDPP + SCH.TotalPPN - SCH.TotalPPH + SCH.RoundingManual AS GrandTotal, SCH.PPN, SCH.StatusID, SCH.DelegationSeller, SCH.DelegationPositionSeller, " & vbNewLine &
-                    "   SCH.DelegationBuyer, SCH.DelegationPositionBuyer, MC.Name AS CompanyName " & vbNewLine &
+                    "	CAST('' AS VARCHAR(500)) AS AllOrderNumberSupplier, SCH.SCDate AS TransDate, BPL.Address AS DeliveryAddress, SCD.OrderNumberSupplier, " & vbNewLine &
+                    "	MIS.Description AS ItemSpec, MI.Thick AS ItemThick, MI.Width AS ItemWidth, CASE WHEN MI.Length=0 THEN IT.LengthInitial ELSE CAST(MI.Length AS VARCHAR(100)) END AS ItemLength, " & vbNewLine &
+                    "   SCD.Weight, SCD.Quantity, SCD.TotalWeight AS TotalWeightItem, SCD.UnitPrice, SCD.TotalPrice, (SCD.TotalPrice*SCH.PPN/100) AS TotalPPNItem, " & vbNewLine &
+                    "	SCD.TotalPrice + (SCD.TotalPrice*SCH.PPN/100) AS TotalPriceIncPPN, CAST('' AS VARCHAR(1000)) AS NumericToString, BP.PICName AS BPPIC, MC.DirectorName AS CompanyDirectorName, " & vbNewLine &
+                    "   MBC.AccountName, MBC.BankName, MBC.AccountNumber, SCH.TotalDPP + SCH.TotalPPN - SCH.TotalPPH + SCH.RoundingManual AS GrandTotal, SCH.PPN, SCH.StatusID, SCH.DelegationSeller, " & vbNewLine &
+                    "   SCH.DelegationPositionSeller, SCH.DelegationBuyer, SCH.DelegationPositionBuyer, MC.Name AS CompanyName " & vbNewLine &
                     "FROM traSalesContract SCH " & vbNewLine &
                     "INNER JOIN mstCompany MC ON " & vbNewLine &
                     "	SCH.CompanyID=MC.ID " & vbNewLine &
@@ -1286,6 +1286,7 @@
                     "	SCH.CompanyBankAccountID=MBC.ID " & vbNewLine &
                     "INNER JOIN traSalesContractDet SCD ON " & vbNewLine &
                     "	SCH.ID=SCD.SCID " & vbNewLine &
+                    "	AND SCD.ParentID=''  " & vbNewLine &
                     "INNER JOIN traSalesContractDetConfirmationOrder SCDCO ON " & vbNewLine &
                     "	SCD.SCID=SCDCO.SCID " & vbNewLine &
                     "	AND SCD.GroupID=SCDCO.GroupID " & vbNewLine &
@@ -1295,8 +1296,6 @@
                     "    MI.ItemTypeID=IT.ID 	 	 " & vbNewLine &
                     "INNER JOIN mstItemSpecification MIS ON 	 	 " & vbNewLine &
                     "    MI.ItemSpecificationID=MIS.ID 	 	 " & vbNewLine &
-                    "INNER JOIN traConfirmationOrderDet COD ON " & vbNewLine &
-                    "	SCDCO.CODetailID=COD.ID " & vbNewLine &
                     "INNER JOIN mstBusinessPartner BP ON	" & vbNewLine &
                     "	SCH.BPID=BP.ID " & vbNewLine &
                     "INNER JOIN mstBusinessPartnerLocation BPL ON	" & vbNewLine &
@@ -1306,11 +1305,11 @@
                     "	AND SCH.CompanyID=@CompanyID " & vbNewLine &
                     "	AND SCH.ID=@ID 	" & vbNewLine
 
-                If bolIsUseSubItem Then .CommandText += "   AND SCD.ParentID<>'' " & vbNewLine
+                'If bolIsUseSubItem Then .CommandText += "   AND SCD.ParentID<>'' " & vbNewLine
 
                 .CommandText +=
                     "ORDER BY 	" & vbNewLine &
-                    "	COD.OrderNumberSupplier, IT.Description " & vbNewLine
+                    "	SCD.OrderNumberSupplier, IT.Description " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
@@ -1378,7 +1377,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT	" & vbNewLine &
-                    "   A.ID, A.SCID, A.ORDetailID, A3.ID AS RequestNumber, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  	" & vbNewLine &
+                    "   A.ID, A.SCID, A.ORDetailID, A3.OrderNumber AS RequestNumber, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  	" & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  	" & vbNewLine &
                     "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight, " & vbNewLine &
                     "   A.Remarks, A.IsIgnoreValidationPayment, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceHPP, " & vbNewLine &
@@ -1639,7 +1638,7 @@
                     "	DCQuantity=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(DD.Quantity+DD.RoundingWeight),0) TotalQuantity    " & vbNewLine &
+                    "			ISNULL(SUM(DD.Quantity),0) TotalQuantity    " & vbNewLine &
                     "		FROM traDeliveryDet DD 	" & vbNewLine &
                     "		INNER JOIN traDelivery DH ON	" & vbNewLine &
                     "			DD.DeliveryID=DH.ID 	" & vbNewLine &
@@ -1857,7 +1856,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT	" & vbNewLine &
-                    "   A.ID, A.SCID, A.CODetailID, A3.ID AS CONumber, A1.OrderNumberSupplier, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+                    "   A.ID, A.SCID, A.CODetailID, A3.CONumber, A1.OrderNumberSupplier, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, A.Quantity, A.Weight, " & vbNewLine &
                     "   A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight, A.Remarks, A.RoundingWeight, A.LevelItem, A.ParentID, " & vbNewLine &
                     "   A.LocationID, BPL.Address AS DeliveryAddress, A.PCDetailID " & vbNewLine &

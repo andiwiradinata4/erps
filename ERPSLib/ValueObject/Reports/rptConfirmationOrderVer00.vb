@@ -37,7 +37,7 @@
         Property ItemSpec As String
         Property ItemThick As Decimal
         Property ItemWidth As Decimal
-        Property ItemLength As Decimal
+        Property ItemLength As String
         Property Quantity As Decimal
         Property Weight As Decimal
         Property TotalWeightItem As Decimal

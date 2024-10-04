@@ -50,6 +50,7 @@
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
 
                 If cboStatus.SelectedValue = VO.Status.Values.InActive Then cboStatus.Enabled = True
+                txtLengthInitial.Text = clsData.LengthInitial
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -75,6 +76,7 @@
         clsData.Description = txtDescription.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+        clsData.LengthInitial = txtLengthInitial.Text.Trim
 
         Try
             BL.ItemType.SaveData(pubIsNew, clsData)

@@ -4,7 +4,7 @@ Public Class frmTraPurchaseContractDetItemOutstanding
 #Region "Property"
 
     Private intPos As Integer = 0
-    Private frmParent As frmTraPurchaseContractDetItem
+    Private frmParent As frmTraPurchaseContractDetItemVer1
     Private intBPID As Integer = 0
     Private clsCS As VO.CS
     Public pubLUdtRow As DataRow

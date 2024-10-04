@@ -44,9 +44,23 @@
                                 DL.SalesContract.CalculateDCTotalUsed(sqlCon, sqlTrans, dr.Item("SCDetailID"))
                             End If
 
-                            '# Delete Stock Out
-                            BL.StockOut.CalculateStockOut(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
+                            '# Recalculate Stock Out
+                            clsDataStockOut = New List(Of VO.StockOut)
+                            clsDataStockOut.Add(New VO.StockOut With
+                                               {
+                                                   .ProgramID = clsData.ProgramID,
+                                                   .CompanyID = clsData.CompanyID,
+                                                   .ParentID = "",
+                                                   .ParentDetailID = "",
+                                                   .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                                                   .SourceData = "",
+                                                   .ItemID = dr.Item("ItemID"),
+                                                   .Quantity = 0,
+                                                   .Weight = 0,
+                                                   .TotalWeight = 0
+                                               })
                         Next
+                        BL.StockOut.SaveData(sqlCon, sqlTrans, clsDataStockOut)
 
                         '# Revert Done Quantity
                         For Each dr As DataRow In dtItemTransport.Rows
@@ -89,6 +103,7 @@
 
                     '# Save Data Detail
                     Dim intCount As Integer = 1
+                    clsDataStockOut = New List(Of VO.StockOut)
                     For Each clsDet As VO.DeliveryDet In clsData.Detail
                         clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
                         clsDet.DeliveryID = clsData.ID
@@ -97,14 +112,16 @@
 
                         clsDataStockOut.Add(New VO.StockOut With
                            {
-                                .ParentID = "",
-                                .ParentDetailID = "",
-                                .OrderNumberSupplier = clsDet.OrderNumberSupplier,
-                                .SourceData = "",
-                                .ItemID = clsDet.ItemID,
-                                .Quantity = 0,
-                                .Weight = 0,
-                                .TotalWeight = 0
+                               .ProgramID = clsData.ProgramID,
+                               .CompanyID = clsData.CompanyID,
+                               .ParentID = "",
+                               .ParentDetailID = "",
+                               .OrderNumberSupplier = clsDet.OrderNumberSupplier,
+                               .SourceData = "",
+                               .ItemID = clsDet.ItemID,
+                               .Quantity = 0,
+                               .Weight = 0,
+                               .TotalWeight = 0
                            })
                     Next
 
@@ -183,11 +200,12 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Dim clsDataStockOut As New List(Of VO.StockOut)
                 Try
-                    Dim intStatusID As Integer = DL.Delivery.GetStatusID(sqlCon, sqlTrans, strID)
-                    If intStatusID = VO.Status.Values.Submit Then
+                    Dim clsData As VO.Delivery = DL.Delivery.GetDetail(sqlCon, sqlTrans, strID)
+                    If clsData.StatusID = VO.Status.Values.Submit Then
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah di submit")
-                    ElseIf DL.Delivery.IsDeleted(sqlCon, sqlTrans, strID) Then
+                    ElseIf clsData.IsDeleted Then
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
                     End If
 
@@ -201,9 +219,23 @@
                         '# Revert DC Quantity
                         DL.SalesContract.CalculateDCTotalUsed(sqlCon, sqlTrans, dr.Item("SCDetailID"))
 
-                        '# Delete Stock Out
-                        BL.StockOut.CalculateStockOut(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
+                        '# Recalculate Stock Out
+                        clsDataStockOut = New List(Of VO.StockOut)
+                        clsDataStockOut.Add(New VO.StockOut With
+                                           {
+                                               .ProgramID = clsData.ProgramID,
+                                               .CompanyID = clsData.CompanyID,
+                                               .ParentID = "",
+                                               .ParentDetailID = "",
+                                               .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                                               .SourceData = "",
+                                               .ItemID = dr.Item("ItemID"),
+                                               .Quantity = 0,
+                                               .Weight = 0,
+                                               .TotalWeight = 0
+                                           })
                     Next
+                    BL.StockOut.SaveData(sqlCon, sqlTrans, clsDataStockOut)
 
                     '# Revert Done Quantity
                     For Each dr As DataRow In dtItemTransport.Rows

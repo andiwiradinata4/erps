@@ -57,6 +57,7 @@
                 DevelopOnProgress_ID50(sqlCon, Nothing)
                 DevelopOnProgress_ID51(sqlCon, Nothing)
                 DevelopOnProgress_ID52(sqlCon, Nothing)
+                DevelopOnProgress_ID53(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1404,6 +1405,20 @@
 "ALTER TABLE traPurchaseOrderCuttingDetResult ADD IsShowPrintOut [bit] NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_IsShowPrintOut DEFAULT ((1)) " & vbNewLine &
 "ALTER TABLE mstItem ADD LengthInitial [varchar](100) NOT NULL CONSTRAINT DF_mstItem_LengthInitial DEFAULT ('') " & vbNewLine &
 "ALTER TABLE mstItem ADD UomID [int] NOT NULL CONSTRAINT DF_mstItem_UomID DEFAULT ((0)) " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 53
+        Private Shared Sub DevelopOnProgress_ID53(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 53
+            clsData.Name = "Alter Table mstItemType | Add LengthInitial"
+            clsData.Scripts += "ALTER TABLE mstItemType ADD LengthInitial [varchar](100) NOT NULL CONSTRAINT DF_mstItemType_LengthInitial DEFAULT ('') " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

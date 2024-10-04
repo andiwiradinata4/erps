@@ -35,11 +35,6 @@ Namespace DL
                 Else
                     .CommandText =
 "UPDATE traStockOut SET  " & vbNewLine &
-"	ParentID=@ParentID,  " & vbNewLine &
-"	ParentDetailID=@ParentDetailID,  " & vbNewLine &
-"	OrderNumberSupplier=@OrderNumberSupplier,  " & vbNewLine &
-"	SourceData=@SourceData,  " & vbNewLine &
-"	ItemID=@ItemID,  " & vbNewLine &
 "	Quantity=@Quantity,  " & vbNewLine &
 "	Weight=@Weight,  " & vbNewLine &
 "	TotalWeight=@TotalWeight " & vbNewLine &
@@ -105,7 +100,8 @@ Namespace DL
         End Function
 
         Public Shared Function DataExists(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                          ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer) As VO.StockOut
+                                          ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer,
+                                          ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As VO.StockOut
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim voReturn As New VO.StockOut
             Try
@@ -115,14 +111,18 @@ Namespace DL
                     .CommandText =
 "SELECT TOP 1  " & vbNewLine &
 "	A.ID, A.ParentID, A.ParentDetailID, A.OrderNumberSupplier, A.SourceData, A.ItemID, A.Quantity,  " & vbNewLine &
-"	A.Weight, A.TotalWeight " & vbNewLine &
+"	A.Weight, A.TotalWeight, A.ProgramID, A.CompanyID " & vbNewLine &
 "FROM traStockOut A " & vbNewLine &
 "WHERE " & vbNewLine &
 "	A.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
-"	AND A.ItemID=@ItemID " & vbNewLine
+"	AND A.ItemID=@ItemID " & vbNewLine &
+"	AND A.ProgramID=@ProgramID " & vbNewLine &
+"	AND A.CompanyID=@CompanyID " & vbNewLine
 
                     .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
-                    .Parameters.Add("@ItemID", SqlDbType.VarChar, 100).Value = intItemID
+                    .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
+                    .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                    .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
                 With sqlrdData
@@ -137,6 +137,8 @@ Namespace DL
                         voReturn.Quantity = .Item("Quantity")
                         voReturn.Weight = .Item("Weight")
                         voReturn.TotalWeight = .Item("TotalWeight")
+                        voReturn.ProgramID = .Item("ProgramID")
+                        voReturn.CompanyID = .Item("CompanyID")
                     End If
                 End With
             Catch ex As Exception
@@ -167,7 +169,8 @@ Namespace DL
         End Sub
 
         Public Shared Function GetTotalWeightStockOutDelivery(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                              ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer) As Decimal
+                                                              ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer,
+                                                              ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As Decimal
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim decReturn As Decimal = 0
             Try
@@ -182,7 +185,9 @@ Namespace DL
 "WHERE " & vbNewLine &
 "	TDD.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
 "	AND TDD.ItemID=@ItemID " & vbNewLine &
-"	AND TDH.IsDeleted=0 " & vbNewLine
+"	AND TDH.IsDeleted=0 " & vbNewLine &
+"	AND TDH.ProgramID=@ProgramID " & vbNewLine &
+"	AND TDH.CompanyID=@CompanyID " & vbNewLine
 
                     .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
                     .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
@@ -203,7 +208,8 @@ Namespace DL
         End Function
 
         Public Shared Function GetTotalWeightStockOutCutting(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                             ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer) As Decimal
+                                                             ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer,
+                                                             ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As Decimal
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim decReturn As Decimal = 0
             Try
@@ -218,10 +224,14 @@ Namespace DL
 "WHERE " & vbNewLine &
 "	TCD.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
 "	AND TCD.ItemID=@ItemID " & vbNewLine &
-"	AND TCH.IsDeleted=0 " & vbNewLine
+"	AND TCH.IsDeleted=0 " & vbNewLine &
+"	AND TCH.ProgramID=@ProgramID " & vbNewLine &
+"	AND TCH.CompanyID=@CompanyID " & vbNewLine
 
                     .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
                     .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
+                    .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                    .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
                 With sqlrdData

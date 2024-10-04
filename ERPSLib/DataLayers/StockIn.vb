@@ -118,7 +118,8 @@ Namespace DL
         End Function
 
         Public Shared Function DataExists(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                          ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer) As VO.StockIn
+                                          ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer,
+                                          ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As VO.StockIn
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim voReturn As New VO.StockIn
             Try
@@ -133,10 +134,14 @@ Namespace DL
 "FROM traStockIn A " & vbNewLine &
 "WHERE " & vbNewLine &
 "	A.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
-"	AND A.ItemID=@ItemID " & vbNewLine
+"	AND A.ItemID=@ItemID " & vbNewLine &
+"	AND A.ProgramID=@ProgramID " & vbNewLine &
+"	AND A.CompanyID=@CompanyID " & vbNewLine
 
                     .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
-                    .Parameters.Add("@ItemID", SqlDbType.VarChar, 100).Value = intItemID
+                    .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
+                    .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                    .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
                 With sqlrdData
@@ -230,7 +235,8 @@ Namespace DL
         End Function
 
         Public Shared Function GetTotalWeightStockInCuttingResult(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                                  ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer) As Decimal
+                                                                  ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer,
+                                                                  ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As Decimal
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim decReturn As Decimal = 0
             Try
@@ -245,10 +251,14 @@ Namespace DL
 "WHERE " & vbNewLine &
 "	TCD.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
 "	AND TCD.ItemID=@ItemID " & vbNewLine &
-"	AND TCH.IsDeleted=0 " & vbNewLine
+"	AND TCH.IsDeleted=0 " & vbNewLine &
+"	AND TCH.ProgramID=@ProgramID " & vbNewLine &
+"	AND TCH.CompanyID=@CompanyID " & vbNewLine
 
                     .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
                     .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
+                    .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                    .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
                 With sqlrdData
@@ -266,7 +276,8 @@ Namespace DL
         End Function
 
         Public Shared Function GetTotalWeightStockOutOrderRequest(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                                  ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer) As Decimal
+                                                                  ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer,
+                                                                  ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As Decimal
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim decReturn As Decimal = 0
             Try
@@ -282,10 +293,14 @@ Namespace DL
 "	ORD.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
 "	AND ORD.ItemID=@ItemID " & vbNewLine &
 "	AND ORH.IsStock=1 " & vbNewLine &
-"	AND ORH.IsDeleted=0 " & vbNewLine
+"	AND ORH.IsDeleted=0 " & vbNewLine &
+"	AND ORH.ProgramID=@ProgramID " & vbNewLine &
+"	AND ORH.CompanyID=@CompanyID " & vbNewLine
 
                     .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
                     .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
+                    .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                    .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
                 With sqlrdData
@@ -304,7 +319,8 @@ Namespace DL
 
         Public Shared Sub CalculateStockOut(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                             ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer,
-                                            ByVal decOutTotalWeightProcess As Decimal)
+                                            ByVal decOutTotalWeightProcess As Decimal, ByVal intProgramID As Integer,
+                                            ByVal intCompanyID As Integer)
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
                 .Connection = sqlCon
@@ -316,11 +332,15 @@ Namespace DL
 "   OutTotalWeightProcess=@OutTotalWeightProcess " & vbNewLine &
 "WHERE " & vbNewLine &
 "	OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
-"   AND ItemID=@ItemID " & vbNewLine
+"   AND ItemID=@ItemID " & vbNewLine &
+"	AND ProgramID=@ProgramID " & vbNewLine &
+"	AND CompanyID=@CompanyID " & vbNewLine
 
                 .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
                 .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
                 .Parameters.Add("@OutTotalWeightProcess", SqlDbType.Decimal).Value = decOutTotalWeightProcess
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)

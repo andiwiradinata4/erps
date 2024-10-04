@@ -372,7 +372,7 @@
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
                     ElseIf DL.SalesContract.IsAlreadyPayment(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses pembayaran")
-                    ElseIf DL.SalesContract.IsAlreadyPayment(sqlCon, sqlTrans, strID) Then
+                    ElseIf DL.SalesContract.IsAlreadyDelivery(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses pengiriman")
                     End If
 
@@ -464,7 +464,7 @@
             Dim dtReturn As New DataTable
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim clsData As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, Nothing, strID)
-                dtReturn = DL.SalesContract.PrintSCCOVer00(sqlCon, Nothing, intProgramID, intCompanyID, strID, clsData.IsUseSubItem)
+                dtReturn = DL.SalesContract.PrintSCCOVer00(sqlCon, Nothing, intProgramID, intCompanyID, strID)
 
                 '# Combine AllItemName
                 Dim strItemType As String = ""
@@ -493,6 +493,9 @@
                     dr.Item("AllItemName") = strAllItemType
                     dr.Item("AllOrderNumberSupplier") = strAllOrderNumberSupplier
                     dr.Item("NumericToString") = SharedLib.Math.NumberToString(dr.Item("GrandTotal"))
+
+                    If IsNumeric(dr.Item("ItemLength")) Then dr.Item("ItemLength") = Format(Convert.ToDecimal(dr.Item("ItemLength")), "#,###")
+
                     dr.EndEdit()
                 Next
                 dtReturn.AcceptChanges()

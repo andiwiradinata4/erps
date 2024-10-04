@@ -376,6 +376,12 @@ Public Class frmTraSalesContractDetItemVer2
         dtParentItem.AcceptChanges()
         frmParent.grdItemView.BestFitColumns()
 
+        '# Delete Exists Row
+        For Each dr As DataRow In dtParentCOItem.Rows
+            If dr.Item("GroupID") = intGroupID Then dr.Delete()
+        Next
+        dtParentCOItem.AcceptChanges()
+
         '# Import Confirmation Order
         For Each dr As DataRow In dtCO.Rows
             dr.BeginEdit()
@@ -534,6 +540,12 @@ Public Class frmTraSalesContractDetItemVer2
             If dr.Item("ID") = strID Then dr.Delete() : Exit For
         Next
         dtCO.AcceptChanges()
+
+        For Each dr As DataRow In dtParentCOItem.Rows
+            If dr.Item("ID") = strID Then dr.Delete() : Exit For
+        Next
+        dtParentCOItem.AcceptChanges()
+
         prvSumGrid()
         prvCalculate()
         prvToolsHandles()

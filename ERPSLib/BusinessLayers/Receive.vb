@@ -41,6 +41,8 @@
                             clsDataStockIN = New List(Of VO.StockIn)
                             clsDataStockIN.Add(New VO.StockIn With
                                                {
+                                                   .ProgramID = clsData.ProgramID,
+                                                   .CompanyID = clsData.CompanyID,
                                                    .ParentID = "",
                                                    .ParentDetailID = "",
                                                    .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
@@ -51,10 +53,8 @@
                                                    .InTotalWeight = 0,
                                                    .UnitPrice = dr.Item("UnitPrice")
                                                })
-                            BL.StockIn.SaveData(sqlCon, sqlTrans, clsDataStockIN)
-
-                            'BL.StockIn.DeleteData(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
                         Next
+                        BL.StockIn.SaveData(sqlCon, sqlTrans, clsDataStockIN)
 
                         Dim clsHelper As New DataSetHelper
                         Dim dtParentID As DataTable = clsHelper.SelectGroupByInto("ParentID", dtItem, "ParentID", "", "ParentID")
@@ -91,15 +91,17 @@
 
                         clsDataStockIN.Add(New VO.StockIn With
                                            {
-                                                .ParentID = "",
-                                                .ParentDetailID = "",
-                                                .OrderNumberSupplier = clsDet.OrderNumberSupplier,
-                                                .SourceData = clsDet.ID,
-                                                .ItemID = clsDet.ItemID,
-                                                .InQuantity = 0,
-                                                .InWeight = 0,
-                                                .InTotalWeight = 0,
-                                                .UnitPrice = clsDet.UnitPrice
+                                               .ProgramID = clsData.ProgramID,
+                                               .CompanyID = clsData.CompanyID,
+                                               .ParentID = "",
+                                               .ParentDetailID = "",
+                                               .OrderNumberSupplier = clsDet.OrderNumberSupplier,
+                                               .SourceData = clsDet.ID,
+                                               .ItemID = clsDet.ItemID,
+                                               .InQuantity = 0,
+                                               .InWeight = 0,
+                                               .InTotalWeight = 0,
+                                               .UnitPrice = clsDet.UnitPrice
                                            })
                     Next
 
@@ -146,15 +148,14 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim intStatusID As Integer = DL.Receive.GetStatusID(sqlCon, sqlTrans, strID)
-                    If intStatusID = VO.Status.Values.Submit Then
+                    Dim clsData As VO.Receive = DL.Receive.GetDetail(sqlCon, sqlTrans, strID)
+                    If clsData.StatusID = VO.Status.Values.Submit Then
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah di submit")
-                    ElseIf DL.Receive.IsDeleted(sqlCon, sqlTrans, strID) Then
+                    ElseIf clsData.IsDeleted Then
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
                     End If
 
                     Dim dtItem As DataTable = DL.Receive.ListDataDetail(sqlCon, sqlTrans, strID)
-
                     DL.Receive.DeleteData(sqlCon, sqlTrans, strID)
 
                     For Each dr As DataRow In dtItem.Rows
@@ -165,6 +166,8 @@
                         clsDataStockIN = New List(Of VO.StockIn)
                         clsDataStockIN.Add(New VO.StockIn With
                                            {
+                                               .ProgramID = clsData.ProgramID,
+                                               .CompanyID = clsData.CompanyID,
                                                .ParentID = "",
                                                .ParentDetailID = "",
                                                .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
@@ -176,8 +179,6 @@
                                                .UnitPrice = dr.Item("UnitPrice")
                                            })
                         BL.StockIn.SaveData(sqlCon, sqlTrans, clsDataStockIN)
-
-                        'BL.StockIn.CalculateStockIn(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
                     Next
 
                     Dim clsHelper As New DataSetHelper

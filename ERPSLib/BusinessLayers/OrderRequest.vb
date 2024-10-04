@@ -72,7 +72,7 @@
 
                         '# Calculate Stock In
                         'BL.StockIn.CalculateStockIn(sqlCon, sqlTrans, clsDet.OrderNumberSupplier, clsDet.ItemID)
-                        BL.StockOut.CalculateStockOut(sqlCon, sqlTrans, clsDet.OrderNumberSupplier, clsDet.ItemID)
+                        'BL.StockOut.CalculateStockOut(sqlCon, sqlTrans, clsDet.OrderNumberSupplier, clsDet.ItemID)
                     Next
 
                     '# Save Data Status

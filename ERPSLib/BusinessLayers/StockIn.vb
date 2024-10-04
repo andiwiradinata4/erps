@@ -27,9 +27,9 @@ Namespace BL
                                    ByVal clsDataAll As List(Of VO.StockIn))
             Try
                 For Each clsData As VO.StockIn In clsDataAll
-                    Dim clsExists As VO.StockIn = DL.StockIn.DataExists(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
-                    Dim decTotalWeightReceive As Decimal = 0 'DL.StockIn.GetTotalWeightStockInReceive(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
-                    Dim decTotalWeightCutting As Decimal = DL.StockIn.GetTotalWeightStockInCuttingResult(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
+                    Dim clsExists As VO.StockIn = DL.StockIn.DataExists(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID, clsData.ProgramID, clsData.CompanyID)
+                    Dim decTotalWeightReceive As Decimal = DL.StockIn.GetTotalWeightStockInReceive(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID, clsData.ProgramID, clsData.CompanyID)
+                    Dim decTotalWeightCutting As Decimal = DL.StockIn.GetTotalWeightStockInCuttingResult(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID, clsData.ProgramID, clsData.CompanyID)
                     Dim bolNew As Boolean = IIf(clsExists.ID = "", True, False)
                     If bolNew Then
                         clsData.ID = Guid.NewGuid.ToString
@@ -39,8 +39,8 @@ Namespace BL
                     clsData.InTotalWeight = decTotalWeightReceive + decTotalWeightCutting
                     DL.StockIn.SaveData(sqlCon, sqlTrans, bolNew, clsData)
 
-                    Dim decOutTotalWeightProcess As Decimal = DL.StockIn.GetTotalWeightStockOutOrderRequest(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
-                    DL.StockIn.CalculateStockOut(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID, decOutTotalWeightProcess)
+                    Dim decOutTotalWeightProcess As Decimal = DL.StockIn.GetTotalWeightStockOutOrderRequest(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID, clsData.ProgramID, clsData.CompanyID)
+                    DL.StockIn.CalculateStockOut(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID, decOutTotalWeightProcess, clsData.ProgramID, clsData.CompanyID)
                 Next
             Catch ex As Exception
                 Throw ex
@@ -69,26 +69,26 @@ Namespace BL
             End Using
         End Function
 
-        Public Shared Sub DeleteData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                     ByVal clsDataAll As List(Of VO.StockIn))
-            Try
-                For Each clsData As VO.StockIn In clsDataAll
-                    DeleteData(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
-                Next
-            Catch ex As Exception
-                Throw ex
-            End Try
-        End Sub
+        'Public Shared Sub DeleteData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+        '                             ByVal clsDataAll As List(Of VO.StockIn))
+        '    Try
+        '        For Each clsData As VO.StockIn In clsDataAll
+        '            DeleteData(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
+        '        Next
+        '    Catch ex As Exception
+        '        Throw ex
+        '    End Try
+        'End Sub
 
-        Public Shared Sub DeleteData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                     ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer)
-            Try
-                Dim clsExists As VO.StockIn = DL.StockIn.DataExists(sqlCon, sqlTrans, strOrderNumberSupplier, intItemID)
-                If clsExists.ID <> "" Then DL.StockIn.DeleteData(sqlCon, sqlTrans, clsExists.ID)
-            Catch ex As Exception
-                Throw ex
-            End Try
-        End Sub
+        'Public Shared Sub DeleteData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+        '                             ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer)
+        '    Try
+        '        Dim clsExists As VO.StockIn = DL.StockIn.DataExists(sqlCon, sqlTrans, strOrderNumberSupplier, intItemID)
+        '        If clsExists.ID <> "" Then DL.StockIn.DeleteData(sqlCon, sqlTrans, clsExists.ID)
+        '    Catch ex As Exception
+        '        Throw ex
+        '    End Try
+        'End Sub
 
     End Class
 End Namespace
