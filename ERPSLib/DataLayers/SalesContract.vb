@@ -1278,7 +1278,7 @@
                     "	SCD.TotalWeight AS TotalWeightItem, SCD.UnitPrice, SCD.TotalPrice, (SCD.TotalPrice*SCH.PPN/100) AS TotalPPNItem, SCD.TotalPrice + (SCD.TotalPrice*SCH.PPN/100) AS TotalPriceIncPPN, " & vbNewLine &
                     "	CAST('' AS VARCHAR(1000)) AS NumericToString, BP.PICName AS BPPIC, MC.DirectorName AS CompanyDirectorName, MBC.AccountName, MBC.BankName, MBC.AccountNumber, " & vbNewLine &
                     "   SCH.TotalDPP + SCH.TotalPPN - SCH.TotalPPH + SCH.RoundingManual AS GrandTotal, SCH.PPN, SCH.StatusID, SCH.DelegationSeller, SCH.DelegationPositionSeller, " & vbNewLine &
-                    "   SCH.DelegationBuyer, SCH.DelegationPositionBuyer " & vbNewLine &
+                    "   SCH.DelegationBuyer, SCH.DelegationPositionBuyer, MC.Name AS CompanyName " & vbNewLine &
                     "FROM traSalesContract SCH " & vbNewLine &
                     "INNER JOIN mstCompany MC ON " & vbNewLine &
                     "	SCH.CompanyID=MC.ID " & vbNewLine &

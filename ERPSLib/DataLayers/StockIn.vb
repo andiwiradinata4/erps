@@ -207,10 +207,7 @@ Namespace DL
 "	AND TRD.ItemID=@ItemID " & vbNewLine &
 "	AND TRH.IsDeleted=0 " & vbNewLine &
 "	AND TRH.ProgramID=@ProgramID " & vbNewLine &
-"	AND TRH.CompanyID=@CompanyID"
-
-
- " & vbNewLine
+"	AND TRH.CompanyID=@CompanyID " & vbNewLine
 
                     .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
                     .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID

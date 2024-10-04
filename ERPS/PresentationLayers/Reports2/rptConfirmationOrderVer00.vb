@@ -20,7 +20,7 @@ Public Class rptConfirmationOrderVer00
 
     'End Sub
 
-    Private Sub sbItemHeader_AfterPrint(sender As Object, e As EventArgs) Handles sbItemHeader.AfterPrint
+    Private Sub sbItemHeader_AfterPrint(sender As Object, e As EventArgs)
         'Dim a As DataRowView = MyBase.IsDetail.GetCurrentRow()
         'Dim a1 As String = ""
 

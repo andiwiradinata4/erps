@@ -28,7 +28,7 @@ Namespace BL
             Try
                 For Each clsData As VO.StockIn In clsDataAll
                     Dim clsExists As VO.StockIn = DL.StockIn.DataExists(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
-                    Dim decTotalWeightReceive As Decimal = DL.StockIn.GetTotalWeightStockInReceive(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
+                    Dim decTotalWeightReceive As Decimal = 0 'DL.StockIn.GetTotalWeightStockInReceive(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
                     Dim decTotalWeightCutting As Decimal = DL.StockIn.GetTotalWeightStockInCuttingResult(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID)
                     Dim bolNew As Boolean = IIf(clsExists.ID = "", True, False)
                     If bolNew Then
