@@ -8,9 +8,11 @@
         Property Width As Decimal
         Property Length As String
         Property TotalWeight As Decimal
-        Property RemarksResults As String
+        Property RemarksResult As String
         Property Remarks As String
         Property GrandTotalWeight As Decimal
         Property CustomerName As String
+        Property CompanyAddress As String
+        Property CompanyName As String
     End Class
 End Namespace

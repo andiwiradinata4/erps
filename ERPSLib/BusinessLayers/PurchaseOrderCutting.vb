@@ -304,10 +304,13 @@
                 '# Combine Delivery Period
                 For Each dr As DataRow In dtReturn.Rows
                     dr.BeginEdit()
-                    dr.Item("Remarks") += vbCrLf & "DIAMBIL " & Format(dr.Item("PickupDate"), "dd MMMM yyyy")
-                    If dr.Item("IsClaimCustomer") Then dr.Item("Remarks") = vbCrLf & "ONGKOS POTONG EXCLUDE"
+                    '# Remarks
+                    dr.Item("Remarks") += IIf(dr.Item("Remarks") = "", "", vbCrLf) & vbCrLf & "NOTE: DIAMBIL " & Format(dr.Item("PickupDate"), "dd MMMM yyyy") & vbCrLf
+                    If dr.Item("IsClaimCustomer") Then dr.Item("Remarks") += vbCrLf & "NOTE: ONGKOS POTONG EXCLUDE"
+                    '# -------------------------------
+
                     dr.Item("LocationAndDate") = dr.Item("City") & ", " & Format(dr.Item("PODate"), "dd MMMM yyyy")
-                    If IsNumeric(dr.Item("Length")) Then dr.Item("Length") = Format(Convert.ToDecimal(dr.Item("Length")), "#.###")
+                    If IsNumeric(dr.Item("Length")) Then dr.Item("Length") = Format(Convert.ToDecimal(dr.Item("Length")), "#,###")
                     dr.EndEdit()
                 Next
                 dtReturn.AcceptChanges()

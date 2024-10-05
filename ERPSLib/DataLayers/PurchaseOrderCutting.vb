@@ -1044,7 +1044,8 @@
 "	LocationAndDate=CAST('' AS VARCHAR(100)), MC.City, POH.PODate,  POH.PickupDate, " & vbNewLine &
 "	BP.Name AS BPName, 	POH.PONumber, MI.ItemCodeExternal, MI.Thick, MI.Width,  " & vbNewLine &
 "	CASE WHEN MI.Length=0 THEN IT.LengthInitial ELSE CAST(MI.Length AS VARCHAR(100)) END AS Length,  " & vbNewLine &
-"	POD.TotalWeight, POH.RemarksResult, POH.Remarks, CP.Name AS CustomerName, POH.IsClaimCustomer, POH.StatusID " & vbNewLine &
+"	POD.TotalWeight, POH.RemarksResult, POH.Remarks, CP.Name AS CustomerName, POH.IsClaimCustomer, POH.StatusID, " & vbNewLine &
+"   CompanyName=MC.Name, CompanyAddress=MC.Address " & vbNewLine &
 "FROM traPurchaseOrderCutting POH  " & vbNewLine &
 "INNER JOIN traPurchaseOrderCuttingDet POD ON  " & vbNewLine &
 "	POH.ID=POD.POID  " & vbNewLine &
@@ -1219,9 +1220,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traPurchaseOrderCuttingDet " & vbNewLine &
-                    "   (ID, POID, PCDetailID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, UnitPriceRawMaterial, TotalPriceRawMaterial, GroupID, OrderNumberSupplier, RoundingWeight, LevelItem, ParentID) " & vbNewLine &
+                    "   (ID, POID, PCDetailID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, UnitPriceRawMaterial, TotalPriceRawMaterial, GroupID, OrderNumberSupplier, RoundingWeight, LevelItem, ParentID, ReceiveDetailID) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @POID, @PCDetailID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @UnitPriceRawMaterial, @TotalPriceRawMaterial, @GroupID, @OrderNumberSupplier, @RoundingWeight, @LevelItem, @ParentID) " & vbNewLine
+                    "   (@ID, @POID, @PCDetailID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @UnitPriceRawMaterial, @TotalPriceRawMaterial, @GroupID, @OrderNumberSupplier, @RoundingWeight, @LevelItem, @ParentID, @ReceiveDetailID) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = clsData.POID
@@ -1240,6 +1241,7 @@
                 .Parameters.Add("@RoundingWeight", SqlDbType.Decimal).Value = clsData.RoundingWeight
                 .Parameters.Add("@LevelItem", SqlDbType.Int).Value = clsData.LevelItem
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
+                .Parameters.Add("@ReceiveDetailID", SqlDbType.VarChar, 100).Value = clsData.ReceiveDetailID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

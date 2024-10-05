@@ -273,9 +273,6 @@
         UVp2/y2sM28jiCAQImQbQQQRRHAbECHbCCKIIIJbDpH/A5Tf/Sr5CUTQAAAAAElFTkSuQmCC
 </value>
   </data>
-  <metadata name="ObjectDataSource1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 56</value>
-  </metadata>
   <data name="XrPictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAFgAAAApCAYAAACx6+5QAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
@@ -331,4 +328,7 @@
         +M0Q/FvFC4KfK4j+B6HgHI3tHnl1AAAAAElFTkSuQmCC
 </value>
   </data>
+  <metadata name="ObjectDataSource1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 56</value>
+  </metadata>
 </root>

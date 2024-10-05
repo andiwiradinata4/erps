@@ -64,7 +64,7 @@ Public Class frmTraPurchaseOrderCuttingDetItemOutstanding
             Dim dtData As DataTable = BL.Receive.ListDataDetailOutstandingPOCutting(clsCS.ProgramID, clsCS.CompanyID)
             For Each drParent As DataRow In pubParentItem.Rows
                 For Each dr As DataRow In dtData.Rows
-                    If dr.Item("ID") = drParent.Item("PCDetailID") Then dr.Delete()
+                    If dr.Item("ID") = drParent.Item("ReceiveDetailID") Then dr.Delete()
                 Next
                 dtData.AcceptChanges()
             Next

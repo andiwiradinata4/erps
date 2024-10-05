@@ -158,6 +158,7 @@ Public Class frmTraPurchaseOrderCuttingDet
                 intCustomerID = clsData.CustomerID
                 txtCustomerCode.Text = clsData.CustomerCode
                 txtCustomerName.Text = clsData.CustomerName
+                txtRemarksResult.Text = clsData.RemarksResult
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -312,6 +313,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         clsData.CustomerID = intCustomerID
         clsData.IsClaimCustomer = chkIsClaimCustomer.Checked
         clsData.PickupDate = dtpPickupDate.Value
+        clsData.RemarksResult = txtRemarksResult.Text.Trim
 
         pgMain.Value = 60
         Try
