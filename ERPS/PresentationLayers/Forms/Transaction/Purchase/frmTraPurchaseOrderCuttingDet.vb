@@ -486,6 +486,7 @@ Public Class frmTraPurchaseOrderCuttingDet
             .pubTableItem = dtItem
             .pubTableItemResultParent = dtItemResult
             .pubIsAutoSearch = True
+            .pubBPID = intBPID
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -504,6 +505,7 @@ Public Class frmTraPurchaseOrderCuttingDet
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .pubTableItem = dtItem
             .pubTableItemResultParent = dtItemResult
+            .pubBPID = intBPID
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()

@@ -17,6 +17,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
     Private intGroupID As Integer = 0
     Private clsCS As VO.CS
     Private bolIsAutoSearch As Boolean
+    Private intBPID As Integer
 
     Public WriteOnly Property pubTableItem As DataTable
         Set(value As DataTable)
@@ -57,6 +58,12 @@ Public Class frmTraPurchaseOrderCuttingDetItem
     Public WriteOnly Property pubIsAutoSearch As Boolean
         Set(value As Boolean)
             bolIsAutoSearch = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubBPID As Integer
+        Set(value As Integer)
+            intBPID = value
         End Set
     End Property
 
@@ -311,6 +318,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
         With frmDetail
             .pubParentItem = dtItem
             .pubCS = clsCS
+            .pubBPID = intBPID
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             If .pubIsLookUpGet Then
