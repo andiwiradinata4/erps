@@ -18,13 +18,15 @@
                     "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.PersonInCharge, A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.DeliveryAddress, " & vbNewLine &
                     "   A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine &
                     "   A.DPAmount, A.ReceiveAmount, (A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual)-(A.DPAmount+A.ReceiveAmount) AS OutstandingPayment, A.IsDeleted, A.Remarks, A.StatusID, " & vbNewLine &
-                    "   B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine &
-                    "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.TotalDPPRawMaterial " & vbNewLine &
+                    "   B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, " & vbNewLine &
+                    "   A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.TotalDPPRawMaterial, A.CustomerID, C1.Code AS CustomerCode, C1.Name AS CustomerName, A.IsClaimCustomer, A.PickupDate, A.RemarksResult " & vbNewLine &
                     "FROM traPurchaseOrderCutting A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
                     "INNER JOIN mstBusinessPartner C ON " & vbNewLine &
                     "   A.BPID=C.ID " & vbNewLine &
+                    "INNER JOIN mstBusinessPartner C1 ON " & vbNewLine &
+                    "   A.CustomerID=C1.ID " & vbNewLine &
                     "INNER JOIN mstCompany MC ON " & vbNewLine &
                     "   A.CompanyID=MC.ID " & vbNewLine &
                     "INNER JOIN mstProgram MP ON " & vbNewLine &
@@ -123,12 +125,12 @@
                         "   (ID, ProgramID, CompanyID, PONumber, PODate, BPID, PersonInCharge, " & vbNewLine &
                         "    DeliveryPeriodFrom, DeliveryPeriodTo, DeliveryAddress, PPN, PPH, TotalQuantity, " & vbNewLine &
                         "    TotalWeight, TotalDPP, TotalPPN, TotalPPH, RoundingManual, Remarks, StatusID, CreatedBy, " & vbNewLine &
-                        "    CreatedDate, LogBy, LogDate, TotalDPPRawMaterial, CustomerID, IsClaimCustomer) " & vbNewLine &
+                        "    CreatedDate, LogBy, LogDate, TotalDPPRawMaterial, CustomerID, IsClaimCustomer, PickupDate, RemarksResult) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @ProgramID, @CompanyID, @PONumber, @PODate, @BPID, @PersonInCharge, " & vbNewLine &
                         "    @DeliveryPeriodFrom, @DeliveryPeriodTo, @DeliveryAddress, @PPN, @PPH, @TotalQuantity, " & vbNewLine &
                         "    @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @RoundingManual, @Remarks, @StatusID, @LogBy, " & vbNewLine &
-                        "    GETDATE(), @LogBy, GETDATE(), @TotalDPPRawMaterial, @CustomerID, @IsClaimCustomer) " & vbNewLine
+                        "    GETDATE(), @LogBy, GETDATE(), @TotalDPPRawMaterial, @CustomerID, @IsClaimCustomer, @PickupDate, @RemarksResult) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE traPurchaseOrderCutting SET " & vbNewLine &
@@ -156,7 +158,9 @@
                         "    LogDate=GETDATE(), " & vbNewLine &
                         "    TotalDPPRawMaterial=@TotalDPPRawMaterial, " & vbNewLine &
                         "    CustomerID=@CustomerID, " & vbNewLine &
-                        "    IsClaimCustomer=@IsClaimCustomer " & vbNewLine &
+                        "    IsClaimCustomer=@IsClaimCustomer, " & vbNewLine &
+                        "    PickupDate=@PickupDate, " & vbNewLine &
+                        "    RemarksResult=@RemarksResult " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -184,7 +188,9 @@
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@TotalDPPRawMaterial", SqlDbType.Decimal).Value = clsData.TotalDPPRawMaterial
                 .Parameters.Add("@CustomerID", SqlDbType.Int).Value = clsData.CustomerID
-                .Parameters.Add("@IsClaimCustomer", SqlDbType.Decimal).Value = clsData.IsClaimCustomer
+                .Parameters.Add("@IsClaimCustomer", SqlDbType.Bit).Value = clsData.IsClaimCustomer
+                .Parameters.Add("@PickupDate", SqlDbType.DateTime).Value = clsData.PickupDate
+                .Parameters.Add("@RemarksResult", SqlDbType.VarChar, 1000).Value = clsData.RemarksResult
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -209,7 +215,7 @@
                         "   A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.JournalID, A.StatusID, A.SubmitBy, A.SubmitDate, " & vbNewLine &
                         "   A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, " & vbNewLine &
                         "   A.ReceiveAmount, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual, A.TotalDPPRawMaterial, A.CustomerID, CP.Code AS CustomerCode, CP.Name AS CustomerName, " & vbNewLine &
-                        "   A.IsClaimCustomer " & vbNewLine &
+                        "   A.IsClaimCustomer, A.PickupDate, A.RemarksResult " & vbNewLine &
                         "FROM traPurchaseOrderCutting A " & vbNewLine &
                         "INNER JOIN mstBusinessPartner BP ON " & vbNewLine &
                         "   A.BPID=BP.ID " & vbNewLine &
@@ -263,6 +269,12 @@
                         voReturn.ReceiveAmount = .Item("ReceiveAmount")
                         voReturn.GrandTotal = .Item("GrandTotal")
                         voReturn.TotalDPPRawMaterial = .Item("TotalDPPRawMaterial")
+                        voReturn.CustomerID = .Item("CustomerID")
+                        voReturn.CustomerCode = .Item("CustomerCode")
+                        voReturn.CustomerName = .Item("CustomerName")
+                        voReturn.IsClaimCustomer = .Item("IsClaimCustomer")
+                        voReturn.PickupDate = .Item("PickupDate")
+                        voReturn.RemarksResult = .Item("RemarksResult")
                     End If
                 End With
             Catch ex As Exception
@@ -1028,33 +1040,25 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText =
-                    "SELECT 	" & vbNewLine &
-                    "	POH.ID, POH.PONumber, POH.CompanyID, MC.Name AS CompanyName, MC.Address AS CompanyAddress, MC.City AS CompanyCity, POH.ProgramID, 	" & vbNewLine &
-                    "	MP.Name AS ProgramName, POH.PODate, POH.BPID, BP.Code AS BPCode, BP.Name AS BPName, 	" & vbNewLine &
-                    "	POH.PersonInCharge, CAST('' AS VARCHAR(100)) AS DeliveryPeriod, POH.DeliveryPeriodFrom, 	" & vbNewLine &
-                    "	POH.DeliveryPeriodTo, POH.DeliveryAddress, POH.Validity, POH.PPN, POH.PPH, POH.TotalWeight, POH.TotalDPP, 	" & vbNewLine &
-                    "	POH.TotalPPN, POH.TotalPPH, POH.TotalDPP+POH.TotalPPN-POH.TotalPPH AS GrandTotal, 	" & vbNewLine &
-                    "	POH.RoundingManual, POH.Remarks, CAST('' AS VARCHAR(300)) AS PaymentTerms, CAST('' AS VARCHAR(300)) AS PODateAndCity, 	" & vbNewLine &
-                    "	POD.ItemID, MI.ItemCode, MI.ItemName, MI.ItemTypeID, IT.Description ItemType, 	" & vbNewLine &
-                    "	MI.ItemSpecificationID, MIS.Description AS ItemSpec, MI.Thick AS ItemThick, 	" & vbNewLine &
-                    "	MI.Width AS ItemWidth, MI.Length AS ItemLength, POD.Quantity, POD.Weight, 	" & vbNewLine &
-                    "	POD.TotalWeight AS TotalWeightItem, POD.UnitPrice, POD.TotalPrice, POH.StatusID " & vbNewLine &
-                    "FROM traPurchaseOrderCutting POH 	" & vbNewLine &
-                    "INNER JOIN mstCompany MC ON 	" & vbNewLine &
-                    "	POH.CompanyID=MC.ID 	" & vbNewLine &
-                    "INNER JOIN mstProgram MP ON 	" & vbNewLine &
-                    "	POH.ProgramID=MP.ID 	" & vbNewLine &
-                    "INNER JOIN traPurchaseOrderCuttingDet POD ON 	" & vbNewLine &
-                    "	POH.ID=POD.POID 	" & vbNewLine &
-                    "INNER JOIN mstBusinessPartner BP ON	 	" & vbNewLine &
-                    "	POH.BPID=BP.ID 	" & vbNewLine &
-                    "INNER JOIN mstItem MI ON 	" & vbNewLine &
-                    "	POD.ItemID=MI.ID 	" & vbNewLine &
-                    "INNER JOIN mstItemType IT ON 	" & vbNewLine &
-                    "	MI.ItemTypeID=IT.ID 	" & vbNewLine &
-                    "INNER JOIN mstItemSpecification MIS ON 	" & vbNewLine &
-                    "	MI.ItemSpecificationID=MIS.ID 	" & vbNewLine &
-                    "WHERE POH.ID=@ID	" & vbNewLine
+"SELECT  " & vbNewLine &
+"	LocationAndDate=CAST('' AS VARCHAR(100)), MC.City, POH.PODate,  POH.PickupDate, " & vbNewLine &
+"	BP.Name AS BPName, 	POH.PONumber, MI.ItemCodeExternal, MI.Thick, MI.Width,  " & vbNewLine &
+"	CASE WHEN MI.Length=0 THEN IT.LengthInitial ELSE CAST(MI.Length AS VARCHAR(100)) END AS Length,  " & vbNewLine &
+"	POD.TotalWeight, POH.RemarksResult, POH.Remarks, CP.Name AS CustomerName, POH.IsClaimCustomer, POH.StatusID " & vbNewLine &
+"FROM traPurchaseOrderCutting POH  " & vbNewLine &
+"INNER JOIN traPurchaseOrderCuttingDet POD ON  " & vbNewLine &
+"	POH.ID=POD.POID  " & vbNewLine &
+"INNER JOIN mstCompany MC ON  " & vbNewLine &
+"	POH.CompanyID=MC.ID  " & vbNewLine &
+"INNER JOIN mstBusinessPartner BP ON  " & vbNewLine &
+"	POH.BPID=BP.ID  " & vbNewLine &
+"INNER JOIN mstItem MI ON  " & vbNewLine &
+"	POD.ItemID=MI.ID  " & vbNewLine &
+"INNER JOIN mstItemType IT ON  " & vbNewLine &
+"	MI.ItemTypeID=IT.ID  " & vbNewLine &
+"INNER JOIN mstBusinessPartner CP ON  " & vbNewLine &
+"	POH.CustomerID=CP.ID  " & vbNewLine &
+"WHERE POH.ID=@ID	" & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
             End With
@@ -1100,7 +1104,7 @@
                     "   A.ID, A.POID, A.PCDetailID, A2.PCNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
                     "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.CuttingWeight AS MaxTotalWeight, A.Remarks, " & vbNewLine &
-                    "   A.UnitPriceRawMaterial, A.TotalPriceRawMaterial, A.OrderNumberSupplier, A.GroupID, A.RoundingWeight, A.LevelItem, A.ParentID " & vbNewLine &
+                    "   A.UnitPriceRawMaterial, A.TotalPriceRawMaterial, A.OrderNumberSupplier, A.GroupID, A.RoundingWeight, A.LevelItem, A.ParentID, A.ReceiveDetailID " & vbNewLine &
                     "FROM traPurchaseOrderCuttingDet A " & vbNewLine &
                     "INNER JOIN traPurchaseContractDet A1 ON " & vbNewLine &
                     "   A.PCDetailID=A1.ID " & vbNewLine &

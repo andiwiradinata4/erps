@@ -43,5 +43,7 @@
         Property CustomerCode As String
         Property CustomerName As String
         Property IsClaimCustomer As Boolean
+        Property PickupDate As DateTime
+        Property RemarksResult As String
     End Class
 End Namespace

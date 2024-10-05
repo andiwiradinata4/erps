@@ -311,6 +311,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         clsData.Save = intSave
         clsData.CustomerID = intCustomerID
         clsData.IsClaimCustomer = chkIsClaimCustomer.Checked
+        clsData.PickupDate = dtpPickupDate.Value
 
         pgMain.Value = 60
         Try
@@ -360,7 +361,10 @@ Public Class frmTraPurchaseOrderCuttingDet
         ToolStripLogBy.Text = "Dibuat Oleh : -"
         ToolStripLogDate.Text = Format(Now, UI.usDefCons.DateFull)
         intCustomerID = 0
+        txtCustomerCode.Text = ""
+        txtCustomerName.Text = ""
         chkIsClaimCustomer.Checked = False
+        dtpPickupDate.Value = Today
     End Sub
 
     Private Sub prvChooseBP()
@@ -486,7 +490,6 @@ Public Class frmTraPurchaseOrderCuttingDet
             .pubTableItem = dtItem
             .pubTableItemResultParent = dtItemResult
             .pubIsAutoSearch = True
-            .pubBPID = intBPID
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -505,7 +508,6 @@ Public Class frmTraPurchaseOrderCuttingDet
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .pubTableItem = dtItem
             .pubTableItemResultParent = dtItemResult
-            .pubBPID = intBPID
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()

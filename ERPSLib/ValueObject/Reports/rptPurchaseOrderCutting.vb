@@ -7,10 +7,10 @@
         Property Thick As Decimal
         Property Width As Decimal
         Property Length As String
-        Property TotalWeight
+        Property TotalWeight As Decimal
         Property RemarksResults As String
-        Property Remarks
-        Property GrandTotalWeight As String
+        Property Remarks As String
+        Property GrandTotalWeight As Decimal
         Property CustomerName As String
     End Class
 End Namespace

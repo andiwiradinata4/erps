@@ -294,27 +294,20 @@
             Return bolReturn
         End Function
 
-        Public Shared Function Print(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                     ByVal strID As String) As DataTable
+        Public Shared Function Print(ByVal strID As String) As DataTable
             BL.Server.ServerDefault()
             Dim dtReturn As New DataTable
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 '# Get Data
                 dtReturn = DL.PurchaseOrderCutting.Print(sqlCon, Nothing, strID)
 
-                '# Combine Payment Terms
-                Dim strPaymentTerms As String = ""
-                Dim dtPaymentTerm As DataTable = DL.PurchaseOrder.ListDataPaymentTerm(sqlCon, Nothing, strID)
-                For Each dr As DataRow In dtPaymentTerm.Rows
-                    strPaymentTerms += CInt(dr.Item("Percentage")) & "% " & dr.Item("PaymentTypeName") & " BY: " & dr.Item("PaymentModeName") & vbCrLf
-                Next
-
                 '# Combine Delivery Period
                 For Each dr As DataRow In dtReturn.Rows
                     dr.BeginEdit()
-                    dr.Item("DeliveryPeriod") = Format(dr.Item("DeliveryPeriodFrom"), "MMMM") & " - " & Format(dr.Item("DeliveryPeriodTo"), "MMMM yyyy")
-                    dr.Item("PODateAndCity") = dr.Item("CompanyCity") & ", " & Format(dr.Item("PODate"), "dd MMMM yyyy")
-                    dr.Item("PaymentTerms") = strPaymentTerms
+                    dr.Item("Remarks") += vbCrLf & "DIAMBIL " & Format(dr.Item("PickupDate"), "dd MMMM yyyy")
+                    If dr.Item("IsClaimCustomer") Then dr.Item("Remarks") = vbCrLf & "ONGKOS POTONG EXCLUDE"
+                    dr.Item("LocationAndDate") = dr.Item("City") & ", " & Format(dr.Item("PODate"), "dd MMMM yyyy")
+                    If IsNumeric(dr.Item("Length")) Then dr.Item("Length") = Format(Convert.ToDecimal(dr.Item("Length")), "#.###")
                     dr.EndEdit()
                 Next
                 dtReturn.AcceptChanges()

@@ -1002,39 +1002,40 @@
         End Function
 
         Public Shared Function ListDataDetailOutstandingPOCutting(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                                  ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                                  ByVal intBPID As Integer) As DataTable
+                                                                  ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText =
-"SELECT  " & vbNewLine & _
-"	RVD.ID, RVD.PCDetailID, RVD.ReceiveID, RVD.OrderNumberSupplier, RVD.ItemID, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine & _
-"	MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName,  " & vbNewLine & _
-"	RVD.Quantity-RVD.OutQuantity AS Quantity, RVD.Weight, RVD.TotalWeight-RVD.OutWeight AS TotalWeight, RVD.UnitPrice,  " & vbNewLine & _
-"	RVD.TotalPrice, RVD.RoundingWeight " & vbNewLine & _
-"FROM traReceiveDet RVD  " & vbNewLine & _
-"INNER JOIN traReceive RVH ON  " & vbNewLine & _
-"	RVD.ReceiveID=RVH.ID  " & vbNewLine & _
-"INNER JOIN mstItem MI ON    " & vbNewLine & _
-"    RVD.ItemID=MI.ID    " & vbNewLine & _
-"INNER JOIN mstItemSpecification MIS ON    " & vbNewLine & _
-"    MI.ItemSpecificationID=MIS.ID    " & vbNewLine & _
-"INNER JOIN mstItemType MIT ON    " & vbNewLine & _
-"    MI.ItemTypeID=MIT.ID    " & vbNewLine & _
-"WHERE  " & vbNewLine & _
-"	RVH.IsDeleted=0  " & vbNewLine & _
-"	AND RVH.ProgramID=@ProgramID  " & vbNewLine & _
-"	AND RVH.CompanyID=@CompanyID " & vbNewLine & _
-"	AND RVH.SubmitBy<>''  " & vbNewLine & _
-"	AND RVD.TotalWeight-RVD.OutWeight>0   " & vbNewLine & _
-"	AND RVH.BPID=@BPID " & vbNewLine
+"SELECT  " & vbNewLine &
+"	RVD.ID, RVD.PCDetailID, RVD.ReceiveID, RVD.OrderNumberSupplier, PCH.PCNumber, RVD.ItemID, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+"	MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName,  " & vbNewLine &
+"	RVD.Quantity-RVD.OutQuantity AS Quantity, RVD.Weight, RVD.TotalWeight-RVD.OutWeight AS TotalWeight, RVD.UnitPrice,  " & vbNewLine &
+"	RVD.TotalPrice, RVD.RoundingWeight, RVD.Remarks " & vbNewLine &
+"FROM traReceiveDet RVD  " & vbNewLine &
+"INNER JOIN traReceive RVH ON  " & vbNewLine &
+"	RVD.ReceiveID=RVH.ID  " & vbNewLine &
+"INNER JOIN traPurchaseContractDet PCD ON  " & vbNewLine &
+"	RVD.PCDetailID=PCD.ID  " & vbNewLine &
+"INNER JOIN traPurchaseContract PCH ON  " & vbNewLine &
+"	PCD.PCID=PCH.ID  " & vbNewLine &
+"INNER JOIN mstItem MI ON    " & vbNewLine &
+"    RVD.ItemID=MI.ID    " & vbNewLine &
+"INNER JOIN mstItemSpecification MIS ON    " & vbNewLine &
+"    MI.ItemSpecificationID=MIS.ID    " & vbNewLine &
+"INNER JOIN mstItemType MIT ON    " & vbNewLine &
+"    MI.ItemTypeID=MIT.ID    " & vbNewLine &
+"WHERE  " & vbNewLine &
+"	RVH.IsDeleted=0  " & vbNewLine &
+"	AND RVH.ProgramID=@ProgramID  " & vbNewLine &
+"	AND RVH.CompanyID=@CompanyID " & vbNewLine &
+"	AND RVH.SubmitBy<>''  " & vbNewLine &
+"	AND RVD.TotalWeight-RVD.OutWeight>0   " & vbNewLine
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
-                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function

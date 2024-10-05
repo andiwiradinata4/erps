@@ -17,7 +17,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
     Private intGroupID As Integer = 0
     Private clsCS As VO.CS
     Private bolIsAutoSearch As Boolean
-    Private intBPID As Integer
+    Private strReceiveDetailID As String
 
     Public WriteOnly Property pubTableItem As DataTable
         Set(value As DataTable)
@@ -61,9 +61,9 @@ Public Class frmTraPurchaseOrderCuttingDetItem
         End Set
     End Property
 
-    Public WriteOnly Property pubBPID As Integer
-        Set(value As Integer)
-            intBPID = value
+    Public WriteOnly Property pubReceiveDetailID As String
+        Set(value As String)
+            strReceiveDetailID = value
         End Set
     End Property
 
@@ -207,6 +207,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
                 .BeginEdit()
                 .Item("ID") = Guid.NewGuid
                 .Item("POID") = ""
+                .Item("ReceiveDetailID") = strReceiveDetailID
                 .Item("PCNumber") = txtPCNumber.Text.Trim
                 .Item("PCDetailID") = strPCDetailID
                 .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
@@ -239,6 +240,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
                     If .Item("ID") = strID Then
                         .BeginEdit()
                         .Item("POID") = ""
+                        .Item("ReceiveDetailID") = strReceiveDetailID
                         .Item("PCNumber") = txtPCNumber.Text.Trim
                         .Item("PCDetailID") = strPCDetailID
                         .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
@@ -311,6 +313,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
         txtUnitPriceRawMaterial.Value = 0
         txtTotalPriceRawMaterial.Value = 0
         txtRemarks.Text = ""
+        strReceiveDetailID = ""
     End Sub
 
     Private Sub prvChooseItem()
@@ -318,12 +321,12 @@ Public Class frmTraPurchaseOrderCuttingDetItem
         With frmDetail
             .pubParentItem = dtItem
             .pubCS = clsCS
-            .pubBPID = intBPID
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             If .pubIsLookUpGet Then
+                strReceiveDetailID = .pubLUdtRow.Item("ID")
                 txtPCNumber.Text = .pubLUdtRow.Item("PCNumber")
-                strPCDetailID = .pubLUdtRow.Item("ID")
+                strPCDetailID = .pubLUdtRow.Item("PCDetailID")
                 txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
                 intItemID = .pubLUdtRow.Item("ItemID")
                 cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")

@@ -346,11 +346,10 @@
             End Using
         End Function
 
-        Public Shared Function ListDataDetailOutstandingPOCutting(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                                  ByVal intBPID As Integer) As DataTable
+        Public Shared Function ListDataDetailOutstandingPOCutting(ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.Receive.ListDataDetailOutstandingPOCutting(sqlCon, Nothing, intProgramID, intCompanyID, intBPID)
+                Return DL.Receive.ListDataDetailOutstandingPOCutting(sqlCon, Nothing, intProgramID, intCompanyID)
             End Using
         End Function
 

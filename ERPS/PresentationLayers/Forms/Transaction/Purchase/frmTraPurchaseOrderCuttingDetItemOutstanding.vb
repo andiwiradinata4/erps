@@ -6,7 +6,6 @@ Public Class frmTraPurchaseOrderCuttingDetItemOutstanding
     Private intPos As Integer = 0
     Private frmParent As frmTraPurchaseOrderCuttingDetItem
     Private clsCS As VO.CS
-    Private intBPID As Integer
     Public pubLUdtRow As DataRow
     Public pubIsLookUpGet As Boolean = False
     Public pubParentItem As New DataTable
@@ -14,12 +13,6 @@ Public Class frmTraPurchaseOrderCuttingDetItemOutstanding
     Public WriteOnly Property pubCS As VO.CS
         Set(value As VO.CS)
             clsCS = value
-        End Set
-    End Property
-
-    Public WriteOnly Property pubBPID As Integer
-        Set(value As Integer)
-            intBPID = value
         End Set
     End Property
 
@@ -35,7 +28,8 @@ Public Class frmTraPurchaseOrderCuttingDetItemOutstanding
 
     Private Sub prvSetGrid()
         UI.usForm.SetGrid(grdView, "ID", "ID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdView, "PCID", "PCID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "PCDetailID", "PCDetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "ReceiveID", "ReceiveID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PCNumber", "Nomor Kontrak", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
@@ -52,6 +46,8 @@ Public Class frmTraPurchaseOrderCuttingDetItemOutstanding
         UI.usForm.SetGrid(grdView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "RoundingWeight", "RoundingWeight", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
     End Sub
 
@@ -65,7 +61,7 @@ Public Class frmTraPurchaseOrderCuttingDetItemOutstanding
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         Try
-            Dim dtData As DataTable = BL.Receive.ListDataDetailOutstandingPOCutting(clsCS.ProgramID, clsCS.CompanyID, intBPID)
+            Dim dtData As DataTable = BL.Receive.ListDataDetailOutstandingPOCutting(clsCS.ProgramID, clsCS.CompanyID)
             For Each drParent As DataRow In pubParentItem.Rows
                 For Each dr As DataRow In dtData.Rows
                     If dr.Item("ID") = drParent.Item("PCDetailID") Then dr.Delete()
@@ -87,14 +83,11 @@ Public Class frmTraPurchaseOrderCuttingDetItemOutstanding
     Private Sub prvSumGrid()
         Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
         Dim SumGrandTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
+        Dim SumTotalPrice As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
 
-        If grdView.Columns("Quantity").SummaryText.Trim = "" Then
-            grdView.Columns("Quantity").Summary.Add(SumTotalQuantity)
-        End If
-
-        If grdView.Columns("TotalWeight").SummaryText.Trim = "" Then
-            grdView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeight)
-        End If
+        If grdView.Columns("Quantity").SummaryText.Trim = "" Then grdView.Columns("Quantity").Summary.Add(SumTotalQuantity)
+        If grdView.Columns("TotalWeight").SummaryText.Trim = "" Then grdView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeight)
+        If grdView.Columns("TotalPrice").SummaryText.Trim = "" Then grdView.Columns("TotalPrice").Summary.Add(SumTotalPrice)
     End Sub
 
     Private Sub prvGet()

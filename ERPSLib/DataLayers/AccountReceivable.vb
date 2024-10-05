@@ -1618,9 +1618,10 @@
                     "   And A.SCID=@ReferencesID " & vbNewLine &
                     "   And B.ApprovedBy<>'' " & vbNewLine &
                     "   AND A.TotalPrice-A.DPAmount-A.ReceiveAmount>0 " & vbNewLine &
-                    "   AND A.TotalWeight-A.DCWeight>0 " & vbNewLine
+                    "   AND A.TotalWeight-A.DCWeight>0 " & vbNewLine &
+                    "   AND A.ParentID='' " & vbNewLine
 
-                If bolIsUseSubItem Then .CommandText += "   AND A.ParentID<>'' " & vbNewLine
+                'If bolIsUseSubItem Then .CommandText += "   AND A.ParentID<>'' " & vbNewLine
 
                 .CommandText +=
                     "   AND A.ID NOT IN " & vbNewLine &

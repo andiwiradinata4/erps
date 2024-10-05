@@ -30,6 +30,10 @@ Public Class frmTraPurchaseOrderCutting
         UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "BPCode", "Kode Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "BPName", "Nama Pemasok", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "CustomerID", "CustomerID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdView, "CustomerCode", "Kode Pelanggan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "CustomerName", "Nama Pelanggan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "IsClaimCustomer", "Klaim Pelanggan?", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PersonInCharge", "PIC", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "DeliveryPeriodFrom", "Periode Dari", 100, UI.usDefGrid.gDateMonthYear)
         UI.usForm.SetGrid(grdView, "DeliveryPeriodTo", "Periode Sampai", 100, UI.usDefGrid.gDateMonthYear)
@@ -429,7 +433,7 @@ Public Class frmTraPurchaseOrderCutting
         pgMain.Value = 40
 
         Try
-            Dim dtData As DataTable = BL.PurchaseOrderCutting.Print(intProgramID, intCompanyID, strID)
+            Dim dtData As DataTable = BL.PurchaseOrderCutting.Print(strID)
             Dim intStatusID As Integer = 0
             For Each dr As DataRow In dtData.Rows
                 intStatusID = dr.Item("StatusID")
@@ -555,7 +559,6 @@ Public Class frmTraPurchaseOrderCutting
             .Item(cPrint).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.PrintReportAccess)
             .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.ExportExcelAccess)
             bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.ExportReportAccess)
-            .Item(cPrint).Visible = False
         End With
     End Sub
 
