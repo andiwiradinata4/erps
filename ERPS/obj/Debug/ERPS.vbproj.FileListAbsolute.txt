@@ -878,3 +878,6 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer1SubItem.r
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer2.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetVer2.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptPurchaseOrderCutting.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResult.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResultDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResultDetItem.resources

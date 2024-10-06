@@ -102,6 +102,7 @@
     <Compile Include="BusinessLayers\Delivery.vb" />
     <Compile Include="BusinessLayers\ARAP.vb" />
     <Compile Include="BusinessLayers\Item.vb" />
+    <Compile Include="BusinessLayers\ItemResult.vb" />
     <Compile Include="BusinessLayers\ItemSpecification.vb" />
     <Compile Include="BusinessLayers\ItemType.vb" />
     <Compile Include="BusinessLayers\Journal.vb" />
@@ -155,6 +156,7 @@
     <Compile Include="DataLayers\Delivery.vb" />
     <Compile Include="DataLayers\ARAP.vb" />
     <Compile Include="DataLayers\Item.vb" />
+    <Compile Include="DataLayers\ItemResult.vb" />
     <Compile Include="DataLayers\ItemSpecification.vb" />
     <Compile Include="DataLayers\ItemType.vb" />
     <Compile Include="DataLayers\Journal.vb" />
@@ -259,6 +261,9 @@
     <Compile Include="ValueObject\ARAP.vb" />
     <Compile Include="ValueObject\DeliveryTransport.vb" />
     <Compile Include="ValueObject\Item.vb" />
+    <Compile Include="ValueObject\ItemResult.vb" />
+    <Compile Include="ValueObject\ItemResultDet.vb" />
+    <Compile Include="ValueObject\ItemResultStatus.vb" />
     <Compile Include="ValueObject\ItemSpecification.vb" />
     <Compile Include="ValueObject\ItemType.vb" />
     <Compile Include="ValueObject\Journal.vb" />

@@ -58,6 +58,7 @@
                 DevelopOnProgress_ID51(sqlCon, Nothing)
                 DevelopOnProgress_ID52(sqlCon, Nothing)
                 DevelopOnProgress_ID53(sqlCon, Nothing)
+                CreateTableItemResult_ID54(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1419,6 +1420,61 @@
             clsData.ID = 53
             clsData.Name = "Alter Table mstItemType | Add LengthInitial"
             clsData.Scripts += "ALTER TABLE mstItemType ADD LengthInitial [varchar](100) NOT NULL CONSTRAINT DF_mstItemType_LengthInitial DEFAULT ('') " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 54
+        Private Shared Sub CreateTableItemResult_ID54(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 54
+            clsData.Name = "Create Table Item Result"
+            clsData.Scripts += _
+"CREATE TABLE [dbo].[traItemResult](  " & vbNewLine & _
+"	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traItemResult_ProgramID]  DEFAULT ((0)),  " & vbNewLine & _
+"	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traItemResult_CompanyID]  DEFAULT ((0)),  " & vbNewLine & _
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResult_ID]  DEFAULT (''),  " & vbNewLine & _
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traItemResult_ItemID]  DEFAULT ((0)),  " & vbNewLine & _
+"	[Name] [varchar](1000) NOT NULL CONSTRAINT [DF_traItemResult_Name]  DEFAULT (''),  " & vbNewLine & _
+"	[StatusID] [int] NOT NULL CONSTRAINT [DF_traItemResult_StatusID]  DEFAULT ((0)),  " & vbNewLine & _
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traItemResult_Remarks]  DEFAULT (''),  " & vbNewLine & _
+"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traItemResult_CreatedBy]  DEFAULT ('SYSTEM'),  " & vbNewLine & _
+"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traItemResult_CreatedDate]  DEFAULT (GETDATE()),  " & vbNewLine & _
+"	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traItemResult_LogBy]  DEFAULT ('SYSTEM'),  " & vbNewLine & _
+"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traItemResult_LogDate]  DEFAULT (GETDATE()),  " & vbNewLine & _
+"	[LogInc] [int] NOT NULL CONSTRAINT [DF_traItemResult_LogInc]  DEFAULT ((0)),  " & vbNewLine & _
+"   CONSTRAINT [PK_traItemResult] PRIMARY KEY CLUSTERED   " & vbNewLine & _
+"   (  " & vbNewLine & _
+"   	[ID] ASC  " & vbNewLine & _
+"   )   " & vbNewLine & _
+")  " & vbNewLine & _
+"CREATE TABLE [dbo].[traItemResultDet](  " & vbNewLine & _
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResultDet_ID]  DEFAULT (''),  " & vbNewLine & _
+"	[ParentID] [bigint] NOT NULL CONSTRAINT [DF_traItemResultDet_ParentID]  DEFAULT (''),  " & vbNewLine & _
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traItemResultDet_ItemID]  DEFAULT ((0)),  " & vbNewLine & _
+"	[Multiple] [decimal](18,2) NOT NULL CONSTRAINT [DF_traItemResultDet_Multiple]  DEFAULT ((0))," & vbNewLine & _
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traItemResultDet_Remarks]  DEFAULT (''),  " & vbNewLine & _
+"   CONSTRAINT [PK_traItemResultDet] PRIMARY KEY CLUSTERED   " & vbNewLine & _
+"   (  " & vbNewLine & _
+"   	[ID] ASC  " & vbNewLine & _
+"   )   " & vbNewLine & _
+")  " & vbNewLine & _
+"CREATE TABLE [dbo].[traItemResultStatus](" & vbNewLine & _
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResultStatus_ID]  DEFAULT (''),  " & vbNewLine & _
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResultStatus_ParentID]  DEFAULT (''),  " & vbNewLine & _
+"	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResultStatus_Status]  DEFAULT ('')," & vbNewLine & _
+"	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traItemResultStatus_StatusBy]  DEFAULT ('')," & vbNewLine & _
+"	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traItemResultStatus_StatusDate]  DEFAULT (GETDATE())," & vbNewLine & _
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traItemResultStatus_Remarks]  DEFAULT ('')," & vbNewLine & _
+"	CONSTRAINT [PK_traItemResultStatus] PRIMARY KEY CLUSTERED " & vbNewLine & _
+"	(" & vbNewLine & _
+"	[ID] ASC" & vbNewLine & _
+"	)" & vbNewLine & _
+")" & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
