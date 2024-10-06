@@ -231,7 +231,7 @@ Partial Public Class rptPurchaseOrderCutting
         'XrTableCell19
         '
         Me.XrTableCell19.Dpi = 100.0!
-        Me.XrTableCell19.Font = New System.Drawing.Font("Tahoma", 11.0!)
+        Me.XrTableCell19.Font = New System.Drawing.Font("Tahoma", 10.0!)
         Me.XrTableCell19.Name = "XrTableCell19"
         Me.XrTableCell19.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 0, 0, 0, 100.0!)
         Me.XrTableCell19.StylePriority.UseFont = False

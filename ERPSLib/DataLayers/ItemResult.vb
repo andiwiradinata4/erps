@@ -274,7 +274,7 @@ Namespace DL
 
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
-                .Parameters.Add("@ParentID", SqlDbType.BigInt).Value = clsData.ParentID
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
                 .Parameters.Add("@ItemID", SqlDbType.Int).Value = clsData.ItemID
                 .Parameters.Add("@Multiple", SqlDbType.Decimal).Value = clsData.Multiple
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks

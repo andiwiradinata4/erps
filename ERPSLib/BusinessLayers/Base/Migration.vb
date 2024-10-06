@@ -59,6 +59,7 @@
                 DevelopOnProgress_ID52(sqlCon, Nothing)
                 DevelopOnProgress_ID53(sqlCon, Nothing)
                 CreateTableItemResult_ID54(sqlCon, Nothing)
+                DevelopOnProgress_ID55(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1454,7 +1455,7 @@
 ")  " & vbNewLine & _
 "CREATE TABLE [dbo].[traItemResultDet](  " & vbNewLine & _
 "	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResultDet_ID]  DEFAULT (''),  " & vbNewLine & _
-"	[ParentID] [bigint] NOT NULL CONSTRAINT [DF_traItemResultDet_ParentID]  DEFAULT (''),  " & vbNewLine & _
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResultDet_ParentID]  DEFAULT (''),  " & vbNewLine & _
 "	[ItemID] [int] NOT NULL CONSTRAINT [DF_traItemResultDet_ItemID]  DEFAULT ((0)),  " & vbNewLine & _
 "	[Multiple] [decimal](18,2) NOT NULL CONSTRAINT [DF_traItemResultDet_Multiple]  DEFAULT ((0))," & vbNewLine & _
 "	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traItemResultDet_Remarks]  DEFAULT (''),  " & vbNewLine & _
@@ -1475,6 +1476,22 @@
 "	[ID] ASC" & vbNewLine & _
 "	)" & vbNewLine & _
 ")" & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 55
+        Private Shared Sub DevelopOnProgress_ID55(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 55
+            clsData.Name = "Alter Table traPurchaseOrderCuttingDet | Add ResultID"
+            clsData.Scripts +=
+"ALTER TABLE traPurchaseOrderCuttingDet ADD ResultID [varchar](100) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ResultID DEFAULT ('') " & vbNewLine &
+"ALTER TABLE traPurchaseOrderCuttingDetResult ADD ResultID [varchar](100) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_ResultID DEFAULT ('') " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

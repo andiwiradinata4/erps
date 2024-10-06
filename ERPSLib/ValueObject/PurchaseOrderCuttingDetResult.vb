@@ -17,5 +17,6 @@
         Property UnitPriceRawMaterial As Decimal
         Property TotalPriceRawMaterial As Decimal
         Property IsShowPrintOut As Boolean
+        Property ResultID As String
     End Class
 End Namespace

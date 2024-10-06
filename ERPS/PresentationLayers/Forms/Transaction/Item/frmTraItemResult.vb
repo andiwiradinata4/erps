@@ -7,6 +7,8 @@
     Private intProgramID As Integer
     Private intCompanyID As Integer
     Private intItemID As Integer
+    Private bolIsLookup As Boolean = False
+    Private drLookupGet As DataRow
 
     Public WriteOnly Property pubProgramID As Integer
         Set(value As Integer)
@@ -24,6 +26,18 @@
         Set(value As Integer)
             intItemID = value
         End Set
+    End Property
+
+    Public WriteOnly Property pubIsLookup As Boolean
+        Set(value As Boolean)
+            bolIsLookup = value
+        End Set
+    End Property
+
+    Public ReadOnly Property pubLUdtRow As DataRow
+        Get
+            Return drLookupGet
+        End Get
     End Property
 
 #End Region
@@ -50,6 +64,8 @@
     Private Sub prvSetButton()
         Dim bolEnable As Boolean = IIf(grdView.RowCount > 0, True, False)
         With ToolBar.Buttons
+            .Item(cGet).Visible = bolIsLookup
+            .Item(cSep1).Visible = bolIsLookup
             .Item(cGet).Enabled = bolEnable
             .Item(cDetail).Enabled = bolEnable
             .Item(cDelete).Enabled = bolEnable
@@ -77,6 +93,13 @@
             prvQuery()
             If grdView.RowCount > 0 Then UI.usForm.GridMoveRow(grdView, "ID", strSearch)
         End With
+    End Sub
+
+    Private Sub prvGet()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        drLookupGet = grdView.GetDataRow(intPos)
+        Me.Close()
     End Sub
 
     Private Function prvGetData() As VO.ItemResult
@@ -157,15 +180,32 @@
 #Region "Form Handle"
 
     Private Sub frmTraItemResult_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
-
+        If e.KeyCode = Keys.Escape Then
+            If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
+        End If
     End Sub
 
     Private Sub frmTraItemResult_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        UI.usForm.SetIcon(Me, "MyLogo")
+        ToolBar.SetIcon(Me)
+        prvSetGrid()
+        prvQuery()
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
-
+        If e.Button.Name = ToolBar.Buttons(cClose).Name Then
+            Me.Close()
+        ElseIf e.Button.Name = ToolBar.Buttons(cNew).Name Then
+            prvNew()
+        ElseIf e.Button.Name = ToolBar.Buttons(cRefresh).Name Then
+            pubRefresh()
+        ElseIf grdView.FocusedRowHandle >= 0 Then
+            Select Case e.Button.Name
+                Case ToolBar.Buttons(cGet).Name : prvGet()
+                Case ToolBar.Buttons(cDetail).Name : prvDetail()
+                Case ToolBar.Buttons(cDelete).Name : prvDelete()
+            End Select
+        End If
     End Sub
 
 #End Region

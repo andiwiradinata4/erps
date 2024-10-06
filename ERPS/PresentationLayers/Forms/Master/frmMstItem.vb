@@ -7,7 +7,8 @@
 
     Private Const _
        cGet As Byte = 0, cSep1 As Byte = 1, cNew As Byte = 2, cDetail As Byte = 3, _
-       cDelete As Byte = 4, cSep2 As Byte = 5, cRefresh As Byte = 6, cClose As Byte = 7
+       cDelete As Byte = 4, cSep2 As Byte = 5, cResult As Byte = 6, cSep3 As Byte = 7,
+       cRefresh As Byte = 8, cClose As Byte = 9
 
     Private Sub prvSetTitleForm()
         If pubIsLookUp Then
@@ -46,6 +47,7 @@
             .Item(cGet).Enabled = bolEnable
             .Item(cDetail).Enabled = bolEnable
             .Item(cDelete).Enabled = bolEnable
+            .Item(cResult).Enabled = bolEnable
         End With
     End Sub
 
@@ -141,6 +143,18 @@
         End With
     End Sub
 
+    Private Sub prvResult()
+        If grdView.FocusedRowHandle < 0 Then Exit Sub
+        Dim frmDetail As New frmTraItemResult
+        With frmDetail
+            .pubCompanyID = ERPSLib.UI.usUserApp.CompanyID
+            .pubProgramID = ERPSLib.UI.usUserApp.ProgramID
+            .pubItemID = grdView.GetFocusedRowCellValue("ID")
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+        End With
+    End Sub
+
 #Region "Form Handle"
 
     Private Sub frmMstItem_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -155,7 +169,7 @@
         prvSetTitleForm()
         prvSetGrid()
         prvFillCombo()
-        prvSetButton
+        prvSetButton()
         prvUserAccess()
         btnExecute.Focus()
         If Not pubIsLookUp Then Me.WindowState = FormWindowState.Maximized
@@ -173,6 +187,7 @@
                 Case ToolBar.Buttons(cGet).Name : prvGet()
                 Case ToolBar.Buttons(cDetail).Name : prvDetail()
                 Case ToolBar.Buttons(cDelete).Name : prvDelete()
+                Case ToolBar.Buttons(cResult).Name : prvResult()
             End Select
         End If
     End Sub

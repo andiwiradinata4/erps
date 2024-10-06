@@ -73,7 +73,6 @@
         cboItemSpecification.SelectedIndex = -1
         txtMultiple.Value = 0
         txtTotalWeight.Value = 0
-        txtTotalPrice.Value = 0
         txtRemarks.Text = ""
     End Sub
 
@@ -94,9 +93,8 @@
                 txtLength.Value = drSelected.Item("Length")
                 txtWeight.Value = drSelected.Item("Weight")
                 cboItemSpecification.SelectedValue = drSelected.Item("ItemSpecificationID")
-                txtMultiple.Value = drSelected.Item("Quantity")
+                txtMultiple.Value = drSelected.Item("Multiple")
                 txtTotalWeight.Value = drSelected.Item("TotalWeight")
-                txtTotalPrice.Value = drSelected.Item("TotalPrice")
                 txtRemarks.Text = drSelected.Item("Remarks")
             End If
         Catch ex As Exception
@@ -130,10 +128,10 @@
             dr = dtParent.NewRow
             dr.BeginEdit()
             dr.Item("ID") = Guid.NewGuid
-            dr.Item("POID") = ""
             dr.Item("ItemID") = intItemID
             dr.Item("ItemCode") = txtItemCode.Text.Trim
             dr.Item("ItemName") = txtItemName.Text.Trim
+            dr.Item("Multiple") = txtMultiple.Value
             dr.Item("Thick") = txtThick.Value
             dr.Item("Width") = txtWidth.Value
             dr.Item("Length") = txtLength.Value
@@ -141,10 +139,8 @@
             dr.Item("ItemSpecificationName") = cboItemSpecification.Text.Trim
             dr.Item("ItemTypeID") = cboItemType.SelectedValue
             dr.Item("ItemTypeName") = cboItemType.Text.Trim
-            dr.Item("Multiple") = txtMultiple.Value
             dr.Item("Weight") = txtWeight.Value
             dr.Item("TotalWeight") = txtTotalWeight.Value
-            dr.Item("TotalPrice") = txtTotalPrice.Value
             dr.Item("Remarks") = txtRemarks.Text.Trim
             dr.EndEdit()
             dtParent.Rows.Add(dr)
@@ -155,10 +151,10 @@
             For Each dr As DataRow In dtParent.Rows
                 If dr.Item("ID") = strID Then
                     dr.BeginEdit()
-                    dr.Item("POID") = ""
                     dr.Item("ItemID") = intItemID
                     dr.Item("ItemCode") = txtItemCode.Text.Trim
                     dr.Item("ItemName") = txtItemName.Text.Trim
+                    dr.Item("Multiple") = txtMultiple.Value
                     dr.Item("Thick") = txtThick.Value
                     dr.Item("Width") = txtWidth.Value
                     dr.Item("Length") = txtLength.Value
@@ -166,10 +162,8 @@
                     dr.Item("ItemSpecificationName") = cboItemSpecification.Text.Trim
                     dr.Item("ItemTypeID") = cboItemType.SelectedValue
                     dr.Item("ItemTypeName") = cboItemType.Text.Trim
-                    dr.Item("Multiple") = txtMultiple.Value
                     dr.Item("Weight") = txtWeight.Value
                     dr.Item("TotalWeight") = txtTotalWeight.Value
-                    dr.Item("TotalPrice") = txtTotalPrice.Value
                     dr.Item("Remarks") = txtRemarks.Text.Trim
                     dr.EndEdit()
                     dtParent.AcceptChanges()

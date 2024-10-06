@@ -18,6 +18,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
     Private clsCS As VO.CS
     Private bolIsAutoSearch As Boolean
     Private strReceiveDetailID As String
+    Private strResultID As String = ""
 
     Public WriteOnly Property pubTableItem As DataTable
         Set(value As DataTable)
@@ -156,6 +157,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
                 txtTotalPriceRawMaterial.Value = drSelectedItem.Item("TotalPriceRawMaterial")
                 txtQuantity.Value = drSelectedItem.Item("Quantity")
                 txtRemarks.Text = drSelectedItem.Item("Remarks")
+                strResultID = drSelectedItem.Item("ResultID")
 
                 For Each dr As DataRow In dtItemResultParent.Rows
                     If dr.Item("GroupID") = intGroupID Then dtResult.ImportRow(dr)
@@ -231,6 +233,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
                 .Item("UnitPriceRawMaterial") = txtUnitPriceRawMaterial.Value
                 .Item("TotalPriceRawMaterial") = txtTotalPriceRawMaterial.Value
                 .Item("Remarks") = txtRemarks.Text.Trim
+                .Item("ResultID") = strResultID
                 .EndEdit()
             End With
             dtItem.Rows.Add(drItem)
@@ -264,6 +267,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
                         .Item("UnitPriceRawMaterial") = txtUnitPriceRawMaterial.Value
                         .Item("TotalPriceRawMaterial") = txtTotalPriceRawMaterial.Value
                         .Item("Remarks") = txtRemarks.Text.Trim
+                        .Item("ResultID") = strResultID
                         .EndEdit()
                     End If
                 End With
@@ -419,6 +423,57 @@ Public Class frmTraPurchaseOrderCuttingDetItem
         prvToolsHandles()
     End Sub
 
+    Private Sub prvImport()
+        Dim dtItemResult As DataTable = BL.ItemResult.ListData(clsCS.ProgramID, clsCS.CompanyID, intItemID)
+        If dtItemResult.Rows.Count = 0 Then
+            UI.usForm.frmMessageBox("Tidak ada data yang bisa diimport")
+            Exit Sub
+        End If
+
+        For Each dr As DataRow In dtResult.Rows
+            If dr.Item("ResultID") = "" Then Continue For
+            If dr.Item("ResultID") = strResultID Then dr.Delete()
+        Next
+        dtResult.AcceptChanges()
+
+        For Each drHeader As DataRow In dtItemResult.Rows
+            Dim dtItemResultDet As DataTable = BL.ItemResult.ListDataDetail(drHeader.Item("ID"))
+            For Each dr As DataRow In dtItemResultDet.Rows
+                Dim drNew As DataRow = dtResult.NewRow
+                With drNew
+                    .BeginEdit()
+                    .Item("ID") = Guid.NewGuid
+                    .Item("POID") = ""
+                    .Item("GroupID") = intGroupID
+                    .Item("ItemID") = dr.Item("ItemID")
+                    .Item("ItemCode") = dr.Item("ItemCode")
+                    .Item("ItemName") = dr.Item("ItemName")
+                    .Item("Thick") = dr.Item("Thick")
+                    .Item("Width") = dr.Item("Width")
+                    .Item("Length") = dr.Item("Length")
+                    .Item("ItemSpecificationID") = dr.Item("ItemSpecificationID")
+                    .Item("ItemSpecificationName") = dr.Item("ItemSpecificationName")
+                    .Item("ItemTypeID") = dr.Item("ItemTypeID")
+                    .Item("ItemTypeName") = dr.Item("ItemTypeName")
+                    .Item("Quantity") = dr.Item("Multiple") * txtQuantity.Value
+                    .Item("Weight") = dr.Item("Weight")
+                    .Item("TotalWeight") = .Item("Weight") * .Item("Quantity")
+                    .Item("Remarks") = dr.Item("Remarks")
+                    .Item("UnitPriceRawMaterial") = txtUnitPriceRawMaterial.Value
+                    .Item("TotalPriceRawMaterial") = txtUnitPriceRawMaterial.Value * .Item("TotalWeight")
+                    .Item("ResultID") = drHeader.Item("ID")
+                    dr.EndEdit()
+                    dtResult.Rows.Add(drNew)
+                End With
+                strResultID = drHeader.Item("ID")
+            Next
+            Exit For
+        Next
+        dtResult.AcceptChanges()
+        grdItemResultView.BestFitColumns()
+        prvSetButtonItemResult()
+    End Sub
+
 #End Region
 
 #Region "Form Handle"
@@ -453,6 +508,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
             Case "Tambah" : prvAddItemResult()
             Case "Edit" : prvEditItemResult()
             Case "Hapus" : prvDeleteItemResult()
+            Case "Import" : prvImport()
         End Select
     End Sub
 

@@ -39,6 +39,7 @@ Namespace BL
                         clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
                         clsDet.ParentID = clsData.ID
                         DL.ItemResult.SaveDataDetail(sqlCon, sqlTrans, clsDet)
+                        intCount += 1
                     Next
 
                     '# Save Data Status

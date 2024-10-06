@@ -32,5 +32,6 @@
         Property ClaimReceiveAmount As Decimal
         Property ClaimReceivePPN As Decimal
         Property ClaimReceivePPH As Decimal
+        Property ResultID As String
     End Class
 End Namespace

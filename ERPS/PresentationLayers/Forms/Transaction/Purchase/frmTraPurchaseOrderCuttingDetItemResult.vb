@@ -137,6 +137,7 @@
                 .Item("Remarks") = txtRemarks.Text.Trim
                 .Item("UnitPriceRawMaterial") = decUnitPriceRawMaterial
                 .Item("TotalPriceRawMaterial") = decUnitPriceRawMaterial * txtTotalWeight.Value
+                .Item("ResultID") = ""
                 dr.EndEdit()
                 dtParent.Rows.Add(dr)
                 dtParent.AcceptChanges()
@@ -164,6 +165,7 @@
                         .Item("Remarks") = txtRemarks.Text.Trim
                         .Item("UnitPriceRawMaterial") = decUnitPriceRawMaterial
                         .Item("TotalPriceRawMaterial") = decUnitPriceRawMaterial * txtTotalWeight.Value
+                        .Item("ResultID") = ""
                         .EndEdit()
                         dtParent.AcceptChanges()
                         frmParent.grdItemResultView.BestFitColumns()

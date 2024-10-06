@@ -127,7 +127,7 @@ Public Class frmTraItemResultDet
             listDetail.Add(New ERPSLib.VO.ItemResultDet With
                                 {
                                     .ItemID = dr.Item("ItemID"),
-                                    .Multiple = dr.Item("Quantity"),
+                                    .Multiple = dr.Item("Multiple"),
                                     .Remarks = dr.Item("Remarks")
                                 })
         Next
@@ -136,6 +136,7 @@ Public Class frmTraItemResultDet
         clsData.ID = pubID
         clsData.ProgramID = pubCS.ProgramID
         clsData.CompanyID = pubCS.CompanyID
+        clsData.ItemID = intItemID
         clsData.Name = txtName.Text.Trim
         clsData.Remarks = txtRemarks.Text.Trim.ToUpper
         clsData.StatusID = cboStatus.SelectedValue
@@ -168,8 +169,9 @@ Public Class frmTraItemResultDet
         txtName.Focus()
         tcHeader.SelectedTab = tpMain
         pubID = ""
+        txtName.Text = ""
         txtRemarks.Text = ""
-        cboStatus.SelectedValue = VO.Status.Values.Draft
+        cboStatus.SelectedValue = VO.Status.Values.Active
         ToolStripLogInc.Text = "Jumlah Edit : -"
         ToolStripLogBy.Text = "Dibuat Oleh : -"
         ToolStripLogDate.Text = Format(Now, UI.usDefCons.DateFull)
@@ -267,15 +269,13 @@ Public Class frmTraItemResultDet
     Private Sub prvQueryHistory()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-
         Try
-            grdStatus.DataSource = BL.PurchaseOrder.ListDataStatus(pubID.Trim)
+            grdStatus.DataSource = BL.ItemResult.ListDataStatus(pubID.Trim)
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-
             prvResetProgressBar()
         End Try
     End Sub
@@ -285,19 +285,41 @@ Public Class frmTraItemResultDet
 #Region "Form Handle"
 
     Private Sub frmTraItemResultDet_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
-
+        If e.KeyCode = Keys.F1 Then
+            tcHeader.SelectedTab = tpMain
+        ElseIf e.KeyCode = Keys.F2 Then
+            tcHeader.SelectedTab = tpHistory
+        ElseIf e.KeyCode = Keys.Escape Then
+            If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
+        ElseIf (e.Control And e.KeyCode = Keys.S) Then
+            prvSave()
+        End If
     End Sub
 
     Private Sub frmTraItemResultDet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        UI.usForm.SetIcon(Me, "MyLogo")
+        ToolBar.SetIcon(Me)
+        ToolBarDetail.SetIcon(Me)
+        prvSetTitleForm()
+        prvSetGrid()
+        prvFillForm()
+        prvQueryItem()
+        prvQueryHistory()
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
-
+        Select Case e.Button.Text.Trim
+            Case "Simpan" : prvSave()
+            Case "Tutup" : Me.Close()
+        End Select
     End Sub
 
     Private Sub ToolBarDetail_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarDetail.ButtonClick
-
+        Select Case e.Button.Text.Trim
+            Case "Tambah" : prvAddItem()
+            Case "Edit" : prvEditItem()
+            Case "Hapus" : prvDeleteItem()
+        End Select
     End Sub
 
 #End Region

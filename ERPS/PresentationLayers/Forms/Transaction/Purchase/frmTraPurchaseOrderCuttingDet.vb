@@ -68,6 +68,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         UI.usForm.SetGrid(grdItemView, "UnitPriceRawMaterial", "Harga Barang", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalPriceRawMaterial", "Total Harga Barang", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "ResultID", "ResultID", 300, UI.usDefGrid.gString, False)
 
         '# PO Detail Result
         UI.usForm.SetGrid(grdItemResultView, "ID", "ID", 100, UI.usDefGrid.gString, False)
@@ -90,6 +91,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         UI.usForm.SetGrid(grdItemResultView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemResultView, "UnitPriceRawMaterial", "UnitPriceRawMaterial", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemResultView, "TotalPriceRawMaterial", "TotalPriceRawMaterial", 100, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdItemResultView, "ResultID", "ResultID", 300, UI.usDefGrid.gString, False)
         grdItemResultView.Columns("GroupID").GroupIndex = 0
 
         '# PO Payment Term
@@ -188,7 +190,7 @@ Public Class frmTraPurchaseOrderCuttingDet
             tcHeader.SelectedTab = tpMain
             txtPersonInCharge.Focus()
             Exit Sub
-        ElseIf dtpDeliveryPeriodFrom.editValue > dtpDeliveryPeriodTo.editValue Then
+        ElseIf dtpDeliveryPeriodFrom.EditValue > dtpDeliveryPeriodTo.EditValue Then
             UI.usForm.frmMessageBox("Periode pengiriman tidak valid")
             tcHeader.SelectedTab = tpMain
             dtpDeliveryPeriodFrom.Focus()
@@ -249,7 +251,8 @@ Public Class frmTraPurchaseOrderCuttingDet
                                     .TotalPriceRawMaterial = dr.Item("TotalPriceRawMaterial"),
                                     .GroupID = dr.Item("GroupID"),
                                     .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
-                                    .ReceiveDetailID = dr.Item("ReceiveDetailID")
+                                    .ReceiveDetailID = dr.Item("ReceiveDetailID"),
+                                    .ResultID = dr.Item("ResultID")
                                 })
             decTotalDPPRawMaterial += dr.Item("TotalPriceRawMaterial")
         Next
@@ -267,7 +270,8 @@ Public Class frmTraPurchaseOrderCuttingDet
                                     .Remarks = dr.Item("Remarks"),
                                     .UnitPriceRawMaterial = dr.Item("UnitPriceRawMaterial"),
                                     .TotalPriceRawMaterial = dr.Item("TotalPriceRawMaterial"),
-                                    .IsShowPrintOut = True
+                                    .IsShowPrintOut = True,
+                                    .ResultID = dr.Item("ResultID")
                                 })
         Next
 

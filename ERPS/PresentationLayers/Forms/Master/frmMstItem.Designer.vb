@@ -43,6 +43,8 @@ Partial Class frmMstItem
         Me.Label1 = New System.Windows.Forms.Label()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.BarResult = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.chkShowAll.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -53,7 +55,7 @@ Partial Class frmMstItem
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarGet, Me.BarSep1, Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep2, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarGet, Me.BarSep1, Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep2, Me.BarResult, Me.BarSep3, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -236,6 +238,17 @@ Partial Class frmMstItem
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowGroupPanel = False
         '
+        'BarResult
+        '
+        Me.BarResult.Name = "BarResult"
+        Me.BarResult.Tag = "Misc"
+        Me.BarResult.Text = "Hasil"
+        '
+        'BarSep3
+        '
+        Me.BarSep3.Name = "BarSep3"
+        Me.BarSep3.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
         'frmMstItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -278,4 +291,6 @@ Partial Class frmMstItem
     Friend WithEvents btnExecute As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents cboItemSpecification As ERPS.usComboBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents BarResult As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarSep3 As System.Windows.Forms.ToolBarButton
 End Class

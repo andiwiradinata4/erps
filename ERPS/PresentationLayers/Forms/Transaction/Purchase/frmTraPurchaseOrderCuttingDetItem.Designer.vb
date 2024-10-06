@@ -84,6 +84,8 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.grdItemResultView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.BarSep1 = New System.Windows.Forms.ToolBarButton()
+        Me.BarImport = New System.Windows.Forms.ToolBarButton()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtTotalPriceRawMaterial, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtUnitPriceRawMaterial, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -752,7 +754,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         'ToolBarItemResult
         '
         Me.ToolBarItemResult.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarItemResult.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarEditItemOrder, Me.BarDeleteItemOrder})
+        Me.ToolBarItemResult.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarEditItemOrder, Me.BarDeleteItemOrder, Me.BarSep1, Me.BarImport})
         Me.ToolBarItemResult.DropDownArrows = True
         Me.ToolBarItemResult.Location = New System.Drawing.Point(0, 477)
         Me.ToolBarItemResult.Name = "ToolBarItemResult"
@@ -828,6 +830,17 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         '
         Me.GridView1.GridControl = Me.grdItemResult
         Me.GridView1.Name = "GridView1"
+        '
+        'BarSep1
+        '
+        Me.BarSep1.Name = "BarSep1"
+        Me.BarSep1.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarImport
+        '
+        Me.BarImport.Name = "BarImport"
+        Me.BarImport.Tag = "Submit"
+        Me.BarImport.Text = "Import"
         '
         'frmTraPurchaseOrderCuttingDetItem
         '
@@ -928,4 +941,6 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
     Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents Label21 As Label
     Friend WithEvents txtOrderNumberSupplier As usTextBox
+    Friend WithEvents BarSep1 As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarImport As System.Windows.Forms.ToolBarButton
 End Class
