@@ -549,6 +549,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer4.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPExtendDueDate.Designer.vb">
+      <DependentUpon>frmTraARAPExtendDueDate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPExtendDueDate.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPInvoice.Designer.vb">
       <DependentUpon>frmTraARAPInvoice.vb</DependentUpon>
     </Compile>

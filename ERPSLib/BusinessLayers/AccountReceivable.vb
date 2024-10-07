@@ -1061,6 +1061,18 @@
                 BL.AccountReceivable.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
                 If Not clsData.IsDP Then GenerateJournal(sqlCon, sqlTrans, strID)
+
+                Dim dtDueDate As DataTable = DL.ARAPDueDateHistory.ListData(sqlCon, sqlTrans, strID)
+                If dtDueDate.Rows.Count = 0 Then
+                    BL.ARAPDueDateHistory.SaveData(sqlCon, sqlTrans, True, New VO.ARAPDueDateHistory With
+                                                   {
+                                                        .ProgramID = clsData.ProgramID,
+                                                        .CompanyID = clsData.CompanyID,
+                                                        .ParentID = clsData.ID,
+                                                        .DueDate = clsData.DueDate,
+                                                        .LogBy = clsData.LogBy
+                                                   })
+                End If
             Catch ex As Exception
                 Throw ex
             End Try
