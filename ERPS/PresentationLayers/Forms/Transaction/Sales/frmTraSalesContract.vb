@@ -575,9 +575,19 @@ Public Class frmTraSalesContract
             crReport.ShowPrintMarginsWarning = False
 
             If strUomInitial = "QTY" Then
-                crReport.CellHeaderWeighLbr.Text = ""
-                crReport.CellHeaderWeighLbr.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
-                crReport.CellDetailWeighLbr.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Top) Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+                'crReport.CellHeaderWeighLbr.Text = ""
+                'crReport.CellHeaderWeighLbr.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
+                'crReport.CellDetailWeighLbr.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Top) Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+
+                crReport.ghColumnName.Visible = False
+                crReport.sbDetail.Visible = False
+                crReport.ghColumnNameCoil.Visible = True
+                crReport.sbDetailCoil.Visible = True
+            Else
+                crReport.ghColumnName.Visible = True
+                crReport.sbDetail.Visible = True
+                crReport.ghColumnNameCoil.Visible = False
+                crReport.sbDetailCoil.Visible = False
             End If
 
             Dim frmDetail As New frmReportPreview
