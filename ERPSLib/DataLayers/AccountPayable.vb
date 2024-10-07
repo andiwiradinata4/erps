@@ -755,6 +755,29 @@
             End Try
         End Sub
 
+        Public Shared Sub UpdateDueDate(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                        ByVal strID As String, ByVal dtmDueDate As DateTime)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traAccountPayable SET " & vbNewLine &
+                    "    DueDate=@DueDate " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@DueDate", SqlDbType.DateTime).Value = dtmDueDate
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail"

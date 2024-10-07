@@ -40,18 +40,28 @@ Namespace BL
 
                 '    DL.ARAPDueDateHistory.SaveData(sqlCon, sqlTrans, bolNew, clsData)
                 'End If
+                Dim clsARAP As VO.ARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsData.ParentID, VO.ARAP.ARAPTypeValue.Sales)
+                If clsARAP.ID Is Nothing Then clsARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsData.ParentID, VO.ARAP.ARAPTypeValue.Purchase)
 
                 If bolNew Then
                     clsData.ID = Format(DL.ARAPDueDateHistory.GetMaxID(sqlCon, sqlTrans, clsData.ParentID) + 1, "000")
                 Else
-
+                    Dim dtData As DataTable = DL.ARAPDueDateHistory.ListData(sqlCon, sqlTrans, clsData.ParentID)
+                    If dtData.Rows.Count > 0 Then
+                        If dtData.Rows(dtData.Rows.Count - 1).Item("ID") <> clsData.ID Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Hanya dapat mengedit data terakhir")
+                        End If
+                    End If
                 End If
+
                 DL.ARAPDueDateHistory.SaveData(sqlCon, sqlTrans, bolNew, clsData)
 
-                Dim clsARAP As VO.ARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsData.ParentID, VO.ARAP.ARAPTypeValue.Sales)
-                If clsARAP.ID Is Nothing Then clsARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsData.ParentID, VO.ARAP.ARAPTypeValue.Purchase)
-                If clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Sales Then '# TODO LIST
-
+                If clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Sales Then
+                    DL.AccountReceivable.UpdateDueDate(sqlCon, sqlTrans, clsData.ParentID, clsData.DueDate)
+                    BL.AccountReceivable.SaveDataStatus(sqlCon, sqlTrans, clsData.ParentID, "UPDATE TANGGAL JATUH TEMPO", clsData.LogBy, Format(clsARAP.DueDate, "dd MMMM yyyy") & " -> " & Format(clsData.DueDate, "dd MMMM yyyy"))
+                Else
+                    DL.AccountPayable.UpdateDueDate(sqlCon, sqlTrans, clsData.ParentID, clsData.DueDate)
+                    BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, clsData.ParentID, "UPDATE TANGGAL JATUH TEMPO", clsData.LogBy, Format(clsARAP.DueDate, "dd MMMM yyyy") & " -> " & Format(clsData.DueDate, "dd MMMM yyyy"))
                 End If
 
                 sqlTrans.Commit()
@@ -69,17 +79,32 @@ Namespace BL
             End Using
         End Function
 
-        Public Shared Sub DeleteData(ByVal strID As String)
+        Public Shared Sub DeleteData(ByVal strID As String, ByVal strParentID As String, ByVal strLogBy As String)
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-
-                    'If DL.ARAPDueDateHistory.XXX(sqlCon, sqlTransstrID) Then 
-                    '    Err.Raise(515,"","Cannot Delete. Data already used at XXX") 
-                    'End If 
+                    Dim dtData As DataTable = DL.ARAPDueDateHistory.ListData(sqlCon, sqlTrans, strParentID)
+                    If dtData.Rows.Count > 0 Then
+                        If dtData.Rows(dtData.Rows.Count - 1).Item("ID") <> strID Then
+                            Err.Raise(515, "", "Data tidak dapat dihapus. Hapus data terakhir terlebih dahulu")
+                        End If
+                    End If
 
                     DL.ARAPDueDateHistory.DeleteData(sqlCon, sqlTrans, strID)
+
+                    dtData = DL.ARAPDueDateHistory.ListData(sqlCon, sqlTrans, strParentID)
+                    If dtData.Rows.Count > 0 Then
+                        Dim clsARAP As VO.ARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, strParentID, VO.ARAP.ARAPTypeValue.Sales)
+                        If clsARAP.ID Is Nothing Then clsARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, strParentID, VO.ARAP.ARAPTypeValue.Purchase)
+                        If clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Sales Then
+                            DL.AccountReceivable.UpdateDueDate(sqlCon, sqlTrans, strParentID, dtData.Rows(dtData.Rows.Count - 1).Item("DueDate"))
+                            BL.AccountReceivable.SaveDataStatus(sqlCon, sqlTrans, strParentID, "UPDATE TANGGAL JATUH TEMPO", strLogBy, Format(clsARAP.DueDate, "dd MMMM yyyy") & " -> " & Format(dtData.Rows(dtData.Rows.Count - 1).Item("DueDate"), "dd MMMM yyyy"))
+                        Else
+                            DL.AccountPayable.UpdateDueDate(sqlCon, sqlTrans, strParentID, dtData.Rows(dtData.Rows.Count - 1).Item("DueDate"))
+                            BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strParentID, "UPDATE TANGGAL JATUH TEMPO", strLogBy, Format(clsARAP.DueDate, "dd MMMM yyyy") & " -> " & Format(dtData.Rows(dtData.Rows.Count - 1).Item("DueDate"), "dd MMMM yyyy"))
+                        End If
+                    End If
 
                     sqlTrans.Commit()
                 Catch ex As Exception

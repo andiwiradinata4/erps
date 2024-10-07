@@ -9,12 +9,13 @@ Namespace DL
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandText =
-"SELECT " & vbNewLine & _
-"	A.ID, A.ParentID, A.DueDate, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, " & vbNewLine & _
-"	A.LogDate, A.LogInc" & vbNewLine & _
-"FROM traARAPDueDateHistory A" & vbNewLine & _
-"WHERE " & vbNewLine & _
-"	ParentID=@ParentID " & vbNewLine
+"SELECT " & vbNewLine &
+"	A.ID, A.ParentID, A.DueDate, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, " & vbNewLine &
+"	A.LogDate, A.LogInc" & vbNewLine &
+"FROM traARAPDueDateHistory A" & vbNewLine &
+"WHERE " & vbNewLine &
+"	ParentID=@ParentID " & vbNewLine &
+"ORDER BY A.CreatedDate " & vbNewLine
 
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
             End With

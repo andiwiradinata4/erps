@@ -568,6 +568,7 @@ Public Class frmTraSalesContract
                 crReport.Watermark.TextTransparency = 150
             End If
 
+            crReport.paramUom.Value = strUomInitial.Trim
             crReport.DataSource = dtData
             crReport.CreateDocument(True)
             crReport.ShowPreviewMarginLines = False
