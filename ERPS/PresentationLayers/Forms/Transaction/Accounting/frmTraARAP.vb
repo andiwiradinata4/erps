@@ -1201,7 +1201,16 @@ Public Class frmTraARAP
     End Sub
 
     Private Sub prvExtendDueDate()
-
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+        Dim frmDetail As New frmTraARAPExtendDueDate
+        With frmDetail
+            .pubParentID = clsData.ID
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            pubRefresh()
+        End With
     End Sub
 
 #Region "Form Handle"

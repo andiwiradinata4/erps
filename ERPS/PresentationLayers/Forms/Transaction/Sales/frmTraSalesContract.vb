@@ -577,16 +577,7 @@ Public Class frmTraSalesContract
             If strUomInitial = "QTY" Then
                 crReport.CellHeaderWeighLbr.Text = ""
                 crReport.CellHeaderWeighLbr.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
-                'crReport.CellHeaderWeighLbr.Borders.Left = DevExpress.XtraPrinting.BorderSide.None
-                'crReport.CellHeaderWeighLbr.Borders = DevExpress.XtraPrinting.BorderSide.Top
-                'crReport.CellHeaderWeighLbr.Borders = DevExpress.XtraPrinting.BorderSide.Bottom
-
-                'crReport.CellDetailWeighLbr.Borders = DevExpress.XtraPrinting.BorderSide.None
-                'crReport.CellDetailWeighLbr.Borders = DevExpress.XtraPrinting.BorderSide.Top
-                'crReport.CellDetailWeighLbr.Borders = DevExpress.XtraPrinting.BorderSide.Bottom
-                crReport.CellDetailWeighLbr.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Top) _
-                            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-
+                crReport.CellDetailWeighLbr.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Top) Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
             End If
 
             Dim frmDetail As New frmReportPreview

@@ -1070,9 +1070,11 @@
                                                         .CompanyID = clsData.CompanyID,
                                                         .ParentID = clsData.ID,
                                                         .DueDate = clsData.DueDate,
-                                                        .LogBy = clsData.LogBy
-                                                   })
+                                                        .LogBy = clsData.LogBy,
+                                                        .Remarks = ""
+                                                   }, True)
                 End If
+
             Catch ex As Exception
                 Throw ex
             End Try

@@ -555,6 +555,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPExtendDueDate.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPExtendDueDateDet.Designer.vb">
+      <DependentUpon>frmTraARAPExtendDueDateDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPExtendDueDateDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPInvoice.Designer.vb">
       <DependentUpon>frmTraARAPInvoice.vb</DependentUpon>
     </Compile>
@@ -1505,6 +1511,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer4.resx">
       <DependentUpon>frmTraARAPDetVer4.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPExtendDueDate.resx">
+      <DependentUpon>frmTraARAPExtendDueDate.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPExtendDueDateDet.resx">
+      <DependentUpon>frmTraARAPExtendDueDateDet.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPInvoice.resx">
       <DependentUpon>frmTraARAPInvoice.vb</DependentUpon>

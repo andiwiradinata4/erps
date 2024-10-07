@@ -30,7 +30,7 @@ Partial Public Class rptConfirmationOrderVer00
         Dim XrSummary8 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary9 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary10 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Me.XrTableCell7 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.CellHeaderLength = New DevExpress.XtraReports.UI.XRTableCell()
         Me.ReportHeader = New DevExpress.XtraReports.UI.ReportHeaderBand()
         Me.rhBPInfo = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel45 = New DevExpress.XtraReports.UI.XRLabel()
@@ -58,7 +58,7 @@ Partial Public Class rptConfirmationOrderVer00
         Me.XrTableCell14 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell15 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell16 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell17 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.CellDetailLength = New DevExpress.XtraReports.UI.XRTableCell()
         Me.CellDetailWeighLbr = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell19 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell20 = New DevExpress.XtraReports.UI.XRTableCell()
@@ -79,6 +79,7 @@ Partial Public Class rptConfirmationOrderVer00
         Me.XrTableCell2 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell3 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell6 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.paramUom = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrTableCell10 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell11 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell27 = New DevExpress.XtraReports.UI.XRTableCell()
@@ -129,7 +130,6 @@ Partial Public Class rptConfirmationOrderVer00
         Me.ghOrderNumber = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.ghColumnName = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.ObjectDataSource1 = New DevExpress.DataAccess.ObjectBinding.ObjectDataSource(Me.components)
-        Me.paramUom = New DevExpress.XtraReports.Parameters.Parameter()
         CType(Me.xtDetail, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -137,14 +137,14 @@ Partial Public Class rptConfirmationOrderVer00
         CType(Me.ObjectDataSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
-        'XrTableCell7
+        'CellHeaderLength
         '
-        Me.XrTableCell7.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell7.Dpi = 100.0!
-        Me.XrTableCell7.Name = "XrTableCell7"
-        Me.XrTableCell7.StylePriority.UseBorders = False
-        Me.XrTableCell7.Text = "LENGTH"
-        Me.XrTableCell7.Weight = 0.48000000028561846R
+        Me.CellHeaderLength.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
+        Me.CellHeaderLength.Dpi = 100.0!
+        Me.CellHeaderLength.Name = "CellHeaderLength"
+        Me.CellHeaderLength.StylePriority.UseBorders = False
+        Me.CellHeaderLength.Text = "LENGTH"
+        Me.CellHeaderLength.Weight = 0.48000000028561846R
         '
         'ReportHeader
         '
@@ -413,7 +413,7 @@ Partial Public Class rptConfirmationOrderVer00
         '
         'XrTableRow2
         '
-        Me.XrTableRow2.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell24, Me.XrTableCell1, Me.XrTableCell14, Me.XrTableCell15, Me.XrTableCell16, Me.XrTableCell17, Me.CellDetailWeighLbr, Me.XrTableCell19, Me.XrTableCell20, Me.XrTableCell21, Me.XrTableCell22, Me.XrTableCell12, Me.XrTableCell13})
+        Me.XrTableRow2.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell24, Me.XrTableCell1, Me.XrTableCell14, Me.XrTableCell15, Me.XrTableCell16, Me.CellDetailLength, Me.CellDetailWeighLbr, Me.XrTableCell19, Me.XrTableCell20, Me.XrTableCell21, Me.XrTableCell22, Me.XrTableCell12, Me.XrTableCell13})
         Me.XrTableRow2.Dpi = 100.0!
         Me.XrTableRow2.Name = "XrTableRow2"
         Me.XrTableRow2.Weight = 1.0R
@@ -480,19 +480,19 @@ Partial Public Class rptConfirmationOrderVer00
         Me.XrTableCell16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.XrTableCell16.Weight = 0.53232041746725234R
         '
-        'XrTableCell17
+        'CellDetailLength
         '
-        Me.XrTableCell17.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+        Me.CellDetailLength.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell17.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "ItemLength")})
-        Me.XrTableCell17.Dpi = 100.0!
-        Me.XrTableCell17.Name = "XrTableCell17"
-        Me.XrTableCell17.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell17.StylePriority.UseBorders = False
-        Me.XrTableCell17.StylePriority.UsePadding = False
-        Me.XrTableCell17.StylePriority.UseTextAlignment = False
-        Me.XrTableCell17.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
-        Me.XrTableCell17.Weight = 0.53232041148961629R
+        Me.CellDetailLength.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "ItemLength")})
+        Me.CellDetailLength.Dpi = 100.0!
+        Me.CellDetailLength.Name = "CellDetailLength"
+        Me.CellDetailLength.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.CellDetailLength.StylePriority.UseBorders = False
+        Me.CellDetailLength.StylePriority.UsePadding = False
+        Me.CellDetailLength.StylePriority.UseTextAlignment = False
+        Me.CellDetailLength.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.CellDetailLength.Weight = 0.53232041148961629R
         '
         'CellDetailWeighLbr
         '
@@ -686,7 +686,7 @@ Partial Public Class rptConfirmationOrderVer00
         '
         'XrTableRow1
         '
-        Me.XrTableRow1.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell23, Me.XrTableCell2, Me.XrTableCell3, Me.XrTableCell4, Me.XrTableCell5, Me.XrTableCell7, Me.CellHeaderWeighLbr, Me.XrTableCell6, Me.XrTableCell9, Me.XrTableCell10, Me.XrTableCell11, Me.XrTableCell27, Me.XrTableCell29})
+        Me.XrTableRow1.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell23, Me.XrTableCell2, Me.XrTableCell3, Me.XrTableCell4, Me.XrTableCell5, Me.CellHeaderLength, Me.CellHeaderWeighLbr, Me.XrTableCell6, Me.XrTableCell9, Me.XrTableCell10, Me.XrTableCell11, Me.XrTableCell27, Me.XrTableCell29})
         Me.XrTableRow1.Dpi = 100.0!
         Me.XrTableRow1.Name = "XrTableRow1"
         Me.XrTableRow1.Weight = 1.0R
@@ -728,6 +728,12 @@ Partial Public Class rptConfirmationOrderVer00
         Me.XrTableCell6.Name = "XrTableCell6"
         Me.XrTableCell6.StylePriority.UseBorders = False
         Me.XrTableCell6.Weight = 0.37999999999999995R
+        '
+        'paramUom
+        '
+        Me.paramUom.Description = "Param Uom"
+        Me.paramUom.Name = "paramUom"
+        Me.paramUom.ValueInfo = "LBR"
         '
         'XrTableCell10
         '
@@ -1428,12 +1434,6 @@ Partial Public Class rptConfirmationOrderVer00
         Me.ObjectDataSource1.DataSource = GetType(ERPSLib.VO.rptConfirmationOrderVer00)
         Me.ObjectDataSource1.Name = "ObjectDataSource1"
         '
-        'paramUom
-        '
-        Me.paramUom.Description = "Param Uom"
-        Me.paramUom.Name = "paramUom"
-        Me.paramUom.ValueInfo = "LBR"
-        '
         'rptConfirmationOrderVer00
         '
         Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail, Me.TopMargin, Me.BottomMargin, Me.ReportHeader, Me.ReportFooter, Me.PageFooter, Me.gfOrderNumber, Me.ghOrderNumber, Me.ghColumnName})
@@ -1457,7 +1457,7 @@ Partial Public Class rptConfirmationOrderVer00
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
-    Friend WithEvents XrTableCell7 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents CellHeaderLength As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents ReportHeader As DevExpress.XtraReports.UI.ReportHeaderBand
     Friend WithEvents XrLabel18 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrTableCell21 As DevExpress.XtraReports.UI.XRTableCell
@@ -1468,7 +1468,7 @@ Partial Public Class rptConfirmationOrderVer00
     Friend WithEvents XrTableCell14 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrTableCell15 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrTableCell16 As DevExpress.XtraReports.UI.XRTableCell
-    Friend WithEvents XrTableCell17 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents CellDetailLength As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents CellDetailWeighLbr As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrTableCell19 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrTableCell20 As DevExpress.XtraReports.UI.XRTableCell

@@ -263,7 +263,7 @@ Namespace BL
         End Function
 
         Public Shared Sub Approve(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                       ByVal strID As String, ByVal strRemarks As String)
+                                  ByVal strID As String, ByVal strRemarks As String)
             Dim intStatusID As Integer = DL.Journal.GetStatusID(sqlCon, sqlTrans, strID)
             If intStatusID = VO.Status.Values.Draft Then
                 Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data masih DRAFT")

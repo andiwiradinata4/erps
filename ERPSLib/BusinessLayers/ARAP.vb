@@ -669,6 +669,7 @@
                 clsReturn.ReferencesID = clsData.ReferencesID
                 clsReturn.ReferencesNote = clsData.ReferencesNote
                 clsReturn.TransDate = clsData.ARDate
+                clsReturn.DueDate = clsData.DueDate
                 clsReturn.DueDateValue = clsData.DueDateValue
                 clsReturn.TotalAmount = clsData.TotalAmount
                 clsReturn.TotalPPN = clsData.TotalPPN
@@ -736,6 +737,7 @@
                 clsReturn.ReferencesID = clsData.ReferencesID
                 clsReturn.ReferencesNote = clsData.ReferencesNote
                 clsReturn.TransDate = clsData.APDate
+                clsReturn.DueDate = clsData.DueDate
                 clsReturn.DueDateValue = clsData.DueDateValue
                 clsReturn.TotalAmount = clsData.TotalAmount
                 clsReturn.TotalPPN = clsData.TotalPPN

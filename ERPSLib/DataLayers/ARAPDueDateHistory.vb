@@ -145,7 +145,7 @@ Namespace DL
                 With sqlrdData
                     If .HasRows Then
                         .Read()
-                        intReturn = .Item("ID") + 1
+                        intReturn = .Item("ID")
                     End If
                 End With
             Catch ex As Exception
