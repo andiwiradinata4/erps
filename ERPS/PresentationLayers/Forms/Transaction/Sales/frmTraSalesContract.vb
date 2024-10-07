@@ -495,8 +495,10 @@ Public Class frmTraSalesContract
         Try
             Dim dtData As DataTable = BL.SalesContract.PrintVer00(intProgramID, intCompanyID, strID)
             Dim intStatusID As Integer = 0
+            Dim strUomInitial As String = "PCS"
             For Each dr As DataRow In dtData.Rows
                 intStatusID = dr.Item("StatusID")
+                strUomInitial = dr.Item("UomInitial")
                 Exit For
             Next
 
@@ -514,6 +516,7 @@ Public Class frmTraSalesContract
 
             '# Report Section Handle
             crReport.shTerm4SKBDN.Visible = IIf(enumPrintType = VO.SalesContract.PrintType.SKBDN, True, False)
+            crReport.paramUom.Value = strUomInitial.Trim
             crReport.DataSource = dtData
             crReport.CreateDocument(True)
             crReport.ShowPreviewMarginLines = False
@@ -546,8 +549,10 @@ Public Class frmTraSalesContract
         Try
             Dim dtData As DataTable = BL.SalesContract.PrintSCCOVer00(intProgramID, intCompanyID, strID)
             Dim intStatusID As Integer = 0
+            Dim strUomInitial As String = "LBR"
             For Each dr As DataRow In dtData.Rows
                 intStatusID = dr.Item("StatusID")
+                strUomInitial = dr.Item("UomInitial")
                 Exit For
             Next
 
@@ -567,6 +572,21 @@ Public Class frmTraSalesContract
             crReport.CreateDocument(True)
             crReport.ShowPreviewMarginLines = False
             crReport.ShowPrintMarginsWarning = False
+
+            If strUomInitial = "QTY" Then
+                crReport.CellHeaderWeighLbr.Text = ""
+                crReport.CellHeaderWeighLbr.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
+                'crReport.CellHeaderWeighLbr.Borders.Left = DevExpress.XtraPrinting.BorderSide.None
+                'crReport.CellHeaderWeighLbr.Borders = DevExpress.XtraPrinting.BorderSide.Top
+                'crReport.CellHeaderWeighLbr.Borders = DevExpress.XtraPrinting.BorderSide.Bottom
+
+                'crReport.CellDetailWeighLbr.Borders = DevExpress.XtraPrinting.BorderSide.None
+                'crReport.CellDetailWeighLbr.Borders = DevExpress.XtraPrinting.BorderSide.Top
+                'crReport.CellDetailWeighLbr.Borders = DevExpress.XtraPrinting.BorderSide.Bottom
+                crReport.CellDetailWeighLbr.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Top) _
+                            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+
+            End If
 
             Dim frmDetail As New frmReportPreview
             With frmDetail

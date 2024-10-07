@@ -143,6 +143,8 @@ Partial Public Class rptSalesContractVer00
         Me.PageFooter = New DevExpress.XtraReports.UI.PageFooterBand()
         Me.FilteringUIContext1 = New DevExpress.Utils.Filtering.FilteringUIContext(Me.components)
         Me.SalesContractVer00 = New DevExpress.DataAccess.ObjectBinding.ObjectDataSource(Me.components)
+        Me.XrLabel6 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramUom = New DevExpress.XtraReports.Parameters.Parameter()
         CType(Me.XrTable1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrRichText4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrRichText2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -556,7 +558,7 @@ Partial Public Class rptSalesContractVer00
         '
         'shItem
         '
-        Me.shItem.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel56, Me.XrRichText7, Me.XrRichText1, Me.XrLabel31, Me.XrRichText3, Me.XrLabel32, Me.XrLabel33, Me.XrLabel34, Me.XrLabel35, Me.XrLabel27, Me.XrLabel28, Me.XrLabel29, Me.XrLabel30, Me.XrLabel23, Me.XrLabel24, Me.XrLabel25, Me.XrLabel26, Me.XrLabel19, Me.XrLabel20, Me.XrLabel21, Me.XrLabel22, Me.XrLabel18, Me.XrLabel17, Me.XrLabel13, Me.XrLabel11})
+        Me.shItem.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel6, Me.XrLabel56, Me.XrRichText7, Me.XrRichText1, Me.XrLabel31, Me.XrRichText3, Me.XrLabel32, Me.XrLabel33, Me.XrLabel34, Me.XrLabel35, Me.XrLabel27, Me.XrLabel28, Me.XrLabel29, Me.XrLabel30, Me.XrLabel23, Me.XrLabel24, Me.XrLabel25, Me.XrLabel26, Me.XrLabel19, Me.XrLabel20, Me.XrLabel21, Me.XrLabel22, Me.XrLabel18, Me.XrLabel17, Me.XrLabel13, Me.XrLabel11})
         Me.shItem.Dpi = 100.0!
         Me.shItem.HeightF = 143.0034!
         Me.shItem.Name = "shItem"
@@ -592,16 +594,16 @@ Partial Public Class rptSalesContractVer00
         '
         'XrLabel31
         '
-        Me.XrLabel31.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalQuantity", "( {0:n0} PCS )")})
+        Me.XrLabel31.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalQuantity", "( {0:n0}")})
         Me.XrLabel31.Dpi = 100.0!
         Me.XrLabel31.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel31.LocationFloat = New DevExpress.Utils.PointFloat(383.5!, 40.00001!)
+        Me.XrLabel31.LocationFloat = New DevExpress.Utils.PointFloat(383.5!, 40.00003!)
         Me.XrLabel31.Name = "XrLabel31"
         Me.XrLabel31.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel31.SizeF = New System.Drawing.SizeF(383.5002!, 20.0!)
+        Me.XrLabel31.SizeF = New System.Drawing.SizeF(156.4168!, 20.0!)
         Me.XrLabel31.StylePriority.UseFont = False
         Me.XrLabel31.StylePriority.UseTextAlignment = False
-        Me.XrLabel31.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        Me.XrLabel31.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         '
         'XrRichText3
         '
@@ -1482,6 +1484,25 @@ Partial Public Class rptSalesContractVer00
         Me.SalesContractVer00.DataSource = GetType(ERPSLib.VO.rptSalesContractVer00)
         Me.SalesContractVer00.Name = "SalesContractVer00"
         '
+        'XrLabel6
+        '
+        Me.XrLabel6.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramUom, "Text", "{0} )")})
+        Me.XrLabel6.Dpi = 100.0!
+        Me.XrLabel6.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel6.LocationFloat = New DevExpress.Utils.PointFloat(539.9167!, 40.0034!)
+        Me.XrLabel6.Name = "XrLabel6"
+        Me.XrLabel6.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel6.SizeF = New System.Drawing.SizeF(227.0798!, 20.0!)
+        Me.XrLabel6.StylePriority.UseFont = False
+        Me.XrLabel6.StylePriority.UseTextAlignment = False
+        Me.XrLabel6.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'paramUom
+        '
+        Me.paramUom.Description = "Param Uom"
+        Me.paramUom.Name = "paramUom"
+        Me.paramUom.ValueInfo = "PCS"
+        '
         'rptSalesContractVer00
         '
         Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail, Me.TopMargin, Me.BottomMargin, Me.ReportHeader, Me.PageHeader, Me.ReportFooter, Me.PageFooter})
@@ -1493,6 +1514,7 @@ Partial Public Class rptSalesContractVer00
         Me.PageHeight = 1169
         Me.PageWidth = 827
         Me.PaperKind = System.Drawing.Printing.PaperKind.A4
+        Me.Parameters.AddRange(New DevExpress.XtraReports.Parameters.Parameter() {Me.paramUom})
         Me.ScriptLanguage = DevExpress.XtraReports.ScriptLanguage.VisualBasic
         Me.Version = "16.2"
         CType(Me.XrTable1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1632,4 +1654,6 @@ Partial Public Class rptSalesContractVer00
     Friend WithEvents XrTableRow2 As DevExpress.XtraReports.UI.XRTableRow
     Friend WithEvents XrTableCell4 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrTableCell5 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrLabel6 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents paramUom As DevExpress.XtraReports.Parameters.Parameter
 End Class

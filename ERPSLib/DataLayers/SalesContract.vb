@@ -1225,7 +1225,7 @@
                     "	CAST('' AS VARCHAR(1000)) AS AllReferencesNumber, SCH.AllowanceProduction, CAST(0 AS INT) AS MaxCreditTerms, BP.Address AS DeliveryAddress, 	" & vbNewLine &
                     "	SCDCO.GroupID, COD.OrderNumberSupplier, CAST('' AS VARCHAR(1000)) AS AllOrderNumberSupplier, SCD.ItemID, MIS.Description AS ItemTypeAndSpec, 	" & vbNewLine &
                     "	MIS.Description AS ItemSpec, MI.Thick, MI.Width, MI.Length, SCD.Weight, SCD.Quantity, SCD.TotalWeight, SCD.UnitPrice, SCD.TotalPrice, (SCD.TotalPrice*SCH.PPN/100) AS TotalPPNItem, 	" & vbNewLine &
-                    "	SCD.TotalPrice + (SCD.TotalPrice*SCH.PPN/100) AS TotalPriceIncPPN, CAST('' AS VARCHAR(1000)) AS NumericToString, SCH.StatusID " & vbNewLine &
+                    "	SCD.TotalPrice + (SCD.TotalPrice*SCH.PPN/100) AS TotalPriceIncPPN, CAST('' AS VARCHAR(1000)) AS NumericToString, SCH.StatusID, UomInitial=CASE WHEN IT.LengthInitial='COIL' THEN 'LOT' ELSE 'PCS' END " & vbNewLine &
                     "FROM traSalesContract SCH 	" & vbNewLine &
                     "INNER JOIN mstCompany MC ON 	" & vbNewLine &
                     "	SCH.CompanyID=MC.ID 	" & vbNewLine &
@@ -1275,10 +1275,10 @@
                     "	BP.Name AS BPName, IT.Description AS ItemTypeName, SCH.SCNumber AS TransNumber, CAST('' AS VARCHAR(1000)) AS AllItemName, " & vbNewLine &
                     "	CAST('' AS VARCHAR(500)) AS AllOrderNumberSupplier, SCH.SCDate AS TransDate, BPL.Address AS DeliveryAddress, SCD.OrderNumberSupplier, " & vbNewLine &
                     "	MIS.Description AS ItemSpec, MI.Thick AS ItemThick, MI.Width AS ItemWidth, CASE WHEN MI.Length=0 THEN IT.LengthInitial ELSE CAST(MI.Length AS VARCHAR(100)) END AS ItemLength, " & vbNewLine &
-                    "   SCD.Weight, SCD.Quantity, SCD.TotalWeight AS TotalWeightItem, SCD.UnitPrice, SCD.TotalPrice, (SCD.TotalPrice*SCH.PPN/100) AS TotalPPNItem, " & vbNewLine &
+                    "   Weight=CASE WHEN IT.LengthInitial='COIL' THEN NULL ELSE SCD.Weight END, SCD.Quantity, SCD.TotalWeight AS TotalWeightItem, SCD.UnitPrice, SCD.TotalPrice, (SCD.TotalPrice*SCH.PPN/100) AS TotalPPNItem, " & vbNewLine &
                     "	SCD.TotalPrice + (SCD.TotalPrice*SCH.PPN/100) AS TotalPriceIncPPN, CAST('' AS VARCHAR(1000)) AS NumericToString, BP.PICName AS BPPIC, MC.DirectorName AS CompanyDirectorName, " & vbNewLine &
                     "   MBC.AccountName, MBC.BankName, MBC.AccountNumber, SCH.TotalDPP + SCH.TotalPPN - SCH.TotalPPH + SCH.RoundingManual AS GrandTotal, SCH.PPN, SCH.StatusID, SCH.DelegationSeller, " & vbNewLine &
-                    "   SCH.DelegationPositionSeller, SCH.DelegationBuyer, SCH.DelegationPositionBuyer, MC.Name AS CompanyName " & vbNewLine &
+                    "   SCH.DelegationPositionSeller, SCH.DelegationBuyer, SCH.DelegationPositionBuyer, MC.Name AS CompanyName, UomInitial=CASE WHEN IT.LengthInitial='COIL' THEN 'QTY' ELSE 'LBR' END " & vbNewLine &
                     "FROM traSalesContract SCH " & vbNewLine &
                     "INNER JOIN mstCompany MC ON " & vbNewLine &
                     "	SCH.CompanyID=MC.ID " & vbNewLine &
