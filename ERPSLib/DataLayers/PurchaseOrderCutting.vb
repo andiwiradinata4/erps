@@ -83,7 +83,7 @@
 
         Public Shared Function ListDataOutstandingCutting(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                           ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
-                                                          ByVal intBPID As Integer) As DataTable
+                                                          ByVal intBPID As Integer, ByVal intCustomerID As Integer) As DataTable
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
                 .Connection = sqlCon
@@ -91,23 +91,26 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT DISTINCT " & vbNewLine &
-                    "   A.ID, A.PONumber, A.PODate, A.BPID, MBP.Code AS BPCode, MBP.Name AS BPName " & vbNewLine &
+                    "   A.ID, A.PONumber, A.PODate, A.BPID, MBP.Code AS BPCode, MBP.Name AS BPName, A.CustomerID, MCustomer.Code AS CustomerCode, MCustomer.Name AS CustomerName " & vbNewLine &
                     "FROM traPurchaseOrderCutting A " & vbNewLine &
                     "INNER JOIN traPurchaseOrderCuttingDet POD ON " & vbNewLine &
                     "   A.ID=POD.POID " & vbNewLine &
                     "INNER JOIN mstBusinessPartner MBP ON " & vbNewLine &
                     "   A.BPID=MBP.ID " & vbNewLine &
+                    "INNER JOIN mstBusinessPartner MCP ON " & vbNewLine &
+                    "   A.CustomerID=MCP.ID " & vbNewLine &
                     "WHERE  " & vbNewLine &
                     "   A.BPID=@BPID " & vbNewLine &
+                    "   AND A.CustomerID=@CustomerID " & vbNewLine &
                     "   AND A.CompanyID=@CompanyID " & vbNewLine &
                     "   AND A.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.ApprovedBy<>'' " & vbNewLine &
-                    "   --AND POD.Quantity-POD.DoneQuantity>0 " & vbNewLine &
                     "   AND POD.TotalWeight-POD.DoneWeight>0 " & vbNewLine
 
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+                .Parameters.Add("@CustomerID", SqlDbType.Int).Value = intCustomerID
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
@@ -1139,7 +1142,8 @@
                     "   A.ID, A.POID, A1.PONumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, 	" & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, 	" & vbNewLine &
                     "   D.Description AS ItemTypeName, A.UnitPrice, A.Quantity-A.DoneQuantity AS Quantity, A.Weight, " & vbNewLine &
-                    "   A.TotalWeight-A.DoneWeight AS TotalWeight, A.TotalWeight-A.DoneWeight AS MaxTotalWeight, A.Remarks, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID " & vbNewLine &
+                    "   A.TotalWeight-A.DoneWeight AS TotalWeight, A.TotalWeight-A.DoneWeight AS MaxTotalWeight, A.Remarks, " & vbNewLine &
+                    "   A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceRawMaterial " & vbNewLine &
                     "FROM traPurchaseOrderCuttingDet A 	" & vbNewLine &
                     "INNER JOIN traPurchaseOrderCutting A1 ON 	" & vbNewLine &
                     "   A.POID=A1.ID 	" & vbNewLine &
@@ -1180,7 +1184,8 @@
                     "SELECT 	" & vbNewLine &
                     "   A.ID, A.POID, A.ID AS PODetailResultID, A1.PONumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, 	" & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
-                    "   A.Quantity-A.DoneQuantity AS Quantity, A.Weight, A.TotalWeight-A.DoneWeight AS TotalWeight, A.TotalWeight-A.DoneWeight AS MaxTotalWeight, A.Remarks, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID " & vbNewLine &
+                    "   A.Quantity-A.DoneQuantity AS Quantity, A.Weight, A.TotalWeight-A.DoneWeight AS TotalWeight, A.TotalWeight-A.DoneWeight AS MaxTotalWeight, " & vbNewLine &
+                    "   A.Remarks, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceRawMaterial " & vbNewLine &
                     "FROM traPurchaseOrderCuttingDetResult A 	" & vbNewLine &
                     "INNER JOIN traPurchaseOrderCutting A1 ON 	" & vbNewLine &
                     "   A.POID=A1.ID 	" & vbNewLine &

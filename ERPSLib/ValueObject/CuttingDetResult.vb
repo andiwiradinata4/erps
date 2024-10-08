@@ -14,5 +14,6 @@
         Property LevelItem As Integer
         Property ParentID As String = ""
         Property UnitPriceHPP As Decimal
+        Property TotalPriceHPP As Decimal
     End Class
 End Namespace

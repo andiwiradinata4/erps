@@ -34,7 +34,6 @@
 
     Private Sub prvRefreshProgressBar()
         pgMain.Value += 1
-        
     End Sub
 
     Private Function prvCollectDataVer00(ByVal drPick() As DataRow) As DataTable

@@ -80,6 +80,7 @@ Public Class frmTraPurchaseOrderCuttingDetItemResultOustandingCutting
         UI.usForm.SetGrid(grdView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "UnitPriceRawMaterial", "HPP", 300, UI.usDefGrid.gReal2Num)
     End Sub
 
     Private Sub prvSetButton()

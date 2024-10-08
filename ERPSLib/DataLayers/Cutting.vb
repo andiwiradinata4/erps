@@ -18,12 +18,15 @@
                     "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.POID, POC.PONumber, A.ReferencesNumber, A.TotalQuantity, A.TotalWeight, A.IsDeleted, A.Remarks, A.StatusID, " & vbNewLine &
                     "   B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.CreatedBy, " & vbNewLine &
                     "   A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.PPN, A.PPH, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.DPAmount, A.TotalPayment, " & vbNewLine &
-                    "   A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, A.CoAIDofStock, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock " & vbNewLine &
+                    "   A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, A.CoAIDofStock, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock, " & vbNewLine &
+                    "   A.CustomerID, C1.Code AS CustomerCode, C1.Name AS CustomerName " & vbNewLine &
                     "FROM traCutting A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
                     "INNER JOIN mstBusinessPartner C ON " & vbNewLine &
                     "   A.BPID=C.ID " & vbNewLine &
+                    "INNER JOIN mstBusinessPartner C1 ON " & vbNewLine &
+                    "   A.CustomerID=C1.ID " & vbNewLine &
                     "INNER JOIN mstCompany MC ON " & vbNewLine &
                     "   A.CompanyID=MC.ID " & vbNewLine &
                     "INNER JOIN mstProgram MP ON " & vbNewLine &
@@ -59,10 +62,10 @@
                     .CommandText =
                         "INSERT INTO traCutting " & vbNewLine &
                         "   (ID, ProgramID, CompanyID, CuttingNumber, CuttingDate, BPID, ReferencesNumber, TotalQuantity, TotalWeight, Remarks, StatusID, CreatedBy, " & vbNewLine &
-                        "    CreatedDate, LogBy, LogDate, PPN, PPH, TotalDPP, TotalPPN, TotalPPH, RoundingManual, POID, CoAIDofStock) " & vbNewLine &
+                        "    CreatedDate, LogBy, LogDate, PPN, PPH, TotalDPP, TotalPPN, TotalPPH, RoundingManual, POID, CoAIDofStock, CustomerID) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @ProgramID, @CompanyID, @CuttingNumber, @CuttingDate, @BPID, @ReferencesNumber, @TotalQuantity, @TotalWeight, @Remarks, @StatusID, @LogBy, " & vbNewLine &
-                        "    GETDATE(), @LogBy, GETDATE(), @PPN, @PPH, @TotalDPP, @TotalPPN, @TotalPPH, @RoundingManual, @POID, @CoAIDofStock) " & vbNewLine
+                        "    GETDATE(), @LogBy, GETDATE(), @PPN, @PPH, @TotalDPP, @TotalPPN, @TotalPPH, @RoundingManual, @POID, @CoAIDofStock, @CustomerID) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE traCutting SET " & vbNewLine &
@@ -85,7 +88,8 @@
                         "   TotalPPH=@TotalPPH, " & vbNewLine &
                         "   RoundingManual=@RoundingManual, " & vbNewLine &
                         "   POID=@POID, " & vbNewLine &
-                        "   CoAIDofStock=@CoAIDofStock " & vbNewLine &
+                        "   CoAIDofStock=@CoAIDofStock, " & vbNewLine &
+                        "   CustomerID=@CustomerID " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "   ID=@ID " & vbNewLine
                 End If
@@ -110,6 +114,7 @@
                 .Parameters.Add("@RoundingManual", SqlDbType.Decimal).Value = clsData.RoundingManual
                 .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = clsData.POID
                 .Parameters.Add("@CoAIDofStock", SqlDbType.Int).Value = clsData.CoAIDofStock
+                .Parameters.Add("@CustomerID", SqlDbType.Int).Value = clsData.CustomerID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -130,8 +135,8 @@
                     .CommandText =
                         "SELECT TOP 1 " & vbNewLine &
                         "   A.ID, A.ProgramID, A.CompanyID, A.CuttingNumber, A.CuttingDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.POID, POC.PONumber, A.ReferencesNumber, A.TotalQuantity, A.TotalWeight, " & vbNewLine &
-                        "   A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.PPN, A.PPH, A.TotalDPP, A.TotalPPN, " & vbNewLine &
-                        "   A.TotalPPH, A.RoundingManual, A.DPAmount, A.TotalPayment, A.JournalID, A.CoAIDofStock, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock  " & vbNewLine &
+                        "   A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.PPN, A.PPH, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, " & vbNewLine &
+                        "   A.DPAmount, A.TotalPayment, A.JournalID, A.CoAIDofStock, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock, A.CustomerID, CP.Code AS CustomerCode, CP.Name AS CustomerName " & vbNewLine &
                         "FROM traCutting A " & vbNewLine &
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
                         "   A.BPID=B.ID " & vbNewLine &
@@ -183,6 +188,9 @@
                         voReturn.CoAIDofStock = .Item("CoAIDofStock")
                         voReturn.CoACodeofStock = .Item("CoACodeofStock")
                         voReturn.CoANameofStock = .Item("CoANameofStock")
+                        voReturn.CustomerID = .Item("CustomerID")
+                        voReturn.CustomerCode = .Item("CustomerCode")
+                        voReturn.CustomerName = .Item("CustomerName")
                     End If
                 End With
             Catch ex As Exception
@@ -618,7 +626,7 @@
                     "   A.ID, A.CuttingID, A.PODetailID, A.GroupID, A2.PONumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
                     "   A.Quantity, A.Weight, A.TotalWeight, A1.TotalWeight+A.TotalWeight-A1.DoneWeight AS MaxTotalWeight, A.Remarks, A.UnitPrice, " & vbNewLine &
-                    "   A.TotalPrice, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID " & vbNewLine &
+                    "   A.TotalPrice, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceRawMaterial, A.TotalPriceRawMaterial " & vbNewLine &
                     "FROM traCuttingDet A " & vbNewLine &
                     "INNER JOIN traPurchaseOrderCuttingDet A1 ON " & vbNewLine &
                     "   A.PODetailID=A1.ID " & vbNewLine &
@@ -710,7 +718,7 @@
                     "SELECT " & vbNewLine &
                     "   A.ID, A.CuttingID, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
-                    "   A.Quantity, A.Weight, A.TotalWeight, A.Remarks, A.PODetailResultID, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceHPP " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.Remarks, A.PODetailResultID, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceHPP, A.TotalPriceHPP " & vbNewLine &
                     "FROM traCuttingDetResult A " & vbNewLine &
                     "INNER JOIN mstItem B ON " & vbNewLine &
                     "   A.ItemID=B.ID " & vbNewLine &

@@ -8,6 +8,13 @@ Namespace BL
             End Using
         End Function
 
+        Public Shared Function ListDataForCombo() As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.User.ListDataForCombo(sqlCon, Nothing)
+            End Using
+        End Function
+
         Public Shared Function ListDataByUserIDAndPassword(ByVal strUserID As String, ByVal strPassword As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection

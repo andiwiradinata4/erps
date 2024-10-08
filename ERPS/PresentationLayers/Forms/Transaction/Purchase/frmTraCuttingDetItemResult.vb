@@ -153,6 +153,7 @@
                 .Item("TotalWeight") = txtTotalWeight.Value
                 .Item("Remarks") = txtRemarks.Text.Trim
                 .Item("UnitPriceHPP") = txtUnitPriceHPP.Value
+                .Item("TotalPriceHPP") = txtUnitPriceHPP.Value * txtTotalWeight.Value
                 dr.EndEdit()
                 dtItemResultParent.Rows.Add(dr)
                 dtItemResultParent.AcceptChanges()
@@ -181,6 +182,7 @@
                         .Item("TotalWeight") = txtTotalWeight.Value
                         .Item("Remarks") = txtRemarks.Text.Trim
                         .Item("UnitPriceHPP") = txtUnitPriceHPP.Value
+                        .Item("TotalPriceHPP") = txtUnitPriceHPP.Value * txtTotalWeight.Value
                         .EndEdit()
                         dtItemResultParent.AcceptChanges()
                         frmParent.grdItemResultView.BestFitColumns()
@@ -214,6 +216,7 @@
                 cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
                 txtWeight.Value = .pubLUdtRow.Item("Weight")
                 txtQuantity.Value = .pubLUdtRow.Item("Quantity")
+                txtUnitPriceHPP.Value = .pubLUdtRow.Item("UnitPriceRawMaterial")
                 txtQuantity.Focus()
                 txtRemarks.Text = ""
                 bolIsAutoSearch = False

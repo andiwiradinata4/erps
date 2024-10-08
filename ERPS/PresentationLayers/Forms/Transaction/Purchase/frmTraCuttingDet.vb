@@ -11,6 +11,7 @@ Public Class frmTraCuttingDet
     Private intPos As Integer = 0
     Private strPOID As String = ""
     Private intCoAIDofStock As Integer = 0
+    Private intCustomerID As Integer
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
@@ -64,6 +65,8 @@ Public Class frmTraCuttingDet
         UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "UnitPriceRawMaterial", "HPP", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "TotalPriceRawMaterial", "Total HPP", 100, UI.usDefGrid.gReal2Num)
 
         '# Cutting Detail Result
         UI.usForm.SetGrid(grdItemResultView, "ID", "ID", 100, UI.usDefGrid.gString, False)
@@ -87,6 +90,7 @@ Public Class frmTraCuttingDet
         UI.usForm.SetGrid(grdItemResultView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemResultView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemResultView, "UnitPriceHPP", "HPP", 300, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemResultView, "TotalPriceHPP", "Total HPP", 300, UI.usDefGrid.gReal2Num)
         grdItemResultView.Columns("GroupID").GroupIndex = 0
 
         '# History
@@ -140,7 +144,9 @@ Public Class frmTraCuttingDet
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
 
-                'dtpCuttingDate.Enabled = False
+                intCustomerID = clsData.CustomerID
+                txtCustomerCode.Text = clsData.CustomerCode
+                txtCustomerName.Text = clsData.CustomerName
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -159,6 +165,11 @@ Public Class frmTraCuttingDet
             UI.usForm.frmMessageBox("Pilih pemasok terlebih dahulu")
             tcHeader.SelectedTab = tpMain
             txtBPCode.Focus()
+            Exit Sub
+        ElseIf txtCustomerCode.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih pelanggan terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtCustomerCode.Focus()
             Exit Sub
         ElseIf cboStatus.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Status kosong. Mohon untuk tutup form dan buka kembali")
@@ -208,7 +219,9 @@ Public Class frmTraCuttingDet
                                .UnitPrice = dr.Item("UnitPrice"),
                                .TotalPrice = dr.Item("TotalPrice"),
                                .Remarks = dr.Item("Remarks"),
-                               .OrderNumberSupplier = dr.Item("OrderNumberSupplier")
+                               .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                               .UnitPriceRawMaterial = dr.Item("UnitPriceRawMaterial"),
+                               .TotalPriceRawMaterial = dr.Item("TotalPriceRawMaterial")
                            })
         Next
 
@@ -224,7 +237,8 @@ Public Class frmTraCuttingDet
                                     .Remarks = dr.Item("Remarks"),
                                     .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
                                     .PODetailResultID = dr.Item("PODetailResultID"),
-                                    .UnitPriceHPP = dr.Item("UnitPriceHPP")
+                                    .UnitPriceHPP = dr.Item("UnitPriceHPP"),
+                                    .TotalPriceHPP = dr.Item("TotalPriceHPP")
                                 })
         Next
 
@@ -253,6 +267,7 @@ Public Class frmTraCuttingDet
         clsData.DetailResult = listDetailResult
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
+        clsData.CustomerID = intCustomerID
 
         pgMain.Value = 60
         Try
@@ -305,6 +320,9 @@ Public Class frmTraCuttingDet
         ToolStripLogInc.Text = "Jumlah Edit : -"
         ToolStripLogBy.Text = "Dibuat Oleh : -"
         ToolStripLogDate.Text = Format(Now, UI.usDefCons.DateFull)
+        intCustomerID = 0
+        txtCustomerCode.Text = ""
+        txtCustomerName.Text = ""
     End Sub
 
     Private Sub prvChooseBP()
@@ -326,6 +344,20 @@ Public Class frmTraCuttingDet
                 intCoAIDofStock = .pubLUdtRow.Item("CoAIDofStock")
                 txtCoACodeOfStock.Text = .pubLUdtRow.Item("CoACodeofStock")
                 txtCoANameOfStock.Text = .pubLUdtRow.Item("CoANameofStock")
+            End If
+        End With
+    End Sub
+
+    Private Sub prvChooseCustomer()
+        Dim frmDetail As New frmMstBusinessPartner
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCustomerID = .pubLUdtRow.Item("ID")
+                txtCustomerCode.Text = .pubLUdtRow.Item("Code")
+                txtCustomerName.Text = .pubLUdtRow.Item("Name")
             End If
         End With
     End Sub
@@ -389,10 +421,16 @@ Public Class frmTraCuttingDet
             tcHeader.SelectedTab = tpMain
             txtBPCode.Focus()
             Exit Sub
+        ElseIf intCustomerID = 0 Or txtCustomerCode.Text.Trim = "" Or txtCustomerCode.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih pelanggan terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtCustomerCode.Focus()
+            Exit Sub
         End If
         Dim frmDetail As New frmTraCuttingDetOutstandingPO
         With frmDetail
             .pubBPID = intBPID
+            .pubCustomerID = intCustomerID
             .pubCS = pubCS
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
@@ -455,6 +493,11 @@ Public Class frmTraCuttingDet
             UI.usForm.frmMessageBox("Pilih Pemasok terlebih dahulu")
             tcHeader.SelectedTab = tpMain
             txtBPCode.Focus()
+            Exit Sub
+        ElseIf txtCustomerCode.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih pelanggan terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtCustomerCode.Focus()
             Exit Sub
         ElseIf strPOID.Trim = "" Or txtPONumber.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Pilih Nomor Pesanan terlebih dahulu")
@@ -650,6 +693,10 @@ Public Class frmTraCuttingDet
 
     Private Sub btnBP_Click(sender As Object, e As EventArgs) Handles btnBP.Click
         prvChooseBP()
+    End Sub
+
+    Private Sub btnCustomer_Click(sender As Object, e As EventArgs) Handles btnCustomer.Click
+        prvChooseCustomer()
     End Sub
 
     Private Sub btnPurchaseOrder_Click(sender As Object, e As EventArgs) Handles btnPurchaseOrder.Click

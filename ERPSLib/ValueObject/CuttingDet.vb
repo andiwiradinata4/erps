@@ -21,5 +21,7 @@
         Property ReceivePPN As Decimal
         Property ReceivePPH As Decimal
         Property ParentID As String = ""
+        Property UnitPriceRawMaterial As Decimal = 0
+        Property TotalPriceRawMaterial As Decimal = 0
     End Class
 End Namespace

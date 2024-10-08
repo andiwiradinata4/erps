@@ -750,6 +750,52 @@
 
 #End Region
 
+        Public Shared Function ListPOCutting(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                             ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                             ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+                                             ByVal intBPID As Integer, ByVal intItemTypeID As Integer) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+"SELECT  " & vbNewLine & _
+"	No=ROW_NUMBER() OVER(ORDER BY POH.PONumber, POD.ID ASC), ItemCode=CASE WHEN MI.ItemCodeExternal='' THEN POD.OrderNumberSupplier ELSE MI.ItemCodeExternal END,  " & vbNewLine & _
+"	POH.PONumber, CustomerName=CP.Name, BPName=BP.Name, POD.TotalWeight, IT.Description AS ItemTypeName, POD.ID  " & vbNewLine & _
+"FROM traPurchaseOrderCutting POH  " & vbNewLine & _
+"INNER JOIN traPurchaseOrderCuttingDet POD ON  " & vbNewLine & _
+"	POH.ID=POD.POID  " & vbNewLine & _
+"INNER JOIN mstItem MI ON	 " & vbNewLine & _
+"	POD.ItemID=MI.ID  " & vbNewLine & _
+"INNER JOIN mstItemType IT ON  " & vbNewLine & _
+"	MI.ItemTypeID=IT.ID  " & vbNewLine & _
+"INNER JOIN mstBusinessPartner CP ON  " & vbNewLine & _
+"	POH.CustomerID=CP.ID  " & vbNewLine & _
+"INNER JOIN mstBusinessPartner BP ON  " & vbNewLine & _
+"	POH.BPID=BP.ID  " & vbNewLine & _
+"WHERE  " & vbNewLine & _
+"	POH.ProgramID=@ProgramID  " & vbNewLine & _
+"	AND POH.CompanyID=@CompanyID  " & vbNewLine & _
+"	AND POH.PODate>=@DateFrom AND POH.PODate<=@DateTo  " & vbNewLine & _
+"	AND POH.IsDeleted=0  " & vbNewLine & _
+"	AND POH.ApprovedBy<>''  " & vbNewLine
+
+                If intItemTypeID > 0 Then .CommandText += "	AND IT.ID=@ItemTypeID  " & vbNewLine
+                If intBPID > 0 Then .CommandText += "	AND BP.ID=@BPID  " & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
+                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+                .Parameters.Add("@ItemTypeID", SqlDbType.Int).Value = intItemTypeID
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
+
+
         Public Shared Function MonitoringProductTransactionReportVer00(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                                        ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                                                        ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable

@@ -21,10 +21,10 @@
         End Function
 
         Public Shared Function ListDataOutstandingCutting(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
-                                                          ByVal intBPID As Integer) As DataTable
+                                                          ByVal intBPID As Integer, ByVal intCustomerID As Integer) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.PurchaseOrderCutting.ListDataOutstandingCutting(sqlCon, Nothing, intCompanyID, intProgramID, intBPID)
+                Return DL.PurchaseOrderCutting.ListDataOutstandingCutting(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, intCustomerID)
             End Using
         End Function
 

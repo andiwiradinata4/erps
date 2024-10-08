@@ -876,3 +876,5 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetVer2.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptPurchaseOrderCutting.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDate.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDateDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptListPOCutting.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptListPOCutting.resources

@@ -70,6 +70,7 @@
     Dim frmMainRptMonitoringProductTransactionVer00 As frmRptMonitoringProductTransactionVer00
     Dim frmMainRptKartuHutangVer00 As frmRptKartuHutangVer00
     Dim frmMainRptKartuPiutangVer00 As frmRptKartuPiutangVer00
+    Dim frmMainRptListPOCutting As frmRptListPOCutting
 
     '## Pembukuan
     Dim frmMainRptBukuBesarVer00 As frmRptBukuBesarVer00
@@ -824,6 +825,10 @@
 
     Private Sub mnuLaporanPembukuanNeraca_Click(sender As Object, e As EventArgs) Handles mnuLaporanPembukuanNeraca.Click
         UI.usForm.frmOpen(frmMainRptNeracaVer00, "frmRptNeracaVer00", Me)
+    End Sub
+
+    Private Sub mnuLaporanPembelianSPKPotong_Click(sender As Object, e As EventArgs) Handles mnuLaporanPembelianSPKPotong.Click
+        UI.usForm.frmOpen(frmMainRptListPOCutting, "frmRptListPOCutting", Me)
     End Sub
 
 #End Region

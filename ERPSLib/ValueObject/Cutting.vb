@@ -34,5 +34,8 @@
         Property Detail As List(Of VO.CuttingDet)
         Property DetailResult As List(Of VO.CuttingDetResult)
         Property Save As VO.Save.Action
+        Property CustomerID As Integer
+        Property CustomerCode As String
+        Property CustomerName As String
     End Class
 End Namespace

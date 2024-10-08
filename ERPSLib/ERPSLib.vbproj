@@ -300,6 +300,7 @@
     <Compile Include="ValueObject\Reports\rptConfirmationOrderVer00.vb" />
     <Compile Include="ValueObject\Reports\rptKartuHutangPiutangReport.vb" />
     <Compile Include="ValueObject\Reports\rptLabaRugi.vb" />
+    <Compile Include="ValueObject\Reports\rptListPOCutting.vb" />
     <Compile Include="ValueObject\Reports\rptMonitoringProductTransaction.vb" />
     <Compile Include="ValueObject\Reports\rptNeracaSaldo.vb" />
     <Compile Include="ValueObject\Reports\rptProformaInvoice.vb" />

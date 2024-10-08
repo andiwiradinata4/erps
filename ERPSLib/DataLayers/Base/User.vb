@@ -19,6 +19,23 @@ Namespace DL
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataForCombo(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                   "SELECT " & vbNewLine & _
+                   "     A.ID, A.Name " & vbNewLine & _
+                   "FROM mstUser A " & vbNewLine & _
+                   "WHERE A.StatusID=@StatusID " & vbNewLine
+
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Active
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
         Public Shared Function ListDataByUserIDAndPassword(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                            ByVal strUserID As String, ByVal strPassword As String) As DataTable
             Dim sqlcmdExecute As New SqlCommand

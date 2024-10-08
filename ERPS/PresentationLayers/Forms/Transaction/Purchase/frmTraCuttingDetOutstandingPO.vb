@@ -5,6 +5,7 @@
     Private intPos As Integer = 0
     Private frmParent As frmTraCuttingDet
     Private intBPID As Integer = 0
+    Private intCustomerID As Integer = 0
     Private clsCS As VO.CS
     Public pubLUdtRow As DataRow
     Public pubIsLookUpGet As Boolean = False
@@ -12,6 +13,12 @@
     Public WriteOnly Property pubBPID As Integer
         Set(value As Integer)
             intBPID = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubCustomerID As Integer
+        Set(value As Integer)
+            intCustomerID = value
         End Set
     End Property
 
@@ -38,6 +45,9 @@
         UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "BPCode", "Kode Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "BPName", "Nama Pemasok", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "CustomerID", "CustomerID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdView, "CustomerCode", "Kode Pelanggan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "CustomerName", "Nama Pelanggan", 100, UI.usDefGrid.gString)
     End Sub
 
     Private Sub prvSetButton()
@@ -50,7 +60,7 @@
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         Try
-            grdMain.DataSource = BL.PurchaseOrderCutting.ListDataOutstandingCutting(clsCS.CompanyID, clsCS.ProgramID, intBPID)
+            grdMain.DataSource = BL.PurchaseOrderCutting.ListDataOutstandingCutting(clsCS.CompanyID, clsCS.ProgramID, intBPID, intCustomerID)
             grdView.BestFitColumns()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)

@@ -162,6 +162,7 @@ Public Class frmTraCuttingDetItem
                 txtUnitPrice.Value = drSelectedItem.Item("UnitPrice")
                 txtQuantity.Value = drSelectedItem.Item("Quantity")
                 txtRemarks.Text = drSelectedItem.Item("Remarks")
+                txtUnitPriceRawMaterial.Value = drSelectedItem.Item("UnitPriceRawMaterial")
 
                 For Each dr As DataRow In dtItemResultParent.Rows
                     If dr.Item("GroupID") = intGroupID Then dtResult.ImportRow(dr)
@@ -227,6 +228,8 @@ Public Class frmTraCuttingDetItem
                 .Item("UnitPrice") = txtUnitPrice.Value
                 .Item("TotalPrice") = txtTotalPrice.Value
                 .Item("Remarks") = txtRemarks.Text.Trim
+                .Item("UnitPriceRawMaterial") = txtUnitPriceRawMaterial.Value
+                .Item("TotalPriceRawMaterial") = txtUnitPriceRawMaterial.Value * txtTotalWeight.Value
                 .EndEdit()
             End With
             dtItem.Rows.Add(drItem)
@@ -257,6 +260,8 @@ Public Class frmTraCuttingDetItem
                         .Item("UnitPrice") = txtUnitPrice.Value
                         .Item("TotalPrice") = txtTotalPrice.Value
                         .Item("Remarks") = txtRemarks.Text.Trim
+                        .Item("UnitPriceRawMaterial") = txtUnitPriceRawMaterial.Value
+                        .Item("TotalPriceRawMaterial") = txtUnitPriceRawMaterial.Value * txtTotalWeight.Value
                         .EndEdit()
                     End If
                 End With
@@ -303,6 +308,7 @@ Public Class frmTraCuttingDetItem
         txtTotalWeight.Value = 0
         txtTotalPrice.Value = 0
         txtRemarks.Text = ""
+        txtUnitPriceRawMaterial.Value = 0
     End Sub
 
     Private Sub prvChooseItem()
@@ -330,6 +336,7 @@ Public Class frmTraCuttingDetItem
                 txtMaxTotalWeight.Value = .pubLUdtRow.Item("MaxTotalWeight")
                 txtUnitPrice.Value = .pubLUdtRow.Item("UnitPrice")
                 txtQuantity.Value = .pubLUdtRow.Item("Quantity")
+                txtUnitPriceRawMaterial.Value = .pubLUdtRow.Item("UnitPriceRawMaterial")
                 txtQuantity.Focus()
                 txtRemarks.Text = ""
                 bolIsAutoSearch = False

@@ -203,6 +203,17 @@
 
 #End Region
 
+        Public Shared Function ListPOCutting(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                             ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+                                             ByVal intBPID As Integer, ByVal intItemTypeID As Integer) As DataTable
+            dtmDateTo = dtmDateTo.AddHours(23).AddMinutes(59).AddSeconds(59)
+            BL.Server.ServerDefault()
+            Dim dtReturn As New DataTable
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.Reports.ListPOCutting(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intBPID, intItemTypeID)
+            End Using
+        End Function
+
         Public Shared Function MonitoringProductTransactionReportVer00(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                                                        ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable
             dtmDateTo = dtmDateTo.AddHours(23).AddMinutes(59).AddSeconds(59)
