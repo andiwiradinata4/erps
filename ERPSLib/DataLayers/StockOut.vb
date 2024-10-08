@@ -10,7 +10,7 @@ Namespace DL
                 .CommandText =
 "SELECT  " & vbNewLine &
 "	A.ID, A.ParentID, A.ParentDetailID, A.OrderNumberSupplier, A.SourceData, A.ItemID, A.Quantity,  " & vbNewLine &
-"	A.Weight, A.TotalWeight " & vbNewLine &
+"	A.Weight, A.TotalWeight, A.ProgramID, A.CompanyID " & vbNewLine &
 "FROM traStockOut A " & vbNewLine &
 "WHERE  " & vbNewLine &
 "	1=1  " & vbNewLine
@@ -28,10 +28,10 @@ Namespace DL
                     .CommandText =
 "INSERT INTO traStockOut " & vbNewLine &
 "	(ID, ParentID, ParentDetailID, OrderNumberSupplier, SourceData, ItemID, Quantity,  " & vbNewLine &
-"	 Weight, TotalWeight) " & vbNewLine &
+"	 Weight, TotalWeight, ProgramID, CompanyID) " & vbNewLine &
 "VALUES  " & vbNewLine &
 "	(@ID, @ParentID, @ParentDetailID, @OrderNumberSupplier, @SourceData, @ItemID, @Quantity,  " & vbNewLine &
-"	 @Weight, @TotalWeight) " & vbNewLine
+"	 @Weight, @TotalWeight, @ProgramID, @CompanyID) " & vbNewLine
                 Else
                     .CommandText =
 "UPDATE traStockOut SET  " & vbNewLine &
@@ -51,6 +51,8 @@ Namespace DL
                 .Parameters.Add("@Quantity", SqlDbType.Decimal).Value = clsData.Quantity
                 .Parameters.Add("@Weight", SqlDbType.Decimal).Value = clsData.Weight
                 .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = clsData.ProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = clsData.CompanyID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -69,7 +71,7 @@ Namespace DL
                     .CommandText =
 "SELECT TOP 1  " & vbNewLine &
 "	A.ID, A.ParentID, A.ParentDetailID, A.OrderNumberSupplier, A.SourceData, A.ItemID, A.Quantity,  " & vbNewLine &
-"	A.Weight, A.TotalWeight " & vbNewLine &
+"	A.Weight, A.TotalWeight, A.ProgramID, A.CompanyID " & vbNewLine &
 "FROM traStockOut A " & vbNewLine &
 "WHERE " & vbNewLine &
 "	ID=@ID " & vbNewLine
@@ -89,6 +91,8 @@ Namespace DL
                         voReturn.Quantity = .Item("Quantity")
                         voReturn.Weight = .Item("Weight")
                         voReturn.TotalWeight = .Item("TotalWeight")
+                        voReturn.ProgramID = .Item("ProgramID")
+                        voReturn.CompanyID = .Item("CompanyID")
                     End If
                 End With
             Catch ex As Exception
@@ -191,6 +195,8 @@ Namespace DL
 
                     .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
                     .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
+                    .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                    .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
                 With sqlrdData

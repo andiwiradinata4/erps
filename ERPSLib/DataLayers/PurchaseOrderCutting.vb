@@ -91,7 +91,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT DISTINCT " & vbNewLine &
-                    "   A.ID, A.PONumber, A.PODate, A.BPID, MBP.Code AS BPCode, MBP.Name AS BPName, A.CustomerID, MCustomer.Code AS CustomerCode, MCustomer.Name AS CustomerName " & vbNewLine &
+                    "   A.ID, A.PONumber, A.PODate, A.BPID, MBP.Code AS BPCode, MBP.Name AS BPName, A.CustomerID, MCP.Code AS CustomerCode, MCP.Name AS CustomerName " & vbNewLine &
                     "FROM traPurchaseOrderCutting A " & vbNewLine &
                     "INNER JOIN traPurchaseOrderCuttingDet POD ON " & vbNewLine &
                     "   A.ID=POD.POID " & vbNewLine &

@@ -74,6 +74,8 @@
 
                         clsDataStockOut.Add(New VO.StockOut With
                         {
+                            .ProgramID = clsData.ProgramID,
+                            .CompanyID = clsData.CompanyID,
                             .ParentID = "",
                             .ParentDetailID = "",
                             .OrderNumberSupplier = clsDet.OrderNumberSupplier,
@@ -95,6 +97,8 @@
 
                         clsDataStockIN.Add(New VO.StockIn With
                        {
+                           .ProgramID = clsData.ProgramID,
+                            .CompanyID = clsData.CompanyID,
                             .ParentID = "",
                             .ParentDetailID = "",
                             .OrderNumberSupplier = clsDet.OrderNumberSupplier,
