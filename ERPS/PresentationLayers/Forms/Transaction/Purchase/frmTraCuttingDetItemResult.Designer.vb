@@ -28,6 +28,9 @@ Partial Class frmTraCuttingDetItemResult
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.txtUnitPriceHPP = New ERPS.usNumeric()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.txtOrderNumberSupplier = New ERPS.usTextBox()
         Me.btnItem = New DevExpress.XtraEditors.SimpleButton()
@@ -58,17 +61,18 @@ Partial Class frmTraCuttingDetItemResult
         Me.txtWidth = New ERPS.usNumeric()
         Me.txtThick = New ERPS.usNumeric()
         Me.txtWeight = New ERPS.usNumeric()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.txtUnitPriceHPP = New ERPS.usNumeric()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.txtMaxTotalWeight = New ERPS.usNumeric()
         Me.pnlDetail.SuspendLayout()
+        CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtThick, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtMaxTotalWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -111,6 +115,9 @@ Partial Class frmTraCuttingDetItemResult
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.Label26)
+        Me.pnlDetail.Controls.Add(Me.Label27)
+        Me.pnlDetail.Controls.Add(Me.txtMaxTotalWeight)
         Me.pnlDetail.Controls.Add(Me.Label17)
         Me.pnlDetail.Controls.Add(Me.Label14)
         Me.pnlDetail.Controls.Add(Me.txtUnitPriceHPP)
@@ -150,6 +157,41 @@ Partial Class frmTraCuttingDetItemResult
         Me.pnlDetail.Size = New System.Drawing.Size(686, 332)
         Me.pnlDetail.TabIndex = 2
         '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.BackColor = System.Drawing.Color.Transparent
+        Me.Label17.ForeColor = System.Drawing.Color.Black
+        Me.Label17.Location = New System.Drawing.Point(637, 191)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(19, 13)
+        Me.Label17.TabIndex = 202
+        Me.Label17.Text = "Kg"
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.BackColor = System.Drawing.Color.Transparent
+        Me.Label14.ForeColor = System.Drawing.Color.Black
+        Me.Label14.Location = New System.Drawing.Point(440, 191)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(26, 13)
+        Me.Label14.TabIndex = 201
+        Me.Label14.Text = "HPP"
+        '
+        'txtUnitPriceHPP
+        '
+        Me.txtUnitPriceHPP.BackColor = System.Drawing.Color.White
+        Me.txtUnitPriceHPP.DecimalPlaces = 2
+        Me.txtUnitPriceHPP.Location = New System.Drawing.Point(473, 187)
+        Me.txtUnitPriceHPP.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtUnitPriceHPP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtUnitPriceHPP.Name = "txtUnitPriceHPP"
+        Me.txtUnitPriceHPP.Size = New System.Drawing.Size(160, 21)
+        Me.txtUnitPriceHPP.TabIndex = 13
+        Me.txtUnitPriceHPP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtUnitPriceHPP.ThousandsSeparator = True
+        '
         'Label21
         '
         Me.Label21.AutoSize = True
@@ -185,7 +227,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.Label23.AutoSize = True
         Me.Label23.BackColor = System.Drawing.Color.Transparent
         Me.Label23.ForeColor = System.Drawing.Color.Black
-        Me.Label23.Location = New System.Drawing.Point(417, 137)
+        Me.Label23.Location = New System.Drawing.Point(426, 137)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(40, 13)
         Me.Label23.TabIndex = 180
@@ -198,7 +240,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.txtQuantity.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtQuantity.Name = "txtQuantity"
         Me.txtQuantity.Size = New System.Drawing.Size(160, 21)
-        Me.txtQuantity.TabIndex = 10
+        Me.txtQuantity.TabIndex = 11
         Me.txtQuantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtQuantity.ThousandsSeparator = True
         '
@@ -218,7 +260,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.Label16.AutoSize = True
         Me.Label16.BackColor = System.Drawing.Color.Transparent
         Me.Label16.ForeColor = System.Drawing.Color.Black
-        Me.Label16.Location = New System.Drawing.Point(397, 164)
+        Me.Label16.Location = New System.Drawing.Point(406, 164)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(60, 13)
         Me.Label16.TabIndex = 171
@@ -234,7 +276,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.txtTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalWeight.Name = "txtTotalWeight"
         Me.txtTotalWeight.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalWeight.TabIndex = 11
+        Me.txtTotalWeight.TabIndex = 12
         Me.txtTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalWeight.ThousandsSeparator = True
         '
@@ -258,7 +300,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(471, 48)
-        Me.txtRemarks.TabIndex = 13
+        Me.txtRemarks.TabIndex = 8
         '
         'Label12
         '
@@ -356,7 +398,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.cboItemSpecification.Location = New System.Drawing.Point(473, 51)
         Me.cboItemSpecification.Name = "cboItemSpecification"
         Me.cboItemSpecification.Size = New System.Drawing.Size(160, 21)
-        Me.cboItemSpecification.TabIndex = 4
+        Me.cboItemSpecification.TabIndex = 10
         '
         'Label3
         '
@@ -377,7 +419,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.cboItemType.Location = New System.Drawing.Point(473, 24)
         Me.cboItemType.Name = "cboItemType"
         Me.cboItemType.Size = New System.Drawing.Size(160, 21)
-        Me.cboItemType.TabIndex = 3
+        Me.cboItemType.TabIndex = 9
         '
         'Label28
         '
@@ -433,7 +475,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.txtItemName.Name = "txtItemName"
         Me.txtItemName.ReadOnly = True
         Me.txtItemName.Size = New System.Drawing.Size(471, 48)
-        Me.txtItemName.TabIndex = 5
+        Me.txtItemName.TabIndex = 3
         '
         'txtLength
         '
@@ -445,7 +487,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.txtLength.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtLength.Name = "txtLength"
         Me.txtLength.Size = New System.Drawing.Size(170, 21)
-        Me.txtLength.TabIndex = 8
+        Me.txtLength.TabIndex = 6
         Me.txtLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtLength.ThousandsSeparator = True
         '
@@ -459,7 +501,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.txtWidth.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtWidth.Name = "txtWidth"
         Me.txtWidth.Size = New System.Drawing.Size(170, 21)
-        Me.txtWidth.TabIndex = 7
+        Me.txtWidth.TabIndex = 5
         Me.txtWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtWidth.ThousandsSeparator = True
         '
@@ -473,7 +515,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.txtThick.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtThick.Name = "txtThick"
         Me.txtThick.Size = New System.Drawing.Size(170, 21)
-        Me.txtThick.TabIndex = 6
+        Me.txtThick.TabIndex = 4
         Me.txtThick.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtThick.ThousandsSeparator = True
         '
@@ -486,44 +528,45 @@ Partial Class frmTraCuttingDetItemResult
         Me.txtWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtWeight.Name = "txtWeight"
         Me.txtWeight.Size = New System.Drawing.Size(170, 21)
-        Me.txtWeight.TabIndex = 9
+        Me.txtWeight.TabIndex = 7
         Me.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtWeight.ThousandsSeparator = True
         '
-        'Label17
+        'Label26
         '
-        Me.Label17.AutoSize = True
-        Me.Label17.BackColor = System.Drawing.Color.Transparent
-        Me.Label17.ForeColor = System.Drawing.Color.Black
-        Me.Label17.Location = New System.Drawing.Point(637, 191)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(19, 13)
-        Me.Label17.TabIndex = 202
-        Me.Label17.Text = "Kg"
+        Me.Label26.AutoSize = True
+        Me.Label26.BackColor = System.Drawing.Color.Transparent
+        Me.Label26.ForeColor = System.Drawing.Color.Black
+        Me.Label26.Location = New System.Drawing.Point(637, 218)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(19, 13)
+        Me.Label26.TabIndex = 205
+        Me.Label26.Text = "Kg"
         '
-        'Label14
+        'Label27
         '
-        Me.Label14.AutoSize = True
-        Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.ForeColor = System.Drawing.Color.Black
-        Me.Label14.Location = New System.Drawing.Point(431, 191)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(26, 13)
-        Me.Label14.TabIndex = 201
-        Me.Label14.Text = "HPP"
+        Me.Label27.AutoSize = True
+        Me.Label27.BackColor = System.Drawing.Color.Transparent
+        Me.Label27.ForeColor = System.Drawing.Color.Black
+        Me.Label27.Location = New System.Drawing.Point(375, 218)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(91, 13)
+        Me.Label27.TabIndex = 204
+        Me.Label27.Text = "Maks. Total Berat"
         '
-        'txtUnitPriceHPP
+        'txtMaxTotalWeight
         '
-        Me.txtUnitPriceHPP.BackColor = System.Drawing.Color.White
-        Me.txtUnitPriceHPP.DecimalPlaces = 2
-        Me.txtUnitPriceHPP.Location = New System.Drawing.Point(473, 187)
-        Me.txtUnitPriceHPP.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtUnitPriceHPP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtUnitPriceHPP.Name = "txtUnitPriceHPP"
-        Me.txtUnitPriceHPP.Size = New System.Drawing.Size(160, 21)
-        Me.txtUnitPriceHPP.TabIndex = 12
-        Me.txtUnitPriceHPP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtUnitPriceHPP.ThousandsSeparator = True
+        Me.txtMaxTotalWeight.BackColor = System.Drawing.Color.Azure
+        Me.txtMaxTotalWeight.DecimalPlaces = 2
+        Me.txtMaxTotalWeight.Enabled = False
+        Me.txtMaxTotalWeight.Location = New System.Drawing.Point(473, 214)
+        Me.txtMaxTotalWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtMaxTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtMaxTotalWeight.Name = "txtMaxTotalWeight"
+        Me.txtMaxTotalWeight.Size = New System.Drawing.Size(160, 21)
+        Me.txtMaxTotalWeight.TabIndex = 14
+        Me.txtMaxTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtMaxTotalWeight.ThousandsSeparator = True
         '
         'frmTraCuttingDetItemResult
         '
@@ -541,13 +584,14 @@ Partial Class frmTraCuttingDetItemResult
         Me.Text = "Barang yang dihasilkan"
         Me.pnlDetail.ResumeLayout(False)
         Me.pnlDetail.PerformLayout()
+        CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtThick, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtMaxTotalWeight, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -590,4 +634,7 @@ Partial Class frmTraCuttingDetItemResult
     Friend WithEvents Label17 As Label
     Friend WithEvents Label14 As Label
     Friend WithEvents txtUnitPriceHPP As usNumeric
+    Friend WithEvents Label26 As System.Windows.Forms.Label
+    Friend WithEvents Label27 As System.Windows.Forms.Label
+    Friend WithEvents txtMaxTotalWeight As ERPS.usNumeric
 End Class

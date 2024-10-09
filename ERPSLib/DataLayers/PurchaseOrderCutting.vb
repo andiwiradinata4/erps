@@ -1045,8 +1045,8 @@
                 .CommandText =
 "SELECT  " & vbNewLine &
 "	LocationAndDate=CAST('' AS VARCHAR(100)), MC.City, POH.PODate,  POH.PickupDate, " & vbNewLine &
-"	BP.Name AS BPName, 	POH.PONumber, MI.ItemCodeExternal, MI.Thick, MI.Width,  " & vbNewLine &
-"	CASE WHEN MI.Length=0 THEN IT.LengthInitial ELSE CAST(MI.Length AS VARCHAR(100)) END AS Length,  " & vbNewLine &
+"	BP.Name AS BPName, 	POH.PONumber, ItemCodeExternal=CASE WHEN MI.ItemCodeExternal='' THEN POD.OrderNumberSupplier ELSE MI.ItemCodeExternal END, " & vbNewLine &
+"	MI.Thick, MI.Width, CASE WHEN MI.Length=0 THEN IT.LengthInitial ELSE CAST(MI.Length AS VARCHAR(100)) END AS Length,  " & vbNewLine &
 "	POD.TotalWeight, POH.RemarksResult, POH.Remarks, CP.Name AS CustomerName, POH.IsClaimCustomer, POH.StatusID, " & vbNewLine &
 "   CompanyName=MC.Name, CompanyAddress=MC.Address " & vbNewLine &
 "FROM traPurchaseOrderCutting POH  " & vbNewLine &

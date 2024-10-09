@@ -153,10 +153,10 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim intStatusID As Integer = DL.Cutting.GetStatusID(sqlCon, sqlTrans, strID)
-                    If intStatusID = VO.Status.Values.Submit Then
+                    Dim clsData As VO.Cutting = DL.Cutting.GetDetail(sqlCon, sqlTrans, strID)
+                    If clsData.StatusID = VO.Status.Values.Submit Then
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah di submit")
-                    ElseIf DL.Cutting.IsDeleted(sqlCon, sqlTrans, strID) Then
+                    ElseIf clsData.IsDeleted Then
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
                     End If
 
@@ -170,21 +170,54 @@
                         DL.PurchaseOrderCutting.CalculateDoneTotalUsedDetailResult(sqlCon, sqlTrans, dr.Item("PODetailResultID"))
                     Next
 
+                    Dim clsDataStockOut As New List(Of VO.StockOut)
                     For Each dr As DataRow In dtItem.Rows
                         '# Revert Done Quantity
                         DL.PurchaseOrderCutting.CalculateDoneTotalUsedDetail(sqlCon, sqlTrans, dr.Item("PODetailID"))
 
-                        '# Delete Stock Out
-                        'BL.StockOut.CalculateStockOut(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
+                        '# Recalculate Stock OUT
+                        clsDataStockOut.Add(New VO.StockOut With
+                        {
+                            .ProgramID = clsData.ProgramID,
+                            .CompanyID = clsData.CompanyID,
+                            .ParentID = "",
+                            .ParentDetailID = "",
+                            .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                            .SourceData = "",
+                            .ItemID = dr.Item("ItemID"),
+                            .Quantity = 0,
+                            .Weight = 0,
+                            .TotalWeight = 0
+                        })
                     Next
 
+                    Dim clsDataStockIN As New List(Of VO.StockIn)
                     For Each dr As DataRow In dtItemResult.Rows
-                        '# Delete Stock In
-                        'BL.StockIn.CalculateStockIn(sqlCon, sqlTrans, dr.Item("OrderNumberSupplier"), dr.Item("ItemID"))
+                        '# Recalculate Stock IN
+                        clsDataStockIN.Add(New VO.StockIn With
+                       {
+                           .ProgramID = clsData.ProgramID,
+                            .CompanyID = clsData.CompanyID,
+                            .ParentID = "",
+                            .ParentDetailID = "",
+                            .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                            .SourceData = "",
+                            .ItemID = dr.Item("ItemID"),
+                            .InQuantity = 0,
+                            .InWeight = 0,
+                            .InTotalWeight = 0,
+                            .UnitPrice = dr.Item("UnitPriceHPP")
+                       })
                     Next
 
                     '# Save Data Status
                     BL.Cutting.SaveDataStatus(sqlCon, sqlTrans, strID, "HAPUS", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+                    '# Save Data Stock IN
+                    BL.StockIn.SaveData(sqlCon, sqlTrans, clsDataStockIN)
+
+                    '# Save Data Stock Out
+                    BL.StockOut.SaveData(sqlCon, sqlTrans, clsDataStockOut)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()

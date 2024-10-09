@@ -3,6 +3,7 @@
 #Region "Properties"
 
     Private enumType As VO.SalesContract.PrintType = VO.SalesContract.PrintType.None
+    Private strID As String = ""
     Private strAdditionalTerm1 As String = ""
     Private strAdditionalTerm2 As String = ""
     Private strAdditionalTerm3 As String = ""
@@ -18,6 +19,12 @@
         Get
             Return enumType
         End Get
+    End Property
+
+    Public WriteOnly Property pubID As String
+        Set(value As String)
+            strID = value
+        End Set
     End Property
 
     Public ReadOnly Property pubAdditionalTerm1 As String
@@ -82,6 +89,24 @@
 
 #End Region
 
+    Private Sub prvFillForm()
+        Try
+            Dim clsData As VO.SalesContract = BL.SalesContract.GetDetail(strID)
+            txtAdditionalTerm1.Text = clsData.AdditionalTerm1
+            txtAdditionalTerm2.Text = clsData.AdditionalTerm2
+            txtAdditionalTerm3.Text = clsData.AdditionalTerm3
+            txtAdditionalTerm4.Text = clsData.AdditionalTerm4
+            txtAdditionalTerm5.Text = clsData.AdditionalTerm5
+            txtAdditionalTerm6.Text = clsData.AdditionalTerm6
+            txtAdditionalTerm7.Text = clsData.AdditionalTerm7
+            txtAdditionalTerm8.Text = clsData.AdditionalTerm8
+            txtAdditionalTerm9.Text = clsData.AdditionalTerm9
+            txtAdditionalTerm10.Text = clsData.AdditionalTerm10
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        End Try
+    End Sub
+
     Private Sub prvPreview()
         Dim strTipe As String = "None"
         If rdDefault.Checked Then
@@ -112,6 +137,17 @@
     Private Sub frmTraSalesContractPrint_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
+        txtAdditionalTerm1.CharacterCasing = CharacterCasing.Normal
+        txtAdditionalTerm2.CharacterCasing = CharacterCasing.Normal
+        txtAdditionalTerm3.CharacterCasing = CharacterCasing.Normal
+        txtAdditionalTerm4.CharacterCasing = CharacterCasing.Normal
+        txtAdditionalTerm5.CharacterCasing = CharacterCasing.Normal
+        txtAdditionalTerm6.CharacterCasing = CharacterCasing.Normal
+        txtAdditionalTerm7.CharacterCasing = CharacterCasing.Normal
+        txtAdditionalTerm8.CharacterCasing = CharacterCasing.Normal
+        txtAdditionalTerm9.CharacterCasing = CharacterCasing.Normal
+        txtAdditionalTerm10.CharacterCasing = CharacterCasing.Normal
+        prvFillForm()
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick

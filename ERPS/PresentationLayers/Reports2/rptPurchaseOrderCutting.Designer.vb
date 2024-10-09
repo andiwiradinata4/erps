@@ -517,7 +517,7 @@ Partial Public Class rptPurchaseOrderCutting
         '
         'XrTableCell12
         '
-        Me.XrTableCell12.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Thick", "{0:n0}")})
+        Me.XrTableCell12.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Thick", "{0:n2}")})
         Me.XrTableCell12.Dpi = 100.0!
         Me.XrTableCell12.Name = "XrTableCell12"
         Me.XrTableCell12.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 0, 0, 0, 100.0!)

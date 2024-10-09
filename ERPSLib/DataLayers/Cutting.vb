@@ -140,6 +140,8 @@
                         "FROM traCutting A " & vbNewLine &
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
                         "   A.BPID=B.ID " & vbNewLine &
+                        "INNER JOIN mstBusinessPartner CP ON " & vbNewLine &
+                        "   A.CustomerID=CP.ID " & vbNewLine &
                         "INNER JOIN traPurchaseOrderCutting POC ON " & vbNewLine &
                         "   A.POID=POC.ID " & vbNewLine &
                         "INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
@@ -718,8 +720,11 @@
                     "SELECT " & vbNewLine &
                     "   A.ID, A.CuttingID, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
-                    "   A.Quantity, A.Weight, A.TotalWeight, A.Remarks, A.PODetailResultID, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceHPP, A.TotalPriceHPP " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.Remarks, A.PODetailResultID, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, " & vbNewLine &
+                    "   A.ParentID, A.UnitPriceHPP, A.TotalPriceHPP, POD.TotalWeight+A.TotalWeight-POD.DoneWeight AS MaxTotalWeight " & vbNewLine &
                     "FROM traCuttingDetResult A " & vbNewLine &
+                    "INNER JOIN traPurchaseOrderCuttingDetResult POD ON " & vbNewLine &
+                    "   A.PODetailResultID=POD.ID " & vbNewLine &
                     "INNER JOIN mstItem B ON " & vbNewLine &
                     "   A.ItemID=B.ID " & vbNewLine &
                     "INNER JOIN mstItemSpecification C ON " & vbNewLine &

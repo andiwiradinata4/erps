@@ -476,14 +476,14 @@ Public Class frmTraSalesContract
     Private Sub prvPrint()
         intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
         Dim enumPrintType As VO.SalesContract.PrintType = VO.SalesContract.PrintType.None
         Using frmDetail As New frmTraSalesContractPrint
+            frmDetail.pubID = clsData.ID
             frmDetail.StartPosition = FormStartPosition.CenterParent
             frmDetail.ShowDialog()
             If frmDetail.pubType = VO.SalesContract.PrintType.None Then Exit Sub
             enumPrintType = frmDetail.pubType
-
-            clsData = prvGetData()
             clsData.AdditionalTerm1 = frmDetail.pubAdditionalTerm1
             clsData.AdditionalTerm2 = frmDetail.pubAdditionalTerm2
             clsData.AdditionalTerm3 = frmDetail.pubAdditionalTerm3
@@ -516,20 +516,21 @@ Public Class frmTraSalesContract
             Dim crReport As New rptSalesContractVer00
             Dim dtData As DataTable = BL.SalesContract.PrintVer00(intProgramID, intCompanyID, strID)
             Dim intStatusID As Integer = 0
+            Dim intCountTerm As Integer = 6
             Dim strUomInitial As String = "PCS"
             For Each dr As DataRow In dtData.Rows
                 intStatusID = dr.Item("StatusID")
                 strUomInitial = dr.Item("UomInitial")
-                'If dr.Item("AdditionalTerm1") <> "" Then crReport.shTerm1.Visible = True
-                'If dr.Item("AdditionalTerm2") <> "" Then crReport.shTerm1.Visible = True
-                'If dr.Item("AdditionalTerm3") <> "" Then crReport.shTerm1.Visible = True
-                'If dr.Item("AdditionalTerm4") <> "" Then crReport.shTerm1.Visible = True
-                'If dr.Item("AdditionalTerm5") <> "" Then crReport.shTerm1.Visible = True
-                'If dr.Item("AdditionalTerm6") <> "" Then crReport.shTerm1.Visible = True
-                'If dr.Item("AdditionalTerm7") <> "" Then crReport.shTerm1.Visible = True
-                'If dr.Item("AdditionalTerm8") <> "" Then crReport.shTerm1.Visible = True
-                'If dr.Item("AdditionalTerm9") <> "" Then crReport.shTerm1.Visible = True
-                'If dr.Item("AdditionalTerm10") <> "" Then crReport.shTerm1.Visible = True
+                If dr.Item("AdditionalTerm1") <> "" Then crReport.shAdditionalTerm1.Visible = True : crReport.paramCountAdditionalTerm1.Value = intCountTerm & ")" : intCountTerm += 1
+                If dr.Item("AdditionalTerm2") <> "" Then crReport.shAdditionalTerm2.Visible = True : crReport.paramCountAdditionalTerm2.Value = intCountTerm & ")" : intCountTerm += 1
+                If dr.Item("AdditionalTerm3") <> "" Then crReport.shAdditionalTerm3.Visible = True : crReport.paramCountAdditionalTerm3.Value = intCountTerm & ")" : intCountTerm += 1
+                If dr.Item("AdditionalTerm4") <> "" Then crReport.shAdditionalTerm4.Visible = True : crReport.paramCountAdditionalTerm4.Value = intCountTerm & ")" : intCountTerm += 1
+                If dr.Item("AdditionalTerm5") <> "" Then crReport.shAdditionalTerm5.Visible = True : crReport.paramCountAdditionalTerm5.Value = intCountTerm & ")" : intCountTerm += 1
+                If dr.Item("AdditionalTerm6") <> "" Then crReport.shAdditionalTerm6.Visible = True : crReport.paramCountAdditionalTerm6.Value = intCountTerm & ")" : intCountTerm += 1
+                If dr.Item("AdditionalTerm7") <> "" Then crReport.shAdditionalTerm7.Visible = True : crReport.paramCountAdditionalTerm7.Value = intCountTerm & ")" : intCountTerm += 1
+                If dr.Item("AdditionalTerm8") <> "" Then crReport.shAdditionalTerm8.Visible = True : crReport.paramCountAdditionalTerm8.Value = intCountTerm & ")" : intCountTerm += 1
+                If dr.Item("AdditionalTerm9") <> "" Then crReport.shAdditionalTerm9.Visible = True : crReport.paramCountAdditionalTerm9.Value = intCountTerm & ")" : intCountTerm += 1
+                If dr.Item("AdditionalTerm10") <> "" Then crReport.shAdditionalTerm10.Visible = True : crReport.paramCountAdditionalTerm10.Value = intCountTerm & ")" : intCountTerm += 1
                 Exit For
             Next
 
@@ -546,6 +547,10 @@ Public Class frmTraSalesContract
 
             '# Report Section Handle
             crReport.shTerm4SKBDN.Visible = IIf(enumPrintType = VO.SalesContract.PrintType.SKBDN, True, False)
+            crReport.paramCountTerm4_0.Value = intCountTerm & ")"
+            crReport.paramCountTerm4_1.Value = intCountTerm + 1 & ")"
+            crReport.paramCountTerm4_2.Value = intCountTerm + 2 & ")"
+            '# --------------------------------------------------------
             crReport.paramUom.Value = strUomInitial.Trim
             crReport.DataSource = dtData
             crReport.CreateDocument(True)

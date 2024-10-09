@@ -2183,64 +2183,67 @@
 
                     If bolIsUseSubitem Then .CommandText += "   AND A.ParentID<>'' " & vbNewLine
                 End If
-                ''# Cutting
-                '.CommandText +=
-                '    "UNION ALL " & vbNewLine &
-                '    "SELECT " & vbNewLine &
-                '    "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
-                '    "   A.ItemID, B.TotalPrice AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
-                '    "   B.TotalPrice-B.ReceiveAmount+A.Amount-B.AllocateDPAmount+A.DPAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-                '    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID  " & vbNewLine &
-                '    "FROM traARAPItem A " & vbNewLine &
-                '    "INNER JOIN traPurchaseOrderCuttingDet B ON " & vbNewLine &
-                '    "   A.ReferencesDetailID=B.ID " & vbNewLine &
-                '    "INNER JOIN traPurchaseOrderCutting C ON " & vbNewLine &
-                '    "   B.POID=C.ID " & vbNewLine &
-                '    "INNER JOIN mstItem MI ON " & vbNewLine &
-                '    "   A.ItemID=MI.ID " & vbNewLine &
-                '    "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
-                '    "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
-                '    "INNER JOIN mstItemType MIT ON " & vbNewLine &
-                '    "   MI.ItemTypeID=MIT.ID " & vbNewLine &
-                '    "WHERE " & vbNewLine &
-                '    "   A.ParentID=@APID " & vbNewLine &
-                '    " " & vbNewLine &
-                '    "UNION ALL " & vbNewLine &
-                '    "SELECT " & vbNewLine &
-                '    "   CAST(0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.POID AS ReferencesID, A.ID AS ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
-                '    "   A.ItemID, A.TotalPrice AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, CAST(0 AS DECIMAL(18,2)) AS DPAmount, B.PPN AS PPNPercent, B.PPH AS PPHPercent, " & vbNewLine &
-                '    "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
-                '    "   A.TotalPrice-A.AllocateDPAmount-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-                '    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, CAST(0 AS INT) AS LevelItem, CAST('' AS VARCHAR(100)) AS ReferencesParentID  " & vbNewLine &
-                '    "FROM traPurchaseOrderCuttingDet A " & vbNewLine &
-                '    "INNER JOIN traPurchaseOrderCutting B ON " & vbNewLine &
-                '    "   A.POID=B.ID " & vbNewLine &
-                '    "INNER JOIN mstItem MI ON " & vbNewLine &
-                '    "   A.ItemID=MI.ID " & vbNewLine &
-                '    "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
-                '    "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
-                '    "INNER JOIN mstItemType MIT ON " & vbNewLine &
-                '    "   MI.ItemTypeID=MIT.ID " & vbNewLine &
-                '    "WHERE  " & vbNewLine &
-                '    "   B.BPID=@BPID " & vbNewLine &
-                '    "   AND B.CompanyID=@CompanyID " & vbNewLine &
-                '    "   AND B.ProgramID=@ProgramID " & vbNewLine &
-                '    "   AND A.POID=@ReferencesID " & vbNewLine &
-                '    "   AND B.ApprovedBy<>'' " & vbNewLine &
-                '    "   AND A.TotalPrice-A.AllocateDPAmount-A.ReceiveAmount>0 " & vbNewLine &
-                '    "   AND A.ID NOT IN " & vbNewLine &
-                '    "       ( " & vbNewLine &
-                '    "           SELECT ARD.ReferencesDetailID 	" & vbNewLine &
-                '    "           FROM traARAPItem ARD 	" & vbNewLine &
-                '    "           INNER JOIN traAccountPayable ARH ON 	" & vbNewLine &
-                '    "	            ARD.ParentID=ARH.ID		" & vbNewLine &
-                '    "           WHERE 	" & vbNewLine &
-                '    "               ARH.CompanyID=@CompanyID 	" & vbNewLine &
-                '    "	            AND ARH.ProgramID=@ProgramID 	" & vbNewLine &
-                '    "	            AND ARH.BPID=@BPID " & vbNewLine &
-                '    "	            AND ARH.IsDeleted=0	" & vbNewLine &
-                '    "	            AND ARH.ID=@APID " & vbNewLine &
-                '    "       ) " & vbNewLine
+                '# Cutting
+                If .CommandText.Trim <> "" Then .CommandText += "UNION ALL " & vbNewLine
+                .CommandText +=
+                    "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
+                    "   A.ItemID, A.Quantity, A.Weight, A.TotalWeight, MaxTotalWeight=B.TotalWeight-B.InvoiceTotalWeight+A.TotalWeight, " & vbNewLine &
+                    "   B.UnitPrice, B.TotalPrice AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
+                    "   B.TotalPrice-B.ReceiveAmount+A.Amount-B.AllocateDPAmount+A.DPAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID  " & vbNewLine &
+                    "FROM traARAPItem A " & vbNewLine &
+                    "INNER JOIN traPurchaseOrderCuttingDet B ON " & vbNewLine &
+                    "   A.ReferencesDetailID=B.ID " & vbNewLine &
+                    "INNER JOIN traPurchaseOrderCutting C ON " & vbNewLine &
+                    "   B.POID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItem MI ON " & vbNewLine &
+                    "   A.ItemID=MI.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
+                    "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
+                    "INNER JOIN mstItemType MIT ON " & vbNewLine &
+                    "   MI.ItemTypeID=MIT.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ParentID=@APID " & vbNewLine &
+                    " " & vbNewLine &
+                    "UNION ALL " & vbNewLine &
+                    "SELECT " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.POID AS ReferencesID, A.ID AS ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
+                    "   A.ItemID, Quantity=CASE WHEN A.Quantity-A.InvoiceQuantity < 0 THEN CAST(0 AS DECIMAL(18,4)) ELSE A.Quantity-A.InvoiceQuantity END, A.Weight, CAST(0 AS DECIMAL(18,4)) AS TotalWeight, MaxTotalWeight=A.TotalWeight-A.InvoiceTotalWeight, " & vbNewLine &
+                    "   A.UnitPrice, A.TotalPrice AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, CAST(0 AS DECIMAL(18,2)) AS DPAmount, B.PPN AS PPNPercent, B.PPH AS PPHPercent, " & vbNewLine &
+                    "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
+                    "   A.TotalPrice-A.AllocateDPAmount-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID  " & vbNewLine &
+                    "FROM traPurchaseOrderCuttingDet A " & vbNewLine &
+                    "INNER JOIN traPurchaseOrderCutting B ON " & vbNewLine &
+                    "   A.POID=B.ID " & vbNewLine &
+                    "INNER JOIN mstItem MI ON " & vbNewLine &
+                    "   A.ItemID=MI.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
+                    "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
+                    "INNER JOIN mstItemType MIT ON " & vbNewLine &
+                    "   MI.ItemTypeID=MIT.ID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   B.BPID=@BPID " & vbNewLine &
+                    "   AND B.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND B.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.POID=@ReferencesID " & vbNewLine &
+                    "   AND B.ApprovedBy<>'' " & vbNewLine &
+                    "   AND A.TotalPrice-A.AllocateDPAmount-A.ReceiveAmount>0 " & vbNewLine &
+                    "   AND A.TotalWeight-A.InvoiceTotalWeight>0 " & vbNewLine &
+                    "   AND A.ID NOT IN " & vbNewLine &
+                    "       ( " & vbNewLine &
+                    "           SELECT ARD.ReferencesDetailID 	" & vbNewLine &
+                    "           FROM traARAPItem ARD 	" & vbNewLine &
+                    "           INNER JOIN traAccountPayable ARH ON 	" & vbNewLine &
+                    "	            ARD.ParentID=ARH.ID		" & vbNewLine &
+                    "           WHERE 	" & vbNewLine &
+                    "               ARH.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	            AND ARH.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	            AND ARH.BPID=@BPID " & vbNewLine &
+                    "	            AND ARH.IsDeleted=0	" & vbNewLine &
+                    "	            AND ARH.ID=@APID " & vbNewLine &
+                    "       ) " & vbNewLine
 
                 '# Transport
                 If .CommandText.Trim <> "" Then .CommandText += "UNION ALL " & vbNewLine

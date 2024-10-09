@@ -62,6 +62,7 @@
                 DevelopOnProgress_ID55(sqlCon, Nothing)
                 DevelopOnProgress_ID56(sqlCon, Nothing)
                 DevelopOnProgress_ID57(sqlCon, Nothing)
+                DevelopOnProgress_ID58(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1531,6 +1532,26 @@
                 "ALTER TABLE traSalesContract ADD AdditionalTerm8 [varchar](5000) NOT NULL CONSTRAINT DF_traSalesContract_AdditionalTerm8 DEFAULT ('')  " & vbNewLine &
                 "ALTER TABLE traSalesContract ADD AdditionalTerm9 [varchar](5000) NOT NULL CONSTRAINT DF_traSalesContract_AdditionalTerm9 DEFAULT ('')  " & vbNewLine &
                 "ALTER TABLE traSalesContract ADD AdditionalTerm10 [varchar](5000) NOT NULL CONSTRAINT DF_traSalesContract_AdditionalTerm10 DEFAULT ('')  " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 58
+        Private Shared Sub DevelopOnProgress_ID58(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 58
+            clsData.Name = "Alter Table Purchase Order Cutting Detail | Add Invoice Quantity dan Weight"
+            clsData.Scripts =
+                "ALTER TABLE traPurchaseOrderCuttingDet ADD InvoiceQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_InvoiceQuantity DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDet ADD InvoiceWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_InvoiceWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDet ADD InvoiceTotalWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_InvoiceTotalWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDetResult ADD InvoiceQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_InvoiceQuantity DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDetResult ADD InvoiceWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_InvoiceWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDetResult ADD InvoiceTotalWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_InvoiceTotalWeight DEFAULT ((0)) " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

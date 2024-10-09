@@ -270,7 +270,8 @@
                         "   A.DelegationSeller, A.DelegationPositionSeller, A.DelegationBuyer, A.DelegationPositionBuyer, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, " & vbNewLine &
                         "   A.RoundingManual, A.IsDeleted, A.Remarks, A.JournalID, A.StatusID, A.CompanyBankAccountID, C.AccountName, C.BankName, C.AccountNumber, C.Currency AS CurrencyBank, A.SubmitBy, A.SubmitDate, " & vbNewLine &
                         "   A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.ReceiveAmount, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual, " & vbNewLine &
-                        "   A.BPLocationID, ISNULL(BPL.Address,'') AS BPLocationAddress, A.IsUseSubItem, A.ReferencesNumber " & vbNewLine &
+                        "   A.BPLocationID, ISNULL(BPL.Address,'') AS BPLocationAddress, A.IsUseSubItem, A.ReferencesNumber, A.AdditionalTerm1, A.AdditionalTerm2, A.AdditionalTerm3, A.AdditionalTerm4, A.AdditionalTerm5, A.AdditionalTerm6, " & vbNewLine &
+                        "   A.AdditionalTerm7, A.AdditionalTerm8, A.AdditionalTerm9, A.AdditionalTerm10 " & vbNewLine &
                         "FROM traSalesContract A " & vbNewLine &
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
                         "   A.BPID=B.ID " & vbNewLine &
@@ -338,6 +339,16 @@
                         voReturn.BPLocationAddress = .Item("BPLocationAddress")
                         voReturn.IsUseSubItem = .Item("IsUseSubItem")
                         voReturn.ReferencesNumber = .Item("ReferencesNumber")
+                        voReturn.AdditionalTerm1 = .Item("AdditionalTerm1")
+                        voReturn.AdditionalTerm2 = .Item("AdditionalTerm2")
+                        voReturn.AdditionalTerm3 = .Item("AdditionalTerm3")
+                        voReturn.AdditionalTerm4 = .Item("AdditionalTerm4")
+                        voReturn.AdditionalTerm5 = .Item("AdditionalTerm5")
+                        voReturn.AdditionalTerm6 = .Item("AdditionalTerm6")
+                        voReturn.AdditionalTerm7 = .Item("AdditionalTerm7")
+                        voReturn.AdditionalTerm8 = .Item("AdditionalTerm8")
+                        voReturn.AdditionalTerm9 = .Item("AdditionalTerm9")
+                        voReturn.AdditionalTerm10 = .Item("AdditionalTerm10")
                     End If
                 End With
             Catch ex As Exception

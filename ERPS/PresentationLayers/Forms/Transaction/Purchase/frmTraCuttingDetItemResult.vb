@@ -98,6 +98,7 @@
                 txtQuantity.Value = drSelected.Item("Quantity")
                 txtRemarks.Text = drSelected.Item("Remarks")
                 txtUnitPriceHPP.Value = drSelected.Item("UnitPriceHPP")
+                txtMaxTotalWeight.Value = drSelected.Item("MaxTotalWeight")
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -127,6 +128,8 @@
             UI.usForm.frmMessageBox("HPP harus lebih besar dari 0")
             txtUnitPriceHPP.Focus()
             Exit Sub
+        ElseIf txtMaxTotalWeight.Value < txtTotalWeight.Value Then
+            If Not UI.usForm.frmAskQuestion("Total Berat melebihi Maks. Total Berat, Apakah anda yakin ingin melanjutkannya?") Then Exit Sub
         End If
 
         If bolIsNew Then
@@ -154,6 +157,7 @@
                 .Item("Remarks") = txtRemarks.Text.Trim
                 .Item("UnitPriceHPP") = txtUnitPriceHPP.Value
                 .Item("TotalPriceHPP") = txtUnitPriceHPP.Value * txtTotalWeight.Value
+                .Item("MaxTotalWeight") = txtMaxTotalWeight.Value
                 dr.EndEdit()
                 dtItemResultParent.Rows.Add(dr)
                 dtItemResultParent.AcceptChanges()
@@ -183,6 +187,7 @@
                         .Item("Remarks") = txtRemarks.Text.Trim
                         .Item("UnitPriceHPP") = txtUnitPriceHPP.Value
                         .Item("TotalPriceHPP") = txtUnitPriceHPP.Value * txtTotalWeight.Value
+                        .Item("MaxTotalWeight") = txtMaxTotalWeight.Value
                         .EndEdit()
                         dtItemResultParent.AcceptChanges()
                         frmParent.grdItemResultView.BestFitColumns()
@@ -217,6 +222,7 @@
                 txtWeight.Value = .pubLUdtRow.Item("Weight")
                 txtQuantity.Value = .pubLUdtRow.Item("Quantity")
                 txtUnitPriceHPP.Value = .pubLUdtRow.Item("UnitPriceRawMaterial")
+                txtMaxTotalWeight.Value = .pubLUdtRow.Item("MaxTotalWeight")
                 txtQuantity.Focus()
                 txtRemarks.Text = ""
                 bolIsAutoSearch = False
@@ -246,6 +252,7 @@
         txtQuantity.Value = 0
         txtRemarks.Text = ""
         txtUnitPriceHPP.Value = 0
+        txtMaxTotalWeight.Value = 0
         txtItemCode.Focus()
     End Sub
 

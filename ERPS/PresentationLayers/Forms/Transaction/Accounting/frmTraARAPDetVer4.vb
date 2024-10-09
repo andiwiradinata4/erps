@@ -622,6 +622,7 @@ Public Class frmTraARAPDetVer4
             For i As Integer = 0 To .RowCount - 1
                 .SetRowCellValue(i, "Pick", bolValue)
                 If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And strModules = VO.AccountPayable.ReceivePaymentTransport Then .SetRowCellValue(i, "TotalWeight", .GetRowCellValue(i, "Quantity") * .GetRowCellValue(i, "Weight"))
+                If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And strModules = VO.AccountPayable.ReceivePaymentCutting Then .SetRowCellValue(i, "TotalWeight", .GetRowCellValue(i, "Quantity") * .GetRowCellValue(i, "Weight"))
                 If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And strModules = VO.AccountPayable.ReceivePayment And intPaymentTypeID = VO.PaymentType.Values.TT30Days Then .SetRowCellValue(i, "TotalWeight", .GetRowCellValue(i, "Quantity") * .GetRowCellValue(i, "Weight"))
                 .UpdateCurrentRow()
             Next

@@ -88,6 +88,7 @@ Public Class frmTraCuttingDet
         UI.usForm.SetGrid(grdItemResultView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdItemResultView, "Weight", "Weight", 100, UI.usDefGrid.gReal4Num)
         UI.usForm.SetGrid(grdItemResultView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemResultView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemResultView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemResultView, "UnitPriceHPP", "HPP", 300, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemResultView, "TotalPriceHPP", "Total HPP", 300, UI.usDefGrid.gReal2Num)
