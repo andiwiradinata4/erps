@@ -494,7 +494,10 @@
                     dr.Item("AllOrderNumberSupplier") = strAllOrderNumberSupplier
                     dr.Item("NumericToString") = SharedLib.Math.NumberToString(dr.Item("GrandTotal"))
 
-                    If IsNumeric(dr.Item("ItemLength")) Then dr.Item("ItemLength") = Format(Convert.ToDecimal(dr.Item("ItemLength")), "#,###")
+                    If IsNumeric(dr.Item("ItemLength")) Then
+                        Dim decValue As Decimal = Convert.ToDecimal(dr.Item("ItemLength"))
+                        dr.Item("ItemLength") = Format(decValue / 100, "#,##0")
+                    End If
 
                     dr.EndEdit()
                 Next
@@ -583,6 +586,20 @@
 
                     '# Save Data Status
                     BL.SalesContract.SaveDataStatus(sqlCon, sqlTrans, strID, IIf(bolValue = False, "BATAL ", "") & "SET PENGIRIMAN", ERPSLib.UI.usUserApp.UserID, strRemarks)
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+        End Sub
+
+        Public Shared Sub UpdateAdditinalTerm(ByVal clsData As VO.SalesContract)
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    DL.SalesContract.UpdateAdditionalTerm(sqlCon, sqlTrans, clsData)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()

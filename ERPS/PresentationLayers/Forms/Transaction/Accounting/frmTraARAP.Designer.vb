@@ -44,6 +44,7 @@ Partial Class frmTraARAP
         Me.BarExtendDueDate = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarPrint = New System.Windows.Forms.ToolBarButton()
+        Me.BarPrintInvoice = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
         Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
@@ -61,7 +62,6 @@ Partial Class frmTraARAP
         Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
         Me.btnExecute = New DevExpress.XtraEditors.SimpleButton()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.BarPrintInvoice = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -220,6 +220,12 @@ Partial Class frmTraARAP
         Me.BarPrint.Name = "BarPrint"
         Me.BarPrint.Tag = "Print"
         Me.BarPrint.Text = "Print Performa Invoice"
+        '
+        'BarPrintInvoice
+        '
+        Me.BarPrintInvoice.Name = "BarPrintInvoice"
+        Me.BarPrintInvoice.Tag = "Print"
+        Me.BarPrintInvoice.Text = "Print Invoice"
         '
         'BarExportExcel
         '
@@ -382,12 +388,6 @@ Partial Class frmTraARAP
         Me.Label1.Size = New System.Drawing.Size(145, 17)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Query berdasarkan:"
-        '
-        'BarPrintInvoice
-        '
-        Me.BarPrintInvoice.Name = "BarPrintInvoice"
-        Me.BarPrintInvoice.Tag = "Print"
-        Me.BarPrintInvoice.Text = "Print Invoice"
         '
         'frmTraARAP
         '

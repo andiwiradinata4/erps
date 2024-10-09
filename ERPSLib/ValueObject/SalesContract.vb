@@ -51,6 +51,16 @@
         Property PaymentTerm As List(Of VO.SalesContractPaymentTerm)
         Property Save As VO.Save.Action
         Property ReferencesNumber As String
+        Property AdditionalTerm1 As String
+        Property AdditionalTerm2 As String
+        Property AdditionalTerm3 As String
+        Property AdditionalTerm4 As String
+        Property AdditionalTerm5 As String
+        Property AdditionalTerm6 As String
+        Property AdditionalTerm7 As String
+        Property AdditionalTerm8 As String
+        Property AdditionalTerm9 As String
+        Property AdditionalTerm10 As String
 
         Public Enum PrintType
             None

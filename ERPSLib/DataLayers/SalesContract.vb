@@ -1221,11 +1221,12 @@
                     "	SCH.BPID, BP.Code AS BPCode, BP.Name AS BPName, SCH.SCDate, SCH.SCNumber, SCH.DelegationSeller, SCH.DelegationPositionSeller, 	" & vbNewLine &
                     "	CAST('' AS VARCHAR(1000)) AS SCDateAndSubDistrict, SCH.DelegationBuyer, SCH.DelegationPositionBuyer, CAST('' AS VARCHAR(1000)) AS AllItemName, SCH.TotalWeight, " & vbNewLine &
                     "	SCH.TotalQuantity, SCH.TotalDPP + SCH.TotalPPN - SCH.TotalPPH + SCH.RoundingManual AS GrandTotal, SCH.PPN, CAST('' AS VARCHAR(1000)) AS PaymentTerms, 	" & vbNewLine &
-                    "	CAST('' AS VARCHAR(1000)) AS DeliveryPeriod, SCH.DeliveryPeriodFrom, SCH.DeliveryPeriodTo, SCH.Franco, ORH.ReferencesNumber, 	" & vbNewLine &
+                    "	CAST('' AS VARCHAR(1000)) AS DeliveryPeriod, SCH.DeliveryPeriodFrom, SCH.DeliveryPeriodTo, SCH.Franco, ReferencesNumber=ORH.OrderNumber, 	" & vbNewLine &
                     "	CAST('' AS VARCHAR(1000)) AS AllReferencesNumber, SCH.AllowanceProduction, CAST(0 AS INT) AS MaxCreditTerms, BP.Address AS DeliveryAddress, 	" & vbNewLine &
                     "	SCDCO.GroupID, COD.OrderNumberSupplier, CAST('' AS VARCHAR(1000)) AS AllOrderNumberSupplier, SCD.ItemID, MIS.Description AS ItemTypeAndSpec, 	" & vbNewLine &
                     "	MIS.Description AS ItemSpec, MI.Thick, MI.Width, MI.Length, SCD.Weight, SCD.Quantity, SCD.TotalWeight, SCD.UnitPrice, SCD.TotalPrice, (SCD.TotalPrice*SCH.PPN/100) AS TotalPPNItem, 	" & vbNewLine &
-                    "	SCD.TotalPrice + (SCD.TotalPrice*SCH.PPN/100) AS TotalPriceIncPPN, CAST('' AS VARCHAR(1000)) AS NumericToString, SCH.StatusID, UomInitial=CASE WHEN IT.LengthInitial='COIL' THEN 'LOT' ELSE 'PCS' END " & vbNewLine &
+                    "	SCD.TotalPrice + (SCD.TotalPrice*SCH.PPN/100) AS TotalPriceIncPPN, CAST('' AS VARCHAR(1000)) AS NumericToString, SCH.StatusID, UomInitial=CASE WHEN IT.LengthInitial='COIL' THEN 'LOT' ELSE 'PCS' END, " & vbNewLine &
+                    "   SCH.AdditionalTerm1, SCH.AdditionalTerm2, SCH.AdditionalTerm3, SCH.AdditionalTerm4, SCH.AdditionalTerm5, SCH.AdditionalTerm6, SCH.AdditionalTerm7, SCH.AdditionalTerm8, SCH.AdditionalTerm9, SCH.AdditionalTerm10 " & vbNewLine &
                     "FROM traSalesContract SCH 	" & vbNewLine &
                     "INNER JOIN mstCompany MC ON 	" & vbNewLine &
                     "	SCH.CompanyID=MC.ID 	" & vbNewLine &
@@ -1253,7 +1254,7 @@
                     "	AND SCH.CompanyID=@CompanyID " & vbNewLine &
                     "	AND SCH.ID=@ID 	" & vbNewLine &
                     "ORDER BY 	" & vbNewLine &
-                    "	COD.OrderNumberSupplier, ORH.ReferencesNumber, MI.Thick, MI.Width, MI.Length, SCD.Weight	" & vbNewLine
+                    "	COD.OrderNumberSupplier, ORH.OrderNumber, MI.Thick, MI.Width, MI.Length, SCD.Weight	" & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
@@ -1356,6 +1357,47 @@
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@Value", SqlDbType.Int).Value = bolValue
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub UpdateAdditionalTerm(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal clsData As VO.SalesContract)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesContract SET " & vbNewLine &
+                    "    AdditionalTerm1=@AdditionalTerm1, " & vbNewLine &
+                    "    AdditionalTerm2=@AdditionalTerm2, " & vbNewLine &
+                    "    AdditionalTerm3=@AdditionalTerm3, " & vbNewLine &
+                    "    AdditionalTerm4=@AdditionalTerm4, " & vbNewLine &
+                    "    AdditionalTerm5=@AdditionalTerm5, " & vbNewLine &
+                    "    AdditionalTerm6=@AdditionalTerm6, " & vbNewLine &
+                    "    AdditionalTerm7=@AdditionalTerm7, " & vbNewLine &
+                    "    AdditionalTerm8=@AdditionalTerm8, " & vbNewLine &
+                    "    AdditionalTerm9=@AdditionalTerm9, " & vbNewLine &
+                    "    AdditionalTerm10=@AdditionalTerm10 " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@AdditionalTerm1", SqlDbType.VarChar, 5000).Value = clsData.AdditionalTerm1
+                .Parameters.Add("@AdditionalTerm2", SqlDbType.VarChar, 5000).Value = clsData.AdditionalTerm2
+                .Parameters.Add("@AdditionalTerm3", SqlDbType.VarChar, 5000).Value = clsData.AdditionalTerm3
+                .Parameters.Add("@AdditionalTerm4", SqlDbType.VarChar, 5000).Value = clsData.AdditionalTerm4
+                .Parameters.Add("@AdditionalTerm5", SqlDbType.VarChar, 5000).Value = clsData.AdditionalTerm5
+                .Parameters.Add("@AdditionalTerm6", SqlDbType.VarChar, 5000).Value = clsData.AdditionalTerm6
+                .Parameters.Add("@AdditionalTerm7", SqlDbType.VarChar, 5000).Value = clsData.AdditionalTerm7
+                .Parameters.Add("@AdditionalTerm8", SqlDbType.VarChar, 5000).Value = clsData.AdditionalTerm8
+                .Parameters.Add("@AdditionalTerm9", SqlDbType.VarChar, 5000).Value = clsData.AdditionalTerm9
+                .Parameters.Add("@AdditionalTerm10", SqlDbType.VarChar, 5000).Value = clsData.AdditionalTerm10
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

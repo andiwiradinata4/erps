@@ -61,6 +61,7 @@
                 CreateTableItemResult_ID54(sqlCon, Nothing)
                 DevelopOnProgress_ID55(sqlCon, Nothing)
                 DevelopOnProgress_ID56(sqlCon, Nothing)
+                DevelopOnProgress_ID57(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1507,6 +1508,30 @@
             clsData.ID = 56
             clsData.Name = "Alter Table traPurchaseOrderCuttingDet | Add ResultID"
             clsData.Scripts += "ALTER TABLE traCutting ADD CustomerID [int] NOT NULL CONSTRAINT DF_traCutting_CustomerID DEFAULT ((0)) " & vbNewLine
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 57
+        Private Shared Sub DevelopOnProgress_ID57(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 57
+            clsData.Name = "Alter Table traSalesContract | Additional Term"
+            clsData.Scripts =
+                "ALTER TABLE traSalesContract ADD AdditionalTerm1 [varchar](5000) NOT NULL CONSTRAINT DF_traSalesContract_AdditionalTerm1 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traSalesContract ADD AdditionalTerm2 [varchar](5000) NOT NULL CONSTRAINT DF_traSalesContract_AdditionalTerm2 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traSalesContract ADD AdditionalTerm3 [varchar](5000) NOT NULL CONSTRAINT DF_traSalesContract_AdditionalTerm3 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traSalesContract ADD AdditionalTerm4 [varchar](5000) NOT NULL CONSTRAINT DF_traSalesContract_AdditionalTerm4 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traSalesContract ADD AdditionalTerm5 [varchar](5000) NOT NULL CONSTRAINT DF_traSalesContract_AdditionalTerm5 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traSalesContract ADD AdditionalTerm6 [varchar](5000) NOT NULL CONSTRAINT DF_traSalesContract_AdditionalTerm6 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traSalesContract ADD AdditionalTerm7 [varchar](5000) NOT NULL CONSTRAINT DF_traSalesContract_AdditionalTerm7 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traSalesContract ADD AdditionalTerm8 [varchar](5000) NOT NULL CONSTRAINT DF_traSalesContract_AdditionalTerm8 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traSalesContract ADD AdditionalTerm9 [varchar](5000) NOT NULL CONSTRAINT DF_traSalesContract_AdditionalTerm9 DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traSalesContract ADD AdditionalTerm10 [varchar](5000) NOT NULL CONSTRAINT DF_traSalesContract_AdditionalTerm10 DEFAULT ('')  " & vbNewLine
+
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

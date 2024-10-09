@@ -474,12 +474,32 @@ Public Class frmTraSalesContract
     End Sub
 
     Private Sub prvPrint()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
         Dim enumPrintType As VO.SalesContract.PrintType = VO.SalesContract.PrintType.None
         Using frmDetail As New frmTraSalesContractPrint
             frmDetail.StartPosition = FormStartPosition.CenterParent
             frmDetail.ShowDialog()
             If frmDetail.pubType = VO.SalesContract.PrintType.None Then Exit Sub
             enumPrintType = frmDetail.pubType
+
+            clsData = prvGetData()
+            clsData.AdditionalTerm1 = frmDetail.pubAdditionalTerm1
+            clsData.AdditionalTerm2 = frmDetail.pubAdditionalTerm2
+            clsData.AdditionalTerm3 = frmDetail.pubAdditionalTerm3
+            clsData.AdditionalTerm4 = frmDetail.pubAdditionalTerm4
+            clsData.AdditionalTerm5 = frmDetail.pubAdditionalTerm5
+            clsData.AdditionalTerm6 = frmDetail.pubAdditionalTerm6
+            clsData.AdditionalTerm7 = frmDetail.pubAdditionalTerm7
+            clsData.AdditionalTerm8 = frmDetail.pubAdditionalTerm8
+            clsData.AdditionalTerm9 = frmDetail.pubAdditionalTerm9
+            clsData.AdditionalTerm10 = frmDetail.pubAdditionalTerm10
+
+            Try
+                BL.SalesContract.UpdateAdditinalTerm(clsData)
+            Catch ex As Exception
+                UI.usForm.frmMessageBox(ex.Message)
+            End Try
         End Using
         prvPrintSCCO()
         prvPrintSC(enumPrintType)
@@ -493,16 +513,26 @@ Public Class frmTraSalesContract
         pgMain.Value = 40
 
         Try
+            Dim crReport As New rptSalesContractVer00
             Dim dtData As DataTable = BL.SalesContract.PrintVer00(intProgramID, intCompanyID, strID)
             Dim intStatusID As Integer = 0
             Dim strUomInitial As String = "PCS"
             For Each dr As DataRow In dtData.Rows
                 intStatusID = dr.Item("StatusID")
                 strUomInitial = dr.Item("UomInitial")
+                'If dr.Item("AdditionalTerm1") <> "" Then crReport.shTerm1.Visible = True
+                'If dr.Item("AdditionalTerm2") <> "" Then crReport.shTerm1.Visible = True
+                'If dr.Item("AdditionalTerm3") <> "" Then crReport.shTerm1.Visible = True
+                'If dr.Item("AdditionalTerm4") <> "" Then crReport.shTerm1.Visible = True
+                'If dr.Item("AdditionalTerm5") <> "" Then crReport.shTerm1.Visible = True
+                'If dr.Item("AdditionalTerm6") <> "" Then crReport.shTerm1.Visible = True
+                'If dr.Item("AdditionalTerm7") <> "" Then crReport.shTerm1.Visible = True
+                'If dr.Item("AdditionalTerm8") <> "" Then crReport.shTerm1.Visible = True
+                'If dr.Item("AdditionalTerm9") <> "" Then crReport.shTerm1.Visible = True
+                'If dr.Item("AdditionalTerm10") <> "" Then crReport.shTerm1.Visible = True
                 Exit For
             Next
 
-            Dim crReport As New rptSalesContractVer00
             crReport.PaperKind = System.Drawing.Printing.PaperKind.Legal
 
             '# Setup Watermark Report

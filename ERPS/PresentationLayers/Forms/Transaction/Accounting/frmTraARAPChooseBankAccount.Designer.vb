@@ -26,6 +26,8 @@ Partial Class frmTraARAPChooseBankAccount
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.pnlMain = New System.Windows.Forms.Panel()
+        Me.txtPurchaseNumber = New ERPS.usTextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.txtPaymentTerm10 = New ERPS.usTextBox()
         Me.Label17 = New System.Windows.Forms.Label()
@@ -70,8 +72,6 @@ Partial Class frmTraARAPChooseBankAccount
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
-        Me.txtPurchaseNumber = New ERPS.usTextBox()
-        Me.Label18 = New System.Windows.Forms.Label()
         Me.pnlMain.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.gboCompanyBankAccount2.SuspendLayout()
@@ -112,6 +112,28 @@ Partial Class frmTraARAPChooseBankAccount
         Me.pnlMain.Name = "pnlMain"
         Me.pnlMain.Size = New System.Drawing.Size(1211, 397)
         Me.pnlMain.TabIndex = 2
+        '
+        'txtPurchaseNumber
+        '
+        Me.txtPurchaseNumber.BackColor = System.Drawing.Color.White
+        Me.txtPurchaseNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPurchaseNumber.Location = New System.Drawing.Point(153, 321)
+        Me.txtPurchaseNumber.MaxLength = 250
+        Me.txtPurchaseNumber.Multiline = True
+        Me.txtPurchaseNumber.Name = "txtPurchaseNumber"
+        Me.txtPurchaseNumber.Size = New System.Drawing.Size(1025, 54)
+        Me.txtPurchaseNumber.TabIndex = 3
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.BackColor = System.Drawing.Color.Transparent
+        Me.Label18.ForeColor = System.Drawing.Color.Black
+        Me.Label18.Location = New System.Drawing.Point(30, 325)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(91, 13)
+        Me.Label18.TabIndex = 133
+        Me.Label18.Text = "Purchase Number"
         '
         'GroupBox1
         '
@@ -583,7 +605,6 @@ Partial Class frmTraARAPChooseBankAccount
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -603,28 +624,6 @@ Partial Class frmTraARAPChooseBankAccount
         Me.BarClose.Name = "BarClose"
         Me.BarClose.Tag = "Close"
         Me.BarClose.Text = "Tutup"
-        '
-        'txtPurchaseNumber
-        '
-        Me.txtPurchaseNumber.BackColor = System.Drawing.Color.White
-        Me.txtPurchaseNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPurchaseNumber.Location = New System.Drawing.Point(153, 321)
-        Me.txtPurchaseNumber.MaxLength = 250
-        Me.txtPurchaseNumber.Multiline = True
-        Me.txtPurchaseNumber.Name = "txtPurchaseNumber"
-        Me.txtPurchaseNumber.Size = New System.Drawing.Size(1025, 54)
-        Me.txtPurchaseNumber.TabIndex = 3
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.BackColor = System.Drawing.Color.Transparent
-        Me.Label18.ForeColor = System.Drawing.Color.Black
-        Me.Label18.Location = New System.Drawing.Point(30, 325)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(91, 13)
-        Me.Label18.TabIndex = 133
-        Me.Label18.Text = "Purchase Number"
         '
         'frmTraARAPChooseBankAccount
         '

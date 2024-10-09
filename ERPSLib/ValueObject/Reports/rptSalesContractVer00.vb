@@ -41,6 +41,16 @@
         Property CompanySubDistrict As String
         Property CompanyDirectorName As String
         Property NumericToString As String
+        Property AdditionalTerm1 As String
+        Property AdditionalTerm2 As String
+        Property AdditionalTerm3 As String
+        Property AdditionalTerm4 As String
+        Property AdditionalTerm5 As String
+        Property AdditionalTerm6 As String
+        Property AdditionalTerm7 As String
+        Property AdditionalTerm8 As String
+        Property AdditionalTerm9 As String
+        Property AdditionalTerm10 As String
 
         '# Items
         Property DeliveryAddress As String
