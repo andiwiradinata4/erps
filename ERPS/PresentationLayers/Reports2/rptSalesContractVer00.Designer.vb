@@ -120,12 +120,55 @@ Partial Public Class rptSalesContractVer00
         Me.XrLabel59 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel57 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel58 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.shAdditionalTerm1 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel7 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramCountAdditionalTerm1 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.XrLabel8 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.shAdditionalTerm2 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel9 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel86 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramCountAdditionalTerm2 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.shAdditionalTerm3 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel91 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramCountAdditionalTerm3 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.XrLabel92 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.shAdditionalTerm4 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel93 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel94 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramCountAdditionalTerm4 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.shAdditionalTerm5 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel95 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramCountAdditionalTerm5 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.XrLabel96 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.shAdditionalTerm6 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel97 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel98 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramCountAdditionalTerm6 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.shAdditionalTerm7 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel99 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramCountAdditionalTerm7 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.XrLabel100 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.shAdditionalTerm8 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel101 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel102 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramCountAdditionalTerm8 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.shAdditionalTerm9 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel103 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel104 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramCountAdditionalTerm9 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.shAdditionalTerm10 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel105 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel106 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramCountAdditionalTerm10 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.shTerm4SKBDN = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel84 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramCountTerm4_0 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrLabel85 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel87 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel88 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramCountTerm4_1 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrLabel89 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramCountTerm4_2 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrLabel90 = New DevExpress.XtraReports.UI.XRLabel()
         Me.shTerm5 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel72 = New DevExpress.XtraReports.UI.XRLabel()
@@ -145,49 +188,8 @@ Partial Public Class rptSalesContractVer00
         Me.PageFooter = New DevExpress.XtraReports.UI.PageFooterBand()
         Me.FilteringUIContext1 = New DevExpress.Utils.Filtering.FilteringUIContext(Me.components)
         Me.SalesContractVer00 = New DevExpress.DataAccess.ObjectBinding.ObjectDataSource(Me.components)
-        Me.shAdditionalTerm1 = New DevExpress.XtraReports.UI.SubBand()
-        Me.shAdditionalTerm2 = New DevExpress.XtraReports.UI.SubBand()
-        Me.shAdditionalTerm3 = New DevExpress.XtraReports.UI.SubBand()
-        Me.shAdditionalTerm4 = New DevExpress.XtraReports.UI.SubBand()
-        Me.shAdditionalTerm5 = New DevExpress.XtraReports.UI.SubBand()
-        Me.shAdditionalTerm6 = New DevExpress.XtraReports.UI.SubBand()
-        Me.shAdditionalTerm7 = New DevExpress.XtraReports.UI.SubBand()
-        Me.shAdditionalTerm8 = New DevExpress.XtraReports.UI.SubBand()
-        Me.shAdditionalTerm9 = New DevExpress.XtraReports.UI.SubBand()
-        Me.shAdditionalTerm10 = New DevExpress.XtraReports.UI.SubBand()
-        Me.XrLabel7 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel8 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.paramCountAdditionalTerm1 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.paramCountAdditionalTerm2 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.paramCountAdditionalTerm3 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.paramCountAdditionalTerm4 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.paramCountAdditionalTerm5 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.paramCountAdditionalTerm6 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.paramCountAdditionalTerm7 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.paramCountAdditionalTerm8 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.paramCountAdditionalTerm9 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.paramCountAdditionalTerm10 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.XrLabel9 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel86 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel91 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel92 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel93 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel94 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel95 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel96 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel97 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel98 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel99 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel100 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel101 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel102 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel103 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel104 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel105 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel106 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.paramCountTerm4_0 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.paramCountTerm4_1 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.paramCountTerm4_2 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.XrPictureBox1 = New DevExpress.XtraReports.UI.XRPictureBox()
+        Me.XrPictureBox2 = New DevExpress.XtraReports.UI.XRPictureBox()
         CType(Me.XrTable1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrRichText4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrRichText2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -228,7 +230,7 @@ Partial Public Class rptSalesContractVer00
         '
         'ReportHeader
         '
-        Me.ReportHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel5, Me.XrLabel4, Me.XrLabel3, Me.XrLabel2, Me.XrLabel1})
+        Me.ReportHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrPictureBox1, Me.XrPictureBox2, Me.XrLabel5, Me.XrLabel4, Me.XrLabel3, Me.XrLabel2, Me.XrLabel1})
         Me.ReportHeader.Dpi = 100.0!
         Me.ReportHeader.HeightF = 107.2917!
         Me.ReportHeader.Name = "ReportHeader"
@@ -1282,6 +1284,356 @@ Partial Public Class rptSalesContractVer00
         Me.XrLabel58.Text = "1)"
         Me.XrLabel58.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
+        'shAdditionalTerm1
+        '
+        Me.shAdditionalTerm1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel7, Me.XrLabel8})
+        Me.shAdditionalTerm1.Dpi = 100.0!
+        Me.shAdditionalTerm1.HeightF = 20.0!
+        Me.shAdditionalTerm1.Name = "shAdditionalTerm1"
+        Me.shAdditionalTerm1.Visible = False
+        '
+        'XrLabel7
+        '
+        Me.XrLabel7.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm1, "Text", "")})
+        Me.XrLabel7.Dpi = 100.0!
+        Me.XrLabel7.LocationFloat = New DevExpress.Utils.PointFloat(0.001434326!, 0.0!)
+        Me.XrLabel7.Name = "XrLabel7"
+        Me.XrLabel7.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel7.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
+        Me.XrLabel7.StylePriority.UseTextAlignment = False
+        Me.XrLabel7.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'paramCountAdditionalTerm1
+        '
+        Me.paramCountAdditionalTerm1.Description = "paramCountAdditionalTerm1"
+        Me.paramCountAdditionalTerm1.Name = "paramCountAdditionalTerm1"
+        '
+        'XrLabel8
+        '
+        Me.XrLabel8.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm1")})
+        Me.XrLabel8.Dpi = 100.0!
+        Me.XrLabel8.LocationFloat = New DevExpress.Utils.PointFloat(20.00339!, 0.0!)
+        Me.XrLabel8.Name = "XrLabel8"
+        Me.XrLabel8.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel8.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
+        Me.XrLabel8.StylePriority.UseTextAlignment = False
+        Me.XrLabel8.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'shAdditionalTerm2
+        '
+        Me.shAdditionalTerm2.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel9, Me.XrLabel86})
+        Me.shAdditionalTerm2.Dpi = 100.0!
+        Me.shAdditionalTerm2.HeightF = 20.0!
+        Me.shAdditionalTerm2.Name = "shAdditionalTerm2"
+        Me.shAdditionalTerm2.Visible = False
+        '
+        'XrLabel9
+        '
+        Me.XrLabel9.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm2")})
+        Me.XrLabel9.Dpi = 100.0!
+        Me.XrLabel9.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
+        Me.XrLabel9.Name = "XrLabel9"
+        Me.XrLabel9.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel9.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
+        Me.XrLabel9.StylePriority.UseTextAlignment = False
+        Me.XrLabel9.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel86
+        '
+        Me.XrLabel86.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm2, "Text", "")})
+        Me.XrLabel86.Dpi = 100.0!
+        Me.XrLabel86.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
+        Me.XrLabel86.Name = "XrLabel86"
+        Me.XrLabel86.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel86.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
+        Me.XrLabel86.StylePriority.UseTextAlignment = False
+        Me.XrLabel86.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'paramCountAdditionalTerm2
+        '
+        Me.paramCountAdditionalTerm2.Description = "paramCountAdditionalTerm1"
+        Me.paramCountAdditionalTerm2.Name = "paramCountAdditionalTerm2"
+        '
+        'shAdditionalTerm3
+        '
+        Me.shAdditionalTerm3.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel91, Me.XrLabel92})
+        Me.shAdditionalTerm3.Dpi = 100.0!
+        Me.shAdditionalTerm3.HeightF = 20.0!
+        Me.shAdditionalTerm3.Name = "shAdditionalTerm3"
+        Me.shAdditionalTerm3.Visible = False
+        '
+        'XrLabel91
+        '
+        Me.XrLabel91.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm3, "Text", "")})
+        Me.XrLabel91.Dpi = 100.0!
+        Me.XrLabel91.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
+        Me.XrLabel91.Name = "XrLabel91"
+        Me.XrLabel91.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel91.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
+        Me.XrLabel91.StylePriority.UseTextAlignment = False
+        Me.XrLabel91.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'paramCountAdditionalTerm3
+        '
+        Me.paramCountAdditionalTerm3.Description = "paramCountAdditionalTerm3"
+        Me.paramCountAdditionalTerm3.Name = "paramCountAdditionalTerm3"
+        '
+        'XrLabel92
+        '
+        Me.XrLabel92.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm3")})
+        Me.XrLabel92.Dpi = 100.0!
+        Me.XrLabel92.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
+        Me.XrLabel92.Name = "XrLabel92"
+        Me.XrLabel92.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel92.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
+        Me.XrLabel92.StylePriority.UseTextAlignment = False
+        Me.XrLabel92.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'shAdditionalTerm4
+        '
+        Me.shAdditionalTerm4.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel93, Me.XrLabel94})
+        Me.shAdditionalTerm4.Dpi = 100.0!
+        Me.shAdditionalTerm4.HeightF = 20.0!
+        Me.shAdditionalTerm4.Name = "shAdditionalTerm4"
+        Me.shAdditionalTerm4.Visible = False
+        '
+        'XrLabel93
+        '
+        Me.XrLabel93.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm4")})
+        Me.XrLabel93.Dpi = 100.0!
+        Me.XrLabel93.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
+        Me.XrLabel93.Name = "XrLabel93"
+        Me.XrLabel93.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel93.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
+        Me.XrLabel93.StylePriority.UseTextAlignment = False
+        Me.XrLabel93.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel94
+        '
+        Me.XrLabel94.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm4, "Text", "")})
+        Me.XrLabel94.Dpi = 100.0!
+        Me.XrLabel94.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
+        Me.XrLabel94.Name = "XrLabel94"
+        Me.XrLabel94.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel94.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
+        Me.XrLabel94.StylePriority.UseTextAlignment = False
+        Me.XrLabel94.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'paramCountAdditionalTerm4
+        '
+        Me.paramCountAdditionalTerm4.Description = "paramCountAdditionalTerm4"
+        Me.paramCountAdditionalTerm4.Name = "paramCountAdditionalTerm4"
+        '
+        'shAdditionalTerm5
+        '
+        Me.shAdditionalTerm5.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel95, Me.XrLabel96})
+        Me.shAdditionalTerm5.Dpi = 100.0!
+        Me.shAdditionalTerm5.HeightF = 20.0!
+        Me.shAdditionalTerm5.Name = "shAdditionalTerm5"
+        Me.shAdditionalTerm5.Visible = False
+        '
+        'XrLabel95
+        '
+        Me.XrLabel95.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm5, "Text", "")})
+        Me.XrLabel95.Dpi = 100.0!
+        Me.XrLabel95.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
+        Me.XrLabel95.Name = "XrLabel95"
+        Me.XrLabel95.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel95.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
+        Me.XrLabel95.StylePriority.UseTextAlignment = False
+        Me.XrLabel95.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'paramCountAdditionalTerm5
+        '
+        Me.paramCountAdditionalTerm5.Description = "paramCountAdditionalTerm5"
+        Me.paramCountAdditionalTerm5.Name = "paramCountAdditionalTerm5"
+        '
+        'XrLabel96
+        '
+        Me.XrLabel96.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm5")})
+        Me.XrLabel96.Dpi = 100.0!
+        Me.XrLabel96.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
+        Me.XrLabel96.Name = "XrLabel96"
+        Me.XrLabel96.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel96.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
+        Me.XrLabel96.StylePriority.UseTextAlignment = False
+        Me.XrLabel96.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'shAdditionalTerm6
+        '
+        Me.shAdditionalTerm6.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel97, Me.XrLabel98})
+        Me.shAdditionalTerm6.Dpi = 100.0!
+        Me.shAdditionalTerm6.HeightF = 20.0!
+        Me.shAdditionalTerm6.Name = "shAdditionalTerm6"
+        Me.shAdditionalTerm6.Visible = False
+        '
+        'XrLabel97
+        '
+        Me.XrLabel97.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm6")})
+        Me.XrLabel97.Dpi = 100.0!
+        Me.XrLabel97.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
+        Me.XrLabel97.Name = "XrLabel97"
+        Me.XrLabel97.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel97.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
+        Me.XrLabel97.StylePriority.UseTextAlignment = False
+        Me.XrLabel97.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel98
+        '
+        Me.XrLabel98.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm6, "Text", "")})
+        Me.XrLabel98.Dpi = 100.0!
+        Me.XrLabel98.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
+        Me.XrLabel98.Name = "XrLabel98"
+        Me.XrLabel98.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel98.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
+        Me.XrLabel98.StylePriority.UseTextAlignment = False
+        Me.XrLabel98.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'paramCountAdditionalTerm6
+        '
+        Me.paramCountAdditionalTerm6.Description = "paramCountAdditionalTerm6"
+        Me.paramCountAdditionalTerm6.Name = "paramCountAdditionalTerm6"
+        '
+        'shAdditionalTerm7
+        '
+        Me.shAdditionalTerm7.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel99, Me.XrLabel100})
+        Me.shAdditionalTerm7.Dpi = 100.0!
+        Me.shAdditionalTerm7.HeightF = 20.0!
+        Me.shAdditionalTerm7.Name = "shAdditionalTerm7"
+        Me.shAdditionalTerm7.Visible = False
+        '
+        'XrLabel99
+        '
+        Me.XrLabel99.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm7, "Text", "")})
+        Me.XrLabel99.Dpi = 100.0!
+        Me.XrLabel99.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
+        Me.XrLabel99.Name = "XrLabel99"
+        Me.XrLabel99.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel99.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
+        Me.XrLabel99.StylePriority.UseTextAlignment = False
+        Me.XrLabel99.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'paramCountAdditionalTerm7
+        '
+        Me.paramCountAdditionalTerm7.Description = "paramCountAdditionalTerm7"
+        Me.paramCountAdditionalTerm7.Name = "paramCountAdditionalTerm7"
+        '
+        'XrLabel100
+        '
+        Me.XrLabel100.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm7")})
+        Me.XrLabel100.Dpi = 100.0!
+        Me.XrLabel100.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
+        Me.XrLabel100.Name = "XrLabel100"
+        Me.XrLabel100.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel100.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
+        Me.XrLabel100.StylePriority.UseTextAlignment = False
+        Me.XrLabel100.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'shAdditionalTerm8
+        '
+        Me.shAdditionalTerm8.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel101, Me.XrLabel102})
+        Me.shAdditionalTerm8.Dpi = 100.0!
+        Me.shAdditionalTerm8.HeightF = 20.0!
+        Me.shAdditionalTerm8.Name = "shAdditionalTerm8"
+        Me.shAdditionalTerm8.Visible = False
+        '
+        'XrLabel101
+        '
+        Me.XrLabel101.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm8")})
+        Me.XrLabel101.Dpi = 100.0!
+        Me.XrLabel101.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
+        Me.XrLabel101.Name = "XrLabel101"
+        Me.XrLabel101.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel101.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
+        Me.XrLabel101.StylePriority.UseTextAlignment = False
+        Me.XrLabel101.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel102
+        '
+        Me.XrLabel102.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm8, "Text", "")})
+        Me.XrLabel102.Dpi = 100.0!
+        Me.XrLabel102.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
+        Me.XrLabel102.Name = "XrLabel102"
+        Me.XrLabel102.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel102.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
+        Me.XrLabel102.StylePriority.UseTextAlignment = False
+        Me.XrLabel102.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'paramCountAdditionalTerm8
+        '
+        Me.paramCountAdditionalTerm8.Description = "paramCountAdditionalTerm8"
+        Me.paramCountAdditionalTerm8.Name = "paramCountAdditionalTerm8"
+        '
+        'shAdditionalTerm9
+        '
+        Me.shAdditionalTerm9.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel103, Me.XrLabel104})
+        Me.shAdditionalTerm9.Dpi = 100.0!
+        Me.shAdditionalTerm9.HeightF = 20.0!
+        Me.shAdditionalTerm9.Name = "shAdditionalTerm9"
+        Me.shAdditionalTerm9.Visible = False
+        '
+        'XrLabel103
+        '
+        Me.XrLabel103.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm9")})
+        Me.XrLabel103.Dpi = 100.0!
+        Me.XrLabel103.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
+        Me.XrLabel103.Name = "XrLabel103"
+        Me.XrLabel103.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel103.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
+        Me.XrLabel103.StylePriority.UseTextAlignment = False
+        Me.XrLabel103.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel104
+        '
+        Me.XrLabel104.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm9, "Text", "")})
+        Me.XrLabel104.Dpi = 100.0!
+        Me.XrLabel104.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
+        Me.XrLabel104.Name = "XrLabel104"
+        Me.XrLabel104.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel104.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
+        Me.XrLabel104.StylePriority.UseTextAlignment = False
+        Me.XrLabel104.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'paramCountAdditionalTerm9
+        '
+        Me.paramCountAdditionalTerm9.Description = "paramCountAdditionalTerm9"
+        Me.paramCountAdditionalTerm9.Name = "paramCountAdditionalTerm9"
+        '
+        'shAdditionalTerm10
+        '
+        Me.shAdditionalTerm10.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel105, Me.XrLabel106})
+        Me.shAdditionalTerm10.Dpi = 100.0!
+        Me.shAdditionalTerm10.HeightF = 20.0!
+        Me.shAdditionalTerm10.Name = "shAdditionalTerm10"
+        Me.shAdditionalTerm10.Visible = False
+        '
+        'XrLabel105
+        '
+        Me.XrLabel105.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm10")})
+        Me.XrLabel105.Dpi = 100.0!
+        Me.XrLabel105.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
+        Me.XrLabel105.Name = "XrLabel105"
+        Me.XrLabel105.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel105.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
+        Me.XrLabel105.StylePriority.UseTextAlignment = False
+        Me.XrLabel105.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel106
+        '
+        Me.XrLabel106.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm10, "Text", "")})
+        Me.XrLabel106.Dpi = 100.0!
+        Me.XrLabel106.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
+        Me.XrLabel106.Name = "XrLabel106"
+        Me.XrLabel106.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel106.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
+        Me.XrLabel106.StylePriority.UseTextAlignment = False
+        Me.XrLabel106.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'paramCountAdditionalTerm10
+        '
+        Me.paramCountAdditionalTerm10.Description = "paramCountAdditionalTerm10"
+        Me.paramCountAdditionalTerm10.Name = "paramCountAdditionalTerm10"
+        '
         'shTerm4SKBDN
         '
         Me.shTerm4SKBDN.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel84, Me.XrLabel85, Me.XrLabel87, Me.XrLabel88, Me.XrLabel89, Me.XrLabel90})
@@ -1299,6 +1651,11 @@ Partial Public Class rptSalesContractVer00
         Me.XrLabel84.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
         Me.XrLabel84.StylePriority.UseTextAlignment = False
         Me.XrLabel84.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'paramCountTerm4_0
+        '
+        Me.paramCountTerm4_0.Description = "paramCountTerm4_0"
+        Me.paramCountTerm4_0.Name = "paramCountTerm4_0"
         '
         'XrLabel85
         '
@@ -1334,6 +1691,11 @@ Partial Public Class rptSalesContractVer00
         Me.XrLabel88.StylePriority.UseTextAlignment = False
         Me.XrLabel88.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
+        'paramCountTerm4_1
+        '
+        Me.paramCountTerm4_1.Description = "paramCountTerm4_1"
+        Me.paramCountTerm4_1.Name = "paramCountTerm4_1"
+        '
         'XrLabel89
         '
         Me.XrLabel89.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountTerm4_2, "Text", "")})
@@ -1344,6 +1706,11 @@ Partial Public Class rptSalesContractVer00
         Me.XrLabel89.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
         Me.XrLabel89.StylePriority.UseTextAlignment = False
         Me.XrLabel89.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'paramCountTerm4_2
+        '
+        Me.paramCountTerm4_2.Description = "paramCountTerm4_2"
+        Me.paramCountTerm4_2.Name = "paramCountTerm4_2"
         '
         'XrLabel90
         '
@@ -1546,370 +1913,23 @@ Partial Public Class rptSalesContractVer00
         Me.SalesContractVer00.DataSource = GetType(ERPSLib.VO.rptSalesContractVer00)
         Me.SalesContractVer00.Name = "SalesContractVer00"
         '
-        'shAdditionalTerm1
-        '
-        Me.shAdditionalTerm1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel7, Me.XrLabel8})
-        Me.shAdditionalTerm1.Dpi = 100.0!
-        Me.shAdditionalTerm1.HeightF = 20.0!
-        Me.shAdditionalTerm1.Name = "shAdditionalTerm1"
-        Me.shAdditionalTerm1.Visible = False
-        '
-        'shAdditionalTerm2
-        '
-        Me.shAdditionalTerm2.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel9, Me.XrLabel86})
-        Me.shAdditionalTerm2.Dpi = 100.0!
-        Me.shAdditionalTerm2.HeightF = 20.0!
-        Me.shAdditionalTerm2.Name = "shAdditionalTerm2"
-        Me.shAdditionalTerm2.Visible = False
-        '
-        'shAdditionalTerm3
-        '
-        Me.shAdditionalTerm3.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel91, Me.XrLabel92})
-        Me.shAdditionalTerm3.Dpi = 100.0!
-        Me.shAdditionalTerm3.HeightF = 20.0!
-        Me.shAdditionalTerm3.Name = "shAdditionalTerm3"
-        Me.shAdditionalTerm3.Visible = False
-        '
-        'shAdditionalTerm4
-        '
-        Me.shAdditionalTerm4.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel93, Me.XrLabel94})
-        Me.shAdditionalTerm4.Dpi = 100.0!
-        Me.shAdditionalTerm4.HeightF = 20.0!
-        Me.shAdditionalTerm4.Name = "shAdditionalTerm4"
-        Me.shAdditionalTerm4.Visible = False
-        '
-        'shAdditionalTerm5
-        '
-        Me.shAdditionalTerm5.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel95, Me.XrLabel96})
-        Me.shAdditionalTerm5.Dpi = 100.0!
-        Me.shAdditionalTerm5.HeightF = 20.0!
-        Me.shAdditionalTerm5.Name = "shAdditionalTerm5"
-        Me.shAdditionalTerm5.Visible = False
-        '
-        'shAdditionalTerm6
-        '
-        Me.shAdditionalTerm6.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel97, Me.XrLabel98})
-        Me.shAdditionalTerm6.Dpi = 100.0!
-        Me.shAdditionalTerm6.HeightF = 20.0!
-        Me.shAdditionalTerm6.Name = "shAdditionalTerm6"
-        Me.shAdditionalTerm6.Visible = False
-        '
-        'shAdditionalTerm7
-        '
-        Me.shAdditionalTerm7.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel99, Me.XrLabel100})
-        Me.shAdditionalTerm7.Dpi = 100.0!
-        Me.shAdditionalTerm7.HeightF = 20.0!
-        Me.shAdditionalTerm7.Name = "shAdditionalTerm7"
-        Me.shAdditionalTerm7.Visible = False
-        '
-        'shAdditionalTerm8
-        '
-        Me.shAdditionalTerm8.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel101, Me.XrLabel102})
-        Me.shAdditionalTerm8.Dpi = 100.0!
-        Me.shAdditionalTerm8.HeightF = 20.0!
-        Me.shAdditionalTerm8.Name = "shAdditionalTerm8"
-        Me.shAdditionalTerm8.Visible = False
-        '
-        'shAdditionalTerm9
-        '
-        Me.shAdditionalTerm9.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel103, Me.XrLabel104})
-        Me.shAdditionalTerm9.Dpi = 100.0!
-        Me.shAdditionalTerm9.HeightF = 20.0!
-        Me.shAdditionalTerm9.Name = "shAdditionalTerm9"
-        Me.shAdditionalTerm9.Visible = False
-        '
-        'shAdditionalTerm10
-        '
-        Me.shAdditionalTerm10.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel105, Me.XrLabel106})
-        Me.shAdditionalTerm10.Dpi = 100.0!
-        Me.shAdditionalTerm10.HeightF = 20.0!
-        Me.shAdditionalTerm10.Name = "shAdditionalTerm10"
-        Me.shAdditionalTerm10.Visible = False
-        '
-        'XrLabel7
-        '
-        Me.XrLabel7.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm1, "Text", "")})
-        Me.XrLabel7.Dpi = 100.0!
-        Me.XrLabel7.LocationFloat = New DevExpress.Utils.PointFloat(0.001434326!, 0.0!)
-        Me.XrLabel7.Name = "XrLabel7"
-        Me.XrLabel7.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel7.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
-        Me.XrLabel7.StylePriority.UseTextAlignment = False
-        Me.XrLabel7.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel8
-        '
-        Me.XrLabel8.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm1")})
-        Me.XrLabel8.Dpi = 100.0!
-        Me.XrLabel8.LocationFloat = New DevExpress.Utils.PointFloat(20.00339!, 0.0!)
-        Me.XrLabel8.Name = "XrLabel8"
-        Me.XrLabel8.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel8.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
-        Me.XrLabel8.StylePriority.UseTextAlignment = False
-        Me.XrLabel8.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'paramCountAdditionalTerm1
-        '
-        Me.paramCountAdditionalTerm1.Description = "paramCountAdditionalTerm1"
-        Me.paramCountAdditionalTerm1.Name = "paramCountAdditionalTerm1"
-        '
-        'paramCountAdditionalTerm2
-        '
-        Me.paramCountAdditionalTerm2.Description = "paramCountAdditionalTerm1"
-        Me.paramCountAdditionalTerm2.Name = "paramCountAdditionalTerm2"
-        '
-        'paramCountAdditionalTerm3
-        '
-        Me.paramCountAdditionalTerm3.Description = "paramCountAdditionalTerm3"
-        Me.paramCountAdditionalTerm3.Name = "paramCountAdditionalTerm3"
-        '
-        'paramCountAdditionalTerm4
-        '
-        Me.paramCountAdditionalTerm4.Description = "paramCountAdditionalTerm4"
-        Me.paramCountAdditionalTerm4.Name = "paramCountAdditionalTerm4"
-        '
-        'paramCountAdditionalTerm5
-        '
-        Me.paramCountAdditionalTerm5.Description = "paramCountAdditionalTerm5"
-        Me.paramCountAdditionalTerm5.Name = "paramCountAdditionalTerm5"
-        '
-        'paramCountAdditionalTerm6
-        '
-        Me.paramCountAdditionalTerm6.Description = "paramCountAdditionalTerm6"
-        Me.paramCountAdditionalTerm6.Name = "paramCountAdditionalTerm6"
-        '
-        'paramCountAdditionalTerm7
-        '
-        Me.paramCountAdditionalTerm7.Description = "paramCountAdditionalTerm7"
-        Me.paramCountAdditionalTerm7.Name = "paramCountAdditionalTerm7"
-        '
-        'paramCountAdditionalTerm8
-        '
-        Me.paramCountAdditionalTerm8.Description = "paramCountAdditionalTerm8"
-        Me.paramCountAdditionalTerm8.Name = "paramCountAdditionalTerm8"
-        '
-        'paramCountAdditionalTerm9
-        '
-        Me.paramCountAdditionalTerm9.Description = "paramCountAdditionalTerm9"
-        Me.paramCountAdditionalTerm9.Name = "paramCountAdditionalTerm9"
-        '
-        'paramCountAdditionalTerm10
-        '
-        Me.paramCountAdditionalTerm10.Description = "paramCountAdditionalTerm10"
-        Me.paramCountAdditionalTerm10.Name = "paramCountAdditionalTerm10"
-        '
-        'XrLabel9
-        '
-        Me.XrLabel9.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm2")})
-        Me.XrLabel9.Dpi = 100.0!
-        Me.XrLabel9.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
-        Me.XrLabel9.Name = "XrLabel9"
-        Me.XrLabel9.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel9.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
-        Me.XrLabel9.StylePriority.UseTextAlignment = False
-        Me.XrLabel9.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel86
-        '
-        Me.XrLabel86.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm2, "Text", "")})
-        Me.XrLabel86.Dpi = 100.0!
-        Me.XrLabel86.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
-        Me.XrLabel86.Name = "XrLabel86"
-        Me.XrLabel86.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel86.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
-        Me.XrLabel86.StylePriority.UseTextAlignment = False
-        Me.XrLabel86.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel91
-        '
-        Me.XrLabel91.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm3, "Text", "")})
-        Me.XrLabel91.Dpi = 100.0!
-        Me.XrLabel91.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
-        Me.XrLabel91.Name = "XrLabel91"
-        Me.XrLabel91.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel91.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
-        Me.XrLabel91.StylePriority.UseTextAlignment = False
-        Me.XrLabel91.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel92
-        '
-        Me.XrLabel92.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm3")})
-        Me.XrLabel92.Dpi = 100.0!
-        Me.XrLabel92.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
-        Me.XrLabel92.Name = "XrLabel92"
-        Me.XrLabel92.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel92.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
-        Me.XrLabel92.StylePriority.UseTextAlignment = False
-        Me.XrLabel92.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel93
-        '
-        Me.XrLabel93.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm4")})
-        Me.XrLabel93.Dpi = 100.0!
-        Me.XrLabel93.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
-        Me.XrLabel93.Name = "XrLabel93"
-        Me.XrLabel93.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel93.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
-        Me.XrLabel93.StylePriority.UseTextAlignment = False
-        Me.XrLabel93.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel94
-        '
-        Me.XrLabel94.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm4, "Text", "")})
-        Me.XrLabel94.Dpi = 100.0!
-        Me.XrLabel94.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
-        Me.XrLabel94.Name = "XrLabel94"
-        Me.XrLabel94.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel94.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
-        Me.XrLabel94.StylePriority.UseTextAlignment = False
-        Me.XrLabel94.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel95
-        '
-        Me.XrLabel95.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm5, "Text", "")})
-        Me.XrLabel95.Dpi = 100.0!
-        Me.XrLabel95.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
-        Me.XrLabel95.Name = "XrLabel95"
-        Me.XrLabel95.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel95.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
-        Me.XrLabel95.StylePriority.UseTextAlignment = False
-        Me.XrLabel95.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel96
-        '
-        Me.XrLabel96.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm5")})
-        Me.XrLabel96.Dpi = 100.0!
-        Me.XrLabel96.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
-        Me.XrLabel96.Name = "XrLabel96"
-        Me.XrLabel96.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel96.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
-        Me.XrLabel96.StylePriority.UseTextAlignment = False
-        Me.XrLabel96.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel97
-        '
-        Me.XrLabel97.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm6")})
-        Me.XrLabel97.Dpi = 100.0!
-        Me.XrLabel97.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
-        Me.XrLabel97.Name = "XrLabel97"
-        Me.XrLabel97.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel97.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
-        Me.XrLabel97.StylePriority.UseTextAlignment = False
-        Me.XrLabel97.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel98
-        '
-        Me.XrLabel98.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm6, "Text", "")})
-        Me.XrLabel98.Dpi = 100.0!
-        Me.XrLabel98.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
-        Me.XrLabel98.Name = "XrLabel98"
-        Me.XrLabel98.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel98.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
-        Me.XrLabel98.StylePriority.UseTextAlignment = False
-        Me.XrLabel98.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel99
-        '
-        Me.XrLabel99.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm7, "Text", "")})
-        Me.XrLabel99.Dpi = 100.0!
-        Me.XrLabel99.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
-        Me.XrLabel99.Name = "XrLabel99"
-        Me.XrLabel99.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel99.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
-        Me.XrLabel99.StylePriority.UseTextAlignment = False
-        Me.XrLabel99.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel100
-        '
-        Me.XrLabel100.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm7")})
-        Me.XrLabel100.Dpi = 100.0!
-        Me.XrLabel100.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
-        Me.XrLabel100.Name = "XrLabel100"
-        Me.XrLabel100.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel100.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
-        Me.XrLabel100.StylePriority.UseTextAlignment = False
-        Me.XrLabel100.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel101
-        '
-        Me.XrLabel101.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm8")})
-        Me.XrLabel101.Dpi = 100.0!
-        Me.XrLabel101.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
-        Me.XrLabel101.Name = "XrLabel101"
-        Me.XrLabel101.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel101.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
-        Me.XrLabel101.StylePriority.UseTextAlignment = False
-        Me.XrLabel101.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel102
-        '
-        Me.XrLabel102.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm8, "Text", "")})
-        Me.XrLabel102.Dpi = 100.0!
-        Me.XrLabel102.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
-        Me.XrLabel102.Name = "XrLabel102"
-        Me.XrLabel102.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel102.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
-        Me.XrLabel102.StylePriority.UseTextAlignment = False
-        Me.XrLabel102.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel103
-        '
-        Me.XrLabel103.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm9")})
-        Me.XrLabel103.Dpi = 100.0!
-        Me.XrLabel103.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
-        Me.XrLabel103.Name = "XrLabel103"
-        Me.XrLabel103.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel103.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
-        Me.XrLabel103.StylePriority.UseTextAlignment = False
-        Me.XrLabel103.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel104
-        '
-        Me.XrLabel104.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm9, "Text", "")})
-        Me.XrLabel104.Dpi = 100.0!
-        Me.XrLabel104.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
-        Me.XrLabel104.Name = "XrLabel104"
-        Me.XrLabel104.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel104.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
-        Me.XrLabel104.StylePriority.UseTextAlignment = False
-        Me.XrLabel104.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel105
-        '
-        Me.XrLabel105.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "AdditionalTerm10")})
-        Me.XrLabel105.Dpi = 100.0!
-        Me.XrLabel105.LocationFloat = New DevExpress.Utils.PointFloat(20.00342!, 0.0!)
-        Me.XrLabel105.Name = "XrLabel105"
-        Me.XrLabel105.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel105.SizeF = New System.Drawing.SizeF(746.9951!, 20.0!)
-        Me.XrLabel105.StylePriority.UseTextAlignment = False
-        Me.XrLabel105.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'XrLabel106
-        '
-        Me.XrLabel106.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCountAdditionalTerm10, "Text", "")})
-        Me.XrLabel106.Dpi = 100.0!
-        Me.XrLabel106.LocationFloat = New DevExpress.Utils.PointFloat(0.001464844!, 0.0!)
-        Me.XrLabel106.Name = "XrLabel106"
-        Me.XrLabel106.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel106.SizeF = New System.Drawing.SizeF(20.0!, 20.0!)
-        Me.XrLabel106.StylePriority.UseTextAlignment = False
-        Me.XrLabel106.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'paramCountTerm4_0
-        '
-        Me.paramCountTerm4_0.Description = "paramCountTerm4_0"
-        Me.paramCountTerm4_0.Name = "paramCountTerm4_0"
-        '
-        'paramCountTerm4_1
-        '
-        Me.paramCountTerm4_1.Description = "paramCountTerm4_1"
-        Me.paramCountTerm4_1.Name = "paramCountTerm4_1"
-        '
-        'paramCountTerm4_2
-        '
-        Me.paramCountTerm4_2.Description = "paramCountTerm4_2"
-        Me.paramCountTerm4_2.Name = "paramCountTerm4_2"
+        'XrPictureBox1
+        '
+        Me.XrPictureBox1.Dpi = 100.0!
+        Me.XrPictureBox1.Image = CType(resources.GetObject("XrPictureBox1.Image"), System.Drawing.Image)
+        Me.XrPictureBox1.LocationFloat = New DevExpress.Utils.PointFloat(0.000333786!, 23.06268!)
+        Me.XrPictureBox1.Name = "XrPictureBox1"
+        Me.XrPictureBox1.SizeF = New System.Drawing.SizeF(90.0!, 40.0!)
+        Me.XrPictureBox1.Sizing = DevExpress.XtraPrinting.ImageSizeMode.StretchImage
+        '
+        'XrPictureBox2
+        '
+        Me.XrPictureBox2.Dpi = 100.0!
+        Me.XrPictureBox2.Image = CType(resources.GetObject("XrPictureBox2.Image"), System.Drawing.Image)
+        Me.XrPictureBox2.LocationFloat = New DevExpress.Utils.PointFloat(90.00034!, 30.0!)
+        Me.XrPictureBox2.Name = "XrPictureBox2"
+        Me.XrPictureBox2.SizeF = New System.Drawing.SizeF(160.0!, 30.0!)
+        Me.XrPictureBox2.Sizing = DevExpress.XtraPrinting.ImageSizeMode.StretchImage
         '
         'rptSalesContractVer00
         '
@@ -2107,4 +2127,6 @@ Partial Public Class rptSalesContractVer00
     Friend WithEvents paramCountTerm4_0 As DevExpress.XtraReports.Parameters.Parameter
     Friend WithEvents paramCountTerm4_1 As DevExpress.XtraReports.Parameters.Parameter
     Friend WithEvents paramCountTerm4_2 As DevExpress.XtraReports.Parameters.Parameter
+    Friend WithEvents XrPictureBox1 As DevExpress.XtraReports.UI.XRPictureBox
+    Friend WithEvents XrPictureBox2 As DevExpress.XtraReports.UI.XRPictureBox
 End Class
