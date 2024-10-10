@@ -315,6 +315,32 @@
         End If
     End Sub
 
+    Private Sub prvChooseItemCustom()
+        If txtOrderNumberSupplier.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih nomor pesanan pemasok terlebih dahulu")
+            txtOrderNumberSupplier.Focus()
+            Exit Sub
+        End If
+        Dim frmDetail As New frmMstItem
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intItemID = .pubLUdtRow.Item("ID")
+                txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
+                cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
+                txtItemName.Text = .pubLUdtRow.Item("ItemName")
+                txtThick.Value = .pubLUdtRow.Item("Thick")
+                txtWidth.Value = .pubLUdtRow.Item("Width")
+                txtLength.Value = .pubLUdtRow.Item("Length")
+                cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
+                txtWeight.Value = .pubLUdtRow.Item("Weight")
+                txtWeight.Focus()
+            End If
+        End With
+    End Sub
+
     Private Sub prvCalculate()
         txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
         txtTotalPrice.Value = txtUnitPrice.Value * txtTotalWeight.Value
@@ -346,6 +372,10 @@
 
     Private Sub btnItem_Click(sender As Object, e As EventArgs) Handles btnItem.Click
         prvChooseItem()
+    End Sub
+
+    Private Sub btnItemCustom_Click(sender As Object, e As EventArgs) Handles btnItemCustom.Click
+        prvChooseItemCustom()
     End Sub
 
     Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtUnitPrice.ValueChanged, txtQuantity.ValueChanged, txtWeight.ValueChanged

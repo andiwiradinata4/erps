@@ -95,12 +95,12 @@ Public Class frmTraSalesContractOutstandingDeliveryItemVer01
         Me.Cursor = Cursors.WaitCursor
         Try
             dtData = BL.SalesContract.ListDataDetailOutstandingDeliveryVer01(clsCS.ProgramID, clsCS.CompanyID, strSCID, bolIsUseSubItem)
-            For Each drParent As DataRow In dtParent.Rows
-                For Each dr As DataRow In dtData.Rows
-                    If drParent.Item("SCDetailID") = dr.Item("ID") Then dr.Delete()
-                Next
-                dtData.AcceptChanges()
-            Next
+            'For Each drParent As DataRow In dtParent.Rows
+            '    For Each dr As DataRow In dtData.Rows
+            '        If drParent.Item("SCDetailID") = dr.Item("ID") Then dr.Delete()
+            '    Next
+            '    dtData.AcceptChanges()
+            'Next
             grdMain.DataSource = dtData
             prvSumGrid()
             grdView.BestFitColumns()

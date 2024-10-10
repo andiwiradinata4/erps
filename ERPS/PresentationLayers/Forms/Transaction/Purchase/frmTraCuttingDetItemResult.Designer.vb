@@ -28,6 +28,9 @@ Partial Class frmTraCuttingDetItemResult
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.txtMaxTotalWeight = New ERPS.usNumeric()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.txtUnitPriceHPP = New ERPS.usNumeric()
@@ -61,10 +64,9 @@ Partial Class frmTraCuttingDetItemResult
         Me.txtWidth = New ERPS.usNumeric()
         Me.txtThick = New ERPS.usNumeric()
         Me.txtWeight = New ERPS.usNumeric()
-        Me.Label26 = New System.Windows.Forms.Label()
-        Me.Label27 = New System.Windows.Forms.Label()
-        Me.txtMaxTotalWeight = New ERPS.usNumeric()
+        Me.btnItemCustom = New DevExpress.XtraEditors.SimpleButton()
         Me.pnlDetail.SuspendLayout()
+        CType(Me.txtMaxTotalWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -72,7 +74,6 @@ Partial Class frmTraCuttingDetItemResult
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtThick, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtMaxTotalWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -115,6 +116,7 @@ Partial Class frmTraCuttingDetItemResult
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.btnItemCustom)
         Me.pnlDetail.Controls.Add(Me.Label26)
         Me.pnlDetail.Controls.Add(Me.Label27)
         Me.pnlDetail.Controls.Add(Me.txtMaxTotalWeight)
@@ -156,6 +158,42 @@ Partial Class frmTraCuttingDetItemResult
         Me.pnlDetail.Name = "pnlDetail"
         Me.pnlDetail.Size = New System.Drawing.Size(686, 332)
         Me.pnlDetail.TabIndex = 2
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.BackColor = System.Drawing.Color.Transparent
+        Me.Label26.ForeColor = System.Drawing.Color.Black
+        Me.Label26.Location = New System.Drawing.Point(637, 218)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(19, 13)
+        Me.Label26.TabIndex = 205
+        Me.Label26.Text = "Kg"
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.BackColor = System.Drawing.Color.Transparent
+        Me.Label27.ForeColor = System.Drawing.Color.Black
+        Me.Label27.Location = New System.Drawing.Point(375, 218)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(91, 13)
+        Me.Label27.TabIndex = 204
+        Me.Label27.Text = "Maks. Total Berat"
+        '
+        'txtMaxTotalWeight
+        '
+        Me.txtMaxTotalWeight.BackColor = System.Drawing.Color.Azure
+        Me.txtMaxTotalWeight.DecimalPlaces = 2
+        Me.txtMaxTotalWeight.Enabled = False
+        Me.txtMaxTotalWeight.Location = New System.Drawing.Point(473, 214)
+        Me.txtMaxTotalWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtMaxTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtMaxTotalWeight.Name = "txtMaxTotalWeight"
+        Me.txtMaxTotalWeight.Size = New System.Drawing.Size(160, 21)
+        Me.txtMaxTotalWeight.TabIndex = 14
+        Me.txtMaxTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtMaxTotalWeight.ThousandsSeparator = True
         '
         'Label17
         '
@@ -475,7 +513,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.txtItemName.Name = "txtItemName"
         Me.txtItemName.ReadOnly = True
         Me.txtItemName.Size = New System.Drawing.Size(471, 48)
-        Me.txtItemName.TabIndex = 3
+        Me.txtItemName.TabIndex = 4
         '
         'txtLength
         '
@@ -515,7 +553,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.txtThick.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtThick.Name = "txtThick"
         Me.txtThick.Size = New System.Drawing.Size(170, 21)
-        Me.txtThick.TabIndex = 4
+        Me.txtThick.TabIndex = 6
         Me.txtThick.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtThick.ThousandsSeparator = True
         '
@@ -532,41 +570,13 @@ Partial Class frmTraCuttingDetItemResult
         Me.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtWeight.ThousandsSeparator = True
         '
-        'Label26
+        'btnItemCustom
         '
-        Me.Label26.AutoSize = True
-        Me.Label26.BackColor = System.Drawing.Color.Transparent
-        Me.Label26.ForeColor = System.Drawing.Color.Black
-        Me.Label26.Location = New System.Drawing.Point(637, 218)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(19, 13)
-        Me.Label26.TabIndex = 205
-        Me.Label26.Text = "Kg"
-        '
-        'Label27
-        '
-        Me.Label27.AutoSize = True
-        Me.Label27.BackColor = System.Drawing.Color.Transparent
-        Me.Label27.ForeColor = System.Drawing.Color.Black
-        Me.Label27.Location = New System.Drawing.Point(375, 218)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(91, 13)
-        Me.Label27.TabIndex = 204
-        Me.Label27.Text = "Maks. Total Berat"
-        '
-        'txtMaxTotalWeight
-        '
-        Me.txtMaxTotalWeight.BackColor = System.Drawing.Color.Azure
-        Me.txtMaxTotalWeight.DecimalPlaces = 2
-        Me.txtMaxTotalWeight.Enabled = False
-        Me.txtMaxTotalWeight.Location = New System.Drawing.Point(473, 214)
-        Me.txtMaxTotalWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtMaxTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtMaxTotalWeight.Name = "txtMaxTotalWeight"
-        Me.txtMaxTotalWeight.Size = New System.Drawing.Size(160, 21)
-        Me.txtMaxTotalWeight.TabIndex = 14
-        Me.txtMaxTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtMaxTotalWeight.ThousandsSeparator = True
+        Me.btnItemCustom.Image = CType(resources.GetObject("btnItemCustom.Image"), System.Drawing.Image)
+        Me.btnItemCustom.Location = New System.Drawing.Point(338, 50)
+        Me.btnItemCustom.Name = "btnItemCustom"
+        Me.btnItemCustom.Size = New System.Drawing.Size(23, 23)
+        Me.btnItemCustom.TabIndex = 3
         '
         'frmTraCuttingDetItemResult
         '
@@ -584,6 +594,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.Text = "Barang yang dihasilkan"
         Me.pnlDetail.ResumeLayout(False)
         Me.pnlDetail.PerformLayout()
+        CType(Me.txtMaxTotalWeight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).EndInit()
@@ -591,7 +602,6 @@ Partial Class frmTraCuttingDetItemResult
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtThick, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtMaxTotalWeight, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -637,4 +647,5 @@ Partial Class frmTraCuttingDetItemResult
     Friend WithEvents Label26 As System.Windows.Forms.Label
     Friend WithEvents Label27 As System.Windows.Forms.Label
     Friend WithEvents txtMaxTotalWeight As ERPS.usNumeric
+    Friend WithEvents btnItemCustom As DevExpress.XtraEditors.SimpleButton
 End Class

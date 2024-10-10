@@ -94,12 +94,12 @@ Public Class frmTraPurchaseOrderCuttingDetItemResultOustandingCutting
         Me.Cursor = Cursors.WaitCursor
         Try
             dtData = BL.PurchaseOrderCutting.ListDataDetailOutstandingDoneResult(clsCS.ProgramID, clsCS.CompanyID, intBPID, strPODetailID)
-            For Each drParent As DataRow In dtParent.Rows
-                For Each dr As DataRow In dtData.Rows
-                    If drParent.Item("PODetailResultID") = dr.Item("PODetailResultID") Then dr.Delete()
-                Next
-                dtData.AcceptChanges()
-            Next
+            'For Each drParent As DataRow In dtParent.Rows
+            '    For Each dr As DataRow In dtData.Rows
+            '        If drParent.Item("PODetailResultID") = dr.Item("PODetailResultID") Then dr.Delete()
+            '    Next
+            '    dtData.AcceptChanges()
+            'Next
             grdMain.DataSource = dtData
             prvSumGrid()
             grdView.BestFitColumns()

@@ -69,9 +69,11 @@ Partial Class frmTraARAPChooseBankAccount
         Me.txtAccountName1 = New ERPS.usTextBox()
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtBankName1 = New ERPS.usTextBox()
-        Me.ToolBar = New ERPS.usToolBar()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
+        Me.ToolBar = New ERPS.usToolBar()
+        Me.BarPreview = New System.Windows.Forms.ToolBarButton()
+        Me.ToolBarButton1 = New System.Windows.Forms.ToolBarButton()
         Me.pnlMain.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.gboCompanyBankAccount2.SuspendLayout()
@@ -602,17 +604,6 @@ Partial Class frmTraARAPChooseBankAccount
         Me.txtBankName1.Size = New System.Drawing.Size(310, 21)
         Me.txtBankName1.TabIndex = 2
         '
-        'ToolBar
-        '
-        Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.DropDownArrows = True
-        Me.ToolBar.Location = New System.Drawing.Point(0, 0)
-        Me.ToolBar.Name = "ToolBar"
-        Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(1211, 28)
-        Me.ToolBar.TabIndex = 0
-        Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
         'BarRefresh
         '
         Me.BarRefresh.Name = "BarRefresh"
@@ -624,6 +615,30 @@ Partial Class frmTraARAPChooseBankAccount
         Me.BarClose.Name = "BarClose"
         Me.BarClose.Tag = "Close"
         Me.BarClose.Text = "Tutup"
+        '
+        'ToolBar
+        '
+        Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarPreview, Me.ToolBarButton1})
+        Me.ToolBar.DropDownArrows = True
+        Me.ToolBar.Location = New System.Drawing.Point(0, 0)
+        Me.ToolBar.Name = "ToolBar"
+        Me.ToolBar.ShowToolTips = True
+        Me.ToolBar.Size = New System.Drawing.Size(1211, 28)
+        Me.ToolBar.TabIndex = 4
+        Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'BarPreview
+        '
+        Me.BarPreview.Name = "BarPreview"
+        Me.BarPreview.Tag = "Print"
+        Me.BarPreview.Text = "Print"
+        '
+        'ToolBarButton1
+        '
+        Me.ToolBarButton1.Name = "BarClose"
+        Me.ToolBarButton1.Tag = "Close"
+        Me.ToolBarButton1.Text = "Tutup"
         '
         'frmTraARAPChooseBankAccount
         '
@@ -649,7 +664,6 @@ Partial Class frmTraARAPChooseBankAccount
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents ToolBar As ERPS.usToolBar
     Friend WithEvents BarRefresh As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarClose As System.Windows.Forms.ToolBarButton
     Friend WithEvents lblInfo As System.Windows.Forms.Label
@@ -698,4 +712,7 @@ Partial Class frmTraARAPChooseBankAccount
     Friend WithEvents Label8 As Label
     Friend WithEvents txtPurchaseNumber As usTextBox
     Friend WithEvents Label18 As Label
+    Friend WithEvents ToolBar As ERPS.usToolBar
+    Friend WithEvents BarPreview As System.Windows.Forms.ToolBarButton
+    Friend WithEvents ToolBarButton1 As System.Windows.Forms.ToolBarButton
 End Class
