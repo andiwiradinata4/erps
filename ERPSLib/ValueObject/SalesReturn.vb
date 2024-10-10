@@ -52,5 +52,7 @@ Namespace VO
         Property DPAmountPPHTransport As Decimal
         Property TotalPaymentPPNTransport As Decimal
         Property TotalPaymentPPHTransport As Decimal
+        Property Detail As List(Of VO.SalesReturnDet)
+        Property Save As VO.Save.Action
     End Class
 End Namespace

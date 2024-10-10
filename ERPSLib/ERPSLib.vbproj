@@ -114,6 +114,7 @@
     <Compile Include="BusinessLayers\Receive.vb" />
     <Compile Include="BusinessLayers\Reports.vb" />
     <Compile Include="BusinessLayers\SalesContract.vb" />
+    <Compile Include="BusinessLayers\SalesReturn.vb" />
     <Compile Include="BusinessLayers\Stock.vb" />
     <Compile Include="BusinessLayers\StockIn.vb" />
     <Compile Include="BusinessLayers\StockOut.vb" />
