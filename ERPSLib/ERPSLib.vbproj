@@ -168,6 +168,7 @@
     <Compile Include="DataLayers\Receive.vb" />
     <Compile Include="DataLayers\Reports.vb" />
     <Compile Include="DataLayers\SalesContract.vb" />
+    <Compile Include="DataLayers\SalesReturn.vb" />
     <Compile Include="DataLayers\Stock.vb" />
     <Compile Include="DataLayers\StockIn.vb" />
     <Compile Include="DataLayers\StockOut.vb" />
@@ -312,6 +313,9 @@
     <Compile Include="ValueObject\SalesContractDetConfirmationOrder.vb" />
     <Compile Include="ValueObject\SalesContractPaymentTerm.vb" />
     <Compile Include="ValueObject\SalesContractStatus.vb" />
+    <Compile Include="ValueObject\SalesReturn.vb" />
+    <Compile Include="ValueObject\SalesReturnDet.vb" />
+    <Compile Include="ValueObject\SalesReturnStatus.vb" />
     <Compile Include="ValueObject\StockIn.vb" />
     <Compile Include="ValueObject\StockOut.vb" />
   </ItemGroup>
