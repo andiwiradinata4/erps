@@ -534,7 +534,7 @@ Public Class frmTraSalesContract
                 Exit For
             Next
 
-            crReport.PaperKind = System.Drawing.Printing.PaperKind.Legal
+            crReport.PaperKind = System.Drawing.Printing.PaperKind.A4
 
             '# Setup Watermark Report
             If intStatusID <> VO.Status.Values.Approved Then
@@ -592,7 +592,7 @@ Public Class frmTraSalesContract
             Next
 
             Dim crReport As New rptConfirmationOrderVer00
-            crReport.PaperKind = System.Drawing.Printing.PaperKind.Legal
+            crReport.PaperKind = System.Drawing.Printing.PaperKind.A4
 
             '# Setup Watermark Report
             If intStatusID <> VO.Status.Values.Approved Then
