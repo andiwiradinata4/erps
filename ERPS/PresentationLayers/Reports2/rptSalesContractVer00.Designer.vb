@@ -232,14 +232,14 @@ Partial Public Class rptSalesContractVer00
         '
         Me.ReportHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrPictureBox1, Me.XrPictureBox2, Me.XrLabel5, Me.XrLabel4, Me.XrLabel3, Me.XrLabel2, Me.XrLabel1})
         Me.ReportHeader.Dpi = 100.0!
-        Me.ReportHeader.HeightF = 107.2917!
+        Me.ReportHeader.HeightF = 100.0!
         Me.ReportHeader.Name = "ReportHeader"
         '
         'XrPictureBox1
         '
         Me.XrPictureBox1.Dpi = 100.0!
         Me.XrPictureBox1.Image = CType(resources.GetObject("XrPictureBox1.Image"), System.Drawing.Image)
-        Me.XrPictureBox1.LocationFloat = New DevExpress.Utils.PointFloat(0.000333786!, 23.06268!)
+        Me.XrPictureBox1.LocationFloat = New DevExpress.Utils.PointFloat(0.0003496806!, 20.0!)
         Me.XrPictureBox1.Name = "XrPictureBox1"
         Me.XrPictureBox1.SizeF = New System.Drawing.SizeF(90.0!, 40.0!)
         Me.XrPictureBox1.Sizing = DevExpress.XtraPrinting.ImageSizeMode.StretchImage
@@ -283,10 +283,10 @@ Partial Public Class rptSalesContractVer00
         '
         Me.XrLabel3.Dpi = 100.0!
         Me.XrLabel3.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel3.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 40.0!)
+        Me.XrLabel3.LocationFloat = New DevExpress.Utils.PointFloat(250.0003!, 39.99999!)
         Me.XrLabel3.Name = "XrLabel3"
         Me.XrLabel3.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel3.SizeF = New System.Drawing.SizeF(767.0!, 20.0!)
+        Me.XrLabel3.SizeF = New System.Drawing.SizeF(266.9996!, 20.0!)
         Me.XrLabel3.StylePriority.UseFont = False
         Me.XrLabel3.StylePriority.UseTextAlignment = False
         Me.XrLabel3.Text = "DENGAN"
@@ -297,12 +297,13 @@ Partial Public Class rptSalesContractVer00
         Me.XrLabel2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CompanyName")})
         Me.XrLabel2.Dpi = 100.0!
         Me.XrLabel2.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 20.0!)
+        Me.XrLabel2.LocationFloat = New DevExpress.Utils.PointFloat(250.0003!, 20.0!)
         Me.XrLabel2.Name = "XrLabel2"
         Me.XrLabel2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel2.SizeF = New System.Drawing.SizeF(767.0!, 20.0!)
+        Me.XrLabel2.SizeF = New System.Drawing.SizeF(266.9996!, 20.0!)
         Me.XrLabel2.StylePriority.UseFont = False
         Me.XrLabel2.StylePriority.UseTextAlignment = False
+        Me.XrLabel2.Text = "PT. TEKNIK BAJA UTAMA, TBK"
         Me.XrLabel2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
         '
         'XrLabel1
@@ -1799,7 +1800,8 @@ Partial Public Class rptSalesContractVer00
         '
         Me.shSign.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel79, Me.XrLabel80, Me.XrLabel77, Me.XrLabel78, Me.XrLabel76, Me.XrLabel75, Me.XrLabel74, Me.XrLabel73})
         Me.shSign.Dpi = 100.0!
-        Me.shSign.HeightF = 250.0!
+        Me.shSign.HeightF = 200.0!
+        Me.shSign.KeepTogether = True
         Me.shSign.Name = "shSign"
         '
         'XrLabel79
@@ -1807,7 +1809,7 @@ Partial Public Class rptSalesContractVer00
         Me.XrLabel79.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DelegationSeller")})
         Me.XrLabel79.Dpi = 100.0!
         Me.XrLabel79.Font = New System.Drawing.Font("Tahoma", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle))
-        Me.XrLabel79.LocationFloat = New DevExpress.Utils.PointFloat(436.1667!, 185.0!)
+        Me.XrLabel79.LocationFloat = New DevExpress.Utils.PointFloat(436.163!, 159.9999!)
         Me.XrLabel79.Name = "XrLabel79"
         Me.XrLabel79.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel79.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
@@ -1821,7 +1823,7 @@ Partial Public Class rptSalesContractVer00
         Me.XrLabel80.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DelegationPositionSeller")})
         Me.XrLabel80.Dpi = 100.0!
         Me.XrLabel80.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel80.LocationFloat = New DevExpress.Utils.PointFloat(436.163!, 205.0!)
+        Me.XrLabel80.LocationFloat = New DevExpress.Utils.PointFloat(436.1593!, 180.0!)
         Me.XrLabel80.Name = "XrLabel80"
         Me.XrLabel80.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel80.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
@@ -1835,7 +1837,7 @@ Partial Public Class rptSalesContractVer00
         Me.XrLabel77.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DelegationBuyer")})
         Me.XrLabel77.Dpi = 100.0!
         Me.XrLabel77.Font = New System.Drawing.Font("Tahoma", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle))
-        Me.XrLabel77.LocationFloat = New DevExpress.Utils.PointFloat(19.99712!, 185.0!)
+        Me.XrLabel77.LocationFloat = New DevExpress.Utils.PointFloat(19.99712!, 160.0!)
         Me.XrLabel77.Name = "XrLabel77"
         Me.XrLabel77.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel77.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
@@ -1849,7 +1851,7 @@ Partial Public Class rptSalesContractVer00
         Me.XrLabel78.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DelegationPositionBuyer")})
         Me.XrLabel78.Dpi = 100.0!
         Me.XrLabel78.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel78.LocationFloat = New DevExpress.Utils.PointFloat(19.99973!, 205.0!)
+        Me.XrLabel78.LocationFloat = New DevExpress.Utils.PointFloat(19.99973!, 180.0!)
         Me.XrLabel78.Name = "XrLabel78"
         Me.XrLabel78.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel78.SizeF = New System.Drawing.SizeF(300.0!, 20.0!)
