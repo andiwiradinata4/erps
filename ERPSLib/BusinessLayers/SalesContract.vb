@@ -492,7 +492,7 @@
                     dr.BeginEdit()
                     dr.Item("AllItemName") = strAllItemType
                     dr.Item("AllOrderNumberSupplier") = strAllOrderNumberSupplier
-                    dr.Item("NumericToString") = SharedLib.Math.NumberToString(dr.Item("GrandTotal"))
+                    dr.Item("NumericToString") = SharedLib.Math.NumberToString(SharedLib.Math.Round(dr.Item("GrandTotal"), 0))
 
                     If IsNumeric(dr.Item("ItemLength")) Then
                         Dim decValue As Decimal = Convert.ToDecimal(dr.Item("ItemLength"))
