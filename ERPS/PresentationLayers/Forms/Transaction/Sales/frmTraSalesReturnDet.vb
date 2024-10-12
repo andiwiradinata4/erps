@@ -415,6 +415,19 @@ Public Class frmTraSalesReturnDet
         txtTotalPPN.Value = txtTotalDPP.Value * (txtPPN.Value / 100)
         txtTotalPPH.Value = txtTotalDPP.Value * (txtPPH.Value / 100)
         txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
+
+        '# Transport
+        txtTotalDPPTransport.Value = 0
+        txtTotalPPNTransport.Value = 0
+        txtTotalPPHTransport.Value = 0
+        Dim decTotalWeight As Decimal = 0
+        For Each dr As DataRow In dtItem.Rows
+            decTotalWeight += dr.Item("TotalWeight")
+        Next
+        txtTotalDPPTransport.Value += decTotalWeight * txtUnitPriceTransport.Value
+        txtTotalPPNTransport.Value += txtTotalDPPTransport.Value * txtPPNTransport.Value / 100
+        txtTotalPPHTransport.Value += txtTotalDPPTransport.Value * txtPPHTransport.Value / 100
+        txtGrandTotalTransport.Value = txtTotalDPPTransport.Value + txtTotalPPNTransport.Value - txtTotalPPHTransport.Value
     End Sub
 
     Private Sub prvUserAccess()

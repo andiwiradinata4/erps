@@ -151,28 +151,30 @@ Namespace DL
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandText =
-"SELECT TOP 1  " & vbNewLine & _
-"	A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.SalesReturnNumber, A.SalesReturnDate, " & vbNewLine & _
-"   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.DeliveryID, A.PlatNumber, A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity,  " & vbNewLine & _
-"	A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.RoundingManualTransport, " & vbNewLine & _
-"   A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, " & vbNewLine & _
-"	A.LogBy, A.LogDate, A.JournalID, A.DPAmount, A.TotalPayment, A.CoAofStock, A.IsUseSubItem, A.DPAmountPPN, A.DPAmountPPH, A.TotalPaymentPPN, A.TotalPaymentPPH, " & vbNewLine & _
-"	A.TransporterID, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, A.UnitPriceTransport, A.DPAmountTransport, A.TotalPaymentTransport,  " & vbNewLine & _
-"	A.DPAmountPPNTransport, A.DPAmountPPHTransport, A.TotalPaymentPPNTransport, A.TotalPaymentPPHTransport, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock " & vbNewLine & _
-"FROM traSalesReturn A " & vbNewLine & _
+"SELECT TOP 1  " & vbNewLine &
+"	A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.SalesReturnNumber, A.SalesReturnDate, " & vbNewLine &
+"   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.DeliveryID, A1.DeliveryNumber, A.PlatNumber, A.Driver, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity,  " & vbNewLine &
+"	A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.RoundingManualTransport, " & vbNewLine &
+"   A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, " & vbNewLine &
+"	A.LogBy, A.LogDate, A.JournalID, A.DPAmount, A.TotalPayment, A.CoAofStock, A.IsUseSubItem, A.DPAmountPPN, A.DPAmountPPH, A.TotalPaymentPPN, A.TotalPaymentPPH, " & vbNewLine &
+"	A.TransporterID, TP.Code AS TransporterCode, TP.Name AS TransporterName, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, A.UnitPriceTransport, A.DPAmountTransport, A.TotalPaymentTransport,  " & vbNewLine &
+"	A.DPAmountPPNTransport, A.DPAmountPPHTransport, A.TotalPaymentPPNTransport, A.TotalPaymentPPHTransport, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock " & vbNewLine &
+"FROM traSalesReturn A " & vbNewLine &
 "INNER JOIN traDelivery A1 ON " & vbNewLine &
 "   A.DeliveryID=A1.ID " & vbNewLine &
 "INNER JOIN mstStatus B ON " & vbNewLine &
 "   A.StatusID=B.ID " & vbNewLine &
 "INNER JOIN mstBusinessPartner C ON " & vbNewLine &
 "   A.BPID=C.ID " & vbNewLine &
+"INNER JOIN mstBusinessPartner TP ON " & vbNewLine &
+"   A.TransporterID=TP.ID " & vbNewLine &
 "INNER JOIN mstCompany MC ON " & vbNewLine &
 "   A.CompanyID=MC.ID " & vbNewLine &
 "INNER JOIN mstProgram MP ON " & vbNewLine &
 "   A.ProgramID=MP.ID " & vbNewLine &
 "INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
 "   A.CoAofStock=COA.ID " & vbNewLine &
-"WHERE " & vbNewLine & _
+"WHERE " & vbNewLine &
 "	A.ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -234,6 +236,8 @@ Namespace DL
                         voReturn.TotalPaymentPPN = .Item("TotalPaymentPPN")
                         voReturn.TotalPaymentPPH = .Item("TotalPaymentPPH")
                         voReturn.TransporterID = .Item("TransporterID")
+                        voReturn.TransporterCode = .Item("TransporterCode")
+                        voReturn.TransporterName = .Item("TransporterName")
                         voReturn.PPNTransport = .Item("PPNTransport")
                         voReturn.PPHTransport = .Item("PPHTransport")
                         voReturn.IsFreePPNTransport = .Item("IsFreePPNTransport")
