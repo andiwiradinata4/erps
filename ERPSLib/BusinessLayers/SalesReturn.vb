@@ -1,5 +1,5 @@
 Namespace BL
- 
+
     Public Class SalesReturn
 
 #Region "Main"
@@ -36,7 +36,11 @@ Namespace BL
 
                         '# Calculate Total Used in Delivery Detail
                         For Each dr As DataRow In dtDetail.Rows
+                            If DL.SalesReturn.IsAlreadyPaymentDetail(sqlCon, sqlTrans, dr.Item("ID")) Then
+                                Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di proses pembayaran")
+                            End If
 
+                            DL.Delivery.CalculateReturnTotalUsed(sqlCon, sqlTrans, dr.Item("DeliveryDetailID"))
                         Next
                     End If
 
@@ -62,6 +66,7 @@ Namespace BL
                         intCount += 1
 
                         '# Calculate Total Used in Delivery Detail
+                        DL.Delivery.CalculateReturnTotalUsed(sqlCon, sqlTrans, clsDet.DeliveryDetailID)
                     Next
 
                     '# Save Data Status
@@ -90,24 +95,26 @@ Namespace BL
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim intStatusID As Integer = DL.SalesReturn.GetStatusID(sqlCon, sqlTrans, strID)
-                    If intStatusID = VO.Status.Values.Submit Then
+                    Dim clsData As VO.SalesReturn = DL.SalesReturn.GetDetail(sqlCon, sqlTrans, strID)
+                    Dim dtDetail As DataTable = DL.SalesReturn.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
+                    If clsData.StatusID = VO.Status.Values.Submit Then
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah di submit")
-                    ElseIf intStatusID = VO.Status.Values.Approved Then
+                    ElseIf clsData.StatusID = VO.Status.Values.Approved Then
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah di setujui")
                     ElseIf DL.SalesReturn.IsDeleted(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
-                        '# Check Already Payment
                     End If
 
                     DL.SalesReturn.DeleteData(sqlCon, sqlTrans, strID)
 
                     '# Calculate Total Used in Delivery Detail
-                    Dim dtDetail As DataTable = DL.SalesReturn.ListDataDetail(sqlCon, sqlTrans, strID)
                     For Each dr As DataRow In dtDetail.Rows
+                        If DL.SalesReturn.IsAlreadyPaymentDetail(sqlCon, sqlTrans, dr.Item("ID")) Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di proses pembayaran")
+                        End If
 
+                        DL.Delivery.CalculateReturnTotalUsed(sqlCon, sqlTrans, dr.Item("DeliveryDetailID"))
                     Next
-
 
                     '# Save Data Status
                     BL.SalesReturn.SaveDataStatus(sqlCon, sqlTrans, strID, "HAPUS", ERPSLib.UI.usUserApp.UserID, strRemarks)
@@ -218,19 +225,24 @@ Namespace BL
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim intStatusID As Integer = DL.SalesReturn.GetStatusID(sqlCon, sqlTrans, strID)
-                    If intStatusID = VO.Status.Values.Draft Then
+                    Dim dtDetail As DataTable = DL.SalesReturn.ListDataDetail(sqlCon, sqlTrans, strID)
+                    Dim clsData As VO.SalesReturn = DL.SalesReturn.GetDetail(sqlCon, sqlTrans, strID)
+                    If clsData.StatusID = VO.Status.Values.Draft Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data masih DRAFT")
-                    ElseIf intStatusID = VO.Status.Values.Submit Then
+                    ElseIf clsData.StatusID = VO.Status.Values.Submit Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data telah SUBMIT")
                     ElseIf DL.SalesReturn.IsDeleted(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
-                        '# Check Already Payment
-                        'ElseIf DL.SalesReturn.IsAlreadyConfirmationOrder(sqlCon, sqlTrans, strID) Then
-                        '    Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses Konfirmasi Pesanan")
                     End If
 
                     DL.SalesReturn.Unapprove(sqlCon, sqlTrans, strID)
+
+                    '# Calculate Total Used in Delivery Detail
+                    For Each dr As DataRow In dtDetail.Rows
+                        If DL.SalesReturn.IsAlreadyPaymentDetail(sqlCon, sqlTrans, dr.Item("ID")) Then
+                            Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah di proses pembayaran")
+                        End If
+                    Next
 
                     '# Save Data Status
                     BL.SalesReturn.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
@@ -242,6 +254,17 @@ Namespace BL
                 End Try
             End Using
             Return bolReturn
+        End Function
+
+#End Region
+
+#Region "Detail"
+
+        Public Shared Function ListDataDetail(ByVal strSalesReturnID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.SalesReturn.ListDataDetail(sqlCon, Nothing, strSalesReturnID)
+            End Using
         End Function
 
 #End Region
@@ -272,7 +295,6 @@ Namespace BL
 
 #End Region
 
-    End Class 
+    End Class
 
 End Namespace
-

@@ -101,6 +101,18 @@ Public Class frmTraPurchaseContractDetVer1
         UI.usForm.SetGrid(grdStatusView, "StatusBy", "Oleh", 200, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdStatusView, "StatusDate", "Tanggal", 180, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdStatusView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+
+        '# Sales Contract
+        UI.usForm.SetGrid(grdSalesContractView, "ID", "ID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSalesContractView, "ProgramID", "ProgramID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSalesContractView, "ProgramName", "ProgramName", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSalesContractView, "CompanyID", "CompanyID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSalesContractView, "CompanyName", "CompanyName", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSalesContractView, "SCNumber", "Nomor", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSalesContractView, "SCDate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
+        UI.usForm.SetGrid(grdSalesContractView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSalesContractView, "BPCode", "Kode Pelanggan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSalesContractView, "BPName", "Nama Pelanggan", 100, UI.usDefGrid.gString)
     End Sub
 
     Private Sub prvFillCombo()
@@ -659,6 +671,26 @@ Public Class frmTraPurchaseContractDetVer1
 
 #End Region
 
+#Region "Sales Contract Handle"
+
+    Private Sub prvQuerySalesContract()
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 30
+
+        Try
+            grdSalesContract.DataSource = BL.SalesContract.ListDataByPurchaseID(pubID.Trim)
+            grdSalesContractView.BestFitColumns()
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+#End Region
+
 #Region "Form Handle"
 
     Private Sub frmTraPurchaseContractDetVer1_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -669,6 +701,8 @@ Public Class frmTraPurchaseContractDetVer1
         ElseIf e.KeyCode = Keys.F3 Then
             tcHeader.SelectedTab = tpHistory
         ElseIf e.KeyCode = Keys.F4 Then
+            tcHeader.SelectedTab = tpSalesContract
+        ElseIf e.KeyCode = Keys.F5 Then
             tcDetail.SelectedTab = tpItem
         ElseIf e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
@@ -686,6 +720,7 @@ Public Class frmTraPurchaseContractDetVer1
         prvFillForm()
         prvQueryItem()
         prvQueryHistory()
+        prvQuerySalesContract()
         prvUserAccess()
     End Sub
 

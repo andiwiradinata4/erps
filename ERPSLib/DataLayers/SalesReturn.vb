@@ -16,9 +16,10 @@ Namespace DL
 "SELECT  " & vbNewLine & _
 "	A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.SalesReturnNumber, A.SalesReturnDate, " & vbNewLine & _
 "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.DeliveryID, A1.DeliveryNumber, A.PlatNumber, A.Driver, A.ReferencesNumber, " & vbNewLine & _
-"	A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.TotalDPPTransport, " & vbNewLine & _
-"   A.TotalPPNTransport, A.TotalPPHTransport, A.RoundingManualTransport,A.IsDeleted, A.Remarks, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
-"   A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine &
+"	A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal,  " & vbNewLine & _
+"   A.RoundingManual, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, A.UnitPriceTransport, A.TotalDPPTransport, " & vbNewLine & _
+"   A.TotalPPNTransport, A.TotalPPHTransport, A.TotalDPPTransport+TotalPPNTransport+A.TotalPPHTransport AS GrandTotalTransport, A.RoundingManualTransport, " & vbNewLine & _
+"   A.IsDeleted, A.Remarks, A.StatusID, B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine &
 "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
 "FROM traSalesReturn A " & vbNewLine & _
 "INNER JOIN traDelivery A1 ON " & vbNewLine &
@@ -152,7 +153,7 @@ Namespace DL
 "   A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, " & vbNewLine & _
 "	A.LogBy, A.LogDate, A.JournalID, A.DPAmount, A.TotalPayment, A.CoAofStock, A.IsUseSubItem, A.DPAmountPPN, A.DPAmountPPH, A.TotalPaymentPPN, A.TotalPaymentPPH, " & vbNewLine & _
 "	A.TransporterID, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, A.UnitPriceTransport, A.DPAmountTransport, A.TotalPaymentTransport,  " & vbNewLine & _
-"	A.DPAmountPPNTransport, A.DPAmountPPHTransport, A.TotalPaymentPPNTransport, A.TotalPaymentPPHTransport " & vbNewLine & _
+"	A.DPAmountPPNTransport, A.DPAmountPPHTransport, A.TotalPaymentPPNTransport, A.TotalPaymentPPHTransport, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock " & vbNewLine & _
 "FROM traSalesReturn A " & vbNewLine & _
 "INNER JOIN traDelivery A1 ON " & vbNewLine &
 "   A.DeliveryID=A1.ID " & vbNewLine &
@@ -164,6 +165,8 @@ Namespace DL
 "   A.CompanyID=MC.ID " & vbNewLine &
 "INNER JOIN mstProgram MP ON " & vbNewLine &
 "   A.ProgramID=MP.ID " & vbNewLine &
+"INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
+"   A.CoAofStock=COA.ID " & vbNewLine &
 "WHERE " & vbNewLine & _
 "	A.ID=@ID " & vbNewLine
 
@@ -218,6 +221,8 @@ Namespace DL
                         voReturn.DPAmount = .Item("DPAmount")
                         voReturn.TotalPayment = .Item("TotalPayment")
                         voReturn.CoAofStock = .Item("CoAofStock")
+                        voReturn.CoACodeOfStock = .Item("CoACodeofStock")
+                        voReturn.CoANameOfStock = .Item("CoANameOfStock")
                         voReturn.IsUseSubItem = .Item("IsUseSubItem")
                         voReturn.DPAmountPPN = .Item("DPAmountPPN")
                         voReturn.DPAmountPPH = .Item("DPAmountPPH")
@@ -591,6 +596,39 @@ Namespace DL
                 Throw ex
             End Try
         End Sub
+
+        Public Shared Function IsAlreadyPaymentDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strID As String) As Boolean
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim bolReturn As Boolean = False
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID " & vbNewLine &
+                        "FROM traSalesReturnDet " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   ID=@ID " & vbNewLine &
+                        "   AND (DPAmount>0 OR ReceiveAmount>0 OR InvoiceQuantity>0 OR InvoiceTotalWeight>0) " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        bolReturn = True
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return bolReturn
+        End Function
 
 #End Region
 

@@ -20,10 +20,12 @@ Namespace VO
         Property TotalDPP As Decimal
         Property TotalPPN As Decimal
         Property TotalPPH As Decimal
+        Property GrandTotal As Decimal
         Property TotalDPPTransport As Decimal
         Property TotalPPNTransport As Decimal
         Property TotalPPHTransport As Decimal
         Property RoundingManualTransport As Decimal
+        Property GrandTotalTransport As Decimal
         Property Remarks As String
         Property StatusID As Integer
         Property SubmitBy As String
@@ -35,12 +37,16 @@ Namespace VO
         Property DPAmount As Decimal
         Property TotalPayment As Decimal
         Property CoAofStock As Integer
+        Property CoACodeOfStock As String
+        Property CoANameOfStock As String
         Property IsUseSubItem As Boolean
         Property DPAmountPPN As Decimal
         Property DPAmountPPH As Decimal
         Property TotalPaymentPPN As Decimal
         Property TotalPaymentPPH As Decimal
         Property TransporterID As Integer
+        Property TransporterCode As String
+        Property TransporterName As String
         Property PPNTransport As Decimal
         Property PPHTransport As Decimal
         Property IsFreePPNTransport As Boolean

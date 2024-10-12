@@ -25,6 +25,7 @@ Partial Class frmTraDeliveryDetItemVer01
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraDeliveryDetItemVer01))
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.btnItemCustom = New DevExpress.XtraEditors.SimpleButton()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.txtOrderNumberSupplier = New ERPS.usTextBox()
         Me.txtLength = New ERPS.usNumeric()
@@ -67,7 +68,6 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
-        Me.btnItemCustom = New DevExpress.XtraEditors.SimpleButton()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -142,6 +142,14 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.pnlDetail.Size = New System.Drawing.Size(684, 341)
         Me.pnlDetail.TabIndex = 2
         '
+        'btnItemCustom
+        '
+        Me.btnItemCustom.Image = CType(resources.GetObject("btnItemCustom.Image"), System.Drawing.Image)
+        Me.btnItemCustom.Location = New System.Drawing.Point(341, 42)
+        Me.btnItemCustom.Name = "btnItemCustom"
+        Me.btnItemCustom.Size = New System.Drawing.Size(23, 23)
+        Me.btnItemCustom.TabIndex = 3
+        '
         'Label5
         '
         Me.Label5.AutoSize = True
@@ -174,7 +182,7 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.txtLength.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtLength.Name = "txtLength"
         Me.txtLength.Size = New System.Drawing.Size(135, 21)
-        Me.txtLength.TabIndex = 8
+        Me.txtLength.TabIndex = 9
         Me.txtLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtLength.ThousandsSeparator = True
         '
@@ -188,7 +196,7 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.txtWidth.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtWidth.Name = "txtWidth"
         Me.txtWidth.Size = New System.Drawing.Size(135, 21)
-        Me.txtWidth.TabIndex = 7
+        Me.txtWidth.TabIndex = 8
         Me.txtWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtWidth.ThousandsSeparator = True
         '
@@ -202,7 +210,7 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.txtThick.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtThick.Name = "txtThick"
         Me.txtThick.Size = New System.Drawing.Size(135, 21)
-        Me.txtThick.TabIndex = 6
+        Me.txtThick.TabIndex = 7
         Me.txtThick.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtThick.ThousandsSeparator = True
         '
@@ -238,7 +246,7 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.txtMaxTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtMaxTotalWeight.Name = "txtMaxTotalWeight"
         Me.txtMaxTotalWeight.Size = New System.Drawing.Size(135, 21)
-        Me.txtMaxTotalWeight.TabIndex = 10
+        Me.txtMaxTotalWeight.TabIndex = 11
         Me.txtMaxTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtMaxTotalWeight.ThousandsSeparator = True
         '
@@ -274,7 +282,7 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.txtTotalPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPrice.Name = "txtTotalPrice"
         Me.txtTotalPrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalPrice.TabIndex = 14
+        Me.txtTotalPrice.TabIndex = 16
         Me.txtTotalPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPrice.ThousandsSeparator = True
         '
@@ -296,7 +304,7 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.txtQuantity.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtQuantity.Name = "txtQuantity"
         Me.txtQuantity.Size = New System.Drawing.Size(160, 21)
-        Me.txtQuantity.TabIndex = 12
+        Me.txtQuantity.TabIndex = 14
         Me.txtQuantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtQuantity.ThousandsSeparator = True
         '
@@ -332,7 +340,7 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.txtUnitPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtUnitPrice.Name = "txtUnitPrice"
         Me.txtUnitPrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtUnitPrice.TabIndex = 11
+        Me.txtUnitPrice.TabIndex = 13
         Me.txtUnitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtUnitPrice.ThousandsSeparator = True
         '
@@ -368,7 +376,7 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.txtTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalWeight.Name = "txtTotalWeight"
         Me.txtTotalWeight.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalWeight.TabIndex = 13
+        Me.txtTotalWeight.TabIndex = 15
         Me.txtTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalWeight.ThousandsSeparator = True
         '
@@ -400,7 +408,7 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(456, 48)
-        Me.txtRemarks.TabIndex = 15
+        Me.txtRemarks.TabIndex = 12
         '
         'Label12
         '
@@ -466,7 +474,7 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.txtWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtWeight.Name = "txtWeight"
         Me.txtWeight.Size = New System.Drawing.Size(135, 21)
-        Me.txtWeight.TabIndex = 9
+        Me.txtWeight.TabIndex = 10
         Me.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtWeight.ThousandsSeparator = True
         '
@@ -511,7 +519,7 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.cboItemSpecification.Location = New System.Drawing.Point(462, 44)
         Me.cboItemSpecification.Name = "cboItemSpecification"
         Me.cboItemSpecification.Size = New System.Drawing.Size(160, 21)
-        Me.cboItemSpecification.TabIndex = 4
+        Me.cboItemSpecification.TabIndex = 5
         '
         'Label3
         '
@@ -532,7 +540,7 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.cboItemType.Location = New System.Drawing.Point(462, 17)
         Me.cboItemType.Name = "cboItemType"
         Me.cboItemType.Size = New System.Drawing.Size(160, 21)
-        Me.cboItemType.TabIndex = 3
+        Me.cboItemType.TabIndex = 4
         '
         'Label28
         '
@@ -588,7 +596,7 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.txtItemName.Name = "txtItemName"
         Me.txtItemName.ReadOnly = True
         Me.txtItemName.Size = New System.Drawing.Size(456, 48)
-        Me.txtItemName.TabIndex = 5
+        Me.txtItemName.TabIndex = 6
         '
         'ToolBar
         '
@@ -613,14 +621,6 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.BarClose.Name = "BarClose"
         Me.BarClose.Tag = "Close"
         Me.BarClose.Text = "Tutup"
-        '
-        'btnItemCustom
-        '
-        Me.btnItemCustom.Image = CType(resources.GetObject("btnItemCustom.Image"), System.Drawing.Image)
-        Me.btnItemCustom.Location = New System.Drawing.Point(341, 42)
-        Me.btnItemCustom.Name = "btnItemCustom"
-        Me.btnItemCustom.Size = New System.Drawing.Size(23, 23)
-        Me.btnItemCustom.TabIndex = 3
         '
         'frmTraDeliveryDetItemVer01
         '

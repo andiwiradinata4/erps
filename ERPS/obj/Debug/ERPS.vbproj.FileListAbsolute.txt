@@ -882,3 +882,7 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDate.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDateDet.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptListPOCutting.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptListPOCutting.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesReturn.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesReturnDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryOutstandingSalesReturn.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesReturnDetItem.resources

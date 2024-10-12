@@ -44,7 +44,7 @@ Public Class frmTraDelivery
         UI.usForm.SetGrid(grdView, "SCNumber", IIf(bolIsStock, "No. Permintaan Pesanan", "No. Kontrak Penjualan"), 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ReferencesNumber", "No. Referensi", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PlatNumber", "No. Plat", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "Driver", "Nama Supirt", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "Driver", "Nama Supir", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "TotalQuantity", "Total Quantity", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "PPN", "PPN", 100, UI.usDefGrid.gReal2Num)

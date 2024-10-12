@@ -140,6 +140,7 @@ Public Class frmTraDeliveryDet
                 bolIsUseSubItem = clsData.IsUseSubItem
                 bolIsStock = clsData.IsStock
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
+                txtGrandTotalTransport.Value = txtTotalDPPTransport.Value + txtTotalPPNTransport.Value - txtTotalPPHTransport.Value
                 intBPLocationID = clsData.BPLocationID
                 txtBPLocationAddress.Text = clsData.BPLocationName
             End If

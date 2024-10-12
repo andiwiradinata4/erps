@@ -164,6 +164,32 @@
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataByPurchaseID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal strPCID As String) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT DISTINCT " & vbNewLine & _
+"	SCH.ID, SCH.ProgramID, SCH.CompanyID, SCH.SCNumber, SCH.SCDate, SCH.BPID, BP.Code AS BPCode, BP.Name AS BPName   " & vbNewLine & _
+"FROM traSalesContract SCH  " & vbNewLine & _
+"INNER JOIN traSalesContractDetConfirmationOrder SCDCO ON  " & vbNewLine & _
+"	SCH.ID=SCDCO.SCID  " & vbNewLine & _
+"INNER JOIN traPurchaseContractDet PCD ON  " & vbNewLine & _
+"	SCDCO.CODetailID=PCD.CODetailID  " & vbNewLine & _
+"INNER JOIN mstBusinessPartner BP ON  " & vbNewLine & _
+"	SCH.BPID=BP.ID  " & vbNewLine & _
+"WHERE  " & vbNewLine & _
+"	SCH.IsDeleted=0  " & vbNewLine & _
+"	AND PCD.PCID=@PCID  " & vbNewLine
+
+                .Parameters.Add("@PCID", SqlDbType.VarChar, 100).Value = strPCID
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                    ByVal bolNew As Boolean, ByVal clsData As VO.SalesContract)
             Dim sqlCmdExecute As New SqlCommand

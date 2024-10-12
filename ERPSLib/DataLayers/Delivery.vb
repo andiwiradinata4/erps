@@ -1286,6 +1286,36 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailOutstandingSalesReturn(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                    ByVal strDeliveryID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.DeliveryID, A1.DeliveryNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A.TotalWeight-A1.ReturnWeight AS MaxTotalWeight, " & vbNewLine &
+                    "   A.Remarks, A.OrderNumberSupplier, A.LevelItem, A.ParentID, A.RoundingWeight " & vbNewLine &
+                    "FROM traDeliveryDet A " & vbNewLine &
+                    "INNER JOIN traDelivery A1 ON " & vbNewLine &
+                    "   A.DeliveryID=A1.ID " & vbNewLine &
+                    "INNER JOIN mstItem B ON " & vbNewLine &
+                    "   A.ItemID=B.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification C ON " & vbNewLine &
+                    "   B.ItemSpecificationID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItemType D ON " & vbNewLine &
+                    "   B.ItemTypeID=D.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.DeliveryID=@DeliveryID " & vbNewLine
+
+                .Parameters.Add("@DeliveryID", SqlDbType.VarChar, 100).Value = strDeliveryID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                          ByVal clsData As VO.DeliveryDet)
             Dim sqlCmdExecute As New SqlCommand
@@ -1337,6 +1367,48 @@
                     "   DeliveryID=@DeliveryID" & vbNewLine
 
                 .Parameters.Add("@DeliveryID", SqlDbType.VarChar, 100).Value = strDeliveryID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateReturnTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal strDeliveryDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traDeliveryDet SET 	" & vbNewLine &
+                    "	ReturnWeight=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(SRD.TotalWeight+SRD.RoundingWeight),0) TotalWeight		" & vbNewLine &
+                    "		FROM traSalesReturnDet SRD 	" & vbNewLine &
+                    "		INNER JOIN traSalesReturn SRH ON	" & vbNewLine &
+                    "			SRD.SalesReturnID=SRH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			SRD.DeliveryDetailID=@DeliveryDetailID 	" & vbNewLine &
+                    "			AND SRH.IsDeleted=0 	" & vbNewLine &
+                    "	), 	" & vbNewLine &
+                    "	ReturnQuantity=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(SRD.Quantity),0) TotalQuantity " & vbNewLine &
+                    "		FROM traSalesReturnDet SRD 	" & vbNewLine &
+                    "		INNER JOIN traSalesReturn SRH ON	" & vbNewLine &
+                    "			SRD.SalesReturnID=SRH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			SRD.DeliveryDetailID=@DeliveryDetailID 	" & vbNewLine &
+                    "			AND SRH.IsDeleted=0 	" & vbNewLine &
+                    "	) 	" & vbNewLine &
+                    "WHERE ID=@DeliveryDetailID	" & vbNewLine
+
+                .Parameters.Add("@DeliveryDetailID", SqlDbType.VarChar, 100).Value = strDeliveryDetailID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
