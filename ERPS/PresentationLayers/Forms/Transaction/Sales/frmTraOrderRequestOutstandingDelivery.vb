@@ -76,7 +76,7 @@
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         Try
-            dtData = BL.OrderRequest.ListDataOustandingDelivery(clsCS.ProgramID, clsCS.CompanyID, intBPID)
+            dtData = BL.OrderRequest.ListDataOutstandingDelivery(clsCS.ProgramID, clsCS.CompanyID, intBPID)
             grdMain.DataSource = dtData
             grdView.BestFitColumns()
         Catch ex As Exception

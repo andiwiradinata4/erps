@@ -351,24 +351,23 @@ Public Class frmTraSalesReturnDet
     End Sub
 
     Private Sub prvChooseDelivery()
-        'Dim frmDetail As New frmTraReceiveDetOutstandingContract
-        'With frmDetail
-        '    .pubBPID = intBPID
-        '    .pubCS = pubCS
-        '    .StartPosition = FormStartPosition.CenterScreen
-        '    .ShowDialog()
-        '    If .pubIsLookUpGet Then
-        '        If strDeliveryID.Trim <> .pubLUdtRow.Item("ID") Then
-        '            prvClearItem()
-        '            Dim clsDelivery As VO.Delivery = BL.Delivery.GetDetail(.pubLUdtRow.Item("ID"))
-        '            txtPPN.Value = clsDelivery.PPN
-        '            txtPPH.Value = clsDelivery.PPH
-        '        End If
-        '        strDeliveryID = .pubLUdtRow.Item("ID")
-        '        txtDeliveryNumber.Text = .pubLUdtRow.Item("DeliveryNumber")
-        '        bolIsUseSubItem = .pubLUdtRow.Item("IsUseSubItem")
-        '    End If
-        'End With
+        Dim frmDetail As New frmTraDeliveryOutstandingSalesReturn
+        With frmDetail
+            .pubBPID = intBPID
+            .pubCS = pubCS
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                If strDeliveryID.Trim <> .pubLUdtRow.Item("ID") Then
+                    prvClearItem()
+                    Dim clsDelivery As VO.Delivery = BL.Delivery.GetDetail(.pubLUdtRow.Item("ID"))
+                    txtPPN.Value = clsDelivery.PPN
+                    txtPPH.Value = clsDelivery.PPH
+                End If
+                strDeliveryID = .pubLUdtRow.Item("ID")
+                txtDeliveryNumber.Text = .pubLUdtRow.Item("DeliveryNumber")
+            End If
+        End With
     End Sub
 
     Private Sub prvChooseCOA()

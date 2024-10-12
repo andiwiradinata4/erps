@@ -969,6 +969,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryOutstandingSalesReturn.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryOutstandingSalesReturnItem.Designer.vb">
+      <DependentUpon>frmTraDeliveryOutstandingSalesReturnItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryOutstandingSalesReturnItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequest.Designer.vb">
       <DependentUpon>frmTraOrderRequest.vb</DependentUpon>
     </Compile>
@@ -1757,6 +1763,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryOutstandingSalesReturn.resx">
       <DependentUpon>frmTraDeliveryOutstandingSalesReturn.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraDeliveryOutstandingSalesReturnItem.resx">
+      <DependentUpon>frmTraDeliveryOutstandingSalesReturnItem.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequest.resx">
       <DependentUpon>frmTraOrderRequest.vb</DependentUpon>

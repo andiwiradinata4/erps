@@ -1,19 +1,23 @@
-﻿Imports DevExpress.XtraGrid
-Public Class frmTraDeliveryOutstandingSalesReturn
+﻿Public Class frmTraDeliveryOutstandingSalesReturn
 
 #Region "Properties"
 
     Private frmParent As frmTraSalesReturnDetItem
     Private intPos As Integer = 0
-    Private strDeliveryID As String
-    Private dtData As New DataTable
+    Private intBPID As Integer = 0
     Private drLookupGet As DataRow
     Private bolIsLookupGet As Boolean = False
-    Private dtParent As New DataTable
+    Private clsCS As New VO.CS
 
-    Public WriteOnly Property pubDeliveryID As String
-        Set(value As String)
-            strDeliveryID = value
+    Public WriteOnly Property pubCS As VO.CS
+        Set(value As VO.CS)
+            clsCS = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubBPID As Integer
+        Set(value As Integer)
+            intBPID = value
         End Set
     End Property
 
@@ -29,12 +33,6 @@ Public Class frmTraDeliveryOutstandingSalesReturn
         End Get
     End Property
 
-    Public WriteOnly Property pubParentItem As DataTable
-        Set(value As DataTable)
-            dtParent = value
-        End Set
-    End Property
-
     Public Sub pubShowDialog(ByVal frmGetParent As Form)
         frmParent = frmGetParent
         Me.ShowDialog()
@@ -48,26 +46,8 @@ Public Class frmTraDeliveryOutstandingSalesReturn
     Private Sub prvSetGrid()
         UI.usForm.SetGrid(grdView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "DeliveryID", "DeliveryID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "DeliveryNumber", "Nomor", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "ItemName", "Nama Barang", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "Quantity", "Quantity", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "Weight", "Weight", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "DeliveryDate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
     End Sub
 
     Private Sub prvSetButton()
@@ -80,15 +60,7 @@ Public Class frmTraDeliveryOutstandingSalesReturn
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         Try
-            dtData = BL.Delivery.ListDataDetailOutstandingSalesReturn(strDeliveryID)
-            For Each drParent As DataRow In dtParent.Rows
-                For Each dr As DataRow In dtData.Rows
-                    If drParent.Item("DeliveryDetailID") = dr.Item("ID") Then dr.Delete()
-                Next
-                dtData.AcceptChanges()
-            Next
-            grdMain.DataSource = dtData
-            prvSumGrid()
+            grdMain.DataSource = BL.Delivery.ListDataOutstandingSalesReturn(clsCS.ProgramID, clsCS.CompanyID, intBPID)
             grdView.BestFitColumns()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -104,15 +76,6 @@ Public Class frmTraDeliveryOutstandingSalesReturn
         drLookupGet = grdView.GetDataRow(intPos)
         bolIsLookupGet = True
         Me.Close()
-    End Sub
-
-    Private Sub prvSumGrid()
-        Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0}")
-        Dim SumTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat: {0:#,##0.00}")
-
-        If grdView.Columns("Quantity").SummaryText.Trim = "" Then
-            grdView.Columns("Quantity").Summary.Add(SumTotalQuantity)
-        End If
     End Sub
 
 #Region "Form Handle"

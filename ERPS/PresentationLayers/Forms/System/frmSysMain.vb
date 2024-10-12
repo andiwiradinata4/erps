@@ -29,6 +29,7 @@
     Dim frmMainTraOrderRequestVer2 As frmTraOrderRequestVer2
     Dim frmMainTraSalesContract As frmTraSalesContract
     Dim frmMainTraDelivery As frmTraDelivery
+    Dim frmMainTraSalesReturn As frmTraSalesReturn
 
     '## Sales Stock
     Dim frmMainTraOrderRequestStock As frmTraOrderRequest
@@ -355,6 +356,10 @@
             frmMainTraDelivery.Show()
         End If
         Me.Cursor = Cursors.Arrow
+    End Sub
+
+    Private Sub mnuTransaksiPenjualanReturPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanReturPenjualan.Click
+        UI.usForm.frmOpen(frmMainTraSalesReturn, "frmTraSalesReturn", Me)
     End Sub
 
 #End Region

@@ -49,7 +49,7 @@ Public Class frmTraSalesReturn
         UI.usForm.SetGrid(grdView, "GrandTotal", "Grand Total", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "RoundingManual", "RoundingManual", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdView, "DPAmount", "Total Panjar", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "ReceiveAmount", "Total Pembayaran", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "TotalPayment", "Total Pembayaran", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "OutstandingPayment", "Sisa Hutang", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "UnitPriceTransport", "Harga Pengiriman", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "PPNTransport", "PPN Transport", 100, UI.usDefGrid.gReal2Num, False)
@@ -127,7 +127,6 @@ Public Class frmTraSalesReturn
             dtData = BL.SalesReturn.ListData(intProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue)
             grdMain.DataSource = dtData
             pgMain.Value = 80
-
             prvSumGrid()
             grdView.BestFitColumns()
         Catch ex As Exception
@@ -454,7 +453,7 @@ Public Class frmTraSalesReturn
         Dim SumTotalPPH As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPH", "Total PPh: {0:#,##0.00}")
         Dim SumGrandTotal As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "GrandTotal", "Grand Total: {0:#,##0.00}")
         Dim SumDPAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DPAmount", "Total Panjar: {0:#,##0.00}")
-        Dim SumReceiveAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ReceiveAmount", "Total Pembayaran: {0:#,##0.00}")
+        Dim SumReceiveAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPayment", "Total Pembayaran: {0:#,##0.00}")
         Dim SumOutstandingPayment As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "OutstandingPayment", "Sisa Hutang: {0:#,##0.00}")
 
         If grdView.Columns("TotalQuantity").SummaryText.Trim = "" Then
@@ -485,8 +484,8 @@ Public Class frmTraSalesReturn
             grdView.Columns("DPAmount").Summary.Add(SumDPAmount)
         End If
 
-        If grdView.Columns("ReceiveAmount").SummaryText.Trim = "" Then
-            grdView.Columns("ReceiveAmount").Summary.Add(SumReceiveAmount)
+        If grdView.Columns("TotalPayment").SummaryText.Trim = "" Then
+            grdView.Columns("TotalPayment").Summary.Add(SumReceiveAmount)
         End If
 
         If grdView.Columns("OutstandingPayment").SummaryText.Trim = "" Then

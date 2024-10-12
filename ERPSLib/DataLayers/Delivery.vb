@@ -31,7 +31,7 @@
                     "INNER JOIN mstBusinessPartner C ON " & vbNewLine &
                     "   A.BPID=C.ID " & vbNewLine &
                     "INNER JOIN mstBusinessPartner TP ON " & vbNewLine &
-                    "   A.BPID=TP.ID " & vbNewLine &
+                    "   A.TransporterID=TP.ID " & vbNewLine &
                     "INNER JOIN mstCompany MC ON " & vbNewLine &
                     "   A.CompanyID=MC.ID " & vbNewLine &
                     "INNER JOIN mstProgram MP ON " & vbNewLine &
@@ -52,6 +52,49 @@
                 .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = intStatusID
                 .Parameters.Add("@IsStock", SqlDbType.Bit).Value = bolIsStock
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataOutstandingSalesReturn(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                              ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                              ByVal intBPID As Integer) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT DISTINCT " & vbNewLine &
+                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.DeliveryNumber, A.DeliveryDate, A.BPID, C.Code AS BPCode, " & vbNewLine &
+                    "   C.Name AS BPName, A.TransporterID, TP.Code AS TransporterCode, TP.Name AS TransporterName, A.TotalQuantity, A.TotalWeight, A.PPN, A.PPH, A.TotalDPP, " & vbNewLine &
+                    "   A.TotalPPN, A.TotalPPH, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, A.Remarks, A.StatusID, B.Name AS StatusInfo" & vbNewLine &
+                    "FROM traDelivery A " & vbNewLine &
+                    "INNER JOIN traDeliveryDet A1 ON " & vbNewLine &
+                    "   A.ID=A1.DeliveryID " & vbNewLine &
+                    "INNER JOIN mstStatus B ON " & vbNewLine &
+                    "   A.StatusID=B.ID " & vbNewLine &
+                    "INNER JOIN mstBusinessPartner C ON " & vbNewLine &
+                    "   A.BPID=C.ID " & vbNewLine &
+                    "INNER JOIN mstBusinessPartner TP ON " & vbNewLine &
+                    "   A.TransporterID=TP.ID " & vbNewLine &
+                    "INNER JOIN mstCompany MC ON " & vbNewLine &
+                    "   A.CompanyID=MC.ID " & vbNewLine &
+                    "INNER JOIN mstProgram MP ON " & vbNewLine &
+                    "   A.ProgramID=MP.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A.StatusID=@StatusID " & vbNewLine &
+                    "   AND A.BPID=@BPID " & vbNewLine &
+                    "   AND A.IsDeleted=0 " & vbNewLine &
+                    "   AND A1.TotalWeight-A1.RoundingWeight-A1.ReturnWeight>0 " & vbNewLine &
+                    "   AND A.IsDeleted=0 " & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
@@ -1286,8 +1329,8 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
-        Public Shared Function ListDataDetailOutstandingSalesReturn(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                                    ByVal strDeliveryID As String) As DataTable
+        Public Shared Function ListDataDetailOutstandingSalesReturnItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                        ByVal strDeliveryID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -1297,7 +1340,7 @@
                     "SELECT " & vbNewLine &
                     "   A.ID, A.DeliveryID, A1.DeliveryNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
-                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A.TotalWeight-A1.ReturnWeight AS MaxTotalWeight, " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A.TotalWeight-A.ReturnWeight AS MaxTotalWeight, " & vbNewLine &
                     "   A.Remarks, A.OrderNumberSupplier, A.LevelItem, A.ParentID, A.RoundingWeight " & vbNewLine &
                     "FROM traDeliveryDet A " & vbNewLine &
                     "INNER JOIN traDelivery A1 ON " & vbNewLine &

@@ -13,15 +13,15 @@ Namespace DL
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandText =
-"SELECT  " & vbNewLine & _
-"	A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.SalesReturnNumber, A.SalesReturnDate, " & vbNewLine & _
-"   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.DeliveryID, A1.DeliveryNumber, A.PlatNumber, A.Driver, A.ReferencesNumber, " & vbNewLine & _
-"	A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal,  " & vbNewLine & _
-"   A.RoundingManual, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, A.UnitPriceTransport, A.TotalDPPTransport, " & vbNewLine & _
-"   A.TotalPPNTransport, A.TotalPPHTransport, A.TotalDPPTransport+TotalPPNTransport+A.TotalPPHTransport AS GrandTotalTransport, A.RoundingManualTransport, " & vbNewLine & _
+"SELECT  " & vbNewLine &
+"	A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.SalesReturnNumber, A.SalesReturnDate, " & vbNewLine &
+"   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.DeliveryID, A1.DeliveryNumber, A.PlatNumber, A.Driver, A.ReferencesNumber, " & vbNewLine &
+"	A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal,  " & vbNewLine &
+"   A.DPAmount, A.TotalPayment, A.RoundingManual, (A.TotalDPP+A.RoundingManual)-(A.DPAmount+A.TotalPayment) AS OutstandingPayment, A.PPNTransport, A.PPHTransport, " & vbNewLine &
+"   A.IsFreePPNTransport, A.IsFreePPHTransport, A.UnitPriceTransport, A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.RoundingManualTransport, " & vbNewLine &
 "   A.IsDeleted, A.Remarks, A.StatusID, B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine &
-"   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
-"FROM traSalesReturn A " & vbNewLine & _
+"   A.TotalDPPTransport+A.TotalPPNTransport+A.TotalPPHTransport AS GrandTotalTransport, CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine &
+"FROM traSalesReturn A " & vbNewLine &
 "INNER JOIN traDelivery A1 ON " & vbNewLine &
 "   A.DeliveryID=A1.ID " & vbNewLine &
 "INNER JOIN mstStatus B ON " & vbNewLine &
@@ -32,13 +32,18 @@ Namespace DL
 "   A.CompanyID=MC.ID " & vbNewLine &
 "INNER JOIN mstProgram MP ON " & vbNewLine &
 "   A.ProgramID=MP.ID " & vbNewLine &
-"WHERE  " & vbNewLine & _
+"WHERE  " & vbNewLine &
 "   A.ProgramID=@ProgramID " & vbNewLine &
 "   AND A.CompanyID=@CompanyID " & vbNewLine &
-"   AND A.PODate>=@DateFrom AND A.PODate<=@DateTo " & vbNewLine
+"   AND A.SalesReturnDate>=@DateFrom AND A.SalesReturnDate<=@DateTo " & vbNewLine
 
                 If intStatusID > 0 Then .CommandText += "   AND A.StatusID=@StatusID " & vbNewLine
 
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
+                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = intStatusID
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
@@ -521,18 +526,20 @@ Namespace DL
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandText =
-"SELECT  " & vbNewLine & _
-"	A.ID, A.SalesReturnID, A.DeliveryDetailID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine & _
-"   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine & _
-"   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A.Remarks, A.OrderNumberSupplier, A.LevelItem, A.ParentID, A.RoundingWeight " & vbNewLine & _
-"FROM traSalesReturnDet A " & vbNewLine & _
+"SELECT  " & vbNewLine &
+"	A.ID, A.SalesReturnID, A.DeliveryDetailID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+"   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
+"   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.ReturnWeight AS MaxTotalWeight, A.Remarks, A.OrderNumberSupplier, A.LevelItem, A.ParentID, A.RoundingWeight " & vbNewLine &
+"FROM traSalesReturnDet A " & vbNewLine &
+"INNER JOIN traDeliveryDet A1 ON " & vbNewLine &
+"   A.DeliveryDetailID=A1.ID " & vbNewLine &
 "INNER JOIN mstItem B ON " & vbNewLine &
 "   A.ItemID=B.ID " & vbNewLine &
 "INNER JOIN mstItemSpecification C ON " & vbNewLine &
 "   B.ItemSpecificationID=C.ID " & vbNewLine &
 "INNER JOIN mstItemType D ON " & vbNewLine &
 "   B.ItemTypeID=D.ID " & vbNewLine &
-"WHERE  " & vbNewLine & _
+"WHERE  " & vbNewLine &
 "	A.SalesReturnID=@SalesReturnID  " & vbNewLine
 
                 .Parameters.Add("@SalesReturnID", SqlDbType.VarChar, 100).Value = strSalesReturnID

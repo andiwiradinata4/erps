@@ -220,7 +220,7 @@
     End Sub
 
     Private Sub prvChooseItem()
-        Dim frmDetail As New frmTraDeliveryOutstandingSalesReturn
+        Dim frmDetail As New frmTraDeliveryOutstandingSalesReturnItem
         With frmDetail
             .pubParentItem = dtItem
             .pubDeliveryID = strDeliveryID

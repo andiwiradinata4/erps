@@ -13,7 +13,7 @@
             End Using
         End Function
 
-        Public Shared Function ListDataOustandingDelivery(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+        Public Shared Function ListDataOutstandingDelivery(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                                           ByVal intBPID As Integer) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
