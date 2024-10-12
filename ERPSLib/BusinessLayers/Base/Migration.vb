@@ -64,6 +64,7 @@
                 DevelopOnProgress_ID57(sqlCon, Nothing)
                 DevelopOnProgress_ID58(sqlCon, Nothing)
                 DevelopOnProgress_ID59(sqlCon, Nothing)
+                DevelopOnProgress_ID60(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1692,6 +1693,21 @@
 "ALTER TABLE traStockIn ADD CoAofStock [int] NOT NULL CONSTRAINT DF_traStockIn_CoAofStock DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE traStockOut ADD CoAofStock [int] NOT NULL CONSTRAINT DF_traStockOut_CoAofStock DEFAULT ((0)) " & vbNewLine
 
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 60
+        Private Shared Sub DevelopOnProgress_ID60(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 60
+            clsData.Name = "Alter Table Delivery Detail | Add Invoice Quantity dan Weight"
+            clsData.Scripts =
+                "ALTER TABLE traDelivery ADD CoAofStock [int] NOT NULL CONSTRAINT DF_traDelivery_CoAofStock DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traOrderRequest ADD CoAofStock [int] NOT NULL CONSTRAINT DF_traOrderRequest_CoAofStock DEFAULT ((0)) " & vbNewLine
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

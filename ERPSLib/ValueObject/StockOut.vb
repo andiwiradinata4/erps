@@ -10,5 +10,6 @@ Namespace VO
         Property Quantity As Decimal
         Property Weight As Decimal
         Property TotalWeight As Decimal
+        Property CoAofStock As Integer
     End Class
 End Namespace

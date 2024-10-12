@@ -510,7 +510,8 @@ Public Class frmTraSalesReturnDet
             .pubIsNew = False
             .pubDeliveryID = strDeliveryID
             .pubTableItem = dtItem
-            .pubIsAutoSearch = True
+            .pubIsAutoSearch = False
+            .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()

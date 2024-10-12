@@ -12,8 +12,8 @@ Public Class frmTraSalesReturn
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
-       cSep2 As Byte = 8, cReceive As Byte = 9, cSep3 As Byte = 10, cPrint As Byte = 11, cExportExcel As Byte = 12,
-       cSep4 As Byte = 13, cRefresh As Byte = 14, cClose As Byte = 15
+       cSep2 As Byte = 8, cReceive As Byte = 9, cSep3 As Byte = 10, cExportExcel As Byte = 11, cSep4 As Byte = 12,
+       cRefresh As Byte = 13, cClose As Byte = 14
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -86,7 +86,6 @@ Public Class frmTraSalesReturn
             .Item(cApprove).Enabled = bolEnable
             .Item(cCancelApprove).Enabled = bolEnable
             .Item(cReceive).Enabled = bolEnable
-            .Item(cPrint).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
         End With
     End Sub

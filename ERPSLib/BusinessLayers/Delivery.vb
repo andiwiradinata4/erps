@@ -65,7 +65,8 @@
                                                    .ItemID = dr.Item("ItemID"),
                                                    .Quantity = 0,
                                                    .Weight = 0,
-                                                   .TotalWeight = 0
+                                                   .TotalWeight = 0,
+                                                   .CoAofStock = clsData.CoAofStock
                                                })
                         Next
                         BL.StockOut.SaveData(sqlCon, sqlTrans, clsDataStockOut)

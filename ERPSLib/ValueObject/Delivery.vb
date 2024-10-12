@@ -56,5 +56,8 @@
         Property Save As VO.Save.Action
         Property BPLocationID As Integer
         Property BPLocationName As String
+        Property CoAofStock As Integer
+        Property CoACodeOfStock As String
+        Property CoANameOfStock As String
     End Class
 End Namespace

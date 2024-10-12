@@ -8,6 +8,7 @@ Public Class frmTraDeliveryDet
     Private intBPID As Integer = 0
     Private intTransporterID As Integer = 0
     Private strSCID As String = ""
+    Private intCoAIDOfStock As Integer = 0
     Private dtItem As New DataTable
     Private dtPaymentTerm As New DataTable
     Private intPos As Integer = 0
@@ -143,6 +144,9 @@ Public Class frmTraDeliveryDet
                 txtGrandTotalTransport.Value = txtTotalDPPTransport.Value + txtTotalPPNTransport.Value - txtTotalPPHTransport.Value
                 intBPLocationID = clsData.BPLocationID
                 txtBPLocationAddress.Text = clsData.BPLocationName
+                intCoAIDOfStock = clsData.CoAofStock
+                txtCoACodeOfStock.Text = clsData.CoACodeOfStock
+                txtCoANameOfStock.Text = clsData.CoANameOfStock
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -195,6 +199,11 @@ Public Class frmTraDeliveryDet
             UI.usForm.frmMessageBox("Pilih alamat pengiriman terlebih dahulu")
             tcHeader.SelectedTab = tpMain
             txtBPLocationAddress.Focus()
+            Exit Sub
+        ElseIf txtCoACodeOfStock.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih akun persediaan terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtCoACodeOfStock.Focus()
             Exit Sub
         End If
 
@@ -267,6 +276,9 @@ Public Class frmTraDeliveryDet
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
         clsData.BPLocationID = intBPLocationID
+        clsData.CoAofStock = intCoAIDOfStock
+        clsData.CoACodeOfStock = txtCoACodeOfStock.Text.Trim
+        clsData.CoANameOfStock = txtCoANameOfStock.Text.Trim
 
         pgMain.Value = 60
         Try
@@ -409,6 +421,24 @@ Public Class frmTraDeliveryDet
                 End If
             End With
         End If
+    End Sub
+
+    Private Sub prvChooseCOA()
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .pubCompanyID = pubCS.CompanyID
+            .pubProgramID = pubCS.ProgramID
+            .pubFilterGroup = VO.ChartOfAccount.FilterGroup.Stock
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDOfStock = .pubLUdtRow.Item("ID")
+                txtCoACodeOfStock.Text = .pubLUdtRow.Item("Code")
+                txtCoANameOfStock.Text = .pubLUdtRow.Item("Name")
+                txtReferencesNumber.Focus()
+            End If
+        End With
     End Sub
 
     Private Sub prvSumGrid()
@@ -689,6 +719,10 @@ Public Class frmTraDeliveryDet
         If chkIsFreePPNTransport.Checked Then txtPPNTransport.Value = 0
         txtPPHTransport.Enabled = Not chkIsFreePPHTransport.Checked
         If chkIsFreePPHTransport.Checked Then txtPPHTransport.Value = 0
+    End Sub
+
+    Private Sub btnCoAOfStock_Click(sender As Object, e As EventArgs) Handles btnCoAOfStock.Click
+        prvChooseCOA()
     End Sub
 
 #End Region

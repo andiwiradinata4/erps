@@ -33,5 +33,8 @@
         Property ReceiveAmountPPH As Decimal
         Property Detail As List(Of VO.OrderRequestDet)
         Property Save As VO.Save.Action
+        Property CoAofStock As Integer
+        Property CoACodeOfStock As String
+        Property CoANameOfStock As String
     End Class
 End Namespace

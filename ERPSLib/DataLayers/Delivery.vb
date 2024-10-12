@@ -20,7 +20,8 @@
                     "   A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.TotalDPPTransport+TotalPPNTransport+A.TotalPPHTransport AS GrandTotalTransport, " & vbNewLine &
                     "   A.RoundingManual, A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, " & vbNewLine &
                     "   A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, StatusInfo=B.Name, A.TransporterID, TP.Code AS TransporterCode, TP.Name AS TransporterName,  " & vbNewLine &
-                    "   A.PPNTransport, A.PPHTransport, A.UnitPriceTransport, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, A.BPLocationID, BPLocationName=BPL.Address  " & vbNewLine &
+                    "   A.PPNTransport, A.PPHTransport, A.UnitPriceTransport, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, " & vbNewLine &
+                    "   A.BPLocationID, BPLocationName=BPL.Address, A.CoAofStock, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock " & vbNewLine &
                     "FROM traDelivery A " & vbNewLine &
                     "LEFT JOIN traSalesContract A1 ON " & vbNewLine &
                     "   A.SCID=A1.ID " & vbNewLine &
@@ -38,6 +39,8 @@
                     "   A.ProgramID=MP.ID " & vbNewLine &
                     "INNER JOIN mstBusinessPartnerLocation BPL ON " & vbNewLine &
                     "   A.BPLocationID=BPL.ID " & vbNewLine &
+                    "INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
+                    "   A.CoAofStock=COA.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   A.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.CompanyID=@CompanyID " & vbNewLine &
@@ -112,12 +115,14 @@
                         "   (ID, ProgramID, CompanyID, DeliveryNumber, DeliveryDate, BPID, SCID, PlatNumber, Driver, ReferencesNumber, " & vbNewLine &
                         "    PPN, PPH, TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, TotalDPPTransport, TotalPPNTransport, " & vbNewLine &
                         "    TotalPPHTransport, RoundingManual, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, TotalCostRawMaterial, " & vbNewLine &
-                        "    TransporterID, UnitPriceTransport, PPNTransport, PPHTransport, IsFreePPNTransport, IsFreePPHTransport, IsUseSubItem, IsStock, BPLocationID) " & vbNewLine &
+                        "    TransporterID, UnitPriceTransport, PPNTransport, PPHTransport, IsFreePPNTransport, IsFreePPHTransport, IsUseSubItem, " & vbNewLine &
+                        "    IsStock, BPLocationID, CoAofStock) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @ProgramID, @CompanyID, @DeliveryNumber, @DeliveryDate, @BPID, @SCID, @PlatNumber, @Driver, @ReferencesNumber, " & vbNewLine &
                         "    @PPN, @PPH, @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @TotalDPPTransport, @TotalPPNTransport, " & vbNewLine &
                         "    @TotalPPHTransport, @RoundingManual, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @TotalCostRawMaterial, " & vbNewLine &
-                        "    @TransporterID, @UnitPriceTransport, @PPNTransport, @PPHTransport, @IsFreePPNTransport, @IsFreePPHTransport, @IsUseSubItem, @IsStock, @BPLocationID) " & vbNewLine
+                        "    @TransporterID, @UnitPriceTransport, @PPNTransport, @PPHTransport, @IsFreePPNTransport, @IsFreePPHTransport, @IsUseSubItem, " & vbNewLine &
+                        "    @IsStock, @BPLocationID, @CoAofStock) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE traDelivery SET " & vbNewLine &
@@ -155,7 +160,8 @@
                         "   IsFreePPHTransport=@IsFreePPHTransport, " & vbNewLine &
                         "   IsUseSubItem=@IsUseSubItem, " & vbNewLine &
                         "   IsStock=@IsStock, " & vbNewLine &
-                        "   BPLocationID=@BPLocationID" & vbNewLine &
+                        "   BPLocationID=@BPLocationID, " & vbNewLine &
+                        "   CoAofStock=@CoAofStock " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -194,6 +200,7 @@
                 .Parameters.Add("@IsUseSubItem", SqlDbType.Bit).Value = clsData.IsUseSubItem
                 .Parameters.Add("@IsStock", SqlDbType.Bit).Value = clsData.IsStock
                 .Parameters.Add("@BPLocationID", SqlDbType.Int).Value = clsData.BPLocationID
+                .Parameters.Add("@CoAofStock", SqlDbType.Int).Value = clsData.CoAofStock
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -218,7 +225,8 @@
                         "   A.TotalPPN, A.TotalPPH, A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.RoundingManual, A.IsDeleted, A.Remarks, " & vbNewLine &
                         "   A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.TotalPayment, " & vbNewLine &
                         "   A.JournalID, A.JournalIDTransport, A.TotalCostRawMaterial, A.TransporterID, TP.Code AS TransporterCode, TP.Name AS TransporterName, " & vbNewLine &
-                        "   A.UnitPriceTransport, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, A.IsUseSubItem, A.IsStock, A.BPLocationID, BPLocationName=BPL.Address " & vbNewLine &
+                        "   A.UnitPriceTransport, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, A.IsUseSubItem, A.IsStock, " & vbNewLine &
+                        "   A.BPLocationID, BPLocationName=BPL.Address, A.CoAofStock, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock " & vbNewLine &
                         "FROM traDelivery A " & vbNewLine &
                         "LEFT JOIN traSalesContract A1 ON " & vbNewLine &
                         "   A.SCID=A1.ID " & vbNewLine &
@@ -230,6 +238,8 @@
                         "   A.TransporterID=TP.ID " & vbNewLine &
                         "INNER JOIN mstBusinessPartnerLocation BPL ON " & vbNewLine &
                         "   A.BPLocationID=BPL.ID " & vbNewLine &
+                        "INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
+                        "   A.CoAofStock=COA.ID " & vbNewLine &
                         "WHERE " & vbNewLine &
                         "   A.ID=@ID " & vbNewLine
 
@@ -290,6 +300,9 @@
                         voReturn.IsStock = .Item("IsStock")
                         voReturn.BPLocationID = .Item("BPLocationID")
                         voReturn.BPLocationName = .Item("BPLocationName")
+                        voReturn.CoAofStock = .Item("CoAofStock")
+                        voReturn.CoACodeOfStock = .Item("CoACodeofStock")
+                        voReturn.CoANameOfStock = .Item("CoANameOfStock")
                     End If
                 End With
             Catch ex As Exception
@@ -1352,7 +1365,8 @@
                     "INNER JOIN mstItemType D ON " & vbNewLine &
                     "   B.ItemTypeID=D.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
-                    "   A.DeliveryID=@DeliveryID " & vbNewLine
+                    "   A.DeliveryID=@DeliveryID " & vbNewLine &
+                    "   AND A.TotalWeight-A.ReturnWeight>0 " & vbNewLine
 
                 .Parameters.Add("@DeliveryID", SqlDbType.VarChar, 100).Value = strDeliveryID
             End With

@@ -12,6 +12,7 @@ Namespace VO
         Property Initial As String
 
         Public Const cProfitAndLoss = 43
+        Public Const cStock = 23
         Enum FilterGroup
             All
             CashOrBank

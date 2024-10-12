@@ -68,6 +68,9 @@ Partial Class frmTraOrderRequestDet
         Me.tpHistory = New System.Windows.Forms.TabPage()
         Me.grdStatus = New DevExpress.XtraGrid.GridControl()
         Me.grdStatusView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.tpSalesContract = New System.Windows.Forms.TabPage()
+        Me.grdSalesContract = New DevExpress.XtraGrid.GridControl()
+        Me.grdSalesContractView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ToolBarDetail = New ERPS.usToolBar()
         Me.BarAdd = New System.Windows.Forms.ToolBarButton()
@@ -77,6 +80,10 @@ Partial Class frmTraOrderRequestDet
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.txtCoACodeOfStock = New ERPS.usTextBox()
+        Me.btnCoAOfStock = New DevExpress.XtraEditors.SimpleButton()
+        Me.lblCoAofStock = New System.Windows.Forms.Label()
+        Me.txtCoANameOfStock = New ERPS.usTextBox()
         Me.StatusStrip.SuspendLayout()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
@@ -91,6 +98,9 @@ Partial Class frmTraOrderRequestDet
         Me.tpHistory.SuspendLayout()
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tpSalesContract.SuspendLayout()
+        CType(Me.grdSalesContract, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdSalesContractView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -190,16 +200,21 @@ Partial Class frmTraOrderRequestDet
         Me.tcHeader.Controls.Add(Me.tpMain)
         Me.tcHeader.Controls.Add(Me.tpPrice)
         Me.tcHeader.Controls.Add(Me.tpHistory)
+        Me.tcHeader.Controls.Add(Me.tpSalesContract)
         Me.tcHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(831, 203)
+        Me.tcHeader.Size = New System.Drawing.Size(831, 193)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.txtCoACodeOfStock)
+        Me.tpMain.Controls.Add(Me.btnCoAOfStock)
+        Me.tpMain.Controls.Add(Me.lblCoAofStock)
+        Me.tpMain.Controls.Add(Me.txtCoANameOfStock)
         Me.tpMain.Controls.Add(Me.Label5)
         Me.tpMain.Controls.Add(Me.txtReferencesNumber)
         Me.tpMain.Controls.Add(Me.Label13)
@@ -217,7 +232,7 @@ Partial Class frmTraOrderRequestDet
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(823, 174)
+        Me.tpMain.Size = New System.Drawing.Size(823, 164)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
@@ -237,7 +252,7 @@ Partial Class frmTraOrderRequestDet
         '
         Me.txtReferencesNumber.BackColor = System.Drawing.Color.White
         Me.txtReferencesNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtReferencesNumber.Location = New System.Drawing.Point(110, 97)
+        Me.txtReferencesNumber.Location = New System.Drawing.Point(127, 97)
         Me.txtReferencesNumber.MaxLength = 250
         Me.txtReferencesNumber.Name = "txtReferencesNumber"
         Me.txtReferencesNumber.Size = New System.Drawing.Size(249, 21)
@@ -263,7 +278,7 @@ Partial Class frmTraOrderRequestDet
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(274, 48)
-        Me.txtRemarks.TabIndex = 8
+        Me.txtRemarks.TabIndex = 10
         '
         'cboStatus
         '
@@ -273,7 +288,7 @@ Partial Class frmTraOrderRequestDet
         Me.cboStatus.Location = New System.Drawing.Point(516, 16)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(124, 21)
-        Me.cboStatus.TabIndex = 6
+        Me.cboStatus.TabIndex = 9
         '
         'lblStatusID
         '
@@ -291,7 +306,7 @@ Partial Class frmTraOrderRequestDet
         Me.dtpOrderDate.CustomFormat = "dd/MM/yyyy"
         Me.dtpOrderDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpOrderDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpOrderDate.Location = New System.Drawing.Point(110, 70)
+        Me.dtpOrderDate.Location = New System.Drawing.Point(127, 70)
         Me.dtpOrderDate.Name = "dtpOrderDate"
         Me.dtpOrderDate.Size = New System.Drawing.Size(105, 21)
         Me.dtpOrderDate.TabIndex = 4
@@ -312,7 +327,7 @@ Partial Class frmTraOrderRequestDet
         '
         Me.txtBPCode.BackColor = System.Drawing.Color.Azure
         Me.txtBPCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtBPCode.Location = New System.Drawing.Point(110, 43)
+        Me.txtBPCode.Location = New System.Drawing.Point(127, 43)
         Me.txtBPCode.MaxLength = 250
         Me.txtBPCode.Name = "txtBPCode"
         Me.txtBPCode.ReadOnly = True
@@ -322,7 +337,7 @@ Partial Class frmTraOrderRequestDet
         'btnBP
         '
         Me.btnBP.Image = CType(resources.GetObject("btnBP.Image"), System.Drawing.Image)
-        Me.btnBP.Location = New System.Drawing.Point(365, 42)
+        Me.btnBP.Location = New System.Drawing.Point(382, 42)
         Me.btnBP.Name = "btnBP"
         Me.btnBP.Size = New System.Drawing.Size(23, 23)
         Me.btnBP.TabIndex = 3
@@ -342,7 +357,7 @@ Partial Class frmTraOrderRequestDet
         '
         Me.txtBPName.BackColor = System.Drawing.Color.Azure
         Me.txtBPName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtBPName.Location = New System.Drawing.Point(192, 43)
+        Me.txtBPName.Location = New System.Drawing.Point(209, 43)
         Me.txtBPName.MaxLength = 250
         Me.txtBPName.Name = "txtBPName"
         Me.txtBPName.ReadOnly = True
@@ -364,7 +379,7 @@ Partial Class frmTraOrderRequestDet
         '
         Me.txtOrderNumber.BackColor = System.Drawing.Color.White
         Me.txtOrderNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtOrderNumber.Location = New System.Drawing.Point(110, 16)
+        Me.txtOrderNumber.Location = New System.Drawing.Point(127, 16)
         Me.txtOrderNumber.MaxLength = 250
         Me.txtOrderNumber.Name = "txtOrderNumber"
         Me.txtOrderNumber.Size = New System.Drawing.Size(167, 21)
@@ -618,13 +633,59 @@ Partial Class frmTraOrderRequestDet
         Me.grdStatusView.OptionsView.ColumnAutoWidth = False
         Me.grdStatusView.OptionsView.ShowGroupPanel = False
         '
+        'tpSalesContract
+        '
+        Me.tpSalesContract.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpSalesContract.Controls.Add(Me.grdSalesContract)
+        Me.tpSalesContract.Location = New System.Drawing.Point(4, 25)
+        Me.tpSalesContract.Name = "tpSalesContract"
+        Me.tpSalesContract.Padding = New System.Windows.Forms.Padding(3)
+        Me.tpSalesContract.Size = New System.Drawing.Size(823, 174)
+        Me.tpSalesContract.TabIndex = 3
+        Me.tpSalesContract.Text = "Kontrak Penjualan - F4"
+        Me.tpSalesContract.UseVisualStyleBackColor = True
+        '
+        'grdSalesContract
+        '
+        Me.grdSalesContract.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.Append.Enabled = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.Append.Visible = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.Edit.Enabled = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.Edit.Visible = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.EndEdit.Visible = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.NextPage.Enabled = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.NextPage.Visible = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.PrevPage.Visible = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.Remove.Enabled = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.Remove.Visible = False
+        Me.grdSalesContract.Location = New System.Drawing.Point(3, 3)
+        Me.grdSalesContract.MainView = Me.grdSalesContractView
+        Me.grdSalesContract.Name = "grdSalesContract"
+        Me.grdSalesContract.Size = New System.Drawing.Size(813, 164)
+        Me.grdSalesContract.TabIndex = 0
+        Me.grdSalesContract.UseEmbeddedNavigator = True
+        Me.grdSalesContract.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdSalesContractView})
+        '
+        'grdSalesContractView
+        '
+        Me.grdSalesContractView.GridControl = Me.grdSalesContract
+        Me.grdSalesContractView.Name = "grdSalesContractView"
+        Me.grdSalesContractView.OptionsCustomization.AllowColumnMoving = False
+        Me.grdSalesContractView.OptionsCustomization.AllowGroup = False
+        Me.grdSalesContractView.OptionsView.ColumnAutoWidth = False
+        Me.grdSalesContractView.OptionsView.ShowGroupPanel = False
+        '
         'Label1
         '
         Me.Label1.BackColor = System.Drawing.Color.CadetBlue
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(0, 253)
+        Me.Label1.Location = New System.Drawing.Point(0, 243)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(831, 22)
         Me.Label1.TabIndex = 3
@@ -636,7 +697,7 @@ Partial Class frmTraOrderRequestDet
         Me.ToolBarDetail.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
         Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAdd, Me.BarEdit, Me.BarDelete})
         Me.ToolBarDetail.DropDownArrows = True
-        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 275)
+        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 265)
         Me.ToolBarDetail.Name = "ToolBarDetail"
         Me.ToolBarDetail.ShowToolTips = True
         Me.ToolBarDetail.Size = New System.Drawing.Size(831, 28)
@@ -686,11 +747,11 @@ Partial Class frmTraOrderRequestDet
         Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdItem.Location = New System.Drawing.Point(0, 303)
+        Me.grdItem.Location = New System.Drawing.Point(0, 293)
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
-        Me.grdItem.Size = New System.Drawing.Size(831, 228)
+        Me.grdItem.Size = New System.Drawing.Size(831, 238)
         Me.grdItem.TabIndex = 5
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
@@ -713,6 +774,47 @@ Partial Class frmTraOrderRequestDet
         Me.rpiValue.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
+        '
+        'txtCoACodeOfStock
+        '
+        Me.txtCoACodeOfStock.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeOfStock.Location = New System.Drawing.Point(127, 124)
+        Me.txtCoACodeOfStock.MaxLength = 250
+        Me.txtCoACodeOfStock.Name = "txtCoACodeOfStock"
+        Me.txtCoACodeOfStock.ReadOnly = True
+        Me.txtCoACodeOfStock.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeOfStock.TabIndex = 6
+        '
+        'btnCoAOfStock
+        '
+        Me.btnCoAOfStock.Image = CType(resources.GetObject("btnCoAOfStock.Image"), System.Drawing.Image)
+        Me.btnCoAOfStock.Location = New System.Drawing.Point(382, 123)
+        Me.btnCoAOfStock.Name = "btnCoAOfStock"
+        Me.btnCoAOfStock.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAOfStock.TabIndex = 8
+        '
+        'lblCoAofStock
+        '
+        Me.lblCoAofStock.AutoSize = True
+        Me.lblCoAofStock.BackColor = System.Drawing.Color.Transparent
+        Me.lblCoAofStock.ForeColor = System.Drawing.Color.Black
+        Me.lblCoAofStock.Location = New System.Drawing.Point(28, 128)
+        Me.lblCoAofStock.Name = "lblCoAofStock"
+        Me.lblCoAofStock.Size = New System.Drawing.Size(87, 13)
+        Me.lblCoAofStock.TabIndex = 153
+        Me.lblCoAofStock.Text = "Akun Persediaan"
+        '
+        'txtCoANameOfStock
+        '
+        Me.txtCoANameOfStock.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameOfStock.Location = New System.Drawing.Point(209, 124)
+        Me.txtCoANameOfStock.MaxLength = 250
+        Me.txtCoANameOfStock.Name = "txtCoANameOfStock"
+        Me.txtCoANameOfStock.ReadOnly = True
+        Me.txtCoANameOfStock.Size = New System.Drawing.Size(167, 21)
+        Me.txtCoANameOfStock.TabIndex = 7
         '
         'frmTraOrderRequestDet
         '
@@ -751,6 +853,9 @@ Partial Class frmTraOrderRequestDet
         Me.tpHistory.ResumeLayout(False)
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tpSalesContract.ResumeLayout(False)
+        CType(Me.grdSalesContract, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdSalesContractView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
@@ -812,4 +917,11 @@ Partial Class frmTraOrderRequestDet
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents txtPPN As ERPS.usNumeric
+    Friend WithEvents tpSalesContract As System.Windows.Forms.TabPage
+    Friend WithEvents grdSalesContract As DevExpress.XtraGrid.GridControl
+    Friend WithEvents grdSalesContractView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents txtCoACodeOfStock As ERPS.usTextBox
+    Friend WithEvents btnCoAOfStock As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents lblCoAofStock As System.Windows.Forms.Label
+    Friend WithEvents txtCoANameOfStock As ERPS.usTextBox
 End Class

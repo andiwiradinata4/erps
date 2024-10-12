@@ -27,10 +27,10 @@ Namespace BL
                                    ByVal clsDataAll As List(Of VO.StockOut))
             Try
                 For Each clsData As VO.StockOut In clsDataAll
-                    Dim clsExists As VO.StockOut = DL.StockOut.DataExists(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID, clsData.ProgramID, clsData.CompanyID)
-                    Dim decTotalWeightDelivery As Decimal = DL.StockOut.GetTotalWeightStockOutDelivery(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID, clsData.ProgramID, clsData.CompanyID)
-                    Dim decTotalWeightCutting As Decimal = DL.StockOut.GetTotalWeightStockOutCutting(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID, clsData.ProgramID, clsData.CompanyID)
-                    Dim decOutTotalWeightProcess As Decimal = DL.StockIn.GetTotalWeightStockOutOrderRequest(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID, clsData.ProgramID, clsData.CompanyID)
+                    Dim clsExists As VO.StockOut = DL.StockOut.DataExists(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID, clsData.ProgramID, clsData.CompanyID, clsData.CoAofStock)
+                    Dim decTotalWeightDelivery As Decimal = DL.StockOut.GetTotalWeightStockOutDelivery(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID, clsData.ProgramID, clsData.CompanyID, clsData.CoAofStock)
+                    Dim decTotalWeightCutting As Decimal = DL.StockOut.GetTotalWeightStockOutCutting(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID, clsData.ProgramID, clsData.CompanyID, clsData.CoAofStock)
+                    Dim decOutTotalWeightProcess As Decimal = DL.StockIn.GetTotalWeightStockOutOrderRequest(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID, clsData.ProgramID, clsData.CompanyID, clsData.CoAofStock)
                     Dim bolNew As Boolean = IIf(clsExists.ID = "", True, False)
                     If bolNew Then
                         clsData.ID = Guid.NewGuid.ToString
@@ -41,7 +41,9 @@ Namespace BL
                     clsData.TotalWeight = decTotalWeightDelivery + decTotalWeightCutting
                     DL.StockOut.SaveData(sqlCon, sqlTrans, bolNew, clsData)
 
-                    DL.StockIn.CalculateStockOut(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID, decOutTotalWeightProcess, clsData.ProgramID, clsData.CompanyID)
+                    DL.StockIn.CalculateStockOut(sqlCon, sqlTrans, clsData.OrderNumberSupplier, clsData.ItemID, decOutTotalWeightProcess, clsData.ProgramID, clsData.CompanyID, clsData.CoAofStock)
+
+                    '# Loop All Stock for Revert and Recalculate if Change CoAofStock in Receive / Delivery / Return
                 Next
             Catch ex As Exception
                 Throw ex

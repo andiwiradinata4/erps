@@ -657,6 +657,38 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPInvoiceDet.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseContractDetItemOrderSubItem.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraUpdatePaymentType.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer1SubItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCOSubItemVer2.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCOSubVer2.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCOVer2.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer1SubItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer2.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetVer2.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptPurchaseOrderCutting.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResult.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResultDet.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResultDetItem.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCOSubItemVer2.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCOSubVer2.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCOVer2.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer2.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetVer2.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptPurchaseOrderCutting.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDate.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDateDet.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptListPOCutting.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptListPOCutting.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDate.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDateDet.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraItemResult.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraItemResultDet.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraItemResultDetItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraDeliveryOutstandingSalesReturn.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesReturn.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesReturnDet.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesReturnDetItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptListPOCutting.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptListPOCutting.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraDeliveryOutstandingSalesReturnItem.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPS.exe.config
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPS.pdb
@@ -731,6 +763,8 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPChooseBank
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer2.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer3.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer4.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDate.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDateDet.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPInvoice.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPInvoiceDet.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraCost.resources
@@ -748,6 +782,9 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraJournal.resour
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraJournalAutoGenerate.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraJournalDet.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraJournalDetItem.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResult.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResultDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResultDetItem.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrder.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDet.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItem.resources
@@ -795,6 +832,8 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraUpdatePaymentT
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraDelivery.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryDet.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryDetItemVer01.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryOutstandingSalesReturn.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryOutstandingSalesReturnItem.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequest.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestDet.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestDetItem.resources
@@ -819,11 +858,15 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractO
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractOutstandingDeliveryItemVer01.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractOutstandingPOTransport.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractPrint.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesReturn.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesReturnDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesReturnDetItem.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmReportPreview.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptBukuBesarVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptKartuHutangVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptKartuPiutangVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptLabaRugiVer00.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptListPOCutting.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptMonitoringProductTransactionVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptNeracaSaldoVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptNeracaVer00.resources
@@ -833,6 +876,7 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptCOAPerTypeVer00.r
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptConfirmationOrderVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptKartuHutangPiutangReportVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptLabaRugiVer00.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptListPOCutting.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptMonitoringProductTransactionVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptNeracaSaldoVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptNeracaVer00.resources
@@ -855,46 +899,3 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\aa\ERPS.resources.dll
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.pdb
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCOSubItemVer2.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCOSubVer2.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCOVer2.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer1SubItem.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer2.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetVer2.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptPurchaseOrderCutting.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResult.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResultDet.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResultDetItem.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResult.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResultDet.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResultDetItem.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCOSubItemVer2.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCOSubVer2.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCOVer2.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer2.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetVer2.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptPurchaseOrderCutting.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDate.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDateDet.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptListPOCutting.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptListPOCutting.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDate.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDateDet.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptListPOCutting.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptListPOCutting.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesReturn.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesReturnDet.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryOutstandingSalesReturn.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesReturnDetItem.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDate.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDateDet.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraItemResult.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraItemResultDet.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraItemResultDetItem.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraDeliveryOutstandingSalesReturn.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesReturn.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesReturnDet.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesReturnDetItem.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptListPOCutting.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptListPOCutting.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraDeliveryOutstandingSalesReturnItem.resources

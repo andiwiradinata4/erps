@@ -51,7 +51,8 @@
                                                    .InQuantity = 0,
                                                    .InWeight = 0,
                                                    .InTotalWeight = 0,
-                                                   .UnitPrice = dr.Item("UnitPrice")
+                                                   .UnitPrice = dr.Item("UnitPrice"),
+                                                   .CoAofStock = dr.Item("CoAofStock")
                                                })
                         Next
                         BL.StockIn.SaveData(sqlCon, sqlTrans, clsDataStockIN)
@@ -101,7 +102,8 @@
                                                .InQuantity = 0,
                                                .InWeight = 0,
                                                .InTotalWeight = 0,
-                                               .UnitPrice = clsDet.UnitPrice
+                                               .UnitPrice = clsDet.UnitPrice,
+                                               .CoAofStock = clsData.CoAofStock
                                            })
                     Next
 

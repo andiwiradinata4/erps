@@ -981,12 +981,14 @@
                     "   A.ID, A.ReceiveID, A.PCDetailID, A2.PCNumber, A.OrderNumberSupplier, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
                     "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.DCWeight AS MaxTotalWeight, " & vbNewLine &
-                    "   A.Remarks, A.LevelItem, A.ParentID, A.RoundingWeight " & vbNewLine &
+                    "   A.Remarks, A.LevelItem, A.ParentID, A.RoundingWeight, A3.CoAofStock " & vbNewLine &
                     "FROM traReceiveDet A " & vbNewLine &
                     "INNER JOIN traPurchaseContractDet A1 ON " & vbNewLine &
                     "   A.PCDetailID=A1.ID " & vbNewLine &
                     "INNER JOIN traPurchaseContract A2 ON " & vbNewLine &
                     "   A1.PCID=A2.ID " & vbNewLine &
+                    "INNER JOIN traReceive A3 ON " & vbNewLine &
+                    "   A.ReceiveID=A3.ID " & vbNewLine &
                     "INNER JOIN mstItem B ON " & vbNewLine &
                     "   A.ItemID=B.ID " & vbNewLine &
                     "INNER JOIN mstItemSpecification C ON " & vbNewLine &

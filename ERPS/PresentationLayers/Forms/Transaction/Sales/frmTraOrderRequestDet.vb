@@ -9,7 +9,7 @@ Public Class frmTraOrderRequestDet
     Private dtItem As New DataTable
     Private intPos As Integer = 0
     Private bolIsStock As Boolean
-
+    Private intCoAofStock As Integer = 0
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
@@ -75,6 +75,18 @@ Public Class frmTraOrderRequestDet
         UI.usForm.SetGrid(grdStatusView, "StatusBy", "Oleh", 200, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdStatusView, "StatusDate", "Tanggal", 180, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdStatusView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+
+        '# Sales Contract
+        UI.usForm.SetGrid(grdSalesContractView, "ID", "ID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSalesContractView, "ProgramID", "ProgramID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSalesContractView, "ProgramName", "ProgramName", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSalesContractView, "CompanyID", "CompanyID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSalesContractView, "CompanyName", "CompanyName", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSalesContractView, "SCNumber", "Nomor", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSalesContractView, "SCDate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
+        UI.usForm.SetGrid(grdSalesContractView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSalesContractView, "BPCode", "Kode Pelanggan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSalesContractView, "BPName", "Nama Pelanggan", 100, UI.usDefGrid.gString)
     End Sub
 
     Private Sub prvFillCombo()
@@ -114,6 +126,9 @@ Public Class frmTraOrderRequestDet
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
+                intCoAofStock = clsData.CoAofStock
+                txtCoACodeOfStock.Text = clsData.CoACodeOfStock
+                txtCoANameOfStock.Text = clsData.CoANameOfStock
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -122,6 +137,18 @@ Public Class frmTraOrderRequestDet
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
             prvResetProgressBar()
+        End Try
+    End Sub
+
+    Private Sub prvGetDefaultCOAStock()
+        Try
+            Dim clsCOA As VO.ChartOfAccount = BL.ChartOfAccount.GetDetail(VO.ChartOfAccount.cStock)
+            intCoAofStock = clsCOA.ID
+            txtCoACodeOfStock.Text = clsCOA.Code
+            txtCoANameOfStock.Text = clsCOA.Name
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+            Me.Close()
         End Try
     End Sub
 
@@ -196,9 +223,8 @@ Public Class frmTraOrderRequestDet
         clsData.Detail = listDetail
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
-
+        clsData.CoAofStock = intCoAofStock
         pgMain.Value = 60
-
         Try
             Dim strOrderNumber As String = BL.OrderRequest.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strOrderNumber)
@@ -382,6 +408,26 @@ Public Class frmTraOrderRequestDet
 
 #End Region
 
+#Region "Sales Contract Handle"
+
+    Private Sub prvQuerySalesContract()
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 30
+
+        Try
+            grdSalesContract.DataSource = BL.SalesContract.ListDataByOrderRequestID(pubID.Trim)
+            grdSalesContractView.BestFitColumns()
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+#End Region
+
 #Region "Form Handle"
 
     Private Sub frmTraOrderRequestDet_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -407,7 +453,14 @@ Public Class frmTraOrderRequestDet
         prvFillForm()
         prvQueryItem()
         prvQueryHistory()
+        prvQuerySalesContract()
         prvUserAccess()
+
+        '# For Handle IsStock
+        lblCoAofStock.Visible = bolIsStock
+        txtCoACodeOfStock.Visible = bolIsStock
+        txtCoANameOfStock.Visible = bolIsStock
+        If bolIsStock Then prvGetDefaultCOAStock()
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
