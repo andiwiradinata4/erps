@@ -20,7 +20,8 @@ Namespace DL
 "   A.DPAmount, A.TotalPayment, A.RoundingManual, (A.TotalDPP+A.RoundingManual)-(A.DPAmount+A.TotalPayment) AS OutstandingPayment, A.PPNTransport, A.PPHTransport, " & vbNewLine &
 "   A.IsFreePPNTransport, A.IsFreePPHTransport, A.UnitPriceTransport, A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.RoundingManualTransport, " & vbNewLine &
 "   A.IsDeleted, A.Remarks, A.StatusID, B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine &
-"   A.TotalDPPTransport+A.TotalPPNTransport+A.TotalPPHTransport AS GrandTotalTransport, CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate " & vbNewLine &
+"   A.TotalDPPTransport+A.TotalPPNTransport+A.TotalPPHTransport AS GrandTotalTransport, CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, " & vbNewLine &
+"   A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.TransporterID, TP.Code AS TransporterCode, TP.Name AS TransporterName " & vbNewLine &
 "FROM traSalesReturn A " & vbNewLine &
 "INNER JOIN traDelivery A1 ON " & vbNewLine &
 "   A.DeliveryID=A1.ID " & vbNewLine &
@@ -28,6 +29,8 @@ Namespace DL
 "   A.StatusID=B.ID " & vbNewLine &
 "INNER JOIN mstBusinessPartner C ON " & vbNewLine &
 "   A.BPID=C.ID " & vbNewLine &
+"INNER JOIN mstBusinessPartner TP ON " & vbNewLine &
+"   A.TransporterID=TP.ID " & vbNewLine &
 "INNER JOIN mstCompany MC ON " & vbNewLine &
 "   A.CompanyID=MC.ID " & vbNewLine &
 "INNER JOIN mstProgram MP ON " & vbNewLine &
@@ -519,6 +522,122 @@ Namespace DL
             End Try
         End Sub
 
+        Public Shared Sub UpdateJournalID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal strID As String, ByVal strJournalID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesReturn SET " & vbNewLine &
+                    "    JournalID=@JournalID " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@JournalID", SqlDbType.VarChar, 100).Value = strJournalID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateTotalUsedReceiveItemPaymentSalesReturnVer02(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                               ByVal strDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesReturnDet SET 	" & vbNewLine &
+                    "	AllocateDPAmount=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.DPAmount),0) DPAmount " & vbNewLine &
+                    "		FROM traARAPItem TDD " & vbNewLine &
+                    "		INNER JOIN traAccountPayable AR ON " & vbNewLine &
+                    "		    TDD.ParentID=AR.ID  " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND AR.IsDeleted=0 " & vbNewLine &
+                    "			AND AR.Modules=@Modules " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	ReceiveAmount=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.Amount-TDD.DPAmount),0) + (SELECT ISNULL(SUM(DPAmount),0) AS DP FROM traARAPItem WHERE ReferencesDetailID=@ReferencesDetailID) ReceiveAmount " & vbNewLine &
+                    "		FROM traARAPItem TDD " & vbNewLine &
+                    "		INNER JOIN traAccountPayable AR ON " & vbNewLine &
+                    "		    TDD.ParentID=AR.ID  " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND AR.IsDeleted=0 " & vbNewLine &
+                    "			AND AR.Modules=@Modules " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	ReceiveAmountPPN=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.PPN),0) PPN " & vbNewLine &
+                    "		FROM traARAPItem TDD " & vbNewLine &
+                    "		INNER JOIN traAccountPayable AR ON " & vbNewLine &
+                    "		    TDD.ParentID=AR.ID  " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND AR.IsDeleted=0 " & vbNewLine &
+                    "			AND AR.Modules=@Modules " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	ReceiveAmountPPH=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.PPH),0) PPH " & vbNewLine &
+                    "		FROM traARAPItem TDD " & vbNewLine &
+                    "		INNER JOIN traAccountPayable AR ON " & vbNewLine &
+                    "		    TDD.ParentID=AR.ID  " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND AR.IsDeleted=0 " & vbNewLine &
+                    "			AND AR.Modules=@Modules " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	InvoiceQuantity=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.Quantity),0) Quantity " & vbNewLine &
+                    "		FROM traARAPItem TDD " & vbNewLine &
+                    "		INNER JOIN traAccountPayable AR ON " & vbNewLine &
+                    "		    TDD.ParentID=AR.ID  " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND AR.IsDeleted=0 " & vbNewLine &
+                    "			AND AR.Modules=@Modules " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	InvoiceTotalWeight=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.TotalWeight),0) Weight " & vbNewLine &
+                    "		FROM traARAPItem TDD " & vbNewLine &
+                    "		INNER JOIN traAccountPayable AR ON " & vbNewLine &
+                    "		    TDD.ParentID=AR.ID  " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND AR.IsDeleted=0 " & vbNewLine &
+                    "			AND AR.Modules=@Modules " & vbNewLine &
+                    "	) " & vbNewLine &
+                    "WHERE ID=@ReferencesDetailID " & vbNewLine
+
+                .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strDetailID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePaymentSalesReturn
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail"
@@ -533,7 +652,8 @@ Namespace DL
 "SELECT  " & vbNewLine &
 "	A.ID, A.SalesReturnID, A.DeliveryDetailID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
 "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
-"   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.ReturnWeight AS MaxTotalWeight, A.Remarks, A.OrderNumberSupplier, A.LevelItem, A.ParentID, A.RoundingWeight " & vbNewLine &
+"   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.ReturnWeight AS MaxTotalWeight, " & vbNewLine &
+"   A.Remarks, A.OrderNumberSupplier, A.LevelItem, A.ParentID, A.RoundingWeight, A2.CoAofStock " & vbNewLine &
 "FROM traSalesReturnDet A " & vbNewLine &
 "INNER JOIN traDeliveryDet A1 ON " & vbNewLine &
 "   A.DeliveryDetailID=A1.ID " & vbNewLine &
@@ -543,6 +663,8 @@ Namespace DL
 "   B.ItemSpecificationID=C.ID " & vbNewLine &
 "INNER JOIN mstItemType D ON " & vbNewLine &
 "   B.ItemTypeID=D.ID " & vbNewLine &
+"INNER JOIN traSalesReturn A2 ON " & vbNewLine &
+"   A.SalesReturnID=A2.ID " & vbNewLine &
 "WHERE  " & vbNewLine &
 "	A.SalesReturnID=@SalesReturnID  " & vbNewLine
 

@@ -362,6 +362,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         txtTotalPPH.Value = 0
         txtGrandTotal.Value = 0
         txtRemarks.Text = ""
+        txtRemarksResult.Text = ""
         cboStatus.SelectedValue = VO.Status.Values.Draft
         ToolStripLogInc.Text = "Jumlah Edit : -"
         ToolStripLogBy.Text = "Dibuat Oleh : -"
@@ -380,6 +381,11 @@ Public Class frmTraPurchaseOrderCuttingDet
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
             If .pubIsLookUpGet Then
+                If intBPID <> .pubLUdtRow.Item("ID") Then
+                    txtPPN.Value = .pubLUdtRow.Item("PPN")
+                    txtPPH.Value = .pubLUdtRow.Item("PPH")
+                End If
+
                 intBPID = .pubLUdtRow.Item("ID")
                 txtBPCode.Text = .pubLUdtRow.Item("Code")
                 txtBPName.Text = .pubLUdtRow.Item("Name")

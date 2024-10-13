@@ -456,6 +456,8 @@ Namespace BL
                     ElseIf clsData.PaymentTypeID = VO.PaymentType.Values.TT30Days Then
                         dtReferencesItem = DL.Receive.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID)
                     End If
+                ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentSalesReturn Then
+                    dtReferencesItem = DL.SalesReturn.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID)
                 End If
 
                 If bolNew Then
@@ -468,7 +470,8 @@ Namespace BL
                         dtDetail = DL.AccountPayable.ListDataDetailForSetupBalance(sqlCon, sqlTrans, clsData.ID)
                     ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Or
                         clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Or
-                        clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                        clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Or
+                        clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentSalesReturn Then
 
                         dtDetail = DL.AccountPayable.ListDataDetailOnly(sqlCon, sqlTrans, clsData.ID)
                         dtDetailItem = DL.ARAP.ListDataDetailItemOnly(sqlCon, sqlTrans, clsData.ID)
@@ -484,8 +487,9 @@ Namespace BL
                             Dim strPCDetailID As String = DL.Receive.GetPCDetailID(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                             If strPCDetailID.Trim <> "" Then DL.PurchaseContract.CalculateTotalUsedReceiveItemPaymentTT30(sqlCon, sqlTrans, strPCDetailID)
                         End If
-                        'If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
+                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                         If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then DL.Delivery.CalculateTotalUsedReceiveItemPaymentTransportVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
+                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentSalesReturn Then DL.SalesReturn.CalculateTotalUsedReceiveItemPaymentSalesReturnVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                     Next
 
                     If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment And clsData.PaymentTypeID = VO.PaymentType.Values.TT30Days Then
@@ -494,11 +498,10 @@ Namespace BL
                         Next
                     End If
 
-
                     clsHelper = New DataSetHelper
                     Dim dtReferencesParentID As DataTable = clsHelper.SelectGroupByInto("ReferencesParentID", dtDetailItem, "ReferencesParentID", "", "ReferencesParentID")
                     For Each dr As DataRow In dtReferencesParentID.Rows
-                        '# Revert Payment Item Parent Amount | TODO
+                        '# Revert Payment Item Parent Amount | TODO Cutting and Sales Return
                         If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment And clsData.PaymentTypeID = VO.PaymentType.Values.CBD And dr.Item("ReferencesParentID") <> "" Then DL.PurchaseContract.CalculateItemTotalUsedReceivePaymentParent(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
                         If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment And clsData.PaymentTypeID = VO.PaymentType.Values.TT30Days And dr.Item("ReferencesParentID") <> "" Then
                             DL.Receive.CalculateItemTotalUsedReceivePaymentParent(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))

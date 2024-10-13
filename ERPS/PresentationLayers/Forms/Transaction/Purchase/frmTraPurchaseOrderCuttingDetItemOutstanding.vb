@@ -30,6 +30,7 @@ Public Class frmTraPurchaseOrderCuttingDetItemOutstanding
         UI.usForm.SetGrid(grdView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "PCDetailID", "PCDetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "ReceiveID", "ReceiveID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "ReceiveNumber", "Nomor Penerimaan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PCNumber", "Nomor Kontrak", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)

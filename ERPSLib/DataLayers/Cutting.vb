@@ -628,7 +628,7 @@
                     "   A.ID, A.CuttingID, A.PODetailID, A.GroupID, A2.PONumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
                     "   A.Quantity, A.Weight, A.TotalWeight, A1.TotalWeight+A.TotalWeight-A1.DoneWeight AS MaxTotalWeight, A.Remarks, A.UnitPrice, " & vbNewLine &
-                    "   A.TotalPrice, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceRawMaterial, A.TotalPriceRawMaterial " & vbNewLine &
+                    "   A.TotalPrice, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceRawMaterial, A.TotalPriceRawMaterial, A3.CoAIDofStock " & vbNewLine &
                     "FROM traCuttingDet A " & vbNewLine &
                     "INNER JOIN traPurchaseOrderCuttingDet A1 ON " & vbNewLine &
                     "   A.PODetailID=A1.ID " & vbNewLine &
@@ -640,6 +640,8 @@
                     "   B.ItemSpecificationID=C.ID " & vbNewLine &
                     "INNER JOIN mstItemType D ON " & vbNewLine &
                     "   B.ItemTypeID=D.ID " & vbNewLine &
+                    "INNER JOIN traCutting A3 ON " & vbNewLine &
+                    "   A.CuttingID=A3.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   A.CuttingID=@CuttingID " & vbNewLine
 
@@ -721,7 +723,7 @@
                     "   A.ID, A.CuttingID, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
                     "   A.Quantity, A.Weight, A.TotalWeight, A.Remarks, A.PODetailResultID, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, " & vbNewLine &
-                    "   A.ParentID, A.UnitPriceHPP, A.TotalPriceHPP, POD.TotalWeight+A.TotalWeight-POD.DoneWeight AS MaxTotalWeight " & vbNewLine &
+                    "   A.ParentID, A.UnitPriceHPP, A.TotalPriceHPP, POD.TotalWeight+A.TotalWeight-POD.DoneWeight AS MaxTotalWeight, A3.CoAIDofStock " & vbNewLine &
                     "FROM traCuttingDetResult A " & vbNewLine &
                     "INNER JOIN traPurchaseOrderCuttingDetResult POD ON " & vbNewLine &
                     "   A.PODetailResultID=POD.ID " & vbNewLine &
@@ -731,6 +733,8 @@
                     "   B.ItemSpecificationID=C.ID " & vbNewLine &
                     "INNER JOIN mstItemType D ON " & vbNewLine &
                     "   B.ItemTypeID=D.ID " & vbNewLine &
+                    "INNER JOIN traCutting A3 ON " & vbNewLine &
+                    "   A.CuttingID=A3.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   A.CuttingID=@CuttingID " & vbNewLine
 

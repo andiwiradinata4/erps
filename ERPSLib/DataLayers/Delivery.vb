@@ -1301,7 +1301,7 @@
                     "   A.ID, A.DeliveryID, A.SCDetailID, A2.SCNumber, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
                     "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.DCWeight AS MaxTotalWeight, " & vbNewLine &
-                    "   A.Remarks, A.OrderNumberSupplier, A.LevelItem, A.ParentID, A.RoundingWeight " & vbNewLine &
+                    "   A.Remarks, A.OrderNumberSupplier, A.LevelItem, A.ParentID, A.RoundingWeight, A3.CoAofStock " & vbNewLine &
                     "FROM traDeliveryDet A " & vbNewLine &
                     "INNER JOIN traSalesContractDet A1 ON " & vbNewLine &
                     "   A.SCDetailID=A1.ID " & vbNewLine &
@@ -1313,6 +1313,8 @@
                     "   B.ItemSpecificationID=C.ID " & vbNewLine &
                     "INNER JOIN mstItemType D ON " & vbNewLine &
                     "   B.ItemTypeID=D.ID " & vbNewLine &
+                    "INNER JOIN traDelivery A3 ON " & vbNewLine &
+                    "   A.DeliveryID=A3.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   A.DeliveryID=@DeliveryID " & vbNewLine
 
@@ -1322,7 +1324,7 @@
                     "   A.ID, A.DeliveryID, A.SCDetailID, A2.OrderNumber AS SCNumber, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
                     "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight, " & vbNewLine &
-                    "   A.Remarks, A.OrderNumberSupplier, A.LevelItem, A.ParentID, A.RoundingWeight " & vbNewLine &
+                    "   A.Remarks, A.OrderNumberSupplier, A.LevelItem, A.ParentID, A.RoundingWeight, A3.CoAofStock " & vbNewLine &
                     "FROM traDeliveryDet A " & vbNewLine &
                     "INNER JOIN traOrderRequestDet A1 ON " & vbNewLine &
                     "   A.SCDetailID=A1.ID " & vbNewLine &
@@ -1334,6 +1336,8 @@
                     "   B.ItemSpecificationID=C.ID " & vbNewLine &
                     "INNER JOIN mstItemType D ON " & vbNewLine &
                     "   B.ItemTypeID=D.ID " & vbNewLine &
+                    "INNER JOIN traDelivery A3 ON " & vbNewLine &
+                    "   A.DeliveryID=A3.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   A.DeliveryID=@DeliveryID " & vbNewLine
 

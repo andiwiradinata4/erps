@@ -196,12 +196,12 @@ Namespace BL
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim intStatusID As Integer = DL.SalesReturn.GetStatusID(sqlCon, sqlTrans, strID)
-                    If intStatusID = VO.Status.Values.Draft Then
+                    Dim clsData As VO.SalesReturn = DL.SalesReturn.GetDetail(sqlCon, sqlTrans, strID)
+                    If clsData.StatusID = VO.Status.Values.Draft Then
                         Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data masih DRAFT")
-                    ElseIf intStatusID = VO.Status.Values.Approved Then
+                    ElseIf clsData.StatusID = VO.Status.Values.Approved Then
                         Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data telah APPROVED")
-                    ElseIf DL.SalesReturn.IsDeleted(sqlCon, sqlTrans, strID) Then
+                    ElseIf clsData.IsDeleted Then
                         Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan data telah dihapus")
                     End If
 
@@ -209,6 +209,10 @@ Namespace BL
 
                     '# Save Data Status
                     BL.SalesReturn.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+                    GenerateJournal(sqlCon, sqlTrans, strID)
+
+                    RecalculateStockIn(sqlCon, sqlTrans, clsData)
 
                     sqlTrans.Commit()
                 Catch ex As Exception
@@ -247,6 +251,13 @@ Namespace BL
                     '# Save Data Status
                     BL.SalesReturn.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
+                    '# Cancel Approve Journal
+                    BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+
+                    '# Cancel Submit Journal
+                    BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+
+                    RecalculateStockIn(sqlCon, sqlTrans, clsData)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -255,6 +266,92 @@ Namespace BL
             End Using
             Return bolReturn
         End Function
+
+        Public Shared Sub GenerateJournal(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal strID As String)
+            Try
+                Dim clsData As VO.SalesReturn = DL.SalesReturn.GetDetail(sqlCon, sqlTrans, strID)
+                Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
+                Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
+
+                '# Generate Journal
+                Dim intGroupID As Integer = 1
+                Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.RoundingManual ' + clsData.TotalPPN - clsData.TotalPPH
+                Dim clsJournalDetail As New List(Of VO.JournalDet) From {
+                    New VO.JournalDet With
+                                     {
+                                         .CoAID = clsData.CoAofStock,
+                                         .DebitAmount = decTotalAmount,
+                                         .CreditAmount = 0,
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     },
+                    New VO.JournalDet With
+                                     {
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableOutstandingPayment,
+                                         .DebitAmount = 0,
+                                         .CreditAmount = decTotalAmount,
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     }
+                }
+
+                Dim clsJournal As New VO.Journal With
+                {
+                    .ProgramID = clsData.ProgramID,
+                    .CompanyID = clsData.CompanyID,
+                    .ID = PrevJournal.ID,
+                    .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                    .ReferencesID = clsData.ID,
+                    .JournalDate = IIf(bolNew, clsData.SalesReturnDate, PrevJournal.JournalDate),
+                    .TotalAmount = decTotalAmount,
+                    .IsAutoGenerate = True,
+                    .StatusID = VO.Status.Values.Draft,
+                    .Remarks = clsData.Remarks,
+                    .LogBy = ERPSLib.UI.usUserApp.UserID,
+                    .Initial = "",
+                    .ReferencesNo = clsData.SalesReturnNumber,
+                    .Detail = clsJournalDetail,
+                    .Save = VO.Save.Action.SaveAndSubmit
+                }
+
+                '# Save Journal
+                Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
+
+                '# Approve Journal
+                BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
+
+                '# Update Journal ID in Sales Return
+                DL.SalesReturn.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Private Shared Sub RecalculateStockIn(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal clsData As VO.SalesReturn)
+            Dim dtItem As DataTable = DL.SalesReturn.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
+            Dim clsDataStockIN As New List(Of VO.StockIn)
+            For Each dr As DataRow In dtItem.Rows
+                clsDataStockIN.Add(New VO.StockIn With
+                   {
+                       .ProgramID = clsData.ProgramID,
+                       .CompanyID = clsData.CompanyID,
+                       .ParentID = "",
+                       .ParentDetailID = "",
+                       .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                       .SourceData = "",
+                       .ItemID = dr.Item("ItemID"),
+                       .InQuantity = 0,
+                       .InWeight = 0,
+                       .InTotalWeight = 0,
+                       .UnitPrice = dr.Item("UnitPrice"),
+                       .CoAofStock = dr.Item("CoAofStock")
+                   })
+            Next
+            BL.StockIn.SaveData(sqlCon, sqlTrans, clsDataStockIN)
+        End Sub
 
 #End Region
 

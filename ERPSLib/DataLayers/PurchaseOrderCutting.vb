@@ -1048,7 +1048,7 @@
 "	BP.Name AS BPName, 	POH.PONumber, ItemCodeExternal=CASE WHEN MI.ItemCodeExternal='' THEN POD.OrderNumberSupplier ELSE MI.ItemCodeExternal END, " & vbNewLine &
 "	MI.Thick, MI.Width, CASE WHEN MI.Length=0 THEN IT.LengthInitial ELSE CAST(MI.Length AS VARCHAR(100)) END AS Length,  " & vbNewLine &
 "	POD.TotalWeight, POH.RemarksResult, POH.Remarks, CP.Name AS CustomerName, POH.IsClaimCustomer, POH.StatusID, " & vbNewLine &
-"   CompanyName=MC.Name, CompanyAddress=MC.Address " & vbNewLine &
+"   CompanyName=MC.Name, CompanyAddress=MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse  " & vbNewLine &
 "FROM traPurchaseOrderCutting POH  " & vbNewLine &
 "INNER JOIN traPurchaseOrderCuttingDet POD ON  " & vbNewLine &
 "	POH.ID=POD.POID  " & vbNewLine &

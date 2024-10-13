@@ -340,6 +340,9 @@ Public Class frmTraDeliveryDet
         ToolStripLogDate.Text = Format(Now, UI.usDefCons.DateFull)
         intBPLocationID = 0
         txtBPLocationAddress.Text = ""
+        intCoAIDOfStock = 0
+        txtCoACodeOfStock.Text = ""
+        txtCoANameOfStock.Text = ""
     End Sub
 
     Private Sub prvChooseBP()

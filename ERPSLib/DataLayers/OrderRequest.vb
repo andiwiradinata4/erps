@@ -941,7 +941,7 @@
                     .CommandType = CommandType.Text
                     .CommandText =
                         "SELECT TOP 1 " & vbNewLine &
-                        "   ORH.ReferencesNumber " & vbNewLine &
+                        "   ORH.OrderNumber AS ReferencesNumber " & vbNewLine &
                         "FROM traOrderRequest ORH " & vbNewLine &
                         "INNER JOIN traOrderRequestDet ORD ON " & vbNewLine &
                         "   ORH.ID=ORD.OrderRequestID " & vbNewLine &

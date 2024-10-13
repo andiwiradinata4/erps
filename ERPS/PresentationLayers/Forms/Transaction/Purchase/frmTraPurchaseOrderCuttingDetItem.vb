@@ -158,6 +158,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
                 txtQuantity.Value = drSelectedItem.Item("Quantity")
                 txtRemarks.Text = drSelectedItem.Item("Remarks")
                 strResultID = drSelectedItem.Item("ResultID")
+                strReceiveDetailID = drSelectedItem.Item("ReceiveDetailID")
 
                 For Each dr As DataRow In dtItemResultParent.Rows
                     If dr.Item("GroupID") = intGroupID Then dtResult.ImportRow(dr)

@@ -525,12 +525,19 @@
                                 clsReferences = DL.Receive.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                                 strReferencesNumber = clsReferences.ReceiveNumber
                             End If
+                        ElseIf clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentSalesReturn Then
+                            clsReferences = DL.SalesReturn.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesNumber = clsReferences.SalesReturnNumber
                         Else
                             Err.Raise(515, "", "Data tidak dapat disimpan. Modules tidak terdaftar")
                         End If
-                        If clsReferences.StatusID <> VO.Status.Values.Approved And clsDataARAP.Modules = VO.AccountPayable.ReceivePayment And clsDataARAP.PaymentTypeID = VO.PaymentType.Values.CBD Then
+
+                        If clsReferences.StatusID <> VO.Status.Values.Approved And
+                            clsDataARAP.Modules = VO.AccountPayable.ReceivePayment And
+                            clsDataARAP.PaymentTypeID = VO.PaymentType.Values.CBD Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Data Kontrak harus disetujui terlebih dahulu")
-                        ElseIf clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport And clsReferences.StatusID <> VO.Status.Values.Submit Then
+                        ElseIf clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport And
+                            clsReferences.StatusID <> VO.Status.Values.Submit Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Data Pengiriman harus disubmit terlebih dahulu")
                         End If
 

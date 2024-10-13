@@ -845,7 +845,21 @@ Public Class frmTraARAP
             End If
 
             For Each dr As DataRow In dtData.Rows
-                If dr.Item("BankAccountName2") = "" Then crReport.sbCompanyBankAccount2.Visible = False
+                If dr.Item("BankAccountName2") = "" Then
+                    crReport.sbCompanyBankAccount2.Visible = False
+                    crReport.xrBankAccountDescription2.Visible = False
+                    crReport.xrLblBankAccountName2.Visible = False
+                    crReport.xrLblBankName2.Visible = False
+                    crReport.xrLblBankAccountNumber2.Visible = False
+
+                    crReport.xrSepBankAccountName2.Visible = False
+                    crReport.xrSepBankName2.Visible = False
+                    crReport.xrSepBankAccountNumber2.Visible = False
+
+                    crReport.xrTxtBankAccountName2.Visible = False
+                    crReport.xrTxtBankName2.Visible = False
+                    crReport.xrTxtBankAccountNumber2.Visible = False
+                End If
                 Exit For
             Next
 
@@ -1055,7 +1069,21 @@ Public Class frmTraARAP
             End If
 
             For Each dr As DataRow In dtData.Rows
-                If dr.Item("BankAccountName2") = "" Then crReport.sbCompanyBankAccount2.Visible = False
+                If dr.Item("BankAccountName2") = "" Then
+                    crReport.sbCompanyBankAccount2.Visible = False
+                    crReport.xrBankAccountDescription2.Visible = False
+                    crReport.xrLblBankAccountName2.Visible = False
+                    crReport.xrLblBankName2.Visible = False
+                    crReport.xrLblBankAccountNumber2.Visible = False
+
+                    crReport.xrSepBankAccountName2.Visible = False
+                    crReport.xrSepBankName2.Visible = False
+                    crReport.xrSepBankAccountNumber2.Visible = False
+
+                    crReport.xrTxtBankAccountName2.Visible = False
+                    crReport.xrTxtBankName2.Visible = False
+                    crReport.xrTxtBankAccountNumber2.Visible = False
+                End If
                 Exit For
             Next
 

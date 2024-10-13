@@ -2,7 +2,8 @@ Namespace DL
 
     Public Class StockOut
 
-        Public Shared Function ListData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction) As DataTable
+        Public Shared Function ListData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                        ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As DataTable
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
                 .Connection = sqlCon
@@ -10,11 +11,40 @@ Namespace DL
                 .CommandText =
 "SELECT  " & vbNewLine &
 "	A.ID, A.ParentID, A.ParentDetailID, A.OrderNumberSupplier, A.SourceData, A.ItemID, A.Quantity,  " & vbNewLine &
-"	A.Weight, A.TotalWeight, A.ProgramID, A.CompanyID " & vbNewLine &
+"	A.Weight, A.TotalWeight, A.ProgramID, A.CompanyID, A.CoAofStock" & vbNewLine &
 "FROM traStockOut A " & vbNewLine &
 "WHERE  " & vbNewLine &
-"	1=1  " & vbNewLine
+"	A.ProgramID=@ProgramID  " & vbNewLine &
+"	AND A.CompanyID=@CompanyID  " & vbNewLine
 
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                        ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                        ByVal strOrderNumberSupplier As String, ByVal intItemID As Integer) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandText =
+"SELECT  " & vbNewLine &
+"	A.ID, A.ParentID, A.ParentDetailID, A.OrderNumberSupplier, A.SourceData, A.ItemID, A.Quantity,  " & vbNewLine &
+"	A.Weight, A.TotalWeight, A.ProgramID, A.CompanyID, A.CoAofStock" & vbNewLine &
+"FROM traStockOut A " & vbNewLine &
+"WHERE  " & vbNewLine &
+"	A.ProgramID=@ProgramID  " & vbNewLine &
+"	AND A.CompanyID=@CompanyID  " & vbNewLine &
+"	AND A.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
+"	AND A.ItemID=@ItemID " & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
+                .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
@@ -72,10 +102,10 @@ Namespace DL
                     .CommandText =
 "SELECT TOP 1  " & vbNewLine &
 "	A.ID, A.ParentID, A.ParentDetailID, A.OrderNumberSupplier, A.SourceData, A.ItemID, A.Quantity,  " & vbNewLine &
-"	A.Weight, A.TotalWeight, A.ProgramID, A.CompanyID " & vbNewLine &
+"	A.Weight, A.TotalWeight, A.ProgramID, A.CompanyID, A.CoAofStock " & vbNewLine &
 "FROM traStockOut A " & vbNewLine &
 "WHERE " & vbNewLine &
-"	ID=@ID " & vbNewLine
+"	A.ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 End With
@@ -94,6 +124,7 @@ Namespace DL
                         voReturn.TotalWeight = .Item("TotalWeight")
                         voReturn.ProgramID = .Item("ProgramID")
                         voReturn.CompanyID = .Item("CompanyID")
+                        voReturn.CoAofStock = .Item("CoAofStock")
                     End If
                 End With
             Catch ex As Exception
@@ -117,7 +148,7 @@ Namespace DL
                     .CommandText =
 "SELECT TOP 1  " & vbNewLine &
 "	A.ID, A.ParentID, A.ParentDetailID, A.OrderNumberSupplier, A.SourceData, A.ItemID, A.Quantity,  " & vbNewLine &
-"	A.Weight, A.TotalWeight, A.ProgramID, A.CompanyID " & vbNewLine &
+"	A.Weight, A.TotalWeight, A.ProgramID, A.CompanyID, A.CoAofStock " & vbNewLine &
 "FROM traStockOut A " & vbNewLine &
 "WHERE " & vbNewLine &
 "	A.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
@@ -196,6 +227,7 @@ Namespace DL
 "	TDD.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
 "	AND TDD.ItemID=@ItemID " & vbNewLine &
 "	AND TDH.IsDeleted=0 " & vbNewLine &
+"	AND TDH.StatusID=@StatusID " & vbNewLine &
 "	AND TDH.ProgramID=@ProgramID " & vbNewLine &
 "	AND TDH.CompanyID=@CompanyID " & vbNewLine &
 "	AND TDH.CoAofStock=@CoAofStock " & vbNewLine
@@ -205,6 +237,8 @@ Namespace DL
                     .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                     .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                     .Parameters.Add("@CoAofStock", SqlDbType.Int).Value = intCoAofStock
+                    .Parameters.Add("@CoAIDofStock", SqlDbType.Int).Value = intCoAofStock
+                    .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
                 With sqlrdData
@@ -240,6 +274,7 @@ Namespace DL
 "	TCD.OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
 "	AND TCD.ItemID=@ItemID " & vbNewLine &
 "	AND TCH.IsDeleted=0 " & vbNewLine &
+"	AND TCH.StatusID=@StatusID " & vbNewLine &
 "	AND TCH.ProgramID=@ProgramID " & vbNewLine &
 "	AND TCH.CompanyID=@CompanyID " & vbNewLine &
 "	AND TCH.CoAIDofStock=@CoAIDofStock " & vbNewLine
@@ -248,6 +283,7 @@ Namespace DL
                     .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
                     .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                     .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                    .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
                     .Parameters.Add("@CoAIDofStock", SqlDbType.Int).Value = intCoAofStock
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)

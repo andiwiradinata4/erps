@@ -24,8 +24,8 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
-                Dim clsDataStockIN As New List(Of VO.StockIn)
-                Dim clsDataStockOut As New List(Of VO.StockOut)
+                'Dim clsDataStockIN As New List(Of VO.StockIn)
+                'Dim clsDataStockOut As New List(Of VO.StockOut)
                 Try
                     If bolNew Then
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.CuttingDate, clsData.CompanyID, clsData.ProgramID)
@@ -72,19 +72,19 @@
                         DL.Cutting.SaveDataDetail(sqlCon, sqlTrans, clsDet)
                         intCount += 1
 
-                        clsDataStockOut.Add(New VO.StockOut With
-                        {
-                            .ProgramID = clsData.ProgramID,
-                            .CompanyID = clsData.CompanyID,
-                            .ParentID = "",
-                            .ParentDetailID = "",
-                            .OrderNumberSupplier = clsDet.OrderNumberSupplier,
-                            .SourceData = "",
-                            .ItemID = clsDet.ItemID,
-                            .Quantity = 0,
-                            .Weight = 0,
-                            .TotalWeight = 0
-                        })
+                        'clsDataStockOut.Add(New VO.StockOut With
+                        '{
+                        '    .ProgramID = clsData.ProgramID,
+                        '    .CompanyID = clsData.CompanyID,
+                        '    .ParentID = "",
+                        '    .ParentDetailID = "",
+                        '    .OrderNumberSupplier = clsDet.OrderNumberSupplier,
+                        '    .SourceData = "",
+                        '    .ItemID = clsDet.ItemID,
+                        '    .Quantity = 0,
+                        '    .Weight = 0,
+                        '    .TotalWeight = 0
+                        '})
                     Next
 
                     '# Save Data Detail Result
@@ -95,20 +95,20 @@
                         DL.Cutting.SaveDataDetailResult(sqlCon, sqlTrans, clsDet)
                         intCount += 1
 
-                        clsDataStockIN.Add(New VO.StockIn With
-                       {
-                           .ProgramID = clsData.ProgramID,
-                            .CompanyID = clsData.CompanyID,
-                            .ParentID = "",
-                            .ParentDetailID = "",
-                            .OrderNumberSupplier = clsDet.OrderNumberSupplier,
-                            .SourceData = "",
-                            .ItemID = clsDet.ItemID,
-                            .InQuantity = 0,
-                            .InWeight = 0,
-                            .InTotalWeight = 0,
-                            .UnitPrice = clsDet.UnitPriceHPP
-                       })
+                        ' clsDataStockIN.Add(New VO.StockIn With
+                        '{
+                        '    .ProgramID = clsData.ProgramID,
+                        '     .CompanyID = clsData.CompanyID,
+                        '     .ParentID = "",
+                        '     .ParentDetailID = "",
+                        '     .OrderNumberSupplier = clsDet.OrderNumberSupplier,
+                        '     .SourceData = "",
+                        '     .ItemID = clsDet.ItemID,
+                        '     .InQuantity = 0,
+                        '     .InWeight = 0,
+                        '     .InTotalWeight = 0,
+                        '     .UnitPrice = clsDet.UnitPriceHPP
+                        '})
                     Next
 
                     '# Calculate Done Quantity PO Detail
@@ -126,11 +126,11 @@
 
                     If clsData.Save = VO.Save.Action.SaveAndSubmit Then Submit(sqlCon, sqlTrans, clsData.ID, clsData.Remarks)
 
-                    '# Save Data Stock IN
-                    BL.StockIn.SaveData(sqlCon, sqlTrans, clsDataStockIN)
+                    ''# Save Data Stock IN
+                    'BL.StockIn.SaveData(sqlCon, sqlTrans, clsDataStockIN)
 
-                    '# Save Data Stock Out
-                    BL.StockOut.SaveData(sqlCon, sqlTrans, clsDataStockOut)
+                    ''# Save Data Stock Out
+                    'BL.StockOut.SaveData(sqlCon, sqlTrans, clsDataStockOut)
 
                     sqlTrans.Commit()
                 Catch ex As Exception
@@ -170,54 +170,54 @@
                         DL.PurchaseOrderCutting.CalculateDoneTotalUsedDetailResult(sqlCon, sqlTrans, dr.Item("PODetailResultID"))
                     Next
 
-                    Dim clsDataStockOut As New List(Of VO.StockOut)
+                    'Dim clsDataStockOut As New List(Of VO.StockOut)
                     For Each dr As DataRow In dtItem.Rows
                         '# Revert Done Quantity
                         DL.PurchaseOrderCutting.CalculateDoneTotalUsedDetail(sqlCon, sqlTrans, dr.Item("PODetailID"))
 
-                        '# Recalculate Stock OUT
-                        clsDataStockOut.Add(New VO.StockOut With
-                        {
-                            .ProgramID = clsData.ProgramID,
-                            .CompanyID = clsData.CompanyID,
-                            .ParentID = "",
-                            .ParentDetailID = "",
-                            .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
-                            .SourceData = "",
-                            .ItemID = dr.Item("ItemID"),
-                            .Quantity = 0,
-                            .Weight = 0,
-                            .TotalWeight = 0
-                        })
+                        ''# Recalculate Stock OUT
+                        'clsDataStockOut.Add(New VO.StockOut With
+                        '{
+                        '    .ProgramID = clsData.ProgramID,
+                        '    .CompanyID = clsData.CompanyID,
+                        '    .ParentID = "",
+                        '    .ParentDetailID = "",
+                        '    .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                        '    .SourceData = "",
+                        '    .ItemID = dr.Item("ItemID"),
+                        '    .Quantity = 0,
+                        '    .Weight = 0,
+                        '    .TotalWeight = 0
+                        '})
                     Next
 
-                    Dim clsDataStockIN As New List(Of VO.StockIn)
-                    For Each dr As DataRow In dtItemResult.Rows
-                        '# Recalculate Stock IN
-                        clsDataStockIN.Add(New VO.StockIn With
-                       {
-                           .ProgramID = clsData.ProgramID,
-                            .CompanyID = clsData.CompanyID,
-                            .ParentID = "",
-                            .ParentDetailID = "",
-                            .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
-                            .SourceData = "",
-                            .ItemID = dr.Item("ItemID"),
-                            .InQuantity = 0,
-                            .InWeight = 0,
-                            .InTotalWeight = 0,
-                            .UnitPrice = dr.Item("UnitPriceHPP")
-                       })
-                    Next
+                    'Dim clsDataStockIN As New List(Of VO.StockIn)
+                    'For Each dr As DataRow In dtItemResult.Rows
+                    '    '# Recalculate Stock IN
+                    '    clsDataStockIN.Add(New VO.StockIn With
+                    '   {
+                    '       .ProgramID = clsData.ProgramID,
+                    '        .CompanyID = clsData.CompanyID,
+                    '        .ParentID = "",
+                    '        .ParentDetailID = "",
+                    '        .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                    '        .SourceData = "",
+                    '        .ItemID = dr.Item("ItemID"),
+                    '        .InQuantity = 0,
+                    '        .InWeight = 0,
+                    '        .InTotalWeight = 0,
+                    '        .UnitPrice = dr.Item("UnitPriceHPP")
+                    '   })
+                    'Next
 
                     '# Save Data Status
                     BL.Cutting.SaveDataStatus(sqlCon, sqlTrans, strID, "HAPUS", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
-                    '# Save Data Stock IN
-                    BL.StockIn.SaveData(sqlCon, sqlTrans, clsDataStockIN)
+                    ''# Save Data Stock IN
+                    'BL.StockIn.SaveData(sqlCon, sqlTrans, clsDataStockIN)
 
-                    '# Save Data Stock Out
-                    BL.StockOut.SaveData(sqlCon, sqlTrans, clsDataStockOut)
+                    ''# Save Data Stock Out
+                    'BL.StockOut.SaveData(sqlCon, sqlTrans, clsDataStockOut)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -246,10 +246,10 @@
         Public Shared Sub Submit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                  ByVal strID As String, ByVal strRemarks As String)
             Dim bolReturn As Boolean = False
-            Dim intStatusID As Integer = DL.Cutting.GetStatusID(sqlCon, sqlTrans, strID)
-            If intStatusID = VO.Status.Values.Submit Then
+            Dim clsData As VO.Cutting = DL.Cutting.GetDetail(sqlCon, sqlTrans, strID)
+            If clsData.StatusID = VO.Status.Values.Submit Then
                 Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan status data telah SUBMIT")
-            ElseIf DL.Cutting.IsDeleted(sqlCon, sqlTrans, strID) Then
+            ElseIf clsData.IsDeleted Then
                 Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan data telah dihapus")
             End If
 
@@ -259,6 +259,8 @@
             BL.Cutting.SaveDataStatus(sqlCon, sqlTrans, strID, "SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
             GenerateJournal(sqlCon, sqlTrans, strID)
+
+            RecalculateStockInOut(sqlCon, sqlTrans, clsData)
         End Sub
 
         Public Shared Function Unsubmit(ByVal strID As String, ByVal strRemarks As String) As Boolean
@@ -290,6 +292,8 @@
 
                     '# Save Data Status
                     BL.Cutting.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+                    RecalculateStockInOut(sqlCon, sqlTrans, clsData)
 
                     sqlTrans.Commit()
                 Catch ex As Exception
@@ -336,29 +340,29 @@
                                          .BPID = clsData.BPID
                                      })
 
-                intGroupID += 1
-                '# Akun Persediaan -> Debit
-                clsJournalDetail.Add(New VO.JournalDet With
-                                     {
-                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofStock,
-                                         .DebitAmount = decTotalDPPRawMaterial,
-                                         .CreditAmount = 0,
-                                         .Remarks = "",
-                                         .GroupID = intGroupID,
-                                         .BPID = clsData.BPID
-                                     })
+                'intGroupID += 1
+                ''# Akun Persediaan -> Debit
+                'clsJournalDetail.Add(New VO.JournalDet With
+                '                     {
+                '                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofStock,
+                '                         .DebitAmount = decTotalDPPRawMaterial,
+                '                         .CreditAmount = 0,
+                '                         .Remarks = "",
+                '                         .GroupID = intGroupID,
+                '                         .BPID = clsData.BPID
+                '                     })
 
-                '# Akun Persediaan Cutting Center -> Kredit
-                clsJournalDetail.Add(New VO.JournalDet With
-                                     {
-                                         .CoAID = clsData.CoAIDofStock,
-                                         .DebitAmount = 0,
-                                         .CreditAmount = decTotalDPPRawMaterial,
-                                         .Remarks = "",
-                                         .GroupID = intGroupID,
-                                         .BPID = clsData.BPID
-                                     })
-                decTotalAmount += decTotalDPPRawMaterial
+                ''# Akun Persediaan Cutting Center -> Kredit
+                'clsJournalDetail.Add(New VO.JournalDet With
+                '                     {
+                '                         .CoAID = clsData.CoAIDofStock,
+                '                         .DebitAmount = 0,
+                '                         .CreditAmount = decTotalDPPRawMaterial,
+                '                         .Remarks = "",
+                '                         .GroupID = intGroupID,
+                '                         .BPID = clsData.BPID
+                '                     })
+                'decTotalAmount += decTotalDPPRawMaterial
 
                 Dim clsJournal As New VO.Journal With
                 {
@@ -390,6 +394,50 @@
             Catch ex As Exception
                 Throw ex
             End Try
+        End Sub
+
+        Private Shared Sub RecalculateStockInOut(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal clsData As VO.Cutting)
+            Dim dtItem As DataTable = DL.Cutting.ListDataDetailResult(sqlCon, sqlTrans, clsData.ID)
+            Dim clsDataStockIN As New List(Of VO.StockIn)
+            For Each dr As DataRow In dtItem.Rows
+                clsDataStockIN.Add(New VO.StockIn With
+                   {
+                       .ProgramID = clsData.ProgramID,
+                       .CompanyID = clsData.CompanyID,
+                       .ParentID = "",
+                       .ParentDetailID = "",
+                       .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                       .SourceData = "",
+                       .ItemID = dr.Item("ItemID"),
+                       .InQuantity = 0,
+                       .InWeight = 0,
+                       .InTotalWeight = 0,
+                       .UnitPrice = dr.Item("UnitPriceHPP"),
+                       .CoAofStock = dr.Item("CoAIDofStock")
+                   })
+            Next
+            BL.StockIn.SaveData(sqlCon, sqlTrans, clsDataStockIN)
+
+            dtItem = DL.Cutting.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
+            Dim clsDataStockOut As New List(Of VO.StockOut)
+            For Each dr As DataRow In dtItem.Rows
+                clsDataStockOut.Add(New VO.StockOut With
+                           {
+                               .ProgramID = clsData.ProgramID,
+                               .CompanyID = clsData.CompanyID,
+                               .ParentID = "",
+                               .ParentDetailID = "",
+                               .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                               .SourceData = "",
+                               .ItemID = dr.Item("ItemID"),
+                               .Quantity = 0,
+                               .Weight = 0,
+                               .TotalWeight = 0,
+                               .CoAofStock = dr.Item("CoAIDofStock")
+                           })
+            Next
+            BL.StockOut.SaveData(sqlCon, sqlTrans, clsDataStockOut)
+
         End Sub
 
 #End Region

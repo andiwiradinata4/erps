@@ -78,7 +78,7 @@ Public Class frmTraSalesReturnDet
 
     Private Sub prvFillCombo()
         Try
-            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionSalesDelivery), "StatusID", "StatusName")
+            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionPurchaseOrder), "StatusID", "StatusName")
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()

@@ -259,8 +259,6 @@ Public Class frmTraARAPDetVer4
             UI.usForm.frmMessageBox("Tidak ada item yang tercentang")
             Exit Sub
         End If
-
-
         If txtBPCode.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Pilih pelanggan terlebih dahulu")
             tcHeader.SelectedTab = tpMain
