@@ -25,6 +25,8 @@ Partial Public Class rptProformaInvoice
         Dim XrSummary3 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary4 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary5 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
+        Dim XrSummary6 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
+        Dim XrSummary7 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(rptProformaInvoice))
         Me.XrLabel39 = New DevExpress.XtraReports.UI.XRLabel()
         Me.sbNumberToString = New DevExpress.XtraReports.UI.SubBand()
@@ -134,7 +136,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell69 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.AmountInvoice5 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.sbPaymentTerm1_3 = New DevExpress.XtraReports.UI.SubBand()
-        Me.XrLabel21 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel15 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel16 = New DevExpress.XtraReports.UI.XRLabel()
         Me.PaymentTerm3 = New DevExpress.XtraReports.Parameters.Parameter()
@@ -174,6 +175,17 @@ Partial Public Class rptProformaInvoice
         Me.PaymentTerm10 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrLabel73 = New DevExpress.XtraReports.UI.XRLabel()
         Me.sbCompanyBankAccount1 = New DevExpress.XtraReports.UI.SubBand()
+        Me.xrBankAccountDescription2 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.xrLblBankAccountName2 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.xrLblBankName2 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.xrLblBankAccountNumber2 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.xrSepBankAccountNumber2 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.xrSepBankName2 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.xrSepBankAccountName2 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.xrTxtBankAccountNumber2 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.xrTxtBankName2 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.xrTxtBankAccountName2 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel21 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel47 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel46 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel42 = New DevExpress.XtraReports.UI.XRLabel()
@@ -188,16 +200,6 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel23 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel22 = New DevExpress.XtraReports.UI.XRLabel()
         Me.sbCompanyBankAccount2 = New DevExpress.XtraReports.UI.SubBand()
-        Me.xrTxtBankAccountName2 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.xrLblBankAccountName2 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.xrLblBankName2 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.xrLblBankAccountNumber2 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.xrSepBankAccountNumber2 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.xrSepBankName2 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.xrSepBankAccountName2 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.xrTxtBankAccountNumber2 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.xrTxtBankName2 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.xrBankAccountDescription2 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel41 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrTableCell3 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.BottomMargin = New DevExpress.XtraReports.UI.BottomMarginBand()
@@ -272,6 +274,8 @@ Partial Public Class rptProformaInvoice
         Me.ImageCollection3 = New DevExpress.Utils.ImageCollection(Me.components)
         Me.HeaderType = New DevExpress.XtraReports.Parameters.Parameter()
         Me.ghColumnName = New DevExpress.XtraReports.UI.GroupHeaderBand()
+        Me.CalTotalPPN = New DevExpress.XtraReports.UI.CalculatedField()
+        Me.CalGrandTotal = New DevExpress.XtraReports.UI.CalculatedField()
         Me.ObjectDataSource1 = New DevExpress.DataAccess.ObjectBinding.ObjectDataSource(Me.components)
         CType(Me.XrTable2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable5, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -581,7 +585,7 @@ Partial Public Class rptProformaInvoice
         'XrTableCell29
         '
         Me.XrTableCell29.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top Or DevExpress.XtraPrinting.BorderSide.Right), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell29.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "GrandTotal", "{0:n0}")})
+        Me.XrTableCell29.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CalGrandTotal", "{0:n0}")})
         Me.XrTableCell29.Dpi = 100.0!
         Me.XrTableCell29.Multiline = True
         Me.XrTableCell29.Name = "XrTableCell29"
@@ -640,7 +644,7 @@ Partial Public Class rptProformaInvoice
         'XrTableCell27
         '
         Me.XrTableCell27.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top Or DevExpress.XtraPrinting.BorderSide.Right), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell27.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPPN", "{0:n0}")})
+        Me.XrTableCell27.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CalTotalPPN")})
         Me.XrTableCell27.Dpi = 100.0!
         Me.XrTableCell27.Multiline = True
         Me.XrTableCell27.Name = "XrTableCell27"
@@ -648,6 +652,9 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell27.StylePriority.UseBorders = False
         Me.XrTableCell27.StylePriority.UsePadding = False
         Me.XrTableCell27.StylePriority.UseTextAlignment = False
+        XrSummary5.FormatString = "{0:n0}"
+        XrSummary5.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.XrTableCell27.Summary = XrSummary5
         Me.XrTableCell27.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.XrTableCell27.Weight = 0.91292666858489335R
         '
@@ -697,7 +704,7 @@ Partial Public Class rptProformaInvoice
         'XrTableCell38
         '
         Me.XrTableCell38.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top Or DevExpress.XtraPrinting.BorderSide.Right), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell38.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalDPP", "{0:n0}")})
+        Me.XrTableCell38.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPrice")})
         Me.XrTableCell38.Dpi = 100.0!
         Me.XrTableCell38.Multiline = True
         Me.XrTableCell38.Name = "XrTableCell38"
@@ -705,6 +712,9 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell38.StylePriority.UseBorders = False
         Me.XrTableCell38.StylePriority.UsePadding = False
         Me.XrTableCell38.StylePriority.UseTextAlignment = False
+        XrSummary6.FormatString = "{0:n0}"
+        XrSummary6.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.XrTableCell38.Summary = XrSummary6
         Me.XrTableCell38.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.XrTableCell38.Weight = 0.91292666858489335R
         '
@@ -1443,22 +1453,6 @@ Partial Public Class rptProformaInvoice
         Me.sbPaymentTerm1_3.HeightF = 90.00008!
         Me.sbPaymentTerm1_3.Name = "sbPaymentTerm1_3"
         '
-        'XrLabel21
-        '
-        Me.XrLabel21.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CompanyName")})
-        Me.XrLabel21.Dpi = 100.0!
-        Me.XrLabel21.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel21.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.XrLabel21.LocationFloat = New DevExpress.Utils.PointFloat(491.4951!, 9.999974!)
-        Me.XrLabel21.Name = "XrLabel21"
-        Me.XrLabel21.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel21.SizeF = New System.Drawing.SizeF(282.1705!, 29.99999!)
-        Me.XrLabel21.StylePriority.UseFont = False
-        Me.XrLabel21.StylePriority.UseForeColor = False
-        Me.XrLabel21.StylePriority.UsePadding = False
-        Me.XrLabel21.StylePriority.UseTextAlignment = False
-        Me.XrLabel21.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
-        '
         'XrLabel15
         '
         Me.XrLabel15.Dpi = 100.0!
@@ -1871,9 +1865,164 @@ Partial Public Class rptProformaInvoice
         Me.sbCompanyBankAccount1.KeepTogether = True
         Me.sbCompanyBankAccount1.Name = "sbCompanyBankAccount1"
         '
+        'xrBankAccountDescription2
+        '
+        Me.xrBankAccountDescription2.Dpi = 100.0!
+        Me.xrBankAccountDescription2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.xrBankAccountDescription2.LocationFloat = New DevExpress.Utils.PointFloat(0.002638499!, 123.7501!)
+        Me.xrBankAccountDescription2.Name = "xrBankAccountDescription2"
+        Me.xrBankAccountDescription2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.xrBankAccountDescription2.SizeF = New System.Drawing.SizeF(491.4926!, 19.99999!)
+        Me.xrBankAccountDescription2.StylePriority.UseFont = False
+        Me.xrBankAccountDescription2.StylePriority.UsePadding = False
+        Me.xrBankAccountDescription2.StylePriority.UseTextAlignment = False
+        Me.xrBankAccountDescription2.Text = "Rekening SKBDN ESCROW"
+        Me.xrBankAccountDescription2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'xrLblBankAccountName2
+        '
+        Me.xrLblBankAccountName2.Dpi = 100.0!
+        Me.xrLblBankAccountName2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.xrLblBankAccountName2.LocationFloat = New DevExpress.Utils.PointFloat(0.003433228!, 143.7499!)
+        Me.xrLblBankAccountName2.Name = "xrLblBankAccountName2"
+        Me.xrLblBankAccountName2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.xrLblBankAccountName2.SizeF = New System.Drawing.SizeF(108.1619!, 20.0!)
+        Me.xrLblBankAccountName2.StylePriority.UseFont = False
+        Me.xrLblBankAccountName2.StylePriority.UsePadding = False
+        Me.xrLblBankAccountName2.StylePriority.UseTextAlignment = False
+        Me.xrLblBankAccountName2.Text = "Account Name"
+        Me.xrLblBankAccountName2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'xrLblBankName2
+        '
+        Me.xrLblBankName2.Dpi = 100.0!
+        Me.xrLblBankName2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.xrLblBankName2.LocationFloat = New DevExpress.Utils.PointFloat(0.003433228!, 163.7498!)
+        Me.xrLblBankName2.Name = "xrLblBankName2"
+        Me.xrLblBankName2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.xrLblBankName2.SizeF = New System.Drawing.SizeF(108.1619!, 20.0!)
+        Me.xrLblBankName2.StylePriority.UseFont = False
+        Me.xrLblBankName2.StylePriority.UsePadding = False
+        Me.xrLblBankName2.StylePriority.UseTextAlignment = False
+        Me.xrLblBankName2.Text = "Bank Name"
+        Me.xrLblBankName2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'xrLblBankAccountNumber2
+        '
+        Me.xrLblBankAccountNumber2.Dpi = 100.0!
+        Me.xrLblBankAccountNumber2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.xrLblBankAccountNumber2.LocationFloat = New DevExpress.Utils.PointFloat(0.003433228!, 183.7499!)
+        Me.xrLblBankAccountNumber2.Name = "xrLblBankAccountNumber2"
+        Me.xrLblBankAccountNumber2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.xrLblBankAccountNumber2.SizeF = New System.Drawing.SizeF(108.1619!, 20.0!)
+        Me.xrLblBankAccountNumber2.StylePriority.UseFont = False
+        Me.xrLblBankAccountNumber2.StylePriority.UsePadding = False
+        Me.xrLblBankAccountNumber2.StylePriority.UseTextAlignment = False
+        Me.xrLblBankAccountNumber2.Text = "Account Number"
+        Me.xrLblBankAccountNumber2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'xrSepBankAccountNumber2
+        '
+        Me.xrSepBankAccountNumber2.Dpi = 100.0!
+        Me.xrSepBankAccountNumber2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.xrSepBankAccountNumber2.LocationFloat = New DevExpress.Utils.PointFloat(108.1652!, 183.7499!)
+        Me.xrSepBankAccountNumber2.Name = "xrSepBankAccountNumber2"
+        Me.xrSepBankAccountNumber2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.xrSepBankAccountNumber2.SizeF = New System.Drawing.SizeF(14.41188!, 20.00002!)
+        Me.xrSepBankAccountNumber2.StylePriority.UseFont = False
+        Me.xrSepBankAccountNumber2.StylePriority.UsePadding = False
+        Me.xrSepBankAccountNumber2.StylePriority.UseTextAlignment = False
+        Me.xrSepBankAccountNumber2.Text = ":"
+        Me.xrSepBankAccountNumber2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'xrSepBankName2
+        '
+        Me.xrSepBankName2.Dpi = 100.0!
+        Me.xrSepBankName2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.xrSepBankName2.LocationFloat = New DevExpress.Utils.PointFloat(108.1652!, 163.75!)
+        Me.xrSepBankName2.Name = "xrSepBankName2"
+        Me.xrSepBankName2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.xrSepBankName2.SizeF = New System.Drawing.SizeF(14.41188!, 20.0!)
+        Me.xrSepBankName2.StylePriority.UseFont = False
+        Me.xrSepBankName2.StylePriority.UsePadding = False
+        Me.xrSepBankName2.StylePriority.UseTextAlignment = False
+        Me.xrSepBankName2.Text = ":"
+        Me.xrSepBankName2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'xrSepBankAccountName2
+        '
+        Me.xrSepBankAccountName2.Dpi = 100.0!
+        Me.xrSepBankAccountName2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.xrSepBankAccountName2.LocationFloat = New DevExpress.Utils.PointFloat(108.1652!, 143.7499!)
+        Me.xrSepBankAccountName2.Name = "xrSepBankAccountName2"
+        Me.xrSepBankAccountName2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.xrSepBankAccountName2.SizeF = New System.Drawing.SizeF(14.41188!, 20.0!)
+        Me.xrSepBankAccountName2.StylePriority.UseFont = False
+        Me.xrSepBankAccountName2.StylePriority.UsePadding = False
+        Me.xrSepBankAccountName2.StylePriority.UseTextAlignment = False
+        Me.xrSepBankAccountName2.Text = ":"
+        Me.xrSepBankAccountName2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'xrTxtBankAccountNumber2
+        '
+        Me.xrTxtBankAccountNumber2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BankAccountNumber2")})
+        Me.xrTxtBankAccountNumber2.Dpi = 100.0!
+        Me.xrTxtBankAccountNumber2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.xrTxtBankAccountNumber2.LocationFloat = New DevExpress.Utils.PointFloat(122.5772!, 183.7499!)
+        Me.xrTxtBankAccountNumber2.Name = "xrTxtBankAccountNumber2"
+        Me.xrTxtBankAccountNumber2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.xrTxtBankAccountNumber2.SizeF = New System.Drawing.SizeF(368.9178!, 20.00002!)
+        Me.xrTxtBankAccountNumber2.StylePriority.UseFont = False
+        Me.xrTxtBankAccountNumber2.StylePriority.UsePadding = False
+        Me.xrTxtBankAccountNumber2.StylePriority.UseTextAlignment = False
+        Me.xrTxtBankAccountNumber2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'xrTxtBankName2
+        '
+        Me.xrTxtBankName2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BankAccountBankName2")})
+        Me.xrTxtBankName2.Dpi = 100.0!
+        Me.xrTxtBankName2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.xrTxtBankName2.LocationFloat = New DevExpress.Utils.PointFloat(122.5772!, 163.75!)
+        Me.xrTxtBankName2.Name = "xrTxtBankName2"
+        Me.xrTxtBankName2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.xrTxtBankName2.SizeF = New System.Drawing.SizeF(368.9178!, 19.99998!)
+        Me.xrTxtBankName2.StylePriority.UseFont = False
+        Me.xrTxtBankName2.StylePriority.UsePadding = False
+        Me.xrTxtBankName2.StylePriority.UseTextAlignment = False
+        Me.xrTxtBankName2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'xrTxtBankAccountName2
+        '
+        Me.xrTxtBankAccountName2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BankAccountName2")})
+        Me.xrTxtBankAccountName2.Dpi = 100.0!
+        Me.xrTxtBankAccountName2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.xrTxtBankAccountName2.LocationFloat = New DevExpress.Utils.PointFloat(122.5772!, 143.75!)
+        Me.xrTxtBankAccountName2.Name = "xrTxtBankAccountName2"
+        Me.xrTxtBankAccountName2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.xrTxtBankAccountName2.SizeF = New System.Drawing.SizeF(368.9178!, 20.0!)
+        Me.xrTxtBankAccountName2.StylePriority.UseFont = False
+        Me.xrTxtBankAccountName2.StylePriority.UsePadding = False
+        Me.xrTxtBankAccountName2.StylePriority.UseTextAlignment = False
+        Me.xrTxtBankAccountName2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'XrLabel21
+        '
+        Me.XrLabel21.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CompanyName")})
+        Me.XrLabel21.Dpi = 100.0!
+        Me.XrLabel21.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel21.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.XrLabel21.LocationFloat = New DevExpress.Utils.PointFloat(491.4951!, 9.999974!)
+        Me.XrLabel21.Name = "XrLabel21"
+        Me.XrLabel21.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
+        Me.XrLabel21.SizeF = New System.Drawing.SizeF(282.1705!, 29.99999!)
+        Me.XrLabel21.StylePriority.UseFont = False
+        Me.XrLabel21.StylePriority.UseForeColor = False
+        Me.XrLabel21.StylePriority.UsePadding = False
+        Me.XrLabel21.StylePriority.UseTextAlignment = False
+        Me.XrLabel21.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
         'XrLabel47
         '
-        Me.XrLabel47.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DirectorName")})
         Me.XrLabel47.Dpi = 100.0!
         Me.XrLabel47.Font = New System.Drawing.Font("Tahoma", 8.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle))
         Me.XrLabel47.LocationFloat = New DevExpress.Utils.PointFloat(491.4953!, 143.7499!)
@@ -1896,7 +2045,7 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel46.StylePriority.UseFont = False
         Me.XrLabel46.StylePriority.UsePadding = False
         Me.XrLabel46.StylePriority.UseTextAlignment = False
-        Me.XrLabel46.Text = "Director"
+        Me.XrLabel46.Text = "Direksi"
         Me.XrLabel46.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
         '
         'XrLabel42
@@ -2058,146 +2207,6 @@ Partial Public Class rptProformaInvoice
         Me.sbCompanyBankAccount2.Dpi = 100.0!
         Me.sbCompanyBankAccount2.HeightF = 0.0!
         Me.sbCompanyBankAccount2.Name = "sbCompanyBankAccount2"
-        '
-        'xrTxtBankAccountName2
-        '
-        Me.xrTxtBankAccountName2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BankAccountName2")})
-        Me.xrTxtBankAccountName2.Dpi = 100.0!
-        Me.xrTxtBankAccountName2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.xrTxtBankAccountName2.LocationFloat = New DevExpress.Utils.PointFloat(122.5772!, 143.75!)
-        Me.xrTxtBankAccountName2.Name = "xrTxtBankAccountName2"
-        Me.xrTxtBankAccountName2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.xrTxtBankAccountName2.SizeF = New System.Drawing.SizeF(368.9178!, 20.0!)
-        Me.xrTxtBankAccountName2.StylePriority.UseFont = False
-        Me.xrTxtBankAccountName2.StylePriority.UsePadding = False
-        Me.xrTxtBankAccountName2.StylePriority.UseTextAlignment = False
-        Me.xrTxtBankAccountName2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'xrLblBankAccountName2
-        '
-        Me.xrLblBankAccountName2.Dpi = 100.0!
-        Me.xrLblBankAccountName2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.xrLblBankAccountName2.LocationFloat = New DevExpress.Utils.PointFloat(0.003433228!, 143.7499!)
-        Me.xrLblBankAccountName2.Name = "xrLblBankAccountName2"
-        Me.xrLblBankAccountName2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.xrLblBankAccountName2.SizeF = New System.Drawing.SizeF(108.1619!, 20.0!)
-        Me.xrLblBankAccountName2.StylePriority.UseFont = False
-        Me.xrLblBankAccountName2.StylePriority.UsePadding = False
-        Me.xrLblBankAccountName2.StylePriority.UseTextAlignment = False
-        Me.xrLblBankAccountName2.Text = "Account Name"
-        Me.xrLblBankAccountName2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'xrLblBankName2
-        '
-        Me.xrLblBankName2.Dpi = 100.0!
-        Me.xrLblBankName2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.xrLblBankName2.LocationFloat = New DevExpress.Utils.PointFloat(0.003433228!, 163.7498!)
-        Me.xrLblBankName2.Name = "xrLblBankName2"
-        Me.xrLblBankName2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.xrLblBankName2.SizeF = New System.Drawing.SizeF(108.1619!, 20.0!)
-        Me.xrLblBankName2.StylePriority.UseFont = False
-        Me.xrLblBankName2.StylePriority.UsePadding = False
-        Me.xrLblBankName2.StylePriority.UseTextAlignment = False
-        Me.xrLblBankName2.Text = "Bank Name"
-        Me.xrLblBankName2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'xrLblBankAccountNumber2
-        '
-        Me.xrLblBankAccountNumber2.Dpi = 100.0!
-        Me.xrLblBankAccountNumber2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.xrLblBankAccountNumber2.LocationFloat = New DevExpress.Utils.PointFloat(0.003433228!, 183.7499!)
-        Me.xrLblBankAccountNumber2.Name = "xrLblBankAccountNumber2"
-        Me.xrLblBankAccountNumber2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.xrLblBankAccountNumber2.SizeF = New System.Drawing.SizeF(108.1619!, 20.0!)
-        Me.xrLblBankAccountNumber2.StylePriority.UseFont = False
-        Me.xrLblBankAccountNumber2.StylePriority.UsePadding = False
-        Me.xrLblBankAccountNumber2.StylePriority.UseTextAlignment = False
-        Me.xrLblBankAccountNumber2.Text = "Account Number"
-        Me.xrLblBankAccountNumber2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'xrSepBankAccountNumber2
-        '
-        Me.xrSepBankAccountNumber2.Dpi = 100.0!
-        Me.xrSepBankAccountNumber2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.xrSepBankAccountNumber2.LocationFloat = New DevExpress.Utils.PointFloat(108.1652!, 183.7499!)
-        Me.xrSepBankAccountNumber2.Name = "xrSepBankAccountNumber2"
-        Me.xrSepBankAccountNumber2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.xrSepBankAccountNumber2.SizeF = New System.Drawing.SizeF(14.41188!, 20.00002!)
-        Me.xrSepBankAccountNumber2.StylePriority.UseFont = False
-        Me.xrSepBankAccountNumber2.StylePriority.UsePadding = False
-        Me.xrSepBankAccountNumber2.StylePriority.UseTextAlignment = False
-        Me.xrSepBankAccountNumber2.Text = ":"
-        Me.xrSepBankAccountNumber2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
-        '
-        'xrSepBankName2
-        '
-        Me.xrSepBankName2.Dpi = 100.0!
-        Me.xrSepBankName2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.xrSepBankName2.LocationFloat = New DevExpress.Utils.PointFloat(108.1652!, 163.75!)
-        Me.xrSepBankName2.Name = "xrSepBankName2"
-        Me.xrSepBankName2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.xrSepBankName2.SizeF = New System.Drawing.SizeF(14.41188!, 20.0!)
-        Me.xrSepBankName2.StylePriority.UseFont = False
-        Me.xrSepBankName2.StylePriority.UsePadding = False
-        Me.xrSepBankName2.StylePriority.UseTextAlignment = False
-        Me.xrSepBankName2.Text = ":"
-        Me.xrSepBankName2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
-        '
-        'xrSepBankAccountName2
-        '
-        Me.xrSepBankAccountName2.Dpi = 100.0!
-        Me.xrSepBankAccountName2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.xrSepBankAccountName2.LocationFloat = New DevExpress.Utils.PointFloat(108.1652!, 143.7499!)
-        Me.xrSepBankAccountName2.Name = "xrSepBankAccountName2"
-        Me.xrSepBankAccountName2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.xrSepBankAccountName2.SizeF = New System.Drawing.SizeF(14.41188!, 20.0!)
-        Me.xrSepBankAccountName2.StylePriority.UseFont = False
-        Me.xrSepBankAccountName2.StylePriority.UsePadding = False
-        Me.xrSepBankAccountName2.StylePriority.UseTextAlignment = False
-        Me.xrSepBankAccountName2.Text = ":"
-        Me.xrSepBankAccountName2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
-        '
-        'xrTxtBankAccountNumber2
-        '
-        Me.xrTxtBankAccountNumber2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BankAccountNumber2")})
-        Me.xrTxtBankAccountNumber2.Dpi = 100.0!
-        Me.xrTxtBankAccountNumber2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.xrTxtBankAccountNumber2.LocationFloat = New DevExpress.Utils.PointFloat(122.5772!, 183.7499!)
-        Me.xrTxtBankAccountNumber2.Name = "xrTxtBankAccountNumber2"
-        Me.xrTxtBankAccountNumber2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.xrTxtBankAccountNumber2.SizeF = New System.Drawing.SizeF(368.9178!, 20.00002!)
-        Me.xrTxtBankAccountNumber2.StylePriority.UseFont = False
-        Me.xrTxtBankAccountNumber2.StylePriority.UsePadding = False
-        Me.xrTxtBankAccountNumber2.StylePriority.UseTextAlignment = False
-        Me.xrTxtBankAccountNumber2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'xrTxtBankName2
-        '
-        Me.xrTxtBankName2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BankAccountBankName2")})
-        Me.xrTxtBankName2.Dpi = 100.0!
-        Me.xrTxtBankName2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.xrTxtBankName2.LocationFloat = New DevExpress.Utils.PointFloat(122.5772!, 163.75!)
-        Me.xrTxtBankName2.Name = "xrTxtBankName2"
-        Me.xrTxtBankName2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.xrTxtBankName2.SizeF = New System.Drawing.SizeF(368.9178!, 19.99998!)
-        Me.xrTxtBankName2.StylePriority.UseFont = False
-        Me.xrTxtBankName2.StylePriority.UsePadding = False
-        Me.xrTxtBankName2.StylePriority.UseTextAlignment = False
-        Me.xrTxtBankName2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'xrBankAccountDescription2
-        '
-        Me.xrBankAccountDescription2.Dpi = 100.0!
-        Me.xrBankAccountDescription2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.xrBankAccountDescription2.LocationFloat = New DevExpress.Utils.PointFloat(0.002638499!, 123.7501!)
-        Me.xrBankAccountDescription2.Name = "xrBankAccountDescription2"
-        Me.xrBankAccountDescription2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.xrBankAccountDescription2.SizeF = New System.Drawing.SizeF(491.4926!, 19.99999!)
-        Me.xrBankAccountDescription2.StylePriority.UseFont = False
-        Me.xrBankAccountDescription2.StylePriority.UsePadding = False
-        Me.xrBankAccountDescription2.StylePriority.UseTextAlignment = False
-        Me.xrBankAccountDescription2.Text = "Rekening SKBDN ESCROW"
-        Me.xrBankAccountDescription2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
         'XrLabel41
         '
@@ -2721,10 +2730,10 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell24.Name = "XrTableCell24"
         Me.XrTableCell24.StylePriority.UseBorders = False
         Me.XrTableCell24.StylePriority.UseTextAlignment = False
-        XrSummary5.FormatString = "{0:n0}"
-        XrSummary5.Func = DevExpress.XtraReports.UI.SummaryFunc.RecordNumber
-        XrSummary5.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.XrTableCell24.Summary = XrSummary5
+        XrSummary7.FormatString = "{0:n0}"
+        XrSummary7.Func = DevExpress.XtraReports.UI.SummaryFunc.RecordNumber
+        XrSummary7.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.XrTableCell24.Summary = XrSummary7
         Me.XrTableCell24.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
         Me.XrTableCell24.Weight = 0.33354050444028438R
         '
@@ -2999,6 +3008,18 @@ Partial Public Class rptProformaInvoice
         Me.ghColumnName.Name = "ghColumnName"
         Me.ghColumnName.RepeatEveryPage = True
         '
+        'CalTotalPPN
+        '
+        Me.CalTotalPPN.Expression = "[TotalPrice]*([PPN]/100)"
+        Me.CalTotalPPN.FieldType = DevExpress.XtraReports.UI.FieldType.[Decimal]
+        Me.CalTotalPPN.Name = "CalTotalPPN"
+        '
+        'CalGrandTotal
+        '
+        Me.CalGrandTotal.Expression = "Sum([CalTotalPPN])+Sum([TotalPrice])"
+        Me.CalGrandTotal.FieldType = DevExpress.XtraReports.UI.FieldType.[Decimal]
+        Me.CalGrandTotal.Name = "CalGrandTotal"
+        '
         'ObjectDataSource1
         '
         Me.ObjectDataSource1.DataSource = GetType(ERPSLib.VO.rptProformaInvoice)
@@ -3007,6 +3028,7 @@ Partial Public Class rptProformaInvoice
         'rptProformaInvoice
         '
         Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail, Me.TopMargin, Me.BottomMargin, Me.ReportHeader, Me.PageHeader, Me.ReportFooter, Me.PageFooter, Me.ghColumnName})
+        Me.CalculatedFields.AddRange(New DevExpress.XtraReports.UI.CalculatedField() {Me.CalTotalPPN, Me.CalGrandTotal})
         Me.ComponentStorage.AddRange(New System.ComponentModel.IComponent() {Me.ObjectDataSource1})
         Me.DataSource = Me.ObjectDataSource1
         Me.DisplayName = "Proforma Invoice"
@@ -3291,4 +3313,6 @@ Partial Public Class rptProformaInvoice
     Friend WithEvents XrTableCell68 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrTableCell69 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents ghColumnName As DevExpress.XtraReports.UI.GroupHeaderBand
+    Friend WithEvents CalTotalPPN As DevExpress.XtraReports.UI.CalculatedField
+    Friend WithEvents CalGrandTotal As DevExpress.XtraReports.UI.CalculatedField
 End Class

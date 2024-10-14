@@ -1012,9 +1012,9 @@
                 dtReturn = DL.ARAP.PrintVer01(sqlCon, Nothing, intProgramID, intCompanyID, strID)
                 Dim dtReferencesNumber As New DataTable
                 Dim strPurchaseContractNumber As String = ""
-                If dtReturn.Rows.Count > 0 Then dtReferencesNumber = DL.SalesContract.ListDataPurchaseContractNumber(sqlCon, Nothing, intProgramID, intCompanyID, dtReturn.Rows(0).Item("ReferencesID"))
+                If dtReturn.Rows.Count > 0 Then dtReferencesNumber = DL.ARAP.ListDataOrderNumberSupplier(sqlCon, Nothing, strID)
                 For Each dr As DataRow In dtReferencesNumber.Rows
-                    strPurchaseContractNumber += IIf(strPurchaseContractNumber.Trim = "", "", ", ") & dr.Item("PCNumber")
+                    strPurchaseContractNumber += IIf(strPurchaseContractNumber.Trim = "", "", ", ") & dr.Item("OrderNumberSupplier")
                 Next
 
                 'Dim clsInvoice As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, Nothing, strInvoiceID)
@@ -1040,6 +1040,16 @@
             Dim dtReturn As New DataTable
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 dtReturn = DL.ARAP.ListPaymentHistory(sqlCon, Nothing, intProgramID, intCompanyID, strReferencesID, dtmTransDate, strID)
+            End Using
+            Return dtReturn
+        End Function
+
+        Public Shared Function ListPaymentHistoryVer02(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                       ByVal dtmTransDate As DateTime, ByVal strID As String) As DataTable
+            BL.Server.ServerDefault()
+            Dim dtReturn As New DataTable
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                dtReturn = DL.ARAP.ListPaymentHistoryVer02(sqlCon, Nothing, intProgramID, intCompanyID, dtmTransDate, strID)
             End Using
             Return dtReturn
         End Function

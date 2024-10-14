@@ -61,12 +61,12 @@ Public Class frmTraConfirmationOrderOutstandingSalesContractVer1
         Me.Cursor = Cursors.WaitCursor
         Try
             Dim dtData As DataTable = BL.ConfirmationOrder.ListDataDetailOutstandingSalesContract(clsCS.ProgramID, clsCS.CompanyID, "")
-            For Each drParent As DataRow In pubParentItem.Rows
-                For Each dr As DataRow In dtData.Rows
-                    If dr.Item("ID") = drParent.Item("CODetailID") Then dr.Delete()
-                Next
-                dtData.AcceptChanges()
-            Next
+            'For Each drParent As DataRow In pubParentItem.Rows
+            '    For Each dr As DataRow In dtData.Rows
+            '        If dr.Item("ID") = drParent.Item("CODetailID") Then dr.Delete()
+            '    Next
+            '    dtData.AcceptChanges()
+            'Next
             grdMain.DataSource = dtData
             prvSumGrid()
             grdView.BestFitColumns()
