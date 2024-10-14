@@ -277,26 +277,55 @@ Namespace BL
                 '# Generate Journal
                 Dim intGroupID As Integer = 1
                 Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.RoundingManual ' + clsData.TotalPPN - clsData.TotalPPH
-                Dim clsJournalDetail As New List(Of VO.JournalDet) From {
-                    New VO.JournalDet With
+                Dim decTotalCostRawMaterial As Decimal = DL.Delivery.GetTotalCostRawMaterial(sqlCon, sqlTrans, strID)
+                If decTotalCostRawMaterial <= 0 Then Err.Raise(515, "", "Data tidak dapat di Proses. Dikarenakan data pengiriman tidak memiliki nilai HPP")
+                Dim clsJournalDetail As New List(Of VO.JournalDet)
+                decTotalAmount += clsData.TotalDPP + clsData.RoundingManual
+                '# Akun Retur Penjualan -> Debit
+                clsJournalDetail.Add(New VO.JournalDet With
                                      {
-                                         .CoAID = clsData.CoAofStock,
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofSalesReturn,
                                          .DebitAmount = decTotalAmount,
                                          .CreditAmount = 0,
                                          .Remarks = "",
                                          .GroupID = intGroupID,
                                          .BPID = clsData.BPID
-                                     },
-                    New VO.JournalDet With
+                                     })
+
+                '# Akun Piutang Usaha Belum ditagih -> Kredit untuk membalikan / mengurangi nilai penjualan / pendapatan / piutang
+                clsJournalDetail.Add(New VO.JournalDet With
                                      {
-                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableOutstandingPayment,
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountReceivableOutstandingPayment,
                                          .DebitAmount = 0,
                                          .CreditAmount = decTotalAmount,
                                          .Remarks = "",
                                          .GroupID = intGroupID,
                                          .BPID = clsData.BPID
-                                     }
-                }
+                                     })
+
+                intGroupID += 1
+                '# Akun Persediaan -> Debit u/menambah kembali nilai persediaan yang telah keluar saat proses penjualan / pengiriman penjualan
+                clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = clsData.CoAofStock,
+                                         .DebitAmount = decTotalCostRawMaterial,
+                                         .CreditAmount = 0,
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     })
+                '# Akun Biaya Bahan Baku -> Kredit u/mengurangi nilai bahan baku yang telah bertambah disaat penjualan / pengiriman penjualan
+                clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAOfCostRawMaterial,
+                                         .DebitAmount = 0,
+                                         .CreditAmount = decTotalCostRawMaterial,
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     })
+
+                decTotalAmount += decTotalCostRawMaterial
 
                 Dim clsJournal As New VO.Journal With
                 {

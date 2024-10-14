@@ -611,6 +611,9 @@
                                 clsReferences = DL.Receive.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                                 strReferencesNumber = clsReferences.ReceiveNumber
                             End If
+                        ElseIf clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentSalesReturn Then
+                            clsReferences = DL.SalesReturn.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesNumber = clsReferences.SalesReturnNumber
                         Else
                             Err.Raise(515, "", "Data tidak dapat disimpan. Modules tidak terdaftar")
                         End If

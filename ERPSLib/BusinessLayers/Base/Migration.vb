@@ -65,6 +65,7 @@
                 DevelopOnProgress_ID58(sqlCon, Nothing)
                 DevelopOnProgress_ID59(sqlCon, Nothing)
                 DevelopOnProgress_ID60(sqlCon, Nothing)
+                DevelopOnProgress_ID61(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1708,6 +1709,19 @@
             clsData.Scripts =
                 "ALTER TABLE traDelivery ADD CoAofStock [int] NOT NULL CONSTRAINT DF_traDelivery_CoAofStock DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traOrderRequest ADD CoAofStock [int] NOT NULL CONSTRAINT DF_traOrderRequest_CoAofStock DEFAULT ((0)) " & vbNewLine
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 61
+        Private Shared Sub DevelopOnProgress_ID61(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 60
+            clsData.Name = "Alter Table Sales Return Detail | Add UnitPriceHPP"
+            clsData.Scripts = "ALTER TABLE traSalesReturnDet ADD UnitPriceHPP [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesReturnDet_UnitPriceHPP DEFAULT ((0)) " & vbNewLine
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

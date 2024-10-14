@@ -141,6 +141,10 @@
         Property CoACodeofCostRawMaterial As String
         Property CoANameofCostRawMaterial As String
 
+        Property CoAofSalesReturn As Integer
+        Property CoACodeofSalesReturn As String
+        Property CoANameofSalesReturn As String
+
         Property Remarks As String
     End Class
 End Namespace

@@ -638,6 +638,51 @@ Namespace DL
             End Try
         End Sub
 
+        Public Shared Sub CalculateTotalUsedReceivePaymentSalesReturnVer02(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                         ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesReturn SET 	" & vbNewLine &
+                    "	TotalPayment=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.ReceiveAmount),0) TotalPayment		" & vbNewLine &
+                    "		FROM traSalesReturnDet TDD " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.SalesReturnID=@ID 	" & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	TotalPaymentPPN=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.ReceiveAmountPPN),0) TotalPayment		" & vbNewLine &
+                    "		FROM traSalesReturnDet TDD " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.SalesReturnID=@ID 	" & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	TotalPaymentPPH=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.ReceiveAmountPPH),0) TotalPayment		" & vbNewLine &
+                    "		FROM traSalesReturnDet TDD " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.SalesReturnID=@ID 	" & vbNewLine &
+                    "	) " & vbNewLine &
+                    "WHERE ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePaymentSalesReturn
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail"

@@ -501,7 +501,6 @@ Public Class frmTraARAP
         Try
             BL.ARAP.Approve(clsData.ID, "", enumARAPType)
             pgMain.Value = 100
-
             UI.usForm.frmMessageBox("Approve data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "TransNumber"))
         Catch ex As Exception
