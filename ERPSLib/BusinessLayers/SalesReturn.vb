@@ -277,10 +277,9 @@ Namespace BL
                 '# Generate Journal
                 Dim intGroupID As Integer = 1
                 Dim decTotalAmount As Decimal = clsData.TotalDPP + clsData.RoundingManual ' + clsData.TotalPPN - clsData.TotalPPH
-                Dim decTotalCostRawMaterial As Decimal = DL.Delivery.GetTotalCostRawMaterial(sqlCon, sqlTrans, strID)
-                If decTotalCostRawMaterial <= 0 Then Err.Raise(515, "", "Data tidak dapat di Proses. Dikarenakan data pengiriman tidak memiliki nilai HPP")
+                If clsData.TotalCostRawMaterial <= 0 Then Err.Raise(515, "", "Data tidak dapat di Proses. Dikarenakan data pengiriman tidak memiliki nilai HPP")
+                If ERPSLib.UI.usUserApp.JournalPost.CoAofSalesReturn < 0 Then Err.Raise(515, "", "Data tidak dapat di Proses. Dikarenakan Akun Retur Penjualan belum ditentukan")
                 Dim clsJournalDetail As New List(Of VO.JournalDet)
-                decTotalAmount += clsData.TotalDPP + clsData.RoundingManual
                 '# Akun Retur Penjualan -> Debit
                 clsJournalDetail.Add(New VO.JournalDet With
                                      {
@@ -308,7 +307,7 @@ Namespace BL
                 clsJournalDetail.Add(New VO.JournalDet With
                                      {
                                          .CoAID = clsData.CoAofStock,
-                                         .DebitAmount = decTotalCostRawMaterial,
+                                         .DebitAmount = clsData.TotalCostRawMaterial,
                                          .CreditAmount = 0,
                                          .Remarks = "",
                                          .GroupID = intGroupID,
@@ -319,13 +318,13 @@ Namespace BL
                                      {
                                          .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAOfCostRawMaterial,
                                          .DebitAmount = 0,
-                                         .CreditAmount = decTotalCostRawMaterial,
+                                         .CreditAmount = clsData.TotalCostRawMaterial,
                                          .Remarks = "",
                                          .GroupID = intGroupID,
                                          .BPID = clsData.BPID
                                      })
 
-                decTotalAmount += decTotalCostRawMaterial
+                decTotalAmount += clsData.TotalCostRawMaterial
 
                 Dim clsJournal As New VO.Journal With
                 {
@@ -375,7 +374,7 @@ Namespace BL
                        .InQuantity = 0,
                        .InWeight = 0,
                        .InTotalWeight = 0,
-                       .UnitPrice = dr.Item("UnitPrice"),
+                       .UnitPrice = dr.Item("UnitPriceHPP"),
                        .CoAofStock = dr.Item("CoAofStock")
                    })
             Next

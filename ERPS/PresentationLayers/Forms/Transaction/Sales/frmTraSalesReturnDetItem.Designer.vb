@@ -67,6 +67,12 @@ Partial Class frmTraSalesReturnDetItem
         Me.txtItemCode = New ERPS.usTextBox()
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtItemName = New ERPS.usTextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.txtUnitPriceHPP = New ERPS.usNumeric()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.txtTotalPriceHPP = New ERPS.usNumeric()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -77,6 +83,8 @@ Partial Class frmTraSalesReturnDetItem
         CType(Me.txtUnitPrice, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtTotalPriceHPP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -119,6 +127,12 @@ Partial Class frmTraSalesReturnDetItem
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.Label18)
+        Me.pnlDetail.Controls.Add(Me.Label19)
+        Me.pnlDetail.Controls.Add(Me.txtTotalPriceHPP)
+        Me.pnlDetail.Controls.Add(Me.Label4)
+        Me.pnlDetail.Controls.Add(Me.Label11)
+        Me.pnlDetail.Controls.Add(Me.txtUnitPriceHPP)
         Me.pnlDetail.Controls.Add(Me.Label5)
         Me.pnlDetail.Controls.Add(Me.txtOrderNumberSupplier)
         Me.pnlDetail.Controls.Add(Me.txtLength)
@@ -161,7 +175,7 @@ Partial Class frmTraSalesReturnDetItem
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlDetail.Location = New System.Drawing.Point(0, 50)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(684, 341)
+        Me.pnlDetail.Size = New System.Drawing.Size(684, 378)
         Me.pnlDetail.TabIndex = 2
         '
         'Label5
@@ -233,7 +247,7 @@ Partial Class frmTraSalesReturnDetItem
         Me.Label26.AutoSize = True
         Me.Label26.BackColor = System.Drawing.Color.Transparent
         Me.Label26.ForeColor = System.Drawing.Color.Black
-        Me.Label26.Location = New System.Drawing.Point(307, 238)
+        Me.Label26.Location = New System.Drawing.Point(626, 237)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(19, 13)
         Me.Label26.TabIndex = 184
@@ -244,7 +258,7 @@ Partial Class frmTraSalesReturnDetItem
         Me.Label27.AutoSize = True
         Me.Label27.BackColor = System.Drawing.Color.Transparent
         Me.Label27.ForeColor = System.Drawing.Color.Black
-        Me.Label27.Location = New System.Drawing.Point(27, 238)
+        Me.Label27.Location = New System.Drawing.Point(362, 237)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(91, 13)
         Me.Label27.TabIndex = 183
@@ -255,12 +269,12 @@ Partial Class frmTraSalesReturnDetItem
         Me.txtMaxTotalWeight.BackColor = System.Drawing.Color.Azure
         Me.txtMaxTotalWeight.DecimalPlaces = 2
         Me.txtMaxTotalWeight.Enabled = False
-        Me.txtMaxTotalWeight.Location = New System.Drawing.Point(166, 234)
+        Me.txtMaxTotalWeight.Location = New System.Drawing.Point(462, 233)
         Me.txtMaxTotalWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtMaxTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtMaxTotalWeight.Name = "txtMaxTotalWeight"
-        Me.txtMaxTotalWeight.Size = New System.Drawing.Size(135, 21)
-        Me.txtMaxTotalWeight.TabIndex = 10
+        Me.txtMaxTotalWeight.Size = New System.Drawing.Size(160, 21)
+        Me.txtMaxTotalWeight.TabIndex = 17
         Me.txtMaxTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtMaxTotalWeight.ThousandsSeparator = True
         '
@@ -280,7 +294,7 @@ Partial Class frmTraSalesReturnDetItem
         Me.Label25.AutoSize = True
         Me.Label25.BackColor = System.Drawing.Color.Transparent
         Me.Label25.ForeColor = System.Drawing.Color.Black
-        Me.Label25.Location = New System.Drawing.Point(368, 210)
+        Me.Label25.Location = New System.Drawing.Point(390, 210)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(63, 13)
         Me.Label25.TabIndex = 181
@@ -296,7 +310,7 @@ Partial Class frmTraSalesReturnDetItem
         Me.txtTotalPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPrice.Name = "txtTotalPrice"
         Me.txtTotalPrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalPrice.TabIndex = 15
+        Me.txtTotalPrice.TabIndex = 16
         Me.txtTotalPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPrice.ThousandsSeparator = True
         '
@@ -305,7 +319,7 @@ Partial Class frmTraSalesReturnDetItem
         Me.Label23.AutoSize = True
         Me.Label23.BackColor = System.Drawing.Color.Transparent
         Me.Label23.ForeColor = System.Drawing.Color.Black
-        Me.Label23.Location = New System.Drawing.Point(391, 156)
+        Me.Label23.Location = New System.Drawing.Point(413, 156)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(40, 13)
         Me.Label23.TabIndex = 180
@@ -318,7 +332,7 @@ Partial Class frmTraSalesReturnDetItem
         Me.txtQuantity.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtQuantity.Name = "txtQuantity"
         Me.txtQuantity.Size = New System.Drawing.Size(160, 21)
-        Me.txtQuantity.TabIndex = 13
+        Me.txtQuantity.TabIndex = 14
         Me.txtQuantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtQuantity.ThousandsSeparator = True
         '
@@ -338,7 +352,7 @@ Partial Class frmTraSalesReturnDetItem
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
         Me.Label14.ForeColor = System.Drawing.Color.Black
-        Me.Label14.Location = New System.Drawing.Point(395, 129)
+        Me.Label14.Location = New System.Drawing.Point(417, 129)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(36, 13)
         Me.Label14.TabIndex = 173
@@ -354,7 +368,7 @@ Partial Class frmTraSalesReturnDetItem
         Me.txtUnitPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtUnitPrice.Name = "txtUnitPrice"
         Me.txtUnitPrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtUnitPrice.TabIndex = 12
+        Me.txtUnitPrice.TabIndex = 13
         Me.txtUnitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtUnitPrice.ThousandsSeparator = True
         '
@@ -374,7 +388,7 @@ Partial Class frmTraSalesReturnDetItem
         Me.Label16.AutoSize = True
         Me.Label16.BackColor = System.Drawing.Color.Transparent
         Me.Label16.ForeColor = System.Drawing.Color.Black
-        Me.Label16.Location = New System.Drawing.Point(371, 183)
+        Me.Label16.Location = New System.Drawing.Point(393, 183)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(60, 13)
         Me.Label16.TabIndex = 171
@@ -390,7 +404,7 @@ Partial Class frmTraSalesReturnDetItem
         Me.txtTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalWeight.Name = "txtTotalWeight"
         Me.txtTotalWeight.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalWeight.TabIndex = 14
+        Me.txtTotalWeight.TabIndex = 15
         Me.txtTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalWeight.ThousandsSeparator = True
         '
@@ -407,7 +421,7 @@ Partial Class frmTraSalesReturnDetItem
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(27, 264)
+        Me.Label13.Location = New System.Drawing.Point(27, 291)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 170
@@ -417,12 +431,12 @@ Partial Class frmTraSalesReturnDetItem
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(166, 261)
+        Me.txtRemarks.Location = New System.Drawing.Point(166, 288)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(456, 48)
-        Me.txtRemarks.TabIndex = 11
+        Me.txtRemarks.TabIndex = 12
         '
         'Label12
         '
@@ -540,7 +554,7 @@ Partial Class frmTraSalesReturnDetItem
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(401, 48)
+        Me.Label3.Location = New System.Drawing.Point(423, 48)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(30, 13)
         Me.Label3.TabIndex = 160
@@ -561,7 +575,7 @@ Partial Class frmTraSalesReturnDetItem
         Me.Label28.AutoSize = True
         Me.Label28.BackColor = System.Drawing.Color.Transparent
         Me.Label28.ForeColor = System.Drawing.Color.Black
-        Me.Label28.Location = New System.Drawing.Point(400, 21)
+        Me.Label28.Location = New System.Drawing.Point(422, 21)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(31, 13)
         Me.Label28.TabIndex = 159
@@ -612,11 +626,83 @@ Partial Class frmTraSalesReturnDetItem
         Me.txtItemName.Size = New System.Drawing.Size(456, 48)
         Me.txtItemName.TabIndex = 5
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.Transparent
+        Me.Label4.ForeColor = System.Drawing.Color.Black
+        Me.Label4.Location = New System.Drawing.Point(307, 238)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(19, 13)
+        Me.Label4.TabIndex = 198
+        Me.Label4.Text = "Kg"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.BackColor = System.Drawing.Color.Transparent
+        Me.Label11.ForeColor = System.Drawing.Color.Black
+        Me.Label11.Location = New System.Drawing.Point(27, 238)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(74, 13)
+        Me.Label11.TabIndex = 197
+        Me.Label11.Text = "Unit Price HPP"
+        '
+        'txtUnitPriceHPP
+        '
+        Me.txtUnitPriceHPP.BackColor = System.Drawing.Color.Azure
+        Me.txtUnitPriceHPP.DecimalPlaces = 2
+        Me.txtUnitPriceHPP.Enabled = False
+        Me.txtUnitPriceHPP.Location = New System.Drawing.Point(166, 234)
+        Me.txtUnitPriceHPP.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtUnitPriceHPP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtUnitPriceHPP.Name = "txtUnitPriceHPP"
+        Me.txtUnitPriceHPP.Size = New System.Drawing.Size(135, 21)
+        Me.txtUnitPriceHPP.TabIndex = 10
+        Me.txtUnitPriceHPP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtUnitPriceHPP.ThousandsSeparator = True
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.BackColor = System.Drawing.Color.Transparent
+        Me.Label18.ForeColor = System.Drawing.Color.Black
+        Me.Label18.Location = New System.Drawing.Point(307, 265)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(19, 13)
+        Me.Label18.TabIndex = 201
+        Me.Label18.Text = "Kg"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.BackColor = System.Drawing.Color.Transparent
+        Me.Label19.ForeColor = System.Drawing.Color.Black
+        Me.Label19.Location = New System.Drawing.Point(27, 265)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(79, 13)
+        Me.Label19.TabIndex = 200
+        Me.Label19.Text = "Total Price HPP"
+        '
+        'txtTotalPriceHPP
+        '
+        Me.txtTotalPriceHPP.BackColor = System.Drawing.Color.Azure
+        Me.txtTotalPriceHPP.DecimalPlaces = 2
+        Me.txtTotalPriceHPP.Enabled = False
+        Me.txtTotalPriceHPP.Location = New System.Drawing.Point(166, 261)
+        Me.txtTotalPriceHPP.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalPriceHPP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalPriceHPP.Name = "txtTotalPriceHPP"
+        Me.txtTotalPriceHPP.Size = New System.Drawing.Size(135, 21)
+        Me.txtTotalPriceHPP.TabIndex = 11
+        Me.txtTotalPriceHPP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalPriceHPP.ThousandsSeparator = True
+        '
         'frmTraSalesReturnDetItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(684, 391)
+        Me.ClientSize = New System.Drawing.Size(684, 428)
         Me.Controls.Add(Me.pnlDetail)
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
@@ -637,6 +723,8 @@ Partial Class frmTraSalesReturnDetItem
         CType(Me.txtUnitPrice, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalWeight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWeight, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtTotalPriceHPP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -685,4 +773,10 @@ Partial Class frmTraSalesReturnDetItem
     Friend WithEvents txtItemCode As ERPS.usTextBox
     Friend WithEvents lblName As System.Windows.Forms.Label
     Friend WithEvents txtItemName As ERPS.usTextBox
+    Friend WithEvents Label18 As System.Windows.Forms.Label
+    Friend WithEvents Label19 As System.Windows.Forms.Label
+    Friend WithEvents txtTotalPriceHPP As ERPS.usNumeric
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents txtUnitPriceHPP As ERPS.usNumeric
 End Class

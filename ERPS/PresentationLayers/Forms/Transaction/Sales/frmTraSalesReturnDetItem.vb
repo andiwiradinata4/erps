@@ -95,6 +95,8 @@
                 txtRemarks.Text = drSelectedItem.Item("Remarks")
                 intLevelItem = drSelectedItem.Item("LevelItem")
                 strParentID = drSelectedItem.Item("ParentID")
+                txtUnitPriceHPP.Value = drSelectedItem.Item("UnitPriceHPP")
+                txtTotalPriceHPP.Value = drSelectedItem.Item("TotalPriceHPP")
             End If
             prvCalculate()
         Catch ex As Exception
@@ -124,6 +126,10 @@
             Exit Sub
         ElseIf txtMaxTotalWeight.Value < txtTotalWeight.Value Then
             If Not UI.usForm.frmAskQuestion("Total Berat melebihi Maks. Total Berat, Apakah anda yakin ingin melanjutkannya?") Then Exit Sub
+        ElseIf txtUnitPriceHPP.Value <= 0 Then
+            UI.usForm.frmMessageBox("Unit Price HPP tidak valid")
+            txtUnitPriceHPP.Focus()
+            Exit Sub
         End If
 
         '# Item Handle
@@ -154,6 +160,8 @@
                 .Item("LevelItem") = intLevelItem
                 .Item("ParentID") = strParentID
                 .Item("RoundingWeight") = 0
+                .Item("UnitPriceHPP") = txtUnitPriceHPP.Value
+                .Item("TotalPriceHPP") = txtTotalPriceHPP.Value
                 .EndEdit()
             End With
             dtItem.Rows.Add(drItem)
@@ -184,6 +192,8 @@
                         .Item("LevelItem") = intLevelItem
                         .Item("ParentID") = strParentID
                         .Item("RoundingWeight") = 0
+                        .Item("UnitPriceHPP") = txtUnitPriceHPP.Value
+                        .Item("TotalPriceHPP") = txtTotalPriceHPP.Value
                         .EndEdit()
                     End If
                 End With
@@ -217,6 +227,8 @@
         txtRemarks.Text = ""
         intLevelItem = 0
         strParentID = ""
+        txtUnitPriceHPP.Value = 0
+        txtTotalPriceHPP.Value = 0
     End Sub
 
     Private Sub prvChooseItem()
@@ -243,6 +255,7 @@
                 txtQuantity.Value = .pubLUdtRow.Item("Quantity")
                 intLevelItem = .pubLUdtRow.Item("LevelItem")
                 strParentID = .pubLUdtRow.Item("ParentID")
+                txtUnitPriceHPP.Value = .pubLUdtRow.Item("UnitPriceHPP")
                 txtQuantity.Focus()
                 txtRemarks.Text = ""
                 bolIsAutoSearch = False
@@ -255,6 +268,7 @@
     Private Sub prvCalculate()
         txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
         txtTotalPrice.Value = txtUnitPrice.Value * txtTotalWeight.Value
+        txtTotalPriceHPP.Value = txtUnitPriceHPP.Value * txtTotalWeight.Value
     End Sub
 
 #Region "Form Handle"
@@ -285,7 +299,7 @@
         prvChooseItem()
     End Sub
 
-    Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtUnitPrice.ValueChanged, txtQuantity.ValueChanged, txtWeight.ValueChanged
+    Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtUnitPrice.ValueChanged, txtQuantity.ValueChanged, txtWeight.ValueChanged, txtUnitPriceHPP.ValueChanged
         prvCalculate()
     End Sub
 

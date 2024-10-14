@@ -36,5 +36,7 @@ Namespace VO
         Property InvoiceTotalWeightTransport As Decimal
         Property AllocateDPAmount As Decimal
         Property AllocateDPAmountTransport As Decimal
+        Property UnitPriceHPP As Decimal
+        Property TotalPriceHPP As Decimal
     End Class
 End Namespace

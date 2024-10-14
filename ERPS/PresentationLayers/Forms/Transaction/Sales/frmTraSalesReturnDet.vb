@@ -66,6 +66,8 @@ Public Class frmTraSalesReturnDet
         UI.usForm.SetGrid(grdItemView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "RoundingWeight", "RoundingWeight", 100, UI.usDefGrid.gReal4Num, False)
+        UI.usForm.SetGrid(grdItemView, "UnitPriceHPP", "Unit Price HPP", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "TotalPriceHPP", "Total Price HPP", 100, UI.usDefGrid.gReal2Num)
 
         '# History
         UI.usForm.SetGrid(grdStatusView, "ID", "ID", 100, UI.usDefGrid.gString, False)
@@ -133,6 +135,7 @@ Public Class frmTraSalesReturnDet
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
                 txtGrandTotalTransport.Value = txtTotalDPPTransport.Value + txtTotalPPNTransport.Value - txtTotalPPHTransport.Value
+                txtTotalCostRawMaterial.Value = clsData.TotalCostRawMaterial
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -203,7 +206,9 @@ Public Class frmTraSalesReturnDet
                                     .UnitPriceTransport = txtUnitPriceTransport.Value,
                                     .TotalPriceTransport = dr.Item("TotalWeight") * txtUnitPriceTransport.Value,
                                     .LevelItem = dr.Item("LevelItem"),
-                                    .ParentID = dr.Item("ParentID")
+                                    .ParentID = dr.Item("ParentID"),
+                                    .UnitPriceHPP = dr.Item("UnitPriceHPP"),
+                                    .TotalPriceHPP = dr.Item("TotalPriceHPP")
                                 })
         Next
 
@@ -245,6 +250,7 @@ Public Class frmTraSalesReturnDet
         clsData.Detail = listDetail
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
+        clsData.TotalCostRawMaterial = txtTotalCostRawMaterial.Value
         pgMain.Value = 60
         Try
             Dim strSalesReturnNumber As String = BL.SalesReturn.SaveData(pubIsNew, clsData)
@@ -409,8 +415,10 @@ Public Class frmTraSalesReturnDet
 
     Private Sub prvCalculate()
         txtTotalDPP.Value = 0
+        txtTotalCostRawMaterial.Value = 0
         For Each dr As DataRow In dtItem.Rows
             txtTotalDPP.Value += dr.Item("TotalPrice")
+            txtTotalCostRawMaterial.Value += dr.Item("TotalPriceHPP")
         Next
         txtTotalPPN.Value = txtTotalDPP.Value * (txtPPN.Value / 100)
         txtTotalPPH.Value = txtTotalDPP.Value * (txtPPH.Value / 100)

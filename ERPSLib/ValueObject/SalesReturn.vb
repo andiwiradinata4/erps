@@ -60,5 +60,6 @@ Namespace VO
         Property TotalPaymentPPHTransport As Decimal
         Property Detail As List(Of VO.SalesReturnDet)
         Property Save As VO.Save.Action
+        Property TotalCostRawMaterial As Decimal
     End Class
 End Namespace

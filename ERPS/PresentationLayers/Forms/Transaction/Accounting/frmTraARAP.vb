@@ -756,7 +756,7 @@ Public Class frmTraARAP
             crReport.AmountPayment3.Value = 0
             crReport.AmountPayment4.Value = 0
 
-            Dim dtPaymentHistory As DataTable = BL.ARAP.ListPaymentHistoryVer02(clsCS.ProgramID, intCompanyID, clsData.TransDate.Date, clsData.ID)
+            Dim dtPaymentHistory As DataTable = BL.ARAP.ListPaymentHistoryVer02(clsCS.ProgramID, intCompanyID, clsData.ID)
             'If dtPaymentHistory.Rows.Count = 0 Then
             '    Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
             '    crReport.sbPayment1.Visible = True
@@ -787,7 +787,7 @@ Public Class frmTraARAP
 
             For i As Integer = 0 To dtPaymentHistory.Rows.Count - 1
                 Dim strDescPayment As String = VO.Common.GetPaymentType(dtPaymentHistory.Rows(i).Item("Modules")) & IIf(dtPaymentHistory.Rows(i).Item("Percentage") > 0, " " & CInt(dtPaymentHistory.Rows(i).Item("Percentage")) & "%", "")
-                Dim decAmountPayment As Decimal = dtData.Rows(i).Item("DPAmount")
+                Dim decAmountPayment As Decimal = dtPaymentHistory.Rows(i).Item("Amount")
                 If i = 0 Then
                     crReport.sbPayment1.Visible = True
                     crReport.DescPayment1.Value = strDescPayment
@@ -943,7 +943,7 @@ Public Class frmTraARAP
             crReport.AmountPayment3.Value = 0
             crReport.AmountPayment4.Value = 0
 
-            Dim dtPaymentHistory As DataTable = BL.ARAP.ListPaymentHistoryVer02(clsCS.ProgramID, intCompanyID, clsData.TransDate.Date, clsData.ID)
+            Dim dtPaymentHistory As DataTable = BL.ARAP.ListPaymentHistoryVer02(clsCS.ProgramID, intCompanyID, clsData.ID)
             'If dtPaymentHistory.Rows.Count = 0 Then
             '    Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
             '    crReport.sbPayment1.Visible = True
@@ -974,7 +974,7 @@ Public Class frmTraARAP
 
             For i As Integer = 0 To dtPaymentHistory.Rows.Count - 1
                 Dim strDescPayment As String = VO.Common.GetPaymentType(dtPaymentHistory.Rows(i).Item("Modules")) & IIf(dtPaymentHistory.Rows(i).Item("Percentage") > 0, " " & CInt(dtPaymentHistory.Rows(i).Item("Percentage")) & "%", "")
-                Dim decAmountPayment As Decimal = dtData.Rows(i).Item("DPAmount")
+                Dim decAmountPayment As Decimal = dtPaymentHistory.Rows(i).Item("Amount")
                 If i = 0 Then
                     crReport.sbPayment1.Visible = True
                     crReport.DescPayment1.Value = strDescPayment

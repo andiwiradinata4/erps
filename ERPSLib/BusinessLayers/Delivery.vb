@@ -374,6 +374,7 @@
                 Dim decTotalAmount As Decimal = 0
                 Dim decTotalCostRawMaterial As Decimal = DL.Delivery.GetTotalCostRawMaterial(sqlCon, sqlTrans, strID)
                 If decTotalCostRawMaterial <= 0 Then Err.Raise(515, "", "Data tidak dapat di Proses. Dikarenakan data pengiriman tidak memiliki nilai HPP")
+                If ERPSLib.UI.usUserApp.JournalPost.CoAofRevenue < 0 Then Err.Raise(515, "", "Data tidak dapat di Proses. Dikarenakan Akun Penjualan belum ditentukan")
 
                 Dim clsJournalDetail As New List(Of VO.JournalDet)
                 decTotalAmount += clsData.TotalDPP + clsData.RoundingManual

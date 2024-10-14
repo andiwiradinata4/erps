@@ -1719,9 +1719,14 @@
         '# ID = 61
         Private Shared Sub DevelopOnProgress_ID61(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
             Dim clsData As New VO.Migration
-            clsData.ID = 60
+            clsData.ID = 61
             clsData.Name = "Alter Table Sales Return Detail | Add UnitPriceHPP"
-            clsData.Scripts = "ALTER TABLE traSalesReturnDet ADD UnitPriceHPP [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesReturnDet_UnitPriceHPP DEFAULT ((0)) " & vbNewLine
+            clsData.Scripts =
+                "ALTER TABLE sysJournalPost ADD CoAOfSalesReturn [int] NOT NULL CONSTRAINT DF_sysJournalPost_CoAOfSalesReturn DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesReturn ADD TotalCostRawMaterial [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesReturn_TotalCostRawMaterial DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesReturnDet ADD UnitPriceHPP [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesReturnDet_UnitPriceHPP DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traSalesReturnDet ADD TotalPriceHPP [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesReturnDet_TotalPriceHPP DEFAULT ((0)) " & vbNewLine
+
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

@@ -1259,7 +1259,7 @@
                     .CommandType = CommandType.Text
                     .CommandText =
                         "SELECT  " & vbNewLine &
-                        "	SUM(DD.TotalWeight*ISNULL(SCD.UnitPriceHPP,ORD.UnitPriceHPP)) AS TotalCostRawMaterial " & vbNewLine &
+                        "	ISNULL(SUM(DD.TotalWeight*ISNULL(SCD.UnitPriceHPP,ORD.UnitPriceHPP)),0) AS TotalCostRawMaterial " & vbNewLine &
                         "FROM traDeliveryDet DD  " & vbNewLine &
                         "LEFT JOIN traSalesContractDet SCD ON  " & vbNewLine &
                         "	DD.SCDetailID=SCD.ID  " & vbNewLine &
@@ -1358,10 +1358,12 @@
                     "   A.ID, A.DeliveryID, A1.DeliveryNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
                     "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A.TotalWeight-A.ReturnWeight AS MaxTotalWeight, " & vbNewLine &
-                    "   A.Remarks, A.OrderNumberSupplier, A.LevelItem, A.ParentID, A.RoundingWeight " & vbNewLine &
+                    "   A.Remarks, A.OrderNumberSupplier, A.LevelItem, A.ParentID, A.RoundingWeight, SCD.UnitPriceHPP " & vbNewLine &
                     "FROM traDeliveryDet A " & vbNewLine &
                     "INNER JOIN traDelivery A1 ON " & vbNewLine &
                     "   A.DeliveryID=A1.ID " & vbNewLine &
+                    "INNER JOIN traSalesContractDet SCD ON " & vbNewLine &
+                    "   A.SCDetailID=SCD.ID " & vbNewLine &
                     "INNER JOIN mstItem B ON " & vbNewLine &
                     "   A.ItemID=B.ID " & vbNewLine &
                     "INNER JOIN mstItemSpecification C ON " & vbNewLine &

@@ -429,7 +429,7 @@
                 Dim intMaxCreditTerms As Integer = 0
                 For Each dr As DataRow In dtPaymentTerm.Rows
                     If strPaymentTerms.Trim <> "" Then strPaymentTerms += ", "
-                    strPaymentTerms += CInt(dr.Item("Percentage")) & "% " & dr.Item("PaymentTypeName") & " BY " & dr.Item("PaymentModeName")
+                    strPaymentTerms += CInt(dr.Item("Percentage")) & "% " & dr.Item("PaymentTypeName") '& " BY " & dr.Item("PaymentModeName")
                     If intMaxCreditTerms < dr.Item("CreditTerm") Then intMaxCreditTerms = dr.Item("CreditTerm")
                 Next
 

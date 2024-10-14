@@ -359,8 +359,8 @@
         End Function
 
         Public Shared Function ListPaymentHistoryVer02(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                  ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                  ByVal dtmTransDate As DateTime, ByVal strID As String) As DataTable
+                                                       ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                       ByVal strID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -368,22 +368,42 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT " & vbNewLine &
-                    "	ARD.Amount+ARD.PPN-ARD.PPH AS Amount, ARH.Modules, ARH.Percentage, ARH.ARDate, ARH.CreatedDate  " & vbNewLine &
+                    "	ARH.TotalAmount+ARH.TotalPPN-ARH.TotalPPH AS Amount, ARH.Modules, ARH.Percentage, ARH.ARDate, ARH.CreatedDate  " & vbNewLine &
                     "FROM traAccountReceivable ARH " & vbNewLine &
-                    "INNER JOIN traAccountReceivableDet ARD ON " & vbNewLine &
-                    "	ARH.ID=ARD.ARID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "	ARH.ProgramID=@ProgramID" & vbNewLine &
                     "	AND ARH.CompanyID=@CompanyID " & vbNewLine &
                     "	AND ARH.ID=@ID  " & vbNewLine &
-                    "	AND ARH.IsDP=1 " & vbNewLine &
                     "	AND ARH.IsDeleted=0" & vbNewLine &
                     "ORDER BY ARH.ARDate, ARH.CreatedDate "
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
-                .Parameters.Add("@TransDate", SqlDbType.DateTime).Value = dtmTransDate
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListPaymentDPVer02(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                  ByVal strParentID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT  " & vbNewLine & _
+"	ARD.Amount+ARD.PPN-ARD.PPH AS Amount, ARH.Modules, ARH.Percentage, ARH.ARDate, ARH.CreatedDate  " & vbNewLine & _
+"FROM traARAPDP DP  " & vbNewLine & _
+"INNER JOIN traAccountReceivable ARH ON  " & vbNewLine & _
+"	DP.DPID=ARH.ID  " & vbNewLine & _
+"INNER JOIN traAccountReceivableDet ARD ON  " & vbNewLine & _
+"	ARH.ID=ARD.ARID  " & vbNewLine & _
+"WHERE  " & vbNewLine & _
+"	DP.ParentID=@ParentID  " & vbNewLine &
+"ORDER BY ARH.ARDate, ARH.CreatedDate "
+
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function

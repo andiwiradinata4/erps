@@ -28,6 +28,10 @@ Partial Class frmSysJournalPost
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlMain = New System.Windows.Forms.Panel()
+        Me.txtCoACodeofCostRawMaterial = New ERPS.usTextBox()
+        Me.txtCoANameofCostRawMaterial = New ERPS.usTextBox()
+        Me.btnCoAofCostOfRawMaterial = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label33 = New System.Windows.Forms.Label()
         Me.txtCoACodeofTransport = New ERPS.usTextBox()
         Me.txtCoANameofTransport = New ERPS.usTextBox()
         Me.btnCoAofTransport = New DevExpress.XtraEditors.SimpleButton()
@@ -163,10 +167,10 @@ Partial Class frmSysJournalPost
         Me.ToolStripLogBy = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.txtCoACodeofCostRawMaterial = New ERPS.usTextBox()
-        Me.txtCoANameofCostRawMaterial = New ERPS.usTextBox()
-        Me.btnCoAofCostOfRawMaterial = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label33 = New System.Windows.Forms.Label()
+        Me.txtCoACodeofSalesReturn = New ERPS.usTextBox()
+        Me.txtCoANameofSalesReturn = New ERPS.usTextBox()
+        Me.btnCoAofSalesReturn = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label34 = New System.Windows.Forms.Label()
         Me.pnlMain.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -212,6 +216,10 @@ Partial Class frmSysJournalPost
         '
         Me.pnlMain.AutoScroll = True
         Me.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlMain.Controls.Add(Me.txtCoACodeofSalesReturn)
+        Me.pnlMain.Controls.Add(Me.txtCoANameofSalesReturn)
+        Me.pnlMain.Controls.Add(Me.btnCoAofSalesReturn)
+        Me.pnlMain.Controls.Add(Me.Label34)
         Me.pnlMain.Controls.Add(Me.txtCoACodeofCostRawMaterial)
         Me.pnlMain.Controls.Add(Me.txtCoANameofCostRawMaterial)
         Me.pnlMain.Controls.Add(Me.btnCoAofCostOfRawMaterial)
@@ -350,6 +358,47 @@ Partial Class frmSysJournalPost
         Me.pnlMain.Size = New System.Drawing.Size(690, 966)
         Me.pnlMain.TabIndex = 2
         '
+        'txtCoACodeofCostRawMaterial
+        '
+        Me.txtCoACodeofCostRawMaterial.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofCostRawMaterial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofCostRawMaterial.Location = New System.Drawing.Point(219, 877)
+        Me.txtCoACodeofCostRawMaterial.MaxLength = 250
+        Me.txtCoACodeofCostRawMaterial.Name = "txtCoACodeofCostRawMaterial"
+        Me.txtCoACodeofCostRawMaterial.ReadOnly = True
+        Me.txtCoACodeofCostRawMaterial.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofCostRawMaterial.TabIndex = 96
+        '
+        'txtCoANameofCostRawMaterial
+        '
+        Me.txtCoANameofCostRawMaterial.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofCostRawMaterial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofCostRawMaterial.Location = New System.Drawing.Point(301, 877)
+        Me.txtCoANameofCostRawMaterial.MaxLength = 250
+        Me.txtCoANameofCostRawMaterial.Name = "txtCoANameofCostRawMaterial"
+        Me.txtCoANameofCostRawMaterial.ReadOnly = True
+        Me.txtCoANameofCostRawMaterial.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofCostRawMaterial.TabIndex = 97
+        '
+        'btnCoAofCostOfRawMaterial
+        '
+        Me.btnCoAofCostOfRawMaterial.Image = CType(resources.GetObject("btnCoAofCostOfRawMaterial.Image"), System.Drawing.Image)
+        Me.btnCoAofCostOfRawMaterial.Location = New System.Drawing.Point(627, 876)
+        Me.btnCoAofCostOfRawMaterial.Name = "btnCoAofCostOfRawMaterial"
+        Me.btnCoAofCostOfRawMaterial.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofCostOfRawMaterial.TabIndex = 98
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.BackColor = System.Drawing.Color.Transparent
+        Me.Label33.ForeColor = System.Drawing.Color.Black
+        Me.Label33.Location = New System.Drawing.Point(33, 881)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(92, 13)
+        Me.Label33.TabIndex = 258
+        Me.Label33.Text = "Biaya Bahan Baku"
+        '
         'txtCoACodeofTransport
         '
         Me.txtCoACodeofTransport.BackColor = System.Drawing.Color.Azure
@@ -359,7 +408,7 @@ Partial Class frmSysJournalPost
         Me.txtCoACodeofTransport.Name = "txtCoACodeofTransport"
         Me.txtCoACodeofTransport.ReadOnly = True
         Me.txtCoACodeofTransport.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofTransport.TabIndex = 249
+        Me.txtCoACodeofTransport.TabIndex = 93
         '
         'txtCoANameofTransport
         '
@@ -370,7 +419,7 @@ Partial Class frmSysJournalPost
         Me.txtCoANameofTransport.Name = "txtCoANameofTransport"
         Me.txtCoANameofTransport.ReadOnly = True
         Me.txtCoANameofTransport.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofTransport.TabIndex = 250
+        Me.txtCoANameofTransport.TabIndex = 94
         '
         'btnCoAofTransport
         '
@@ -378,7 +427,7 @@ Partial Class frmSysJournalPost
         Me.btnCoAofTransport.Location = New System.Drawing.Point(627, 849)
         Me.btnCoAofTransport.Name = "btnCoAofTransport"
         Me.btnCoAofTransport.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofTransport.TabIndex = 251
+        Me.btnCoAofTransport.TabIndex = 95
         '
         'Label32
         '
@@ -400,7 +449,7 @@ Partial Class frmSysJournalPost
         Me.txtCoACodeofCutting.Name = "txtCoACodeofCutting"
         Me.txtCoACodeofCutting.ReadOnly = True
         Me.txtCoACodeofCutting.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofCutting.TabIndex = 246
+        Me.txtCoACodeofCutting.TabIndex = 90
         '
         'txtCoANameofCutting
         '
@@ -411,7 +460,7 @@ Partial Class frmSysJournalPost
         Me.txtCoANameofCutting.Name = "txtCoANameofCutting"
         Me.txtCoANameofCutting.ReadOnly = True
         Me.txtCoANameofCutting.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofCutting.TabIndex = 247
+        Me.txtCoANameofCutting.TabIndex = 91
         '
         'btnCoAofCutting
         '
@@ -419,7 +468,7 @@ Partial Class frmSysJournalPost
         Me.btnCoAofCutting.Location = New System.Drawing.Point(627, 822)
         Me.btnCoAofCutting.Name = "btnCoAofCutting"
         Me.btnCoAofCutting.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofCutting.TabIndex = 248
+        Me.btnCoAofCutting.TabIndex = 92
         '
         'Label31
         '
@@ -441,7 +490,7 @@ Partial Class frmSysJournalPost
         Me.txtCoACodeofAccountPayableTransportOutstandingPayment.Name = "txtCoACodeofAccountPayableTransportOutstandingPayment"
         Me.txtCoACodeofAccountPayableTransportOutstandingPayment.ReadOnly = True
         Me.txtCoACodeofAccountPayableTransportOutstandingPayment.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.TabIndex = 243
+        Me.txtCoACodeofAccountPayableTransportOutstandingPayment.TabIndex = 87
         '
         'txtCoANameofAccountPayableTransportOutstandingPayment
         '
@@ -452,7 +501,7 @@ Partial Class frmSysJournalPost
         Me.txtCoANameofAccountPayableTransportOutstandingPayment.Name = "txtCoANameofAccountPayableTransportOutstandingPayment"
         Me.txtCoANameofAccountPayableTransportOutstandingPayment.ReadOnly = True
         Me.txtCoANameofAccountPayableTransportOutstandingPayment.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofAccountPayableTransportOutstandingPayment.TabIndex = 244
+        Me.txtCoANameofAccountPayableTransportOutstandingPayment.TabIndex = 88
         '
         'btnCoAofAccountPayableTransportOutstandingPayment
         '
@@ -460,7 +509,7 @@ Partial Class frmSysJournalPost
         Me.btnCoAofAccountPayableTransportOutstandingPayment.Location = New System.Drawing.Point(627, 795)
         Me.btnCoAofAccountPayableTransportOutstandingPayment.Name = "btnCoAofAccountPayableTransportOutstandingPayment"
         Me.btnCoAofAccountPayableTransportOutstandingPayment.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofAccountPayableTransportOutstandingPayment.TabIndex = 245
+        Me.btnCoAofAccountPayableTransportOutstandingPayment.TabIndex = 89
         '
         'Label30
         '
@@ -482,7 +531,7 @@ Partial Class frmSysJournalPost
         Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.Name = "txtCoACodeofAccountPayableCuttingOutstandingPayment"
         Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.ReadOnly = True
         Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.TabIndex = 239
+        Me.txtCoACodeofAccountPayableCuttingOutstandingPayment.TabIndex = 84
         '
         'txtCoANameofAccountPayableCuttingOutstandingPayment
         '
@@ -493,7 +542,7 @@ Partial Class frmSysJournalPost
         Me.txtCoANameofAccountPayableCuttingOutstandingPayment.Name = "txtCoANameofAccountPayableCuttingOutstandingPayment"
         Me.txtCoANameofAccountPayableCuttingOutstandingPayment.ReadOnly = True
         Me.txtCoANameofAccountPayableCuttingOutstandingPayment.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.TabIndex = 240
+        Me.txtCoANameofAccountPayableCuttingOutstandingPayment.TabIndex = 85
         '
         'btnCoAofAccountPayableCuttingOutstandingPayment
         '
@@ -501,7 +550,7 @@ Partial Class frmSysJournalPost
         Me.btnCoAofAccountPayableCuttingOutstandingPayment.Location = New System.Drawing.Point(627, 768)
         Me.btnCoAofAccountPayableCuttingOutstandingPayment.Name = "btnCoAofAccountPayableCuttingOutstandingPayment"
         Me.btnCoAofAccountPayableCuttingOutstandingPayment.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofAccountPayableCuttingOutstandingPayment.TabIndex = 241
+        Me.btnCoAofAccountPayableCuttingOutstandingPayment.TabIndex = 86
         '
         'Label29
         '
@@ -523,7 +572,7 @@ Partial Class frmSysJournalPost
         Me.txtCoACodeOfAccountPayableOutstandingPayment.Name = "txtCoACodeOfAccountPayableOutstandingPayment"
         Me.txtCoACodeOfAccountPayableOutstandingPayment.ReadOnly = True
         Me.txtCoACodeOfAccountPayableOutstandingPayment.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeOfAccountPayableOutstandingPayment.TabIndex = 235
+        Me.txtCoACodeOfAccountPayableOutstandingPayment.TabIndex = 81
         '
         'txtCoANameOfAccountPayableOutstandingPayment
         '
@@ -534,7 +583,7 @@ Partial Class frmSysJournalPost
         Me.txtCoANameOfAccountPayableOutstandingPayment.Name = "txtCoANameOfAccountPayableOutstandingPayment"
         Me.txtCoANameOfAccountPayableOutstandingPayment.ReadOnly = True
         Me.txtCoANameOfAccountPayableOutstandingPayment.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameOfAccountPayableOutstandingPayment.TabIndex = 236
+        Me.txtCoANameOfAccountPayableOutstandingPayment.TabIndex = 82
         '
         'btnCoAOfAccountPayableOutstandingPayment
         '
@@ -542,7 +591,7 @@ Partial Class frmSysJournalPost
         Me.btnCoAOfAccountPayableOutstandingPayment.Location = New System.Drawing.Point(627, 741)
         Me.btnCoAOfAccountPayableOutstandingPayment.Name = "btnCoAOfAccountPayableOutstandingPayment"
         Me.btnCoAOfAccountPayableOutstandingPayment.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAOfAccountPayableOutstandingPayment.TabIndex = 237
+        Me.btnCoAOfAccountPayableOutstandingPayment.TabIndex = 83
         '
         'Label28
         '
@@ -564,7 +613,7 @@ Partial Class frmSysJournalPost
         Me.txtCoACodeOfAccountReceivableOutstandingPayment.Name = "txtCoACodeOfAccountReceivableOutstandingPayment"
         Me.txtCoACodeOfAccountReceivableOutstandingPayment.ReadOnly = True
         Me.txtCoACodeOfAccountReceivableOutstandingPayment.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeOfAccountReceivableOutstandingPayment.TabIndex = 231
+        Me.txtCoACodeOfAccountReceivableOutstandingPayment.TabIndex = 78
         '
         'txtCoANameOfAccountReceivableOutstandingPayment
         '
@@ -575,7 +624,7 @@ Partial Class frmSysJournalPost
         Me.txtCoANameOfAccountReceivableOutstandingPayment.Name = "txtCoANameOfAccountReceivableOutstandingPayment"
         Me.txtCoANameOfAccountReceivableOutstandingPayment.ReadOnly = True
         Me.txtCoANameOfAccountReceivableOutstandingPayment.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameOfAccountReceivableOutstandingPayment.TabIndex = 232
+        Me.txtCoANameOfAccountReceivableOutstandingPayment.TabIndex = 79
         '
         'btnCoAOfAccountReceivableOutstandingPayment
         '
@@ -583,7 +632,7 @@ Partial Class frmSysJournalPost
         Me.btnCoAOfAccountReceivableOutstandingPayment.Location = New System.Drawing.Point(627, 714)
         Me.btnCoAOfAccountReceivableOutstandingPayment.Name = "btnCoAOfAccountReceivableOutstandingPayment"
         Me.btnCoAOfAccountReceivableOutstandingPayment.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAOfAccountReceivableOutstandingPayment.TabIndex = 233
+        Me.btnCoAOfAccountReceivableOutstandingPayment.TabIndex = 80
         '
         'Label27
         '
@@ -605,7 +654,7 @@ Partial Class frmSysJournalPost
         Me.txtCoACodeofAccountPayableCutting3.Name = "txtCoACodeofAccountPayableCutting3"
         Me.txtCoACodeofAccountPayableCutting3.ReadOnly = True
         Me.txtCoACodeofAccountPayableCutting3.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofAccountPayableCutting3.TabIndex = 227
+        Me.txtCoACodeofAccountPayableCutting3.TabIndex = 72
         '
         'txtCoANameofAccountPayableCutting3
         '
@@ -616,7 +665,7 @@ Partial Class frmSysJournalPost
         Me.txtCoANameofAccountPayableCutting3.Name = "txtCoANameofAccountPayableCutting3"
         Me.txtCoANameofAccountPayableCutting3.ReadOnly = True
         Me.txtCoANameofAccountPayableCutting3.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofAccountPayableCutting3.TabIndex = 228
+        Me.txtCoANameofAccountPayableCutting3.TabIndex = 73
         '
         'btnCoAofAccountPayableCutting3
         '
@@ -624,7 +673,7 @@ Partial Class frmSysJournalPost
         Me.btnCoAofAccountPayableCutting3.Location = New System.Drawing.Point(627, 660)
         Me.btnCoAofAccountPayableCutting3.Name = "btnCoAofAccountPayableCutting3"
         Me.btnCoAofAccountPayableCutting3.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofAccountPayableCutting3.TabIndex = 229
+        Me.btnCoAofAccountPayableCutting3.TabIndex = 74
         '
         'Label26
         '
@@ -646,7 +695,7 @@ Partial Class frmSysJournalPost
         Me.txtCoACodeofAccountPayableCutting2.Name = "txtCoACodeofAccountPayableCutting2"
         Me.txtCoACodeofAccountPayableCutting2.ReadOnly = True
         Me.txtCoACodeofAccountPayableCutting2.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofAccountPayableCutting2.TabIndex = 223
+        Me.txtCoACodeofAccountPayableCutting2.TabIndex = 69
         '
         'txtCoANameofAccountPayableCutting2
         '
@@ -657,7 +706,7 @@ Partial Class frmSysJournalPost
         Me.txtCoANameofAccountPayableCutting2.Name = "txtCoANameofAccountPayableCutting2"
         Me.txtCoANameofAccountPayableCutting2.ReadOnly = True
         Me.txtCoANameofAccountPayableCutting2.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofAccountPayableCutting2.TabIndex = 224
+        Me.txtCoANameofAccountPayableCutting2.TabIndex = 70
         '
         'btnCoAofAccountPayableCutting2
         '
@@ -665,7 +714,7 @@ Partial Class frmSysJournalPost
         Me.btnCoAofAccountPayableCutting2.Location = New System.Drawing.Point(627, 633)
         Me.btnCoAofAccountPayableCutting2.Name = "btnCoAofAccountPayableCutting2"
         Me.btnCoAofAccountPayableCutting2.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofAccountPayableCutting2.TabIndex = 225
+        Me.btnCoAofAccountPayableCutting2.TabIndex = 71
         '
         'Label25
         '
@@ -687,7 +736,7 @@ Partial Class frmSysJournalPost
         Me.txtCoACodeofStockCutting3.Name = "txtCoACodeofStockCutting3"
         Me.txtCoACodeofStockCutting3.ReadOnly = True
         Me.txtCoACodeofStockCutting3.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofStockCutting3.TabIndex = 219
+        Me.txtCoACodeofStockCutting3.TabIndex = 60
         '
         'txtCoANameofStockCutting3
         '
@@ -698,7 +747,7 @@ Partial Class frmSysJournalPost
         Me.txtCoANameofStockCutting3.Name = "txtCoANameofStockCutting3"
         Me.txtCoANameofStockCutting3.ReadOnly = True
         Me.txtCoANameofStockCutting3.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofStockCutting3.TabIndex = 220
+        Me.txtCoANameofStockCutting3.TabIndex = 61
         '
         'btnCoAofStockCutting3
         '
@@ -706,7 +755,7 @@ Partial Class frmSysJournalPost
         Me.btnCoAofStockCutting3.Location = New System.Drawing.Point(627, 552)
         Me.btnCoAofStockCutting3.Name = "btnCoAofStockCutting3"
         Me.btnCoAofStockCutting3.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofStockCutting3.TabIndex = 221
+        Me.btnCoAofStockCutting3.TabIndex = 62
         '
         'Label24
         '
@@ -728,7 +777,7 @@ Partial Class frmSysJournalPost
         Me.txtCoACodeofStockCutting2.Name = "txtCoACodeofStockCutting2"
         Me.txtCoACodeofStockCutting2.ReadOnly = True
         Me.txtCoACodeofStockCutting2.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofStockCutting2.TabIndex = 215
+        Me.txtCoACodeofStockCutting2.TabIndex = 57
         '
         'txtCoANameofStockCutting2
         '
@@ -739,7 +788,7 @@ Partial Class frmSysJournalPost
         Me.txtCoANameofStockCutting2.Name = "txtCoANameofStockCutting2"
         Me.txtCoANameofStockCutting2.ReadOnly = True
         Me.txtCoANameofStockCutting2.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofStockCutting2.TabIndex = 216
+        Me.txtCoANameofStockCutting2.TabIndex = 58
         '
         'btnCoAofStockCutting2
         '
@@ -747,7 +796,7 @@ Partial Class frmSysJournalPost
         Me.btnCoAofStockCutting2.Location = New System.Drawing.Point(627, 525)
         Me.btnCoAofStockCutting2.Name = "btnCoAofStockCutting2"
         Me.btnCoAofStockCutting2.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofStockCutting2.TabIndex = 217
+        Me.btnCoAofStockCutting2.TabIndex = 59
         '
         'Label23
         '
@@ -769,7 +818,7 @@ Partial Class frmSysJournalPost
         Me.txtCoACodeofAccountPayableTransport.Name = "txtCoACodeofAccountPayableTransport"
         Me.txtCoACodeofAccountPayableTransport.ReadOnly = True
         Me.txtCoACodeofAccountPayableTransport.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofAccountPayableTransport.TabIndex = 63
+        Me.txtCoACodeofAccountPayableTransport.TabIndex = 75
         '
         'txtCoANameofAccountPayableTransport
         '
@@ -780,7 +829,7 @@ Partial Class frmSysJournalPost
         Me.txtCoANameofAccountPayableTransport.Name = "txtCoANameofAccountPayableTransport"
         Me.txtCoANameofAccountPayableTransport.ReadOnly = True
         Me.txtCoANameofAccountPayableTransport.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofAccountPayableTransport.TabIndex = 64
+        Me.txtCoANameofAccountPayableTransport.TabIndex = 76
         '
         'btnCoAofAccountPayableTransport
         '
@@ -788,7 +837,7 @@ Partial Class frmSysJournalPost
         Me.btnCoAofAccountPayableTransport.Location = New System.Drawing.Point(627, 687)
         Me.btnCoAofAccountPayableTransport.Name = "btnCoAofAccountPayableTransport"
         Me.btnCoAofAccountPayableTransport.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofAccountPayableTransport.TabIndex = 65
+        Me.btnCoAofAccountPayableTransport.TabIndex = 77
         '
         'Label21
         '
@@ -810,7 +859,7 @@ Partial Class frmSysJournalPost
         Me.txtCoACodeofAccountPayableCutting.Name = "txtCoACodeofAccountPayableCutting"
         Me.txtCoACodeofAccountPayableCutting.ReadOnly = True
         Me.txtCoACodeofAccountPayableCutting.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofAccountPayableCutting.TabIndex = 60
+        Me.txtCoACodeofAccountPayableCutting.TabIndex = 66
         '
         'txtCoANameofAccountPayableCutting
         '
@@ -821,7 +870,7 @@ Partial Class frmSysJournalPost
         Me.txtCoANameofAccountPayableCutting.Name = "txtCoANameofAccountPayableCutting"
         Me.txtCoANameofAccountPayableCutting.ReadOnly = True
         Me.txtCoANameofAccountPayableCutting.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofAccountPayableCutting.TabIndex = 61
+        Me.txtCoANameofAccountPayableCutting.TabIndex = 67
         '
         'btnCoAofAccountPayableCutting
         '
@@ -829,7 +878,7 @@ Partial Class frmSysJournalPost
         Me.btnCoAofAccountPayableCutting.Location = New System.Drawing.Point(627, 606)
         Me.btnCoAofAccountPayableCutting.Name = "btnCoAofAccountPayableCutting"
         Me.btnCoAofAccountPayableCutting.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofAccountPayableCutting.TabIndex = 62
+        Me.btnCoAofAccountPayableCutting.TabIndex = 68
         '
         'Label22
         '
@@ -851,7 +900,7 @@ Partial Class frmSysJournalPost
         Me.txtCoACodeofStockTransport.Name = "txtCoACodeofStockTransport"
         Me.txtCoACodeofStockTransport.ReadOnly = True
         Me.txtCoACodeofStockTransport.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofStockTransport.TabIndex = 57
+        Me.txtCoACodeofStockTransport.TabIndex = 63
         '
         'txtCoANameofStockTransport
         '
@@ -862,7 +911,7 @@ Partial Class frmSysJournalPost
         Me.txtCoANameofStockTransport.Name = "txtCoANameofStockTransport"
         Me.txtCoANameofStockTransport.ReadOnly = True
         Me.txtCoANameofStockTransport.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofStockTransport.TabIndex = 58
+        Me.txtCoANameofStockTransport.TabIndex = 64
         '
         'btnCoAofStockTransport
         '
@@ -870,7 +919,7 @@ Partial Class frmSysJournalPost
         Me.btnCoAofStockTransport.Location = New System.Drawing.Point(627, 579)
         Me.btnCoAofStockTransport.Name = "btnCoAofStockTransport"
         Me.btnCoAofStockTransport.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofStockTransport.TabIndex = 59
+        Me.btnCoAofStockTransport.TabIndex = 65
         '
         'Label19
         '
@@ -1721,46 +1770,46 @@ Partial Class frmSysJournalPost
         Me.ToolStripLogDate.Size = New System.Drawing.Size(12, 17)
         Me.ToolStripLogDate.Text = "-"
         '
-        'txtCoACodeofCostOfRawMaterial
+        'txtCoACodeofSalesReturn
         '
-        Me.txtCoACodeofCostRawMaterial.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeofCostRawMaterial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeofCostRawMaterial.Location = New System.Drawing.Point(219, 877)
-        Me.txtCoACodeofCostRawMaterial.MaxLength = 250
-        Me.txtCoACodeofCostRawMaterial.Name = "txtCoACodeofCostOfRawMaterial"
-        Me.txtCoACodeofCostRawMaterial.ReadOnly = True
-        Me.txtCoACodeofCostRawMaterial.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofCostRawMaterial.TabIndex = 255
+        Me.txtCoACodeofSalesReturn.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofSalesReturn.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofSalesReturn.Location = New System.Drawing.Point(219, 904)
+        Me.txtCoACodeofSalesReturn.MaxLength = 250
+        Me.txtCoACodeofSalesReturn.Name = "txtCoACodeofSalesReturn"
+        Me.txtCoACodeofSalesReturn.ReadOnly = True
+        Me.txtCoACodeofSalesReturn.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofSalesReturn.TabIndex = 99
         '
-        'txtCoANameofCostOfRawMaterial
+        'txtCoANameofSalesReturn
         '
-        Me.txtCoANameofCostRawMaterial.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameofCostRawMaterial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameofCostRawMaterial.Location = New System.Drawing.Point(301, 877)
-        Me.txtCoANameofCostRawMaterial.MaxLength = 250
-        Me.txtCoANameofCostRawMaterial.Name = "txtCoANameofCostOfRawMaterial"
-        Me.txtCoANameofCostRawMaterial.ReadOnly = True
-        Me.txtCoANameofCostRawMaterial.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofCostRawMaterial.TabIndex = 256
+        Me.txtCoANameofSalesReturn.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofSalesReturn.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofSalesReturn.Location = New System.Drawing.Point(301, 904)
+        Me.txtCoANameofSalesReturn.MaxLength = 250
+        Me.txtCoANameofSalesReturn.Name = "txtCoANameofSalesReturn"
+        Me.txtCoANameofSalesReturn.ReadOnly = True
+        Me.txtCoANameofSalesReturn.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofSalesReturn.TabIndex = 100
         '
-        'btnCoAofCostOfRawMaterial
+        'btnCoAofSalesReturn
         '
-        Me.btnCoAofCostOfRawMaterial.Image = CType(resources.GetObject("btnCoAofCostOfRawMaterial.Image"), System.Drawing.Image)
-        Me.btnCoAofCostOfRawMaterial.Location = New System.Drawing.Point(627, 876)
-        Me.btnCoAofCostOfRawMaterial.Name = "btnCoAofCostOfRawMaterial"
-        Me.btnCoAofCostOfRawMaterial.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofCostOfRawMaterial.TabIndex = 257
+        Me.btnCoAofSalesReturn.Image = CType(resources.GetObject("btnCoAofSalesReturn.Image"), System.Drawing.Image)
+        Me.btnCoAofSalesReturn.Location = New System.Drawing.Point(627, 903)
+        Me.btnCoAofSalesReturn.Name = "btnCoAofSalesReturn"
+        Me.btnCoAofSalesReturn.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofSalesReturn.TabIndex = 101
         '
-        'Label33
+        'Label34
         '
-        Me.Label33.AutoSize = True
-        Me.Label33.BackColor = System.Drawing.Color.Transparent
-        Me.Label33.ForeColor = System.Drawing.Color.Black
-        Me.Label33.Location = New System.Drawing.Point(33, 881)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(92, 13)
-        Me.Label33.TabIndex = 258
-        Me.Label33.Text = "Biaya Bahan Baku"
+        Me.Label34.AutoSize = True
+        Me.Label34.BackColor = System.Drawing.Color.Transparent
+        Me.Label34.ForeColor = System.Drawing.Color.Black
+        Me.Label34.Location = New System.Drawing.Point(33, 908)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(84, 13)
+        Me.Label34.TabIndex = 262
+        Me.Label34.Text = "Retur Penjualan"
         '
         'frmSysJournalPost
         '
@@ -1928,4 +1977,8 @@ Partial Class frmSysJournalPost
     Friend WithEvents txtCoANameofCostRawMaterial As ERPS.usTextBox
     Friend WithEvents btnCoAofCostOfRawMaterial As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label33 As System.Windows.Forms.Label
+    Friend WithEvents txtCoACodeofSalesReturn As ERPS.usTextBox
+    Friend WithEvents txtCoANameofSalesReturn As ERPS.usTextBox
+    Friend WithEvents btnCoAofSalesReturn As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label34 As System.Windows.Forms.Label
 End Class

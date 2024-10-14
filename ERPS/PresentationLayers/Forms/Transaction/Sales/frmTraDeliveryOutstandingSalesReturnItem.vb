@@ -68,6 +68,7 @@ Public Class frmTraDeliveryOutstandingSalesReturnItem
         UI.usForm.SetGrid(grdView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "UnitPriceHPP", "Unit Price HPP", 100, UI.usDefGrid.gReal2Num)
     End Sub
 
     Private Sub prvSetButton()

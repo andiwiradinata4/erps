@@ -115,6 +115,8 @@ Partial Class frmTraSalesReturnDet
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.txtTotalCostRawMaterial = New ERPS.usNumeric()
+        Me.Label29 = New System.Windows.Forms.Label()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         Me.tpAmount.SuspendLayout()
@@ -145,6 +147,7 @@ Partial Class frmTraSalesReturnDet
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip.SuspendLayout()
+        CType(Me.txtTotalCostRawMaterial, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -496,13 +499,13 @@ Partial Class frmTraSalesReturnDet
         Me.lblStatusID.TabIndex = 128
         Me.lblStatusID.Text = "Status"
         '
-        'dtpDeliveryDate
+        'dtpSalesReturnDate
         '
         Me.dtpSalesReturnDate.CustomFormat = "dd/MM/yyyy"
         Me.dtpSalesReturnDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpSalesReturnDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpSalesReturnDate.Location = New System.Drawing.Point(159, 118)
-        Me.dtpSalesReturnDate.Name = "dtpDeliveryDate"
+        Me.dtpSalesReturnDate.Name = "dtpSalesReturnDate"
         Me.dtpSalesReturnDate.Size = New System.Drawing.Size(105, 21)
         Me.dtpSalesReturnDate.TabIndex = 9
         Me.dtpSalesReturnDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
@@ -567,6 +570,8 @@ Partial Class frmTraSalesReturnDet
         '
         'gboDelivery
         '
+        Me.gboDelivery.Controls.Add(Me.txtTotalCostRawMaterial)
+        Me.gboDelivery.Controls.Add(Me.Label29)
         Me.gboDelivery.Controls.Add(Me.Label15)
         Me.gboDelivery.Controls.Add(Me.txtGrandTotal)
         Me.gboDelivery.Controls.Add(Me.Label16)
@@ -577,7 +582,7 @@ Partial Class frmTraSalesReturnDet
         Me.gboDelivery.Controls.Add(Me.txtTotalPPN)
         Me.gboDelivery.Location = New System.Drawing.Point(170, 12)
         Me.gboDelivery.Name = "gboDelivery"
-        Me.gboDelivery.Size = New System.Drawing.Size(334, 138)
+        Me.gboDelivery.Size = New System.Drawing.Size(693, 138)
         Me.gboDelivery.TabIndex = 2
         Me.gboDelivery.TabStop = False
         Me.gboDelivery.Text = "Total Harga"
@@ -1216,6 +1221,31 @@ Partial Class frmTraSalesReturnDet
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
         '
+        'txtTotalCostRawMaterial
+        '
+        Me.txtTotalCostRawMaterial.BackColor = System.Drawing.Color.LightYellow
+        Me.txtTotalCostRawMaterial.DecimalPlaces = 2
+        Me.txtTotalCostRawMaterial.Enabled = False
+        Me.txtTotalCostRawMaterial.Location = New System.Drawing.Point(485, 23)
+        Me.txtTotalCostRawMaterial.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalCostRawMaterial.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalCostRawMaterial.Name = "txtTotalCostRawMaterial"
+        Me.txtTotalCostRawMaterial.Size = New System.Drawing.Size(186, 21)
+        Me.txtTotalCostRawMaterial.TabIndex = 4
+        Me.txtTotalCostRawMaterial.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalCostRawMaterial.ThousandsSeparator = True
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.BackColor = System.Drawing.Color.Transparent
+        Me.Label29.ForeColor = System.Drawing.Color.Black
+        Me.Label29.Location = New System.Drawing.Point(383, 27)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(90, 13)
+        Me.Label29.TabIndex = 127
+        Me.Label29.Text = "Total Bahan Baku"
+        '
         'frmTraSalesReturnDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1270,6 +1300,7 @@ Partial Class frmTraSalesReturnDet
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip.ResumeLayout(False)
         Me.StatusStrip.PerformLayout()
+        CType(Me.txtTotalCostRawMaterial, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1366,4 +1397,6 @@ Partial Class frmTraSalesReturnDet
     Friend WithEvents btnCoAOfStock As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents txtCoANameOfStock As ERPS.usTextBox
+    Friend WithEvents txtTotalCostRawMaterial As ERPS.usNumeric
+    Friend WithEvents Label29 As System.Windows.Forms.Label
 End Class

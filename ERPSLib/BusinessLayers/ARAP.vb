@@ -1048,11 +1048,12 @@
         End Function
 
         Public Shared Function ListPaymentHistoryVer02(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                       ByVal dtmTransDate As DateTime, ByVal strID As String) As DataTable
+                                                       ByVal strID As String) As DataTable
             BL.Server.ServerDefault()
             Dim dtReturn As New DataTable
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                dtReturn = DL.ARAP.ListPaymentHistoryVer02(sqlCon, Nothing, intProgramID, intCompanyID, dtmTransDate, strID)
+                dtReturn.Merge(DL.ARAP.ListPaymentDPVer02(sqlCon, Nothing, strID))
+                dtReturn.Merge(DL.ARAP.ListPaymentHistoryVer02(sqlCon, Nothing, intProgramID, intCompanyID, strID))
             End Using
             Return dtReturn
         End Function
