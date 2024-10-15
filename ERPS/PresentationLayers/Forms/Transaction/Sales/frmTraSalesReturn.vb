@@ -404,8 +404,8 @@ Public Class frmTraSalesReturn
 
         Dim frmDetail As New frmTraARAP
         With frmDetail
-            .pubModules = VO.AccountPayable.ReceivePaymentSalesReturn
-            .pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
+            .pubModules = VO.AccountReceivable.ReceivePaymentSalesReturn
+            .pubARAPType = VO.ARAP.ARAPTypeValue.Sales
             .pubBPID = clsData.BPID
             .pubBPCode = clsData.BPCode
             .pubBPName = clsData.BPName

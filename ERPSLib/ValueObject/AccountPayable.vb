@@ -74,6 +74,5 @@
         Public Const ReceivePaymentCutting As String = "CI"
         Public Const DownPaymentTransport As String = "TDP"
         Public Const ReceivePaymentTransport As String = "TI"
-        Public Const ReceivePaymentSalesReturn As String = "SR"
     End Class
 End Namespace
