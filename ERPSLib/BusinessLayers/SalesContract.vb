@@ -675,7 +675,7 @@
                         ElseIf DL.SalesContract.IsAlreadyPaymentSubitem(sqlCon, sqlTrans, clsData.ID) Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pembayaran")
                         ElseIf DL.SalesContract.IsAlreadyReceiveSubitem(sqlCon, sqlTrans, clsData.ID) Then
-                            Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses penerimaan")
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pengiriman")
                         Else
                             DL.SalesContract.DeleteDataDetailByID(sqlCon, sqlTrans, clsData.ID)
                         End If
@@ -703,13 +703,20 @@
             End Using
         End Function
 
+        Public Shared Function IsAlreadyReceiveSubitem(ByVal strID As String) As Boolean
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.SalesContract.IsAlreadyReceiveSubitem(sqlCon, Nothing, strID)
+            End Using
+        End Function
+
         Public Shared Sub DeleteSubItem(ByVal strID As String, ByVal strSCID As String, ByVal strPCDetailID As String)
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
                     If DL.SalesContract.IsAlreadyReceiveSubitem(sqlCon, sqlTrans, strID) Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses penerimaan")
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pengiriman")
                     ElseIf DL.SalesContract.IsAlreadyPaymentSubitem(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pembayaran")
                     End If

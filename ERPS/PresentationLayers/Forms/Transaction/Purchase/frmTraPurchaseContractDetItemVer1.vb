@@ -433,9 +433,20 @@ Public Class frmTraPurchaseContractDetItemVer1
         If intPos < 0 Then Exit Sub
         Dim strID As String = grdItemView.GetRowCellValue(intPos, "ID")
 
-        If Not UI.usForm.frmAskQuestion("Hapus data yang dipilih?") Then Exit Sub
-
         Try
+            If BL.PurchaseContract.IsAlreadyReceiveSubitem(strID) Then
+                Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah diproses penerimaan")
+                Exit Sub
+            ElseIf BL.PurchaseContract.IsAlreadyPaymentSubitem(strID) Then
+                Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah diproses pembayaran")
+                Exit Sub
+            ElseIf BL.PurchaseContract.IsAlreadySCSubitem(strID) Then
+                Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah diproses kontrak penjualan")
+                Exit Sub
+            End If
+
+            If Not UI.usForm.frmAskQuestion("Hapus data yang dipilih?") Then Exit Sub
+
             BL.PurchaseContract.DeleteSubItem(strID, strPCID)
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)

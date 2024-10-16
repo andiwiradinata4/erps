@@ -235,7 +235,7 @@ Namespace BL
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data masih DRAFT")
                     ElseIf clsData.StatusID = VO.Status.Values.Submit Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data telah SUBMIT")
-                    ElseIf DL.SalesReturn.IsDeleted(sqlCon, sqlTrans, strID) Then
+                    ElseIf clsData.IsDeleted Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
                     End If
 
@@ -245,6 +245,8 @@ Namespace BL
                     For Each dr As DataRow In dtDetail.Rows
                         If DL.SalesReturn.IsAlreadyPaymentDetail(sqlCon, sqlTrans, dr.Item("ID")) Then
                             Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah di proses pembayaran")
+                        ElseIf DL.SalesReturn.IsAlreadyPaymentTransportDetail(sqlCon, sqlTrans, dr.Item("ID")) Then
+                            Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah di proses pembayaran transport")
                         End If
                     Next
 

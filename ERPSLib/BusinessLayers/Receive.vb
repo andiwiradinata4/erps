@@ -252,6 +252,11 @@
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses pembayaran")
                     End If
 
+                    Dim dtItem As DataTable = DL.Receive.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
+                    For Each dr As DataRow In dtItem.Rows
+                        If dr.Item("OutWeight") > 0 Then Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses Pesanan Pemotongan")
+                    Next
+
                     '# Cancel Approve Journal
                     BL.Journal.Unapprove(clsData.JournalID.Trim, "")
 

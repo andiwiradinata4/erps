@@ -226,7 +226,7 @@
                         "   A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.TotalPayment, " & vbNewLine &
                         "   A.JournalID, A.JournalIDTransport, A.TotalCostRawMaterial, A.TransporterID, TP.Code AS TransporterCode, TP.Name AS TransporterName, " & vbNewLine &
                         "   A.UnitPriceTransport, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, A.IsUseSubItem, A.IsStock, " & vbNewLine &
-                        "   A.BPLocationID, BPLocationName=BPL.Address, A.CoAofStock, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock " & vbNewLine &
+                        "   A.BPLocationID, BPLocationName=BPL.Address, A.CoAofStock, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock, A.DPAmountTransport, A.TotalPaymentTransport " & vbNewLine &
                         "FROM traDelivery A " & vbNewLine &
                         "LEFT JOIN traSalesContract A1 ON " & vbNewLine &
                         "   A.SCID=A1.ID " & vbNewLine &
@@ -303,6 +303,8 @@
                         voReturn.CoAofStock = .Item("CoAofStock")
                         voReturn.CoACodeOfStock = .Item("CoACodeofStock")
                         voReturn.CoANameOfStock = .Item("CoANameOfStock")
+                        voReturn.DPAmountTransport = .Item("DPAmountTransport")
+                        voReturn.TotalPaymentTransport = .Item("TotalPaymentTransport")
                     End If
                 End With
             Catch ex As Exception

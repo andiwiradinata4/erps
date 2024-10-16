@@ -631,9 +631,17 @@ Public Class frmTraSalesContractDetItemVer2
         If intPos < 0 Then Exit Sub
         Dim strID As String = grdSubitemView.GetRowCellValue(intPos, "ID")
 
-        If Not UI.usForm.frmAskQuestion("Hapus data yang dipilih?") Then Exit Sub
-
         Try
+            If BL.SalesContract.IsAlreadyPaymentSubitem(strID) Then
+                Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pembayaran")
+                Exit Sub
+            ElseIf BL.SalesContract.IsAlreadyReceiveSubitem(strID) Then
+                Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pengiriman")
+                Exit Sub
+            End If
+
+            If Not UI.usForm.frmAskQuestion("Hapus data yang dipilih?") Then Exit Sub
+
             BL.SalesContract.DeleteSubItem(strID, drSelectedItem.Item("SCID"), grdSubitemView.GetRowCellValue(intPos, "PCDetailID"))
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)

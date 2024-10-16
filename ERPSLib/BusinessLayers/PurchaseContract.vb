@@ -331,13 +331,16 @@
                     Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses pembayaran")
                 End If
 
-                'Dim clsData As VO.PurchaseContract = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, strID)
+                Dim dtItem As DataTable = DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, strID, "")
+                '# Get Sub Item
+                For Each dr As DataRow In dtItem.Rows
+                    dtItem.Merge(DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, strID, dr.Item("ID")))
+                Next
 
-                ''# Cancel Approve Journal
-                'BL.Journal.Unapprove(clsData.JournalID.Trim, "")
-
-                ''# Cancel Submit Journal
-                'BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+                For Each dr As DataRow In dtItem.Rows
+                    If dr.Item("DCWeight") > 0 Then Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses Penerimaan Pembelian")
+                    If dr.Item("CuttingWeight") > 0 Then Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses Pemesanan Pemotongan")
+                Next
 
                 DL.PurchaseContract.Unapprove(sqlCon, sqlTrans, strID)
 
@@ -458,7 +461,7 @@
                             Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pembayaran")
                         ElseIf DL.PurchaseContract.IsAlreadyReceiveSubitem(sqlCon, sqlTrans, clsData.ID) Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses penerimaan")
-                        ElseIf DL.PurchaseContract.IsAlreadySCSubitem(sqlCon, sqlTrans, clsdata.ID) Then
+                        ElseIf DL.PurchaseContract.IsAlreadySCSubitem(sqlCon, sqlTrans, clsData.ID) Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses kontrak penjualan")
                         Else
                             DL.PurchaseContract.DeleteDataDetailByID(sqlCon, sqlTrans, clsData.ID)
@@ -480,10 +483,24 @@
             Return bolReturn
         End Function
 
+        Public Shared Function IsAlreadyReceiveSubitem(ByVal strID As String) As Boolean
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseContract.IsAlreadyReceiveSubitem(sqlCon, Nothing, strID)
+            End Using
+        End Function
+
         Public Shared Function IsAlreadyPaymentSubitem(ByVal strID As String) As Boolean
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.PurchaseContract.IsAlreadyPaymentSubitem(sqlCon, Nothing, strID)
+            End Using
+        End Function
+
+        Public Shared Function IsAlreadySCSubitem(ByVal strID As String) As Boolean
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseContract.IsAlreadySCSubitem(sqlCon, Nothing, strID)
             End Using
         End Function
 

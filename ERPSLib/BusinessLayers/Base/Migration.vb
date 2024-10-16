@@ -66,6 +66,7 @@
                 DevelopOnProgress_ID59(sqlCon, Nothing)
                 DevelopOnProgress_ID60(sqlCon, Nothing)
                 DevelopOnProgress_ID61(sqlCon, Nothing)
+                DevelopOnProgress_ID62(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1726,6 +1727,23 @@
                 "ALTER TABLE traSalesReturn ADD TotalCostRawMaterial [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesReturn_TotalCostRawMaterial DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traSalesReturnDet ADD UnitPriceHPP [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesReturnDet_UnitPriceHPP DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traSalesReturnDet ADD TotalPriceHPP [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesReturnDet_TotalPriceHPP DEFAULT ((0)) " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 62
+        Private Shared Sub DevelopOnProgress_ID62(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 62
+            clsData.Name = "Alter Table PO Cutting Detail | Add Claim InvoiceWeight"
+            clsData.Scripts =
+                "ALTER TABLE traPurchaseOrderCuttingDet ADD ClaimInvoiceQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ClaimInvoiceQuantity DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDet ADD ClaimInvoiceWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ClaimInvoiceWeight DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE traPurchaseOrderCuttingDet ADD ClaimInvoiceTotalWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ClaimInvoiceTotalWeight DEFAULT ((0)) " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

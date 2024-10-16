@@ -11,8 +11,9 @@ Public Class frmTraPurchaseOrderCutting
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
-       cSep2 As Byte = 8, cDownPayment As Byte = 9, cReceive As Byte = 10, cSep3 As Byte = 11, cPrint As Byte = 12,
-       cExportExcel As Byte = 13, cSep4 As Byte = 14, cRefresh As Byte = 15, cClose As Byte = 16
+       cSep2 As Byte = 8, cDownPayment As Byte = 9, cReceive As Byte = 10, cClaimCustomer As Byte = 11,
+       cSep3 As Byte = 12, cPrint As Byte = 13, cExportExcel As Byte = 14, cSep4 As Byte = 15, cRefresh As Byte = 16,
+       cClose As Byte = 16
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -77,6 +78,7 @@ Public Class frmTraPurchaseOrderCutting
             .Item(cCancelApprove).Enabled = bolEnable
             .Item(cDownPayment).Enabled = bolEnable
             .Item(cReceive).Enabled = bolEnable
+            .Item(cClaimCustomer).Enabled = bolEnable
             .Item(cPrint).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
         End With
@@ -184,6 +186,10 @@ Public Class frmTraPurchaseOrderCutting
         clsReturn.LogDate = grdView.GetRowCellValue(intPos, "LogDate")
         clsReturn.LogInc = grdView.GetRowCellValue(intPos, "LogInc")
         clsReturn.StatusInfo = grdView.GetRowCellValue(intPos, "StatusInfo")
+        clsReturn.IsClaimCustomer = grdView.GetRowCellValue(intPos, "IsClaimCustomer")
+        clsReturn.CustomerID = grdView.GetRowCellValue(intPos, "CustomerID")
+        clsReturn.CustomerCode = grdView.GetRowCellValue(intPos, "CustomerCode")
+        clsReturn.CustomerName = grdView.GetRowCellValue(intPos, "CustomerName")
         Return clsReturn
     End Function
 
@@ -425,6 +431,35 @@ Public Class frmTraPurchaseOrderCutting
         End With
     End Sub
 
+    Private Sub prvClaimCustomer()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+
+        If clsData.StatusID <> VO.Status.Values.Approved Then
+            UI.usForm.frmMessageBox("Status Data harus disetujui terlebih dahulu")
+            Exit Sub
+        ElseIf Not clsData.IsClaimCustomer Then
+            UI.usForm.frmMessageBox("Data tidak diset sebagai Klaim Pelanggan sehingga tidak dapat diproses Klaim Pelanggan")
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraARAP
+        With frmDetail
+            .pubModules = VO.AccountReceivable.ReceivePaymentClaimPOCutting
+            .pubARAPType = VO.ARAP.ARAPTypeValue.Sales
+            .pubBPID = clsData.CustomerID
+            .pubBPCode = clsData.CustomerCode
+            .pubBPName = clsData.CustomerName
+            .pubCS = prvGetCS()
+            .pubReferencesID = clsData.ID
+            .pubReferencesNumber = clsData.PONumber
+            .pubPPNPercentage = clsData.PPN
+            .pubPPHPercentage = clsData.PPH
+            .ShowDialog()
+        End With
+    End Sub
+
     Private Sub prvPrint()
         intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
@@ -601,6 +636,7 @@ Public Class frmTraPurchaseOrderCutting
                 Case ToolBar.Buttons(cCancelApprove).Name : prvCancelApprove()
                 Case ToolBar.Buttons(cDownPayment).Name : prvDownPayment()
                 Case ToolBar.Buttons(cReceive).Name : prvReceivePayment()
+                Case ToolBar.Buttons(cClaimCustomer).Name : prvClaimCustomer()
                 Case ToolBar.Buttons(cPrint).Name : prvPrint()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select

@@ -439,12 +439,20 @@
                         ElseIf clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentSalesReturn Then
                             clsReferences = DL.SalesReturn.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                             strReferencesNumber = clsReferences.SalesReturnNumber
+                        ElseIf clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then
+                            clsReferences = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesNumber = clsReferences.PONumber
                         Else
                             Err.Raise(515, "", "Data tidak dapat disimpan. Modules tidak terdaftar")
                         End If
 
-                        If clsReferences.StatusID <> VO.Status.Values.Approved And (clsDataARAP.Modules = VO.AccountReceivable.DownPayment Or clsDataARAP.Modules = VO.AccountReceivable.ReceivePayment) Then
-                            Err.Raise(515, "", "Data tidak dapat disimpan. Data Kontrak harus disetujui terlebih dahulu")
+                        If clsReferences.StatusID <> VO.Status.Values.Approved And
+                            (clsDataARAP.Modules = VO.AccountReceivable.DownPayment Or
+                             clsDataARAP.Modules = VO.AccountReceivable.ReceivePayment Or
+                             clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentSalesReturn Or
+                             clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentClaimPOCutting
+                            ) Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Data harus disetujui terlebih dahulu")
                         ElseIf clsReferences.StatusID <> VO.Status.Values.Submit And (clsDataARAP.Modules = VO.AccountReceivable.DownPaymentOrderRequest Or clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentOrderRequest) Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Data Permintaan harus disubmit terlebih dahulu")
                         End If

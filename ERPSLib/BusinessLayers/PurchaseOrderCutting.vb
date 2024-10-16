@@ -267,17 +267,23 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim intStatusID As Integer = DL.PurchaseOrderCutting.GetStatusID(sqlCon, sqlTrans, strID)
-                    If intStatusID = VO.Status.Values.Draft Then
+                    Dim clsData As VO.PurchaseOrderCutting = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, strID)
+                    If clsData.StatusID = VO.Status.Values.Draft Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data masih DRAFT")
-                    ElseIf intStatusID = VO.Status.Values.Submit Then
+                    ElseIf clsData.StatusID = VO.Status.Values.Submit Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data telah SUBMIT")
-                    ElseIf DL.PurchaseOrderCutting.IsDeleted(sqlCon, sqlTrans, strID) Then
+                    ElseIf clsData.IsDeleted Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
                     ElseIf DL.PurchaseOrderCutting.IsAlreadyDone(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses Pemotongan")
-                    ElseIf DL.PurchaseOrderCutting.IsAlreadyDownPayment(sqlCon, sqlTrans, strID) Then
+                    ElseIf clsData.DPAmount > 0 Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses Down Payment")
+                    ElseIf clsData.ReceiveAmount > 0 Then
+                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses Pembayaran")
+                    ElseIf clsData.ClaimDPAmount > 0 Then
+                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses Down Payment Klaim ke Pelanggan")
+                    ElseIf clsData.ClaimReceiveAmount > 0 Then
+                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses Penagihan Klaim ke Pelanggan")
                     End If
 
                     DL.PurchaseOrderCutting.Unapprove(sqlCon, sqlTrans, strID)

@@ -45,5 +45,7 @@
         Property IsClaimCustomer As Boolean
         Property PickupDate As DateTime
         Property RemarksResult As String
+        Property ClaimDPAmount As Decimal
+        Property ClaimReceiveAmount As Decimal
     End Class
 End Namespace

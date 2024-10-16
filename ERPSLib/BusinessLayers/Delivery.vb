@@ -310,22 +310,20 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim intStatusID As Integer = DL.Delivery.GetStatusID(sqlCon, sqlTrans, strID)
-                    If intStatusID = VO.Status.Values.Draft Then
+                    Dim clsData As VO.Delivery = DL.Delivery.GetDetail(sqlCon, sqlTrans, strID)
+                    If clsData.StatusID = VO.Status.Values.Draft Then
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah DRAFT")
-                    ElseIf DL.Delivery.IsDeleted(sqlCon, sqlTrans, strID) Then
+                    ElseIf clsData.IsDeleted Then
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
                     End If
 
-                    Dim clsExists As VO.Delivery = DL.Delivery.GetDetail(sqlCon, sqlTrans, strID)
-                    If clsExists.DPAmount > 0 Or clsExists.TotalPayment > 0 Then
+                    If clsdata.DPAmount > 0 Or clsdata.TotalPayment > 0 Then
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses pembayaran")
-                    ElseIf clsExists.DPAmountTransport > 0 Or clsExists.TotalPaymentTransport > 0 Then
+                    ElseIf clsdata.DPAmountTransport > 0 Or clsdata.TotalPaymentTransport > 0 Then
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data transport telah diproses pembayaran")
                     End If
 
                     '# Cancel Approve Journal Delivery
-                    Dim clsData As VO.Delivery = DL.Delivery.GetDetail(sqlCon, sqlTrans, strID)
                     BL.Journal.Unapprove(clsData.JournalID.Trim, "")
 
                     '# Cancel Submit Journal Delivery
