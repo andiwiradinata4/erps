@@ -1,4 +1,6 @@
-﻿Namespace BL
+﻿Imports ERPSLib.VO
+
+Namespace BL
     Public Class SalesContract
 
 #Region "Main"
@@ -133,6 +135,7 @@
                         '# Revert SC Quantity in Confirmation Order
                         For Each dr As DataRow In dtItemCO.Rows
                             DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
+                            DL.PurchaseContract.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
                         Next
                         For Each dr As DataRow In dtSubItemCO.Rows
                             DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
@@ -186,6 +189,7 @@
 
                         clsDet.SCID = clsData.ID
                         DL.SalesContract.SaveDataDetailCO(sqlCon, sqlTrans, clsDet)
+                        DL.PurchaseContract.CalculateSCTotalUsed(sqlCon, sqlTrans, clsDet.CODetailID)
                         intCount += 1
                     Next
 
@@ -265,6 +269,7 @@
                     dtItemCO.Merge(dtSubItemCO)
                     For Each dr As DataRow In dtItemCO.Rows
                         DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
+                        DL.PurchaseContract.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
                     Next
 
                     '# Save Data Status
@@ -773,7 +778,7 @@
                     End If
 
                     DL.SalesContract.SaveDataDetailCO(sqlCon, sqlTrans, clsData)
-                    DL.PurchaseContract.CalculateSCTotalUsed(sqlCon, sqlTrans, clsData.PCDetailID)
+                    DL.PurchaseContract.CalculateSCTotalUsedSubitem(sqlCon, sqlTrans, clsData.PCDetailID)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -789,7 +794,7 @@
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
                     DL.SalesContract.DeleteDataDetailCOByID(sqlCon, sqlTrans, strID)
-                    DL.PurchaseContract.CalculateSCTotalUsed(sqlCon, sqlTrans, strPCDetailID)
+                    DL.PurchaseContract.CalculateSCTotalUsedSubitem(sqlCon, sqlTrans, strPCDetailID)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()

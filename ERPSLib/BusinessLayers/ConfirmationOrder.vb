@@ -325,6 +325,8 @@
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
                     ElseIf DL.ConfirmationOrder.IsAlreadyPurchaseContract(sqlCon, sqlTrans, strID) And Not clsContract.IsAutoGenerate Then
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dilanjutkan proses Kontrak Pembelian")
+                    ElseIf DL.ConfirmationOrder.IsAlreadySalesContract(sqlCon, sqlTrans, strID) Then
+                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dilanjutkan proses Kontrak Penjualan")
                     ElseIf clsContract.DPAmount > 0 Then
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data Kontrak terkait sudah melakukan pembayaran DP")
                     End If

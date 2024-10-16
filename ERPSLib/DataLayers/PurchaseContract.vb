@@ -1631,7 +1631,51 @@
         End Sub
 
         Public Shared Sub CalculateSCTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                               ByVal strPCDetailID As String)
+                                               ByVal strCODetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"UPDATE traPurchaseContractDet SET 	  " & vbNewLine &
+"    SCWeight=	  " & vbNewLine &
+"    (	  " & vbNewLine &
+"       SELECT	  " & vbNewLine &
+"           ISNULL(SUM(SCCO.TotalWeight+SCCO.RoundingWeight),0) TotalWeight  " & vbNewLine &
+"       FROM traSalesContractDetConfirmationOrder SCCO " & vbNewLine &
+"       INNER JOIN traSalesContract SCH ON  " & vbNewLine &
+"       	SCCO.SCID=SCH.ID  " & vbNewLine &
+"       	AND SCH.IsDeleted=0  " & vbNewLine &
+"        WHERE 	  " & vbNewLine &
+"           SCCO.CODetailID=@CODetailID " & vbNewLine &
+"    ), 	  " & vbNewLine &
+"    SCQuantity=	  " & vbNewLine &
+"    (	  " & vbNewLine &
+"       SELECT	  " & vbNewLine &
+"           ISNULL(SUM(SCCO.Quantity),0) TotalQuantity   " & vbNewLine &
+"       FROM traSalesContractDetConfirmationOrder SCCO " & vbNewLine &
+"       INNER JOIN traSalesContract SCH ON  " & vbNewLine &
+"           SCCO.SCID=SCH.ID  " & vbNewLine &
+"           AND SCH.IsDeleted=0  " & vbNewLine &
+"       WHERE 	  " & vbNewLine &
+"           SCCO.CODetailID=@CODetailID " & vbNewLine &
+"    ) 	  " & vbNewLine &
+"WHERE " & vbNewLine &
+"   CODetailID=@CODetailID  " & vbNewLine &
+"   AND ParentID='' " & vbNewLine
+
+                .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateSCTotalUsedSubitem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                      ByVal strPCDetailID As String)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -1648,7 +1692,7 @@
                     "			SCD.SCID=SCH.ID 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			SCD.PCDetailID=@PCDetailID 	" & vbNewLine &
-                    "			AND SCH.IsDeleted=0 	" & vbNewLine &
+                    "			And SCH.IsDeleted=0 	" & vbNewLine &
                     "	), 	" & vbNewLine &
                     "	SCQuantity=	" & vbNewLine &
                     "	(	" & vbNewLine &
@@ -1659,7 +1703,7 @@
                     "			SCD.SCID=SCH.ID 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			SCD.PCDetailID=@PCDetailID 	" & vbNewLine &
-                    "			AND SCH.IsDeleted=0 	" & vbNewLine &
+                    "			And SCH.IsDeleted=0 	" & vbNewLine &
                     "	) 	" & vbNewLine &
                     "WHERE ID=@PCDetailID	" & vbNewLine
 

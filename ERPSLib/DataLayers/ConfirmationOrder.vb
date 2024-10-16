@@ -414,6 +414,42 @@
             Return bolReturn
         End Function
 
+        Public Shared Function IsAlreadySalesContract(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strID As String) As Boolean
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim bolReturn As Boolean = False
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   SCCO.ID " & vbNewLine &
+                        "FROM traSalesContractDetConfirmationOrder SCCO" & vbNewLine &
+                        "INNER JOIN traConfirmationOrderDet COD ON " & vbNewLine &
+                        "   SCCO.CODetailID=COD.ID " & vbNewLine &
+                        "INNER JOIN traConfirmationOrder COH ON " & vbNewLine &
+                        "   COD.COID=COH.ID " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   COH.ID=@ID " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        bolReturn = True
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return bolReturn
+        End Function
+
         Public Shared Sub Submit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                  ByVal strID As String)
             Dim sqlCmdExecute As New SqlCommand
