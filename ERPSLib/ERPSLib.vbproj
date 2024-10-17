@@ -96,12 +96,6 @@
     <Compile Include="BusinessLayers\BusinessPartner.vb" />
     <Compile Include="BusinessLayers\BusinessPartnerAPBalance.vb" />
     <Compile Include="BusinessLayers\BusinessPartnerARBalance.vb" />
-    <Compile Include="BusinessLayers\Claim.vb" />
-    <Compile Include="BusinessLayers\ClaimDet.vb" />
-    <Compile Include="BusinessLayers\ClaimStatus.vb" />
-    <Compile Include="BusinessLayers\ConfirmationClaim.vb" />
-    <Compile Include="BusinessLayers\ConfirmationClaimDet.vb" />
-    <Compile Include="BusinessLayers\ConfirmationClaimStatus.vb" />
     <Compile Include="BusinessLayers\ConfirmationOrder.vb" />
     <Compile Include="BusinessLayers\Cost.vb" />
     <Compile Include="BusinessLayers\Cutting.vb" />
@@ -158,11 +152,6 @@
     <Compile Include="DataLayers\BusinessPartnerAPBalance.vb" />
     <Compile Include="DataLayers\BusinessPartnerARBalance.vb" />
     <Compile Include="DataLayers\Claim.vb" />
-    <Compile Include="DataLayers\ClaimDet.vb" />
-    <Compile Include="DataLayers\ClaimStatus.vb" />
-    <Compile Include="DataLayers\ConfirmationClaim.vb" />
-    <Compile Include="DataLayers\ConfirmationClaimDet.vb" />
-    <Compile Include="DataLayers\ConfirmationClaimStatus.vb" />
     <Compile Include="DataLayers\ConfirmationOrder.vb" />
     <Compile Include="DataLayers\Cost.vb" />
     <Compile Include="DataLayers\Cutting.vb" />

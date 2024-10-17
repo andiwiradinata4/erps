@@ -31,6 +31,13 @@ Namespace VO
         Property DPAmountPPH As Decimal
         Property TotalPaymentPPN As Decimal
         Property TotalPaymentPPH As Decimal
+
+        Enum ClaimTypeValue
+            All = 0
+            Sales = 1
+            Receive = 2
+        End Enum
+
     End Class
 End Namespace
 
