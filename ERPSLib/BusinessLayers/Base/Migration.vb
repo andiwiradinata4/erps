@@ -67,6 +67,7 @@
                 DevelopOnProgress_ID60(sqlCon, Nothing)
                 DevelopOnProgress_ID61(sqlCon, Nothing)
                 DevelopOnProgress_ID62(sqlCon, Nothing)
+                DevelopOnProgress_ID63(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1744,6 +1745,202 @@
                 "ALTER TABLE traPurchaseOrderCuttingDet ADD ClaimInvoiceQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ClaimInvoiceQuantity DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traPurchaseOrderCuttingDet ADD ClaimInvoiceWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ClaimInvoiceWeight DEFAULT ((0)) " & vbNewLine &
                 "ALTER TABLE traPurchaseOrderCuttingDet ADD ClaimInvoiceTotalWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_ClaimInvoiceTotalWeight DEFAULT ((0)) " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 63
+        Private Shared Sub DevelopOnProgress_ID63(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 63
+            clsData.Name = "Create Table Claim and Confirmation Claim"
+            clsData.Scripts =
+" " & vbNewLine & _
+"CREATE TABLE [dbo].[traClaim]( " & vbNewLine & _
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traClaim_ID]  DEFAULT (''), " & vbNewLine & _
+"	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traClaim_ProgramID]  DEFAULT ((0)), " & vbNewLine & _
+"	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traClaim_CompanyID]  DEFAULT ((0)), " & vbNewLine & _
+"	[ClaimType] [int] NOT NULL CONSTRAINT [DF_traClaim_ClaimType]  DEFAULT ((0)), " & vbNewLine & _
+"	[ClaimNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traClaim_ClaimNumber]  DEFAULT (''), " & vbNewLine & _
+"	[ClaimDate] [datetime] NOT NULL CONSTRAINT [DF_traClaim_ClaimDate]  DEFAULT (getdate()), " & vbNewLine & _
+"	[BPID] [int] NOT NULL CONSTRAINT [DF_traClaim_BPID]  DEFAULT ((0)), " & vbNewLine & _
+"	[ReferencesID] [varchar](100) NOT NULL CONSTRAINT [DF_traClaim_ReferencesID]  DEFAULT (''), " & vbNewLine & _
+"	[PlatNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traClaim_PlatNumber]  DEFAULT (''), " & vbNewLine & _
+"	[Driver] [varchar](100) NOT NULL CONSTRAINT [DF_traClaim_Driver]  DEFAULT (''), " & vbNewLine & _
+"	[ReferencesNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traClaim_ReferencesNumber]  DEFAULT (''), " & vbNewLine & _
+"	[PPN] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traClaim_PPN]  DEFAULT ((0)), " & vbNewLine & _
+"	[PPH] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traClaim_PPH]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaim_TotalQuantity]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaim_TotalWeight]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaim_TotalDPP]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaim_TotalPPN]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaim_TotalPPH]  DEFAULT ((0)), " & vbNewLine & _
+"	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaim_RoundingManual]  DEFAULT ((0)), " & vbNewLine & _
+"	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traClaim_IsDeleted]  DEFAULT ((0)), " & vbNewLine & _
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traClaim_Remarks]  DEFAULT (''), " & vbNewLine & _
+"	[StatusID] [int] NOT NULL CONSTRAINT [DF_traClaim_StatusID]  DEFAULT ((0)), " & vbNewLine & _
+"	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traClaim_SubmitBy]  DEFAULT (''), " & vbNewLine & _
+"	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traClaim_SubmitDate]  DEFAULT (getdate()), " & vbNewLine & _
+"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traClaim_CreatedBy]  DEFAULT ('SYSTEM'), " & vbNewLine & _
+"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traClaim_CreatedDate]  DEFAULT (getdate()), " & vbNewLine & _
+"	[LogInc] [int] NOT NULL CONSTRAINT [DF_traClaim_LogInc]  DEFAULT ((0)), " & vbNewLine & _
+"	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traClaim_LogBy]  DEFAULT ('SYSTEM'), " & vbNewLine & _
+"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traClaim_LogDate]  DEFAULT (getdate()), " & vbNewLine & _
+"	[DPAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traClaim_DPAmount]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalPayment] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traClaim_TotalPayment]  DEFAULT ((0)), " & vbNewLine & _
+"	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traClaim_JournalID]  DEFAULT (''), " & vbNewLine & _
+"	[IsUseSubItem] [bit] NOT NULL CONSTRAINT [DF_traClaim_IsUseSubItem]  DEFAULT ((0)), " & vbNewLine & _
+"	[DPAmountPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaim_DPAmountPPN]  DEFAULT ((0)), " & vbNewLine & _
+"	[DPAmountPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaim_DPAmountPPH]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalPaymentPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaim_TotalPaymentPPN]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalPaymentPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaim_TotalPaymentPPH]  DEFAULT ((0)), " & vbNewLine & _
+"	CONSTRAINT [PK_traClaim] PRIMARY KEY CLUSTERED  " & vbNewLine & _
+"	( " & vbNewLine & _
+"       [ID] ASC " & vbNewLine & _
+"	) " & vbNewLine & _
+") " & vbNewLine & _
+" " & vbNewLine & _
+"CREATE TABLE [dbo].[traClaimDet]( " & vbNewLine & _
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traClaimDet_ID]  DEFAULT (''), " & vbNewLine & _
+"	[ClaimID] [varchar](100) NOT NULL CONSTRAINT [DF_traClaimDet_ClaimID]  DEFAULT (''), " & vbNewLine & _
+"	[ReferencesDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traClaimDet_ReferencesDetailID]  DEFAULT (''), " & vbNewLine & _
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traClaimDet_ItemID]  DEFAULT ((0)), " & vbNewLine & _
+"	[Quantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_Quantity]  DEFAULT ((0)), " & vbNewLine & _
+"	[Weight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_Weight]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_TotalWeight]  DEFAULT ((0)), " & vbNewLine & _
+"	[UnitPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_UnitPrice]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_TotalPrice]  DEFAULT ((0)), " & vbNewLine & _
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traClaimDet_Remarks]  DEFAULT (''), " & vbNewLine & _
+"	[UnitPriceProduct] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_UnitPriceProduct]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalPriceProduct] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_TotalPriceProduct]  DEFAULT ((0)), " & vbNewLine & _
+"	[DPAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_DPAmount]  DEFAULT ((0)), " & vbNewLine & _
+"	[ReceiveAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_ReceiveAmount]  DEFAULT ((0)), " & vbNewLine & _
+"	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traClaimDet_OrderNumberSupplier]  DEFAULT (''), " & vbNewLine & _
+"	[LevelItem] [int] NOT NULL CONSTRAINT [DF_traClaimDet_LevelItem]  DEFAULT ((0)), " & vbNewLine & _
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traClaimDet_ParentID]  DEFAULT (''), " & vbNewLine & _
+"	[RoundingWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_RoundingWeight]  DEFAULT ((0)), " & vbNewLine & _
+"	[DPAmountPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_DPAmountPPN]  DEFAULT ((0)), " & vbNewLine & _
+"	[DPAmountPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_DPAmountPPH]  DEFAULT ((0)), " & vbNewLine & _
+"	[ReceiveAmountPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_ReceiveAmountPPN]  DEFAULT ((0)), " & vbNewLine & _
+"	[ReceiveAmountPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_ReceiveAmountPPH]  DEFAULT ((0)), " & vbNewLine & _
+"	[InvoiceQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_InvoiceQuantity]  DEFAULT ((0)), " & vbNewLine & _
+"	[InvoiceWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_InvoiceWeight]  DEFAULT ((0)), " & vbNewLine & _
+"	[InvoiceTotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_InvoiceTotalWeight]  DEFAULT ((0)), " & vbNewLine & _
+"	[AllocateDPAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_AllocateDPAmount]  DEFAULT ((0)), " & vbNewLine & _
+"	[ConfirmationQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_ConfirmationQuantity]  DEFAULT ((0)), " & vbNewLine & _
+"	[ConfirmationWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traClaimDet_ConfirmationWeight]  DEFAULT ((0)), " & vbNewLine & _
+"	CONSTRAINT [PK_traClaimDet] PRIMARY KEY CLUSTERED  " & vbNewLine & _
+"	( " & vbNewLine & _
+"       [ID] ASC " & vbNewLine & _
+"	) " & vbNewLine & _
+") " & vbNewLine & _
+" " & vbNewLine & _
+"CREATE TABLE [dbo].[traClaimStatus]( " & vbNewLine & _
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traClaimStatus_ID]  DEFAULT (''), " & vbNewLine & _
+"	[ClaimID] [varchar](100) NOT NULL CONSTRAINT [DF_traClaimStatus_ClaimID]  DEFAULT (''), " & vbNewLine & _
+"	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traClaimStatus_Status]  DEFAULT ((0)), " & vbNewLine & _
+"	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traClaimStatus_StatusBy]  DEFAULT ('SYSTEM'), " & vbNewLine & _
+"	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traClaimStatus_StatusDate]  DEFAULT (GETDATE()), " & vbNewLine & _
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traClaimStatus_Remarks]  DEFAULT (''), " & vbNewLine & _
+"	CONSTRAINT [PK_traClaimStatus] PRIMARY KEY CLUSTERED  " & vbNewLine & _
+"	( " & vbNewLine & _
+"       [ID] ASC " & vbNewLine & _
+"	) " & vbNewLine & _
+") " & vbNewLine & _
+" " & vbNewLine & _
+"CREATE TABLE [dbo].[traConfirmationClaim]( " & vbNewLine & _
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationClaim_ID]  DEFAULT (''), " & vbNewLine & _
+"	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traConfirmationClaim_ProgramID]  DEFAULT ((0)), " & vbNewLine & _
+"	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traConfirmationClaim_CompanyID]  DEFAULT ((0)), " & vbNewLine & _
+"	[ClaimType] [int] NOT NULL CONSTRAINT [DF_traConfirmationClaim_ClaimType]  DEFAULT ((0)), " & vbNewLine & _
+"	[ConfirmationClaimNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationClaim_ConfirmationClaimNumber]  DEFAULT (''), " & vbNewLine & _
+"	[ConfirmationClaimDate] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationClaim_ConfirmationClaimDate]  DEFAULT (getdate()), " & vbNewLine & _
+"	[BPID] [int] NOT NULL CONSTRAINT [DF_traConfirmationClaim_BPID]  DEFAULT ((0)), " & vbNewLine & _
+"	[ClaimID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationClaim_ClaimID]  DEFAULT (''), " & vbNewLine & _
+"	[ReferencesNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationClaim_ReferencesNumber]  DEFAULT (''), " & vbNewLine & _
+"	[PPN] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traConfirmationClaim_PPN]  DEFAULT ((0)), " & vbNewLine & _
+"	[PPH] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traConfirmationClaim_PPH]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaim_TotalQuantity]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaim_TotalWeight]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaim_TotalDPP]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaim_TotalPPN]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaim_TotalPPH]  DEFAULT ((0)), " & vbNewLine & _
+"	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaim_RoundingManual]  DEFAULT ((0)), " & vbNewLine & _
+"	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traConfirmationClaim_IsDeleted]  DEFAULT ((0)), " & vbNewLine & _
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traConfirmationClaim_Remarks]  DEFAULT (''), " & vbNewLine & _
+"	[StatusID] [int] NOT NULL CONSTRAINT [DF_traConfirmationClaim_StatusID]  DEFAULT ((0)), " & vbNewLine & _
+"	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traConfirmationClaim_SubmitBy]  DEFAULT (''), " & vbNewLine & _
+"	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationClaim_SubmitDate]  DEFAULT (getdate()), " & vbNewLine & _
+"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traConfirmationClaim_CreatedBy]  DEFAULT ('SYSTEM'), " & vbNewLine & _
+"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationClaim_CreatedDate]  DEFAULT (getdate()), " & vbNewLine & _
+"	[LogInc] [int] NOT NULL CONSTRAINT [DF_traConfirmationClaim_LogInc]  DEFAULT ((0)), " & vbNewLine & _
+"	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traConfirmationClaim_LogBy]  DEFAULT ('SYSTEM'), " & vbNewLine & _
+"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationClaim_LogDate]  DEFAULT (getdate()), " & vbNewLine & _
+"	[DPAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traConfirmationClaim_DPAmount]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalPayment] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traConfirmationClaim_TotalPayment]  DEFAULT ((0)), " & vbNewLine & _
+"	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationClaim_JournalID]  DEFAULT (''), " & vbNewLine & _
+"	[IsUseSubItem] [bit] NOT NULL CONSTRAINT [DF_traConfirmationClaim_IsUseSubItem]  DEFAULT ((0)), " & vbNewLine & _
+"	[DPAmountPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaim_DPAmountPPN]  DEFAULT ((0)), " & vbNewLine & _
+"	[DPAmountPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaim_DPAmountPPH]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalPaymentPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaim_TotalPaymentPPN]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalPaymentPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaim_TotalPaymentPPH]  DEFAULT ((0)), " & vbNewLine & _
+"	CONSTRAINT [PK_traConfirmationClaim] PRIMARY KEY CLUSTERED  " & vbNewLine & _
+"	( " & vbNewLine & _
+"       [ID] ASC " & vbNewLine & _
+"	) " & vbNewLine & _
+") " & vbNewLine & _
+" " & vbNewLine & _
+"CREATE TABLE [dbo].[traConfirmationClaimDet]( " & vbNewLine & _
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_ID]  DEFAULT (''), " & vbNewLine & _
+"	[ConfirmationClaimID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_ConfirmationClaimID]  DEFAULT (''), " & vbNewLine & _
+"	[ClaimDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_ClaimDetailID]  DEFAULT (''), " & vbNewLine & _
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_ItemID]  DEFAULT ((0)), " & vbNewLine & _
+"	[Quantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_Quantity]  DEFAULT ((0)), " & vbNewLine & _
+"	[Weight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_Weight]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_TotalWeight]  DEFAULT ((0)), " & vbNewLine & _
+"	[UnitPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_UnitPrice]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_TotalPrice]  DEFAULT ((0)), " & vbNewLine & _
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_Remarks]  DEFAULT (''), " & vbNewLine & _
+"	[UnitPriceProduct] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_UnitPriceProduct]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalPriceProduct] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_TotalPriceProduct]  DEFAULT ((0)), " & vbNewLine & _
+"	[DPAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_DPAmount]  DEFAULT ((0)), " & vbNewLine & _
+"	[ReceiveAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_ReceiveAmount]  DEFAULT ((0)), " & vbNewLine & _
+"	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_OrderNumberSupplier]  DEFAULT (''), " & vbNewLine & _
+"	[LevelItem] [int] NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_LevelItem]  DEFAULT ((0)), " & vbNewLine & _
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_ParentID]  DEFAULT (''), " & vbNewLine & _
+"	[RoundingWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_RoundingWeight]  DEFAULT ((0)), " & vbNewLine & _
+"	[DPAmountPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_DPAmountPPN]  DEFAULT ((0)), " & vbNewLine & _
+"	[DPAmountPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_DPAmountPPH]  DEFAULT ((0)), " & vbNewLine & _
+"	[ReceiveAmountPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_ReceiveAmountPPN]  DEFAULT ((0)), " & vbNewLine & _
+"	[ReceiveAmountPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_ReceiveAmountPPH]  DEFAULT ((0)), " & vbNewLine & _
+"	[InvoiceQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_InvoiceQuantity]  DEFAULT ((0)), " & vbNewLine & _
+"	[InvoiceWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_InvoiceWeight]  DEFAULT ((0)), " & vbNewLine & _
+"	[InvoiceTotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_InvoiceTotalWeight]  DEFAULT ((0)), " & vbNewLine & _
+"	[AllocateDPAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_AllocateDPAmount]  DEFAULT ((0)), " & vbNewLine & _
+"	[ConfirmationQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_ConfirmationQuantity]  DEFAULT ((0)), " & vbNewLine & _
+"	[ConfirmationWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traConfirmationClaimDet_ConfirmationWeight]  DEFAULT ((0)), " & vbNewLine & _
+"	CONSTRAINT [PK_traConfirmationClaimDet] PRIMARY KEY CLUSTERED  " & vbNewLine & _
+"	( " & vbNewLine & _
+"       [ID] ASC " & vbNewLine & _
+"	) " & vbNewLine & _
+") " & vbNewLine & _
+" " & vbNewLine & _
+"CREATE TABLE [dbo].[traConfirmationClaimStatus]( " & vbNewLine & _
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationClaimStatus_ID]  DEFAULT (''), " & vbNewLine & _
+"	[ConfirmationClaimID] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationClaimStatus_ConfirmationClaimID]  DEFAULT (''), " & vbNewLine & _
+"	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traConfirmationClaimStatus_Status]  DEFAULT ((0)), " & vbNewLine & _
+"	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traConfirmationClaimStatus_StatusBy]  DEFAULT ('SYSTEM'), " & vbNewLine & _
+"	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traConfirmationClaimStatus_StatusDate]  DEFAULT (GETDATE()), " & vbNewLine & _
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traConfirmationClaimStatus_Remarks]  DEFAULT (''), " & vbNewLine & _
+"	CONSTRAINT [PK_traConfirmationClaimStatus] PRIMARY KEY CLUSTERED  " & vbNewLine & _
+"	( " & vbNewLine & _
+"       [ID] ASC " & vbNewLine & _
+"	) " & vbNewLine & _
+") " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

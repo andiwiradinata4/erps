@@ -57,6 +57,8 @@ Partial Class frmSysMain
         Me.mnuTransaksiPenjualanPermintaanPenjualan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPenjualanKontrakPenjualan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPenjualanPengirimanPenjualan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPenjualanSep1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.mnuTransaksiPenjualanReturPenjualan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPenjualanStock = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPenjualanStockPermintaanPenjualan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPenjualanStockPengirimanPenjualan = New System.Windows.Forms.ToolStripMenuItem()
@@ -115,8 +117,8 @@ Partial Class frmSysMain
         Me.mnuWindowsCascade = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuWindowsCloseAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLogout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuTransaksiPenjualanSep1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.mnuTransaksiPenjualanReturPenjualan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PengajuanKlaimToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.KonfirmasiKlaimToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ssMain.SuspendLayout()
         Me.mnuMain.SuspendLayout()
         Me.SuspendLayout()
@@ -351,9 +353,9 @@ Partial Class frmSysMain
         '
         'mnuTransaksiPenjualan
         '
-        Me.mnuTransaksiPenjualan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPenjualanPermintaanPenjualan, Me.mnuTransaksiPenjualanKontrakPenjualan, Me.mnuTransaksiPenjualanPengirimanPenjualan, Me.mnuTransaksiPenjualanSep1, Me.mnuTransaksiPenjualanReturPenjualan})
+        Me.mnuTransaksiPenjualan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPenjualanPermintaanPenjualan, Me.mnuTransaksiPenjualanKontrakPenjualan, Me.mnuTransaksiPenjualanPengirimanPenjualan, Me.mnuTransaksiPenjualanSep1, Me.mnuTransaksiPenjualanReturPenjualan, Me.PengajuanKlaimToolStripMenuItem, Me.KonfirmasiKlaimToolStripMenuItem})
         Me.mnuTransaksiPenjualan.Name = "mnuTransaksiPenjualan"
-        Me.mnuTransaksiPenjualan.Size = New System.Drawing.Size(180, 22)
+        Me.mnuTransaksiPenjualan.Size = New System.Drawing.Size(166, 22)
         Me.mnuTransaksiPenjualan.Text = "Penjualan"
         '
         'mnuTransaksiPenjualanPermintaanPenjualan
@@ -374,11 +376,22 @@ Partial Class frmSysMain
         Me.mnuTransaksiPenjualanPengirimanPenjualan.Size = New System.Drawing.Size(190, 22)
         Me.mnuTransaksiPenjualanPengirimanPenjualan.Text = "Pengiriman Penjualan"
         '
+        'mnuTransaksiPenjualanSep1
+        '
+        Me.mnuTransaksiPenjualanSep1.Name = "mnuTransaksiPenjualanSep1"
+        Me.mnuTransaksiPenjualanSep1.Size = New System.Drawing.Size(187, 6)
+        '
+        'mnuTransaksiPenjualanReturPenjualan
+        '
+        Me.mnuTransaksiPenjualanReturPenjualan.Name = "mnuTransaksiPenjualanReturPenjualan"
+        Me.mnuTransaksiPenjualanReturPenjualan.Size = New System.Drawing.Size(190, 22)
+        Me.mnuTransaksiPenjualanReturPenjualan.Text = "Retur Penjualan"
+        '
         'mnuTransaksiPenjualanStock
         '
         Me.mnuTransaksiPenjualanStock.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPenjualanStockPermintaanPenjualan, Me.mnuTransaksiPenjualanStockPengirimanPenjualan})
         Me.mnuTransaksiPenjualanStock.Name = "mnuTransaksiPenjualanStock"
-        Me.mnuTransaksiPenjualanStock.Size = New System.Drawing.Size(180, 22)
+        Me.mnuTransaksiPenjualanStock.Size = New System.Drawing.Size(166, 22)
         Me.mnuTransaksiPenjualanStock.Text = "Penjualan [Stock]"
         '
         'mnuTransaksiPenjualanStockPermintaanPenjualan
@@ -397,7 +410,7 @@ Partial Class frmSysMain
         '
         Me.mnuTransaksiPembelian.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPembelianPesananPembelian, Me.mnuTransaksiPembelianKonfirmasiPesanan, Me.mnuTransaksiPembelianKontrakPembelian, Me.mnuTransaksiPembelianPenerimaanPembelian, Me.mnuTransaksiPembelianSep1, Me.mnuTransaksiPembelianPesananPemotongan, Me.mnuTransaksiPembelianProsesPemotongan, Me.mnuTransaksiPembelianSep2, Me.mnuTransaksiPembelianPesananPengiriman})
         Me.mnuTransaksiPembelian.Name = "mnuTransaksiPembelian"
-        Me.mnuTransaksiPembelian.Size = New System.Drawing.Size(180, 22)
+        Me.mnuTransaksiPembelian.Size = New System.Drawing.Size(166, 22)
         Me.mnuTransaksiPembelian.Text = "Pembelian"
         '
         'mnuTransaksiPembelianPesananPembelian
@@ -456,7 +469,7 @@ Partial Class frmSysMain
         '
         Me.mnuTransaksiPembukuan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransaksiPembukuanPelunasanSaldoAwal, Me.mnuTransaksiPembukuanPembayaranSaldoAwal, Me.mnuTransaksiPembukuanSep1, Me.mnuTransaksiPembukuanPanjarPenjualanManual, Me.mnuTransaksiPembukuanPanjarPembelianManual, Me.mnuTransaksiPembukuanSep2, Me.mnuTransaksiPembukuanPanjarPenjualan, Me.mnuTransaksiPembukuanPanjarPembelian, Me.mnuTransaksiPembukuanSep3, Me.mnuTransaksiPembukuanPelunasanPiutangPenjualan, Me.mnuTransaksiPembukuanPembayaranHutangPembelian, Me.mnuTransaksiPembukuanSep4, Me.mnuTransaksiPembukuanPanjarPesananPemotongan, Me.mnuTransaksiPembukuanPembayaranHutangPesananPemotongan, Me.mnuTransaksiPembukuanSep5, Me.mnuTransaksiPembukuanPanjarPesananPengiriman, Me.mnuTransaksiPembukuanPembayaranHutangPesananPengiriman, Me.mnuTransaksiPembukuanSep6, Me.mnuTransaksiPembukuanPembayaran, Me.mnuTransaksiPembukuanPelunasan, Me.mnuTransaksiPembukuanSep7, Me.mnuTransaksiPembukuanPembayaranBiaya, Me.mnuTransaksiPembukuanJurnalUmum, Me.mnuTransaksiPembukuanJurnalUmumAutoGenerate})
         Me.mnuTransaksiPembukuan.Name = "mnuTransaksiPembukuan"
-        Me.mnuTransaksiPembukuan.Size = New System.Drawing.Size(180, 22)
+        Me.mnuTransaksiPembukuan.Size = New System.Drawing.Size(166, 22)
         Me.mnuTransaksiPembukuan.Text = "Pembukuan"
         '
         'mnuTransaksiPembukuanPelunasanSaldoAwal
@@ -721,16 +734,17 @@ Partial Class frmSysMain
         Me.mnuLogout.Size = New System.Drawing.Size(57, 20)
         Me.mnuLogout.Text = "L&ogout"
         '
-        'mnuTransaksiPenjualanSep1
+        'PengajuanKlaimToolStripMenuItem
         '
-        Me.mnuTransaksiPenjualanSep1.Name = "mnuTransaksiPenjualanSep1"
-        Me.mnuTransaksiPenjualanSep1.Size = New System.Drawing.Size(187, 6)
+        Me.PengajuanKlaimToolStripMenuItem.Name = "PengajuanKlaimToolStripMenuItem"
+        Me.PengajuanKlaimToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
+        Me.PengajuanKlaimToolStripMenuItem.Text = "Pengajuan Klaim"
         '
-        'mnuTransaksiPenjualanReturPenjualan
+        'KonfirmasiKlaimToolStripMenuItem
         '
-        Me.mnuTransaksiPenjualanReturPenjualan.Name = "mnuTransaksiPenjualanReturPenjualan"
-        Me.mnuTransaksiPenjualanReturPenjualan.Size = New System.Drawing.Size(190, 22)
-        Me.mnuTransaksiPenjualanReturPenjualan.Text = "Retur Penjualan"
+        Me.KonfirmasiKlaimToolStripMenuItem.Name = "KonfirmasiKlaimToolStripMenuItem"
+        Me.KonfirmasiKlaimToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
+        Me.KonfirmasiKlaimToolStripMenuItem.Text = "Konfirmasi Klaim"
         '
         'frmSysMain
         '
@@ -849,4 +863,6 @@ Partial Class frmSysMain
     Friend WithEvents mnuLaporanPembelianSPKPotong As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuTransaksiPenjualanSep1 As ToolStripSeparator
     Friend WithEvents mnuTransaksiPenjualanReturPenjualan As ToolStripMenuItem
+    Friend WithEvents PengajuanKlaimToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents KonfirmasiKlaimToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class
