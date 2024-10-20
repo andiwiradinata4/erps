@@ -12,6 +12,14 @@
             End Using
         End Function
 
+        Public Shared Function ListDataOutstandingClaim(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                        ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.Receive.ListDataOutstandingClaim(sqlCon, Nothing, intCompanyID, intProgramID, intBPID)
+            End Using
+        End Function
+
         Public Shared Function GetNewID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer, ByVal intProgramID As Integer) As String
             Dim clsCompany As VO.Company = DL.Company.GetDetail(sqlCon, sqlTrans, intCompanyID)
@@ -250,6 +258,8 @@
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
                     ElseIf clsData.DPAmount > 0 Or clsData.TotalPayment > 0 Then
                         Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses pembayaran")
+                    ElseIf DL.Receive.IsAlreadyClaim(sqlCon, sqlTrans, strID) Then
+                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses Klaim")
                     End If
 
                     Dim dtItem As DataTable = DL.Receive.ListDataDetail(sqlCon, sqlTrans, clsData.ID)

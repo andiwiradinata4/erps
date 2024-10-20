@@ -52,6 +52,14 @@ Namespace BL
             End Using
         End Function
 
+        Public Shared Function ListDataOutstandingClaim(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                        ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.SalesContract.ListDataOutstandingClaim(sqlCon, Nothing, intCompanyID, intProgramID, intBPID)
+            End Using
+        End Function
+
         Public Shared Function GetNewID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer, ByVal intProgramID As Integer) As String
             Dim clsCompany As VO.Company = DL.Company.GetDetail(sqlCon, sqlTrans, intCompanyID)
@@ -393,6 +401,8 @@ Namespace BL
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses pembayaran")
                     ElseIf DL.SalesContract.IsAlreadyDelivery(sqlCon, sqlTrans, strID) Then
                         Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses pengiriman")
+                    ElseIf DL.SalesContract.IsAlreadyClaim(sqlCon, sqlTrans, strID) Then
+                        Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses Klaim")
                     End If
 
                     DL.SalesContract.Unapprove(sqlCon, sqlTrans, strID)

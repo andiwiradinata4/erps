@@ -29,6 +29,10 @@ Partial Class frmTraDeliveryDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.txtCoACodeOfStock = New ERPS.usTextBox()
+        Me.btnCoAOfStock = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.txtCoANameOfStock = New ERPS.usTextBox()
         Me.txtBPLocationAddress = New ERPS.usTextBox()
         Me.btnBPLocation = New DevExpress.XtraEditors.SimpleButton()
         Me.Label21 = New System.Windows.Forms.Label()
@@ -114,10 +118,6 @@ Partial Class frmTraDeliveryDet
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.txtCoACodeOfStock = New ERPS.usTextBox()
-        Me.btnCoAOfStock = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label29 = New System.Windows.Forms.Label()
-        Me.txtCoANameOfStock = New ERPS.usTextBox()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         Me.tpAmount.SuspendLayout()
@@ -243,6 +243,47 @@ Partial Class frmTraDeliveryDet
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'txtCoACodeOfStock
+        '
+        Me.txtCoACodeOfStock.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeOfStock.Location = New System.Drawing.Point(159, 145)
+        Me.txtCoACodeOfStock.MaxLength = 250
+        Me.txtCoACodeOfStock.Name = "txtCoACodeOfStock"
+        Me.txtCoACodeOfStock.ReadOnly = True
+        Me.txtCoACodeOfStock.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeOfStock.TabIndex = 10
+        '
+        'btnCoAOfStock
+        '
+        Me.btnCoAOfStock.Image = CType(resources.GetObject("btnCoAOfStock.Image"), System.Drawing.Image)
+        Me.btnCoAOfStock.Location = New System.Drawing.Point(414, 144)
+        Me.btnCoAOfStock.Name = "btnCoAOfStock"
+        Me.btnCoAOfStock.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAOfStock.TabIndex = 12
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.BackColor = System.Drawing.Color.Transparent
+        Me.Label29.ForeColor = System.Drawing.Color.Black
+        Me.Label29.Location = New System.Drawing.Point(28, 149)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(87, 13)
+        Me.Label29.TabIndex = 206
+        Me.Label29.Text = "Akun Persediaan"
+        '
+        'txtCoANameOfStock
+        '
+        Me.txtCoANameOfStock.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameOfStock.Location = New System.Drawing.Point(241, 145)
+        Me.txtCoANameOfStock.MaxLength = 250
+        Me.txtCoANameOfStock.Name = "txtCoANameOfStock"
+        Me.txtCoANameOfStock.ReadOnly = True
+        Me.txtCoANameOfStock.Size = New System.Drawing.Size(167, 21)
+        Me.txtCoANameOfStock.TabIndex = 11
         '
         'txtBPLocationAddress
         '
@@ -1211,47 +1252,6 @@ Partial Class frmTraDeliveryDet
         Me.BarDeleteItemOrder.Name = "BarDeleteItemOrder"
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
-        '
-        'txtCoACodeOfStock
-        '
-        Me.txtCoACodeOfStock.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeOfStock.Location = New System.Drawing.Point(159, 145)
-        Me.txtCoACodeOfStock.MaxLength = 250
-        Me.txtCoACodeOfStock.Name = "txtCoACodeOfStock"
-        Me.txtCoACodeOfStock.ReadOnly = True
-        Me.txtCoACodeOfStock.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeOfStock.TabIndex = 10
-        '
-        'btnCoAOfStock
-        '
-        Me.btnCoAOfStock.Image = CType(resources.GetObject("btnCoAOfStock.Image"), System.Drawing.Image)
-        Me.btnCoAOfStock.Location = New System.Drawing.Point(414, 144)
-        Me.btnCoAOfStock.Name = "btnCoAOfStock"
-        Me.btnCoAOfStock.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAOfStock.TabIndex = 12
-        '
-        'Label29
-        '
-        Me.Label29.AutoSize = True
-        Me.Label29.BackColor = System.Drawing.Color.Transparent
-        Me.Label29.ForeColor = System.Drawing.Color.Black
-        Me.Label29.Location = New System.Drawing.Point(28, 149)
-        Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(87, 13)
-        Me.Label29.TabIndex = 206
-        Me.Label29.Text = "Akun Persediaan"
-        '
-        'txtCoANameOfStock
-        '
-        Me.txtCoANameOfStock.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameOfStock.Location = New System.Drawing.Point(241, 145)
-        Me.txtCoANameOfStock.MaxLength = 250
-        Me.txtCoANameOfStock.Name = "txtCoANameOfStock"
-        Me.txtCoANameOfStock.ReadOnly = True
-        Me.txtCoANameOfStock.Size = New System.Drawing.Size(167, 21)
-        Me.txtCoANameOfStock.TabIndex = 11
         '
         'frmTraDeliveryDet
         '

@@ -29,5 +29,14 @@ Namespace VO
         Property DPAmountPPH As Decimal
         Property TotalPaymentPPN As Decimal
         Property TotalPaymentPPH As Decimal
+        Property Detail As New List(Of VO.ConfirmationClaimDet)
+        Property Save As VO.Save.Action
+
+        Enum ClaimTypeValue
+            All = 0
+            Sales = 1
+            Receive = 2
+        End Enum
+
     End Class
 End Namespace

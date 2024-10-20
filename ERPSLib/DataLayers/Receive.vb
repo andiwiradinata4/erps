@@ -85,6 +85,42 @@
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataOutstandingClaim(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                        ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                        ByVal intBPID As Integer) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT DISTINCT " & vbNewLine &
+                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.ReceiveNumber AS ReferencesNumber, " & vbNewLine &
+                    "   A.ReceiveDate AS ReferencesDate, A.BPID, MBP.Code AS BPCode, MBP.Name AS BPName, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, " & vbNewLine &
+                    "   A.TotalDPP+A.TotalPPN-A.TotalPPH AS GrandTotal, A.Remarks, A.PPN, A.PPH " & vbNewLine &
+                    "FROM traReceive A " & vbNewLine &
+                    "INNER JOIN mstCompany MC ON " & vbNewLine &
+                    "   A.CompanyID=MC.ID " & vbNewLine &
+                    "INNER JOIN mstProgram MP ON " & vbNewLine &
+                    "   A.ProgramID=MP.ID " & vbNewLine &
+                    "INNER JOIN mstBusinessPartner MBP ON " & vbNewLine &
+                    "   A.BPID=MBP.ID " & vbNewLine &
+                    "INNER JOIN traReceiveDet A1 ON " & vbNewLine &
+                    "   A.ID=A1.ReceiveID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   A.BPID=@BPID " & vbNewLine &
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.SubmitBy<>'' " & vbNewLine &
+                    "   AND A1.TotalWeight-A1.ClaimWeight>0 " & vbNewLine
+
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                    ByVal bolNew As Boolean, ByVal clsData As VO.Receive)
             Dim sqlcmdExecute As New SqlCommand
@@ -965,6 +1001,41 @@
             End Try
         End Sub
 
+        Public Shared Function IsAlreadyClaim(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strID As String) As Boolean
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim bolReturn As Boolean = False
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   RVD.ID " & vbNewLine &
+                        "FROM traReceiveDet RVD " & vbNewLine &
+                        "INNER JOIN traReceive RVH ON " & vbNewLine &
+                        "   RVD.ReceiveID=RVH.ID " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   RVH.ID=@ID " & vbNewLine &
+                        "   AND RVD.ClaimQuantity>0 OR RVD.ClaimWeight>0 " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        bolReturn = True
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return bolReturn
+        End Function
+
 #End Region
 
 #Region "Detail"
@@ -1165,6 +1236,48 @@
                     "WHERE ID=@ReceiveDetailID	" & vbNewLine
 
                 .Parameters.Add("@ReceiveDetailID", SqlDbType.VarChar, 100).Value = strReceiveDetailID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateClaimTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                  ByVal strReferencesDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traReceiveDet SET 	" & vbNewLine &
+                    "	ClaimWeight=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(CD.TotalWeight+CD.RoundingWeight),0) TotalWeight " & vbNewLine &
+                    "		FROM traClaimDet CD 	" & vbNewLine &
+                    "		INNER JOIN traClaimDet CH ON	" & vbNewLine &
+                    "			CD.ClaimID=CH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			CD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND CH.IsDeleted=0 	" & vbNewLine &
+                    "	), 	" & vbNewLine &
+                    "	ClaimQuantity=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(CD.Quantity),0) TotalQuantity " & vbNewLine &
+                    "		FROM traClaimDet CD 	" & vbNewLine &
+                    "		INNER JOIN traClaimDet CH ON	" & vbNewLine &
+                    "			CD.ClaimID=CH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			CD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND CH.IsDeleted=0 	" & vbNewLine &
+                    "	) 	" & vbNewLine &
+                    "WHERE ID=@ReferencesDetailID	" & vbNewLine
+
+                .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strReferencesDetailID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

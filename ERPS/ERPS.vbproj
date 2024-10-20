@@ -663,6 +663,36 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournalDetItem.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaim.Designer.vb">
+      <DependentUpon>frmTraClaim.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaim.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaimDet.Designer.vb">
+      <DependentUpon>frmTraClaimDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaimDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaimDetItem.Designer.vb">
+      <DependentUpon>frmTraClaimDetItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaimDetItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaimOutstandingReferences.Designer.vb">
+      <DependentUpon>frmTraClaimOutstandingReferences.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaimOutstandingReferences.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaimOutstandingReferencesItem.Designer.vb">
+      <DependentUpon>frmTraClaimOutstandingReferencesItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaimOutstandingReferencesItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Item\frmTraItemResult.Designer.vb">
       <DependentUpon>frmTraItemResult.vb</DependentUpon>
     </Compile>
@@ -1611,6 +1641,18 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraJournalDetItem.resx">
       <DependentUpon>frmTraJournalDetItem.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaim.resx">
+      <DependentUpon>frmTraClaim.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaimDet.resx">
+      <DependentUpon>frmTraClaimDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaimDetItem.resx">
+      <DependentUpon>frmTraClaimDetItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaimOutstandingReferences.resx">
+      <DependentUpon>frmTraClaimOutstandingReferences.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Item\frmTraItemResult.resx">
       <DependentUpon>frmTraItemResult.vb</DependentUpon>
     </EmbeddedResource>
@@ -2010,6 +2052,7 @@
   <ItemGroup>
     <EmbeddedResource Include="PresentationLayers\Icons\MyLogo.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

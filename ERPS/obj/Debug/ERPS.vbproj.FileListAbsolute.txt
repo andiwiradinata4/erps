@@ -467,7 +467,6 @@ C:\Project\Toni\erps\ERPS\bin\Debug\aa\ERPS.resources.dll
 C:\Project\Toni\erps\ERPS\bin\Debug\ERPSLib.dll
 C:\Project\Toni\erps\ERPS\bin\Debug\ERPSLib.pdb
 C:\Project\Toni\erps\ERPS\bin\Debug\ERPSLib.xml
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.vbproj.AssemblyReference.cache
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.Resources.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmMstAccess.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmMstAccessDet.resources
@@ -642,9 +641,7 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmViewProgramCompany.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmMstBusinessPartnerSetupBalanceAPDet.aa.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.vbproj.GenerateResource.cache
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.exe.licenses
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.vbproj.CoreCompileInputs.cache
 C:\Project\Toni\erps\ERPS\obj\Debug\aa\ERPS.resources.dll
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.vbproj.Up2Date
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.exe
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.xml
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.pdb
@@ -904,3 +901,8 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryOutstandingSalesReturnIte
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesReturn.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesReturnDet.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesReturnDetItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.vbprojResolveAssemblyReference.cache
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraClaim.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraClaimDet.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraClaimDetItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraClaimOutstandingReferences.resources

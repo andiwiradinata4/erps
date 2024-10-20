@@ -3,6 +3,7 @@ Namespace VO
         Property ID As String
         Property ConfirmationClaimID As String
         Property StatusBy As String
+        Property Status As String
         Property StatusDate As DateTime
         Property Remarks As String
     End Class

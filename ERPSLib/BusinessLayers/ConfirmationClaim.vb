@@ -1,64 +1,224 @@
 Namespace BL
- 
+
     Public Class ConfirmationClaim
- 
-        Public Shared Function ListData() As DataTable
-            BL.Server.ServerDefault() 
+
+#Region "Main"
+
+        Public Shared Function ListData(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                        ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+                                        ByVal intStatusID As Integer, ByVal intClaimType As VO.ConfirmationClaim.ClaimTypeValue) As DataTable
+            BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.ConfirmationClaim.ListData(sqlCon, Nothing) 
+                Return DL.ConfirmationClaim.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID, intClaimType)
             End Using
         End Function
 
-        Public Shared Function SaveData(ByVal bolNew as Boolean, ByVal clsData As VO.ConfirmationClaim) As String
-            BL.Server.ServerDefault() 
+        Public Shared Function GetNewID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                        ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer,
+                                        ByVal intProgramID As Integer, ByVal intClaimType As Integer) As String
+            Dim clsCompany As VO.Company = DL.Company.GetDetail(sqlCon, sqlTrans, intCompanyID)
+            Dim strNewID As String = "CCP" & Format(dtmTransDate, "yyyyMMdd") & "-" & clsCompany.CompanyInitial & "-" & Format(intProgramID, "00") & "-" & Format(intClaimType, "00") & "-"
+            strNewID &= Format(DL.ConfirmationClaim.GetMaxID(sqlCon, sqlTrans, strNewID) + 1, "0000")
+            Return strNewID
+        End Function
+
+        Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsData As VO.ConfirmationClaim) As String
+            BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
 
-                If bolNew Then 
-                    clsData.ID = DL.ConfirmationClaim.GetMaxID(sqlCon, sqlTrans)
+                    If bolNew Then
+                        clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.ConfirmationClaimDate, clsData.CompanyID, clsData.ProgramID, clsData.ClaimType)
+                        If clsData.ConfirmationClaimNumber.Trim = "" Then clsData.ConfirmationClaimNumber = clsData.ID
+                    Else
+                        Dim dtDetail As DataTable = DL.ConfirmationClaim.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
+                        DL.ConfirmationClaim.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
 
-                End If 
+                        '# Calculate Total Used
+                        For Each dr As DataRow In dtDetail.Rows
+                            DL.Claim.CalculateClaimTotalUsed(sqlCon, sqlTrans, dr.Item("ClaimDetailID"))
+                        Next
+                    End If
 
-                DL.ConfirmationClaim.SaveData(sqlCon, sqlTrans, bolNew, clsData) 
+                    Dim intStatusID As Integer = DL.ConfirmationClaim.GetStatusID(sqlCon, sqlTrans, clsData.ID)
+                    If intStatusID = VO.Status.Values.Submit Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di submit")
+                    ElseIf DL.ConfirmationClaim.IsDeleted(sqlCon, sqlTrans, clsData.ID) Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
+                    ElseIf DL.ConfirmationClaim.DataExists(sqlCon, sqlTrans, clsData.ConfirmationClaimNumber, clsData.ID) Then
+                        Err.Raise(515, "", "Tidak dapat disimpan. Nomor " & clsData.ConfirmationClaimNumber & " sudah ada.")
+                    End If
 
-                sqlTrans.Commit()
-            Catch ex As Exception
-                sqlTrans.Rollback()
-                Throw ex 
-            End Try
+                    DL.ConfirmationClaim.SaveData(sqlCon, sqlTrans, bolNew, clsData)
+
+                    Dim intCount As Integer = 1
+                    For Each clsDet As VO.ConfirmationClaimDet In clsData.Detail
+                        clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
+                        clsDet.ConfirmationClaimID = clsData.ID
+                        DL.ConfirmationClaim.SaveDataDetail(sqlCon, sqlTrans, clsDet)
+                        intCount += 1
+
+                        '# Calculate Total Used ConfirmationClaim
+                        DL.Claim.CalculateClaimTotalUsed(sqlCon, sqlTrans, clsDet.ClaimDetailID)
+                    Next
+
+                    '# Save Data Status
+                    BL.ConfirmationClaim.SaveDataStatus(sqlCon, sqlTrans, clsData.ID, IIf(bolNew, "BARU", "EDIT"), ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
+
+                    If clsData.Save = VO.Save.Action.SaveAndSubmit Then Submit(sqlCon, sqlTrans, clsData.ID, clsData.Remarks)
+
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
             End Using
             Return clsData.ID
         End Function
 
         Public Shared Function GetDetail(ByVal strID As String) As VO.ConfirmationClaim
-            BL.Server.ServerDefault() 
+            BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.ConfirmationClaim.GetDetail(sqlCon, Nothing, strID)
             End Using
-        End Function 
+        End Function
 
-        Public Shared Sub DeleteData(ByVal strID As String)
-            BL.Server.ServerDefault() 
+        Public Shared Sub DeleteData(ByVal strID As String, ByVal strRemarks As String)
+            BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
+                    Dim clsData As VO.ConfirmationClaim = DL.ConfirmationClaim.GetDetail(sqlCon, sqlTrans, strID)
+                    If clsData.StatusID = VO.Status.Values.Submit Then
+                        Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah di submit")
+                    ElseIf clsData.IsDeleted Then
+                        Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
+                    End If
 
-                'If DL.ConfirmationClaim.XXX(sqlCon, sqlTransstrID) Then 
-                '    Err.Raise(515,"","Cannot Delete. Data already used at XXX") 
-                'End If 
+                    Dim dtDetail As DataTable = DL.Delivery.ListDataDetail(sqlCon, sqlTrans, strID)
 
-                DL.ConfirmationClaim.DeleteData(sqlCon, sqlTrans, strID) 
+                    DL.ConfirmationClaim.DeleteData(sqlCon, sqlTrans, strID)
 
-                sqlTrans.Commit()
-            Catch ex As Exception
-                sqlTrans.Rollback()
-                Throw ex 
-            End Try
+                    '# Calculate Total Used
+                    For Each dr As DataRow In dtDetail.Rows
+                        DL.Claim.CalculateClaimTotalUsed(sqlCon, sqlTrans, dr.Item("ClaimDetailID"))
+                    Next
+
+                    '# Save Data Status
+                    BL.ConfirmationClaim.SaveDataStatus(sqlCon, sqlTrans, strID, "HAPUS", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
             End Using
         End Sub
 
-    End Class 
+        Public Shared Function Submit(ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Submit(sqlCon, sqlTrans, strID, strRemarks)
+                    sqlTrans.Commit()
+                    bolReturn = True
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Sub Submit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                 ByVal strID As String, ByVal strRemarks As String)
+            Dim clsData As VO.ConfirmationClaim = DL.ConfirmationClaim.GetDetail(sqlCon, sqlTrans, strID)
+            If clsData.StatusID = VO.Status.Values.Submit Then
+                Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan status data telah SUBMIT")
+            ElseIf clsData.IsDeleted Then
+                Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan data telah dihapus")
+            End If
+
+            DL.ConfirmationClaim.Submit(sqlCon, sqlTrans, strID)
+
+            '# Save Data Status
+            BL.ConfirmationClaim.SaveDataStatus(sqlCon, sqlTrans, strID, "SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
+        End Sub
+
+        Public Shared Function Unsubmit(ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Dim clsData As VO.ConfirmationClaim = DL.ConfirmationClaim.GetDetail(sqlCon, sqlTrans, strID)
+                    If clsData.StatusID = VO.Status.Values.Draft Then
+                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah DRAFT")
+                    ElseIf clsData.IsDeleted Then
+                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
+                    End If
+
+                    If clsData.DPAmount > 0 Or clsData.TotalPayment > 0 Then
+                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses pembayaran")
+                    End If
+
+                    DL.ConfirmationClaim.Unsubmit(sqlCon, sqlTrans, strID)
+
+                    '# Save Data Status
+                    BL.ConfirmationClaim.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+#End Region
+
+#Region "Detail"
+
+        Public Shared Function ListDataDetail(ByVal strConfirmationClaimID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ConfirmationClaim.ListDataDetail(sqlCon, Nothing, strConfirmationClaimID)
+            End Using
+        End Function
+
+#End Region
+
+#Region "Status"
+
+        Public Shared Function ListDataStatus(ByVal strConfirmationClaimID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ConfirmationClaim.ListDataStatus(sqlCon, Nothing, strConfirmationClaimID)
+            End Using
+        End Function
+
+        Public Shared Sub SaveDataStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                         ByVal strConfirmationClaimID As String, ByVal strStatus As String,
+                                         ByVal strStatusBy As String, ByVal strRemarks As String)
+            Dim strNewID As String = strConfirmationClaimID & "-" & Format(DL.ConfirmationClaim.GetMaxIDStatus(sqlCon, sqlTrans, strConfirmationClaimID) + 1, "000")
+            Dim clsData As New VO.ConfirmationClaimStatus With
+                {
+                    .ID = strNewID,
+                    .ConfirmationClaimID = strConfirmationClaimID,
+                    .Status = strStatus,
+                    .StatusBy = strStatusBy,
+                    .Remarks = strRemarks
+                }
+            DL.ConfirmationClaim.SaveDataStatus(sqlCon, sqlTrans, clsData)
+        End Sub
+
+#End Region
+
+    End Class
 
 End Namespace
 

@@ -19,6 +19,7 @@ Namespace VO
         Property TotalDPP As Decimal
         Property TotalPPN As Decimal
         Property TotalPPH As Decimal
+        Property GrandTotal As Decimal
         Property RoundingManual As Decimal
         Property Remarks As String
         Property StatusID As Integer
@@ -31,6 +32,8 @@ Namespace VO
         Property DPAmountPPH As Decimal
         Property TotalPaymentPPN As Decimal
         Property TotalPaymentPPH As Decimal
+        Property Detail As New List(Of VO.ClaimDet)
+        Property Save As VO.Save.Action
 
         Enum ClaimTypeValue
             All = 0
