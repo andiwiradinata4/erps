@@ -35,6 +35,10 @@ Partial Class frmTraOrderRequestDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.txtCoACodeOfStock = New ERPS.usTextBox()
+        Me.btnCoAOfStock = New DevExpress.XtraEditors.SimpleButton()
+        Me.lblCoAofStock = New System.Windows.Forms.Label()
+        Me.txtCoANameOfStock = New ERPS.usTextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.txtReferencesNumber = New ERPS.usTextBox()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -80,10 +84,6 @@ Partial Class frmTraOrderRequestDet
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.txtCoACodeOfStock = New ERPS.usTextBox()
-        Me.btnCoAOfStock = New DevExpress.XtraEditors.SimpleButton()
-        Me.lblCoAofStock = New System.Windows.Forms.Label()
-        Me.txtCoANameOfStock = New ERPS.usTextBox()
         Me.StatusStrip.SuspendLayout()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
@@ -236,6 +236,47 @@ Partial Class frmTraOrderRequestDet
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'txtCoACodeOfStock
+        '
+        Me.txtCoACodeOfStock.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeOfStock.Location = New System.Drawing.Point(127, 124)
+        Me.txtCoACodeOfStock.MaxLength = 250
+        Me.txtCoACodeOfStock.Name = "txtCoACodeOfStock"
+        Me.txtCoACodeOfStock.ReadOnly = True
+        Me.txtCoACodeOfStock.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeOfStock.TabIndex = 6
+        '
+        'btnCoAOfStock
+        '
+        Me.btnCoAOfStock.Image = CType(resources.GetObject("btnCoAOfStock.Image"), System.Drawing.Image)
+        Me.btnCoAOfStock.Location = New System.Drawing.Point(382, 123)
+        Me.btnCoAOfStock.Name = "btnCoAOfStock"
+        Me.btnCoAOfStock.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAOfStock.TabIndex = 8
+        '
+        'lblCoAofStock
+        '
+        Me.lblCoAofStock.AutoSize = True
+        Me.lblCoAofStock.BackColor = System.Drawing.Color.Transparent
+        Me.lblCoAofStock.ForeColor = System.Drawing.Color.Black
+        Me.lblCoAofStock.Location = New System.Drawing.Point(28, 128)
+        Me.lblCoAofStock.Name = "lblCoAofStock"
+        Me.lblCoAofStock.Size = New System.Drawing.Size(87, 13)
+        Me.lblCoAofStock.TabIndex = 153
+        Me.lblCoAofStock.Text = "Akun Persediaan"
+        '
+        'txtCoANameOfStock
+        '
+        Me.txtCoANameOfStock.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameOfStock.Location = New System.Drawing.Point(209, 124)
+        Me.txtCoANameOfStock.MaxLength = 250
+        Me.txtCoANameOfStock.Name = "txtCoANameOfStock"
+        Me.txtCoANameOfStock.ReadOnly = True
+        Me.txtCoANameOfStock.Size = New System.Drawing.Size(167, 21)
+        Me.txtCoANameOfStock.TabIndex = 7
         '
         'Label5
         '
@@ -397,7 +438,7 @@ Partial Class frmTraOrderRequestDet
         Me.tpPrice.Controls.Add(Me.txtPPN)
         Me.tpPrice.Location = New System.Drawing.Point(4, 25)
         Me.tpPrice.Name = "tpPrice"
-        Me.tpPrice.Size = New System.Drawing.Size(823, 174)
+        Me.tpPrice.Size = New System.Drawing.Size(823, 164)
         Me.tpPrice.TabIndex = 2
         Me.tpPrice.Text = "Harga - F2"
         Me.tpPrice.UseVisualStyleBackColor = True
@@ -594,7 +635,7 @@ Partial Class frmTraOrderRequestDet
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(823, 174)
+        Me.tpHistory.Size = New System.Drawing.Size(823, 164)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -619,7 +660,7 @@ Partial Class frmTraOrderRequestDet
         Me.grdStatus.Location = New System.Drawing.Point(3, 3)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(813, 164)
+        Me.grdStatus.Size = New System.Drawing.Size(813, 154)
         Me.grdStatus.TabIndex = 13
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -640,7 +681,7 @@ Partial Class frmTraOrderRequestDet
         Me.tpSalesContract.Location = New System.Drawing.Point(4, 25)
         Me.tpSalesContract.Name = "tpSalesContract"
         Me.tpSalesContract.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpSalesContract.Size = New System.Drawing.Size(823, 174)
+        Me.tpSalesContract.Size = New System.Drawing.Size(823, 164)
         Me.tpSalesContract.TabIndex = 3
         Me.tpSalesContract.Text = "Kontrak Penjualan - F4"
         Me.tpSalesContract.UseVisualStyleBackColor = True
@@ -665,7 +706,7 @@ Partial Class frmTraOrderRequestDet
         Me.grdSalesContract.Location = New System.Drawing.Point(3, 3)
         Me.grdSalesContract.MainView = Me.grdSalesContractView
         Me.grdSalesContract.Name = "grdSalesContract"
-        Me.grdSalesContract.Size = New System.Drawing.Size(813, 164)
+        Me.grdSalesContract.Size = New System.Drawing.Size(813, 154)
         Me.grdSalesContract.TabIndex = 0
         Me.grdSalesContract.UseEmbeddedNavigator = True
         Me.grdSalesContract.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdSalesContractView})
@@ -774,47 +815,6 @@ Partial Class frmTraOrderRequestDet
         Me.rpiValue.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
-        '
-        'txtCoACodeOfStock
-        '
-        Me.txtCoACodeOfStock.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeOfStock.Location = New System.Drawing.Point(127, 124)
-        Me.txtCoACodeOfStock.MaxLength = 250
-        Me.txtCoACodeOfStock.Name = "txtCoACodeOfStock"
-        Me.txtCoACodeOfStock.ReadOnly = True
-        Me.txtCoACodeOfStock.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeOfStock.TabIndex = 6
-        '
-        'btnCoAOfStock
-        '
-        Me.btnCoAOfStock.Image = CType(resources.GetObject("btnCoAOfStock.Image"), System.Drawing.Image)
-        Me.btnCoAOfStock.Location = New System.Drawing.Point(382, 123)
-        Me.btnCoAOfStock.Name = "btnCoAOfStock"
-        Me.btnCoAOfStock.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAOfStock.TabIndex = 8
-        '
-        'lblCoAofStock
-        '
-        Me.lblCoAofStock.AutoSize = True
-        Me.lblCoAofStock.BackColor = System.Drawing.Color.Transparent
-        Me.lblCoAofStock.ForeColor = System.Drawing.Color.Black
-        Me.lblCoAofStock.Location = New System.Drawing.Point(28, 128)
-        Me.lblCoAofStock.Name = "lblCoAofStock"
-        Me.lblCoAofStock.Size = New System.Drawing.Size(87, 13)
-        Me.lblCoAofStock.TabIndex = 153
-        Me.lblCoAofStock.Text = "Akun Persediaan"
-        '
-        'txtCoANameOfStock
-        '
-        Me.txtCoANameOfStock.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameOfStock.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameOfStock.Location = New System.Drawing.Point(209, 124)
-        Me.txtCoANameOfStock.MaxLength = 250
-        Me.txtCoANameOfStock.Name = "txtCoANameOfStock"
-        Me.txtCoANameOfStock.ReadOnly = True
-        Me.txtCoANameOfStock.Size = New System.Drawing.Size(167, 21)
-        Me.txtCoANameOfStock.TabIndex = 7
         '
         'frmTraOrderRequestDet
         '

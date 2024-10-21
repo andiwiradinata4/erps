@@ -385,6 +385,42 @@
             End Using
         End Function
 
+        Public Shared Function ChangeItemIDDetail(ByVal strID As String, ByVal intNewItemID As Integer, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    '# Get SC Detail
+                    Dim dtSalesContractDet As DataTable = DL.SalesContract.ListDataByOrderRequestDetailID(sqlCon, sqlTrans, strID)
+
+                    '# Get ARAP Item Base on SalesID in Account Receivable Detail
+
+
+                    '# Get All Delivery Detail By SCDetailID
+                    Dim dtDeliveryDet As New DataTable
+                    For Each dr As DataRow In dtSalesContractDet.Rows
+                        dtDeliveryDet.Merge(DL.Delivery.ListDataDetailBySCDetailID(sqlCon, sqlTrans, dr.Item("SCDetailID")))
+                    Next
+
+                    '# Update ItemID Delivery Detail
+
+
+                    '# Update ItemID Order Request Detail
+                    DL.OrderRequest.ChangeItemIDDetail(sqlCon, sqlTrans, strID, intNewItemID)
+
+                    '# Save Data Status
+                    BL.OrderRequest.SaveDataStatus(sqlCon, sqlTrans, strID, "GANTI BARANG", ERPSLib.UI.usUserApp.UserID, strRemarks)
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+
+            Return bolReturn
+        End Function
+
 #End Region
 
 #Region "Detail CO"

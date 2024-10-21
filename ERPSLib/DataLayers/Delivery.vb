@@ -1381,6 +1381,27 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailBySCDetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                          ByVal strSCDetailID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID AS DeliveryDetailID " & vbNewLine &
+                    "FROM traDeliveryDet A " & vbNewLine &
+                    "INNER JOIN traDelivery A1 ON " & vbNewLine &
+                    "   A.DeliveryID=A1.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.SCDetailID=@SCDetailID " & vbNewLine
+
+                .Parameters.Add("@SCDetailID", SqlDbType.VarChar, 100).Value = strSCDetailID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                          ByVal clsData As VO.DeliveryDet)
             Dim sqlCmdExecute As New SqlCommand

@@ -2101,6 +2101,30 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataByOrderRequestDetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                              ByVal strOrderRequestDetailID As String) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT DISTINCT " & vbNewLine &
+"	SCD.ID AS SCDetailID " & vbNewLine &
+"FROM traSalesContract SCH  " & vbNewLine &
+"INNER JOIN traSalesContractDet SCD ON  " & vbNewLine &
+"	SCH.ID=SCD.SCID  " & vbNewLine &
+"INNER JOIN traOrderRequestDet ORD ON  " & vbNewLine &
+"	SCD.ORDetailID=ORD.ID  " & vbNewLine &
+"WHERE  " & vbNewLine &
+"	SCH.IsDeleted=0  " & vbNewLine &
+"	AND ORD.ID=@OrderRequestDetailID  " & vbNewLine
+
+                .Parameters.Add("@OrderRequestDetailID", SqlDbType.VarChar, 100).Value = strOrderRequestDetailID
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveDataDetailCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                            ByVal clsData As VO.SalesContractDetConfirmationOrder)
             Dim sqlCmdExecute As New SqlCommand

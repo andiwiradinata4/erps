@@ -906,3 +906,7 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraClaim.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraClaimDet.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraClaimDetItem.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraClaimOutstandingReferences.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraClaim.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraClaimDet.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraClaimDetItem.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraClaimOutstandingReferences.resources
