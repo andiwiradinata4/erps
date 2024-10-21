@@ -1017,6 +1017,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDet.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDetChangeItem.Designer.vb">
+      <DependentUpon>frmTraOrderRequestDetChangeItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDetChangeItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDetItem.Designer.vb">
       <DependentUpon>frmTraOrderRequestDetItem.vb</DependentUpon>
     </Compile>
@@ -1814,6 +1820,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDet.resx">
       <DependentUpon>frmTraOrderRequestDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDetChangeItem.resx">
+      <DependentUpon>frmTraOrderRequestDetChangeItem.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDetItem.resx">
       <DependentUpon>frmTraOrderRequestDetItem.vb</DependentUpon>

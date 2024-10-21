@@ -1760,7 +1760,7 @@
             clsData.Name = "Create Table Claim and Confirmation Claim"
             clsData.Scripts =
 "ALTER TABLE traSalesContractDet ADD ClaimQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesContractDet_ClaimQuantity DEFAULT ((0)) " & vbNewLine &
-"ALTER TABLE traSalesContractDet ADD ClaimWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_ClaimWeight DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traSalesContractDet ADD ClaimWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traSalesContractDet_ClaimWeight DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE traReceiveDet ADD ClaimQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traReceiveDet_ClaimQuantity DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE traReceiveDet ADD ClaimWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traReceiveDet_ClaimWeight DEFAULT ((0)) " & vbNewLine &
 " " & vbNewLine &

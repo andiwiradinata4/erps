@@ -377,7 +377,7 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell8.Name = "XrTableCell8"
         Me.XrTableCell8.StylePriority.UseBorders = False
         Me.XrTableCell8.Text = "WEIGHT" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "/LBR"
-        Me.XrTableCell8.Weight = 0.47286230207659891R
+        Me.XrTableCell8.Weight = 0.47286233214037704R
         '
         'XrTableCell7
         '
@@ -386,7 +386,7 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell7.Name = "XrTableCell7"
         Me.XrTableCell7.StylePriority.UseBorders = False
         Me.XrTableCell7.Text = "LENGTH"
-        Me.XrTableCell7.Weight = 0.47286230136255292R
+        Me.XrTableCell7.Weight = 0.47286233142633111R
         '
         'XrTableCell1
         '
@@ -436,7 +436,7 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell30.Name = "XrTableCell30"
         Me.XrTableCell30.StylePriority.UseBorders = False
         Me.XrTableCell30.Text = "TOTAL"
-        Me.XrTableCell30.Weight = 2.6650729121059631R
+        Me.XrTableCell30.Weight = 2.7412559617550225R
         '
         'XrTableCell31
         '
@@ -461,7 +461,7 @@ Partial Public Class rptProformaInvoice
         XrSummary1.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.XrTableCell32.Summary = XrSummary1
         Me.XrTableCell32.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell32.Weight = 0.47286254344453438R
+        Me.XrTableCell32.Weight = 0.39667949379547507R
         '
         'XrTableCell33
         '
@@ -2228,7 +2228,7 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell3.Name = "XrTableCell3"
         Me.XrTableCell3.StylePriority.UseBorders = False
         Me.XrTableCell3.Text = "SPEC"
-        Me.XrTableCell3.Weight = 0.5000458232626771R
+        Me.XrTableCell3.Weight = 0.59107792134413R
         '
         'BottomMargin
         '
@@ -2268,7 +2268,7 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell17.StylePriority.UsePadding = False
         Me.XrTableCell17.StylePriority.UseTextAlignment = False
         Me.XrTableCell17.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell17.Weight = 0.52440469743967755R
+        Me.XrTableCell17.Weight = 0.524404730780432R
         '
         'XrTableRow1
         '
@@ -2313,7 +2313,7 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell5.Name = "XrTableCell5"
         Me.XrTableCell5.StylePriority.UseBorders = False
         Me.XrTableCell5.Text = "WIDTH"
-        Me.XrTableCell5.Weight = 0.44830572634602323R
+        Me.XrTableCell5.Weight = 0.43345713612449371R
         '
         'XrTableCell6
         '
@@ -2322,7 +2322,7 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell6.Name = "XrTableCell6"
         Me.XrTableCell6.StylePriority.UseBorders = False
         Me.XrTableCell6.Text = "QTY"
-        Me.XrTableCell6.Weight = 0.47286230293432668R
+        Me.XrTableCell6.Weight = 0.394051942394431R
         '
         'XrTableCell25
         '
@@ -2333,7 +2333,7 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell25.StylePriority.UseTextAlignment = False
         Me.XrTableCell25.Text = "WEIGHT"
         Me.XrTableCell25.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
-        Me.XrTableCell25.Weight = 0.66167907197157261R
+        Me.XrTableCell25.Weight = 0.66430586452398865R
         '
         'XrTableCell9
         '
@@ -2744,7 +2744,7 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell14.Dpi = 100.0!
         Me.XrTableCell14.Name = "XrTableCell14"
         Me.XrTableCell14.StylePriority.UseBorders = False
-        Me.XrTableCell14.Weight = 0.55455121523119955R
+        Me.XrTableCell14.Weight = 0.65550591936199309R
         '
         'XrTableCell15
         '
@@ -2766,7 +2766,7 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell16.StylePriority.UsePadding = False
         Me.XrTableCell16.StylePriority.UseTextAlignment = False
         Me.XrTableCell16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell16.Weight = 0.49717142508678824R
+        Me.XrTableCell16.Weight = 0.48070432645780342R
         '
         'XrTableCell18
         '
@@ -2780,7 +2780,7 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell18.StylePriority.UsePadding = False
         Me.XrTableCell18.StylePriority.UseTextAlignment = False
         Me.XrTableCell18.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell18.Weight = 0.52440468594371692R
+        Me.XrTableCell18.Weight = 0.5244047192844713R
         '
         'XrTableCell19
         '
@@ -2793,7 +2793,7 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell19.StylePriority.UsePadding = False
         Me.XrTableCell19.StylePriority.UseTextAlignment = False
         Me.XrTableCell19.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell19.Weight = 0.52440468601485235R
+        Me.XrTableCell19.Weight = 0.43700393209582905R
         '
         'XrTableCell20
         '
@@ -2807,7 +2807,7 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell20.StylePriority.UsePadding = False
         Me.XrTableCell20.StylePriority.UseTextAlignment = False
         Me.XrTableCell20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell20.Weight = 0.73380267132132415R
+        Me.XrTableCell20.Weight = 0.73671575305703R
         '
         'XrTableCell26
         '

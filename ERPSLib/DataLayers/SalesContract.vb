@@ -1217,6 +1217,74 @@
             End Try
         End Sub
 
+        Public Shared Sub CalculateTotalUsedReceiveItemPaymentParentVer02(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                          ByVal strParentID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesContractDet SET 	" & vbNewLine &
+                    "	AllocateDPAmount=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.AllocateDPAmount),0) DPAmount " & vbNewLine &
+                    "		FROM traSalesContractDet TDD " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.ParentID=@ParentID " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	ReceiveAmount=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.ReceiveAmount),0) AS ReceiveAmount " & vbNewLine &
+                    "		FROM traSalesContractDet TDD " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.ParentID=@ParentID " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	ReceiveAmountPPN=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.ReceiveAmountPPN),0) ReceiveAmountPPN " & vbNewLine &
+                    "		FROM traSalesContractDet TDD " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.ParentID=@ParentID " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	ReceiveAmountPPH=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.ReceiveAmountPPH),0) ReceiveAmountPPH " & vbNewLine &
+                    "		FROM traSalesContractDet TDD " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.ParentID=@ParentID " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	InvoiceQuantity=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.InvoiceQuantity),0) InvoiceQuantity " & vbNewLine &
+                    "		FROM traSalesContractDet TDD " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.ParentID=@ParentID " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	InvoiceTotalWeight=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.InvoiceTotalWeight),0) InvoiceTotalWeight " & vbNewLine &
+                    "		FROM traSalesContractDet TDD " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.ParentID=@ParentID " & vbNewLine &
+                    "	) " & vbNewLine &
+                    "WHERE ID=@ParentID " & vbNewLine
+
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
         Public Shared Sub UpdateJournalID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                           ByVal strID As String, ByVal strJournalID As String)
             Dim sqlCmdExecute As New SqlCommand
@@ -2061,6 +2129,30 @@
             End Try
         End Sub
 
+        Public Shared Sub ChangeItemIDDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                             ByVal strID As String, ByVal intOldItemID As Integer, ByVal intNewItemID As Integer)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandText =
+"UPDATE traSalesContractDet SET  " & vbNewLine &
+"	ItemID=@NewItemID " & vbNewLine &
+"WHERE " & vbNewLine &
+"	ItemID=@OldItemID " & vbNewLine &
+"	AND ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@OldItemID", SqlDbType.Int).Value = intOldItemID
+                .Parameters.Add("@NewItemID", SqlDbType.Int).Value = intNewItemID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail CO"
@@ -2102,7 +2194,7 @@
         End Function
 
         Public Shared Function ListDataByOrderRequestDetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                              ByVal strOrderRequestDetailID As String) As DataTable
+                                                              ByVal strOrderRequestDetailID As String, ByVal intItemID As Integer) As DataTable
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
                 .Connection = sqlCon
@@ -2118,9 +2210,11 @@
 "	SCD.ORDetailID=ORD.ID  " & vbNewLine &
 "WHERE  " & vbNewLine &
 "	SCH.IsDeleted=0  " & vbNewLine &
-"	AND ORD.ID=@OrderRequestDetailID  " & vbNewLine
+"	AND ORD.ID=@OrderRequestDetailID  " & vbNewLine &
+"	AND SCD.ItemID=@ItemID  " & vbNewLine
 
                 .Parameters.Add("@OrderRequestDetailID", SqlDbType.VarChar, 100).Value = strOrderRequestDetailID
+                .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function

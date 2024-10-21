@@ -84,6 +84,8 @@ Partial Class frmTraOrderRequestDet
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.BarItemSep1 = New System.Windows.Forms.ToolBarButton()
+        Me.BarChangeItem = New System.Windows.Forms.ToolBarButton()
         Me.StatusStrip.SuspendLayout()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
@@ -736,7 +738,7 @@ Partial Class frmTraOrderRequestDet
         'ToolBarDetail
         '
         Me.ToolBarDetail.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAdd, Me.BarEdit, Me.BarDelete})
+        Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAdd, Me.BarEdit, Me.BarDelete, Me.BarItemSep1, Me.BarChangeItem})
         Me.ToolBarDetail.DropDownArrows = True
         Me.ToolBarDetail.Location = New System.Drawing.Point(0, 265)
         Me.ToolBarDetail.Name = "ToolBarDetail"
@@ -815,6 +817,17 @@ Partial Class frmTraOrderRequestDet
         Me.rpiValue.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
+        '
+        'BarItemSep1
+        '
+        Me.BarItemSep1.Name = "BarItemSep1"
+        Me.BarItemSep1.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarChangeItem
+        '
+        Me.BarChangeItem.Name = "BarChangeItem"
+        Me.BarChangeItem.Tag = "Alt"
+        Me.BarChangeItem.Text = "Ubah Barang"
         '
         'frmTraOrderRequestDet
         '
@@ -924,4 +937,6 @@ Partial Class frmTraOrderRequestDet
     Friend WithEvents btnCoAOfStock As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents lblCoAofStock As System.Windows.Forms.Label
     Friend WithEvents txtCoANameOfStock As ERPS.usTextBox
+    Friend WithEvents BarItemSep1 As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarChangeItem As System.Windows.Forms.ToolBarButton
 End Class

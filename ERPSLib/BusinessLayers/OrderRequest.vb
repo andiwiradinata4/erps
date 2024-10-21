@@ -385,32 +385,44 @@
             End Using
         End Function
 
-        Public Shared Function ChangeItemIDDetail(ByVal strID As String, ByVal intNewItemID As Integer, ByVal strRemarks As String) As Boolean
+        Public Shared Function ChangeItemIDDetail(ByVal strID As String, ByVal bolIsStock As Boolean,
+                                                  ByVal intOldItemID As Integer, ByVal intNewItemID As Integer) As Boolean
             Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    '# Get SC Detail
-                    Dim dtSalesContractDet As DataTable = DL.SalesContract.ListDataByOrderRequestDetailID(sqlCon, sqlTrans, strID)
-
-                    '# Get ARAP Item Base on SalesID in Account Receivable Detail
-
-
-                    '# Get All Delivery Detail By SCDetailID
                     Dim dtDeliveryDet As New DataTable
+                    Dim dtARAPItem As New DataTable
+
+                    '# Get SC Detail
+                    Dim dtSalesContractDet As DataTable = DL.SalesContract.ListDataByOrderRequestDetailID(sqlCon, sqlTrans, strID, intOldItemID)
+
                     For Each dr As DataRow In dtSalesContractDet.Rows
-                        dtDeliveryDet.Merge(DL.Delivery.ListDataDetailBySCDetailID(sqlCon, sqlTrans, dr.Item("SCDetailID")))
+                        '# Get All Delivery Detail By SCDetailID
+                        dtDeliveryDet.Merge(DL.Delivery.ListDataDetailBySCDetailID(sqlCon, sqlTrans, dr.Item("SCDetailID"), intOldItemID))
+
+                        '# Get ARAP Item Base on SalesID in Account Receivable Detail
+                        dtARAPItem.Merge(DL.ARAP.ListDataByReferencesDetailID(sqlCon, sqlTrans, dr.Item("SCDetailID"), intOldItemID))
                     Next
 
                     '# Update ItemID Delivery Detail
+                    For Each dr As DataRow In dtDeliveryDet.Rows
+                        DL.Delivery.ChangeItemIDDetail(sqlCon, sqlTrans, dr.Item("DeliveryDetailID"), intOldItemID, intNewItemID)
+                    Next
 
+                    '# Update ItemID ARAP Item
+                    For Each dr As DataRow In dtARAPItem.Rows
+                        DL.ARAP.ChangeItemIDItem(sqlCon, sqlTrans, dr.Item("ARAPItemID"), intOldItemID, intNewItemID)
+                    Next
+
+                    '# Update ItemID Sales Contract Item
+                    For Each dr As DataRow In dtSalesContractDet.Rows
+                        DL.SalesContract.ChangeItemIDDetail(sqlCon, sqlTrans, dr.Item("SCDetailID"), intOldItemID, intNewItemID)
+                    Next
 
                     '# Update ItemID Order Request Detail
                     DL.OrderRequest.ChangeItemIDDetail(sqlCon, sqlTrans, strID, intNewItemID)
-
-                    '# Save Data Status
-                    BL.OrderRequest.SaveDataStatus(sqlCon, sqlTrans, strID, "GANTI BARANG", ERPSLib.UI.usUserApp.UserID, strRemarks)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()

@@ -480,7 +480,10 @@
                     DL.ARAP.DeleteDataItem(sqlCon, sqlTrans, clsData.ID)
                     For Each dr As DataRow In dtDetailItem.Rows
                         '# Revert Payment Item Amount / Transaction Detail Item
-                        If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then DL.SalesContract.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
+                        If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then
+                            DL.SalesContract.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
+                            If dr.Item("ReferencesParentID") <> "" Then DL.SalesContract.CalculateTotalUsedReceiveItemPaymentParentVer02(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
+                        End If
                         If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentOrderRequest Then DL.OrderRequest.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                         If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentSalesReturn Then DL.SalesReturn.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                         If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentClaimVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
@@ -550,7 +553,11 @@
                     DL.ARAP.SaveDataItem(sqlCon, sqlTrans, clsItem)
 
                     '# Calculate Payment Item Amount / Transaction Detail Item
-                    If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then DL.SalesContract.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
+                    If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then
+                        DL.SalesContract.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
+                        If clsItem.ReferencesParentID.Trim <> "" Then DL.SalesContract.CalculateTotalUsedReceiveItemPaymentParentVer02(sqlCon, sqlTrans, clsItem.ReferencesParentID)
+                    End If
+
                     If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentOrderRequest Then DL.OrderRequest.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
                     If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentSalesReturn Then DL.SalesReturn.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
                     If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentClaimVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)

@@ -1382,7 +1382,7 @@
         End Function
 
         Public Shared Function ListDataDetailBySCDetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                          ByVal strSCDetailID As String) As DataTable
+                                                          ByVal strSCDetailID As String, ByVal intItemID As Integer) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -1395,9 +1395,11 @@
                     "INNER JOIN traDelivery A1 ON " & vbNewLine &
                     "   A.DeliveryID=A1.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
-                    "   A.SCDetailID=@SCDetailID " & vbNewLine
+                    "   A.SCDetailID=@SCDetailID " & vbNewLine &
+                    "   AND A.ItemID=@ItemID " & vbNewLine
 
                 .Parameters.Add("@SCDetailID", SqlDbType.VarChar, 100).Value = strSCDetailID
+                .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
@@ -1499,6 +1501,30 @@
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
             Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub ChangeItemIDDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                             ByVal strID As String, ByVal intOldItemID As Integer, ByVal intNewItemID As Integer)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandText =
+"UPDATE traDeliveryDet SET  " & vbNewLine &
+"	ItemID=@NewItemID " & vbNewLine &
+"WHERE " & vbNewLine &
+"	ItemID=@OldItemID " & vbNewLine &
+"	AND ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@OldItemID", SqlDbType.Int).Value = intOldItemID
+                .Parameters.Add("@NewItemID", SqlDbType.Int).Value = intNewItemID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
                 Throw ex
             End Try
         End Sub
