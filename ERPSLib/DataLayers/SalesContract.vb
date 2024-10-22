@@ -1583,10 +1583,10 @@
                     .CommandType = CommandType.Text
                     .CommandText =
                         "SELECT TOP 1 " & vbNewLine &
-                        "   RVD.ID " & vbNewLine &
+                        "   SCD.ID " & vbNewLine &
                         "FROM traSalesContractDet SCD " & vbNewLine &
                         "INNER JOIN traSalesContract SCH ON " & vbNewLine &
-                        "   SCD.SalesID=SCH.ID " & vbNewLine &
+                        "   SCD.SCID=SCH.ID " & vbNewLine &
                         "WHERE  " & vbNewLine &
                         "   SCH.ID=@ID " & vbNewLine &
                         "   AND SCD.ClaimQuantity>0 OR SCD.ClaimWeight>0 " & vbNewLine

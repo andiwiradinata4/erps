@@ -911,3 +911,4 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraClaimDet.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraClaimDetItem.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraClaimOutstandingReferences.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestDetChangeItem.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestDetChangeItem.resources

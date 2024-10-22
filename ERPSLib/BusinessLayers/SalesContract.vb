@@ -462,7 +462,9 @@ Namespace BL
                 '# Combine All References Number
                 Dim strOrderNumberSupplier As String = ""
                 Dim strAllOrderNumberSupplier As String = ""
-                For Each dr As DataRow In dtReturn.Rows
+                clsHelper = New DataSetHelper
+                Dim dtOrderNumberSupplier As DataTable = clsHelper.SelectGroupByInto("OrderNumberSupplier", dtReturn, "OrderNumberSupplier", "", "OrderNumberSupplier")
+                For Each dr As DataRow In dtOrderNumberSupplier.Rows
                     If dr.Item("OrderNumberSupplier") <> strOrderNumberSupplier Then
                         strOrderNumberSupplier = dr.Item("OrderNumberSupplier")
                         If strAllOrderNumberSupplier.Trim <> "" Then strAllOrderNumberSupplier += ", "
@@ -509,7 +511,9 @@ Namespace BL
                 '# Combine All References Number
                 Dim strOrderNumberSupplier As String = ""
                 Dim strAllOrderNumberSupplier As String = ""
-                For Each dr As DataRow In dtReturn.Rows
+                Dim clsHelper As New DataSetHelper
+                Dim dtOrderNumberSupplier As DataTable = clsHelper.SelectGroupByInto("OrderNumberSupplier", dtReturn, "OrderNumberSupplier", "", "OrderNumberSupplier")
+                For Each dr As DataRow In dtOrderNumberSupplier.Rows
                     If dr.Item("OrderNumberSupplier") <> strOrderNumberSupplier Then
                         strOrderNumberSupplier = dr.Item("OrderNumberSupplier")
                         If strAllOrderNumberSupplier.Trim <> "" Then strAllOrderNumberSupplier += ", "
