@@ -880,7 +880,6 @@ Public Class frmTraARAP
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-
             prvResetProgressBar()
         End Try
     End Sub
@@ -894,29 +893,42 @@ Public Class frmTraARAP
 
         prvGetCS()
         clsData = prvGetData()
+        Dim strSelectedInvoiceID As String = ""
         Try
             If clsData.StatusID <> VO.Status.Values.Payment Then
                 Throw New Exception("Data tidak dapat Print Invoice dikarenakan belum diproses Invoice.")
                 Exit Sub
             End If
 
-            If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
-                Dim frmChooseBankAccount As New frmTraARAPChooseBankAccount
-                With frmChooseBankAccount
-                    .pubID = strID
-                    .pubCompanyBankAccount1 = clsData.CompanyBankAccountID1
-                    .pubCompanyBankAccount2 = clsData.CompanyBankAccountID2
-                    .StartPosition = FormStartPosition.CenterParent
-                    .pubShowDialog(Me)
-                    If Not .pubIsSave Then Exit Sub
-                End With
-            End If
+            Dim frmChooseInvoice As New frmTraARAPChooseInvoice
+            With frmChooseInvoice
+                .pubParentID = clsData.ID
+                .StartPosition = FormStartPosition.CenterParent
+                .ShowDialog()
+                If .pubIsPreview Then
+                    strSelectedInvoiceID = .pubSelectedID
+                Else
+                    Exit Sub
+                End If
+            End With
+
+            'If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
+            '    Dim frmChooseBankAccount As New frmTraARAPChooseBankAccount
+            '    With frmChooseBankAccount
+            '        .pubID = strID
+            '        .pubCompanyBankAccount1 = clsData.CompanyBankAccountID1
+            '        .pubCompanyBankAccount2 = clsData.CompanyBankAccountID2
+            '        .StartPosition = FormStartPosition.CenterParent
+            '        .pubShowDialog(Me)
+            '        If Not .pubIsSave Then Exit Sub
+            '    End With
+            'End If
 
             Dim dtData As DataTable = BL.ARAP.PrintVer01(clsCS.ProgramID, intCompanyID, strID)
-            Dim intStatusID As Integer = 0
+            Dim clsInvoice As VO.ARAPInvoice = BL.ARAP.GetDetailInvoice(strSelectedInvoiceID)
+            Dim intStatusID As Integer = clsInvoice.StatusID
             For Each dr As DataRow In dtData.Rows
-                intStatusID = dr.Item("StatusID")
-                Exit For
+                dr.Item("TaxInvoiceNumber") = clsInvoice.TaxInvoiceNumber
             Next
 
             Dim crReport As New rptProformaInvoice
@@ -997,6 +1009,7 @@ Public Class frmTraARAP
             For i As Integer = 0 To drInvoice.Length - 1
                 Dim strDescInvoice As String = "PAYMENT " & Format(drInvoice(i).Item("InvoiceDate"), "dd/MM")
                 decAmountInvoice = drInvoice(i).Item("TotalAmount")
+                If clsData.IsDP Then Continue For
                 If i = 0 Then
                     crReport.sbInvoice1.Visible = True
                     crReport.DescInvoice1.Value = strDescInvoice

@@ -73,7 +73,7 @@ Partial Class frmTraARAPChooseBankAccount
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarPreview = New System.Windows.Forms.ToolBarButton()
-        Me.ToolBarButton1 = New System.Windows.Forms.ToolBarButton()
+        Me.BarExit = New System.Windows.Forms.ToolBarButton()
         Me.pnlMain.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.gboCompanyBankAccount2.SuspendLayout()
@@ -619,7 +619,7 @@ Partial Class frmTraARAPChooseBankAccount
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarPreview, Me.ToolBarButton1})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarPreview, Me.BarExit})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -634,11 +634,11 @@ Partial Class frmTraARAPChooseBankAccount
         Me.BarPreview.Tag = "Print"
         Me.BarPreview.Text = "Print"
         '
-        'ToolBarButton1
+        'BarExit
         '
-        Me.ToolBarButton1.Name = "BarClose"
-        Me.ToolBarButton1.Tag = "Close"
-        Me.ToolBarButton1.Text = "Tutup"
+        Me.BarExit.Name = "BarExit"
+        Me.BarExit.Tag = "Close"
+        Me.BarExit.Text = "Tutup"
         '
         'frmTraARAPChooseBankAccount
         '
@@ -714,5 +714,5 @@ Partial Class frmTraARAPChooseBankAccount
     Friend WithEvents Label18 As Label
     Friend WithEvents ToolBar As ERPS.usToolBar
     Friend WithEvents BarPreview As System.Windows.Forms.ToolBarButton
-    Friend WithEvents ToolBarButton1 As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarExit As System.Windows.Forms.ToolBarButton
 End Class

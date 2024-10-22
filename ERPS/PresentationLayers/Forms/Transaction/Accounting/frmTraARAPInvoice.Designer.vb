@@ -42,6 +42,7 @@ Partial Class frmTraARAPInvoice
         Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
+        Me.pgMain = New System.Windows.Forms.ProgressBar()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -66,7 +67,7 @@ Partial Class frmTraARAPInvoice
         Me.grdMain.Location = New System.Drawing.Point(0, 72)
         Me.grdMain.MainView = Me.grdView
         Me.grdMain.Name = "grdMain"
-        Me.grdMain.Size = New System.Drawing.Size(800, 378)
+        Me.grdMain.Size = New System.Drawing.Size(800, 355)
         Me.grdMain.TabIndex = 3
         Me.grdMain.UseEmbeddedNavigator = True
         Me.grdMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdView})
@@ -190,12 +191,21 @@ Partial Class frmTraARAPInvoice
         Me.BarClose.Tag = "Close"
         Me.BarClose.Text = "Tutup"
         '
+        'pgMain
+        '
+        Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.pgMain.Location = New System.Drawing.Point(0, 427)
+        Me.pgMain.Name = "pgMain"
+        Me.pgMain.Size = New System.Drawing.Size(800, 23)
+        Me.pgMain.TabIndex = 5
+        '
         'frmTraARAPInvoice
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.grdMain)
+        Me.Controls.Add(Me.pgMain)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.KeyPreview = True
@@ -227,4 +237,5 @@ Partial Class frmTraARAPInvoice
     Friend WithEvents BarSep4 As ToolBarButton
     Friend WithEvents BarRefresh As ToolBarButton
     Friend WithEvents BarClose As ToolBarButton
+    Friend WithEvents pgMain As System.Windows.Forms.ProgressBar
 End Class

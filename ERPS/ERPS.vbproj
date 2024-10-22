@@ -531,6 +531,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPChooseBankAccount.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPChooseInvoice.Designer.vb">
+      <DependentUpon>frmTraARAPChooseInvoice.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPChooseInvoice.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer2.Designer.vb">
       <DependentUpon>frmTraARAPDetVer2.vb</DependentUpon>
     </Compile>
@@ -1580,6 +1586,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPChooseBankAccount.resx">
       <DependentUpon>frmTraARAPChooseBankAccount.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPChooseInvoice.resx">
+      <DependentUpon>frmTraARAPChooseInvoice.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer2.resx">
       <DependentUpon>frmTraARAPDetVer2.vb</DependentUpon>
