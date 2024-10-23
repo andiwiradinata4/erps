@@ -913,3 +913,4 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.exe
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.xml
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.pdb
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPChooseInvoice.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPChooseInvoice.resources
