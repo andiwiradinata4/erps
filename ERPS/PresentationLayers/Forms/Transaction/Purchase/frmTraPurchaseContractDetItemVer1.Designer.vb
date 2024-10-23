@@ -78,6 +78,8 @@ Partial Class frmTraPurchaseContractDetItemVer1
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.BarChangeItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep1ItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -666,7 +668,7 @@ Partial Class frmTraPurchaseContractDetItemVer1
         'ToolBarSubItem
         '
         Me.ToolBarSubItem.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarSubItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarEditItemOrder, Me.BarDeleteItemOrder})
+        Me.ToolBarSubItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarEditItemOrder, Me.BarDeleteItemOrder, Me.BarSep1ItemOrder, Me.BarChangeItemOrder})
         Me.ToolBarSubItem.Divider = False
         Me.ToolBarSubItem.DropDownArrows = True
         Me.ToolBarSubItem.Location = New System.Drawing.Point(645, 50)
@@ -743,6 +745,17 @@ Partial Class frmTraPurchaseContractDetItemVer1
         '
         Me.GridView1.GridControl = Me.grdItem
         Me.GridView1.Name = "GridView1"
+        '
+        'BarChangeItemOrder
+        '
+        Me.BarChangeItemOrder.Name = "BarChangeItemOrder"
+        Me.BarChangeItemOrder.Tag = "Alt"
+        Me.BarChangeItemOrder.Text = "Ubah Barang"
+        '
+        'BarSep1ItemOrder
+        '
+        Me.BarSep1ItemOrder.Name = "BarSep1ItemOrder"
+        Me.BarSep1ItemOrder.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
         'frmTraPurchaseContractDetItemVer1
         '
@@ -835,4 +848,6 @@ Partial Class frmTraPurchaseContractDetItemVer1
     Friend WithEvents grdItemView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents BarSep1ItemOrder As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarChangeItemOrder As System.Windows.Forms.ToolBarButton
 End Class

@@ -1871,6 +1871,28 @@
             Return bolReturn
         End Function
 
+        Public Shared Sub ChangeItemIDDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                             ByVal strID As String, ByVal intNewItemID As Integer)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandText =
+"UPDATE traPurchaseContractDet SET  " & vbNewLine &
+"	ItemID=@NewItemID " & vbNewLine &
+"WHERE " & vbNewLine &
+"	ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@NewItemID", SqlDbType.Decimal).Value = intNewItemID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Payment Term"

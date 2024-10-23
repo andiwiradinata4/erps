@@ -537,6 +537,28 @@
             End Using
         End Sub
 
+        Public Shared Function ChangeItemIDDetail(ByVal strID As String, ByVal intOldItemID As Integer,
+                                                  ByVal intNewItemID As Integer) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    DL.Receive.ChangeItemIDDetail(sqlCon, sqlTrans, strID, intOldItemID, intNewItemID)
+                    DL.SalesContract.ChangeItemIDDetailCO(sqlCon, sqlTrans, strID, intOldItemID, intNewItemID)
+                    DL.ARAP.ChangeItemIDItem(sqlCon, sqlTrans, strID, intOldItemID, intNewItemID)
+                    DL.PurchaseOrderCutting.ChangeItemIDDetail(sqlCon, sqlTrans, strID, intOldItemID, intNewItemID)
+                    DL.PurchaseContract.ChangeItemIDDetail(sqlCon, sqlTrans, strID, intNewItemID)
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+
+            Return bolReturn
+        End Function
+
 #End Region
 
 #Region "Payment Term"

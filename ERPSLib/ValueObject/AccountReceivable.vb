@@ -65,6 +65,7 @@
         Property TotalDPPInvoiceAmount As Decimal
         Property TotalPPNInvoiceAmount As Decimal
         Property TotalPPHInvoiceAmount As Decimal
+        Property ReferencesNumber As String
 
         Public Const All As String = "AR"
         Public Const SalesBalance As String = "SB"

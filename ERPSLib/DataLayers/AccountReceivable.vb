@@ -26,7 +26,7 @@
                     "   A.TotalPPN, A.TotalPPH, A.DPAmount, A.ReceiveAmount, A.IsDP, A.InvoiceNumberBP, A.CompanyBankAccountID1, A.CompanyBankAccountID2, A.IsUseSubItem, " & vbNewLine &
                     "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, A.PPNPercentage, A.PPHPercentage, " & vbNewLine &
                     "   GrandTotal=A.TotalAmount+A.TotalPPN-A.TotalPPH, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, " & vbNewLine &
-                    "   DueDateVSNowValue=DATEDIFF(DAY,DueDate, GETDATE()) " & vbNewLine &
+                    "   DueDateVSNowValue=DATEDIFF(DAY,DueDate, GETDATE()), A.ReferencesNumber " & vbNewLine &
                     "FROM traAccountReceivable A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -216,7 +216,7 @@
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
                         "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice, A.InvoiceNumberBP, " & vbNewLine &
                         "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, " & vbNewLine &
-                        "   A.PPNPercentage, A.PPHPercentage, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount " & vbNewLine &
+                        "   A.PPNPercentage, A.PPHPercentage, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, A.ReferencesNumber " & vbNewLine &
                         "FROM traAccountReceivable A " & vbNewLine &
                         "INNER JOIN mstStatus B ON " & vbNewLine &
                         "   A.StatusID=B.ID " & vbNewLine &
@@ -300,6 +300,7 @@
                         voReturn.TotalDPPInvoiceAmount = .Item("TotalDPPInvoiceAmount")
                         voReturn.TotalPPNInvoiceAmount = .Item("TotalPPNInvoiceAmount")
                         voReturn.TotalPPHInvoiceAmount = .Item("TotalPPHInvoiceAmount")
+                        voReturn.ReferencesNumber = .Item("ReferencesNumber")
                     End If
                 End With
             Catch ex As Exception
@@ -938,7 +939,7 @@
                                                    ByVal strPaymentTerm4 As String, ByVal strPaymentTerm5 As String,
                                                    ByVal strPaymentTerm6 As String, ByVal strPaymentTerm7 As String,
                                                    ByVal strPaymentTerm8 As String, ByVal strPaymentTerm9 As String,
-                                                   ByVal strPaymentTerm10 As String)
+                                                   ByVal strPaymentTerm10 As String, ByVal strReferencesNumber As String)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -957,7 +958,8 @@
                     "   PaymentTerm7=@PaymentTerm7, " & vbNewLine &
                     "   PaymentTerm8=@PaymentTerm8, " & vbNewLine &
                     "   PaymentTerm9=@PaymentTerm9, " & vbNewLine &
-                    "   PaymentTerm10=@PaymentTerm10 " & vbNewLine &
+                    "   PaymentTerm10=@PaymentTerm10, " & vbNewLine &
+                    "   ReferencesNumber=@ReferencesNumber " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   ID=@ID " & vbNewLine
 
@@ -974,6 +976,7 @@
                 .Parameters.Add("@PaymentTerm8", SqlDbType.VarChar, 5000).Value = strPaymentTerm8
                 .Parameters.Add("@PaymentTerm9", SqlDbType.VarChar, 5000).Value = strPaymentTerm9
                 .Parameters.Add("@PaymentTerm10", SqlDbType.VarChar, 5000).Value = strPaymentTerm10
+                .Parameters.Add("@ReferencesNumber", SqlDbType.VarChar, 5000).Value = strReferencesNumber
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -2208,7 +2211,7 @@
                 .CommandText =
                     "SELECT " & vbNewLine &
                     "   CAST(1 AS BIT) AS Pick, A.DPID, B.ARNumber AS DPNumber, B.ARDate AS DPDate, A.DPAmount, MaxDPAmount=B.TotalAmount-B.TotalAmountUsed+A.DPAmount, " & vbNewLine &
-                    "   B.Percentage " & vbNewLine &
+                    "   B.Percentage, B.ReferencesNumber " & vbNewLine &
                     "FROM traARAPDP A " & vbNewLine &
                     "INNER JOIN traAccountReceivable B ON " & vbNewLine &
                     "   A.DPID=B.ID " & vbNewLine &
@@ -2220,7 +2223,7 @@
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
                     "   CAST(0 AS BIT) AS Pick, A.ID AS DPID, A.ARNumber AS DPNumber, A.ARDate AS DPDate, A.TotalAmount, MaxDPAmount=A.TotalAmount-A.TotalAmountUsed, " & vbNewLine &
-                    "   A.Percentage " & vbNewLine &
+                    "   A.Percentage, A.ReferencesNumber " & vbNewLine &
                     "FROM traAccountReceivable A " & vbNewLine &
                     "WHERE  " & vbNewLine &
                     "   A.BPID=@BPID " & vbNewLine &

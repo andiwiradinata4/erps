@@ -1448,6 +1448,30 @@
             End Try
         End Sub
 
+        Public Shared Sub ChangeItemIDDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                             ByVal strPCDetailID As String, ByVal intOldItemID As Integer, ByVal intNewItemID As Integer)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandText =
+"UPDATE traPurchaseOrderCuttingDet SET  " & vbNewLine &
+"	ItemID=@NewItemID " & vbNewLine &
+"WHERE " & vbNewLine &
+"	ItemID=@OldItemID " & vbNewLine &
+"	AND PCDetailID=@PCDetailID " & vbNewLine
+
+                .Parameters.Add("@PCDetailID", SqlDbType.VarChar, 100).Value = strPCDetailID
+                .Parameters.Add("@OldItemID", SqlDbType.Int).Value = intOldItemID
+                .Parameters.Add("@NewItemID", SqlDbType.Int).Value = intNewItemID
+            End With
+            Try
+                Sql.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail Result"

@@ -536,7 +536,7 @@
                     "   DH.ID, DH.ProgramID, MP.Name AS ProgramName, DH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress, DH.DeliveryNumber AS TransNumber,  " & vbNewLine &
                     "   DH.DeliveryDate AS TransDate, DH.BPID, C.Code AS BPCode, C.Name AS BPName, BPL.Address AS BPAddress, SCH.SCNumber, DH.PlatNumber, DH.Driver, DH.ReferencesNumber, " & vbNewLine &
                     "   DH.TotalQuantity, DH.TotalWeight, DH.StatusID, MIS.Description AS ItemSpec, IT.Description AS ItemType, CASE WHEN MI.ItemCodeExternal='' THEN IT.Description ELSE MI.ItemCodeExternal END AS ItemCodeExternal, MI.Thick AS ItemThick, MI.Width AS ItemWidth,  " & vbNewLine &
-                    "   MI.Length AS ItemLength, MI.Weight, DD.Quantity, DD.TotalWeight AS TotalWeightItem, DD.Remarks AS ItemRemarks, DH.CreatedBy " & vbNewLine &
+                    "   CASE WHEN MI.Length=0 THEN IT.LengthInitial ELSE CAST(MI.Length AS VARCHAR(100)) END AS ItemLength, MI.Weight, DD.Quantity, DD.TotalWeight AS TotalWeightItem, DD.Remarks AS ItemRemarks, DH.CreatedBy " & vbNewLine &
                     "FROM traDelivery DH  " & vbNewLine &
                     "INNER JOIN traSalesContract SCH ON " & vbNewLine &
                     "	DH.SCID=SCH.ID " & vbNewLine &
@@ -569,7 +569,7 @@
                     "   DH.ID, DH.ProgramID, MP.Name AS ProgramName, DH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress, DH.DeliveryNumber AS TransNumber,  " & vbNewLine &
                     "   DH.DeliveryDate AS TransDate, DH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, ORH.OrderNumber AS SCNumber, DH.PlatNumber, DH.Driver, DH.ReferencesNumber, " & vbNewLine &
                     "   DH.TotalQuantity, DH.TotalWeight, DH.StatusID, MIS.Description AS ItemSpec, IT.Description AS ItemType, IT.Description AS ItemCodeExternal, MI.Thick AS ItemThick, MI.Width AS ItemWidth,  " & vbNewLine &
-                    "   MI.Length AS ItemLength, MI.Weight, DD.Quantity, DD.TotalWeight AS TotalWeightItem, DD.Remarks AS ItemRemarks, DH.CreatedBy " & vbNewLine &
+                    "   CASE WHEN MI.Length=0 THEN IT.LengthInitial ELSE CAST(MI.Length AS VARCHAR(100)) END AS ItemLength, MI.Weight, DD.Quantity, DD.TotalWeight AS TotalWeightItem, DD.Remarks AS ItemRemarks, DH.CreatedBy " & vbNewLine &
                     "FROM traDelivery DH  " & vbNewLine &
                     "INNER JOIN traOrderRequest ORH ON " & vbNewLine &
                     "	DH.SCID=ORH.ID " & vbNewLine &
@@ -1506,7 +1506,7 @@
         End Sub
 
         Public Shared Sub ChangeItemIDDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                             ByVal strID As String, ByVal intOldItemID As Integer, ByVal intNewItemID As Integer)
+                                             ByVal strSCDetailID As String, ByVal intOldItemID As Integer, ByVal intNewItemID As Integer)
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
                 .Connection = sqlCon
@@ -1516,9 +1516,9 @@
 "	ItemID=@NewItemID " & vbNewLine &
 "WHERE " & vbNewLine &
 "	ItemID=@OldItemID " & vbNewLine &
-"	AND ID=@ID " & vbNewLine
+"	AND SCDetailID=@SCDetailID " & vbNewLine
 
-                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@SCDetailID", SqlDbType.VarChar, 100).Value = strSCDetailID
                 .Parameters.Add("@OldItemID", SqlDbType.Int).Value = intOldItemID
                 .Parameters.Add("@NewItemID", SqlDbType.Int).Value = intNewItemID
             End With

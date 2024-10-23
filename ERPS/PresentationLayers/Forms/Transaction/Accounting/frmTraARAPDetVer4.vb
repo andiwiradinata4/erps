@@ -191,6 +191,7 @@ Public Class frmTraARAPDetVer4
         UI.usForm.SetGrid(grdDownPaymentView, "DPAmount", "Total Panjar", 250, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdDownPaymentView, "MaxDPAmount", "Total Maksimal Panjar", 150, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdDownPaymentView, "Percentage", "Percentage", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdDownPaymentView, "ReferencesNumber", "Purchase Number", 100, UI.usDefGrid.gString)
         grdItemView.Columns("DPAmount").ColumnEdit = rpiDPAmount
 
         '# History

@@ -59,9 +59,7 @@
             txtPaymentTerm8.Text = clsDetail.PaymentTerm8
             txtPaymentTerm9.Text = clsDetail.PaymentTerm9
             txtPaymentTerm10.Text = clsDetail.PaymentTerm10
-
-            clsSC = BL.SalesContract.GetDetail(clsDetail.ReferencesID)
-            txtPurchaseNumber.Text = clsSC.ReferencesNumber
+            txtPurchaseNumber.Text = IIf(clsDetail.ReferencesNumber.Trim = "", BL.OrderRequest.GetReferencesNumberBySCID(clsDetail.ReferencesID), clsDetail.ReferencesNumber)
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()

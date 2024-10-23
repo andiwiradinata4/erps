@@ -358,6 +358,13 @@
             Return bolSuccess
         End Function
 
+        Public Shared Function GetReferencesNumberBySCID(ByVal strSCID As String) As String
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.OrderRequest.GetReferencesNumberBySCID(sqlCon, Nothing, strSCID)
+            End Using
+        End Function
+
 #End Region
 
 #Region "Detail"
@@ -404,16 +411,12 @@
 
                         '# Get ARAP Item Base on SalesID in Account Receivable Detail
                         dtARAPItem.Merge(DL.ARAP.ListDataByReferencesDetailID(sqlCon, sqlTrans, dr.Item("SCDetailID"), intOldItemID))
-                    Next
 
-                    '# Update ItemID Delivery Detail
-                    For Each dr As DataRow In dtDeliveryDet.Rows
-                        DL.Delivery.ChangeItemIDDetail(sqlCon, sqlTrans, dr.Item("DeliveryDetailID"), intOldItemID, intNewItemID)
-                    Next
+                        '# Update ItemID Delivery Detail
+                        DL.Delivery.ChangeItemIDDetail(sqlCon, sqlTrans, dr.Item("SCDetailID"), intOldItemID, intNewItemID)
 
-                    '# Update ItemID ARAP Item
-                    For Each dr As DataRow In dtARAPItem.Rows
-                        DL.ARAP.ChangeItemIDItem(sqlCon, sqlTrans, dr.Item("ARAPItemID"), intOldItemID, intNewItemID)
+                        '# Update ItemID ARAP Item
+                        DL.ARAP.ChangeItemIDItem(sqlCon, sqlTrans, dr.Item("SCDetailID"), intOldItemID, intNewItemID)
                     Next
 
                     '# Update ItemID Sales Contract Item

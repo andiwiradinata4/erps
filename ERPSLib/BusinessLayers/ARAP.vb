@@ -1034,6 +1034,12 @@
                     dr.BeginEdit()
                     dr.Item("NumericToString") = IIf(dr.Item("IsDP"), SharedLib.Math.NumberToString(SharedLib.Math.Round(dr.Item("DPAmount"), 0)), SharedLib.Math.NumberToString(SharedLib.Math.Round(dr.Item("GrandTotal") - dr.Item("DPAmount"), 0)))
                     dr.Item("ContractNumber") = strPurchaseContractNumber
+
+                    '# Setup Item Length
+                    If IsNumeric(dr.Item("ItemLength")) Then
+                        Dim decValue As Decimal = Convert.ToDecimal(dr.Item("ItemLength"))
+                        dr.Item("ItemLength") = Format(decValue / 100, "#,##0")
+                    End If
                     dr.EndEdit()
                 Next
                 dtReturn.AcceptChanges()

@@ -26,7 +26,7 @@
                     "   ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName, A.TotalPPN, A.TotalPPH, A.DPAmount, A.ReceiveAmount, A.IsDP, A.InvoiceNumberBP, A.CompanyBankAccountID1, A.CompanyBankAccountID2, A.IsUseSubItem, " & vbNewLine &
                     "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, A.PPNPercentage, A.PPHPercentage, " & vbNewLine &
                     "   GrandTotal=A.TotalAmount+A.TotalPPN-A.TotalPPH, GrandTotal=A.TotalAmount+A.TotalPPN-A.TotalPPH, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, " & vbNewLine &
-                    "   DueDateVSNowValue=DATEDIFF(DAY,DueDate, GETDATE()) " & vbNewLine &
+                    "   DueDateVSNowValue=DATEDIFF(DAY,DueDate, GETDATE()), A.ReferencesNumber " & vbNewLine &
                     "FROM traAccountPayable A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -2434,7 +2434,7 @@
                 .CommandText =
                     "SELECT " & vbNewLine &
                     "   CAST(1 AS BIT) AS Pick, A.DPID, B.APNumber AS DPNumber, B.APDate AS DPDate, A.DPAmount, MaxDPAmount=B.TotalAmount-B.TotalAmountUsed+A.DPAmount, " & vbNewLine &
-                    "   B.Percentage " & vbNewLine &
+                    "   B.Percentage, B.ReferencesNumber " & vbNewLine &
                     "FROM traARAPDP A " & vbNewLine &
                     "INNER JOIN traAccountPayable B ON " & vbNewLine &
                     "   A.DPID=B.ID " & vbNewLine &
@@ -2446,7 +2446,7 @@
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
                     "   CAST(0 AS BIT) AS Pick, A.ID AS DPID, A.APNumber AS DPNumber, A.APDate AS DPDate, A.TotalAmount, MaxDPAmount=A.TotalAmount-A.TotalAmountUsed, " & vbNewLine &
-                    "   A.Percentage " & vbNewLine &
+                    "   A.Percentage, A.ReferencesNumber " & vbNewLine &
                     "FROM traAccountPayable A " & vbNewLine &
                     "WHERE  " & vbNewLine &
                     "   A.BPID=@BPID " & vbNewLine &

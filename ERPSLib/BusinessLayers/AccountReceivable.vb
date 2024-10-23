@@ -1754,9 +1754,8 @@
                 Try
                     DL.AccountReceivable.UpdateCompanyBankAccount(sqlCon, sqlTrans, strID, intCompanyBankAccountID1, intCompanyBankAccountID2,
                                                                   strPaymentTerm1, strPaymentTerm2, strPaymentTerm3, strPaymentTerm4, strPaymentTerm5,
-                                                                  strPaymentTerm6, strPaymentTerm7, strPaymentTerm8, strPaymentTerm9, strPaymentTerm10)
-
-                    DL.SalesContract.UpdateReferencesNumber(sqlCon, sqlTrans, strSCID, strReferencesNumber)
+                                                                  strPaymentTerm6, strPaymentTerm7, strPaymentTerm8, strPaymentTerm9, strPaymentTerm10,
+                                                                  strReferencesNumber)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()

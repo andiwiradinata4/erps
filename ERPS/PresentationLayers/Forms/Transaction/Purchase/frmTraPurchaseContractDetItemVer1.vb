@@ -456,6 +456,20 @@ Public Class frmTraPurchaseContractDetItemVer1
         End Try
     End Sub
 
+    Private Sub prvChangeItem()
+        intPos = grdItemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdItemView.GetRowCellValue(intPos, "ID")
+        Dim frmDetail As New frmTraPurchaseContractDetChangeSubItem
+        With frmDetail
+            .pubID = strID
+            .pubDatRowSelected = grdItemView.GetDataRow(intPos)
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            If .pubIsSave Then prvQuerySubItem()
+        End With
+    End Sub
+
 #End Region
 
 #Region "Form Handle"
@@ -492,6 +506,7 @@ Public Class frmTraPurchaseContractDetItemVer1
             Case "Tambah" : prvAddSubItem()
             Case "Edit" : prvEditSubItem()
             Case "Hapus" : prvDeleteSubItem()
+            Case "Ubah Barang" : prvChangeItem()
         End Select
     End Sub
 

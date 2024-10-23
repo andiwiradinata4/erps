@@ -697,6 +697,7 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraClaimDet.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraClaimDetItem.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraClaimOutstandingReferences.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestDetChangeItem.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPChooseInvoice.resources
 C:\Project\Toni\erps\ERPS\bin\Debug\ERPS.exe.config
 C:\Project\Toni\erps\ERPS\bin\Debug\ERPS.exe
 C:\Project\Toni\erps\ERPS\bin\Debug\ERPS.pdb
@@ -768,6 +769,7 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmSysLogin.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmSysOutstandingARAP.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraAccountSetInvoiceNumberBP.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPChooseBankAccount.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPChooseInvoice.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPDetVer2.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPDetVer3.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPDetVer4.resources
@@ -804,6 +806,7 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrder.res
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemAddress.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderOutstanding.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderOutstandingVer1.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseContractDetChangeSubItem.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseContractDetItemOrderSubItem.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderSubItem.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderVer1.resources
@@ -912,5 +915,3 @@ C:\Project\Toni\erps\ERPS\obj\Debug\aa\ERPS.resources.dll
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.exe
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.xml
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.pdb
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPChooseInvoice.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPChooseInvoice.resources

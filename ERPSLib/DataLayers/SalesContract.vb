@@ -2153,6 +2153,30 @@
             End Try
         End Sub
 
+        Public Shared Sub ChangeItemIDDetailCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal strPCDetailID As String, ByVal intOldItemID As Integer, ByVal intNewItemID As Integer)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandText =
+"UPDATE traSalesContractDetConfirmationOrder SET  " & vbNewLine &
+"	ItemID=@NewItemID " & vbNewLine &
+"WHERE " & vbNewLine &
+"	ItemID=@OldItemID " & vbNewLine &
+"	AND PCDetailID=@PCDetailID " & vbNewLine
+
+                .Parameters.Add("@PCDetailID", SqlDbType.VarChar, 100).Value = strPCDetailID
+                .Parameters.Add("@OldItemID", SqlDbType.Int).Value = intOldItemID
+                .Parameters.Add("@NewItemID", SqlDbType.Int).Value = intNewItemID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail CO"
@@ -2214,6 +2238,30 @@
 "	AND SCD.ItemID=@ItemID  " & vbNewLine
 
                 .Parameters.Add("@OrderRequestDetailID", SqlDbType.VarChar, 100).Value = strOrderRequestDetailID
+                .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataCOByPurchaseContractDetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                  ByVal strPCDetailID As String, ByVal intItemID As Integer) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT DISTINCT " & vbNewLine &
+"	SCD.ID AS SCDetailID " & vbNewLine &
+"FROM traSalesContract SCH  " & vbNewLine &
+"INNER JOIN traSalesContractDetCO SCD ON  " & vbNewLine &
+"	SCH.ID=SCD.SCID  " & vbNewLine &
+"WHERE  " & vbNewLine &
+"	SCH.IsDeleted=0  " & vbNewLine &
+"	AND SCD.PCDetailID=@PCDetailID " & vbNewLine &
+"	AND SCD.ItemID=@ItemID  " & vbNewLine
+
+                .Parameters.Add("@PCDetailID", SqlDbType.VarChar, 100).Value = strPCDetailID
                 .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)

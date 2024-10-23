@@ -851,6 +851,7 @@ Partial Class frmTraARAPDetVer4
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.KeyPreview = True
         Me.Name = "frmTraARAPDetVer4"
         Me.Text = "frmTraARAPVer4"
         Me.StatusStrip.ResumeLayout(False)

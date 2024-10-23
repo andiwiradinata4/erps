@@ -356,6 +356,12 @@
             Dim dtReturn As New DataTable
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 dtReturn = DL.Delivery.PrintVer00(sqlCon, Nothing, intProgramID, intCompanyID, strID)
+                For Each dr As DataRow In dtReturn.Rows
+                    If IsNumeric(dr.Item("ItemLength")) Then
+                        Dim decValue As Decimal = Convert.ToDecimal(dr.Item("ItemLength"))
+                        dr.Item("ItemLength") = Format(decValue / 100, "#,##0")
+                    End If
+                Next
             End Using
             Return dtReturn
         End Function
