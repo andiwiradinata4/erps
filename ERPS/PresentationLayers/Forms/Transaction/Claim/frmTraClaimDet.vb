@@ -293,6 +293,7 @@ Public Class frmTraClaimDet
         With frmDetail
             .pubCS = pubCS
             .pubBPID = intBPID
+            .pubClaimType = intClaimType
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
             If .pubIsLookupGet Then

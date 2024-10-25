@@ -166,6 +166,7 @@ Public Class frmTraARAPDetVer4
         UI.usForm.SetGrid(grdItemView, "PPH", "PPH", 150, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "MaxPaymentAmount", "Total Maksimal Tagihan", 150, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "MaxTotalWeight", "Total Maksimal Berat", 150, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "MaxTotalQuantity", "Total Maksimal Quantity", 150, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 250, UI.usDefGrid.gString, True, False)
         UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString, False)
@@ -179,6 +180,7 @@ Public Class frmTraARAPDetVer4
         UI.usForm.SetGrid(grdItemView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ReferencesParentID", "ReferencesParentID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "ItemCodeExternal", "Kode Barang Eksternal", 100, UI.usDefGrid.gString)
         grdItemView.Columns("Amount").ColumnEdit = rpiValue
         grdItemView.Columns("PPN").ColumnEdit = rpiValue
         grdItemView.Columns("PPH").ColumnEdit = rpiValue
@@ -238,7 +240,7 @@ Public Class frmTraARAPDetVer4
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
-
+                chkIsFullDP.Checked = clsData.IsFullDP
                 'dtpARAPDate.Enabled = False
             End If
         Catch ex As Exception
@@ -299,17 +301,22 @@ Public Class frmTraARAPDetVer4
 
         If decTotalDPUsed > 0 Then
             Dim decAllocateDP As Decimal = decTotalDPUsed
+            Dim decMaxDP As Decimal = 0
             With grdDownPaymentView
                 For i As Integer = 0 To .RowCount - 1
-                    If decAllocateDP <= 0 Then Exit For
-                    If .GetRowCellValue(i, "MaxDPAmount") > decAllocateDP Then
-                        .SetRowCellValue(i, "DPAmount", decAllocateDP)
-                        .UpdateCurrentRow()
-                        decAllocateDP = 0
-                    Else
-                        .SetRowCellValue(i, "DPAmount", .GetRowCellValue(i, "MaxDPAmount"))
-                        .UpdateCurrentRow()
-                        decAllocateDP -= .GetRowCellValue(i, "MaxDPAmount")
+                    If .GetRowCellValue(i, "Pick") Then
+                        decMaxDP += .GetRowCellValue(i, "MaxDPAmount")
+
+                        If decAllocateDP <= 0 Then Exit For
+                        If .GetRowCellValue(i, "MaxDPAmount") > decAllocateDP Then
+                            .SetRowCellValue(i, "DPAmount", decAllocateDP)
+                            .UpdateCurrentRow()
+                            decAllocateDP = 0
+                        Else
+                            .SetRowCellValue(i, "DPAmount", .GetRowCellValue(i, "MaxDPAmount"))
+                            .UpdateCurrentRow()
+                            decAllocateDP -= .GetRowCellValue(i, "MaxDPAmount")
+                        End If
                     End If
                 Next
             End With
@@ -434,6 +441,7 @@ Public Class frmTraARAPDetVer4
         clsData.PaymentTypeID = intPaymentTypeID
         clsData.PPNPercentage = decPPNPercentage
         clsData.PPHPercentage = decPPHPercentage
+        clsData.IsFullDP = chkIsFullDP.Checked
         pgMain.Value = 60
 
         Try
@@ -483,6 +491,7 @@ Public Class frmTraARAPDetVer4
         ToolStripLogBy.Text = "Dibuat Oleh : -"
         ToolStripLogDate.Text = Format(Now, UI.usDefCons.DateFull)
         txtGrandTotal.Value = 0
+        chkIsFullDP.Checked = False
     End Sub
 
     Private Sub prvChooseBP()
@@ -734,6 +743,16 @@ Public Class frmTraARAPDetVer4
         Dim decDPPercentage As Decimal = 0
         If grdDownPaymentView.RowCount > 0 Then decDPPercentage = grdDownPaymentView.GetRowCellValue(0, "Percentage")
 
+        Dim decOutstandingDPAmount As Decimal = 0
+        If chkIsFullDP.Checked Then
+            decDPPercentage = 0
+            With grdDownPaymentView
+                For i As Integer = 0 To .RowCount - 1
+                    If .GetRowCellValue(i, "Pick") Then decOutstandingDPAmount += .GetRowCellValue(i, "MaxDPAmount")
+                Next
+            End With
+        End If
+
         With grdItemView
             '# Reset Value
             For i As Integer = 0 To .RowCount - 1
@@ -749,18 +768,18 @@ Public Class frmTraARAPDetVer4
                     .SetRowCellValue(i, "DPAmount", decDPAllocateAmount)
                     .SetRowCellValue(i, "Amount", decPaymentAmount - decDPAllocateAmount)
                 ElseIf .GetRowCellValue(i, "Pick") And decDPPercentage = 0 Then
-                    Dim decOutstandingDPAmount As Decimal = 0
-                    If grdDownPaymentView.RowCount > 0 Then decOutstandingDPAmount = grdDownPaymentView.GetRowCellValue(0, "MaxDPAmount")
-                    If decOutstandingDPAmount < 0 Then Continue For
-                    If decOutstandingDPAmount <= decPaymentAmount Then
-                        .SetRowCellValue(i, "DPAmount", decOutstandingDPAmount)
-                        .SetRowCellValue(i, "Amount", decPaymentAmount - decOutstandingDPAmount)
-                        decOutstandingDPAmount = 0
-                    Else
-                        .SetRowCellValue(i, "DPAmount", decPaymentAmount)
-                        .SetRowCellValue(i, "Amount", 0)
-                        decOutstandingDPAmount -= decPaymentAmount
+                    If decOutstandingDPAmount > 0 Then
+                        If decOutstandingDPAmount <= decPaymentAmount Then
+                            .SetRowCellValue(i, "DPAmount", decOutstandingDPAmount)
+                            .SetRowCellValue(i, "Amount", decPaymentAmount - decOutstandingDPAmount)
+                            decOutstandingDPAmount = 0
+                        Else
+                            .SetRowCellValue(i, "DPAmount", decPaymentAmount)
+                            .SetRowCellValue(i, "Amount", 0)
+                            decOutstandingDPAmount -= decPaymentAmount
+                        End If
                     End If
+                    prvSetAmount(i)
                 End If
             Next
             .UpdateCurrentRow()
@@ -938,7 +957,7 @@ Public Class frmTraARAPDetVer4
         Dim decAmount As Decimal = decUnitPrice * decTotalWeight
         decAmount = decAmount - grdItemView.GetRowCellValue(intPos, "DPAmount")
         If decAmount > decMaxAmount Then
-            UI.usForm.frmMessageBox("Total tagihan baris ke " & intPos & "tidak boleh lebih besar dari total maksimal tagihan")
+            UI.usForm.frmMessageBox("Total tagihan baris ke " & intPos + 1 & " tidak boleh lebih besar dari total maksimal tagihan")
             Exit Sub
         End If
 

@@ -1113,6 +1113,37 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailOutstandingClaim(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                  ByVal strReceiveID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT  " & vbNewLine &
+"	RVD.ID, RVD.ReceiveID AS ParentID, RVH.ReceiveNumber AS ParentNumber, RVD.OrderNumberSupplier, RVH.ReferencesNumber, RVD.ItemID, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+"	MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName,  " & vbNewLine &
+"	RVD.Quantity-RVD.ClaimQuantity AS Quantity, RVD.Weight, RVD.TotalWeight-RVD.ClaimWeight AS TotalWeight, RVD.UnitPrice,  " & vbNewLine &
+"	RVD.TotalPrice, RVD.RoundingWeight, RVD.Remarks " & vbNewLine &
+"FROM traReceiveDet RVD  " & vbNewLine &
+"INNER JOIN traReceive RVH ON  " & vbNewLine &
+"	RVD.ReceiveID=RVH.ID  " & vbNewLine &
+"INNER JOIN mstItem MI ON    " & vbNewLine &
+"    RVD.ItemID=MI.ID    " & vbNewLine &
+"INNER JOIN mstItemSpecification MIS ON    " & vbNewLine &
+"    MI.ItemSpecificationID=MIS.ID    " & vbNewLine &
+"INNER JOIN mstItemType MIT ON    " & vbNewLine &
+"    MI.ItemTypeID=MIT.ID    " & vbNewLine &
+"WHERE  " & vbNewLine &
+"	RVH.ID=@ReceiveID  " & vbNewLine &
+"	AND RVD.TotalWeight-RVD.ClaimWeight>0   " & vbNewLine
+
+                .Parameters.Add("@ReceiveID", SqlDbType.VarChar, 100).Value = strReceiveID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                          ByVal clsData As VO.ReceiveDet)
             Dim sqlCmdExecute As New SqlCommand

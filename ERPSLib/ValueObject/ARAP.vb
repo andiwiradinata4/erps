@@ -65,6 +65,7 @@
         Property TotalDPPInvoiceAmount As Decimal
         Property TotalPPNInvoiceAmount As Decimal
         Property TotalPPHInvoiceAmount As Decimal
+        Property IsFullDP As Boolean
         Enum ARAPTypeValue
             All
             Sales

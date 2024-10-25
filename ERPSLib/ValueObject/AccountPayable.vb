@@ -65,6 +65,8 @@
         Property TotalDPPInvoiceAmount As Decimal
         Property TotalPPNInvoiceAmount As Decimal
         Property TotalPPHInvoiceAmount As Decimal
+        Property IsFullDP As Boolean
+
         Public Const All As String = "AP"
         Public Const PurchaseBalance As String = "PB"
         Public Const DownPaymentManual As String = "PDM"

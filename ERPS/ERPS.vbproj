@@ -1674,6 +1674,9 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaimOutstandingReferences.resx">
       <DependentUpon>frmTraClaimOutstandingReferences.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaimOutstandingReferencesItem.resx">
+      <DependentUpon>frmTraClaimOutstandingReferencesItem.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Item\frmTraItemResult.resx">
       <DependentUpon>frmTraItemResult.vb</DependentUpon>
     </EmbeddedResource>

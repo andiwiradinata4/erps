@@ -180,6 +180,7 @@ Public Class frmTraARAP
         UI.usForm.SetGrid(grdView, "PaymentTerm10", "PaymentTerm10", 100, UI.usDefGrid.gSmallDate, False)
         UI.usForm.SetGrid(grdView, "PPNPercentage", "PPNPercentage", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdView, "PPHPercentage", "PPHPercentage", 100, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdView, "IsFullDP", "Full DP ?", 100, UI.usDefGrid.gBoolean)
     End Sub
 
     Private Sub prvSetButton()
@@ -313,6 +314,7 @@ Public Class frmTraARAP
         clsReturn.PaymentTerm10 = grdView.GetRowCellValue(intPos, "PaymentTerm10")
         clsReturn.PPNPercentage = grdView.GetRowCellValue(intPos, "PPNPercentage")
         clsReturn.PPHPercentage = grdView.GetRowCellValue(intPos, "PPHPercentage")
+        clsReturn.IsFullDP = grdView.GetRowCellValue(intPos, "IsFullDP")
         Return clsReturn
     End Function
 
@@ -726,6 +728,7 @@ Public Class frmTraARAP
                 End With
             End If
 
+
             Dim dtData As DataTable = BL.ARAP.PrintVer01(clsCS.ProgramID, intCompanyID, strID)
             Dim intStatusID As Integer = 0
             For Each dr As DataRow In dtData.Rows
@@ -757,7 +760,7 @@ Public Class frmTraARAP
             crReport.AmountPayment3.Value = 0
             crReport.AmountPayment4.Value = 0
 
-            Dim dtPaymentHistory As DataTable = BL.ARAP.ListPaymentHistoryVer02(clsCS.ProgramID, intCompanyID, clsData.ID)
+            Dim dtPaymentHistory As DataTable = BL.ARAP.ListPaymentHistoryVer02(clsCS.ProgramID, intCompanyID, clsData.ID, clsData.IsFullDP)
             'If dtPaymentHistory.Rows.Count = 0 Then
             '    Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
             '    crReport.sbPayment1.Visible = True
@@ -935,7 +938,7 @@ Public Class frmTraARAP
             Dim crReport As New rptProformaInvoice
 
             '# Setup Watermark Report
-            If intStatusID <> VO.Status.Values.Approved And intStatusID <> VO.Status.Values.Payment Then
+            If intStatusID = VO.Status.Values.Draft Then
                 crReport.Watermark.ShowBehind = False
                 crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
                 crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
@@ -956,7 +959,7 @@ Public Class frmTraARAP
             crReport.AmountPayment3.Value = 0
             crReport.AmountPayment4.Value = 0
 
-            Dim dtPaymentHistory As DataTable = BL.ARAP.ListPaymentHistoryVer02(clsCS.ProgramID, intCompanyID, clsData.ID)
+            Dim dtPaymentHistory As DataTable = BL.ARAP.ListPaymentHistoryVer02(clsCS.ProgramID, intCompanyID, clsData.ID, clsData.IsFullDP)
             'If dtPaymentHistory.Rows.Count = 0 Then
             '    Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
             '    crReport.sbPayment1.Visible = True
@@ -1010,7 +1013,7 @@ Public Class frmTraARAP
             For i As Integer = 0 To drInvoice.Length - 1
                 Dim strDescInvoice As String = "PAYMENT " & Format(drInvoice(i).Item("InvoiceDate"), "dd/MM")
                 decAmountInvoice = drInvoice(i).Item("TotalAmount")
-                If clsData.IsDP Then Continue For
+                If clsData.IsDP Or drInvoice.Length = 1 Then Continue For
                 If i = 0 Then
                     crReport.sbInvoice1.Visible = True
                     crReport.DescInvoice1.Value = strDescInvoice

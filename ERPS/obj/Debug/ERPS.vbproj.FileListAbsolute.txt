@@ -915,3 +915,5 @@ C:\Project\Toni\erps\ERPS\obj\Debug\aa\ERPS.resources.dll
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.exe
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.xml
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.pdb
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseContractDetChangeSubItem.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraClaimOutstandingReferencesItem.resources

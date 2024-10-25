@@ -996,6 +996,7 @@
                     "		FROM traSalesContractDet TDH " & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			TDH.SCID=@ID 	" & vbNewLine &
+                    "			AND TDH.ParentID='' " & vbNewLine &
                     "	), " & vbNewLine &
                     "	ReceiveAmountPPN=	" & vbNewLine &
                     "	(	" & vbNewLine &
@@ -1004,6 +1005,7 @@
                     "		FROM traSalesContractDet TDH " & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			TDH.SCID=@ID 	" & vbNewLine &
+                    "			AND TDH.ParentID='' " & vbNewLine &
                     "	), " & vbNewLine &
                     "	ReceiveAmountPPH=	" & vbNewLine &
                     "	(	" & vbNewLine &
@@ -1012,6 +1014,7 @@
                     "		FROM traSalesContractDet TDH " & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			TDH.SCID=@ID 	" & vbNewLine &
+                    "			AND TDH.ParentID='' " & vbNewLine &
                     "	) " & vbNewLine &
                     "WHERE ID=@ID " & vbNewLine
 
@@ -1148,7 +1151,7 @@
                     "	ReceiveAmount=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(TDD.Amount-TDD.DPAmount),0) + (SELECT ISNULL(SUM(DPAmount),0) AS DP FROM traARAPItem WHERE ReferencesDetailID=@ReferencesDetailID) ReceiveAmount " & vbNewLine &
+                    "			ISNULL(SUM(TDD.Amount),0) ReceiveAmount " & vbNewLine &
                     "		FROM traARAPItem TDD " & vbNewLine &
                     "		INNER JOIN traAccountReceivable AR ON " & vbNewLine &
                     "		    TDD.ParentID=AR.ID  " & vbNewLine &
@@ -1753,6 +1756,37 @@
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = strSCID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataDetailOutstandingClaim(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                  ByVal strReceiveID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT  " & vbNewLine &
+"	SCD.ID, SCD.SCID AS ParentID, SCH.SCNumber AS ParentNumber, SCD.OrderNumberSupplier, SCH.SCNUmber AS ReferencesNumber, SCD.ItemID, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+"	MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName,  " & vbNewLine &
+"	SCD.Quantity-SCD.ClaimQuantity AS Quantity, SCD.Weight, SCD.TotalWeight-SCD.ClaimWeight AS TotalWeight, SCD.UnitPrice,  " & vbNewLine &
+"	SCD.TotalPrice, SCD.RoundingWeight, SCD.Remarks " & vbNewLine &
+"FROM traSalesContractDet SCD  " & vbNewLine &
+"INNER JOIN traSalesContract SCH ON  " & vbNewLine &
+"	SCD.SCID=SCH.ID  " & vbNewLine &
+"INNER JOIN mstItem MI ON    " & vbNewLine &
+"    SCD.ItemID=MI.ID    " & vbNewLine &
+"INNER JOIN mstItemSpecification MIS ON    " & vbNewLine &
+"    MI.ItemSpecificationID=MIS.ID    " & vbNewLine &
+"INNER JOIN mstItemType MIT ON    " & vbNewLine &
+"    MI.ItemTypeID=MIT.ID    " & vbNewLine &
+"WHERE  " & vbNewLine &
+"	SCH.ID=@SCID  " & vbNewLine &
+"	AND SCD.TotalWeight-SCD.ClaimWeight>0   " & vbNewLine
+
+                .Parameters.Add("@ReceiveID", SqlDbType.VarChar, 100).Value = strReceiveID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function

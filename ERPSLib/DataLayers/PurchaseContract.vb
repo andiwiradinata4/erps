@@ -997,7 +997,7 @@
                     "	ReceiveAmount=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(TDD.Amount-TDD.DPAmount),0) + (SELECT ISNULL(SUM(DPAmount),0) AS DP FROM traARAPItem WHERE ReferencesDetailID=@ReferencesDetailID) ReceiveAmount " & vbNewLine &
+                    "			ISNULL(SUM(TDD.Amount),0) ReceiveAmount " & vbNewLine &
                     "		FROM traARAPItem TDD " & vbNewLine &
                     "		INNER JOIN traAccountPayable AR ON " & vbNewLine &
                     "		    TDD.ParentID=AR.ID  " & vbNewLine &

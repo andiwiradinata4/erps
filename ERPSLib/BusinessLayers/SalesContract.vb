@@ -676,6 +676,13 @@ Namespace BL
             End Using
         End Function
 
+        Public Shared Function ListDataDetailOutstandingClaim(ByVal strSCID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.SalesContract.ListDataDetailOutstandingClaim(sqlCon, Nothing, strSCID)
+            End Using
+        End Function
+
         Public Shared Function SaveDataSubitem(ByVal bolNew As Boolean, ByVal strSCID As String,
                                                ByVal clsData As VO.SalesContractDet) As Boolean
             Dim bolReturn As Boolean = False
@@ -788,6 +795,7 @@ Namespace BL
                             Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
                         Else
                             DL.SalesContract.DeleteDataDetailCOByID(sqlCon, sqlTrans, clsData.ID)
+                            DL.PurchaseContract.CalculateSCTotalUsedSubitem(sqlCon, sqlTrans, clsData.PCDetailID)
                         End If
                     End If
 

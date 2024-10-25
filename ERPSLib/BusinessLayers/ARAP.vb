@@ -118,6 +118,7 @@
                         clsData.ARAPDownPayment = clsDataARAP.DownPayment
                         clsData.LogBy = clsDataARAP.LogBy
                         clsData.Save = clsDataARAP.Save
+                        clsData.IsFullDP = clsDataARAP.IsFullDP
 
                         BL.AccountReceivable.SaveData(sqlCon, sqlTrans, bolNew, clsData)
 
@@ -203,6 +204,7 @@
                         clsData.ARAPDownPayment = clsDataARAP.DownPayment
                         clsData.LogBy = clsDataARAP.LogBy
                         clsData.Save = clsDataARAP.Save
+                        clsData.IsFullDP = clsDataARAP.IsFullDP
 
                         BL.AccountPayable.SaveData(sqlCon, sqlTrans, bolNew, clsData)
 
@@ -509,6 +511,7 @@
                         clsData.Save = clsDataARAP.Save
                         clsData.PPNPercentage = clsDataARAP.PPNPercentage
                         clsData.PPHPercentage = clsDataARAP.PPHPercentage
+                        clsData.IsFullDP = clsDataARAP.IsFullDP
 
                         BL.AccountReceivable.SaveDataVer02_ReceivePayment(sqlCon, sqlTrans, bolNew, clsData)
 
@@ -602,6 +605,7 @@
                         clsData.PaymentTypeID = clsDataARAP.PaymentTypeID
                         clsData.PPNPercentage = clsDataARAP.PPNPercentage
                         clsData.PPHPercentage = clsDataARAP.PPHPercentage
+                        clsData.IsFullDP = clsDataARAP.IsFullDP
 
                         BL.AccountPayable.SaveDataVer02_ReceivePayment(sqlCon, sqlTrans, bolNew, clsData)
 
@@ -733,6 +737,7 @@
                 clsReturn.TotalDPPInvoiceAmount = clsData.TotalDPPInvoiceAmount
                 clsReturn.TotalPPNInvoiceAmount = clsData.TotalPPNInvoiceAmount
                 clsReturn.TotalPPHInvoiceAmount = clsData.TotalPPHInvoiceAmount
+                clsReturn.IsFullDP = clsData.IsFullDP
                 Return clsReturn
             Else
                 Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
@@ -801,6 +806,7 @@
                 clsReturn.TotalDPPInvoiceAmount = clsData.TotalDPPInvoiceAmount
                 clsReturn.TotalPPNInvoiceAmount = clsData.TotalPPNInvoiceAmount
                 clsReturn.TotalPPHInvoiceAmount = clsData.TotalPPHInvoiceAmount
+                clsReturn.IsFullDP = clsData.IsFullDP
                 Return clsReturn
             End If
         End Function
@@ -1059,11 +1065,11 @@
         End Function
 
         Public Shared Function ListPaymentHistoryVer02(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                       ByVal strID As String) As DataTable
+                                                       ByVal strID As String, ByVal bolIsFullDP As Boolean) As DataTable
             BL.Server.ServerDefault()
             Dim dtReturn As New DataTable
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                dtReturn.Merge(DL.ARAP.ListPaymentDPVer02(sqlCon, Nothing, strID))
+                dtReturn.Merge(DL.ARAP.ListPaymentDPVer02(sqlCon, Nothing, strID, bolIsFullDP))
                 dtReturn.Merge(DL.ARAP.ListPaymentHistoryVer02(sqlCon, Nothing, intProgramID, intCompanyID, strID))
             End Using
             Return dtReturn
@@ -1481,8 +1487,8 @@
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
                     Dim clsInvoice As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, sqlTrans, strID)
-                    If clsInvoice.StatusID <> VO.Status.Values.Approved Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data belum di approve")
+                    If clsInvoice.StatusID = VO.Status.Values.Draft Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan status data masih DRAFT")
                     ElseIf clsInvoice.IsDeleted Then
                         Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
                     End If

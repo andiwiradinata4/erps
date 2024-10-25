@@ -26,7 +26,7 @@
                     "   ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName, A.TotalPPN, A.TotalPPH, A.DPAmount, A.ReceiveAmount, A.IsDP, A.InvoiceNumberBP, A.CompanyBankAccountID1, A.CompanyBankAccountID2, A.IsUseSubItem, " & vbNewLine &
                     "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, A.PPNPercentage, A.PPHPercentage, " & vbNewLine &
                     "   GrandTotal=A.TotalAmount+A.TotalPPN-A.TotalPPH, GrandTotal=A.TotalAmount+A.TotalPPN-A.TotalPPH, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, " & vbNewLine &
-                    "   DueDateVSNowValue=DATEDIFF(DAY,DueDate, GETDATE()), A.ReferencesNumber " & vbNewLine &
+                    "   DueDateVSNowValue=DATEDIFF(DAY,DueDate, GETDATE()), A.ReferencesNumber, A.IsFullDP " & vbNewLine &
                     "FROM traAccountPayable A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -127,11 +127,11 @@
                         "INSERT INTO traAccountPayable " & vbNewLine &
                         "   (ID, CompanyID, ProgramID, APNumber, BPID, CoAIDOfOutgoingPayment, Modules, ReferencesID, ReferencesNote, " & vbNewLine &
                         "    APDate, DueDateValue, DueDate, TotalAmount, Percentage, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, " & vbNewLine &
-                        "    TotalPPN, TotalPPH, IsDP, DPAmount, ReceiveAmount, IsUseSubItem, PPNPercentage, PPHPercentage) " & vbNewLine &
+                        "    TotalPPN, TotalPPH, IsDP, DPAmount, ReceiveAmount, IsUseSubItem, PPNPercentage, PPHPercentage, IsFullDP) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @CompanyID, @ProgramID, @APNumber, @BPID, @CoAIDOfOutgoingPayment, @Modules, @ReferencesID, @ReferencesNote, " & vbNewLine &
                         "    @APDate, @DueDateValue, @DueDate, @TotalAmount, @Percentage, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), " & vbNewLine &
-                        "    @TotalPPN, @TotalPPH, @IsDP, @DPAmount, @ReceiveAmount, @IsUseSubItem, @PPNPercentage, @PPHPercentage) " & vbNewLine
+                        "    @TotalPPN, @TotalPPH, @IsDP, @DPAmount, @ReceiveAmount, @IsUseSubItem, @PPNPercentage, @PPHPercentage, @IsFullDP) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE traAccountPayable SET " & vbNewLine &
@@ -160,7 +160,8 @@
                         "    ReceiveAmount=@ReceiveAmount, " & vbNewLine &
                         "    IsUseSubItem=@IsUseSubItem, " & vbNewLine &
                         "    PPNPercentage=@PPNPercentage, " & vbNewLine &
-                        "    PPHPercentage=@PPHPercentage " & vbNewLine &
+                        "    PPHPercentage=@PPHPercentage, " & vbNewLine &
+                        "    IsFullDP=@IsFullDP " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -190,6 +191,7 @@
                 .Parameters.Add("@IsUseSubItem", SqlDbType.Bit).Value = clsData.IsUseSubItem
                 .Parameters.Add("@PPNPercentage", SqlDbType.Decimal).Value = clsData.PPNPercentage
                 .Parameters.Add("@PPHPercentage", SqlDbType.Decimal).Value = clsData.PPHPercentage
+                .Parameters.Add("@IsFullDP", SqlDbType.Bit).Value = clsData.IsFullDP
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -216,7 +218,7 @@
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
                         "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice, A.InvoiceNumberBP, A.IsUseSubItem, " & vbNewLine &
                         "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, A.PPNPercentage, A.PPHPercentage, " & vbNewLine &
-                        "   A.PPNPercentage, A.PPHPercentage, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount " & vbNewLine &
+                        "   A.PPNPercentage, A.PPHPercentage, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, A.IsFullDP " & vbNewLine &
                         "FROM traAccountPayable A " & vbNewLine &
                         "INNER JOIN mstStatus B ON " & vbNewLine &
                         "   A.StatusID=B.ID " & vbNewLine &
@@ -301,6 +303,7 @@
                         voReturn.TotalDPPInvoiceAmount = .Item("TotalDPPInvoiceAmount")
                         voReturn.TotalPPNInvoiceAmount = .Item("TotalPPNInvoiceAmount")
                         voReturn.TotalPPHInvoiceAmount = .Item("TotalPPHInvoiceAmount")
+                        voReturn.IsFullDP = .Item("IsFullDP")
                     End If
                 End With
             Catch ex As Exception
@@ -2061,7 +2064,8 @@
                     "   A.ItemID, A.Quantity, A.Weight, A.TotalWeight, MaxTotalWeight=B.TotalWeight-B.InvoiceTotalWeight+A.TotalWeight, " & vbNewLine &
                     "   B.UnitPrice, B.TotalPrice AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
                     "   B.TotalPrice-B.ReceiveAmount+A.Amount-B.AllocateDPAmount+A.DPAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID, " & vbNewLine &
+                    "   MaxTotalQuantity=CASE WHEN B.Quantity-B.InvoiceQuantity<=0 THEN 1 ELSE B.Quantity-B.InvoiceQuantity+A.Quantity END, MI.ItemCodeExternal " & vbNewLine &
                     "FROM traARAPItem A " & vbNewLine &
                     "INNER JOIN traPurchaseContractDet B ON " & vbNewLine &
                     "   A.ReferencesDetailID=B.ID " & vbNewLine &
@@ -2085,7 +2089,8 @@
                     "   A.UnitPrice, A.TotalPrice AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, CAST(0 AS DECIMAL(18,2)) AS DPAmount, B.PPN AS PPNPercent, B.PPH AS PPHPercent, " & vbNewLine &
                     "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
                     "   A.TotalPrice-A.AllocateDPAmount-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID, " & vbNewLine &
+                    "   MaxTotalQuantity=CASE WHEN A.Quantity-A.InvoiceQuantity<=0 THEN 1 ELSE A.Quantity-A.InvoiceQuantity END, MI.ItemCodeExternal " & vbNewLine &
                     "FROM traPurchaseContractDet A " & vbNewLine &
                     "INNER JOIN traPurchaseContract B ON " & vbNewLine &
                     "   A.PCID=B.ID " & vbNewLine &
@@ -2128,7 +2133,8 @@
                     "   A.ItemID, A.Quantity, A.Weight, A.TotalWeight, MaxTotalWeight=B.TotalWeight-B.InvoiceTotalWeight+A.TotalWeight, " & vbNewLine &
                     "   B.UnitPrice, B.TotalPrice AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
                     "   B.TotalPrice-B.ReceiveAmount+A.Amount+A.DPAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID, " & vbNewLine &
+                    "   MaxTotalQuantity=CASE WHEN B.Quantity-B.InvoiceQuantity<=0 THEN 1 ELSE B.Quantity-B.InvoiceQuantity+A.Quantity END, MI.ItemCodeExternal " & vbNewLine &
                     "FROM traARAPItem A " & vbNewLine &
                     "INNER JOIN traReceiveDet B ON " & vbNewLine &
                     "   A.ReferencesDetailID=B.ID " & vbNewLine &
@@ -2150,7 +2156,8 @@
                     "   A.UnitPrice, A.TotalPrice AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, CAST(0 AS DECIMAL(18,2)) AS DPAmount, B.PPN AS PPNPercent, B.PPH AS PPHPercent, " & vbNewLine &
                     "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
                     "   A.TotalPrice-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID, " & vbNewLine &
+                    "   MaxTotalQuantity=CASE WHEN A.Quantity-A.InvoiceQuantity<=0 THEN 1 ELSE B.Quantity-B.InvoiceQuantity+A.Quantity END, MI.ItemCodeExternal " & vbNewLine &
                     "FROM traReceiveDet A " & vbNewLine &
                     "INNER JOIN traReceive B ON " & vbNewLine &
                     "   A.ReceiveID=B.ID " & vbNewLine &
@@ -2191,7 +2198,8 @@
                     "   A.ItemID, A.Quantity, A.Weight, A.TotalWeight, MaxTotalWeight=B.TotalWeight-B.InvoiceTotalWeight+A.TotalWeight, " & vbNewLine &
                     "   B.UnitPrice, B.TotalPrice AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
                     "   B.TotalPrice-B.ReceiveAmount+A.Amount-B.AllocateDPAmount+A.DPAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID  " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID,  " & vbNewLine &
+                    "   MaxTotalQuantity=CASE WHEN B.Quantity-B.InvoiceQuantity<=0 THEN 1 ELSE B.Quantity-B.InvoiceQuantity+A.Quantity END, MI.ItemCodeExternal " & vbNewLine &
                     "FROM traARAPItem A " & vbNewLine &
                     "INNER JOIN traPurchaseOrderCuttingDet B ON " & vbNewLine &
                     "   A.ReferencesDetailID=B.ID " & vbNewLine &
@@ -2213,7 +2221,8 @@
                     "   A.UnitPrice, A.TotalPrice AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, CAST(0 AS DECIMAL(18,2)) AS DPAmount, B.PPN AS PPNPercent, B.PPH AS PPHPercent, " & vbNewLine &
                     "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
                     "   A.TotalPrice-A.AllocateDPAmount-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID  " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID,  " & vbNewLine &
+                    "   MaxTotalQuantity=CASE WHEN A.Quantity-A.InvoiceQuantity<=0 THEN 1 ELSE A.Quantity-A.InvoiceQuantity END, MI.ItemCodeExternal " & vbNewLine &
                     "FROM traPurchaseOrderCuttingDet A " & vbNewLine &
                     "INNER JOIN traPurchaseOrderCutting B ON " & vbNewLine &
                     "   A.POID=B.ID " & vbNewLine &
@@ -2253,7 +2262,8 @@
                     "   A.ItemID, A.Quantity, A.Weight, A.TotalWeight, MaxTotalWeight=B.TotalWeight-B.InvoiceTotalWeightTransport+A.TotalWeight, " & vbNewLine &
                     "   UnitPrice=C.UnitPriceTransport, B.TotalPriceTransport AS InvoiceAmount, A.Amount, A.DPAmount, C.PPNTransport AS PPNPercent, C.PPHTransport AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
                     "   B.TotalPriceTransport-B.ReceiveAmountTransport+A.Amount-B.AllocateDPAmountTransport+A.DPAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID  " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID, " & vbNewLine &
+                    "   MaxTotalQuantity=CASE WHEN B.Quantity-B.InvoiceQuantityTransport<=0 THEN 1 ELSE B.Quantity-B.InvoiceQuantityTransport+A.Quantity END, MI.ItemCodeExternal " & vbNewLine &
                     "FROM traARAPItem A " & vbNewLine &
                     "INNER JOIN traDeliveryDet B ON " & vbNewLine &
                     "   A.ReferencesDetailID=B.ID " & vbNewLine &
@@ -2275,7 +2285,8 @@
                     "   UnitPrice=B.UnitPriceTransport, A.TotalPriceTransport AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, CAST(0 AS DECIMAL(18,2)) AS DPAmount, B.PPNTransport AS PPNPercent, B.PPHTransport AS PPHPercent, " & vbNewLine &
                     "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
                     "   A.TotalPriceTransport-A.AllocateDPAmountTransport-A.ReceiveAmountTransport AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID  " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID , " & vbNewLine &
+                    "   MaxTotalQuantity=CASE WHEN A.Quantity-A.InvoiceQuantityTransport<=0 THEN 1 ELSE A.Quantity-A.InvoiceQuantityTransport END, MI.ItemCodeExternal " & vbNewLine &
                     "FROM traDeliveryDet A " & vbNewLine &
                     "INNER JOIN traDelivery B ON " & vbNewLine &
                     "   A.DeliveryID=B.ID " & vbNewLine &

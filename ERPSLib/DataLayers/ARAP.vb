@@ -388,15 +388,29 @@
         End Function
 
         Public Shared Function ListPaymentDPVer02(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                  ByVal strParentID As String) As DataTable
+                                                  ByVal strParentID As String, ByVal bolIsFullDP As Boolean) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText =
+                If bolIsFullDP Then
+                    .CommandText =
 "SELECT  " & vbNewLine &
-"	DP.DPAmount AS Amount, ARH.Modules, ARH.Percentage, ARH.ARDate, ARH.CreatedDate  " & vbNewLine &
+"	SUM(DP.DPAmount+(DP.DPAmount*ARH.PPNPercentage/100)) AS Amount, ARH.Modules, CAST(0 AS DECIMAL(18,2)) AS Percentage, ARH.ARDate, ARH.CreatedDate  " & vbNewLine &
+"FROM traARAPDP DP  " & vbNewLine &
+"INNER JOIN traAccountReceivable ARH ON  " & vbNewLine &
+"	DP.DPID=ARH.ID  " & vbNewLine &
+"INNER JOIN traAccountReceivableDet ARD ON  " & vbNewLine &
+"	ARH.ID=ARD.ARID  " & vbNewLine &
+"WHERE  " & vbNewLine &
+"	DP.ParentID=@ParentID  " & vbNewLine &
+"GROUP BY ARH.Modules, ARH.ARDate, ARH.CreatedDate " & vbNewLine
+
+                Else
+                    .CommandText =
+"SELECT  " & vbNewLine &
+"	DP.DPAmount+(DP.DPAmount*ARH.PPNPercentage/100) AS Amount, ARH.Modules, ARH.Percentage, ARH.ARDate, ARH.CreatedDate  " & vbNewLine &
 "FROM traARAPDP DP  " & vbNewLine &
 "INNER JOIN traAccountReceivable ARH ON  " & vbNewLine &
 "	DP.DPID=ARH.ID  " & vbNewLine &
@@ -406,6 +420,7 @@
 "	DP.ParentID=@ParentID  " & vbNewLine &
 "ORDER BY ARH.ARDate, ARH.CreatedDate "
 
+                End If
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)

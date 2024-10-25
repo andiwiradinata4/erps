@@ -24,8 +24,6 @@ Partial Class frmTraClaimDetItem
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraClaimDetItem))
         Me.ToolBar = New ERPS.usToolBar()
-        Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
-        Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -67,6 +65,8 @@ Partial Class frmTraClaimDetItem
         Me.txtItemCode = New ERPS.usTextBox()
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtItemName = New ERPS.usTextBox()
+        Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
+        Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -82,7 +82,6 @@ Partial Class frmTraClaimDetItem
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -90,18 +89,6 @@ Partial Class frmTraClaimDetItem
         Me.ToolBar.Size = New System.Drawing.Size(684, 28)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
-        'BarRefresh
-        '
-        Me.BarRefresh.Name = "BarRefresh"
-        Me.BarRefresh.Tag = "Save"
-        Me.BarRefresh.Text = "Simpan"
-        '
-        'BarClose
-        '
-        Me.BarClose.Name = "BarClose"
-        Me.BarClose.Tag = "Close"
-        Me.BarClose.Text = "Tutup"
         '
         'lblInfo
         '
@@ -611,6 +598,18 @@ Partial Class frmTraClaimDetItem
         Me.txtItemName.ReadOnly = True
         Me.txtItemName.Size = New System.Drawing.Size(456, 48)
         Me.txtItemName.TabIndex = 5
+        '
+        'BarRefresh
+        '
+        Me.BarRefresh.Name = "BarRefresh"
+        Me.BarRefresh.Tag = "Save"
+        Me.BarRefresh.Text = "Simpan"
+        '
+        'BarClose
+        '
+        Me.BarClose.Name = "BarClose"
+        Me.BarClose.Tag = "Close"
+        Me.BarClose.Text = "Tutup"
         '
         'frmTraClaimDetItem
         '

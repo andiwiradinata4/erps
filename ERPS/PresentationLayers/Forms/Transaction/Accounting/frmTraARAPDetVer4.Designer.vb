@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmTraARAPDetVer4
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmTraARAPDetVer4
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraARAPDetVer4))
         Me.ToolBar = New ERPS.usToolBar()
@@ -35,6 +35,7 @@ Partial Class frmTraARAPDetVer4
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.chkIsFullDP = New System.Windows.Forms.CheckBox()
         Me.txtGrandTotal = New ERPS.usNumeric()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.txtReferencesNumber = New ERPS.usTextBox()
@@ -212,6 +213,7 @@ Partial Class frmTraARAPDetVer4
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.chkIsFullDP)
         Me.tpMain.Controls.Add(Me.txtGrandTotal)
         Me.tpMain.Controls.Add(Me.Label16)
         Me.tpMain.Controls.Add(Me.txtReferencesNumber)
@@ -253,6 +255,16 @@ Partial Class frmTraARAPDetVer4
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'chkIsFullDP
+        '
+        Me.chkIsFullDP.AutoSize = True
+        Me.chkIsFullDP.Location = New System.Drawing.Point(325, 18)
+        Me.chkIsFullDP.Name = "chkIsFullDP"
+        Me.chkIsFullDP.Size = New System.Drawing.Size(58, 17)
+        Me.chkIsFullDP.TabIndex = 176
+        Me.chkIsFullDP.Text = "Full DP"
+        Me.chkIsFullDP.UseVisualStyleBackColor = True
         '
         'txtGrandTotal
         '
@@ -944,4 +956,5 @@ Partial Class frmTraARAPDetVer4
     Friend WithEvents pgMain As ProgressBar
     Friend WithEvents txtGrandTotal As usNumeric
     Friend WithEvents Label16 As Label
+    Friend WithEvents chkIsFullDP As CheckBox
 End Class
