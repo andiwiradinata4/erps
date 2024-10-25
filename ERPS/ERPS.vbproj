@@ -519,6 +519,12 @@
     <Compile Include="PresentationLayers\Forms\System\frmSysOutstandingARAP.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\System\frmSysSetup.Designer.vb">
+      <DependentUpon>frmSysSetup.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\System\frmSysSetup.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetInvoiceNumberBP.Designer.vb">
       <DependentUpon>frmTraAccountSetInvoiceNumberBP.vb</DependentUpon>
     </Compile>
@@ -1586,6 +1592,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\System\frmSysOutstandingARAP.resx">
       <DependentUpon>frmSysOutstandingARAP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\System\frmSysSetup.resx">
+      <DependentUpon>frmSysSetup.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetInvoiceNumberBP.resx">
       <DependentUpon>frmTraAccountSetInvoiceNumberBP.vb</DependentUpon>

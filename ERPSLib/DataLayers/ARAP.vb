@@ -397,7 +397,7 @@
                 If bolIsFullDP Then
                     .CommandText =
 "SELECT  " & vbNewLine &
-"	SUM(DP.DPAmount+(DP.DPAmount*ARH.PPNPercentage/100)) AS Amount, ARH.Modules, CAST(0 AS DECIMAL(18,2)) AS Percentage, ARH.ARDate, ARH.CreatedDate  " & vbNewLine &
+"	SUM(DP.DPAmount+(DP.DPAmount*ARH.PPNPercentage/100)) AS Amount, ARH.Modules, CAST(0 AS DECIMAL(18,2)) AS Percentage, CAST(GETDATE() AS DATETIME) AS ARDate, CAST(GETDATE() AS DATETIME) AS CreatedDate  " & vbNewLine &
 "FROM traARAPDP DP  " & vbNewLine &
 "INNER JOIN traAccountReceivable ARH ON  " & vbNewLine &
 "	DP.DPID=ARH.ID  " & vbNewLine &
@@ -405,7 +405,7 @@
 "	ARH.ID=ARD.ARID  " & vbNewLine &
 "WHERE  " & vbNewLine &
 "	DP.ParentID=@ParentID  " & vbNewLine &
-"GROUP BY ARH.Modules, ARH.ARDate, ARH.CreatedDate " & vbNewLine
+"GROUP BY ARH.Modules " & vbNewLine
 
                 Else
                     .CommandText =

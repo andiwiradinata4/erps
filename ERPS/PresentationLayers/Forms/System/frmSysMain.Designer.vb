@@ -59,6 +59,8 @@ Partial Class frmSysMain
         Me.mnuTransaksiPenjualanPengirimanPenjualan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPenjualanSep1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuTransaksiPenjualanReturPenjualan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PengajuanKlaimToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.KonfirmasiKlaimToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPenjualanStock = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPenjualanStockPermintaanPenjualan = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPenjualanStockPengirimanPenjualan = New System.Windows.Forms.ToolStripMenuItem()
@@ -117,8 +119,6 @@ Partial Class frmSysMain
         Me.mnuWindowsCascade = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuWindowsCloseAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLogout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PengajuanKlaimToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.KonfirmasiKlaimToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ssMain.SuspendLayout()
         Me.mnuMain.SuspendLayout()
         Me.SuspendLayout()
@@ -386,6 +386,18 @@ Partial Class frmSysMain
         Me.mnuTransaksiPenjualanReturPenjualan.Name = "mnuTransaksiPenjualanReturPenjualan"
         Me.mnuTransaksiPenjualanReturPenjualan.Size = New System.Drawing.Size(190, 22)
         Me.mnuTransaksiPenjualanReturPenjualan.Text = "Retur Penjualan"
+        '
+        'PengajuanKlaimToolStripMenuItem
+        '
+        Me.PengajuanKlaimToolStripMenuItem.Name = "PengajuanKlaimToolStripMenuItem"
+        Me.PengajuanKlaimToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
+        Me.PengajuanKlaimToolStripMenuItem.Text = "Pengajuan Klaim"
+        '
+        'KonfirmasiKlaimToolStripMenuItem
+        '
+        Me.KonfirmasiKlaimToolStripMenuItem.Name = "KonfirmasiKlaimToolStripMenuItem"
+        Me.KonfirmasiKlaimToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
+        Me.KonfirmasiKlaimToolStripMenuItem.Text = "Konfirmasi Klaim"
         '
         'mnuTransaksiPenjualanStock
         '
@@ -734,18 +746,6 @@ Partial Class frmSysMain
         Me.mnuLogout.Size = New System.Drawing.Size(57, 20)
         Me.mnuLogout.Text = "L&ogout"
         '
-        'PengajuanKlaimToolStripMenuItem
-        '
-        Me.PengajuanKlaimToolStripMenuItem.Name = "PengajuanKlaimToolStripMenuItem"
-        Me.PengajuanKlaimToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
-        Me.PengajuanKlaimToolStripMenuItem.Text = "Pengajuan Klaim"
-        '
-        'KonfirmasiKlaimToolStripMenuItem
-        '
-        Me.KonfirmasiKlaimToolStripMenuItem.Name = "KonfirmasiKlaimToolStripMenuItem"
-        Me.KonfirmasiKlaimToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
-        Me.KonfirmasiKlaimToolStripMenuItem.Text = "Konfirmasi Klaim"
-        '
         'frmSysMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -756,6 +756,7 @@ Partial Class frmSysMain
         Me.Controls.Add(Me.pgMain)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.IsMdiContainer = True
+        Me.KeyPreview = True
         Me.MainMenuStrip = Me.mnuMain
         Me.Name = "frmSysMain"
         Me.Text = "Enterprise Resource Planning System"

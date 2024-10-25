@@ -434,6 +434,7 @@ Public Class frmTraSalesContract
             .pubReferencesNumber = clsData.SCNumber
             .pubPPNPercentage = clsData.PPN
             .pubPPHPercentage = clsData.PPH
+            .pubIsUseSubItem = clsData.IsUseSubItem
             .ShowDialog()
         End With
     End Sub

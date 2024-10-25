@@ -119,6 +119,8 @@
     End Sub
 
     Private Sub prvSave()
+        txtItemCode.Focus()
+        prvCalculate()
         If txtItemCode.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Pilih item terlebih dahulu")
             txtItemCode.Focus()

@@ -86,6 +86,7 @@
     <Compile Include="BusinessLayers\Base\Program.vb" />
     <Compile Include="BusinessLayers\Base\ProgramModules.vb" />
     <Compile Include="BusinessLayers\Base\Server.vb" />
+    <Compile Include="BusinessLayers\Base\Setup.vb" />
     <Compile Include="BusinessLayers\Base\Status.vb" />
     <Compile Include="BusinessLayers\Base\StatusModules.vb" />
     <Compile Include="BusinessLayers\Base\UOM.vb" />
@@ -174,6 +175,7 @@
     <Compile Include="DataLayers\Reports.vb" />
     <Compile Include="DataLayers\SalesContract.vb" />
     <Compile Include="DataLayers\SalesReturn.vb" />
+    <Compile Include="DataLayers\Base\Setup.vb" />
     <Compile Include="DataLayers\Stock.vb" />
     <Compile Include="DataLayers\StockIn.vb" />
     <Compile Include="DataLayers\StockOut.vb" />

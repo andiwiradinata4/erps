@@ -259,11 +259,11 @@ Partial Class frmTraARAPDetVer4
         'chkIsFullDP
         '
         Me.chkIsFullDP.AutoSize = True
-        Me.chkIsFullDP.Location = New System.Drawing.Point(325, 18)
+        Me.chkIsFullDP.Location = New System.Drawing.Point(311, 18)
         Me.chkIsFullDP.Name = "chkIsFullDP"
-        Me.chkIsFullDP.Size = New System.Drawing.Size(58, 17)
-        Me.chkIsFullDP.TabIndex = 176
-        Me.chkIsFullDP.Text = "Full DP"
+        Me.chkIsFullDP.Size = New System.Drawing.Size(66, 17)
+        Me.chkIsFullDP.TabIndex = 1
+        Me.chkIsFullDP.Text = "Full DP ?"
         Me.chkIsFullDP.UseVisualStyleBackColor = True
         '
         'txtGrandTotal
@@ -301,7 +301,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtReferencesNumber.Name = "txtReferencesNumber"
         Me.txtReferencesNumber.ReadOnly = True
         Me.txtReferencesNumber.Size = New System.Drawing.Size(249, 21)
-        Me.txtReferencesNumber.TabIndex = 4
+        Me.txtReferencesNumber.TabIndex = 5
         '
         'btnReferences
         '
@@ -309,7 +309,7 @@ Partial Class frmTraARAPDetVer4
         Me.btnReferences.Location = New System.Drawing.Point(389, 69)
         Me.btnReferences.Name = "btnReferences"
         Me.btnReferences.Size = New System.Drawing.Size(23, 23)
-        Me.btnReferences.TabIndex = 5
+        Me.btnReferences.TabIndex = 6
         '
         'Label15
         '
@@ -331,7 +331,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtBPCode.Name = "txtBPCode"
         Me.txtBPCode.ReadOnly = True
         Me.txtBPCode.Size = New System.Drawing.Size(83, 21)
-        Me.txtBPCode.TabIndex = 1
+        Me.txtBPCode.TabIndex = 2
         '
         'txtBPName
         '
@@ -342,7 +342,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtBPName.Name = "txtBPName"
         Me.txtBPName.ReadOnly = True
         Me.txtBPName.Size = New System.Drawing.Size(167, 21)
-        Me.txtBPName.TabIndex = 2
+        Me.txtBPName.TabIndex = 3
         '
         'btnBP
         '
@@ -350,7 +350,7 @@ Partial Class frmTraARAPDetVer4
         Me.btnBP.Location = New System.Drawing.Point(389, 42)
         Me.btnBP.Name = "btnBP"
         Me.btnBP.Size = New System.Drawing.Size(23, 23)
-        Me.btnBP.TabIndex = 3
+        Me.btnBP.TabIndex = 4
         '
         'Label12
         '
@@ -480,7 +480,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtCoACode.Name = "txtCoACode"
         Me.txtCoACode.ReadOnly = True
         Me.txtCoACode.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACode.TabIndex = 6
+        Me.txtCoACode.TabIndex = 7
         '
         'txtTotalPPN
         '
@@ -503,7 +503,7 @@ Partial Class frmTraARAPDetVer4
         Me.btnCoAOfOutgoingPayment.Location = New System.Drawing.Point(389, 96)
         Me.btnCoAOfOutgoingPayment.Name = "btnCoAOfOutgoingPayment"
         Me.btnCoAOfOutgoingPayment.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAOfOutgoingPayment.TabIndex = 8
+        Me.btnCoAOfOutgoingPayment.TabIndex = 9
         '
         'dtpARAPDate
         '
@@ -513,7 +513,7 @@ Partial Class frmTraARAPDetVer4
         Me.dtpARAPDate.Location = New System.Drawing.Point(134, 124)
         Me.dtpARAPDate.Name = "dtpARAPDate"
         Me.dtpARAPDate.Size = New System.Drawing.Size(83, 21)
-        Me.dtpARAPDate.TabIndex = 9
+        Me.dtpARAPDate.TabIndex = 10
         Me.dtpARAPDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
         'Label4
@@ -584,7 +584,7 @@ Partial Class frmTraARAPDetVer4
         Me.cboStatus.Location = New System.Drawing.Point(134, 179)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(118, 21)
-        Me.cboStatus.TabIndex = 11
+        Me.cboStatus.TabIndex = 12
         '
         'txtCoAName
         '
@@ -595,7 +595,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtCoAName.Name = "txtCoAName"
         Me.txtCoAName.ReadOnly = True
         Me.txtCoAName.Size = New System.Drawing.Size(167, 21)
-        Me.txtCoAName.TabIndex = 7
+        Me.txtCoAName.TabIndex = 8
         '
         'Label10
         '
@@ -649,7 +649,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtDueDateValue.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtDueDateValue.Name = "txtDueDateValue"
         Me.txtDueDateValue.Size = New System.Drawing.Size(83, 21)
-        Me.txtDueDateValue.TabIndex = 10
+        Me.txtDueDateValue.TabIndex = 11
         Me.txtDueDateValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtDueDateValue.ThousandsSeparator = True
         '

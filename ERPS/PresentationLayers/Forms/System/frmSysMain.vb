@@ -86,6 +86,9 @@
     Dim frmMainSysOutstandingARAP As frmSysOutstandingARAP
 
 
+    Dim frmMainSysSetup As frmSysSetup
+
+
     Private Sub prvSetupStatusStrip()
         tssUserID.Text = ERPSLib.UI.usUserApp.UserID
         tssVersion.Text = "Versi: " & FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion
@@ -182,6 +185,12 @@
 
 
 #Region "Form Handle"
+
+    Private Sub frmSysMain_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        If ERPSLib.UI.usUserApp.IsSuperUser Then
+            If e.KeyCode = Keys.F12 Then UI.usForm.frmOpen(frmMainSysSetup, "frmSysSetup", Me)
+        End If
+    End Sub
 
     Private Sub frmSysMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")

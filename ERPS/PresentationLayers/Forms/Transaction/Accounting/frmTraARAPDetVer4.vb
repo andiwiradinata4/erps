@@ -154,6 +154,7 @@ Public Class frmTraARAPDetVer4
         UI.usForm.SetGrid(grdItemView, "ReferencesID", "ReferencesID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "ReferencesDetailID", "ReferencesDetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "ItemCodeExternal", "Kode Barang Eksternal", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "InvoiceAmount", "InvoiceAmount", 250, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemView, "Quantity", "Jumlah", 150, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "Weight", "Berat", 150, UI.usDefGrid.gReal2Num)
@@ -180,7 +181,6 @@ Public Class frmTraARAPDetVer4
         UI.usForm.SetGrid(grdItemView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ReferencesParentID", "ReferencesParentID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemView, "ItemCodeExternal", "Kode Barang Eksternal", 100, UI.usDefGrid.gString)
         grdItemView.Columns("Amount").ColumnEdit = rpiValue
         grdItemView.Columns("PPN").ColumnEdit = rpiValue
         grdItemView.Columns("PPH").ColumnEdit = rpiValue
@@ -320,13 +320,12 @@ Public Class frmTraARAPDetVer4
                     End If
                 Next
             End With
-        End If
 
-        'If txtTotalDP.Value <> decTotalDPUsed Then
-        '    UI.usForm.frmMessageBox("Total Panjar dan Total Alokasi Panjar harus sesuai")
-        '    grdItemView.Focus()
-        '    Exit Sub
-        'End If
+            If decMaxDP < decTotalDPUsed Then
+                UI.usForm.frmMessageBox("Total Panjar telah melebihi Maksimum panjar yang dipilih")
+                Exit Sub
+            End If
+        End If
 
         With grdItemView
             For i As Integer = 0 To .RowCount - 1
@@ -574,16 +573,25 @@ Public Class frmTraARAPDetVer4
                 End If
             End If
 
-            '# Delete Item Parent if already have sub item
-            Dim drSelected() As DataRow = dtItem.Select("ReferencesParentID<>''")
-            If drSelected.Length > 0 Then
-                For Each drChild As DataRow In drSelected
-                    For Each dr As DataRow In dtItem.Rows
-                        If dr.Item("ReferencesDetailID") = drChild.Item("ReferencesParentID") Then dr.Delete()
-                    Next
-                    dtItem.AcceptChanges()
+            '# Delete Parent item if Data is Subitem
+            If bolIsUseSubItem Then
+                For Each dr As DataRow In dtItem.Rows
+                    If dr.Item("ReferencesParentID") = "" Then dr.Delete()
                 Next
+                dtItem.AcceptChanges()
             End If
+
+            ''# If 1 Kontrak bisa gabung Plat dan Subcoil maka perlu dibuka function dibawah
+            ''# Delete Item Parent if already have sub item
+            'Dim drSelected() As DataRow = dtItem.Select("ReferencesParentID<>''")
+            'If drSelected.Length > 0 Then
+            '    For Each drChild As DataRow In drSelected
+            '        For Each dr As DataRow In dtItem.Rows
+            '            If dr.Item("ReferencesDetailID") = drChild.Item("ReferencesParentID") Then dr.Delete()
+            '        Next
+            '        dtItem.AcceptChanges()
+            '    Next
+            'End If
 
             grdItem.DataSource = dtItem
             grdItemView.BestFitColumns()
@@ -608,16 +616,26 @@ Public Class frmTraARAPDetVer4
                 If .GetRowCellValue(i, "Amount") > 0 And .GetRowCellValue(i, "PPNPercent") > 0 Then .SetRowCellValue(i, "PPN", ERPSLib.SharedLib.Math.Round(.GetRowCellValue(i, "Amount") * .GetRowCellValue(i, "PPNPercent") / 100, 2)) Else .SetRowCellValue(i, "PPN", 0)
                 If .GetRowCellValue(i, "Amount") > 0 And .GetRowCellValue(i, "PPHPercent") > 0 Then .SetRowCellValue(i, "PPH", ERPSLib.SharedLib.Math.Round(.GetRowCellValue(i, "Amount") * .GetRowCellValue(i, "PPHPercent") / 100, 2)) Else .SetRowCellValue(i, "PPH", 0)
                 .UpdateCurrentRow()
+
+                If .GetRowCellValue(i, "Pick") Then
+                    decDPAllocate += .GetRowCellValue(i, "DPAmount")
+                    decAmount += .GetRowCellValue(i, "Amount")
+                    decPPN += .GetRowCellValue(i, "PPN")
+                    decPPH += .GetRowCellValue(i, "PPH")
+                End If
             Next
             grdItemView.BestFitColumns()
         End With
 
-        For Each dr As DataRow In dtItem.Rows
-            decDPAllocate += dr.Item("DPAmount")
-            decAmount += dr.Item("Amount")
-            decPPN += dr.Item("PPN")
-            decPPH += dr.Item("PPH")
-        Next
+
+
+        'For Each dr As DataRow In dtItem.Rows
+        '    If Not dr.Item("Pick") Then Continue For
+        '    decDPAllocate += dr.Item("DPAmount")
+        '    decAmount += dr.Item("Amount")
+        '    decPPN += dr.Item("PPN")
+        '    decPPH += dr.Item("PPH")
+        'Next
         txtDPAllocate.Value = decDPAllocate
         txtTotalAmount.Value = decAmount
         txtTotalPPN.Value = decPPN
@@ -854,6 +872,7 @@ Public Class frmTraARAPDetVer4
             txtBPName.Text = strBPName
             txtReferencesNumber.Text = strReferencesNumber
         End If
+        Me.WindowState = FormWindowState.Maximized
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
