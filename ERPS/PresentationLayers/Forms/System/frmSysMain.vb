@@ -31,6 +31,7 @@
     Dim frmMainTraDelivery As frmTraDelivery
     Dim frmMainTraSalesReturn As frmTraSalesReturn
     Dim frmMainTraClaimSales As frmTraClaim
+    Dim frmMainTraConfirmationClaimSales As frmTraConfirmationClaim
 
     '## Sales Stock
     Dim frmMainTraOrderRequestStock As frmTraOrderRequest
@@ -45,6 +46,7 @@
     Dim frmMainTraCutting As frmTraCutting
     Dim frmMainTraPurchaseOrderTransport As frmTraPurchaseOrderTransport
     Dim frmMainTraClaimPurchase As frmTraClaim
+    Dim frmMainTraConfirmationClaimPurchase As frmTraConfirmationClaim
 
     '## Pembukuan
     Dim frmMainTraAccountReceivableSetupBalance As frmTraAccountReceivable
@@ -373,7 +375,7 @@
         UI.usForm.frmOpen(frmMainTraSalesReturn, "frmTraSalesReturn", Me)
     End Sub
 
-    Private Sub mnuTransaksiPembelianPengajuanKlaim_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPengajuanKlaim.Click
+    Private Sub mnuTransaksiPenjualanPengajuanKlaim_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPengajuanKlaim.Click
         Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraClaim"
         Me.Cursor = Cursors.WaitCursor
         If Not IsNothing(frmMainTraClaimSales) Then
@@ -381,15 +383,42 @@
                 frmMainTraClaimSales.WindowState = FormWindowState.Normal
                 frmMainTraClaimSales.BringToFront()
                 frmMainTraClaimSales.WindowState = FormWindowState.Maximized
+                frmMainTraClaimSales.pubClaimType = VO.Claim.ClaimTypeValue.Sales
             Else
                 frmMainTraClaimSales = Activator.CreateInstance(Type.GetType(s_fT))
                 frmMainTraClaimSales.MdiParent = Me
+                frmMainTraClaimSales.pubClaimType = VO.Claim.ClaimTypeValue.Sales
                 frmMainTraClaimSales.Show()
             End If
         Else
             frmMainTraClaimSales = Activator.CreateInstance(Type.GetType(s_fT))
             frmMainTraClaimSales.MdiParent = Me
+            frmMainTraClaimSales.pubClaimType = VO.Claim.ClaimTypeValue.Sales
             frmMainTraClaimSales.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
+    End Sub
+
+    Private Sub mnuTransaksiPenjualanKonfirmasiKlaim_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanKonfirmasiKlaim.Click
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraConfirmationClaim"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraConfirmationClaimSales) Then
+            If Not frmMainTraConfirmationClaimSales.IsDisposed Then
+                frmMainTraConfirmationClaimSales.WindowState = FormWindowState.Normal
+                frmMainTraConfirmationClaimSales.BringToFront()
+                frmMainTraConfirmationClaimSales.WindowState = FormWindowState.Maximized
+                frmMainTraConfirmationClaimSales.pubClaimType = VO.Claim.ClaimTypeValue.Sales
+            Else
+                frmMainTraConfirmationClaimSales = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraConfirmationClaimSales.MdiParent = Me
+                frmMainTraConfirmationClaimSales.pubClaimType = VO.Claim.ClaimTypeValue.Sales
+                frmMainTraConfirmationClaimSales.Show()
+            End If
+        Else
+            frmMainTraConfirmationClaimSales = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraConfirmationClaimSales.MdiParent = Me
+            frmMainTraConfirmationClaimSales.pubClaimType = VO.Claim.ClaimTypeValue.Sales
+            frmMainTraConfirmationClaimSales.Show()
         End If
         Me.Cursor = Cursors.Arrow
     End Sub
@@ -484,15 +513,42 @@
                 frmMainTraClaimPurchase.WindowState = FormWindowState.Normal
                 frmMainTraClaimPurchase.BringToFront()
                 frmMainTraClaimPurchase.WindowState = FormWindowState.Maximized
+                frmMainTraClaimPurchase.pubClaimType = VO.Claim.ClaimTypeValue.Receive
             Else
                 frmMainTraClaimPurchase = Activator.CreateInstance(Type.GetType(s_fT))
                 frmMainTraClaimPurchase.MdiParent = Me
+                frmMainTraClaimPurchase.pubClaimType = VO.Claim.ClaimTypeValue.Receive
                 frmMainTraClaimPurchase.Show()
             End If
         Else
             frmMainTraClaimPurchase = Activator.CreateInstance(Type.GetType(s_fT))
             frmMainTraClaimPurchase.MdiParent = Me
+            frmMainTraClaimPurchase.pubClaimType = VO.Claim.ClaimTypeValue.Receive
             frmMainTraClaimPurchase.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
+    End Sub
+
+    Private Sub mnuTransaksiPembelianKonfirmasiKlaim_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianKonfirmasiKlaim.Click
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraConfirmationClaim"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraConfirmationClaimPurchase) Then
+            If Not frmMainTraConfirmationClaimPurchase.IsDisposed Then
+                frmMainTraConfirmationClaimPurchase.WindowState = FormWindowState.Normal
+                frmMainTraConfirmationClaimPurchase.BringToFront()
+                frmMainTraConfirmationClaimPurchase.WindowState = FormWindowState.Maximized
+                frmMainTraConfirmationClaimPurchase.pubClaimType = VO.Claim.ClaimTypeValue.Receive
+            Else
+                frmMainTraConfirmationClaimPurchase = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraConfirmationClaimPurchase.MdiParent = Me
+                frmMainTraConfirmationClaimPurchase.pubClaimType = VO.Claim.ClaimTypeValue.Receive
+                frmMainTraConfirmationClaimPurchase.Show()
+            End If
+        Else
+            frmMainTraConfirmationClaimPurchase = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraConfirmationClaimPurchase.MdiParent = Me
+            frmMainTraConfirmationClaimPurchase.pubClaimType = VO.Claim.ClaimTypeValue.Receive
+            frmMainTraConfirmationClaimPurchase.Show()
         End If
         Me.Cursor = Cursors.Arrow
     End Sub

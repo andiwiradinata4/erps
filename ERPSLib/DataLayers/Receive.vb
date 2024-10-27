@@ -95,7 +95,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT DISTINCT " & vbNewLine &
-                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.ReceiveNumber AS ReferencesNumber, " & vbNewLine &
+                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.ReceiveNumber AS TransactionNumber, CASE WHEN A.ReferencesNumber='' THEN A.ReceiveNumber ELSE A.ReferencesNumber END ReferencesNumber, " & vbNewLine &
                     "   A.ReceiveDate AS ReferencesDate, A.BPID, MBP.Code AS BPCode, MBP.Name AS BPName, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, " & vbNewLine &
                     "   A.TotalDPP+A.TotalPPN-A.TotalPPH AS GrandTotal, A.Remarks, A.PPN, A.PPH " & vbNewLine &
                     "FROM traReceive A " & vbNewLine &
@@ -1122,10 +1122,10 @@
                 .CommandType = CommandType.Text
                 .CommandText =
 "SELECT  " & vbNewLine &
-"	RVD.ID, RVD.ReceiveID AS ParentID, RVH.ReceiveNumber AS ParentNumber, RVD.OrderNumberSupplier, RVH.ReferencesNumber, RVD.ItemID, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-"	MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName,  " & vbNewLine &
+"	RVD.ID, RVD.ReceiveID AS ParentID, RVH.ReceiveNumber AS ParentNumber, RVD.OrderNumberSupplier, CASE WHEN RVH.ReferencesNumber='' THEN RVH.ReceiveNumber ELSE RVH.ReferencesNumber END ReferencesNumber, " & vbNewLine &
+"	RVD.ItemID, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length, MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName,  " & vbNewLine &
 "	RVD.Quantity-RVD.ClaimQuantity AS Quantity, RVD.Weight, RVD.TotalWeight-RVD.ClaimWeight AS TotalWeight, RVD.UnitPrice,  " & vbNewLine &
-"	RVD.TotalPrice, RVD.RoundingWeight, RVD.Remarks " & vbNewLine &
+"	RVD.TotalPrice, RVD.RoundingWeight, RVD.Remarks, RVD.TotalWeight-RVD.ClaimWeight AS MaxTotalWeight " & vbNewLine &
 "FROM traReceiveDet RVD  " & vbNewLine &
 "INNER JOIN traReceive RVH ON  " & vbNewLine &
 "	RVD.ReceiveID=RVH.ID  " & vbNewLine &
@@ -1289,7 +1289,7 @@
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(CD.TotalWeight+CD.RoundingWeight),0) TotalWeight " & vbNewLine &
                     "		FROM traClaimDet CD 	" & vbNewLine &
-                    "		INNER JOIN traClaimDet CH ON	" & vbNewLine &
+                    "		INNER JOIN traClaim CH ON	" & vbNewLine &
                     "			CD.ClaimID=CH.ID 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			CD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
@@ -1300,7 +1300,7 @@
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(CD.Quantity),0) TotalQuantity " & vbNewLine &
                     "		FROM traClaimDet CD 	" & vbNewLine &
-                    "		INNER JOIN traClaimDet CH ON	" & vbNewLine &
+                    "		INNER JOIN traClaim CH ON	" & vbNewLine &
                     "			CD.ClaimID=CH.ID 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			CD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &

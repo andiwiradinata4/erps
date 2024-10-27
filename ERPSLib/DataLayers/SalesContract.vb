@@ -226,8 +226,8 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT DISTINCT " & vbNewLine &
-                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.SCNumber AS ReferencesNumber, " & vbNewLine &
-                    "   A.ReceiveDate AS ReferencesDate, A.BPID, MBP.Code AS BPCode, MBP.Name AS BPName, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, " & vbNewLine &
+                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.SCNumber AS TransactionNumber, CASE WHEN A.ReferencesNumber='' THEN A.SCNumber ELSE A.ReferencesNumber END AS ReferencesNumber, " & vbNewLine &
+                    "   A.SCDate AS ReferencesDate, A.BPID, MBP.Code AS BPCode, MBP.Name AS BPName, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, " & vbNewLine &
                     "   A.TotalDPP+A.TotalPPN-A.TotalPPH AS GrandTotal, A.Remarks, A.PPN, A.PPH " & vbNewLine &
                     "FROM traSalesContract A " & vbNewLine &
                     "INNER JOIN mstCompany MC ON " & vbNewLine &
@@ -1769,10 +1769,10 @@
                 .CommandType = CommandType.Text
                 .CommandText =
 "SELECT  " & vbNewLine &
-"	SCD.ID, SCD.SCID AS ParentID, SCH.SCNumber AS ParentNumber, SCD.OrderNumberSupplier, SCH.SCNUmber AS ReferencesNumber, SCD.ItemID, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-"	MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName,  " & vbNewLine &
+"	SCD.ID, SCD.SCID AS ParentID, SCH.SCNumber AS ParentNumber, SCD.OrderNumberSupplier, CASE WHEN SCH.ReferencesNumber='' THEN SCH.SCNumber ELSE SCH.ReferencesNumber END AS ReferencesNumber, " & vbNewLine &
+"	SCD.ItemID, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length, MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName,  " & vbNewLine &
 "	SCD.Quantity-SCD.ClaimQuantity AS Quantity, SCD.Weight, SCD.TotalWeight-SCD.ClaimWeight AS TotalWeight, SCD.UnitPrice,  " & vbNewLine &
-"	SCD.TotalPrice, SCD.RoundingWeight, SCD.Remarks " & vbNewLine &
+"	SCD.TotalPrice, SCD.RoundingWeight, SCD.Remarks, SCD.TotalWeight-SCD.ClaimWeight AS MaxTotalWeight " & vbNewLine &
 "FROM traSalesContractDet SCD  " & vbNewLine &
 "INNER JOIN traSalesContract SCH ON  " & vbNewLine &
 "	SCD.SCID=SCH.ID  " & vbNewLine &
@@ -2135,7 +2135,7 @@
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(CD.TotalWeight+CD.RoundingWeight),0) TotalWeight " & vbNewLine &
                     "		FROM traClaimDet CD 	" & vbNewLine &
-                    "		INNER JOIN traClaimDet CH ON	" & vbNewLine &
+                    "		INNER JOIN traClaim CH ON	" & vbNewLine &
                     "			CD.ClaimID=CH.ID 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			CD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
@@ -2146,7 +2146,7 @@
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(CD.Quantity),0) TotalQuantity " & vbNewLine &
                     "		FROM traClaimDet CD 	" & vbNewLine &
-                    "		INNER JOIN traClaimDet CH ON	" & vbNewLine &
+                    "		INNER JOIN traClaim CH ON	" & vbNewLine &
                     "			CD.ClaimID=CH.ID 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			CD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &

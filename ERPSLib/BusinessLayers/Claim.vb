@@ -13,6 +13,14 @@ Namespace BL
             End Using
         End Function
 
+        Public Shared Function ListDataOutstandingConfirmationClaim(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                    ByVal intBPID As Integer, ByVal intClaimType As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.Claim.ListDataOutstandingConfirmationClaim(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, intClaimType)
+            End Using
+        End Function
+
         Public Shared Function GetNewID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer,
                                         ByVal intProgramID As Integer, ByVal intClaimType As Integer) As String
@@ -27,7 +35,6 @@ Namespace BL
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-
                     If bolNew Then
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.ClaimDate, clsData.CompanyID, clsData.ProgramID, clsData.ClaimType)
                         If clsData.ClaimNumber.Trim = "" Then clsData.ClaimNumber = clsData.ID
@@ -45,9 +52,9 @@ Namespace BL
                     Dim intStatusID As Integer = DL.Claim.GetStatusID(sqlCon, sqlTrans, clsData.ID)
                     If intStatusID = VO.Status.Values.Submit Then
                         Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di submit")
-                    ElseIf DL.claim.IsDeleted(sqlCon, sqlTrans, clsData.ID) Then
+                    ElseIf DL.Claim.IsDeleted(sqlCon, sqlTrans, clsData.ID) Then
                         Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
-                    ElseIf DL.claim.DataExists(sqlCon, sqlTrans, clsData.ClaimNumber, clsData.ID) Then
+                    ElseIf DL.Claim.DataExists(sqlCon, sqlTrans, clsData.ClaimNumber, clsData.ID) Then
                         Err.Raise(515, "", "Tidak dapat disimpan. Nomor " & clsData.ClaimNumber & " sudah ada.")
                     End If
 
@@ -98,7 +105,7 @@ Namespace BL
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
                     End If
 
-                    Dim dtDetail As DataTable = DL.Delivery.ListDataDetail(sqlCon, sqlTrans, strID)
+                    Dim dtDetail As DataTable = DL.Claim.ListDataDetail(sqlCon, sqlTrans, strID)
 
                     DL.Claim.DeleteData(sqlCon, sqlTrans, strID)
 
@@ -192,6 +199,13 @@ Namespace BL
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.Claim.ListDataDetail(sqlCon, Nothing, strClaimID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailOutstandingConfirmationClaim(ByVal strClaimID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.Claim.ListDataDetailOutstandingConfirmationClaim(sqlCon, Nothing, strClaimID)
             End Using
         End Function
 

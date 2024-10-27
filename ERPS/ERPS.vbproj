@@ -705,6 +705,36 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaimOutstandingReferencesItem.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraConfirmationClaim.Designer.vb">
+      <DependentUpon>frmTraConfirmationClaim.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraConfirmationClaim.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraConfirmationClaimDet.Designer.vb">
+      <DependentUpon>frmTraConfirmationClaimDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraConfirmationClaimDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraConfirmationClaimDetItem.Designer.vb">
+      <DependentUpon>frmTraConfirmationClaimDetItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraConfirmationClaimDetItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraConfirmationClaimOutstandingClaim.Designer.vb">
+      <DependentUpon>frmTraConfirmationClaimOutstandingClaim.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraConfirmationClaimOutstandingClaim.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraConfirmationClaimOutstandingClaimItem.Designer.vb">
+      <DependentUpon>frmTraConfirmationClaimOutstandingClaimItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraConfirmationClaimOutstandingClaimItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Item\frmTraItemResult.Designer.vb">
       <DependentUpon>frmTraItemResult.vb</DependentUpon>
     </Compile>
@@ -1269,6 +1299,12 @@
     <Compile Include="PresentationLayers\Reports2\rptBukuBesarVer00.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptClaim.Designer.vb">
+      <DependentUpon>rptClaim.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptClaim.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Reports2\rptCOAPerGroupVer00.Designer.vb">
       <DependentUpon>rptCOAPerGroupVer00.vb</DependentUpon>
     </Compile>
@@ -1685,6 +1721,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Claim\frmTraClaimOutstandingReferencesItem.resx">
       <DependentUpon>frmTraClaimOutstandingReferencesItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Claim\frmTraConfirmationClaim.resx">
+      <DependentUpon>frmTraConfirmationClaim.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Claim\frmTraConfirmationClaimDet.resx">
+      <DependentUpon>frmTraConfirmationClaimDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Claim\frmTraConfirmationClaimDetItem.resx">
+      <DependentUpon>frmTraConfirmationClaimDetItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Claim\frmTraConfirmationClaimOutstandingClaim.resx">
+      <DependentUpon>frmTraConfirmationClaimOutstandingClaim.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Claim\frmTraConfirmationClaimOutstandingClaimItem.resx">
+      <DependentUpon>frmTraConfirmationClaimOutstandingClaimItem.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Item\frmTraItemResult.resx">
       <DependentUpon>frmTraItemResult.vb</DependentUpon>

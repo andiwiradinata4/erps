@@ -152,7 +152,7 @@ Public Class frmTraClaim
         clsReturn.BPID = grdView.GetRowCellValue(intPos, "BPID")
         clsReturn.BPCode = grdView.GetRowCellValue(intPos, "BPCode")
         clsReturn.BPName = grdView.GetRowCellValue(intPos, "BPName")
-        clsReturn.ReferencesID = grdView.GetRowCellValue(intPos, "SCID")
+        clsReturn.ReferencesID = grdView.GetRowCellValue(intPos, "ReferencesID")
         clsReturn.ReferencesNumber = grdView.GetRowCellValue(intPos, "ReferencesNumber")
         clsReturn.PlatNumber = grdView.GetRowCellValue(intPos, "PlatNumber")
         clsReturn.Driver = grdView.GetRowCellValue(intPos, "Driver")
@@ -439,6 +439,8 @@ Public Class frmTraClaim
         prvDefaultFilter()
         prvQuery()
         prvUserAccess()
+        If intClaimType = VO.Claim.ClaimTypeValue.Receive Then Me.Text += " [Pembelian]"
+        If intClaimType = VO.Claim.ClaimTypeValue.Sales Then Me.Text += " [Penjualan]"
         Me.WindowState = FormWindowState.Maximized
     End Sub
 

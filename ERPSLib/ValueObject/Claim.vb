@@ -34,6 +34,7 @@ Namespace VO
         Property TotalPaymentPPH As Decimal
         Property Detail As New List(Of VO.ClaimDet)
         Property Save As VO.Save.Action
+        Property ItemDescription As String
 
         Enum ClaimTypeValue
             All = 0

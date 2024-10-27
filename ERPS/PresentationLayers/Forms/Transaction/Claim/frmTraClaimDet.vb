@@ -51,7 +51,6 @@ Public Class frmTraClaimDet
         UI.usForm.SetGrid(grdItemView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "ClaimID", "ClaimID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "ReferencesDetailID", "ReferencesDetailID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ReferencesNumber", "No. Referensi", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
@@ -68,8 +67,10 @@ Public Class frmTraClaimDet
         UI.usForm.SetGrid(grdItemView, "Weight", "Weight", 100, UI.usDefGrid.gReal1Num)
         UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "UnitPriceProduct", "Harga [Barang]", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "TotalPriceProduct", "Total Harga [Barang]", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga [Klaim]", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga [Klaim]", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
@@ -104,6 +105,7 @@ Public Class frmTraClaimDet
                 clsData = New VO.Claim
                 clsData = BL.Claim.GetDetail(pubID)
                 txtClaimNumber.Text = clsData.ClaimNumber
+                dtpClaimDate.Value = clsData.ClaimDate
                 intBPID = clsData.BPID
                 txtBPCode.Text = clsData.BPCode
                 txtBPName.Text = clsData.BPName
@@ -123,6 +125,7 @@ Public Class frmTraClaimDet
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
                 bolIsUseSubItem = clsData.IsUseSubItem
                 txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
+                txtItemDescription.Text = clsData.ItemDescription
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -143,20 +146,15 @@ Public Class frmTraClaimDet
             tcHeader.SelectedTab = tpMain
             txtBPCode.Focus()
             Exit Sub
-            'ElseIf txtPlatNumber.Text.Trim = "" Then
-            '    UI.usForm.frmMessageBox("No. Plat tidak boleh kosong")
-            '    tcHeader.SelectedTab = tpMain
-            '    txtPlatNumber.Focus()
-            '    Exit Sub
-            'ElseIf txtDriver.Text.Trim = "" Then
-            '    UI.usForm.frmMessageBox("Nama Supir tidak boleh kosong")
-            '    tcHeader.SelectedTab = tpMain
-            '    txtDriver.Focus()
-            '    Exit Sub
         ElseIf cboStatus.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Status kosong. Mohon untuk tutup form dan buka kembali")
             tcHeader.SelectedTab = tpMain
             cboStatus.Focus()
+            Exit Sub
+        ElseIf txtItemDescription.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Deskripsi barang tidak boleh kosong")
+            tcHeader.SelectedTab = tpMain
+            txtItemDescription.Focus()
             Exit Sub
         ElseIf grdItemView.RowCount = 0 Then
             UI.usForm.frmMessageBox("Item kosong. Mohon untuk diinput item terlebih dahulu")
@@ -188,6 +186,8 @@ Public Class frmTraClaimDet
                                .TotalWeight = dr.Item("TotalWeight"),
                                .UnitPrice = dr.Item("UnitPrice"),
                                .TotalPrice = dr.Item("TotalPrice"),
+                               .UnitPriceProduct = dr.Item("UnitPriceProduct"),
+                               .TotalPriceProduct = dr.Item("TotalPriceProduct"),
                                .Remarks = dr.Item("Remarks"),
                                .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
                                .LevelItem = dr.Item("LevelItem"),
@@ -219,7 +219,10 @@ Public Class frmTraClaimDet
         clsData.IsUseSubItem = bolIsUseSubItem
         clsData.Detail = listDetail
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+        clsData.ClaimType = intClaimType
         clsData.Save = intSave
+        clsData.ItemDescription = txtItemDescription.Text.Trim
+
         pgMain.Value = 60
         Try
             Dim strClaimNumber As String = BL.Claim.SaveData(pubIsNew, clsData)
@@ -385,76 +388,64 @@ Public Class frmTraClaimDet
     End Sub
 
     Private Sub prvAddItem()
-        'If txtBPCode.Text.Trim = "" Then
-        '    UI.usForm.frmMessageBox("Pilih Pelanggan terlebih dahulu")
-        '    txtBPCode.Focus()
-        '    Exit Sub
-        'ElseIf txtReferencesNumber.Text.Trim = "" Then
-        '    UI.usForm.frmMessageBox("Pilih Kontrak terlebih dahulu")
-        '    txtReferencesNumber.Focus()
-        '    Exit Sub
-        'End If
-        'Dim frmDetail As New frmTraClaimDetItem
-        'With frmDetail
-        '    .pubIsNew = True
-        '    .pubCS = pubCS
-        '    .pubReferencesID = strSCID
-        '    .pubTableItem = dtItem
-        '    .pubIsAutoSearch = True
-        '    .pubIsUseSubItem = bolIsUseSubItem
-        '    .pubClaimType = bolIsStock
-        '    .StartPosition = FormStartPosition.CenterParent
-        '    .pubShowDialog(Me)
-        '    prvSetButtonItem()
-        '    prvCalculate()
-        '    prvSetupTools()
-        'End With
+        If txtBPCode.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih Rekan Bisnis terlebih dahulu")
+            txtBPCode.Focus()
+            Exit Sub
+        ElseIf txtReferencesNumber.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih No. Referensi terlebih dahulu")
+            txtReferencesNumber.Focus()
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraClaimDetItem
+        With frmDetail
+            .pubIsNew = True
+            .pubReferencesID = strReferencesID
+            .pubTableItem = dtItem
+            .pubIsAutoSearch = True
+            .pubClaimType = intClaimType
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            prvSetButtonItem()
+            prvCalculate()
+            prvSetupTools()
+        End With
     End Sub
 
     Private Sub prvEditItem()
-        'intPos = grdItemView.FocusedRowHandle
-        'If intPos < 0 Then Exit Sub
-        'Dim frmDetail As New frmTraClaimDetItem
-        'With frmDetail
-        '    .pubIsNew = False
-        '    .pubCS = pubCS
-        '    .pubReferencesID = strSCID
-        '    .pubTableItem = dtItem
-        '    .pubDataRowSelected = grdItemView.GetDataRow(intPos)
-        '    .pubIsUseSubItem = bolIsUseSubItem
-        '    .pubClaimType = bolIsStock
-        '    .StartPosition = FormStartPosition.CenterParent
-        '    .pubShowDialog(Me)
-        '    prvSetButtonItem()
-        '    prvCalculate()
-        '    prvSetupTools()
-        'End With
+        intPos = grdItemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim frmDetail As New frmTraClaimDetItem
+        With frmDetail
+            .pubIsNew = False
+            .pubReferencesID = strReferencesID
+            .pubTableItem = dtItem
+            .pubIsAutoSearch = False
+            .pubDataRowSelected = grdItemView.GetDataRow(intPos)
+            .pubID = grdItemView.GetRowCellValue(intPos, "ID")
+            .pubClaimType = intClaimType
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            prvSetButtonItem()
+            prvCalculate()
+            prvSetupTools()
+        End With
     End Sub
 
     Private Sub prvDeleteItem()
-        'intPos = grdItemView.FocusedRowHandle
-        'If intPos < 0 Then Exit Sub
-        'Dim strID As String = grdItemView.GetRowCellValue(intPos, "ID")
-        'Dim intGroupID As Integer = grdItemView.GetRowCellValue(intPos, "GroupID")
+        intPos = grdItemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdItemView.GetRowCellValue(intPos, "ID")
 
-        ''# Delete Item
-        'For Each dr As DataRow In dtItem.Rows
-        '    If dr.Item("ID") = strID Then dr.Delete() : Exit For
-        'Next
-        'dtItem.AcceptChanges()
-
-        ''# Update Group ID Item
-        'For Each dr As DataRow In dtItem.Rows
-        '    If dr.Item("GroupID") > intGroupID Then
-        '        dr.BeginEdit()
-        '        dr.Item("GroupID") = dr.Item("GroupID") - 1
-        '        dr.EndEdit()
-        '    End If
-        'Next
-        'dtItem.AcceptChanges()
-        'prvCalculate()
-        'prvSetButtonItem()
-        'prvSetupTools()
+        '# Delete Item
+        For Each dr As DataRow In dtItem.Rows
+            If dr.Item("ID") = strID Then dr.Delete() : Exit For
+        Next
+        dtItem.AcceptChanges()
+        prvCalculate()
+        prvSetButtonItem()
+        prvSetupTools()
     End Sub
 
 #End Region

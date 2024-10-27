@@ -30,6 +30,8 @@ Partial Class frmTraClaimDet
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.txtItemDescription = New ERPS.usTextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.lblReferencesNumber = New System.Windows.Forms.Label()
         Me.txtReferencesNumber = New ERPS.usTextBox()
         Me.btnReferences = New DevExpress.XtraEditors.SimpleButton()
@@ -166,6 +168,8 @@ Partial Class frmTraClaimDet
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.txtItemDescription)
+        Me.tpMain.Controls.Add(Me.Label3)
         Me.tpMain.Controls.Add(Me.lblReferencesNumber)
         Me.tpMain.Controls.Add(Me.txtReferencesNumber)
         Me.tpMain.Controls.Add(Me.btnReferences)
@@ -192,6 +196,27 @@ Partial Class frmTraClaimDet
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'txtItemDescription
+        '
+        Me.txtItemDescription.BackColor = System.Drawing.Color.White
+        Me.txtItemDescription.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtItemDescription.Location = New System.Drawing.Point(599, 65)
+        Me.txtItemDescription.MaxLength = 250
+        Me.txtItemDescription.Name = "txtItemDescription"
+        Me.txtItemDescription.Size = New System.Drawing.Size(249, 21)
+        Me.txtItemDescription.TabIndex = 10
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
+        Me.Label3.ForeColor = System.Drawing.Color.Black
+        Me.Label3.Location = New System.Drawing.Point(508, 69)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(86, 13)
+        Me.Label3.TabIndex = 197
+        Me.Label3.Text = "Deskripsi Barang"
         '
         'lblReferencesNumber
         '
@@ -269,12 +294,12 @@ Partial Class frmTraClaimDet
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(599, 65)
+        Me.txtRemarks.Location = New System.Drawing.Point(599, 92)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(249, 74)
-        Me.txtRemarks.TabIndex = 10
+        Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
+        Me.txtRemarks.TabIndex = 11
         '
         'txtBPCode
         '
@@ -313,7 +338,7 @@ Partial Class frmTraClaimDet
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(514, 68)
+        Me.Label13.Location = New System.Drawing.Point(508, 95)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 129
@@ -334,7 +359,7 @@ Partial Class frmTraClaimDet
         Me.lblStatusID.AutoSize = True
         Me.lblStatusID.BackColor = System.Drawing.Color.Transparent
         Me.lblStatusID.ForeColor = System.Drawing.Color.Black
-        Me.lblStatusID.Location = New System.Drawing.Point(514, 42)
+        Me.lblStatusID.Location = New System.Drawing.Point(508, 42)
         Me.lblStatusID.Name = "lblStatusID"
         Me.lblStatusID.Size = New System.Drawing.Size(38, 13)
         Me.lblStatusID.TabIndex = 128
@@ -356,7 +381,7 @@ Partial Class frmTraClaimDet
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.ForeColor = System.Drawing.Color.Black
-        Me.Label4.Location = New System.Drawing.Point(514, 15)
+        Me.Label4.Location = New System.Drawing.Point(508, 15)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(45, 13)
         Me.Label4.TabIndex = 124
@@ -815,6 +840,9 @@ Partial Class frmTraClaimDet
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.KeyPreview = True
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmTraClaimDet"
         Me.Text = "Pengajuan Klaim"
         Me.tcHeader.ResumeLayout(False)
@@ -906,4 +934,6 @@ Partial Class frmTraClaimDet
     Friend WithEvents BarAddItemOrder As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarDetailItemOrder As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarDeleteItemOrder As System.Windows.Forms.ToolBarButton
+    Friend WithEvents txtItemDescription As ERPS.usTextBox
+    Friend WithEvents Label3 As System.Windows.Forms.Label
 End Class

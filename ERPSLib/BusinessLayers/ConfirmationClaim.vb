@@ -96,7 +96,7 @@ Namespace BL
                         Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
                     End If
 
-                    Dim dtDetail As DataTable = DL.Delivery.ListDataDetail(sqlCon, sqlTrans, strID)
+                    Dim dtDetail As DataTable = DL.ConfirmationClaim.ListDataDetail(sqlCon, sqlTrans, strID)
 
                     DL.ConfirmationClaim.DeleteData(sqlCon, sqlTrans, strID)
 

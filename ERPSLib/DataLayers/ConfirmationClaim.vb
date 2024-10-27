@@ -133,7 +133,7 @@ Namespace DL
                     .CommandText +=
 "SELECT TOP 1  " & vbNewLine &
 "	A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.ClaimType, A.ConfirmationClaimNumber, A.ConfirmationClaimDate, A.BPID,  " & vbNewLine &
-"	C.Code AS BPCode, C.Name AS BPName, A.ClaimID, A1.ClaimNumber AS ReferencesNumber, A.PPN, A.PPH,  " & vbNewLine &
+"	B.Code AS BPCode, B.Name AS BPName, A.ClaimID, A1.ClaimNumber AS ReferencesNumber, A.PPN, A.PPH,  " & vbNewLine &
 "	A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual,  " & vbNewLine &
 "	A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy,  " & vbNewLine &
 "	A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.TotalPayment,  " & vbNewLine &
@@ -427,10 +427,10 @@ Namespace DL
 "SELECT  " & vbNewLine &
 "	A.ID, A.ConfirmationClaimID, A.ClaimDetailID, A2.ClaimNumber AS ClaimNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
 "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
-"   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.ConfirmationClaimWeight AS MaxTotalWeight, " & vbNewLine &
+"   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.ConfirmationWeight AS MaxTotalWeight, " & vbNewLine &
 "   A.Remarks, A.UnitPriceProduct, A.TotalPriceProduct, A.DPAmount, A.ReceiveAmount, A.OrderNumberSupplier, A.LevelItem, A.ParentID, A.RoundingWeight, A.DPAmountPPN,  " & vbNewLine &
 "	A.DPAmountPPH, A.ReceiveAmountPPN, A.ReceiveAmountPPH, A.InvoiceQuantity, A.InvoiceWeight, A.InvoiceTotalWeight,  " & vbNewLine &
-"	A.AllocateDPAmount, A.ConfirmationQuantity, A.ConfirmationWeight " & vbNewLine &
+"	A.AllocateDPAmount " & vbNewLine &
 "FROM traConfirmationClaimDet A " & vbNewLine &
 "INNER JOIN traClaimDet A1 ON " & vbNewLine &
 "   A.ClaimDetailID=A1.ID " & vbNewLine &

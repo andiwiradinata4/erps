@@ -9,12 +9,9 @@
     Private strReferencesID As String = ""
     Private intItemID As Integer = 0
     Private intPos As Integer = 0
-    Private intGroupID As Integer = 0
-    Private clsCS As VO.CS
     Private dtItem As New DataTable
     Private drSelectedItem As DataRow
     Private bolIsAutoSearch As Boolean
-    Private bolIsUseSubItem As Boolean
     Private intLevelItem As Integer
     Private strParentID As String
     Private intClaimType As VO.Claim.ClaimTypeValue
@@ -46,18 +43,6 @@
     Public WriteOnly Property pubID As String
         Set(value As String)
             strID = value
-        End Set
-    End Property
-
-    Public WriteOnly Property pubCS As VO.CS
-        Set(value As VO.CS)
-            clsCS = value
-        End Set
-    End Property
-
-    Public WriteOnly Property pubIsUseSubItem As Boolean
-        Set(value As Boolean)
-            bolIsUseSubItem = value
         End Set
     End Property
 
@@ -102,7 +87,6 @@
                 strID = drSelectedItem.Item("ID")
                 strReferencesDetailID = drSelectedItem.Item("ReferencesDetailID")
                 txtOrderNumberSupplier.Text = drSelectedItem.Item("OrderNumberSupplier")
-                intGroupID = drSelectedItem.Item("GroupID")
                 intItemID = drSelectedItem.Item("ItemID")
                 cboItemType.SelectedValue = drSelectedItem.Item("ItemTypeID")
                 txtItemCode.Text = drSelectedItem.Item("ItemCode")
@@ -114,6 +98,7 @@
                 txtWeight.Value = drSelectedItem.Item("Weight")
                 txtMaxTotalWeight.Value = drSelectedItem.Item("MaxTotalWeight")
                 txtUnitPrice.Value = drSelectedItem.Item("UnitPrice")
+                txtUnitPriceProduct.Value = drSelectedItem.Item("UnitPriceProduct")
                 txtQuantity.Value = drSelectedItem.Item("Quantity")
                 txtRemarks.Text = drSelectedItem.Item("Remarks")
                 intLevelItem = drSelectedItem.Item("LevelItem")
@@ -145,6 +130,10 @@
             UI.usForm.frmMessageBox("Berat harus lebih besar dari 0")
             txtWeight.Focus()
             Exit Sub
+        ElseIf txtUnitPrice.Value > txtUnitPriceProduct.Value Then
+            UI.usForm.frmMessageBox("Harga [Klaim] tidak boleh lebih besar dari Harga [Barang]")
+            txtUnitPrice.Focus()
+            Exit Sub
         ElseIf txtMaxTotalWeight.Value < txtTotalWeight.Value Then
             If Not UI.usForm.frmAskQuestion("Total Berat melebihi Maks. Total Berat, Apakah anda yakin ingin melanjutkannya?") Then Exit Sub
         End If
@@ -152,14 +141,12 @@
         '# Item Handle
         If bolIsNew Then
             Dim drItem As DataRow = dtItem.NewRow
-            intGroupID = dtItem.Rows.Count + 1
             With drItem
                 .BeginEdit()
                 .Item("ID") = Guid.NewGuid
                 .Item("ReferencesDetailID") = strReferencesDetailID
                 .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
                 .Item("ReferencesNumber") = ""
-                .Item("GroupID") = intGroupID
                 .Item("ItemID") = intItemID
                 .Item("ItemCode") = txtItemCode.Text.Trim
                 .Item("ItemName") = txtItemName.Text.Trim
@@ -176,9 +163,12 @@
                 .Item("MaxTotalWeight") = txtMaxTotalWeight.Value
                 .Item("UnitPrice") = txtUnitPrice.Value
                 .Item("TotalPrice") = txtTotalPrice.Value
+                .Item("UnitPriceProduct") = txtUnitPriceProduct.Value
+                .Item("TotalPriceProduct") = txtTotalPriceProduct.Value
                 .Item("Remarks") = txtRemarks.Text.Trim
                 .Item("LevelItem") = intLevelItem
                 .Item("ParentID") = strParentID
+                .Item("RoundingWeight") = 0
                 .EndEdit()
             End With
             dtItem.Rows.Add(drItem)
@@ -187,10 +177,10 @@
                 With dr
                     If .Item("ID") = strID Then
                         .BeginEdit()
+                        .Item("ID") = Guid.NewGuid
                         .Item("ReferencesDetailID") = strReferencesDetailID
                         .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
                         .Item("ReferencesNumber") = ""
-                        .Item("GroupID") = intGroupID
                         .Item("ItemID") = intItemID
                         .Item("ItemCode") = txtItemCode.Text.Trim
                         .Item("ItemName") = txtItemName.Text.Trim
@@ -207,9 +197,12 @@
                         .Item("MaxTotalWeight") = txtMaxTotalWeight.Value
                         .Item("UnitPrice") = txtUnitPrice.Value
                         .Item("TotalPrice") = txtTotalPrice.Value
+                        .Item("UnitPriceProduct") = txtUnitPriceProduct.Value
+                        .Item("TotalPriceProduct") = txtTotalPriceProduct.Value
                         .Item("Remarks") = txtRemarks.Text.Trim
                         .Item("LevelItem") = intLevelItem
                         .Item("ParentID") = strParentID
+                        .Item("RoundingWeight") = 0
                         .EndEdit()
                     End If
                 End With
@@ -226,7 +219,6 @@
         txtItemCode.Focus()
         strReferencesDetailID = ""
         txtOrderNumberSupplier.Text = ""
-        intGroupID = 0
         intItemID = 0
         txtItemCode.Text = ""
         txtItemName.Text = ""
@@ -238,9 +230,11 @@
         txtWeight.Value = 0
         txtMaxTotalWeight.Value = 0
         txtUnitPrice.Value = 0
+        txtUnitPriceProduct.Value = 0
         txtQuantity.Value = 0
         txtTotalWeight.Value = 0
         txtTotalPrice.Value = 0
+        txtTotalPriceProduct.Value = 0
         txtRemarks.Text = ""
         intLevelItem = 0
         strParentID = ""
@@ -249,7 +243,7 @@
     Private Sub prvChooseItem()
         Dim frmDetail As New frmTraClaimOutstandingReferencesItem
         With frmDetail
-            .pubParentID = strParentID
+            .pubParentID = strReferencesID
             .pubClaimType = intClaimType
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
@@ -266,7 +260,7 @@
                 txtLength.Value = .pubLUdtRow.Item("Length")
                 txtWeight.Value = .pubLUdtRow.Item("Weight")
                 txtMaxTotalWeight.Value = .pubLUdtRow.Item("MaxTotalWeight")
-                txtUnitPrice.Value = .pubLUdtRow.Item("UnitPrice")
+                txtUnitPriceProduct.Value = .pubLUdtRow.Item("UnitPrice")
                 txtQuantity.Value = .pubLUdtRow.Item("Quantity")
                 intLevelItem = 0
                 strParentID = ""
@@ -279,9 +273,36 @@
         End With
     End Sub
 
+    Private Sub prvChooseItemCustom()
+        If txtOrderNumberSupplier.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih nomor pesanan pemasok terlebih dahulu")
+            txtOrderNumberSupplier.Focus()
+            Exit Sub
+        End If
+        Dim frmDetail As New frmMstItem
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intItemID = .pubLUdtRow.Item("ID")
+                txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
+                cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
+                txtItemName.Text = .pubLUdtRow.Item("ItemName")
+                txtThick.Value = .pubLUdtRow.Item("Thick")
+                txtWidth.Value = .pubLUdtRow.Item("Width")
+                txtLength.Value = .pubLUdtRow.Item("Length")
+                cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
+                txtWeight.Value = .pubLUdtRow.Item("Weight")
+                txtWeight.Focus()
+            End If
+        End With
+    End Sub
+
     Private Sub prvCalculate()
         txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
         txtTotalPrice.Value = txtUnitPrice.Value * txtTotalWeight.Value
+        txtTotalPriceProduct.Value = txtUnitPriceProduct.Value * txtTotalWeight.Value
     End Sub
 
 #Region "Form Handle"
@@ -312,7 +333,11 @@
         prvChooseItem()
     End Sub
 
-    Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtUnitPrice.ValueChanged, txtQuantity.ValueChanged, txtWeight.ValueChanged
+    Private Sub btnItemCustom_Click(sender As Object, e As EventArgs) Handles btnItemCustom.Click
+        prvChooseItemCustom()
+    End Sub
+
+    Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtUnitPrice.ValueChanged, txtUnitPriceProduct.ValueChanged, txtQuantity.ValueChanged, txtWeight.ValueChanged
         prvCalculate()
     End Sub
 

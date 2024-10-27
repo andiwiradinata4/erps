@@ -19,7 +19,7 @@ Namespace DL
                     "	A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.StatusID, " & vbNewLine &
                     "	StatusInfo=B.Name, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.CreatedBy,  " & vbNewLine &
                     "	A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.TotalPayment, A.JournalID, A.IsUseSubItem, A.DPAmountPPN, " & vbNewLine &
-                    "   A.DPAmountPPH, A.TotalPaymentPPN, A.TotalPaymentPPH " & vbNewLine &
+                    "   A.DPAmountPPH, A.TotalPaymentPPN, A.TotalPaymentPPH, A.ItemDescription " & vbNewLine &
                     "FROM traClaim A " & vbNewLine &
                     "INNER JOIN traSalesContract A1 ON " & vbNewLine &
                     "   A.ReferencesID=A1.ID " & vbNewLine &
@@ -44,10 +44,10 @@ Namespace DL
                     "SELECT  " & vbNewLine &
                     "	A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.ClaimType, A.ClaimNumber, A.ClaimDate, " & vbNewLine &
                     "	A.BPID, C.Code AS BPCode, C.Name AS BPName, A.ReferencesID, A.PlatNumber, A.Driver, A1.ReceiveNumber AS ReferencesNumber, A.PPN, A.PPH,  " & vbNewLine &
-                    "	A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.StatusID, " & vbNewLine &
+                    "	A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.StatusID, " & vbNewLine &
                     "	StatusInfo=B.Name, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.CreatedBy,  " & vbNewLine &
                     "	A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.TotalPayment, A.JournalID, A.IsUseSubItem, A.DPAmountPPN, " & vbNewLine &
-                    "   A.DPAmountPPH, A.TotalPaymentPPN, A.TotalPaymentPPH " & vbNewLine &
+                    "   A.DPAmountPPH, A.TotalPaymentPPN, A.TotalPaymentPPH, A.ItemDescription " & vbNewLine &
                     "FROM traClaim A " & vbNewLine &
                     "INNER JOIN traReceive A1 ON " & vbNewLine &
                     "   A.ReferencesID=A1.ID " & vbNewLine &
@@ -77,6 +77,45 @@ Namespace DL
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataOutstandingConfirmationClaim(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                    ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                    ByVal intBPID As Integer, ByVal intClaimType As Integer) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT DISTINCT " & vbNewLine &
+                    "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.ClaimNumber AS TransactionNumber, CASE WHEN A.ReferencesNumber='' THEN A.ClaimNumber ELSE A.ReferencesNumber END AS ReferencesNumber, " & vbNewLine &
+                    "   A.ClaimDate AS ReferencesDate, A.BPID, MBP.Code AS BPCode, MBP.Name AS BPName, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, " & vbNewLine &
+                    "   A.TotalDPP+A.TotalPPN-A.TotalPPH AS GrandTotal, A.Remarks, A.PPN, A.PPH " & vbNewLine &
+                    "FROM traClaim A " & vbNewLine &
+                    "INNER JOIN mstCompany MC ON " & vbNewLine &
+                    "   A.CompanyID=MC.ID " & vbNewLine &
+                    "INNER JOIN mstProgram MP ON " & vbNewLine &
+                    "   A.ProgramID=MP.ID " & vbNewLine &
+                    "INNER JOIN mstBusinessPartner MBP ON " & vbNewLine &
+                    "   A.BPID=MBP.ID " & vbNewLine &
+                    "INNER JOIN traClaimDet A1 ON " & vbNewLine &
+                    "   A.ID=A1.ClaimID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   A.BPID=@BPID " & vbNewLine &
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.StatusID=@StatusID " & vbNewLine &
+                    "   AND A.ClaimType=@ClaimType " & vbNewLine &
+                    "   AND A1.TotalWeight-A1.ConfirmationWeight>0 " & vbNewLine
+
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+                .Parameters.Add("@ClaimType", SqlDbType.Int).Value = intClaimType
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal bolNew As Boolean, ByVal clsData As VO.Claim)
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
@@ -88,12 +127,12 @@ Namespace DL
 "	(ID, ProgramID, CompanyID, ClaimType, ClaimNumber, ClaimDate, BPID,  " & vbNewLine &
 "	 ReferencesID, PlatNumber, Driver, ReferencesNumber, PPN, PPH,  " & vbNewLine &
 "	 TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, RoundingManual,  " & vbNewLine &
-"	 Remarks, StatusID, CreatedBy, LogBy, IsUseSubItem) " & vbNewLine &
+"	 Remarks, StatusID, CreatedBy, LogBy, IsUseSubItem, ItemDescription) " & vbNewLine &
 "VALUES  " & vbNewLine &
 "	(@ID, @ProgramID, @CompanyID, @ClaimType, @ClaimNumber, @ClaimDate, @BPID,  " & vbNewLine &
 "	 @ReferencesID, @PlatNumber, @Driver, @ReferencesNumber, @PPN, @PPH,  " & vbNewLine &
 "	 @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @RoundingManual,  " & vbNewLine &
-"	 @Remarks, @StatusID, @LogBy, @LogBy, @IsUseSubItem) " & vbNewLine
+"	 @Remarks, @StatusID, @LogBy, @LogBy, @IsUseSubItem, @ItemDescription) " & vbNewLine
 
                 Else
                     .CommandText =
@@ -121,7 +160,8 @@ Namespace DL
 "	LogInc=LogInc+1,  " & vbNewLine &
 "	LogBy=@LogBy,  " & vbNewLine &
 "	LogDate=GETDATE(),  " & vbNewLine &
-"	IsUseSubItem=@IsUseSubItem " & vbNewLine &
+"	IsUseSubItem=@IsUseSubItem, " & vbNewLine &
+"	ItemDescription=@ItemDescription " & vbNewLine &
 "WHERE " & vbNewLine &
 "	ID=@ID " & vbNewLine
                 End If
@@ -149,6 +189,7 @@ Namespace DL
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@IsUseSubItem", SqlDbType.Bit).Value = clsData.IsUseSubItem
+                .Parameters.Add("@ItemDescription", SqlDbType.VarChar, 5000).Value = clsData.ItemDescription
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -167,11 +208,11 @@ Namespace DL
                     .CommandText +=
 "SELECT TOP 1  " & vbNewLine &
 "	A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.ClaimType, A.ClaimNumber, A.ClaimDate, A.BPID,  " & vbNewLine &
-"	C.Code AS BPCode, C.Name AS BPName, A.ReferencesID, A.PlatNumber, A.Driver, A1.SCNumber AS ReferencesNumber, A.PPN, A.PPH,  " & vbNewLine &
+"	B.Code AS BPCode, B.Name AS BPName, A.ReferencesID, A.PlatNumber, A.Driver, A1.SCNumber AS ReferencesNumber, A.PPN, A.PPH,  " & vbNewLine &
 "	A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual,  " & vbNewLine &
 "	A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy,  " & vbNewLine &
 "	A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.TotalPayment,  " & vbNewLine &
-"	A.JournalID, A.IsUseSubItem, A.DPAmountPPN, A.DPAmountPPH, A.TotalPaymentPPN, A.TotalPaymentPPH " & vbNewLine &
+"	A.JournalID, A.IsUseSubItem, A.DPAmountPPN, A.DPAmountPPH, A.TotalPaymentPPN, A.TotalPaymentPPH, A.ItemDescription " & vbNewLine &
 "FROM traClaim A " & vbNewLine &
 "INNER JOIN traSalesContract A1 ON " & vbNewLine &
 "   A.ReferencesID=A1.ID " & vbNewLine &
@@ -188,11 +229,11 @@ Namespace DL
 "UNION ALL " & vbNewLine &
 "SELECT TOP 1  " & vbNewLine &
 "	A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.ClaimType, A.ClaimNumber, A.ClaimDate, A.BPID,  " & vbNewLine &
-"	C.Code AS BPCode, C.Name AS BPName, A.ReferencesID, A.PlatNumber, A.Driver, A1.ReceiveNumber AS ReferencesNumber, A.PPN, A.PPH,  " & vbNewLine &
+"	B.Code AS BPCode, B.Name AS BPName, A.ReferencesID, A.PlatNumber, A.Driver, A1.ReceiveNumber AS ReferencesNumber, A.PPN, A.PPH,  " & vbNewLine &
 "	A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual,  " & vbNewLine &
 "	A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy,  " & vbNewLine &
 "	A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.TotalPayment,  " & vbNewLine &
-"	A.JournalID, A.IsUseSubItem, A.DPAmountPPN, A.DPAmountPPH, A.TotalPaymentPPN, A.TotalPaymentPPH " & vbNewLine &
+"	A.JournalID, A.IsUseSubItem, A.DPAmountPPN, A.DPAmountPPH, A.TotalPaymentPPN, A.TotalPaymentPPH, A.ItemDescription " & vbNewLine &
 "FROM traClaim A " & vbNewLine &
 "INNER JOIN traReceive A1 ON " & vbNewLine &
 "   A.ReferencesID=A1.ID " & vbNewLine &
@@ -252,6 +293,7 @@ Namespace DL
                         voReturn.DPAmountPPH = .Item("DPAmountPPH")
                         voReturn.TotalPaymentPPN = .Item("TotalPaymentPPN")
                         voReturn.TotalPaymentPPH = .Item("TotalPaymentPPH")
+                        voReturn.ItemDescription = .Item("ItemDescription")
                     End If
                 End With
             Catch ex As Exception
@@ -517,7 +559,7 @@ Namespace DL
                 .Transaction = sqlTrans
                 .CommandText +=
 "SELECT  " & vbNewLine &
-"	A.ID, A.ClaimID, A.ReferencesDetailID, A2.SCNumber AS ReferencesNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+"	A.ID, A.ClaimID, A.ReferencesDetailID, A2.ReferencesNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
 "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
 "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.ClaimWeight AS MaxTotalWeight, " & vbNewLine &
 "   A.Remarks, A.UnitPriceProduct, A.TotalPriceProduct, A.DPAmount, A.ReceiveAmount, A.OrderNumberSupplier, A.LevelItem, A.ParentID, A.RoundingWeight, A.DPAmountPPN,  " & vbNewLine &
@@ -540,7 +582,7 @@ Namespace DL
                 .CommandText +=
 "UNION ALL " & vbNewLine &
 "SELECT  " & vbNewLine &
-"	A.ID, A.ClaimID, A.ReferencesDetailID, A2.ReceiveNumber AS ReferencesNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+"	A.ID, A.ClaimID, A.ReferencesDetailID, A2.ReferencesNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
 "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
 "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.ClaimWeight AS MaxTotalWeight, " & vbNewLine &
 "   A.Remarks, A.UnitPriceProduct, A.TotalPriceProduct, A.DPAmount, A.ReceiveAmount, A.OrderNumberSupplier, A.LevelItem, A.ParentID, A.RoundingWeight, A.DPAmountPPN,  " & vbNewLine &
@@ -563,6 +605,37 @@ Namespace DL
                 .Parameters.Add("@ClaimID", SqlDbType.VarChar, 100).Value = strClaimID
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+        
+        Public Shared Function ListDataDetailOutstandingConfirmationClaim(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                          ByVal strClaimID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT  " & vbNewLine &
+"	TCD.ID, TCD.ClaimID AS ParentID, TCH.ClaimNumber AS ParentNumber, TCD.OrderNumberSupplier, TCH.ReferencesNumber, TCD.ItemID, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+"	MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName,  " & vbNewLine &
+"	TCD.Quantity-TCD.ConfirmationQuantity AS Quantity, TCD.Weight, TCD.TotalWeight-TCD.ConfirmationWeight AS TotalWeight, TCD.UnitPrice, TCD.UnitPriceProduct, TCD.TotalPriceProduct, " & vbNewLine &
+"	TCD.TotalPrice, TCD.RoundingWeight, TCD.Remarks, TCD.TotalWeight-TCD.ConfirmationWeight AS MaxTotalWeight " & vbNewLine &
+"FROM traClaimDet TCD  " & vbNewLine &
+"INNER JOIN traClaim TCH ON  " & vbNewLine &
+"	TCD.ClaimID=TCH.ID  " & vbNewLine &
+"INNER JOIN mstItem MI ON    " & vbNewLine &
+"    TCD.ItemID=MI.ID    " & vbNewLine &
+"INNER JOIN mstItemSpecification MIS ON    " & vbNewLine &
+"    MI.ItemSpecificationID=MIS.ID    " & vbNewLine &
+"INNER JOIN mstItemType MIT ON    " & vbNewLine &
+"    MI.ItemTypeID=MIT.ID    " & vbNewLine &
+"WHERE  " & vbNewLine &
+"	TCH.ID=@ClaimID  " & vbNewLine &
+"	AND TCD.TotalWeight-TCD.ConfirmationWeight>0   " & vbNewLine
+
+                .Parameters.Add("@ClaimID", SqlDbType.VarChar, 100).Value = strClaimID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
         Public Shared Sub SaveDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
