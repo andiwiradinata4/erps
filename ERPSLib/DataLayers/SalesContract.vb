@@ -1761,7 +1761,7 @@
         End Function
 
         Public Shared Function ListDataDetailOutstandingClaim(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                                  ByVal strReceiveID As String) As DataTable
+                                                              ByVal strSCID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -1786,7 +1786,7 @@
 "	SCH.ID=@SCID  " & vbNewLine &
 "	AND SCD.TotalWeight-SCD.ClaimWeight>0   " & vbNewLine
 
-                .Parameters.Add("@ReceiveID", SqlDbType.VarChar, 100).Value = strReceiveID
+                .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = strSCID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function

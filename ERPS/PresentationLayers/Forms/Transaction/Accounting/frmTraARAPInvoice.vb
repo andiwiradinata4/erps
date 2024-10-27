@@ -322,12 +322,25 @@ Public Class frmTraARAPInvoice
         If intPos < 0 Then Exit Sub
         clsData = prvGetData()
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        If Not UI.usForm.frmAskQuestion("Approve Nomor " & clsData.InvoiceNumber & "?") Then Exit Sub
+
+        Dim dtmPaymentDate As DateTime
+        Dim strRemarks As String = ""
+        Dim frmDetail As New frmTraAccountSetPaymentDate
+        With frmDetail
+            .ShowDialog()
+            If .pubIsSave Then
+                dtmPaymentDate = .pubPaymentDate
+                strRemarks = .pubRemarks.Trim
+            Else
+                Exit Sub
+            End If
+        End With
+
+        'If Not UI.usForm.frmAskQuestion("Approve Nomor " & clsData.InvoiceNumber & "?") Then Exit Sub
 
         Me.Cursor = Cursors.WaitCursor
-
         Try
-            BL.ARAP.ApproveInvoice(clsData.ID, "")
+            BL.ARAP.ApproveInvoice(clsData.ID, strRemarks, dtmPaymentDate)
             UI.usForm.frmMessageBox("Approve data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "InvoiceNumber"))
         Catch ex As Exception

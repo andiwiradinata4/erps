@@ -65,7 +65,7 @@ Partial Class frmTraClaimDetItem
         Me.txtItemCode = New ERPS.usTextBox()
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtItemName = New ERPS.usTextBox()
-        Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
+        Me.BarSave = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -82,6 +82,7 @@ Partial Class frmTraClaimDetItem
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarSave, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -599,11 +600,11 @@ Partial Class frmTraClaimDetItem
         Me.txtItemName.Size = New System.Drawing.Size(456, 48)
         Me.txtItemName.TabIndex = 5
         '
-        'BarRefresh
+        'BarSave
         '
-        Me.BarRefresh.Name = "BarRefresh"
-        Me.BarRefresh.Tag = "Save"
-        Me.BarRefresh.Text = "Simpan"
+        Me.BarSave.Name = "BarSave"
+        Me.BarSave.Tag = "Save"
+        Me.BarSave.Text = "Simpan"
         '
         'BarClose
         '
@@ -641,8 +642,6 @@ Partial Class frmTraClaimDetItem
 
     End Sub
     Friend WithEvents ToolBar As ERPS.usToolBar
-    Friend WithEvents BarRefresh As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarClose As System.Windows.Forms.ToolBarButton
     Friend WithEvents lblInfo As System.Windows.Forms.Label
     Friend WithEvents pnlDetail As System.Windows.Forms.Panel
     Friend WithEvents Label5 As System.Windows.Forms.Label
@@ -684,4 +683,6 @@ Partial Class frmTraClaimDetItem
     Friend WithEvents txtItemCode As ERPS.usTextBox
     Friend WithEvents lblName As System.Windows.Forms.Label
     Friend WithEvents txtItemName As ERPS.usTextBox
+    Friend WithEvents BarSave As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarClose As System.Windows.Forms.ToolBarButton
 End Class

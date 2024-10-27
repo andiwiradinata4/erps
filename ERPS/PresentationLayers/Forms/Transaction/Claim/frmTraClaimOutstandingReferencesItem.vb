@@ -47,7 +47,7 @@
     Private Sub prvSetGrid()
         UI.usForm.SetGrid(grdView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdView, "ReceiveNumber", "Nomor Penerimaan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "ParentNumber", "Nomor", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ReferencesNumber", "Nomor Referensi", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)

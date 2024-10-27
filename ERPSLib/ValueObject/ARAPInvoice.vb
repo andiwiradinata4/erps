@@ -26,5 +26,6 @@
         Property ApprovedDate As DateTime
         Property Remarks As String
         Property Save As VO.Save.Action
+        Property PaymentDate As DateTime
     End Class
 End Namespace

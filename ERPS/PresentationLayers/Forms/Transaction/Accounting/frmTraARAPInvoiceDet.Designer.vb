@@ -93,7 +93,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.chkChangeTotalPPH.Location = New System.Drawing.Point(378, 107)
         Me.chkChangeTotalPPH.Name = "chkChangeTotalPPH"
         Me.chkChangeTotalPPH.Size = New System.Drawing.Size(51, 17)
-        Me.chkChangeTotalPPH.TabIndex = 158
+        Me.chkChangeTotalPPH.TabIndex = 6
         Me.chkChangeTotalPPH.Text = "Ubah"
         Me.chkChangeTotalPPH.UseVisualStyleBackColor = True
         '
@@ -103,7 +103,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.chkChangeTotalPPN.Location = New System.Drawing.Point(377, 81)
         Me.chkChangeTotalPPN.Name = "chkChangeTotalPPN"
         Me.chkChangeTotalPPN.Size = New System.Drawing.Size(51, 17)
-        Me.chkChangeTotalPPN.TabIndex = 157
+        Me.chkChangeTotalPPN.TabIndex = 4
         Me.chkChangeTotalPPN.Text = "Ubah"
         Me.chkChangeTotalPPN.UseVisualStyleBackColor = True
         '
@@ -113,7 +113,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.chkChangeTotalDPP.Location = New System.Drawing.Point(377, 54)
         Me.chkChangeTotalDPP.Name = "chkChangeTotalDPP"
         Me.chkChangeTotalDPP.Size = New System.Drawing.Size(51, 17)
-        Me.chkChangeTotalDPP.TabIndex = 156
+        Me.chkChangeTotalDPP.TabIndex = 2
         Me.chkChangeTotalDPP.Text = "Ubah"
         Me.chkChangeTotalDPP.UseVisualStyleBackColor = True
         '
@@ -136,7 +136,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.cboStatus.Location = New System.Drawing.Point(123, 159)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(118, 21)
-        Me.cboStatus.TabIndex = 154
+        Me.cboStatus.TabIndex = 8
         '
         'Label15
         '
@@ -158,7 +158,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtTotalAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalAmount.Name = "txtTotalAmount"
         Me.txtTotalAmount.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalAmount.TabIndex = 3
+        Me.txtTotalAmount.TabIndex = 7
         Me.txtTotalAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalAmount.ThousandsSeparator = True
         '
@@ -205,7 +205,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtTotalPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPPH.Name = "txtTotalPPH"
         Me.txtTotalPPH.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalPPH.TabIndex = 2
+        Me.txtTotalPPH.TabIndex = 5
         Me.txtTotalPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPPH.ThousandsSeparator = True
         '
@@ -219,7 +219,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtPPH.Name = "txtPPH"
         Me.txtPPH.Size = New System.Drawing.Size(77, 21)
-        Me.txtPPH.TabIndex = 149
+        Me.txtPPH.TabIndex = 11
         Me.txtPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtPPH.ThousandsSeparator = True
         '
@@ -233,7 +233,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtTotalDPP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalDPP.Name = "txtTotalDPP"
         Me.txtTotalDPP.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalDPP.TabIndex = 0
+        Me.txtTotalDPP.TabIndex = 1
         Me.txtTotalDPP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalDPP.ThousandsSeparator = True
         '
@@ -291,7 +291,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtTotalPPN.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPPN.Name = "txtTotalPPN"
         Me.txtTotalPPN.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalPPN.TabIndex = 1
+        Me.txtTotalPPN.TabIndex = 3
         Me.txtTotalPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPPN.ThousandsSeparator = True
         '
@@ -305,7 +305,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtPPN.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtPPN.Name = "txtPPN"
         Me.txtPPN.Size = New System.Drawing.Size(77, 21)
-        Me.txtPPN.TabIndex = 148
+        Me.txtPPN.TabIndex = 10
         Me.txtPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtPPN.ThousandsSeparator = True
         '
@@ -328,7 +328,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtInvoiceNumber.MaxLength = 250
         Me.txtInvoiceNumber.Name = "txtInvoiceNumber"
         Me.txtInvoiceNumber.Size = New System.Drawing.Size(249, 21)
-        Me.txtInvoiceNumber.TabIndex = 142
+        Me.txtInvoiceNumber.TabIndex = 0
         '
         'txtCoACode
         '
@@ -339,7 +339,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtCoACode.Name = "txtCoACode"
         Me.txtCoACode.ReadOnly = True
         Me.txtCoACode.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACode.TabIndex = 1
+        Me.txtCoACode.TabIndex = 12
         '
         'btnCoA
         '
@@ -347,7 +347,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.btnCoA.Location = New System.Drawing.Point(782, 76)
         Me.btnCoA.Name = "btnCoA"
         Me.btnCoA.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoA.TabIndex = 3
+        Me.btnCoA.TabIndex = 14
         '
         'Label2
         '
@@ -369,7 +369,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtCoAName.Name = "txtCoAName"
         Me.txtCoAName.ReadOnly = True
         Me.txtCoAName.Size = New System.Drawing.Size(167, 21)
-        Me.txtCoAName.TabIndex = 2
+        Me.txtCoAName.TabIndex = 13
         '
         'Label13
         '
@@ -391,7 +391,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 4
+        Me.txtRemarks.TabIndex = 15
         '
         'dtpInvoiceDate
         '
@@ -401,7 +401,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.dtpInvoiceDate.Location = New System.Drawing.Point(527, 24)
         Me.dtpInvoiceDate.Name = "dtpInvoiceDate"
         Me.dtpInvoiceDate.Size = New System.Drawing.Size(127, 21)
-        Me.dtpInvoiceDate.TabIndex = 0
+        Me.dtpInvoiceDate.TabIndex = 9
         Me.dtpInvoiceDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
         'Label6

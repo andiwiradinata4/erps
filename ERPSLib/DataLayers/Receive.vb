@@ -1114,7 +1114,7 @@
         End Function
 
         Public Shared Function ListDataDetailOutstandingClaim(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                                  ByVal strReceiveID As String) As DataTable
+                                                              ByVal strReceiveID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon

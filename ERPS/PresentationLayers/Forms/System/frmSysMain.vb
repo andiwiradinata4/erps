@@ -30,6 +30,7 @@
     Dim frmMainTraSalesContract As frmTraSalesContract
     Dim frmMainTraDelivery As frmTraDelivery
     Dim frmMainTraSalesReturn As frmTraSalesReturn
+    Dim frmMainTraClaimSales As frmTraClaim
 
     '## Sales Stock
     Dim frmMainTraOrderRequestStock As frmTraOrderRequest
@@ -43,6 +44,7 @@
     Dim frmMainTraPurchaseOrderCutting As frmTraPurchaseOrderCutting
     Dim frmMainTraCutting As frmTraCutting
     Dim frmMainTraPurchaseOrderTransport As frmTraPurchaseOrderTransport
+    Dim frmMainTraClaimPurchase As frmTraClaim
 
     '## Pembukuan
     Dim frmMainTraAccountReceivableSetupBalance As frmTraAccountReceivable
@@ -371,6 +373,27 @@
         UI.usForm.frmOpen(frmMainTraSalesReturn, "frmTraSalesReturn", Me)
     End Sub
 
+    Private Sub mnuTransaksiPembelianPengajuanKlaim_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanPengajuanKlaim.Click
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraClaim"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraClaimSales) Then
+            If Not frmMainTraClaimSales.IsDisposed Then
+                frmMainTraClaimSales.WindowState = FormWindowState.Normal
+                frmMainTraClaimSales.BringToFront()
+                frmMainTraClaimSales.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraClaimSales = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraClaimSales.MdiParent = Me
+                frmMainTraClaimSales.Show()
+            End If
+        Else
+            frmMainTraClaimSales = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraClaimSales.MdiParent = Me
+            frmMainTraClaimSales.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
+    End Sub
+
 #End Region
 
 #Region "Sales Stock"
@@ -451,6 +474,27 @@
 
     Private Sub mnuTransaksiPembelianPesananPengiriman_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianPesananPengiriman.Click
         UI.usForm.frmOpen(frmMainTraPurchaseOrderTransport, "frmTraPurchaseOrderTransport", Me)
+    End Sub
+
+    Private Sub mnuTransaksiPembelianPengajuanKlaim_Click_1(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianPengajuanKlaim.Click
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraClaim"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraClaimPurchase) Then
+            If Not frmMainTraClaimPurchase.IsDisposed Then
+                frmMainTraClaimPurchase.WindowState = FormWindowState.Normal
+                frmMainTraClaimPurchase.BringToFront()
+                frmMainTraClaimPurchase.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraClaimPurchase = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraClaimPurchase.MdiParent = Me
+                frmMainTraClaimPurchase.Show()
+            End If
+        Else
+            frmMainTraClaimPurchase = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraClaimPurchase.MdiParent = Me
+            frmMainTraClaimPurchase.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
     End Sub
 
 #End Region

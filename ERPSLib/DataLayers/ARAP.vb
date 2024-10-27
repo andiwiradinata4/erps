@@ -773,7 +773,7 @@
         End Sub
 
         Public Shared Sub ApproveInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                         ByVal strID As String)
+                                         ByVal strID As String, ByVal dtmPaymentDate As DateTime)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -785,13 +785,15 @@
                     "    ApproveL1=@LogBy, " & vbNewLine &
                     "    ApproveL1Date=GETDATE(), " & vbNewLine &
                     "    ApprovedBy=@LogBy, " & vbNewLine &
-                    "    ApprovedDate=GETDATE() " & vbNewLine &
+                    "    ApprovedDate=GETDATE(), " & vbNewLine &
+                    "    PaymentDate=@PaymentDate " & vbNewLine &
                     "WHERE   " & vbNewLine &
                     "    ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = ERPSLib.UI.usUserApp.UserID
+                .Parameters.Add("@PaymentDate", SqlDbType.DateTime).Value = dtmPaymentDate
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -839,7 +841,7 @@
                         "	ARI.ID, ARI.ParentID, ARI.InvoiceNumber, ARI.InvoiceDate, ARI.CoAID, COA.Code AS CoACode, COA.Name AS CoAName, " & vbNewLine &
                         "	ARI.PPN, ARI.PPH, ARI.TotalAmount, ARI.TotalDPP, ARI.TotalPPN, ARI.TotalPPH, ARI.StatusID, ARI.IsDeleted, ARI.ReferencesNumber, " & vbNewLine &
                         "   ARI.TaxInvoiceNumber, ARI.InvoiceNumberExternal, ARI.SubmitBy, ARI.SubmitDate, ARI.ApproveL1, ARI.ApproveL1Date, ARI.ApprovedBy, ARI.ApprovedDate, " & vbNewLine &
-                        "   ARI.JournalID, ARI.Remarks, ARI.CreatedBy, ARI.CreatedDate, ARI.LogBy, ARI.LogDate, ARI.LogInc " & vbNewLine &
+                        "   ARI.JournalID, ARI.Remarks, ARI.CreatedBy, ARI.CreatedDate, ARI.LogBy, ARI.LogDate, ARI.LogInc, ARI.PaymentDate " & vbNewLine &
                         "FROM traARAPInvoice ARI " & vbNewLine &
                         "INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
                         "	ARI.CoAID=COA.ID " & vbNewLine &
@@ -883,6 +885,7 @@
                         voReturn.LogBy = .Item("LogBy")
                         voReturn.LogDate = .Item("LogDate")
                         voReturn.LogInc = .Item("LogInc")
+                        voReturn.PaymentDate = .Item("PaymentDate")
                     End If
                 End With
             Catch ex As Exception

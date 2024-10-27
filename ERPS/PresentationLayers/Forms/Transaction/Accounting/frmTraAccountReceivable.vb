@@ -386,46 +386,46 @@ Public Class frmTraAccountReceivable
     End Sub
 
     Private Sub prvSetupPaymentDate()
-        intPos = grdView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        clsData = prvGetData()
+        'intPos = grdView.FocusedRowHandle
+        'If intPos < 0 Then Exit Sub
+        'clsData = prvGetData()
 
-        Dim frmDetail As New frmTraAccountSetPaymentDate
-        With frmDetail
-            .pubChooseCoA = IIf(clsData.IsDP, False, True)
-            .pubCoAID = clsData.CoAIDOfIncomePayment
-            .pubCoACode = clsData.CoACodeOfIncomePayment
-            .pubCoAName = clsData.CoANameOfIncomePayment
-            .pubCS = prvGetCS()
-            .StartPosition = FormStartPosition.CenterParent
-            .ShowDialog()
-            If .pubIsSave Then
-                clsData.CoAIDOfIncomePayment = .pubCoAID
-                clsData.PaymentDate = .pubPaymentDate
-                clsData.PaymentBy = ERPSLib.UI.usUserApp.UserID
-                clsData.Remarks = .pubRemarks
-            Else
-                Exit Sub
-            End If
-        End With
+        'Dim frmDetail As New frmTraAccountSetPaymentDate
+        'With frmDetail
+        '    .pubChooseCoA = IIf(clsData.IsDP, False, True)
+        '    .pubCoAID = clsData.CoAIDOfIncomePayment
+        '    .pubCoACode = clsData.CoACodeOfIncomePayment
+        '    .pubCoAName = clsData.CoANameOfIncomePayment
+        '    .pubCS = prvGetCS()
+        '    .StartPosition = FormStartPosition.CenterParent
+        '    .ShowDialog()
+        '    If .pubIsSave Then
+        '        clsData.CoAIDOfIncomePayment = .pubCoAID
+        '        clsData.PaymentDate = .pubPaymentDate
+        '        clsData.PaymentBy = ERPSLib.UI.usUserApp.UserID
+        '        clsData.Remarks = .pubRemarks
+        '    Else
+        '        Exit Sub
+        '    End If
+        'End With
 
-        Me.Cursor = Cursors.WaitCursor
-        pgMain.Value = 40
-        
-        Try
-            BL.AccountReceivable.SetupPayment(clsData.ID, clsData.PaymentDate, clsData.Remarks, clsData.CoAIDOfIncomePayment)
-            pgMain.Value = 100
-            
-            UI.usForm.frmMessageBox("Setup tanggal pembayaran berhasil.")
-            pubRefresh(grdView.GetRowCellValue(intPos, "ARNumber"))
-        Catch ex As Exception
-            UI.usForm.frmMessageBox(ex.Message)
-        Finally
-            Me.Cursor = Cursors.Default
-            pgMain.Value = 100
-            
-            prvResetProgressBar()
-        End Try
+        'Me.Cursor = Cursors.WaitCursor
+        'pgMain.Value = 40
+
+        'Try
+        '    BL.AccountReceivable.SetupPayment(clsData.ID, clsData.PaymentDate, clsData.Remarks, clsData.CoAIDOfIncomePayment)
+        '    pgMain.Value = 100
+
+        '    UI.usForm.frmMessageBox("Setup tanggal pembayaran berhasil.")
+        '    pubRefresh(grdView.GetRowCellValue(intPos, "ARNumber"))
+        'Catch ex As Exception
+        '    UI.usForm.frmMessageBox(ex.Message)
+        'Finally
+        '    Me.Cursor = Cursors.Default
+        '    pgMain.Value = 100
+
+        '    prvResetProgressBar()
+        'End Try
     End Sub
 
     Private Sub prvSetupCancelPaymentDate()

@@ -1385,13 +1385,13 @@
             Return bolReturn
         End Function
 
-        Public Shared Function ApproveInvoice(ByVal strID As String, ByVal strRemarks As String) As Boolean
+        Public Shared Function ApproveInvoice(ByVal strID As String, ByVal strRemarks As String, ByVal dtmPaymentDate As DateTime) As Boolean
             Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    bolReturn = ApproveInvoice(sqlCon, sqlTrans, strID, strRemarks)
+                    bolReturn = ApproveInvoice(sqlCon, sqlTrans, strID, strRemarks, dtmPaymentDate)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -1402,7 +1402,8 @@
         End Function
 
         Public Shared Function ApproveInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                              ByVal strID As String, ByVal strRemarks As String) As Boolean
+                                              ByVal strID As String, ByVal strRemarks As String,
+                                              ByVal dtmPaymentDate As DateTime) As Boolean
             Dim bolReturn As Boolean = False
             Try
                 Dim clsData As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, sqlTrans, strID)
@@ -1416,7 +1417,7 @@
                     Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan data telah dihapus")
                 End If
 
-                DL.ARAP.ApproveInvoice(sqlCon, sqlTrans, strID)
+                DL.ARAP.ApproveInvoice(sqlCon, sqlTrans, strID, dtmPaymentDate)
 
                 '# Save Data Status
                 BL.ARAP.SaveDataInvoiceStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
@@ -1516,8 +1517,8 @@
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
                     Dim clsInvoice As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, sqlTrans, strID)
-                    If clsInvoice.StatusID <> VO.Status.Values.Approved Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data belum di approve")
+                    If clsInvoice.StatusID = VO.Status.Values.Draft Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan status data masih DRAFT")
                     ElseIf clsInvoice.IsDeleted Then
                         Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
                     End If
@@ -1956,7 +1957,7 @@
                             .ID = PrevJournal.ID,
                             .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
                             .ReferencesID = clsARAPInvoice.ID,
-                            .JournalDate = clsARAPInvoice.InvoiceDate,
+                            .JournalDate = clsARAPInvoice.PaymentDate,
                             .TotalAmount = decTotalAmount,
                             .IsAutoGenerate = True,
                             .StatusID = VO.Status.Values.Draft,

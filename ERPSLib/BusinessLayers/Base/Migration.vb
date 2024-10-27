@@ -70,6 +70,7 @@
                 DevelopOnProgress_ID63(sqlCon, Nothing)
                 DevelopOnProgress_ID64(sqlCon, Nothing)
                 DevelopOnProgress_ID65(sqlCon, Nothing)
+                DevelopOnProgress_ID66(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -1979,6 +1980,21 @@
             clsData.Scripts =
 "ALTER TABLE traAccountReceivable ADD IsFullDP [bit] NOT NULL CONSTRAINT DF_traAccountReceivable_IsFullDP DEFAULT (0) " & vbNewLine &
 "ALTER TABLE traAccountPayable ADD IsFullDP [bit] NOT NULL CONSTRAINT DF_traAccountPayable_IsFullDP DEFAULT (0) " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 66
+        Private Shared Sub DevelopOnProgress_ID66(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 66
+            clsData.Name = "Add ReceiveDate in ARAP Invoice"
+            clsData.Scripts =
+"ALTER TABLE traARAPInvoice ADD PaymentDate [datetime] NOT NULL CONSTRAINT DF_traARAPInvoice_PaymentDate DEFAULT (GETDATE()) " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
