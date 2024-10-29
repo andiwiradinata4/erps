@@ -1419,7 +1419,7 @@ Namespace BL
                         intCoAofReceivePaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableCutting
                         intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeCutting
                     End If
-                    If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                    If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Or clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then
                         intCoAofReceivePaymentAccountOutstandingPayment = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableTransportOutstandingPayment
                         intCoAofReceivePaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableTransport
                         intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeTransport
@@ -1542,7 +1542,7 @@ Namespace BL
                     intCoAofReceivePaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableCutting
                     intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeCutting
                 End If
-                If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Or clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then
                     intCoAofReceivePaymentAccountOutstandingPayment = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableTransportOutstandingPayment
                     intCoAofReceivePaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableTransport
                     intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeTransport

@@ -1584,7 +1584,7 @@
                         intCoAofReceivePaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableCutting
                         intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeCutting
                     End If
-                    If clsARAP.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                    If clsARAP.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Or clsARAP.Modules.Trim = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then
                         intCoAofReceivePaymentAccountOutstandingPayment = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableTransportOutstandingPayment
                         intCoAofReceivePaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableTransport
                         intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeTransport

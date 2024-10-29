@@ -34,7 +34,7 @@
             ElseIf strModules = VO.AccountPayable.DownPaymentTransport Then
                 Return "Uang Muka Pesanan Pengiriman"
             ElseIf strModules = VO.AccountPayable.ReceivePaymentTransport Then
-                Return "Pembayaran Hutang Pesanan Pengiriman"
+                Return "Pembayaran Biaya Pengiriman"
             ElseIf strModules = VO.AccountPayable.All Then
                 Return "Semua Daftar Pembayaran"
             ElseIf strModules = VO.AccountReceivable.SalesBalance Then
@@ -51,6 +51,10 @@
                 Return "Pelunasan Piutang Penjualan [Stock]"
             ElseIf strModules = VO.AccountReceivable.All Then
                 Return "Semua Daftar Pelunasan"
+            ElseIf strModules = VO.AccountReceivable.ReceivePaymentSalesReturn Then
+                Return "Pembayaran Retur Penjualan"
+            ElseIf strModules = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then
+                Return "Pembayaran Biaya Pengiriman Retur Penjualan"
             End If
             Return ""
         End Function

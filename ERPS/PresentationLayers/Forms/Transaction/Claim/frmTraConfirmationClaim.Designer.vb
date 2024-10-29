@@ -52,6 +52,8 @@ Partial Class frmTraConfirmationClaim
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.pgMain = New System.Windows.Forms.ProgressBar()
+        Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
+        Me.BarPayment = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -297,7 +299,7 @@ Partial Class frmTraConfirmationClaim
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarSep2, Me.BarPrint, Me.BarExportExcel, Me.BarSep3, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarSep2, Me.BarPayment, Me.BarSep3, Me.BarPrint, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -319,6 +321,17 @@ Partial Class frmTraConfirmationClaim
         Me.pgMain.Name = "pgMain"
         Me.pgMain.Size = New System.Drawing.Size(984, 23)
         Me.pgMain.TabIndex = 3
+        '
+        'BarSep4
+        '
+        Me.BarSep4.Name = "BarSep4"
+        Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarPayment
+        '
+        Me.BarPayment.Name = "BarPayment"
+        Me.BarPayment.Tag = "Calculation"
+        Me.BarPayment.Text = "Pembayaran"
         '
         'frmTraConfirmationClaim
         '
@@ -371,4 +384,6 @@ Partial Class frmTraConfirmationClaim
     Friend WithEvents ToolBar As ERPS.usToolBar
     Friend WithEvents BarClose As System.Windows.Forms.ToolBarButton
     Friend WithEvents pgMain As System.Windows.Forms.ProgressBar
+    Friend WithEvents BarPayment As ToolBarButton
+    Friend WithEvents BarSep4 As ToolBarButton
 End Class

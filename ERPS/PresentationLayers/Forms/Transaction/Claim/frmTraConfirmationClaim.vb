@@ -17,8 +17,9 @@ Public Class frmTraConfirmationClaim
 
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
-       cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cSep2 As Byte = 6, cPrint As Byte = 7,
-       cExportExcel As Byte = 8, cSep3 As Byte = 9, cRefresh As Byte = 10, cClose As Byte = 11
+       cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cSep2 As Byte = 6, cPayment As Byte = 7,
+       cSep3 As Byte = 8, cPrint As Byte = 9, cExportExcel As Byte = 10, cSep4 As Byte = 11,
+       cRefresh As Byte = 12, cClose As Byte = 13
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
