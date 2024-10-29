@@ -327,6 +327,7 @@ Public Class frmTraARAPInvoice
         Dim strRemarks As String = ""
         Dim frmDetail As New frmTraAccountSetPaymentDate
         With frmDetail
+            .StartPosition = FormStartPosition.CenterParent
             .ShowDialog()
             If .pubIsSave Then
                 dtmPaymentDate = .pubPaymentDate

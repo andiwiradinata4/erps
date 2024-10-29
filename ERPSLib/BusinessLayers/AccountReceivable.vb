@@ -458,6 +458,8 @@
                     dtReferencesItem = DL.SalesReturn.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID)
                 ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then
                     dtReferencesItem = DL.PurchaseOrderCutting.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID)
+                ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then
+                    dtReferencesItem = DL.ConfirmationClaim.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID)
                 End If
 
                 If bolNew Then
@@ -471,7 +473,8 @@
                     ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Or
                         clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentOrderRequest Or
                         clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentSalesReturn Or
-                        clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then
+                        clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Or
+                        clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then
 
                         dtItem = DL.AccountReceivable.ListDataDetailOnly(sqlCon, sqlTrans, clsData.ID)
                         dtDetailItem = DL.ARAP.ListDataDetailItemOnly(sqlCon, sqlTrans, clsData.ID)
@@ -487,6 +490,7 @@
                         If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentOrderRequest Then DL.OrderRequest.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                         If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentSalesReturn Then DL.SalesReturn.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                         If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentClaimVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
+                        If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then DL.ConfirmationClaim.CalculateTotalUsedReceiveItemPaymentPurchaseVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                     Next
 
                     DL.AccountReceivable.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
@@ -504,6 +508,9 @@
                     ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then
                         '# Calculate Claim PO Cutting
                         DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentClaimVer02(sqlCon, sqlTrans, clsData.ReferencesID)
+                    ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then
+                        '# Calculate Claim Pembelian / Pendapatan Kompensasi
+                        DL.ConfirmationClaim.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, clsData.ReferencesID)
                     End If
                     '# -------------------
 
@@ -561,6 +568,7 @@
                     If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentOrderRequest Then DL.OrderRequest.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
                     If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentSalesReturn Then DL.SalesReturn.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
                     If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentClaimVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
+                    If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then DL.ConfirmationClaim.CalculateTotalUsedReceiveItemPaymentPurchaseVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
                     intCount += 1
                 Next
 
@@ -569,6 +577,7 @@
                 If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentOrderRequest Then DL.OrderRequest.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, clsData.ReferencesID)
                 If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentSalesReturn Then DL.SalesReturn.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, clsData.ReferencesID)
                 If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentClaimVer02(sqlCon, sqlTrans, clsData.ReferencesID)
+                If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then DL.ConfirmationClaim.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, clsData.ReferencesID)
 
                 '# Save Data Down Payment
                 intCount = 1
@@ -1104,7 +1113,7 @@
                 '# Save Data Status
                 BL.AccountReceivable.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
-                If Not clsData.IsDP Then GenerateJournal(sqlCon, sqlTrans, strID)
+                If Not clsData.IsDP And clsData.Modules <> VO.AccountReceivable.ReceivePaymentClaimPurchase Then GenerateJournal(sqlCon, sqlTrans, strID)
 
                 Dim dtDueDate As DataTable = DL.ARAPDueDateHistory.ListData(sqlCon, sqlTrans, strID)
                 If dtDueDate.Rows.Count = 0 Then
@@ -1156,7 +1165,7 @@
                     Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
                 End If
 
-                If Not clsData.IsDP Then
+                If Not clsData.IsDP And clsData.Modules <> VO.AccountReceivable.ReceivePaymentClaimPurchase Then
                     '# Cancel Approve Journal
                     BL.Journal.Unapprove(clsData.JournalID.Trim, "")
 
@@ -1492,7 +1501,6 @@
 
                             decTotalAmount += clsData.DPAmount
                         End If
-
                     Else
 
                         '# Akun Piutang -> Debit
@@ -1646,6 +1654,59 @@
                         clsJournalDetail.Add(New VO.JournalDet With
                                      {
                                          .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPPHSales,
+                                         .DebitAmount = 0,
+                                         .CreditAmount = clsData.TotalPPH,
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     })
+
+                        decTotalAmount += clsData.TotalPPH
+                    End If
+
+                ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then '# Akun Kas / Bank -> Dana masuk berdasarkan Pembayaran Kompensasi dari Supplier
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = clsData.CoAIDOfIncomePayment,
+                                             .DebitAmount = clsData.ReceiveAmount + clsData.TotalPPN,
+                                             .CreditAmount = 0,
+                                             .Remarks = "",
+                                             .GroupID = intGroupID,
+                                             .BPID = clsData.BPID
+                                         })
+
+                    '# Pendapatan Kompensasi
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofCompensasionRevenue,
+                                             .DebitAmount = 0,
+                                             .CreditAmount = clsData.ReceiveAmount + clsData.TotalPPN,
+                                             .Remarks = "",
+                                             .GroupID = intGroupID,
+                                             .BPID = clsData.BPID
+                                         })
+
+                    decTotalAmount += clsData.ReceiveAmount + clsData.TotalPPN
+
+                    '# Setup Akun PPH
+                    If clsData.TotalPPH > 0 Then
+                        intGroupID += 1
+
+                        '# Akun PPH -> Debit
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPPHSales,
+                                         .DebitAmount = clsData.TotalPPH,
+                                         .CreditAmount = 0,
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     })
+
+                        '# Akun Kas / Bank -> Kredit
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = clsData.CoAIDOfIncomePayment,
                                          .DebitAmount = 0,
                                          .CreditAmount = clsData.TotalPPH,
                                          .Remarks = "",

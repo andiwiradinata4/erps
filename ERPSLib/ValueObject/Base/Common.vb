@@ -55,6 +55,10 @@
                 Return "Pembayaran Retur Penjualan"
             ElseIf strModules = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then
                 Return "Pembayaran Biaya Pengiriman Retur Penjualan"
+            ElseIf strModules = VO.AccountPayable.ReceivePaymentClaimSales Then
+                Return "Pembayaran Biaya Klaim"
+            ElseIf strModules = VO.AccountReceivable.ReceivePaymentClaimPurchase Then
+                Return "Pelunasan Biaya Kompensasi"
             End If
             Return ""
         End Function

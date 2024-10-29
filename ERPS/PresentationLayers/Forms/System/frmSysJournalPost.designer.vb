@@ -28,6 +28,10 @@ Partial Class frmSysJournalPost
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlMain = New System.Windows.Forms.Panel()
+        Me.txtCoACodeofSalesReturn = New ERPS.usTextBox()
+        Me.txtCoANameofSalesReturn = New ERPS.usTextBox()
+        Me.btnCoAofSalesReturn = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label34 = New System.Windows.Forms.Label()
         Me.txtCoACodeofCostRawMaterial = New ERPS.usTextBox()
         Me.txtCoANameofCostRawMaterial = New ERPS.usTextBox()
         Me.btnCoAofCostOfRawMaterial = New DevExpress.XtraEditors.SimpleButton()
@@ -167,10 +171,14 @@ Partial Class frmSysJournalPost
         Me.ToolStripLogBy = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.txtCoACodeofSalesReturn = New ERPS.usTextBox()
-        Me.txtCoANameofSalesReturn = New ERPS.usTextBox()
-        Me.btnCoAofSalesReturn = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label34 = New System.Windows.Forms.Label()
+        Me.txtCoACodeofClaimCost = New ERPS.usTextBox()
+        Me.txtCoANameofClaimCost = New ERPS.usTextBox()
+        Me.btnCoAofClaimCost = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.txtCoACodeofCompensasionRevenue = New ERPS.usTextBox()
+        Me.txtCoANameofCompensasionRevenue = New ERPS.usTextBox()
+        Me.btnCoAofCompensasionRevenue = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label36 = New System.Windows.Forms.Label()
         Me.pnlMain.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -183,7 +191,7 @@ Partial Class frmSysJournalPost
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(690, 28)
+        Me.ToolBar.Size = New System.Drawing.Size(1286, 28)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -207,7 +215,7 @@ Partial Class frmSysJournalPost
         Me.lblInfo.ForeColor = System.Drawing.Color.White
         Me.lblInfo.Location = New System.Drawing.Point(0, 28)
         Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(690, 22)
+        Me.lblInfo.Size = New System.Drawing.Size(1286, 22)
         Me.lblInfo.TabIndex = 1
         Me.lblInfo.Text = "« Posting Jurnal Transaksi"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -216,6 +224,14 @@ Partial Class frmSysJournalPost
         '
         Me.pnlMain.AutoScroll = True
         Me.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlMain.Controls.Add(Me.txtCoACodeofClaimCost)
+        Me.pnlMain.Controls.Add(Me.txtCoANameofClaimCost)
+        Me.pnlMain.Controls.Add(Me.btnCoAofClaimCost)
+        Me.pnlMain.Controls.Add(Me.Label35)
+        Me.pnlMain.Controls.Add(Me.txtCoACodeofCompensasionRevenue)
+        Me.pnlMain.Controls.Add(Me.txtCoANameofCompensasionRevenue)
+        Me.pnlMain.Controls.Add(Me.btnCoAofCompensasionRevenue)
+        Me.pnlMain.Controls.Add(Me.Label36)
         Me.pnlMain.Controls.Add(Me.txtCoACodeofSalesReturn)
         Me.pnlMain.Controls.Add(Me.txtCoANameofSalesReturn)
         Me.pnlMain.Controls.Add(Me.btnCoAofSalesReturn)
@@ -355,8 +371,49 @@ Partial Class frmSysJournalPost
         Me.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlMain.Location = New System.Drawing.Point(0, 50)
         Me.pnlMain.Name = "pnlMain"
-        Me.pnlMain.Size = New System.Drawing.Size(690, 966)
+        Me.pnlMain.Size = New System.Drawing.Size(1286, 966)
         Me.pnlMain.TabIndex = 2
+        '
+        'txtCoACodeofSalesReturn
+        '
+        Me.txtCoACodeofSalesReturn.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofSalesReturn.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofSalesReturn.Location = New System.Drawing.Point(219, 904)
+        Me.txtCoACodeofSalesReturn.MaxLength = 250
+        Me.txtCoACodeofSalesReturn.Name = "txtCoACodeofSalesReturn"
+        Me.txtCoACodeofSalesReturn.ReadOnly = True
+        Me.txtCoACodeofSalesReturn.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofSalesReturn.TabIndex = 99
+        '
+        'txtCoANameofSalesReturn
+        '
+        Me.txtCoANameofSalesReturn.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofSalesReturn.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofSalesReturn.Location = New System.Drawing.Point(301, 904)
+        Me.txtCoANameofSalesReturn.MaxLength = 250
+        Me.txtCoANameofSalesReturn.Name = "txtCoANameofSalesReturn"
+        Me.txtCoANameofSalesReturn.ReadOnly = True
+        Me.txtCoANameofSalesReturn.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofSalesReturn.TabIndex = 100
+        '
+        'btnCoAofSalesReturn
+        '
+        Me.btnCoAofSalesReturn.Image = CType(resources.GetObject("btnCoAofSalesReturn.Image"), System.Drawing.Image)
+        Me.btnCoAofSalesReturn.Location = New System.Drawing.Point(627, 903)
+        Me.btnCoAofSalesReturn.Name = "btnCoAofSalesReturn"
+        Me.btnCoAofSalesReturn.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofSalesReturn.TabIndex = 101
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.BackColor = System.Drawing.Color.Transparent
+        Me.Label34.ForeColor = System.Drawing.Color.Black
+        Me.Label34.Location = New System.Drawing.Point(33, 908)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(84, 13)
+        Me.Label34.TabIndex = 262
+        Me.Label34.Text = "Retur Penjualan"
         '
         'txtCoACodeofCostRawMaterial
         '
@@ -1716,7 +1773,7 @@ Partial Class frmSysJournalPost
         Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.pgMain.Location = New System.Drawing.Point(0, 1038)
         Me.pgMain.Name = "pgMain"
-        Me.pgMain.Size = New System.Drawing.Size(690, 23)
+        Me.pgMain.Size = New System.Drawing.Size(1286, 23)
         Me.pgMain.TabIndex = 4
         '
         'StatusStrip
@@ -1725,14 +1782,14 @@ Partial Class frmSysJournalPost
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
         Me.StatusStrip.Location = New System.Drawing.Point(0, 1016)
         Me.StatusStrip.Name = "StatusStrip"
-        Me.StatusStrip.Size = New System.Drawing.Size(690, 22)
+        Me.StatusStrip.Size = New System.Drawing.Size(1286, 22)
         Me.StatusStrip.TabIndex = 3
         Me.StatusStrip.Text = "StatusStrip1"
         '
         'ToolStripEmpty
         '
         Me.ToolStripEmpty.Name = "ToolStripEmpty"
-        Me.ToolStripEmpty.Size = New System.Drawing.Size(567, 17)
+        Me.ToolStripEmpty.Size = New System.Drawing.Size(1163, 17)
         Me.ToolStripEmpty.Spring = True
         '
         'ToolStripLogInc
@@ -1770,52 +1827,93 @@ Partial Class frmSysJournalPost
         Me.ToolStripLogDate.Size = New System.Drawing.Size(12, 17)
         Me.ToolStripLogDate.Text = "-"
         '
-        'txtCoACodeofSalesReturn
+        'txtCoACodeofClaimCost
         '
-        Me.txtCoACodeofSalesReturn.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeofSalesReturn.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeofSalesReturn.Location = New System.Drawing.Point(219, 904)
-        Me.txtCoACodeofSalesReturn.MaxLength = 250
-        Me.txtCoACodeofSalesReturn.Name = "txtCoACodeofSalesReturn"
-        Me.txtCoACodeofSalesReturn.ReadOnly = True
-        Me.txtCoACodeofSalesReturn.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofSalesReturn.TabIndex = 99
+        Me.txtCoACodeofClaimCost.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofClaimCost.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofClaimCost.Location = New System.Drawing.Point(818, 40)
+        Me.txtCoACodeofClaimCost.MaxLength = 250
+        Me.txtCoACodeofClaimCost.Name = "txtCoACodeofClaimCost"
+        Me.txtCoACodeofClaimCost.ReadOnly = True
+        Me.txtCoACodeofClaimCost.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofClaimCost.TabIndex = 105
         '
-        'txtCoANameofSalesReturn
+        'txtCoANameofClaimCost
         '
-        Me.txtCoANameofSalesReturn.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameofSalesReturn.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameofSalesReturn.Location = New System.Drawing.Point(301, 904)
-        Me.txtCoANameofSalesReturn.MaxLength = 250
-        Me.txtCoANameofSalesReturn.Name = "txtCoANameofSalesReturn"
-        Me.txtCoANameofSalesReturn.ReadOnly = True
-        Me.txtCoANameofSalesReturn.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofSalesReturn.TabIndex = 100
+        Me.txtCoANameofClaimCost.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofClaimCost.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofClaimCost.Location = New System.Drawing.Point(900, 40)
+        Me.txtCoANameofClaimCost.MaxLength = 250
+        Me.txtCoANameofClaimCost.Name = "txtCoANameofClaimCost"
+        Me.txtCoANameofClaimCost.ReadOnly = True
+        Me.txtCoANameofClaimCost.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofClaimCost.TabIndex = 106
         '
-        'btnCoAofSalesReturn
+        'btnCoAofClaimCost
         '
-        Me.btnCoAofSalesReturn.Image = CType(resources.GetObject("btnCoAofSalesReturn.Image"), System.Drawing.Image)
-        Me.btnCoAofSalesReturn.Location = New System.Drawing.Point(627, 903)
-        Me.btnCoAofSalesReturn.Name = "btnCoAofSalesReturn"
-        Me.btnCoAofSalesReturn.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofSalesReturn.TabIndex = 101
+        Me.btnCoAofClaimCost.Image = CType(resources.GetObject("btnCoAofClaimCost.Image"), System.Drawing.Image)
+        Me.btnCoAofClaimCost.Location = New System.Drawing.Point(1226, 39)
+        Me.btnCoAofClaimCost.Name = "btnCoAofClaimCost"
+        Me.btnCoAofClaimCost.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofClaimCost.TabIndex = 107
         '
-        'Label34
+        'Label35
         '
-        Me.Label34.AutoSize = True
-        Me.Label34.BackColor = System.Drawing.Color.Transparent
-        Me.Label34.ForeColor = System.Drawing.Color.Black
-        Me.Label34.Location = New System.Drawing.Point(33, 908)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(84, 13)
-        Me.Label34.TabIndex = 262
-        Me.Label34.Text = "Retur Penjualan"
+        Me.Label35.AutoSize = True
+        Me.Label35.BackColor = System.Drawing.Color.Transparent
+        Me.Label35.ForeColor = System.Drawing.Color.Black
+        Me.Label35.Location = New System.Drawing.Point(686, 44)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(60, 13)
+        Me.Label35.TabIndex = 270
+        Me.Label35.Text = "Biaya Klaim"
+        '
+        'txtCoACodeofCompensasionRevenue
+        '
+        Me.txtCoACodeofCompensasionRevenue.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofCompensasionRevenue.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofCompensasionRevenue.Location = New System.Drawing.Point(818, 13)
+        Me.txtCoACodeofCompensasionRevenue.MaxLength = 250
+        Me.txtCoACodeofCompensasionRevenue.Name = "txtCoACodeofCompensasionRevenue"
+        Me.txtCoACodeofCompensasionRevenue.ReadOnly = True
+        Me.txtCoACodeofCompensasionRevenue.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofCompensasionRevenue.TabIndex = 102
+        '
+        'txtCoANameofCompensasionRevenue
+        '
+        Me.txtCoANameofCompensasionRevenue.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofCompensasionRevenue.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofCompensasionRevenue.Location = New System.Drawing.Point(900, 13)
+        Me.txtCoANameofCompensasionRevenue.MaxLength = 250
+        Me.txtCoANameofCompensasionRevenue.Name = "txtCoANameofCompensasionRevenue"
+        Me.txtCoANameofCompensasionRevenue.ReadOnly = True
+        Me.txtCoANameofCompensasionRevenue.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofCompensasionRevenue.TabIndex = 103
+        '
+        'btnCoAofCompensasionRevenue
+        '
+        Me.btnCoAofCompensasionRevenue.Image = CType(resources.GetObject("btnCoAofCompensasionRevenue.Image"), System.Drawing.Image)
+        Me.btnCoAofCompensasionRevenue.Location = New System.Drawing.Point(1226, 12)
+        Me.btnCoAofCompensasionRevenue.Name = "btnCoAofCompensasionRevenue"
+        Me.btnCoAofCompensasionRevenue.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofCompensasionRevenue.TabIndex = 104
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.BackColor = System.Drawing.Color.Transparent
+        Me.Label36.ForeColor = System.Drawing.Color.Black
+        Me.Label36.Location = New System.Drawing.Point(686, 17)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(124, 13)
+        Me.Label36.TabIndex = 269
+        Me.Label36.Text = "Pendapatan Kompensasi"
         '
         'frmSysJournalPost
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(690, 1061)
+        Me.ClientSize = New System.Drawing.Size(1286, 1061)
         Me.Controls.Add(Me.pnlMain)
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.pgMain)
@@ -1981,4 +2079,12 @@ Partial Class frmSysJournalPost
     Friend WithEvents txtCoANameofSalesReturn As ERPS.usTextBox
     Friend WithEvents btnCoAofSalesReturn As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label34 As System.Windows.Forms.Label
+    Friend WithEvents txtCoACodeofClaimCost As ERPS.usTextBox
+    Friend WithEvents txtCoANameofClaimCost As ERPS.usTextBox
+    Friend WithEvents btnCoAofClaimCost As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label35 As System.Windows.Forms.Label
+    Friend WithEvents txtCoACodeofCompensasionRevenue As ERPS.usTextBox
+    Friend WithEvents txtCoANameofCompensasionRevenue As ERPS.usTextBox
+    Friend WithEvents btnCoAofCompensasionRevenue As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label36 As System.Windows.Forms.Label
 End Class

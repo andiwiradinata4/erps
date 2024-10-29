@@ -12,7 +12,8 @@
         intCoAIDofAccountPayableCutting As Integer = 0, intCoAIDofAccountPayableCutting2 As Integer = 0, intCoAIDofAccountPayableCutting3 As Integer = 0,
         intCoAIDofAccountPayableTransport As Integer = 0, intCoAIDofAccountReceivableOutstandingPayment As Integer = 0, intCoAIDofAccountPayableOutstandingPayment As Integer = 0,
         intCoAIDofAccountPayableCuttingOutstandingPayment As Integer = 0, intCoAIDofAccountPayableTransportOutstandingPayment As Integer = 0,
-        intCoAIDofCutting As Integer = 0, intCoAIDofTransport As Integer = 0, intCoAIDofCostRawMaterial As Integer = 0, intCoAIDofSalesReturn As Integer = 0
+        intCoAIDofCutting As Integer = 0, intCoAIDofTransport As Integer = 0, intCoAIDofCostRawMaterial As Integer = 0, intCoAIDofSalesReturn As Integer = 0,
+        intCoAIDofCompensasionRevenue As Integer = 0, intCoAIDofClaimCost As Integer = 0
 
     Private clsData As New VO.JournalPost
     Private Const _
@@ -159,6 +160,14 @@
             txtCoACodeofSalesReturn.Text = clsData.CoACodeofSalesReturn
             txtCoANameofSalesReturn.Text = clsData.CoANameofSalesReturn
 
+            intCoAIDofCompensasionRevenue = clsData.CoAofCompensasionRevenue
+            txtCoACodeofCompensasionRevenue.Text = clsData.CoACodeofCompensasionRevenue
+            txtCoANameofCompensasionRevenue.Text = clsData.CoANameofCompensasionRevenue
+
+            intCoAIDofClaimCost = clsData.CoAofClaimCost
+            txtCoACodeofClaimCost.Text = clsData.CoACodeofClaimCost
+            txtCoANameofClaimCost.Text = clsData.CoANameofClaimCost
+
             ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
             ToolStripLogBy.Text = "Dibuat Oleh : " & IIf(clsData.LogBy Is Nothing, ERPSLib.UI.usUserApp.UserID, clsData.LogBy)
             ToolStripLogDate.Text = Format(IIf(clsData.LogBy Is Nothing, Now(), clsData.LogDate), UI.usDefCons.DateFull)
@@ -207,6 +216,8 @@
         clsData.Remarks = ""
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.CoAofSalesReturn = intCoAIDofSalesReturn
+        clsData.CoAofCompensasionRevenue = intCoAIDofCompensasionRevenue
+        clsData.CoAofClaimCost = intCoAIDofClaimCost
 
         Me.Cursor = Cursors.WaitCursor
         Try
@@ -723,6 +734,34 @@
                 intCoAIDofSalesReturn = .pubLUdtRow.Item("ID")
                 txtCoACodeofSalesReturn.Text = .pubLUdtRow.Item("Code")
                 txtCoANameofSalesReturn.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofCompensasionRevenue_Click(sender As Object, e As EventArgs) Handles btnCoAofCompensasionRevenue.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofCompensasionRevenue = .pubLUdtRow.Item("ID")
+                txtCoACodeofCompensasionRevenue.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofCompensasionRevenue.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofClaimCost_Click(sender As Object, e As EventArgs) Handles btnCoAofClaimCost.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofClaimCost = .pubLUdtRow.Item("ID")
+                txtCoACodeofClaimCost.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofClaimCost.Text = .pubLUdtRow.Item("Name")
             End If
         End With
     End Sub

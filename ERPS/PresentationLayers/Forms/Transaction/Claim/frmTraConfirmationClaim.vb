@@ -406,6 +406,34 @@ Public Class frmTraConfirmationClaim
         grdView.BestFitColumns()
     End Sub
 
+    Private Sub prvReceivePayment()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+
+        If clsData.StatusID <> VO.Status.Values.Submit Then
+            UI.usForm.frmMessageBox("Status Data harus disubmit terlebih dahulu")
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraARAP
+        With frmDetail
+            If intClaimType = VO.Claim.ClaimTypeValue.Receive Then .pubModules = VO.AccountReceivable.ReceivePaymentClaimPurchase
+            If intClaimType = VO.Claim.ClaimTypeValue.Receive Then .pubARAPType = VO.ARAP.ARAPTypeValue.Sales
+            If intClaimType = VO.Claim.ClaimTypeValue.Sales Then .pubModules = VO.AccountPayable.ReceivePaymentClaimSales
+            If intClaimType = VO.Claim.ClaimTypeValue.Sales Then .pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
+            .pubBPID = clsData.BPID
+            .pubBPCode = clsData.BPCode
+            .pubBPName = clsData.BPName
+            .pubCS = prvGetCS()
+            .pubReferencesID = clsData.ID
+            .pubReferencesNumber = clsData.ConfirmationClaimNumber
+            .pubPPNPercentage = clsData.PPN
+            .pubPPHPercentage = clsData.PPH
+            .ShowDialog()
+        End With
+    End Sub
+
     Private Sub prvUserAccess()
         With ToolBar.Buttons
             '.Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesClaim, VO.Access.Values.NewAccess)
@@ -456,6 +484,7 @@ Public Class frmTraConfirmationClaim
                 Case ToolBar.Buttons(cDelete).Name : prvDelete()
                 Case ToolBar.Buttons(cSubmit).Name : prvSubmit()
                 Case ToolBar.Buttons(cCancelSubmit).Name : prvCancelSubmit()
+                Case ToolBar.Buttons(cPayment).Name : prvReceivePayment()
                 Case ToolBar.Buttons(cPrint).Name : prvPrint()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select

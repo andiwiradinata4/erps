@@ -148,7 +148,7 @@ Partial Class frmTraConfirmationClaimDet
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(914, 160)
+        Me.tcHeader.Size = New System.Drawing.Size(914, 204)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
@@ -172,7 +172,7 @@ Partial Class frmTraConfirmationClaimDet
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(906, 131)
+        Me.tpMain.Size = New System.Drawing.Size(906, 175)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
@@ -346,7 +346,7 @@ Partial Class frmTraConfirmationClaimDet
         Me.tpAmount.Controls.Add(Me.txtPPN)
         Me.tpAmount.Location = New System.Drawing.Point(4, 25)
         Me.tpAmount.Name = "tpAmount"
-        Me.tpAmount.Size = New System.Drawing.Size(906, 131)
+        Me.tpAmount.Size = New System.Drawing.Size(906, 175)
         Me.tpAmount.TabIndex = 2
         Me.tpAmount.Text = "Harga - F2"
         Me.tpAmount.UseVisualStyleBackColor = True
@@ -588,7 +588,7 @@ Partial Class frmTraConfirmationClaimDet
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(0, 210)
+        Me.Label1.Location = New System.Drawing.Point(0, 254)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(914, 22)
         Me.Label1.TabIndex = 3
@@ -608,10 +608,10 @@ Partial Class frmTraConfirmationClaimDet
         Me.tcDetail.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tcDetail.Controls.Add(Me.tpItem)
         Me.tcDetail.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tcDetail.Location = New System.Drawing.Point(0, 232)
+        Me.tcDetail.Location = New System.Drawing.Point(0, 276)
         Me.tcDetail.Name = "tcDetail"
         Me.tcDetail.SelectedIndex = 0
-        Me.tcDetail.Size = New System.Drawing.Size(914, 406)
+        Me.tcDetail.Size = New System.Drawing.Size(914, 362)
         Me.tcDetail.TabIndex = 4
         '
         'tpItem
@@ -622,7 +622,7 @@ Partial Class frmTraConfirmationClaimDet
         Me.tpItem.Location = New System.Drawing.Point(4, 25)
         Me.tpItem.Name = "tpItem"
         Me.tpItem.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpItem.Size = New System.Drawing.Size(906, 377)
+        Me.tpItem.Size = New System.Drawing.Size(906, 333)
         Me.tpItem.TabIndex = 1
         Me.tpItem.Text = "Item - F4"
         Me.tpItem.UseVisualStyleBackColor = True
@@ -648,7 +648,7 @@ Partial Class frmTraConfirmationClaimDet
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItem.Size = New System.Drawing.Size(900, 321)
+        Me.grdItem.Size = New System.Drawing.Size(900, 277)
         Me.grdItem.TabIndex = 1
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
@@ -676,7 +676,7 @@ Partial Class frmTraConfirmationClaimDet
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(3, 352)
+        Me.StatusStrip.Location = New System.Drawing.Point(3, 308)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(900, 22)
         Me.StatusStrip.TabIndex = 2

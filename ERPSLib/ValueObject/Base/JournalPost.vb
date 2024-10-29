@@ -145,6 +145,14 @@
         Property CoACodeofSalesReturn As String
         Property CoANameofSalesReturn As String
 
+        Property CoAofCompensasionRevenue As Integer
+        Property CoACodeofCompensasionRevenue As String
+        Property CoANameofCompensasionRevenue As String
+
+        Property CoAofClaimCost As Integer
+        Property CoACodeofClaimCost As String
+        Property CoANameofClaimCost As String
+
         Property Remarks As String
     End Class
 End Namespace

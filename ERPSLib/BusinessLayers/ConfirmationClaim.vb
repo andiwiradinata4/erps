@@ -179,6 +179,78 @@ Namespace BL
             Return bolReturn
         End Function
 
+        Public Shared Sub GenerateJournal(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal strID As String)
+            Try
+                Dim clsData As VO.ConfirmationClaim = DL.ConfirmationClaim.GetDetail(sqlCon, sqlTrans, strID)
+                Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
+                Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
+
+                '# Generate Journal
+                Dim decTotalAmount As Decimal = 0
+                If ERPSLib.UI.usUserApp.JournalPost.CoAofCompensasionRevenue < 0 Then Err.Raise(515, "", "Data tidak dapat di Proses. Dikarenakan Akun Pendapatan Kompensasi belum ditentukan")
+
+                Dim clsJournalDetail As New List(Of VO.JournalDet)
+                decTotalAmount += clsData.TotalDPP + clsData.RoundingManual
+
+                If clsData.ClaimType = VO.Claim.ClaimTypeValue.Receive Then
+                    '# Akun Piutang Usaha Belum ditagih -> Debit
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountReceivableOutstandingPayment,
+                                             .DebitAmount = decTotalAmount,
+                                             .CreditAmount = 0,
+                                             .Remarks = "",
+                                             .GroupID = 0,
+                                             .BPID = clsData.BPID
+                                         })
+
+                    '# Akun Pendapatan Kompensasi -> Kredit
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofCompensasionRevenue,
+                                             .DebitAmount = 0,
+                                             .CreditAmount = decTotalAmount,
+                                             .Remarks = "",
+                                             .GroupID = 0,
+                                             .BPID = clsData.BPID
+                                         })
+                ElseIf clsData.ClaimType = VO.Claim.ClaimTypeValue.Sales Then
+
+                End If
+                
+                Dim clsJournal As New VO.Journal With
+                {
+                    .ProgramID = clsData.ProgramID,
+                    .CompanyID = clsData.CompanyID,
+                    .ID = PrevJournal.ID,
+                    .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                    .ReferencesID = clsData.ID,
+                    .JournalDate = IIf(bolNew, clsData.ConfirmationClaimDate, PrevJournal.JournalDate),
+                    .TotalAmount = decTotalAmount,
+                    .IsAutoGenerate = True,
+                    .StatusID = VO.Status.Values.Draft,
+                    .Remarks = clsData.Remarks,
+                    .LogBy = ERPSLib.UI.usUserApp.UserID,
+                    .Initial = "",
+                    .ReferencesNo = clsData.ConfirmationClaimNumber,
+                    .Detail = clsJournalDetail,
+                    .Save = VO.Save.Action.SaveAndSubmit
+                }
+
+                '# Save Journal
+                Dim strJournalID As String = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
+
+                '# Approve Journal
+                BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
+
+                '# Update Journal ID in Delivery
+                DL.ConfirmationClaim.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail"
