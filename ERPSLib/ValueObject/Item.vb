@@ -16,5 +16,6 @@
         Property StatusID As Integer
         Property Remarks As String
         Property LengthInitial As String
+        Property RefID As Integer
     End Class
 End Namespace

@@ -73,6 +73,7 @@
                 DevelopOnProgress_ID66(sqlCon, Nothing)
                 DevelopOnProgress_ID67(sqlCon, Nothing)
                 DevelopOnProgress_ID68(sqlCon, Nothing)
+                DevelopOnProgress_ID69(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -2026,6 +2027,31 @@
             clsData.Scripts =
             "ALTER TABLE sysJournalPost ADD CoAofCompensasionRevenue INT NOT NULL CONSTRAINT DF_sysJournalPost_CoAofCompensasionRevenue DEFAULT ((0)) " & vbNewLine &
             "ALTER TABLE sysJournalPost ADD CoAofClaimCost INT NOT NULL CONSTRAINT DF_sysJournalPost_CoAofClaimCost DEFAULT ((0)) " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 69
+        Private Shared Sub DevelopOnProgress_ID69(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 69
+            clsData.Name = "Create Table Remarks Result"
+            clsData.Scripts += _
+"CREATE TABLE [dbo].[traPurchaseOrderRemarksResult](  " & vbNewLine & _
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderRemarksResult_ID]  DEFAULT (''),  " & vbNewLine & _
+"	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderRemarksResult_POID]  DEFAULT (''),  " & vbNewLine & _
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrderRemarksResult_Remarks]  DEFAULT (''),  " & vbNewLine & _
+"   CONSTRAINT [PK_traPurchaseOrderRemarksResult] PRIMARY KEY CLUSTERED   " & vbNewLine & _
+"   (  " & vbNewLine & _
+"   	[ID] ASC  " & vbNewLine & _
+"   )   " & vbNewLine & _
+")  " & vbNewLine & _
+"" & vbNewLine & _
+"ALTER TABLE mstItem ADD RefID INT NOT NULL CONSTRAINT DF_mstItem_RefID DEFAULT ((0)) " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

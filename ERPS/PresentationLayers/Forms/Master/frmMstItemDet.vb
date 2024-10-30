@@ -7,6 +7,7 @@
     Property pubID As Integer
     Property pubIsNew As Boolean = False
     Property pubIsSave As Boolean = False
+    Property pubIsCopy As Boolean = False
 
     Public Sub pubShowDialog(ByVal frmGetParent As Form)
         frmParent = frmGetParent
@@ -63,6 +64,12 @@
                 txtLengthInitial.Text = clsData.LengthInitial
 
                 If cboStatus.SelectedValue = VO.Status.Values.InActive Then cboStatus.Enabled = True
+
+                If pubIsCopy Then
+                    txtWidth.Value = 0
+                    txtLength.Value = 0
+                    txtWeight.Value = 0
+                End If
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -105,10 +112,17 @@
             Exit Sub
         End If
 
-        If Not UI.usForm.frmAskQuestion("Simpan data?") Then Exit Sub
+
+        Dim strMessage As String = "Simpan Data"
+        If pubIsCopy Then strMessage += " Dari Fitur Copy"
+
+        If Not UI.usForm.frmAskQuestion(strMessage & "?") Then Exit Sub
+
+
+        If pubIsCopy Then pubIsNew = True
 
         clsData = New VO.Item
-        clsData.ID = pubID
+        clsData.ID = IIf(pubIsCopy, 0, pubID)
         clsData.ItemCode = txtItemCode.Text.Trim
         clsData.ItemCodeExternal = txtItemCodeExternal.Text.Trim
         clsData.ItemTypeID = cboItemType.SelectedValue
@@ -124,6 +138,7 @@
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.UOMID = cboUom.SelectedValue
         clsData.LengthInitial = txtLengthInitial.Text.Trim
+        clsData.RefID = IIf(pubIsCopy, pubID, 0)
 
         Try
             Dim strCode As String = BL.Item.SaveData(pubIsNew, clsData)

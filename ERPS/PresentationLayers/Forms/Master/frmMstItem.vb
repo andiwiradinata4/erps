@@ -7,8 +7,8 @@
 
     Private Const _
        cGet As Byte = 0, cSep1 As Byte = 1, cNew As Byte = 2, cDetail As Byte = 3, _
-       cDelete As Byte = 4, cSep2 As Byte = 5, cResult As Byte = 6, cSep3 As Byte = 7,
-       cRefresh As Byte = 8, cClose As Byte = 9
+       cDelete As Byte = 4, cSep2 As Byte = 5, cCopy As Byte = 6, cSep3 As Byte = 7,
+       cResult As Byte = 8, cSep4 As Byte = 9, cRefresh As Byte = 10, cClose As Byte = 11
 
     Private Sub prvSetTitleForm()
         If pubIsLookUp Then
@@ -47,6 +47,7 @@
             .Item(cGet).Enabled = bolEnable
             .Item(cDetail).Enabled = bolEnable
             .Item(cDelete).Enabled = bolEnable
+            .Item(cCopy).Enabled = bolEnable
             .Item(cResult).Enabled = bolEnable
         End With
     End Sub
@@ -129,6 +130,19 @@
         End Try
     End Sub
 
+    Private Sub prvCopy()
+        Dim intPos As Integer = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim frmDetail As New frmMstItemDet
+        With frmDetail
+            .pubIsNew = False
+            .pubIsCopy = True
+            .pubID = grdView.GetRowCellValue(intPos, "ID")
+            .StartPosition = FormStartPosition.CenterScreen
+            .pubShowDialog(Me)
+        End With
+    End Sub
+
     Private Sub prvClear()
         grdMain.DataSource = Nothing
         grdView.Columns.Clear()
@@ -187,6 +201,7 @@
                 Case ToolBar.Buttons(cGet).Name : prvGet()
                 Case ToolBar.Buttons(cDetail).Name : prvDetail()
                 Case ToolBar.Buttons(cDelete).Name : prvDelete()
+                Case ToolBar.Buttons(cCopy).Name : prvCopy()
                 Case ToolBar.Buttons(cResult).Name : prvResult()
             End Select
         End If

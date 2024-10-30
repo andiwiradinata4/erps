@@ -38,6 +38,7 @@
         Property Detail As List(Of VO.PurchaseOrderCuttingDet)
         Property DetailResult As List(Of VO.PurchaseOrderCuttingDetResult)
         Property PaymentTerm As List(Of VO.PurchaseOrderPaymentTerm)
+        Property RemarksResultItem As List(Of VO.PurchaseOrderRemarksResult)
         Property Save As VO.Save.Action
         Property CustomerID As Integer
         Property CustomerCode As String

@@ -57,6 +57,8 @@
                             DL.PurchaseContract.CalculateCuttingTotalUsed(sqlCon, sqlTrans, dr.Item("PCDetailID"))
                         Next
 
+                        DL.PurchaseOrderCutting.DeleteDataRemarksResult(sqlCon, sqlTrans, clsData.ID)
+
                         Dim clsExists As VO.PurchaseOrderCutting = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsData.ID)
                         If clsExists.DPAmount > 0 Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses panjar")
@@ -102,6 +104,14 @@
                         clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
                         clsDet.POID = clsData.ID
                         DL.PurchaseOrder.SaveDataPaymentTerm(sqlCon, sqlTrans, clsDet)
+                        intCount += 1
+                    Next
+
+                    intCount = 1
+                    For Each clsDet As VO.PurchaseOrderRemarksResult In clsData.RemarksResultItem
+                        clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
+                        clsDet.POID = clsData.ID
+                        DL.PurchaseOrderCutting.SaveDataRemarksResult(sqlCon, sqlTrans, clsDet)
                         intCount += 1
                     Next
 
@@ -306,6 +316,11 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 '# Get Data
                 dtReturn = DL.PurchaseOrderCutting.Print(sqlCon, Nothing, strID)
+                Dim dtRemarksResult As DataTable = DL.PurchaseOrderCutting.ListDataRemarksResult(sqlCon, Nothing, strID)
+                Dim strRemarksResult As String = ""
+                For Each dr As DataRow In dtRemarksResult.Rows
+                    strRemarksResult += dr.Item("Remarks") & vbCrLf
+                Next
 
                 '# Combine Delivery Period
                 For Each dr As DataRow In dtReturn.Rows
@@ -317,6 +332,8 @@
 
                     dr.Item("LocationAndDate") = dr.Item("City") & ", " & Format(dr.Item("PODate"), "dd MMMM yyyy")
                     If IsNumeric(dr.Item("Length")) Then dr.Item("Length") = Format(Convert.ToDecimal(dr.Item("Length")), "#,###")
+
+                    dr.Item("RemarksResult") = strRemarksResult
                     dr.EndEdit()
                 Next
                 dtReturn.AcceptChanges()
@@ -417,6 +434,17 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.PurchaseOrderCutting.ListDataDetailResult(sqlCon, Nothing, strPOID)
+            End Using
+        End Function
+
+#End Region
+
+#Region "Remarks Result"
+
+        Public Shared Function ListDataRemarksResult(ByVal strPOID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseOrderCutting.ListDataRemarksResult(sqlCon, Nothing, strPOID)
             End Using
         End Function
 

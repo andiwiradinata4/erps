@@ -299,6 +299,7 @@
     <Compile Include="ValueObject\PurchaseOrderDetInternal.vb" />
     <Compile Include="ValueObject\PurchaseOrderCuttingDetResult.vb" />
     <Compile Include="ValueObject\PurchaseOrderPaymentTerm.vb" />
+    <Compile Include="ValueObject\PurchaseOrderRemarksResult.vb" />
     <Compile Include="ValueObject\PurchaseOrderStatus.vb" />
     <Compile Include="ValueObject\PurchaseContractPaymentTerm.vb" />
     <Compile Include="ValueObject\PurchaseOrderTransport.vb" />

@@ -59,6 +59,8 @@
                 Return "Pembayaran Biaya Klaim"
             ElseIf strModules = VO.AccountReceivable.ReceivePaymentClaimPurchase Then
                 Return "Pelunasan Biaya Kompensasi"
+            ElseIf strModules = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then
+                Return "Pelunasan Biaya Pemotongan"
             End If
             Return ""
         End Function

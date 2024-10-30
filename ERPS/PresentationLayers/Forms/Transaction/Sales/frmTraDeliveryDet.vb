@@ -422,6 +422,7 @@ Public Class frmTraDeliveryDet
                     bolIsUseSubItem = .pubLUdtRow.Item("IsUseSubItem")
                     txtPPN.Value = .pubLUdtRow.Item("PPN")
                     txtPPH.Value = .pubLUdtRow.Item("PPH")
+                    txtReferencesNumber.Text = .pubLUdtRow.Item("ARNumber")
                 End If
             End With
         End If

@@ -1605,6 +1605,74 @@
 
 #End Region
 
+#Region "Detail"
+
+        Public Shared Function ListDataRemarksResult(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                     ByVal strPOID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.POID, A.Remarks " & vbNewLine &
+                    "FROM traPurchaseOrderRemarksResult A " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.POID=@POID " & vbNewLine
+
+                .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = strPOID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Sub SaveDataRemarksResult(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                ByVal clsData As VO.PurchaseOrderRemarksResult)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "INSERT INTO traPurchaseOrderRemarksResult" & vbNewLine &
+                    "   (ID, POID, Remarks) " & vbNewLine &
+                    "VALUES " & vbNewLine &
+                    "   (@ID, @POID, @Remarks) " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = clsData.POID
+                .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataRemarksResult(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                  ByVal strPOID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "DELETE FROM traPurchaseOrderRemarksResult     " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   POID=@POID" & vbNewLine
+
+                .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = strPOID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+#End Region
+
     End Class
 
 End Namespace

@@ -13,7 +13,7 @@
                     "   ComboID=CAST(A.ID AS VARCHAR(100)), A.ID, A.ItemCode, A.ItemCodeExternal, A.ItemName, " & vbNewLine &
                     "   A.ItemTypeID, C.Description AS ItemTypeName, A.ItemSpecificationID, D.Description AS ItemSpecificationName, " & vbNewLine &
                     "   A.Thick, A.Width, A.Length, A.Weight, A.BasePrice, A.StatusID, B.Name AS StatusInfo, " & vbNewLine &
-                    "   A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc " & vbNewLine &
+                    "   A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc, A.RefID " & vbNewLine &
                     "FROM mstItem A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -49,9 +49,9 @@
                 If bolNew Then
                     .CommandText =
                         "INSERT INTO mstItem " & vbNewLine &
-                        "     (ID, ItemCode, ItemCodeExternal, ItemName, ItemTypeID, ItemSpecificationID, Thick, Width, Length, Weight, BasePrice, StatusID, Remarks, CreatedBy, CreatedDate, LogBy, LogDate, UomID, LengthInitial) " & vbNewLine &
+                        "     (ID, ItemCode, ItemCodeExternal, ItemName, ItemTypeID, ItemSpecificationID, Thick, Width, Length, Weight, BasePrice, StatusID, Remarks, CreatedBy, CreatedDate, LogBy, LogDate, UomID, LengthInitial, RefID) " & vbNewLine &
                         "VALUES " & vbNewLine &
-                        "     (@ID, @ItemCode, @ItemCodeExternal, @ItemName, @ItemTypeID, @ItemSpecificationID, @Thick, @Width, @Length, @Weight, @BasePrice, @StatusID, @Remarks, @LogBy, GETDATE(), @LogBy, GETDATE(), @UomID, @LengthInitial) " & vbNewLine
+                        "     (@ID, @ItemCode, @ItemCodeExternal, @ItemName, @ItemTypeID, @ItemSpecificationID, @Thick, @Width, @Length, @Weight, @BasePrice, @StatusID, @Remarks, @LogBy, GETDATE(), @LogBy, GETDATE(), @UomID, @LengthInitial, @RefID) " & vbNewLine
 
                 Else
                     .CommandText =
@@ -93,6 +93,7 @@
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@UomID", SqlDbType.Int).Value = clsData.UOMID
                 .Parameters.Add("@LengthInitial", SqlDbType.VarChar, 100).Value = clsData.LengthInitial
+                .Parameters.Add("@RefID", SqlDbType.Int).Value = clsData.RefID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -114,7 +115,7 @@
                         "SELECT TOP 1 " & vbNewLine &
                         "   A.ID, A.ItemCode, A.ItemCodeExternal, A.ItemName, A.ItemTypeID, A.ItemSpecificationID, " & vbNewLine &
                         "   A.Thick, A.Width, A.Length, A.Weight, A.BasePrice, A.StatusID, " & vbNewLine &
-                        "   A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc, A.UomID, A.LengthInitial " & vbNewLine &
+                        "   A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc, A.UomID, A.LengthInitial, A.RefID " & vbNewLine &
                         "FROM mstItem A " & vbNewLine &
                         "WHERE " & vbNewLine &
                         "   A.ID=@ID " & vbNewLine
@@ -145,6 +146,7 @@
                         voReturn.LogInc = .Item("LogInc")
                         voReturn.UOMID = .Item("UomID")
                         voReturn.LengthInitial = .Item("LengthInitial")
+                        voReturn.RefID = .Item("RefID")
                     End If
                 End With
             Catch ex As Exception
