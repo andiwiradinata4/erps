@@ -118,6 +118,7 @@
                 txtRemarks.Text = drSelectedItem.Item("Remarks")
                 intLevelItem = drSelectedItem.Item("LevelItem")
                 strParentID = drSelectedItem.Item("ParentID")
+                txtRounding.Value = drSelectedItem.Item("RoundingWeight")
             End If
             prvCalculate()
         Catch ex As Exception
@@ -173,6 +174,7 @@
                 .Item("Quantity") = txtQuantity.Value
                 .Item("Weight") = txtWeight.Value
                 .Item("TotalWeight") = txtTotalWeight.Value
+                .Item("RoundingWeight") = txtRounding.Value
                 .Item("MaxTotalWeight") = txtMaxTotalWeight.Value
                 .Item("UnitPrice") = txtUnitPrice.Value
                 .Item("TotalPrice") = txtTotalPrice.Value
@@ -204,6 +206,7 @@
                         .Item("Quantity") = txtQuantity.Value
                         .Item("Weight") = txtWeight.Value
                         .Item("TotalWeight") = txtTotalWeight.Value
+                        .Item("RoundingWeight") = txtRounding.Value
                         .Item("MaxTotalWeight") = txtMaxTotalWeight.Value
                         .Item("UnitPrice") = txtUnitPrice.Value
                         .Item("TotalPrice") = txtTotalPrice.Value
@@ -236,6 +239,7 @@
         txtWidth.Value = 0
         txtLength.Value = 0
         txtWeight.Value = 0
+        txtRounding.Value = 0
         txtMaxTotalWeight.Value = 0
         txtUnitPrice.Value = 0
         txtQuantity.Value = 0
@@ -275,6 +279,7 @@
                     txtQuantity.Focus()
                     txtRemarks.Text = ""
                     bolIsAutoSearch = False
+                    txtRounding.Value = 0
                 Else
                     If bolIsAutoSearch Then Me.Close()
                 End If
@@ -308,6 +313,7 @@
                     txtQuantity.Focus()
                     txtRemarks.Text = ""
                     bolIsAutoSearch = False
+                    txtRounding.Value = 0
                 Else
                     If bolIsAutoSearch Then Me.Close()
                 End If
@@ -342,7 +348,7 @@
     End Sub
 
     Private Sub prvCalculate()
-        txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
+        txtTotalWeight.Value = (txtWeight.Value * txtQuantity.Value) + txtRounding.Value
         txtTotalPrice.Value = txtUnitPrice.Value * txtTotalWeight.Value
     End Sub
 
@@ -364,6 +370,7 @@
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
+
         Select Case e.Button.Name
             Case ToolBar.Buttons(cSave).Name : prvSave()
             Case ToolBar.Buttons(cClose).Name : Me.Close()
@@ -378,7 +385,7 @@
         prvChooseItemCustom()
     End Sub
 
-    Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtUnitPrice.ValueChanged, txtQuantity.ValueChanged, txtWeight.ValueChanged
+    Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtUnitPrice.ValueChanged, txtQuantity.ValueChanged, txtWeight.ValueChanged, txtRounding.ValueChanged
         prvCalculate()
     End Sub
 

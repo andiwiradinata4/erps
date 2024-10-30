@@ -27,48 +27,51 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.pnlDetail = New System.Windows.Forms.Panel()
         Me.btnItemCustom = New DevExpress.XtraEditors.SimpleButton()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.txtOrderNumberSupplier = New ERPS.usTextBox()
-        Me.txtLength = New ERPS.usNumeric()
-        Me.txtWidth = New ERPS.usNumeric()
-        Me.txtThick = New ERPS.usNumeric()
         Me.Label26 = New System.Windows.Forms.Label()
         Me.Label27 = New System.Windows.Forms.Label()
-        Me.txtMaxTotalWeight = New ERPS.usNumeric()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.Label25 = New System.Windows.Forms.Label()
-        Me.txtTotalPrice = New ERPS.usNumeric()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.txtQuantity = New ERPS.usNumeric()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
-        Me.txtUnitPrice = New ERPS.usNumeric()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
-        Me.txtTotalWeight = New ERPS.usNumeric()
         Me.btnItem = New DevExpress.XtraEditors.SimpleButton()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.txtRemarks = New ERPS.usTextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.txtWeight = New ERPS.usNumeric()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.cboItemSpecification = New ERPS.usComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.cboItemType = New ERPS.usComboBox()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.Label29 = New System.Windows.Forms.Label()
-        Me.txtItemCode = New ERPS.usTextBox()
         Me.lblName = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtRounding = New ERPS.usNumeric()
+        Me.txtOrderNumberSupplier = New ERPS.usTextBox()
+        Me.txtLength = New ERPS.usNumeric()
+        Me.txtWidth = New ERPS.usNumeric()
+        Me.txtThick = New ERPS.usNumeric()
+        Me.txtMaxTotalWeight = New ERPS.usNumeric()
+        Me.txtTotalPrice = New ERPS.usNumeric()
+        Me.txtQuantity = New ERPS.usNumeric()
+        Me.txtUnitPrice = New ERPS.usNumeric()
+        Me.txtTotalWeight = New ERPS.usNumeric()
+        Me.txtRemarks = New ERPS.usTextBox()
+        Me.txtWeight = New ERPS.usNumeric()
+        Me.cboItemSpecification = New ERPS.usComboBox()
+        Me.cboItemType = New ERPS.usComboBox()
+        Me.txtItemCode = New ERPS.usTextBox()
         Me.txtItemName = New ERPS.usTextBox()
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.pnlDetail.SuspendLayout()
+        CType(Me.txtRounding, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtThick, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -96,6 +99,8 @@ Partial Class frmTraDeliveryDetItemVer01
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.Label4)
+        Me.pnlDetail.Controls.Add(Me.txtRounding)
         Me.pnlDetail.Controls.Add(Me.btnItemCustom)
         Me.pnlDetail.Controls.Add(Me.Label5)
         Me.pnlDetail.Controls.Add(Me.txtOrderNumberSupplier)
@@ -161,59 +166,6 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.Label5.TabIndex = 195
         Me.Label5.Text = "Nomor Pesanan Pemasok"
         '
-        'txtOrderNumberSupplier
-        '
-        Me.txtOrderNumberSupplier.BackColor = System.Drawing.Color.Azure
-        Me.txtOrderNumberSupplier.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtOrderNumberSupplier.Location = New System.Drawing.Point(166, 17)
-        Me.txtOrderNumberSupplier.MaxLength = 250
-        Me.txtOrderNumberSupplier.Name = "txtOrderNumberSupplier"
-        Me.txtOrderNumberSupplier.ReadOnly = True
-        Me.txtOrderNumberSupplier.Size = New System.Drawing.Size(170, 21)
-        Me.txtOrderNumberSupplier.TabIndex = 0
-        '
-        'txtLength
-        '
-        Me.txtLength.BackColor = System.Drawing.Color.Azure
-        Me.txtLength.DecimalPlaces = 2
-        Me.txtLength.Enabled = False
-        Me.txtLength.Location = New System.Drawing.Point(166, 179)
-        Me.txtLength.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtLength.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtLength.Name = "txtLength"
-        Me.txtLength.Size = New System.Drawing.Size(135, 21)
-        Me.txtLength.TabIndex = 9
-        Me.txtLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtLength.ThousandsSeparator = True
-        '
-        'txtWidth
-        '
-        Me.txtWidth.BackColor = System.Drawing.Color.Azure
-        Me.txtWidth.DecimalPlaces = 2
-        Me.txtWidth.Enabled = False
-        Me.txtWidth.Location = New System.Drawing.Point(166, 152)
-        Me.txtWidth.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtWidth.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtWidth.Name = "txtWidth"
-        Me.txtWidth.Size = New System.Drawing.Size(135, 21)
-        Me.txtWidth.TabIndex = 8
-        Me.txtWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtWidth.ThousandsSeparator = True
-        '
-        'txtThick
-        '
-        Me.txtThick.BackColor = System.Drawing.Color.Azure
-        Me.txtThick.DecimalPlaces = 2
-        Me.txtThick.Enabled = False
-        Me.txtThick.Location = New System.Drawing.Point(166, 125)
-        Me.txtThick.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtThick.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtThick.Name = "txtThick"
-        Me.txtThick.Size = New System.Drawing.Size(135, 21)
-        Me.txtThick.TabIndex = 7
-        Me.txtThick.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtThick.ThousandsSeparator = True
-        '
         'Label26
         '
         Me.Label26.AutoSize = True
@@ -236,26 +188,12 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.Label27.TabIndex = 183
         Me.Label27.Text = "Maks. Total Berat"
         '
-        'txtMaxTotalWeight
-        '
-        Me.txtMaxTotalWeight.BackColor = System.Drawing.Color.Azure
-        Me.txtMaxTotalWeight.DecimalPlaces = 2
-        Me.txtMaxTotalWeight.Enabled = False
-        Me.txtMaxTotalWeight.Location = New System.Drawing.Point(166, 234)
-        Me.txtMaxTotalWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtMaxTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtMaxTotalWeight.Name = "txtMaxTotalWeight"
-        Me.txtMaxTotalWeight.Size = New System.Drawing.Size(135, 21)
-        Me.txtMaxTotalWeight.TabIndex = 11
-        Me.txtMaxTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtMaxTotalWeight.ThousandsSeparator = True
-        '
         'Label24
         '
         Me.Label24.AutoSize = True
         Me.Label24.BackColor = System.Drawing.Color.Transparent
         Me.Label24.ForeColor = System.Drawing.Color.Black
-        Me.Label24.Location = New System.Drawing.Point(626, 210)
+        Me.Label24.Location = New System.Drawing.Point(626, 238)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(19, 13)
         Me.Label24.TabIndex = 182
@@ -266,25 +204,11 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.Label25.AutoSize = True
         Me.Label25.BackColor = System.Drawing.Color.Transparent
         Me.Label25.ForeColor = System.Drawing.Color.Black
-        Me.Label25.Location = New System.Drawing.Point(368, 210)
+        Me.Label25.Location = New System.Drawing.Point(368, 238)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(63, 13)
         Me.Label25.TabIndex = 181
         Me.Label25.Text = "Total Harga"
-        '
-        'txtTotalPrice
-        '
-        Me.txtTotalPrice.BackColor = System.Drawing.Color.Azure
-        Me.txtTotalPrice.DecimalPlaces = 2
-        Me.txtTotalPrice.Enabled = False
-        Me.txtTotalPrice.Location = New System.Drawing.Point(462, 206)
-        Me.txtTotalPrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtTotalPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalPrice.Name = "txtTotalPrice"
-        Me.txtTotalPrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalPrice.TabIndex = 16
-        Me.txtTotalPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalPrice.ThousandsSeparator = True
         '
         'Label23
         '
@@ -296,17 +220,6 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.Label23.Size = New System.Drawing.Size(40, 13)
         Me.Label23.TabIndex = 180
         Me.Label23.Text = "Jumlah"
-        '
-        'txtQuantity
-        '
-        Me.txtQuantity.Location = New System.Drawing.Point(462, 152)
-        Me.txtQuantity.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtQuantity.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtQuantity.Name = "txtQuantity"
-        Me.txtQuantity.Size = New System.Drawing.Size(160, 21)
-        Me.txtQuantity.TabIndex = 14
-        Me.txtQuantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtQuantity.ThousandsSeparator = True
         '
         'Label17
         '
@@ -330,26 +243,12 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.Label14.TabIndex = 173
         Me.Label14.Text = "Harga"
         '
-        'txtUnitPrice
-        '
-        Me.txtUnitPrice.BackColor = System.Drawing.Color.Azure
-        Me.txtUnitPrice.DecimalPlaces = 2
-        Me.txtUnitPrice.Enabled = False
-        Me.txtUnitPrice.Location = New System.Drawing.Point(462, 125)
-        Me.txtUnitPrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtUnitPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtUnitPrice.Name = "txtUnitPrice"
-        Me.txtUnitPrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtUnitPrice.TabIndex = 13
-        Me.txtUnitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtUnitPrice.ThousandsSeparator = True
-        '
         'Label15
         '
         Me.Label15.AutoSize = True
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.ForeColor = System.Drawing.Color.Black
-        Me.Label15.Location = New System.Drawing.Point(626, 183)
+        Me.Label15.Location = New System.Drawing.Point(626, 211)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(19, 13)
         Me.Label15.TabIndex = 172
@@ -360,25 +259,11 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.Label16.AutoSize = True
         Me.Label16.BackColor = System.Drawing.Color.Transparent
         Me.Label16.ForeColor = System.Drawing.Color.Black
-        Me.Label16.Location = New System.Drawing.Point(371, 183)
+        Me.Label16.Location = New System.Drawing.Point(371, 211)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(60, 13)
         Me.Label16.TabIndex = 171
         Me.Label16.Text = "Total Berat"
-        '
-        'txtTotalWeight
-        '
-        Me.txtTotalWeight.BackColor = System.Drawing.Color.Azure
-        Me.txtTotalWeight.DecimalPlaces = 2
-        Me.txtTotalWeight.Enabled = False
-        Me.txtTotalWeight.Location = New System.Drawing.Point(462, 179)
-        Me.txtTotalWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalWeight.Name = "txtTotalWeight"
-        Me.txtTotalWeight.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalWeight.TabIndex = 15
-        Me.txtTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalWeight.ThousandsSeparator = True
         '
         'btnItem
         '
@@ -398,17 +283,6 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 170
         Me.Label13.Text = "Keterangan"
-        '
-        'txtRemarks
-        '
-        Me.txtRemarks.BackColor = System.Drawing.Color.White
-        Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(166, 261)
-        Me.txtRemarks.MaxLength = 250
-        Me.txtRemarks.Multiline = True
-        Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(456, 48)
-        Me.txtRemarks.TabIndex = 12
         '
         'Label12
         '
@@ -465,19 +339,6 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.Label7.TabIndex = 164
         Me.Label7.Text = "Berat"
         '
-        'txtWeight
-        '
-        Me.txtWeight.BackColor = System.Drawing.Color.White
-        Me.txtWeight.DecimalPlaces = 1
-        Me.txtWeight.Location = New System.Drawing.Point(166, 207)
-        Me.txtWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtWeight.Name = "txtWeight"
-        Me.txtWeight.Size = New System.Drawing.Size(135, 21)
-        Me.txtWeight.TabIndex = 10
-        Me.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtWeight.ThousandsSeparator = True
-        '
         'Label6
         '
         Me.Label6.AutoSize = True
@@ -511,16 +372,6 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.Label2.TabIndex = 161
         Me.Label2.Text = "Tebal"
         '
-        'cboItemSpecification
-        '
-        Me.cboItemSpecification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboItemSpecification.Enabled = False
-        Me.cboItemSpecification.FormattingEnabled = True
-        Me.cboItemSpecification.Location = New System.Drawing.Point(462, 44)
-        Me.cboItemSpecification.Name = "cboItemSpecification"
-        Me.cboItemSpecification.Size = New System.Drawing.Size(160, 21)
-        Me.cboItemSpecification.TabIndex = 5
-        '
         'Label3
         '
         Me.Label3.AutoSize = True
@@ -531,16 +382,6 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.Label3.Size = New System.Drawing.Size(30, 13)
         Me.Label3.TabIndex = 160
         Me.Label3.Text = "Spec"
-        '
-        'cboItemType
-        '
-        Me.cboItemType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboItemType.Enabled = False
-        Me.cboItemType.FormattingEnabled = True
-        Me.cboItemType.Location = New System.Drawing.Point(462, 17)
-        Me.cboItemType.Name = "cboItemType"
-        Me.cboItemType.Size = New System.Drawing.Size(160, 21)
-        Me.cboItemType.TabIndex = 4
         '
         'Label28
         '
@@ -564,17 +405,6 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.Label29.TabIndex = 158
         Me.Label29.Text = "Kode Barang"
         '
-        'txtItemCode
-        '
-        Me.txtItemCode.BackColor = System.Drawing.Color.Azure
-        Me.txtItemCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtItemCode.Location = New System.Drawing.Point(166, 44)
-        Me.txtItemCode.MaxLength = 250
-        Me.txtItemCode.Name = "txtItemCode"
-        Me.txtItemCode.ReadOnly = True
-        Me.txtItemCode.Size = New System.Drawing.Size(170, 21)
-        Me.txtItemCode.TabIndex = 2
-        '
         'lblName
         '
         Me.lblName.AutoSize = True
@@ -585,6 +415,204 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.lblName.Size = New System.Drawing.Size(71, 13)
         Me.lblName.TabIndex = 157
         Me.lblName.Text = "Nama Barang"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.Transparent
+        Me.Label4.ForeColor = System.Drawing.Color.Black
+        Me.Label4.Location = New System.Drawing.Point(379, 183)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(52, 13)
+        Me.Label4.TabIndex = 197
+        Me.Label4.Text = "Rounding"
+        '
+        'txtRounding
+        '
+        Me.txtRounding.DecimalPlaces = 4
+        Me.txtRounding.Location = New System.Drawing.Point(462, 179)
+        Me.txtRounding.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtRounding.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtRounding.Name = "txtRounding"
+        Me.txtRounding.Size = New System.Drawing.Size(160, 21)
+        Me.txtRounding.TabIndex = 15
+        Me.txtRounding.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtRounding.ThousandsSeparator = True
+        '
+        'txtOrderNumberSupplier
+        '
+        Me.txtOrderNumberSupplier.BackColor = System.Drawing.Color.Azure
+        Me.txtOrderNumberSupplier.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtOrderNumberSupplier.Location = New System.Drawing.Point(166, 17)
+        Me.txtOrderNumberSupplier.MaxLength = 250
+        Me.txtOrderNumberSupplier.Name = "txtOrderNumberSupplier"
+        Me.txtOrderNumberSupplier.ReadOnly = True
+        Me.txtOrderNumberSupplier.Size = New System.Drawing.Size(170, 21)
+        Me.txtOrderNumberSupplier.TabIndex = 0
+        '
+        'txtLength
+        '
+        Me.txtLength.BackColor = System.Drawing.Color.Azure
+        Me.txtLength.DecimalPlaces = 2
+        Me.txtLength.Enabled = False
+        Me.txtLength.Location = New System.Drawing.Point(166, 179)
+        Me.txtLength.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtLength.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtLength.Name = "txtLength"
+        Me.txtLength.Size = New System.Drawing.Size(135, 21)
+        Me.txtLength.TabIndex = 9
+        Me.txtLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtLength.ThousandsSeparator = True
+        '
+        'txtWidth
+        '
+        Me.txtWidth.BackColor = System.Drawing.Color.Azure
+        Me.txtWidth.DecimalPlaces = 2
+        Me.txtWidth.Enabled = False
+        Me.txtWidth.Location = New System.Drawing.Point(166, 152)
+        Me.txtWidth.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtWidth.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtWidth.Name = "txtWidth"
+        Me.txtWidth.Size = New System.Drawing.Size(135, 21)
+        Me.txtWidth.TabIndex = 8
+        Me.txtWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtWidth.ThousandsSeparator = True
+        '
+        'txtThick
+        '
+        Me.txtThick.BackColor = System.Drawing.Color.Azure
+        Me.txtThick.DecimalPlaces = 2
+        Me.txtThick.Enabled = False
+        Me.txtThick.Location = New System.Drawing.Point(166, 125)
+        Me.txtThick.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtThick.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtThick.Name = "txtThick"
+        Me.txtThick.Size = New System.Drawing.Size(135, 21)
+        Me.txtThick.TabIndex = 7
+        Me.txtThick.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtThick.ThousandsSeparator = True
+        '
+        'txtMaxTotalWeight
+        '
+        Me.txtMaxTotalWeight.BackColor = System.Drawing.Color.Azure
+        Me.txtMaxTotalWeight.DecimalPlaces = 2
+        Me.txtMaxTotalWeight.Enabled = False
+        Me.txtMaxTotalWeight.Location = New System.Drawing.Point(166, 234)
+        Me.txtMaxTotalWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtMaxTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtMaxTotalWeight.Name = "txtMaxTotalWeight"
+        Me.txtMaxTotalWeight.Size = New System.Drawing.Size(135, 21)
+        Me.txtMaxTotalWeight.TabIndex = 11
+        Me.txtMaxTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtMaxTotalWeight.ThousandsSeparator = True
+        '
+        'txtTotalPrice
+        '
+        Me.txtTotalPrice.BackColor = System.Drawing.Color.Azure
+        Me.txtTotalPrice.DecimalPlaces = 2
+        Me.txtTotalPrice.Enabled = False
+        Me.txtTotalPrice.Location = New System.Drawing.Point(462, 234)
+        Me.txtTotalPrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalPrice.Name = "txtTotalPrice"
+        Me.txtTotalPrice.Size = New System.Drawing.Size(160, 21)
+        Me.txtTotalPrice.TabIndex = 17
+        Me.txtTotalPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalPrice.ThousandsSeparator = True
+        '
+        'txtQuantity
+        '
+        Me.txtQuantity.Location = New System.Drawing.Point(462, 152)
+        Me.txtQuantity.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtQuantity.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtQuantity.Name = "txtQuantity"
+        Me.txtQuantity.Size = New System.Drawing.Size(160, 21)
+        Me.txtQuantity.TabIndex = 14
+        Me.txtQuantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtQuantity.ThousandsSeparator = True
+        '
+        'txtUnitPrice
+        '
+        Me.txtUnitPrice.BackColor = System.Drawing.Color.Azure
+        Me.txtUnitPrice.DecimalPlaces = 2
+        Me.txtUnitPrice.Enabled = False
+        Me.txtUnitPrice.Location = New System.Drawing.Point(462, 125)
+        Me.txtUnitPrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtUnitPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtUnitPrice.Name = "txtUnitPrice"
+        Me.txtUnitPrice.Size = New System.Drawing.Size(160, 21)
+        Me.txtUnitPrice.TabIndex = 13
+        Me.txtUnitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtUnitPrice.ThousandsSeparator = True
+        '
+        'txtTotalWeight
+        '
+        Me.txtTotalWeight.BackColor = System.Drawing.Color.Azure
+        Me.txtTotalWeight.DecimalPlaces = 4
+        Me.txtTotalWeight.Enabled = False
+        Me.txtTotalWeight.Location = New System.Drawing.Point(462, 207)
+        Me.txtTotalWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalWeight.Name = "txtTotalWeight"
+        Me.txtTotalWeight.Size = New System.Drawing.Size(160, 21)
+        Me.txtTotalWeight.TabIndex = 16
+        Me.txtTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalWeight.ThousandsSeparator = True
+        '
+        'txtRemarks
+        '
+        Me.txtRemarks.BackColor = System.Drawing.Color.White
+        Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtRemarks.Location = New System.Drawing.Point(166, 261)
+        Me.txtRemarks.MaxLength = 250
+        Me.txtRemarks.Multiline = True
+        Me.txtRemarks.Name = "txtRemarks"
+        Me.txtRemarks.Size = New System.Drawing.Size(456, 48)
+        Me.txtRemarks.TabIndex = 12
+        '
+        'txtWeight
+        '
+        Me.txtWeight.BackColor = System.Drawing.Color.White
+        Me.txtWeight.DecimalPlaces = 4
+        Me.txtWeight.Location = New System.Drawing.Point(166, 207)
+        Me.txtWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtWeight.Name = "txtWeight"
+        Me.txtWeight.Size = New System.Drawing.Size(135, 21)
+        Me.txtWeight.TabIndex = 10
+        Me.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtWeight.ThousandsSeparator = True
+        '
+        'cboItemSpecification
+        '
+        Me.cboItemSpecification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboItemSpecification.Enabled = False
+        Me.cboItemSpecification.FormattingEnabled = True
+        Me.cboItemSpecification.Location = New System.Drawing.Point(462, 44)
+        Me.cboItemSpecification.Name = "cboItemSpecification"
+        Me.cboItemSpecification.Size = New System.Drawing.Size(160, 21)
+        Me.cboItemSpecification.TabIndex = 5
+        '
+        'cboItemType
+        '
+        Me.cboItemType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboItemType.Enabled = False
+        Me.cboItemType.FormattingEnabled = True
+        Me.cboItemType.Location = New System.Drawing.Point(462, 17)
+        Me.cboItemType.Name = "cboItemType"
+        Me.cboItemType.Size = New System.Drawing.Size(160, 21)
+        Me.cboItemType.TabIndex = 4
+        '
+        'txtItemCode
+        '
+        Me.txtItemCode.BackColor = System.Drawing.Color.Azure
+        Me.txtItemCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtItemCode.Location = New System.Drawing.Point(166, 44)
+        Me.txtItemCode.MaxLength = 250
+        Me.txtItemCode.Name = "txtItemCode"
+        Me.txtItemCode.ReadOnly = True
+        Me.txtItemCode.Size = New System.Drawing.Size(170, 21)
+        Me.txtItemCode.TabIndex = 2
         '
         'txtItemName
         '
@@ -638,6 +666,7 @@ Partial Class frmTraDeliveryDetItemVer01
         Me.Text = "Barang"
         Me.pnlDetail.ResumeLayout(False)
         Me.pnlDetail.PerformLayout()
+        CType(Me.txtRounding, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtThick, System.ComponentModel.ISupportInitialize).EndInit()
@@ -696,4 +725,6 @@ Partial Class frmTraDeliveryDetItemVer01
     Friend WithEvents Label5 As Label
     Friend WithEvents txtOrderNumberSupplier As usTextBox
     Friend WithEvents btnItemCustom As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label4 As Label
+    Friend WithEvents txtRounding As usNumeric
 End Class

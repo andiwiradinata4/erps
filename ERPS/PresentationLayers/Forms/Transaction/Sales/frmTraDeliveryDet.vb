@@ -190,11 +190,11 @@ Public Class frmTraDeliveryDet
             tcHeader.SelectedTab = tpMain
             txtTransporterCode.Focus()
             Exit Sub
-        ElseIf txtUnitPriceTransport.Value <= 0 Then
-            UI.usForm.frmMessageBox("Harga Pengiriman harus lebih besar dari 0")
-            tcHeader.SelectedTab = tpTransport
-            txtUnitPriceTransport.Focus()
-            Exit Sub
+            'ElseIf txtUnitPriceTransport.Value <= 0 Then
+            '    UI.usForm.frmMessageBox("Harga Pengiriman harus lebih besar dari 0")
+            '    tcHeader.SelectedTab = tpTransport
+            '    txtUnitPriceTransport.Focus()
+            '    Exit Sub
         ElseIf intBPLocationID = 0 Or txtBPLocationAddress.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Pilih alamat pengiriman terlebih dahulu")
             tcHeader.SelectedTab = tpMain
@@ -236,7 +236,8 @@ Public Class frmTraDeliveryDet
                                .UnitPriceTransport = txtUnitPriceTransport.Value,
                                .TotalPriceTransport = dr.Item("TotalWeight") * txtUnitPriceTransport.Value,
                                .LevelItem = dr.Item("LevelItem"),
-                               .ParentID = dr.Item("ParentID")
+                               .ParentID = dr.Item("ParentID"),
+                               .RoundingWeight = dr.Item("RoundingWeight")
                            })
         Next
 
