@@ -55,6 +55,7 @@ Partial Class frmTraSalesReturn
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.BarReceiveTransport = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -64,7 +65,7 @@ Partial Class frmTraSalesReturn
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarReceive, Me.BarSep3, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarReceive, Me.BarReceiveTransport, Me.BarSep3, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -340,6 +341,12 @@ Partial Class frmTraSalesReturn
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
+        'BarReceiveTransport
+        '
+        Me.BarReceiveTransport.Name = "BarReceiveTransport"
+        Me.BarReceiveTransport.Tag = "Shipped"
+        Me.BarReceiveTransport.Text = "Pembayaran Transport"
+        '
         'frmTraSalesReturn
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -394,4 +401,5 @@ Partial Class frmTraSalesReturn
     Friend WithEvents BarReceive As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarApprove As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarCancelApprove As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarReceiveTransport As System.Windows.Forms.ToolBarButton
 End Class

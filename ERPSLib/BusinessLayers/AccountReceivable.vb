@@ -853,7 +853,8 @@
                     strModules.Trim = VO.AccountReceivable.DownPaymentOrderRequest Or
                     strModules.Trim = VO.AccountReceivable.ReceivePaymentOrderRequest Or
                     strModules.Trim = VO.AccountReceivable.ReceivePaymentSalesReturn Or
-                    strModules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then
+                    strModules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Or
+                    strModules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then
 
                     dtDetail = DL.AccountReceivable.ListDataDetailOnly(sqlCon, sqlTrans, strID)
                     dtDetailItem = DL.ARAP.ListDataDetailItemOnly(sqlCon, sqlTrans, strID)
@@ -879,6 +880,7 @@
                     If strModules.Trim = VO.AccountReceivable.ReceivePaymentOrderRequest Then DL.OrderRequest.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                     If strModules.Trim = VO.AccountReceivable.ReceivePaymentSalesReturn Then DL.SalesReturn.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                     If strModules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentClaimVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
+                    If strModules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then DL.ConfirmationClaim.CalculateTotalUsedReceiveItemPaymentPurchaseVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                 Next
 
                 Dim clsHelper As New DataSetHelper
@@ -906,6 +908,8 @@
                         DL.SalesReturn.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                     ElseIf strModules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then
                         DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentClaimVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                    ElseIf strModules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then
+                        DL.ConfirmationClaim.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                     End If
                 Next
 
@@ -986,6 +990,11 @@
 
                     '# Calculate Claim PO Cutting
                     DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentClaimVer02(sqlCon, sqlTrans, clsExists.ReferencesID)
+
+                ElseIf strModules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then
+
+                    '# Calculate Pendapatan Kompensasi
+                    DL.ConfirmationClaim.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, clsExists.ReferencesID)
 
                 End If
 

@@ -32,6 +32,10 @@ Namespace BL
                 Dim clsARAP As VO.ARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsData.ParentID, VO.ARAP.ARAPTypeValue.Sales)
                 If clsARAP.ID Is Nothing Then clsARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsData.ParentID, VO.ARAP.ARAPTypeValue.Purchase)
 
+                If clsARAP.StatusID <> VO.Status.Values.Approved Then
+                    Err.Raise(515, "", "Data tidak dapat disimpan. Data harus diapprove terlebih dahulu")
+                End If
+
                 Dim dtData As DataTable = DL.ARAPDueDateHistory.ListData(sqlCon, sqlTrans, clsData.ParentID)
                 If bolNew Then
                     clsData.ID = strNewID & Format(DL.ARAPDueDateHistory.GetMaxID(sqlCon, sqlTrans, strNewID) + 1, "000")

@@ -970,6 +970,30 @@
                     "			TDD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
                     "			AND AR.IsDeleted=0 " & vbNewLine &
                     "			AND AR.Modules=@Modules " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	InvoiceQuantity=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.Quantity),0) Quantity " & vbNewLine &
+                    "		FROM traARAPItem TDD " & vbNewLine &
+                    "		INNER JOIN traAccountPayable AR ON " & vbNewLine &
+                    "		    TDD.ParentID=AR.ID  " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND AR.IsDeleted=0 " & vbNewLine &
+                    "			AND AR.Modules=@Modules " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	InvoiceTotalWeight=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.TotalWeight),0) Weight " & vbNewLine &
+                    "		FROM traARAPItem TDD " & vbNewLine &
+                    "		INNER JOIN traAccountPayable AR ON " & vbNewLine &
+                    "		    TDD.ParentID=AR.ID  " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.ReferencesDetailID=@ReferencesDetailID 	" & vbNewLine &
+                    "			AND AR.IsDeleted=0 " & vbNewLine &
+                    "			AND AR.Modules=@Modules " & vbNewLine &
                     "	) " & vbNewLine &
                     "WHERE ID=@ReferencesDetailID " & vbNewLine
 

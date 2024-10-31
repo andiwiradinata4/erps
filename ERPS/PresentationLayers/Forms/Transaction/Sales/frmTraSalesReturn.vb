@@ -12,8 +12,8 @@ Public Class frmTraSalesReturn
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
-       cSep2 As Byte = 8, cReceive As Byte = 9, cSep3 As Byte = 10, cExportExcel As Byte = 11, cSep4 As Byte = 12,
-       cRefresh As Byte = 13, cClose As Byte = 14
+       cSep2 As Byte = 8, cReceive As Byte = 9, cReceiveTransport As Byte = 10, cSep3 As Byte = 11,
+       cExportExcel As Byte = 12, cSep4 As Byte = 13, cRefresh As Byte = 14, cClose As Byte = 15
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -86,6 +86,7 @@ Public Class frmTraSalesReturn
             .Item(cApprove).Enabled = bolEnable
             .Item(cCancelApprove).Enabled = bolEnable
             .Item(cReceive).Enabled = bolEnable
+            .Item(cReceiveTransport).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
         End With
     End Sub
@@ -418,6 +419,38 @@ Public Class frmTraSalesReturn
         End With
     End Sub
 
+    Private Sub prvReceivePaymentTransport()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+        clsData.BPID = clsData.TransporterID
+        clsData.BPCode = clsData.TransporterCode
+        clsData.BPName = clsData.TransporterName
+
+        If clsData.StatusID <> VO.Status.Values.Approved Then
+            UI.usForm.frmMessageBox("Status Data harus diapprove terlebih dahulu")
+            Exit Sub
+        ElseIf clsData.TotalPPHTransport <= 0 Then
+            UI.usForm.frmMessageBox("Total DPP Transport bernilai 0")
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraARAP
+        With frmDetail
+            .pubModules = VO.AccountPayable.ReceivePaymentTransportSalesReturn
+            .pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
+            .pubBPID = clsData.BPID
+            .pubBPCode = clsData.BPCode
+            .pubBPName = clsData.BPName
+            .pubCS = prvGetCS()
+            .pubReferencesID = clsData.ID
+            .pubReferencesNumber = clsData.SalesReturnNumber
+            .pubPPNPercentage = clsData.PPNTransport
+            .pubPPHPercentage = clsData.PPHTransport
+            .ShowDialog()
+        End With
+    End Sub
+
     Private Sub prvExportExcel()
         Dim dxExporter As New DX.usDXHelper
         dxExporter.DevExport(Me, grdMain, Me.Text, Me.Text, DX.usDxExportFormat.fXls, True, True, DX.usDXExportType.etDefault)
@@ -547,6 +580,7 @@ Public Class frmTraSalesReturn
                 Case ToolBar.Buttons(cApprove).Name : prvApprove()
                 Case ToolBar.Buttons(cCancelApprove).Name : prvCancelApprove()
                 Case ToolBar.Buttons(cReceive).Name : prvReceivePayment()
+                Case ToolBar.Buttons(cReceiveTransport).Name : prvReceivePaymentTransport()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If

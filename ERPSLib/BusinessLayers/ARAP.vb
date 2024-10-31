@@ -548,13 +548,17 @@
                         ElseIf clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentClaimSales Then
                             clsReferences = DL.ConfirmationClaim.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                             strReferencesNumber = clsReferences.ConfirmationClaimNumber
+                        ElseIf clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then
+                            clsReferences = DL.SalesReturn.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesNumber = clsReferences.SalesReturnNumber
                         Else
                             Err.Raise(515, "", "Data tidak dapat disimpan. Modules tidak terdaftar")
                         End If
 
                         If clsReferences.StatusID <> VO.Status.Values.Approved And
                             clsDataARAP.Modules = VO.AccountPayable.ReceivePayment And
-                            clsDataARAP.PaymentTypeID = VO.PaymentType.Values.CBD Then
+                            clsDataARAP.PaymentTypeID = VO.PaymentType.Values.CBD And
+                            clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Data Kontrak harus disetujui terlebih dahulu")
                         ElseIf clsReferences.StatusID <> VO.Status.Values.Submit And (clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentClaimSales) Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Status Data harus disubmit terlebih dahulu")
@@ -634,6 +638,9 @@
                         ElseIf clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentClaimSales Then
                             clsReferences = DL.ConfirmationClaim.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                             strReferencesNumber = clsReferences.ConfirmationClaimNumber
+                        ElseIf clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then
+                            clsReferences = DL.SalesReturn.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesNumber = clsReferences.SalesReturnNumber
                         Else
                             Err.Raise(515, "", "Data tidak dapat disimpan. Modules tidak terdaftar")
                         End If

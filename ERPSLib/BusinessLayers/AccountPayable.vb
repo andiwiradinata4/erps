@@ -470,7 +470,8 @@ Namespace BL
                     ElseIf clsData.Modules.Trim = VO.AccountPayable.ReceivePayment Or
                         clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Or
                         clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Or
-                        clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentClaimSales Then
+                        clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentClaimSales Or
+                        clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then
 
                         dtDetail = DL.AccountPayable.ListDataDetailOnly(sqlCon, sqlTrans, clsData.ID)
                         dtDetailItem = DL.ARAP.ListDataDetailItemOnly(sqlCon, sqlTrans, clsData.ID)
@@ -489,6 +490,7 @@ Namespace BL
                         If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                         If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then DL.Delivery.CalculateTotalUsedReceiveItemPaymentTransportVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                         If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentClaimSales Then DL.ConfirmationClaim.CalculateTotalUsedReceiveItemPaymentSalesVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
+                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then DL.SalesReturn.CalculateTotalUsedReceiveItemPaymentTransportVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                     Next
 
                     If clsData.Modules.Trim = VO.AccountPayable.ReceivePayment And clsData.PaymentTypeID = VO.PaymentType.Values.TT30Days Then
@@ -523,6 +525,7 @@ Namespace BL
                         If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                         If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then DL.Delivery.CalculateTotalUsedReceivePaymentTransportVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                         If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentClaimSales Then DL.ConfirmationClaim.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                        If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then DL.SalesReturn.CalculateTotalUsedReceivePaymentTransportVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                     Next
 
                     '# Revert Down Payment
@@ -580,6 +583,7 @@ Namespace BL
                     If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
                     If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then DL.Delivery.CalculateTotalUsedReceiveItemPaymentTransportVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
                     If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentClaimSales Then DL.ConfirmationClaim.CalculateTotalUsedReceiveItemPaymentSalesVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
+                    If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then DL.SalesReturn.CalculateTotalUsedReceiveItemPaymentTransportVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
                     intCount += 1
                 Next
 
@@ -621,6 +625,7 @@ Namespace BL
                 If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, clsData.ReferencesID)
                 If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Then DL.Delivery.CalculateTotalUsedReceivePaymentTransportVer02(sqlCon, sqlTrans, clsData.ReferencesID)
                 If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentClaimSales Then DL.ConfirmationClaim.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, clsData.ReferencesID)
+                If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then DL.SalesReturn.CalculateTotalUsedReceivePaymentTransportVer02(sqlCon, sqlTrans, clsData.ReferencesID)
 
                 'If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentCutting Then
                 '    '# Calculate Purchase Order
@@ -902,7 +907,9 @@ Namespace BL
                     strModules.Trim = VO.AccountPayable.DownPaymentCutting Or
                     strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Or
                     strModules.Trim = VO.AccountPayable.DownPaymentTransport Or
-                    strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
+                    strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Or
+                    strModules.Trim = VO.AccountPayable.ReceivePaymentClaimSales Or
+                    strModules.Trim = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then
 
                     dtDetail = DL.AccountPayable.ListDataDetailOnly(sqlCon, sqlTrans, strID)
                     dtDetailItem = DL.ARAP.ListDataDetailItemOnly(sqlCon, sqlTrans, strID)
@@ -933,6 +940,8 @@ Namespace BL
                     If strModules.Trim = VO.AccountPayable.DownPaymentCutting Then DL.PurchaseOrderCutting.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
                     If strModules.Trim = VO.AccountPayable.ReceivePaymentCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                     If strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then DL.Delivery.CalculateTotalUsedReceiveItemPaymentTransportVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
+                    If strModules.Trim = VO.AccountPayable.ReceivePaymentClaimSales Then DL.ConfirmationClaim.CalculateTotalUsedReceiveItemPaymentSalesVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
+                    If strModules.Trim = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then DL.SalesReturn.CalculateTotalUsedReceiveItemPaymentTransportVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                 Next
 
                 Dim clsHelper As New DataSetHelper
@@ -969,6 +978,10 @@ Namespace BL
                         DL.PurchaseOrderTransport.CalculateTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                     ElseIf strModules.Trim = VO.AccountPayable.ReceivePaymentTransport Then
                         DL.Delivery.CalculateTotalUsedReceivePaymentTransportVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                    ElseIf strModules.Trim = VO.AccountPayable.ReceivePaymentClaimSales Then
+                        DL.ConfirmationClaim.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                    ElseIf strModules.Trim = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then
+                        DL.SalesReturn.CalculateTotalUsedReceivePaymentTransportVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                     End If
                 Next
 
@@ -1104,6 +1117,20 @@ Namespace BL
                 BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
                 If Not clsData.IsDP And clsData.Modules.Trim <> VO.AccountPayable.ReceivePaymentClaimSales Then GenerateJournal(sqlCon, sqlTrans, strID)
+
+                Dim dtDueDate As DataTable = DL.ARAPDueDateHistory.ListData(sqlCon, sqlTrans, strID)
+                If dtDueDate.Rows.Count = 0 Then
+                    BL.ARAPDueDateHistory.SaveData(sqlCon, sqlTrans, True, New VO.ARAPDueDateHistory With
+                                                   {
+                                                        .ProgramID = clsData.ProgramID,
+                                                        .CompanyID = clsData.CompanyID,
+                                                        .ParentID = clsData.ID,
+                                                        .DueDate = clsData.DueDate,
+                                                        .LogBy = clsData.LogBy,
+                                                        .Remarks = ""
+                                                   }, True)
+                End If
+
                 bolReturn = True
             Catch ex As Exception
                 Throw ex
@@ -1425,7 +1452,8 @@ Namespace BL
                         intCoAofReceivePaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableCutting
                         intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeCutting
                     End If
-                    If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Or clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then
+                    If clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransport Or
+                        clsData.Modules.Trim = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then
                         intCoAofReceivePaymentAccountOutstandingPayment = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableTransportOutstandingPayment
                         intCoAofReceivePaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableTransport
                         intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeTransport

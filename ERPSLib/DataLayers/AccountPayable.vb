@@ -2317,6 +2317,69 @@
                     "	            AND ARH.ID=@APID " & vbNewLine &
                     "       ) " & vbNewLine
 
+                '# Transport
+                If .CommandText.Trim <> "" Then .CommandText += "UNION ALL " & vbNewLine
+                .CommandText +=
+                    "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
+                    "   A.ItemID, A.Quantity, A.Weight, A.TotalWeight, MaxTotalWeight=B.TotalWeight-B.InvoiceTotalWeightTransport+A.TotalWeight, " & vbNewLine &
+                    "   UnitPrice=C.UnitPriceTransport, B.TotalPriceTransport AS InvoiceAmount, A.Amount, A.DPAmount, C.PPNTransport AS PPNPercent, C.PPHTransport AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
+                    "   B.TotalPriceTransport-B.ReceiveAmountTransport+A.Amount-B.AllocateDPAmountTransport+A.DPAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID, " & vbNewLine &
+                    "   MaxTotalQuantity=CASE WHEN B.Quantity-B.InvoiceQuantityTransport<=0 THEN 1 ELSE B.Quantity-B.InvoiceQuantityTransport+A.Quantity END, MI.ItemCodeExternal " & vbNewLine &
+                    "FROM traARAPItem A " & vbNewLine &
+                    "INNER JOIN traSalesReturnDet B ON " & vbNewLine &
+                    "   A.ReferencesDetailID=B.ID " & vbNewLine &
+                    "INNER JOIN traSalesReturn C ON " & vbNewLine &
+                    "   B.SalesReturnID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItem MI ON " & vbNewLine &
+                    "   A.ItemID=MI.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
+                    "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
+                    "INNER JOIN mstItemType MIT ON " & vbNewLine &
+                    "   MI.ItemTypeID=MIT.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ParentID=@APID " & vbNewLine &
+                    " " & vbNewLine &
+                    "UNION ALL " & vbNewLine &
+                    "SELECT " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.SalesReturnID AS ReferencesID, A.ID AS ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
+                    "   A.ItemID, Quantity=CASE WHEN A.Quantity-A.InvoiceQuantityTransport < 0 THEN CAST(0 AS DECIMAL(18,4)) ELSE A.Quantity-A.InvoiceQuantityTransport END, A.Weight, CAST(0 AS DECIMAL(18,4)) AS TotalWeight, MaxTotalWeight=A.TotalWeight-A.InvoiceTotalWeight, " & vbNewLine &
+                    "   UnitPrice=B.UnitPriceTransport, A.TotalPriceTransport AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, CAST(0 AS DECIMAL(18,2)) AS DPAmount, B.PPNTransport AS PPNPercent, B.PPHTransport AS PPHPercent, " & vbNewLine &
+                    "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
+                    "   A.TotalPriceTransport-A.AllocateDPAmountTransport-A.ReceiveAmountTransport AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID , " & vbNewLine &
+                    "   MaxTotalQuantity=CASE WHEN A.Quantity-A.InvoiceQuantityTransport<=0 THEN 1 ELSE A.Quantity-A.InvoiceQuantityTransport END, MI.ItemCodeExternal " & vbNewLine &
+                    "FROM traSalesReturnDet A " & vbNewLine &
+                    "INNER JOIN traSalesReturn B ON " & vbNewLine &
+                    "   A.SalesReturnID=B.ID " & vbNewLine &
+                    "INNER JOIN mstItem MI ON " & vbNewLine &
+                    "   A.ItemID=MI.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
+                    "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
+                    "INNER JOIN mstItemType MIT ON " & vbNewLine &
+                    "   MI.ItemTypeID=MIT.ID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   B.TransporterID=@BPID " & vbNewLine &
+                    "   And B.CompanyID=@CompanyID " & vbNewLine &
+                    "   And B.ProgramID=@ProgramID " & vbNewLine &
+                    "   And B.ID=@ReferencesID " & vbNewLine &
+                    "   And B.SubmitBy<>'' " & vbNewLine &
+                    "   AND A.TotalPriceTransport-A.AllocateDPAmountTransport-A.ReceiveAmountTransport>0 " & vbNewLine &
+                    "   AND A.ID NOT IN " & vbNewLine &
+                    "       ( " & vbNewLine &
+                    "           SELECT ARD.ReferencesDetailID 	" & vbNewLine &
+                    "           FROM traARAPItem ARD 	" & vbNewLine &
+                    "           INNER JOIN traAccountPayable ARH ON 	" & vbNewLine &
+                    "	            ARD.ParentID=ARH.ID		" & vbNewLine &
+                    "           WHERE 	" & vbNewLine &
+                    "               ARH.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	            AND ARH.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	            AND ARH.BPID=@BPID " & vbNewLine &
+                    "	            AND ARH.IsDeleted=0	" & vbNewLine &
+                    "	            AND ARH.ID=@APID " & vbNewLine &
+                    "       ) " & vbNewLine
+
                 '# Confirmation Claim
                 .CommandText +=
                     "UNION ALL " & vbNewLine &

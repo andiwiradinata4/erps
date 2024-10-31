@@ -655,6 +655,7 @@ Public Class frmTraARAPDetVer4
                 If enumARAPType = VO.ARAP.ARAPTypeValue.Sales And strModules = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then .SetRowCellValue(i, "TotalWeight", .GetRowCellValue(i, "Quantity") * .GetRowCellValue(i, "Weight"))
                 If enumARAPType = VO.ARAP.ARAPTypeValue.Sales And strModules = VO.AccountReceivable.ReceivePaymentClaimPurchase Then .SetRowCellValue(i, "TotalWeight", .GetRowCellValue(i, "Quantity") * .GetRowCellValue(i, "Weight"))
                 If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And strModules = VO.AccountPayable.ReceivePaymentClaimSales Then .SetRowCellValue(i, "TotalWeight", .GetRowCellValue(i, "Quantity") * .GetRowCellValue(i, "Weight"))
+                If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And strModules = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then .SetRowCellValue(i, "TotalWeight", .GetRowCellValue(i, "Quantity") * .GetRowCellValue(i, "Weight"))
                 .UpdateCurrentRow()
             Next
             prvAllocateDP()
