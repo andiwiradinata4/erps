@@ -468,9 +468,10 @@
                         End If
                     End If
 
-                    If DL.PurchaseContract.IsAlreadyReceiveSubitem(sqlCon, sqlTrans, clsData.ParentID) Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data induk telah diproses penerimaan")
-                    End If
+
+                    'If DL.PurchaseContract.IsAlreadyReceiveSubitem(sqlCon, sqlTrans, clsData.ParentID) Then
+                    '    Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data induk telah diproses penerimaan")
+                    'End If
 
                     DL.PurchaseContract.SaveDataDetail(sqlCon, sqlTrans, clsData)
                     DL.PurchaseContract.SetIsUseSubitem(sqlCon, sqlTrans, strPCID, True)

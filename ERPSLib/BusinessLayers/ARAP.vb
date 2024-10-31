@@ -545,6 +545,9 @@
                                 clsReferences = DL.Receive.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                                 strReferencesNumber = clsReferences.ReceiveNumber
                             End If
+                        ElseIf clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentClaimSales Then
+                            clsReferences = DL.ConfirmationClaim.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesNumber = clsReferences.ConfirmationClaimNumber
                         Else
                             Err.Raise(515, "", "Data tidak dapat disimpan. Modules tidak terdaftar")
                         End If
@@ -553,9 +556,8 @@
                             clsDataARAP.Modules = VO.AccountPayable.ReceivePayment And
                             clsDataARAP.PaymentTypeID = VO.PaymentType.Values.CBD Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Data Kontrak harus disetujui terlebih dahulu")
-                        ElseIf clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport And
-                            clsReferences.StatusID <> VO.Status.Values.Submit Then
-                            Err.Raise(515, "", "Data tidak dapat disimpan. Data Pengiriman harus disubmit terlebih dahulu")
+                        ElseIf clsReferences.StatusID <> VO.Status.Values.Submit And (clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentClaimSales) Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Status Data harus disubmit terlebih dahulu")
                         End If
 
                         '# Save Data Detail
@@ -629,6 +631,9 @@
                                 clsReferences = DL.Receive.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                                 strReferencesNumber = clsReferences.ReceiveNumber
                             End If
+                        ElseIf clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentClaimSales Then
+                            clsReferences = DL.ConfirmationClaim.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesNumber = clsReferences.ConfirmationClaimNumber
                         Else
                             Err.Raise(515, "", "Data tidak dapat disimpan. Modules tidak terdaftar")
                         End If
@@ -1596,36 +1601,139 @@
                         intCoAofDownPaymentAccount = ERPSLib.UI.usUserApp.JournalPost.CoAofPrepaidIncomeTransport
                     End If
 
-                    If clsARAP.IsDP Then
-                        '# Akun Panjar Pembelian -> Debit
+
+                    If clsARAP.Modules.Trim = VO.AccountPayable.ReceivePaymentClaimSales Then
+                        '# Akun Biaya Klaim -> Debit
                         clsJournalDetail.Add(New VO.JournalDet With
-                                             {
-                                                 .CoAID = intCoAofDownPaymentAccount,
-                                                 .DebitAmount = clsARAPInvoice.TotalDPP,
-                                                 .CreditAmount = 0,
-                                                 .Remarks = strJournalDetailRemarks,
-                                                 .GroupID = intGroupID,
-                                                 .BPID = clsARAP.BPID
-                                             })
-                        decTotalAmount += clsARAPInvoice.TotalDPP
-
-                        '# Akun PPN -> Debit
-                        If clsARAPInvoice.TotalPPN > 0 Then
-                            clsJournalDetail.Add(New VO.JournalDet With
-                                             {
-                                                 .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPurchaseTax,
-                                                 .DebitAmount = clsARAPInvoice.TotalPPN,
-                                                 .CreditAmount = 0,
-                                                 .Remarks = strJournalDetailRemarks,
-                                                 .GroupID = intGroupID,
-                                                 .BPID = clsARAP.BPID
-                                             })
-                            decTotalAmount += clsARAPInvoice.TotalPPN
-                        End If
-
-
+                                                 {
+                                                     .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofClaimCost,
+                                                     .DebitAmount = clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN,
+                                                     .CreditAmount = 0,
+                                                     .Remarks = "",
+                                                     .GroupID = intGroupID,
+                                                     .BPID = clsARAP.BPID
+                                                 })
                         '# Akun Kas / Bank -> Kredit
                         clsJournalDetail.Add(New VO.JournalDet With
+                                                 {
+                                                     .CoAID = clsARAPInvoice.CoAID,
+                                                     .DebitAmount = 0,
+                                                     .CreditAmount = clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN,
+                                                     .Remarks = "",
+                                                     .GroupID = intGroupID,
+                                                     .BPID = clsARAP.BPID
+                                                 })
+
+                        decTotalAmount += clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN
+
+                        '# Setup Akun PPH
+                        If clsARAPInvoice.TotalPPH > 0 Then
+                            intGroupID += 1
+                            '# Akun Kas / Bank -> Debit
+                            clsJournalDetail.Add(New VO.JournalDet With
+                                                 {
+                                                     .CoAID = clsARAPInvoice.CoAID,
+                                                     .DebitAmount = clsARAPInvoice.TotalPPH,
+                                                     .CreditAmount = 0,
+                                                     .Remarks = "",
+                                                     .GroupID = intGroupID,
+                                                     .BPID = clsARAP.BPID
+                                                 })
+
+                            '# Akun PPH -> Kredit
+                            clsJournalDetail.Add(New VO.JournalDet With
+                                                 {
+                                                     .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPPHSales,
+                                                     .DebitAmount = 0,
+                                                     .CreditAmount = clsARAPInvoice.TotalPPH,
+                                                     .Remarks = "",
+                                                     .GroupID = intGroupID,
+                                                     .BPID = clsARAP.BPID
+                                                 })
+
+                            decTotalAmount += clsARAPInvoice.TotalPPH
+                        End If
+                    Else
+                        If clsARAP.IsDP Then
+                            '# Akun Panjar Pembelian -> Debit
+                            clsJournalDetail.Add(New VO.JournalDet With
+                                                 {
+                                                     .CoAID = intCoAofDownPaymentAccount,
+                                                     .DebitAmount = clsARAPInvoice.TotalDPP,
+                                                     .CreditAmount = 0,
+                                                     .Remarks = strJournalDetailRemarks,
+                                                     .GroupID = intGroupID,
+                                                     .BPID = clsARAP.BPID
+                                                 })
+                            decTotalAmount += clsARAPInvoice.TotalDPP
+
+                            '# Akun PPN -> Debit
+                            If clsARAPInvoice.TotalPPN > 0 Then
+                                clsJournalDetail.Add(New VO.JournalDet With
+                                                 {
+                                                     .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPurchaseTax,
+                                                     .DebitAmount = clsARAPInvoice.TotalPPN,
+                                                     .CreditAmount = 0,
+                                                     .Remarks = strJournalDetailRemarks,
+                                                     .GroupID = intGroupID,
+                                                     .BPID = clsARAP.BPID
+                                                 })
+                                decTotalAmount += clsARAPInvoice.TotalPPN
+                            End If
+
+
+                            '# Akun Kas / Bank -> Kredit
+                            clsJournalDetail.Add(New VO.JournalDet With
+                                                 {
+                                                     .CoAID = clsARAPInvoice.CoAID,
+                                                     .DebitAmount = 0,
+                                                     .CreditAmount = clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN,
+                                                     .Remarks = strJournalDetailRemarks,
+                                                     .GroupID = intGroupID,
+                                                     .BPID = clsARAP.BPID
+                                                 })
+
+                            '# Setup Akun PPH
+                            If clsARAPInvoice.TotalPPH > 0 Then
+                                intGroupID += 1
+
+                                '# Akun Kas / Bank -> Debit
+                                clsJournalDetail.Add(New VO.JournalDet With
+                                                 {
+                                                     .CoAID = clsARAPInvoice.CoAID,
+                                                     .DebitAmount = clsARAPInvoice.TotalPPH,
+                                                     .CreditAmount = 0,
+                                                     .Remarks = strJournalDetailRemarks,
+                                                     .GroupID = intGroupID,
+                                                     .BPID = clsARAP.BPID
+                                                 })
+
+                                '# Akun PPH -> Kredit
+                                clsJournalDetail.Add(New VO.JournalDet With
+                                                 {
+                                                     .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPPHPurchase,
+                                                     .DebitAmount = 0,
+                                                     .CreditAmount = clsARAPInvoice.TotalPPH,
+                                                     .Remarks = strJournalDetailRemarks,
+                                                     .GroupID = intGroupID,
+                                                     .BPID = clsARAP.BPID
+                                                 })
+                                decTotalAmount += clsARAPInvoice.TotalPPH
+                            End If
+                        Else
+                            '# Akun Hutang Usaha -> Debit
+                            clsJournalDetail.Add(New VO.JournalDet With
+                                             {
+                                                 .CoAID = intCoAofReceivePaymentAccount,
+                                                 .DebitAmount = clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN,
+                                                 .CreditAmount = 0,
+                                                 .Remarks = strJournalDetailRemarks,
+                                                 .GroupID = intGroupID,
+                                                 .BPID = clsARAP.BPID
+                                             })
+
+                            '# Akun Kas / Bank - Kredit
+                            clsJournalDetail.Add(New VO.JournalDet With
                                              {
                                                  .CoAID = clsARAPInvoice.CoAID,
                                                  .DebitAmount = 0,
@@ -1634,13 +1742,14 @@
                                                  .GroupID = intGroupID,
                                                  .BPID = clsARAP.BPID
                                              })
+                            decTotalAmount += clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN
 
-                        '# Setup Akun PPH
-                        If clsARAPInvoice.TotalPPH > 0 Then
-                            intGroupID += 1
+                            '# Setup Akun PPH
+                            If clsARAPInvoice.TotalPPH > 0 Then
+                                intGroupID += 1
 
-                            '# Akun Kas / Bank -> Debit
-                            clsJournalDetail.Add(New VO.JournalDet With
+                                '# Akun Kas / Bank -> Debit
+                                clsJournalDetail.Add(New VO.JournalDet With
                                              {
                                                  .CoAID = clsARAPInvoice.CoAID,
                                                  .DebitAmount = clsARAPInvoice.TotalPPH,
@@ -1650,8 +1759,8 @@
                                                  .BPID = clsARAP.BPID
                                              })
 
-                            '# Akun PPH -> Kredit
-                            clsJournalDetail.Add(New VO.JournalDet With
+                                '# Akun PPH -> Kredit
+                                clsJournalDetail.Add(New VO.JournalDet With
                                              {
                                                  .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPPHPurchase,
                                                  .DebitAmount = 0,
@@ -1660,62 +1769,11 @@
                                                  .GroupID = intGroupID,
                                                  .BPID = clsARAP.BPID
                                              })
-                            decTotalAmount += clsARAPInvoice.TotalPPH
+                                decTotalAmount += clsARAPInvoice.TotalPPH
+                            End If
+
                         End If
-                    Else
-                        '# Akun Hutang Usaha -> Debit
-                        clsJournalDetail.Add(New VO.JournalDet With
-                                         {
-                                             .CoAID = intCoAofReceivePaymentAccount,
-                                             .DebitAmount = clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN,
-                                             .CreditAmount = 0,
-                                             .Remarks = strJournalDetailRemarks,
-                                             .GroupID = intGroupID,
-                                             .BPID = clsARAP.BPID
-                                         })
-
-                        '# Akun Kas / Bank - Kredit
-                        clsJournalDetail.Add(New VO.JournalDet With
-                                         {
-                                             .CoAID = clsARAPInvoice.CoAID,
-                                             .DebitAmount = 0,
-                                             .CreditAmount = clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN,
-                                             .Remarks = strJournalDetailRemarks,
-                                             .GroupID = intGroupID,
-                                             .BPID = clsARAP.BPID
-                                         })
-                        decTotalAmount += clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN
-
-                        '# Setup Akun PPH
-                        If clsARAPInvoice.TotalPPH > 0 Then
-                            intGroupID += 1
-
-                            '# Akun Kas / Bank -> Debit
-                            clsJournalDetail.Add(New VO.JournalDet With
-                                         {
-                                             .CoAID = clsARAPInvoice.CoAID,
-                                             .DebitAmount = clsARAPInvoice.TotalPPH,
-                                             .CreditAmount = 0,
-                                             .Remarks = strJournalDetailRemarks,
-                                             .GroupID = intGroupID,
-                                             .BPID = clsARAP.BPID
-                                         })
-
-                            '# Akun PPH -> Kredit
-                            clsJournalDetail.Add(New VO.JournalDet With
-                                         {
-                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPPHPurchase,
-                                             .DebitAmount = 0,
-                                             .CreditAmount = clsARAPInvoice.TotalPPH,
-                                             .Remarks = strJournalDetailRemarks,
-                                             .GroupID = intGroupID,
-                                             .BPID = clsARAP.BPID
-                                         })
-                            decTotalAmount += clsARAPInvoice.TotalPPH
-                        End If
-
                     End If
-
                 ElseIf clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Sales Then
                     If clsARAP.Modules = VO.AccountReceivable.ReceivePaymentSalesReturn Then
                         If clsARAP.IsDP Then

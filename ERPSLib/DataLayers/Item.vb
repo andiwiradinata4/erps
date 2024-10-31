@@ -262,7 +262,7 @@
         Public Shared Function DataExists(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                           ByVal intItemTypeID As Integer, ByVal intItemSpecificationID As Integer,
                                           ByVal strThick As String, ByVal strWidth As String, ByVal strLength As String,
-                                          ByVal intID As Integer) As Boolean
+                                          ByVal intID As Integer, ByVal strItemCodeExternal As String) As Boolean
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim bolExists As Boolean = False
             Try
@@ -270,16 +270,17 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "   ID " & vbNewLine & _
-                        "FROM mstItem " & vbNewLine & _
-                        "WHERE  " & vbNewLine & _
-                        "   ItemTypeID=@ItemTypeID " & vbNewLine & _
-                        "   AND ItemSpecificationID=@ItemSpecificationID " & vbNewLine & _
-                        "   AND Thick=@Thick " & vbNewLine & _
-                        "   AND Width=@Width " & vbNewLine & _
-                        "   AND Length=@Length " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID " & vbNewLine &
+                        "FROM mstItem " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   ItemTypeID=@ItemTypeID " & vbNewLine &
+                        "   AND ItemSpecificationID=@ItemSpecificationID " & vbNewLine &
+                        "   AND Thick=@Thick " & vbNewLine &
+                        "   AND Width=@Width " & vbNewLine &
+                        "   AND Length=@Length " & vbNewLine &
+                        "   AND ItemCodeExternal=@ItemCodeExternal " & vbNewLine &
                         "   AND ID<>@ID " & vbNewLine
 
                     .Parameters.Add("@ItemTypeID", SqlDbType.Int).Value = intItemTypeID
@@ -287,6 +288,7 @@
                     .Parameters.Add("@Thick", SqlDbType.VarChar, 100).Value = strThick
                     .Parameters.Add("@Width", SqlDbType.VarChar, 100).Value = strWidth
                     .Parameters.Add("@Length", SqlDbType.VarChar, 100).Value = strLength
+                    .Parameters.Add("@ItemCodeExternal", SqlDbType.VarChar, 150).Value = strItemCodeExternal
                     .Parameters.Add("@ID", SqlDbType.Int).Value = intID
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)

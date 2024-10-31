@@ -22,9 +22,11 @@
                 Try
                     If bolNew Then clsData.ID = DL.Item.GetMaxID(sqlCon, Nothing)
                     If bolNew And clsData.ItemCode.Trim = "" Then clsData.ItemCode = GetNewItemCode(sqlCon, Nothing, clsData.ItemTypeID, clsData.ItemSpecificationID)
-                    'If DL.Item.DataExists(sqlCon, Nothing, clsData.ItemTypeID, clsData.ItemSpecificationID, clsData.Thick, clsData.Width, clsData.Length, clsData.ID) Then
-                    '    Err.Raise(515, "", "Barang dengan tipe, spec dan ukuran yang diinput sudah ada")
-                    'End If
+                    If clsData.ItemCodeExternal.Trim <> "" Then
+                        If DL.Item.DataExists(sqlCon, Nothing, clsData.ItemTypeID, clsData.ItemSpecificationID, clsData.Thick, clsData.Width, clsData.Length, clsData.ID, clsData.ItemCodeExternal) Then
+                            Err.Raise(515, "", "Barang dengan tipe, spec dan ukuran yang diinput sudah ada")
+                        End If
+                    End If
 
                     DL.Item.SaveData(sqlCon, Nothing, bolNew, clsData)
                 Catch ex As Exception
