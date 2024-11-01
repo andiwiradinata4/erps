@@ -123,6 +123,10 @@
                 Return "Down Payment"
             ElseIf strModules = VO.AccountReceivable.ReceivePaymentOrderRequest Then
                 Return "Pelunasan"
+            ElseIf strModules = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then
+                Return "Pelunasan"
+            ElseIf strModules = VO.AccountReceivable.ReceivePaymentClaimPurchase Then
+                Return "Pelunasan"
             End If
             Return ""
         End Function

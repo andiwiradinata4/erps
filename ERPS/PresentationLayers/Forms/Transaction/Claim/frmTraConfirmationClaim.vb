@@ -72,6 +72,7 @@ Public Class frmTraConfirmationClaim
             .Item(cCancelSubmit).Enabled = bolEnable
             .Item(cPrint).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
+            .Item(cPayment).Enabled = bolEnable
         End With
     End Sub
 

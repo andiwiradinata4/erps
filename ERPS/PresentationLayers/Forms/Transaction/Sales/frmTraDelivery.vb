@@ -330,29 +330,50 @@ Public Class frmTraDelivery
         prvGetCS()
         clsData = prvGetData()
         Try
+            Dim enumPrintType As VO.Delivery.PrintType = VO.Delivery.PrintType.None
+            Using frmPrint As New frmTraDeliveryPrint
+                frmPrint.StartPosition = FormStartPosition.CenterParent
+                frmPrint.ShowDialog()
+                If frmPrint.pubType = VO.Delivery.PrintType.None Then Exit Sub
+                enumPrintType = frmPrint.pubType
+            End Using
+
             Dim dtData As DataTable = BL.Delivery.PrintVer00(clsData.ProgramID, intCompanyID, strID)
-            'Dim intStatusID As Integer = 0
-            'For Each dr As DataRow In dtData.Rows
-            '    intStatusID = dr.Item("StatusID")
-            '    Exit For
-            'Next
+            Dim intStatusID As Integer = 0
+            Dim intCount As Integer = 0
+            Dim strItemCodeExternal As String = ""
+            For Each dr As DataRow In dtData.Rows
+                intStatusID = dr.Item("StatusID")
+
+                If enumPrintType = VO.Delivery.PrintType.Coil Then If dr.Item("ItemCodeExternal") <> strItemCodeExternal Then intCount += 1 : strItemCodeExternal = dr.Item("ItemCodeExternal")
+                If enumPrintType = VO.Delivery.PrintType.Plat Then If dr.Item("OrderNumberSupplier") <> strItemCodeExternal Then intCount += 1 : strItemCodeExternal = dr.Item("OrderNumberSupplier")
+                dr.Item("No") = intCount
+            Next
 
             Dim crReport As New rptShippingInvoiceVer00
 
-            ''# Setup Watermark Report
-            'If intStatusID <> VO.Status.Values.Approved Then
-            '    crReport.Watermark.ShowBehind = False
-            '    crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
-            '    crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
-            '    crReport.Watermark.Font = New System.Drawing.Font("Tahoma", 70.0!, System.Drawing.FontStyle.Bold)
-            '    crReport.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.Horizontal
-            '    crReport.Watermark.TextTransparency = 150
-            'End If
+            '# setup watermark report
+            If intStatusID <> VO.Status.Values.Approved Then
+                crReport.Watermark.ShowBehind = False
+                crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
+                crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
+                crReport.Watermark.Font = New System.Drawing.Font("tahoma", 70.0!, System.Drawing.FontStyle.Bold)
+                crReport.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.Horizontal
+                crReport.Watermark.TextTransparency = 150
+            End If
 
             crReport.DataSource = dtData
             crReport.CreateDocument(True)
             crReport.ShowPreviewMarginLines = False
             crReport.ShowPrintMarginsWarning = False
+
+            If enumPrintType = VO.Delivery.PrintType.Plat Then
+                crReport.ghColumnNamePlate.Visible = True
+                crReport.sbDetailPlate.Visible = True
+            ElseIf enumPrintType = VO.Delivery.PrintType.Coil Then
+                crReport.ghColumnNameCoil.Visible = True
+                crReport.sbDetailCoil.Visible = True
+            End If
 
             Dim frmDetail As New frmReportPreview
             With frmDetail

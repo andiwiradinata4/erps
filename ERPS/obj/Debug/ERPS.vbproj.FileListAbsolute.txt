@@ -941,3 +941,4 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationClaimOutstandingClaim
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationClaimOutstandingClaimItem.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderCuttingDetRemarkResult.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderCuttingDetRemarkResult.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryPrint.resources

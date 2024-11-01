@@ -13,7 +13,7 @@ Public Class frmTraPurchaseOrderCutting
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
        cSep2 As Byte = 8, cDownPayment As Byte = 9, cReceive As Byte = 10, cClaimCustomer As Byte = 11,
        cSep3 As Byte = 12, cPrint As Byte = 13, cExportExcel As Byte = 14, cSep4 As Byte = 15, cRefresh As Byte = 16,
-       cClose As Byte = 16
+       cClose As Byte = 17
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -29,15 +29,15 @@ Public Class frmTraPurchaseOrderCutting
         UI.usForm.SetGrid(grdView, "PONumber", "Nomor", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PODate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdView, "BPCode", "Kode Pemasok", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "BPName", "Nama Pemasok", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "BPCode", "Kode Cutting Center", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "BPName", "Nama Cutting Center", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "CustomerID", "CustomerID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "CustomerCode", "Kode Pelanggan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "CustomerName", "Nama Pelanggan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "IsClaimCustomer", "Klaim Pelanggan?", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "PersonInCharge", "PIC", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "DeliveryPeriodFrom", "Periode Dari", 100, UI.usDefGrid.gDateMonthYear)
-        UI.usForm.SetGrid(grdView, "DeliveryPeriodTo", "Periode Sampai", 100, UI.usDefGrid.gDateMonthYear)
+        UI.usForm.SetGrid(grdView, "PersonInCharge", "PIC", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdView, "DeliveryPeriodFrom", "Periode Dari", 100, UI.usDefGrid.gDateMonthYear, False)
+        UI.usForm.SetGrid(grdView, "DeliveryPeriodTo", "Periode Sampai", 100, UI.usDefGrid.gDateMonthYear, False)
         UI.usForm.SetGrid(grdView, "DeliveryAddress", "Alamat Pengiriman", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "TotalQuantity", "Total Quantity", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)

@@ -2,6 +2,7 @@
     Public Class rptShippingInvoiceVer00
         '# Headers
         Inherits Common
+        Property No As Integer
         Property ID As String
         Property TransNumber As String
         Property TransDate As DateTime
@@ -35,5 +36,6 @@
         Property UnitPrice As Decimal
         Property TotalPrice As Decimal
         Property ItemRemarks As String
+        Property OrderNumberSupplier As String
     End Class
 End Namespace

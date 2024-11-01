@@ -35,6 +35,7 @@ Partial Class frmTraPurchaseOrderCutting
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
         Me.BarDownPayment = New System.Windows.Forms.ToolBarButton()
         Me.BarReceive = New System.Windows.Forms.ToolBarButton()
+        Me.BarClaimCustomer = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarPrint = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
@@ -57,7 +58,6 @@ Partial Class frmTraPurchaseOrderCutting
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.BarClaimCustomer = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -139,6 +139,12 @@ Partial Class frmTraPurchaseOrderCutting
         Me.BarReceive.Name = "BarReceive"
         Me.BarReceive.Tag = "Calculation"
         Me.BarReceive.Text = "Pembayaran"
+        '
+        'BarClaimCustomer
+        '
+        Me.BarClaimCustomer.Name = "BarClaimCustomer"
+        Me.BarClaimCustomer.Tag = "Get"
+        Me.BarClaimCustomer.Text = "Klaim Pelanggan"
         '
         'BarSep3
         '
@@ -355,12 +361,6 @@ Partial Class frmTraPurchaseOrderCutting
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
-        'BarClaimCustomer
-        '
-        Me.BarClaimCustomer.Name = "BarClaimCustomer"
-        Me.BarClaimCustomer.Tag = "Get"
-        Me.BarClaimCustomer.Text = "Klaim Pelanggan"
-        '
         'frmTraPurchaseOrderCutting
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -373,7 +373,7 @@ Partial Class frmTraPurchaseOrderCutting
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.KeyPreview = True
         Me.Name = "frmTraPurchaseOrderCutting"
-        Me.Text = "Pesanan Pembelian Pemotongan"
+        Me.Text = "SPK Potong"
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl1.ResumeLayout(False)
         Me.PanelControl1.PerformLayout()

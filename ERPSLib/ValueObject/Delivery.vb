@@ -59,5 +59,12 @@
         Property CoAofStock As Integer
         Property CoACodeOfStock As String
         Property CoANameOfStock As String
+
+        Public Enum PrintType
+            None
+            Plat
+            Coil
+        End Enum
+
     End Class
 End Namespace

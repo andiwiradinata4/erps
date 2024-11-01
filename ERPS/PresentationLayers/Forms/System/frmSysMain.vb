@@ -493,7 +493,7 @@
         UI.usForm.frmOpen(frmMainTraReceive, "frmTraReceive", Me)
     End Sub
 
-    Private Sub mnuTransaksiPembelianPesananPemotongan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianPesananPemotongan.Click
+    Private Sub mnuTransaksiPembelianSPKPotong_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembelianSPKPotong.Click
         UI.usForm.frmOpen(frmMainTraPurchaseOrderCutting, "frmTraPurchaseOrderCutting", Me)
     End Sub
 

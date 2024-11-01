@@ -147,6 +147,7 @@ Public Class frmTraPurchaseOrderCuttingDet
                 txtBPCode.Text = clsData.BPCode
                 txtBPName.Text = clsData.BPName
                 dtpPODate.Value = clsData.PODate
+                dtpPickupDate.Value = clsData.PickupDate
                 txtPersonInCharge.Text = clsData.PersonInCharge
                 dtpDeliveryPeriodFrom.EditValue = clsData.DeliveryPeriodFrom
                 dtpDeliveryPeriodTo.EditValue = clsData.DeliveryPeriodTo
@@ -182,7 +183,7 @@ Public Class frmTraPurchaseOrderCuttingDet
     Private Sub prvSave()
         ToolBar.Focus()
         If txtBPCode.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih pemasok terlebih dahulu")
+            UI.usForm.frmMessageBox("Pilih Cutting Center terlebih dahulu")
             tcHeader.SelectedTab = tpMain
             txtBPCode.Focus()
             Exit Sub
@@ -191,11 +192,11 @@ Public Class frmTraPurchaseOrderCuttingDet
             tcHeader.SelectedTab = tpMain
             cboStatus.Focus()
             Exit Sub
-        ElseIf txtPersonInCharge.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("PIC tidak boleh kosong")
-            tcHeader.SelectedTab = tpMain
-            txtPersonInCharge.Focus()
-            Exit Sub
+            'ElseIf txtPersonInCharge.Text.Trim = "" Then
+            '    UI.usForm.frmMessageBox("PIC tidak boleh kosong")
+            '    tcHeader.SelectedTab = tpMain
+            '    txtPersonInCharge.Focus()
+            '    Exit Sub
         ElseIf dtpDeliveryPeriodFrom.EditValue > dtpDeliveryPeriodTo.EditValue Then
             UI.usForm.frmMessageBox("Periode pengiriman tidak valid")
             tcHeader.SelectedTab = tpMain
@@ -506,7 +507,7 @@ Public Class frmTraPurchaseOrderCuttingDet
 
     Private Sub prvAddItem()
         If txtBPCode.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih Pemasok terlebih dahulu")
+            UI.usForm.frmMessageBox("Pilih Cutting Center terlebih dahulu")
             txtBPCode.Focus()
             Exit Sub
         End If

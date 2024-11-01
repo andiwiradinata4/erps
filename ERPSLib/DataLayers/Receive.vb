@@ -1083,7 +1083,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
 "SELECT  " & vbNewLine &
-"	RVD.ID, RVD.PCDetailID, RVD.ReceiveID, RVH.ReceiveNumber, RVD.OrderNumberSupplier, PCH.PCNumber, RVD.ItemID, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+"	RVD.ID, RVD.PCDetailID, RVD.ReceiveID, RVH.ReceiveNumber, RVH.ReferencesNumber, RVD.OrderNumberSupplier, PCH.PCNumber, RVD.ItemID, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
 "	MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName,  " & vbNewLine &
 "	RVD.Quantity-RVD.OutQuantity AS Quantity, RVD.Weight, RVD.TotalWeight-RVD.OutWeight AS TotalWeight, RVD.UnitPrice,  " & vbNewLine &
 "	RVD.TotalPrice, RVD.RoundingWeight, RVD.Remarks " & vbNewLine &

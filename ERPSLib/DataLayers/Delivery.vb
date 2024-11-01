@@ -533,10 +533,10 @@
                 .CommandType = CommandType.Text
                 .CommandText +=
                     "SELECT  " & vbNewLine &
-                    "   DH.ID, DH.ProgramID, MP.Name AS ProgramName, DH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress, DH.DeliveryNumber AS TransNumber,  " & vbNewLine &
+                    "   CAST(0 AS INT) No, DH.ID, DH.ProgramID, MP.Name AS ProgramName, DH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress, DH.DeliveryNumber AS TransNumber,  " & vbNewLine &
                     "   DH.DeliveryDate AS TransDate, DH.BPID, C.Code AS BPCode, C.Name AS BPName, BPL.Address AS BPAddress, SCH.SCNumber, DH.PlatNumber, DH.Driver, DH.ReferencesNumber, " & vbNewLine &
                     "   DH.TotalQuantity, DH.TotalWeight, DH.StatusID, MIS.Description AS ItemSpec, IT.Description AS ItemType, CASE WHEN MI.ItemCodeExternal='' THEN IT.Description ELSE MI.ItemCodeExternal END AS ItemCodeExternal, MI.Thick AS ItemThick, MI.Width AS ItemWidth,  " & vbNewLine &
-                    "   CASE WHEN MI.Length=0 THEN IT.LengthInitial ELSE CAST(MI.Length AS VARCHAR(100)) END AS ItemLength, MI.Weight, DD.Quantity, DD.TotalWeight AS TotalWeightItem, DD.Remarks AS ItemRemarks, MU.Name AS CreatedBy " & vbNewLine &
+                    "   CASE WHEN MI.Length=0 THEN IT.LengthInitial ELSE CAST(MI.Length AS VARCHAR(100)) END AS ItemLength, MI.Weight, DD.Quantity, DD.TotalWeight AS TotalWeightItem, DD.Remarks AS ItemRemarks, MU.Name AS CreatedBy, DD.OrderNumberSupplier " & vbNewLine &
                     "FROM traDelivery DH  " & vbNewLine &
                     "INNER JOIN traSalesContract SCH ON " & vbNewLine &
                     "	DH.SCID=SCH.ID " & vbNewLine &
@@ -568,10 +568,10 @@
                 .CommandText +=
                     "UNION ALL " & vbNewLine &
                     "SELECT  " & vbNewLine &
-                    "   DH.ID, DH.ProgramID, MP.Name AS ProgramName, DH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress, DH.DeliveryNumber AS TransNumber,  " & vbNewLine &
+                    "   CAST(0 AS INT) No, DH.ID, DH.ProgramID, MP.Name AS ProgramName, DH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress, DH.DeliveryNumber AS TransNumber,  " & vbNewLine &
                     "   DH.DeliveryDate AS TransDate, DH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, ORH.OrderNumber AS SCNumber, DH.PlatNumber, DH.Driver, DH.ReferencesNumber, " & vbNewLine &
                     "   DH.TotalQuantity, DH.TotalWeight, DH.StatusID, MIS.Description AS ItemSpec, IT.Description AS ItemType, IT.Description AS ItemCodeExternal, MI.Thick AS ItemThick, MI.Width AS ItemWidth,  " & vbNewLine &
-                    "   CASE WHEN MI.Length=0 THEN IT.LengthInitial ELSE CAST(MI.Length AS VARCHAR(100)) END AS ItemLength, MI.Weight, DD.Quantity, DD.TotalWeight AS TotalWeightItem, DD.Remarks AS ItemRemarks, DH.CreatedBy " & vbNewLine &
+                    "   CASE WHEN MI.Length=0 THEN IT.LengthInitial ELSE CAST(MI.Length AS VARCHAR(100)) END AS ItemLength, MI.Weight, DD.Quantity, DD.TotalWeight AS TotalWeightItem, DD.Remarks AS ItemRemarks, DH.CreatedBy, DD.OrderNumberSupplier " & vbNewLine &
                     "FROM traDelivery DH  " & vbNewLine &
                     "INNER JOIN traOrderRequest ORH ON " & vbNewLine &
                     "	DH.SCID=ORH.ID " & vbNewLine &
@@ -594,7 +594,8 @@
                     "WHERE 	 " & vbNewLine &
                     "    DH.ProgramID=@ProgramID  " & vbNewLine &
                     "    AND DH.CompanyID=@CompanyID  " & vbNewLine &
-                    "    AND DH.ID=@ID" & vbNewLine
+                    "    AND DH.ID=@ID" & vbNewLine &
+                    "ORDER BY ItemCodeExternal, OrderNumberSupplier ASC " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID

@@ -581,7 +581,6 @@ Public Class frmTraSalesContract
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
 
-
         Try
             Dim dtData As DataTable = BL.SalesContract.PrintSCCOVer00(intProgramID, intCompanyID, strID)
             Dim intStatusID As Integer = 0
