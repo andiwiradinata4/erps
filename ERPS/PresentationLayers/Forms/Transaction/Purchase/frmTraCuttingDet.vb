@@ -712,6 +712,9 @@ Public Class frmTraCuttingDet
         Dim frmDetail As New frmMstChartOfAccount
         With frmDetail
             .pubIsLookUp = True
+            .pubCompanyID = pubCS.CompanyID
+            .pubProgramID = pubCS.ProgramID
+            .pubFilterGroup = VO.ChartOfAccount.FilterGroup.Stock
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
             If .pubIsLookUpGet Then

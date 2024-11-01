@@ -306,6 +306,7 @@
                                           ByVal strID As String)
             Try
                 Dim clsData As VO.Cutting = DL.Cutting.GetDetail(sqlCon, sqlTrans, strID)
+                Dim clsPO As VO.PurchaseOrderCutting = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsData.POID)
                 Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
                 Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
 
@@ -337,6 +338,32 @@
                                          .GroupID = intGroupID,
                                          .BPID = clsData.BPID
                                      })
+
+                If clsPO.IsClaimCustomer Then
+                    intGroupID += 1
+                    '# Akun Piutang Usaha Belum ditagih -> Debit
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountReceivableOutstandingPayment,
+                                         .DebitAmount = decTotalAmount,
+                                         .CreditAmount = 0,
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     })
+
+                    '# Akun Penjualan -> Kredit
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofRevenue,
+                                         .DebitAmount = 0,
+                                         .CreditAmount = decTotalAmount,
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     })
+                    decTotalAmount += decTotalAmount
+                End If
 
                 'intGroupID += 1
                 ''# Akun Persediaan -> Debit

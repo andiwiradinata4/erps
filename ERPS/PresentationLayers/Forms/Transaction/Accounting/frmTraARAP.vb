@@ -933,6 +933,7 @@ Public Class frmTraARAP
             Dim intStatusID As Integer = clsInvoice.StatusID
             For Each dr As DataRow In dtData.Rows
                 dr.Item("TaxInvoiceNumber") = clsInvoice.TaxInvoiceNumber
+                dr.Item("TransDate") = clsInvoice.InvoiceDate
             Next
 
             Dim crReport As New rptProformaInvoice
