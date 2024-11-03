@@ -491,7 +491,7 @@ Public Class frmTraCuttingDet
 
     Private Sub prvAddItem()
         If txtBPCode.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih Pemasok terlebih dahulu")
+            UI.usForm.frmMessageBox("Pilih Cutting Center terlebih dahulu")
             tcHeader.SelectedTab = tpMain
             txtBPCode.Focus()
             Exit Sub
@@ -501,7 +501,7 @@ Public Class frmTraCuttingDet
             txtCustomerCode.Focus()
             Exit Sub
         ElseIf strPOID.Trim = "" Or txtPONumber.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih Nomor Pesanan terlebih dahulu")
+            UI.usForm.frmMessageBox("Pilih Nomor SPK terlebih dahulu")
             tcHeader.SelectedTab = tpMain
             txtPONumber.Focus()
             Exit Sub
@@ -525,12 +525,17 @@ Public Class frmTraCuttingDet
 
     Private Sub prvEditItem()
         If txtBPCode.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih Pemasok terlebih dahulu")
+            UI.usForm.frmMessageBox("Pilih Cutting Center terlebih dahulu")
             tcHeader.SelectedTab = tpMain
             txtBPCode.Focus()
             Exit Sub
+        ElseIf txtCustomerCode.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih Pelanggan terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtCustomerCode.Focus()
+            Exit Sub
         ElseIf strPOID.Trim = "" Or txtPONumber.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih Nomor Pesanan terlebih dahulu")
+            UI.usForm.frmMessageBox("Pilih Nomor SPK terlebih dahulu")
             tcHeader.SelectedTab = tpMain
             txtPONumber.Focus()
             Exit Sub

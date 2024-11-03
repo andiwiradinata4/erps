@@ -334,7 +334,7 @@
                     .Remarks = clsData.Remarks,
                     .LogBy = ERPSLib.UI.usUserApp.UserID,
                     .Initial = "",
-                    .ReferencesNo = clsData.ReceiveNumber,
+                    .ReferencesNo = IIf(clsData.ReferencesNumber.Trim = "", clsData.ReceiveNumber, clsData.ReferencesNumber),
                     .Detail = clsJournalDetail,
                     .Save = VO.Save.Action.SaveAndSubmit
                 }

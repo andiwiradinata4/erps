@@ -29,6 +29,10 @@ Partial Class frmTraCuttingDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.txtCustomerCode = New ERPS.usTextBox()
+        Me.txtCustomerName = New ERPS.usTextBox()
+        Me.btnCustomer = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.txtCoACodeOfStock = New ERPS.usTextBox()
         Me.txtCoANameOfStock = New ERPS.usTextBox()
         Me.btnCoAOfStock = New DevExpress.XtraEditors.SimpleButton()
@@ -90,10 +94,6 @@ Partial Class frmTraCuttingDet
         Me.grdItemResult = New DevExpress.XtraGrid.GridControl()
         Me.grdItemResultView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit3 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.txtCustomerCode = New ERPS.usTextBox()
-        Me.txtCustomerName = New ERPS.usTextBox()
-        Me.btnCustomer = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label10 = New System.Windows.Forms.Label()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         Me.tpPrice.SuspendLayout()
@@ -205,6 +205,47 @@ Partial Class frmTraCuttingDet
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
         '
+        'txtCustomerCode
+        '
+        Me.txtCustomerCode.BackColor = System.Drawing.Color.Azure
+        Me.txtCustomerCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCustomerCode.Location = New System.Drawing.Point(126, 70)
+        Me.txtCustomerCode.MaxLength = 250
+        Me.txtCustomerCode.Name = "txtCustomerCode"
+        Me.txtCustomerCode.ReadOnly = True
+        Me.txtCustomerCode.Size = New System.Drawing.Size(83, 21)
+        Me.txtCustomerCode.TabIndex = 4
+        '
+        'txtCustomerName
+        '
+        Me.txtCustomerName.BackColor = System.Drawing.Color.Azure
+        Me.txtCustomerName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCustomerName.Location = New System.Drawing.Point(208, 70)
+        Me.txtCustomerName.MaxLength = 250
+        Me.txtCustomerName.Name = "txtCustomerName"
+        Me.txtCustomerName.ReadOnly = True
+        Me.txtCustomerName.Size = New System.Drawing.Size(167, 21)
+        Me.txtCustomerName.TabIndex = 5
+        '
+        'btnCustomer
+        '
+        Me.btnCustomer.Image = CType(resources.GetObject("btnCustomer.Image"), System.Drawing.Image)
+        Me.btnCustomer.Location = New System.Drawing.Point(381, 69)
+        Me.btnCustomer.Name = "btnCustomer"
+        Me.btnCustomer.Size = New System.Drawing.Size(23, 23)
+        Me.btnCustomer.TabIndex = 6
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.BackColor = System.Drawing.Color.Transparent
+        Me.Label10.ForeColor = System.Drawing.Color.Black
+        Me.Label10.Location = New System.Drawing.Point(28, 74)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(57, 13)
+        Me.Label10.TabIndex = 162
+        Me.Label10.Text = "Pelanggan"
+        '
         'txtCoACodeOfStock
         '
         Me.txtCoACodeOfStock.BackColor = System.Drawing.Color.Azure
@@ -272,9 +313,9 @@ Partial Class frmTraCuttingDet
         Me.Label9.ForeColor = System.Drawing.Color.Black
         Me.Label9.Location = New System.Drawing.Point(28, 128)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(82, 13)
+        Me.Label9.Size = New System.Drawing.Size(59, 13)
         Me.Label9.TabIndex = 148
-        Me.Label9.Text = "Nomor Pesanan"
+        Me.Label9.Text = "Nomor SPK"
         '
         'txtReferencesNumber
         '
@@ -409,9 +450,9 @@ Partial Class frmTraCuttingDet
         Me.Label3.ForeColor = System.Drawing.Color.Black
         Me.Label3.Location = New System.Drawing.Point(28, 47)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(49, 13)
+        Me.Label3.Size = New System.Drawing.Size(78, 13)
         Me.Label3.TabIndex = 122
-        Me.Label3.Text = "Pemasok"
+        Me.Label3.Text = "Cutting Center"
         '
         'Label2
         '
@@ -436,7 +477,7 @@ Partial Class frmTraCuttingDet
         Me.tpPrice.Controls.Add(Me.txtPPN)
         Me.tpPrice.Location = New System.Drawing.Point(4, 25)
         Me.tpPrice.Name = "tpPrice"
-        Me.tpPrice.Size = New System.Drawing.Size(917, 171)
+        Me.tpPrice.Size = New System.Drawing.Size(917, 198)
         Me.tpPrice.TabIndex = 2
         Me.tpPrice.Text = "Harga- F2"
         Me.tpPrice.UseVisualStyleBackColor = True
@@ -633,7 +674,7 @@ Partial Class frmTraCuttingDet
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(917, 171)
+        Me.tpHistory.Size = New System.Drawing.Size(917, 198)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -658,7 +699,7 @@ Partial Class frmTraCuttingDet
         Me.grdStatus.Location = New System.Drawing.Point(3, 3)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(907, 161)
+        Me.grdStatus.Size = New System.Drawing.Size(907, 188)
         Me.grdStatus.TabIndex = 13
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -849,7 +890,7 @@ Partial Class frmTraCuttingDet
         Me.tpItemResult.Controls.Add(Me.grdItemResult)
         Me.tpItemResult.Location = New System.Drawing.Point(4, 25)
         Me.tpItemResult.Name = "tpItemResult"
-        Me.tpItemResult.Size = New System.Drawing.Size(917, 337)
+        Me.tpItemResult.Size = New System.Drawing.Size(917, 310)
         Me.tpItemResult.TabIndex = 2
         Me.tpItemResult.Text = "Hasil - F5"
         Me.tpItemResult.UseVisualStyleBackColor = True
@@ -875,7 +916,7 @@ Partial Class frmTraCuttingDet
         Me.grdItemResult.MainView = Me.grdItemResultView
         Me.grdItemResult.Name = "grdItemResult"
         Me.grdItemResult.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit3})
-        Me.grdItemResult.Size = New System.Drawing.Size(917, 337)
+        Me.grdItemResult.Size = New System.Drawing.Size(917, 310)
         Me.grdItemResult.TabIndex = 2
         Me.grdItemResult.UseEmbeddedNavigator = True
         Me.grdItemResult.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemResultView})
@@ -898,47 +939,6 @@ Partial Class frmTraCuttingDet
         Me.RepositoryItemTextEdit3.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.RepositoryItemTextEdit3.Name = "RepositoryItemTextEdit3"
         Me.RepositoryItemTextEdit3.NullText = "0.00"
-        '
-        'txtCustomerCode
-        '
-        Me.txtCustomerCode.BackColor = System.Drawing.Color.Azure
-        Me.txtCustomerCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCustomerCode.Location = New System.Drawing.Point(126, 70)
-        Me.txtCustomerCode.MaxLength = 250
-        Me.txtCustomerCode.Name = "txtCustomerCode"
-        Me.txtCustomerCode.ReadOnly = True
-        Me.txtCustomerCode.Size = New System.Drawing.Size(83, 21)
-        Me.txtCustomerCode.TabIndex = 4
-        '
-        'txtCustomerName
-        '
-        Me.txtCustomerName.BackColor = System.Drawing.Color.Azure
-        Me.txtCustomerName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCustomerName.Location = New System.Drawing.Point(208, 70)
-        Me.txtCustomerName.MaxLength = 250
-        Me.txtCustomerName.Name = "txtCustomerName"
-        Me.txtCustomerName.ReadOnly = True
-        Me.txtCustomerName.Size = New System.Drawing.Size(167, 21)
-        Me.txtCustomerName.TabIndex = 5
-        '
-        'btnCustomer
-        '
-        Me.btnCustomer.Image = CType(resources.GetObject("btnCustomer.Image"), System.Drawing.Image)
-        Me.btnCustomer.Location = New System.Drawing.Point(381, 69)
-        Me.btnCustomer.Name = "btnCustomer"
-        Me.btnCustomer.Size = New System.Drawing.Size(23, 23)
-        Me.btnCustomer.TabIndex = 6
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.BackColor = System.Drawing.Color.Transparent
-        Me.Label10.ForeColor = System.Drawing.Color.Black
-        Me.Label10.Location = New System.Drawing.Point(28, 74)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(57, 13)
-        Me.Label10.TabIndex = 162
-        Me.Label10.Text = "Pelanggan"
         '
         'frmTraCuttingDet
         '
