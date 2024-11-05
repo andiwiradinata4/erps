@@ -551,6 +551,20 @@ Public Class frmTraSalesContractDetItemVer2
         prvToolsHandles()
     End Sub
 
+    Private Sub prvChangeItemConfirmationOrder()
+        intPos = grdItemCOView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdItemCOView.GetRowCellValue(intPos, "ID")
+        Dim frmDetail As New frmTraSalesContractDetItemVer2ChangeItem
+        With frmDetail
+            .pubDatRowSelected = grdItemCOView.GetDataRow(intPos)
+            .pubCS = clsCS
+            .StartPosition = FormStartPosition.CenterScreen
+            .pubShowDialog(Me)
+            If .pubIsSave Then Me.Close()
+        End With
+    End Sub
+
 #End Region
 
 #Region "Sub Item"
@@ -686,6 +700,7 @@ Public Class frmTraSalesContractDetItemVer2
             Case "Tambah" : prvAddItemConfirmationOrder()
             Case "Edit" : prvEditItemConfirmationOrder()
             Case "Hapus" : prvDeleteItemConfirmationOrder()
+            Case "Ubah Barang" : prvChangeItemConfirmationOrder()
         End Select
     End Sub
 

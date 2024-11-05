@@ -4,7 +4,7 @@ Public Class frmTraConfirmationOrderOutstandingSalesContractVer1
 #Region "Property"
 
     Private intPos As Integer = 0
-    Private frmParent As frmTraSalesContractDetItemCOVer2
+    Private frmParent As Object
     Private clsCS As VO.CS
     Public pubLUdtRow As DataRow
     Public pubIsLookUpGet As Boolean = False

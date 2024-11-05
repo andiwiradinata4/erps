@@ -41,9 +41,9 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.txtItemNameOld = New ERPS.usTextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtItemCodeOld = New ERPS.usTextBox()
-        Me.txtLength = New ERPS.usNumeric()
-        Me.txtWidth = New ERPS.usNumeric()
-        Me.txtThick = New ERPS.usNumeric()
+        Me.txtLengthNew = New ERPS.usNumeric()
+        Me.txtWidthNew = New ERPS.usNumeric()
+        Me.txtThickNew = New ERPS.usNumeric()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -57,9 +57,9 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.btnCO = New DevExpress.XtraEditors.SimpleButton()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtItemName = New ERPS.usTextBox()
+        Me.txtItemNameNew = New ERPS.usTextBox()
         Me.lblName = New System.Windows.Forms.Label()
-        Me.txtItemCode = New ERPS.usTextBox()
+        Me.txtItemCodeNew = New ERPS.usTextBox()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
@@ -69,9 +69,9 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         CType(Me.txtLengthOld, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWidthOld, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtThickOld, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtThick, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtLengthNew, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtWidthNew, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtThickNew, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gcNewItem, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gcNewItem.SuspendLayout()
         Me.SuspendLayout()
@@ -150,11 +150,11 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.txtLengthOld.BackColor = System.Drawing.Color.Azure
         Me.txtLengthOld.DecimalPlaces = 2
         Me.txtLengthOld.Enabled = False
-        Me.txtLengthOld.Location = New System.Drawing.Point(164, 223)
+        Me.txtLengthOld.Location = New System.Drawing.Point(164, 221)
         Me.txtLengthOld.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtLengthOld.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtLengthOld.Name = "txtLengthOld"
-        Me.txtLengthOld.Size = New System.Drawing.Size(135, 21)
+        Me.txtLengthOld.Size = New System.Drawing.Size(170, 21)
         Me.txtLengthOld.TabIndex = 6
         Me.txtLengthOld.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtLengthOld.ThousandsSeparator = True
@@ -164,11 +164,11 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.txtWidthOld.BackColor = System.Drawing.Color.Azure
         Me.txtWidthOld.DecimalPlaces = 2
         Me.txtWidthOld.Enabled = False
-        Me.txtWidthOld.Location = New System.Drawing.Point(164, 196)
+        Me.txtWidthOld.Location = New System.Drawing.Point(164, 194)
         Me.txtWidthOld.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtWidthOld.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtWidthOld.Name = "txtWidthOld"
-        Me.txtWidthOld.Size = New System.Drawing.Size(135, 21)
+        Me.txtWidthOld.Size = New System.Drawing.Size(170, 21)
         Me.txtWidthOld.TabIndex = 5
         Me.txtWidthOld.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtWidthOld.ThousandsSeparator = True
@@ -178,11 +178,11 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.txtThickOld.BackColor = System.Drawing.Color.Azure
         Me.txtThickOld.DecimalPlaces = 2
         Me.txtThickOld.Enabled = False
-        Me.txtThickOld.Location = New System.Drawing.Point(164, 169)
+        Me.txtThickOld.Location = New System.Drawing.Point(164, 167)
         Me.txtThickOld.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtThickOld.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtThickOld.Name = "txtThickOld"
-        Me.txtThickOld.Size = New System.Drawing.Size(135, 21)
+        Me.txtThickOld.Size = New System.Drawing.Size(170, 21)
         Me.txtThickOld.TabIndex = 4
         Me.txtThickOld.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtThickOld.ThousandsSeparator = True
@@ -192,7 +192,7 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.ForeColor = System.Drawing.Color.Black
-        Me.Label7.Location = New System.Drawing.Point(305, 227)
+        Me.Label7.Location = New System.Drawing.Point(336, 225)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(23, 13)
         Me.Label7.TabIndex = 119
@@ -203,7 +203,7 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.Label11.AutoSize = True
         Me.Label11.BackColor = System.Drawing.Color.Transparent
         Me.Label11.ForeColor = System.Drawing.Color.Black
-        Me.Label11.Location = New System.Drawing.Point(305, 200)
+        Me.Label11.Location = New System.Drawing.Point(336, 198)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(23, 13)
         Me.Label11.TabIndex = 118
@@ -214,7 +214,7 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.Label12.AutoSize = True
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.ForeColor = System.Drawing.Color.Black
-        Me.Label12.Location = New System.Drawing.Point(305, 173)
+        Me.Label12.Location = New System.Drawing.Point(336, 171)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(23, 13)
         Me.Label12.TabIndex = 117
@@ -225,7 +225,7 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(25, 227)
+        Me.Label13.Location = New System.Drawing.Point(25, 225)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(46, 13)
         Me.Label13.TabIndex = 116
@@ -236,7 +236,7 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
         Me.Label14.ForeColor = System.Drawing.Color.Black
-        Me.Label14.Location = New System.Drawing.Point(25, 200)
+        Me.Label14.Location = New System.Drawing.Point(25, 198)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(34, 13)
         Me.Label14.TabIndex = 115
@@ -247,7 +247,7 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.Label15.AutoSize = True
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.ForeColor = System.Drawing.Color.Black
-        Me.Label15.Location = New System.Drawing.Point(25, 173)
+        Me.Label15.Location = New System.Drawing.Point(25, 171)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(33, 13)
         Me.Label15.TabIndex = 114
@@ -258,7 +258,7 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(25, 91)
+        Me.Label2.Location = New System.Drawing.Point(25, 90)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(68, 13)
         Me.Label2.TabIndex = 100
@@ -268,7 +268,7 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         '
         Me.txtItemNameOld.BackColor = System.Drawing.Color.Azure
         Me.txtItemNameOld.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtItemNameOld.Location = New System.Drawing.Point(164, 115)
+        Me.txtItemNameOld.Location = New System.Drawing.Point(164, 113)
         Me.txtItemNameOld.MaxLength = 250
         Me.txtItemNameOld.Multiline = True
         Me.txtItemNameOld.Name = "txtItemNameOld"
@@ -281,7 +281,7 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(25, 118)
+        Me.Label3.Location = New System.Drawing.Point(25, 116)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(71, 13)
         Me.Label3.TabIndex = 99
@@ -291,61 +291,61 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         '
         Me.txtItemCodeOld.BackColor = System.Drawing.Color.Azure
         Me.txtItemCodeOld.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtItemCodeOld.Location = New System.Drawing.Point(164, 87)
+        Me.txtItemCodeOld.Location = New System.Drawing.Point(164, 86)
         Me.txtItemCodeOld.MaxLength = 250
         Me.txtItemCodeOld.Name = "txtItemCodeOld"
         Me.txtItemCodeOld.ReadOnly = True
         Me.txtItemCodeOld.Size = New System.Drawing.Size(170, 21)
         Me.txtItemCodeOld.TabIndex = 2
         '
-        'txtLength
+        'txtLengthNew
         '
-        Me.txtLength.BackColor = System.Drawing.Color.Azure
-        Me.txtLength.DecimalPlaces = 2
-        Me.txtLength.Enabled = False
-        Me.txtLength.Location = New System.Drawing.Point(164, 223)
-        Me.txtLength.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtLength.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtLength.Name = "txtLength"
-        Me.txtLength.Size = New System.Drawing.Size(135, 21)
-        Me.txtLength.TabIndex = 7
-        Me.txtLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtLength.ThousandsSeparator = True
+        Me.txtLengthNew.BackColor = System.Drawing.Color.Azure
+        Me.txtLengthNew.DecimalPlaces = 2
+        Me.txtLengthNew.Enabled = False
+        Me.txtLengthNew.Location = New System.Drawing.Point(164, 221)
+        Me.txtLengthNew.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtLengthNew.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtLengthNew.Name = "txtLengthNew"
+        Me.txtLengthNew.Size = New System.Drawing.Size(170, 21)
+        Me.txtLengthNew.TabIndex = 7
+        Me.txtLengthNew.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtLengthNew.ThousandsSeparator = True
         '
-        'txtWidth
+        'txtWidthNew
         '
-        Me.txtWidth.BackColor = System.Drawing.Color.Azure
-        Me.txtWidth.DecimalPlaces = 2
-        Me.txtWidth.Enabled = False
-        Me.txtWidth.Location = New System.Drawing.Point(164, 196)
-        Me.txtWidth.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtWidth.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtWidth.Name = "txtWidth"
-        Me.txtWidth.Size = New System.Drawing.Size(135, 21)
-        Me.txtWidth.TabIndex = 6
-        Me.txtWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtWidth.ThousandsSeparator = True
+        Me.txtWidthNew.BackColor = System.Drawing.Color.Azure
+        Me.txtWidthNew.DecimalPlaces = 2
+        Me.txtWidthNew.Enabled = False
+        Me.txtWidthNew.Location = New System.Drawing.Point(164, 194)
+        Me.txtWidthNew.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtWidthNew.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtWidthNew.Name = "txtWidthNew"
+        Me.txtWidthNew.Size = New System.Drawing.Size(170, 21)
+        Me.txtWidthNew.TabIndex = 6
+        Me.txtWidthNew.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtWidthNew.ThousandsSeparator = True
         '
-        'txtThick
+        'txtThickNew
         '
-        Me.txtThick.BackColor = System.Drawing.Color.Azure
-        Me.txtThick.DecimalPlaces = 2
-        Me.txtThick.Enabled = False
-        Me.txtThick.Location = New System.Drawing.Point(164, 169)
-        Me.txtThick.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtThick.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtThick.Name = "txtThick"
-        Me.txtThick.Size = New System.Drawing.Size(135, 21)
-        Me.txtThick.TabIndex = 5
-        Me.txtThick.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtThick.ThousandsSeparator = True
+        Me.txtThickNew.BackColor = System.Drawing.Color.Azure
+        Me.txtThickNew.DecimalPlaces = 2
+        Me.txtThickNew.Enabled = False
+        Me.txtThickNew.Location = New System.Drawing.Point(164, 167)
+        Me.txtThickNew.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtThickNew.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtThickNew.Name = "txtThickNew"
+        Me.txtThickNew.Size = New System.Drawing.Size(170, 21)
+        Me.txtThickNew.TabIndex = 5
+        Me.txtThickNew.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtThickNew.ThousandsSeparator = True
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.BackColor = System.Drawing.Color.Transparent
         Me.Label10.ForeColor = System.Drawing.Color.Black
-        Me.Label10.Location = New System.Drawing.Point(305, 227)
+        Me.Label10.Location = New System.Drawing.Point(339, 225)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(23, 13)
         Me.Label10.TabIndex = 119
@@ -356,7 +356,7 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.ForeColor = System.Drawing.Color.Black
-        Me.Label9.Location = New System.Drawing.Point(305, 200)
+        Me.Label9.Location = New System.Drawing.Point(339, 198)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(23, 13)
         Me.Label9.TabIndex = 118
@@ -367,7 +367,7 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.ForeColor = System.Drawing.Color.Black
-        Me.Label8.Location = New System.Drawing.Point(305, 173)
+        Me.Label8.Location = New System.Drawing.Point(339, 171)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(23, 13)
         Me.Label8.TabIndex = 117
@@ -378,7 +378,7 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.ForeColor = System.Drawing.Color.Black
-        Me.Label6.Location = New System.Drawing.Point(25, 227)
+        Me.Label6.Location = New System.Drawing.Point(25, 225)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(46, 13)
         Me.Label6.TabIndex = 116
@@ -389,7 +389,7 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(25, 200)
+        Me.Label5.Location = New System.Drawing.Point(25, 198)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(34, 13)
         Me.Label5.TabIndex = 115
@@ -402,9 +402,9 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.gcNewItem.Controls.Add(Me.Label19)
         Me.gcNewItem.Controls.Add(Me.txtCONumberNew)
         Me.gcNewItem.Controls.Add(Me.btnCO)
-        Me.gcNewItem.Controls.Add(Me.txtLength)
-        Me.gcNewItem.Controls.Add(Me.txtWidth)
-        Me.gcNewItem.Controls.Add(Me.txtThick)
+        Me.gcNewItem.Controls.Add(Me.txtLengthNew)
+        Me.gcNewItem.Controls.Add(Me.txtWidthNew)
+        Me.gcNewItem.Controls.Add(Me.txtThickNew)
         Me.gcNewItem.Controls.Add(Me.Label10)
         Me.gcNewItem.Controls.Add(Me.Label9)
         Me.gcNewItem.Controls.Add(Me.Label8)
@@ -412,9 +412,9 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.gcNewItem.Controls.Add(Me.Label5)
         Me.gcNewItem.Controls.Add(Me.Label4)
         Me.gcNewItem.Controls.Add(Me.Label1)
-        Me.gcNewItem.Controls.Add(Me.txtItemName)
+        Me.gcNewItem.Controls.Add(Me.txtItemNameNew)
         Me.gcNewItem.Controls.Add(Me.lblName)
-        Me.gcNewItem.Controls.Add(Me.txtItemCode)
+        Me.gcNewItem.Controls.Add(Me.txtItemCodeNew)
         Me.gcNewItem.Location = New System.Drawing.Point(24, 368)
         Me.gcNewItem.Name = "gcNewItem"
         Me.gcNewItem.Size = New System.Drawing.Size(674, 273)
@@ -478,7 +478,7 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.ForeColor = System.Drawing.Color.Black
-        Me.Label4.Location = New System.Drawing.Point(25, 173)
+        Me.Label4.Location = New System.Drawing.Point(25, 171)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(33, 13)
         Me.Label4.TabIndex = 114
@@ -489,45 +489,45 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(25, 91)
+        Me.Label1.Location = New System.Drawing.Point(25, 90)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(68, 13)
         Me.Label1.TabIndex = 100
         Me.Label1.Text = "Kode Barang"
         '
-        'txtItemName
+        'txtItemNameNew
         '
-        Me.txtItemName.BackColor = System.Drawing.Color.Azure
-        Me.txtItemName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtItemName.Location = New System.Drawing.Point(164, 115)
-        Me.txtItemName.MaxLength = 250
-        Me.txtItemName.Multiline = True
-        Me.txtItemName.Name = "txtItemName"
-        Me.txtItemName.ReadOnly = True
-        Me.txtItemName.Size = New System.Drawing.Size(477, 48)
-        Me.txtItemName.TabIndex = 4
+        Me.txtItemNameNew.BackColor = System.Drawing.Color.Azure
+        Me.txtItemNameNew.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtItemNameNew.Location = New System.Drawing.Point(164, 113)
+        Me.txtItemNameNew.MaxLength = 250
+        Me.txtItemNameNew.Multiline = True
+        Me.txtItemNameNew.Name = "txtItemNameNew"
+        Me.txtItemNameNew.ReadOnly = True
+        Me.txtItemNameNew.Size = New System.Drawing.Size(477, 48)
+        Me.txtItemNameNew.TabIndex = 4
         '
         'lblName
         '
         Me.lblName.AutoSize = True
         Me.lblName.BackColor = System.Drawing.Color.Transparent
         Me.lblName.ForeColor = System.Drawing.Color.Black
-        Me.lblName.Location = New System.Drawing.Point(25, 118)
+        Me.lblName.Location = New System.Drawing.Point(25, 116)
         Me.lblName.Name = "lblName"
         Me.lblName.Size = New System.Drawing.Size(71, 13)
         Me.lblName.TabIndex = 99
         Me.lblName.Text = "Nama Barang"
         '
-        'txtItemCode
+        'txtItemCodeNew
         '
-        Me.txtItemCode.BackColor = System.Drawing.Color.Azure
-        Me.txtItemCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtItemCode.Location = New System.Drawing.Point(164, 87)
-        Me.txtItemCode.MaxLength = 250
-        Me.txtItemCode.Name = "txtItemCode"
-        Me.txtItemCode.ReadOnly = True
-        Me.txtItemCode.Size = New System.Drawing.Size(170, 21)
-        Me.txtItemCode.TabIndex = 3
+        Me.txtItemCodeNew.BackColor = System.Drawing.Color.Azure
+        Me.txtItemCodeNew.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtItemCodeNew.Location = New System.Drawing.Point(164, 86)
+        Me.txtItemCodeNew.MaxLength = 250
+        Me.txtItemCodeNew.Name = "txtItemCodeNew"
+        Me.txtItemCodeNew.ReadOnly = True
+        Me.txtItemCodeNew.Size = New System.Drawing.Size(170, 21)
+        Me.txtItemCodeNew.TabIndex = 3
         '
         'lblInfo
         '
@@ -587,9 +587,9 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
         CType(Me.txtLengthOld, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWidthOld, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtThickOld, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtLength, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtThick, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtLengthNew, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtWidthNew, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtThickNew, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gcNewItem, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gcNewItem.ResumeLayout(False)
         Me.gcNewItem.PerformLayout()
@@ -612,9 +612,9 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
     Friend WithEvents txtItemNameOld As usTextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents txtItemCodeOld As usTextBox
-    Friend WithEvents txtLength As usNumeric
-    Friend WithEvents txtWidth As usNumeric
-    Friend WithEvents txtThick As usNumeric
+    Friend WithEvents txtLengthNew As usNumeric
+    Friend WithEvents txtWidthNew As usNumeric
+    Friend WithEvents txtThickNew As usNumeric
     Friend WithEvents Label10 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents Label8 As Label
@@ -623,9 +623,9 @@ Partial Class frmTraSalesContractDetItemVer2ChangeItem
     Friend WithEvents gcNewItem As DevExpress.XtraEditors.GroupControl
     Friend WithEvents Label4 As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents txtItemName As usTextBox
+    Friend WithEvents txtItemNameNew As usTextBox
     Friend WithEvents lblName As Label
-    Friend WithEvents txtItemCode As usTextBox
+    Friend WithEvents txtItemCodeNew As usTextBox
     Friend WithEvents lblInfo As Label
     Friend WithEvents BarClose As ToolBarButton
     Friend WithEvents BarRefresh As ToolBarButton

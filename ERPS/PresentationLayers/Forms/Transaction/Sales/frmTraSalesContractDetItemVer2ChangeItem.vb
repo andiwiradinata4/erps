@@ -9,8 +9,8 @@
     Private strCODetailIDNew As String = ""
     Private drSelected As DataRow
     Private strID As String = ""
-    Private bolIsStock As Boolean
     Private bolIsSave As Boolean = False
+    Private clsCS As VO.CS
 
     Public WriteOnly Property pubDatRowSelected As DataRow
         Set(value As DataRow)
@@ -24,16 +24,16 @@
         End Set
     End Property
 
-    Public WriteOnly Property pubIsStock As Boolean
-        Set(value As Boolean)
-            bolIsStock = value
-        End Set
-    End Property
-
     Public ReadOnly Property pubIsSave As Boolean
         Get
             Return bolIsSave
         End Get
+    End Property
+
+    Public WriteOnly Property pubCS As VO.CS
+        Set(value As VO.CS)
+            clsCS = value
+        End Set
     End Property
 
     Public Sub pubShowDialog(ByVal frmGetParent As Form)
@@ -49,6 +49,9 @@
         Me.Cursor = Cursors.WaitCursor
         Try
             strID = drSelected.Item("ID")
+            txtCONumber.Text = drSelected.Item("CONumber")
+            txtOrderNumberSupplier.Text = drSelected.Item("OrderNumberSupplier")
+            strCODetailIDOld = drSelected.Item("OrderNumberSupplier")
             intItemIDOld = drSelected.Item("ItemID")
             txtItemCodeOld.Text = drSelected.Item("ItemCode")
             txtItemNameOld.Text = drSelected.Item("ItemName")
@@ -63,13 +66,13 @@
     End Sub
 
     Private Sub prvSave()
-        If txtItemCode.Text.Trim = "" Then
+        If txtItemCodeNew.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Pilih item terlebih dahulu")
-            txtItemCode.Focus()
+            txtItemCodeNew.Focus()
             Exit Sub
         End If
 
-        If Not UI.usForm.frmAskQuestion("Anda yakin ingin mengganti barang menjadi " & txtItemName.Text.Trim & "?") Then Exit Sub
+        If Not UI.usForm.frmAskQuestion("Anda yakin ingin mengganti barang menjadi " & txtItemNameNew.Text.Trim & "?") Then Exit Sub
 
         Try
             Dim clsData As New VO.SalesContractDetConfirmationOrder With {
@@ -77,7 +80,8 @@
                 .SCID = drSelected.Item("SCID"),
                 .GroupID = drSelected.Item("GroupID"),
                 .CODetailID = strCODetailIDNew,
-                .OrderNumberSupplier = txtOrderNumberSupplierNew.Text.Trim
+                .OrderNumberSupplier = txtOrderNumberSupplierNew.Text.Trim,
+                .ItemID = intItemIDNew
             }
             BL.SalesContract.ChangeCODetailItem(clsData)
             UI.usForm.frmMessageBox("Data berhasil diubah")
@@ -89,18 +93,21 @@
     End Sub
 
     Private Sub prvChooseItem()
-        Dim frmDetail As New frmMstItem
+        Dim frmDetail As New frmTraConfirmationOrderOutstandingSalesContractVer1
         With frmDetail
-            .pubIsLookUp = True
-            .StartPosition = FormStartPosition.CenterScreen
-            .ShowDialog()
+            .pubCS = clsCS
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
             If .pubIsLookUpGet Then
-                intItemIDNew = .pubLUdtRow.Item("ID")
-                txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
-                txtItemName.Text = .pubLUdtRow.Item("ItemName")
-                txtThick.Value = .pubLUdtRow.Item("Thick")
-                txtWidth.Value = .pubLUdtRow.Item("Width")
-                txtLength.Value = .pubLUdtRow.Item("Length")
+                txtCONumberNew.Text = .pubLUdtRow.Item("CONumber")
+                strCODetailIDNew = .pubLUdtRow.Item("ID")
+                txtOrderNumberSupplierNew.Text = .pubLUdtRow.Item("OrderNumberSupplier")
+                intItemIDNew = .pubLUdtRow.Item("ItemID")
+                txtItemCodenew.Text = .pubLUdtRow.Item("ItemCode")
+                txtItemNamenew.Text = .pubLUdtRow.Item("ItemName")
+                txtThickNew.Value = .pubLUdtRow.Item("Thick")
+                txtWidthNew.Value = .pubLUdtRow.Item("Width")
+                txtLengthNew.Value = .pubLUdtRow.Item("Length")
             End If
         End With
     End Sub
