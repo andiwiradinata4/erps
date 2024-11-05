@@ -825,6 +825,65 @@ Namespace BL
             End Using
         End Sub
 
+        Public Shared Function ChangeCODetailItem(ByVal clsData As VO.SalesContractDetConfirmationOrder) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Dim dtSCDetail As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsData.SCID, "")
+                    Dim drSelectedDetail() As DataRow = dtSCDetail.Select("GroupID=" & clsData.GroupID)
+
+                    DL.SalesContract.UpdateDetailCOItem(sqlCon, sqlTrans, clsData)
+
+
+                    Dim dtDeliveryDet As New DataTable
+                    Dim dtARAPItem As New DataTable
+                    For Each dr As DataRow In drSelectedDetail
+                        '# Get All Delivery Detail By SCDetailID
+                        dtDeliveryDet.Merge(DL.Delivery.ListDataDetailBySCDetailID(sqlCon, sqlTrans, dr.Item("ID"), dr.Item("ItemID")))
+
+                        '# Get ARAP Item Base on SalesID in Account Receivable Detail
+                        dtARAPItem.Merge(DL.ARAP.ListDataByReferencesDetailID(sqlCon, sqlTrans, dr.Item("ID"), dr.Item("ItemID")))
+
+                        '# Change Order Number Supplier Sales Contract Detail
+                        DL.Delivery.ChangeOrderNumberSupplierDetail(sqlCon, sqlTrans, dr.Item("ID"), dr.Item("OrderNumberSupplier"), clsData.OrderNumberSupplier)
+                    Next
+
+                    ''# Get SC Detail
+                    'Dim dtSalesContractDet As DataTable = DL.SalesContract.ListDataByOrderRequestDetailID(sqlCon, sqlTrans, strID, intOldItemID)
+
+                    'For Each dr As DataRow In dtSalesContractDet.Rows
+                    '    '# Get All Delivery Detail By SCDetailID
+                    '    dtDeliveryDet.Merge(DL.Delivery.ListDataDetailBySCDetailID(sqlCon, sqlTrans, dr.Item("SCDetailID"), intOldItemID))
+
+                    '    '# Get ARAP Item Base on SalesID in Account Receivable Detail
+                    '    dtARAPItem.Merge(DL.ARAP.ListDataByReferencesDetailID(sqlCon, sqlTrans, dr.Item("SCDetailID"), intOldItemID))
+
+                    '    '# Update ItemID Delivery Detail
+                    '    DL.Delivery.ChangeItemIDDetail(sqlCon, sqlTrans, dr.Item("SCDetailID"), intOldItemID, intNewItemID)
+
+                    '    '# Update ItemID ARAP Item
+                    '    DL.ARAP.ChangeItemIDItem(sqlCon, sqlTrans, dr.Item("SCDetailID"), intOldItemID, intNewItemID)
+                    'Next
+
+                    ''# Update ItemID Sales Contract Item
+                    'For Each dr As DataRow In dtSalesContractDet.Rows
+                    '    DL.SalesContract.ChangeItemIDDetail(sqlCon, sqlTrans, dr.Item("SCDetailID"), intOldItemID, intNewItemID)
+                    'Next
+
+                    ''# Update ItemID Order Request Detail
+                    'DL.OrderRequest.ChangeItemIDDetail(sqlCon, sqlTrans, strID, intNewItemID)
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+
+            Return bolReturn
+        End Function
+
 #End Region
 
 #Region "Payment Term"

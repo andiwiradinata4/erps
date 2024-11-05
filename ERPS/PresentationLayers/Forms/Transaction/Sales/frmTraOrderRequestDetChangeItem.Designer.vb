@@ -33,11 +33,6 @@ Partial Class frmTraOrderRequestDetChangeItem
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtItemName = New ERPS.usTextBox()
         Me.gcNewItem = New DevExpress.XtraEditors.GroupControl()
-        Me.GroupControl1 = New DevExpress.XtraEditors.GroupControl()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.txtItemNameOld = New ERPS.usTextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.txtItemCodeOld = New ERPS.usTextBox()
         Me.txtLength = New ERPS.usNumeric()
         Me.txtWidth = New ERPS.usNumeric()
         Me.txtThick = New ERPS.usNumeric()
@@ -47,6 +42,7 @@ Partial Class frmTraOrderRequestDetChangeItem
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.GroupControl1 = New DevExpress.XtraEditors.GroupControl()
         Me.txtLengthOld = New ERPS.usNumeric()
         Me.txtWidthOld = New ERPS.usNumeric()
         Me.txtThickOld = New ERPS.usNumeric()
@@ -56,13 +52,17 @@ Partial Class frmTraOrderRequestDetChangeItem
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtItemNameOld = New ERPS.usTextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtItemCodeOld = New ERPS.usTextBox()
         CType(Me.gcNewItem, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gcNewItem.SuspendLayout()
-        CType(Me.GroupControl1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupControl1.SuspendLayout()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtThick, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GroupControl1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupControl1.SuspendLayout()
         CType(Me.txtLengthOld, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWidthOld, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtThickOld, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -180,72 +180,6 @@ Partial Class frmTraOrderRequestDetChangeItem
         Me.gcNewItem.TabIndex = 3
         Me.gcNewItem.Text = "Baru"
         '
-        'GroupControl1
-        '
-        Me.GroupControl1.Controls.Add(Me.txtLengthOld)
-        Me.GroupControl1.Controls.Add(Me.txtWidthOld)
-        Me.GroupControl1.Controls.Add(Me.txtThickOld)
-        Me.GroupControl1.Controls.Add(Me.Label7)
-        Me.GroupControl1.Controls.Add(Me.Label11)
-        Me.GroupControl1.Controls.Add(Me.Label12)
-        Me.GroupControl1.Controls.Add(Me.Label13)
-        Me.GroupControl1.Controls.Add(Me.Label14)
-        Me.GroupControl1.Controls.Add(Me.Label15)
-        Me.GroupControl1.Controls.Add(Me.Label2)
-        Me.GroupControl1.Controls.Add(Me.txtItemNameOld)
-        Me.GroupControl1.Controls.Add(Me.Label3)
-        Me.GroupControl1.Controls.Add(Me.txtItemCodeOld)
-        Me.GroupControl1.Location = New System.Drawing.Point(24, 69)
-        Me.GroupControl1.Name = "GroupControl1"
-        Me.GroupControl1.Size = New System.Drawing.Size(646, 210)
-        Me.GroupControl1.TabIndex = 2
-        Me.GroupControl1.Text = "Saat ini"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(24, 38)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(68, 13)
-        Me.Label2.TabIndex = 100
-        Me.Label2.Text = "Kode Barang"
-        '
-        'txtItemNameOld
-        '
-        Me.txtItemNameOld.BackColor = System.Drawing.Color.Azure
-        Me.txtItemNameOld.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtItemNameOld.Location = New System.Drawing.Point(108, 62)
-        Me.txtItemNameOld.MaxLength = 250
-        Me.txtItemNameOld.Multiline = True
-        Me.txtItemNameOld.Name = "txtItemNameOld"
-        Me.txtItemNameOld.ReadOnly = True
-        Me.txtItemNameOld.Size = New System.Drawing.Size(477, 48)
-        Me.txtItemNameOld.TabIndex = 1
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(24, 65)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(71, 13)
-        Me.Label3.TabIndex = 99
-        Me.Label3.Text = "Nama Barang"
-        '
-        'txtItemCodeOld
-        '
-        Me.txtItemCodeOld.BackColor = System.Drawing.Color.Azure
-        Me.txtItemCodeOld.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtItemCodeOld.Location = New System.Drawing.Point(108, 34)
-        Me.txtItemCodeOld.MaxLength = 250
-        Me.txtItemCodeOld.Name = "txtItemCodeOld"
-        Me.txtItemCodeOld.ReadOnly = True
-        Me.txtItemCodeOld.Size = New System.Drawing.Size(135, 21)
-        Me.txtItemCodeOld.TabIndex = 0
-        '
         'txtLength
         '
         Me.txtLength.BackColor = System.Drawing.Color.Azure
@@ -353,6 +287,27 @@ Partial Class frmTraOrderRequestDetChangeItem
         Me.Label4.Size = New System.Drawing.Size(33, 13)
         Me.Label4.TabIndex = 114
         Me.Label4.Text = "Tebal"
+        '
+        'GroupControl1
+        '
+        Me.GroupControl1.Controls.Add(Me.txtLengthOld)
+        Me.GroupControl1.Controls.Add(Me.txtWidthOld)
+        Me.GroupControl1.Controls.Add(Me.txtThickOld)
+        Me.GroupControl1.Controls.Add(Me.Label7)
+        Me.GroupControl1.Controls.Add(Me.Label11)
+        Me.GroupControl1.Controls.Add(Me.Label12)
+        Me.GroupControl1.Controls.Add(Me.Label13)
+        Me.GroupControl1.Controls.Add(Me.Label14)
+        Me.GroupControl1.Controls.Add(Me.Label15)
+        Me.GroupControl1.Controls.Add(Me.Label2)
+        Me.GroupControl1.Controls.Add(Me.txtItemNameOld)
+        Me.GroupControl1.Controls.Add(Me.Label3)
+        Me.GroupControl1.Controls.Add(Me.txtItemCodeOld)
+        Me.GroupControl1.Location = New System.Drawing.Point(24, 69)
+        Me.GroupControl1.Name = "GroupControl1"
+        Me.GroupControl1.Size = New System.Drawing.Size(646, 210)
+        Me.GroupControl1.TabIndex = 2
+        Me.GroupControl1.Text = "Saat ini"
         '
         'txtLengthOld
         '
@@ -462,6 +417,51 @@ Partial Class frmTraOrderRequestDetChangeItem
         Me.Label15.TabIndex = 114
         Me.Label15.Text = "Tebal"
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.ForeColor = System.Drawing.Color.Black
+        Me.Label2.Location = New System.Drawing.Point(24, 38)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(68, 13)
+        Me.Label2.TabIndex = 100
+        Me.Label2.Text = "Kode Barang"
+        '
+        'txtItemNameOld
+        '
+        Me.txtItemNameOld.BackColor = System.Drawing.Color.Azure
+        Me.txtItemNameOld.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtItemNameOld.Location = New System.Drawing.Point(108, 62)
+        Me.txtItemNameOld.MaxLength = 250
+        Me.txtItemNameOld.Multiline = True
+        Me.txtItemNameOld.Name = "txtItemNameOld"
+        Me.txtItemNameOld.ReadOnly = True
+        Me.txtItemNameOld.Size = New System.Drawing.Size(477, 48)
+        Me.txtItemNameOld.TabIndex = 1
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
+        Me.Label3.ForeColor = System.Drawing.Color.Black
+        Me.Label3.Location = New System.Drawing.Point(24, 65)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(71, 13)
+        Me.Label3.TabIndex = 99
+        Me.Label3.Text = "Nama Barang"
+        '
+        'txtItemCodeOld
+        '
+        Me.txtItemCodeOld.BackColor = System.Drawing.Color.Azure
+        Me.txtItemCodeOld.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtItemCodeOld.Location = New System.Drawing.Point(108, 34)
+        Me.txtItemCodeOld.MaxLength = 250
+        Me.txtItemCodeOld.Name = "txtItemCodeOld"
+        Me.txtItemCodeOld.ReadOnly = True
+        Me.txtItemCodeOld.Size = New System.Drawing.Size(135, 21)
+        Me.txtItemCodeOld.TabIndex = 0
+        '
         'frmTraOrderRequestDetChangeItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -480,12 +480,12 @@ Partial Class frmTraOrderRequestDetChangeItem
         CType(Me.gcNewItem, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gcNewItem.ResumeLayout(False)
         Me.gcNewItem.PerformLayout()
-        CType(Me.GroupControl1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupControl1.ResumeLayout(False)
-        Me.GroupControl1.PerformLayout()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtThick, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GroupControl1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupControl1.ResumeLayout(False)
+        Me.GroupControl1.PerformLayout()
         CType(Me.txtLengthOld, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWidthOld, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtThickOld, System.ComponentModel.ISupportInitialize).EndInit()

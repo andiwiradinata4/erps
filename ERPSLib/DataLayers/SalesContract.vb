@@ -2442,6 +2442,30 @@
             End Try
         End Sub
 
+        Public Shared Sub UpdateDetailCOItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                           ByVal clsData As VO.SalesContractDetConfirmationOrder)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesContractDetConfirmationOrder SET " & vbNewLine &
+                    "   CODetailID=@CODetailID, ItemID=@ItemID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = clsData.CODetailID
+                .Parameters.Add("@ItemID", SqlDbType.Int).Value = clsData.ItemID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Payment Term"

@@ -1532,6 +1532,31 @@
             End Try
         End Sub
 
+        Public Shared Sub ChangeOrderNumberSupplierDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                          ByVal strSCDetailID As String, ByVal strOldOrderNumberSupplier As String,
+                                                          ByVal strNewOrderNumberSupplier As String)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandText =
+"UPDATE traDeliveryDet SET  " & vbNewLine &
+"	OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
+"WHERE " & vbNewLine &
+"	OrderNumberSupplier=@OldOrderNumberSupplier " & vbNewLine &
+"	AND SCDetailID=@SCDetailID " & vbNewLine
+
+                .Parameters.Add("@SCDetailID", SqlDbType.VarChar, 100).Value = strSCDetailID
+                .Parameters.Add("@OldOrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOldOrderNumberSupplier
+                .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strNewOrderNumberSupplier
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Delivery Transport"

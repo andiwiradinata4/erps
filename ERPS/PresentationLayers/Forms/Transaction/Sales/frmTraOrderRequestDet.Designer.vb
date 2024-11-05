@@ -80,12 +80,12 @@ Partial Class frmTraOrderRequestDet
         Me.BarAdd = New System.Windows.Forms.ToolBarButton()
         Me.BarEdit = New System.Windows.Forms.ToolBarButton()
         Me.BarDelete = New System.Windows.Forms.ToolBarButton()
+        Me.BarItemSep1 = New System.Windows.Forms.ToolBarButton()
+        Me.BarChangeItem = New System.Windows.Forms.ToolBarButton()
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.BarItemSep1 = New System.Windows.Forms.ToolBarButton()
-        Me.BarChangeItem = New System.Windows.Forms.ToolBarButton()
         Me.StatusStrip.SuspendLayout()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
@@ -765,6 +765,17 @@ Partial Class frmTraOrderRequestDet
         Me.BarDelete.Tag = "Delete"
         Me.BarDelete.Text = "Hapus"
         '
+        'BarItemSep1
+        '
+        Me.BarItemSep1.Name = "BarItemSep1"
+        Me.BarItemSep1.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarChangeItem
+        '
+        Me.BarChangeItem.Name = "BarChangeItem"
+        Me.BarChangeItem.Tag = "Alt"
+        Me.BarChangeItem.Text = "Ubah Barang"
+        '
         'pgMain
         '
         Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -817,17 +828,6 @@ Partial Class frmTraOrderRequestDet
         Me.rpiValue.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
-        '
-        'BarItemSep1
-        '
-        Me.BarItemSep1.Name = "BarItemSep1"
-        Me.BarItemSep1.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
-        '
-        'BarChangeItem
-        '
-        Me.BarChangeItem.Name = "BarChangeItem"
-        Me.BarChangeItem.Tag = "Alt"
-        Me.BarChangeItem.Text = "Ubah Barang"
         '
         'frmTraOrderRequestDet
         '
