@@ -74,6 +74,7 @@
                 DevelopOnProgress_ID67(sqlCon, Nothing)
                 DevelopOnProgress_ID68(sqlCon, Nothing)
                 DevelopOnProgress_ID69(sqlCon, Nothing)
+                DevelopOnProgress_ID70(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -2052,6 +2053,29 @@
 ")  " & vbNewLine & _
 "" & vbNewLine & _
 "ALTER TABLE mstItem ADD RefID INT NOT NULL CONSTRAINT DF_mstItem_RefID DEFAULT ((0)) " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 70
+        Private Shared Sub DevelopOnProgress_ID70(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 70
+            clsData.Name = "Add Invoice Information in traPurchaseOrderCuttingDetResult"
+            clsData.Scripts =
+            "ALTER TABLE traPurchaseOrderCuttingDetResult ADD DPAmount DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_DPAmount DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traPurchaseOrderCuttingDetResult ADD DPAmountPPN DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traPurchaseOrderCuttingDetResult ADD DPAmountPPH DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traPurchaseOrderCuttingDetResult ADD ReceiveAmount DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_ReceiveAmount DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traPurchaseOrderCuttingDetResult ADD ReceiveAmountPPN DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traPurchaseOrderCuttingDetResult ADD ReceiveAmountPPH DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traPurchaseOrderCuttingDetResult ADD AllocateDPAmount DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_AllocateDPAmount DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traPurchaseOrderCuttingDetResult ADD UnitPrice DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_UnitPrice DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traPurchaseOrderCuttingDetResult ADD TotalPrice DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_TotalPrice DEFAULT ((0)) " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

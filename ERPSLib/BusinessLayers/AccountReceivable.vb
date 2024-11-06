@@ -457,7 +457,7 @@
                 ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentSalesReturn Then
                     dtReferencesItem = DL.SalesReturn.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID)
                 ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then
-                    dtReferencesItem = DL.PurchaseOrderCutting.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID)
+                    dtReferencesItem = DL.PurchaseOrderCutting.ListDataDetailResult(sqlCon, sqlTrans, clsData.ReferencesID)
                 ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then
                     dtReferencesItem = DL.ConfirmationClaim.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID)
                 End If

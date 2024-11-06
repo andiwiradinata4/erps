@@ -188,7 +188,7 @@
 "    ARH.ProgramID=MP.ID     " & vbNewLine &
 "INNER JOIN traPurchaseOrderCutting SCH ON     " & vbNewLine &
 "	ARD.SalesID=SCH.ID     " & vbNewLine &
-"INNER JOIN traPurchaseOrderCuttingDet SCD ON     " & vbNewLine &
+"INNER JOIN traPurchaseOrderCuttingDetResult SCD ON     " & vbNewLine &
 "	SCH.ID=SCD.POID     " & vbNewLine &
 "INNER JOIN mstItem MI ON 	      " & vbNewLine &
 "    SCD.ItemID=MI.ID 	      " & vbNewLine &

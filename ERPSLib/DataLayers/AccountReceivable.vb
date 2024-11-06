@@ -1975,11 +1975,11 @@
                     "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, A.Quantity, A.Weight, A.TotalWeight, MaxTotalWeight=B.TotalWeight-B.InvoiceTotalWeight+A.TotalWeight, " & vbNewLine &
                     "   B.UnitPrice, B.TotalPrice AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
-                    "   B.TotalPrice-B.ClaimReceiveAmount+A.Amount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   B.TotalPrice-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
                     "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID, " & vbNewLine &
-                    "   MaxTotalQuantity=CASE WHEN B.Quantity-B.ClaimInvoiceQuantity<=0 THEN 1 ELSE B.Quantity-B.CLaimInvoiceQuantity+A.Quantity END, MI.ItemCodeExternal " & vbNewLine &
+                    "   MaxTotalQuantity=CASE WHEN B.Quantity-B.InvoiceQuantity<=0 THEN 1 ELSE B.Quantity-B.InvoiceQuantity+A.Quantity END, MI.ItemCodeExternal " & vbNewLine &
                     "FROM traARAPItem A " & vbNewLine &
-                    "INNER JOIN traPurchaseOrderCuttingDet B ON " & vbNewLine &
+                    "INNER JOIN traPurchaseOrderCuttingDetResult B ON " & vbNewLine &
                     "   A.ReferencesID=B.POID " & vbNewLine &
                     "   And A.ReferencesDetailID=B.ID " & vbNewLine &
                     "INNER JOIN traPurchaseOrderCutting C ON " & vbNewLine &
@@ -1996,13 +1996,13 @@
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
                     "   CAST(0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.POID AS ReferencesID, A.ID AS ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
-                    "   A.ItemID, A.Quantity, A.Weight, CAST(0 AS DECIMAL(18,4)) AS TotalWeight, MaxTotalWeight=A.TotalWeight-A.ClaimInvoiceTotalWeight, " & vbNewLine &
+                    "   A.ItemID, A.Quantity, A.Weight, CAST(0 AS DECIMAL(18,4)) AS TotalWeight, MaxTotalWeight=A.TotalWeight-A.InvoiceTotalWeight, " & vbNewLine &
                     "   A.UnitPrice, A.TotalPrice AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, CAST(0 AS DECIMAL(18,2)) AS DPAmount, B.PPN AS PPNPercent, B.PPH AS PPHPercent, " & vbNewLine &
                     "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
-                    "   A.TotalPrice-A.ClaimReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   A.TotalPrice-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
                     "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID, " & vbNewLine &
-                    "   MaxTotalQuantity=CASE WHEN A.Quantity-A.ClaimInvoiceQuantity<=0 THEN 1 ELSE A.Quantity-A.ClaimInvoiceQuantity END, MI.ItemCodeExternal " & vbNewLine &
-                    "FROM traPurchaseOrderCuttingDet A " & vbNewLine &
+                    "   MaxTotalQuantity=CASE WHEN A.Quantity-A.InvoiceQuantity<=0 THEN 1 ELSE A.Quantity-A.InvoiceQuantity END, MI.ItemCodeExternal " & vbNewLine &
+                    "FROM traPurchaseOrderCuttingDetResult A " & vbNewLine &
                     "INNER JOIN traPurchaseOrderCutting B ON " & vbNewLine &
                     "   A.POID=B.ID " & vbNewLine &
                     "INNER JOIN mstItem MI ON " & vbNewLine &
@@ -2017,7 +2017,7 @@
                     "   And B.ProgramID=@ProgramID " & vbNewLine &
                     "   And B.ID=@ReferencesID " & vbNewLine &
                     "   And B.ApprovedBy<>'' " & vbNewLine &
-                    "   AND A.TotalPrice-A.ClaimReceiveAmount>0 " & vbNewLine &
+                    "   AND A.TotalPrice-A.ReceiveAmount>0 " & vbNewLine &
                     "   AND B.IsClaimCustomer=1 " & vbNewLine &
                     "   AND A.ID NOT IN " & vbNewLine &
                     "       ( " & vbNewLine &

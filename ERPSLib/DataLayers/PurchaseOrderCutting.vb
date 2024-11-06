@@ -1126,8 +1126,8 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText =
-                    "UPDATE traPurchaseOrderCuttingDet SET 	" & vbNewLine &
-                    "	ClaimReceiveAmount=	" & vbNewLine &
+                    "UPDATE traPurchaseOrderCuttingDetResult SET 	" & vbNewLine &
+                    "	ReceiveAmount=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(TDD.Amount-TDD.DPAmount),0) + (SELECT ISNULL(SUM(DPAmount),0) AS DP FROM traARAPItem WHERE ReferencesDetailID=@ReferencesDetailID) ReceiveAmount " & vbNewLine &
@@ -1139,7 +1139,7 @@
                     "			AND AR.IsDeleted=0 " & vbNewLine &
                     "			AND AR.Modules=@Modules " & vbNewLine &
                     "	), " & vbNewLine &
-                    "	ClaimReceiveAmountPPN=	" & vbNewLine &
+                    "	ReceiveAmountPPN=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(TDD.PPN),0) PPN " & vbNewLine &
@@ -1151,7 +1151,7 @@
                     "			AND AR.IsDeleted=0 " & vbNewLine &
                     "			AND AR.Modules=@Modules " & vbNewLine &
                     "	), " & vbNewLine &
-                    "	ClaimReceiveAmountPPH=	" & vbNewLine &
+                    "	ReceiveAmountPPH=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(TDD.PPH),0) PPH " & vbNewLine &
@@ -1163,7 +1163,7 @@
                     "			AND AR.IsDeleted=0 " & vbNewLine &
                     "			AND AR.Modules=@Modules " & vbNewLine &
                     "	), " & vbNewLine &
-                    "	ClaimInvoiceQuantity=	" & vbNewLine &
+                    "	InvoiceQuantity=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(TDD.Quantity),0) Quantity " & vbNewLine &
@@ -1175,7 +1175,7 @@
                     "			AND AR.IsDeleted=0 " & vbNewLine &
                     "			AND AR.Modules=@Modules " & vbNewLine &
                     "	), " & vbNewLine &
-                    "	ClaimInvoiceTotalWeight=	" & vbNewLine &
+                    "	InvoiceTotalWeight=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
                     "			ISNULL(SUM(TDD.TotalWeight),0) Weight " & vbNewLine &
@@ -1211,24 +1211,24 @@
                     "	ClaimReceiveAmount=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(TDD.ClaimReceiveAmount),0) TotalPayment		" & vbNewLine &
-                    "		FROM traPurchaseOrderCuttingDet TDD " & vbNewLine &
+                    "			ISNULL(SUM(TDD.ReceiveAmount),0) TotalPayment		" & vbNewLine &
+                    "		FROM traPurchaseOrderCuttingDetResult TDD " & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			TDD.POID=@ID 	" & vbNewLine &
                     "	), " & vbNewLine &
                     "	ClaimReceiveAmountPPN=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(TDD.ClaimReceiveAmountPPN),0) TotalPayment		" & vbNewLine &
-                    "		FROM traPurchaseOrderCuttingDet TDD " & vbNewLine &
+                    "			ISNULL(SUM(TDD.ReceiveAmountPPN),0) TotalPayment		" & vbNewLine &
+                    "		FROM traPurchaseOrderCuttingDetResult TDD " & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			TDD.POID=@ID 	" & vbNewLine &
                     "	), " & vbNewLine &
                     "	ClaimReceiveAmountPPH=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(TDD.ClaimReceiveAmountPPH),0) TotalPayment		" & vbNewLine &
-                    "		FROM traPurchaseOrderCuttingDet TDD " & vbNewLine &
+                    "			ISNULL(SUM(TDD.ReceiveAmountPPH),0) TotalPayment		" & vbNewLine &
+                    "		FROM traPurchaseOrderCuttingDetResult TDD " & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			TDD.POID=@ID 	" & vbNewLine &
                     "	) " & vbNewLine &
@@ -1512,7 +1512,7 @@
                     "   A.ID, A.POID, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
                     "   A.Quantity, A.Weight, A.TotalWeight, A.OrderNumberSupplier, A.Remarks, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceRawMaterial, " & vbNewLine &
-                    "   A.TotalPriceRawMaterial, A.ResultID " & vbNewLine &
+                    "   A.TotalPriceRawMaterial, A.ResultID, A.UnitPrice, A.TotalPrice " & vbNewLine &
                     "FROM traPurchaseOrderCuttingDetResult A " & vbNewLine &
                     "INNER JOIN mstItem B ON " & vbNewLine &
                     "   A.ItemID=B.ID " & vbNewLine &
@@ -1537,9 +1537,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traPurchaseOrderCuttingDetResult " & vbNewLine &
-                    "   (ID, POID, GroupID, ItemID, Quantity, Weight, TotalWeight, OrderNumberSupplier, Remarks, RoundingWeight, LevelItem, ParentID, UnitPriceRawMaterial, TotalPriceRawMaterial, ResultID) " & vbNewLine &
+                    "   (ID, POID, GroupID, ItemID, Quantity, Weight, TotalWeight, OrderNumberSupplier, Remarks, RoundingWeight, LevelItem, ParentID, UnitPriceRawMaterial, TotalPriceRawMaterial, ResultID, UnitPrice, TotalPrice) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @POID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @OrderNumberSupplier, @Remarks, @RoundingWeight, @LevelItem, @ParentID, @UnitPriceRawMaterial, @TotalPriceRawMaterial, @ResultID) " & vbNewLine
+                    "   (@ID, @POID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @OrderNumberSupplier, @Remarks, @RoundingWeight, @LevelItem, @ParentID, @UnitPriceRawMaterial, @TotalPriceRawMaterial, @ResultID, @UnitPrice, @TotalPrice) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = clsData.POID
@@ -1556,6 +1556,8 @@
                 .Parameters.Add("@UnitPriceRawMaterial", SqlDbType.Decimal).Value = clsData.UnitPriceRawMaterial
                 .Parameters.Add("@TotalPriceRawMaterial", SqlDbType.Decimal).Value = clsData.TotalPriceRawMaterial
                 .Parameters.Add("@ResultID", SqlDbType.VarChar, 100).Value = clsData.ResultID
+                .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = clsData.UnitPrice
+                .Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = clsData.TotalPrice
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

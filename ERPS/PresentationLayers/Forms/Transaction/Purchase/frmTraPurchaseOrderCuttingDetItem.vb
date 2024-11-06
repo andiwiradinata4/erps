@@ -285,6 +285,8 @@ Public Class frmTraPurchaseOrderCuttingDetItem
 
         For Each dr As DataRow In dtResult.Rows
             dr.BeginEdit()
+            dr.Item("UnitPrice") = txtUnitPrice.Value
+            dr.Item("TotalPrice") = txtUnitPrice.Value * dr.Item("TotalWeight")
             dr.Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
             dr.Item("GroupID") = intGroupID
             dr.EndEdit()

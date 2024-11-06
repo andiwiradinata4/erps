@@ -18,5 +18,14 @@
         Property TotalPriceRawMaterial As Decimal
         Property IsShowPrintOut As Boolean
         Property ResultID As String
+        Property DPAmount As Decimal
+        Property DPAmountPPN As Decimal
+        Property DPAmountPPH As Decimal
+        Property ReceiveAmount As Decimal
+        Property ReceivePPN As Decimal
+        Property ReceivePPH As Decimal
+        Property AllocateDPAmount As Decimal
+        Property UnitPrice As Decimal
+        Property TotalPrice As Decimal
     End Class
 End Namespace
