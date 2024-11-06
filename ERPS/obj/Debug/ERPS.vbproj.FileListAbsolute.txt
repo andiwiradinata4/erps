@@ -945,3 +945,11 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryPrint.
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer2ChangeItem.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryPrint.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer2ChangeItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationClaim.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationClaimDet.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationClaimDetItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationClaimOutstandingClaim.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationClaimOutstandingClaimItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderCuttingDetRemarkResult.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraDeliveryPrint.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer2ChangeItem.resources

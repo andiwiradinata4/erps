@@ -215,7 +215,7 @@ Partial Public Class rptSalesContractVer00
         'TopMargin
         '
         Me.TopMargin.Dpi = 100.0!
-        Me.TopMargin.HeightF = 5.0!
+        Me.TopMargin.HeightF = 10.0!
         Me.TopMargin.Name = "TopMargin"
         Me.TopMargin.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
         Me.TopMargin.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
@@ -1940,7 +1940,7 @@ Partial Public Class rptSalesContractVer00
         Me.DataSource = Me.SalesContractVer00
         Me.DisplayName = "Kontrak Penjualan"
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.Margins = New System.Drawing.Printing.Margins(30, 30, 5, 2)
+        Me.Margins = New System.Drawing.Printing.Margins(30, 30, 10, 2)
         Me.PageHeight = 1169
         Me.PageWidth = 827
         Me.PaperKind = System.Drawing.Printing.PaperKind.A4

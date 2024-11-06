@@ -103,7 +103,7 @@ Partial Public Class rptConfirmationOrderVer00
         Me.sbDetailCoil = New DevExpress.XtraReports.UI.SubBand()
         Me.XrTable4 = New DevExpress.XtraReports.UI.XRTable()
         Me.XrTableRow5 = New DevExpress.XtraReports.UI.XRTableRow()
-        Me.XrTableCell43 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.xrTableCellDeliveryAddressCoil = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell50 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell51 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell52 = New DevExpress.XtraReports.UI.XRTableCell()
@@ -118,7 +118,7 @@ Partial Public Class rptConfirmationOrderVer00
         Me.sbDetail = New DevExpress.XtraReports.UI.SubBand()
         Me.XrTable5 = New DevExpress.XtraReports.UI.XRTable()
         Me.XrTableRow7 = New DevExpress.XtraReports.UI.XRTableRow()
-        Me.XrTableCell55 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.xrTableCellDeliveryAddress = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell62 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell63 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell64 = New DevExpress.XtraReports.UI.XRTableCell()
@@ -1077,25 +1077,25 @@ Partial Public Class rptConfirmationOrderVer00
         '
         'XrTableRow5
         '
-        Me.XrTableRow5.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell43, Me.XrTableCell50, Me.XrTableCell51, Me.XrTableCell52, Me.XrTableCell53, Me.XrTableCell54, Me.XrTableCell56, Me.XrTableCell57, Me.XrTableCell58, Me.XrTableCell59, Me.XrTableCell60, Me.XrTableCell61})
+        Me.XrTableRow5.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.xrTableCellDeliveryAddressCoil, Me.XrTableCell50, Me.XrTableCell51, Me.XrTableCell52, Me.XrTableCell53, Me.XrTableCell54, Me.XrTableCell56, Me.XrTableCell57, Me.XrTableCell58, Me.XrTableCell59, Me.XrTableCell60, Me.XrTableCell61})
         Me.XrTableRow5.Dpi = 100.0!
         Me.XrTableRow5.Name = "XrTableRow5"
         Me.XrTableRow5.Weight = 1.0R
         '
-        'XrTableCell43
+        'xrTableCellDeliveryAddressCoil
         '
-        Me.XrTableCell43.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+        Me.xrTableCellDeliveryAddressCoil.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell43.CanGrow = False
-        Me.XrTableCell43.CanShrink = True
-        Me.XrTableCell43.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DeliveryAddress")})
-        Me.XrTableCell43.Dpi = 100.0!
-        Me.XrTableCell43.Name = "XrTableCell43"
-        Me.XrTableCell43.ProcessDuplicatesMode = DevExpress.XtraReports.UI.ProcessDuplicatesMode.Merge
-        Me.XrTableCell43.StylePriority.UseBorders = False
-        Me.XrTableCell43.StylePriority.UseTextAlignment = False
-        Me.XrTableCell43.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
-        Me.XrTableCell43.Weight = 0.94265067670095526R
+        Me.xrTableCellDeliveryAddressCoil.CanGrow = False
+        Me.xrTableCellDeliveryAddressCoil.CanShrink = True
+        Me.xrTableCellDeliveryAddressCoil.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DeliveryAddress")})
+        Me.xrTableCellDeliveryAddressCoil.Dpi = 100.0!
+        Me.xrTableCellDeliveryAddressCoil.Name = "xrTableCellDeliveryAddressCoil"
+        Me.xrTableCellDeliveryAddressCoil.ProcessDuplicatesMode = DevExpress.XtraReports.UI.ProcessDuplicatesMode.Merge
+        Me.xrTableCellDeliveryAddressCoil.StylePriority.UseBorders = False
+        Me.xrTableCellDeliveryAddressCoil.StylePriority.UseTextAlignment = False
+        Me.xrTableCellDeliveryAddressCoil.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.xrTableCellDeliveryAddressCoil.Weight = 0.94265067670095526R
         '
         'XrTableCell50
         '
@@ -1269,25 +1269,25 @@ Partial Public Class rptConfirmationOrderVer00
         '
         'XrTableRow7
         '
-        Me.XrTableRow7.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell55, Me.XrTableCell62, Me.XrTableCell63, Me.XrTableCell64, Me.XrTableCell65, Me.XrTableCell66, Me.XrTableCell67, Me.XrTableCell68, Me.XrTableCell69, Me.XrTableCell70, Me.XrTableCell71, Me.XrTableCell72, Me.XrTableCell73})
+        Me.XrTableRow7.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.xrTableCellDeliveryAddress, Me.XrTableCell62, Me.XrTableCell63, Me.XrTableCell64, Me.XrTableCell65, Me.XrTableCell66, Me.XrTableCell67, Me.XrTableCell68, Me.XrTableCell69, Me.XrTableCell70, Me.XrTableCell71, Me.XrTableCell72, Me.XrTableCell73})
         Me.XrTableRow7.Dpi = 100.0!
         Me.XrTableRow7.Name = "XrTableRow7"
         Me.XrTableRow7.Weight = 1.0R
         '
-        'XrTableCell55
+        'xrTableCellDeliveryAddress
         '
-        Me.XrTableCell55.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+        Me.xrTableCellDeliveryAddress.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell55.CanGrow = False
-        Me.XrTableCell55.CanShrink = True
-        Me.XrTableCell55.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DeliveryAddress")})
-        Me.XrTableCell55.Dpi = 100.0!
-        Me.XrTableCell55.Name = "XrTableCell55"
-        Me.XrTableCell55.ProcessDuplicatesMode = DevExpress.XtraReports.UI.ProcessDuplicatesMode.Merge
-        Me.XrTableCell55.StylePriority.UseBorders = False
-        Me.XrTableCell55.StylePriority.UseTextAlignment = False
-        Me.XrTableCell55.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
-        Me.XrTableCell55.Weight = 0.94265067670095526R
+        Me.xrTableCellDeliveryAddress.CanGrow = False
+        Me.xrTableCellDeliveryAddress.CanShrink = True
+        Me.xrTableCellDeliveryAddress.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DeliveryAddress")})
+        Me.xrTableCellDeliveryAddress.Dpi = 100.0!
+        Me.xrTableCellDeliveryAddress.Name = "xrTableCellDeliveryAddress"
+        Me.xrTableCellDeliveryAddress.ProcessDuplicatesMode = DevExpress.XtraReports.UI.ProcessDuplicatesMode.Merge
+        Me.xrTableCellDeliveryAddress.StylePriority.UseBorders = False
+        Me.xrTableCellDeliveryAddress.StylePriority.UseTextAlignment = False
+        Me.xrTableCellDeliveryAddress.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.xrTableCellDeliveryAddress.Weight = 0.94265067670095526R
         '
         'XrTableCell62
         '
@@ -1924,7 +1924,7 @@ Partial Public Class rptConfirmationOrderVer00
     Friend WithEvents sbDetailCoil As DevExpress.XtraReports.UI.SubBand
     Friend WithEvents XrTable4 As DevExpress.XtraReports.UI.XRTable
     Friend WithEvents XrTableRow5 As DevExpress.XtraReports.UI.XRTableRow
-    Friend WithEvents XrTableCell43 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents xrTableCellDeliveryAddressCoil As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrTableCell50 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrTableCell51 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrTableCell52 As DevExpress.XtraReports.UI.XRTableCell
@@ -1954,7 +1954,7 @@ Partial Public Class rptConfirmationOrderVer00
     Friend WithEvents sbDetail As DevExpress.XtraReports.UI.SubBand
     Friend WithEvents XrTable5 As DevExpress.XtraReports.UI.XRTable
     Friend WithEvents XrTableRow7 As DevExpress.XtraReports.UI.XRTableRow
-    Friend WithEvents XrTableCell55 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents xrTableCellDeliveryAddress As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrTableCell62 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrTableCell63 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrTableCell64 As DevExpress.XtraReports.UI.XRTableCell

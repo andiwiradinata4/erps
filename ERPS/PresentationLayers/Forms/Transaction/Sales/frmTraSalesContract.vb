@@ -625,6 +625,11 @@ Public Class frmTraSalesContract
                 crReport.sbDetailCoil.Visible = False
             End If
 
+            If dtData.Rows.Count = 1 Then
+                crReport.xrTableCellDeliveryAddressCoil.CanGrow = True
+                crReport.xrTableCellDeliveryAddress.CanGrow = True
+            End If
+
             Dim frmDetail As New frmReportPreview
             With frmDetail
                 .docViewer.DocumentSource = crReport
