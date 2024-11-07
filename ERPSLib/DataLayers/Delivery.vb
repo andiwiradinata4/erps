@@ -1084,7 +1084,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT " & vbNewLine &
-                    "   A.ID AS DeliveryDetailID " & vbNewLine &
+                    "   A1.ProgramID, A1.CompanyID, A.ID AS DeliveryDetailID, A.OrderNumberSupplier, A1.CoAOfStock, A.ItemID " & vbNewLine &
                     "FROM traDeliveryDet A " & vbNewLine &
                     "INNER JOIN traDelivery A1 ON " & vbNewLine &
                     "   A.DeliveryID=A1.ID " & vbNewLine &

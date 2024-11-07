@@ -1,4 +1,5 @@
-﻿Imports ERPSLib.VO
+﻿Imports ERPSLib.DL
+Imports ERPSLib.VO
 
 Namespace BL
     Public Class SalesContract
@@ -154,6 +155,11 @@ Namespace BL
                             Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses panjar")
                         ElseIf clsExists.ReceiveAmount > 0 Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pembayaran")
+                        End If
+
+                        Dim drDCWeight() As DataRow = dtItem.Select("DCWeight>0")
+                        If drDCWeight.Count > 0 Then
+                            Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pengiriman")
                         End If
                     End If
 
@@ -835,6 +841,10 @@ Namespace BL
                     Dim dtSCCODetail As DataTable = DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, clsData.SCID, "")
                     Dim drSelectedDetail() As DataRow = dtSCDetail.Select("GroupID=" & clsData.GroupID)
                     Dim drSelectedDetailCO() As DataRow = dtSCCODetail.Select("ID='" & clsData.ID & "'")
+                    Dim drDCWeight() As DataRow = dtSCDetail.Select("DCWeight>0 AND GroupID=" & clsData.GroupID)
+                    If drDCWeight.Count > 0 Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pengiriman")
+                    End If
 
                     '# Change Order Number Supplier ARAP Item
                     For Each dr As DataRow In drSelectedDetail

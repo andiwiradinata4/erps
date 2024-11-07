@@ -1341,6 +1341,29 @@
             End Try
         End Sub
 
+        Public Shared Function ListDataDetailByPCDetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                          ByVal strPCDetailID As String, ByVal intItemID As Integer) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A1.ProgramID, A1.CompanyID, A.ID AS ReceiveDetailID, A.OrderNumberSupplier, A1.CoAOfStock, A.UnitPrice, A.ItemID " & vbNewLine &
+                    "FROM traReceiveDet A " & vbNewLine &
+                    "INNER JOIN traReceive A1 ON " & vbNewLine &
+                    "   A.ReceiveID=A1.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.PCDetailID=@PCDetailID " & vbNewLine &
+                    "   AND A.ItemID=@ItemID " & vbNewLine
+
+                .Parameters.Add("@PCDetailID", SqlDbType.VarChar, 100).Value = strPCDetailID
+                .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
 #End Region
 
 #Region "Status"

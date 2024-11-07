@@ -399,6 +399,7 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
+
                     Dim dtDeliveryDet As New DataTable
                     Dim dtARAPItem As New DataTable
 
@@ -426,6 +427,31 @@
 
                     '# Update ItemID Order Request Detail
                     DL.OrderRequest.ChangeItemIDDetail(sqlCon, sqlTrans, strID, intNewItemID)
+
+                    For Each dr As DataRow In dtSalesContractDet.Rows
+                        '# Get All Delivery Detail By SCDetailID
+                        dtDeliveryDet.Merge(DL.Delivery.ListDataDetailBySCDetailID(sqlCon, sqlTrans, dr.Item("SCDetailID"), intNewItemID))
+                    Next
+
+                    Dim clsDataStockOut As New List(Of VO.StockOut)
+                    For Each dr As DataRow In dtDeliveryDet.Rows
+                        clsDataStockOut.Add(New VO.StockOut With
+                           {
+                               .ProgramID = dr.Item("ProgramID"),
+                               .CompanyID = dr.Item("CompanyID"),
+                               .ParentID = "",
+                               .ParentDetailID = "",
+                               .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                               .SourceData = "",
+                               .ItemID = dr.Item("ItemID"),
+                               .Quantity = 0,
+                               .Weight = 0,
+                               .TotalWeight = 0,
+                               .CoAofStock = dr.Item("CoAofStock")
+                           })
+                    Next
+                    BL.StockOut.SaveData(sqlCon, sqlTrans, clsDataStockOut)
+
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()

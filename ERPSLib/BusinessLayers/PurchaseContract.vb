@@ -1,4 +1,7 @@
-﻿Namespace BL
+﻿Imports ERPSLib.DL
+Imports ERPSLib.VO
+
+Namespace BL
     Public Class PurchaseContract
 
 #Region "Main"
@@ -545,11 +548,34 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
+                    Dim dtReceiveDet As DataTable = DL.Receive.ListDataDetailByPCDetailID(sqlCon, sqlTrans, strID, intOldItemID)
                     DL.Receive.ChangeItemIDDetail(sqlCon, sqlTrans, strID, intOldItemID, intNewItemID)
                     DL.SalesContract.ChangeItemIDDetailCO(sqlCon, sqlTrans, strID, intOldItemID, intNewItemID)
                     DL.ARAP.ChangeItemIDItem(sqlCon, sqlTrans, strID, intOldItemID, intNewItemID)
                     DL.PurchaseOrderCutting.ChangeItemIDDetail(sqlCon, sqlTrans, strID, intOldItemID, intNewItemID)
                     DL.PurchaseContract.ChangeItemIDDetail(sqlCon, sqlTrans, strID, intNewItemID)
+                    dtReceiveDet.Merge(DL.Receive.ListDataDetailByPCDetailID(sqlCon, sqlTrans, strID, intNewItemID))
+
+                    Dim clsDataStockIN As New List(Of VO.StockIn)
+                    For Each dr As DataRow In dtReceiveDet.Rows
+                        clsDataStockIN.Add(New VO.StockIn With
+                       {
+                           .ProgramID = dr.Item("ProgramID"),
+                           .CompanyID = dr.Item("CompanyID"),
+                           .ParentID = "",
+                           .ParentDetailID = "",
+                           .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                           .SourceData = "",
+                           .ItemID = dr.Item("ItemID"),
+                           .InQuantity = 0,
+                           .InWeight = 0,
+                           .InTotalWeight = 0,
+                           .UnitPrice = dr.Item("UnitPrice"),
+                           .CoAofStock = dr.Item("CoAofStock")
+                       })
+                    Next
+                    BL.StockIn.SaveData(sqlCon, sqlTrans, clsDataStockIN)
+
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
