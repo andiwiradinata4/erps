@@ -129,6 +129,9 @@ Public Class frmTraARAP
         UI.usForm.SetGrid(grdView, "ID", "Nomor", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "TransNumber", "Nomor", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "TransDate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
+        UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdView, "BPCode", "Kode Rekan Bisnis", 100, UI.usDefGrid.gString, bolIsControlARAP)
+        UI.usForm.SetGrid(grdView, "BPName", "Nama Rekan Bisnis", 100, UI.usDefGrid.gString, bolIsControlARAP)
         UI.usForm.SetGrid(grdView, "DueDateValue", "Jatuh Tempo", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "DueDate", "Tanggal Jatuh Tempo", 100, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdView, "DueDateVSNowValue", "Jatuh Tempo", 100, UI.usDefGrid.gIntNum)
@@ -181,6 +184,8 @@ Public Class frmTraARAP
         UI.usForm.SetGrid(grdView, "PPNPercentage", "PPNPercentage", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdView, "PPHPercentage", "PPHPercentage", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdView, "IsFullDP", "Full DP ?", 100, UI.usDefGrid.gBoolean)
+
+        If bolIsControlARAP Then grdView.Columns("BPName").GroupIndex = 0
     End Sub
 
     Private Sub prvSetButton()
@@ -1194,6 +1199,8 @@ Public Class frmTraARAP
         If grdView.Columns("TotalInvoiceAmount").SummaryText.Trim = "" Then
             grdView.Columns("TotalInvoiceAmount").Summary.Add(SumGrandTotalInvoiceAmount)
         End If
+
+        If grdView.GroupCount > 0 Then grdView.ExpandAllGroups()
     End Sub
 
     Private Sub prvUserAccess()

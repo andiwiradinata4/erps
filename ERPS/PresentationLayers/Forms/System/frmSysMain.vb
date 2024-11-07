@@ -857,7 +857,7 @@
             frmMainTraARAPPayable = Activator.CreateInstance(Type.GetType(s_fT))
             frmMainTraARAPPayable.MdiParent = Me
             frmMainTraARAPPayable.pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
-            frmMainTraARAPReceivable.pubModules = VO.AccountPayable.All
+            frmMainTraARAPPayable.pubModules = VO.AccountPayable.All
             frmMainTraARAPPayable.pubIsControlARAP = True
             frmMainTraARAPPayable.Show()
         End If

@@ -15,7 +15,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT " & vbNewLine &
-                    "   A.ID, A.CompanyID, MC.Name AS CompanyName, A.ProgramID, MP.Name AS ProgramName, A.ARNumber, A.BPID, " & vbNewLine &
+                    "   A.ID, A.BPID, C.Code AS BPCode, C.Name AS BPName, A.CompanyID, MC.Name AS CompanyName, A.ProgramID, MP.Name AS ProgramName, A.ARNumber, A.BPID, " & vbNewLine &
                     "   C.Code AS BPCode, C.Name AS BPName, A.CoAIDOfIncomePayment, ISNULL(COA.Code,'') AS CoACodeOfIncomePayment, ISNULL(COA.Name,'') AS CoANameOfIncomePayment, " & vbNewLine &
                     "   A.Modules, A.ReferencesID, A.ReferencesNote, A.ARDate, A.DueDateValue, A.DueDate, A.TotalAmount, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine &
                     "   A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine &
