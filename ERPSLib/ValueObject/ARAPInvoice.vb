@@ -27,5 +27,6 @@
         Property Remarks As String
         Property Save As VO.Save.Action
         Property PaymentDate As DateTime
+        Property Item As New List(Of VO.ARAPInvoiceItem)
     End Class
 End Namespace

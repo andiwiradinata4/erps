@@ -75,6 +75,7 @@
                 DevelopOnProgress_ID68(sqlCon, Nothing)
                 DevelopOnProgress_ID69(sqlCon, Nothing)
                 DevelopOnProgress_ID70(sqlCon, Nothing)
+                CreateARAPInvoiceItem_ID71(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -2077,6 +2078,47 @@
             "ALTER TABLE traPurchaseOrderCuttingDetResult ADD UnitPrice DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_UnitPrice DEFAULT ((0)) " & vbNewLine &
             "ALTER TABLE traPurchaseOrderCuttingDetResult ADD TotalPrice DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDetResult_TotalPrice DEFAULT ((0)) " & vbNewLine
 
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 71
+        Private Shared Sub CreateARAPInvoiceItem_ID71(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 71
+            clsData.Name = "Create ARAP Invoice Item"
+            clsData.Scripts =
+"ALTER TABLE traARAPItem ADD InvoiceQuantity decimal(18,4) NOT NULL CONSTRAINT DF_traARAPItem_InvoiceQuantity DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traARAPItem ADD InvoiceWeight decimal(18,4) NOT NULL CONSTRAINT DF_traARAPItem_InvoiceWeight DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traARAPItem ADD InvoiceTotalWeight decimal(18,4) NOT NULL CONSTRAINT DF_traARAPItem_InvoiceTotalWeight DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traARAPItem ADD TotalInvoiceAmount decimal(18,4) NOT NULL CONSTRAINT DF_traARAPItem_TotalInvoiceAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traARAPItem ADD TotalDPPInvoiceAmount decimal(18,4) NOT NULL CONSTRAINT DF_traARAPItem_TotalDPPInvoiceAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traARAPItem ADD TotalPPNInvoiceAmount decimal(18,4) NOT NULL CONSTRAINT DF_traARAPItem_TotalPPNInvoiceAmount DEFAULT ((0)) " & vbNewLine &
+"ALTER TABLE traARAPItem ADD TotalPPHInvoiceAmount decimal(18,4) NOT NULL CONSTRAINT DF_traARAPItem_TotalPPHInvoiceAmount DEFAULT ((0)) " & vbNewLine &
+"CREATE TABLE [dbo].[traARAPInvoiceItem](" & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_ID]  DEFAULT (''), " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_ParentID]  DEFAULT (''), " & vbNewLine &
+"	[ReferencesID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_ReferencesID]  DEFAULT (''), " & vbNewLine &
+"	[ReferencesDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_ReferencesDetailID]  DEFAULT (''), " & vbNewLine &
+"	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_OrderNumberSupplier]  DEFAULT (''), " & vbNewLine &
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_ItemID]  DEFAULT ((0)), " & vbNewLine &
+"	[Amount] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_Amount]  DEFAULT ((0)), " & vbNewLine &
+"	[PPN] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_PPN]  DEFAULT ((0)), " & vbNewLine &
+"	[PPH] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_PPH]  DEFAULT ((0)), " & vbNewLine &
+"	[Rounding] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_Rounding]  DEFAULT ((0)), " & vbNewLine &
+"	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_Quantity]  DEFAULT ((0)), " & vbNewLine &
+"	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_Weight]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_TotalWeight]  DEFAULT ((0)), " & vbNewLine &
+"	[LevelItem] [int] NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_LevelItem]  DEFAULT ((0)), " & vbNewLine &
+"	[ReferencesParentID] [varchar](10) NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_ReferencesParentID]  DEFAULT (''), " & vbNewLine &
+"   CONSTRAINT [PK_traARAPInvoiceItem] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

@@ -1,5 +1,5 @@
 ﻿Namespace VO
-    Public Class ARAPItem
+    Public Class ARAPInvoiceItem
         Property ID As String
         Property ParentID As String
         Property ReferencesID As String
@@ -9,18 +9,11 @@
         Property Amount As Decimal
         Property PPN As Decimal
         Property PPH As Decimal
-        Property DPAmount As Decimal
         Property Rounding As Decimal
         Property LevelItem As Integer
         Property ReferencesParentID As String
         Property Quantity As Decimal
         Property Weight As Decimal
         Property TotalWeight As Decimal
-        Property InvoiceQuantity As Decimal
-        Property InvoiceWeight As Decimal
-        Property InvoiceTotalWeight As Decimal
-        Property TotalDPPInvoiceAmount As Decimal
-        Property TotalPPNInvoiceAmount As Decimal
-        Property TotalPPHInvoiceAmount As Decimal
     End Class
 End Namespace

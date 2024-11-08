@@ -211,6 +211,7 @@
     <Compile Include="ValueObject\ARAPDPDet.vb" />
     <Compile Include="ValueObject\ARAPDueDateHistory.vb" />
     <Compile Include="ValueObject\ARAPInvoice.vb" />
+    <Compile Include="ValueObject\ARAPInvoiceItem.vb" />
     <Compile Include="ValueObject\ARAPInvoiceStatus.vb" />
     <Compile Include="ValueObject\ARAPItem.vb" />
     <Compile Include="ValueObject\Base\Access.vb" />

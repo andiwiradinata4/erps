@@ -1332,5 +1332,177 @@
 
 #End Region
 
+#Region "Item"
+
+        Public Shared Function ListDataDetailInvoiceItemOnly(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                             ByVal strParentID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
+                    "   A.ItemID, A.Amount, A.PPN, A.PPH, A.LevelItem, A.ReferencesParentID  " & vbNewLine &
+                    "FROM traARAPInvoiceItem A " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ParentID=@ParentID " & vbNewLine
+
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Sub SaveDataInvoiceItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal clsData As VO.ARAPInvoiceItem)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "INSERT INTO traARAPInvoiceItem " & vbNewLine &
+                    "   (ID, ParentID, ReferencesID, ReferencesDetailID, OrderNumberSupplier, ItemID, Amount, PPN, PPH, Rounding, LevelItem, ReferencesParentID, Quantity, Weight, TotalWeight) " & vbNewLine &
+                    "VALUES " & vbNewLine &
+                    "   (@ID, @ParentID, @ReferencesID, @ReferencesDetailID, @OrderNumberSupplier, @ItemID, @Amount, @PPN, @PPH, @Rounding, @LevelItem, @ReferencesParentID, @Quantity, @Weight, @TotalWeight) " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
+                .Parameters.Add("@ReferencesID", SqlDbType.VarChar, 100).Value = clsData.ReferencesID
+                .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = clsData.ReferencesDetailID
+                .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = clsData.OrderNumberSupplier
+                .Parameters.Add("@ItemID", SqlDbType.Int).Value = clsData.ItemID
+                .Parameters.Add("@Amount", SqlDbType.Decimal).Value = clsData.Amount
+                .Parameters.Add("@PPN", SqlDbType.Decimal).Value = clsData.PPN
+                .Parameters.Add("@PPH", SqlDbType.Decimal).Value = clsData.PPH
+                .Parameters.Add("@Rounding", SqlDbType.Decimal).Value = clsData.Rounding
+                .Parameters.Add("@LevelItem", SqlDbType.Int).Value = clsData.LevelItem
+                .Parameters.Add("@ReferencesParentID", SqlDbType.VarChar, 100).Value = clsData.ReferencesParentID
+                .Parameters.Add("@Quantity", SqlDbType.Decimal).Value = clsData.Quantity
+                .Parameters.Add("@Weight", SqlDbType.Decimal).Value = clsData.Weight
+                .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataInvoiceItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                ByVal strParentID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "DELETE traARAPInvoiceItem  " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ParentID=@ParentID " & vbNewLine
+
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Function ListDataInvoiceItemOrderNumberSupplier(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                      ByVal strParentID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT DISTINCT " & vbNewLine &
+                    "   A.OrderNumberSupplier " & vbNewLine &
+                    "FROM traARAPInvoiceItem A " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ParentID=@ParentID " & vbNewLine
+
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataInvoiceItemByReferencesDetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                       ByVal strReferencesDetailID As String, ByVal intItemID As Integer) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT DISTINCT " & vbNewLine &
+                    "   A.ID AS ARAPItemID " & vbNewLine &
+                    "FROM traARAPInvoiceItem A " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ReferencesDetailID=@ReferencesDetailID " & vbNewLine &
+                    "   AND A.ItemID=@ItemID " & vbNewLine
+
+                .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strReferencesDetailID
+                .Parameters.Add("@ItemID", SqlDbType.Int).Value = intItemID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Sub ChangeItemIDInvoiceItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                  ByVal strReferencesDetailID As String, ByVal intOldItemID As Integer, ByVal intNewItemID As Integer)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandText =
+"UPDATE traARAPInvoiceItem SET  " & vbNewLine &
+"	ItemID=@NewItemID " & vbNewLine &
+"WHERE " & vbNewLine &
+"	ItemID=@OldItemID " & vbNewLine &
+"	AND ReferencesDetailID=@ReferencesDetailID " & vbNewLine
+
+                .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strReferencesDetailID
+                .Parameters.Add("@OldItemID", SqlDbType.Int).Value = intOldItemID
+                .Parameters.Add("@NewItemID", SqlDbType.Int).Value = intNewItemID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub ChangeInvoiceItemOrderNumberSupplierDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                     ByVal strReferencesDetailID As String, ByVal strOldOrderNumberSupplier As String,
+                                                                     ByVal strNewOrderNumberSupplier As String, ByVal intNewItemID As Integer)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandText =
+"UPDATE traARAPInvoiceItem SET  " & vbNewLine &
+"	ItemID=@ItemID, " & vbNewLine &
+"	OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
+"WHERE " & vbNewLine &
+"	OrderNumberSupplier=@OldOrderNumberSupplier " & vbNewLine &
+"	AND ReferencesDetailID=@ReferencesDetailID " & vbNewLine
+
+                .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strReferencesDetailID
+                .Parameters.Add("@OldOrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOldOrderNumberSupplier
+                .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strNewOrderNumberSupplier
+                .Parameters.Add("@ItemID", SqlDbType.VarChar, 100).Value = intNewItemID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
+
+#End Region
+
     End Class
 End Namespace

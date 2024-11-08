@@ -1200,6 +1200,8 @@
                 Try
                     Dim clsARAP As VO.ARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsData.ParentID, VO.ARAP.ARAPTypeValue.Purchase)
                     If clsARAP.ID Is Nothing Then clsARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsData.ParentID, VO.ARAP.ARAPTypeValue.Sales)
+                    Dim strTableName As String = "traAccountPayable"
+                    If clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Sales Then strTableName = "traAccountReceivable"
 
                     Dim clsInvoice As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, sqlTrans, clsData.ID)
                     If clsInvoice.StatusID = VO.Status.Values.Approved Then
@@ -1215,6 +1217,11 @@
                     If bolNew Then
                         clsData.ID = clsARAP.ID & "-" & Format(DL.ARAP.GetMaxIDInvoice(sqlCon, sqlTrans, clsARAP.ID & "-") + 1, "000")
                         If clsData.InvoiceNumber.Trim = "" Then clsData.InvoiceNumber = clsData.ID
+                    Else
+                        DL.ARAP.DeleteDataInvoiceItem(sqlCon, sqlTrans, clsData.ID)
+
+                        '# Calculate ARAP Item
+
                     End If
 
                     DL.ARAP.SaveDataInvoice(sqlCon, sqlTrans, bolNew, clsData)
@@ -1229,9 +1236,9 @@
                         decTotalPPHInvoice += dr.Item("TotalPPH")
                     Next
 
-                    Dim strTableName As String = "traAccountPayable"
-                    If clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Sales Then strTableName = "traAccountReceivable"
                     DL.ARAP.UpdateInvoiceAmount(sqlCon, sqlTrans, strTableName, clsARAP.ID, decTotalInvoice, decTotalDPPInvoice, decTotalPPNInvoice, decTotalPPHInvoice)
+
+                    '# Calculate ARAP Item
 
                     '# Alokasi selisih amount di akhir invoice
                     clsARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsData.ParentID, VO.ARAP.ARAPTypeValue.Purchase)
