@@ -703,6 +703,26 @@ Public Class frmTraARAPDetVer4
         grdItemView.BestFitColumns(True)
     End Sub
 
+    Private Sub prvSetAmount(ByVal intPos As Integer)
+        Dim decMaxAmount As Decimal = grdItemView.GetRowCellValue(intPos, "MaxPaymentAmount")
+        Dim decUnitPrice As Decimal = grdItemView.GetRowCellValue(intPos, "UnitPrice")
+        Dim decTotalWeight As Decimal = grdItemView.GetRowCellValue(intPos, "TotalWeight")
+        Dim decAmount As Decimal = decUnitPrice * decTotalWeight
+        decAmount = decAmount - grdItemView.GetRowCellValue(intPos, "DPAmount")
+        If decAmount > decMaxAmount Then
+            UI.usForm.frmMessageBox("Total tagihan baris ke " & intPos + 1 & " tidak boleh lebih besar dari total maksimal tagihan")
+            Exit Sub
+        End If
+
+        grdItemView.SetRowCellValue(intPos, "Amount", decAmount)
+    End Sub
+
+    Private Sub prvSetTotalWeight(ByVal intPos As Integer)
+        Dim decAllocateTotalWeight As Decimal = grdItemView.GetRowCellValue(intPos, "Quantity") * grdItemView.GetRowCellValue(intPos, "Weight")
+        grdItemView.SetRowCellValue(intPos, "TotalWeight", IIf(decAllocateTotalWeight > grdItemView.GetRowCellValue(intPos, "MaxTotalWeight"), grdItemView.GetRowCellValue(intPos, "MaxTotalWeight"), decAllocateTotalWeight))
+        grdItemView.UpdateCurrentRow()
+    End Sub
+
 #End Region
 
 #Region "Down Payment"
@@ -971,26 +991,6 @@ Public Class frmTraARAPDetVer4
                 prvCalculate()
             End If
         End With
-    End Sub
-
-    Private Sub prvSetAmount(ByVal intPos As Integer)
-        Dim decMaxAmount As Decimal = grdItemView.GetRowCellValue(intPos, "MaxPaymentAmount")
-        Dim decUnitPrice As Decimal = grdItemView.GetRowCellValue(intPos, "UnitPrice")
-        Dim decTotalWeight As Decimal = grdItemView.GetRowCellValue(intPos, "TotalWeight")
-        Dim decAmount As Decimal = decUnitPrice * decTotalWeight
-        decAmount = decAmount - grdItemView.GetRowCellValue(intPos, "DPAmount")
-        If decAmount > decMaxAmount Then
-            UI.usForm.frmMessageBox("Total tagihan baris ke " & intPos + 1 & " tidak boleh lebih besar dari total maksimal tagihan")
-            Exit Sub
-        End If
-
-        grdItemView.SetRowCellValue(intPos, "Amount", decAmount)
-    End Sub
-
-    Private Sub prvSetTotalWeight(ByVal intPos As Integer)
-        Dim decAllocateTotalWeight As Decimal = grdItemView.GetRowCellValue(intPos, "Quantity") * grdItemView.GetRowCellValue(intPos, "Weight")
-        grdItemView.SetRowCellValue(intPos, "TotalWeight", IIf(decAllocateTotalWeight > grdItemView.GetRowCellValue(intPos, "MaxTotalWeight"), grdItemView.GetRowCellValue(intPos, "MaxTotalWeight"), decAllocateTotalWeight))
-        grdItemView.UpdateCurrentRow()
     End Sub
 
     Private Sub grdDownPaymentView_ValidatingEditor(sender As Object, e As DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventArgs) Handles grdDownPaymentView.ValidatingEditor

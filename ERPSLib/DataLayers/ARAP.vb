@@ -675,12 +675,12 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT " & vbNewLine &
-                    "	ARI.ID, ARI.ParentID, ARI.InvoiceNumber, ARI.InvoiceDate, ARI.CoAID, COA.Code AS CoACode, COA.Name AS CoAName, " & vbNewLine &
+                    "	ARI.ID, ARI.ParentID, ARI.InvoiceNumber, ARI.InvoiceDate, ARI.CoAID, ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName, " & vbNewLine &
                     "	ARI.PPN, ARI.PPH, ARI.TotalAmount, ARI.TotalDPP, ARI.TotalPPN, ARI.TotalPPH, ARI.TaxInvoiceNumber, ARI.InvoiceNumberExternal, " & vbNewLine &
                     "	ARI.SubmitBy, ARI.SubmitDate, ARI.ApprovedBy, ARI.ApprovedDate, ARI.IsDeleted, ARI.Remarks, ARI.CreatedBy, ARI.CreatedDate, " & vbNewLine &
                     "	ARI.LogBy, ARI.LogDate, ARI.LogInc " & vbNewLine &
                     "FROM traARAPInvoice ARI " & vbNewLine &
-                    "INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
+                    "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
                     "	ARI.CoAID=COA.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "	ARI.ParentID=@ParentID " & vbNewLine &
@@ -883,7 +883,8 @@
         End Sub
 
         Public Shared Sub ApproveInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                         ByVal strID As String, ByVal dtmPaymentDate As DateTime)
+                                         ByVal strID As String, ByVal dtmPaymentDate As DateTime,
+                                         ByVal intCoAID As Integer)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -896,7 +897,8 @@
                     "    ApproveL1Date=GETDATE(), " & vbNewLine &
                     "    ApprovedBy=@LogBy, " & vbNewLine &
                     "    ApprovedDate=GETDATE(), " & vbNewLine &
-                    "    PaymentDate=@PaymentDate " & vbNewLine &
+                    "    PaymentDate=@PaymentDate, " & vbNewLine &
+                    "    CoAID=@CoAID " & vbNewLine &
                     "WHERE   " & vbNewLine &
                     "    ID=@ID " & vbNewLine
 
@@ -904,6 +906,7 @@
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = ERPSLib.UI.usUserApp.UserID
                 .Parameters.Add("@PaymentDate", SqlDbType.DateTime).Value = dtmPaymentDate
+                .Parameters.Add("@CoAID", SqlDbType.Int).Value = intCoAID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -948,12 +951,12 @@
                     .CommandType = CommandType.Text
                     .CommandText =
                         "SELECT TOP 1 " & vbNewLine &
-                        "	ARI.ID, ARI.ParentID, ARI.InvoiceNumber, ARI.InvoiceDate, ARI.CoAID, COA.Code AS CoACode, COA.Name AS CoAName, " & vbNewLine &
+                        "	ARI.ID, ARI.ParentID, ARI.InvoiceNumber, ARI.InvoiceDate, ARI.CoAID, ISNULL(COA.Code,0) AS CoACode, ISNULL(COA.Name,0) AS CoAName, " & vbNewLine &
                         "	ARI.PPN, ARI.PPH, ARI.TotalAmount, ARI.TotalDPP, ARI.TotalPPN, ARI.TotalPPH, ARI.StatusID, ARI.IsDeleted, ARI.ReferencesNumber, " & vbNewLine &
                         "   ARI.TaxInvoiceNumber, ARI.InvoiceNumberExternal, ARI.SubmitBy, ARI.SubmitDate, ARI.ApproveL1, ARI.ApproveL1Date, ARI.ApprovedBy, ARI.ApprovedDate, " & vbNewLine &
                         "   ARI.JournalID, ARI.Remarks, ARI.CreatedBy, ARI.CreatedDate, ARI.LogBy, ARI.LogDate, ARI.LogInc, ARI.PaymentDate " & vbNewLine &
                         "FROM traARAPInvoice ARI " & vbNewLine &
-                        "INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
+                        "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
                         "	ARI.CoAID=COA.ID " & vbNewLine &
                         "WHERE " & vbNewLine &
                         "	ARI.ID=@ID " & vbNewLine
@@ -1181,6 +1184,57 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataInvoiceItemWithOutstanding(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                  ByVal strID As String, ByVal strParentID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, A.ItemID, A.Amount, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
+                    "   B.Amount-B.TotalDPPInvoiceAmount+A.Amount AS MaxPaymentAmount, B.PPN-B.TotalPPNInvoiceAmount+A.PPN AS MaxPPNAmount, B.PPH-B.TotalPPHInvoiceAmount+A.PPH AS MaxPPHAmount, " & vbNewLine &
+                    "   MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length, MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, " & vbNewLine &
+                    "   MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID, MI.ItemCodeExternal " & vbNewLine &
+                    "FROM traARAPInvoiceItem A " & vbNewLine &
+                    "INNER JOIN traARAPItem B ON " & vbNewLine &
+                    "   A.ReferencesID=B.ParentID " & vbNewLine &
+                    "   And A.ReferencesDetailID=B.ID " & vbNewLine &
+                    "INNER JOIN mstItem MI ON " & vbNewLine &
+                    "   A.ItemID=MI.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
+                    "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
+                    "INNER JOIN mstItemType MIT ON " & vbNewLine &
+                    "   MI.ItemTypeID=MIT.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ParentID=@ID " & vbNewLine &
+                    "" & vbNewLine &
+                    "UNION ALL " & vbNewLine &
+                    "SELECT " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.ParentID AS ReferencesID, A.ID AS ReferencesDetailID, A.OrderNumberSupplier, A.ItemID, A.Amount-A.TotalDPPInvoiceAmount AS Amount, A.PPN-A.TotalPPNInvoiceAmount AS PPN, A.PPH-A.TotalPPHInvoiceAmount AS PPH, CAST(0 AS DECIMAL(18,4)) AS Rounding, " & vbNewLine &
+                    "   A.Amount-A.TotalDPPInvoiceAmount AS MaxPaymentAmount, A.PPN-A.TotalPPNInvoiceAmount AS MaxPPNAmount, A.PPH-A.TotalPPHInvoiceAmount AS MaxPPHAmount, " & vbNewLine &
+                    "   MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length, MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, " & vbNewLine &
+                    "   MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID, MI.ItemCodeExternal " & vbNewLine &
+                    "FROM traARAPItem A " & vbNewLine &
+                    "INNER JOIN mstItem MI ON " & vbNewLine &
+                    "   A.ItemID=MI.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
+                    "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
+                    "INNER JOIN mstItemType MIT ON " & vbNewLine &
+                    "   MI.ItemTypeID=MIT.ID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   A.ParentID=@ParentID " & vbNewLine &
+                    "   AND A.Amount-A.TotalDPPInvoiceAmount>0 " & vbNewLine
+
+                If strID.Trim <> "" Then .CommandText += "   AND A.ID NOT IN (SELECT ReferencesDetailID FROM traARAPInvoiceItem WHERE ParentID=@ID) " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveDataItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                        ByVal clsData As VO.ARAPItem)
             Dim sqlCmdExecute As New SqlCommand
@@ -1330,9 +1384,75 @@
             End Try
         End Sub
 
+        Public Shared Sub CalculateTotalInvoiceItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+"UPDATE traARAPItem SET 	" & vbNewLine &
+"	InvoiceQuantity=	" & vbNewLine &
+"	(	" & vbNewLine &
+"		SELECT	" & vbNewLine &
+"			ISNULL(SUM(INV.Quantity),0) Quantity " & vbNewLine &
+"		FROM traARAPInvoiceItem INV " & vbNewLine &
+"		WHERE 	" & vbNewLine &
+"			INV.ReferencesDetailID=@ID " & vbNewLine &
+"	), " & vbNewLine &
+"	InvoiceTotalWeight=	" & vbNewLine &
+"	(	" & vbNewLine &
+"		SELECT	" & vbNewLine &
+"			ISNULL(SUM(INV.TotalWeight),0) TotalWeight " & vbNewLine &
+"		FROM traARAPInvoiceItem INV " & vbNewLine &
+"		WHERE 	" & vbNewLine &
+"			INV.ReferencesDetailID=@ID " & vbNewLine &
+"	), " & vbNewLine &
+"	TotalInvoiceAmount=	" & vbNewLine &
+"	(	" & vbNewLine &
+"		SELECT	" & vbNewLine &
+"			ISNULL(SUM(INV.Amount+INV.PPN-INV.PPH),0) TotalAmount " & vbNewLine &
+"		FROM traARAPInvoiceItem INV " & vbNewLine &
+"		WHERE 	" & vbNewLine &
+"			INV.ReferencesDetailID=@ID " & vbNewLine &
+"	), " & vbNewLine &
+"	TotalDPPInvoiceAmount=	" & vbNewLine &
+"	(	" & vbNewLine &
+"		SELECT	" & vbNewLine &
+"			ISNULL(SUM(INV.Amount),0) PPN " & vbNewLine &
+"		FROM traARAPInvoiceItem INV " & vbNewLine &
+"		WHERE 	" & vbNewLine &
+"			INV.ReferencesDetailID=@ID " & vbNewLine &
+"	), " & vbNewLine &
+"	TotalPPNInvoiceAmount=	" & vbNewLine &
+"	(	" & vbNewLine &
+"		SELECT	" & vbNewLine &
+"			ISNULL(SUM(INV.PPN),0) PPN " & vbNewLine &
+"		FROM traARAPInvoiceItem INV " & vbNewLine &
+"		WHERE 	" & vbNewLine &
+"			INV.ReferencesDetailID=@ID " & vbNewLine &
+"	), " & vbNewLine &
+"	TotalPPHInvoiceAmount=	" & vbNewLine &
+"	(	" & vbNewLine &
+"		SELECT	" & vbNewLine &
+"			ISNULL(SUM(INV.PPH),0) PPH " & vbNewLine &
+"		FROM traARAPInvoiceItem INV " & vbNewLine &
+"		WHERE 	" & vbNewLine &
+"			INV.ReferencesDetailID=@ID " & vbNewLine &
+"	) " & vbNewLine &
+"WHERE ID=@ID " & vbNewLine
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
-#Region "Item"
+#Region "Invoice Item"
 
         Public Shared Function ListDataDetailInvoiceItemOnly(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                              ByVal strParentID As String) As DataTable

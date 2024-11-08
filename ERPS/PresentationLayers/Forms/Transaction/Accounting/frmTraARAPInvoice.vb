@@ -327,9 +327,11 @@ Public Class frmTraARAPInvoice
         Dim strRemarks As String = ""
         Dim frmDetail As New frmTraAccountSetPaymentDate
         With frmDetail
+            .pubCoAID = clsData.CoAID
             .StartPosition = FormStartPosition.CenterParent
             .ShowDialog()
             If .pubIsSave Then
+                clsData.CoAID = .pubCoAID
                 dtmPaymentDate = .pubPaymentDate
                 strRemarks = .pubRemarks.Trim
             Else
@@ -337,11 +339,9 @@ Public Class frmTraARAPInvoice
             End If
         End With
 
-        'If Not UI.usForm.frmAskQuestion("Approve Nomor " & clsData.InvoiceNumber & "?") Then Exit Sub
-
         Me.Cursor = Cursors.WaitCursor
         Try
-            BL.ARAP.ApproveInvoice(clsData.ID, strRemarks, dtmPaymentDate)
+            BL.ARAP.ApproveInvoice(clsData.ID, strRemarks, dtmPaymentDate, clsData.CoAID)
             UI.usForm.frmMessageBox("Approve data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "InvoiceNumber"))
         Catch ex As Exception

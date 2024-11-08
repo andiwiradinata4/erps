@@ -2113,7 +2113,7 @@
 "	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_Weight]  DEFAULT ((0)), " & vbNewLine &
 "	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_TotalWeight]  DEFAULT ((0)), " & vbNewLine &
 "	[LevelItem] [int] NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_LevelItem]  DEFAULT ((0)), " & vbNewLine &
-"	[ReferencesParentID] [varchar](10) NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_ReferencesParentID]  DEFAULT (''), " & vbNewLine &
+"	[ReferencesParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPInvoiceItem_ReferencesParentID]  DEFAULT (''), " & vbNewLine &
 "   CONSTRAINT [PK_traARAPInvoiceItem] PRIMARY KEY CLUSTERED " & vbNewLine &
 "   (" & vbNewLine &
 "   	[ID] ASC" & vbNewLine &

@@ -718,7 +718,7 @@ Public Class frmTraARAP
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
 
-        prvGetCS()
+        If bolIsControlARAP Then clsCS = prvGetCS()
         clsData = prvGetData()
         Try
             If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
@@ -900,7 +900,7 @@ Public Class frmTraARAP
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
 
-        prvGetCS()
+        If bolIsControlARAP Then clsCS = prvGetCS()
         clsData = prvGetData()
         Dim strSelectedInvoiceID As String = ""
         Try

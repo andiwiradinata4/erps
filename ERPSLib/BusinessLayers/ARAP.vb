@@ -1185,6 +1185,13 @@
             End Using
         End Function
 
+        Public Shared Function ListDataInvoiceItemWithOutstanding(ByVal strID As String, ByVal strParentID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ARAP.ListDataInvoiceItemWithOutstanding(sqlCon, Nothing, strID, strParentID)
+            End Using
+        End Function
+
         Public Shared Function GetDetailInvoice(ByVal strID As String) As VO.ARAPInvoice
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
@@ -1218,13 +1225,28 @@
                         clsData.ID = clsARAP.ID & "-" & Format(DL.ARAP.GetMaxIDInvoice(sqlCon, sqlTrans, clsARAP.ID & "-") + 1, "000")
                         If clsData.InvoiceNumber.Trim = "" Then clsData.InvoiceNumber = clsData.ID
                     Else
+                        Dim dtItem As DataTable = DL.ARAP.ListDataDetailInvoiceItemOnly(sqlCon, sqlTrans, clsData.ID)
                         DL.ARAP.DeleteDataInvoiceItem(sqlCon, sqlTrans, clsData.ID)
 
                         '# Calculate ARAP Item
-
+                        For Each dr As DataRow In dtItem.Rows
+                            DL.ARAP.CalculateTotalInvoiceItem(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
+                        Next
                     End If
 
                     DL.ARAP.SaveDataInvoice(sqlCon, sqlTrans, bolNew, clsData)
+
+                    '# Save Invoice Item
+                    Dim intCount As Integer = 1
+                    For Each clsDet As VO.ARAPInvoiceItem In clsData.Item
+                        clsDet.ID = clsData.ID & "-" & intCount
+                        clsDet.ParentID = clsData.ID
+                        clsDet.ReferencesID = clsData.ParentID
+                        DL.ARAP.SaveDataInvoiceItem(sqlCon, sqlTrans, clsDet)
+                        DL.ARAP.CalculateTotalInvoiceItem(sqlCon, sqlTrans, clsDet.ReferencesDetailID)
+
+                        intCount += 1
+                    Next
 
                     '# Update Total Used ARAP
                     Dim dtInvoice As DataTable = DL.ARAP.ListDataInvoice(sqlCon, sqlTrans, clsARAP.ID)
@@ -1237,8 +1259,6 @@
                     Next
 
                     DL.ARAP.UpdateInvoiceAmount(sqlCon, sqlTrans, strTableName, clsARAP.ID, decTotalInvoice, decTotalDPPInvoice, decTotalPPNInvoice, decTotalPPHInvoice)
-
-                    '# Calculate ARAP Item
 
                     '# Alokasi selisih amount di akhir invoice
                     clsARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsData.ParentID, VO.ARAP.ARAPTypeValue.Purchase)
@@ -1410,13 +1430,13 @@
             Return bolReturn
         End Function
 
-        Public Shared Function ApproveInvoice(ByVal strID As String, ByVal strRemarks As String, ByVal dtmPaymentDate As DateTime) As Boolean
+        Public Shared Function ApproveInvoice(ByVal strID As String, ByVal strRemarks As String, ByVal dtmPaymentDate As DateTime, ByVal intCoAID As Integer) As Boolean
             Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    bolReturn = ApproveInvoice(sqlCon, sqlTrans, strID, strRemarks, dtmPaymentDate)
+                    bolReturn = ApproveInvoice(sqlCon, sqlTrans, strID, strRemarks, dtmPaymentDate, intCoAID)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -1428,7 +1448,7 @@
 
         Public Shared Function ApproveInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                               ByVal strID As String, ByVal strRemarks As String,
-                                              ByVal dtmPaymentDate As DateTime) As Boolean
+                                              ByVal dtmPaymentDate As DateTime, ByVal intCoAID As Integer) As Boolean
             Dim bolReturn As Boolean = False
             Try
                 Dim clsData As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, sqlTrans, strID)
@@ -1440,9 +1460,11 @@
                     Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data telah DIBAYAR")
                 ElseIf clsData.IsDeleted Then
                     Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan data telah dihapus")
+                ElseIf intCoAID <= 0 Then
+                    Err.Raise(515, "", "Data tidak dapat di Approve. Pilih akun bank terlebih dahulu")
                 End If
 
-                DL.ARAP.ApproveInvoice(sqlCon, sqlTrans, strID, dtmPaymentDate)
+                DL.ARAP.ApproveInvoice(sqlCon, sqlTrans, strID, dtmPaymentDate, intCoAID)
 
                 '# Save Data Status
                 BL.ARAP.SaveDataInvoiceStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
@@ -2110,6 +2132,17 @@
                 Throw ex
             End Try
         End Sub
+
+#End Region
+
+#Region "Invoice Item"
+
+        Public Shared Function ListDataInvoiceItem(ByVal strParentID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ARAP.ListDataDetailInvoiceItemOnly(sqlCon, Nothing, strParentID)
+            End Using
+        End Function
 
 #End Region
 

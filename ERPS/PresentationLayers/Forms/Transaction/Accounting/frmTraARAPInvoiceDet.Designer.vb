@@ -61,6 +61,13 @@ Partial Class frmTraARAPInvoiceDet
         Me.tpHistory = New System.Windows.Forms.TabPage()
         Me.grdStatus = New DevExpress.XtraGrid.GridControl()
         Me.grdStatusView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.ToolBarDetail = New ERPS.usToolBar()
+        Me.BarCheckAll = New System.Windows.Forms.ToolBarButton()
+        Me.BarUncheckAll = New System.Windows.Forms.ToolBarButton()
+        Me.grdItem = New DevExpress.XtraGrid.GridControl()
+        Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -72,6 +79,9 @@ Partial Class frmTraARAPInvoiceDet
         Me.tpHistory.SuspendLayout()
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblInfo
@@ -96,6 +106,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.chkChangeTotalPPH.TabIndex = 6
         Me.chkChangeTotalPPH.Text = "Ubah"
         Me.chkChangeTotalPPH.UseVisualStyleBackColor = True
+        Me.chkChangeTotalPPH.Visible = False
         '
         'chkChangeTotalPPN
         '
@@ -106,6 +117,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.chkChangeTotalPPN.TabIndex = 4
         Me.chkChangeTotalPPN.Text = "Ubah"
         Me.chkChangeTotalPPN.UseVisualStyleBackColor = True
+        Me.chkChangeTotalPPN.Visible = False
         '
         'chkChangeTotalDPP
         '
@@ -116,6 +128,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.chkChangeTotalDPP.TabIndex = 2
         Me.chkChangeTotalDPP.Text = "Ubah"
         Me.chkChangeTotalDPP.UseVisualStyleBackColor = True
+        Me.chkChangeTotalDPP.Visible = False
         '
         'Label5
         '
@@ -151,8 +164,9 @@ Partial Class frmTraARAPInvoiceDet
         '
         'txtTotalAmount
         '
-        Me.txtTotalAmount.BackColor = System.Drawing.Color.White
+        Me.txtTotalAmount.BackColor = System.Drawing.Color.LightYellow
         Me.txtTotalAmount.DecimalPlaces = 2
+        Me.txtTotalAmount.Enabled = False
         Me.txtTotalAmount.Location = New System.Drawing.Point(123, 132)
         Me.txtTotalAmount.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
@@ -343,6 +357,7 @@ Partial Class frmTraARAPInvoiceDet
         '
         'btnCoA
         '
+        Me.btnCoA.Enabled = False
         Me.btnCoA.Image = CType(resources.GetObject("btnCoA.Image"), System.Drawing.Image)
         Me.btnCoA.Location = New System.Drawing.Point(782, 76)
         Me.btnCoA.Name = "btnCoA"
@@ -444,7 +459,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.tcMain.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tcMain.Controls.Add(Me.tpMain)
         Me.tcMain.Controls.Add(Me.tpHistory)
-        Me.tcMain.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tcMain.Dock = System.Windows.Forms.DockStyle.Top
         Me.tcMain.Location = New System.Drawing.Point(0, 50)
         Me.tcMain.Name = "tcMain"
         Me.tcMain.SelectedIndex = 0
@@ -536,11 +551,95 @@ Partial Class frmTraARAPInvoiceDet
         Me.grdStatusView.OptionsView.ColumnAutoWidth = False
         Me.grdStatusView.OptionsView.ShowGroupPanel = False
         '
+        'Label14
+        '
+        Me.Label14.BackColor = System.Drawing.Color.CadetBlue
+        Me.Label14.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label14.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.ForeColor = System.Drawing.Color.White
+        Me.Label14.Location = New System.Drawing.Point(0, 295)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(872, 22)
+        Me.Label14.TabIndex = 3
+        Me.Label14.Text = "« Item"
+        Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'ToolBarDetail
+        '
+        Me.ToolBarDetail.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarCheckAll, Me.BarUncheckAll})
+        Me.ToolBarDetail.DropDownArrows = True
+        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 317)
+        Me.ToolBarDetail.Name = "ToolBarDetail"
+        Me.ToolBarDetail.ShowToolTips = True
+        Me.ToolBarDetail.Size = New System.Drawing.Size(872, 28)
+        Me.ToolBarDetail.TabIndex = 4
+        Me.ToolBarDetail.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'BarCheckAll
+        '
+        Me.BarCheckAll.Name = "BarCheckAll"
+        Me.BarCheckAll.Tag = "Checked"
+        Me.BarCheckAll.Text = "Centang Semua"
+        '
+        'BarUncheckAll
+        '
+        Me.BarUncheckAll.Name = "BarUncheckAll"
+        Me.BarUncheckAll.Tag = "Unapproved"
+        Me.BarUncheckAll.Text = "Tidak Centang Semua"
+        '
+        'grdItem
+        '
+        Me.grdItem.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdItem.EmbeddedNavigator.Buttons.Append.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.Append.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.Edit.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.Edit.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.EndEdit.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.NextPage.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.NextPage.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Visible = False
+        Me.grdItem.EmbeddedNavigator.Buttons.Remove.Enabled = False
+        Me.grdItem.EmbeddedNavigator.Buttons.Remove.Visible = False
+        Me.grdItem.Location = New System.Drawing.Point(0, 345)
+        Me.grdItem.MainView = Me.grdItemView
+        Me.grdItem.Name = "grdItem"
+        Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
+        Me.grdItem.Size = New System.Drawing.Size(872, 238)
+        Me.grdItem.TabIndex = 5
+        Me.grdItem.UseEmbeddedNavigator = True
+        Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
+        '
+        'grdItemView
+        '
+        Me.grdItemView.GridControl = Me.grdItem
+        Me.grdItemView.Name = "grdItemView"
+        Me.grdItemView.OptionsCustomization.AllowColumnMoving = False
+        Me.grdItemView.OptionsCustomization.AllowGroup = False
+        Me.grdItemView.OptionsView.ColumnAutoWidth = False
+        Me.grdItemView.OptionsView.ShowAutoFilterRow = True
+        Me.grdItemView.OptionsView.ShowFooter = True
+        Me.grdItemView.OptionsView.ShowGroupPanel = False
+        '
+        'rpiValue
+        '
+        Me.rpiValue.AutoHeight = False
+        Me.rpiValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.rpiValue.Name = "rpiValue"
+        Me.rpiValue.NullText = "0.00"
+        '
         'frmTraARAPInvoiceDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(872, 295)
+        Me.ClientSize = New System.Drawing.Size(872, 583)
+        Me.Controls.Add(Me.grdItem)
+        Me.Controls.Add(Me.ToolBarDetail)
+        Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.tcMain)
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
@@ -560,6 +659,9 @@ Partial Class frmTraARAPInvoiceDet
         Me.tpHistory.ResumeLayout(False)
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdItem, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -603,4 +705,11 @@ Partial Class frmTraARAPInvoiceDet
     Friend WithEvents tpHistory As System.Windows.Forms.TabPage
     Friend WithEvents grdStatus As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdStatusView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents Label14 As System.Windows.Forms.Label
+    Friend WithEvents ToolBarDetail As ERPS.usToolBar
+    Friend WithEvents BarCheckAll As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarUncheckAll As System.Windows.Forms.ToolBarButton
+    Friend WithEvents grdItem As DevExpress.XtraGrid.GridControl
+    Friend WithEvents grdItemView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents rpiValue As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
 End Class
