@@ -900,5 +900,30 @@
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Dim str As String = _
+"SELECT  " & vbNewLine & _
+"	PCD.ID, PCD.ParentID, PCH.IsUseSubItem, PCD.CODetailID,  " & vbNewLine & _
+"	PCH.PCNumber, PCH.PCDate, PCH.BPID, BP.Code AS BPCode, BP.Name AS BPName, PCD.OrderNumberSupplier, PCD.ItemID, MI.ItemCode, MI.ItemCodeExternal, MI.ItemName,  " & vbNewLine & _
+"	MI.Thick, MI.Width, MI.Length, PCD.Weight, PCD.Quantity, PCD.TotalWeight AS PCWeight, PCD.DCWeight, PCD.SCWeight, TDD.TotalDelivery  " & vbNewLine & _
+" " & vbNewLine & _
+"FROM traPurchaseContract PCH  " & vbNewLine & _
+"INNER JOIN traPurchaseContractDet PCD ON  " & vbNewLine & _
+"	PCH.ID=PCD.PCID  " & vbNewLine & _
+"INNER JOIN mstBusinessPartner BP ON  " & vbNewLine & _
+"	PCH.BPID=BP.ID  " & vbNewLine & _
+"INNER JOIN mstItem MI ON  " & vbNewLine & _
+"	PCD.ItemID=MI.ID   " & vbNewLine & _
+"LEFT JOIN  " & vbNewLine & _
+"( " & vbNewLine & _
+"	SELECT  " & vbNewLine & _
+"TDD.OrderNumberSupplier, TDD.ItemID, SUM(TDD.TotalWeight) TotalDelivery  " & vbNewLine & _
+"	FROM traDeliveryDet TDD  " & vbNewLine & _
+"	INNER JOIN traDelivery TDH ON  " & vbNewLine & _
+"TDD.DeliveryID=TDH.ID " & vbNewLine & _
+"	WHERE TDH.IsDeleted=0  " & vbNewLine & _
+"	GROUP BY TDD.OrderNumberSupplier, TDD.ItemID  " & vbNewLine & _
+") TDD ON PCD.OrderNumberSupplier=TDD.OrderNumberSupplier AND PCD.ItemID=TDD.ItemID  " & vbNewLine & _
+"WHERE  " & vbNewLine & _
+"	PCH.ApprovedBy<>'' AND TDD.TotalDelivery IS NULL " & vbNewLine
     End Class
 End Namespace
