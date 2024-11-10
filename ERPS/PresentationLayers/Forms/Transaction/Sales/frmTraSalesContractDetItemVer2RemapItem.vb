@@ -2,11 +2,12 @@
 
 #Region "Property"
 
-    Private frmParent As frmTraSalesContractDetItemVer2
+    Private frmParent As frmTraSalesContractDetVer2
     Private strID As String = ""
     Private strIDCOItem As String = ""
     Private strCODetailID As String = ""
-    Private strORDetailID As String
+    Private strORDetailID As String = ""
+    Private strSCID As String = ""
     Private intItemID As Integer = 0
     Private intItemIDCOItem As Integer = 0
     Private intGroupID As Integer = 0
@@ -32,6 +33,12 @@
     Public WriteOnly Property pubBPID As Integer
         Set(value As Integer)
             intBPID = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubSCID As String
+        Set(value As String)
+            strSCID = value
         End Set
     End Property
 
@@ -114,12 +121,14 @@
                     txtBPLocationAddress.Text = drSelectedItemCO.Item("DeliveryAddress")
 
                     clsSCCOOld = New VO.SalesContractDetConfirmationOrder
+                    clsSCCOOld.SCID = strSCID
                     clsSCCOOld.ID = strIDCOItem
                     clsSCCOOld.CODetailID = strCODetailID
                     clsSCCOOld.GroupID = intGroupID
                     clsSCCOOld.ItemID = intItemIDCOItem
 
                     clsSCCONew = New VO.SalesContractDetConfirmationOrder
+                    clsSCCONew.SCID = strSCID
                     clsSCCONew.ID = strIDCOItem
                     clsSCCONew.CODetailID = strCODetailID
                     clsSCCONew.GroupID = intGroupID
@@ -130,18 +139,21 @@
             Next
 
             clsSCDetOld = New VO.SalesContractDet
+            clsSCDetOld.SCID = strSCID
             clsSCDetOld.ID = strID
             clsSCDetOld.ORDetailID = strORDetailID
             clsSCDetOld.GroupID = intGroupID
             clsSCDetOld.ItemID = intItemID
-            clsSCDetOld.OrderNumberSupplier = txtOrderNumberSupplier.Text.Trim
+            clsSCDetOld.OrderNumberSupplier = drSelectedItem.Item("OrderNumberSupplier")
 
             clsSCDetNew = New VO.SalesContractDet
+            clsSCDetNew.SCID = strSCID
             clsSCDetNew.ID = strID
             clsSCDetNew.ORDetailID = strORDetailID
             clsSCDetNew.GroupID = intGroupID
             clsSCDetNew.ItemID = intItemID
             clsSCDetNew.OrderNumberSupplier = txtOrderNumberSupplier.Text.Trim
+            clsSCDetNew.OrderNumberSupplier = drSelectedItem.Item("OrderNumberSupplier")
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally
@@ -150,10 +162,15 @@
     End Sub
 
     Private Sub prvSave()
+        ToolBar.Focus()
         If txtTotalWeightCO.Value <= 0 Then
             UI.usForm.frmMessageBox("Total Berat Item Konfirmasi Pesanan harus lebih besar dari 0")
             txtWeightCO.Focus()
             Exit Sub
+            'ElseIf clsSCDetOld.OrderNumberSupplier.Trim <> txtOrderNumberSupplier.Text.Trim Then
+            '    UI.usForm.frmMessageBox("Fitur ini tidak dapat mendukung perubahan Nomor Pesanan Pemasok")
+            '    txtOrderNumberSupplier.Focus()
+            '    Exit Sub
         End If
 
         If Not UI.usForm.frmAskQuestion("Anda yakin ingin simpan data ini?") Then Exit Sub
@@ -163,6 +180,7 @@
 
         clsSCDetNew.GroupID = intGroupID
         clsSCDetNew.OrderNumberSupplier = txtOrderNumberSupplier.Text.Trim
+        clsSCDetNew.UnitPriceHPP = txtUnitPriceHPP.Value
 
         clsSCCONew.CODetailID = strCODetailID
         clsSCCONew.GroupID = intGroupID
@@ -176,6 +194,8 @@
         clsSCCONew.LevelItem = intLevelItem
         clsSCCONew.ParentID = ""
         clsSCCONew.LocationID = intLocationID
+        clsSCCONew.PCDetailID = ""
+        clsSCCONew.OrderNumberSupplier = txtOrderNumberSupplier.Text.Trim
 
         Try
             BL.SalesContract.RemapSCDetailItem(clsSCDetOld, clsSCDetNew, clsSCCOOld, clsSCCONew)
@@ -217,8 +237,20 @@
                 txtThickCO.Value = .pubLUdtRow.Item("Thick")
                 txtWidthCO.Value = .pubLUdtRow.Item("Width")
                 txtLengthCO.Value = .pubLUdtRow.Item("Length")
+                txtWeightCO.Value = .pubLUdtRow.Item("Weight")
+                txtMaxTotalWeightCO.Value = .pubLUdtRow.Item("TotalWeight")
+                txtUnitPriceHPP.Value = .pubLUdtRow.Item("UnitPrice")
+                txtUnitPriceCO.Value = .pubLUdtRow.Item("UnitPrice")
             End If
         End With
+    End Sub
+
+    Private Sub prvCalculate()
+        txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
+        txtTotalPrice.Value = txtUnitPrice.Value * txtTotalWeight.Value
+
+        txtTotalWeightCO.Value = txtWeightCO.Value * txtQuantityCO.Value
+        txtTotalPriceCO.Value = txtUnitPriceCO.Value * txtTotalWeightCO.Value
     End Sub
 
 #Region "Form Handle"
@@ -250,6 +282,11 @@
 
     Private Sub btnBPLocation_Click(sender As Object, e As EventArgs) Handles btnBPLocation.Click
         prvChooseBPLocation()
+    End Sub
+
+    Private Sub txtPrice_ValueChanged(sender As Object, e As EventArgs) Handles txtUnitPrice.ValueChanged, txtQuantity.ValueChanged, txtWeight.ValueChanged,
+        txtUnitPriceCO.ValueChanged, txtQuantityCO.ValueChanged, txtWeightCO.ValueChanged
+        prvCalculate()
     End Sub
 
 #End Region

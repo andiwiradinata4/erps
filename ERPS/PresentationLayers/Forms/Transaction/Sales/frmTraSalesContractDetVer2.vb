@@ -671,6 +671,7 @@ Public Class frmTraSalesContractDetVer2
         With frmDetail
             .pubCS = pubCS
             .pubBPID = intBPID
+            .pubSCID = pubID
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .pubDataParentItem = dtItem
             .pubDataParentItemCO = dtItemConfirmationOrder

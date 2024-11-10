@@ -11,6 +11,9 @@
     Private strID As String = ""
     Private bolIsSave As Boolean = False
     Private clsCS As VO.CS
+    Private decUnitPrice As Decimal
+    Private decWeight As Decimal
+    Private decTotalWeight As Decimal
 
     Public WriteOnly Property pubDatRowSelected As DataRow
         Set(value As DataRow)
@@ -33,6 +36,18 @@
     Public WriteOnly Property pubCS As VO.CS
         Set(value As VO.CS)
             clsCS = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubWeight As Decimal
+        Set(value As Decimal)
+            decWeight = value
+        End Set
+    End Property
+
+    Public WriteOnly Property pubTotalWeight As Decimal
+        Set(value As Decimal)
+            decTotalWeight = value
         End Set
     End Property
 
@@ -81,7 +96,9 @@
                 .GroupID = drSelected.Item("GroupID"),
                 .CODetailID = strCODetailIDNew,
                 .OrderNumberSupplier = txtOrderNumberSupplierNew.Text.Trim,
-                .ItemID = intItemIDNew
+                .ItemID = intItemIDNew,
+                .UnitPrice = decUnitPrice,
+                .TotalPrice = decTotalWeight * decUnitPrice
             }
             BL.SalesContract.ChangeCODetailItem(clsData)
             UI.usForm.frmMessageBox("Data berhasil diubah")
@@ -108,6 +125,7 @@
                 txtThickNew.Value = .pubLUdtRow.Item("Thick")
                 txtWidthNew.Value = .pubLUdtRow.Item("Width")
                 txtLengthNew.Value = .pubLUdtRow.Item("Length")
+                decUnitPrice = .pubLUdtRow.Item("UnitPrice")
             End If
         End With
     End Sub

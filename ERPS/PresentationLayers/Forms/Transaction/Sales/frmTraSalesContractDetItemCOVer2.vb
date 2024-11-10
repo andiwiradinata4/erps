@@ -450,7 +450,7 @@ Public Class frmTraSalesContractDetItemCOVer2
         If Not UI.usForm.frmAskQuestion("Hapus data yang dipilih?") Then Exit Sub
 
         Try
-            BL.SalesContract.DeleteDetailCOSubItem(strID, drSelectedSC.Item("SCID"), grdItemView.GetRowCellValue(intPos, "PCDetailID"))
+            BL.SalesContract.DeleteDetailCOSubItem(strID, grdItemView.GetRowCellValue(intPos, "PCDetailID"))
             prvQuerySubItem()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)

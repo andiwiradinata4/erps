@@ -953,3 +953,4 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationClaimOutstandingClaim
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderCuttingDetRemarkResult.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraDeliveryPrint.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer2ChangeItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer2RemapItem.resources

@@ -2212,7 +2212,8 @@
         End Sub
 
         Public Shared Sub UpdateDetailItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                           ByVal strID As String, ByVal strOrderNumberSupplier As String)
+                                           ByVal strID As String, ByVal strOrderNumberSupplier As String,
+                                           ByVal decUnitPriceHPP As Decimal)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -2220,12 +2221,38 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "UPDATE traSalesContractDet SET " & vbNewLine &
-                    "   OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
+                    "   OrderNumberSupplier=@OrderNumberSupplier, UnitPriceHPP=@UnitPriceHPP " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
+                .Parameters.Add("@UnitPriceHPP", SqlDbType.Decimal).Value = decUnitPriceHPP
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub UpdateDetailGroupID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal strID As String, ByVal intGroupID As Integer,
+                                              ByVal decUnitPriceHPP As Decimal)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesContractDet SET " & vbNewLine &
+                    "   GroupID=@GroupID, UnitPriceHPP=@UnitPriceHPP " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@GroupID", SqlDbType.Int).Value = intGroupID
+                .Parameters.Add("@UnitPriceHPP", SqlDbType.Decimal).Value = decUnitPriceHPP
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -2474,13 +2501,15 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "UPDATE traSalesContractDetConfirmationOrder SET " & vbNewLine &
-                    "   CODetailID=@CODetailID, ItemID=@ItemID " & vbNewLine &
+                    "   CODetailID=@CODetailID, ItemID=@ItemID, UnitPrice=@UnitPrice, TotalPrice=@TotalPrice " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = clsData.CODetailID
                 .Parameters.Add("@ItemID", SqlDbType.Int).Value = clsData.ItemID
+                .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = clsData.UnitPrice
+                .Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = clsData.TotalPrice
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

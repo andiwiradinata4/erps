@@ -147,7 +147,7 @@ Partial Class frmTraSalesContractDetItemVer2RemapItem
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(739, 28)
+        Me.ToolBar.Size = New System.Drawing.Size(1292, 28)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -171,7 +171,7 @@ Partial Class frmTraSalesContractDetItemVer2RemapItem
         Me.lblInfo.ForeColor = System.Drawing.Color.White
         Me.lblInfo.Location = New System.Drawing.Point(0, 28)
         Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(739, 22)
+        Me.lblInfo.Size = New System.Drawing.Size(1292, 22)
         Me.lblInfo.TabIndex = 1
         Me.lblInfo.Text = "« Barang Detail"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -219,9 +219,9 @@ Partial Class frmTraSalesContractDetItemVer2RemapItem
         Me.GroupControl1.Controls.Add(Me.txtItemCode)
         Me.GroupControl1.Controls.Add(Me.lblName)
         Me.GroupControl1.Controls.Add(Me.txtItemName)
-        Me.GroupControl1.Location = New System.Drawing.Point(12, 63)
+        Me.GroupControl1.Location = New System.Drawing.Point(10, 63)
         Me.GroupControl1.Name = "GroupControl1"
-        Me.GroupControl1.Size = New System.Drawing.Size(685, 361)
+        Me.GroupControl1.Size = New System.Drawing.Size(598, 442)
         Me.GroupControl1.TabIndex = 2
         Me.GroupControl1.Text = "Item Kontrak Penjualan"
         '
@@ -751,9 +751,9 @@ Partial Class frmTraSalesContractDetItemVer2RemapItem
         Me.gcNewItem.Controls.Add(Me.txtThickCO)
         Me.gcNewItem.Controls.Add(Me.txtMaxTotalWeightCO)
         Me.gcNewItem.Controls.Add(Me.txtWeightCO)
-        Me.gcNewItem.Location = New System.Drawing.Point(12, 438)
+        Me.gcNewItem.Location = New System.Drawing.Point(618, 63)
         Me.gcNewItem.Name = "gcNewItem"
-        Me.gcNewItem.Size = New System.Drawing.Size(685, 442)
+        Me.gcNewItem.Size = New System.Drawing.Size(664, 442)
         Me.gcNewItem.TabIndex = 3
         Me.gcNewItem.Text = "Konfirmasi Pesanan"
         '
@@ -1261,7 +1261,7 @@ Partial Class frmTraSalesContractDetItemVer2RemapItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(739, 904)
+        Me.ClientSize = New System.Drawing.Size(1292, 524)
         Me.Controls.Add(Me.gcNewItem)
         Me.Controls.Add(Me.GroupControl1)
         Me.Controls.Add(Me.lblInfo)
