@@ -837,39 +837,85 @@ Namespace BL
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim dtSCDetail As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsData.SCID, "")
-                    Dim dtSCCODetail As DataTable = DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, clsData.SCID, "")
-                    Dim drSelectedDetail() As DataRow = dtSCDetail.Select("GroupID=" & clsData.GroupID)
-                    Dim drSelectedDetailCO() As DataRow = dtSCCODetail.Select("ID='" & clsData.ID & "'")
-                    Dim drDCWeight() As DataRow = dtSCDetail.Select("DCWeight>0 AND GroupID=" & clsData.GroupID)
-                    If drDCWeight.Count > 0 Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pengiriman")
-                    End If
-
-                    '# Change Order Number Supplier ARAP Item
-                    For Each dr As DataRow In drSelectedDetail
-                        DL.ARAP.ChangeOrderNumberSupplierDetail(sqlCon, sqlTrans, dr.Item("ID"), dr.Item("OrderNumberSupplier"), clsData.OrderNumberSupplier, clsData.ItemID)
-                        DL.SalesContract.UpdateDetailItem(sqlCon, sqlTrans, dr.Item("ID"), clsData.OrderNumberSupplier)
-                    Next
-
-                    DL.SalesContract.UpdateDetailCOItem(sqlCon, sqlTrans, clsData)
-
-                    '# Recalculate SC Quantity in Confirmation Order
-                    For Each dr As DataRow In drSelectedDetailCO
-                        DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
-                        DL.PurchaseContract.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
-                    Next
-
-                    DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, clsData.CODetailID)
-                    DL.PurchaseContract.CalculateSCTotalUsed(sqlCon, sqlTrans, clsData.CODetailID)
-
+                    bolReturn = ChangeCODetailItem(sqlCon, sqlTrans, clsData)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
                     Throw ex
                 End Try
             End Using
+            Return bolReturn
+        End Function
 
+        Private Shared Function ChangeCODetailItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal clsData As VO.SalesContractDetConfirmationOrder) As Boolean
+            Dim dtSCDetail As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsData.SCID, "")
+            Dim dtSCCODetail As DataTable = DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, clsData.SCID, "")
+            Dim drSelectedDetail() As DataRow = dtSCDetail.Select("GroupID=" & clsData.GroupID)
+            Dim drSelectedDetailCO() As DataRow = dtSCCODetail.Select("ID='" & clsData.ID & "'")
+            Dim drDCWeight() As DataRow = dtSCDetail.Select("DCWeight>0 AND GroupID=" & clsData.GroupID)
+            If drDCWeight.Count > 0 Then
+                Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pengiriman")
+            End If
+
+            Dim dtSCDetailCOSubItem As New DataTable
+            For Each dr As DataRow In drSelectedDetailCO
+                dtSCDetailCOSubItem.Merge(DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, clsData.SCID, dr.Item("ID")))
+            Next
+
+            If dtSCDetailCOSubItem.Rows.Count > 0 Then Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah memiliki Subitem. Hapus Subitem pada Item ini terlebih dahulu / Hubungi IT Support Anda.")
+
+            '# Change Order Number Supplier ARAP Item
+            For Each dr As DataRow In drSelectedDetail
+                DL.ARAP.ChangeOrderNumberSupplierDetail(sqlCon, sqlTrans, dr.Item("ID"), dr.Item("OrderNumberSupplier"), clsData.OrderNumberSupplier, clsData.ItemID)
+                DL.SalesContract.UpdateDetailItem(sqlCon, sqlTrans, dr.Item("ID"), clsData.OrderNumberSupplier)
+            Next
+
+            DL.SalesContract.UpdateDetailCOItem(sqlCon, sqlTrans, clsData)
+
+            '# Recalculate SC Quantity in Confirmation Order
+            For Each dr As DataRow In drSelectedDetailCO
+                DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
+                DL.PurchaseContract.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
+            Next
+
+            DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, clsData.CODetailID)
+            DL.PurchaseContract.CalculateSCTotalUsed(sqlCon, sqlTrans, clsData.CODetailID)
+            Return True
+        End Function
+
+        Public Shared Function RemapSCDetailItem(ByVal clsSCDetOld As VO.SalesContractDet, ByVal clsSCDetNew As VO.SalesContractDet,
+                                                 ByVal clsSCCOOld As VO.SalesContractDetConfirmationOrder, ByVal clsSCCONew As VO.SalesContractDetConfirmationOrder) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Dim bolNeedDeleteSubItem As Boolean = False
+
+                    Dim dtSCDetail As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsSCDetOld.SCID, "")
+                    Dim dtSCCODetail As DataTable = DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, clsSCDetOld.SCID, "")
+                    Dim drSelectedDetail() As DataRow = dtSCDetail.Select("GroupID=" & clsSCDetOld.GroupID)
+                    Dim drSelectedDetailCO() As DataRow = dtSCCODetail.Select("ID='" & clsSCDetOld.ID & "'")
+                    Dim drDCWeight() As DataRow = dtSCDetail.Select("DCWeight>0 AND GroupID=" & clsSCDetOld.GroupID)
+                    If drDCWeight.Count > 0 Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses pengiriman")
+                    End If
+
+                    Dim dtSCDetailCOSubItem As New DataTable
+                    For Each dr As DataRow In drSelectedDetailCO
+                        dtSCDetailCOSubItem.Merge(DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, clsSCDetOld.SCID, dr.Item("ID")))
+                    Next
+
+                    If dtSCDetailCOSubItem.Rows.Count > 0 Then Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah memiliki Subitem. Hapus Subitem pada Item ini terlebih dahulu / Hubungi IT Support Anda.")
+
+
+                    bolReturn = True
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
             Return bolReturn
         End Function
 

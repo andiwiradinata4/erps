@@ -202,7 +202,8 @@ Public Class frmTraCuttingDetItem
         '# Item Handle
         If bolIsNew Then
             Dim drItem As DataRow = dtItem.NewRow
-            intGroupID = dtItem.Rows.Count + 1
+            Dim drMax() As DataRow = dtItem.Select("GroupID>0", "GroupID DESC")
+            If drMax.Count > 0 Then intGroupID = drMax.First().Item("GroupID") + 1 Else intGroupID = dtItem.Rows.Count + 1
             With drItem
                 .BeginEdit()
                 .Item("ID") = Guid.NewGuid

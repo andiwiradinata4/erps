@@ -121,6 +121,8 @@ Partial Class frmTraSalesContractDetVer2
         Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.tpConfirmationOrder = New System.Windows.Forms.TabPage()
+        Me.BarSepItemOrder1 = New System.Windows.Forms.ToolBarButton()
+        Me.BarRemapItemOrder = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdSubItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemCO, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1251,7 +1253,7 @@ Partial Class frmTraSalesContractDetVer2
         'ToolBarItem
         '
         Me.ToolBarItem.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder})
+        Me.ToolBarItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder, Me.BarSepItemOrder1, Me.BarRemapItemOrder})
         Me.ToolBarItem.DropDownArrows = True
         Me.ToolBarItem.Location = New System.Drawing.Point(3, 3)
         Me.ToolBarItem.Name = "ToolBarItem"
@@ -1287,6 +1289,17 @@ Partial Class frmTraSalesContractDetVer2
         Me.tpConfirmationOrder.TabIndex = 2
         Me.tpConfirmationOrder.Text = "Konfirmasi Pesanan - F7"
         Me.tpConfirmationOrder.UseVisualStyleBackColor = True
+        '
+        'BarSepItemOrder1
+        '
+        Me.BarSepItemOrder1.Name = "BarSepItemOrder1"
+        Me.BarSepItemOrder1.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarRemapItemOrder
+        '
+        Me.BarRemapItemOrder.Name = "BarRemapItemOrder"
+        Me.BarRemapItemOrder.Tag = "Alt"
+        Me.BarRemapItemOrder.Text = "Remap"
         '
         'frmTraSalesContractDetVer2
         '
@@ -1452,4 +1465,6 @@ Partial Class frmTraSalesContractDetVer2
     Friend WithEvents grdSubItemCOView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents grdItemCOView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents RepositoryItemTextEdit3 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents BarSepItemOrder1 As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarRemapItemOrder As System.Windows.Forms.ToolBarButton
 End Class

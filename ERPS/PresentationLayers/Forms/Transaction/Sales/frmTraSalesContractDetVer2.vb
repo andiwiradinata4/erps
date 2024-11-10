@@ -24,7 +24,7 @@ Public Class frmTraSalesContractDetVer2
 
     Private Const _
        cSave As Byte = 0, cClose As Byte = 1,
-       cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2
+       cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2, cSepItem1 As Byte = 3, cRemapItem As Byte = 4
 
     Private Sub prvSetTitleForm()
         If pubIsNew Then
@@ -557,6 +557,7 @@ Public Class frmTraSalesContractDetVer2
         With ToolBarItem
             .Buttons(cEditItem).Enabled = bolEnabled
             .Buttons(cDeleteItem).Enabled = bolEnabled
+            .Buttons(cRemapItem).Enabled = IIf(pubIsNew, False, bolEnabled)
         End With
     End Sub
 
@@ -621,13 +622,16 @@ Public Class frmTraSalesContractDetVer2
             .pubTableParentCOItem = dtItemConfirmationOrder
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .pubLevelItem = 0
-            .pubBPID = intBPID
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
             prvCalculate()
             prvSetupTools()
             prvSumGrid()
+            If .pubIsNeedRefresh Then
+                prvQueryItem()
+                prvQueryItemConfirmationOrder()
+            End If
         End With
     End Sub
 
@@ -652,6 +656,35 @@ Public Class frmTraSalesContractDetVer2
         prvCalculate()
         prvSetButtonItem()
         prvSetupTools()
+    End Sub
+
+    Private Sub prvRemapItem()
+        intPos = grdItemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+
+        Dim drSelectedCO As DataRow
+        For i As Integer = 0 To grdItemCOView.RowCount
+            If grdItemCOView.GetRowCellValue(i, "GroupID") = grdItemView.GetRowCellValue(intPos, "GroupID") Then drSelectedCO = grdItemCOView.GetDataRow(i) : Exit For
+        Next
+
+        Dim frmDetail As New frmTraSalesContractDetItemVer2RemapItem
+        With frmDetail
+            .pubCS = pubCS
+            .pubBPID = intBPID
+            .pubDataRowSelected = grdItemView.GetDataRow(intPos)
+            .pubDataParentItem = dtItem
+            .pubDataParentItemCO = dtItemConfirmationOrder
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            prvSetButtonItem()
+            prvCalculate()
+            prvSetupTools()
+            prvSumGrid()
+            If .pubIsSave Then
+                prvQueryItem()
+                prvQueryItemConfirmationOrder()
+            End If
+        End With
     End Sub
 
 #End Region
@@ -822,6 +855,7 @@ Public Class frmTraSalesContractDetVer2
             Case "Tambah" : prvAddItem()
             Case "Edit" : prvEditItem()
             Case "Hapus" : prvDeleteItem()
+            Case "Remap" : prvRemapItem()
         End Select
     End Sub
 

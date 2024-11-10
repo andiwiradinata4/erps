@@ -18,6 +18,7 @@ Public Class frmTraSalesContractDetItemVer2
     Private dtCO As New DataTable
     Private bolIsAutoSearch As Boolean
     Private intLevelItem As Integer = 0
+    Private bolIsNeedRefresh As Boolean
 
     Public WriteOnly Property pubBPID As Integer
         Set(value As Integer)
@@ -73,6 +74,12 @@ Public Class frmTraSalesContractDetItemVer2
         End Set
     End Property
 
+    Public ReadOnly Property pubIsNeedRefresh As Boolean
+        Get
+            Return bolIsNeedRefresh
+        End Get
+    End Property
+
     Public Sub pubShowDialog(ByVal frmGetParent As Form)
         frmParent = frmGetParent
         Me.ShowDialog()
@@ -82,7 +89,7 @@ Public Class frmTraSalesContractDetItemVer2
 
     Private Const _
        cSave As Byte = 0, cClose As Byte = 1,
-       cAdd As Byte = 0, cEdit As Byte = 1, cDelete As Byte = 2
+       cAdd As Byte = 0, cEdit As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3, cChangeItem As Byte = 4
 
     Private Sub prvSetGrid()
         UI.usForm.SetGrid(grdItemCOView, "ID", "ID", 100, UI.usDefGrid.gString, False)
@@ -306,7 +313,8 @@ Public Class frmTraSalesContractDetItemVer2
         '# Item Handle
         If bolIsNew Then
             Dim drItem As DataRow = dtParentItem.NewRow
-            intGroupID = dtParentItem.Rows.Count + 1
+            Dim drMax() As DataRow = dtParentItem.Select("GroupID>0", "GroupID DESC")
+            If drMax.Count > 0 Then intGroupID = drMax.First().Item("GroupID") + 1 Else intGroupID = dtParentItem.Rows.Count + 1
             With drItem
                 .BeginEdit()
                 .Item("ID") = strID
@@ -460,6 +468,7 @@ Public Class frmTraSalesContractDetItemVer2
     Private Sub prvToolsHandles()
         Dim bolEnabled As Boolean = IIf(grdItemCOView.RowCount = 0, True, False)
         btnRequestItem.Enabled = bolEnabled
+        ToolBarItemCO.Buttons(cAdd).Enabled = bolEnabled
     End Sub
 
 #Region "Confirmation Order Item"
@@ -469,6 +478,7 @@ Public Class frmTraSalesContractDetItemVer2
         With ToolBarItemCO
             .Buttons(cEdit).Enabled = bolEnabled
             .Buttons(cDelete).Enabled = bolEnabled
+            .Buttons(cChangeItem).Enabled = IIf(bolIsNew, False, bolEnabled)
         End With
     End Sub
 
@@ -561,7 +571,7 @@ Public Class frmTraSalesContractDetItemVer2
             .pubCS = clsCS
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
-            If .pubIsSave Then Me.Close()
+            If .pubIsSave Then bolIsNeedRefresh = True : Me.Close()
         End With
     End Sub
 
