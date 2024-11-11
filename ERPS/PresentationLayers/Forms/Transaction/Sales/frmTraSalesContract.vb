@@ -15,7 +15,7 @@ Public Class frmTraSalesContract
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
        cSep2 As Byte = 8, cDownPayment As Byte = 9, cReceive As Byte = 10, cSetupDelivery As Byte = 11,
        cCancelSetupDelivery As Byte = 12, cSep3 As Byte = 13, cPrint As Byte = 14, cExportExcel As Byte = 15,
-       cSep4 As Byte = 16, cRefresh As Byte = 17, cClose As Byte = 18
+       cSep4 As Byte = 16, cReviewDifferent As Byte = 17, cSep5 As Byte = 18, cRefresh As Byte = 19, cClose As Byte = 20
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -721,6 +721,17 @@ Public Class frmTraSalesContract
         grdView.BestFitColumns()
     End Sub
 
+    Private Sub prvReviewItemDifferent()
+        Dim frmDetail As New frmTraSalesContractDifferentTotalChild
+        With frmDetail
+            .pubCompanyID = intCompanyID
+            .pubProgramID = intProgramID
+            .pubDateFrom = dtpDateFrom.Value.Date
+            .pubDateTo = dtpDateTo.Value.Date
+            .ShowDialog()
+        End With
+    End Sub
+
     Private Sub prvUserAccess()
         With ToolBar.Buttons
             .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.NewAccess)
@@ -766,6 +777,8 @@ Public Class frmTraSalesContract
             pubRefresh()
         ElseIf e.Button.Name = ToolBar.Buttons(cClose).Name Then
             Me.Close()
+        ElseIf e.Button.Name = ToolBar.Buttons(cReviewDifferent).Name Then
+            prvReviewItemDifferent()
         ElseIf grdView.FocusedRowHandle >= 0 Then
             Select Case e.Button.Name
                 Case ToolBar.Buttons(cDetail).Name : prvDetail()
@@ -778,6 +791,7 @@ Public Class frmTraSalesContract
                 Case ToolBar.Buttons(cReceive).Name : prvReceivePayment()
                 Case ToolBar.Buttons(cSetupDelivery).Name : prvSetupDelivery(True)
                 Case ToolBar.Buttons(cCancelSetupDelivery).Name : prvSetupDelivery(False)
+                Case ToolBar.Buttons(cPrint).Name : prvPrint()
                 Case ToolBar.Buttons(cPrint).Name : prvPrint()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select

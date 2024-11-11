@@ -19,6 +19,7 @@ Public Class frmTraSalesContractDetItemVer2
     Private bolIsAutoSearch As Boolean
     Private intLevelItem As Integer = 0
     Private bolIsNeedRefresh As Boolean
+    Private strSCID As String = ""
 
     Public WriteOnly Property pubBPID As Integer
         Set(value As Integer)
@@ -80,6 +81,12 @@ Public Class frmTraSalesContractDetItemVer2
         End Get
     End Property
 
+    Public WriteOnly Property pubSCID As String
+        Set(value As String)
+            strSCID = value
+        End Set
+    End Property
+
     Public Sub pubShowDialog(ByVal frmGetParent As Form)
         frmParent = frmGetParent
         Me.ShowDialog()
@@ -89,7 +96,7 @@ Public Class frmTraSalesContractDetItemVer2
 
     Private Const _
        cSave As Byte = 0, cClose As Byte = 1,
-       cAdd As Byte = 0, cEdit As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3, cChangeItem As Byte = 4
+       cAdd As Byte = 0, cEdit As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3, cChangeItem As Byte = 4, cAddAdditional As Byte = 5
 
     Private Sub prvSetGrid()
         UI.usForm.SetGrid(grdItemCOView, "ID", "ID", 100, UI.usDefGrid.gString, False)
@@ -235,6 +242,26 @@ Public Class frmTraSalesContractDetItemVer2
             grdSubItemCOView.Columns("TotalPrice").Summary.Add(SumGrandTotalPriceSubItemCO)
         End If
         grdSubItemCOView.BestFitColumns()
+
+
+        '# Sub Item
+        Dim SumTotalQuantitySubItemSC As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0}")
+        Dim SumGrandTotalWeightSubItemSC As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
+        Dim SumGrandTotalPriceSubItemSC As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
+
+        If grdSubitemView.Columns("Quantity").SummaryText.Trim = "" Then
+            grdSubitemView.Columns("Quantity").Summary.Add(SumTotalQuantitySubItemSC)
+        End If
+
+        If grdSubitemView.Columns("TotalWeight").SummaryText.Trim = "" Then
+            grdSubitemView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeightSubItemSC)
+        End If
+
+        If grdSubitemView.Columns("TotalPrice").SummaryText.Trim = "" Then
+            grdSubitemView.Columns("TotalPrice").Summary.Add(SumGrandTotalPriceSubItemSC)
+        End If
+        grdSubitemView.BestFitColumns()
+
     End Sub
 
     Private Sub prvFillForm()
@@ -479,6 +506,8 @@ Public Class frmTraSalesContractDetItemVer2
             .Buttons(cEdit).Enabled = bolEnabled
             .Buttons(cDelete).Enabled = bolEnabled
             .Buttons(cChangeItem).Enabled = IIf(bolIsNew, False, bolEnabled)
+            .Buttons(cAddAdditional).Enabled = IIf(bolIsNew, False, Not bolEnabled)
+            prvToolsHandles()
         End With
     End Sub
 
@@ -568,7 +597,39 @@ Public Class frmTraSalesContractDetItemVer2
         Dim frmDetail As New frmTraSalesContractDetItemVer2ChangeItem
         With frmDetail
             .pubDatRowSelected = grdItemCOView.GetDataRow(intPos)
+            .pubTotalWeight = grdItemCOView.GetRowCellValue(intPos, "TotalWeight")
             .pubCS = clsCS
+            .StartPosition = FormStartPosition.CenterScreen
+            .pubShowDialog(Me)
+            If .pubIsSave Then bolIsNeedRefresh = True : Me.Close()
+        End With
+    End Sub
+
+    Private Sub prvAddItemConfirmationOrderAdditional()
+        If intItemID = 0 Then
+            UI.usForm.frmMessageBox("Pilih permintaan barang terlebih dahulu")
+            txtItemCode.Focus()
+            Exit Sub
+        End If
+
+        Dim dtAllCO As DataTable = dtCO.Clone
+        dtAllCO.Merge(dtCO)
+        For Each dr As DataRow In dtAllCO.Rows
+            Dim drSelected() As DataRow = dtParentCOItem.Select("ID='" & dr.Item("ID") & "'")
+            If drSelected.Count > 0 Then dr.Delete()
+        Next
+        dtAllCO.AcceptChanges()
+        dtAllCO.Merge(dtParentCOItem)
+
+        Dim frmDetail As New frmTraSalesContractDetItemCOVer2AddAdditional
+        With frmDetail
+            .pubID = Guid.NewGuid.ToString
+            .pubTableParentAll = dtAllCO
+            .pubCS = clsCS
+            .pubIsAutoSearch = True
+            .pubBPID = intBPID
+            .pubSCID = strSCID
+            .pubGroupID = intGroupID
             .StartPosition = FormStartPosition.CenterScreen
             .pubShowDialog(Me)
             If .pubIsSave Then bolIsNeedRefresh = True : Me.Close()
@@ -586,6 +647,7 @@ Public Class frmTraSalesContractDetItemVer2
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally
+            prvSumGrid()
             prvSetButtonSubitem()
         End Try
     End Sub
@@ -711,6 +773,7 @@ Public Class frmTraSalesContractDetItemVer2
             Case "Edit" : prvEditItemConfirmationOrder()
             Case "Hapus" : prvDeleteItemConfirmationOrder()
             Case "Ubah Barang" : prvChangeItemConfirmationOrder()
+            Case "Add Additional" : prvAddItemConfirmationOrderAdditional()
         End Select
     End Sub
 

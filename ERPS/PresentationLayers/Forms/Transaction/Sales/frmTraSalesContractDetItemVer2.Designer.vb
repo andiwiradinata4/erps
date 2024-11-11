@@ -36,6 +36,8 @@ Partial Class frmTraSalesContractDetItemVer2
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarEditItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep1ItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarChangeItem = New System.Windows.Forms.ToolBarButton()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -89,8 +91,7 @@ Partial Class frmTraSalesContractDetItemVer2
         Me.grdSubitem = New DevExpress.XtraGrid.GridControl()
         Me.grdSubitemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.BarSep1ItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.BarChangeItem = New System.Windows.Forms.ToolBarButton()
+        Me.BarAddAdditionalItemOrder = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdSubItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemCO, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -208,7 +209,7 @@ Partial Class frmTraSalesContractDetItemVer2
         'ToolBarItemCO
         '
         Me.ToolBarItemCO.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarItemCO.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarEditItemOrder, Me.BarDeleteItemOrder, Me.BarSep1ItemOrder, Me.BarChangeItem})
+        Me.ToolBarItemCO.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarEditItemOrder, Me.BarDeleteItemOrder, Me.BarSep1ItemOrder, Me.BarChangeItem, Me.BarAddAdditionalItemOrder})
         Me.ToolBarItemCO.Divider = False
         Me.ToolBarItemCO.DropDownArrows = True
         Me.ToolBarItemCO.Location = New System.Drawing.Point(618, 22)
@@ -235,6 +236,17 @@ Partial Class frmTraSalesContractDetItemVer2
         Me.BarDeleteItemOrder.Name = "BarDeleteItemOrder"
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
+        '
+        'BarSep1ItemOrder
+        '
+        Me.BarSep1ItemOrder.Name = "BarSep1ItemOrder"
+        Me.BarSep1ItemOrder.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarChangeItem
+        '
+        Me.BarChangeItem.Name = "BarChangeItem"
+        Me.BarChangeItem.Tag = "Alt"
+        Me.BarChangeItem.Text = "Ubah Barang"
         '
         'Label5
         '
@@ -882,16 +894,11 @@ Partial Class frmTraSalesContractDetItemVer2
         Me.RepositoryItemTextEdit2.Name = "RepositoryItemTextEdit2"
         Me.RepositoryItemTextEdit2.NullText = "0.00"
         '
-        'BarSep1ItemOrder
+        'BarAddAdditionalItemOrder
         '
-        Me.BarSep1ItemOrder.Name = "BarSep1ItemOrder"
-        Me.BarSep1ItemOrder.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
-        '
-        'BarChangeItem
-        '
-        Me.BarChangeItem.Name = "BarChangeItem"
-        Me.BarChangeItem.Tag = "Alt"
-        Me.BarChangeItem.Text = "Ubah Barang"
+        Me.BarAddAdditionalItemOrder.Name = "BarAddAdditionalItemOrder"
+        Me.BarAddAdditionalItemOrder.Tag = "Add"
+        Me.BarAddAdditionalItemOrder.Text = "Add Additional"
         '
         'frmTraSalesContractDetItemVer2
         '
@@ -1001,4 +1008,5 @@ Partial Class frmTraSalesContractDetItemVer2
     Friend WithEvents RepositoryItemTextEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents BarSep1ItemOrder As ToolBarButton
     Friend WithEvents BarChangeItem As ToolBarButton
+    Friend WithEvents BarAddAdditionalItemOrder As System.Windows.Forms.ToolBarButton
 End Class

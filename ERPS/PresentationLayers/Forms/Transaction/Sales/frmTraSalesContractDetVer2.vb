@@ -622,6 +622,7 @@ Public Class frmTraSalesContractDetVer2
             .pubTableParentCOItem = dtItemConfirmationOrder
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .pubLevelItem = 0
+            .pubSCID = pubID
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -884,7 +885,7 @@ Public Class frmTraSalesContractDetVer2
             Case "Edit" : prvEditItem()
             Case "Hapus" : prvDeleteItem()
             Case "Remap" : prvRemapItem()
-            Case "Hapus Duplicate" : prvRemapItem()
+            Case "Hapus Duplicate" : prvDeleteDuplicateItem()
         End Select
     End Sub
 
