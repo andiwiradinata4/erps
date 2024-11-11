@@ -688,6 +688,33 @@ Public Class frmTraSalesContractDetVer2
         End With
     End Sub
 
+    Private Sub prvDeleteDuplicateItem()
+        intPos = grdItemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdItemView.GetRowCellValue(intPos, "ID")
+        Dim intGroupID As Integer = grdItemView.GetRowCellValue(intPos, "GroupID")
+        Dim clsSCDet As New VO.SalesContractDet With {
+            .ID = strID,
+            .SCID = pubID,
+            .GroupID = intGroupID,
+            .ItemID = grdItemView.GetRowCellValue(intPos, "ItemID"),
+            .ORDetailID = grdItemView.GetRowCellValue(intPos, "ORDetailID")
+        }
+
+        If Not UI.usForm.frmAskQuestion("Hapus data yang sedang dipilih ?") Then Exit Sub
+
+        Try
+            If BL.SalesContract.DeleteDuplicateSCItem(clsSCDet) Then
+                UI.usForm.frmMessageBox("Data berhasil dihapus")
+                prvFillForm()
+                prvQueryItem()
+                prvQueryItemConfirmationOrder()
+            End If
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        End Try
+    End Sub
+
 #End Region
 
 #Region "Item Confirmation Order Handle"
@@ -857,6 +884,7 @@ Public Class frmTraSalesContractDetVer2
             Case "Edit" : prvEditItem()
             Case "Hapus" : prvDeleteItem()
             Case "Remap" : prvRemapItem()
+            Case "Hapus Duplicate" : prvRemapItem()
         End Select
     End Sub
 

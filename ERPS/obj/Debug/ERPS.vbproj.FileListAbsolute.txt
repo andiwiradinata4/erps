@@ -954,3 +954,4 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseOrderCuttingDetRemarkResu
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraDeliveryPrint.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer2ChangeItem.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer2RemapItem.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemVer2RemapItem.resources

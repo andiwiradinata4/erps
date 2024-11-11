@@ -1611,6 +1611,37 @@
             Return bolReturn
         End Function
 
+        Public Shared Sub UpdateDeleteDuplicate(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                ByVal clsData As VO.SalesContract)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesContract SET " & vbNewLine &
+                    "    TotalDPP=@TotalDPP, " & vbNewLine &
+                    "    TotalPPN=@TotalPPN, " & vbNewLine &
+                    "    TotalPPH=@TotalPPH, " & vbNewLine &
+                    "    TotalQuantity=@TotalQuantity, " & vbNewLine &
+                    "    TotalWeight=@TotalWeight " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@TotalDPP", SqlDbType.Decimal).Value = clsData.TotalDPP
+                .Parameters.Add("@TotalPPN", SqlDbType.Decimal).Value = clsData.TotalPPN
+                .Parameters.Add("@TotalPPH", SqlDbType.Decimal).Value = clsData.TotalPPH
+                .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
+                .Parameters.Add("@TotalQuantity", SqlDbType.Decimal).Value = clsData.TotalQuantity
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail"
@@ -1642,7 +1673,8 @@
                     "    B.ItemTypeID=D.ID  	" & vbNewLine &
                     "WHERE  	" & vbNewLine &
                     "    A.SCID=@SCID	" & vbNewLine &
-                    "    AND A.ParentID=@ParentID " & vbNewLine
+                    "    AND A.ParentID=@ParentID " & vbNewLine &
+                    "ORDER BY A.GroupID " & vbNewLine
 
                 .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = strSCID
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
@@ -2293,7 +2325,8 @@
                     "	A.LocationID=BPL.ID " & vbNewLine &
                     "WHERE  	" & vbNewLine &
                     "    A.SCID=@SCID	" & vbNewLine &
-                    "    AND A.ParentID=@ParentID " & vbNewLine
+                    "    AND A.ParentID=@ParentID " & vbNewLine &
+                    "ORDER BY A.GroupID " & vbNewLine
 
                 .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = strSCID
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID

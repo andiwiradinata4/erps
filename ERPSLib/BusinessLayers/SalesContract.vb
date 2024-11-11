@@ -905,7 +905,7 @@
                     Dim drSelectedDetail() As DataRow = dtSCDetail.Select("GroupID=" & clsSCDetOld.GroupID)
 
                     If drSelectedDetail.Count = 1 Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Gunakan fitur ubah item pada Kontrak Penjualan -> Konfirmasi Pesanan")
+                        'Err.Raise(515, "", "Data tidak dapat disimpan. Gunakan fitur ubah item pada Kontrak Penjualan -> Konfirmasi Pesanan")
                         Dim dtSCDetailCOSubItem As New DataTable
                         For Each dr As DataRow In drSelectedDetailCO
                             dtSCDetailCOSubItem.Merge(DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, clsSCDetOld.SCID, dr.Item("ID")))
@@ -931,7 +931,77 @@
                     DL.PurchaseContract.CalculateSCTotalUsed(sqlCon, sqlTrans, clsSCCONew.CODetailID)
                     DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, clsSCCONew.CODetailID)
 
-                    ChangeCODetailItem(sqlCon, sqlTrans, clsSCCONew)
+                    If clsSCDetOld.OrderNumberSupplier <> clsSCDetNew.OrderNumberSupplier Then ChangeCODetailItem(sqlCon, sqlTrans, clsSCCONew)
+
+                    bolReturn = True
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function DeleteDuplicateSCItem(ByVal clsData As VO.SalesContractDet) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Dim dtSCDetOld As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsData.SCID, "")
+                    Dim dtSubItem As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsData.SCID, clsData.ID)
+                    Dim dtARAPItem As New DataTable
+                    dtARAPItem.Merge(DL.ARAP.ListDataByReferencesDetailID(sqlCon, sqlTrans, clsData.ID, clsData.ItemID))
+                    For Each dr As DataRow In dtSubItem.Rows
+                        dtARAPItem.Merge(DL.ARAP.ListDataByReferencesDetailID(sqlCon, sqlTrans, dr.Item("ID"), dr.Item("ItemID")))
+                    Next
+
+                    If dtARAPItem.Rows.Count > 0 Then Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah diproses Pembayaran DP / Pelunasan.")
+
+                    Dim dtDeliveryDet As New DataTable
+                    dtDeliveryDet.Merge(DL.Delivery.ListDataDetailBySCDetailID(sqlCon, sqlTrans, clsData.ID, clsData.ItemID))
+                    For Each dr As DataRow In dtSubItem.Rows
+                        dtDeliveryDet.Merge(DL.Delivery.ListDataDetailBySCDetailID(sqlCon, sqlTrans, dr.Item("ID"), dr.Item("ItemID")))
+                    Next
+
+                    If dtARAPItem.Rows.Count > 0 Then Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah diproses Pengiriman.")
+
+                    DL.SalesContract.DeleteDataDetailByID(sqlCon, sqlTrans, clsData.ID)
+                    DL.OrderRequest.CalculateTotalUsed(sqlCon, sqlTrans, clsData.ORDetailID)
+
+                    '# Update Total SC
+                    Dim clsSC As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, sqlTrans, clsData.SCID)
+                    Dim dtSCDet As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsData.SCID, "")
+                    Dim decTotalDPP As Decimal = 0, decTotalQuantity As Decimal = 0, decTotalWeight As Decimal = 0
+                    For Each dr As DataRow In dtSCDet.Rows
+                        decTotalDPP += dr.Item("TotalPrice")
+                        decTotalQuantity += dr.Item("Quantity")
+                        decTotalWeight += dr.Item("TotalWeight")
+                    Next
+
+                    clsSC.TotalDPP = decTotalDPP
+                    clsSC.TotalPPN = decTotalDPP * (clsSC.PPN / 100)
+                    clsSC.TotalPPH = decTotalDPP * (clsSC.PPH / 100)
+                    clsSC.GrandTotal = decTotalDPP + clsSC.TotalPPN - clsSC.TotalPPH
+                    DL.SalesContract.UpdateDeleteDuplicate(sqlCon, sqlTrans, clsSC)
+
+                    '# Delete Sales Contract CO
+                    Dim drSelected() As DataRow = dtSCDetOld.Select("GroupID=" & clsData.GroupID)
+                    If drSelected.Count = 1 Then
+                        Dim dtSCCO As DataTable = DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, clsData.SCID, "")
+                        For Each dr As DataRow In dtSCCO.Rows
+                            dtSCCO.Merge(DL.SalesContract.ListDataDetailCO(sqlCon, sqlTrans, clsData.SCID, dr.Item("ID")))
+                        Next
+
+                        Dim drSelectedCO() As DataRow = dtSCCO.Select("GroupID=" & clsData.GroupID)
+                        For Each dr As DataRow In drSelectedCO
+                            DL.SalesContract.DeleteDataDetailCOByID(sqlCon, sqlTrans, dr.Item("ID"))
+
+                            DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
+                            DL.PurchaseContract.CalculateSCTotalUsed(sqlCon, sqlTrans, dr.Item("CODetailID"))
+                        Next
+                    End If
 
                     bolReturn = True
                     sqlTrans.Commit()

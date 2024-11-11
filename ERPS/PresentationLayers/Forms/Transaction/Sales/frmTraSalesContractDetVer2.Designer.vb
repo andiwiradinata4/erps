@@ -120,9 +120,10 @@ Partial Class frmTraSalesContractDetVer2
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.tpConfirmationOrder = New System.Windows.Forms.TabPage()
         Me.BarSepItemOrder1 = New System.Windows.Forms.ToolBarButton()
         Me.BarRemapItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.tpConfirmationOrder = New System.Windows.Forms.TabPage()
+        Me.BarDeleteDuplicate = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdSubItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemCO, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1253,7 +1254,7 @@ Partial Class frmTraSalesContractDetVer2
         'ToolBarItem
         '
         Me.ToolBarItem.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder, Me.BarSepItemOrder1, Me.BarRemapItemOrder})
+        Me.ToolBarItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder, Me.BarSepItemOrder1, Me.BarRemapItemOrder, Me.BarDeleteDuplicate})
         Me.ToolBarItem.DropDownArrows = True
         Me.ToolBarItem.Location = New System.Drawing.Point(3, 3)
         Me.ToolBarItem.Name = "ToolBarItem"
@@ -1280,16 +1281,6 @@ Partial Class frmTraSalesContractDetVer2
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
         '
-        'tpConfirmationOrder
-        '
-        Me.tpConfirmationOrder.Controls.Add(Me.grdItemCO)
-        Me.tpConfirmationOrder.Location = New System.Drawing.Point(4, 25)
-        Me.tpConfirmationOrder.Name = "tpConfirmationOrder"
-        Me.tpConfirmationOrder.Size = New System.Drawing.Size(917, 338)
-        Me.tpConfirmationOrder.TabIndex = 2
-        Me.tpConfirmationOrder.Text = "Konfirmasi Pesanan - F7"
-        Me.tpConfirmationOrder.UseVisualStyleBackColor = True
-        '
         'BarSepItemOrder1
         '
         Me.BarSepItemOrder1.Name = "BarSepItemOrder1"
@@ -1300,6 +1291,22 @@ Partial Class frmTraSalesContractDetVer2
         Me.BarRemapItemOrder.Name = "BarRemapItemOrder"
         Me.BarRemapItemOrder.Tag = "Alt"
         Me.BarRemapItemOrder.Text = "Remap"
+        '
+        'tpConfirmationOrder
+        '
+        Me.tpConfirmationOrder.Controls.Add(Me.grdItemCO)
+        Me.tpConfirmationOrder.Location = New System.Drawing.Point(4, 25)
+        Me.tpConfirmationOrder.Name = "tpConfirmationOrder"
+        Me.tpConfirmationOrder.Size = New System.Drawing.Size(917, 338)
+        Me.tpConfirmationOrder.TabIndex = 2
+        Me.tpConfirmationOrder.Text = "Konfirmasi Pesanan - F7"
+        Me.tpConfirmationOrder.UseVisualStyleBackColor = True
+        '
+        'BarDeleteDuplicate
+        '
+        Me.BarDeleteDuplicate.Name = "BarDeleteDuplicate"
+        Me.BarDeleteDuplicate.Tag = "Delete"
+        Me.BarDeleteDuplicate.Text = "Hapus Duplicate"
         '
         'frmTraSalesContractDetVer2
         '
@@ -1467,4 +1474,5 @@ Partial Class frmTraSalesContractDetVer2
     Friend WithEvents RepositoryItemTextEdit3 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents BarSepItemOrder1 As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarRemapItemOrder As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarDeleteDuplicate As ToolBarButton
 End Class
