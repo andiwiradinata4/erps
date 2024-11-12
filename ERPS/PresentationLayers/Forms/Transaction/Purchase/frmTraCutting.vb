@@ -11,7 +11,8 @@ Public Class frmTraCutting
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cSep2 As Byte = 6, cExportExcel As Byte = 7,
-       cSep3 As Byte = 8, cRefresh As Byte = 9, cClose As Byte = 10
+       cSep3 As Byte = 8, cReceive As Byte = 9, cClaimCustomer As Byte = 10, cSep4 As Byte = 11,
+       cRefresh As Byte = 12, cClose As Byte = 13
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -29,6 +30,11 @@ Public Class frmTraCutting
         UI.usForm.SetGrid(grdView, "BPID", "BPID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "BPCode", "Kode Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "BPName", "Nama Pemasok", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "CustomerID", "CustomerID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdView, "CustomerCode", "Kode Pelanggan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "CustomerName", "Nama Pelanggan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "IsClaimCustomer", "Klaim Pelanggan?", 100, UI.usDefGrid.gBoolean)
+        UI.usForm.SetGrid(grdView, "PickupDate", "Tanggal Pengambilan", 100, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdView, "POID", "POID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "PONumber", "Nomor Pesanan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ReferencesNumber", "No. Referensi", 100, UI.usDefGrid.gString)
@@ -62,6 +68,8 @@ Public Class frmTraCutting
             .Item(cSubmit).Enabled = bolEnable
             .Item(cCancelSubmit).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
+            .Item(cReceive).Enabled = bolEnable
+            .Item(cClaimCustomer).Enabled = bolEnable
         End With
     End Sub
 
@@ -146,6 +154,9 @@ Public Class frmTraCutting
         clsReturn.BPID = grdView.GetRowCellValue(intPos, "BPID")
         clsReturn.BPCode = grdView.GetRowCellValue(intPos, "BPCode")
         clsReturn.BPName = grdView.GetRowCellValue(intPos, "BPName")
+        clsReturn.CustomerID = grdView.GetRowCellValue(intPos, "CustomerID")
+        clsReturn.CustomerCode = grdView.GetRowCellValue(intPos, "CustomerCode")
+        clsReturn.CustomerName = grdView.GetRowCellValue(intPos, "CustomerName")
         clsReturn.TotalQuantity = grdView.GetRowCellValue(intPos, "TotalQuantity")
         clsReturn.TotalWeight = grdView.GetRowCellValue(intPos, "TotalWeight")
         clsReturn.IsDeleted = grdView.GetRowCellValue(intPos, "IsDeleted")
@@ -157,6 +168,10 @@ Public Class frmTraCutting
         clsReturn.LogDate = grdView.GetRowCellValue(intPos, "LogDate")
         clsReturn.LogInc = grdView.GetRowCellValue(intPos, "LogInc")
         clsReturn.StatusInfo = grdView.GetRowCellValue(intPos, "StatusInfo")
+        clsReturn.PickupDate = grdView.GetRowCellValue(intPos, "PickupDate")
+        clsReturn.IsClaimCustomer = grdView.GetRowCellValue(intPos, "IsClaimCustomer")
+        clsReturn.PPN = grdView.GetRowCellValue(intPos, "PPN")
+        clsReturn.PPH = grdView.GetRowCellValue(intPos, "PPH")
         Return clsReturn
     End Function
 
@@ -291,6 +306,61 @@ Public Class frmTraCutting
         dxExporter.DevExport(Me, grdMain, Me.Text, Me.Text, DX.usDxExportFormat.fXls, True, True, DX.usDXExportType.etDefault)
     End Sub
 
+    Private Sub prvReceivePayment()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+
+        If clsData.StatusID <> VO.Status.Values.Submit Then
+            UI.usForm.frmMessageBox("Status Data harus disubmit terlebih dahulu")
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraARAP
+        With frmDetail
+            .pubModules = VO.AccountPayable.ReceivePaymentCutting
+            .pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
+            .pubBPID = clsData.BPID
+            .pubBPCode = clsData.BPCode
+            .pubBPName = clsData.BPName
+            .pubCS = prvGetCS()
+            .pubReferencesID = clsData.ID
+            .pubReferencesNumber = clsData.PONumber
+            .pubPPNPercentage = clsData.PPN
+            .pubPPHPercentage = clsData.PPH
+            .ShowDialog()
+        End With
+    End Sub
+
+    Private Sub prvClaimCustomer()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+
+        If clsData.StatusID <> VO.Status.Values.Submit Then
+            UI.usForm.frmMessageBox("Status Data harus disubmit terlebih dahulu")
+            Exit Sub
+        ElseIf Not clsData.IsClaimCustomer Then
+            UI.usForm.frmMessageBox("Data tidak diset sebagai Klaim Pelanggan sehingga tidak dapat diproses Klaim Pelanggan")
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraARAP
+        With frmDetail
+            .pubModules = VO.AccountReceivable.ReceivePaymentClaimPOCutting
+            .pubARAPType = VO.ARAP.ARAPTypeValue.Sales
+            .pubBPID = clsData.CustomerID
+            .pubBPCode = clsData.CustomerCode
+            .pubBPName = clsData.CustomerName
+            .pubCS = prvGetCS()
+            .pubReferencesID = clsData.ID
+            .pubReferencesNumber = clsData.CuttingNumber
+            .pubPPNPercentage = clsData.PPN
+            .pubPPHPercentage = clsData.PPH
+            .ShowDialog()
+        End With
+    End Sub
+
     Private Sub prvClear()
         grdMain.DataSource = Nothing
         grdView.Columns.Clear()
@@ -373,6 +443,8 @@ Public Class frmTraCutting
                 Case ToolBar.Buttons(cSubmit).Name : prvSubmit()
                 Case ToolBar.Buttons(cCancelSubmit).Name : prvCancelSubmit()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
+                Case ToolBar.Buttons(cReceive).Name : prvReceivePayment()
+                Case ToolBar.Buttons(cClaimCustomer).Name : prvClaimCustomer()
             End Select
         End If
     End Sub

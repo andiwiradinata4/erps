@@ -306,7 +306,7 @@
                                           ByVal strID As String)
             Try
                 Dim clsData As VO.Cutting = DL.Cutting.GetDetail(sqlCon, sqlTrans, strID)
-                Dim clsPO As VO.PurchaseOrderCutting = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsData.POID)
+                Dim clsPO As VO.Cutting = DL.Cutting.GetDetail(sqlCon, sqlTrans, clsData.ID)
                 Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
                 Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
 

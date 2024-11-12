@@ -28,6 +28,7 @@ Partial Class frmTraCuttingDetItemResult
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.btnItemCustom = New DevExpress.XtraEditors.SimpleButton()
         Me.Label26 = New System.Windows.Forms.Label()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.txtMaxTotalWeight = New ERPS.usNumeric()
@@ -64,7 +65,6 @@ Partial Class frmTraCuttingDetItemResult
         Me.txtWidth = New ERPS.usNumeric()
         Me.txtThick = New ERPS.usNumeric()
         Me.txtWeight = New ERPS.usNumeric()
-        Me.btnItemCustom = New DevExpress.XtraEditors.SimpleButton()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtMaxTotalWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -158,6 +158,14 @@ Partial Class frmTraCuttingDetItemResult
         Me.pnlDetail.Name = "pnlDetail"
         Me.pnlDetail.Size = New System.Drawing.Size(686, 332)
         Me.pnlDetail.TabIndex = 2
+        '
+        'btnItemCustom
+        '
+        Me.btnItemCustom.Image = CType(resources.GetObject("btnItemCustom.Image"), System.Drawing.Image)
+        Me.btnItemCustom.Location = New System.Drawing.Point(338, 50)
+        Me.btnItemCustom.Name = "btnItemCustom"
+        Me.btnItemCustom.Size = New System.Drawing.Size(23, 23)
+        Me.btnItemCustom.TabIndex = 3
         '
         'Label26
         '
@@ -255,7 +263,7 @@ Partial Class frmTraCuttingDetItemResult
         'btnItem
         '
         Me.btnItem.Image = CType(resources.GetObject("btnItem.Image"), System.Drawing.Image)
-        Me.btnItem.Location = New System.Drawing.Point(337, 23)
+        Me.btnItem.Location = New System.Drawing.Point(338, 23)
         Me.btnItem.Name = "btnItem"
         Me.btnItem.Size = New System.Drawing.Size(23, 23)
         Me.btnItem.TabIndex = 1
@@ -569,14 +577,6 @@ Partial Class frmTraCuttingDetItemResult
         Me.txtWeight.TabIndex = 7
         Me.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtWeight.ThousandsSeparator = True
-        '
-        'btnItemCustom
-        '
-        Me.btnItemCustom.Image = CType(resources.GetObject("btnItemCustom.Image"), System.Drawing.Image)
-        Me.btnItemCustom.Location = New System.Drawing.Point(338, 50)
-        Me.btnItemCustom.Name = "btnItemCustom"
-        Me.btnItemCustom.Size = New System.Drawing.Size(23, 23)
-        Me.btnItemCustom.TabIndex = 3
         '
         'frmTraCuttingDetItemResult
         '

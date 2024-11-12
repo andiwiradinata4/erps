@@ -1074,7 +1074,7 @@
 "	BP.Name AS BPName, 	POH.PONumber, ItemCodeExternal=CASE WHEN MI.ItemCodeExternal='' THEN POD.OrderNumberSupplier ELSE MI.ItemCodeExternal END, " & vbNewLine &
 "	MI.Thick, MI.Width, CASE WHEN MI.Length=0 THEN IT.LengthInitial ELSE CAST(MI.Length AS VARCHAR(100)) END AS Length,  " & vbNewLine &
 "	POD.TotalWeight, POH.RemarksResult, POH.Remarks, CP.Name AS CustomerName, POH.IsClaimCustomer, POH.StatusID, " & vbNewLine &
-"   CompanyName=MC.Name, CompanyAddress=MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse  " & vbNewLine &
+"   CompanyName=MC.Name, CompanyAddress=MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse, POD.GroupID " & vbNewLine &
 "FROM traPurchaseOrderCutting POH  " & vbNewLine &
 "INNER JOIN traPurchaseOrderCuttingDet POD ON  " & vbNewLine &
 "	POH.ID=POD.POID  " & vbNewLine &
@@ -1642,7 +1642,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT " & vbNewLine &
-                    "   A.ID, A.POID, A.Remarks " & vbNewLine &
+                    "   A.ID, A.POID, A.GroupID, A.Remarks " & vbNewLine &
                     "FROM traPurchaseOrderRemarksResult A " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   A.POID=@POID " & vbNewLine
@@ -1661,13 +1661,14 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traPurchaseOrderRemarksResult" & vbNewLine &
-                    "   (ID, POID, Remarks) " & vbNewLine &
+                    "   (ID, POID, Remarks, GroupID) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @POID, @Remarks) " & vbNewLine
+                    "   (@ID, @POID, @Remarks, @GroupID) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@POID", SqlDbType.VarChar, 100).Value = clsData.POID
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
+                .Parameters.Add("@GroupID", SqlDbType.Int).Value = clsData.GroupID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

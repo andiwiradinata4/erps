@@ -29,6 +29,8 @@ Partial Class frmTraCuttingDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.dtpPickupDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label12 = New System.Windows.Forms.Label()
         Me.txtCustomerCode = New ERPS.usTextBox()
         Me.txtCustomerName = New ERPS.usTextBox()
         Me.btnCustomer = New DevExpress.XtraEditors.SimpleButton()
@@ -172,6 +174,8 @@ Partial Class frmTraCuttingDet
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.dtpPickupDate)
+        Me.tpMain.Controls.Add(Me.Label12)
         Me.tpMain.Controls.Add(Me.txtCustomerCode)
         Me.tpMain.Controls.Add(Me.txtCustomerName)
         Me.tpMain.Controls.Add(Me.btnCustomer)
@@ -204,6 +208,28 @@ Partial Class frmTraCuttingDet
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'dtpPickupDate
+        '
+        Me.dtpPickupDate.CustomFormat = "dd/MM/yyyy"
+        Me.dtpPickupDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpPickupDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpPickupDate.Location = New System.Drawing.Point(584, 43)
+        Me.dtpPickupDate.Name = "dtpPickupDate"
+        Me.dtpPickupDate.Size = New System.Drawing.Size(105, 21)
+        Me.dtpPickupDate.TabIndex = 14
+        Me.dtpPickupDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.BackColor = System.Drawing.Color.Transparent
+        Me.Label12.ForeColor = System.Drawing.Color.Black
+        Me.Label12.Location = New System.Drawing.Point(465, 47)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(108, 13)
+        Me.Label12.TabIndex = 164
+        Me.Label12.Text = "Tanggal Pengambilan"
         '
         'txtCustomerCode
         '
@@ -281,7 +307,7 @@ Partial Class frmTraCuttingDet
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(494, 20)
+        Me.Label5.Location = New System.Drawing.Point(513, 20)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(60, 13)
         Me.Label5.TabIndex = 158
@@ -331,12 +357,12 @@ Partial Class frmTraCuttingDet
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(584, 70)
+        Me.txtRemarks.Location = New System.Drawing.Point(584, 97)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 15
+        Me.txtRemarks.Size = New System.Drawing.Size(249, 75)
+        Me.txtRemarks.TabIndex = 16
         '
         'txtBPCode
         '
@@ -386,7 +412,7 @@ Partial Class frmTraCuttingDet
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(494, 74)
+        Me.Label13.Location = New System.Drawing.Point(510, 101)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 129
@@ -397,17 +423,17 @@ Partial Class frmTraCuttingDet
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(584, 43)
+        Me.cboStatus.Location = New System.Drawing.Point(584, 70)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(105, 21)
-        Me.cboStatus.TabIndex = 14
+        Me.cboStatus.TabIndex = 15
         '
         'lblStatusID
         '
         Me.lblStatusID.AutoSize = True
         Me.lblStatusID.BackColor = System.Drawing.Color.Transparent
         Me.lblStatusID.ForeColor = System.Drawing.Color.Black
-        Me.lblStatusID.Location = New System.Drawing.Point(494, 47)
+        Me.lblStatusID.Location = New System.Drawing.Point(535, 74)
         Me.lblStatusID.Name = "lblStatusID"
         Me.lblStatusID.Size = New System.Drawing.Size(38, 13)
         Me.lblStatusID.TabIndex = 128
@@ -1060,4 +1086,6 @@ Partial Class frmTraCuttingDet
     Friend WithEvents txtCustomerName As ERPS.usTextBox
     Friend WithEvents btnCustomer As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label10 As System.Windows.Forms.Label
+    Friend WithEvents dtpPickupDate As System.Windows.Forms.DateTimePicker
+    Friend WithEvents Label12 As System.Windows.Forms.Label
 End Class

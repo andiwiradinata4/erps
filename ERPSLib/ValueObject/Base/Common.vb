@@ -30,7 +30,7 @@
             ElseIf strModules = VO.AccountPayable.DownPaymentCutting Then
                 Return "Uang Muka Pesanan Pemotongan"
             ElseIf strModules = VO.AccountPayable.ReceivePaymentCutting Then
-                Return "Pembayaran Hutang Pesanan Pemotongan"
+                Return "Pembayaran Biaya Pemotongan"
             ElseIf strModules = VO.AccountPayable.DownPaymentTransport Then
                 Return "Uang Muka Pesanan Pengiriman"
             ElseIf strModules = VO.AccountPayable.ReceivePaymentTransport Then

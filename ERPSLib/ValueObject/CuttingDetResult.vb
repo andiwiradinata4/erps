@@ -15,5 +15,17 @@
         Property ParentID As String = ""
         Property UnitPriceHPP As Decimal
         Property TotalPriceHPP As Decimal
+        Property InvoiceQuantity As Decimal
+        Property InvoiceWeight As Decimal
+        Property InvoiceTotalWeight As Decimal
+        Property DPAmount As Decimal
+        Property DPAmountPPN As Decimal
+        Property DPAmountPPH As Decimal
+        Property ReceiveAmount As Decimal
+        Property ReceivePPN As Decimal
+        Property ReceivePPH As Decimal
+        Property AllocateDPAmount As Decimal
+        Property UnitPrice As Decimal
+        Property TotalPrice As Decimal
     End Class
 End Namespace

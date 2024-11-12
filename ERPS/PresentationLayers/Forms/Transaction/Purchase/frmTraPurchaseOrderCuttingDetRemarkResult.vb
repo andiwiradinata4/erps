@@ -6,7 +6,8 @@
     Private bolIsNew As Boolean
     Private drSelectedItem As DataRow
     Private strID As String = Guid.NewGuid.ToString
-    Private frmParent As frmTraPurchaseOrderCuttingDet
+    Private intGroupID As Integer
+    Private frmParent As frmTraPurchaseOrderCuttingDetItem
 
     Public WriteOnly Property pubDtItem As DataTable
         Set(value As DataTable)
@@ -41,6 +42,7 @@
             Me.Cursor = Cursors.Default
             If Not bolIsNew Then
                 strID = drSelectedItem.Item("ID")
+                intGroupID = drSelectedItem.Item("GroupID")
                 txtRemarks.Text = drSelectedItem.Item("Remarks")
             End If
         Catch ex As Exception
@@ -64,6 +66,7 @@
             With drItem
                 .BeginEdit()
                 .Item("ID") = Guid.NewGuid
+                .Item("GroupID") = intGroupID
                 .Item("POID") = ""
                 .Item("Remarks") = txtRemarks.Text.Trim
                 .EndEdit()
@@ -75,6 +78,7 @@
                 With dr
                     If .Item("ID") = strID Then
                         .BeginEdit()
+                        .Item("GroupID") = intGroupID
                         .Item("POID") = ""
                         .Item("Remarks") = txtRemarks.Text.Trim
                         .EndEdit()
@@ -104,7 +108,6 @@
 
     Private Sub frmTraPurchaseOrderCuttingDetRemarkResult_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
-        ToolBar.SetIcon(Me)
         ToolBar.SetIcon(Me)
         prvFillForm()
     End Sub

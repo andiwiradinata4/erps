@@ -76,6 +76,8 @@
                 DevelopOnProgress_ID69(sqlCon, Nothing)
                 DevelopOnProgress_ID70(sqlCon, Nothing)
                 CreateARAPInvoiceItem_ID71(sqlCon, Nothing)
+                DevelopOnProgress_ID72(sqlCon, Nothing)
+                'DevelopOnProgress_ID73(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -2119,6 +2121,49 @@
 "   	[ID] ASC" & vbNewLine &
 "   ) " & vbNewLine &
 ") " & vbNewLine
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 72
+        Private Shared Sub DevelopOnProgress_ID72(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 72
+            clsData.Name = "Add Column GroupID and PickupDate in traPurchaseOrderRemarksResult and traCutting"
+            clsData.Scripts =
+            "ALTER TABLE traPurchaseOrderRemarksResult ADD GroupID INT NOT NULL CONSTRAINT DF_traPurchaseOrderRemarksResult_GroupID DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCutting ADD PickupDate DATETIME NOT NULL CONSTRAINT DF_traCutting_PickupDate DEFAULT ('2000/01/01') " & vbNewLine &
+            "ALTER TABLE traCuttingDetResult ADD InvoiceQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_InvoiceQuantity DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDetResult ADD InvoiceWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_InvoiceWeight DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDetResult ADD InvoiceTotalWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_InvoiceTotalWeight DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDetResult ADD DPAmount DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_DPAmount DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDetResult ADD DPAmountPPN DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_DPAmountPPN DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDetResult ADD DPAmountPPH DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_DPAmountPPH DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDetResult ADD ReceiveAmount DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_ReceiveAmount DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDetResult ADD ReceiveAmountPPN DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_ReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDetResult ADD ReceiveAmountPPH DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_ReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDetResult ADD AllocateDPAmount DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_AllocateDPAmount DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDetResult ADD UnitPrice DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_UnitPrice DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDetResult ADD TotalPrice DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_TotalPrice DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDet ADD ClaimDPAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_ClaimDPAmount DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDet ADD ClaimDPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_ClaimDPAmountPPN DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDet ADD ClaimDPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_ClaimDPAmountPPH DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDet ADD ClaimReceiveAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_ClaimReceiveAmount DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDet ADD ClaimReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_ClaimReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDet ADD ClaimReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_ClaimReceiveAmountPPH DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDet ADD ClaimInvoiceQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_ClaimInvoiceQuantity DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDet ADD ClaimInvoiceWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_ClaimInvoiceWeight DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCuttingDet ADD ClaimInvoiceTotalWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traCuttingDet_ClaimInvoiceTotalWeight DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCutting ADD ClaimDPAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_ClaimDPAmount DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCutting ADD ClaimDPAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_ClaimDPAmountPPN DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCutting ADD ClaimDPAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_ClaimDPAmountPPH DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCutting ADD ClaimReceiveAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_ClaimReceiveAmount DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCutting ADD ClaimReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_ClaimReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
+            "ALTER TABLE traCutting ADD ClaimReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_ClaimReceiveAmountPPH DEFAULT ((0)) " & vbNewLine
+
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)

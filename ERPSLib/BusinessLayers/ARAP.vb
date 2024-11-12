@@ -442,8 +442,8 @@
                             clsReferences = DL.SalesReturn.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                             strReferencesNumber = clsReferences.SalesReturnNumber
                         ElseIf clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then
-                            clsReferences = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
-                            strReferencesNumber = clsReferences.PONumber
+                            clsReferences = DL.Cutting.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesNumber = clsReferences.CuttingNumber
                         ElseIf clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentClaimPurchase Then
                             clsReferences = DL.ConfirmationClaim.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                             strReferencesNumber = clsReferences.ConfirmationClaimNumber
@@ -454,14 +454,14 @@
                         If clsReferences.StatusID <> VO.Status.Values.Approved And
                             (clsDataARAP.Modules = VO.AccountReceivable.DownPayment Or
                              clsDataARAP.Modules = VO.AccountReceivable.ReceivePayment Or
-                             clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentSalesReturn Or
-                             clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentClaimPOCutting
+                             clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentSalesReturn
                             ) Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Data harus disetujui terlebih dahulu")
                         ElseIf clsReferences.StatusID <> VO.Status.Values.Submit And
                             (clsDataARAP.Modules = VO.AccountReceivable.DownPaymentOrderRequest Or
                              clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentOrderRequest Or
-                             clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentClaimPurchase) Then
+                             clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentClaimPurchase Or
+                             clsDataARAP.Modules = VO.AccountReceivable.ReceivePaymentClaimPOCutting) Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Data Permintaan harus disubmit terlebih dahulu")
                         End If
 
@@ -530,8 +530,8 @@
                     Else
                         If clsDataARAP.Modules = VO.AccountPayable.DownPaymentCutting Or
                             clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentCutting Then
-                            clsReferences = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
-                            strReferencesNumber = clsReferences.PONumber
+                            clsReferences = DL.Cutting.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesNumber = clsReferences.CuttingNumber
                         ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPaymentTransport Or
                             clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport Then
                             clsReferences = DL.Delivery.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
@@ -622,8 +622,8 @@
                         BL.AccountPayable.SaveDataVer02_ReceivePayment(sqlCon, sqlTrans, bolNew, clsData)
 
                         If clsDataARAP.Modules = VO.AccountPayable.DownPaymentCutting Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentCutting Then
-                            clsReferences = DL.PurchaseOrderCutting.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
-                            strReferencesNumber = clsReferences.PONumber
+                            clsReferences = DL.Cutting.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
+                            strReferencesNumber = clsReferences.CuttingNumber
                         ElseIf clsDataARAP.Modules = VO.AccountPayable.DownPaymentTransport Or clsDataARAP.Modules = VO.AccountPayable.ReceivePaymentTransport Then
                             clsReferences = DL.Delivery.GetDetail(sqlCon, sqlTrans, clsDataARAP.ReferencesID)
                             strReferencesNumber = clsReferences.DeliveryNumber

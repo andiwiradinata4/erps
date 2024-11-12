@@ -23,5 +23,14 @@
         Property ParentID As String = ""
         Property UnitPriceRawMaterial As Decimal = 0
         Property TotalPriceRawMaterial As Decimal = 0
+        Property ClaimDPAmount As Decimal
+        Property ClaimDPAmountPPN As Decimal
+        Property ClaimDPAmountPPH As Decimal
+        Property ClaimReceiveAmount As Decimal
+        Property ClaimReceivePPN As Decimal
+        Property ClaimReceivePPH As Decimal
+        Property ClaimInvoiceQuantity As Decimal
+        Property ClaimInvoiceWeight As Decimal
+        Property ClaimInvoiceTotalWeight As Decimal
     End Class
 End Namespace

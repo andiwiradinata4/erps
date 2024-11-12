@@ -457,7 +457,7 @@
                 ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentSalesReturn Then
                     dtReferencesItem = DL.SalesReturn.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID)
                 ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then
-                    dtReferencesItem = DL.PurchaseOrderCutting.ListDataDetailResult(sqlCon, sqlTrans, clsData.ReferencesID)
+                    dtReferencesItem = DL.Cutting.ListDataDetailResult(sqlCon, sqlTrans, clsData.ReferencesID)
                 ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then
                     dtReferencesItem = DL.ConfirmationClaim.ListDataDetail(sqlCon, sqlTrans, clsData.ReferencesID)
                 End If
@@ -489,7 +489,7 @@
                         End If
                         If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentOrderRequest Then DL.OrderRequest.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                         If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentSalesReturn Then DL.SalesReturn.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
-                        If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentClaimVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
+                        If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then DL.Cutting.CalculateTotalUsedReceiveItemPaymentClaimVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                         If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then DL.ConfirmationClaim.CalculateTotalUsedReceiveItemPaymentPurchaseVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                     Next
 
@@ -507,7 +507,7 @@
                         DL.SalesReturn.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, clsData.ReferencesID)
                     ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then
                         '# Calculate Claim PO Cutting
-                        DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentClaimVer02(sqlCon, sqlTrans, clsData.ReferencesID)
+                        DL.Cutting.CalculateTotalUsedReceivePaymentClaimVer02(sqlCon, sqlTrans, clsData.ReferencesID)
                     ElseIf clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then
                         '# Calculate Claim Pembelian / Pendapatan Kompensasi
                         DL.ConfirmationClaim.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, clsData.ReferencesID)
@@ -567,7 +567,7 @@
 
                     If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentOrderRequest Then DL.OrderRequest.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
                     If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentSalesReturn Then DL.SalesReturn.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
-                    If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentClaimVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
+                    If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then DL.Cutting.CalculateTotalUsedReceiveItemPaymentClaimVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
                     If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then DL.ConfirmationClaim.CalculateTotalUsedReceiveItemPaymentPurchaseVer02(sqlCon, sqlTrans, clsItem.ReferencesDetailID)
                     intCount += 1
                 Next
@@ -576,7 +576,7 @@
                 If clsData.Modules.Trim = VO.AccountReceivable.ReceivePayment Then DL.SalesContract.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, clsData.ReferencesID)
                 If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentOrderRequest Then DL.OrderRequest.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, clsData.ReferencesID)
                 If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentSalesReturn Then DL.SalesReturn.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, clsData.ReferencesID)
-                If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentClaimVer02(sqlCon, sqlTrans, clsData.ReferencesID)
+                If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then DL.Cutting.CalculateTotalUsedReceivePaymentClaimVer02(sqlCon, sqlTrans, clsData.ReferencesID)
                 If clsData.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then DL.ConfirmationClaim.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, clsData.ReferencesID)
 
                 '# Save Data Down Payment
@@ -879,7 +879,7 @@
                     If strModules.Trim = VO.AccountReceivable.DownPaymentOrderRequest Then DL.OrderRequest.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, dr.Item("ReferencesID"), dr.Item("ReferencesDetailID"))
                     If strModules.Trim = VO.AccountReceivable.ReceivePaymentOrderRequest Then DL.OrderRequest.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                     If strModules.Trim = VO.AccountReceivable.ReceivePaymentSalesReturn Then DL.SalesReturn.CalculateTotalUsedReceiveItemPaymentVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
-                    If strModules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then DL.PurchaseOrderCutting.CalculateTotalUsedReceiveItemPaymentClaimVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
+                    If strModules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then DL.Cutting.CalculateTotalUsedReceiveItemPaymentClaimVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                     If strModules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then DL.ConfirmationClaim.CalculateTotalUsedReceiveItemPaymentPurchaseVer02(sqlCon, sqlTrans, dr.Item("ReferencesDetailID"))
                 Next
 
@@ -907,7 +907,7 @@
                     ElseIf strModules.Trim = VO.AccountReceivable.ReceivePaymentSalesReturn Then
                         DL.SalesReturn.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                     ElseIf strModules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then
-                        DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentClaimVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
+                        DL.Cutting.CalculateTotalUsedReceivePaymentClaimVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                     ElseIf strModules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then
                         DL.ConfirmationClaim.CalculateTotalUsedReceivePaymentVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                     End If
@@ -989,7 +989,7 @@
                 ElseIf strModules.Trim = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then
 
                     '# Calculate Claim PO Cutting
-                    DL.PurchaseOrderCutting.CalculateTotalUsedReceivePaymentClaimVer02(sqlCon, sqlTrans, clsExists.ReferencesID)
+                    DL.Cutting.CalculateTotalUsedReceivePaymentClaimVer02(sqlCon, sqlTrans, clsExists.ReferencesID)
 
                 ElseIf strModules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then
 

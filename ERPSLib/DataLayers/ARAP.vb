@@ -186,10 +186,10 @@
 "    ARH.CompanyID=MC.ID     " & vbNewLine &
 "INNER JOIN mstProgram MP ON     " & vbNewLine &
 "    ARH.ProgramID=MP.ID     " & vbNewLine &
-"INNER JOIN traPurchaseOrderCutting SCH ON     " & vbNewLine &
+"INNER JOIN traCutting SCH ON     " & vbNewLine &
 "	ARD.SalesID=SCH.ID     " & vbNewLine &
-"INNER JOIN traPurchaseOrderCuttingDetResult SCD ON     " & vbNewLine &
-"	SCH.ID=SCD.POID     " & vbNewLine &
+"INNER JOIN traCuttingDetResult SCD ON     " & vbNewLine &
+"	SCH.ID=SCD.CuttingID     " & vbNewLine &
 "INNER JOIN mstItem MI ON 	      " & vbNewLine &
 "    SCD.ItemID=MI.ID 	      " & vbNewLine &
 "INNER JOIN mstItemSpecification MIS ON 	 	      " & vbNewLine &
@@ -198,7 +198,7 @@
 "    MI.ItemTypeID=IT.ID 	 	      " & vbNewLine &
 "INNER JOIN traARAPItem ARI ON     " & vbNewLine &
 "	ARH.ID=ARI.ParentID     " & vbNewLine &
-"	AND SCD.POID=ARI.ReferencesID     " & vbNewLine &
+"	AND SCD.CuttingID=ARI.ReferencesID     " & vbNewLine &
 "	AND SCD.ID=ARI.ReferencesDetailID     " & vbNewLine &
 "LEFT JOIN mstCompanyBankAccount MBC1 ON  " & vbNewLine &
 "	ARH.CompanyBankAccountID1=MBC1.ID  " & vbNewLine &

@@ -37,5 +37,13 @@
         Property CustomerID As Integer
         Property CustomerCode As String
         Property CustomerName As String
+        Property PickupDate As DateTime
+        Property IsClaimCustomer As Boolean
+        Property ClaimDPAmount As Decimal
+        Property ClaimDPAmountPPN As Decimal
+        Property ClaimDPAmountPPH As Decimal
+        Property ClaimReceiveAmount As Decimal
+        Property ClaimReceiveAmountPPN As Decimal
+        Property ClaimReceiveAmountPPH As Decimal
     End Class
 End Namespace

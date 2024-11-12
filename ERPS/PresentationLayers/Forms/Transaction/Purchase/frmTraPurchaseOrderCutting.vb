@@ -34,7 +34,7 @@ Public Class frmTraPurchaseOrderCutting
         UI.usForm.SetGrid(grdView, "CustomerID", "CustomerID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "CustomerCode", "Kode Pelanggan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "CustomerName", "Nama Pelanggan", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdView, "IsClaimCustomer", "Klaim Pelanggan?", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "IsClaimCustomer", "Klaim Pelanggan?", 100, UI.usDefGrid.gBoolean)
         UI.usForm.SetGrid(grdView, "PersonInCharge", "PIC", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "DeliveryPeriodFrom", "Periode Dari", 100, UI.usDefGrid.gDateMonthYear, False)
         UI.usForm.SetGrid(grdView, "DeliveryPeriodTo", "Periode Sampai", 100, UI.usDefGrid.gDateMonthYear, False)
@@ -594,6 +594,10 @@ Public Class frmTraPurchaseOrderCutting
             .Item(cPrint).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.PrintReportAccess)
             .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.ExportExcelAccess)
             bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseOrderCutting, VO.Access.Values.ExportReportAccess)
+
+            .Item(cDownPayment).Visible = False
+            .Item(cReceive).Visible = False
+            .Item(cClaimCustomer).Visible = False
         End With
     End Sub
 

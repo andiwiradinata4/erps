@@ -11,6 +11,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
     Private intItemID As Integer = 0
     Private drSelectedItem As DataRow
     Private dtResult As New DataTable
+    Private dtRemarksResult As New DataTable
     Private strPCDetailID As String
     Private strID As String = ""
     Private intPos As Integer = 0
@@ -19,6 +20,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
     Private bolIsAutoSearch As Boolean
     Private strReceiveDetailID As String
     Private strResultID As String = ""
+    Private dtItemRemarksResultParent As New DataTable
 
     Public WriteOnly Property pubTableItem As DataTable
         Set(value As DataTable)
@@ -68,6 +70,12 @@ Public Class frmTraPurchaseOrderCuttingDetItem
         End Set
     End Property
 
+    Public WriteOnly Property pubTableItemRemarksResultParent As DataTable
+        Set(value As DataTable)
+            dtItemRemarksResultParent = value
+        End Set
+    End Property
+
     Public Sub pubShowDialog(ByVal frmGetParent As Form)
         frmParent = frmGetParent
         Me.ShowDialog()
@@ -98,6 +106,12 @@ Public Class frmTraPurchaseOrderCuttingDetItem
         UI.usForm.SetGrid(grdItemResultView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemResultView, "UnitPriceRawMaterial", "UnitPriceRawMaterial", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdItemResultView, "TotalPriceRawMaterial", "TotalPriceRawMaterial", 100, UI.usDefGrid.gReal2Num, False)
+
+        '# Remarks Result
+        UI.usForm.SetGrid(grdRemarksResultView, "ID", "ID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdRemarksResultView, "POID", "POID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdRemarksResultView, "GroupID", "Group ID", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdRemarksResultView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
     End Sub
 
     Private Sub prvFillCombo()
@@ -113,6 +127,10 @@ Public Class frmTraPurchaseOrderCuttingDetItem
         grdItemResult.DataSource = dtResult
         prvSumGrid()
         prvSetButtonItemResult()
+
+        grdRemarksResult.DataSource = dtRemarksResult
+        grdRemarksResultView.BestFitColumns()
+        prvSetButtonRemarksResult()
     End Sub
 
     Private Sub prvSumGrid()
@@ -135,6 +153,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
         Try
             prvFillCombo()
             dtResult = dtItemResultParent.Clone
+            dtRemarksResult = dtItemRemarksResultParent.Clone
             Me.Cursor = Cursors.Default
             If Not bolIsNew Then
                 strID = drSelectedItem.Item("ID")
@@ -164,13 +183,20 @@ Public Class frmTraPurchaseOrderCuttingDetItem
                     If dr.Item("GroupID") = intGroupID Then dtResult.ImportRow(dr)
                 Next
                 dtResult.AcceptChanges()
-                prvSetButtonItemResult()
+
+                For Each dr As DataRow In dtItemRemarksResultParent.Rows
+                    If dr.Item("GroupID") = intGroupID Then dtRemarksResult.ImportRow(dr)
+                Next
+                dtRemarksResult.AcceptChanges()
             End If
+
             prvCalculate()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
         Finally
+            prvSetButtonItemResult()
+            prvSetButtonRemarksResult()
             Me.Cursor = Cursors.Default
         End Try
     End Sub
@@ -205,7 +231,8 @@ Public Class frmTraPurchaseOrderCuttingDetItem
         '# Item Handle
         If bolIsNew Then
             Dim drItem As DataRow = dtItem.NewRow
-            intGroupID = dtItem.Rows.Count + 1
+            Dim drMax() As DataRow = dtItem.Select("GroupID>0", "GroupID ASC")
+            If drMax.Count > 0 Then intGroupID = drMax.First().Item("GroupID") + 1 Else intGroupID = dtItem.Rows.Count + 1
             With drItem
                 .BeginEdit()
                 .Item("ID") = Guid.NewGuid
@@ -294,6 +321,21 @@ Public Class frmTraPurchaseOrderCuttingDetItem
         Next
         dtItemResultParent.AcceptChanges()
         frmParent.grdItemResultView.BestFitColumns()
+
+        '# Item Result Remarks
+        For Each dr As DataRow In dtItemRemarksResultParent.Rows
+            If dr.Item("GroupID") = intGroupID Then dr.Delete()
+        Next
+        dtItemRemarksResultParent.AcceptChanges()
+
+        For Each dr As DataRow In dtRemarksResult.Rows
+            dr.BeginEdit()
+            dr.Item("GroupID") = intGroupID
+            dr.EndEdit()
+            dtItemRemarksResultParent.ImportRow(dr)
+        Next
+        dtItemRemarksResultParent.AcceptChanges()
+
         Me.Close()
     End Sub
 
@@ -479,6 +521,59 @@ Public Class frmTraPurchaseOrderCuttingDetItem
 
 #End Region
 
+#Region "Remarks Result"
+
+    Private Sub prvSetButtonRemarksResult()
+        Dim bolEnabled As Boolean = IIf(grdRemarksResultView.RowCount = 0, False, True)
+        With ToolBarRemarksResult
+            .Buttons(cEdit).Enabled = bolEnabled
+            .Buttons(cDelete).Enabled = bolEnabled
+        End With
+    End Sub
+
+    Private Sub prvAddRemarksResult()
+        Dim frmDetail As New frmTraPurchaseOrderCuttingDetRemarkResult
+        With frmDetail
+            .pubIsNew = True
+            .pubDtItem = dtRemarksResult
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            prvSetButtonRemarksResult()
+            grdRemarksResultView.ExpandAllGroups()
+        End With
+    End Sub
+
+    Private Sub prvEditRemarksResult()
+        intPos = grdRemarksResultView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim frmDetail As New frmTraPurchaseOrderCuttingDetRemarkResult
+        With frmDetail
+            .pubIsNew = False
+            .pubDrSelected = grdRemarksResultView.GetDataRow(intPos)
+            .pubDtItem = dtRemarksResult
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            prvSetButtonRemarksResult()
+            grdRemarksResultView.ExpandAllGroups()
+        End With
+    End Sub
+
+    Private Sub prvDeleteRemarksResult()
+        intPos = grdRemarksResultView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdRemarksResultView.GetRowCellValue(intPos, "ID")
+        For i As Integer = 0 To dtRemarksResult.Rows.Count - 1
+            If dtRemarksResult.Rows(i).Item("ID") = strID Then
+                dtRemarksResult.Rows(i).Delete()
+                Exit For
+            End If
+        Next
+        dtRemarksResult.AcceptChanges()
+        prvSetButtonRemarksResult()
+    End Sub
+
+#End Region
+
 #Region "Form Handle"
 
     Private Sub frmTraPurchaseOrderCuttingDetItem_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -493,6 +588,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         ToolBarItemResult.SetIcon(Me)
+        ToolBarRemarksResult.SetIcon(Me)
         prvSetGrid()
         prvFillForm()
         prvQuery()
@@ -512,6 +608,14 @@ Public Class frmTraPurchaseOrderCuttingDetItem
             Case "Edit" : prvEditItemResult()
             Case "Hapus" : prvDeleteItemResult()
             Case "Import" : prvImport()
+        End Select
+    End Sub
+
+    Private Sub ToolBarRemarksResult_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarRemarksResult.ButtonClick
+        Select Case e.Button.Text.Trim
+            Case "Tambah" : prvAddRemarksResult()
+            Case "Edit" : prvEditRemarksResult()
+            Case "Hapus" : prvDeleteRemarksResult()
         End Select
     End Sub
 

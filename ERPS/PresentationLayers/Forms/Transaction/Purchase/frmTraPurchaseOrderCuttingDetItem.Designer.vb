@@ -23,7 +23,6 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraPurchaseOrderCuttingDetItem))
-        Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.txtOrderNumberSupplier = New ERPS.usTextBox()
@@ -80,12 +79,22 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarEditItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep1 = New System.Windows.Forms.ToolBarButton()
+        Me.BarImport = New System.Windows.Forms.ToolBarButton()
         Me.grdItemResult = New DevExpress.XtraGrid.GridControl()
         Me.grdItemResultView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.BarSep1 = New System.Windows.Forms.ToolBarButton()
-        Me.BarImport = New System.Windows.Forms.ToolBarButton()
+        Me.tcHeader = New System.Windows.Forms.TabControl()
+        Me.tpItem = New System.Windows.Forms.TabPage()
+        Me.tpRemarks = New System.Windows.Forms.TabPage()
+        Me.lblInfo = New System.Windows.Forms.Label()
+        Me.ToolBarRemarksResult = New ERPS.usToolBar()
+        Me.BarAddRemarksResult = New System.Windows.Forms.ToolBarButton()
+        Me.BarEditRemarksResult = New System.Windows.Forms.ToolBarButton()
+        Me.BarDeleteRemarksResult = New System.Windows.Forms.ToolBarButton()
+        Me.grdRemarksResult = New DevExpress.XtraGrid.GridControl()
+        Me.grdRemarksResultView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtTotalPriceRawMaterial, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtUnitPriceRawMaterial, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -102,20 +111,12 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         CType(Me.grdItemResultView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tcHeader.SuspendLayout()
+        Me.tpItem.SuspendLayout()
+        Me.tpRemarks.SuspendLayout()
+        CType(Me.grdRemarksResult, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdRemarksResultView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'lblInfo
-        '
-        Me.lblInfo.BackColor = System.Drawing.Color.CadetBlue
-        Me.lblInfo.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblInfo.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblInfo.ForeColor = System.Drawing.Color.White
-        Me.lblInfo.Location = New System.Drawing.Point(0, 28)
-        Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(694, 22)
-        Me.lblInfo.TabIndex = 1
-        Me.lblInfo.Text = "« Barang"
-        Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'pnlDetail
         '
@@ -167,10 +168,10 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.pnlDetail.Controls.Add(Me.txtThick)
         Me.pnlDetail.Controls.Add(Me.txtMaxTotalWeight)
         Me.pnlDetail.Controls.Add(Me.txtWeight)
-        Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlDetail.Location = New System.Drawing.Point(0, 50)
+        Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlDetail.Location = New System.Drawing.Point(3, 3)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(694, 405)
+        Me.pnlDetail.Size = New System.Drawing.Size(691, 411)
         Me.pnlDetail.TabIndex = 2
         '
         'Label21
@@ -722,7 +723,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(694, 28)
+        Me.ToolBar.Size = New System.Drawing.Size(705, 28)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -744,9 +745,9 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.Label20.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label20.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label20.ForeColor = System.Drawing.Color.White
-        Me.Label20.Location = New System.Drawing.Point(0, 455)
+        Me.Label20.Location = New System.Drawing.Point(0, 496)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(694, 22)
+        Me.Label20.Size = New System.Drawing.Size(705, 22)
         Me.Label20.TabIndex = 3
         Me.Label20.Text = "« Barang yang dihasilkan"
         Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -756,10 +757,10 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.ToolBarItemResult.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
         Me.ToolBarItemResult.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarEditItemOrder, Me.BarDeleteItemOrder, Me.BarSep1, Me.BarImport})
         Me.ToolBarItemResult.DropDownArrows = True
-        Me.ToolBarItemResult.Location = New System.Drawing.Point(0, 477)
+        Me.ToolBarItemResult.Location = New System.Drawing.Point(0, 518)
         Me.ToolBarItemResult.Name = "ToolBarItemResult"
         Me.ToolBarItemResult.ShowToolTips = True
-        Me.ToolBarItemResult.Size = New System.Drawing.Size(694, 28)
+        Me.ToolBarItemResult.Size = New System.Drawing.Size(705, 28)
         Me.ToolBarItemResult.TabIndex = 4
         Me.ToolBarItemResult.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -781,6 +782,17 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
         '
+        'BarSep1
+        '
+        Me.BarSep1.Name = "BarSep1"
+        Me.BarSep1.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarImport
+        '
+        Me.BarImport.Name = "BarImport"
+        Me.BarImport.Tag = "Submit"
+        Me.BarImport.Text = "Import"
+        '
         'grdItemResult
         '
         Me.grdItemResult.Dock = System.Windows.Forms.DockStyle.Fill
@@ -798,11 +810,11 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.grdItemResult.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdItemResult.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdItemResult.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdItemResult.Location = New System.Drawing.Point(0, 505)
+        Me.grdItemResult.Location = New System.Drawing.Point(0, 546)
         Me.grdItemResult.MainView = Me.grdItemResultView
         Me.grdItemResult.Name = "grdItemResult"
         Me.grdItemResult.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItemResult.Size = New System.Drawing.Size(694, 176)
+        Me.grdItemResult.Size = New System.Drawing.Size(705, 186)
         Me.grdItemResult.TabIndex = 5
         Me.grdItemResult.UseEmbeddedNavigator = True
         Me.grdItemResult.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemResultView, Me.GridView1})
@@ -831,26 +843,127 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.GridView1.GridControl = Me.grdItemResult
         Me.GridView1.Name = "GridView1"
         '
-        'BarSep1
+        'tcHeader
         '
-        Me.BarSep1.Name = "BarSep1"
-        Me.BarSep1.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        Me.tcHeader.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
+        Me.tcHeader.Controls.Add(Me.tpItem)
+        Me.tcHeader.Controls.Add(Me.tpRemarks)
+        Me.tcHeader.Dock = System.Windows.Forms.DockStyle.Top
+        Me.tcHeader.Location = New System.Drawing.Point(0, 50)
+        Me.tcHeader.Name = "tcHeader"
+        Me.tcHeader.SelectedIndex = 0
+        Me.tcHeader.Size = New System.Drawing.Size(705, 446)
+        Me.tcHeader.TabIndex = 2
         '
-        'BarImport
+        'tpItem
         '
-        Me.BarImport.Name = "BarImport"
-        Me.BarImport.Tag = "Submit"
-        Me.BarImport.Text = "Import"
+        Me.tpItem.Controls.Add(Me.pnlDetail)
+        Me.tpItem.Location = New System.Drawing.Point(4, 25)
+        Me.tpItem.Name = "tpItem"
+        Me.tpItem.Padding = New System.Windows.Forms.Padding(3)
+        Me.tpItem.Size = New System.Drawing.Size(697, 417)
+        Me.tpItem.TabIndex = 0
+        Me.tpItem.Text = "Barang - F1"
+        Me.tpItem.UseVisualStyleBackColor = True
+        '
+        'tpRemarks
+        '
+        Me.tpRemarks.Controls.Add(Me.grdRemarksResult)
+        Me.tpRemarks.Controls.Add(Me.ToolBarRemarksResult)
+        Me.tpRemarks.Location = New System.Drawing.Point(4, 25)
+        Me.tpRemarks.Name = "tpRemarks"
+        Me.tpRemarks.Padding = New System.Windows.Forms.Padding(3)
+        Me.tpRemarks.Size = New System.Drawing.Size(697, 417)
+        Me.tpRemarks.TabIndex = 1
+        Me.tpRemarks.Text = "Keterangan - F2"
+        Me.tpRemarks.UseVisualStyleBackColor = True
+        '
+        'lblInfo
+        '
+        Me.lblInfo.BackColor = System.Drawing.Color.CadetBlue
+        Me.lblInfo.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblInfo.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblInfo.ForeColor = System.Drawing.Color.White
+        Me.lblInfo.Location = New System.Drawing.Point(0, 28)
+        Me.lblInfo.Name = "lblInfo"
+        Me.lblInfo.Size = New System.Drawing.Size(705, 22)
+        Me.lblInfo.TabIndex = 1
+        Me.lblInfo.Text = "« Barang yang akan diproduksi"
+        Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'ToolBarRemarksResult
+        '
+        Me.ToolBarRemarksResult.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBarRemarksResult.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddRemarksResult, Me.BarEditRemarksResult, Me.BarDeleteRemarksResult})
+        Me.ToolBarRemarksResult.DropDownArrows = True
+        Me.ToolBarRemarksResult.Location = New System.Drawing.Point(3, 3)
+        Me.ToolBarRemarksResult.Name = "ToolBarRemarksResult"
+        Me.ToolBarRemarksResult.ShowToolTips = True
+        Me.ToolBarRemarksResult.Size = New System.Drawing.Size(691, 28)
+        Me.ToolBarRemarksResult.TabIndex = 16
+        Me.ToolBarRemarksResult.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'BarAddRemarksResult
+        '
+        Me.BarAddRemarksResult.Name = "BarAddRemarksResult"
+        Me.BarAddRemarksResult.Tag = "Add"
+        Me.BarAddRemarksResult.Text = "Tambah"
+        '
+        'BarEditRemarksResult
+        '
+        Me.BarEditRemarksResult.Name = "BarEditRemarksResult"
+        Me.BarEditRemarksResult.Tag = "Edit"
+        Me.BarEditRemarksResult.Text = "Edit"
+        '
+        'BarDeleteRemarksResult
+        '
+        Me.BarDeleteRemarksResult.Name = "BarDeleteRemarksResult"
+        Me.BarDeleteRemarksResult.Tag = "Delete"
+        Me.BarDeleteRemarksResult.Text = "Hapus"
+        '
+        'grdRemarksResult
+        '
+        Me.grdRemarksResult.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdRemarksResult.EmbeddedNavigator.Buttons.Append.Enabled = False
+        Me.grdRemarksResult.EmbeddedNavigator.Buttons.Append.Visible = False
+        Me.grdRemarksResult.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
+        Me.grdRemarksResult.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
+        Me.grdRemarksResult.EmbeddedNavigator.Buttons.Edit.Enabled = False
+        Me.grdRemarksResult.EmbeddedNavigator.Buttons.Edit.Visible = False
+        Me.grdRemarksResult.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
+        Me.grdRemarksResult.EmbeddedNavigator.Buttons.EndEdit.Visible = False
+        Me.grdRemarksResult.EmbeddedNavigator.Buttons.NextPage.Enabled = False
+        Me.grdRemarksResult.EmbeddedNavigator.Buttons.NextPage.Visible = False
+        Me.grdRemarksResult.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
+        Me.grdRemarksResult.EmbeddedNavigator.Buttons.PrevPage.Visible = False
+        Me.grdRemarksResult.EmbeddedNavigator.Buttons.Remove.Enabled = False
+        Me.grdRemarksResult.EmbeddedNavigator.Buttons.Remove.Visible = False
+        Me.grdRemarksResult.Location = New System.Drawing.Point(3, 31)
+        Me.grdRemarksResult.MainView = Me.grdRemarksResultView
+        Me.grdRemarksResult.Name = "grdRemarksResult"
+        Me.grdRemarksResult.Size = New System.Drawing.Size(691, 383)
+        Me.grdRemarksResult.TabIndex = 17
+        Me.grdRemarksResult.UseEmbeddedNavigator = True
+        Me.grdRemarksResult.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdRemarksResultView})
+        '
+        'grdRemarksResultView
+        '
+        Me.grdRemarksResultView.GridControl = Me.grdRemarksResult
+        Me.grdRemarksResultView.Name = "grdRemarksResultView"
+        Me.grdRemarksResultView.OptionsCustomization.AllowColumnMoving = False
+        Me.grdRemarksResultView.OptionsCustomization.AllowGroup = False
+        Me.grdRemarksResultView.OptionsView.ColumnAutoWidth = False
+        Me.grdRemarksResultView.OptionsView.ShowGroupPanel = False
         '
         'frmTraPurchaseOrderCuttingDetItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(694, 681)
+        Me.ClientSize = New System.Drawing.Size(705, 732)
         Me.Controls.Add(Me.grdItemResult)
         Me.Controls.Add(Me.ToolBarItemResult)
         Me.Controls.Add(Me.Label20)
-        Me.Controls.Add(Me.pnlDetail)
+        Me.Controls.Add(Me.tcHeader)
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
@@ -876,6 +989,12 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         CType(Me.grdItemResultView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tcHeader.ResumeLayout(False)
+        Me.tpItem.ResumeLayout(False)
+        Me.tpRemarks.ResumeLayout(False)
+        Me.tpRemarks.PerformLayout()
+        CType(Me.grdRemarksResult, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdRemarksResultView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -883,7 +1002,6 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
     Friend WithEvents ToolBar As ERPS.usToolBar
     Friend WithEvents BarRefresh As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarClose As System.Windows.Forms.ToolBarButton
-    Friend WithEvents lblInfo As System.Windows.Forms.Label
     Friend WithEvents pnlDetail As System.Windows.Forms.Panel
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents txtPCNumber As ERPS.usTextBox
@@ -943,4 +1061,14 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
     Friend WithEvents txtOrderNumberSupplier As usTextBox
     Friend WithEvents BarSep1 As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarImport As System.Windows.Forms.ToolBarButton
+    Friend WithEvents tcHeader As System.Windows.Forms.TabControl
+    Friend WithEvents tpItem As System.Windows.Forms.TabPage
+    Friend WithEvents tpRemarks As System.Windows.Forms.TabPage
+    Friend WithEvents lblInfo As System.Windows.Forms.Label
+    Friend WithEvents ToolBarRemarksResult As ERPS.usToolBar
+    Friend WithEvents BarAddRemarksResult As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarEditRemarksResult As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarDeleteRemarksResult As System.Windows.Forms.ToolBarButton
+    Friend WithEvents grdRemarksResult As DevExpress.XtraGrid.GridControl
+    Friend WithEvents grdRemarksResultView As DevExpress.XtraGrid.Views.Grid.GridView
 End Class

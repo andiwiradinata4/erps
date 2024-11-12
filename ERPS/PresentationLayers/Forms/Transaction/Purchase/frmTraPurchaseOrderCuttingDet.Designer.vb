@@ -50,10 +50,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.RepositoryItemTextEdit3 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
-        Me.dtpPickupDate = New System.Windows.Forms.DateTimePicker()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.txtRemarksResult = New ERPS.usTextBox()
-        Me.Label9 = New System.Windows.Forms.Label()
         Me.chkIsClaimCustomer = New DevExpress.XtraEditors.CheckEdit()
         Me.txtCustomerCode = New ERPS.usTextBox()
         Me.txtCustomerName = New ERPS.usTextBox()
@@ -79,13 +75,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.btnBP = New DevExpress.XtraEditors.SimpleButton()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.tpRemarksResult = New System.Windows.Forms.TabPage()
-        Me.grdRemarksResult = New DevExpress.XtraGrid.GridControl()
-        Me.grdRemarksResultView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.ToolBarRemarksResult = New ERPS.usToolBar()
-        Me.BarAddRemarksResult = New System.Windows.Forms.ToolBarButton()
-        Me.BarEditRemarksResult = New System.Windows.Forms.ToolBarButton()
-        Me.BarDeleteRemarksResult = New System.Windows.Forms.ToolBarButton()
         Me.tpAmount = New System.Windows.Forms.TabPage()
         Me.gboPesanan = New System.Windows.Forms.GroupBox()
         Me.Label15 = New System.Windows.Forms.Label()
@@ -102,14 +91,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtPPN = New ERPS.usNumeric()
-        Me.tpPaymentTerm = New System.Windows.Forms.TabPage()
-        Me.grdPaymentTerm = New DevExpress.XtraGrid.GridControl()
-        Me.grdPaymentTermView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.ToolBarPaymentTerm = New ERPS.usToolBar()
-        Me.BarAddPayment = New System.Windows.Forms.ToolBarButton()
-        Me.BarEditPayment = New System.Windows.Forms.ToolBarButton()
-        Me.BarDeletePayment = New System.Windows.Forms.ToolBarButton()
         Me.tpHistory = New System.Windows.Forms.TabPage()
         Me.grdStatus = New DevExpress.XtraGrid.GridControl()
         Me.grdStatusView = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -130,9 +111,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         CType(Me.dtpDeliveryPeriodTo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtpDeliveryPeriodFrom.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtpDeliveryPeriodFrom.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tpRemarksResult.SuspendLayout()
-        CType(Me.grdRemarksResult, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdRemarksResultView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpAmount.SuspendLayout()
         Me.gboPesanan.SuspendLayout()
         CType(Me.txtGrandTotal, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -141,10 +119,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtPPN, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tpPaymentTerm.SuspendLayout()
-        CType(Me.grdPaymentTerm, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdPaymentTermView, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpHistory.SuspendLayout()
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -201,7 +175,7 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(0, 271)
+        Me.Label1.Location = New System.Drawing.Point(0, 250)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(884, 22)
         Me.Label1.TabIndex = 3
@@ -214,10 +188,10 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.tcDetail.Controls.Add(Me.tpItem)
         Me.tcDetail.Controls.Add(Me.tpItemResult)
         Me.tcDetail.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tcDetail.Location = New System.Drawing.Point(0, 293)
+        Me.tcDetail.Location = New System.Drawing.Point(0, 272)
         Me.tcDetail.Name = "tcDetail"
         Me.tcDetail.SelectedIndex = 0
-        Me.tcDetail.Size = New System.Drawing.Size(884, 345)
+        Me.tcDetail.Size = New System.Drawing.Size(884, 366)
         Me.tcDetail.TabIndex = 4
         '
         'tpItem
@@ -228,9 +202,9 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.tpItem.Location = New System.Drawing.Point(4, 25)
         Me.tpItem.Name = "tpItem"
         Me.tpItem.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpItem.Size = New System.Drawing.Size(876, 316)
+        Me.tpItem.Size = New System.Drawing.Size(876, 337)
         Me.tpItem.TabIndex = 1
-        Me.tpItem.Text = "Item - F6"
+        Me.tpItem.Text = "Item - F4"
         Me.tpItem.UseVisualStyleBackColor = True
         '
         'grdItem
@@ -254,7 +228,7 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItem.Size = New System.Drawing.Size(870, 260)
+        Me.grdItem.Size = New System.Drawing.Size(870, 281)
         Me.grdItem.TabIndex = 1
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
@@ -282,7 +256,7 @@ Partial Class frmTraPurchaseOrderCuttingDet
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(3, 291)
+        Me.StatusStrip.Location = New System.Drawing.Point(3, 312)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(870, 22)
         Me.StatusStrip.TabIndex = 2
@@ -364,9 +338,9 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.tpItemResult.Controls.Add(Me.grdItemResult)
         Me.tpItemResult.Location = New System.Drawing.Point(4, 25)
         Me.tpItemResult.Name = "tpItemResult"
-        Me.tpItemResult.Size = New System.Drawing.Size(876, 290)
+        Me.tpItemResult.Size = New System.Drawing.Size(876, 337)
         Me.tpItemResult.TabIndex = 2
-        Me.tpItemResult.Text = "Hasil - F7"
+        Me.tpItemResult.Text = "Hasil - F5"
         Me.tpItemResult.UseVisualStyleBackColor = True
         '
         'grdItemResult
@@ -390,7 +364,7 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.grdItemResult.MainView = Me.grdItemResultView
         Me.grdItemResult.Name = "grdItemResult"
         Me.grdItemResult.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit3})
-        Me.grdItemResult.Size = New System.Drawing.Size(876, 290)
+        Me.grdItemResult.Size = New System.Drawing.Size(876, 337)
         Me.grdItemResult.TabIndex = 3
         Me.grdItemResult.UseEmbeddedNavigator = True
         Me.grdItemResult.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemResultView})
@@ -418,24 +392,18 @@ Partial Class frmTraPurchaseOrderCuttingDet
         '
         Me.tcHeader.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tcHeader.Controls.Add(Me.tpMain)
-        Me.tcHeader.Controls.Add(Me.tpRemarksResult)
         Me.tcHeader.Controls.Add(Me.tpAmount)
-        Me.tcHeader.Controls.Add(Me.tpPaymentTerm)
         Me.tcHeader.Controls.Add(Me.tpHistory)
         Me.tcHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(884, 221)
+        Me.tcHeader.Size = New System.Drawing.Size(884, 200)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.tpMain.Controls.Add(Me.dtpPickupDate)
-        Me.tpMain.Controls.Add(Me.Label10)
-        Me.tpMain.Controls.Add(Me.txtRemarksResult)
-        Me.tpMain.Controls.Add(Me.Label9)
         Me.tpMain.Controls.Add(Me.chkIsClaimCustomer)
         Me.tpMain.Controls.Add(Me.txtCustomerCode)
         Me.tpMain.Controls.Add(Me.txtCustomerName)
@@ -447,12 +415,10 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.tpMain.Controls.Add(Me.Label22)
         Me.tpMain.Controls.Add(Me.Label21)
         Me.tpMain.Controls.Add(Me.Label20)
-        Me.tpMain.Controls.Add(Me.txtPersonInCharge)
         Me.tpMain.Controls.Add(Me.txtRemarks)
         Me.tpMain.Controls.Add(Me.txtBPCode)
         Me.tpMain.Controls.Add(Me.txtBPName)
         Me.tpMain.Controls.Add(Me.txtPONumber)
-        Me.tpMain.Controls.Add(Me.Label19)
         Me.tpMain.Controls.Add(Me.Label13)
         Me.tpMain.Controls.Add(Me.cboStatus)
         Me.tpMain.Controls.Add(Me.lblStatusID)
@@ -464,56 +430,10 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(876, 192)
+        Me.tpMain.Size = New System.Drawing.Size(876, 171)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
-        '
-        'dtpPickupDate
-        '
-        Me.dtpPickupDate.CustomFormat = "dd/MM/yyyy"
-        Me.dtpPickupDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtpPickupDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpPickupDate.Location = New System.Drawing.Point(160, 124)
-        Me.dtpPickupDate.Name = "dtpPickupDate"
-        Me.dtpPickupDate.Size = New System.Drawing.Size(116, 21)
-        Me.dtpPickupDate.TabIndex = 9
-        Me.dtpPickupDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.BackColor = System.Drawing.Color.Transparent
-        Me.Label10.ForeColor = System.Drawing.Color.Black
-        Me.Label10.Location = New System.Drawing.Point(28, 128)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(108, 13)
-        Me.Label10.TabIndex = 148
-        Me.Label10.Text = "Tanggal Pengambilan"
-        '
-        'txtRemarksResult
-        '
-        Me.txtRemarksResult.BackColor = System.Drawing.Color.White
-        Me.txtRemarksResult.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarksResult.Location = New System.Drawing.Point(591, 97)
-        Me.txtRemarksResult.MaxLength = 250
-        Me.txtRemarksResult.Multiline = True
-        Me.txtRemarksResult.Name = "txtRemarksResult"
-        Me.txtRemarksResult.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarksResult.TabIndex = 13
-        Me.txtRemarksResult.Visible = False
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.BackColor = System.Drawing.Color.Transparent
-        Me.Label9.ForeColor = System.Drawing.Color.Black
-        Me.Label9.Location = New System.Drawing.Point(478, 101)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(102, 13)
-        Me.Label9.TabIndex = 146
-        Me.Label9.Text = "Keterangan [ Hasil ]"
-        Me.Label9.Visible = False
         '
         'chkIsClaimCustomer
         '
@@ -600,7 +520,7 @@ Partial Class frmTraPurchaseOrderCuttingDet
         '
         Me.txtDeliveryAddress.BackColor = System.Drawing.Color.White
         Me.txtDeliveryAddress.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtDeliveryAddress.Location = New System.Drawing.Point(160, 151)
+        Me.txtDeliveryAddress.Location = New System.Drawing.Point(160, 124)
         Me.txtDeliveryAddress.MaxLength = 250
         Me.txtDeliveryAddress.Name = "txtDeliveryAddress"
         Me.txtDeliveryAddress.Size = New System.Drawing.Size(249, 21)
@@ -611,7 +531,7 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.Label22.AutoSize = True
         Me.Label22.BackColor = System.Drawing.Color.Transparent
         Me.Label22.ForeColor = System.Drawing.Color.Black
-        Me.Label22.Location = New System.Drawing.Point(28, 155)
+        Me.Label22.Location = New System.Drawing.Point(28, 128)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(95, 13)
         Me.Label22.TabIndex = 140
@@ -645,7 +565,7 @@ Partial Class frmTraPurchaseOrderCuttingDet
         '
         Me.txtPersonInCharge.BackColor = System.Drawing.Color.White
         Me.txtPersonInCharge.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPersonInCharge.Location = New System.Drawing.Point(591, 155)
+        Me.txtPersonInCharge.Location = New System.Drawing.Point(597, 245)
         Me.txtPersonInCharge.MaxLength = 250
         Me.txtPersonInCharge.Name = "txtPersonInCharge"
         Me.txtPersonInCharge.Size = New System.Drawing.Size(249, 21)
@@ -656,11 +576,11 @@ Partial Class frmTraPurchaseOrderCuttingDet
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(591, 43)
+        Me.txtRemarks.Location = New System.Drawing.Point(562, 43)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
+        Me.txtRemarks.Size = New System.Drawing.Size(278, 102)
         Me.txtRemarks.TabIndex = 12
         '
         'txtBPCode
@@ -700,7 +620,7 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.Label19.AutoSize = True
         Me.Label19.BackColor = System.Drawing.Color.Transparent
         Me.Label19.ForeColor = System.Drawing.Color.Black
-        Me.Label19.Location = New System.Drawing.Point(459, 159)
+        Me.Label19.Location = New System.Drawing.Point(465, 249)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(24, 13)
         Me.Label19.TabIndex = 132
@@ -723,9 +643,9 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(591, 16)
+        Me.cboStatus.Location = New System.Drawing.Point(562, 16)
         Me.cboStatus.Name = "cboStatus"
-        Me.cboStatus.Size = New System.Drawing.Size(109, 21)
+        Me.cboStatus.Size = New System.Drawing.Size(138, 21)
         Me.cboStatus.TabIndex = 11
         '
         'lblStatusID
@@ -791,83 +711,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.Label2.TabIndex = 97
         Me.Label2.Text = "Nomor"
         '
-        'tpRemarksResult
-        '
-        Me.tpRemarksResult.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.tpRemarksResult.Controls.Add(Me.grdRemarksResult)
-        Me.tpRemarksResult.Controls.Add(Me.ToolBarRemarksResult)
-        Me.tpRemarksResult.Location = New System.Drawing.Point(4, 25)
-        Me.tpRemarksResult.Name = "tpRemarksResult"
-        Me.tpRemarksResult.Padding = New System.Windows.Forms.Padding(2)
-        Me.tpRemarksResult.Size = New System.Drawing.Size(876, 192)
-        Me.tpRemarksResult.TabIndex = 4
-        Me.tpRemarksResult.Text = "Keterangan [ Hasil ] - F2"
-        Me.tpRemarksResult.UseVisualStyleBackColor = True
-        '
-        'grdRemarksResult
-        '
-        Me.grdRemarksResult.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdRemarksResult.EmbeddedNavigator.Buttons.Append.Enabled = False
-        Me.grdRemarksResult.EmbeddedNavigator.Buttons.Append.Visible = False
-        Me.grdRemarksResult.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
-        Me.grdRemarksResult.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
-        Me.grdRemarksResult.EmbeddedNavigator.Buttons.Edit.Enabled = False
-        Me.grdRemarksResult.EmbeddedNavigator.Buttons.Edit.Visible = False
-        Me.grdRemarksResult.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
-        Me.grdRemarksResult.EmbeddedNavigator.Buttons.EndEdit.Visible = False
-        Me.grdRemarksResult.EmbeddedNavigator.Buttons.NextPage.Enabled = False
-        Me.grdRemarksResult.EmbeddedNavigator.Buttons.NextPage.Visible = False
-        Me.grdRemarksResult.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
-        Me.grdRemarksResult.EmbeddedNavigator.Buttons.PrevPage.Visible = False
-        Me.grdRemarksResult.EmbeddedNavigator.Buttons.Remove.Enabled = False
-        Me.grdRemarksResult.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdRemarksResult.Location = New System.Drawing.Point(2, 30)
-        Me.grdRemarksResult.MainView = Me.grdRemarksResultView
-        Me.grdRemarksResult.Name = "grdRemarksResult"
-        Me.grdRemarksResult.Size = New System.Drawing.Size(868, 156)
-        Me.grdRemarksResult.TabIndex = 14
-        Me.grdRemarksResult.UseEmbeddedNavigator = True
-        Me.grdRemarksResult.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdRemarksResultView})
-        '
-        'grdRemarksResultView
-        '
-        Me.grdRemarksResultView.GridControl = Me.grdRemarksResult
-        Me.grdRemarksResultView.Name = "grdRemarksResultView"
-        Me.grdRemarksResultView.OptionsCustomization.AllowColumnMoving = False
-        Me.grdRemarksResultView.OptionsCustomization.AllowGroup = False
-        Me.grdRemarksResultView.OptionsView.ColumnAutoWidth = False
-        Me.grdRemarksResultView.OptionsView.ShowGroupPanel = False
-        '
-        'ToolBarRemarksResult
-        '
-        Me.ToolBarRemarksResult.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarRemarksResult.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddRemarksResult, Me.BarEditRemarksResult, Me.BarDeleteRemarksResult})
-        Me.ToolBarRemarksResult.DropDownArrows = True
-        Me.ToolBarRemarksResult.Location = New System.Drawing.Point(2, 2)
-        Me.ToolBarRemarksResult.Name = "ToolBarRemarksResult"
-        Me.ToolBarRemarksResult.ShowToolTips = True
-        Me.ToolBarRemarksResult.Size = New System.Drawing.Size(868, 28)
-        Me.ToolBarRemarksResult.TabIndex = 15
-        Me.ToolBarRemarksResult.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
-        'BarAddRemarksResult
-        '
-        Me.BarAddRemarksResult.Name = "BarAddRemarksResult"
-        Me.BarAddRemarksResult.Tag = "Add"
-        Me.BarAddRemarksResult.Text = "Tambah"
-        '
-        'BarEditRemarksResult
-        '
-        Me.BarEditRemarksResult.Name = "BarEditRemarksResult"
-        Me.BarEditRemarksResult.Tag = "Edit"
-        Me.BarEditRemarksResult.Text = "Edit"
-        '
-        'BarDeleteRemarksResult
-        '
-        Me.BarDeleteRemarksResult.Name = "BarDeleteRemarksResult"
-        Me.BarDeleteRemarksResult.Tag = "Delete"
-        Me.BarDeleteRemarksResult.Text = "Hapus"
-        '
         'tpAmount
         '
         Me.tpAmount.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
@@ -880,9 +723,9 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.tpAmount.Controls.Add(Me.txtPPN)
         Me.tpAmount.Location = New System.Drawing.Point(4, 25)
         Me.tpAmount.Name = "tpAmount"
-        Me.tpAmount.Size = New System.Drawing.Size(876, 192)
+        Me.tpAmount.Size = New System.Drawing.Size(876, 171)
         Me.tpAmount.TabIndex = 2
-        Me.tpAmount.Text = "Harga - F3"
+        Me.tpAmount.Text = "Harga - F2"
         Me.tpAmount.UseVisualStyleBackColor = True
         '
         'gboPesanan
@@ -1070,92 +913,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.txtPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtPPN.ThousandsSeparator = True
         '
-        'tpPaymentTerm
-        '
-        Me.tpPaymentTerm.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.tpPaymentTerm.Controls.Add(Me.grdPaymentTerm)
-        Me.tpPaymentTerm.Controls.Add(Me.ToolBarPaymentTerm)
-        Me.tpPaymentTerm.Location = New System.Drawing.Point(4, 25)
-        Me.tpPaymentTerm.Name = "tpPaymentTerm"
-        Me.tpPaymentTerm.Size = New System.Drawing.Size(876, 192)
-        Me.tpPaymentTerm.TabIndex = 3
-        Me.tpPaymentTerm.Text = "Syarat Pembayaran - F4"
-        Me.tpPaymentTerm.UseVisualStyleBackColor = True
-        '
-        'grdPaymentTerm
-        '
-        Me.grdPaymentTerm.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.Append.Enabled = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.Append.Visible = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.Edit.Enabled = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.Edit.Visible = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.EndEdit.Visible = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.NextPage.Enabled = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.NextPage.Visible = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.PrevPage.Visible = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.Remove.Enabled = False
-        Me.grdPaymentTerm.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdPaymentTerm.Location = New System.Drawing.Point(0, 28)
-        Me.grdPaymentTerm.MainView = Me.grdPaymentTermView
-        Me.grdPaymentTerm.Name = "grdPaymentTerm"
-        Me.grdPaymentTerm.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit2})
-        Me.grdPaymentTerm.Size = New System.Drawing.Size(872, 160)
-        Me.grdPaymentTerm.TabIndex = 2
-        Me.grdPaymentTerm.UseEmbeddedNavigator = True
-        Me.grdPaymentTerm.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdPaymentTermView})
-        '
-        'grdPaymentTermView
-        '
-        Me.grdPaymentTermView.GridControl = Me.grdPaymentTerm
-        Me.grdPaymentTermView.Name = "grdPaymentTermView"
-        Me.grdPaymentTermView.OptionsCustomization.AllowColumnMoving = False
-        Me.grdPaymentTermView.OptionsCustomization.AllowGroup = False
-        Me.grdPaymentTermView.OptionsView.ColumnAutoWidth = False
-        Me.grdPaymentTermView.OptionsView.ShowFooter = True
-        Me.grdPaymentTermView.OptionsView.ShowGroupPanel = False
-        '
-        'RepositoryItemTextEdit2
-        '
-        Me.RepositoryItemTextEdit2.AutoHeight = False
-        Me.RepositoryItemTextEdit2.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.RepositoryItemTextEdit2.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.RepositoryItemTextEdit2.Name = "RepositoryItemTextEdit2"
-        Me.RepositoryItemTextEdit2.NullText = "0.00"
-        '
-        'ToolBarPaymentTerm
-        '
-        Me.ToolBarPaymentTerm.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarPaymentTerm.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddPayment, Me.BarEditPayment, Me.BarDeletePayment})
-        Me.ToolBarPaymentTerm.DropDownArrows = True
-        Me.ToolBarPaymentTerm.Location = New System.Drawing.Point(0, 0)
-        Me.ToolBarPaymentTerm.Name = "ToolBarPaymentTerm"
-        Me.ToolBarPaymentTerm.ShowToolTips = True
-        Me.ToolBarPaymentTerm.Size = New System.Drawing.Size(872, 28)
-        Me.ToolBarPaymentTerm.TabIndex = 1
-        Me.ToolBarPaymentTerm.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
-        'BarAddPayment
-        '
-        Me.BarAddPayment.Name = "BarAddPayment"
-        Me.BarAddPayment.Tag = "Add"
-        Me.BarAddPayment.Text = "Tambah"
-        '
-        'BarEditPayment
-        '
-        Me.BarEditPayment.Name = "BarEditPayment"
-        Me.BarEditPayment.Tag = "Edit"
-        Me.BarEditPayment.Text = "Edit"
-        '
-        'BarDeletePayment
-        '
-        Me.BarDeletePayment.Name = "BarDeletePayment"
-        Me.BarDeletePayment.Tag = "Delete"
-        Me.BarDeletePayment.Text = "Hapus"
-        '
         'tpHistory
         '
         Me.tpHistory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
@@ -1163,9 +920,9 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(876, 192)
+        Me.tpHistory.Size = New System.Drawing.Size(876, 171)
         Me.tpHistory.TabIndex = 1
-        Me.tpHistory.Text = "History - F5"
+        Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
         '
         'grdStatus
@@ -1188,7 +945,7 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.grdStatus.Location = New System.Drawing.Point(3, 3)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(866, 182)
+        Me.grdStatus.Size = New System.Drawing.Size(866, 161)
         Me.grdStatus.TabIndex = 13
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -1213,6 +970,8 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.Controls.Add(Me.pgMain)
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
+        Me.Controls.Add(Me.txtPersonInCharge)
+        Me.Controls.Add(Me.Label19)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.KeyPreview = True
         Me.MaximizeBox = False
@@ -1239,10 +998,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         CType(Me.dtpDeliveryPeriodTo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dtpDeliveryPeriodFrom.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dtpDeliveryPeriodFrom.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tpRemarksResult.ResumeLayout(False)
-        Me.tpRemarksResult.PerformLayout()
-        CType(Me.grdRemarksResult, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdRemarksResultView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpAmount.ResumeLayout(False)
         Me.tpAmount.PerformLayout()
         Me.gboPesanan.ResumeLayout(False)
@@ -1253,11 +1008,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtPPN, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tpPaymentTerm.ResumeLayout(False)
-        Me.tpPaymentTerm.PerformLayout()
-        CType(Me.grdPaymentTerm, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdPaymentTermView, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpHistory.ResumeLayout(False)
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1320,14 +1070,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents txtPPN As ERPS.usNumeric
-    Friend WithEvents tpPaymentTerm As System.Windows.Forms.TabPage
-    Friend WithEvents grdPaymentTerm As DevExpress.XtraGrid.GridControl
-    Friend WithEvents grdPaymentTermView As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents RepositoryItemTextEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
-    Friend WithEvents ToolBarPaymentTerm As ERPS.usToolBar
-    Friend WithEvents BarAddPayment As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarEditPayment As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarDeletePayment As System.Windows.Forms.ToolBarButton
     Friend WithEvents tpHistory As System.Windows.Forms.TabPage
     Friend WithEvents grdStatus As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdStatusView As DevExpress.XtraGrid.Views.Grid.GridView
@@ -1344,15 +1086,4 @@ Partial Class frmTraPurchaseOrderCuttingDet
     Friend WithEvents txtCustomerName As ERPS.usTextBox
     Friend WithEvents btnCustomer As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents txtRemarksResult As ERPS.usTextBox
-    Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents dtpPickupDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents tpRemarksResult As System.Windows.Forms.TabPage
-    Friend WithEvents grdRemarksResult As DevExpress.XtraGrid.GridControl
-    Friend WithEvents grdRemarksResultView As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents ToolBarRemarksResult As ERPS.usToolBar
-    Friend WithEvents BarAddRemarksResult As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarEditRemarksResult As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarDeleteRemarksResult As System.Windows.Forms.ToolBarButton
 End Class

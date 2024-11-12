@@ -199,6 +199,10 @@ Public Class frmTraCuttingDetItem
             If Not UI.usForm.frmAskQuestion("Total Berat melebihi Maks. Total Berat, Apakah anda yakin ingin melanjutkannya?") Then Exit Sub
         End If
 
+        If txtUnitPrice.Value <= 0 Then
+            If Not UI.usForm.frmAskQuestion("Harga belum diisi, Apakah anda yakin ingin melanjutkannya?") Then Exit Sub
+        End If
+
         '# Item Handle
         If bolIsNew Then
             Dim drItem As DataRow = dtItem.NewRow
@@ -280,6 +284,8 @@ Public Class frmTraCuttingDetItem
         For Each dr As DataRow In dtResult.Rows
             dr.BeginEdit()
             dr.Item("GroupID") = intGroupID
+            dr.Item("UnitPrice") = txtUnitPrice.Value
+            dr.Item("TotalPrice") = txtUnitPrice.Value * dr.Item("TotalWeight")
             dr.EndEdit()
             dtItemResultParent.ImportRow(dr)
         Next
@@ -460,7 +466,7 @@ Public Class frmTraCuttingDetItem
         prvChooseItem()
     End Sub
 
-    Private Sub txtQuantity_ValueChanged(sender As Object, e As EventArgs) Handles txtQuantity.ValueChanged, txtWeight.ValueChanged
+    Private Sub txtQuantity_ValueChanged(sender As Object, e As EventArgs) Handles txtQuantity.ValueChanged, txtWeight.ValueChanged, txtUnitPrice.ValueChanged
         prvCalculate()
     End Sub
 

@@ -2190,6 +2190,7 @@
 
                     If bolIsUseSubitem Then .CommandText += "   AND A.ParentID<>'' " & vbNewLine
                 End If
+
                 '# Cutting
                 If .CommandText.Trim <> "" Then .CommandText += "UNION ALL " & vbNewLine
                 .CommandText +=
@@ -2197,14 +2198,14 @@
                     "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, A.Quantity, A.Weight, A.TotalWeight, MaxTotalWeight=B.TotalWeight-B.InvoiceTotalWeight+A.TotalWeight, " & vbNewLine &
                     "   B.UnitPrice, B.TotalPrice AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
-                    "   B.TotalPrice-B.ReceiveAmount+A.Amount-B.AllocateDPAmount+A.DPAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   B.TotalPrice-B.ReceiveAmount+A.Amount+A.DPAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
                     "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID,  " & vbNewLine &
                     "   MaxTotalQuantity=CASE WHEN B.Quantity-B.InvoiceQuantity<=0 THEN 1 ELSE B.Quantity-B.InvoiceQuantity+A.Quantity END, MI.ItemCodeExternal " & vbNewLine &
                     "FROM traARAPItem A " & vbNewLine &
-                    "INNER JOIN traPurchaseOrderCuttingDet B ON " & vbNewLine &
+                    "INNER JOIN traCuttingDet B ON " & vbNewLine &
                     "   A.ReferencesDetailID=B.ID " & vbNewLine &
-                    "INNER JOIN traPurchaseOrderCutting C ON " & vbNewLine &
-                    "   B.POID=C.ID " & vbNewLine &
+                    "INNER JOIN traCutting C ON " & vbNewLine &
+                    "   B.CuttingID=C.ID " & vbNewLine &
                     "INNER JOIN mstItem MI ON " & vbNewLine &
                     "   A.ItemID=MI.ID " & vbNewLine &
                     "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
@@ -2216,16 +2217,16 @@
                     " " & vbNewLine &
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
-                    "   CAST(0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.POID AS ReferencesID, A.ID AS ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.CuttingID AS ReferencesID, A.ID AS ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, Quantity=CASE WHEN A.Quantity-A.InvoiceQuantity < 0 THEN CAST(0 AS DECIMAL(18,4)) ELSE A.Quantity-A.InvoiceQuantity END, A.Weight, CAST(0 AS DECIMAL(18,4)) AS TotalWeight, MaxTotalWeight=A.TotalWeight-A.InvoiceTotalWeight, " & vbNewLine &
                     "   A.UnitPrice, A.TotalPrice AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, CAST(0 AS DECIMAL(18,2)) AS DPAmount, B.PPN AS PPNPercent, B.PPH AS PPHPercent, " & vbNewLine &
                     "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
-                    "   A.TotalPrice-A.AllocateDPAmount-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   A.TotalPrice-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
                     "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID,  " & vbNewLine &
                     "   MaxTotalQuantity=CASE WHEN A.Quantity-A.InvoiceQuantity<=0 THEN 1 ELSE A.Quantity-A.InvoiceQuantity END, MI.ItemCodeExternal " & vbNewLine &
-                    "FROM traPurchaseOrderCuttingDet A " & vbNewLine &
-                    "INNER JOIN traPurchaseOrderCutting B ON " & vbNewLine &
-                    "   A.POID=B.ID " & vbNewLine &
+                    "FROM traCuttingDet A " & vbNewLine &
+                    "INNER JOIN traCutting B ON " & vbNewLine &
+                    "   A.CuttingID=B.ID " & vbNewLine &
                     "INNER JOIN mstItem MI ON " & vbNewLine &
                     "   A.ItemID=MI.ID " & vbNewLine &
                     "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
@@ -2236,9 +2237,9 @@
                     "   B.BPID=@BPID " & vbNewLine &
                     "   AND B.CompanyID=@CompanyID " & vbNewLine &
                     "   AND B.ProgramID=@ProgramID " & vbNewLine &
-                    "   AND A.POID=@ReferencesID " & vbNewLine &
-                    "   AND B.ApprovedBy<>'' " & vbNewLine &
-                    "   AND A.TotalPrice-A.AllocateDPAmount-A.ReceiveAmount>0 " & vbNewLine &
+                    "   AND A.CuttingID=@ReferencesID " & vbNewLine &
+                    "   AND B.SubmitBy<>'' " & vbNewLine &
+                    "   AND A.TotalPrice-A.ReceiveAmount>0 " & vbNewLine &
                     "   AND A.TotalWeight-A.InvoiceTotalWeight>0 " & vbNewLine &
                     "   AND A.ID NOT IN " & vbNewLine &
                     "       ( " & vbNewLine &

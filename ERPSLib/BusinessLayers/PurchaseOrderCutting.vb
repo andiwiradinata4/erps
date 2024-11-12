@@ -317,23 +317,27 @@
                 '# Get Data
                 dtReturn = DL.PurchaseOrderCutting.Print(sqlCon, Nothing, strID)
                 Dim dtRemarksResult As DataTable = DL.PurchaseOrderCutting.ListDataRemarksResult(sqlCon, Nothing, strID)
-                Dim strRemarksResult As String = ""
-                For Each dr As DataRow In dtRemarksResult.Rows
-                    strRemarksResult += dr.Item("Remarks") & vbCrLf
-                Next
 
                 '# Combine Delivery Period
                 For Each dr As DataRow In dtReturn.Rows
                     dr.BeginEdit()
                     '# Remarks
-                    dr.Item("Remarks") += IIf(dr.Item("Remarks") = "", "", vbCrLf) & vbCrLf & "NOTE: DIAMBIL " & Format(dr.Item("PickupDate"), "dd MMMM yyyy") & vbCrLf
+                    dr.Item("Remarks") += IIf(dr.Item("Remarks") = "", "", vbCrLf) & vbCrLf & "NOTE: DIAMBIL " & vbCrLf
                     If dr.Item("IsClaimCustomer") Then dr.Item("Remarks") += vbCrLf & "NOTE: ONGKOS POTONG EXCLUDE"
                     '# -------------------------------
 
                     dr.Item("LocationAndDate") = dr.Item("City") & ", " & Format(dr.Item("PODate"), "dd MMMM yyyy")
                     If IsNumeric(dr.Item("Length")) Then dr.Item("Length") = Format(Convert.ToDecimal(dr.Item("Length")), "#,###")
 
-                    dr.Item("RemarksResult") = strRemarksResult
+                    '# Remarks Result
+                    Dim drSelectedRemarks() As DataRow = dtRemarksResult.Select("GroupID=" & dr.Item("GroupID"))
+                    Dim strRemarks As String = ""
+                    For Each drRemarks As DataRow In drSelectedRemarks
+                        strRemarks += drRemarks.Item("Remarks") & vbCrLf
+                    Next
+                    dr.Item("RemarksResult") = strRemarks
+                    '# -------------------------------
+
                     dr.EndEdit()
                 Next
                 dtReturn.AcceptChanges()

@@ -148,6 +148,8 @@ Public Class frmTraCuttingDet
                 intCustomerID = clsData.CustomerID
                 txtCustomerCode.Text = clsData.CustomerCode
                 txtCustomerName.Text = clsData.CustomerName
+
+                dtpPickupDate.Value = clsData.PickupDate
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -239,7 +241,9 @@ Public Class frmTraCuttingDet
                                     .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
                                     .PODetailResultID = dr.Item("PODetailResultID"),
                                     .UnitPriceHPP = dr.Item("UnitPriceHPP"),
-                                    .TotalPriceHPP = dr.Item("TotalPriceHPP")
+                                    .TotalPriceHPP = dr.Item("TotalPriceHPP"),
+                                    .UnitPrice = dr.Item("UnitPrice"),
+                                    .TotalPrice = dr.Item("TotalPrice")
                                 })
         Next
 
@@ -269,6 +273,7 @@ Public Class frmTraCuttingDet
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
         clsData.CustomerID = intCustomerID
+        clsData.PickupDate = dtpPickupDate.Value.Date
 
         pgMain.Value = 60
         Try
@@ -324,6 +329,7 @@ Public Class frmTraCuttingDet
         intCustomerID = 0
         txtCustomerCode.Text = ""
         txtCustomerName.Text = ""
+        dtpPickupDate.Value = Now
     End Sub
 
     Private Sub prvChooseBP()

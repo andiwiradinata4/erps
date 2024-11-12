@@ -51,6 +51,9 @@ Partial Class frmTraCutting
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
+        Me.BarReceive = New System.Windows.Forms.ToolBarButton()
+        Me.BarClaimCustomer = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -60,7 +63,7 @@ Partial Class frmTraCutting
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarSep2, Me.BarExportExcel, Me.BarSep3, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarSep2, Me.BarExportExcel, Me.BarSep3, Me.BarReceive, Me.BarClaimCustomer, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -313,6 +316,23 @@ Partial Class frmTraCutting
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
+        'BarSep4
+        '
+        Me.BarSep4.Name = "BarSep4"
+        Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarReceive
+        '
+        Me.BarReceive.Name = "BarReceive"
+        Me.BarReceive.Tag = "Calculation"
+        Me.BarReceive.Text = "Pembayaran"
+        '
+        'BarClaimCustomer
+        '
+        Me.BarClaimCustomer.Name = "BarClaimCustomer"
+        Me.BarClaimCustomer.Tag = "Get"
+        Me.BarClaimCustomer.Text = "Klaim Pelanggan"
+        '
         'frmTraCutting
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -363,4 +383,7 @@ Partial Class frmTraCutting
     Friend WithEvents pgMain As System.Windows.Forms.ProgressBar
     Friend WithEvents grdMain As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents BarReceive As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarClaimCustomer As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarSep4 As System.Windows.Forms.ToolBarButton
 End Class

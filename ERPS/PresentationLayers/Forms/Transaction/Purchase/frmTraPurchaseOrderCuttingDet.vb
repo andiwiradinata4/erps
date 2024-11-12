@@ -97,19 +97,6 @@ Public Class frmTraPurchaseOrderCuttingDet
         UI.usForm.SetGrid(grdItemResultView, "TotalPrice", "Total Price", 100, UI.usDefGrid.gReal2Num, False)
         grdItemResultView.Columns("GroupID").GroupIndex = 0
 
-        '# PO Payment Term
-        UI.usForm.SetGrid(grdPaymentTermView, "ID", "ID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdPaymentTermView, "POID", "POID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdPaymentTermView, "Percentage", "Percentage", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdPaymentTermView, "PaymentTypeID", "PaymentTypeID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdPaymentTermView, "PaymentTypeCode", "Jenis Pembayaran [Kode]", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdPaymentTermView, "PaymentTypeName", "Jenis Pembayaran [Nama]", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdPaymentTermView, "PaymentModeID", "PaymentModeID", 100, UI.usDefGrid.gIntNum, False)
-        UI.usForm.SetGrid(grdPaymentTermView, "PaymentModeCode", "Metode Pembayaran [Kode]", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdPaymentTermView, "PaymentModeName", "Metode Pembayaran [Nama]", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdPaymentTermView, "CreditTerm", "CreditTerm", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdPaymentTermView, "Remarks", "Remarks", 100, UI.usDefGrid.gString)
-
         '# History
         UI.usForm.SetGrid(grdStatusView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdStatusView, "POID", "POID", 100, UI.usDefGrid.gString, False)
@@ -117,11 +104,6 @@ Public Class frmTraPurchaseOrderCuttingDet
         UI.usForm.SetGrid(grdStatusView, "StatusBy", "Oleh", 200, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdStatusView, "StatusDate", "Tanggal", 180, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdStatusView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
-
-        '# Remarks Result
-        UI.usForm.SetGrid(grdRemarksResultView, "ID", "ID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdRemarksResultView, "POID", "POID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdRemarksResultView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
     End Sub
 
     Private Sub prvFillCombo()
@@ -149,7 +131,6 @@ Public Class frmTraPurchaseOrderCuttingDet
                 txtBPCode.Text = clsData.BPCode
                 txtBPName.Text = clsData.BPName
                 dtpPODate.Value = clsData.PODate
-                dtpPickupDate.Value = clsData.PickupDate
                 txtPersonInCharge.Text = clsData.PersonInCharge
                 dtpDeliveryPeriodFrom.EditValue = clsData.DeliveryPeriodFrom
                 dtpDeliveryPeriodTo.EditValue = clsData.DeliveryPeriodTo
@@ -169,7 +150,6 @@ Public Class frmTraPurchaseOrderCuttingDet
                 intCustomerID = clsData.CustomerID
                 txtCustomerCode.Text = clsData.CustomerCode
                 txtCustomerName.Text = clsData.CustomerName
-                txtRemarksResult.Text = clsData.RemarksResult
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -194,11 +174,6 @@ Public Class frmTraPurchaseOrderCuttingDet
             tcHeader.SelectedTab = tpMain
             cboStatus.Focus()
             Exit Sub
-            'ElseIf txtPersonInCharge.Text.Trim = "" Then
-            '    UI.usForm.frmMessageBox("PIC tidak boleh kosong")
-            '    tcHeader.SelectedTab = tpMain
-            '    txtPersonInCharge.Focus()
-            '    Exit Sub
         ElseIf dtpDeliveryPeriodFrom.EditValue > dtpDeliveryPeriodTo.EditValue Then
             UI.usForm.frmMessageBox("Periode pengiriman tidak valid")
             tcHeader.SelectedTab = tpMain
@@ -213,16 +188,6 @@ Public Class frmTraPurchaseOrderCuttingDet
             UI.usForm.frmMessageBox("Item hasil kosong. Mohon untuk diinput item terlebih dahulu")
             tcDetail.SelectedTab = tpItemResult
             grdItemResultView.Focus()
-            Exit Sub
-        ElseIf grdPaymentTermView.RowCount = 0 Then
-            UI.usForm.frmMessageBox("Syarat pembayaran kosong. Mohon untuk diinput syarat pembayaran terlebih dahulu")
-            tcHeader.SelectedTab = tpPaymentTerm
-            grdPaymentTermView.Focus()
-            Exit Sub
-        ElseIf grdPaymentTermView.Columns("Percentage").SummaryItem.SummaryValue <> 100 Then
-            UI.usForm.frmMessageBox("Total persentase syarat pembayaran harus 100%")
-            tcHeader.SelectedTab = tpPaymentTerm
-            grdPaymentTermView.Focus()
             Exit Sub
         ElseIf txtCustomerCode.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Pilih pelanggan terlebih dahulu")
@@ -302,6 +267,7 @@ Public Class frmTraPurchaseOrderCuttingDet
         For Each dr As DataRow In dtRemarksResult.Rows
             listRemarksResult.Add(New VO.PurchaseOrderRemarksResult With
                                   {
+                                      .GroupID = dr.Item("GroupID"),
                                       .Remarks = dr.Item("Remarks")
                                   })
         Next
@@ -335,8 +301,6 @@ Public Class frmTraPurchaseOrderCuttingDet
         clsData.Save = intSave
         clsData.CustomerID = intCustomerID
         clsData.IsClaimCustomer = chkIsClaimCustomer.Checked
-        clsData.PickupDate = dtpPickupDate.Value
-        clsData.RemarksResult = txtRemarksResult.Text.Trim
         clsData.RemarksResultItem = listRemarksResult
 
         pgMain.Value = 60
@@ -350,7 +314,6 @@ Public Class frmTraPurchaseOrderCuttingDet
                 prvQueryItem()
                 prvQueryItemResult()
                 prvQueryHistory()
-                prvQueryPaymentTerm()
             Else
                 Me.Close()
             End If
@@ -382,7 +345,6 @@ Public Class frmTraPurchaseOrderCuttingDet
         txtTotalPPH.Value = 0
         txtGrandTotal.Value = 0
         txtRemarks.Text = ""
-        txtRemarksResult.Text = ""
         cboStatus.SelectedValue = VO.Status.Values.Draft
         ToolStripLogInc.Text = "Jumlah Edit : -"
         ToolStripLogBy.Text = "Dibuat Oleh : -"
@@ -391,7 +353,6 @@ Public Class frmTraPurchaseOrderCuttingDet
         txtCustomerCode.Text = ""
         txtCustomerName.Text = ""
         chkIsClaimCustomer.Checked = False
-        dtpPickupDate.Value = Today
     End Sub
 
     Private Sub prvChooseBP()
@@ -428,13 +389,6 @@ Public Class frmTraPurchaseOrderCuttingDet
     End Sub
 
     Private Sub prvSumGrid()
-        '# Payment Term
-        Dim SumTotalPercentagePayment As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Percentage", "Total: {0:#,##0.00}")
-
-        If grdPaymentTermView.Columns("Percentage").SummaryText.Trim = "" Then
-            grdPaymentTermView.Columns("Percentage").Summary.Add(SumTotalPercentagePayment)
-        End If
-
         '# PO Detail
         Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0.0000}")
         Dim SumGrandTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
@@ -521,6 +475,7 @@ Public Class frmTraPurchaseOrderCuttingDet
             .pubCS = pubCS
             .pubTableItem = dtItem
             .pubTableItemResultParent = dtItemResult
+            .pubTableItemRemarksResultParent = dtRemarksResult
             .pubIsAutoSearch = True
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
@@ -540,6 +495,7 @@ Public Class frmTraPurchaseOrderCuttingDet
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .pubTableItem = dtItem
             .pubTableItemResultParent = dtItemResult
+            .pubTableItemRemarksResultParent = dtRemarksResult
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -587,6 +543,23 @@ Public Class frmTraPurchaseOrderCuttingDet
             End If
         Next
         dtItemResult.AcceptChanges()
+
+        '# Delete Item Result Remarks
+        For Each dr As DataRow In dtRemarksResult.Rows
+            If dr.Item("GroupID") = intGroupID Then dr.Delete()
+        Next
+        dtRemarksResult.AcceptChanges()
+
+        '# Update Group ID Result
+        For Each dr As DataRow In dtRemarksResult.Rows
+            If dr.Item("GroupID") > intGroupID Then
+                dr.BeginEdit()
+                dr.Item("GroupID") = dr.Item("GroupID") - 1
+                dr.EndEdit()
+            End If
+        Next
+        dtRemarksResult.AcceptChanges()
+
         prvSetButtonItem()
         grdItemResultView.ExpandAllGroups()
     End Sub
@@ -619,145 +592,22 @@ Public Class frmTraPurchaseOrderCuttingDet
 
 #End Region
 
-#Region "Remarks Result"
+#Region "Item Result Remarks Handle"
 
-    Private Sub prvSetButtonRemarksResult()
-        Dim bolEnabled As Boolean = IIf(grdRemarksResultView.RowCount = 0, False, True)
-        With ToolBarRemarksResult
-            .Buttons(cEditItem).Enabled = bolEnabled
-            .Buttons(cDeleteItem).Enabled = bolEnabled
-        End With
-    End Sub
-
-    Private Sub prvQueryRemarksResult()
+    Private Sub prvQueryItemResultRemarks()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
 
         Try
             dtRemarksResult = BL.PurchaseOrderCutting.ListDataRemarksResult(pubID.Trim)
-            grdRemarksResult.DataSource = dtRemarksResult
-            grdRemarksResultView.BestFitColumns()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
-            Me.Close()
-        Finally
-            Me.Cursor = Cursors.Default
-            pgMain.Value = 100
-            prvSetButtonRemarksResult()
-            prvResetProgressBar()
-        End Try
-    End Sub
-
-    Private Sub prvAddRemarksResult()
-        Dim frmDetail As New frmTraPurchaseOrderCuttingDetRemarkResult
-        With frmDetail
-            .pubIsNew = True
-            .pubDtItem = dtRemarksResult
-            .StartPosition = FormStartPosition.CenterParent
-            .pubShowDialog(Me)
-            prvSetButtonRemarksResult()
-            grdRemarksResultView.ExpandAllGroups()
-        End With
-    End Sub
-
-    Private Sub prvEditRemarksResult()
-        intPos = grdRemarksResultView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        Dim frmDetail As New frmTraPurchaseOrderCuttingDetRemarkResult
-        With frmDetail
-            .pubIsNew = False
-            .pubDrSelected = grdRemarksResultView.GetDataRow(intPos)
-            .pubDtItem = dtRemarksResult
-            .StartPosition = FormStartPosition.CenterParent
-            .pubShowDialog(Me)
-            prvSetButtonRemarksResult()
-            grdRemarksResultView.ExpandAllGroups()
-        End With
-    End Sub
-
-    Private Sub prvDeleteRemarksResult()
-        intPos = grdRemarksResultView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        Dim strID As String = grdRemarksResultView.GetRowCellValue(intPos, "ID")
-        For i As Integer = 0 To dtRemarksResult.Rows.Count - 1
-            If dtRemarksResult.Rows(i).Item("ID") = strID Then
-                dtRemarksResult.Rows(i).Delete()
-                Exit For
-            End If
-        Next
-        dtRemarksResult.AcceptChanges()
-        prvSetButtonRemarksResult()
-    End Sub
-
-#End Region
-
-#Region "Payment Term Handle"
-
-    Private Sub prvSetButtonPaymentTerm()
-        Dim bolEnabled As Boolean = IIf(grdPaymentTermView.RowCount = 0, False, True)
-        With ToolBarPaymentTerm
-            .Buttons(cEditItem).Enabled = bolEnabled
-            .Buttons(cDeleteItem).Enabled = bolEnabled
-        End With
-    End Sub
-
-    Private Sub prvQueryPaymentTerm()
-        Me.Cursor = Cursors.WaitCursor
-        pgMain.Value = 30
-
-        Try
-            dtPaymentTerm = BL.PurchaseOrder.ListDataPaymentTerm(pubID.Trim)
-            grdPaymentTerm.DataSource = dtPaymentTerm
-            prvSumGrid()
-            grdPaymentTermView.BestFitColumns()
-        Catch ex As Exception
-            UI.usForm.frmMessageBox(ex.Message)
-            Me.Close()
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
 
-            prvSetButtonPaymentTerm()
             prvResetProgressBar()
         End Try
-    End Sub
-
-    Private Sub prvAddPaymentTerm()
-        Dim frmDetail As New usFormPaymentTerm
-        With frmDetail
-            .pubDataParent = dtPaymentTerm
-            .pubIsNew = True
-            .pubID = ""
-            .StartPosition = FormStartPosition.CenterParent
-            .ShowDialog(Me)
-            prvSetButtonPaymentTerm()
-        End With
-    End Sub
-
-    Private Sub prvEditPaymentTerm()
-        intPos = grdPaymentTermView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        Dim frmDetail As New usFormPaymentTerm
-        With frmDetail
-            .pubDataParent = dtPaymentTerm
-            .pubIsNew = False
-            .pubID = grdPaymentTermView.GetRowCellValue(intPos, "ID")
-            .StartPosition = FormStartPosition.CenterParent
-            .ShowDialog(Me)
-        End With
-    End Sub
-
-    Private Sub prvDeletePaymentTerm()
-        intPos = grdPaymentTermView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        Dim strID As String = grdPaymentTermView.GetRowCellValue(intPos, "ID")
-        For Each dr As DataRow In dtPaymentTerm.Rows
-            If dr.Item("ID") = strID Then
-                dr.Delete()
-            End If
-        Next
-        dtPaymentTerm.AcceptChanges()
-        prvSetButtonPaymentTerm()
     End Sub
 
 #End Region
@@ -788,16 +638,12 @@ Public Class frmTraPurchaseOrderCuttingDet
         If e.KeyCode = Keys.F1 Then
             tcHeader.SelectedTab = tpMain
         ElseIf e.KeyCode = Keys.F2 Then
-            tcHeader.SelectedTab = tpRemarksResult
-        ElseIf e.KeyCode = Keys.F3 Then
             tcHeader.SelectedTab = tpAmount
-        ElseIf e.KeyCode = Keys.F4 Then
-            tcHeader.SelectedTab = tpPaymentTerm
-        ElseIf e.KeyCode = Keys.F5 Then
+        ElseIf e.KeyCode = Keys.F3 Then
             tcHeader.SelectedTab = tpHistory
-        ElseIf e.KeyCode = Keys.F6 Then
+        ElseIf e.KeyCode = Keys.F4 Then
             tcDetail.SelectedTab = tpItem
-        ElseIf e.KeyCode = Keys.F7 Then
+        ElseIf e.KeyCode = Keys.F5 Then
             tcDetail.SelectedTab = tpItemResult
         ElseIf e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
@@ -810,15 +656,12 @@ Public Class frmTraPurchaseOrderCuttingDet
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         ToolBarDetail.SetIcon(Me)
-        ToolBarPaymentTerm.SetIcon(Me)
-        ToolBarRemarksResult.SetIcon(Me)
         prvSetTitleForm()
         prvSetGrid()
         prvFillForm()
         prvQueryItem()
         prvQueryItemResult()
-        prvQueryPaymentTerm()
-        prvQueryRemarksResult()
+        prvQueryItemResultRemarks()
         prvQueryHistory()
         prvUserAccess()
     End Sub
@@ -835,22 +678,6 @@ Public Class frmTraPurchaseOrderCuttingDet
             Case "Tambah" : prvAddItem()
             Case "Edit" : prvEditItem()
             Case "Hapus" : prvDeleteItem()
-        End Select
-    End Sub
-
-    Private Sub ToolBarPaymentTerm_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarPaymentTerm.ButtonClick
-        Select Case e.Button.Text.Trim
-            Case "Tambah" : prvAddPaymentTerm()
-            Case "Edit" : prvEditPaymentTerm()
-            Case "Hapus" : prvDeletePaymentTerm()
-        End Select
-    End Sub
-
-    Private Sub ToolBarRemarksResult_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarRemarksResult.ButtonClick
-        Select Case e.Button.Text.Trim
-            Case "Tambah" : prvAddRemarksResult()
-            Case "Edit" : prvEditRemarksResult()
-            Case "Hapus" : prvDeleteRemarksResult()
         End Select
     End Sub
 

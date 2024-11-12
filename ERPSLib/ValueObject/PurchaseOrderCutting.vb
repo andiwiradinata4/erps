@@ -44,8 +44,8 @@
         Property CustomerCode As String
         Property CustomerName As String
         Property IsClaimCustomer As Boolean
-        Property PickupDate As DateTime
-        Property RemarksResult As String
+        Property PickupDate As DateTime = "2000/01/01"
+        Property RemarksResult As String = ""
         Property ClaimDPAmount As Decimal
         Property ClaimReceiveAmount As Decimal
     End Class
