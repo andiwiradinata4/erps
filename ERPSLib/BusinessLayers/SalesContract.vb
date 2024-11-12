@@ -796,6 +796,10 @@
                     Dim drSelectedDetailCO() As DataRow = dtSCCODetail.Select("GroupID=" & clsSCDetOld.GroupID)
                     Dim dtSCDetail As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsSCDetOld.SCID, "")
                     Dim drSelectedDetail() As DataRow = dtSCDetail.Select("GroupID=" & clsSCDetOld.GroupID)
+                    Dim dtSCDetailSub As New DataTable
+                    For Each dr As DataRow In drSelectedDetail
+                        dtSCDetailSub.Merge(DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsSCDetOld.SCID, dr.Item("ID")))
+                    Next
 
                     If drSelectedDetail.Count = 1 Then
                         'Err.Raise(515, "", "Data tidak dapat disimpan. Gunakan fitur ubah item pada Kontrak Penjualan -> Konfirmasi Pesanan")
@@ -817,6 +821,9 @@
 
                     '# Update Group ID SC Detail
                     DL.SalesContract.UpdateDetailGroupID(sqlCon, sqlTrans, clsSCDetNew.ID, clsSCDetNew.GroupID, clsSCDetNew.UnitPriceHPP)
+                    For Each dr As DataRow In dtSCDetailSub.Rows
+                        DL.SalesContract.UpdateDetailGroupID(sqlCon, sqlTrans, dr.Item("ID"), clsSCDetNew.GroupID, clsSCDetNew.UnitPriceHPP)
+                    Next
 
                     '# Save new Sales Contract CO Item
                     clsSCCONew.ID = GetNewIDDetailCOItem(sqlCon, sqlTrans, clsSCCONew.SCID)

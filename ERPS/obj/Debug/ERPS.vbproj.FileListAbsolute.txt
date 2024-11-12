@@ -958,3 +958,5 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\aa\ERPS.resources.dll
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.pdb
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCOVer2AddAdditional.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDifferentTotalChild.resources
