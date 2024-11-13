@@ -536,6 +536,48 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function PrintVoucherVer01(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                 ByVal strID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+"SELECT  " & vbNewLine & _
+"	MC.Name AS CompanyName, 'VOUCHER BANK IN' AS HeaderName, ARI.VoucherNumber, ARI.VoucherDate,  " & vbNewLine & _
+"	ARH.BPID, BP.Code AS BPCode, BP.Name AS BPName, ARI.TotalAmount, ARH.ARNumber + ' ' + ARH.ReferencesNote AS PaymentDescription,  " & vbNewLine & _
+"	ARIT.OrderNumberSupplier, MIT.Description AS ItemTypeName, MI.ItemName, MI.Thick, ART.TotalWeight, CAST('' AS VARCHAR(1000)) AS ItemDescriptions,  " & vbNewLine & _
+"	MCR.Name AS CreatedBy, MCV.Name AS CheckedBy, MCA.Name AS AcknowledgedBy, MC.City, CAST('' AS VARCHAR(250)) AS LocationAndDate " & vbNewLine & _
+"FROM traAccountReceivable ARH  " & vbNewLine & _
+"INNER JOIN traARAPInvoice ARI ON  " & vbNewLine & _
+"	ARH.ID=ARI.ParentID  " & vbNewLine & _
+"INNER JOIN traARAPItem ART ON  " & vbNewLine & _
+"	ARH.ID=ART.ParentID " & vbNewLine & _
+"INNER JOIN traARAPInvoiceItem ARIT ON  " & vbNewLine & _
+"	ARI.ID=ARIT.ParentID  " & vbNewLine & _
+"	AND ART.ItemID=ARIT.ItemID  " & vbNewLine & _
+"INNER JOIN mstItem MI ON  " & vbNewLine & _
+"	ARIT.ItemID=MI.ID  " & vbNewLine & _
+"INNER JOIN mstCompany MC ON  " & vbNewLine & _
+"	ARH.CompanyID=MC.ID  " & vbNewLine & _
+"INNER JOIN mstBusinessPartner BP ON	 " & vbNewLine & _
+"	ARH.BPID=BP.ID  " & vbNewLine & _
+"INNER JOIN mstItemType MIT ON  " & vbNewLine & _
+"	MI.ItemTypeID=MIT.ID  " & vbNewLine & _
+"LEFT JOIN mstUser MCR ON  " & vbNewLine & _
+"	ARI.CreatedBy=MCR.ID  " & vbNewLine & _
+"LEFT JOIN mstUser MCV ON  " & vbNewLine & _
+"	ARI.SubmitBy=MCV.ID  " & vbNewLine & _
+"LEFT JOIN mstUser MCA ON  " & vbNewLine & _
+"	ARI.ApprovedBy=MCA.ID  " & vbNewLine & _
+"WHERE ARI.ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
 #End Region
 
 #Region "Down Payment"
@@ -678,7 +720,7 @@
                     "	ARI.ID, ARI.ParentID, ARI.InvoiceNumber, ARI.InvoiceDate, ARI.CoAID, ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName, " & vbNewLine &
                     "	ARI.PPN, ARI.PPH, ARI.TotalAmount, ARI.TotalDPP, ARI.TotalPPN, ARI.TotalPPH, ARI.TaxInvoiceNumber, ARI.InvoiceNumberExternal, " & vbNewLine &
                     "	ARI.SubmitBy, ARI.SubmitDate, ARI.ApprovedBy, ARI.ApprovedDate, ARI.IsDeleted, ARI.Remarks, ARI.CreatedBy, ARI.CreatedDate, " & vbNewLine &
-                    "	ARI.LogBy, ARI.LogDate, ARI.LogInc " & vbNewLine &
+                    "	ARI.LogBy, ARI.LogDate, ARI.LogInc, ARI.VoucherNumber, ARI.VoucherDate " & vbNewLine &
                     "FROM traARAPInvoice ARI " & vbNewLine &
                     "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
                     "	ARI.CoAID=COA.ID " & vbNewLine &
@@ -701,9 +743,9 @@
                 If bolNew Then
                     .CommandText =
                     "INSERT INTO traARAPInvoice " & vbNewLine &
-                    "   (ID, ParentID, InvoiceNumber, InvoiceDate, CoAID, PPN, PPH, TotalAmount, TotalDPP, TotalPPN, TotalPPH, StatusID, ReferencesNumber) " & vbNewLine &
+                    "   (ID, ParentID, InvoiceNumber, InvoiceDate, CoAID, PPN, PPH, TotalAmount, TotalDPP, TotalPPN, TotalPPH, StatusID, ReferencesNumber, CreatedBy) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @ParentID, @InvoiceNumber, @InvoiceDate, @CoAID, @PPN, @PPH, @TotalAmount, @TotalDPP, @TotalPPN, @TotalPPH, @StatusID, @ReferencesNumber) " & vbNewLine
+                    "   (@ID, @ParentID, @InvoiceNumber, @InvoiceDate, @CoAID, @PPN, @PPH, @TotalAmount, @TotalDPP, @TotalPPN, @TotalPPH, @StatusID, @ReferencesNumber, @LogBy) " & vbNewLine
                 Else
                     .CommandText =
                     "UPDATE traARAPInvoice SET " & vbNewLine &
@@ -719,7 +761,10 @@
                     "   TotalPPN=@TotalPPN," & vbNewLine &
                     "   TotalPPH=@TotalPPH," & vbNewLine &
                     "   StatusID=@StatusID," & vbNewLine &
-                    "   ReferencesNumber=@ReferencesNumber " & vbNewLine &
+                    "   ReferencesNumber=@ReferencesNumber, " & vbNewLine &
+                    "   LogBy=@LogBy, " & vbNewLine &
+                    "   LogDate=GETDATE(), " & vbNewLine &
+                    "   LogInc=LogInc+1 " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   ID=@ID " & vbNewLine
                 End If
@@ -737,6 +782,7 @@
                 .Parameters.Add("@TotalPPH", SqlDbType.Decimal).Value = clsData.TotalPPH
                 .Parameters.Add("@StatusID", SqlDbType.Decimal).Value = clsData.StatusID
                 .Parameters.Add("@ReferencesNumber", SqlDbType.VarChar, 100).Value = clsData.ReferencesNumber
+                .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -1074,6 +1120,32 @@
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@InvoiceNumberExternal", SqlDbType.VarChar, 100).Value = strInvoiceNumberExternal
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = strRemarks
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub UpdateVoucherNumber(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal strID As String, ByVal strVoucherNumber As String,
+                                              ByVal dtmVoucherDate As DateTime)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traARAPInvoice SET " & vbNewLine &
+                    "    VoucherNumber=@VoucherNumber, " & vbNewLine &
+                    "    VoucherDate=@VoucherDate " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@VoucherNumber", SqlDbType.VarChar, 100).Value = strVoucherNumber
+                .Parameters.Add("@VoucherDate", SqlDbType.DateTime).Value = dtmVoucherDate
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

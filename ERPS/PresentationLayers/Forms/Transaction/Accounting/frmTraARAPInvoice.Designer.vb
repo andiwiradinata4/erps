@@ -36,6 +36,7 @@ Partial Class frmTraARAPInvoice
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
         Me.BarSetTaxInvoiceNumber = New System.Windows.Forms.ToolBarButton()
         Me.BarSetInvoiceNumberBP = New System.Windows.Forms.ToolBarButton()
+        Me.BarSetVoucher = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarPrint = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
@@ -43,6 +44,7 @@ Partial Class frmTraARAPInvoice
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.pgMain = New System.Windows.Forms.ProgressBar()
+        Me.BarPrintVoucher = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -84,7 +86,7 @@ Partial Class frmTraARAPInvoice
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarSetTaxInvoiceNumber, Me.BarSetInvoiceNumberBP, Me.BarSep3, Me.BarPrint, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarSetTaxInvoiceNumber, Me.BarSetInvoiceNumberBP, Me.BarSetVoucher, Me.BarSep3, Me.BarPrint, Me.BarPrintVoucher, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -157,6 +159,12 @@ Partial Class frmTraARAPInvoice
         Me.BarSetInvoiceNumberBP.Tag = "Sub"
         Me.BarSetInvoiceNumberBP.Text = "Set Nomor Invoice Pemasok"
         '
+        'BarSetVoucher
+        '
+        Me.BarSetVoucher.Name = "BarSetVoucher"
+        Me.BarSetVoucher.Tag = "Submit"
+        Me.BarSetVoucher.Text = "Set Voucher"
+        '
         'BarSep3
         '
         Me.BarSep3.Name = "BarSep3"
@@ -199,6 +207,12 @@ Partial Class frmTraARAPInvoice
         Me.pgMain.Size = New System.Drawing.Size(800, 23)
         Me.pgMain.TabIndex = 5
         '
+        'BarPrintVoucher
+        '
+        Me.BarPrintVoucher.Name = "BarPrintVoucher"
+        Me.BarPrintVoucher.Tag = "Print"
+        Me.BarPrintVoucher.Text = "Print Voucher"
+        '
         'frmTraARAPInvoice
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -238,4 +252,6 @@ Partial Class frmTraARAPInvoice
     Friend WithEvents BarRefresh As ToolBarButton
     Friend WithEvents BarClose As ToolBarButton
     Friend WithEvents pgMain As System.Windows.Forms.ProgressBar
+    Friend WithEvents BarSetVoucher As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarPrintVoucher As System.Windows.Forms.ToolBarButton
 End Class

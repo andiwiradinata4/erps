@@ -77,8 +77,9 @@ Public Class frmTraARAPInvoice
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
-       cSep2 As Byte = 8, cSetTaxInvoiceNumber As Byte = 9, cSetInvoiceNumberBP As Byte = 10, cSep3 As Byte = 11,
-       cPrint As Byte = 12, cExportExcel As Byte = 13, cSep4 As Byte = 14, cRefresh As Byte = 15, cClose As Byte = 16
+       cSep2 As Byte = 8, cSetTaxInvoiceNumber As Byte = 9, cSetInvoiceNumberBP As Byte = 10, cSetVoucher As Byte = 11,
+       cSep3 As Byte = 12, cPrint As Byte = 13, cPrintVoucher As Byte = 14, cExportExcel As Byte = 15, cSep4 As Byte = 16,
+       cRefresh As Byte = 17, cClose As Byte = 18
 
     Private Sub prvSetGrid()
         UI.usForm.SetGrid(grdView, "Pick", "Pilih", 100, UI.usDefGrid.gIntNum, False)
@@ -95,6 +96,8 @@ Public Class frmTraARAPInvoice
         UI.usForm.SetGrid(grdView, "TotalPPN", "Total PPN Dibayar", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalPPH", "Total PPH Dibayar", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TaxInvoiceNumber", "No. Faktur Pajak", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "VoucherNumber", "No. Voucher", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "VoucherDate", "Tanggal Voucher", 100, UI.usDefGrid.gSmallDate, False)
         UI.usForm.SetGrid(grdView, "InvoiceNumberExternal", "Nomor Invoice Eksternal", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "SubmitBy", "Disubmit Oleh", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "SubmitDate", "Tanggal Disubmit", 100, UI.usDefGrid.gFullDate)
@@ -122,7 +125,9 @@ Public Class frmTraARAPInvoice
             .Item(cCancelApprove).Enabled = bolEnable
             .Item(cSetTaxInvoiceNumber).Enabled = bolEnable
             .Item(cSetInvoiceNumberBP).Enabled = bolEnable
+            .Item(cSetVoucher).Enabled = bolEnable
             .Item(cPrint).Enabled = bolEnable
+            .Item(cPrintVoucher).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
         End With
     End Sub
@@ -200,7 +205,9 @@ Public Class frmTraARAPInvoice
             .CreatedDate = grdView.GetRowCellValue(intPos, "CreatedDate"),
             .LogBy = grdView.GetRowCellValue(intPos, "LogBy"),
             .LogDate = grdView.GetRowCellValue(intPos, "LogDate"),
-            .LogInc = grdView.GetRowCellValue(intPos, "LogInc")
+            .LogInc = grdView.GetRowCellValue(intPos, "LogInc"),
+            .VoucherDate = grdView.GetRowCellValue(intPos, "VoucherDate"),
+            .VoucherNumber = grdView.GetRowCellValue(intPos, "VoucherNumber")
         }
     End Function
 
@@ -441,6 +448,38 @@ Public Class frmTraARAPInvoice
         End Try
     End Sub
 
+    Private Sub prvSetupVoucherNumber()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+
+        Dim frmDetail As New frmTraAccountSetVoucherNumber
+        With frmDetail
+            .pubVoucherNumber = clsData.VoucherNumber
+            .pubVoucherDate = clsData.VoucherDate
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsSave Then
+                clsData.VoucherNumber = .pubVoucherNumber
+                clsData.VoucherDate = .pubVoucherDate
+                clsData.Remarks = .pubRemarks
+            Else
+                Exit Sub
+            End If
+        End With
+
+        Me.Cursor = Cursors.WaitCursor
+        Try
+            BL.ARAP.UpdateVoucherNumber(clsData.ID, clsData.VoucherNumber, clsData.VoucherDate, clsData.Remarks)
+            UI.usForm.frmMessageBox("Update nomor voucher berhasil.")
+            pubRefresh(grdView.GetRowCellValue(intPos, "InvoiceNumber"))
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+        End Try
+    End Sub
+
     Private Sub prvPrint()
         'intPos = grdView.FocusedRowHandle
         'If intPos < 0 Then Exit Sub
@@ -648,6 +687,38 @@ Public Class frmTraARAPInvoice
         'End Try
     End Sub
 
+    Private Sub prvPrintVoucher()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+        clsData = prvGetData()
+        Try
+            Dim dtData As DataTable = BL.ARAP.PrintVoucherVer01(strID)
+            Dim crReport As New rptARAPVoucher
+            crReport.DataSource = dtData
+            crReport.CreateDocument(True)
+            crReport.ShowPreviewMarginLines = False
+            crReport.ShowPrintMarginsWarning = False
+
+            Dim frmDetail As New frmReportPreview
+            With frmDetail
+                .docViewer.DocumentSource = crReport
+                .pgExportButton.Enabled = True
+                .Text = Me.Text & " - " & VO.Reports.PrintOut
+                .WindowState = FormWindowState.Maximized
+                .Show()
+            End With
+            pubRefresh()
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            pgMain.Value = 100
+            prvResetProgressBar()
+        End Try
+    End Sub
+
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
         Me.Cursor = Cursors.Default
@@ -691,7 +762,9 @@ Public Class frmTraARAPInvoice
                 Case ToolBar.Buttons(cCancelApprove).Name : prvCancelApprove()
                 Case ToolBar.Buttons(cSetTaxInvoiceNumber).Name : prvSetupTaxInvoiceNumber()
                 Case ToolBar.Buttons(cSetInvoiceNumberBP).Name : prvSetupInvoiceNumberSupplier()
+                Case ToolBar.Buttons(cSetVoucher).Name : prvSetupVoucherNumber()
                 Case ToolBar.Buttons(cPrint).Name : prvPrint()
+                Case ToolBar.Buttons(cPrintVoucher).Name : prvPrintVoucher()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If

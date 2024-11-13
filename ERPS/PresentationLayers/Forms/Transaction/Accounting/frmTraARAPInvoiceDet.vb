@@ -218,7 +218,8 @@ Public Class frmTraARAPInvoiceDet
                 .Remarks = txtRemarks.Text.Trim,
                 .StatusID = cboStatus.SelectedValue,
                 .ReferencesNumber = "",
-                .Item = listItem
+                .Item = listItem,
+                .LogBy = ERPSLib.UI.usUserApp.UserID
             }
 
         Try

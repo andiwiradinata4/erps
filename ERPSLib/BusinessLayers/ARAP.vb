@@ -1093,6 +1093,25 @@
             Return dtReturn
         End Function
 
+        Public Shared Function PrintVoucherVer01(ByVal strID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim dtData As DataTable = DL.ARAP.PrintVoucherVer01(sqlCon, Nothing, strID)
+                For Each dr As DataRow In dtData.Rows
+                    dr.BeginEdit()
+                    dr.Item("ItemDescriptions") = dr.Item("OrderNumberSupplier") & " " & dr.Item("ItemTypeName") & " " & dr.Item("ItemName") & " (Thick " & Format(dr.Item("Thick"), "#,###") & "mm - Total Tonase : " & Format(dr.Item("TotalWeight"), "#,###") & "Kg)"
+                    dr.Item("LocationAndDate") = dr.Item("City") & ", " & Format(dr.Item("VoucherDate"), "dd MMMM yyyy")
+                    dr.EndEdit()
+                Next
+                If dtData.Rows.Count <= 2 Then
+                    Dim dr As DataRow = dtData.NewRow
+                    dtData.Rows.Add(dr)
+                End If
+                dtData.AcceptChanges()
+                Return dtData
+            End Using
+        End Function
+
 #End Region
 
 #Region "Detail"
@@ -1574,6 +1593,34 @@
 
                     '# Save Data Status
                     BL.ARAP.SaveDataInvoiceStatus(sqlCon, sqlTrans, strID, "UPDATE NOMOR INVOICE EXTERNAL", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function UpdateVoucherNumber(ByVal strID As String, ByVal strVoucherNumber As String,
+                                                   ByVal dtmVoucherDate As DateTime, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Dim clsInvoice As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, sqlTrans, strID)
+                    If clsInvoice.StatusID = VO.Status.Values.Draft Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan status data masih DRAFT")
+                    ElseIf clsInvoice.IsDeleted Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
+                    End If
+
+                    DL.ARAP.UpdateVoucherNumber(sqlCon, sqlTrans, strID, strVoucherNumber, dtmVoucherDate)
+
+                    '# Save Data Status
+                    BL.ARAP.SaveDataInvoiceStatus(sqlCon, sqlTrans, strID, "UPDATE NOMOR VOUCHER", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
                     sqlTrans.Commit()
                 Catch ex As Exception

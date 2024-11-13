@@ -531,6 +531,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetInvoiceNumberBP.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetVoucherNumber.Designer.vb">
+      <DependentUpon>frmTraAccountSetVoucherNumber.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetVoucherNumber.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPChooseBankAccount.Designer.vb">
       <DependentUpon>frmTraARAPChooseBankAccount.vb</DependentUpon>
     </Compile>
@@ -1329,6 +1335,12 @@
     <Compile Include="PresentationLayers\Reports1\frmRptNeracaVer00.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptARAPVoucher.Designer.vb">
+      <DependentUpon>rptARAPVoucher.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptARAPVoucher.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Reports2\rptBukuBesarVer00.Designer.vb">
       <DependentUpon>rptBukuBesarVer00.vb</DependentUpon>
     </Compile>
@@ -1670,6 +1682,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetInvoiceNumberBP.resx">
       <DependentUpon>frmTraAccountSetInvoiceNumberBP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetVoucherNumber.resx">
+      <DependentUpon>frmTraAccountSetVoucherNumber.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPChooseBankAccount.resx">
       <DependentUpon>frmTraARAPChooseBankAccount.vb</DependentUpon>
@@ -2060,6 +2075,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports1\frmRptNeracaVer00.resx">
       <DependentUpon>frmRptNeracaVer00.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports2\rptARAPVoucher.resx">
+      <DependentUpon>rptARAPVoucher.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptBukuBesarVer00.resx">
       <DependentUpon>rptBukuBesarVer00.vb</DependentUpon>

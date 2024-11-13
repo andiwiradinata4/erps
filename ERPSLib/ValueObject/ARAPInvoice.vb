@@ -28,5 +28,7 @@
         Property Save As VO.Save.Action
         Property PaymentDate As DateTime
         Property Item As New List(Of VO.ARAPInvoiceItem)
+        Property VoucherNumber As String
+        Property VoucherDate As DateTime
     End Class
 End Namespace
