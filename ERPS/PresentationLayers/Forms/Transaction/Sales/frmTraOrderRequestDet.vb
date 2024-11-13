@@ -28,8 +28,8 @@ Public Class frmTraOrderRequestDet
 #End Region
 
     Private Const _
-       cSave As Byte = 0, cClose As Byte = 1, _
-       cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2
+       cSave As Byte = 0, cClose As Byte = 1,
+       cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2, cSep1Item As Byte = 3, cChangeItem As Byte = 4
 
     Private Sub prvSetTitleForm()
         If bolIsStock Then Me.Text += " [Stock]"
@@ -129,6 +129,7 @@ Public Class frmTraOrderRequestDet
                 intCoAofStock = clsData.CoAofStock
                 txtCoACodeOfStock.Text = clsData.CoACodeOfStock
                 txtCoANameOfStock.Text = clsData.CoANameOfStock
+                txtPersonInCharge.Text = clsData.PIC
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -224,6 +225,7 @@ Public Class frmTraOrderRequestDet
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Save = intSave
         clsData.CoAofStock = intCoAofStock
+        clsData.PIC = txtPersonInCharge.Text.Trim
         pgMain.Value = 60
         Try
             Dim strOrderNumber As String = BL.OrderRequest.SaveData(pubIsNew, clsData)
@@ -265,6 +267,7 @@ Public Class frmTraOrderRequestDet
         ToolStripLogInc.Text = "Jumlah Edit : -"
         ToolStripLogBy.Text = "Dibuat Oleh : -"
         ToolStripLogDate.Text = Format(Now, UI.usDefCons.DateFull)
+        txtPersonInCharge.Text = ""
     End Sub
 
     Private Sub prvChooseBP()
@@ -320,6 +323,7 @@ Public Class frmTraOrderRequestDet
         With ToolBarDetail
             .Buttons(cEditItem).Enabled = bolEnabled
             .Buttons(cDeleteItem).Enabled = bolEnabled
+            .Buttons(cChangeItem).Enabled = IIf(pubIsNew, False, bolEnabled)
         End With
     End Sub
 
@@ -475,6 +479,7 @@ Public Class frmTraOrderRequestDet
         lblCoAofStock.Visible = bolIsStock
         txtCoACodeOfStock.Visible = bolIsStock
         txtCoANameOfStock.Visible = bolIsStock
+        btnCoAOfStock.Visible = bolIsStock
         If bolIsStock Then prvGetDefaultCOAStock()
     End Sub
 

@@ -35,6 +35,8 @@ Partial Class frmTraOrderRequestDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.txtPersonInCharge = New ERPS.usTextBox()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.txtCoACodeOfStock = New ERPS.usTextBox()
         Me.btnCoAOfStock = New DevExpress.XtraEditors.SimpleButton()
         Me.lblCoAofStock = New System.Windows.Forms.Label()
@@ -213,6 +215,8 @@ Partial Class frmTraOrderRequestDet
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.txtPersonInCharge)
+        Me.tpMain.Controls.Add(Me.Label19)
         Me.tpMain.Controls.Add(Me.txtCoACodeOfStock)
         Me.tpMain.Controls.Add(Me.btnCoAOfStock)
         Me.tpMain.Controls.Add(Me.lblCoAofStock)
@@ -238,6 +242,27 @@ Partial Class frmTraOrderRequestDet
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'txtPersonInCharge
+        '
+        Me.txtPersonInCharge.BackColor = System.Drawing.Color.White
+        Me.txtPersonInCharge.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPersonInCharge.Location = New System.Drawing.Point(516, 43)
+        Me.txtPersonInCharge.MaxLength = 250
+        Me.txtPersonInCharge.Name = "txtPersonInCharge"
+        Me.txtPersonInCharge.Size = New System.Drawing.Size(274, 21)
+        Me.txtPersonInCharge.TabIndex = 10
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.BackColor = System.Drawing.Color.Transparent
+        Me.Label19.ForeColor = System.Drawing.Color.Black
+        Me.Label19.Location = New System.Drawing.Point(433, 47)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(24, 13)
+        Me.Label19.TabIndex = 155
+        Me.Label19.Text = "PIC"
         '
         'txtCoACodeOfStock
         '
@@ -306,7 +331,7 @@ Partial Class frmTraOrderRequestDet
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(433, 47)
+        Me.Label13.Location = New System.Drawing.Point(433, 74)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 129
@@ -316,12 +341,12 @@ Partial Class frmTraOrderRequestDet
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(516, 43)
+        Me.txtRemarks.Location = New System.Drawing.Point(516, 70)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(274, 48)
-        Me.txtRemarks.TabIndex = 10
+        Me.txtRemarks.TabIndex = 11
         '
         'cboStatus
         '
@@ -939,4 +964,6 @@ Partial Class frmTraOrderRequestDet
     Friend WithEvents txtCoANameOfStock As ERPS.usTextBox
     Friend WithEvents BarItemSep1 As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarChangeItem As System.Windows.Forms.ToolBarButton
+    Friend WithEvents txtPersonInCharge As usTextBox
+    Friend WithEvents Label19 As Label
 End Class

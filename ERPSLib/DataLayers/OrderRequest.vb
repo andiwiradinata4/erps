@@ -15,7 +15,7 @@
                 .CommandText =
                     "SELECT " & vbNewLine &
                     "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.OrderNumber, A.OrderDate, " & vbNewLine &
-                    "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.ReferencesNumber, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, " & vbNewLine &
+                    "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.PIC, A.ReferencesNumber, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, " & vbNewLine &
                     "   A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, A.IsDeleted, A.Remarks, A.StatusID, " & vbNewLine &
                     "   B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc, " & vbNewLine &
                     "   A.LogBy, A.LogDate, A.DPAmount, A.ReceiveAmount, (A.TotalDPP+A.RoundingManual)-(A.DPAmount+A.ReceiveAmount) AS OutstandingPayment, " & vbNewLine &
@@ -122,11 +122,11 @@
                         "INSERT INTO traOrderRequest " & vbNewLine &
                         "   (ID, ProgramID, CompanyID, BPID, OrderNumber, OrderDate, ReferencesNumber, PPN, PPH, " & vbNewLine &
                         "    TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, RoundingManual, " & vbNewLine &
-                        "    Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, IsStock, CoAofStock) " & vbNewLine &
+                        "    Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, IsStock, CoAofStock, PIC) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @ProgramID, @CompanyID, @BPID, @OrderNumber, @OrderDate, @ReferencesNumber, @PPN, @PPH, " & vbNewLine &
                         "    @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @RoundingManual, " & vbNewLine &
-                        "    @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @IsStock, @CoAofStock) " & vbNewLine
+                        "    @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @IsStock, @CoAofStock, @PIC) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE traOrderRequest SET " & vbNewLine &
@@ -150,7 +150,8 @@
                         "    LogBy=@LogBy, " & vbNewLine &
                         "    LogDate=GETDATE(), " & vbNewLine &
                         "    IsStock=@IsStock, " & vbNewLine &
-                        "    CoAofStock=@CoAofStock " & vbNewLine &
+                        "    CoAofStock=@CoAofStock, " & vbNewLine &
+                        "    PIC=@PIC" & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -175,6 +176,7 @@
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@IsStock", SqlDbType.Bit).Value = clsData.IsStock
                 .Parameters.Add("@CoAofStock", SqlDbType.Int).Value = clsData.CoAofStock
+                .Parameters.Add("@PIC", SqlDbType.VarChar, 250).Value = clsData.PIC
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -196,7 +198,7 @@
                         "SELECT TOP 1 " & vbNewLine &
                         "   A.ID, A.ProgramID, A.CompanyID, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.OrderNumber, A.OrderDate, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, " & vbNewLine &
                         "   A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.StatusID, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.IsStock, " & vbNewLine &
-                        "   A.DPAmount, A.ReceiveAmount, A.CoAofStock, ISNULL(COA.Code,'') AS CoACodeofStock, ISNULL(COA.Name,'') AS CoANameofStock " & vbNewLine &
+                        "   A.DPAmount, A.ReceiveAmount, A.CoAofStock, ISNULL(COA.Code,'') AS CoACodeofStock, ISNULL(COA.Name,'') AS CoANameofStock, A.PIC " & vbNewLine &
                         "FROM traOrderRequest A " & vbNewLine &
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
                         "   A.BPID=B.ID " & vbNewLine &
@@ -242,6 +244,7 @@
                         voReturn.CoAofStock = .Item("CoAofStock")
                         voReturn.CoACodeOfStock = .Item("CoACodeofStock")
                         voReturn.CoANameOfStock = .Item("CoANameOfStock")
+                        voReturn.PIC = .Item("PIC")
                     End If
                 End With
             Catch ex As Exception

@@ -36,5 +36,6 @@
         Property CoAofStock As Integer
         Property CoACodeOfStock As String
         Property CoANameOfStock As String
+        Property PIC As String
     End Class
 End Namespace

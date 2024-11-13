@@ -77,7 +77,7 @@
                 DevelopOnProgress_ID70(sqlCon, Nothing)
                 CreateARAPInvoiceItem_ID71(sqlCon, Nothing)
                 DevelopOnProgress_ID72(sqlCon, Nothing)
-                'DevelopOnProgress_ID73(sqlCon, Nothing)
+                DevelopOnProgress_ID73(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -2163,6 +2163,20 @@
             "ALTER TABLE traCutting ADD ClaimReceiveAmount [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_ClaimReceiveAmount DEFAULT ((0)) " & vbNewLine &
             "ALTER TABLE traCutting ADD ClaimReceiveAmountPPN [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_ClaimReceiveAmountPPN DEFAULT ((0)) " & vbNewLine &
             "ALTER TABLE traCutting ADD ClaimReceiveAmountPPH [decimal](18,4) NOT NULL CONSTRAINT DF_traCutting_ClaimReceiveAmountPPH DEFAULT ((0)) " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 73
+        Private Shared Sub DevelopOnProgress_ID73(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 73
+            clsData.Name = "Add Column pic in traOrderRequest"
+            clsData.Scripts = "ALTER TABLE traOrderRequest ADD PIC VARCHAR(250) NOT NULL CONSTRAINT DF_traOrderRequest_PIC DEFAULT ('') " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
