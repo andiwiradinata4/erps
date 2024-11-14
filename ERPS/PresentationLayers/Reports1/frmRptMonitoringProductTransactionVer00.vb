@@ -1,26 +1,25 @@
-﻿Imports DevExpress.PivotGrid.OLAP.AdoWrappers
-Imports DevExpress.XtraGrid
+﻿Imports DevExpress.XtraGrid
 
 Public Class frmRptMonitoringProductTransactionVer00
 
 #Region "Property"
 
-    Private bolExport As Boolean = False
+    Private bolExport As Boolean = True
     Private intCompanyID As Integer
-    Private Const _
-       cPreview As Byte = 0, cClose As Byte = 1
+    Private ds As New DataSet
+    Private dtDataMain As New DataTable
+    Private dtDataSalesContract As New DataTable
+    Private Const cPreview As Byte = 0, cExportExcel As Byte = 1, cSep1 As Byte = 2, cRefresh As Byte = 3, cClose As Byte = 4
 
 #End Region
 
     Private Sub prvSetGrid()
-        UI.usForm.SetGrid(grdView, "ID", "ID", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdView, "PCDetailID", "PCDetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "CODetailID", "CODetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "PCNumber", "Nomor Kontrak", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PCDate", "Tanggal Kontrak", 100, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ItemType", "Jenis Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ItemSpec", "Spesifikasi Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "Thick", "Tebal", 100, UI.usDefGrid.gString)
@@ -28,14 +27,26 @@ Public Class frmRptMonitoringProductTransactionVer00
         UI.usForm.SetGrid(grdView, "Length", "Panjang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "PCQuantity", "Jumlah [Kontrak Pembelian]", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdView, "PCTotalWeight", "Total Berat [Kontrak Pembelian]", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "SCQuantity", "Jumlah [Kontrak Penjualan]", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdView, "SCTotalWeight", "Total Berat [Kontrak Penjualan]", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "RVQuantity", "Jumlah [Penerimaan]", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdView, "RVTotalWeight", "Total Berat [Penerimaan]", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "SPKQuantity", "Jumlah [SPK Potong]", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdView, "SPKTotalWeight", "Total Berat [SPK Potong]", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "CUTQuantity", "Jumlah [Proses Potong]", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdView, "CUTTotalWeight", "Total Berat [Proses Potong]", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "SCQuantity", "Jumlah [Kontrak Penjualan]", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdView, "SCTotalWeight", "Total Berat [Kontrak Penjualan]", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "DVQuantity", "Jumlah [Pengiriman]", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdView, "DVTotalWeight", "Total Berat [Pengiriman]", 100, UI.usDefGrid.gReal2Num)
+
+        UI.usForm.SetGrid(grdSalesContractView, "ID", "ID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSalesContractView, "PCDetailID", "PCDetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSalesContractView, "SCNumber", "Nomor Kontrak", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSalesContractView, "SCDate", "Tanggal Kontrak", 100, UI.usDefGrid.gSmallDate)
+        UI.usForm.SetGrid(grdSalesContractView, "BPName", "Nama Pelanggan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSalesContractView, "SCQuantity", "Jumlah [Kontrak Penjualan]", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSalesContractView, "SCTotalWeight", "Total Berat [Kontrak Penjualan]", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdSalesContractView, "DVQuantity", "Jumlah [Pengiriman]", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdSalesContractView, "DVTotalWeight", "Total Berat [Pengiriman]", 100, UI.usDefGrid.gReal2Num)
     End Sub
 
     Private Sub prvSetProgressBar(ByVal intMax As Integer)
@@ -64,20 +75,78 @@ Public Class frmRptMonitoringProductTransactionVer00
         prvRefreshProgressBar()
 
         Try
-            Dim ds As New DataSet
-            Dim dtDataMain As DataTable = BL.Reports.MonitoringProductTransactionReportMainVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
-            Dim dtDataSalesContract As DataTable = BL.Reports.MonitoringProductTransactionReportSalesContractVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
+            dtDataMain = BL.Reports.MonitoringProductTransactionReportMainVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
+            dtDataSalesContract = BL.Reports.MonitoringProductTransactionReportSalesContractVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
+            dtDataMain.Columns.Item("PCDetailID").Unique = True
+            dtDataSalesContract.Columns.Item("ID").Unique = True
             ds.Tables.Add(dtDataMain)
             ds.Tables.Add(dtDataSalesContract)
 
             ds.Relations.Add("SalesContract", dtDataMain.Columns.Item("PCDetailID"), dtDataSalesContract.Columns.Item("PCDetailID"))
 
             grdMain.DataSource = dtDataMain
-            'grdMain.LevelTree.Nodes.Add("SalesContract", grdSalesContractView)
+            grdMain.LevelTree.Nodes.Add("SalesContract", grdSalesContractView)
 
             grdMain.Refresh()
             prvSumGrid()
             grdView.BestFitColumns()
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            prvResetProgressBar()
+            Me.Cursor = Cursors.Default
+        End Try
+    End Sub
+
+    Private Sub prvPreview()
+        ToolBar.Focus()
+        If dtpDateFrom.Value.Date > dtpDateTo.Value.Date Then
+            UI.usForm.frmMessageBox("Period salah")
+            dtpDateFrom.Focus()
+            Exit Sub
+        End If
+
+        Me.Cursor = Cursors.WaitCursor
+        prvSetProgressBar(10)
+        prvRefreshProgressBar()
+
+        Try
+            If dtDataMain.Rows.Count = 0 Then
+                dtDataMain = BL.Reports.MonitoringProductTransactionReportMainVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
+                dtDataSalesContract = BL.Reports.MonitoringProductTransactionReportSalesContractVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
+                dtDataMain.Columns.Item("PCDetailID").Unique = True
+                dtDataSalesContract.Columns.Item("ID").Unique = True
+            End If
+
+            Dim results = From pc In dtDataMain.AsEnumerable
+                          Join sc In dtDataSalesContract.AsEnumerable
+                          On pc.Item("PCDetailID") Equals sc.Item("PCDetailID")
+                          Select
+                            PCDetailID = pc.Item("PCDetailID"), CODetailID = pc.Item("CODetailID"), PCNumber = pc.Item("PCNumber"), PCDate = pc.Item("PCDate"),
+                            OrderNumberSupplier = pc.Item("OrderNumberSupplier"), ItemCode = pc.Item("ItemCode"), ItemType = pc.Item("ItemType"), ItemSpec = pc.Item("ItemSpec"),
+                            Thick = pc.Item("Thick"), Width = pc.Item("Width"), Length = pc.Item("Length"), PCQuantity = pc.Item("PCQuantity"), PCTotalWeight = pc.Item("PCTotalWeight"),
+                            SCNumber = sc.Item("SCNumber"), SCDate = sc.Item("SCDate"), CustomerName = sc.Item("BPName"), SCQuantity = sc.Item("SCQuantity"), SCTotalWeight = sc.Item("SCTotalWeight"),
+                            RVQuantity = pc.Item("RVQuantity"), RVTotalWeight = pc.Item("RVTotalWeight"), SPKQuantity = pc.Item("SPKQuantity"), SPKTotalWeight = pc.Item("SPKTotalWeight"),
+                            CUTQuantity = pc.Item("CUTQuantity"), CUTTotalWeight = pc.Item("CUTTotalWeight"), DVQuantity = pc.Item("DVQuantity"), DVTotalWeight = pc.Item("DVTotalWeight")
+
+            Dim strFilterDate As String = Format(dtpDateFrom.Value, "dd-MMM-yyyy") & " - " & Format(dtpDateTo.Value, "dd-MMM-yyyy")
+            Dim crReport As New rptMonitoringProductTransactionVer00
+            With crReport
+                .Parameters.Item("ParamFilterPeriod").Value = strFilterDate
+                .Parameters.Item("ParamCompanyName").Value = ERPSLib.UI.usUserApp.CompanyName
+                .DataSource = results
+                .CreateDocument(True)
+                .ShowPreviewMarginLines = False
+                .ShowPrintMarginsWarning = False
+            End With
+            Dim frmDetail As New frmReportPreview
+            With frmDetail
+                .docViewer.DocumentSource = crReport
+                .pgExportButton.Enabled = bolExport
+                .Text = Me.Text & " - " & VO.Reports.PrintOut
+                .WindowState = FormWindowState.Maximized
+                .Show()
+            End With
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally
@@ -94,6 +163,7 @@ Public Class frmRptMonitoringProductTransactionVer00
     Private Sub prvClear()
         grdMain.DataSource = Nothing
         grdView.Columns.Clear()
+        grdSalesContractView.Columns.Clear()
         prvSetGrid()
     End Sub
 
@@ -108,6 +178,8 @@ Public Class frmRptMonitoringProductTransactionVer00
         Dim SumSPKTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "SPKTotalWeight", "Total Berat [SPK Potong]: {0:#,##0.00}")
         Dim SumCUTQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "CUTQuantity", "Jumlah [Proses Potong]: {0:#,##0.00}")
         Dim SumCUTTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "CUTTotalWeight", "Total Berat [Proses Potong]: {0:#,##0.00}")
+        Dim SumDVQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DVQuantity", "Jumlah [Pengiriman]: {0:#,##0.00}")
+        Dim SumDVTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DVTotalWeight", "Total Berat [Pengiriman]: {0:#,##0.00}")
 
         If grdView.Columns("PCQuantity").SummaryText.Trim = "" Then grdView.Columns("PCQuantity").Summary.Add(SumPCQuantity)
         If grdView.Columns("PCTotalWeight").SummaryText.Trim = "" Then grdView.Columns("PCTotalWeight").Summary.Add(SumPCTotalWeight)
@@ -124,7 +196,23 @@ Public Class frmRptMonitoringProductTransactionVer00
         If grdView.Columns("CUTQuantity").SummaryText.Trim = "" Then grdView.Columns("CUTQuantity").Summary.Add(SumCUTQuantity)
         If grdView.Columns("CUTTotalWeight").SummaryText.Trim = "" Then grdView.Columns("CUTTotalWeight").Summary.Add(SumCUTTotalWeight)
 
+        If grdView.Columns("DVQuantity").SummaryText.Trim = "" Then grdView.Columns("DVQuantity").Summary.Add(SumDVQuantity)
+        If grdView.Columns("DVTotalWeight").SummaryText.Trim = "" Then grdView.Columns("DVTotalWeight").Summary.Add(SumDVTotalWeight)
+
         If grdView.GroupCount > 0 Then grdView.ExpandAllGroups()
+
+        '# Sales Contract
+        Dim SumSCQuantitySub As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "SCQuantity", "Jumlah [Kontrak Penjualan]: {0:#,##0.00}")
+        Dim SumSCTotalWeightSub As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "SCTotalWeight", "Total Berat [Kontrak Penjualan]: {0:#,##0.00}")
+        Dim SumDVQuantitySub As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DVQuantity", "Jumlah [Pengiriman]: {0:#,##0.00}")
+        Dim SumDVTotalWeightSub As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DVTotalWeight", "Total Berat [Pengiriman]: {0:#,##0.00}")
+
+        If grdSalesContractView.Columns("SCQuantity").SummaryText.Trim = "" Then grdSalesContractView.Columns("SCQuantity").Summary.Add(SumSCQuantitySub)
+        If grdSalesContractView.Columns("SCTotalWeight").SummaryText.Trim = "" Then grdSalesContractView.Columns("SCTotalWeight").Summary.Add(SumSCTotalWeightSub)
+
+        If grdSalesContractView.Columns("DVQuantity").SummaryText.Trim = "" Then grdSalesContractView.Columns("DVQuantity").Summary.Add(SumDVQuantitySub)
+        If grdSalesContractView.Columns("DVTotalWeight").SummaryText.Trim = "" Then grdSalesContractView.Columns("DVTotalWeight").Summary.Add(SumDVTotalWeightSub)
+
     End Sub
 
 #Region "Form Handle"
@@ -157,6 +245,7 @@ Public Class frmRptMonitoringProductTransactionVer00
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
         Select Case e.Button.Text.Trim
+            Case "Preview" : prvPreview()
             Case "Export Excel" : prvExportExcel()
             Case "Refresh" : prvQuery()
             Case "Tutup" : Me.Close()
