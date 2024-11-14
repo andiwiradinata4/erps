@@ -1099,7 +1099,12 @@
                 Dim dtData As DataTable = DL.ARAP.PrintVoucherVer01(sqlCon, Nothing, strID)
                 For Each dr As DataRow In dtData.Rows
                     dr.BeginEdit()
-                    dr.Item("ItemDescriptions") = dr.Item("OrderNumberSupplier") & " " & dr.Item("ItemTypeName") & " " & dr.Item("ItemName") & " (Thick " & Format(dr.Item("Thick"), "#,###") & "mm - Total Tonase : " & Format(dr.Item("TotalWeight"), "#,###") & "Kg)"
+                    Dim intRoundThick As Integer = SharedLib.Math.Round(dr.Item("Thick"), 0)
+                    Dim strThickFormat As String = "#,###"
+                    If dr.Item("Thick") - intRoundThick <> 0 Then
+                        strThickFormat = "#,###.00"
+                    End If
+                    dr.Item("ItemDescriptions") = dr.Item("OrderNumberSupplier") & " " & dr.Item("ItemTypeName") & " " & dr.Item("ItemName") & " (Thick " & Format(dr.Item("Thick"), strThickFormat) & "mm" & IIf(dr.Item("TotalWeight") = 0, ")", " - Total Tonase : " & Format(dr.Item("TotalWeight"), "#,###") & " Kg)")
                     dr.Item("LocationAndDate") = dr.Item("City") & ", " & Format(dr.Item("VoucherDate"), "dd MMMM yyyy")
                     dr.EndEdit()
                 Next

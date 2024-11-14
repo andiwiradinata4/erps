@@ -794,9 +794,7 @@
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
-
-
-        Public Shared Function MonitoringProductTransactionReportVer00(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+        Public Shared Function MonitoringProductTransactionReportMainVer00(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                                        ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                                                        ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable
             Dim sqlcmdExecute As New SqlCommand
@@ -804,126 +802,202 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-"SELECT   " & vbNewLine & _
-"	POD.ID, POH.PONumber, POH.PODate, POH.BPID, BP.Name AS SupplierName,   " & vbNewLine & _
-"	POD.ItemID, MI.ItemName AS POItemName, POD.TotalWeight AS POItemWeight, POD.UnitPrice AS POItemUnitPrice, POD.TotalPrice AS POItemTotalPrice,   " & vbNewLine & _
-"	(POD.TotalPrice*POH.PPN/100) AS POItemTotalPPN, POD.TotalPrice+(POD.TotalPrice*POH.PPN/100) AS POItemSubTotal,  " & vbNewLine & _
-"	0 AS CategoryID, 'PEMBELIAN' AS CategoryName,   " & vbNewLine & _
-"	PCD.CategoryNumber, PCD.CategoryDate, PCD.BPName, PCD.CategoryItemName, PCD.CategoryItemWeight, PCD.CategoryItemUnitPrice, PCD.CategoryItemTotalPrice,   " & vbNewLine & _
-"	PCD.CategoryItemTotalPPN, PCD.CategoryItemSubTotal, PCD.CategoryDeliveryWeight, PCD.CategoryTotalPayment   " & vbNewLine & _
-"FROM traPurchaseOrder POH   " & vbNewLine & _
-"INNER JOIN mstBusinessPartner BP ON   " & vbNewLine & _
-"	POH.BPID=BP.ID   " & vbNewLine & _
-"INNER JOIN traPurchaseOrderDet POD ON   " & vbNewLine & _
-"	POH.ID=POD.POID   " & vbNewLine & _
-"INNER JOIN mstItem MI ON  " & vbNewLine & _
-"	POD.ItemID=MI.ID  " & vbNewLine & _
-"INNER JOIN traConfirmationOrderDet COD ON   " & vbNewLine & _
-"	POD.ID=COD.PODetailID   " & vbNewLine & _
-"INNER JOIN traConfirmationOrder COH ON   " & vbNewLine & _
-"	COD.COID=COH.ID   " & vbNewLine & _
-"	AND COH.IsDeleted=0   " & vbNewLine & _
-"INNER JOIN " & vbNewLine & _
-"(" & vbNewLine & _
-"	SELECT " & vbNewLine & _
-"		PCD.CODetailID, PCH.PCNumber AS CategoryNumber, PCH.PCDate AS CategoryDate, BPC.Name AS BPName, " & vbNewLine & _
-"		MIPC.ItemName AS CategoryItemName, PCD.TotalWeight AS CategoryItemWeight, PCD.UnitPrice AS CategoryItemUnitPrice, PCD.TotalPrice AS CategoryItemTotalPrice," & vbNewLine & _
-"		(PCD.TotalPrice*PCH.PPN/100) AS CategoryItemTotalPPN, PCD.TotalPrice+(PCD.TotalPrice*PCH.PPN/100) AS CategoryItemSubTotal, " & vbNewLine & _
-"		PCD.DCWeight AS CategoryDeliveryWeight, PCH.DPAmount+PCH.ReceiveAmount AS CategoryTotalPayment " & vbNewLine & _
-"	FROM traPurchaseContractDet PCD " & vbNewLine & _
-"	INNER JOIN mstItem MIPC ON  " & vbNewLine & _
-"		PCD.ItemID=MIPC.ID  " & vbNewLine & _
-"	INNER JOIN traPurchaseContract PCH ON   " & vbNewLine & _
-"		PCD.PCID=PCH.ID   " & vbNewLine & _
-"		AND PCH.IsDeleted=0   " & vbNewLine & _
-"	INNER JOIN mstBusinessPartner BPC ON   " & vbNewLine & _
-"		PCH.BPID=BPC.ID   " & vbNewLine & _
-") PCD ON " & vbNewLine & _
-"	COD.ID=PCD.CODetailID " & vbNewLine & _
-"WHERE   " & vbNewLine & _
-"	POH.IsDeleted=0   " & vbNewLine & _
-"	AND POH.StatusID=@StatusID   " & vbNewLine & _
-"	AND POH.ProgramID=@ProgramID   " & vbNewLine & _
-"	AND POH.CompanyID=@CompanyID   " & vbNewLine & _
-"	AND POH.PODate>=@DateFrom AND POH.PODate<=@DateTo   " & vbNewLine & _
-"UNION ALL   " & vbNewLine & _
-"SELECT   " & vbNewLine & _
-"	POD.ID, POH.PONumber, POH.PODate, POH.BPID, BP.Name AS SupplierName,   " & vbNewLine & _
-"	POD.ItemID, MI.ItemName AS POItemName, POD.TotalWeight AS POItemWeight, POD.UnitPrice AS POItemUnitPrice, POD.TotalPrice AS POItemTotalPrice,   " & vbNewLine & _
-"	(POD.TotalPrice*POH.PPN/100) AS POItemTotalPPN, POD.TotalPrice+(POD.TotalPrice*POH.PPN/100) AS POItemSubTotal,  " & vbNewLine & _
-"	1 AS CategoryID, 'PENJUALAN' AS CategoryName,   " & vbNewLine & _
-"	SCD.CategoryNumber, SCD.CategoryDate, SCD.BPName, SCD.CategoryItemName, SCD.CategoryItemWeight, SCD.CategoryItemUnitPrice, SCD.CategoryItemTotalPrice,  " & vbNewLine & _
-"	SCD.CategoryItemTotalPPN, SCD.CategoryItemSubTotal, SCD.CategoryDeliveryWeight, SCD.CategoryTotalPayment   " & vbNewLine & _
-"FROM traPurchaseOrder POH   " & vbNewLine & _
-"INNER JOIN mstBusinessPartner BP ON   " & vbNewLine & _
-"	POH.BPID=BP.ID   " & vbNewLine & _
-"INNER JOIN traPurchaseOrderDet POD ON   " & vbNewLine & _
-"	POH.ID=POD.POID   " & vbNewLine & _
-"INNER JOIN mstItem MI ON  " & vbNewLine & _
-"	POD.ItemID=MI.ID  " & vbNewLine & _
-"INNER JOIN traConfirmationOrderDet COD ON   " & vbNewLine & _
-"	POD.ID=COD.PODetailID   " & vbNewLine & _
-"INNER JOIN   " & vbNewLine & _
-"(  " & vbNewLine & _
-"	SELECT   " & vbNewLine & _
-"		SCDCO.CODetailID, SCH.SCNumber AS CategoryNumber, SCH.SCDate AS CategoryDate, BPC.Name AS BPName,   " & vbNewLine & _
-"		MISC.ItemName AS CategoryItemName, SCD.TotalWeight AS CategoryItemWeight, SCD.UnitPrice AS CategoryItemUnitPrice, SCD.TotalPrice AS CategoryItemTotalPrice,   " & vbNewLine & _
-"		(SCD.TotalPrice*SCH.PPN/100) AS CategoryItemTotalPPN, SCD.TotalPrice+(SCD.TotalPrice*SCH.PPN/100) AS CategoryItemSubTotal,  " & vbNewLine & _
-"		SCD.DCWeight AS CategoryDeliveryWeight, SCH.DPAmount+SCH.ReceiveAmount AS CategoryTotalPayment   " & vbNewLine & _
-"	FROM traSalesContractDetConfirmationOrder SCDCO   " & vbNewLine & _
-"	INNER JOIN traSalesContractDet SCD ON   " & vbNewLine & _
-"		SCDCO.SCID=SCD.SCID   " & vbNewLine & _
-"		AND SCDCO.GroupID=SCD.GroupID   " & vbNewLine & _
-"	INNER JOIN mstItem MISC ON  " & vbNewLine & _
-"		SCD.ItemID=MISC.ID  " & vbNewLine & _
-"	INNER JOIN traSalesContract SCH ON   " & vbNewLine & _
-"		SCD.SCID=SCH.ID   " & vbNewLine & _
-"	    AND SCH.IsDeleted=0   " & vbNewLine & _
-"	INNER JOIN mstBusinessPartner BPC ON   " & vbNewLine & _
-"		SCH.BPID=BPC.ID   " & vbNewLine & _
-") SCD ON   " & vbNewLine & _
-"	COD.ID=SCD.CODetailID   " & vbNewLine & _
-"WHERE   " & vbNewLine & _
-"	POH.IsDeleted=0   " & vbNewLine & _
-"	AND POH.StatusID=@StatusID   " & vbNewLine & _
-"	AND POH.ProgramID=@ProgramID   " & vbNewLine & _
-"	AND POH.CompanyID=@CompanyID   " & vbNewLine & _
-"	AND POH.PODate>=@DateFrom AND POH.PODate<=@DateTo   " & vbNewLine
+                .CommandText =
+"SELECT " & vbNewLine &
+"   ROW_NUMBER() OVER(ORDER  BY PC.PCDetailID ASC) AS ID, PC.PCDetailID, PC.CODetailID, PC.PCDate, " & vbNewLine &
+"	PC.PCNumber, PC.OrderNumberSupplier, PC.ItemCode, PC.ItemType, PC.ItemSpec, PC.Thick, PC.Width, PC.Length, PC.PCQuantity, PC.PCTotalWeight, " & vbNewLine &
+"	SC.SCQuantity, SC.SCTotalWeight, RV.RVQuantity, RV.RVTotalWeight, RV.SPKQuantity, RV.SPKTotalWeight, RV.CUTQuantity, RV.CUTTotalWeight, " & vbNewLine &
+"	SC.DVQuantity, SC.DVTotalWeight " & vbNewLine &
+"FROM " & vbNewLine &
+"(" & vbNewLine &
+"	SELECT " & vbNewLine &
+"		PCH.ProgramID, PCH.CompanyID, PCH.PCDate, PCD.ID AS PCDetailID, PCH.PCNumber, PCD.OrderNumberSupplier, MI.ItemCode, MIT.Description AS ItemType, " & vbNewLine &
+"		MIS.Description AS ItemSpec, PCD.CODetailID,	MI.Thick, MI.Width, CASE WHEN MI.Length=0 THEN MIT.LengthInitial ELSE CONVERT(VARCHAR(100),MI.Length) END Length, " & vbNewLine &
+"		PCD.Quantity AS PCQuantity, PCD.TotalWeight AS PCTotalWeight  " & vbNewLine &
+"	FROM traPurchaseContract PCH " & vbNewLine &
+"	INNER JOIN traPurchaseContractDet PCD ON " & vbNewLine &
+"		PCH.ID=PCD.PCID " & vbNewLine &
+"	INNER JOIN mstItem MI ON " & vbNewLine &
+"		PCD.ItemID=MI.ID " & vbNewLine &
+"	INNER JOIN mstItemType MIT ON " & vbNewLine &
+"		MI.ItemTypeID=MIT.ID " & vbNewLine &
+"	INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
+"		MI.ItemSpecificationID=MIS.ID " & vbNewLine &
+"	WHERE " & vbNewLine &
+"		PCH.IsDeleted=0 " & vbNewLine &
+"		And PCD.ParentID='' " & vbNewLine &
+") PC " & vbNewLine &
+"-- RECEIVE >> " & vbNewLine &
+"LEFT JOIN " & vbNewLine &
+"(" & vbNewLine &
+"	SELECT " & vbNewLine &
+"		RVD.PCDetailID, RVD.RVQuantity, RVD.RVTotalWeight, POC.SPKQuantity, POC.SPKTotalWeight, POC.CUTQuantity, POC.CUTTotalWeight  " & vbNewLine &
+"	FROM " & vbNewLine &
+"	(" & vbNewLine &
+"		SELECT " & vbNewLine &
+"			RVD.PCDetailID, SUM(RVD.Quantity) AS RVQuantity, SUM(RVD.TotalWeight) AS RVTotalWeight " & vbNewLine &
+"		FROM traReceive RVH " & vbNewLine &
+"		INNER JOIN traReceiveDet RVD ON " & vbNewLine &
+"			RVH.ID=RVD.ReceiveID " & vbNewLine &
+"		WHERE " & vbNewLine &
+"			RVH.IsDeleted=0 " & vbNewLine &
+"			AND ParentID='' " & vbNewLine &
+"		GROUP BY RVD.PCDetailID " & vbNewLine &
+"" & vbNewLine &
+"		UNION ALL " & vbNewLine &
+"		SELECT " & vbNewLine &
+"			RVD.ParentID AS PCDetailID, SUM(RVD.Quantity) RVQuantity, SUM(RVD.TotalWeight) RVTotalWeight " & vbNewLine &
+"		FROM traReceive RVH " & vbNewLine &
+"		INNER JOIN traReceiveDet RVD ON " & vbNewLine &
+"			RVH.ID=RVD.ReceiveID " & vbNewLine &
+"		WHERE " & vbNewLine &
+"			RVH.IsDeleted=0 " & vbNewLine &
+"			AND ParentID<>'' " & vbNewLine &
+"		GROUP BY RVD.ParentID" & vbNewLine &
+"	) RVD " & vbNewLine &
+"	LEFT JOIN " & vbNewLine &
+"	(" & vbNewLine &
+"		SELECT " & vbNewLine &
+"			CASE WHEN RVD.ParentID<>'' THEN RVD.ParentID ELSE RVD.PCDetailID END AS PCDetailID, " & vbNewLine &
+"			SUM(POD.Quantity) SPKQuantity, SUM(POD.TotalWeight) AS SPKTotalWeight, " & vbNewLine &
+"			SUM(CUT.CUTQuantity) AS CUTQuantity, SUM(CUT.CUTTotalWeight) AS CUTTotalWeight " & vbNewLine &
+"		FROM traPurchaseOrderCutting POH " & vbNewLine &
+"		INNER JOIN traPurchaseOrderCuttingDet POD ON " & vbNewLine &
+"			POH.ID=POD.POID " & vbNewLine &
+"		INNER JOIN traReceiveDet RVD ON " & vbNewLine &
+"			POD.ReceiveDetailID=RVD.ID " & vbNewLine &
+"		LEFT JOIN " & vbNewLine &
+"		(" & vbNewLine &
+"			SELECT " & vbNewLine &
+"				CD.PODetailID, SUM(CD.Quantity) AS CUTQuantity, SUM(CD.TotalWeight) AS CUTTotalWeight " & vbNewLine &
+"			FROM traCutting CH " & vbNewLine &
+"			INNER JOIN traCuttingDet CD ON " & vbNewLine &
+"				CH.ID=CD.CuttingID " & vbNewLine &
+"			WHERE CH.IsDeleted=0 " & vbNewLine &
+"			GROUP BY CD.PODetailID " & vbNewLine &
+"		) CUT ON POD.ID=CUT.PODetailID 			" & vbNewLine &
+"		WHERE POH.IsDeleted=0 " & vbNewLine &
+"		GROUP BY RVD.PCDetailID, RVD.ParentID  " & vbNewLine &
+"	) POC ON " & vbNewLine &
+"		RVD.PCDetailID=POC.PCDetailID " & vbNewLine &
+") RV ON PC.PCDetailID=RV.PCDetailID " & vbNewLine &
+"-- SALES >> " & vbNewLine &
+"LEFT JOIN " & vbNewLine &
+"(" & vbNewLine &
+"	SELECT " & vbNewLine &
+"		SCDCO.CODetailID, SCD.OrderNumberSupplier, SUM(SCD.Quantity) SCQuantity, SUM(SCD.TotalWeight) AS SCTotalWeight, " & vbNewLine &
+"		SUM(TD.DVQuantity) AS DVQuantity, SUM(TD.DVTotalWeight) AS DVTotalWeight " & vbNewLine &
+"	FROM traSalesContract SCH " & vbNewLine &
+"	INNER JOIN traSalesContractDet SCD ON " & vbNewLine &
+"		SCH.ID=SCD.SCID" & vbNewLine &
+"		AND SCD.ParentID='' " & vbNewLine &
+"	INNER JOIN traSalesContractDetConfirmationOrder SCDCO ON " & vbNewLine &
+"		SCD.SCID=SCDCO.SCID " & vbNewLine &
+"		AND SCD.GroupID=SCDCO.GroupID " & vbNewLine &
+"		AND SCDCO.ParentID='' " & vbNewLine &
+"	LEFT JOIN " & vbNewLine &
+"	(" & vbNewLine &
+"		SELECT TDD.SCDetailID, SUM(TDD.Quantity) DVQuantity, SUM(TDD.TotalWeight) DVTotalWeight  " & vbNewLine &
+"		FROM traDelivery TDH " & vbNewLine &
+"		INNER JOIN traDeliveryDet TDD ON " & vbNewLine &
+"			TDH.ID=TDD.DeliveryID " & vbNewLine &
+"			AND TDD.ParentID='' " & vbNewLine &
+"		WHERE TDH.IsDeleted=0 " & vbNewLine &
+"		GROUP BY TDD.SCDetailID " & vbNewLine &
+"" & vbNewLine &
+"		UNION ALL " & vbNewLine &
+"		SELECT TDD.ParentID AS SCDetailID, SUM(TDD.Quantity) DVQuantity, SUM(TDD.TotalWeight) DVTotalWeight  " & vbNewLine &
+"		FROM traDelivery TDH " & vbNewLine &
+"		INNER JOIN traDeliveryDet TDD ON " & vbNewLine &
+"			TDH.ID=TDD.DeliveryID " & vbNewLine &
+"			AND TDD.ParentID<>'' " & vbNewLine &
+"		WHERE TDH.IsDeleted=0 " & vbNewLine &
+"		GROUP BY TDD.ParentID " & vbNewLine &
+"	) TD ON " & vbNewLine &
+"		SCD.ID=TD.SCDetailID " & vbNewLine &
+"	WHERE SCH.IsDeleted=0 " & vbNewLine &
+"	GROUP BY SCDCO.CODetailID, SCD.OrderNumberSupplier " & vbNewLine &
+") SC ON " & vbNewLine &
+"	PC.CODetailID=SC.CODetailID" & vbNewLine &
+"WHERE " & vbNewLine &
+"	PC.ProgramID=@ProgramID " & vbNewLine &
+"	AND PC.CompanyID=@CompanyID " & vbNewLine &
+"	AND PC.PCDate>=@DateFrom AND PC.PCDate<=@DateTo" & vbNewLine
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
                 .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
-                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
-        Dim str As String = _
-"SELECT  " & vbNewLine & _
-"	PCD.ID, PCD.ParentID, PCH.IsUseSubItem, PCD.CODetailID,  " & vbNewLine & _
-"	PCH.PCNumber, PCH.PCDate, PCH.BPID, BP.Code AS BPCode, BP.Name AS BPName, PCD.OrderNumberSupplier, PCD.ItemID, MI.ItemCode, MI.ItemCodeExternal, MI.ItemName,  " & vbNewLine & _
-"	MI.Thick, MI.Width, MI.Length, PCD.Weight, PCD.Quantity, PCD.TotalWeight AS PCWeight, PCD.DCWeight, PCD.SCWeight, TDD.TotalDelivery  " & vbNewLine & _
-" " & vbNewLine & _
-"FROM traPurchaseContract PCH  " & vbNewLine & _
-"INNER JOIN traPurchaseContractDet PCD ON  " & vbNewLine & _
-"	PCH.ID=PCD.PCID  " & vbNewLine & _
-"INNER JOIN mstBusinessPartner BP ON  " & vbNewLine & _
-"	PCH.BPID=BP.ID  " & vbNewLine & _
-"INNER JOIN mstItem MI ON  " & vbNewLine & _
-"	PCD.ItemID=MI.ID   " & vbNewLine & _
-"LEFT JOIN  " & vbNewLine & _
-"( " & vbNewLine & _
-"	SELECT  " & vbNewLine & _
-"TDD.OrderNumberSupplier, TDD.ItemID, SUM(TDD.TotalWeight) TotalDelivery  " & vbNewLine & _
-"	FROM traDeliveryDet TDD  " & vbNewLine & _
-"	INNER JOIN traDelivery TDH ON  " & vbNewLine & _
-"TDD.DeliveryID=TDH.ID " & vbNewLine & _
-"	WHERE TDH.IsDeleted=0  " & vbNewLine & _
-"	GROUP BY TDD.OrderNumberSupplier, TDD.ItemID  " & vbNewLine & _
-") TDD ON PCD.OrderNumberSupplier=TDD.OrderNumberSupplier AND PCD.ItemID=TDD.ItemID  " & vbNewLine & _
-"WHERE  " & vbNewLine & _
-"	PCH.ApprovedBy<>'' AND TDD.TotalDelivery IS NULL " & vbNewLine
+        Public Shared Function MonitoringProductTransactionReportSalesContractVer00(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                                    ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                                    ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT " & vbNewLine &
+"	ROW_NUMBER() OVER(ORDER BY PCD.ID) AS ID, PCD.ID AS PCDetailID, SC.SCNumber, SC.SCDate, SC.BPName, SC.SCQuantity, SC.SCTotalWeight, SC.DVQuantity, SC.DVTotalWeight  " & vbNewLine &
+"FROM traPurchaseContract PC " & vbNewLine &
+"INNER JOIN traPurchaseContractDet PCD ON " & vbNewLine &
+"	PC.ID=PCD.PCID " & vbNewLine &
+"	AND PC.IsDeleted=0 " & vbNewLine &
+"INNER JOIN " & vbNewLine &
+"(	" & vbNewLine &
+"	SELECT " & vbNewLine &
+"		SCDCO.CODetailID, SCH.SCNumber, SCH.SCDate, BP.Name AS BPName, SCD.OrderNumberSupplier, SUM(SCD.Quantity) SCQuantity, SUM(SCD.TotalWeight) AS SCTotalWeight, " & vbNewLine &
+"		SUM(TD.DVQuantity) AS DVQuantity, SUM(TD.DVTotalWeight) AS DVTotalWeight " & vbNewLine &
+"	FROM traSalesContract SCH " & vbNewLine &
+"	INNER JOIN mstBusinessPartner BP ON " & vbNewLine &
+"		SCH.BPID=BP.ID " & vbNewLine &
+"	INNER JOIN traSalesContractDet SCD ON " & vbNewLine &
+"		SCH.ID=SCD.SCID" & vbNewLine &
+"		AND SCD.ParentID='' " & vbNewLine &
+"	INNER JOIN traSalesContractDetConfirmationOrder SCDCO ON " & vbNewLine &
+"		SCD.SCID=SCDCO.SCID " & vbNewLine &
+"		AND SCD.GroupID=SCDCO.GroupID " & vbNewLine &
+"		AND SCDCO.ParentID='' " & vbNewLine &
+"	LEFT JOIN " & vbNewLine &
+"	(" & vbNewLine &
+"		SELECT TDD.SCDetailID, SUM(TDD.Quantity) DVQuantity, SUM(TDD.TotalWeight) DVTotalWeight  " & vbNewLine &
+"		FROM traDelivery TDH " & vbNewLine &
+"		INNER JOIN traDeliveryDet TDD ON " & vbNewLine &
+"			TDH.ID=TDD.DeliveryID " & vbNewLine &
+"			AND TDD.ParentID='' " & vbNewLine &
+"		WHERE TDH.IsDeleted=0 " & vbNewLine &
+"		GROUP BY TDD.SCDetailID " & vbNewLine &
+"" & vbNewLine &
+"		UNION ALL " & vbNewLine &
+"		SELECT TDD.ParentID AS SCDetailID, SUM(TDD.Quantity) DVQuantity, SUM(TDD.TotalWeight) DVTotalWeight  " & vbNewLine &
+"		FROM traDelivery TDH " & vbNewLine &
+"		INNER JOIN traDeliveryDet TDD ON " & vbNewLine &
+"			TDH.ID=TDD.DeliveryID " & vbNewLine &
+"			AND TDD.ParentID<>'' " & vbNewLine &
+"		WHERE TDH.IsDeleted=0 " & vbNewLine &
+"		GROUP BY TDD.ParentID " & vbNewLine &
+"	) TD ON " & vbNewLine &
+"		SCD.ID=TD.SCDetailID " & vbNewLine &
+"	WHERE SCH.IsDeleted=0 " & vbNewLine &
+"	GROUP BY SCDCO.CODetailID, SCH.SCNumber, SCH.SCDate, BP.Name, SCD.OrderNumberSupplier " & vbNewLine &
+") SC ON " & vbNewLine &
+"	PCD.CODetailID=SC.CODetailID " & vbNewLine &
+"WHERE " & vbNewLine &
+"	PC.ProgramID=@ProgramID " & vbNewLine &
+"	AND PC.CompanyID=@CompanyID " & vbNewLine &
+"	AND PC.PCDate>=@DateFrom AND PC.PCDate<=@DateTo" & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
+                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
     End Class
 End Namespace

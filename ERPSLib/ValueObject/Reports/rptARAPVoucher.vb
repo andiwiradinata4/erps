@@ -18,7 +18,7 @@
         Property ItemID As Integer
         Property ItemCode As String
         Property ItemName As String
-        Property Thick As Decimal
+        Property Thick As String
         Property TotalWeight As Decimal
         Property CreatedBy As String
         Property CheckedBy As String

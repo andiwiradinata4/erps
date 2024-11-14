@@ -728,6 +728,8 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\aa\ERPS.resources.dll
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.pdb
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraAccountSetVoucherNumber.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptARAPVoucher.resources
 C:\Project\Tony\ERPS\ERPS\bin\Debug\ERPS.exe.config
 C:\Project\Tony\ERPS\ERPS\bin\Debug\ERPS.exe
 C:\Project\Tony\ERPS\ERPS\bin\Debug\ERPS.pdb
@@ -799,6 +801,7 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmSysLogin.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmSysOutstandingARAP.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmSysSetup.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraAccountSetInvoiceNumberBP.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraAccountSetVoucherNumber.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPChooseBankAccount.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPChooseInvoice.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer2.resources
@@ -929,6 +932,7 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptListPOCutting.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptMonitoringProductTransactionVer00.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptNeracaSaldoVer00.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptNeracaVer00.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptARAPVoucher.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptBukuBesarVer00.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptCOAPerGroupVer00.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptCOAPerTypeVer00.resources
@@ -960,5 +964,3 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.vbproj.Up2Date
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.exe
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.xml
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.pdb
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraAccountSetVoucherNumber.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptARAPVoucher.resources

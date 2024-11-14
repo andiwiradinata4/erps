@@ -543,35 +543,38 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-"SELECT  " & vbNewLine & _
-"	MC.Name AS CompanyName, 'VOUCHER BANK IN' AS HeaderName, ARI.VoucherNumber, ARI.VoucherDate,  " & vbNewLine & _
-"	ARH.BPID, BP.Code AS BPCode, BP.Name AS BPName, ARI.TotalAmount, ARH.ARNumber + ' ' + ARH.ReferencesNote AS PaymentDescription,  " & vbNewLine & _
-"	ARIT.OrderNumberSupplier, MIT.Description AS ItemTypeName, MI.ItemName, MI.Thick, ART.TotalWeight, CAST('' AS VARCHAR(1000)) AS ItemDescriptions,  " & vbNewLine & _
-"	MCR.Name AS CreatedBy, MCV.Name AS CheckedBy, MCA.Name AS AcknowledgedBy, MC.City, CAST('' AS VARCHAR(250)) AS LocationAndDate " & vbNewLine & _
-"FROM traAccountReceivable ARH  " & vbNewLine & _
-"INNER JOIN traARAPInvoice ARI ON  " & vbNewLine & _
-"	ARH.ID=ARI.ParentID  " & vbNewLine & _
-"INNER JOIN traARAPItem ART ON  " & vbNewLine & _
-"	ARH.ID=ART.ParentID " & vbNewLine & _
-"INNER JOIN traARAPInvoiceItem ARIT ON  " & vbNewLine & _
-"	ARI.ID=ARIT.ParentID  " & vbNewLine & _
-"	AND ART.ItemID=ARIT.ItemID  " & vbNewLine & _
-"INNER JOIN mstItem MI ON  " & vbNewLine & _
-"	ARIT.ItemID=MI.ID  " & vbNewLine & _
-"INNER JOIN mstCompany MC ON  " & vbNewLine & _
-"	ARH.CompanyID=MC.ID  " & vbNewLine & _
-"INNER JOIN mstBusinessPartner BP ON	 " & vbNewLine & _
-"	ARH.BPID=BP.ID  " & vbNewLine & _
-"INNER JOIN mstItemType MIT ON  " & vbNewLine & _
-"	MI.ItemTypeID=MIT.ID  " & vbNewLine & _
-"LEFT JOIN mstUser MCR ON  " & vbNewLine & _
-"	ARI.CreatedBy=MCR.ID  " & vbNewLine & _
-"LEFT JOIN mstUser MCV ON  " & vbNewLine & _
-"	ARI.SubmitBy=MCV.ID  " & vbNewLine & _
-"LEFT JOIN mstUser MCA ON  " & vbNewLine & _
-"	ARI.ApprovedBy=MCA.ID  " & vbNewLine & _
-"WHERE ARI.ID=@ID " & vbNewLine
+                .CommandText =
+"SELECT  " & vbNewLine &
+"	MC.Name AS CompanyName, 'VOUCHER BANK IN' AS HeaderName, ARI.VoucherNumber, ARI.VoucherDate,  " & vbNewLine &
+"	ARH.BPID, BP.Code AS BPCode, BP.Name AS BPName, ARI.TotalAmount, ARH.ARNumber + ' ' + ARH.ReferencesNote AS PaymentDescription,  " & vbNewLine &
+"	ARIT.OrderNumberSupplier, MIT.Description AS ItemTypeName, MI.ItemName, MI.Thick, SUM(ART.TotalWeight) AS TotalWeight, CAST('' AS VARCHAR(1000)) AS ItemDescriptions,  " & vbNewLine &
+"	MCR.Name AS CreatedBy, MCV.Name AS CheckedBy, MCA.Name AS AcknowledgedBy, MC.City, CAST('' AS VARCHAR(250)) AS LocationAndDate " & vbNewLine &
+"FROM traAccountReceivable ARH  " & vbNewLine &
+"INNER JOIN traARAPInvoice ARI ON  " & vbNewLine &
+"	ARH.ID=ARI.ParentID  " & vbNewLine &
+"INNER JOIN traARAPItem ART ON  " & vbNewLine &
+"	ARH.ID=ART.ParentID " & vbNewLine &
+"INNER JOIN traARAPInvoiceItem ARIT ON  " & vbNewLine &
+"	ARI.ID=ARIT.ParentID  " & vbNewLine &
+"	AND ART.ItemID=ARIT.ItemID  " & vbNewLine &
+"INNER JOIN mstItem MI ON  " & vbNewLine &
+"	ARIT.ItemID=MI.ID  " & vbNewLine &
+"INNER JOIN mstCompany MC ON  " & vbNewLine &
+"	ARH.CompanyID=MC.ID  " & vbNewLine &
+"INNER JOIN mstBusinessPartner BP ON	 " & vbNewLine &
+"	ARH.BPID=BP.ID  " & vbNewLine &
+"INNER JOIN mstItemType MIT ON  " & vbNewLine &
+"	MI.ItemTypeID=MIT.ID  " & vbNewLine &
+"LEFT JOIN mstUser MCR ON  " & vbNewLine &
+"	ARI.CreatedBy=MCR.ID  " & vbNewLine &
+"LEFT JOIN mstUser MCV ON  " & vbNewLine &
+"	ARI.SubmitBy=MCV.ID  " & vbNewLine &
+"LEFT JOIN mstUser MCA ON  " & vbNewLine &
+"	ARI.ApprovedBy=MCA.ID  " & vbNewLine &
+"WHERE ARI.ID=@ID " & vbNewLine &
+"GROUP BY " & vbNewLine &
+"	MC.Name, ARI.VoucherNumber, ARI.VoucherDate, ARH.BPID, BP.Code, BP.Name, ARI.TotalAmount, ARH.ARNumber, ARH.ReferencesNote,  " & vbNewLine &
+"	ARIT.OrderNumberSupplier, MIT.Description, MI.ItemName, MI.Thick, MCR.Name, MCV.Name, MCA.Name, MC.City " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
             End With
@@ -1161,11 +1164,11 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "   A.ID, A.ParentID, A.Status, A.StatusBy, A.StatusDate, A.Remarks " & vbNewLine & _
-                    "FROM traARAPInvoiceStatus A " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.ParentID, A.Status, A.StatusBy, A.StatusDate, A.Remarks " & vbNewLine &
+                    "FROM traARAPInvoiceStatus A " & vbNewLine &
+                    "WHERE " & vbNewLine &
                     "   A.ParentID=@ParentID " & vbNewLine
 
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
@@ -1180,10 +1183,10 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "INSERT INTO traARAPInvoiceStatus " & vbNewLine & _
-                    "   (ID, ParentID, Status, StatusBy, StatusDate, Remarks) " & vbNewLine & _
-                    "VALUES " & vbNewLine & _
+                .CommandText =
+                    "INSERT INTO traARAPInvoiceStatus " & vbNewLine &
+                    "   (ID, ParentID, Status, StatusBy, StatusDate, Remarks) " & vbNewLine &
+                    "VALUES " & vbNewLine &
                     "   (@ID, @ParentID, @Status, @StatusBy, GETDATE(), @Remarks) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
@@ -1208,11 +1211,11 @@
                     .Connection = sqlCon
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
-                    .CommandText = _
-                        "SELECT TOP 1 ISNULL(RIGHT(ID,3),'000') AS ID " & vbNewLine & _
-                        "FROM traARAPInvoiceStatus " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
-                        "   ParentID=@ParentID " & vbNewLine & _
+                    .CommandText =
+                        "SELECT TOP 1 ISNULL(RIGHT(ID,3),'000') AS ID " & vbNewLine &
+                        "FROM traARAPInvoiceStatus " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   ParentID=@ParentID " & vbNewLine &
                         "ORDER BY ID DESC " & vbNewLine
 
                     .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
@@ -1456,13 +1459,13 @@
             End Try
         End Sub
 
-        Public Shared Sub CalculateTotalInvoiceItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,ByVal strID As String)
+        Public Shared Sub CalculateTotalInvoiceItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strID As String)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
+                .CommandText =
 "UPDATE traARAPItem SET 	" & vbNewLine &
 "	InvoiceQuantity=	" & vbNewLine &
 "	(	" & vbNewLine &
