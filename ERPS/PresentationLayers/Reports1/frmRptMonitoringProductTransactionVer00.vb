@@ -75,6 +75,7 @@ Public Class frmRptMonitoringProductTransactionVer00
         prvRefreshProgressBar()
 
         Try
+            ds = New DataSet
             dtDataMain = BL.Reports.MonitoringProductTransactionReportMainVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
             dtDataSalesContract = BL.Reports.MonitoringProductTransactionReportSalesContractVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
             dtDataMain.Columns.Item("PCDetailID").Unique = True
