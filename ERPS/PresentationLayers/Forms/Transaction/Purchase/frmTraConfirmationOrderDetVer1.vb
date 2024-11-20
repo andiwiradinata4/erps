@@ -25,7 +25,7 @@ Public Class frmTraConfirmationOrderDetVer1
 
     Private Const _
        cSave As Byte = 0, cClose As Byte = 1, cSep1 As Byte = 2, cGenerateContract As Byte = 3,
-       cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2
+       cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2, cSep1Item As Byte = 3, cUpdatePriceItem As Byte = 4
 
     Private Sub prvSetTitleForm()
         If pubIsNew Then
@@ -597,6 +597,21 @@ Public Class frmTraConfirmationOrderDetVer1
         Next
     End Sub
 
+    Private Sub prvUpdatePriceItem()
+        intPos = grdItemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim frmDetail As New frmTraConfirmationOrderDetItemOrderUpdatePrice
+        With frmDetail
+            .pubID = grdItemView.GetRowCellValue(intPos, "OldID")
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            If .pubIsSave Then
+                prvFillForm()
+                prvQueryItem()
+            End If
+        End With
+    End Sub
+
 #End Region
 
 #Region "History Handle"
@@ -663,6 +678,7 @@ Public Class frmTraConfirmationOrderDetVer1
             Case "Tambah" : prvAddItem()
             Case "Edit" : prvEditItem()
             Case "Hapus" : prvDeleteItem()
+            Case "Ubah Harga" : prvUpdatePriceItem()
         End Select
     End Sub
 

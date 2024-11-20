@@ -6,6 +6,13 @@
         Property OrderNumberSupplier As String
         Property DeliveryAddress As String
         Property ItemID As Integer
+        Property ItemCode As String
+        Property ItemName As String
+        Property ItemTypeID As Integer
+        Property ItemSpecificationID As Integer
+        Property Thick As Decimal
+        Property Width As Decimal
+        Property Length As Decimal
         Property Quantity As Decimal
         Property Weight As Decimal
         Property TotalWeight As Decimal

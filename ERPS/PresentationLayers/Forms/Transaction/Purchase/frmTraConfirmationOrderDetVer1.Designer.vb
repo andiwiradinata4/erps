@@ -96,6 +96,8 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.tpHistory = New System.Windows.Forms.TabPage()
         Me.grdStatus = New DevExpress.XtraGrid.GridControl()
         Me.grdStatusView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.BarUpdatePriceItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep1ItemOrder = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdSubItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -329,7 +331,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         'ToolBarItem
         '
         Me.ToolBarItem.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder})
+        Me.ToolBarItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder, Me.BarSep1ItemOrder, Me.BarUpdatePriceItemOrder})
         Me.ToolBarItem.DropDownArrows = True
         Me.ToolBarItem.Location = New System.Drawing.Point(3, 3)
         Me.ToolBarItem.Name = "ToolBarItem"
@@ -704,7 +706,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.tpAmount.Controls.Add(Me.txtPPN)
         Me.tpAmount.Location = New System.Drawing.Point(4, 25)
         Me.tpAmount.Name = "tpAmount"
-        Me.tpAmount.Size = New System.Drawing.Size(976, 191)
+        Me.tpAmount.Size = New System.Drawing.Size(976, 166)
         Me.tpAmount.TabIndex = 2
         Me.tpAmount.Text = "Harga - F2"
         Me.tpAmount.UseVisualStyleBackColor = True
@@ -901,7 +903,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(976, 191)
+        Me.tpHistory.Size = New System.Drawing.Size(976, 166)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -926,7 +928,7 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.grdStatus.Location = New System.Drawing.Point(3, 3)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(966, 181)
+        Me.grdStatus.Size = New System.Drawing.Size(966, 156)
         Me.grdStatus.TabIndex = 13
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -939,6 +941,17 @@ Partial Class frmTraConfirmationOrderDetVer1
         Me.grdStatusView.OptionsCustomization.AllowGroup = False
         Me.grdStatusView.OptionsView.ColumnAutoWidth = False
         Me.grdStatusView.OptionsView.ShowGroupPanel = False
+        '
+        'BarUpdatePriceItemOrder
+        '
+        Me.BarUpdatePriceItemOrder.Name = "BarUpdatePriceItemOrder"
+        Me.BarUpdatePriceItemOrder.Tag = "Price"
+        Me.BarUpdatePriceItemOrder.Text = "Ubah Harga"
+        '
+        'BarSep1ItemOrder
+        '
+        Me.BarSep1ItemOrder.Name = "BarSep1ItemOrder"
+        Me.BarSep1ItemOrder.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
         'frmTraConfirmationOrderDetVer1
         '
@@ -1065,4 +1078,6 @@ Partial Class frmTraConfirmationOrderDetVer1
     Friend WithEvents dtpDeliveryPeriodFrom As DevExpress.XtraEditors.DateEdit
     Friend WithEvents cboPaymentType As usComboBox
     Friend WithEvents Label4 As Label
+    Friend WithEvents BarSep1ItemOrder As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarUpdatePriceItemOrder As System.Windows.Forms.ToolBarButton
 End Class

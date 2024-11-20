@@ -483,6 +483,84 @@
             End Using
         End Function
 
+        Public Shared Function GetDetailItem(ByVal strID As String) As VO.ConfirmationOrderDet
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ConfirmationOrder.GetDetailItem(sqlCon, Nothing, strID)
+            End Using
+        End Function
+
+        Public Shared Function UpdatePriceItem(ByVal clsData As VO.ConfirmationOrderDet) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Dim strReceiveNumber As String = DL.ConfirmationOrder.GetReceiveNumberByCODetailID(sqlCon, sqlTrans, clsData.ID)
+                    If strReceiveNumber.Trim <> "" Then Err.Raise(515, "", "Data tidak dapat di simpan. Dikarenakan data telah diproses penerimaan nomor " & strReceiveNumber)
+                    Dim strDeliveryNumber As String = DL.ConfirmationOrder.GetDeliveryNumberByCODetailID(sqlCon, sqlTrans, clsData.ID)
+                    If strDeliveryNumber.Trim <> "" Then Err.Raise(515, "", "Data tidak dapat di simpan. Dikarenakan data telah diproses pengiriman nomor " & strDeliveryNumber)
+
+                    Dim clsHelper As New DataSetHelper
+                    Dim decTotalDPP As Decimal = 0
+                    Dim decTotalPPN As Decimal = 0
+                    Dim decTotalPPH As Decimal = 0
+
+                    '# Update Purchase Contract Detail
+                    DL.PurchaseContract.UpdatePriceItemByCODetailID(sqlCon, sqlTrans, clsData.ID, clsData.UnitPrice)
+                    
+                    '# Update Purchase Contract Header                    
+                    Dim dtPurchaseContractDet As DataTable = DL.PurchaseContract.ListDataDetailByCODetailID(sqlCon, sqlTrans, clsData.ID)
+                    Dim dtPurchaseContract As DataTable = clsHelper.SelectGroupByInto("PurchaseContract", dtPurchaseContractDet, "PCID", "", "PCID")
+                    For Each dr As DataRow In dtPurchaseContract.Rows
+                        Dim clsPurchaseContract As VO.PurchaseContract = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, dr.Item("PCID"))
+                        Dim dtData As DataTable = DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, dr.Item("PCID"), "")
+                        decTotalDPP = 0
+                        decTotalPPN = 0
+                        decTotalPPH = 0
+                        For Each drPC As DataRow In dtData.Rows
+                            decTotalDPP += drPC.Item("TotalPrice")
+                        Next
+                        decTotalPPN = decTotalDPP * (clsPurchaseContract.PPN / 100)
+                        decTotalPPH = decTotalDPP * (clsPurchaseContract.PPH / 100)
+                        DL.PurchaseContract.UpdateAmount(sqlCon, sqlTrans, dr.Item("PCID"), decTotalDPP, decTotalPPN, decTotalPPH)
+                    Next
+
+                    '# Update Sales Contract Detail
+                    DL.SalesContract.UpdatePriceItemByCODetailID(sqlCon, sqlTrans, clsData.ID, clsData.UnitPrice)
+                    Dim dtSalesContractDet As DataTable = DL.SalesContract.ListDataDetailByCODetailID(sqlCon, sqlTrans, clsData.ID)
+                    For Each dr As DataRow In dtSalesContractDet.Rows
+                        DL.SalesContract.UpdateDetailGroupID(sqlCon, sqlTrans, dr.Item("ID"), dr.Item("GroupID"), clsData.UnitPrice)
+                    Next
+
+                    '# Update Confirmation Order
+                    DL.ConfirmationOrder.UpdatePriceItem(sqlCon, sqlTrans, clsData.ID, clsData.UnitPrice)
+                    Dim clsCO As VO.ConfirmationOrder = DL.ConfirmationOrder.GetDetail(sqlCon, sqlTrans, clsData.COID)
+                    Dim dtCODetail As DataTable = DL.ConfirmationOrder.ListDataDetail(sqlCon, sqlTrans, clsData.COID, "")
+                    decTotalDPP = 0
+                    decTotalPPN = 0
+                    decTotalPPH = 0
+                    For Each dr As DataRow In dtCODetail.Rows
+                        decTotalDPP += dr.Item("TotalPrice")
+                    Next
+                    decTotalPPN = decTotalDPP * (clsCO.PPN / 100)
+                    decTotalPPH = decTotalDPP * (clsCO.PPH / 100)
+
+                    DL.ConfirmationOrder.UpdateAmount(sqlCon, sqlTrans, clsData.COID, decTotalDPP, decTotalPPN, decTotalPPH)
+
+                    '# Save Data Status
+                    BL.ConfirmationOrder.SaveDataStatus(sqlCon, sqlTrans, clsData.COID, "UBAH HARGA", ERPSLib.UI.usUserApp.UserID, "")
+
+                    sqlTrans.Commit()
+                    bolReturn = True
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
 #End Region
 
 #Region "Payment Term"

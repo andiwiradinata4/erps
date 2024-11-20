@@ -801,6 +801,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderOutstandingVer1.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderUpdatePrice.Designer.vb">
+      <DependentUpon>frmTraConfirmationOrderDetItemOrderUpdatePrice.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderUpdatePrice.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseContractDetChangeSubItem.Designer.vb">
       <DependentUpon>frmTraPurchaseContractDetChangeSubItem.vb</DependentUpon>
     </Compile>
@@ -1817,6 +1823,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderOutstandingVer1.resx">
       <DependentUpon>frmTraConfirmationOrderDetItemOrderOutstandingVer1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraConfirmationOrderDetItemOrderUpdatePrice.resx">
+      <DependentUpon>frmTraConfirmationOrderDetItemOrderUpdatePrice.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Purchase\frmTraPurchaseContractDetChangeSubItem.resx">
       <DependentUpon>frmTraPurchaseContractDetChangeSubItem.vb</DependentUpon>

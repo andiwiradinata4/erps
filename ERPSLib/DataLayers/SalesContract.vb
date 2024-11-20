@@ -1871,6 +1871,43 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailByCODetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                          ByVal strCODetailID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT	" & vbNewLine &
+                    "   A.ID, A.SCID, A.ORDetailID, A3.OrderNumber AS RequestNumber, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  	" & vbNewLine &
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  	" & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight, " & vbNewLine &
+                    "   A.Remarks, A.IsIgnoreValidationPayment, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceHPP, " & vbNewLine &
+                    "   A.DCQuantity, A.DCWeight, A.CODetailID, A.PCDetailID " & vbNewLine &
+                    "FROM traSalesContractDet A  	" & vbNewLine &
+                    "INNER JOIN traSalesContractDetConfirmationOrder SCDCO ON  	" & vbNewLine &
+                    "    A.SCID=SCDCO.SCID " & vbNewLine &
+                    "    AND A.GroupID=SCDCO.GroupID " & vbNewLine &
+                    "INNER JOIN traOrderRequestDet A1 ON  	" & vbNewLine &
+                    "    A.ORDetailID=A1.ID  	" & vbNewLine &
+                    "INNER JOIN traOrderRequest A3 ON  	" & vbNewLine &
+                    "    A1.OrderRequestID=A3.ID  	" & vbNewLine &
+                    "INNER JOIN mstItem B ON  	" & vbNewLine &
+                    "    A.ItemID=B.ID  	" & vbNewLine &
+                    "INNER JOIN mstItemSpecification C ON  	" & vbNewLine &
+                    "    B.ItemSpecificationID=C.ID  	" & vbNewLine &
+                    "INNER JOIN mstItemType D ON  	" & vbNewLine &
+                    "    B.ItemTypeID=D.ID  	" & vbNewLine &
+                    "WHERE  	" & vbNewLine &
+                    "    SCDCO.CODetailID=@CODetailID	" & vbNewLine &
+                    "ORDER BY A.GroupID " & vbNewLine
+
+                .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                          ByVal clsData As VO.SalesContractDet)
             Dim sqlCmdExecute As New SqlCommand
@@ -2599,6 +2636,28 @@
             End Try
         End Sub
 
+        Public Shared Sub UpdatePriceItemByCODetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                      ByVal strCODetailID As String, ByVal decUnitPrice As Decimal)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandText = _
+"UPDATE traSalesContractDetConfirmationOrder SET " & vbNewLine & _
+"	UnitPrice=@UnitPrice, " & vbNewLine & _
+"	TotalPrice=@UnitPrice * (TotalWeight + RoundingWeight) " & vbNewLine & _
+"WHERE" & vbNewLine & _
+"	CODetailID=@CODetailID " & vbNewLine
+
+                .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
+                .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = decUnitPrice
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
 #End Region
 
 #Region "Payment Term"

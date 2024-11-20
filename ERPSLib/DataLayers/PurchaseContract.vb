@@ -1288,6 +1288,34 @@
             End Try
         End Sub
 
+        Public Shared Sub UpdateAmount(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                       ByVal strID As String, ByVal decTotalDPP As Decimal,
+                                       ByVal decTotalPPN As Decimal, ByVal decTotalPPH As Decimal)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traPurchaseContract SET " & vbNewLine &
+                    "    TotalDPP=@TotalDPP, " & vbNewLine &
+                    "    TotalPPN=@TotalPPN, " & vbNewLine &
+                    "    TotalPPH=@TotalPPH " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@TotalDPP", SqlDbType.Decimal).Value = decTotalDPP
+                .Parameters.Add("@TotalPPN", SqlDbType.Decimal).Value = decTotalPPN
+                .Parameters.Add("@TotalPPH", SqlDbType.Decimal).Value = decTotalPPH
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail"
@@ -1442,6 +1470,40 @@
                     "	AND PCD.ParentID<>'' " & vbNewLine & _
                     "	AND PCD.TotalWeight-PCD.SCWeight>0 " & vbNewLine & _
                     "	AND PCD.ID NOT IN (SELECT SCD.PCDetailID FROM traSalesContractDetConfirmationOrder SCD INNER JOIN traSalesContract SCH ON SCD.SCID=SCH.ID WHERE SCH.IsDeleted=0 AND SCD.CODetailID<>'') " & vbNewLine
+
+                .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataDetailByCODetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                          ByVal strCODetailID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.PCID, A.CODetailID, A2.CONumber, A1.OrderNumberSupplier, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.PCWeight AS MaxTotalWeight, " & vbNewLine &
+                    "   A.Remarks, A.LevelItem, A.ParentID, A.RoundingWeight, A.ReceiveAmount, A.DPAmount, A.InvoiceQuantity, A.InvoiceTotalWeight, A.DCWeight, " & vbNewLine &
+                    "   OutstandingDeliveryWeight=A.TotalWeight-A.DCWeight, A.CuttingWeight " & vbNewLine &
+                    "FROM traPurchaseContractDet A " & vbNewLine &
+                    "INNER JOIN traConfirmationOrderDet A1 ON " & vbNewLine &
+                    "   A.CODetailID=A1.ID " & vbNewLine &
+                    "INNER JOIN traConfirmationOrder A2 ON " & vbNewLine &
+                    "   A1.COID=A2.ID " & vbNewLine &
+                    "INNER JOIN mstItem B ON " & vbNewLine &
+                    "   A.ItemID=B.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification C ON " & vbNewLine &
+                    "   B.ItemSpecificationID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItemType D ON " & vbNewLine &
+                    "   B.ItemTypeID=D.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A1.ID=@CODetailID " & vbNewLine &
+                    "ORDER BY A.PCID " & vbNewLine
 
                 .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
             End With
@@ -1893,6 +1955,28 @@
             End Try
         End Sub
 
+        Public Shared Sub UpdatePriceItemByCODetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                      ByVal strCODetailID As String, ByVal decUnitPrice As Decimal)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandText = _
+"UPDATE traPurchaseContractDet SET " & vbNewLine & _
+"	UnitPrice=@UnitPrice, " & vbNewLine & _
+"	TotalPrice=@UnitPrice * (TotalWeight + RoundingWeight) " & vbNewLine & _
+"WHERE" & vbNewLine & _
+"	CODetailID=@CODetailID " & vbNewLine
+
+                .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
+                .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = decUnitPrice
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
 #End Region
 
 #Region "Payment Term"
