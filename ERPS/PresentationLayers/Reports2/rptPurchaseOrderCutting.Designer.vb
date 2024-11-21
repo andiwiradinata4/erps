@@ -28,7 +28,6 @@ Partial Public Class rptPurchaseOrderCutting
         Me.XrLabel2 = New DevExpress.XtraReports.UI.XRLabel()
         Me.sbSign = New DevExpress.XtraReports.UI.SubBand()
         Me.ReportFooter = New DevExpress.XtraReports.UI.ReportFooterBand()
-        Me.XrLabel6 = New DevExpress.XtraReports.UI.XRLabel()
         Me.sbRemarks = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel10 = New DevExpress.XtraReports.UI.XRLabel()
         Me.sbSummary = New DevExpress.XtraReports.UI.SubBand()
@@ -41,6 +40,7 @@ Partial Public Class rptPurchaseOrderCutting
         Me.XrTableRow6 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.XrTableCell18 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell20 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.xrRemarksResult = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportHeader = New DevExpress.XtraReports.UI.ReportHeaderBand()
         Me.XrLabel1 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrTable1 = New DevExpress.XtraReports.UI.XRTable()
@@ -72,8 +72,9 @@ Partial Public Class rptPurchaseOrderCutting
         Me.XrTableCell15 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell16 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell17 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.PageFooter = New DevExpress.XtraReports.UI.PageFooterBand()
         Me.sbDetailRemarks = New DevExpress.XtraReports.UI.SubBand()
+        Me.PageFooter = New DevExpress.XtraReports.UI.PageFooterBand()
+        Me.SetVisible = New DevExpress.XtraReports.UI.FormattingRule()
         Me.ObjectDataSource1 = New DevExpress.DataAccess.ObjectBinding.ObjectDataSource(Me.components)
         CType(Me.XrTable4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -138,22 +139,6 @@ Partial Public Class rptPurchaseOrderCutting
         Me.ReportFooter.HeightF = 0.0!
         Me.ReportFooter.Name = "ReportFooter"
         Me.ReportFooter.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.sbRemarks, Me.sbSummary, Me.sbSign})
-        '
-        'XrLabel6
-        '
-        Me.XrLabel6.Borders = DevExpress.XtraPrinting.BorderSide.None
-        Me.XrLabel6.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "RemarksResult")})
-        Me.XrLabel6.Dpi = 100.0!
-        Me.XrLabel6.Font = New System.Drawing.Font("Tahoma", 10.0!)
-        Me.XrLabel6.LocationFloat = New DevExpress.Utils.PointFloat(0.000445048!, 15.0!)
-        Me.XrLabel6.Multiline = True
-        Me.XrLabel6.Name = "XrLabel6"
-        Me.XrLabel6.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel6.SizeF = New System.Drawing.SizeF(806.9997!, 25.0!)
-        Me.XrLabel6.StylePriority.UseBorders = False
-        Me.XrLabel6.StylePriority.UseFont = False
-        Me.XrLabel6.StylePriority.UseTextAlignment = False
-        Me.XrLabel6.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
         'sbRemarks
         '
@@ -276,6 +261,22 @@ Partial Public Class rptPurchaseOrderCutting
         Me.XrTableCell20.Summary = XrSummary1
         Me.XrTableCell20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
         Me.XrTableCell20.Weight = 2.7451999950690888R
+        '
+        'xrRemarksResult
+        '
+        Me.xrRemarksResult.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.xrRemarksResult.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "RemarksResult")})
+        Me.xrRemarksResult.Dpi = 100.0!
+        Me.xrRemarksResult.Font = New System.Drawing.Font("Tahoma", 10.0!)
+        Me.xrRemarksResult.LocationFloat = New DevExpress.Utils.PointFloat(0.000445048!, 10.0!)
+        Me.xrRemarksResult.Multiline = True
+        Me.xrRemarksResult.Name = "xrRemarksResult"
+        Me.xrRemarksResult.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.xrRemarksResult.SizeF = New System.Drawing.SizeF(806.9997!, 25.0!)
+        Me.xrRemarksResult.StylePriority.UseBorders = False
+        Me.xrRemarksResult.StylePriority.UseFont = False
+        Me.xrRemarksResult.StylePriority.UseTextAlignment = False
+        Me.xrRemarksResult.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
         'ReportHeader
         '
@@ -466,7 +467,7 @@ Partial Public Class rptPurchaseOrderCutting
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
         Me.Detail.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable2})
         Me.Detail.Dpi = 100.0!
-        Me.Detail.HeightF = 40.0!
+        Me.Detail.HeightF = 25.0!
         Me.Detail.Name = "Detail"
         Me.Detail.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
         Me.Detail.StylePriority.UseBorders = False
@@ -478,7 +479,7 @@ Partial Public Class rptPurchaseOrderCutting
         Me.XrTable2.Borders = DevExpress.XtraPrinting.BorderSide.None
         Me.XrTable2.Dpi = 100.0!
         Me.XrTable2.Font = New System.Drawing.Font("Tahoma", 10.0!)
-        Me.XrTable2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 15.0!)
+        Me.XrTable2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
         Me.XrTable2.Name = "XrTable2"
         Me.XrTable2.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow5})
         Me.XrTable2.SizeF = New System.Drawing.SizeF(806.9996!, 25.0!)
@@ -567,18 +568,28 @@ Partial Public Class rptPurchaseOrderCutting
         Me.XrTableCell17.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
         Me.XrTableCell17.Weight = 3.1220796655223069R
         '
+        'sbDetailRemarks
+        '
+        Me.sbDetailRemarks.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.xrRemarksResult})
+        Me.sbDetailRemarks.Dpi = 100.0!
+        Me.sbDetailRemarks.FormattingRules.Add(Me.SetVisible)
+        Me.sbDetailRemarks.HeightF = 60.0!
+        Me.sbDetailRemarks.Name = "sbDetailRemarks"
+        '
         'PageFooter
         '
         Me.PageFooter.Dpi = 100.0!
         Me.PageFooter.HeightF = 0.0!
         Me.PageFooter.Name = "PageFooter"
         '
-        'sbDetailRemarks
+        'SetVisible
         '
-        Me.sbDetailRemarks.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel6})
-        Me.sbDetailRemarks.Dpi = 100.0!
-        Me.sbDetailRemarks.HeightF = 40.0!
-        Me.sbDetailRemarks.Name = "sbDetailRemarks"
+        Me.SetVisible.Condition = "[RemarksResult]=''"
+        '
+        '
+        '
+        Me.SetVisible.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.SetVisible.Name = "SetVisible"
         '
         'ObjectDataSource1
         '
@@ -593,6 +604,7 @@ Partial Public Class rptPurchaseOrderCutting
         Me.DisplayName = "SPK Potong"
         Me.DrawWatermark = True
         Me.Font = New System.Drawing.Font("Tahoma", 8.0!)
+        Me.FormattingRuleSheet.AddRange(New DevExpress.XtraReports.UI.FormattingRule() {Me.SetVisible})
         Me.Margins = New System.Drawing.Printing.Margins(10, 10, 30, 30)
         Me.PageHeight = 1169
         Me.PageWidth = 827
@@ -621,7 +633,7 @@ Partial Public Class rptPurchaseOrderCutting
     Friend WithEvents BottomMargin As DevExpress.XtraReports.UI.BottomMarginBand
     Friend WithEvents Detail As DevExpress.XtraReports.UI.DetailBand
     Friend WithEvents PageFooter As DevExpress.XtraReports.UI.PageFooterBand
-    Friend WithEvents XrLabel6 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents xrRemarksResult As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents sbRemarks As DevExpress.XtraReports.UI.SubBand
     Friend WithEvents XrLabel10 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel1 As DevExpress.XtraReports.UI.XRLabel
@@ -660,4 +672,5 @@ Partial Public Class rptPurchaseOrderCutting
     Friend WithEvents XrTableCell18 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrTableCell20 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents sbDetailRemarks As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents SetVisible As DevExpress.XtraReports.UI.FormattingRule
 End Class

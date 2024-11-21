@@ -322,7 +322,7 @@
                 For Each dr As DataRow In dtReturn.Rows
                     dr.BeginEdit()
                     '# Remarks
-                    dr.Item("Remarks") += IIf(dr.Item("Remarks") = "", "", vbCrLf) & vbCrLf & "NOTE: DIAMBIL " & vbCrLf
+                    dr.Item("Remarks") += IIf(dr.Item("Remarks") = "", "", vbCrLf)
                     If dr.Item("IsClaimCustomer") Then dr.Item("Remarks") += vbCrLf & "NOTE: ONGKOS POTONG EXCLUDE"
                     '# -------------------------------
 
