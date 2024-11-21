@@ -33,6 +33,9 @@ Partial Class frmTraCutting
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
+        Me.BarReceive = New System.Windows.Forms.ToolBarButton()
+        Me.BarClaimCustomer = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
@@ -51,9 +54,6 @@ Partial Class frmTraCutting
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
-        Me.BarReceive = New System.Windows.Forms.ToolBarButton()
-        Me.BarClaimCustomer = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -122,6 +122,23 @@ Partial Class frmTraCutting
         '
         Me.BarSep3.Name = "BarSep3"
         Me.BarSep3.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarReceive
+        '
+        Me.BarReceive.Name = "BarReceive"
+        Me.BarReceive.Tag = "Calculation"
+        Me.BarReceive.Text = "Pembayaran"
+        '
+        'BarClaimCustomer
+        '
+        Me.BarClaimCustomer.Name = "BarClaimCustomer"
+        Me.BarClaimCustomer.Tag = "Get"
+        Me.BarClaimCustomer.Text = "Klaim Pelanggan"
+        '
+        'BarSep4
+        '
+        Me.BarSep4.Name = "BarSep4"
+        Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
         'BarRefresh
         '
@@ -315,23 +332,6 @@ Partial Class frmTraCutting
         Me.grdView.OptionsView.ColumnAutoWidth = False
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
-        '
-        'BarSep4
-        '
-        Me.BarSep4.Name = "BarSep4"
-        Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
-        '
-        'BarReceive
-        '
-        Me.BarReceive.Name = "BarReceive"
-        Me.BarReceive.Tag = "Calculation"
-        Me.BarReceive.Text = "Pembayaran"
-        '
-        'BarClaimCustomer
-        '
-        Me.BarClaimCustomer.Name = "BarClaimCustomer"
-        Me.BarClaimCustomer.Tag = "Get"
-        Me.BarClaimCustomer.Text = "Klaim Pelanggan"
         '
         'frmTraCutting
         '

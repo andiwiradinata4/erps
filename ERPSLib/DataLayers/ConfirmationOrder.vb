@@ -1160,6 +1160,42 @@
             Return strReturn
         End Function
 
+        Public Shared Function GetAPNumberByCODetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                       ByVal strID As String) As String
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim strReturn As String = ""
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandText =
+"SELECT TOP 1 " & vbNewLine &
+"	AP.APNumber  " & vbNewLine &
+"FROM traPurchaseContractDet PCD " & vbNewLine &
+"INNER JOIN traARAPItem ARI ON " & vbNewLine &
+"	PCD.ID=ARI.ReferencesDetailID " & vbNewLine &
+"INNER JOIN traAccountPayable AP ON " & vbNewLine &
+"	ARI.ParentID=AP.ID " & vbNewLine &
+"	AND AP.IsDeleted=0 " & vbNewLine &
+"WHERE PCD.CODetailID=@CODetailID" & vbNewLine
+
+                    .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        strReturn = .Item("DeliveryNumber")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If sqlrdData IsNot Nothing Then sqlrdData.Close()
+            End Try
+            Return strReturn
+        End Function
+
         Public Shared Sub UpdatePriceItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                           ByVal strID As String, ByVal decUnitPrice As Decimal)
             Dim sqlcmdExecute As New SqlCommand

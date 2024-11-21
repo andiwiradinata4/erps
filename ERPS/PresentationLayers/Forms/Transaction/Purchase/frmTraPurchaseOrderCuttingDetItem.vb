@@ -231,7 +231,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
         '# Item Handle
         If bolIsNew Then
             Dim drItem As DataRow = dtItem.NewRow
-            Dim drMax() As DataRow = dtItem.Select("GroupID>0", "GroupID ASC")
+            Dim drMax() As DataRow = dtItem.Select("GroupID>0", "GroupID DESC")
             If drMax.Count > 0 Then intGroupID = drMax.First().Item("GroupID") + 1 Else intGroupID = dtItem.Rows.Count + 1
             With drItem
                 .BeginEdit()

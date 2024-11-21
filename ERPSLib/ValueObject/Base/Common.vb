@@ -90,6 +90,8 @@
                 Return VO.Modules.Values.TransactionSalesDP
             ElseIf strModules = VO.AccountReceivable.ReceivePayment Then
                 Return VO.Modules.Values.TransactionAccountReceivable
+            ElseIf strModules = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then
+                Return VO.Modules.Values.TransactionAccountReceivable
             End If
             Return 0
         End Function

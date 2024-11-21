@@ -500,6 +500,8 @@
                     If strReceiveNumber.Trim <> "" Then Err.Raise(515, "", "Data tidak dapat di simpan. Dikarenakan data telah diproses penerimaan nomor " & strReceiveNumber)
                     Dim strDeliveryNumber As String = DL.ConfirmationOrder.GetDeliveryNumberByCODetailID(sqlCon, sqlTrans, clsData.ID)
                     If strDeliveryNumber.Trim <> "" Then Err.Raise(515, "", "Data tidak dapat di simpan. Dikarenakan data telah diproses pengiriman nomor " & strDeliveryNumber)
+                    Dim strAPNumber As String = DL.ConfirmationOrder.GetAPNumberByCODetailID(sqlCon, sqlTrans, clsData.ID)
+                    If strAPNumber.Trim <> "" Then Err.Raise(515, "", "Data tidak dapat di simpan. Dikarenakan data telah diproses pembayaran nomor " & strAPNumber)
 
                     Dim clsHelper As New DataSetHelper
                     Dim decTotalDPP As Decimal = 0
