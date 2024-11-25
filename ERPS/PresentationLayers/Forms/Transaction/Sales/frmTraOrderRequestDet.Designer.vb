@@ -88,6 +88,8 @@ Partial Class frmTraOrderRequestDet
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.BarChangePrice = New System.Windows.Forms.ToolBarButton()
+        Me.BarChangeQuantity = New System.Windows.Forms.ToolBarButton()
         Me.StatusStrip.SuspendLayout()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
@@ -763,7 +765,7 @@ Partial Class frmTraOrderRequestDet
         'ToolBarDetail
         '
         Me.ToolBarDetail.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAdd, Me.BarEdit, Me.BarDelete, Me.BarItemSep1, Me.BarChangeItem})
+        Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAdd, Me.BarEdit, Me.BarDelete, Me.BarItemSep1, Me.BarChangeItem, Me.BarChangePrice, Me.BarChangeQuantity})
         Me.ToolBarDetail.DropDownArrows = True
         Me.ToolBarDetail.Location = New System.Drawing.Point(0, 265)
         Me.ToolBarDetail.Name = "ToolBarDetail"
@@ -853,6 +855,18 @@ Partial Class frmTraOrderRequestDet
         Me.rpiValue.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
+        '
+        'BarChangePrice
+        '
+        Me.BarChangePrice.Name = "BarChangePrice"
+        Me.BarChangePrice.Tag = "Price"
+        Me.BarChangePrice.Text = "Ubah Harga"
+        '
+        'BarChangeQuantity
+        '
+        Me.BarChangeQuantity.Name = "BarChangeQuantity"
+        Me.BarChangeQuantity.Tag = "Invoice"
+        Me.BarChangeQuantity.Text = "Ubah Jumlah"
         '
         'frmTraOrderRequestDet
         '
@@ -966,4 +980,6 @@ Partial Class frmTraOrderRequestDet
     Friend WithEvents BarChangeItem As System.Windows.Forms.ToolBarButton
     Friend WithEvents txtPersonInCharge As usTextBox
     Friend WithEvents Label19 As Label
+    Friend WithEvents BarChangePrice As ToolBarButton
+    Friend WithEvents BarChangeQuantity As ToolBarButton
 End Class
