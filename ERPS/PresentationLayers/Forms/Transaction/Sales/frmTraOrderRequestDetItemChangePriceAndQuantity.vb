@@ -70,8 +70,12 @@
 
     Private Sub prvSave()
         If Not UI.usForm.frmAskQuestion("Anda yakin ingin mengubah barang ini?") Then Exit Sub
-        Exit Sub
         Try
+            clsData.Quantity = txtQuantity.Value
+            clsData.TotalWeight = txtTotalWeight.Value
+            clsData.UnitPrice = txtUnitPrice.Value
+            clsData.TotalPrice = txtTotalPrice.Value
+            clsData.Weight = txtWeight.Value
             BL.OrderRequest.ChangeItemPriceAndQuantityDetail(strID, clsData)
             UI.usForm.frmMessageBox("Data berhasil diubah")
             bolIsSave = True
@@ -79,6 +83,11 @@
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         End Try
+    End Sub
+
+    Private Sub prvCalculate()
+        txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
+        txtTotalPrice.Value = txtTotalWeight.Value * txtUnitPrice.Value
     End Sub
 
 #Region "Form Handle"
@@ -102,6 +111,10 @@
             Case "Simpan" : prvSave()
             Case "Tutup" : Me.Close()
         End Select
+    End Sub
+
+    Private Sub txtNumeric_ValueChanged(sender As Object, e As EventArgs) Handles txtQuantity.ValueChanged, txtUnitPrice.ValueChanged, txtWeight.ValueChanged
+        prvCalculate()
     End Sub
 
 #End Region

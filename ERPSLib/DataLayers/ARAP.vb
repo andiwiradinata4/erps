@@ -1408,6 +1408,25 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataByReferencesDetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                            ByVal strReferencesDetailID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT DISTINCT " & vbNewLine &
+                    "   A.ID AS ARAPItemID " & vbNewLine &
+                    "FROM traARAPItem A " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ReferencesDetailID=@ReferencesDetailID " & vbNewLine
+
+                .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strReferencesDetailID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub ChangeItemIDItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                            ByVal strReferencesDetailID As String, ByVal intOldItemID As Integer, ByVal intNewItemID As Integer)
             Dim sqlcmdExecute As New SqlCommand

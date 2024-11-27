@@ -966,3 +966,4 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.xml
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.pdb
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderUpdatePrice.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderUpdatePrice.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestDetItemChangePriceAndQuantity.resources
