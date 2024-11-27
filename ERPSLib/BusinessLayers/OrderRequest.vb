@@ -464,6 +464,7 @@
 
         Public Shared Function ChangeItemPriceAndQuantityDetail(ByVal strID As String, ByVal clsData As VO.OrderRequestDet) As Boolean
             Dim bolReturn As Boolean = False
+            Dim decTotalDPP As Decimal = 0, decTotalQuantity As Decimal = 0, decTotalWeight As Decimal = 0
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
@@ -482,26 +483,58 @@
 
                     If dtARAPItem.Rows.Count > 0 Then Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah diproses Pembayaran DP / Pelunasan.")
 
+                    '# Update Sales Contract
+                    If clsData.UnitPrice > 0 Then
+                        For Each dr As DataRow In dtSalesContractDet.Rows
+                            DL.SalesContract.UpdateUnitPriceItem(sqlCon, sqlTrans, dr.Item("SCDetailID"), clsData.UnitPrice)
+                        Next
+                    End If
+
+                    If dtSalesContractDet.Rows.Count > 0 Then
+                        Dim clsSC As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, sqlTrans, dtSalesContractDet.Rows(0).Item("SCID"))
+                        Dim dtSCDet As DataTable = DL.SalesContract.ListDataDetail(sqlCon, sqlTrans, clsSC.ID, "")
+                        decTotalDPP = 0
+                        decTotalQuantity = 0
+                        decTotalWeight = 0
+                        For Each dr As DataRow In dtSCDet.Rows
+                            decTotalDPP += dr.Item("TotalPrice")
+                            decTotalQuantity += dr.Item("Quantity")
+                            decTotalWeight += dr.Item("TotalWeight")
+                        Next
+
+                        clsSC.TotalDPP = decTotalDPP
+                        clsSC.TotalPPN = decTotalDPP * (clsSC.PPN / 100)
+                        clsSC.TotalPPH = decTotalDPP * (clsSC.PPH / 100)
+                        clsSC.GrandTotal = decTotalDPP + clsSC.TotalPPN - clsSC.TotalPPH
+                        clsSC.TotalQuantity = decTotalQuantity
+                        clsSC.TotalWeight = decTotalWeight
+                        DL.SalesContract.UpdatePrice(sqlCon, sqlTrans, clsSC)
+                    End If
+
+                    '# Update Order Request
                     clsExists.Quantity = clsData.Quantity
+                    clsExists.Weight = clsData.Weight
                     clsExists.TotalWeight = clsData.TotalWeight
                     clsExists.UnitPrice = clsData.UnitPrice
                     clsExists.TotalPrice = clsData.UnitPrice * clsData.TotalWeight
                     DL.OrderRequest.UpdateDetail(sqlCon, sqlTrans, clsExists)
-
+                    decTotalDPP = 0
+                    decTotalQuantity = 0
+                    decTotalWeight = 0
                     Dim clsOrderRequest As VO.OrderRequest = DL.OrderRequest.GetDetail(sqlCon, sqlTrans, clsExists.OrderRequestID)
                     Dim dtDetail As DataTable = DL.OrderRequest.ListDataDetail(sqlCon, sqlTrans, clsExists.OrderRequestID)
-                    Dim decTotalDPP As Decimal = 0, decTotalQuantity As Decimal = 0, decTotalWeight As Decimal = 0
                     For Each dr As DataRow In dtDetail.Rows
                         decTotalDPP += dr.Item("TotalPrice")
                         decTotalQuantity += dr.Item("Quantity")
                         decTotalWeight += dr.Item("TotalWeight")
                     Next
 
+                    clsOrderRequest.TotalQuantity = decTotalQuantity
+                    clsOrderRequest.TotalWeight = decTotalWeight
                     clsOrderRequest.TotalDPP = decTotalDPP
                     clsOrderRequest.TotalPPN = decTotalDPP * (clsOrderRequest.PPN / 100)
                     clsOrderRequest.TotalPPH = decTotalDPP * (clsOrderRequest.PPH / 100)
                     clsOrderRequest.GrandTotal = decTotalDPP + clsOrderRequest.TotalPPN - clsOrderRequest.TotalPPH
-
                     DL.OrderRequest.UpdatePriceAndQuantiy(sqlCon, sqlTrans, clsOrderRequest)
 
                     sqlTrans.Commit()

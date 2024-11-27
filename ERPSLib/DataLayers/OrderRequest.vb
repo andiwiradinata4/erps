@@ -978,7 +978,7 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText =
-                    "UPDATE traSalesContract SET " & vbNewLine &
+                    "UPDATE traOrderRequest SET " & vbNewLine &
                     "    TotalDPP=@TotalDPP, " & vbNewLine &
                     "    TotalPPN=@TotalPPN, " & vbNewLine &
                     "    TotalPPH=@TotalPPH, " & vbNewLine &

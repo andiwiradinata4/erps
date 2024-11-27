@@ -69,7 +69,7 @@
     End Sub
 
     Private Sub prvSave()
-        If Not UI.usForm.frmAskQuestion("Anda yakin ingin mengubah barang ini?") Then Exit Sub
+        If Not UI.usForm.frmAskQuestion("Harga Jual akan mempengaruhi Harga Jual pada Kontrak Penjualan dan Jumlah / Total berat tidak mempengaruhi Kontrak Penjualan. Anda yakin ingin mengubah barang ini?") Then Exit Sub
         Try
             clsData.Quantity = txtQuantity.Value
             clsData.TotalWeight = txtTotalWeight.Value

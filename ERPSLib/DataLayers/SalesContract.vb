@@ -1659,8 +1659,8 @@
             Return bolReturn
         End Function
 
-        Public Shared Sub UpdateDeleteDuplicate(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                ByVal clsData As VO.SalesContract)
+        Public Shared Sub UpdatePrice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                      ByVal clsData As VO.SalesContract)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -2378,6 +2378,30 @@
             End Try
         End Sub
 
+        Public Shared Sub UpdateUnitPriceItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal strID As String, ByVal decUnitPrice As Decimal)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesContractDet SET " & vbNewLine &
+                    "   UnitPrice=@UnitPrice, " & vbNewLine &
+                    "   TotalPrice=@UnitPrice*(TotalWeight+RoundingWeight) " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = decUnitPrice
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail CO"
@@ -2428,7 +2452,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
 "SELECT DISTINCT " & vbNewLine &
-"	SCD.ID AS SCDetailID " & vbNewLine &
+"	SCD.ID AS SCDetailID, SCH.ID AS SCID" & vbNewLine &
 "FROM traSalesContract SCH  " & vbNewLine &
 "INNER JOIN traSalesContractDet SCD ON  " & vbNewLine &
 "	SCH.ID=SCD.SCID  " & vbNewLine &

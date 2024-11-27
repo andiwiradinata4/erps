@@ -416,7 +416,7 @@ Public Class frmTraOrderRequestDet
             .pubIsStock = bolIsStock
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
-            If .pubIsSave Then prvQueryItem()
+            If .pubIsSave Then prvQueryItem() : prvFillForm()
         End With
     End Sub
 

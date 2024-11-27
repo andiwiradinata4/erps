@@ -884,7 +884,9 @@
                     clsSC.TotalPPN = decTotalDPP * (clsSC.PPN / 100)
                     clsSC.TotalPPH = decTotalDPP * (clsSC.PPH / 100)
                     clsSC.GrandTotal = decTotalDPP + clsSC.TotalPPN - clsSC.TotalPPH
-                    DL.SalesContract.UpdateDeleteDuplicate(sqlCon, sqlTrans, clsSC)
+                    clsSC.TotalQuantity = decTotalQuantity
+                    clsSC.TotalWeight = decTotalWeight
+                    DL.SalesContract.UpdatePrice(sqlCon, sqlTrans, clsSC)
 
                     '# Delete Sales Contract CO
                     Dim drSelected() As DataRow = dtSCDetOld.Select("GroupID=" & clsData.GroupID)
