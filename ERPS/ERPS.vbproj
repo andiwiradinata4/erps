@@ -1101,6 +1101,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDetItem.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDetItemChangePriceAndQuantity.Designer.vb">
+      <DependentUpon>frmTraOrderRequestDetItemChangePriceAndQuantity.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDetItemChangePriceAndQuantity.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestMapConfirmationOrder.Designer.vb">
       <DependentUpon>frmTraOrderRequestMapConfirmationOrder.vb</DependentUpon>
     </Compile>
@@ -1973,6 +1979,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDetItem.resx">
       <DependentUpon>frmTraOrderRequestDetItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestDetItemChangePriceAndQuantity.resx">
+      <DependentUpon>frmTraOrderRequestDetItemChangePriceAndQuantity.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestMapConfirmationOrder.resx">
       <DependentUpon>frmTraOrderRequestMapConfirmationOrder.vb</DependentUpon>

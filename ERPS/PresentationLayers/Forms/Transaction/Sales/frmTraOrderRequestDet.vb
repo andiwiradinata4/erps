@@ -29,7 +29,7 @@ Public Class frmTraOrderRequestDet
 
     Private Const _
        cSave As Byte = 0, cClose As Byte = 1,
-       cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2, cSep1Item As Byte = 3, cChangeItem As Byte = 4
+       cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2, cSep1Item As Byte = 3, cChangeItem As Byte = 4, cChangeItemPriceAndQuantity As Byte = 5
 
     Private Sub prvSetTitleForm()
         If bolIsStock Then Me.Text += " [Stock]"
@@ -405,11 +405,11 @@ Public Class frmTraOrderRequestDet
         End With
     End Sub
 
-    Private Sub prvChangeItemPrice()
+    Private Sub prvChangeItemPriceAndQuantity()
         intPos = grdItemView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         Dim strID As String = grdItemView.GetRowCellValue(intPos, "ID")
-        Dim frmDetail As New frmTraOrderRequestDetChangeItem
+        Dim frmDetail As New frmTraOrderRequestDetItemChangePriceAndQuantity
         With frmDetail
             .pubID = strID
             .pubDatRowSelected = grdItemView.GetDataRow(intPos)
@@ -511,8 +511,7 @@ Public Class frmTraOrderRequestDet
             Case "Edit" : prvEditItem()
             Case "Hapus" : prvDeleteItem()
             Case "Ubah Barang" : prvChangeItem()
-            Case "Ubah Harga" : prvChangeItem()
-            Case "Ubah Quantity" : prvChangeItem()
+            Case "Ubah Harga dan Jumlah" : prvChangeItemPriceAndQuantity()
         End Select
     End Sub
 

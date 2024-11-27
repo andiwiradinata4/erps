@@ -462,6 +462,90 @@
             Return bolReturn
         End Function
 
+        Public Shared Function ChangeItemPriceAndQuantityDetail(ByVal strID As String, ByVal clsData As VO.OrderRequestDet) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Dim clsExists As VO.OrderRequestDet = DL.OrderRequest.GetDetailItem(sqlCon, sqlTrans, strID)
+
+                    clsExists.Quantity = clsData.Quantity
+                    clsExists.TotalWeight = clsData.TotalWeight
+                    clsExists.UnitPrice = clsData.UnitPrice
+                    clsExists.TotalPrice = clsData.UnitPrice * clsData.TotalWeight
+                    DL.OrderRequest.UpdateDetail(sqlCon, sqlTrans, clsExists)
+
+
+                    Dim dtDeliveryDet As New DataTable
+                    Dim dtARAPItem As New DataTable
+
+                    '# Get SC Detail
+                    Dim dtSalesContractDet As DataTable = DL.SalesContract.ListDataByOrderRequestDetailID(sqlCon, sqlTrans, strID, intOldItemID)
+
+                    For Each dr As DataRow In dtSalesContractDet.Rows
+                        '# Get All Delivery Detail By SCDetailID
+                        dtDeliveryDet.Merge(DL.Delivery.ListDataDetailBySCDetailID(sqlCon, sqlTrans, dr.Item("SCDetailID"), intOldItemID))
+
+                        '# Get ARAP Item Base on SalesID in Account Receivable Detail
+                        dtARAPItem.Merge(DL.ARAP.ListDataByReferencesDetailID(sqlCon, sqlTrans, dr.Item("SCDetailID"), intOldItemID))
+
+                        '# Update ItemID Delivery Detail
+                        DL.Delivery.ChangeItemIDDetail(sqlCon, sqlTrans, dr.Item("SCDetailID"), intOldItemID, intNewItemID)
+
+                        '# Update ItemID ARAP Item
+                        DL.ARAP.ChangeItemIDItem(sqlCon, sqlTrans, dr.Item("SCDetailID"), intOldItemID, intNewItemID)
+                    Next
+
+                    '# Update ItemID Sales Contract Item
+                    For Each dr As DataRow In dtSalesContractDet.Rows
+                        DL.SalesContract.ChangeItemIDDetail(sqlCon, sqlTrans, dr.Item("SCDetailID"), intOldItemID, intNewItemID)
+                    Next
+
+                    '# Update ItemID Order Request Detail
+                    DL.OrderRequest.ChangeItemIDDetail(sqlCon, sqlTrans, strID, intNewItemID)
+
+                    For Each dr As DataRow In dtSalesContractDet.Rows
+                        '# Get All Delivery Detail By SCDetailID
+                        dtDeliveryDet.Merge(DL.Delivery.ListDataDetailBySCDetailID(sqlCon, sqlTrans, dr.Item("SCDetailID"), intNewItemID))
+                    Next
+
+                    Dim clsDataStockOut As New List(Of VO.StockOut)
+                    For Each dr As DataRow In dtDeliveryDet.Rows
+                        clsDataStockOut.Add(New VO.StockOut With
+                           {
+                               .ProgramID = dr.Item("ProgramID"),
+                               .CompanyID = dr.Item("CompanyID"),
+                               .ParentID = "",
+                               .ParentDetailID = "",
+                               .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
+                               .SourceData = "",
+                               .ItemID = dr.Item("ItemID"),
+                               .Quantity = 0,
+                               .Weight = 0,
+                               .TotalWeight = 0,
+                               .CoAofStock = dr.Item("CoAofStock")
+                           })
+                    Next
+                    BL.StockOut.SaveData(sqlCon, sqlTrans, clsDataStockOut)
+
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+
+            Return bolReturn
+        End Function
+
+        Public Shared Function GetDetailItem(ByVal strID As String) As VO.OrderRequestDet
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.OrderRequest.GetDetailItem(sqlCon, Nothing, strID)
+            End Using
+        End Function
+
 #End Region
 
 #Region "Detail CO"

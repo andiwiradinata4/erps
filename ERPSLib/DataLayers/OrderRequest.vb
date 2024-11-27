@@ -1448,6 +1448,73 @@
             End Try
         End Sub
 
+        Public Shared Function GetDetailItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strID As String) As VO.OrderRequestDet
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim voReturn As New VO.OrderRequestDet
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandText =
+"SELECT TOP 1 " & vbNewLine & _
+"	A.ID, A.OrderRequestID, A.ItemID, A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, " & vbNewLine & _
+"	A.TotalPrice, A.SCQuantity, A.SCWeight, A.Remarks, A.RoundingWeight, A.OrderNumberSupplier, " & vbNewLine & _
+"	A.UnitPriceHPP, A.DPAmount, A.ReceiveAmount, A.IsIgnoreValidationPayment, A.DPAmountPPN, A.DPAmountPPH, " & vbNewLine & _
+"	A.ReceiveAmountPPN, A.ReceiveAmountPPH, A.COQuantity, A.COWeight, A.GroupID, A.AllocateDPAmount, " & vbNewLine & _
+"   MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length " & vbNewLine & _
+"" & vbNewLine & _
+"FROM traOrderRequestDet A" & vbNewLine & _
+"INNER JOIN mstItem MI ON " & vbNewLine & _
+"   A.ItemID=MI.ID " & vbNewLine & _
+"WHERE" & vbNewLine & _
+"	A.ID=@ID" & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute) 
+                With sqlrdData 
+                    If .HasRows Then 
+                        .Read() 
+                        voReturn.ID = .Item("ID")
+                        voReturn.OrderRequestID = .Item("OrderRequestID")
+                        voReturn.ItemID = .Item("ItemID")
+                        voReturn.Quantity = .Item("Quantity")
+                        voReturn.Weight = .Item("Weight")
+                        voReturn.TotalWeight = .Item("TotalWeight")
+                        voReturn.UnitPrice = .Item("UnitPrice")
+                        voReturn.TotalPrice = .Item("TotalPrice")
+                        voReturn.SCQuantity = .Item("SCQuantity")
+                        voReturn.SCWeight = .Item("SCWeight")
+                        voReturn.Remarks = .Item("Remarks")
+                        voReturn.RoundingWeight = .Item("RoundingWeight")
+                        voReturn.OrderNumberSupplier = .Item("OrderNumberSupplier")
+                        voReturn.UnitPriceHPP = .Item("UnitPriceHPP")
+                        voReturn.DPAmount = .Item("DPAmount")
+                        voReturn.ReceiveAmount = .Item("ReceiveAmount")
+                        voReturn.IsIgnoreValidationPayment = .Item("IsIgnoreValidationPayment")
+                        voReturn.DPAmountPPN = .Item("DPAmountPPN")
+                        voReturn.DPAmountPPH = .Item("DPAmountPPH")
+                        voReturn.ReceiveAmountPPN = .Item("ReceiveAmountPPN")
+                        voReturn.ReceiveAmountPPH = .Item("ReceiveAmountPPH")
+                        voReturn.COQuantity = .Item("COQuantity")
+                        voReturn.COWeight = .Item("COWeight")
+                        voReturn.GroupID = .Item("GroupID")
+                        voReturn.AllocateDPAmount = .Item("AllocateDPAmount")
+                        voReturn.ItemCode = .Item("ItemCode")
+                        voReturn.ItemName = .Item("ItemName")
+                        voReturn.Thick = .Item("Thick")
+                        voReturn.Width = .Item("Width")
+                        voReturn.Length = .Item("Length")
+                    End If
+                End With
+            Catch ex As Exception 
+                Throw ex 
+            Finally 
+                If sqlrdData IsNot Nothing Then sqlrdData.Close() 
+            End Try
+            Return voReturn 
+        End Function
+
 #End Region
 
 #Region "Detail CO Detail"
