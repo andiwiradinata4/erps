@@ -226,7 +226,8 @@ Public Class frmTraPurchaseOrderCuttingDet
                                     .GroupID = dr.Item("GroupID"),
                                     .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
                                     .ReceiveDetailID = dr.Item("ReceiveDetailID"),
-                                    .ResultID = dr.Item("ResultID")
+                                    .ResultID = dr.Item("ResultID"),
+                                    .IsShowCoil = dr.Item("IsShowCoil")
                                 })
             decTotalDPPRawMaterial += dr.Item("TotalPriceRawMaterial")
         Next

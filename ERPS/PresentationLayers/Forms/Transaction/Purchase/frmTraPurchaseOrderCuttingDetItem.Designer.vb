@@ -88,13 +88,14 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpItem = New System.Windows.Forms.TabPage()
         Me.tpRemarks = New System.Windows.Forms.TabPage()
-        Me.lblInfo = New System.Windows.Forms.Label()
+        Me.grdRemarksResult = New DevExpress.XtraGrid.GridControl()
+        Me.grdRemarksResultView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.ToolBarRemarksResult = New ERPS.usToolBar()
         Me.BarAddRemarksResult = New System.Windows.Forms.ToolBarButton()
         Me.BarEditRemarksResult = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteRemarksResult = New System.Windows.Forms.ToolBarButton()
-        Me.grdRemarksResult = New DevExpress.XtraGrid.GridControl()
-        Me.grdRemarksResultView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.lblInfo = New System.Windows.Forms.Label()
+        Me.chkIsShowCoil = New DevExpress.XtraEditors.CheckEdit()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtTotalPriceRawMaterial, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtUnitPriceRawMaterial, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -116,11 +117,13 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.tpRemarks.SuspendLayout()
         CType(Me.grdRemarksResult, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdRemarksResultView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkIsShowCoil.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.chkIsShowCoil)
         Me.pnlDetail.Controls.Add(Me.Label21)
         Me.pnlDetail.Controls.Add(Me.txtOrderNumberSupplier)
         Me.pnlDetail.Controls.Add(Me.Label18)
@@ -171,7 +174,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlDetail.Location = New System.Drawing.Point(3, 3)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(691, 411)
+        Me.pnlDetail.Size = New System.Drawing.Size(708, 411)
         Me.pnlDetail.TabIndex = 2
         '
         'Label21
@@ -228,7 +231,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.txtTotalPriceRawMaterial.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPriceRawMaterial.Name = "txtTotalPriceRawMaterial"
         Me.txtTotalPriceRawMaterial.Size = New System.Drawing.Size(170, 21)
-        Me.txtTotalPriceRawMaterial.TabIndex = 13
+        Me.txtTotalPriceRawMaterial.TabIndex = 14
         Me.txtTotalPriceRawMaterial.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPriceRawMaterial.ThousandsSeparator = True
         '
@@ -264,7 +267,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.txtUnitPriceRawMaterial.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtUnitPriceRawMaterial.Name = "txtUnitPriceRawMaterial"
         Me.txtUnitPriceRawMaterial.Size = New System.Drawing.Size(170, 21)
-        Me.txtUnitPriceRawMaterial.TabIndex = 12
+        Me.txtUnitPriceRawMaterial.TabIndex = 13
         Me.txtUnitPriceRawMaterial.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtUnitPriceRawMaterial.ThousandsSeparator = True
         '
@@ -325,7 +328,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.Label24.AutoSize = True
         Me.Label24.BackColor = System.Drawing.Color.Transparent
         Me.Label24.ForeColor = System.Drawing.Color.Black
-        Me.Label24.Location = New System.Drawing.Point(641, 235)
+        Me.Label24.Location = New System.Drawing.Point(651, 235)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(19, 13)
         Me.Label24.TabIndex = 182
@@ -336,7 +339,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.Label25.AutoSize = True
         Me.Label25.BackColor = System.Drawing.Color.Transparent
         Me.Label25.ForeColor = System.Drawing.Color.Black
-        Me.Label25.Location = New System.Drawing.Point(398, 235)
+        Me.Label25.Location = New System.Drawing.Point(408, 235)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(63, 13)
         Me.Label25.TabIndex = 181
@@ -347,12 +350,12 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.txtTotalPrice.BackColor = System.Drawing.Color.Azure
         Me.txtTotalPrice.DecimalPlaces = 2
         Me.txtTotalPrice.Enabled = False
-        Me.txtTotalPrice.Location = New System.Drawing.Point(477, 231)
+        Me.txtTotalPrice.Location = New System.Drawing.Point(487, 231)
         Me.txtTotalPrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalPrice.Name = "txtTotalPrice"
         Me.txtTotalPrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalPrice.TabIndex = 17
+        Me.txtTotalPrice.TabIndex = 18
         Me.txtTotalPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPrice.ThousandsSeparator = True
         '
@@ -361,7 +364,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.Label23.AutoSize = True
         Me.Label23.BackColor = System.Drawing.Color.Transparent
         Me.Label23.ForeColor = System.Drawing.Color.Black
-        Me.Label23.Location = New System.Drawing.Point(421, 181)
+        Me.Label23.Location = New System.Drawing.Point(431, 181)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(40, 13)
         Me.Label23.TabIndex = 180
@@ -369,12 +372,12 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         '
         'txtQuantity
         '
-        Me.txtQuantity.Location = New System.Drawing.Point(477, 177)
+        Me.txtQuantity.Location = New System.Drawing.Point(487, 177)
         Me.txtQuantity.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtQuantity.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtQuantity.Name = "txtQuantity"
         Me.txtQuantity.Size = New System.Drawing.Size(160, 21)
-        Me.txtQuantity.TabIndex = 15
+        Me.txtQuantity.TabIndex = 16
         Me.txtQuantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtQuantity.ThousandsSeparator = True
         '
@@ -383,7 +386,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.Label17.AutoSize = True
         Me.Label17.BackColor = System.Drawing.Color.Transparent
         Me.Label17.ForeColor = System.Drawing.Color.Black
-        Me.Label17.Location = New System.Drawing.Point(643, 154)
+        Me.Label17.Location = New System.Drawing.Point(653, 154)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(19, 13)
         Me.Label17.TabIndex = 174
@@ -394,7 +397,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
         Me.Label14.ForeColor = System.Drawing.Color.Black
-        Me.Label14.Location = New System.Drawing.Point(425, 154)
+        Me.Label14.Location = New System.Drawing.Point(435, 154)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(36, 13)
         Me.Label14.TabIndex = 173
@@ -404,12 +407,12 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         '
         Me.txtUnitPrice.BackColor = System.Drawing.Color.White
         Me.txtUnitPrice.DecimalPlaces = 2
-        Me.txtUnitPrice.Location = New System.Drawing.Point(477, 150)
+        Me.txtUnitPrice.Location = New System.Drawing.Point(487, 150)
         Me.txtUnitPrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtUnitPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtUnitPrice.Name = "txtUnitPrice"
         Me.txtUnitPrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtUnitPrice.TabIndex = 14
+        Me.txtUnitPrice.TabIndex = 15
         Me.txtUnitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtUnitPrice.ThousandsSeparator = True
         '
@@ -418,7 +421,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.Label15.AutoSize = True
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.ForeColor = System.Drawing.Color.Black
-        Me.Label15.Location = New System.Drawing.Point(641, 208)
+        Me.Label15.Location = New System.Drawing.Point(651, 208)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(19, 13)
         Me.Label15.TabIndex = 172
@@ -429,7 +432,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.Label16.AutoSize = True
         Me.Label16.BackColor = System.Drawing.Color.Transparent
         Me.Label16.ForeColor = System.Drawing.Color.Black
-        Me.Label16.Location = New System.Drawing.Point(401, 208)
+        Me.Label16.Location = New System.Drawing.Point(411, 208)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(60, 13)
         Me.Label16.TabIndex = 171
@@ -440,12 +443,12 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.txtTotalWeight.BackColor = System.Drawing.Color.Azure
         Me.txtTotalWeight.DecimalPlaces = 2
         Me.txtTotalWeight.Enabled = False
-        Me.txtTotalWeight.Location = New System.Drawing.Point(477, 204)
+        Me.txtTotalWeight.Location = New System.Drawing.Point(487, 204)
         Me.txtTotalWeight.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalWeight.Name = "txtTotalWeight"
         Me.txtTotalWeight.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalWeight.TabIndex = 16
+        Me.txtTotalWeight.TabIndex = 17
         Me.txtTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalWeight.ThousandsSeparator = True
         '
@@ -469,7 +472,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(471, 48)
-        Me.txtRemarks.TabIndex = 18
+        Me.txtRemarks.TabIndex = 19
         '
         'Label12
         '
@@ -564,7 +567,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.cboItemSpecification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboItemSpecification.Enabled = False
         Me.cboItemSpecification.FormattingEnabled = True
-        Me.cboItemSpecification.Location = New System.Drawing.Point(477, 68)
+        Me.cboItemSpecification.Location = New System.Drawing.Point(487, 68)
         Me.cboItemSpecification.Name = "cboItemSpecification"
         Me.cboItemSpecification.Size = New System.Drawing.Size(160, 21)
         Me.cboItemSpecification.TabIndex = 5
@@ -574,7 +577,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(431, 72)
+        Me.Label3.Location = New System.Drawing.Point(441, 72)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(30, 13)
         Me.Label3.TabIndex = 160
@@ -585,7 +588,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.cboItemType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboItemType.Enabled = False
         Me.cboItemType.FormattingEnabled = True
-        Me.cboItemType.Location = New System.Drawing.Point(477, 41)
+        Me.cboItemType.Location = New System.Drawing.Point(487, 41)
         Me.cboItemType.Name = "cboItemType"
         Me.cboItemType.Size = New System.Drawing.Size(160, 21)
         Me.cboItemType.TabIndex = 4
@@ -595,7 +598,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.Label28.AutoSize = True
         Me.Label28.BackColor = System.Drawing.Color.Transparent
         Me.Label28.ForeColor = System.Drawing.Color.Black
-        Me.Label28.Location = New System.Drawing.Point(430, 45)
+        Me.Label28.Location = New System.Drawing.Point(440, 45)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(31, 13)
         Me.Label28.TabIndex = 159
@@ -643,7 +646,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.txtItemName.Multiline = True
         Me.txtItemName.Name = "txtItemName"
         Me.txtItemName.ReadOnly = True
-        Me.txtItemName.Size = New System.Drawing.Size(471, 48)
+        Me.txtItemName.Size = New System.Drawing.Size(481, 48)
         Me.txtItemName.TabIndex = 6
         '
         'txtLength
@@ -698,7 +701,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.txtMaxTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtMaxTotalWeight.Name = "txtMaxTotalWeight"
         Me.txtMaxTotalWeight.Size = New System.Drawing.Size(170, 21)
-        Me.txtMaxTotalWeight.TabIndex = 11
+        Me.txtMaxTotalWeight.TabIndex = 12
         Me.txtMaxTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtMaxTotalWeight.ThousandsSeparator = True
         '
@@ -711,7 +714,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.txtWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtWeight.Name = "txtWeight"
         Me.txtWeight.Size = New System.Drawing.Size(170, 21)
-        Me.txtWeight.TabIndex = 10
+        Me.txtWeight.TabIndex = 11
         Me.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtWeight.ThousandsSeparator = True
         '
@@ -723,7 +726,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(705, 28)
+        Me.ToolBar.Size = New System.Drawing.Size(722, 28)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -747,7 +750,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.Label20.ForeColor = System.Drawing.Color.White
         Me.Label20.Location = New System.Drawing.Point(0, 496)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(705, 22)
+        Me.Label20.Size = New System.Drawing.Size(722, 22)
         Me.Label20.TabIndex = 3
         Me.Label20.Text = "« Barang yang dihasilkan"
         Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -760,7 +763,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.ToolBarItemResult.Location = New System.Drawing.Point(0, 518)
         Me.ToolBarItemResult.Name = "ToolBarItemResult"
         Me.ToolBarItemResult.ShowToolTips = True
-        Me.ToolBarItemResult.Size = New System.Drawing.Size(705, 28)
+        Me.ToolBarItemResult.Size = New System.Drawing.Size(722, 28)
         Me.ToolBarItemResult.TabIndex = 4
         Me.ToolBarItemResult.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -814,7 +817,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.grdItemResult.MainView = Me.grdItemResultView
         Me.grdItemResult.Name = "grdItemResult"
         Me.grdItemResult.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItemResult.Size = New System.Drawing.Size(705, 186)
+        Me.grdItemResult.Size = New System.Drawing.Size(722, 186)
         Me.grdItemResult.TabIndex = 5
         Me.grdItemResult.UseEmbeddedNavigator = True
         Me.grdItemResult.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemResultView, Me.GridView1})
@@ -852,7 +855,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(705, 446)
+        Me.tcHeader.Size = New System.Drawing.Size(722, 446)
         Me.tcHeader.TabIndex = 2
         '
         'tpItem
@@ -861,7 +864,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.tpItem.Location = New System.Drawing.Point(4, 25)
         Me.tpItem.Name = "tpItem"
         Me.tpItem.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpItem.Size = New System.Drawing.Size(697, 417)
+        Me.tpItem.Size = New System.Drawing.Size(714, 417)
         Me.tpItem.TabIndex = 0
         Me.tpItem.Text = "Barang - F1"
         Me.tpItem.UseVisualStyleBackColor = True
@@ -877,49 +880,6 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.tpRemarks.TabIndex = 1
         Me.tpRemarks.Text = "Keterangan - F2"
         Me.tpRemarks.UseVisualStyleBackColor = True
-        '
-        'lblInfo
-        '
-        Me.lblInfo.BackColor = System.Drawing.Color.CadetBlue
-        Me.lblInfo.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblInfo.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblInfo.ForeColor = System.Drawing.Color.White
-        Me.lblInfo.Location = New System.Drawing.Point(0, 28)
-        Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(705, 22)
-        Me.lblInfo.TabIndex = 1
-        Me.lblInfo.Text = "« Barang yang akan diproduksi"
-        Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'ToolBarRemarksResult
-        '
-        Me.ToolBarRemarksResult.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarRemarksResult.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddRemarksResult, Me.BarEditRemarksResult, Me.BarDeleteRemarksResult})
-        Me.ToolBarRemarksResult.DropDownArrows = True
-        Me.ToolBarRemarksResult.Location = New System.Drawing.Point(3, 3)
-        Me.ToolBarRemarksResult.Name = "ToolBarRemarksResult"
-        Me.ToolBarRemarksResult.ShowToolTips = True
-        Me.ToolBarRemarksResult.Size = New System.Drawing.Size(691, 28)
-        Me.ToolBarRemarksResult.TabIndex = 16
-        Me.ToolBarRemarksResult.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
-        'BarAddRemarksResult
-        '
-        Me.BarAddRemarksResult.Name = "BarAddRemarksResult"
-        Me.BarAddRemarksResult.Tag = "Add"
-        Me.BarAddRemarksResult.Text = "Tambah"
-        '
-        'BarEditRemarksResult
-        '
-        Me.BarEditRemarksResult.Name = "BarEditRemarksResult"
-        Me.BarEditRemarksResult.Tag = "Edit"
-        Me.BarEditRemarksResult.Text = "Edit"
-        '
-        'BarDeleteRemarksResult
-        '
-        Me.BarDeleteRemarksResult.Name = "BarDeleteRemarksResult"
-        Me.BarDeleteRemarksResult.Tag = "Delete"
-        Me.BarDeleteRemarksResult.Text = "Hapus"
         '
         'grdRemarksResult
         '
@@ -955,11 +915,62 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.grdRemarksResultView.OptionsView.ColumnAutoWidth = False
         Me.grdRemarksResultView.OptionsView.ShowGroupPanel = False
         '
+        'ToolBarRemarksResult
+        '
+        Me.ToolBarRemarksResult.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBarRemarksResult.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddRemarksResult, Me.BarEditRemarksResult, Me.BarDeleteRemarksResult})
+        Me.ToolBarRemarksResult.DropDownArrows = True
+        Me.ToolBarRemarksResult.Location = New System.Drawing.Point(3, 3)
+        Me.ToolBarRemarksResult.Name = "ToolBarRemarksResult"
+        Me.ToolBarRemarksResult.ShowToolTips = True
+        Me.ToolBarRemarksResult.Size = New System.Drawing.Size(691, 28)
+        Me.ToolBarRemarksResult.TabIndex = 16
+        Me.ToolBarRemarksResult.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'BarAddRemarksResult
+        '
+        Me.BarAddRemarksResult.Name = "BarAddRemarksResult"
+        Me.BarAddRemarksResult.Tag = "Add"
+        Me.BarAddRemarksResult.Text = "Tambah"
+        '
+        'BarEditRemarksResult
+        '
+        Me.BarEditRemarksResult.Name = "BarEditRemarksResult"
+        Me.BarEditRemarksResult.Tag = "Edit"
+        Me.BarEditRemarksResult.Text = "Edit"
+        '
+        'BarDeleteRemarksResult
+        '
+        Me.BarDeleteRemarksResult.Name = "BarDeleteRemarksResult"
+        Me.BarDeleteRemarksResult.Tag = "Delete"
+        Me.BarDeleteRemarksResult.Text = "Hapus"
+        '
+        'lblInfo
+        '
+        Me.lblInfo.BackColor = System.Drawing.Color.CadetBlue
+        Me.lblInfo.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblInfo.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblInfo.ForeColor = System.Drawing.Color.White
+        Me.lblInfo.Location = New System.Drawing.Point(0, 28)
+        Me.lblInfo.Name = "lblInfo"
+        Me.lblInfo.Size = New System.Drawing.Size(722, 22)
+        Me.lblInfo.TabIndex = 1
+        Me.lblInfo.Text = "« Barang yang akan diproduksi"
+        Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'chkIsShowCoil
+        '
+        Me.chkIsShowCoil.Location = New System.Drawing.Point(85, 205)
+        Me.chkIsShowCoil.Name = "chkIsShowCoil"
+        Me.chkIsShowCoil.Properties.Caption = "COIL ?"
+        Me.chkIsShowCoil.Size = New System.Drawing.Size(61, 19)
+        Me.chkIsShowCoil.TabIndex = 10
+        '
         'frmTraPurchaseOrderCuttingDetItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(705, 732)
+        Me.ClientSize = New System.Drawing.Size(722, 732)
         Me.Controls.Add(Me.grdItemResult)
         Me.Controls.Add(Me.ToolBarItemResult)
         Me.Controls.Add(Me.Label20)
@@ -995,6 +1006,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.tpRemarks.PerformLayout()
         CType(Me.grdRemarksResult, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdRemarksResultView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkIsShowCoil.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1071,4 +1083,5 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
     Friend WithEvents BarDeleteRemarksResult As System.Windows.Forms.ToolBarButton
     Friend WithEvents grdRemarksResult As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdRemarksResultView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents chkIsShowCoil As DevExpress.XtraEditors.CheckEdit
 End Class

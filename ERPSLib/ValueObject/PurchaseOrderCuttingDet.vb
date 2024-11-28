@@ -33,5 +33,6 @@
         Property ClaimReceivePPN As Decimal
         Property ClaimReceivePPH As Decimal
         Property ResultID As String
+        Property IsShowCoil As Boolean
     End Class
 End Namespace

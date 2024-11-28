@@ -79,6 +79,7 @@
                 DevelopOnProgress_ID72(sqlCon, Nothing)
                 DevelopOnProgress_ID73(sqlCon, Nothing)
                 DevelopOnProgress_ID74(sqlCon, Nothing)
+                DevelopOnProgress_ID75(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -2194,6 +2195,21 @@
             clsData.Scripts =
                 "ALTER TABLE traARAPInvoice ADD VoucherNumber VARCHAR(100) NOT NULL CONSTRAINT DF_traARAPInvoice_VoucherNumber DEFAULT ('') " & vbNewLine &
                 "ALTER TABLE traARAPInvoice ADD VoucherDate DATETIME NOT NULL CONSTRAINT DF_traARAPInvoice_VoucherDate DEFAULT (GETDATE()) " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 75
+        Private Shared Sub DevelopOnProgress_ID75(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 75
+            clsData.Name = "Add Column IsShowCoil in traPurchaseOrderCuttingDet"
+            clsData.Scripts =
+                "ALTER TABLE traPurchaseOrderCuttingDet ADD IsShowCoil BIT NOT NULL CONSTRAINT DF_traPurchaseOrderCuttingDet_IsShowCoil DEFAULT ((0)) " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

@@ -178,6 +178,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
                 txtRemarks.Text = drSelectedItem.Item("Remarks")
                 strResultID = drSelectedItem.Item("ResultID")
                 strReceiveDetailID = drSelectedItem.Item("ReceiveDetailID")
+                chkIsShowCoil.Checked = drSelectedItem.Item("IsShowCoil")
 
                 For Each dr As DataRow In dtItemResultParent.Rows
                     If dr.Item("GroupID") = intGroupID Then dtResult.ImportRow(dr)
@@ -262,6 +263,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
                 .Item("TotalPriceRawMaterial") = txtTotalPriceRawMaterial.Value
                 .Item("Remarks") = txtRemarks.Text.Trim
                 .Item("ResultID") = strResultID
+                .Item("IsShowCoil") = chkIsShowCoil.Checked
                 .EndEdit()
             End With
             dtItem.Rows.Add(drItem)
@@ -296,6 +298,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
                         .Item("TotalPriceRawMaterial") = txtTotalPriceRawMaterial.Value
                         .Item("Remarks") = txtRemarks.Text.Trim
                         .Item("ResultID") = strResultID
+                        .Item("IsShowCoil") = chkIsShowCoil.Checked
                         .EndEdit()
                     End If
                 End With
@@ -363,6 +366,7 @@ Public Class frmTraPurchaseOrderCuttingDetItem
         txtTotalPriceRawMaterial.Value = 0
         txtRemarks.Text = ""
         strReceiveDetailID = ""
+        chkIsShowCoil.Checked = False
     End Sub
 
     Private Sub prvChooseItem()
