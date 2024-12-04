@@ -4,6 +4,7 @@ Namespace VO
         Property ID As Integer
         Property Name As String
         Property Address As String
+        Property Address2 As String
         Property Country As String
         Property Province As String
         Property City As String

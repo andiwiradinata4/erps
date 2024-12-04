@@ -968,3 +968,9 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOr
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderUpdatePrice.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestDetItemChangePriceAndQuantity.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestDetItemChangePriceAndQuantity.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraAccountSetVoucherNumber.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderUpdatePrice.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestDetItemChangePriceAndQuantity.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetItemCOVer2AddAdditional.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDifferentTotalChild.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptARAPVoucher.resources

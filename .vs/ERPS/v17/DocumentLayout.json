@@ -1,65 +1,61 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Project\\Tony\\ERPS\\",
+  "WorkspaceRootPath": "C:\\Project\\Toni\\erps\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Project\\Tony\\ERPS\\ERPS\\bin\\Debug\\ERPS-CONFIG.XML||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ERPS\\bin\\Debug\\ERPS-CONFIG.XML||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|c:\\project\\tony\\erps\\erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapchoosebankaccount.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
-      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapchoosebankaccount.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|c:\\project\\tony\\erps\\erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapchoosebankaccount.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
-      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapchoosebankaccount.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|c:\\project\\tony\\erps\\erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarap.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
-      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarap.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|c:\\project\\tony\\erps\\erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarap.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
-      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarap.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|c:\\project\\tony\\erps\\erps\\presentationlayers\\forms\\transaction\\sales\\frmtraorderrequestdetitemchangepriceandquantity.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
-      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\sales\\frmtraorderrequestdetitemchangepriceandquantity.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|C:\\Project\\Tony\\ERPS\\erps\\presentationlayers\\forms\\transaction\\sales\\frmtraorderrequestdetitemchangepriceandquantity.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
-      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\sales\\frmtraorderrequestdetitemchangepriceandquantity.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|C:\\Project\\Tony\\ERPS\\erpslib\\businesslayers\\orderrequest.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
-      "RelativeMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|solutionrelative:erpslib\\businesslayers\\orderrequest.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|C:\\Project\\Tony\\ERPS\\erpslib\\datalayers\\orderrequest.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
-      "RelativeMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|solutionrelative:erpslib\\datalayers\\orderrequest.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|C:\\Project\\Tony\\ERPS\\erpslib\\datalayers\\salescontract.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
-      "RelativeMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|solutionrelative:erpslib\\datalayers\\salescontract.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|C:\\Project\\Tony\\ERPS\\erps\\presentationlayers\\forms\\transaction\\sales\\frmtraorderrequestdetitem.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|C:\\Project\\Toni\\erps\\erps\\presentationlayers\\forms\\transaction\\sales\\frmtraorderrequestdetitem.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
       "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\sales\\frmtraorderrequestdetitem.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|C:\\Project\\Tony\\ERPS\\erps\\presentationlayers\\forms\\transaction\\sales\\frmtraorderrequestdetitem.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|C:\\Project\\Toni\\erps\\erps\\presentationlayers\\forms\\transaction\\sales\\frmtraorderrequestdetitem.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
       "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\sales\\frmtraorderrequestdetitem.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|C:\\Project\\Tony\\ERPS\\erps\\presentationlayers\\forms\\transaction\\sales\\frmtraorderrequestdet.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|C:\\Project\\Toni\\erps\\erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapchoosebankaccount.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapchoosebankaccount.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|C:\\Project\\Toni\\erps\\erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapchoosebankaccount.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapchoosebankaccount.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|C:\\Project\\Toni\\erps\\erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarap.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarap.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|C:\\Project\\Toni\\erps\\erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarap.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarap.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|C:\\Project\\Toni\\erps\\erps\\presentationlayers\\forms\\transaction\\sales\\frmtraorderrequestdetitemchangepriceandquantity.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\sales\\frmtraorderrequestdetitemchangepriceandquantity.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|C:\\Project\\Toni\\erps\\erps\\presentationlayers\\forms\\transaction\\sales\\frmtraorderrequestdetitemchangepriceandquantity.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\sales\\frmtraorderrequestdetitemchangepriceandquantity.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|C:\\Project\\Toni\\erps\\erpslib\\businesslayers\\orderrequest.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|solutionrelative:erpslib\\businesslayers\\orderrequest.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|C:\\Project\\Toni\\erps\\erpslib\\datalayers\\orderrequest.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|solutionrelative:erpslib\\datalayers\\orderrequest.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|C:\\Project\\Toni\\erps\\erpslib\\datalayers\\salescontract.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|solutionrelative:erpslib\\datalayers\\salescontract.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|C:\\Project\\Toni\\erps\\erps\\presentationlayers\\forms\\transaction\\sales\\frmtraorderrequestdet.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
       "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\sales\\frmtraorderrequestdet.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|C:\\Project\\Tony\\ERPS\\erpslib\\businesslayers\\salescontract.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "AbsoluteMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|C:\\Project\\Toni\\erps\\erpslib\\businesslayers\\salescontract.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
       "RelativeMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|solutionrelative:erpslib\\businesslayers\\salescontract.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|C:\\Project\\Tony\\ERPS\\erpslib\\datalayers\\arap.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "AbsoluteMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|C:\\Project\\Toni\\erps\\erpslib\\datalayers\\arap.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
       "RelativeMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|solutionrelative:erpslib\\datalayers\\arap.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     }
   ],
@@ -70,15 +66,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "frmTraARAPChooseBankAccount.vb [Design]",
-              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPChooseBankAccount.vb",
+              "DocumentMoniker": "C:\\Project\\Toni\\erps\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPChooseBankAccount.vb",
               "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPChooseBankAccount.vb",
-              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPChooseBankAccount.vb [Design]",
+              "ToolTip": "C:\\Project\\Toni\\erps\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPChooseBankAccount.vb [Design]",
               "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPChooseBankAccount.vb [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
               "WhenOpened": "2024-12-04T07:22:19.841Z",
@@ -86,11 +82,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "frmTraARAPChooseBankAccount.vb",
-              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPChooseBankAccount.vb",
+              "DocumentMoniker": "C:\\Project\\Toni\\erps\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPChooseBankAccount.vb",
               "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPChooseBankAccount.vb",
-              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPChooseBankAccount.vb",
+              "ToolTip": "C:\\Project\\Toni\\erps\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPChooseBankAccount.vb",
               "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPChooseBankAccount.vb",
               "ViewState": "AQIAAAAAAAAAAAAAAAAqwEYAAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
@@ -99,48 +95,45 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "frmTraARAP.vb",
-              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb",
+              "DocumentMoniker": "C:\\Project\\Toni\\erps\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb",
               "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb",
-              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb",
+              "ToolTip": "C:\\Project\\Toni\\erps\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb",
               "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb",
               "ViewState": "AQIAAI4BAAAAAAAAAAAAANQCAABLAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2024-12-04T07:21:43.735Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T07:21:43.735Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "frmTraARAP.vb [Design]",
-              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb",
+              "DocumentMoniker": "C:\\Project\\Toni\\erps\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb",
               "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb",
               "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb [Design]",
-              "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb [Design]",
+              "RelativeToolTip": "..\\..\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2024-12-04T07:21:34.23Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-12-04T07:21:34.23Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "frmTraOrderRequestDetItemChangePriceAndQuantity.vb [Design]",
-              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItemChangePriceAndQuantity.vb",
+              "DocumentMoniker": "C:\\Project\\Toni\\erps\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItemChangePriceAndQuantity.vb",
               "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItemChangePriceAndQuantity.vb",
               "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItemChangePriceAndQuantity.vb [Design]",
-              "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItemChangePriceAndQuantity.vb [Design]",
+              "RelativeToolTip": "..\\..\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItemChangePriceAndQuantity.vb [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2024-11-27T14:39:36.837Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-11-27T14:39:36.837Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 11,
               "Title": "frmTraOrderRequestDet.vb",
-              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDet.vb",
+              "DocumentMoniker": "C:\\Project\\Toni\\erps\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDet.vb",
               "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDet.vb",
-              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDet.vb",
+              "ToolTip": "C:\\Project\\Toni\\erps\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDet.vb",
               "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDet.vb",
               "ViewState": "AQIAAH4BAAAAAAAAAAAswKIBAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
@@ -148,11 +141,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "OrderRequest.vb",
-              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPSLib\\DataLayers\\OrderRequest.vb",
+              "DocumentMoniker": "C:\\Project\\Toni\\erps\\ERPSLib\\DataLayers\\OrderRequest.vb",
               "RelativeDocumentMoniker": "ERPSLib\\DataLayers\\OrderRequest.vb",
-              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPSLib\\DataLayers\\OrderRequest.vb",
+              "ToolTip": "C:\\Project\\Toni\\erps\\ERPSLib\\DataLayers\\OrderRequest.vb",
               "RelativeToolTip": "ERPSLib\\DataLayers\\OrderRequest.vb",
               "ViewState": "AQIAAOYDAAAAAAAAAAAowM8EAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
@@ -160,35 +153,23 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ERPS-CONFIG.XML",
-              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\bin\\Debug\\ERPS-CONFIG.XML",
-              "RelativeDocumentMoniker": "ERPS\\bin\\Debug\\ERPS-CONFIG.XML",
-              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\bin\\Debug\\ERPS-CONFIG.XML",
-              "RelativeToolTip": "ERPS\\bin\\Debug\\ERPS-CONFIG.XML",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
-              "WhenOpened": "2024-11-27T14:28:14.33Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 1,
               "Title": "frmTraOrderRequestDetItem.vb [Design]",
-              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItem.vb",
+              "DocumentMoniker": "C:\\Project\\Toni\\erps\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItem.vb",
               "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItem.vb",
-              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItem.vb [Design]",
+              "ToolTip": "C:\\Project\\Toni\\erps\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItem.vb [Design]",
               "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItem.vb [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2024-11-27T14:41:00.096Z"
+              "WhenOpened": "2024-11-27T14:41:00.096Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "SalesContract.vb",
-              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPSLib\\DataLayers\\SalesContract.vb",
+              "DocumentMoniker": "C:\\Project\\Toni\\erps\\ERPSLib\\DataLayers\\SalesContract.vb",
               "RelativeDocumentMoniker": "ERPSLib\\DataLayers\\SalesContract.vb",
-              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPSLib\\DataLayers\\SalesContract.vb",
+              "ToolTip": "C:\\Project\\Toni\\erps\\ERPSLib\\DataLayers\\SalesContract.vb",
               "RelativeToolTip": "ERPSLib\\DataLayers\\SalesContract.vb",
               "ViewState": "AQIAAH4IAAAAAAAAAAA1wH4JAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
@@ -196,49 +177,48 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "frmTraOrderRequestDetItemChangePriceAndQuantity.vb",
-              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItemChangePriceAndQuantity.vb",
+              "DocumentMoniker": "C:\\Project\\Toni\\erps\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItemChangePriceAndQuantity.vb",
               "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItemChangePriceAndQuantity.vb",
-              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItemChangePriceAndQuantity.vb",
+              "ToolTip": "C:\\Project\\Toni\\erps\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItemChangePriceAndQuantity.vb",
               "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItemChangePriceAndQuantity.vb",
               "ViewState": "AQIAAAAAAAAAAAAAAAAqwE0AAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2024-11-27T13:37:55.229Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-27T13:37:55.229Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "OrderRequest.vb",
-              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPSLib\\BusinessLayers\\OrderRequest.vb",
+              "DocumentMoniker": "C:\\Project\\Toni\\erps\\ERPSLib\\BusinessLayers\\OrderRequest.vb",
               "RelativeDocumentMoniker": "ERPSLib\\BusinessLayers\\OrderRequest.vb",
-              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPSLib\\BusinessLayers\\OrderRequest.vb",
+              "ToolTip": "C:\\Project\\Toni\\erps\\ERPSLib\\BusinessLayers\\OrderRequest.vb",
               "RelativeToolTip": "ERPSLib\\BusinessLayers\\OrderRequest.vb",
               "ViewState": "AQIAAH0BAAAAMzMzMzMOwOgBAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2024-11-27T13:38:18.778Z",
+              "WhenOpened": "2024-11-27T13:38:18.778Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "frmTraOrderRequestDetItem.vb",
+              "DocumentMoniker": "C:\\Project\\Toni\\erps\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItem.vb",
+              "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItem.vb",
+              "ToolTip": "C:\\Project\\Toni\\erps\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItem.vb",
+              "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItem.vb",
+              "ViewState": "AQIAABwBAAAAAAAAAAAAADcBAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2024-11-27T14:41:02.772Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "frmTraOrderRequestDetItem.vb",
-              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItem.vb",
-              "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItem.vb",
-              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItem.vb",
-              "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\Transaction\\Sales\\frmTraOrderRequestDetItem.vb",
-              "ViewState": "AQIAAP8AAAAAAAAAAADwvxsBAABHAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2024-11-27T14:41:02.772Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 13,
               "Title": "ARAP.vb",
-              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPSLib\\DataLayers\\ARAP.vb",
+              "DocumentMoniker": "C:\\Project\\Toni\\erps\\ERPSLib\\DataLayers\\ARAP.vb",
               "RelativeDocumentMoniker": "ERPSLib\\DataLayers\\ARAP.vb",
-              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPSLib\\DataLayers\\ARAP.vb",
+              "ToolTip": "C:\\Project\\Toni\\erps\\ERPSLib\\DataLayers\\ARAP.vb",
               "RelativeToolTip": "ERPSLib\\DataLayers\\ARAP.vb",
               "ViewState": "AQIAAGsFAAAAAAAAAAAWwIIFAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
@@ -246,11 +226,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 12,
               "Title": "SalesContract.vb",
-              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPSLib\\BusinessLayers\\SalesContract.vb",
+              "DocumentMoniker": "C:\\Project\\Toni\\erps\\ERPSLib\\BusinessLayers\\SalesContract.vb",
               "RelativeDocumentMoniker": "ERPSLib\\BusinessLayers\\SalesContract.vb",
-              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPSLib\\BusinessLayers\\SalesContract.vb",
+              "ToolTip": "C:\\Project\\Toni\\erps\\ERPSLib\\BusinessLayers\\SalesContract.vb",
               "RelativeToolTip": "ERPSLib\\BusinessLayers\\SalesContract.vb",
               "ViewState": "AQIAABMDAAAAzczMzEwvwHEDAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",

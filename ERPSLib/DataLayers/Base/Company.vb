@@ -10,7 +10,7 @@ Namespace DL
                    "SELECT " & vbNewLine & _
                    "    A.ID AS CompanyID, A.Name AS CompanyName, A.Address, A.Country, A.Province, A.City, A.SubDistrict, A.Area, A.DirectorName, A.Warehouse, " & vbNewLine & _
                    "    A.PhoneNumber, A.CompanyInitial, A.StatusID, B.Name AS StatusInfo, A.CreatedBy,   " & vbNewLine & _
-                   "    A.CreatedDate, A.LogBy, A.LogDate, A.NPWP " & vbNewLine & _
+                   "    A.CreatedDate, A.LogBy, A.LogDate, A.NPWP, A.Address2 " & vbNewLine & _
                    "FROM mstCompany A " & vbNewLine & _
                    "INNER JOIN mstStatus B ON " & vbNewLine & _
                    "    A.StatusID=B.ID " & vbNewLine
@@ -27,7 +27,7 @@ Namespace DL
                 .CommandType = CommandType.Text
                 .CommandText = _
                    "SELECT " & vbNewLine & _
-                   "    A.ID, A.Name, A.Address, A.Country, A.Province, A.City, A.SubDistrict, A.Area, A.DirectorName, A.Warehouse, A.PhoneNumber, A.CompanyInitial " & vbNewLine & _
+                   "    A.ID, A.Name, A.Address, A.Country, A.Province, A.City, A.SubDistrict, A.Area, A.DirectorName, A.Warehouse, A.PhoneNumber, A.CompanyInitial, A.Address2 " & vbNewLine & _
                    "FROM mstCompany A " & vbNewLine & _
                    "WHERE " & vbNewLine & _
                    "    A.StatusID=@StatusID " & vbNewLine
@@ -48,10 +48,10 @@ Namespace DL
                     .CommandText = _
                        "INSERT INTO mstCompany " & vbNewLine & _
                        "    (ID, Name, Address, Country, Province, City, SubDistrict, Area, DirectorName, Warehouse, PhoneNumber, CompanyInitial, StatusID, CreatedBy,   " & vbNewLine & _
-                       "      CreatedDate, LogBy, LogDate, NPWP)   " & vbNewLine & _
+                       "      CreatedDate, LogBy, LogDate, NPWP, Address2)   " & vbNewLine & _
                        "VALUES " & vbNewLine & _
                        "    (@ID, @Name, @Address, @Country, @Province, @City, @SubDistrict, @Area, @DirectorName, @Warehouse, @PhoneNumber, @CompanyInitial, @StatusID, @LogBy,   " & vbNewLine & _
-                       "      GETDATE(), @LogBy, GETDATE(), @NPWP)  " & vbNewLine
+                       "      GETDATE(), @LogBy, GETDATE(), @NPWP, @Address2)  " & vbNewLine
                 Else
                     .CommandText = _
                         "UPDATE mstCompany SET " & vbNewLine & _
@@ -70,6 +70,7 @@ Namespace DL
                         "    LogInc=LogInc+1, " & vbNewLine & _
                         "    LogBy=@LogBy, " & vbNewLine & _
                         "    LogDate=GETDATE(), " & vbNewLine & _
+                        "    NPWP=@NPWP " & vbNewLine & _
                         "    NPWP=@NPWP " & vbNewLine & _
                         "WHERE " & vbNewLine & _
                         "    ID=@ID " & vbNewLine
