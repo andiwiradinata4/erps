@@ -45,6 +45,7 @@ Public Class frmMstCompanyDet
                 clsData = BL.Company.GetDetail(pubID)
                 txtName.Text = clsData.Name
                 txtAddress.Text = clsData.Address
+                txtAddress2.Text = clsData.Address2
                 txtCountry.Text = clsData.Country
                 txtProvince.Text = clsData.Province
                 txtCity.Text = clsData.City
@@ -88,6 +89,7 @@ Public Class frmMstCompanyDet
         clsData.ID = pubID
         clsData.Name = txtName.Text.Trim
         clsData.Address = txtAddress.Text.Trim
+        clsData.Address2 = txtAddress2.Text.Trim
         clsData.Country = txtCountry.Text.Trim
         clsData.Province = txtProvince.Text.Trim
         clsData.City = txtCity.Text.Trim

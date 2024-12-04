@@ -17,6 +17,7 @@ Public Class frmMstCompany
         UI.usForm.SetGrid(grdView, "CompanyID", "ID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "CompanyName", "Nama Perusahaan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "Address", "Alamat", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "Address2", "Alamat 2", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "Country", "Negara", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "Province", "Provinsi", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "City", "Kota", 100, UI.usDefGrid.gString)

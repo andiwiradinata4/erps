@@ -70,8 +70,8 @@ Namespace DL
                         "    LogInc=LogInc+1, " & vbNewLine & _
                         "    LogBy=@LogBy, " & vbNewLine & _
                         "    LogDate=GETDATE(), " & vbNewLine & _
-                        "    NPWP=@NPWP " & vbNewLine & _
-                        "    NPWP=@NPWP " & vbNewLine & _
+                        "    NPWP=@NPWP, " & vbNewLine & _
+                        "    Address2=@Address2 " & vbNewLine & _
                         "WHERE " & vbNewLine & _
                         "    ID=@ID " & vbNewLine
                 End If
@@ -91,6 +91,7 @@ Namespace DL
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@NPWP", SqlDbType.VarChar, 100).Value = clsData.NPWP
+                .Parameters.Add("@Address2", SqlDbType.VarChar, 250).Value = clsData.Address2
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -110,7 +111,7 @@ Namespace DL
                     .CommandText = _
                        "SELECT TOP 1 " & vbNewLine & _
                        "    A.ID, A.Name, A.Address, A.Country, A.Province, A.City, A.SubDistrict, A.Area, A.DirectorName, A.Warehouse, A.PhoneNumber, " & vbNewLine & _
-                       "    A.NPWP, A.CompanyInitial, A.StatusID, A.LogBy, A.LogDate  " & vbNewLine & _
+                       "    A.NPWP, A.CompanyInitial, A.StatusID, A.LogBy, A.LogDate, A.Address2  " & vbNewLine & _
                        "FROM mstCompany A " & vbNewLine & _
                        "WHERE " & vbNewLine & _
                        "    ID=@ID " & vbNewLine
@@ -137,6 +138,7 @@ Namespace DL
                         voReturn.LogBy = .Item("LogBy")
                         voReturn.LogDate = .Item("LogDate")
                         voReturn.NPWP = .Item("NPWP")
+                        voReturn.Address2 = .Item("Address2")
                     End If
                 End With
             Catch ex As Exception
@@ -316,4 +318,3 @@ Namespace DL
     End Class
 
 End Namespace
-

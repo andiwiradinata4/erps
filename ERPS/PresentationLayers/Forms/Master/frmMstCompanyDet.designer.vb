@@ -29,6 +29,8 @@ Partial Class frmMstCompanyDet
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtNPWP = New ERPS.usTextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtDirectorName = New ERPS.usTextBox()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -57,8 +59,8 @@ Partial Class frmMstCompanyDet
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.txtNPWP = New ERPS.usTextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtAddress2 = New ERPS.usTextBox()
         Me.StatusStrip.SuspendLayout()
         Me.pnlDetail.SuspendLayout()
         Me.SuspendLayout()
@@ -67,7 +69,7 @@ Partial Class frmMstCompanyDet
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 553)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 619)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(484, 22)
         Me.StatusStrip.TabIndex = 0
@@ -117,6 +119,8 @@ Partial Class frmMstCompanyDet
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.Label9)
+        Me.pnlDetail.Controls.Add(Me.txtAddress2)
         Me.pnlDetail.Controls.Add(Me.Label8)
         Me.pnlDetail.Controls.Add(Me.txtNPWP)
         Me.pnlDetail.Controls.Add(Me.Label7)
@@ -146,15 +150,36 @@ Partial Class frmMstCompanyDet
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlDetail.Location = New System.Drawing.Point(0, 50)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(484, 503)
+        Me.pnlDetail.Size = New System.Drawing.Size(484, 569)
         Me.pnlDetail.TabIndex = 2
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.BackColor = System.Drawing.Color.Transparent
+        Me.Label8.ForeColor = System.Drawing.Color.Black
+        Me.Label8.Location = New System.Drawing.Point(23, 444)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(36, 13)
+        Me.Label8.TabIndex = 266
+        Me.Label8.Text = "NPWP"
+        '
+        'txtNPWP
+        '
+        Me.txtNPWP.BackColor = System.Drawing.Color.White
+        Me.txtNPWP.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtNPWP.Location = New System.Drawing.Point(129, 441)
+        Me.txtNPWP.MaxLength = 250
+        Me.txtNPWP.Name = "txtNPWP"
+        Me.txtNPWP.Size = New System.Drawing.Size(300, 21)
+        Me.txtNPWP.TabIndex = 10
         '
         'Label7
         '
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.ForeColor = System.Drawing.Color.Black
-        Me.Label7.Location = New System.Drawing.Point(22, 289)
+        Me.Label7.Location = New System.Drawing.Point(22, 351)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(75, 13)
         Me.Label7.TabIndex = 110
@@ -164,18 +189,18 @@ Partial Class frmMstCompanyDet
         '
         Me.txtDirectorName.BackColor = System.Drawing.Color.White
         Me.txtDirectorName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtDirectorName.Location = New System.Drawing.Point(129, 286)
+        Me.txtDirectorName.Location = New System.Drawing.Point(129, 348)
         Me.txtDirectorName.MaxLength = 250
         Me.txtDirectorName.Name = "txtDirectorName"
         Me.txtDirectorName.Size = New System.Drawing.Size(300, 21)
-        Me.txtDirectorName.TabIndex = 7
+        Me.txtDirectorName.TabIndex = 8
         '
         'Label6
         '
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.ForeColor = System.Drawing.Color.Black
-        Me.Label6.Location = New System.Drawing.Point(22, 262)
+        Me.Label6.Location = New System.Drawing.Point(22, 324)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(55, 13)
         Me.Label6.TabIndex = 108
@@ -185,18 +210,18 @@ Partial Class frmMstCompanyDet
         '
         Me.txtArea.BackColor = System.Drawing.Color.White
         Me.txtArea.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtArea.Location = New System.Drawing.Point(129, 259)
+        Me.txtArea.Location = New System.Drawing.Point(129, 321)
         Me.txtArea.MaxLength = 250
         Me.txtArea.Name = "txtArea"
         Me.txtArea.Size = New System.Drawing.Size(300, 21)
-        Me.txtArea.TabIndex = 6
+        Me.txtArea.TabIndex = 7
         '
         'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(22, 235)
+        Me.Label5.Location = New System.Drawing.Point(22, 297)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(59, 13)
         Me.Label5.TabIndex = 106
@@ -206,18 +231,18 @@ Partial Class frmMstCompanyDet
         '
         Me.txtSubDistrict.BackColor = System.Drawing.Color.White
         Me.txtSubDistrict.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtSubDistrict.Location = New System.Drawing.Point(129, 232)
+        Me.txtSubDistrict.Location = New System.Drawing.Point(129, 294)
         Me.txtSubDistrict.MaxLength = 250
         Me.txtSubDistrict.Name = "txtSubDistrict"
         Me.txtSubDistrict.Size = New System.Drawing.Size(300, 21)
-        Me.txtSubDistrict.TabIndex = 5
+        Me.txtSubDistrict.TabIndex = 6
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.ForeColor = System.Drawing.Color.Black
-        Me.Label4.Location = New System.Drawing.Point(22, 316)
+        Me.Label4.Location = New System.Drawing.Point(22, 378)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(44, 13)
         Me.Label4.TabIndex = 104
@@ -227,19 +252,19 @@ Partial Class frmMstCompanyDet
         '
         Me.txtWarehouse.BackColor = System.Drawing.Color.White
         Me.txtWarehouse.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtWarehouse.Location = New System.Drawing.Point(129, 313)
+        Me.txtWarehouse.Location = New System.Drawing.Point(129, 375)
         Me.txtWarehouse.MaxLength = 250
         Me.txtWarehouse.Multiline = True
         Me.txtWarehouse.Name = "txtWarehouse"
         Me.txtWarehouse.Size = New System.Drawing.Size(300, 60)
-        Me.txtWarehouse.TabIndex = 8
+        Me.txtWarehouse.TabIndex = 9
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(22, 208)
+        Me.Label3.Location = New System.Drawing.Point(22, 270)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(29, 13)
         Me.Label3.TabIndex = 102
@@ -249,18 +274,18 @@ Partial Class frmMstCompanyDet
         '
         Me.txtCity.BackColor = System.Drawing.Color.White
         Me.txtCity.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCity.Location = New System.Drawing.Point(129, 205)
+        Me.txtCity.Location = New System.Drawing.Point(129, 267)
         Me.txtCity.MaxLength = 250
         Me.txtCity.Name = "txtCity"
         Me.txtCity.Size = New System.Drawing.Size(300, 21)
-        Me.txtCity.TabIndex = 4
+        Me.txtCity.TabIndex = 5
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(22, 181)
+        Me.Label2.Location = New System.Drawing.Point(22, 243)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(44, 13)
         Me.Label2.TabIndex = 100
@@ -270,18 +295,18 @@ Partial Class frmMstCompanyDet
         '
         Me.txtProvince.BackColor = System.Drawing.Color.White
         Me.txtProvince.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtProvince.Location = New System.Drawing.Point(129, 178)
+        Me.txtProvince.Location = New System.Drawing.Point(129, 240)
         Me.txtProvince.MaxLength = 250
         Me.txtProvince.Name = "txtProvince"
         Me.txtProvince.Size = New System.Drawing.Size(300, 21)
-        Me.txtProvince.TabIndex = 3
+        Me.txtProvince.TabIndex = 4
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(22, 154)
+        Me.Label1.Location = New System.Drawing.Point(22, 216)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(42, 13)
         Me.Label1.TabIndex = 98
@@ -291,28 +316,28 @@ Partial Class frmMstCompanyDet
         '
         Me.txtCountry.BackColor = System.Drawing.Color.White
         Me.txtCountry.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCountry.Location = New System.Drawing.Point(129, 151)
+        Me.txtCountry.Location = New System.Drawing.Point(129, 213)
         Me.txtCountry.MaxLength = 250
         Me.txtCountry.Name = "txtCountry"
         Me.txtCountry.Size = New System.Drawing.Size(300, 21)
-        Me.txtCountry.TabIndex = 2
+        Me.txtCountry.TabIndex = 3
         '
         'cboStatus
         '
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(129, 463)
+        Me.cboStatus.Location = New System.Drawing.Point(129, 525)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(160, 21)
-        Me.cboStatus.TabIndex = 12
+        Me.cboStatus.TabIndex = 13
         '
         'lblStatusID
         '
         Me.lblStatusID.AutoSize = True
         Me.lblStatusID.BackColor = System.Drawing.Color.Transparent
         Me.lblStatusID.ForeColor = System.Drawing.Color.Black
-        Me.lblStatusID.Location = New System.Drawing.Point(22, 466)
+        Me.lblStatusID.Location = New System.Drawing.Point(22, 528)
         Me.lblStatusID.Name = "lblStatusID"
         Me.lblStatusID.Size = New System.Drawing.Size(38, 13)
         Me.lblStatusID.TabIndex = 95
@@ -345,7 +370,7 @@ Partial Class frmMstCompanyDet
         Me.lblAddress.AutoSize = True
         Me.lblAddress.BackColor = System.Drawing.Color.Transparent
         Me.lblAddress.ForeColor = System.Drawing.Color.Black
-        Me.lblAddress.Location = New System.Drawing.Point(22, 88)
+        Me.lblAddress.Location = New System.Drawing.Point(22, 84)
         Me.lblAddress.Name = "lblAddress"
         Me.lblAddress.Size = New System.Drawing.Size(40, 13)
         Me.lblAddress.TabIndex = 93
@@ -355,7 +380,7 @@ Partial Class frmMstCompanyDet
         '
         Me.txtAddress.BackColor = System.Drawing.Color.White
         Me.txtAddress.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtAddress.Location = New System.Drawing.Point(129, 85)
+        Me.txtAddress.Location = New System.Drawing.Point(129, 81)
         Me.txtAddress.MaxLength = 250
         Me.txtAddress.Multiline = True
         Me.txtAddress.Name = "txtAddress"
@@ -367,7 +392,7 @@ Partial Class frmMstCompanyDet
         Me.lblPhoneNumber.AutoSize = True
         Me.lblPhoneNumber.BackColor = System.Drawing.Color.Transparent
         Me.lblPhoneNumber.ForeColor = System.Drawing.Color.Black
-        Me.lblPhoneNumber.Location = New System.Drawing.Point(22, 409)
+        Me.lblPhoneNumber.Location = New System.Drawing.Point(22, 471)
         Me.lblPhoneNumber.Name = "lblPhoneNumber"
         Me.lblPhoneNumber.Size = New System.Drawing.Size(79, 13)
         Me.lblPhoneNumber.TabIndex = 93
@@ -377,18 +402,18 @@ Partial Class frmMstCompanyDet
         '
         Me.txtPhoneNumber.BackColor = System.Drawing.Color.White
         Me.txtPhoneNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPhoneNumber.Location = New System.Drawing.Point(129, 406)
+        Me.txtPhoneNumber.Location = New System.Drawing.Point(129, 468)
         Me.txtPhoneNumber.MaxLength = 250
         Me.txtPhoneNumber.Name = "txtPhoneNumber"
         Me.txtPhoneNumber.Size = New System.Drawing.Size(300, 21)
-        Me.txtPhoneNumber.TabIndex = 10
+        Me.txtPhoneNumber.TabIndex = 11
         '
         'lblCompanyInitial
         '
         Me.lblCompanyInitial.AutoSize = True
         Me.lblCompanyInitial.BackColor = System.Drawing.Color.Transparent
         Me.lblCompanyInitial.ForeColor = System.Drawing.Color.Black
-        Me.lblCompanyInitial.Location = New System.Drawing.Point(22, 436)
+        Me.lblCompanyInitial.Location = New System.Drawing.Point(22, 498)
         Me.lblCompanyInitial.Name = "lblCompanyInitial"
         Me.lblCompanyInitial.Size = New System.Drawing.Size(94, 13)
         Me.lblCompanyInitial.TabIndex = 93
@@ -398,11 +423,11 @@ Partial Class frmMstCompanyDet
         '
         Me.txtCompanyInitial.BackColor = System.Drawing.Color.White
         Me.txtCompanyInitial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCompanyInitial.Location = New System.Drawing.Point(129, 433)
+        Me.txtCompanyInitial.Location = New System.Drawing.Point(129, 495)
         Me.txtCompanyInitial.MaxLength = 250
         Me.txtCompanyInitial.Name = "txtCompanyInitial"
         Me.txtCompanyInitial.Size = New System.Drawing.Size(160, 21)
-        Me.txtCompanyInitial.TabIndex = 11
+        Me.txtCompanyInitial.TabIndex = 12
         '
         'ToolBar
         '
@@ -441,32 +466,33 @@ Partial Class frmMstCompanyDet
         Me.lblInfo.Text = "« Perusahaan Detail"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Label8
+        'Label9
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.BackColor = System.Drawing.Color.Transparent
-        Me.Label8.ForeColor = System.Drawing.Color.Black
-        Me.Label8.Location = New System.Drawing.Point(23, 382)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(36, 13)
-        Me.Label8.TabIndex = 266
-        Me.Label8.Text = "NPWP"
+        Me.Label9.AutoSize = True
+        Me.Label9.BackColor = System.Drawing.Color.Transparent
+        Me.Label9.ForeColor = System.Drawing.Color.Black
+        Me.Label9.Location = New System.Drawing.Point(22, 150)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(49, 13)
+        Me.Label9.TabIndex = 268
+        Me.Label9.Text = "Alamat 2"
         '
-        'txtNPWP
+        'txtAddress2
         '
-        Me.txtNPWP.BackColor = System.Drawing.Color.White
-        Me.txtNPWP.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtNPWP.Location = New System.Drawing.Point(129, 379)
-        Me.txtNPWP.MaxLength = 250
-        Me.txtNPWP.Name = "txtNPWP"
-        Me.txtNPWP.Size = New System.Drawing.Size(300, 21)
-        Me.txtNPWP.TabIndex = 9
+        Me.txtAddress2.BackColor = System.Drawing.Color.White
+        Me.txtAddress2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtAddress2.Location = New System.Drawing.Point(129, 147)
+        Me.txtAddress2.MaxLength = 250
+        Me.txtAddress2.Multiline = True
+        Me.txtAddress2.Name = "txtAddress2"
+        Me.txtAddress2.Size = New System.Drawing.Size(300, 60)
+        Me.txtAddress2.TabIndex = 2
         '
         'frmMstCompanyDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(484, 575)
+        Me.ClientSize = New System.Drawing.Size(484, 641)
         Me.Controls.Add(Me.pnlDetail)
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
@@ -523,6 +549,8 @@ Partial Class frmMstCompanyDet
     Friend WithEvents txtSubDistrict As ERPS.usTextBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents txtNPWP As ERPS.usTextBox
+    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents txtAddress2 As ERPS.usTextBox
 End Class
 
 
