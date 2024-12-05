@@ -111,7 +111,7 @@
 "	ISNULL(MBC1.AccountName,MBC.AccountName) AS BankAccountName1, ISNULL(MBC1.BankName,MBC.BankName) AS BankAccountBankName1, ISNULL(MBC1.AccountNumber,MBC.AccountNumber) AS BankAccountNumber1,  " & vbNewLine &
 "	ISNULL(MBC2.AccountName,'') AS BankAccountName2, ISNULL(MBC2.BankName,'') AS BankAccountBankName2, ISNULL(MBC2.AccountNumber,'') AS BankAccountNumber2, ARH.StatusID,  " & vbNewLine &
 "	CASE WHEN MI.ItemCodeExternal='' THEN MIS.Description ELSE MI.ItemCodeExternal END AS ItemSpec, ARI.OrderNumberSupplier AS ItemType, MI.Thick AS ItemThick, MI.Width AS ItemWidth, CASE WHEN MI.Length=0 THEN IT.LengthInitial ELSE CAST(MI.Length AS VARCHAR(100)) END AS ItemLength, " & vbNewLine &
-"	SCD.Weight, Quantity=CASE WHEN ARH.IsDP=1 THEN SCD.Quantity ELSE ARI.Quantity END, CASE WHEN ARH.IsDP=1 THEN SCD.TotalWeight ELSE ARI.TotalWeight END AS TotalWeightItem, SCD.UnitPrice, CASE WHEN ARH.IsDP=1 THEN SCD.TotalPrice ELSE ARI.Amount+ARI.DPAmount END AS TotalPrice, " & vbNewLine &
+"	SCD.Weight, ARI.Quantity, ARI.TotalWeight AS TotalWeightItem, SCD.UnitPrice, CASE WHEN ARH.IsDP=1 THEN SCD.UnitPrice*ARI.TotalWeight ELSE ARI.Amount+ARI.DPAmount END AS TotalPrice, " & vbNewLine &
 "	ARI.Amount+ARI.PPN-ARI.PPH AS TotalAmount, ARH.Percentage, CAST('' AS VARCHAR(1000)) AS NumericToString, ARH.Modules, ARH.CreatedDate, ARH.TaxInvoiceNumber, C.NPWP, ARH.ReferencesNumber AS PurchaseNumber, CAST('' AS VARCHAR(1000)) AS ContractNumber, " & vbNewLine &
 "   CASE WHEN ARH.IsDP=1 THEN ARH.TotalAmount+ARH.TotalPPN-ARH.TotalPPH ELSE ARH.DPAmount+(ARH.DPAmount*SCH.PPN/100) END AS DPAmount, ARH.IsDP " & vbNewLine &
 "FROM traAccountReceivable ARH     " & vbNewLine &

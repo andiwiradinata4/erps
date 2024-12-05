@@ -290,6 +290,14 @@ Public Class frmTraARAPDetVer4
             Exit Sub
         End If
 
+        For i As Integer = 0 To grdItemView.RowCount - 1
+            If grdItemView.GetRowCellValue(i, "Pick") And grdItemView.GetRowCellValue(i, "Amount") = 0 Then
+                UI.usForm.frmMessageBox("Baris ke " & i + 1 & " tercentang namun nilai tagihan 0")
+                grdItemView.FocusedRowHandle = i
+                Exit Sub
+            End If
+        Next
+
         Dim decTotalDPUsed As Decimal = 0
         For i As Integer = 0 To grdItemView.RowCount - 1
             decTotalDPUsed += grdItemView.GetRowCellValue(i, "DPAmount")

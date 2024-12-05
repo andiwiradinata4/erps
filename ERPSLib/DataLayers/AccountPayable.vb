@@ -1718,7 +1718,8 @@
                     "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, B.TotalPrice AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
                     "   CASE WHEN B.AllocateDPAmount>0 THEN B.TotalPrice-B.AllocateDPAmount-B.ReceiveAmount+A.Amount ELSE B.TotalPrice-B.DPAmount-B.ReceiveAmount+A.Amount END AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID, " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, B.UnitPrice " & vbNewLine &
                     "FROM traARAPItem A " & vbNewLine &
                     "INNER JOIN traPurchaseContractDet B ON " & vbNewLine &
                     "   A.ReferencesID=B.PCID " & vbNewLine &
@@ -1742,7 +1743,7 @@
                     "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
                     "   A.TotalPrice-A.DPAmount-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length, " & vbNewLine &
                     "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, " & vbNewLine &
-                    "   A.LevelItem, A.ParentID AS ReferencesParentID " & vbNewLine &
+                    "   A.LevelItem, A.ParentID AS ReferencesParentID, A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice " & vbNewLine &
                     "FROM traPurchaseContractDet A " & vbNewLine &
                     "INNER JOIN traPurchaseContract B ON " & vbNewLine &
                     "   A.PCID=B.ID " & vbNewLine &
@@ -1787,7 +1788,7 @@
                     "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, B.TotalPrice AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
                     "   CASE WHEN B.AllocateDPAmount>0 THEN B.TotalPrice-B.AllocateDPAmount-B.ReceiveAmount+A.Amount ELSE B.TotalPrice-B.DPAmount-B.ReceiveAmount+A.Amount END AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
-                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID, A.Quantity, A.Weight, A.TotalWeight, B.UnitPrice " & vbNewLine &
                     "FROM traARAPItem A " & vbNewLine &
                     "INNER JOIN traPurchaseOrderCuttingDet B ON " & vbNewLine &
                     "   A.ReferencesID=B.POID " & vbNewLine &
@@ -1811,7 +1812,7 @@
                     "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
                     "   A.TotalPrice-A.DPAmount-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length, " & vbNewLine &
                     "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, " & vbNewLine &
-                    "   CAST(0 AS INT) AS LevelItem, CAST('' AS VARCHAR(100)) AS ReferencesParentID " & vbNewLine &
+                    "   CAST(0 AS INT) AS LevelItem, CAST('' AS VARCHAR(100)) AS ReferencesParentID, A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice " & vbNewLine &
                     "FROM traPurchaseOrderCuttingDet A " & vbNewLine &
                     "INNER JOIN traPurchaseOrderCutting B ON " & vbNewLine &
                     "   A.POID=B.ID " & vbNewLine &
