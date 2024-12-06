@@ -22,7 +22,7 @@ Partial Class frmTraSalesContractDetVer2
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim GridLevelNode1 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
+        Dim GridLevelNode2 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraSalesContractDetVer2))
         Me.grdSubItemCOView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.grdItemCO = New DevExpress.XtraGrid.GridControl()
@@ -122,8 +122,10 @@ Partial Class frmTraSalesContractDetVer2
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarSepItemOrder1 = New System.Windows.Forms.ToolBarButton()
         Me.BarRemapItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.tpConfirmationOrder = New System.Windows.Forms.TabPage()
         Me.BarDeleteDuplicate = New System.Windows.Forms.ToolBarButton()
+        Me.tpConfirmationOrder = New System.Windows.Forms.TabPage()
+        Me.BarSepItemOrder2 = New System.Windows.Forms.ToolBarButton()
+        Me.BarSplitItemOrder = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdSubItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemCO, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -189,9 +191,9 @@ Partial Class frmTraSalesContractDetVer2
         Me.grdItemCO.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdItemCO.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdItemCO.EmbeddedNavigator.Buttons.Remove.Visible = False
-        GridLevelNode1.LevelTemplate = Me.grdSubItemCOView
-        GridLevelNode1.RelationName = "SubView"
-        Me.grdItemCO.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1})
+        GridLevelNode2.LevelTemplate = Me.grdSubItemCOView
+        GridLevelNode2.RelationName = "SubView"
+        Me.grdItemCO.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode2})
         Me.grdItemCO.Location = New System.Drawing.Point(0, 0)
         Me.grdItemCO.MainView = Me.grdItemCOView
         Me.grdItemCO.Name = "grdItemCO"
@@ -1254,7 +1256,7 @@ Partial Class frmTraSalesContractDetVer2
         'ToolBarItem
         '
         Me.ToolBarItem.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder, Me.BarSepItemOrder1, Me.BarRemapItemOrder, Me.BarDeleteDuplicate})
+        Me.ToolBarItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder, Me.BarSepItemOrder1, Me.BarRemapItemOrder, Me.BarDeleteDuplicate, Me.BarSepItemOrder2, Me.BarSplitItemOrder})
         Me.ToolBarItem.DropDownArrows = True
         Me.ToolBarItem.Location = New System.Drawing.Point(3, 3)
         Me.ToolBarItem.Name = "ToolBarItem"
@@ -1292,6 +1294,12 @@ Partial Class frmTraSalesContractDetVer2
         Me.BarRemapItemOrder.Tag = "Alt"
         Me.BarRemapItemOrder.Text = "Remap"
         '
+        'BarDeleteDuplicate
+        '
+        Me.BarDeleteDuplicate.Name = "BarDeleteDuplicate"
+        Me.BarDeleteDuplicate.Tag = "Delete"
+        Me.BarDeleteDuplicate.Text = "Hapus Duplicate"
+        '
         'tpConfirmationOrder
         '
         Me.tpConfirmationOrder.Controls.Add(Me.grdItemCO)
@@ -1302,11 +1310,16 @@ Partial Class frmTraSalesContractDetVer2
         Me.tpConfirmationOrder.Text = "Konfirmasi Pesanan - F7"
         Me.tpConfirmationOrder.UseVisualStyleBackColor = True
         '
-        'BarDeleteDuplicate
+        'BarSepItemOrder2
         '
-        Me.BarDeleteDuplicate.Name = "BarDeleteDuplicate"
-        Me.BarDeleteDuplicate.Tag = "Delete"
-        Me.BarDeleteDuplicate.Text = "Hapus Duplicate"
+        Me.BarSepItemOrder2.Name = "BarSepItemOrder2"
+        Me.BarSepItemOrder2.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarSplitItemOrder
+        '
+        Me.BarSplitItemOrder.Name = "BarSplitItemOrder"
+        Me.BarSplitItemOrder.Tag = "Copy"
+        Me.BarSplitItemOrder.Text = "Split"
         '
         'frmTraSalesContractDetVer2
         '
@@ -1475,4 +1488,6 @@ Partial Class frmTraSalesContractDetVer2
     Friend WithEvents BarSepItemOrder1 As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarRemapItemOrder As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarDeleteDuplicate As ToolBarButton
+    Friend WithEvents BarSepItemOrder2 As ToolBarButton
+    Friend WithEvents BarSplitItemOrder As ToolBarButton
 End Class
