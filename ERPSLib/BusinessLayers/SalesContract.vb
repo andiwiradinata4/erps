@@ -915,6 +915,14 @@
             Return bolReturn
         End Function
 
+        Public Shared Function GetDetailItem(ByVal strID As String) As VO.SalesContractDet
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim clsData As VO.SalesContractDet = DL.SalesContract.GetDetailItem(sqlCon, Nothing, strID)
+                Return clsData
+            End Using
+        End Function
+
 #End Region
 
 #Region "Detail Confirmation Order"

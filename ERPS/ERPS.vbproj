@@ -1221,6 +1221,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetVer2.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetVer2SplitItem.Designer.vb">
+      <DependentUpon>frmTraSalesContractDetVer2SplitItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetVer2SplitItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDifferentTotalChild.Designer.vb">
       <DependentUpon>frmTraSalesContractDifferentTotalChild.vb</DependentUpon>
     </Compile>
@@ -2039,6 +2045,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetVer2.resx">
       <DependentUpon>frmTraSalesContractDetVer2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetVer2SplitItem.resx">
+      <DependentUpon>frmTraSalesContractDetVer2SplitItem.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDifferentTotalChild.resx">
       <DependentUpon>frmTraSalesContractDifferentTotalChild.vb</DependentUpon>

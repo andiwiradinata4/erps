@@ -38,6 +38,7 @@ Partial Class frmTraSalesContractDetItemVer2
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarSep1ItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarChangeItem = New System.Windows.Forms.ToolBarButton()
+        Me.BarAddAdditionalItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -91,7 +92,6 @@ Partial Class frmTraSalesContractDetItemVer2
         Me.grdSubitem = New DevExpress.XtraGrid.GridControl()
         Me.grdSubitemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.BarAddAdditionalItemOrder = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdSubItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemCO, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -247,6 +247,12 @@ Partial Class frmTraSalesContractDetItemVer2
         Me.BarChangeItem.Name = "BarChangeItem"
         Me.BarChangeItem.Tag = "Alt"
         Me.BarChangeItem.Text = "Ubah Barang"
+        '
+        'BarAddAdditionalItemOrder
+        '
+        Me.BarAddAdditionalItemOrder.Name = "BarAddAdditionalItemOrder"
+        Me.BarAddAdditionalItemOrder.Tag = "Add"
+        Me.BarAddAdditionalItemOrder.Text = "Add Additional"
         '
         'Label5
         '
@@ -870,7 +876,7 @@ Partial Class frmTraSalesContractDetItemVer2
         Me.grdSubitem.MainView = Me.grdSubitemView
         Me.grdSubitem.Name = "grdSubitem"
         Me.grdSubitem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit2})
-        Me.grdSubitem.Size = New System.Drawing.Size(1164, 188)
+        Me.grdSubitem.Size = New System.Drawing.Size(1164, 231)
         Me.grdSubitem.TabIndex = 9
         Me.grdSubitem.UseEmbeddedNavigator = True
         Me.grdSubitem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdSubitemView})
@@ -894,17 +900,11 @@ Partial Class frmTraSalesContractDetItemVer2
         Me.RepositoryItemTextEdit2.Name = "RepositoryItemTextEdit2"
         Me.RepositoryItemTextEdit2.NullText = "0.00"
         '
-        'BarAddAdditionalItemOrder
-        '
-        Me.BarAddAdditionalItemOrder.Name = "BarAddAdditionalItemOrder"
-        Me.BarAddAdditionalItemOrder.Tag = "Add"
-        Me.BarAddAdditionalItemOrder.Text = "Add Additional"
-        '
         'frmTraSalesContractDetItemVer2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1164, 618)
+        Me.ClientSize = New System.Drawing.Size(1164, 661)
         Me.Controls.Add(Me.grdSubitem)
         Me.Controls.Add(Me.ToolBarItemSubitem)
         Me.Controls.Add(Me.Label19)
