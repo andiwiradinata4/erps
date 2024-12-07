@@ -716,6 +716,30 @@ Public Class frmTraSalesContractDetVer2
         End Try
     End Sub
 
+    Private Sub prvSplitItem()
+        intPos = grdItemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+
+        Dim drSelectedCO As DataRow = dtItemConfirmationOrder.NewRow
+        For i As Integer = 0 To grdItemCOView.RowCount
+            If grdItemCOView.GetRowCellValue(i, "GroupID") = grdItemView.GetRowCellValue(intPos, "GroupID") Then drSelectedCO = grdItemCOView.GetDataRow(i) : Exit For
+        Next
+
+        If drSelectedCO Is Nothing Then Exit Sub
+
+        Dim frmDetail As New frmTraSalesContractDetVer2SplitItem
+        With frmDetail
+            .pubID = grdItemView.GetRowCellValue(intPos, "ID")
+            .pubSCDetailCOID = drSelectedCO.Item("ID")
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            If .pubIsSave Then
+                prvQueryItem()
+                prvQueryItemConfirmationOrder()
+            End If
+        End With
+    End Sub
+
 #End Region
 
 #Region "Item Confirmation Order Handle"
@@ -886,6 +910,7 @@ Public Class frmTraSalesContractDetVer2
             Case "Hapus" : prvDeleteItem()
             Case "Remap" : prvRemapItem()
             Case "Hapus Duplicate" : prvDeleteDuplicateItem()
+            Case "Split" : prvSplitItem()
         End Select
     End Sub
 

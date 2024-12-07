@@ -18,5 +18,16 @@
         Property LocationID As Integer
         Property PCDetailID As String = ""
         Property OrderNumberSupplier As String = ""
+        Property CONumber As String = ""
+        Property ItemCode As String = ""
+        Property ItemName As String = ""
+        Property Thick As Decimal
+        Property Width As Decimal
+        Property Length As Decimal
+        Property ItemSpecificationID As Integer
+        Property ItemSpecificationName As String = ""
+        Property ItemTypeID As Integer
+        Property ItemTypeName As String = ""
+        Property MaxTotalWeight As Decimal
     End Class
 End Namespace

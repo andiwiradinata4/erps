@@ -2412,24 +2412,24 @@
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
                     .CommandText =
-                    "SELECT	" & vbNewLine &
-                    "   A.ID, A.SCID, A.ORDetailID, A.GroupID, A.ItemID, A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A.DCQuantity, A.DCWeight, A.POTransportQuantity, A.POTransportWeight, A.Remarks, A.ReceiveAmount, A.DPAmount, " & vbNewLine &
-                    "   A.OrderNumberSupplier, A.IsIgnoreValidationPayment, A.LevelItem, A.ParentID, A.RoundingWeight, A.UnitPriceHPP, A.DPAmountPPN, A.DPAmountPPH, A.ReceiveAmountPPN, A.ReceiveAmountPPH, A.AllocateDPAmount, " & vbNewLine &
-                    "   A.InvoiceQuantity, A.InvoiceWeight, A.InvoiceTotalWeight, A.CODetailID, A.PCDetailID, A.ClaimQuantity, A.ClaimWeight, A3.OrderNumber AS RequestNumber, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
-                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight " & vbNewLine &
-                    "FROM traSalesContractDet A  	" & vbNewLine &
-                    "INNER JOIN traOrderRequestDet A1 ON  	" & vbNewLine &
-                    "    A.ORDetailID=A1.ID  	" & vbNewLine &
-                    "INNER JOIN traOrderRequest A3 ON  	" & vbNewLine &
-                    "    A1.OrderRequestID=A3.ID  	" & vbNewLine &
-                    "INNER JOIN mstItem B ON  	" & vbNewLine &
-                    "    A.ItemID=B.ID  	" & vbNewLine &
-                    "INNER JOIN mstItemSpecification C ON  	" & vbNewLine &
-                    "    B.ItemSpecificationID=C.ID  	" & vbNewLine &
-                    "INNER JOIN mstItemType D ON  	" & vbNewLine &
-                    "    B.ItemTypeID=D.ID  	" & vbNewLine &
-                    "WHERE  	" & vbNewLine &
-                    "    A.ID=@ID " & vbNewLine
+                        "SELECT	TOP 1 " & vbNewLine &
+                        "   A.ID, A.SCID, A.ORDetailID, A.GroupID, A.ItemID, A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A.DCQuantity, A.DCWeight, A.POTransportQuantity, A.POTransportWeight, A.Remarks, A.ReceiveAmount, A.DPAmount, " & vbNewLine &
+                        "   A.OrderNumberSupplier, A.IsIgnoreValidationPayment, A.LevelItem, A.ParentID, A.RoundingWeight, A.UnitPriceHPP, A.DPAmountPPN, A.DPAmountPPH, A.ReceiveAmountPPN, A.ReceiveAmountPPH, A.AllocateDPAmount, " & vbNewLine &
+                        "   A.InvoiceQuantity, A.InvoiceWeight, A.InvoiceTotalWeight, A.CODetailID, A.PCDetailID, A.ClaimQuantity, A.ClaimWeight, A3.OrderNumber AS RequestNumber, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+                        "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight " & vbNewLine &
+                        "FROM traSalesContractDet A  	" & vbNewLine &
+                        "INNER JOIN traOrderRequestDet A1 ON  	" & vbNewLine &
+                        "    A.ORDetailID=A1.ID  	" & vbNewLine &
+                        "INNER JOIN traOrderRequest A3 ON  	" & vbNewLine &
+                        "    A1.OrderRequestID=A3.ID  	" & vbNewLine &
+                        "INNER JOIN mstItem B ON  	" & vbNewLine &
+                        "    A.ItemID=B.ID  	" & vbNewLine &
+                        "INNER JOIN mstItemSpecification C ON  	" & vbNewLine &
+                        "    B.ItemSpecificationID=C.ID  	" & vbNewLine &
+                        "INNER JOIN mstItemType D ON  	" & vbNewLine &
+                        "    B.ItemTypeID=D.ID  	" & vbNewLine &
+                        "WHERE  	" & vbNewLine &
+                        "    A.ID=@ID " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 End With
@@ -2797,6 +2797,81 @@
                 Throw ex
             End Try
         End Sub
+
+        Public Shared Function GetDetailCOItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal strID As String) As VO.SalesContractDetConfirmationOrder
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim voReturn As New VO.SalesContractDetConfirmationOrder
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT	TOP 1 " & vbNewLine &
+                        "   A.ID, A.SCID, A.CODetailID, A.GroupID, A.ItemID, A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A.Remarks, A.RoundingWeight, A.LevelItem, A.ParentID, " & vbNewLine &
+                        "   A.LocationID, A.PCDetailID, A3.CONumber, A1.OrderNumberSupplier, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, " & vbNewLine &
+                        "   D.ID AS ItemTypeID, D.Description AS ItemTypeName, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight, BPL.Address AS DeliveryAddress " & vbNewLine &
+                        "FROM traSalesContractDetConfirmationOrder A  	" & vbNewLine &
+                        "INNER JOIN traConfirmationOrderDet A1 ON  	" & vbNewLine &
+                        "    A.CODetailID=A1.ID  	" & vbNewLine &
+                        "INNER JOIN traConfirmationOrder A3 ON  	" & vbNewLine &
+                        "    A1.COID=A3.ID  	" & vbNewLine &
+                        "INNER JOIN mstItem B ON  	" & vbNewLine &
+                        "    A.ItemID=B.ID  	" & vbNewLine &
+                        "INNER JOIN mstItemSpecification C ON  	" & vbNewLine &
+                        "    B.ItemSpecificationID=C.ID  	" & vbNewLine &
+                        "INNER JOIN mstItemType D ON  	" & vbNewLine &
+                        "    B.ItemTypeID=D.ID  	" & vbNewLine &
+                        "INNER JOIN mstBusinessPartnerLocation BPL ON	" & vbNewLine &
+                        "	A.LocationID=BPL.ID " & vbNewLine &
+                        "WHERE  	" & vbNewLine &
+                        "    A.ID=@ID	" & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        voReturn.ID = .Item("ID")
+                        voReturn.SCID = .Item("SCID")
+                        voReturn.CODetailID = .Item("CODetailID")
+                        voReturn.GroupID = .Item("GroupID")
+                        voReturn.ItemID = .Item("ItemID")
+                        voReturn.Quantity = .Item("Quantity")
+                        voReturn.Weight = .Item("Weight")
+                        voReturn.TotalWeight = .Item("TotalWeight")
+                        voReturn.UnitPrice = .Item("UnitPrice")
+                        voReturn.TotalPrice = .Item("TotalPrice")
+                        voReturn.Remarks = .Item("Remarks")
+                        voReturn.RoundingWeight = .Item("RoundingWeight")
+                        voReturn.LevelItem = .Item("LevelItem")
+                        voReturn.ParentID = .Item("ParentID")
+                        voReturn.LocationID = .Item("LocationID")
+                        voReturn.PCDetailID = .Item("PCDetailID")
+                        voReturn.CONumber = .Item("CONumber")
+                        voReturn.OrderNumberSupplier = .Item("OrderNumberSupplier")
+                        voReturn.ItemCode = .Item("ItemCode")
+                        voReturn.ItemName = .Item("ItemName")
+                        voReturn.Thick = .Item("Thick")
+                        voReturn.Width = .Item("Width")
+                        voReturn.Length = .Item("Length")
+                        voReturn.ItemSpecificationID = .Item("ItemSpecificationID")
+                        voReturn.ItemSpecificationName = .Item("ItemSpecificationName")
+                        voReturn.ItemTypeID = .Item("ItemTypeID")
+                        voReturn.ItemTypeName = .Item("ItemTypeName")
+                        voReturn.MaxTotalWeight = .Item("MaxTotalWeight")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return voReturn
+        End Function
+
 #End Region
 
 #Region "Payment Term"

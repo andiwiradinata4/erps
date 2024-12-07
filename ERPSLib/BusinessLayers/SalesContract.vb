@@ -1063,6 +1063,14 @@
             Return bolReturn
         End Function
 
+        Public Shared Function GetDetailCOItem(ByVal strID As String) As VO.SalesContractDetConfirmationOrder
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim clsData As VO.SalesContractDetConfirmationOrder = DL.SalesContract.GetDetailCOItem(sqlCon, Nothing, strID)
+                Return clsData
+            End Using
+        End Function
+
 #End Region
 
 #Region "Payment Term"
