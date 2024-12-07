@@ -10,6 +10,7 @@
     Private clsDataSplit As New VO.SalesContractDet
     Private clsDataCO As New VO.SalesContractDetConfirmationOrder
     Private clsDataCOSplit As New VO.SalesContractDetConfirmationOrder
+    Private clsARAP As New VO.ARAP
     Private dtSubItem As New DataTable
     Private dtSubItemMain As New DataTable
     Private dtSubItemSplit As New DataTable
@@ -184,7 +185,6 @@
             txtUnitPrice.Value = clsData.UnitPrice
             txtQuantity.Value = clsData.Quantity
             txtUnitPriceHPP.Value = clsData.UnitPriceHPP
-            txtRemarks.Text = clsData.Remarks
 
             '# SC Item Split
             clsDataSplit = BL.SalesContract.GetDetailItem(strID)
@@ -201,7 +201,6 @@
             txtUnitPriceSplit.Value = clsDataSplit.UnitPrice
             txtQuantitySplit.Value = 0
             txtUnitPriceHPPSplit.Value = clsDataSplit.UnitPriceHPP
-            txtRemarksSplit.Text = clsDataSplit.Remarks
 
             '# Query Sub Item Sales Contract
             dtSubItem = BL.SalesContract.ListDataDetail(clsData.SCID, clsData.ID)
@@ -256,8 +255,11 @@
             dtSubItemCOMain.AcceptChanges()
             grdSubItemCO.DataSource = dtSubItemCOMain
             grdSubItemCOSplit.DataSource = dtSubItemCOSplit
+
+            'clsARAP = BL.ARAP.GetDetail(
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
+            Me.Close()
         Finally
             Me.Cursor = Cursors.Default
         End Try
@@ -282,6 +284,18 @@
             UI.usForm.frmMessageBox("Subitem Konfirmasi Pesanan Belum dipindahkan")
             tcHeader.SelectedTab = tpConfirmationOrder
             Exit Sub
+        ElseIf clsARAP.TotalAmount <> txtDPAmount.Value + txtDPAmountSplit.Value Then
+            UI.usForm.frmMessageBox("Total DP secara keseluruhan tidak sesuai")
+            tcHeader.SelectedTab = tpSalesContract
+            Exit Sub
+        ElseIf clsARAP.TotalPPN <> txtDPAmountPPN.Value + txtDPAmountPPNSplit.Value Then
+            UI.usForm.frmMessageBox("Total DP PPN secara keseluruhan tidak sesuai")
+            tcHeader.SelectedTab = tpSalesContract
+            Exit Sub
+        ElseIf clsARAP.TotalPPH <> txtDPAmountPPH.Value + txtDPAmountPPHSplit.Value Then
+            UI.usForm.frmMessageBox("Total DP PPH secara keseluruhan tidak sesuai")
+            tcHeader.SelectedTab = tpSalesContract
+            Exit Sub
         End If
 
         If Not UI.usForm.frmAskQuestion("Anda yakin ingin simpan data ini?") Then Exit Sub
@@ -291,22 +305,88 @@
         clsData.Quantity = txtQuantity.Value
         clsData.TotalWeight = txtTotalWeight.Value
         clsData.TotalPrice = txtTotalPrice.Value
-        clsData.Remarks = txtRemarks.Text.Trim
+
+        '# SC Sub Item
+        For Each dr As DataRow In dtSubItemMain.Rows
+            Dim cls As New VO.SalesContractDet
+            cls.ID = dr.Item("ID")
+            cls.SCID = dr.Item("SCID")
+            cls.ORDetailID = dr.Item("ORDetailID")
+            cls.OrderNumberSupplier = dr.Item("OrderNumberSupplier")
+            cls.GroupID = dr.Item("GroupID")
+            cls.RequestNumber = dr.Item("RequestNumber")
+            cls.ItemID = dr.Item("ItemID")
+            cls.ItemCode = dr.Item("ItemCode")
+            cls.ItemName = dr.Item("ItemName")
+            cls.Thick = dr.Item("Thick")
+            cls.Width = dr.Item("Width")
+            cls.Length = dr.Item("Length")
+            cls.ItemSpecificationID = dr.Item("ItemSpecificationID")
+            cls.ItemSpecificationName = dr.Item("ItemSpecificationName")
+            cls.ItemTypeID = dr.Item("ItemTypeID")
+            cls.ItemTypeName = dr.Item("ItemTypeName")
+            cls.Quantity = dr.Item("Quantity")
+            cls.Weight = dr.Item("Weight")
+            cls.TotalWeight = dr.Item("TotalWeight")
+            cls.MaxTotalWeight = dr.Item("MaxTotalWeight")
+            cls.UnitPrice = dr.Item("UnitPrice")
+            cls.TotalPrice = dr.Item("TotalPrice")
+            cls.IsIgnoreValidationPayment = dr.Item("IsIgnoreValidationPayment")
+            cls.Remarks = dr.Item("Remarks")
+            cls.LevelItem = dr.Item("LevelItem")
+            cls.ParentID = dr.Item("ParentID")
+            cls.UnitPriceHPP = dr.Item("UnitPriceHPP")
+            cls.CODetailID = dr.Item("CODetailID")
+            cls.PCDetailID = dr.Item("PCDetailID")
+            clsData.SubItem.Add(cls)
+        Next
 
         clsDataSplit.Weight = txtWeightSplit.Value
         clsDataSplit.Quantity = txtQuantitySplit.Value
         clsDataSplit.TotalWeight = txtTotalWeightSplit.Value
         clsDataSplit.TotalPrice = txtTotalPriceSplit.Value
-        clsDataSplit.Remarks = txtRemarksSplit.Text.Trim
 
-        '# SC Sub Item
         '# SC Sub Item Split 
+        For Each dr As DataRow In dtSubItemSplit.Rows
+            Dim cls As New VO.SalesContractDet
+            cls.ID = dr.Item("ID")
+            cls.SCID = dr.Item("SCID")
+            cls.ORDetailID = dr.Item("ORDetailID")
+            cls.OrderNumberSupplier = dr.Item("OrderNumberSupplier")
+            cls.GroupID = dr.Item("GroupID")
+            cls.RequestNumber = dr.Item("RequestNumber")
+            cls.ItemID = dr.Item("ItemID")
+            cls.ItemCode = dr.Item("ItemCode")
+            cls.ItemName = dr.Item("ItemName")
+            cls.Thick = dr.Item("Thick")
+            cls.Width = dr.Item("Width")
+            cls.Length = dr.Item("Length")
+            cls.ItemSpecificationID = dr.Item("ItemSpecificationID")
+            cls.ItemSpecificationName = dr.Item("ItemSpecificationName")
+            cls.ItemTypeID = dr.Item("ItemTypeID")
+            cls.ItemTypeName = dr.Item("ItemTypeName")
+            cls.Quantity = dr.Item("Quantity")
+            cls.Weight = dr.Item("Weight")
+            cls.TotalWeight = dr.Item("TotalWeight")
+            cls.MaxTotalWeight = dr.Item("MaxTotalWeight")
+            cls.UnitPrice = dr.Item("UnitPrice")
+            cls.TotalPrice = dr.Item("TotalPrice")
+            cls.IsIgnoreValidationPayment = dr.Item("IsIgnoreValidationPayment")
+            cls.Remarks = dr.Item("Remarks")
+            cls.LevelItem = dr.Item("LevelItem")
+            cls.ParentID = dr.Item("ParentID")
+            cls.UnitPriceHPP = dr.Item("UnitPriceHPP")
+            cls.CODetailID = dr.Item("CODetailID")
+            cls.PCDetailID = dr.Item("PCDetailID")
+            clsDataSplit.SubItem.Add(cls)
+        Next
+
         '# CO Item
         '# CO Sub Item
         '# CO Sub Item Split 
         Try
-            'BL.SalesContract.RemapSCDetailItem(clsSCDetOld, clsSCDetNew, clsSCCOOld, clsSCCONew)
-            UI.usForm.frmMessageBox("Data berhasil diubah")
+            BL.SalesContract.SplitItem(clsData, clsDataSplit, clsDataCO, clsDataCOSplit)
+            UI.usForm.frmMessageBox("Data berhasil di Split")
             bolIsSave = True
             Me.Close()
         Catch ex As Exception
@@ -331,13 +411,23 @@
     End Sub
 
     Private Sub prvCalculate()
-        If clsData.Quantity > 1 Then txtQuantity.Value = clsData.Quantity - txtQuantitySplit.Value
-        If clsData.Quantity <= 1 Then txtWeight.Value = clsData.Weight - txtWeightSplit.Value
+        If clsData.Quantity > 1 Then txtQuantity.Value = clsData.Quantity - txtQuantitySplit.Value : txtQuantityDP.Value = clsData.Quantity - txtQuantitySplit.Value
+        If clsData.Quantity <= 1 Then txtWeight.Value = clsData.Weight - txtWeightSplit.Value : txtWeightDP.Value = clsData.Weight - txtWeightSplit.Value
 
         txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
         txtTotalPrice.Value = txtUnitPrice.Value * txtTotalWeight.Value
         txtTotalWeightSplit.Value = txtWeightSplit.Value * txtQuantitySplit.Value
         txtTotalPriceSplit.Value = txtUnitPriceSplit.Value * txtTotalWeightSplit.Value
+
+        txtTotalWeightDP.Value = txtWeightDP.Value * txtQuantityDP.Value
+        txtDPAmount.Value = ERPSLib.SharedLib.Math.Round(txtTotalPrice.Value * clsARAP.Percentage / 100, 2)
+        txtDPAmountPPN.Value = ERPSLib.SharedLib.Math.Round(txtDPAmount.Value * clsARAP.PPNPercentage / 100, 2)
+        txtDPAmountPPH.Value = ERPSLib.SharedLib.Math.Round(txtDPAmount.Value * clsARAP.PPHPercentage / 100, 2)
+
+        txtTotalWeightDPSplit.Value = txtWeightDPSplit.Value * txtQuantityDPSplit.Value
+        txtDPAmountSplit.Value = ERPSLib.SharedLib.Math.Round(txtTotalPriceSplit.Value * clsARAP.Percentage / 100, 2)
+        txtDPAmountPPNSplit.Value = ERPSLib.SharedLib.Math.Round(txtDPAmountSplit.Value * clsARAP.PPNPercentage / 100, 2)
+        txtDPAmountPPHSplit.Value = ERPSLib.SharedLib.Math.Round(txtDPAmountSplit.Value * clsARAP.PPHPercentage / 100, 2)
 
         If clsDataCO.Quantity > 1 Then txtQuantityCO.Value = clsDataCO.Quantity - txtQuantitySplit.Value
         If clsDataCO.Quantity <= 1 Then txtWeightCO.Value = clsDataCO.Weight - txtWeightSplit.Value
@@ -362,7 +452,7 @@
     End Sub
 
     Private Sub frmTraSalesContractDetVer2SplitItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        UI.usForm.SetIcon(Me, "MyLogo")
+        UI.usForm.SetIcon(Me, "mylogo")
         ToolBar.SetIcon(Me)
         ToolBarItemCO.SetIcon(Me)
         ToolBarItemCOSplit.SetIcon(Me)
@@ -371,7 +461,7 @@
         prvSetGrid()
         prvFillForm()
     End Sub
-
+    
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
         Select Case e.Button.Text.Trim
             Case "Simpan" : prvSave()
@@ -403,8 +493,7 @@
         End Select
     End Sub
 
-    Private Sub txtValueSplit_ValueChanged(sender As Object, e As EventArgs) Handles _
-        txtWeightSplit.ValueChanged, txtQuantitySplit.ValueChanged, txtWeightCOSplit.ValueChanged, txtQuantityCOSplit.ValueChanged
+    Private Sub txtValueSplit_ValueChanged(sender As Object, e As EventArgs) Handles txtQuantitySplit.ValueChanged, txtWeightSplit.ValueChanged, txtTotalWeightSplit.ValueChanged
         prvCalculate()
     End Sub
 

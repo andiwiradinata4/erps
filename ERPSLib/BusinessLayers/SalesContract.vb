@@ -923,6 +923,38 @@
             End Using
         End Function
 
+        Public Shared Function SplitItem(ByVal clsSCDetMain As VO.SalesContractDet, ByVal clsSCDetSplit As VO.SalesContractDet,
+                                         ByVal clsSCCOMain As VO.SalesContractDetConfirmationOrder, ByVal clsSCCOSplit As VO.SalesContractDetConfirmationOrder) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    '# Process Split SC Item
+                    clsSCDetSplit.ID = GetNewIDSubitem(sqlCon, sqlTrans, clsSCDetMain.SCID)
+                    clsSCDetSplit.GroupID = DL.SalesContract.GetMaxGroupIDItem(sqlCon, sqlTrans, clsSCDetMain.SCID)
+                    DL.SalesContract.SaveDataDetail(sqlCon, sqlTrans, clsSCDetSplit)
+
+                    '# Move Existing Sub Item to New SC Item
+                    For Each cls As VO.SalesContractDet In clsSCDetSplit.SubItem
+                        cls.GroupID = clsSCDetSplit.GroupID
+                        cls.ParentID = clsSCDetSplit.ID
+                        DL.SalesContract.MoveDetailItem(sqlCon, sqlTrans, cls.ID, cls.GroupID, cls.ParentID)
+                    Next
+
+                    '# Update Existing SC Item
+
+
+                    bolReturn = True
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
 #End Region
 
 #Region "Detail Confirmation Order"

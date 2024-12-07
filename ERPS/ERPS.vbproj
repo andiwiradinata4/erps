@@ -1221,7 +1221,7 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetVer2.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetVer2SplitItem.Designer.vb">
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetVer2SplitItem.designer.vb">
       <DependentUpon>frmTraSalesContractDetVer2SplitItem.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContractDetVer2SplitItem.vb">
