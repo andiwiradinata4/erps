@@ -720,6 +720,12 @@ Public Class frmTraSalesContractDetVer2
         intPos = grdItemView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
 
+        Dim clsSCDetail As VO.SalesContractDet = BL.SalesContract.GetDetailItem(grdItemView.GetRowCellValue(intPos, "ID"))
+        If clsSCDetail.ReceiveAmount > 0 Then
+            UI.usForm.frmMessageBox("Data tidak dapat displit. Dikarenakan data telah diproses Pelunasan.")
+            Exit Sub
+        End If
+
         Dim drSelectedCO As DataRow = dtItemConfirmationOrder.NewRow
         For i As Integer = 0 To grdItemCOView.RowCount
             If grdItemCOView.GetRowCellValue(i, "GroupID") = grdItemView.GetRowCellValue(intPos, "GroupID") Then drSelectedCO = grdItemCOView.GetDataRow(i) : Exit For

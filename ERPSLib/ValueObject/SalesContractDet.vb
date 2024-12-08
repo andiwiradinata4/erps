@@ -49,5 +49,9 @@
         Property ItemTypeName As String = ""
         Property MaxTotalWeight As Decimal
         Property SubItem As List(Of SalesContractDet)
+        Property QuantityDP As Decimal
+        Property WeightDP As Decimal
+        Property TotalWeightDP As Decimal
+        Property DPItem As List(Of ARAPItem)
     End Class
 End Namespace

@@ -1544,6 +1544,190 @@
             End Try
         End Sub
 
+        Public Shared Function GetDetailAmountByReferencesDetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                   ByVal strReferencesDetailID As String) As VO.ARAPItem
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim voReturn As New VO.ARAPItem
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1" & vbNewLine & _
+                        "	ARH.Percentage, SUM(ARI.Amount) Amount, SUM(ARI.PPN) PPN, SUM(ARI.PPH) PPH, SUM(ARI.Quantity) Quantity, ARI.Weight, SUM(ARI.TotalWeight) TotalWeight, ARH.PPNPercentage, ARH.PPHPercentage " & vbNewLine & _
+                        "FROM traAccountReceivable ARH " & vbNewLine & _
+                        "INNER JOIN traARAPItem ARI ON " & vbNewLine & _
+                        "	ARH.ID=ARI.ParentID " & vbNewLine & _
+                        "WHERE " & vbNewLine & _
+                        "	ARI.ReferencesDetailID=@ReferencesDetailID " & vbNewLine & _
+                        "	AND ARH.IsDeleted=0" & vbNewLine & _
+                        "GROUP ARH.Percentage, ARI.Weight, ARH.PPNPercentage, ARH.PPHPercentage " & vbNewLine & _
+                        "UNION ALL " & vbNewLine & _
+                        "SELECT TOP 1" & vbNewLine & _
+                        "	APH.Percentage, SUM(ARI.Amount) Amount, SUM(ARI.PPN) PPN, SUM(ARI.PPH) PPH, SUM(ARI.Quantity) Quantity, ARI.Weight, SUM(ARI.TotalWeight) TotalWeight, APH.PPNPercentage, APH.PPHPercentage " & vbNewLine & _
+                        "FROM traAccountPayable APH " & vbNewLine & _
+                        "INNER JOIN traARAPItem ARI ON " & vbNewLine & _
+                        "	APH.ID=ARI.ParentID " & vbNewLine & _
+                        "WHERE " & vbNewLine & _
+                        "	ARI.ReferencesDetailID=@ReferencesDetailID " & vbNewLine & _
+                        "	AND APH.IsDeleted=0" & vbNewLine & _
+                        "GROUP BY APH.Percentage, ARI.Weight, APH.PPNPercentage, APH.PPHPercentage " & vbNewLine
+
+                    .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strReferencesDetailID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        voReturn.ID = .Item("ID")
+                        voReturn.ParentID = .Item("ParentID")
+                        voReturn.ReferencesID = .Item("ReferencesID")
+                        voReturn.ReferencesDetailID = .Item("ReferencesDetailID")
+                        voReturn.ReferencesParentID = .Item("ReferencesParentID")
+                        voReturn.Percentage = .Item("Percentage")
+                        voReturn.Amount = .Item("Amount")
+                        voReturn.PPN = .Item("PPN")
+                        voReturn.PPH = .Item("PPH")
+                        voReturn.Quantity = .Item("Quantity")
+                        voReturn.Weight = .Item("Weight")
+                        voReturn.TotalWeight = .Item("TotalWeight")
+                        voReturn.PPNPercentage = .Item("PPNPercentage")
+                        voReturn.PPHPercentage = .Item("PPHPercentage")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return voReturn
+        End Function
+
+        Public Shared Sub UpdateSplitItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal clsData As VO.ARAPItem)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"UPDATE traARAPItem SET 	" & vbNewLine &
+"	Amount=@Amount,	" & vbNewLine &
+"	PPN=@PPN,	" & vbNewLine &
+"	PPH=@PPH,	" & vbNewLine &
+"	Quantity=@Quantity,	" & vbNewLine &
+"	Weight=@Weight,	" & vbNewLine &
+"	TotalWeight=@TotalWeight,	" & vbNewLine &
+"WHERE ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@Amount", SqlDbType.Decimal).Value = clsData.Amount
+                .Parameters.Add("@PPN", SqlDbType.Decimal).Value = clsData.PPN
+                .Parameters.Add("@PPH", SqlDbType.Decimal).Value = clsData.PPH
+                .Parameters.Add("@Quantity", SqlDbType.Decimal).Value = clsData.Quantity
+                .Parameters.Add("@Weight", SqlDbType.Decimal).Value = clsData.Weight
+                .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Function GetMaxIDARAPItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                ByVal strNewID As String) As Integer
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim intReturn As Integer = 0
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ISNULL(RIGHT(ID, 3),'000') AS ID " & vbNewLine &
+                        "FROM traARAPIItem " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   LEFT(ID,@Length)=@ID " & vbNewLine &
+                        "ORDER BY ID DESC " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, strNewID.Length).Value = strNewID
+                    .Parameters.Add("@Length", SqlDbType.Int).Value = strNewID.Length
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        intReturn = .Item("ID")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return intReturn
+        End Function
+
+        Public Shared Function GetDetailIItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal strID As String) As VO.ARAPItem
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim voReturn As New VO.ARAPItem
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine & _
+                        "	A.ID, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, A.ItemID, A.Amount, " & vbNewLine & _
+                        "	A.PPN, A.PPH, A.DPAmount, A.Rounding, A.LevelItem, A.ReferencesParentID, A.Quantity, A.Weight, A.TotalWeight, " & vbNewLine & _
+                        "   A.InvoiceQuantity, A.InvoiceWeight, A.InvoiceTotalWeight, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount" & vbNewLine & _
+                        "FROM traARAPItem A" & vbNewLine & _
+                        "WHERE" & vbNewLine & _
+                        "	ID=@ID" & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        voReturn.ID = .Item("ID")
+                        voReturn.ParentID = .Item("ParentID")
+                        voReturn.ReferencesID = .Item("ReferencesID")
+                        voReturn.ReferencesDetailID = .Item("ReferencesDetailID")
+                        voReturn.OrderNumberSupplier = .Item("OrderNumberSupplier")
+                        voReturn.ItemID = .Item("ItemID")
+                        voReturn.Amount = .Item("Amount")
+                        voReturn.PPN = .Item("PPN")
+                        voReturn.PPH = .Item("PPH")
+                        voReturn.DPAmount = .Item("DPAmount")
+                        voReturn.Rounding = .Item("Rounding")
+                        voReturn.LevelItem = .Item("LevelItem")
+                        voReturn.ReferencesParentID = .Item("ReferencesParentID")
+                        voReturn.Quantity = .Item("Quantity")
+                        voReturn.Weight = .Item("Weight")
+                        voReturn.TotalWeight = .Item("TotalWeight")
+                        voReturn.InvoiceQuantity = .Item("InvoiceQuantity")
+                        voReturn.InvoiceWeight = .Item("InvoiceWeight")
+                        voReturn.InvoiceTotalWeight = .Item("InvoiceTotalWeight")
+                        voReturn.TotalInvoiceAmount = .Item("TotalInvoiceAmount")
+                        voReturn.TotalDPPInvoiceAmount = .Item("TotalDPPInvoiceAmount")
+                        voReturn.TotalPPNInvoiceAmount = .Item("TotalPPNInvoiceAmount")
+                        voReturn.TotalPPHInvoiceAmount = .Item("TotalPPHInvoiceAmount")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return voReturn
+        End Function
+
 #End Region
 
 #Region "Invoice Item"

@@ -930,6 +930,9 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
+                    Dim clsSCExists As VO.SalesContractDet = DL.SalesContract.GetDetailItem(sqlCon, sqlTrans, clsSCCOMain.ID)
+                    If clsSCExists.ReceiveAmount > 0 Then Err.Raise(515, "", "Data tidak dapat displit. Dikarenakan data telah diproses Pelunasan.")
+
                     '# Process Split SC Item
                     clsSCDetSplit.ID = GetNewIDSubitem(sqlCon, sqlTrans, clsSCDetMain.SCID)
                     clsSCDetSplit.GroupID = DL.SalesContract.GetMaxGroupIDItem(sqlCon, sqlTrans, clsSCDetMain.SCID)
@@ -943,7 +946,27 @@
                     Next
 
                     '# Update Existing SC Item
+                    DL.SalesContract.UpdateSplitItem(sqlCon, sqlTrans, clsSCDetMain)
 
+                    '# Insert new Down Payment Item
+                    For Each cls As VO.ARAPItem In clsSCDetSplit.DPItem
+                        Dim clsExists As VO.ARAPItem = DL.ARAP.GetDetailIItem(sqlCon, sqlTrans, cls.ID)
+                        Dim strNewID As String = cls.ParentID & "-" & 2 & "-"
+                        clsExists.ID = strNewID & Format(DL.ARAP.GetMaxIDARAPItem(sqlCon, sqlTrans, strNewID) + 1, "000")
+                        clsExists.ReferencesDetailID = clsSCDetSplit.ID
+                        clsExists.Quantity = cls.Quantity
+                        clsExists.Weight = cls.Weight
+                        clsExists.TotalWeight = cls.TotalWeight
+                        clsExists.Amount = cls.Amount
+                        clsExists.PPN = cls.PPN
+                        clsExists.PPH = cls.PPH
+                        DL.ARAP.SaveDataItem(sqlCon, sqlTrans, clsExists)
+                    Next
+
+                    '# Update Existing Down Payment
+                    For Each cls As VO.ARAPItem In clsSCDetMain.DPItem
+                        DL.ARAP.UpdateSplitItem(sqlCon, sqlTrans, cls)
+                    Next
 
                     bolReturn = True
                     sqlTrans.Commit()
@@ -953,6 +976,13 @@
                 End Try
             End Using
             Return bolReturn
+        End Function
+
+        Public Shared Function ListDataDownPaymentBySCDetailID(ByVal strSCDetailID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.SalesContract.ListDataDownPaymentBySCDetailID(sqlCon, Nothing, strSCDetailID)
+            End Using
         End Function
 
 #End Region

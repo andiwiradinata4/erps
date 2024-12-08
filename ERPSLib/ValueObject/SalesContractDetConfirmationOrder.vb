@@ -29,5 +29,6 @@
         Property ItemTypeID As Integer
         Property ItemTypeName As String = ""
         Property MaxTotalWeight As Decimal
+        Property SubItem As List(Of SalesContractDetConfirmationOrder)
     End Class
 End Namespace

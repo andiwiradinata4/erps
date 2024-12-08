@@ -2187,6 +2187,17 @@
 
 #End Region
 
+#Region "Item"
+
+        Public Shared Function GetDetailAmountByReferencesDetailID(ByVal strReferencesDetailID As String) As VO.ARAPItem
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ARAP.GetDetailAmountByReferencesDetailID(sqlCon, Nothing, strReferencesDetailID)
+            End Using
+        End Function
+
+#End Region
+
 #Region "Invoice Item"
 
         Public Shared Function ListDataInvoiceItem(ByVal strParentID As String) As DataTable

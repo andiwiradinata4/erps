@@ -36,18 +36,6 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.BarMoveSubItemSplit = New System.Windows.Forms.ToolBarButton()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.Label108 = New System.Windows.Forms.Label()
-        Me.txtTotalWeightDPSplit = New ERPS.usNumeric()
-        Me.Label109 = New System.Windows.Forms.Label()
-        Me.txtWeightDPSplit = New ERPS.usNumeric()
-        Me.Label110 = New System.Windows.Forms.Label()
-        Me.txtQuantityDPSplit = New ERPS.usNumeric()
-        Me.Label111 = New System.Windows.Forms.Label()
-        Me.txtDPAmountPPHSplit = New ERPS.usNumeric()
-        Me.Label112 = New System.Windows.Forms.Label()
-        Me.txtDPAmountPPNSplit = New ERPS.usNumeric()
-        Me.Label113 = New System.Windows.Forms.Label()
-        Me.txtDPAmountSplit = New ERPS.usNumeric()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.Label22 = New System.Windows.Forms.Label()
         Me.Label30 = New System.Windows.Forms.Label()
@@ -96,18 +84,6 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.BarMoveSubItem = New System.Windows.Forms.ToolBarButton()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
-        Me.Label105 = New System.Windows.Forms.Label()
-        Me.txtTotalWeightDP = New ERPS.usNumeric()
-        Me.Label106 = New System.Windows.Forms.Label()
-        Me.txtWeightDP = New ERPS.usNumeric()
-        Me.Label107 = New System.Windows.Forms.Label()
-        Me.txtQuantityDP = New ERPS.usNumeric()
-        Me.Label104 = New System.Windows.Forms.Label()
-        Me.txtDPAmountPPH = New ERPS.usNumeric()
-        Me.Label41 = New System.Windows.Forms.Label()
-        Me.txtDPAmountPPN = New ERPS.usNumeric()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.txtDPAmount = New ERPS.usNumeric()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
@@ -205,12 +181,6 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.BarMoveItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.Label54 = New System.Windows.Forms.Label()
         Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.Label116 = New System.Windows.Forms.Label()
-        Me.UsNumeric3 = New ERPS.usNumeric()
-        Me.Label115 = New System.Windows.Forms.Label()
-        Me.UsNumeric2 = New ERPS.usNumeric()
-        Me.Label114 = New System.Windows.Forms.Label()
-        Me.UsNumeric1 = New ERPS.usNumeric()
         Me.Label55 = New System.Windows.Forms.Label()
         Me.Label56 = New System.Windows.Forms.Label()
         Me.txtOrderNumberSupplierCO = New ERPS.usTextBox()
@@ -250,7 +220,21 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.txtThickCO = New ERPS.usNumeric()
         Me.txtMaxTotalWeightCO = New ERPS.usNumeric()
         Me.txtWeightCO = New ERPS.usNumeric()
+        Me.tpDownPayment = New System.Windows.Forms.TabPage()
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Panel9 = New System.Windows.Forms.Panel()
+        Me.grdDownPayment = New DevExpress.XtraGrid.GridControl()
+        Me.grdDownPaymentView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.ToolBarDP = New ERPS.usToolBar()
+        Me.BarMoveDP = New System.Windows.Forms.ToolBarButton()
+        Me.Panel8 = New System.Windows.Forms.Panel()
+        Me.grdDownPaymentSplit = New DevExpress.XtraGrid.GridControl()
+        Me.grdDownPaymentSplitView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.RepositoryItemTextEdit5 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.ToolBarDPSplit = New ERPS.usToolBar()
         Me.lblInfo = New System.Windows.Forms.Label()
+        Me.BarDeleteDPSplit = New System.Windows.Forms.ToolBarButton()
         Me.tcHeader.SuspendLayout()
         Me.tpSalesContract.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -259,12 +243,6 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         CType(Me.grdSubitemSplitView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
-        CType(Me.txtTotalWeightDPSplit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtWeightDPSplit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtQuantityDPSplit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtDPAmountPPHSplit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtDPAmountPPNSplit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtDPAmountSplit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtUnitPriceHPPSplit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtLengthSplit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWidthSplit, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -280,12 +258,6 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         CType(Me.grdSubitemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlDetail.SuspendLayout()
-        CType(Me.txtTotalWeightDP, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtWeightDP, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtQuantityDP, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtDPAmountPPH, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtDPAmountPPN, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtDPAmount, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -317,9 +289,6 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         CType(Me.grdSubItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
-        CType(Me.UsNumeric3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.UsNumeric2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.UsNumeric1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPriceCO, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtQuantityCO, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtUnitPriceCO, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -329,6 +298,16 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         CType(Me.txtThickCO, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtMaxTotalWeightCO, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWeightCO, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tpDownPayment.SuspendLayout()
+        Me.TableLayoutPanel3.SuspendLayout()
+        Me.Panel9.SuspendLayout()
+        CType(Me.grdDownPayment, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdDownPaymentView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel8.SuspendLayout()
+        CType(Me.grdDownPaymentSplit, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdDownPaymentSplitView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemTextEdit5, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -360,6 +339,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.tcHeader.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tcHeader.Controls.Add(Me.tpSalesContract)
         Me.tcHeader.Controls.Add(Me.tpConfirmationOrder)
+        Me.tcHeader.Controls.Add(Me.tpDownPayment)
         Me.tcHeader.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
@@ -421,11 +401,11 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.grdSubitemSplit.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdSubitemSplit.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdSubitemSplit.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdSubitemSplit.Location = New System.Drawing.Point(0, 415)
+        Me.grdSubitemSplit.Location = New System.Drawing.Point(0, 337)
         Me.grdSubitemSplit.MainView = Me.grdSubitemSplitView
         Me.grdSubitemSplit.Name = "grdSubitemSplit"
         Me.grdSubitemSplit.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdSubitemSplit.Size = New System.Drawing.Size(572, 161)
+        Me.grdSubitemSplit.Size = New System.Drawing.Size(572, 239)
         Me.grdSubitemSplit.TabIndex = 3
         Me.grdSubitemSplit.UseEmbeddedNavigator = True
         Me.grdSubitemSplit.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdSubitemSplitView})
@@ -455,7 +435,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.ToolBarItemSubitemSplit.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarMoveSubItemSplit})
         Me.ToolBarItemSubitemSplit.Divider = False
         Me.ToolBarItemSubitemSplit.DropDownArrows = True
-        Me.ToolBarItemSubitemSplit.Location = New System.Drawing.Point(0, 389)
+        Me.ToolBarItemSubitemSplit.Location = New System.Drawing.Point(0, 311)
         Me.ToolBarItemSubitemSplit.Name = "ToolBarItemSubitemSplit"
         Me.ToolBarItemSubitemSplit.ShowToolTips = True
         Me.ToolBarItemSubitemSplit.Size = New System.Drawing.Size(572, 26)
@@ -474,7 +454,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Label20.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label20.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label20.ForeColor = System.Drawing.Color.White
-        Me.Label20.Location = New System.Drawing.Point(0, 367)
+        Me.Label20.Location = New System.Drawing.Point(0, 289)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(572, 22)
         Me.Label20.TabIndex = 1
@@ -483,18 +463,6 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         '
         'Panel3
         '
-        Me.Panel3.Controls.Add(Me.Label108)
-        Me.Panel3.Controls.Add(Me.txtTotalWeightDPSplit)
-        Me.Panel3.Controls.Add(Me.Label109)
-        Me.Panel3.Controls.Add(Me.txtWeightDPSplit)
-        Me.Panel3.Controls.Add(Me.Label110)
-        Me.Panel3.Controls.Add(Me.txtQuantityDPSplit)
-        Me.Panel3.Controls.Add(Me.Label111)
-        Me.Panel3.Controls.Add(Me.txtDPAmountPPHSplit)
-        Me.Panel3.Controls.Add(Me.Label112)
-        Me.Panel3.Controls.Add(Me.txtDPAmountPPNSplit)
-        Me.Panel3.Controls.Add(Me.Label113)
-        Me.Panel3.Controls.Add(Me.txtDPAmountSplit)
         Me.Panel3.Controls.Add(Me.Label21)
         Me.Panel3.Controls.Add(Me.Label22)
         Me.Panel3.Controls.Add(Me.Label30)
@@ -538,153 +506,8 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(572, 367)
+        Me.Panel3.Size = New System.Drawing.Size(572, 289)
         Me.Panel3.TabIndex = 0
-        '
-        'Label108
-        '
-        Me.Label108.AutoSize = True
-        Me.Label108.BackColor = System.Drawing.Color.Transparent
-        Me.Label108.ForeColor = System.Drawing.Color.Black
-        Me.Label108.Location = New System.Drawing.Point(290, 334)
-        Me.Label108.Name = "Label108"
-        Me.Label108.Size = New System.Drawing.Size(76, 13)
-        Me.Label108.TabIndex = 214
-        Me.Label108.Text = "Total Berat DP"
-        '
-        'txtTotalWeightDPSplit
-        '
-        Me.txtTotalWeightDPSplit.BackColor = System.Drawing.Color.White
-        Me.txtTotalWeightDPSplit.DecimalPlaces = 2
-        Me.txtTotalWeightDPSplit.Location = New System.Drawing.Point(379, 330)
-        Me.txtTotalWeightDPSplit.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtTotalWeightDPSplit.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalWeightDPSplit.Name = "txtTotalWeightDPSplit"
-        Me.txtTotalWeightDPSplit.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalWeightDPSplit.TabIndex = 20
-        Me.txtTotalWeightDPSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalWeightDPSplit.ThousandsSeparator = True
-        '
-        'Label109
-        '
-        Me.Label109.AutoSize = True
-        Me.Label109.BackColor = System.Drawing.Color.Transparent
-        Me.Label109.ForeColor = System.Drawing.Color.Black
-        Me.Label109.Location = New System.Drawing.Point(317, 307)
-        Me.Label109.Name = "Label109"
-        Me.Label109.Size = New System.Drawing.Size(49, 13)
-        Me.Label109.TabIndex = 212
-        Me.Label109.Text = "Berat DP"
-        '
-        'txtWeightDPSplit
-        '
-        Me.txtWeightDPSplit.BackColor = System.Drawing.Color.Azure
-        Me.txtWeightDPSplit.DecimalPlaces = 2
-        Me.txtWeightDPSplit.Enabled = False
-        Me.txtWeightDPSplit.Location = New System.Drawing.Point(379, 303)
-        Me.txtWeightDPSplit.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtWeightDPSplit.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtWeightDPSplit.Name = "txtWeightDPSplit"
-        Me.txtWeightDPSplit.Size = New System.Drawing.Size(160, 21)
-        Me.txtWeightDPSplit.TabIndex = 19
-        Me.txtWeightDPSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtWeightDPSplit.ThousandsSeparator = True
-        '
-        'Label110
-        '
-        Me.Label110.AutoSize = True
-        Me.Label110.BackColor = System.Drawing.Color.Transparent
-        Me.Label110.ForeColor = System.Drawing.Color.Black
-        Me.Label110.Location = New System.Drawing.Point(310, 280)
-        Me.Label110.Name = "Label110"
-        Me.Label110.Size = New System.Drawing.Size(56, 13)
-        Me.Label110.TabIndex = 210
-        Me.Label110.Text = "Jumlah DP"
-        '
-        'txtQuantityDPSplit
-        '
-        Me.txtQuantityDPSplit.BackColor = System.Drawing.Color.White
-        Me.txtQuantityDPSplit.DecimalPlaces = 2
-        Me.txtQuantityDPSplit.Location = New System.Drawing.Point(379, 276)
-        Me.txtQuantityDPSplit.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtQuantityDPSplit.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtQuantityDPSplit.Name = "txtQuantityDPSplit"
-        Me.txtQuantityDPSplit.Size = New System.Drawing.Size(160, 21)
-        Me.txtQuantityDPSplit.TabIndex = 18
-        Me.txtQuantityDPSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtQuantityDPSplit.ThousandsSeparator = True
-        '
-        'Label111
-        '
-        Me.Label111.AutoSize = True
-        Me.Label111.BackColor = System.Drawing.Color.Transparent
-        Me.Label111.ForeColor = System.Drawing.Color.Black
-        Me.Label111.Location = New System.Drawing.Point(11, 335)
-        Me.Label111.Name = "Label111"
-        Me.Label111.Size = New System.Drawing.Size(69, 13)
-        Me.Label111.TabIndex = 208
-        Me.Label111.Text = "Total DP PPH"
-        '
-        'txtDPAmountPPHSplit
-        '
-        Me.txtDPAmountPPHSplit.BackColor = System.Drawing.Color.White
-        Me.txtDPAmountPPHSplit.DecimalPlaces = 2
-        Me.txtDPAmountPPHSplit.Location = New System.Drawing.Point(113, 331)
-        Me.txtDPAmountPPHSplit.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtDPAmountPPHSplit.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtDPAmountPPHSplit.Name = "txtDPAmountPPHSplit"
-        Me.txtDPAmountPPHSplit.Size = New System.Drawing.Size(135, 21)
-        Me.txtDPAmountPPHSplit.TabIndex = 12
-        Me.txtDPAmountPPHSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtDPAmountPPHSplit.ThousandsSeparator = True
-        '
-        'Label112
-        '
-        Me.Label112.AutoSize = True
-        Me.Label112.BackColor = System.Drawing.Color.Transparent
-        Me.Label112.ForeColor = System.Drawing.Color.Black
-        Me.Label112.Location = New System.Drawing.Point(11, 308)
-        Me.Label112.Name = "Label112"
-        Me.Label112.Size = New System.Drawing.Size(69, 13)
-        Me.Label112.TabIndex = 206
-        Me.Label112.Text = "Total DP PPN"
-        '
-        'txtDPAmountPPNSplit
-        '
-        Me.txtDPAmountPPNSplit.BackColor = System.Drawing.Color.White
-        Me.txtDPAmountPPNSplit.DecimalPlaces = 2
-        Me.txtDPAmountPPNSplit.Location = New System.Drawing.Point(113, 304)
-        Me.txtDPAmountPPNSplit.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtDPAmountPPNSplit.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtDPAmountPPNSplit.Name = "txtDPAmountPPNSplit"
-        Me.txtDPAmountPPNSplit.Size = New System.Drawing.Size(135, 21)
-        Me.txtDPAmountPPNSplit.TabIndex = 11
-        Me.txtDPAmountPPNSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtDPAmountPPNSplit.ThousandsSeparator = True
-        '
-        'Label113
-        '
-        Me.Label113.AutoSize = True
-        Me.Label113.BackColor = System.Drawing.Color.Transparent
-        Me.Label113.ForeColor = System.Drawing.Color.Black
-        Me.Label113.Location = New System.Drawing.Point(11, 281)
-        Me.Label113.Name = "Label113"
-        Me.Label113.Size = New System.Drawing.Size(47, 13)
-        Me.Label113.TabIndex = 204
-        Me.Label113.Text = "Total DP"
-        '
-        'txtDPAmountSplit
-        '
-        Me.txtDPAmountSplit.BackColor = System.Drawing.Color.White
-        Me.txtDPAmountSplit.DecimalPlaces = 2
-        Me.txtDPAmountSplit.Location = New System.Drawing.Point(113, 277)
-        Me.txtDPAmountSplit.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtDPAmountSplit.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtDPAmountSplit.Name = "txtDPAmountSplit"
-        Me.txtDPAmountSplit.Size = New System.Drawing.Size(135, 21)
-        Me.txtDPAmountSplit.TabIndex = 10
-        Me.txtDPAmountSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtDPAmountSplit.ThousandsSeparator = True
         '
         'Label21
         '
@@ -1181,11 +1004,11 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.grdSubitem.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdSubitem.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdSubitem.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdSubitem.Location = New System.Drawing.Point(0, 415)
+        Me.grdSubitem.Location = New System.Drawing.Point(0, 337)
         Me.grdSubitem.MainView = Me.grdSubitemView
         Me.grdSubitem.Name = "grdSubitem"
         Me.grdSubitem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit2})
-        Me.grdSubitem.Size = New System.Drawing.Size(572, 161)
+        Me.grdSubitem.Size = New System.Drawing.Size(572, 239)
         Me.grdSubitem.TabIndex = 3
         Me.grdSubitem.UseEmbeddedNavigator = True
         Me.grdSubitem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdSubitemView})
@@ -1215,7 +1038,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.ToolBarItemSubitem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarMoveSubItem})
         Me.ToolBarItemSubitem.Divider = False
         Me.ToolBarItemSubitem.DropDownArrows = True
-        Me.ToolBarItemSubitem.Location = New System.Drawing.Point(0, 389)
+        Me.ToolBarItemSubitem.Location = New System.Drawing.Point(0, 311)
         Me.ToolBarItemSubitem.Name = "ToolBarItemSubitem"
         Me.ToolBarItemSubitem.ShowToolTips = True
         Me.ToolBarItemSubitem.Size = New System.Drawing.Size(572, 26)
@@ -1234,7 +1057,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Label19.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label19.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label19.ForeColor = System.Drawing.Color.White
-        Me.Label19.Location = New System.Drawing.Point(0, 367)
+        Me.Label19.Location = New System.Drawing.Point(0, 289)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(572, 22)
         Me.Label19.TabIndex = 1
@@ -1243,18 +1066,6 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         '
         'pnlDetail
         '
-        Me.pnlDetail.Controls.Add(Me.Label105)
-        Me.pnlDetail.Controls.Add(Me.txtTotalWeightDP)
-        Me.pnlDetail.Controls.Add(Me.Label106)
-        Me.pnlDetail.Controls.Add(Me.txtWeightDP)
-        Me.pnlDetail.Controls.Add(Me.Label107)
-        Me.pnlDetail.Controls.Add(Me.txtQuantityDP)
-        Me.pnlDetail.Controls.Add(Me.Label104)
-        Me.pnlDetail.Controls.Add(Me.txtDPAmountPPH)
-        Me.pnlDetail.Controls.Add(Me.Label41)
-        Me.pnlDetail.Controls.Add(Me.txtDPAmountPPN)
-        Me.pnlDetail.Controls.Add(Me.Label13)
-        Me.pnlDetail.Controls.Add(Me.txtDPAmount)
         Me.pnlDetail.Controls.Add(Me.Label1)
         Me.pnlDetail.Controls.Add(Me.Label11)
         Me.pnlDetail.Controls.Add(Me.Label18)
@@ -1298,153 +1109,8 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlDetail.Location = New System.Drawing.Point(0, 0)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(572, 367)
+        Me.pnlDetail.Size = New System.Drawing.Size(572, 289)
         Me.pnlDetail.TabIndex = 0
-        '
-        'Label105
-        '
-        Me.Label105.AutoSize = True
-        Me.Label105.BackColor = System.Drawing.Color.Transparent
-        Me.Label105.ForeColor = System.Drawing.Color.Black
-        Me.Label105.Location = New System.Drawing.Point(290, 334)
-        Me.Label105.Name = "Label105"
-        Me.Label105.Size = New System.Drawing.Size(76, 13)
-        Me.Label105.TabIndex = 202
-        Me.Label105.Text = "Total Berat DP"
-        '
-        'txtTotalWeightDP
-        '
-        Me.txtTotalWeightDP.BackColor = System.Drawing.Color.White
-        Me.txtTotalWeightDP.DecimalPlaces = 2
-        Me.txtTotalWeightDP.Location = New System.Drawing.Point(379, 330)
-        Me.txtTotalWeightDP.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtTotalWeightDP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalWeightDP.Name = "txtTotalWeightDP"
-        Me.txtTotalWeightDP.Size = New System.Drawing.Size(160, 21)
-        Me.txtTotalWeightDP.TabIndex = 20
-        Me.txtTotalWeightDP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalWeightDP.ThousandsSeparator = True
-        '
-        'Label106
-        '
-        Me.Label106.AutoSize = True
-        Me.Label106.BackColor = System.Drawing.Color.Transparent
-        Me.Label106.ForeColor = System.Drawing.Color.Black
-        Me.Label106.Location = New System.Drawing.Point(317, 307)
-        Me.Label106.Name = "Label106"
-        Me.Label106.Size = New System.Drawing.Size(49, 13)
-        Me.Label106.TabIndex = 200
-        Me.Label106.Text = "Berat DP"
-        '
-        'txtWeightDP
-        '
-        Me.txtWeightDP.BackColor = System.Drawing.Color.Azure
-        Me.txtWeightDP.DecimalPlaces = 2
-        Me.txtWeightDP.Enabled = False
-        Me.txtWeightDP.Location = New System.Drawing.Point(379, 303)
-        Me.txtWeightDP.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtWeightDP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtWeightDP.Name = "txtWeightDP"
-        Me.txtWeightDP.Size = New System.Drawing.Size(160, 21)
-        Me.txtWeightDP.TabIndex = 19
-        Me.txtWeightDP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtWeightDP.ThousandsSeparator = True
-        '
-        'Label107
-        '
-        Me.Label107.AutoSize = True
-        Me.Label107.BackColor = System.Drawing.Color.Transparent
-        Me.Label107.ForeColor = System.Drawing.Color.Black
-        Me.Label107.Location = New System.Drawing.Point(310, 280)
-        Me.Label107.Name = "Label107"
-        Me.Label107.Size = New System.Drawing.Size(56, 13)
-        Me.Label107.TabIndex = 198
-        Me.Label107.Text = "Jumlah DP"
-        '
-        'txtQuantityDP
-        '
-        Me.txtQuantityDP.BackColor = System.Drawing.Color.White
-        Me.txtQuantityDP.DecimalPlaces = 2
-        Me.txtQuantityDP.Location = New System.Drawing.Point(379, 276)
-        Me.txtQuantityDP.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtQuantityDP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtQuantityDP.Name = "txtQuantityDP"
-        Me.txtQuantityDP.Size = New System.Drawing.Size(160, 21)
-        Me.txtQuantityDP.TabIndex = 18
-        Me.txtQuantityDP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtQuantityDP.ThousandsSeparator = True
-        '
-        'Label104
-        '
-        Me.Label104.AutoSize = True
-        Me.Label104.BackColor = System.Drawing.Color.Transparent
-        Me.Label104.ForeColor = System.Drawing.Color.Black
-        Me.Label104.Location = New System.Drawing.Point(11, 335)
-        Me.Label104.Name = "Label104"
-        Me.Label104.Size = New System.Drawing.Size(69, 13)
-        Me.Label104.TabIndex = 196
-        Me.Label104.Text = "Total DP PPH"
-        '
-        'txtDPAmountPPH
-        '
-        Me.txtDPAmountPPH.BackColor = System.Drawing.Color.White
-        Me.txtDPAmountPPH.DecimalPlaces = 2
-        Me.txtDPAmountPPH.Location = New System.Drawing.Point(113, 331)
-        Me.txtDPAmountPPH.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtDPAmountPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtDPAmountPPH.Name = "txtDPAmountPPH"
-        Me.txtDPAmountPPH.Size = New System.Drawing.Size(135, 21)
-        Me.txtDPAmountPPH.TabIndex = 12
-        Me.txtDPAmountPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtDPAmountPPH.ThousandsSeparator = True
-        '
-        'Label41
-        '
-        Me.Label41.AutoSize = True
-        Me.Label41.BackColor = System.Drawing.Color.Transparent
-        Me.Label41.ForeColor = System.Drawing.Color.Black
-        Me.Label41.Location = New System.Drawing.Point(11, 308)
-        Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(69, 13)
-        Me.Label41.TabIndex = 194
-        Me.Label41.Text = "Total DP PPN"
-        '
-        'txtDPAmountPPN
-        '
-        Me.txtDPAmountPPN.BackColor = System.Drawing.Color.White
-        Me.txtDPAmountPPN.DecimalPlaces = 2
-        Me.txtDPAmountPPN.Location = New System.Drawing.Point(113, 304)
-        Me.txtDPAmountPPN.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtDPAmountPPN.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtDPAmountPPN.Name = "txtDPAmountPPN"
-        Me.txtDPAmountPPN.Size = New System.Drawing.Size(135, 21)
-        Me.txtDPAmountPPN.TabIndex = 11
-        Me.txtDPAmountPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtDPAmountPPN.ThousandsSeparator = True
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.BackColor = System.Drawing.Color.Transparent
-        Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(11, 281)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(47, 13)
-        Me.Label13.TabIndex = 192
-        Me.Label13.Text = "Total DP"
-        '
-        'txtDPAmount
-        '
-        Me.txtDPAmount.BackColor = System.Drawing.Color.White
-        Me.txtDPAmount.DecimalPlaces = 2
-        Me.txtDPAmount.Location = New System.Drawing.Point(113, 277)
-        Me.txtDPAmount.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtDPAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtDPAmount.Name = "txtDPAmount"
-        Me.txtDPAmount.Size = New System.Drawing.Size(135, 21)
-        Me.txtDPAmount.TabIndex = 10
-        Me.txtDPAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtDPAmount.ThousandsSeparator = True
         '
         'Label1
         '
@@ -1643,7 +1309,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         '
         'txtQuantity
         '
-        Me.txtQuantity.BackColor = System.Drawing.Color.White
+        Me.txtQuantity.BackColor = System.Drawing.Color.Azure
         Me.txtQuantity.Enabled = False
         Me.txtQuantity.Location = New System.Drawing.Point(379, 168)
         Me.txtQuantity.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
@@ -1783,7 +1449,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         '
         'txtWeight
         '
-        Me.txtWeight.BackColor = System.Drawing.Color.White
+        Me.txtWeight.BackColor = System.Drawing.Color.Azure
         Me.txtWeight.DecimalPlaces = 1
         Me.txtWeight.Enabled = False
         Me.txtWeight.Location = New System.Drawing.Point(113, 223)
@@ -2557,11 +2223,11 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.grdSubItemCO.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdSubItemCO.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdSubItemCO.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdSubItemCO.Location = New System.Drawing.Point(0, 438)
+        Me.grdSubItemCO.Location = New System.Drawing.Point(0, 361)
         Me.grdSubItemCO.MainView = Me.grdSubItemCOView
         Me.grdSubItemCO.Name = "grdSubItemCO"
         Me.grdSubItemCO.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit3})
-        Me.grdSubItemCO.Size = New System.Drawing.Size(572, 138)
+        Me.grdSubItemCO.Size = New System.Drawing.Size(572, 215)
         Me.grdSubItemCO.TabIndex = 3
         Me.grdSubItemCO.UseEmbeddedNavigator = True
         Me.grdSubItemCO.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdSubItemCOView})
@@ -2591,7 +2257,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.ToolBarItemCO.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarMoveItemOrder})
         Me.ToolBarItemCO.Divider = False
         Me.ToolBarItemCO.DropDownArrows = True
-        Me.ToolBarItemCO.Location = New System.Drawing.Point(0, 412)
+        Me.ToolBarItemCO.Location = New System.Drawing.Point(0, 335)
         Me.ToolBarItemCO.Name = "ToolBarItemCO"
         Me.ToolBarItemCO.ShowToolTips = True
         Me.ToolBarItemCO.Size = New System.Drawing.Size(572, 26)
@@ -2610,7 +2276,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Label54.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label54.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label54.ForeColor = System.Drawing.Color.White
-        Me.Label54.Location = New System.Drawing.Point(0, 390)
+        Me.Label54.Location = New System.Drawing.Point(0, 313)
         Me.Label54.Name = "Label54"
         Me.Label54.Size = New System.Drawing.Size(572, 22)
         Me.Label54.TabIndex = 1
@@ -2619,12 +2285,6 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         '
         'Panel6
         '
-        Me.Panel6.Controls.Add(Me.Label116)
-        Me.Panel6.Controls.Add(Me.UsNumeric3)
-        Me.Panel6.Controls.Add(Me.Label115)
-        Me.Panel6.Controls.Add(Me.UsNumeric2)
-        Me.Panel6.Controls.Add(Me.Label114)
-        Me.Panel6.Controls.Add(Me.UsNumeric1)
         Me.Panel6.Controls.Add(Me.Label55)
         Me.Panel6.Controls.Add(Me.Label56)
         Me.Panel6.Controls.Add(Me.txtOrderNumberSupplierCO)
@@ -2667,80 +2327,8 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(572, 390)
+        Me.Panel6.Size = New System.Drawing.Size(572, 313)
         Me.Panel6.TabIndex = 0
-        '
-        'Label116
-        '
-        Me.Label116.AutoSize = True
-        Me.Label116.BackColor = System.Drawing.Color.Transparent
-        Me.Label116.ForeColor = System.Drawing.Color.Black
-        Me.Label116.Location = New System.Drawing.Point(14, 364)
-        Me.Label116.Name = "Label116"
-        Me.Label116.Size = New System.Drawing.Size(69, 13)
-        Me.Label116.TabIndex = 198
-        Me.Label116.Text = "Total DP PPH"
-        '
-        'UsNumeric3
-        '
-        Me.UsNumeric3.BackColor = System.Drawing.Color.White
-        Me.UsNumeric3.DecimalPlaces = 2
-        Me.UsNumeric3.Location = New System.Drawing.Point(153, 360)
-        Me.UsNumeric3.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.UsNumeric3.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.UsNumeric3.Name = "UsNumeric3"
-        Me.UsNumeric3.Size = New System.Drawing.Size(170, 21)
-        Me.UsNumeric3.TabIndex = 197
-        Me.UsNumeric3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.UsNumeric3.ThousandsSeparator = True
-        '
-        'Label115
-        '
-        Me.Label115.AutoSize = True
-        Me.Label115.BackColor = System.Drawing.Color.Transparent
-        Me.Label115.ForeColor = System.Drawing.Color.Black
-        Me.Label115.Location = New System.Drawing.Point(14, 337)
-        Me.Label115.Name = "Label115"
-        Me.Label115.Size = New System.Drawing.Size(69, 13)
-        Me.Label115.TabIndex = 196
-        Me.Label115.Text = "Total DP PPN"
-        '
-        'UsNumeric2
-        '
-        Me.UsNumeric2.BackColor = System.Drawing.Color.White
-        Me.UsNumeric2.DecimalPlaces = 2
-        Me.UsNumeric2.Location = New System.Drawing.Point(153, 333)
-        Me.UsNumeric2.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.UsNumeric2.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.UsNumeric2.Name = "UsNumeric2"
-        Me.UsNumeric2.Size = New System.Drawing.Size(170, 21)
-        Me.UsNumeric2.TabIndex = 195
-        Me.UsNumeric2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.UsNumeric2.ThousandsSeparator = True
-        '
-        'Label114
-        '
-        Me.Label114.AutoSize = True
-        Me.Label114.BackColor = System.Drawing.Color.Transparent
-        Me.Label114.ForeColor = System.Drawing.Color.Black
-        Me.Label114.Location = New System.Drawing.Point(14, 310)
-        Me.Label114.Name = "Label114"
-        Me.Label114.Size = New System.Drawing.Size(47, 13)
-        Me.Label114.TabIndex = 194
-        Me.Label114.Text = "Total DP"
-        '
-        'UsNumeric1
-        '
-        Me.UsNumeric1.BackColor = System.Drawing.Color.White
-        Me.UsNumeric1.DecimalPlaces = 2
-        Me.UsNumeric1.Location = New System.Drawing.Point(153, 306)
-        Me.UsNumeric1.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.UsNumeric1.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.UsNumeric1.Name = "UsNumeric1"
-        Me.UsNumeric1.Size = New System.Drawing.Size(170, 21)
-        Me.UsNumeric1.TabIndex = 193
-        Me.UsNumeric1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.UsNumeric1.ThousandsSeparator = True
         '
         'Label55
         '
@@ -3194,6 +2782,170 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.txtWeightCO.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtWeightCO.ThousandsSeparator = True
         '
+        'tpDownPayment
+        '
+        Me.tpDownPayment.Controls.Add(Me.TableLayoutPanel3)
+        Me.tpDownPayment.Location = New System.Drawing.Point(4, 25)
+        Me.tpDownPayment.Name = "tpDownPayment"
+        Me.tpDownPayment.Padding = New System.Windows.Forms.Padding(3)
+        Me.tpDownPayment.Size = New System.Drawing.Size(1156, 582)
+        Me.tpDownPayment.TabIndex = 2
+        Me.tpDownPayment.Text = "Down Payment - F3"
+        Me.tpDownPayment.UseVisualStyleBackColor = True
+        '
+        'TableLayoutPanel3
+        '
+        Me.TableLayoutPanel3.ColumnCount = 2
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel3.Controls.Add(Me.Panel9, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.Panel8, 1, 0)
+        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        Me.TableLayoutPanel3.RowCount = 1
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1150, 576)
+        Me.TableLayoutPanel3.TabIndex = 0
+        '
+        'Panel9
+        '
+        Me.Panel9.Controls.Add(Me.grdDownPayment)
+        Me.Panel9.Controls.Add(Me.ToolBarDP)
+        Me.Panel9.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel9.Location = New System.Drawing.Point(3, 3)
+        Me.Panel9.Name = "Panel9"
+        Me.Panel9.Size = New System.Drawing.Size(569, 570)
+        Me.Panel9.TabIndex = 5
+        '
+        'grdDownPayment
+        '
+        Me.grdDownPayment.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdDownPayment.EmbeddedNavigator.Buttons.Append.Enabled = False
+        Me.grdDownPayment.EmbeddedNavigator.Buttons.Append.Visible = False
+        Me.grdDownPayment.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
+        Me.grdDownPayment.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
+        Me.grdDownPayment.EmbeddedNavigator.Buttons.Edit.Enabled = False
+        Me.grdDownPayment.EmbeddedNavigator.Buttons.Edit.Visible = False
+        Me.grdDownPayment.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
+        Me.grdDownPayment.EmbeddedNavigator.Buttons.EndEdit.Visible = False
+        Me.grdDownPayment.EmbeddedNavigator.Buttons.NextPage.Enabled = False
+        Me.grdDownPayment.EmbeddedNavigator.Buttons.NextPage.Visible = False
+        Me.grdDownPayment.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
+        Me.grdDownPayment.EmbeddedNavigator.Buttons.PrevPage.Visible = False
+        Me.grdDownPayment.EmbeddedNavigator.Buttons.Remove.Enabled = False
+        Me.grdDownPayment.EmbeddedNavigator.Buttons.Remove.Visible = False
+        Me.grdDownPayment.Location = New System.Drawing.Point(0, 26)
+        Me.grdDownPayment.MainView = Me.grdDownPaymentView
+        Me.grdDownPayment.Name = "grdDownPayment"
+        Me.grdDownPayment.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
+        Me.grdDownPayment.Size = New System.Drawing.Size(569, 544)
+        Me.grdDownPayment.TabIndex = 11
+        Me.grdDownPayment.UseEmbeddedNavigator = True
+        Me.grdDownPayment.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdDownPaymentView})
+        '
+        'grdDownPaymentView
+        '
+        Me.grdDownPaymentView.GridControl = Me.grdDownPayment
+        Me.grdDownPaymentView.Name = "grdDownPaymentView"
+        Me.grdDownPaymentView.OptionsCustomization.AllowColumnMoving = False
+        Me.grdDownPaymentView.OptionsCustomization.AllowGroup = False
+        Me.grdDownPaymentView.OptionsView.ColumnAutoWidth = False
+        Me.grdDownPaymentView.OptionsView.ShowAutoFilterRow = True
+        Me.grdDownPaymentView.OptionsView.ShowGroupPanel = False
+        '
+        'rpiValue
+        '
+        Me.rpiValue.AutoHeight = False
+        Me.rpiValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.rpiValue.Name = "rpiValue"
+        Me.rpiValue.NullText = "0.00"
+        '
+        'ToolBarDP
+        '
+        Me.ToolBarDP.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBarDP.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarMoveDP})
+        Me.ToolBarDP.Divider = False
+        Me.ToolBarDP.DropDownArrows = True
+        Me.ToolBarDP.Location = New System.Drawing.Point(0, 0)
+        Me.ToolBarDP.Name = "ToolBarDP"
+        Me.ToolBarDP.ShowToolTips = True
+        Me.ToolBarDP.Size = New System.Drawing.Size(569, 26)
+        Me.ToolBarDP.TabIndex = 4
+        Me.ToolBarDP.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'BarMoveDP
+        '
+        Me.BarMoveDP.Name = "BarMoveDP"
+        Me.BarMoveDP.Tag = "Submit"
+        Me.BarMoveDP.Text = "Pindah"
+        '
+        'Panel8
+        '
+        Me.Panel8.Controls.Add(Me.grdDownPaymentSplit)
+        Me.Panel8.Controls.Add(Me.ToolBarDPSplit)
+        Me.Panel8.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel8.Location = New System.Drawing.Point(578, 3)
+        Me.Panel8.Name = "Panel8"
+        Me.Panel8.Size = New System.Drawing.Size(569, 570)
+        Me.Panel8.TabIndex = 4
+        '
+        'grdDownPaymentSplit
+        '
+        Me.grdDownPaymentSplit.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdDownPaymentSplit.EmbeddedNavigator.Buttons.Append.Enabled = False
+        Me.grdDownPaymentSplit.EmbeddedNavigator.Buttons.Append.Visible = False
+        Me.grdDownPaymentSplit.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
+        Me.grdDownPaymentSplit.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
+        Me.grdDownPaymentSplit.EmbeddedNavigator.Buttons.Edit.Enabled = False
+        Me.grdDownPaymentSplit.EmbeddedNavigator.Buttons.Edit.Visible = False
+        Me.grdDownPaymentSplit.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
+        Me.grdDownPaymentSplit.EmbeddedNavigator.Buttons.EndEdit.Visible = False
+        Me.grdDownPaymentSplit.EmbeddedNavigator.Buttons.NextPage.Enabled = False
+        Me.grdDownPaymentSplit.EmbeddedNavigator.Buttons.NextPage.Visible = False
+        Me.grdDownPaymentSplit.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
+        Me.grdDownPaymentSplit.EmbeddedNavigator.Buttons.PrevPage.Visible = False
+        Me.grdDownPaymentSplit.EmbeddedNavigator.Buttons.Remove.Enabled = False
+        Me.grdDownPaymentSplit.EmbeddedNavigator.Buttons.Remove.Visible = False
+        Me.grdDownPaymentSplit.Location = New System.Drawing.Point(0, 26)
+        Me.grdDownPaymentSplit.MainView = Me.grdDownPaymentSplitView
+        Me.grdDownPaymentSplit.Name = "grdDownPaymentSplit"
+        Me.grdDownPaymentSplit.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit5})
+        Me.grdDownPaymentSplit.Size = New System.Drawing.Size(569, 544)
+        Me.grdDownPaymentSplit.TabIndex = 11
+        Me.grdDownPaymentSplit.UseEmbeddedNavigator = True
+        Me.grdDownPaymentSplit.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdDownPaymentSplitView})
+        '
+        'grdDownPaymentSplitView
+        '
+        Me.grdDownPaymentSplitView.GridControl = Me.grdDownPaymentSplit
+        Me.grdDownPaymentSplitView.Name = "grdDownPaymentSplitView"
+        Me.grdDownPaymentSplitView.OptionsCustomization.AllowColumnMoving = False
+        Me.grdDownPaymentSplitView.OptionsCustomization.AllowGroup = False
+        Me.grdDownPaymentSplitView.OptionsView.ColumnAutoWidth = False
+        Me.grdDownPaymentSplitView.OptionsView.ShowAutoFilterRow = True
+        Me.grdDownPaymentSplitView.OptionsView.ShowGroupPanel = False
+        '
+        'RepositoryItemTextEdit5
+        '
+        Me.RepositoryItemTextEdit5.AutoHeight = False
+        Me.RepositoryItemTextEdit5.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.RepositoryItemTextEdit5.Name = "RepositoryItemTextEdit5"
+        Me.RepositoryItemTextEdit5.NullText = "0.00"
+        '
+        'ToolBarDPSplit
+        '
+        Me.ToolBarDPSplit.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBarDPSplit.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarDeleteDPSplit})
+        Me.ToolBarDPSplit.Divider = False
+        Me.ToolBarDPSplit.DropDownArrows = True
+        Me.ToolBarDPSplit.Location = New System.Drawing.Point(0, 0)
+        Me.ToolBarDPSplit.Name = "ToolBarDPSplit"
+        Me.ToolBarDPSplit.ShowToolTips = True
+        Me.ToolBarDPSplit.Size = New System.Drawing.Size(569, 26)
+        Me.ToolBarDPSplit.TabIndex = 4
+        Me.ToolBarDPSplit.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
         'lblInfo
         '
         Me.lblInfo.BackColor = System.Drawing.Color.CadetBlue
@@ -3206,6 +2958,12 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.lblInfo.TabIndex = 1
         Me.lblInfo.Text = "« Split Barang"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'BarDeleteDPSplit
+        '
+        Me.BarDeleteDPSplit.Name = "BarDeleteDPSplit"
+        Me.BarDeleteDPSplit.Tag = "Delete"
+        Me.BarDeleteDPSplit.Text = "Hapus"
         '
         'frmTraSalesContractDetVer2SplitItem
         '
@@ -3228,12 +2986,6 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
-        CType(Me.txtTotalWeightDPSplit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtWeightDPSplit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtQuantityDPSplit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtDPAmountPPHSplit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtDPAmountPPNSplit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtDPAmountSplit, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtUnitPriceHPPSplit, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtLengthSplit, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWidthSplit, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3251,12 +3003,6 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlDetail.ResumeLayout(False)
         Me.pnlDetail.PerformLayout()
-        CType(Me.txtTotalWeightDP, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtWeightDP, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtQuantityDP, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtDPAmountPPH, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtDPAmountPPN, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtDPAmount, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3292,9 +3038,6 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
-        CType(Me.UsNumeric3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.UsNumeric2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.UsNumeric1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalPriceCO, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtQuantityCO, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtUnitPriceCO, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3304,6 +3047,18 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         CType(Me.txtThickCO, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtMaxTotalWeightCO, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWeightCO, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tpDownPayment.ResumeLayout(False)
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.Panel9.ResumeLayout(False)
+        Me.Panel9.PerformLayout()
+        CType(Me.grdDownPayment, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdDownPaymentView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel8.ResumeLayout(False)
+        Me.Panel8.PerformLayout()
+        CType(Me.grdDownPaymentSplit, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdDownPaymentSplitView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemTextEdit5, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -3507,34 +3262,18 @@ Partial Class frmTraSalesContractDetVer2SplitItem
     Friend WithEvents txtThickCOSplit As ERPS.usNumeric
     Friend WithEvents txtMaxTotalWeightCOSplit As ERPS.usNumeric
     Friend WithEvents txtWeightCOSplit As ERPS.usNumeric
-    Friend WithEvents Label108 As System.Windows.Forms.Label
-    Friend WithEvents txtTotalWeightDPSplit As ERPS.usNumeric
-    Friend WithEvents Label109 As System.Windows.Forms.Label
-    Friend WithEvents txtWeightDPSplit As ERPS.usNumeric
-    Friend WithEvents Label110 As System.Windows.Forms.Label
-    Friend WithEvents txtQuantityDPSplit As ERPS.usNumeric
-    Friend WithEvents Label111 As System.Windows.Forms.Label
-    Friend WithEvents txtDPAmountPPHSplit As ERPS.usNumeric
-    Friend WithEvents Label112 As System.Windows.Forms.Label
-    Friend WithEvents txtDPAmountPPNSplit As ERPS.usNumeric
-    Friend WithEvents Label113 As System.Windows.Forms.Label
-    Friend WithEvents txtDPAmountSplit As ERPS.usNumeric
-    Friend WithEvents Label105 As System.Windows.Forms.Label
-    Friend WithEvents txtTotalWeightDP As ERPS.usNumeric
-    Friend WithEvents Label106 As System.Windows.Forms.Label
-    Friend WithEvents txtWeightDP As ERPS.usNumeric
-    Friend WithEvents Label107 As System.Windows.Forms.Label
-    Friend WithEvents txtQuantityDP As ERPS.usNumeric
-    Friend WithEvents Label104 As System.Windows.Forms.Label
-    Friend WithEvents txtDPAmountPPH As ERPS.usNumeric
-    Friend WithEvents Label41 As System.Windows.Forms.Label
-    Friend WithEvents txtDPAmountPPN As ERPS.usNumeric
-    Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents txtDPAmount As ERPS.usNumeric
-    Friend WithEvents Label116 As System.Windows.Forms.Label
-    Friend WithEvents UsNumeric3 As ERPS.usNumeric
-    Friend WithEvents Label115 As System.Windows.Forms.Label
-    Friend WithEvents UsNumeric2 As ERPS.usNumeric
-    Friend WithEvents Label114 As System.Windows.Forms.Label
-    Friend WithEvents UsNumeric1 As ERPS.usNumeric
+    Friend WithEvents tpDownPayment As System.Windows.Forms.TabPage
+    Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents Panel9 As System.Windows.Forms.Panel
+    Friend WithEvents ToolBarDP As ERPS.usToolBar
+    Friend WithEvents BarMoveDP As System.Windows.Forms.ToolBarButton
+    Friend WithEvents Panel8 As System.Windows.Forms.Panel
+    Friend WithEvents ToolBarDPSplit As ERPS.usToolBar
+    Friend WithEvents grdDownPayment As DevExpress.XtraGrid.GridControl
+    Friend WithEvents grdDownPaymentView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents rpiValue As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents grdDownPaymentSplit As DevExpress.XtraGrid.GridControl
+    Friend WithEvents grdDownPaymentSplitView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents RepositoryItemTextEdit5 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents BarDeleteDPSplit As System.Windows.Forms.ToolBarButton
 End Class

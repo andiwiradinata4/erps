@@ -19,8 +19,12 @@
         Property InvoiceQuantity As Decimal
         Property InvoiceWeight As Decimal
         Property InvoiceTotalWeight As Decimal
+        Property TotalInvoiceAmount As Decimal
         Property TotalDPPInvoiceAmount As Decimal
         Property TotalPPNInvoiceAmount As Decimal
         Property TotalPPHInvoiceAmount As Decimal
+        Property Percentage As Decimal
+        Property PPNPercentage As Decimal
+        Property PPHPercentage As Decimal
     End Class
 End Namespace

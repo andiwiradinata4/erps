@@ -2552,6 +2552,73 @@
             End Try
         End Sub
 
+        Public Shared Sub UpdateSplitItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal clsData As VO.SalesContractDet)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesContractDet SET " & vbNewLine &
+                    "   Weight=@Weight, " & vbNewLine &
+                    "   Quantity=@Quantity, " & vbNewLine &
+                    "   TotalWeight=@TotalWeight, " & vbNewLine &
+                    "   TotalPrice=@TotalPrice, " & vbNewLine &
+                    "   DPAmount=@DPAmount, " & vbNewLine &
+                    "   DPAmountPPN=@DPAmountPPN, " & vbNewLine &
+                    "   DPAmountPPH=@DPAmountPPH " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@Quantity", SqlDbType.Decimal).Value = clsData.Quantity
+                .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
+                .Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = clsData.TotalPrice
+                .Parameters.Add("@DPAmount", SqlDbType.Decimal).Value = clsData.DPAmount
+                .Parameters.Add("@DPAmountPPN", SqlDbType.Decimal).Value = clsData.DPAmountPPN
+                .Parameters.Add("@DPAmountPPH", SqlDbType.Decimal).Value = clsData.DPAmountPPH
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Function ListDataDownPaymentBySCDetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strSCDetailID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText +=
+                    "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.ID, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
+                    "   A.ItemID, B.TotalPrice AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
+                    "   B.TotalPrice-B.AllocateDPAmount-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
+                    "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID, " & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, B.UnitPrice " & vbNewLine &
+                    "FROM traARAPItem A " & vbNewLine &
+                    "INNER JOIN traSalesContractDet B ON " & vbNewLine &
+                    "   A.ReferencesID=B.SCID " & vbNewLine &
+                    "   AND A.ReferencesDetailID=B.ID " & vbNewLine &
+                    "INNER JOIN traSalesContract C ON " & vbNewLine &
+                    "   A.ReferencesID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItem MI ON " & vbNewLine &
+                    "   A.ItemID=MI.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
+                    "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
+                    "INNER JOIN mstItemType MIT ON " & vbNewLine &
+                    "   MI.ItemTypeID=MIT.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   B.ID=@SCDetailID " & vbNewLine
+
+                .Parameters.Add("@SCDetailID", SqlDbType.VarChar, 100).Value = strSCDetailID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
 #End Region
 
 #Region "Detail CO"

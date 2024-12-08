@@ -6,17 +6,22 @@
     Private strID As String = ""
     Private strSCDetailCOID As String = ""
     Private bolIsSave As Boolean
+    Private clsSC As New VO.SalesContract
     Private clsData As New VO.SalesContractDet
     Private clsDataSplit As New VO.SalesContractDet
     Private clsDataCO As New VO.SalesContractDetConfirmationOrder
     Private clsDataCOSplit As New VO.SalesContractDetConfirmationOrder
-    Private clsARAP As New VO.ARAP
+    Private clsARAP As New VO.ARAPItem
     Private dtSubItem As New DataTable
     Private dtSubItemMain As New DataTable
     Private dtSubItemSplit As New DataTable
     Private dtSubItemCO As New DataTable
     Private dtSubItemCOMain As New DataTable
     Private dtSubItemCOSplit As New DataTable
+    Private dtDP As New DataTable
+    Private dtDPMain As New DataTable
+    Private dtDPSplit As New DataTable
+    Private intPos As Integer = -1
 
     Public WriteOnly Property pubID As String
         Set(value As String)
@@ -165,11 +170,102 @@
         UI.usForm.SetGrid(grdSubItemCOSplitView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdSubItemCOSplitView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdSubItemCOSplitView, "PCDetailID", "PCDetailID", 100, UI.usDefGrid.gString, False)
+
+        '# Down Payment
+        UI.usForm.SetGrid(grdDownPaymentView, "Pick", "Pilih", 80, UI.usDefGrid.gBoolean, False)
+        UI.usForm.SetGrid(grdDownPaymentView, "ID", "ID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdDownPaymentView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdDownPaymentView, "ReferencesID", "ReferencesID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdDownPaymentView, "ReferencesDetailID", "ReferencesDetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdDownPaymentView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdDownPaymentView, "InvoiceAmount", "InvoiceAmount", 250, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdDownPaymentView, "Quantity", "Jumlah", 150, UI.usDefGrid.gReal2Num, True, False)
+        UI.usForm.SetGrid(grdDownPaymentView, "Weight", "Berat", 150, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdDownPaymentView, "TotalWeight", "Total Berat", 150, UI.usDefGrid.gReal2Num, True, False)
+        UI.usForm.SetGrid(grdDownPaymentView, "Amount", "Total Tagihan", 150, UI.usDefGrid.gReal2Num, True, False)
+        UI.usForm.SetGrid(grdDownPaymentView, "DPAmount", "Total Panjar", 150, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdDownPaymentView, "PPNPercent", "PPNPercent", 150, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdDownPaymentView, "PPHPercent", "PPHPercent", 150, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdDownPaymentView, "PPN", "PPN", 150, UI.usDefGrid.gReal2Num, True)
+        UI.usForm.SetGrid(grdDownPaymentView, "PPH", "PPH", 150, UI.usDefGrid.gReal2Num, True)
+        UI.usForm.SetGrid(grdDownPaymentView, "MaxPaymentAmount", "Total Maksimal Tagihan", 150, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdDownPaymentView, "Remarks", "Keterangan", 250, UI.usDefGrid.gString, True)
+        UI.usForm.SetGrid(grdDownPaymentView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdDownPaymentView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdDownPaymentView, "ItemName", "Nama Barang", 250, UI.usDefGrid.gSmallDate)
+        UI.usForm.SetGrid(grdDownPaymentView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdDownPaymentView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdDownPaymentView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdDownPaymentView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdDownPaymentView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdDownPaymentView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdDownPaymentView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdDownPaymentView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdDownPaymentView, "ReferencesParentID", "ReferencesParentID", 100, UI.usDefGrid.gString, False)
+        'grdDownPaymentView.Columns("Amount").ColumnEdit = rpiValue
+        'grdDownPaymentView.Columns("PPN").ColumnEdit = rpiValue
+        'grdDownPaymentView.Columns("PPH").ColumnEdit = rpiValue
+
+        '# Down Payment
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "Pick", "Pilih", 80, UI.usDefGrid.gBoolean, False)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "ID", "ID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "ReferencesID", "ReferencesID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "ReferencesDetailID", "ReferencesDetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "InvoiceAmount", "InvoiceAmount", 250, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "Quantity", "Jumlah", 150, UI.usDefGrid.gReal2Num, True)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "Weight", "Berat", 150, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "TotalWeight", "Total Berat", 150, UI.usDefGrid.gReal2Num, True)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "Amount", "Total Tagihan", 150, UI.usDefGrid.gReal2Num, True)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "DPAmount", "Total Panjar", 150, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "PPNPercent", "PPNPercent", 150, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "PPHPercent", "PPHPercent", 150, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "PPN", "PPN", 150, UI.usDefGrid.gReal2Num, True)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "PPH", "PPH", 150, UI.usDefGrid.gReal2Num, True)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "MaxPaymentAmount", "Total Maksimal Tagihan", 150, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "Remarks", "Keterangan", 250, UI.usDefGrid.gString, True)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "ItemName", "Nama Barang", 250, UI.usDefGrid.gSmallDate)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "ItemTypeName", "Tipe", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "LevelItem", "LevelItem", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdDownPaymentSplitView, "ReferencesParentID", "ReferencesParentID", 100, UI.usDefGrid.gString, False)
+        'grdDownPaymentSplitView.Columns("Amount").ColumnEdit = rpiValue
+        'grdDownPaymentSplitView.Columns("PPN").ColumnEdit = rpiValue
+        'grdDownPaymentSplitView.Columns("PPH").ColumnEdit = rpiValue
+    End Sub
+
+    Private Sub prvFillCombo()
+        Try
+            Dim dtItemType As DataTable = BL.ItemType.ListDataForCombo
+            Dim dtItemSpecification As DataTable = BL.ItemSpecification.ListDataForCombo
+            UI.usForm.FillComboBox(cboItemType, dtItemType, "ID", "Description")
+            UI.usForm.FillComboBox(cboItemSpecification, dtItemSpecification, "ID", "Description")
+
+            UI.usForm.FillComboBox(cboItemTypeSplit, dtItemType, "ID", "Description")
+            UI.usForm.FillComboBox(cboItemSpecificationSplit, dtItemSpecification, "ID", "Description")
+
+            UI.usForm.FillComboBox(cboItemTypeCO, dtItemType, "ID", "Description")
+            UI.usForm.FillComboBox(cboItemSpecificationCO, dtItemSpecification, "ID", "Description")
+
+            UI.usForm.FillComboBox(cboItemTypeCOSplit, dtItemType, "ID", "Description")
+            UI.usForm.FillComboBox(cboItemSpecificationCOSplit, dtItemSpecification, "ID", "Description")
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        End Try
     End Sub
 
     Private Sub prvFillForm()
         Me.Cursor = Cursors.WaitCursor
         Try
+            prvFillCombo()
             '# SC Item
             clsData = BL.SalesContract.GetDetailItem(strID)
             txtRequestNumber.Text = clsData.RequestNumber
@@ -256,7 +352,16 @@
             grdSubItemCO.DataSource = dtSubItemCOMain
             grdSubItemCOSplit.DataSource = dtSubItemCOSplit
 
-            'clsARAP = BL.ARAP.GetDetail(
+            '# Fill ARAP
+            clsARAP = BL.ARAP.GetDetailAmountByReferencesDetailID(strID)
+            clsSC = BL.SalesContract.GetDetail(clsData.SCID)
+            dtDP = BL.SalesContract.ListDataDownPaymentBySCDetailID(strID)
+            dtDPMain = dtDP.Clone
+            dtDPSplit = dtDP.Clone
+            For Each dr As DataRow In dtDP.Rows
+                dtDPMain.ImportRow(dr)
+            Next
+            dtDPMain.AcceptChanges()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -272,7 +377,7 @@
             UI.usForm.frmMessageBox("Total Berat Keseluruhan harus sama dengan Maks. Total Berat")
             tcHeader.SelectedTab = tpSalesContract
             Exit Sub
-        ElseIf grdSubitemView.RowCount > 0 And grdSubitemSplitView.RowCount = 0 Then
+        ElseIf (grdSubitemView.RowCount > 0 And grdSubitemSplitView.RowCount = 0) Or (grdSubitemView.RowCount = 0 And grdSubitemSplitView.RowCount > 0) Then
             UI.usForm.frmMessageBox("Subitem Kontrak Penjualan Belum dipindahkan")
             tcHeader.SelectedTab = tpSalesContract
             Exit Sub
@@ -280,20 +385,45 @@
             UI.usForm.frmMessageBox("Total Berat Keseluruhan harus sama dengan Maks. Total Berat")
             tcHeader.SelectedTab = tpConfirmationOrder
             Exit Sub
-        ElseIf grdSubItemCOView.RowCount > 0 And grdSubItemCOSplitView.RowCount = 0 Then
+        ElseIf (grdSubItemCOView.RowCount > 0 And grdSubItemCOSplitView.RowCount = 0) Or (grdSubItemCOView.RowCount = 0 And grdSubItemCOSplitView.RowCount > 0) Then
             UI.usForm.frmMessageBox("Subitem Konfirmasi Pesanan Belum dipindahkan")
             tcHeader.SelectedTab = tpConfirmationOrder
             Exit Sub
-        ElseIf clsARAP.TotalAmount <> txtDPAmount.Value + txtDPAmountSplit.Value Then
+        ElseIf (grdDownPaymentView.RowCount > 0 And grdDownPaymentSplitView.RowCount = 0) Or (grdDownPaymentView.RowCount = 0 And grdDownPaymentSplitView.RowCount > 0) Then
+            UI.usForm.frmMessageBox("Down Payment Pesanan Belum dipindahkan")
+            tcHeader.SelectedTab = tpDownPayment
+            Exit Sub
+        End If
+
+        Dim decDPAmount, decDPAmountPPN, decDPAmountPPH, decDPTotalWeight As Decimal
+        For Each dr As DataRow In dtDPMain.Rows
+            decDPTotalWeight += dr.Item("TotalWeight")
+            decDPAmount += dr.Item("Amount")
+            decDPAmountPPN += dr.Item("PPN")
+            decDPAmountPPH += dr.Item("PPH")
+        Next
+
+        For Each dr As DataRow In dtDPSplit.Rows
+            decDPTotalWeight += dr.Item("TotalWeight")
+            decDPAmount += dr.Item("Amount")
+            decDPAmountPPN += dr.Item("PPN")
+            decDPAmountPPH += dr.Item("PPH")
+        Next
+
+        If clsARAP.Amount <> decDPAmount Then
             UI.usForm.frmMessageBox("Total DP secara keseluruhan tidak sesuai")
             tcHeader.SelectedTab = tpSalesContract
             Exit Sub
-        ElseIf clsARAP.TotalPPN <> txtDPAmountPPN.Value + txtDPAmountPPNSplit.Value Then
+        ElseIf clsARAP.PPN <> decDPAmountPPN Then
             UI.usForm.frmMessageBox("Total DP PPN secara keseluruhan tidak sesuai")
             tcHeader.SelectedTab = tpSalesContract
             Exit Sub
-        ElseIf clsARAP.TotalPPH <> txtDPAmountPPH.Value + txtDPAmountPPHSplit.Value Then
+        ElseIf clsARAP.PPH <> decDPAmountPPH Then
             UI.usForm.frmMessageBox("Total DP PPH secara keseluruhan tidak sesuai")
+            tcHeader.SelectedTab = tpSalesContract
+            Exit Sub
+        ElseIf clsARAP.TotalWeight <> decDPTotalWeight Then
+            UI.usForm.frmMessageBox("Total Berat DP secara keseluruhan tidak sesuai")
             tcHeader.SelectedTab = tpSalesContract
             Exit Sub
         End If
@@ -341,6 +471,18 @@
             clsData.SubItem.Add(cls)
         Next
 
+        For Each dr As DataRow In dtDPMain.Rows
+            Dim cls As New VO.ARAPItem
+            cls.ID = dr.Item("ID")
+            cls.Quantity = dr.Item("Quantity")
+            cls.Weight = dr.Item("Weight")
+            cls.TotalWeight = dr.Item("TotalWeight")
+            cls.Amount = dr.Item("Amount")
+            cls.PPN = dr.Item("PPN")
+            cls.PPH = dr.Item("PPH")
+            clsData.DPItem.Add(cls)
+        Next
+
         clsDataSplit.Weight = txtWeightSplit.Value
         clsDataSplit.Quantity = txtQuantitySplit.Value
         clsDataSplit.TotalWeight = txtTotalWeightSplit.Value
@@ -381,9 +523,64 @@
             clsDataSplit.SubItem.Add(cls)
         Next
 
+        For Each dr As DataRow In dtDPSplit.Rows
+            Dim cls As New VO.ARAPItem
+            cls.ID = dr.Item("ID")
+            cls.Quantity = dr.Item("Quantity")
+            cls.Weight = dr.Item("Weight")
+            cls.TotalWeight = dr.Item("TotalWeight")
+            cls.Amount = dr.Item("Amount")
+            cls.PPN = dr.Item("PPN")
+            cls.PPH = dr.Item("PPH")
+            clsDataSplit.DPItem.Add(cls)
+        Next
+
         '# CO Item
+        clsDataCO.Weight = txtWeightCO.Value
+        clsDataCO.Quantity = txtQuantityCO.Value
+        clsDataCO.TotalWeight = txtTotalWeightCO.Value
+        clsDataCO.TotalPrice = txtTotalPriceCO.Value
+
         '# CO Sub Item
+        For Each dr As DataRow In dtSubItemCOMain.Rows
+            Dim cls As New VO.SalesContractDetConfirmationOrder
+            cls.ID = dr.Item("ID")
+            cls.CODetailID = dr.Item("CODetailID")
+            cls.GroupID = dr.Item("GroupID")
+            cls.ItemID = dr.Item("ItemID")
+            cls.Quantity = dr.Item("Quantity")
+            cls.Weight = dr.Item("Weight")
+            cls.TotalWeight = dr.Item("TotalWeight")
+            cls.Remarks = dr.Item("Remarks")
+            cls.LevelItem = dr.Item("LevelItem")
+            cls.ParentID = dr.Item("ParentID")
+            cls.LocationID = dr.Item("LocationID")
+            clsDataCO.SubItem.Add(cls)
+        Next
+
+        '# CO Split
+        clsDataCOSplit.Weight = txtWeightCOSplit.Value
+        clsDataCOSplit.Quantity = txtQuantityCOSplit.Value
+        clsDataCOSplit.TotalWeight = txtTotalWeightCOSplit.Value
+        clsDataCOSplit.TotalPrice = txtTotalPriceCOSplit.Value
+
         '# CO Sub Item Split 
+        For Each dr As DataRow In dtSubItemCOSplit.Rows
+            Dim cls As New VO.SalesContractDetConfirmationOrder
+            cls.ID = dr.Item("ID")
+            cls.CODetailID = dr.Item("CODetailID")
+            cls.GroupID = dr.Item("GroupID")
+            cls.ItemID = dr.Item("ItemID")
+            cls.Quantity = dr.Item("Quantity")
+            cls.Weight = dr.Item("Weight")
+            cls.TotalWeight = dr.Item("TotalWeight")
+            cls.Remarks = dr.Item("Remarks")
+            cls.LevelItem = dr.Item("LevelItem")
+            cls.ParentID = dr.Item("ParentID")
+            cls.LocationID = dr.Item("LocationID")
+            clsDataCOSplit.SubItem.Add(cls)
+        Next
+
         Try
             BL.SalesContract.SplitItem(clsData, clsDataSplit, clsDataCO, clsDataCOSplit)
             UI.usForm.frmMessageBox("Data berhasil di Split")
@@ -395,39 +592,129 @@
     End Sub
 
     Private Sub prvMoveToSplit()
+        intPos = grdSubitemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
 
+        dtSubItemSplit.ImportRow(grdSubitemView.GetDataRow(intPos))
+        dtSubItemSplit.AcceptChanges()
+        grdSubitemSplit.DataSource = dtSubItemSplit
+
+        For Each dr As DataRow In dtSubItemMain.Rows
+            If dr.Item("ID") = grdSubitemView.GetRowCellValue(intPos, "ID") Then dr.Delete() : Exit For
+        Next
+        dtSubItemMain.AcceptChanges()
+        grdSubitem.DataSource = dtSubItemMain
     End Sub
 
     Private Sub prvMoveToMain()
+        intPos = grdSubitemSplitView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
 
+        dtSubItemMain.ImportRow(grdSubitemSplitView.GetDataRow(intPos))
+        dtSubItemMain.AcceptChanges()
+        grdSubitem.DataSource = dtSubItemMain
+
+        For Each dr As DataRow In dtSubItemSplit.Rows
+            If dr.Item("ID") = grdSubitemSplitView.GetRowCellValue(intPos, "ID") Then dr.Delete() : Exit For
+        Next
+        dtSubItemSplit.AcceptChanges()
+        grdSubitemSplit.DataSource = dtSubItemSplit
     End Sub
 
     Private Sub prvMoveToSplitCO()
+        intPos = grdSubItemCOView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
 
+        dtSubItemCOSplit.ImportRow(grdSubItemCOView.GetDataRow(intPos))
+        dtSubItemCOSplit.AcceptChanges()
+        grdSubitemSplit.DataSource = dtSubItemCOSplit
+
+        For Each dr As DataRow In dtSubItemCOMain.Rows
+            If dr.Item("ID") = grdSubItemCOView.GetRowCellValue(intPos, "ID") Then dr.Delete() : Exit For
+        Next
+        dtSubItemCOMain.AcceptChanges()
+        grdSubItemCO.DataSource = dtSubItemCOMain
     End Sub
 
     Private Sub prvMoveToMainCO()
+        intPos = grdSubItemCOSplitView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
 
+        dtSubItemCOMain.ImportRow(grdSubItemCOSplitView.GetDataRow(intPos))
+        dtSubItemCOMain.AcceptChanges()
+        grdSubItemCO.DataSource = dtSubItemCOMain
+
+        For Each dr As DataRow In dtSubItemCOSplit.Rows
+            If dr.Item("ID") = grdSubItemCOSplitView.GetRowCellValue(intPos, "ID") Then dr.Delete() : Exit For
+        Next
+        dtSubItemCOSplit.AcceptChanges()
+        grdSubItemCOSplit.DataSource = dtSubItemCOSplit
+    End Sub
+
+    Private Sub prvMoveDPToSplit()
+        intPos = grdDownPaymentView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim frmDetail As New frmTraSalesContractDetVer2SplitItemDP
+        With frmDetail
+            .pubClsARAPItem = clsARAP
+            .pubDrData = grdDownPaymentView.GetDataRow(intPos)
+            .pubUnitPrice = txtUnitPrice.Value
+            .pubShowDialog(Me)
+            If .pubIsSave Then
+                dtDPSplit.ImportRow(.pubDrData)
+                dtDPSplit.AcceptChanges()
+                grdDownPaymentSplit.DataSource = dtDPSplit
+
+                For Each dr As DataRow In dtDPMain.Rows
+                    If dr.Item("ID") = .pubDrData.Item("ID") Then
+                        If dr.Item("TotalWeight") - .pubDrData.Item("TotalWeight") = 0 Then
+                            dr.Delete()
+                        Else
+                            dr.BeginEdit()
+                            If dr.Item("Quantity") > 1 Then dr.Item("Quantity") -= .pubDrData.Item("Quantity")
+                            If dr.Item("Quantity") <= 1 Then dr.Item("Weight") -= .pubDrData.Item("Weight")
+                            dr.Item("TotalWeight") -= .pubDrData.Item("TotalWeight")
+                            dr.Item("Amount") -= .pubDrData.Item("Amount")
+                            dr.Item("PPN") -= .pubDrData.Item("PPN")
+                            dr.Item("PPH") -= .pubDrData.Item("PPH")
+                            dr.EndEdit()
+                        End If
+                        Exit For
+                    End If
+                Next
+                dtDPMain.AcceptChanges()
+                grdDownPayment.DataSource = dtDPMain
+            End If
+        End With
+    End Sub
+
+    Private Sub prvMoveDPToMain()
+        intPos = grdDownPaymentSplitView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim drSplit As DataRow = grdDownPaymentSplitView.GetDataRow(intPos)
+
+        For Each dr As DataRow In dtDPMain.Rows
+            If dr.Item("ID") = drSplit.Item("ID") Then dr.Delete()
+        Next
+        dtDPMain.AcceptChanges()
+        For Each dr As DataRow In dtDP.Rows
+            If dr.Item("ID") = drSplit.Item("ID") Then dtDPMain.ImportRow(dr)
+        Next
+        dtDPMain.AcceptChanges()
+        Dim dv As DataView = dtDPMain.DefaultView
+        dv.Sort = "ID ASC"
+        dtDPMain = dv.ToTable
+        grdDownPayment.DataSource = dtDPMain
     End Sub
 
     Private Sub prvCalculate()
-        If clsData.Quantity > 1 Then txtQuantity.Value = clsData.Quantity - txtQuantitySplit.Value : txtQuantityDP.Value = clsData.Quantity - txtQuantitySplit.Value
-        If clsData.Quantity <= 1 Then txtWeight.Value = clsData.Weight - txtWeightSplit.Value : txtWeightDP.Value = clsData.Weight - txtWeightSplit.Value
+        If clsData.Quantity > 1 Then txtQuantity.Value = clsData.Quantity - txtQuantitySplit.Value
+        If clsData.Quantity <= 1 Then txtWeight.Value = clsData.Weight - txtWeightSplit.Value
 
         txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
         txtTotalPrice.Value = txtUnitPrice.Value * txtTotalWeight.Value
         txtTotalWeightSplit.Value = txtWeightSplit.Value * txtQuantitySplit.Value
         txtTotalPriceSplit.Value = txtUnitPriceSplit.Value * txtTotalWeightSplit.Value
-
-        txtTotalWeightDP.Value = txtWeightDP.Value * txtQuantityDP.Value
-        txtDPAmount.Value = ERPSLib.SharedLib.Math.Round(txtTotalPrice.Value * clsARAP.Percentage / 100, 2)
-        txtDPAmountPPN.Value = ERPSLib.SharedLib.Math.Round(txtDPAmount.Value * clsARAP.PPNPercentage / 100, 2)
-        txtDPAmountPPH.Value = ERPSLib.SharedLib.Math.Round(txtDPAmount.Value * clsARAP.PPHPercentage / 100, 2)
-
-        txtTotalWeightDPSplit.Value = txtWeightDPSplit.Value * txtQuantityDPSplit.Value
-        txtDPAmountSplit.Value = ERPSLib.SharedLib.Math.Round(txtTotalPriceSplit.Value * clsARAP.Percentage / 100, 2)
-        txtDPAmountPPNSplit.Value = ERPSLib.SharedLib.Math.Round(txtDPAmountSplit.Value * clsARAP.PPNPercentage / 100, 2)
-        txtDPAmountPPHSplit.Value = ERPSLib.SharedLib.Math.Round(txtDPAmountSplit.Value * clsARAP.PPHPercentage / 100, 2)
 
         If clsDataCO.Quantity > 1 Then txtQuantityCO.Value = clsDataCO.Quantity - txtQuantitySplit.Value
         If clsDataCO.Quantity <= 1 Then txtWeightCO.Value = clsDataCO.Weight - txtWeightSplit.Value
@@ -458,10 +745,12 @@
         ToolBarItemCOSplit.SetIcon(Me)
         ToolBarItemSubitem.SetIcon(Me)
         ToolBarItemSubitemSplit.SetIcon(Me)
+        ToolBarDP.SetIcon(Me)
+        ToolBarDPSplit.SetIcon(Me)
         prvSetGrid()
         prvFillForm()
     End Sub
-    
+
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
         Select Case e.Button.Text.Trim
             Case "Simpan" : prvSave()
@@ -493,7 +782,21 @@
         End Select
     End Sub
 
-    Private Sub txtValueSplit_ValueChanged(sender As Object, e As EventArgs) Handles txtQuantitySplit.ValueChanged, txtWeightSplit.ValueChanged, txtTotalWeightSplit.ValueChanged
+    Private Sub ToolBarDP_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarDP.ButtonClick
+        Select Case e.Button.Text.Trim
+            Case "Pindah" : prvMoveDPToMain()
+        End Select
+    End Sub
+
+    Private Sub ToolBarDPSplit_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarDPSplit.ButtonClick
+        Select Case e.Button.Text.Trim
+            Case "Hapus" : prvMoveDPToSplit()
+        End Select
+    End Sub
+
+    Private Sub txtValueSplit_ValueChanged(sender As Object, e As EventArgs) Handles txtQuantitySplit.ValueChanged,
+        txtWeightSplit.ValueChanged, txtTotalWeightSplit.ValueChanged,
+        txtWeightCOSplit.ValueChanged, txtQuantityCOSplit.ValueChanged
         prvCalculate()
     End Sub
 
