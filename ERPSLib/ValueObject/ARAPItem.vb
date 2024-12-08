@@ -26,5 +26,6 @@
         Property Percentage As Decimal
         Property PPNPercentage As Decimal
         Property PPHPercentage As Decimal
+        Property SplitFrom As String = ""
     End Class
 End Namespace

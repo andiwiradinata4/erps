@@ -502,6 +502,7 @@ Public Class frmTraSalesContractDetVer2SplitItem
         clsDataSplit.Quantity = txtQuantitySplit.Value
         clsDataSplit.TotalWeight = txtTotalWeightSplit.Value
         clsDataSplit.TotalPrice = txtTotalPriceSplit.Value
+        clsDataSplit.SplitFrom = clsData.ID
         clsDataSplit.SubItem = New List(Of VO.SalesContractDet)
         clsDataSplit.DPItem = New List(Of VO.ARAPItem)
 
@@ -537,6 +538,7 @@ Public Class frmTraSalesContractDetVer2SplitItem
             cls.UnitPriceHPP = dr.Item("UnitPriceHPP")
             cls.CODetailID = dr.Item("CODetailID")
             cls.PCDetailID = dr.Item("PCDetailID")
+            cls.SplitFrom = clsData.ID
             clsDataSplit.SubItem.Add(cls)
         Next
 
@@ -551,6 +553,7 @@ Public Class frmTraSalesContractDetVer2SplitItem
             cls.PPH = dr.Item("PPH")
             cls.ReferencesID = clsData.SCID
             cls.ReferencesDetailID = dr.Item("ReferencesDetailID")
+            cls.SplitFrom = clsData.ID
             clsDataSplit.DPItem.Add(cls)
         Next
 
@@ -587,6 +590,7 @@ Public Class frmTraSalesContractDetVer2SplitItem
         clsDataCOSplit.Quantity = txtQuantityCOSplit.Value
         clsDataCOSplit.TotalWeight = txtTotalWeightCOSplit.Value
         clsDataCOSplit.TotalPrice = txtTotalPriceCOSplit.Value
+        clsDataCOSplit.SplitFrom = clsData.ID
         clsDataCOSplit.SubItem = New List(Of VO.SalesContractDetConfirmationOrder)
 
         '# CO Sub Item Split 
@@ -603,6 +607,7 @@ Public Class frmTraSalesContractDetVer2SplitItem
             cls.LevelItem = dr.Item("LevelItem")
             cls.ParentID = dr.Item("ParentID")
             cls.LocationID = dr.Item("LocationID")
+            cls.SplitFrom = clsData.ID
             clsDataCOSplit.SubItem.Add(cls)
         Next
 

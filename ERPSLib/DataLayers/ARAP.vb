@@ -1319,9 +1319,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traARAPItem " & vbNewLine &
-                    "   (ID, ParentID, ReferencesID, ReferencesDetailID, OrderNumberSupplier, ItemID, Amount, PPN, PPH, DPAmount, Rounding, LevelItem, ReferencesParentID, Quantity, Weight, TotalWeight) " & vbNewLine &
+                    "   (ID, ParentID, ReferencesID, ReferencesDetailID, OrderNumberSupplier, ItemID, Amount, PPN, PPH, DPAmount, Rounding, LevelItem, ReferencesParentID, Quantity, Weight, TotalWeight, SplitFrom) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @ParentID, @ReferencesID, @ReferencesDetailID, @OrderNumberSupplier, @ItemID, @Amount, @PPN, @PPH, @DPAmount, @Rounding, @LevelItem, @ReferencesParentID, @Quantity, @Weight, @TotalWeight) " & vbNewLine
+                    "   (@ID, @ParentID, @ReferencesID, @ReferencesDetailID, @OrderNumberSupplier, @ItemID, @Amount, @PPN, @PPH, @DPAmount, @Rounding, @LevelItem, @ReferencesParentID, @Quantity, @Weight, @TotalWeight, @SplitFrom) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
@@ -1339,6 +1339,7 @@
                 .Parameters.Add("@Quantity", SqlDbType.Decimal).Value = clsData.Quantity
                 .Parameters.Add("@Weight", SqlDbType.Decimal).Value = clsData.Weight
                 .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
+                .Parameters.Add("@SplitFrom", SqlDbType.VarChar, 100).Value = clsData.SplitFrom
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -1453,14 +1454,13 @@
 
         Public Shared Sub ChangeOrderNumberSupplierDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                           ByVal strReferencesDetailID As String, ByVal strOldOrderNumberSupplier As String,
-                                                          ByVal strNewOrderNumberSupplier As String, ByVal intNewItemID As Integer)
+                                                          ByVal strNewOrderNumberSupplier As String)
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandText =
 "UPDATE traARAPItem SET  " & vbNewLine &
-"	ItemID=@ItemID, " & vbNewLine &
 "	OrderNumberSupplier=@OrderNumberSupplier " & vbNewLine &
 "WHERE " & vbNewLine &
 "	OrderNumberSupplier=@OldOrderNumberSupplier " & vbNewLine &
@@ -1469,7 +1469,6 @@
                 .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strReferencesDetailID
                 .Parameters.Add("@OldOrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOldOrderNumberSupplier
                 .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strNewOrderNumberSupplier
-                .Parameters.Add("@ItemID", SqlDbType.VarChar, 100).Value = intNewItemID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -1676,12 +1675,12 @@
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
                     .CommandText =
-                        "SELECT TOP 1 " & vbNewLine & _
-                        "	A.ID, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, A.ItemID, A.Amount, " & vbNewLine & _
-                        "	A.PPN, A.PPH, A.DPAmount, A.Rounding, A.LevelItem, A.ReferencesParentID, A.Quantity, A.Weight, A.TotalWeight, " & vbNewLine & _
-                        "   A.InvoiceQuantity, A.InvoiceWeight, A.InvoiceTotalWeight, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount" & vbNewLine & _
-                        "FROM traARAPItem A" & vbNewLine & _
-                        "WHERE" & vbNewLine & _
+                        "SELECT TOP 1 " & vbNewLine &
+                        "	A.ID, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, A.ItemID, A.Amount, " & vbNewLine &
+                        "	A.PPN, A.PPH, A.DPAmount, A.Rounding, A.LevelItem, A.ReferencesParentID, A.Quantity, A.Weight, A.TotalWeight, " & vbNewLine &
+                        "   A.InvoiceQuantity, A.InvoiceWeight, A.InvoiceTotalWeight, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount" & vbNewLine &
+                        "FROM traARAPItem A" & vbNewLine &
+                        "WHERE" & vbNewLine &
                         "	ID=@ID" & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
@@ -1722,6 +1721,27 @@
             End Try
             Return voReturn
         End Function
+
+        Public Shared Sub DeleteDataItemByID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                             ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "DELETE traARAPItem  " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
 
 #End Region
 
@@ -1891,6 +1911,219 @@
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
             Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
+
+#End Region
+
+#Region "Split"
+
+        Public Shared Function IsExistsSplit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                             ByVal strID As String) As Boolean
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim bolReturn As Boolean
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 ID " & vbNewLine &
+                        "FROM traARAPItemSplit " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   ID=@ID " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        bolReturn = True
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return bolReturn
+        End Function
+
+        Public Shared Sub SaveDataSplitItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                            ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"INSERT INTO traARAPItemSplit " & vbNewLine &
+"       ([ID]" & vbNewLine &
+"      ,[ParentID]" & vbNewLine &
+"      ,[ReferencesID]" & vbNewLine &
+"      ,[ReferencesDetailID]" & vbNewLine &
+"      ,[OrderNumberSupplier]" & vbNewLine &
+"      ,[ItemID]" & vbNewLine &
+"      ,[Amount]" & vbNewLine &
+"      ,[PPN]" & vbNewLine &
+"      ,[PPH]" & vbNewLine &
+"      ,[DPAmount]" & vbNewLine &
+"      ,[Rounding]" & vbNewLine &
+"      ,[LevelItem]" & vbNewLine &
+"      ,[ReferencesParentID]" & vbNewLine &
+"      ,[Quantity]" & vbNewLine &
+"      ,[Weight]" & vbNewLine &
+"      ,[TotalWeight]" & vbNewLine &
+"      ,[InvoiceQuantity]" & vbNewLine &
+"      ,[InvoiceWeight]" & vbNewLine &
+"      ,[InvoiceTotalWeight]" & vbNewLine &
+"      ,[TotalInvoiceAmount]" & vbNewLine &
+"      ,[TotalDPPInvoiceAmount]" & vbNewLine &
+"      ,[TotalPPNInvoiceAmount]" & vbNewLine &
+"      ,[TotalPPHInvoiceAmount])" & vbNewLine &
+"SELECT [ID]" & vbNewLine &
+"      ,[ParentID]" & vbNewLine &
+"      ,[ReferencesID]" & vbNewLine &
+"      ,[ReferencesDetailID]" & vbNewLine &
+"      ,[OrderNumberSupplier]" & vbNewLine &
+"      ,[ItemID]" & vbNewLine &
+"      ,[Amount]" & vbNewLine &
+"      ,[PPN]" & vbNewLine &
+"      ,[PPH]" & vbNewLine &
+"      ,[DPAmount]" & vbNewLine &
+"      ,[Rounding]" & vbNewLine &
+"      ,[LevelItem]" & vbNewLine &
+"      ,[ReferencesParentID]" & vbNewLine &
+"      ,[Quantity]" & vbNewLine &
+"      ,[Weight]" & vbNewLine &
+"      ,[TotalWeight]" & vbNewLine &
+"      ,[InvoiceQuantity]" & vbNewLine &
+"      ,[InvoiceWeight]" & vbNewLine &
+"      ,[InvoiceTotalWeight]" & vbNewLine &
+"      ,[TotalInvoiceAmount]" & vbNewLine &
+"      ,[TotalDPPInvoiceAmount]" & vbNewLine &
+"      ,[TotalPPNInvoiceAmount]" & vbNewLine &
+"      ,[TotalPPHInvoiceAmount]" & vbNewLine &
+"FROM [dbo].[traARAPItem]" & vbNewLine &
+"WHERE ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataSplitItemFrom(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                  ByVal strSplitFrom As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"DELETE traARAPItem " & vbNewLine &
+"WHERE " & vbNewLine &
+"   SplitFrom=@SplitFrom " & vbNewLine
+
+                .Parameters.Add("@SplitFrom", SqlDbType.VarChar, 100).Value = strSplitFrom
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub RevertDataSplitItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"INSERT INTO traARAPItem " & vbNewLine &
+"       ([ID]" & vbNewLine &
+"      ,[ParentID]" & vbNewLine &
+"      ,[ReferencesID]" & vbNewLine &
+"      ,[ReferencesDetailID]" & vbNewLine &
+"      ,[OrderNumberSupplier]" & vbNewLine &
+"      ,[ItemID]" & vbNewLine &
+"      ,[Amount]" & vbNewLine &
+"      ,[PPN]" & vbNewLine &
+"      ,[PPH]" & vbNewLine &
+"      ,[DPAmount]" & vbNewLine &
+"      ,[Rounding]" & vbNewLine &
+"      ,[LevelItem]" & vbNewLine &
+"      ,[ReferencesParentID]" & vbNewLine &
+"      ,[Quantity]" & vbNewLine &
+"      ,[Weight]" & vbNewLine &
+"      ,[TotalWeight]" & vbNewLine &
+"      ,[InvoiceQuantity]" & vbNewLine &
+"      ,[InvoiceWeight]" & vbNewLine &
+"      ,[InvoiceTotalWeight]" & vbNewLine &
+"      ,[TotalInvoiceAmount]" & vbNewLine &
+"      ,[TotalDPPInvoiceAmount]" & vbNewLine &
+"      ,[TotalPPNInvoiceAmount]" & vbNewLine &
+"      ,[TotalPPHInvoiceAmount])" & vbNewLine &
+"SELECT [ID]" & vbNewLine &
+"      ,[ParentID]" & vbNewLine &
+"      ,[ReferencesID]" & vbNewLine &
+"      ,[ReferencesDetailID]" & vbNewLine &
+"      ,[OrderNumberSupplier]" & vbNewLine &
+"      ,[ItemID]" & vbNewLine &
+"      ,[Amount]" & vbNewLine &
+"      ,[PPN]" & vbNewLine &
+"      ,[PPH]" & vbNewLine &
+"      ,[DPAmount]" & vbNewLine &
+"      ,[Rounding]" & vbNewLine &
+"      ,[LevelItem]" & vbNewLine &
+"      ,[ReferencesParentID]" & vbNewLine &
+"      ,[Quantity]" & vbNewLine &
+"      ,[Weight]" & vbNewLine &
+"      ,[TotalWeight]" & vbNewLine &
+"      ,[InvoiceQuantity]" & vbNewLine &
+"      ,[InvoiceWeight]" & vbNewLine &
+"      ,[InvoiceTotalWeight]" & vbNewLine &
+"      ,[TotalInvoiceAmount]" & vbNewLine &
+"      ,[TotalDPPInvoiceAmount]" & vbNewLine &
+"      ,[TotalPPNInvoiceAmount]" & vbNewLine &
+"      ,[TotalPPHInvoiceAmount]" & vbNewLine &
+"FROM [dbo].[traARAPItemSplit]" & vbNewLine &
+"WHERE " & vbNewLine &
+"   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataSplitItemByReferencesID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                            ByVal strReferencesID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"DELETE traARAPItemSplit " & vbNewLine &
+"WHERE " & vbNewLine &
+"   ReferencesID=@ReferencesID " & vbNewLine
+
+                .Parameters.Add("@ReferencesID", SqlDbType.VarChar, 100).Value = strReferencesID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
                 Throw ex
             End Try
         End Sub

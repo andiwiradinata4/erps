@@ -1,5 +1,4 @@
-﻿Imports System.Runtime.InteropServices.ComTypes
-Imports ERPSLib.VO
+﻿Imports ERPSLib.VO
 
 Namespace BL
     Public Class SalesContract
@@ -427,6 +426,10 @@ Namespace BL
                     End If
 
                     DL.SalesContract.Unapprove(sqlCon, sqlTrans, strID)
+
+                    DL.SalesContract.DeleteDataSplitItemBySCID(sqlCon, sqlTrans, strID)
+                    DL.SalesContract.DeleteDataSplitItemCOBySCID(sqlCon, sqlTrans, strID)
+                    DL.ARAP.DeleteDataSplitItemByReferencesID(sqlCon, sqlTrans, strID)
 
                     '# Save Data Status
                     BL.SalesContract.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
@@ -933,6 +936,36 @@ Namespace BL
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
+                    '# Backup Split SC Item
+                    If Not DL.SalesContract.IsExistsSplit(sqlCon, sqlTrans, clsSCDetMain.ID) Then DL.SalesContract.SaveDataSplitItem(sqlCon, sqlTrans, clsSCDetMain.ID)
+                    For Each cls As VO.SalesContractDet In clsSCDetMain.SubItem
+                        If Not DL.SalesContract.IsExistsSplit(sqlCon, sqlTrans, cls.ID) Then DL.SalesContract.SaveDataSplitItem(sqlCon, sqlTrans, cls.ID)
+                    Next
+                    For Each cls As VO.SalesContractDet In clsSCDetSplit.SubItem
+                        If Not DL.SalesContract.IsExistsSplit(sqlCon, sqlTrans, cls.ID) Then DL.SalesContract.SaveDataSplitItem(sqlCon, sqlTrans, cls.ID)
+                    Next
+                    '# --------------------------------------------------------------------------------------------
+
+                    '# Backup Split SC Item Confirmation Order
+                    If Not DL.SalesContract.IsExistsSplitCO(sqlCon, sqlTrans, clsSCCOMain.ID) Then DL.SalesContract.SaveDataSplitItemCO(sqlCon, sqlTrans, clsSCCOMain.ID)
+                    For Each cls As VO.SalesContractDetConfirmationOrder In clsSCCOMain.SubItem
+                        If Not DL.SalesContract.IsExistsSplitCO(sqlCon, sqlTrans, cls.ID) Then DL.SalesContract.SaveDataSplitItemCO(sqlCon, sqlTrans, cls.ID)
+                    Next
+                    For Each cls As VO.SalesContractDetConfirmationOrder In clsSCCOSplit.SubItem
+                        If Not DL.SalesContract.IsExistsSplitCO(sqlCon, sqlTrans, cls.ID) Then DL.SalesContract.SaveDataSplitItemCO(sqlCon, sqlTrans, cls.ID)
+                    Next
+                    '# --------------------------------------------------------------------------------------------
+
+                    '# Backup ARAP Item
+                    For Each cls As VO.ARAPItem In clsSCDetMain.DPItem
+                        If Not DL.ARAP.IsExistsSplit(sqlCon, sqlTrans, cls.ID) Then DL.ARAP.SaveDataSplitItem(sqlCon, sqlTrans, cls.ID)
+                    Next
+
+                    For Each cls As VO.ARAPItem In clsSCDetSplit.DPItem
+                        If Not DL.ARAP.IsExistsSplit(sqlCon, sqlTrans, cls.ID) Then DL.ARAP.SaveDataSplitItem(sqlCon, sqlTrans, cls.ID)
+                    Next
+                    '# --------------------------------------------------------------------------------------------
+
                     '# SC Item
                     Dim clsSCExists As VO.SalesContractDet = DL.SalesContract.GetDetailItem(sqlCon, sqlTrans, clsSCCOMain.ID)
                     If clsSCExists.ReceiveAmount > 0 Then Err.Raise(515, "", "Data tidak dapat displit. Dikarenakan data telah diproses Pelunasan.")
@@ -946,7 +979,7 @@ Namespace BL
                     For Each cls As VO.SalesContractDet In clsSCDetSplit.SubItem
                         cls.GroupID = clsSCDetSplit.GroupID
                         cls.ParentID = clsSCDetSplit.ID
-                        DL.SalesContract.MoveDetailItem(sqlCon, sqlTrans, cls.ID, cls.GroupID, cls.ParentID)
+                        DL.SalesContract.MoveDetailItem(sqlCon, sqlTrans, cls.ID, cls.GroupID, cls.ParentID, cls.SplitFrom)
                     Next
 
                     '# Update Existing SC Item
@@ -969,7 +1002,7 @@ Namespace BL
                     For Each cls As VO.SalesContractDetConfirmationOrder In clsSCCOSplit.SubItem
                         cls.GroupID = clsSCDetSplit.GroupID
                         cls.ParentID = clsSCCO.ID
-                        DL.SalesContract.MoveDetailItemCO(sqlCon, sqlTrans, cls.ID, cls.GroupID, cls.ParentID)
+                        DL.SalesContract.MoveDetailItemCO(sqlCon, sqlTrans, cls.ID, cls.GroupID, cls.ParentID, cls.SplitFrom)
                     Next
                     '# --------------------------------------------------------------------------------------------
 
@@ -977,7 +1010,7 @@ Namespace BL
                     '# Insert new Down Payment Item
                     For Each cls As VO.ARAPItem In clsSCDetSplit.DPItem
                         Dim clsExists As VO.ARAPItem = DL.ARAP.GetDetailIItem(sqlCon, sqlTrans, cls.ID)
-                        Dim strNewID As String = clsSCDetSplit.ID & "-" & 2 & "-"
+                        Dim strNewID As String = clsExists.ParentID & "-" & 2 & "-"
                         clsExists.ID = strNewID & Format(DL.ARAP.GetMaxIDARAPItem(sqlCon, sqlTrans, strNewID) + 1, "000")
                         clsExists.ReferencesDetailID = clsSCDetSplit.ID
                         clsExists.Quantity = cls.Quantity
@@ -999,6 +1032,70 @@ Namespace BL
                     '# Recalculate SC Item DP Amount
                     DL.SalesContract.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, clsSCCOSplit.SCID, clsSCDetSplit.ID)
                     DL.SalesContract.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, clsSCCOMain.SCID, clsSCDetMain.ID)
+                    '# --------------------------------------------------------------------------------------------
+
+                    bolReturn = True
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function UnSplitItem(ByVal strSCDetailID As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    '# Delete SC Item and Sub Item then Insert All Old Data from Table Split
+                    Dim clsSCDetailSplit As VO.SalesContractDet = DL.SalesContract.GetDetailItem(sqlCon, sqlTrans, strSCDetailID)
+                    If clsSCDetailSplit.SplitFrom.Trim = "" Then Err.Raise(515, "", "Data tidak dapat di batal split. Dikarenakan data bukan dari hasil split.")
+                    If clsSCDetailSplit.ReceiveAmount > 0 Then Err.Raise(515, "", "Data tidak dapat di batal split. Dikarenakan data telah diproses Pelunasan.")
+                    Dim clsSCDetailMain As VO.SalesContractDet = DL.SalesContract.GetDetailItem(sqlCon, sqlTrans, clsSCDetailSplit.SplitFrom)
+
+                    Dim dtSCDetailItem As DataTable = DL.SalesContract.ListDataDetailByIDOrParentID(sqlCon, sqlTrans, clsSCDetailSplit.ID)
+                    dtSCDetailItem.Merge(DL.SalesContract.ListDataDetailByIDOrParentID(sqlCon, sqlTrans, clsSCDetailSplit.SplitFrom))
+
+                    Dim clsHelper As New DataSetHelper
+                    Dim dtGroupSCDetailItem As DataTable = clsHelper.SelectGroupByInto("GroupSCDetailItem", dtSCDetailItem, "ID", "", "ID")
+
+                    DL.SalesContract.DeleteDataSplitItemFrom(sqlCon, sqlTrans, clsSCDetailSplit.SplitFrom)
+                    DL.SalesContract.DeleteDataDetailByID(sqlCon, sqlTrans, clsSCDetailSplit.SplitFrom)
+                    DL.SalesContract.DeleteDataDetailByParentID(sqlCon, sqlTrans, clsSCDetailSplit.SplitFrom)
+                    For Each dr As DataRow In dtGroupSCDetailItem.Rows
+                        DL.SalesContract.RevertDataSplitItem(sqlCon, sqlTrans, dr.Item("ID"))
+                    Next
+                    '# --------------------------------------------------------------------------------------------
+
+                    '# Delete SC Item CO and Sub Item then Insert All Old Data from Table Split
+                    Dim dtSCDetailCO As DataTable = DL.SalesContract.ListDataSplitCO(sqlCon, sqlTrans, clsSCDetailMain.SCID, clsSCDetailMain.GroupID)
+                    dtSCDetailCO.Merge(DL.SalesContract.ListDataSplitCOParent(sqlCon, sqlTrans, clsSCDetailSplit.SCID, clsSCDetailSplit.GroupID))
+                    DL.SalesContract.DeleteDataSplitItemCOFrom(sqlCon, sqlTrans, clsSCDetailSplit.SplitFrom)
+                    clsHelper = New DataSetHelper
+                    Dim dtGroupSCCOItem As DataTable = clsHelper.SelectGroupByInto("GroupSCCOItem", dtSCDetailCO, "ID", "", "ID")
+                    For Each dr As DataRow In dtGroupSCCOItem.Rows
+                        DL.SalesContract.DeleteDataDetailCOByID(sqlCon, sqlTrans, dr.Item("ID"))
+                    Next
+                    For Each dr As DataRow In dtGroupSCCOItem.Rows
+                        DL.SalesContract.RevertDataSplitItemCO(sqlCon, sqlTrans, dr.Item("ID"))
+                    Next
+                    '# --------------------------------------------------------------------------------------------
+
+                    '# Delete SC Item CO and Sub Item then Insert All Old Data from Table Split
+                    Dim dtARAPItem As DataTable = DL.SalesContract.ListDataDownPaymentBySCDetailID(sqlCon, sqlTrans, clsSCDetailMain.ID)
+                    dtARAPItem.Merge(DL.SalesContract.ListDataDownPaymentBySCDetailID(sqlCon, sqlTrans, clsSCDetailSplit.ID))
+                    DL.ARAP.DeleteDataSplitItemFrom(sqlCon, sqlTrans, clsSCDetailSplit.SplitFrom)
+                    clsHelper = New DataSetHelper
+                    Dim dtGroupARAPItem As DataTable = clsHelper.SelectGroupByInto("GroupARAPItem", dtSCDetailItem, "ID", "", "ID")
+                    For Each dr As DataRow In dtGroupARAPItem.Rows
+                        DL.ARAP.DeleteDataItemByID(sqlCon, sqlTrans, dr.Item("ID"))
+                    Next
+                    For Each dr As DataRow In dtGroupARAPItem.Rows
+                        DL.ARAP.RevertDataSplitItem(sqlCon, sqlTrans, dr.Item("ID"))
+                    Next
                     '# --------------------------------------------------------------------------------------------
 
                     bolReturn = True
@@ -1114,7 +1211,7 @@ Namespace BL
 
             '# Change Order Number Supplier ARAP Item
             For Each dr As DataRow In drSelectedDetail
-                DL.ARAP.ChangeOrderNumberSupplierDetail(sqlCon, sqlTrans, dr.Item("ID"), dr.Item("OrderNumberSupplier"), clsData.OrderNumberSupplier, clsData.ItemID)
+                DL.ARAP.ChangeOrderNumberSupplierDetail(sqlCon, sqlTrans, dr.Item("ID"), dr.Item("OrderNumberSupplier"), clsData.OrderNumberSupplier)
                 DL.SalesContract.UpdateDetailItem(sqlCon, sqlTrans, dr.Item("ID"), clsData.OrderNumberSupplier, clsData.UnitPrice)
             Next
 

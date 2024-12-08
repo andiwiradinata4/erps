@@ -30,5 +30,6 @@
         Property ItemTypeName As String = ""
         Property MaxTotalWeight As Decimal
         Property SubItem As List(Of SalesContractDetConfirmationOrder)
+        Property SplitFrom As String = ""
     End Class
 End Namespace

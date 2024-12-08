@@ -22,7 +22,7 @@ Partial Class frmTraSalesContractDetVer2
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim GridLevelNode2 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
+        Dim GridLevelNode1 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraSalesContractDetVer2))
         Me.grdSubItemCOView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.grdItemCO = New DevExpress.XtraGrid.GridControl()
@@ -123,9 +123,10 @@ Partial Class frmTraSalesContractDetVer2
         Me.BarSepItemOrder1 = New System.Windows.Forms.ToolBarButton()
         Me.BarRemapItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteDuplicate = New System.Windows.Forms.ToolBarButton()
-        Me.tpConfirmationOrder = New System.Windows.Forms.TabPage()
         Me.BarSepItemOrder2 = New System.Windows.Forms.ToolBarButton()
         Me.BarSplitItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.tpConfirmationOrder = New System.Windows.Forms.TabPage()
+        Me.BarUnsplit = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdSubItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemCO, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemCOView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -191,9 +192,9 @@ Partial Class frmTraSalesContractDetVer2
         Me.grdItemCO.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdItemCO.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdItemCO.EmbeddedNavigator.Buttons.Remove.Visible = False
-        GridLevelNode2.LevelTemplate = Me.grdSubItemCOView
-        GridLevelNode2.RelationName = "SubView"
-        Me.grdItemCO.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode2})
+        GridLevelNode1.LevelTemplate = Me.grdSubItemCOView
+        GridLevelNode1.RelationName = "SubView"
+        Me.grdItemCO.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1})
         Me.grdItemCO.Location = New System.Drawing.Point(0, 0)
         Me.grdItemCO.MainView = Me.grdItemCOView
         Me.grdItemCO.Name = "grdItemCO"
@@ -1256,7 +1257,7 @@ Partial Class frmTraSalesContractDetVer2
         'ToolBarItem
         '
         Me.ToolBarItem.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder, Me.BarSepItemOrder1, Me.BarRemapItemOrder, Me.BarDeleteDuplicate, Me.BarSepItemOrder2, Me.BarSplitItemOrder})
+        Me.ToolBarItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder, Me.BarSepItemOrder1, Me.BarRemapItemOrder, Me.BarDeleteDuplicate, Me.BarSepItemOrder2, Me.BarSplitItemOrder, Me.BarUnsplit})
         Me.ToolBarItem.DropDownArrows = True
         Me.ToolBarItem.Location = New System.Drawing.Point(3, 3)
         Me.ToolBarItem.Name = "ToolBarItem"
@@ -1300,16 +1301,6 @@ Partial Class frmTraSalesContractDetVer2
         Me.BarDeleteDuplicate.Tag = "Delete"
         Me.BarDeleteDuplicate.Text = "Hapus Duplicate"
         '
-        'tpConfirmationOrder
-        '
-        Me.tpConfirmationOrder.Controls.Add(Me.grdItemCO)
-        Me.tpConfirmationOrder.Location = New System.Drawing.Point(4, 25)
-        Me.tpConfirmationOrder.Name = "tpConfirmationOrder"
-        Me.tpConfirmationOrder.Size = New System.Drawing.Size(917, 338)
-        Me.tpConfirmationOrder.TabIndex = 2
-        Me.tpConfirmationOrder.Text = "Konfirmasi Pesanan - F7"
-        Me.tpConfirmationOrder.UseVisualStyleBackColor = True
-        '
         'BarSepItemOrder2
         '
         Me.BarSepItemOrder2.Name = "BarSepItemOrder2"
@@ -1320,6 +1311,22 @@ Partial Class frmTraSalesContractDetVer2
         Me.BarSplitItemOrder.Name = "BarSplitItemOrder"
         Me.BarSplitItemOrder.Tag = "Copy"
         Me.BarSplitItemOrder.Text = "Split"
+        '
+        'tpConfirmationOrder
+        '
+        Me.tpConfirmationOrder.Controls.Add(Me.grdItemCO)
+        Me.tpConfirmationOrder.Location = New System.Drawing.Point(4, 25)
+        Me.tpConfirmationOrder.Name = "tpConfirmationOrder"
+        Me.tpConfirmationOrder.Size = New System.Drawing.Size(917, 338)
+        Me.tpConfirmationOrder.TabIndex = 2
+        Me.tpConfirmationOrder.Text = "Konfirmasi Pesanan - F7"
+        Me.tpConfirmationOrder.UseVisualStyleBackColor = True
+        '
+        'BarUnsplit
+        '
+        Me.BarUnsplit.Name = "BarUnsplit"
+        Me.BarUnsplit.Tag = "Cancel"
+        Me.BarUnsplit.Text = "Batal Split"
         '
         'frmTraSalesContractDetVer2
         '
@@ -1490,4 +1497,5 @@ Partial Class frmTraSalesContractDetVer2
     Friend WithEvents BarDeleteDuplicate As ToolBarButton
     Friend WithEvents BarSepItemOrder2 As ToolBarButton
     Friend WithEvents BarSplitItemOrder As ToolBarButton
+    Friend WithEvents BarUnsplit As ToolBarButton
 End Class

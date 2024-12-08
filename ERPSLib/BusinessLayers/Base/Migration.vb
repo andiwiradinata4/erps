@@ -81,6 +81,7 @@
                 DevelopOnProgress_ID74(sqlCon, Nothing)
                 DevelopOnProgress_ID75(sqlCon, Nothing)
                 DevelopOnProgress_ID76(sqlCon, Nothing)
+                DevelopOnProgress_ID77(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -2225,6 +2226,118 @@
             clsData.ID = 76
             clsData.Name = "Add Column Address2 in mstCompany"
             clsData.Scripts = "ALTER TABLE mstCompany ADD Address2 VARCHAR(250) NOT NULL CONSTRAINT DF_mstCompany_Address2 DEFAULT ('') " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 76
+        Private Shared Sub DevelopOnProgress_ID77(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 77
+            clsData.Name = "Create Table for Handle Split"
+            clsData.Scripts =
+"ALTER TABLE traSalesContractDet ADD SplitFrom VARCHAR(100) NOT NULL CONSTRAINT DF_traSalesContractDetSplit_SplitFrom DEFAULT ('') " & vbNewLine &
+"ALTER TABLE traSalesContractDetConfirmationOrder ADD SplitFrom VARCHAR(100) NOT NULL CONSTRAINT DF_traSalesContractDetConfirmationOrder_SplitFrom DEFAULT ('') " & vbNewLine &
+"ALTER TABLE traARAPItem ADD SplitFrom VARCHAR(100) NOT NULL CONSTRAINT DF_traARAPItem_SplitFrom DEFAULT ('') " & vbNewLine &
+" " & vbNewLine &
+"CREATE TABLE [dbo].[traSalesContractDetSplit](" & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_ID]  DEFAULT ('')," & vbNewLine &
+"	[SCID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_SCID]  DEFAULT ('')," & vbNewLine &
+"	[ORDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_ORDetailID]  DEFAULT ('')," & vbNewLine &
+"	[GroupID] [int] NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_GroupID]  DEFAULT ((0))," & vbNewLine &
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_ItemID]  DEFAULT ((0))," & vbNewLine &
+"	[Quantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_Quantity]  DEFAULT ((0))," & vbNewLine &
+"	[Weight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_Weight]  DEFAULT ((0))," & vbNewLine &
+"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_TotalWeight]  DEFAULT ((0))," & vbNewLine &
+"	[UnitPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_UnitPrice]  DEFAULT ((0))," & vbNewLine &
+"	[TotalPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_TotalPrice]  DEFAULT ((0))," & vbNewLine &
+"	[DCQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_DCQuantity]  DEFAULT ((0))," & vbNewLine &
+"	[DCWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_DCWeight]  DEFAULT ((0))," & vbNewLine &
+"	[POTransportQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_POTransportQuantity]  DEFAULT ((0))," & vbNewLine &
+"	[POTransportWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_POTransportWeight]  DEFAULT ((0))," & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_Remarks]  DEFAULT ('')," & vbNewLine &
+"	[ReceiveAmount] [decimal](18, 4) NULL CONSTRAINT [DF_traSalesContractDetSplit_ReceiveAmount]  DEFAULT ((0))," & vbNewLine &
+"	[DPAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_DPAmount]  DEFAULT ((0))," & vbNewLine &
+"	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_OrderNumberSupplier]  DEFAULT ('')," & vbNewLine &
+"	[IsIgnoreValidationPayment] [bit] NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_IsIgnoreValidationPayment]  DEFAULT ((0))," & vbNewLine &
+"	[LevelItem] [int] NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_LevelItem]  DEFAULT ((0))," & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_ParentID]  DEFAULT ('')," & vbNewLine &
+"	[RoundingWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_RoundingWeight]  DEFAULT ((0))," & vbNewLine &
+"	[UnitPriceHPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_UnitPriceHPP]  DEFAULT ((0))," & vbNewLine &
+"	[DPAmountPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_DPAmountPPN]  DEFAULT ((0))," & vbNewLine &
+"	[DPAmountPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_DPAmountPPH]  DEFAULT ((0))," & vbNewLine &
+"	[ReceiveAmountPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_ReceiveAmountPPN]  DEFAULT ((0))," & vbNewLine &
+"	[ReceiveAmountPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_ReceiveAmountPPH]  DEFAULT ((0))," & vbNewLine &
+"	[AllocateDPAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_AllocateDPAmount]  DEFAULT ((0))," & vbNewLine &
+"	[InvoiceQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_InvoiceQuantity]  DEFAULT ((0))," & vbNewLine &
+"	[InvoiceWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_InvoiceWeight]  DEFAULT ((0))," & vbNewLine &
+"	[InvoiceTotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_InvoiceTotalWeight]  DEFAULT ((0))," & vbNewLine &
+"	[CODetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_CODetailID]  DEFAULT ('')," & vbNewLine &
+"	[PCDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_PCDetailID]  DEFAULT ('')," & vbNewLine &
+"	[ClaimQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_ClaimQuantity]  DEFAULT ((0))," & vbNewLine &
+"	[ClaimWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetSplit_ClaimWeight]  DEFAULT ((0))," & vbNewLine &
+"	CONSTRAINT [PK_traSalesContractDetSplit] PRIMARY KEY CLUSTERED " & vbNewLine &
+"	(" & vbNewLine &
+"		[ID] ASC" & vbNewLine &
+"	)" & vbNewLine &
+") " & vbNewLine &
+"" & vbNewLine &
+"CREATE TABLE [dbo].[traSalesContractDetConfirmationOrderSplit](" & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrderSplit_ID]  DEFAULT ('')," & vbNewLine &
+"	[SCID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrderSplit_SCID]  DEFAULT ('')," & vbNewLine &
+"	[CODetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrderSplit_CODetailID]  DEFAULT ('')," & vbNewLine &
+"	[GroupID] [int] NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrderSplit_GroupID]  DEFAULT ((0))," & vbNewLine &
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrderSplit_ItemID]  DEFAULT ((0))," & vbNewLine &
+"	[Quantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrderSplit_Quantity]  DEFAULT ((0))," & vbNewLine &
+"	[Weight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrderSplit_Weight]  DEFAULT ((0))," & vbNewLine &
+"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrderSplit_TotalWeight]  DEFAULT ((0))," & vbNewLine &
+"	[UnitPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrderSplit_UnitPrice]  DEFAULT ((0))," & vbNewLine &
+"	[TotalPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrderSplit_TotalPrice]  DEFAULT ((0))," & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrderSplit_Remarks]  DEFAULT ('')," & vbNewLine &
+"	[RoundingWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrderSplit_RoundingWeight]  DEFAULT ((0))," & vbNewLine &
+"	[LevelItem] [int] NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrderSplit_LevelItem]  DEFAULT ((0))," & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrderSplit_ParentID]  DEFAULT ('')," & vbNewLine &
+"	[LocationID] [int] NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrderSplit_LocationID]  DEFAULT ((0))," & vbNewLine &
+"	[PCDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesContractDetConfirmationOrderSplit_PCDetailID]  DEFAULT ('')," & vbNewLine &
+"	CONSTRAINT [PK_traSalesContractDetConfirmationOrderSplit] PRIMARY KEY CLUSTERED " & vbNewLine &
+"	(" & vbNewLine &
+"		[ID] ASC" & vbNewLine &
+"	)" & vbNewLine &
+")" & vbNewLine &
+"" & vbNewLine &
+"CREATE TABLE [dbo].[traARAPItemSplit](" & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPItemSplit_ID]  DEFAULT ('')," & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPItemSplit_ParentID]  DEFAULT ('')," & vbNewLine &
+"	[ReferencesID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPItemSplit_ReferencesID]  DEFAULT ('')," & vbNewLine &
+"	[ReferencesDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPItemSplit_ReferencesDetailID]  DEFAULT ('')," & vbNewLine &
+"	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPItemSplit_OrderNumberSupplier]  DEFAULT ('')," & vbNewLine &
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traARAPItemSplit_BPID]  DEFAULT ((0))," & vbNewLine &
+"	[Amount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traARAPItemSplit_Amount]  DEFAULT ((0))," & vbNewLine &
+"	[PPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traARAPItemSplit_PPN]  DEFAULT ((0))," & vbNewLine &
+"	[PPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traARAPItemSplit_PPH]  DEFAULT ((0))," & vbNewLine &
+"	[DPAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traARAPItemSplit_DPAmount]  DEFAULT ((0))," & vbNewLine &
+"	[Rounding] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traARAPItemSplit_Rounding]  DEFAULT ((0))," & vbNewLine &
+"	[LevelItem] [int] NOT NULL CONSTRAINT [DF_traARAPItemSplit_LevelItem]  DEFAULT ((0))," & vbNewLine &
+"	[ReferencesParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPItemSplit_ReferencesParentID]  DEFAULT ('')," & vbNewLine &
+"	[Quantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traARAPItemSplit_Quantity]  DEFAULT ((0))," & vbNewLine &
+"	[Weight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traARAPItemSplit_Weight]  DEFAULT ((0))," & vbNewLine &
+"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traARAPItemSplit_TotalWeight]  DEFAULT ((0))," & vbNewLine &
+"	[InvoiceQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traARAPItemSplit_InvoiceQuantity]  DEFAULT ((0))," & vbNewLine &
+"	[InvoiceWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traARAPItemSplit_InvoiceWeight]  DEFAULT ((0))," & vbNewLine &
+"	[InvoiceTotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traARAPItemSplit_InvoiceTotalWeight]  DEFAULT ((0))," & vbNewLine &
+"	[TotalInvoiceAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traARAPItemSplit_TotalInvoiceAmount]  DEFAULT ((0))," & vbNewLine &
+"	[TotalDPPInvoiceAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traARAPItemSplit_TotalDPPInvoiceAmount]  DEFAULT ((0))," & vbNewLine &
+"	[TotalPPNInvoiceAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traARAPItemSplit_TotalPPNInvoiceAmount]  DEFAULT ((0))," & vbNewLine &
+"	[TotalPPHInvoiceAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traARAPItemSplit_TotalPPHInvoiceAmount]  DEFAULT ((0))," & vbNewLine &
+"	CONSTRAINT [PK_traARAPItemSplit] PRIMARY KEY CLUSTERED " & vbNewLine &
+"	(" & vbNewLine &
+"		[ID] ASC" & vbNewLine &
+"	)" & vbNewLine &
+")" & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

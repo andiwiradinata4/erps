@@ -1707,7 +1707,7 @@
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  	" & vbNewLine &
                     "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight, " & vbNewLine &
                     "   A.Remarks, A.IsIgnoreValidationPayment, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceHPP, " & vbNewLine &
-                    "   A.DCQuantity, A.DCWeight, A.CODetailID, A.PCDetailID " & vbNewLine &
+                    "   A.DCQuantity, A.DCWeight, A.CODetailID, A.PCDetailID, A.SplitFrom " & vbNewLine &
                     "FROM traSalesContractDet A  	" & vbNewLine &
                     "INNER JOIN traOrderRequestDet A1 ON  	" & vbNewLine &
                     "    A.ORDetailID=A1.ID  	" & vbNewLine &
@@ -1726,6 +1726,40 @@
 
                 .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = strSCID
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataDetailByIDOrParentID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                            ByVal strID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT	" & vbNewLine &
+                    "   A.ID, A.SCID, A.ORDetailID, A3.OrderNumber AS RequestNumber, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  	" & vbNewLine &
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  	" & vbNewLine &
+                    "   A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight, " & vbNewLine &
+                    "   A.Remarks, A.IsIgnoreValidationPayment, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceHPP, " & vbNewLine &
+                    "   A.DCQuantity, A.DCWeight, A.CODetailID, A.PCDetailID, A.SplitFrom " & vbNewLine &
+                    "FROM traSalesContractDet A  	" & vbNewLine &
+                    "INNER JOIN traOrderRequestDet A1 ON  	" & vbNewLine &
+                    "    A.ORDetailID=A1.ID  	" & vbNewLine &
+                    "INNER JOIN traOrderRequest A3 ON  	" & vbNewLine &
+                    "    A1.OrderRequestID=A3.ID  	" & vbNewLine &
+                    "INNER JOIN mstItem B ON  	" & vbNewLine &
+                    "    A.ItemID=B.ID  	" & vbNewLine &
+                    "INNER JOIN mstItemSpecification C ON  	" & vbNewLine &
+                    "    B.ItemSpecificationID=C.ID  	" & vbNewLine &
+                    "INNER JOIN mstItemType D ON  	" & vbNewLine &
+                    "    B.ItemTypeID=D.ID  	" & vbNewLine &
+                    "WHERE  	" & vbNewLine &
+                    "    A.ID=@ID OR  A.ParentID=@ID " & vbNewLine &
+                    "ORDER BY A.GroupID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
@@ -1917,9 +1951,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traSalesContractDet " & vbNewLine &
-                    "   ( ID, SCID, ORDetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, OrderNumberSupplier, RoundingWeight, LevelItem, ParentID, UnitPriceHPP) " & vbNewLine &
+                    "   ( ID, SCID, ORDetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, OrderNumberSupplier, RoundingWeight, LevelItem, ParentID, UnitPriceHPP, SplitFrom) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   ( @ID, @SCID, @ORDetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @OrderNumberSupplier, @RoundingWeight, @LevelItem, @ParentID, @UnitPriceHPP) " & vbNewLine
+                    "   ( @ID, @SCID, @ORDetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @OrderNumberSupplier, @RoundingWeight, @LevelItem, @ParentID, @UnitPriceHPP, @SplitFrom) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = clsData.SCID
@@ -1939,6 +1973,7 @@
                 .Parameters.Add("@LevelItem", SqlDbType.Int).Value = clsData.LevelItem
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
                 .Parameters.Add("@UnitPriceHPP", SqlDbType.Decimal).Value = clsData.UnitPriceHPP
+                .Parameters.Add("@SplitFrom", SqlDbType.VarChar, 100).Value = clsData.SplitFrom
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -2172,6 +2207,27 @@
             End Try
         End Sub
 
+        Public Shared Sub DeleteDataDetailByParentID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                     ByVal strParentID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "DELETE FROM traSalesContractDet     " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ParentID=@ParentID " & vbNewLine
+
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
         Public Shared Function IsAlreadyPaymentSubitem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strID As String) As Boolean
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim bolReturn As Boolean = False
@@ -2340,7 +2396,7 @@
                     "UPDATE traSalesContractDet SET " & vbNewLine &
                     "   OrderNumberSupplier=@OrderNumberSupplier, UnitPriceHPP=@UnitPriceHPP " & vbNewLine &
                     "WHERE " & vbNewLine &
-                    "   ID=@ID " & vbNewLine
+                    "   ID=@ID OR ParentID=@ID" & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@OrderNumberSupplier", SqlDbType.VarChar, 100).Value = strOrderNumberSupplier
@@ -2416,7 +2472,7 @@
                         "   A.ID, A.SCID, A.ORDetailID, A.GroupID, A.ItemID, A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A.DCQuantity, A.DCWeight, A.POTransportQuantity, A.POTransportWeight, A.Remarks, A.ReceiveAmount, A.DPAmount, " & vbNewLine &
                         "   A.OrderNumberSupplier, A.IsIgnoreValidationPayment, A.LevelItem, A.ParentID, A.RoundingWeight, A.UnitPriceHPP, A.DPAmountPPN, A.DPAmountPPH, A.ReceiveAmountPPN, A.ReceiveAmountPPH, A.AllocateDPAmount, " & vbNewLine &
                         "   A.InvoiceQuantity, A.InvoiceWeight, A.InvoiceTotalWeight, A.CODetailID, A.PCDetailID, A.ClaimQuantity, A.ClaimWeight, A3.OrderNumber AS RequestNumber, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
-                        "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight " & vbNewLine &
+                        "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight, A.SplitFrom " & vbNewLine &
                         "FROM traSalesContractDet A  	" & vbNewLine &
                         "INNER JOIN traOrderRequestDet A1 ON  	" & vbNewLine &
                         "    A.ORDetailID=A1.ID  	" & vbNewLine &
@@ -2483,6 +2539,7 @@
                         voReturn.ItemTypeID = .Item("ItemTypeID")
                         voReturn.ItemTypeName = .Item("ItemTypeName")
                         voReturn.MaxTotalWeight = .Item("MaxTotalWeight")
+                        voReturn.SplitFrom = .Item("SplitFrom")
                     End If
                 End With
             Catch ex As Exception
@@ -2529,7 +2586,7 @@
 
         Public Shared Sub MoveDetailItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                          ByVal strID As String, ByVal intGroupID As Integer,
-                                         ByVal strParentID As String)
+                                         ByVal strParentID As String, ByVal strSplitFrom As String)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -2537,13 +2594,14 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "UPDATE traSalesContractDet SET " & vbNewLine &
-                    "   GroupID=@GroupID, ParentID=@ParentID " & vbNewLine &
+                    "   GroupID=@GroupID, ParentID=@ParentID, SplitFrom=@SplitFrom " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@GroupID", SqlDbType.Int).Value = intGroupID
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+                .Parameters.Add("@SplitFrom", SqlDbType.VarChar, 100).Value = strSplitFrom
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -2661,6 +2719,39 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataSplitCOParent(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                     ByVal strSCID As String, ByVal intGroupID As Integer) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT [ID]" & vbNewLine &
+"      ,[SCID]" & vbNewLine &
+"      ,[CODetailID]" & vbNewLine &
+"      ,[GroupID]" & vbNewLine &
+"      ,[ItemID]" & vbNewLine &
+"      ,[Quantity]" & vbNewLine &
+"      ,[Weight]" & vbNewLine &
+"      ,[TotalWeight]" & vbNewLine &
+"      ,[UnitPrice]" & vbNewLine &
+"      ,[TotalPrice]" & vbNewLine &
+"      ,[Remarks]" & vbNewLine &
+"      ,[RoundingWeight]" & vbNewLine &
+"      ,[LevelItem]" & vbNewLine &
+"      ,[ParentID]" & vbNewLine &
+"      ,[LocationID]" & vbNewLine &
+"      ,[PCDetailID]" & vbNewLine &
+"FROM [dbo].[traSalesContractDetConfirmationOrder]" & vbNewLine &
+"WHERE SCID=@SCID AND GroupID=@GroupID " & vbNewLine
+
+                .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = strSCID
+                .Parameters.Add("@GroupID", SqlDbType.Int).Value = intGroupID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Function ListDataByOrderRequestDetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                               ByVal strOrderRequestDetailID As String) As DataTable
             Dim sqlcmdExecute As New SqlCommand
@@ -2744,9 +2835,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traSalesContractDetConfirmationOrder " & vbNewLine &
-                    "   (ID, SCID, CODetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, RoundingWeight, LevelItem, ParentID, LocationID, PCDetailID) " & vbNewLine &
+                    "   (ID, SCID, CODetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, UnitPrice, TotalPrice, Remarks, RoundingWeight, LevelItem, ParentID, LocationID, PCDetailID, SplitFrom) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @SCID, @CODetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @RoundingWeight, @LevelItem, @ParentID, @LocationID, @PCDetailID) " & vbNewLine
+                    "   (@ID, @SCID, @CODetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @UnitPrice, @TotalPrice, @Remarks, @RoundingWeight, @LevelItem, @ParentID, @LocationID, @PCDetailID, @SplitFrom) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = clsData.SCID
@@ -2764,6 +2855,7 @@
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
                 .Parameters.Add("@LocationID", SqlDbType.Int).Value = clsData.LocationID
                 .Parameters.Add("@PCDetailID", SqlDbType.VarChar, 100).Value = clsData.PCDetailID
+                .Parameters.Add("@SplitFrom", SqlDbType.VarChar, 100).Value = clsData.SplitFrom
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -3108,7 +3200,7 @@
 
         Public Shared Sub MoveDetailItemCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                            ByVal strID As String, ByVal intGroupID As Integer,
-                                           ByVal strParentID As String)
+                                           ByVal strParentID As String, ByVal strSplitFrom As String)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -3116,13 +3208,14 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "UPDATE traSalesContractDetConfirmationOrder SET " & vbNewLine &
-                    "   GroupID=@GroupID, ParentID=@ParentID " & vbNewLine &
+                    "   GroupID=@GroupID, ParentID=@ParentID, SplitFrom=@SplitFrom " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@GroupID", SqlDbType.Int).Value = intGroupID
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+                .Parameters.Add("@SplitFrom", SqlDbType.VarChar, 100).Value = strSplitFrom
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -3289,6 +3382,487 @@
             End Try
             Return intReturn
         End Function
+
+#End Region
+
+#Region "Split"
+
+        Public Shared Function IsExistsSplit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                             ByVal strID As String) As Boolean
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim bolReturn As Boolean
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 ID " & vbNewLine &
+                        "FROM traSalesContractDetSplit " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   ID=@ID " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        bolReturn = True
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return bolReturn
+        End Function
+
+        Public Shared Sub SaveDataSplitItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                            ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"INSERT INTO traSalesContractDetSplit " & vbNewLine &
+"       ([ID]" & vbNewLine &
+"      ,[SCID]" & vbNewLine &
+"      ,[ORDetailID]" & vbNewLine &
+"      ,[GroupID]" & vbNewLine &
+"      ,[ItemID]" & vbNewLine &
+"      ,[Quantity]" & vbNewLine &
+"      ,[Weight]" & vbNewLine &
+"      ,[TotalWeight]" & vbNewLine &
+"      ,[UnitPrice]" & vbNewLine &
+"      ,[TotalPrice]" & vbNewLine &
+"      ,[DCQuantity]" & vbNewLine &
+"      ,[DCWeight]" & vbNewLine &
+"      ,[POTransportQuantity]" & vbNewLine &
+"      ,[POTransportWeight]" & vbNewLine &
+"      ,[Remarks]" & vbNewLine &
+"      ,[ReceiveAmount]" & vbNewLine &
+"      ,[DPAmount]" & vbNewLine &
+"      ,[OrderNumberSupplier]" & vbNewLine &
+"      ,[IsIgnoreValidationPayment]" & vbNewLine &
+"      ,[LevelItem]" & vbNewLine &
+"      ,[ParentID]" & vbNewLine &
+"      ,[RoundingWeight]" & vbNewLine &
+"      ,[UnitPriceHPP]" & vbNewLine &
+"      ,[DPAmountPPN]" & vbNewLine &
+"      ,[DPAmountPPH]" & vbNewLine &
+"      ,[ReceiveAmountPPN]" & vbNewLine &
+"      ,[ReceiveAmountPPH]" & vbNewLine &
+"      ,[AllocateDPAmount]" & vbNewLine &
+"      ,[InvoiceQuantity]" & vbNewLine &
+"      ,[InvoiceWeight]" & vbNewLine &
+"      ,[InvoiceTotalWeight]" & vbNewLine &
+"      ,[CODetailID]" & vbNewLine &
+"      ,[PCDetailID]" & vbNewLine &
+"      ,[ClaimQuantity]" & vbNewLine &
+"      ,[ClaimWeight])" & vbNewLine &
+"SELECT [ID]" & vbNewLine &
+"      ,[SCID]" & vbNewLine &
+"      ,[ORDetailID]" & vbNewLine &
+"      ,[GroupID]" & vbNewLine &
+"      ,[ItemID]" & vbNewLine &
+"      ,[Quantity]" & vbNewLine &
+"      ,[Weight]" & vbNewLine &
+"      ,[TotalWeight]" & vbNewLine &
+"      ,[UnitPrice]" & vbNewLine &
+"      ,[TotalPrice]" & vbNewLine &
+"      ,[DCQuantity]" & vbNewLine &
+"      ,[DCWeight]" & vbNewLine &
+"      ,[POTransportQuantity]" & vbNewLine &
+"      ,[POTransportWeight]" & vbNewLine &
+"      ,[Remarks]" & vbNewLine &
+"      ,[ReceiveAmount]" & vbNewLine &
+"      ,[DPAmount]" & vbNewLine &
+"      ,[OrderNumberSupplier]" & vbNewLine &
+"      ,[IsIgnoreValidationPayment]" & vbNewLine &
+"      ,[LevelItem]" & vbNewLine &
+"      ,[ParentID]" & vbNewLine &
+"      ,[RoundingWeight]" & vbNewLine &
+"      ,[UnitPriceHPP]" & vbNewLine &
+"      ,[DPAmountPPN]" & vbNewLine &
+"      ,[DPAmountPPH]" & vbNewLine &
+"      ,[ReceiveAmountPPN]" & vbNewLine &
+"      ,[ReceiveAmountPPH]" & vbNewLine &
+"      ,[AllocateDPAmount]" & vbNewLine &
+"      ,[InvoiceQuantity]" & vbNewLine &
+"      ,[InvoiceWeight]" & vbNewLine &
+"      ,[InvoiceTotalWeight]" & vbNewLine &
+"      ,[CODetailID]" & vbNewLine &
+"      ,[PCDetailID]" & vbNewLine &
+"      ,[ClaimQuantity]" & vbNewLine &
+"      ,[ClaimWeight]" & vbNewLine &
+"FROM [dbo].[traSalesContractDet]" & vbNewLine &
+"WHERE " & vbNewLine &
+"   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataSplitItemFrom(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                  ByVal strSplitFrom As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"DELETE traSalesContractDet " & vbNewLine &
+"WHERE " & vbNewLine &
+"   SplitFrom=@SplitFrom " & vbNewLine
+
+                .Parameters.Add("@SplitFrom", SqlDbType.VarChar, 100).Value = strSplitFrom
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub RevertDataSplitItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"INSERT INTO traSalesContractDet " & vbNewLine &
+"       ([ID]" & vbNewLine &
+"      ,[SCID]" & vbNewLine &
+"      ,[ORDetailID]" & vbNewLine &
+"      ,[GroupID]" & vbNewLine &
+"      ,[ItemID]" & vbNewLine &
+"      ,[Quantity]" & vbNewLine &
+"      ,[Weight]" & vbNewLine &
+"      ,[TotalWeight]" & vbNewLine &
+"      ,[UnitPrice]" & vbNewLine &
+"      ,[TotalPrice]" & vbNewLine &
+"      ,[DCQuantity]" & vbNewLine &
+"      ,[DCWeight]" & vbNewLine &
+"      ,[POTransportQuantity]" & vbNewLine &
+"      ,[POTransportWeight]" & vbNewLine &
+"      ,[Remarks]" & vbNewLine &
+"      ,[ReceiveAmount]" & vbNewLine &
+"      ,[DPAmount]" & vbNewLine &
+"      ,[OrderNumberSupplier]" & vbNewLine &
+"      ,[IsIgnoreValidationPayment]" & vbNewLine &
+"      ,[LevelItem]" & vbNewLine &
+"      ,[ParentID]" & vbNewLine &
+"      ,[RoundingWeight]" & vbNewLine &
+"      ,[UnitPriceHPP]" & vbNewLine &
+"      ,[DPAmountPPN]" & vbNewLine &
+"      ,[DPAmountPPH]" & vbNewLine &
+"      ,[ReceiveAmountPPN]" & vbNewLine &
+"      ,[ReceiveAmountPPH]" & vbNewLine &
+"      ,[AllocateDPAmount]" & vbNewLine &
+"      ,[InvoiceQuantity]" & vbNewLine &
+"      ,[InvoiceWeight]" & vbNewLine &
+"      ,[InvoiceTotalWeight]" & vbNewLine &
+"      ,[CODetailID]" & vbNewLine &
+"      ,[PCDetailID]" & vbNewLine &
+"      ,[ClaimQuantity]" & vbNewLine &
+"      ,[ClaimWeight])" & vbNewLine &
+"SELECT [ID]" & vbNewLine &
+"      ,[SCID]" & vbNewLine &
+"      ,[ORDetailID]" & vbNewLine &
+"      ,[GroupID]" & vbNewLine &
+"      ,[ItemID]" & vbNewLine &
+"      ,[Quantity]" & vbNewLine &
+"      ,[Weight]" & vbNewLine &
+"      ,[TotalWeight]" & vbNewLine &
+"      ,[UnitPrice]" & vbNewLine &
+"      ,[TotalPrice]" & vbNewLine &
+"      ,[DCQuantity]" & vbNewLine &
+"      ,[DCWeight]" & vbNewLine &
+"      ,[POTransportQuantity]" & vbNewLine &
+"      ,[POTransportWeight]" & vbNewLine &
+"      ,[Remarks]" & vbNewLine &
+"      ,[ReceiveAmount]" & vbNewLine &
+"      ,[DPAmount]" & vbNewLine &
+"      ,[OrderNumberSupplier]" & vbNewLine &
+"      ,[IsIgnoreValidationPayment]" & vbNewLine &
+"      ,[LevelItem]" & vbNewLine &
+"      ,[ParentID]" & vbNewLine &
+"      ,[RoundingWeight]" & vbNewLine &
+"      ,[UnitPriceHPP]" & vbNewLine &
+"      ,[DPAmountPPN]" & vbNewLine &
+"      ,[DPAmountPPH]" & vbNewLine &
+"      ,[ReceiveAmountPPN]" & vbNewLine &
+"      ,[ReceiveAmountPPH]" & vbNewLine &
+"      ,[AllocateDPAmount]" & vbNewLine &
+"      ,[InvoiceQuantity]" & vbNewLine &
+"      ,[InvoiceWeight]" & vbNewLine &
+"      ,[InvoiceTotalWeight]" & vbNewLine &
+"      ,[CODetailID]" & vbNewLine &
+"      ,[PCDetailID]" & vbNewLine &
+"      ,[ClaimQuantity]" & vbNewLine &
+"      ,[ClaimWeight]" & vbNewLine &
+"FROM [dbo].[traSalesContractDetSplit]" & vbNewLine &
+"WHERE " & vbNewLine &
+"   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataSplitItemBySCID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                    ByVal strSCID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"DELETE traSalesContractDetSplit " & vbNewLine &
+"WHERE " & vbNewLine &
+"   SCID=@SCID " & vbNewLine
+
+                .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = strSCID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+#End Region
+
+#Region "Split CO"
+
+        Public Shared Function ListDataSplitCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal strSCID As String, ByVal intGroupID As Integer) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT [ID]" & vbNewLine &
+"      ,[SCID]" & vbNewLine &
+"      ,[CODetailID]" & vbNewLine &
+"      ,[GroupID]" & vbNewLine &
+"      ,[ItemID]" & vbNewLine &
+"      ,[Quantity]" & vbNewLine &
+"      ,[Weight]" & vbNewLine &
+"      ,[TotalWeight]" & vbNewLine &
+"      ,[UnitPrice]" & vbNewLine &
+"      ,[TotalPrice]" & vbNewLine &
+"      ,[Remarks]" & vbNewLine &
+"      ,[RoundingWeight]" & vbNewLine &
+"      ,[LevelItem]" & vbNewLine &
+"      ,[ParentID]" & vbNewLine &
+"      ,[LocationID]" & vbNewLine &
+"      ,[PCDetailID]" & vbNewLine &
+"FROM [dbo].[traSalesContractDetConfirmationOrderSplit]" & vbNewLine &
+"WHERE SCID=@SCID AND GroupID=@GroupID " & vbNewLine
+
+                .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = strSCID
+                .Parameters.Add("@GroupID", SqlDbType.Int).Value = intGroupID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function IsExistsSplitCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                             ByVal strID As String) As Boolean
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim bolReturn As Boolean
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 ID " & vbNewLine &
+                        "FROM traSalesContractDetConfirmationOrderSplit " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   ID=@ID " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        bolReturn = True
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return bolReturn
+        End Function
+
+        Public Shared Sub SaveDataSplitItemCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"INSERT INTO traSalesContractDetConfirmationOrderSplit " & vbNewLine &
+"       ([ID]" & vbNewLine &
+"      ,[SCID]" & vbNewLine &
+"      ,[CODetailID]" & vbNewLine &
+"      ,[GroupID]" & vbNewLine &
+"      ,[ItemID]" & vbNewLine &
+"      ,[Quantity]" & vbNewLine &
+"      ,[Weight]" & vbNewLine &
+"      ,[TotalWeight]" & vbNewLine &
+"      ,[UnitPrice]" & vbNewLine &
+"      ,[TotalPrice]" & vbNewLine &
+"      ,[Remarks]" & vbNewLine &
+"      ,[RoundingWeight]" & vbNewLine &
+"      ,[LevelItem]" & vbNewLine &
+"      ,[ParentID]" & vbNewLine &
+"      ,[LocationID]" & vbNewLine &
+"      ,[PCDetailID])" & vbNewLine &
+"SELECT [ID]" & vbNewLine &
+"      ,[SCID]" & vbNewLine &
+"      ,[CODetailID]" & vbNewLine &
+"      ,[GroupID]" & vbNewLine &
+"      ,[ItemID]" & vbNewLine &
+"      ,[Quantity]" & vbNewLine &
+"      ,[Weight]" & vbNewLine &
+"      ,[TotalWeight]" & vbNewLine &
+"      ,[UnitPrice]" & vbNewLine &
+"      ,[TotalPrice]" & vbNewLine &
+"      ,[Remarks]" & vbNewLine &
+"      ,[RoundingWeight]" & vbNewLine &
+"      ,[LevelItem]" & vbNewLine &
+"      ,[ParentID]" & vbNewLine &
+"      ,[LocationID]" & vbNewLine &
+"      ,[PCDetailID]" & vbNewLine &
+"FROM [dbo].[traSalesContractDetConfirmationOrder]" & vbNewLine &
+"WHERE " & vbNewLine &
+"   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataSplitItemCOFrom(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                  ByVal strSplitFrom As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"DELETE traSalesContractDetConfirmationOrder " & vbNewLine &
+"WHERE " & vbNewLine &
+"   SplitFrom=@SplitFrom " & vbNewLine
+
+                .Parameters.Add("@SplitFrom", SqlDbType.VarChar, 100).Value = strSplitFrom
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub RevertDataSplitItemCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"INSERT INTO traSalesContractDetConfirmationOrder  " & vbNewLine &
+"       ([ID]" & vbNewLine &
+"      ,[SCID]" & vbNewLine &
+"      ,[CODetailID]" & vbNewLine &
+"      ,[GroupID]" & vbNewLine &
+"      ,[ItemID]" & vbNewLine &
+"      ,[Quantity]" & vbNewLine &
+"      ,[Weight]" & vbNewLine &
+"      ,[TotalWeight]" & vbNewLine &
+"      ,[UnitPrice]" & vbNewLine &
+"      ,[TotalPrice]" & vbNewLine &
+"      ,[Remarks]" & vbNewLine &
+"      ,[RoundingWeight]" & vbNewLine &
+"      ,[LevelItem]" & vbNewLine &
+"      ,[ParentID]" & vbNewLine &
+"      ,[LocationID]" & vbNewLine &
+"      ,[PCDetailID])" & vbNewLine &
+"SELECT [ID]" & vbNewLine &
+"      ,[SCID]" & vbNewLine &
+"      ,[CODetailID]" & vbNewLine &
+"      ,[GroupID]" & vbNewLine &
+"      ,[ItemID]" & vbNewLine &
+"      ,[Quantity]" & vbNewLine &
+"      ,[Weight]" & vbNewLine &
+"      ,[TotalWeight]" & vbNewLine &
+"      ,[UnitPrice]" & vbNewLine &
+"      ,[TotalPrice]" & vbNewLine &
+"      ,[Remarks]" & vbNewLine &
+"      ,[RoundingWeight]" & vbNewLine &
+"      ,[LevelItem]" & vbNewLine &
+"      ,[ParentID]" & vbNewLine &
+"      ,[LocationID]" & vbNewLine &
+"      ,[PCDetailID]" & vbNewLine &
+"FROM [dbo].[traSalesContractDetConfirmationOrderSplit]" & vbNewLine &
+"WHERE " & vbNewLine &
+"   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataSplitItemCOBySCID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                  ByVal strSCID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"DELETE traSalesContractDetConfirmationOrderSplit " & vbNewLine &
+"WHERE " & vbNewLine &
+"   SCID=@SCID " & vbNewLine
+
+                .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = strSCID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
 
 #End Region
 

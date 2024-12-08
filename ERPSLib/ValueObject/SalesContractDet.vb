@@ -53,5 +53,6 @@
         Property WeightDP As Decimal
         Property TotalWeightDP As Decimal
         Property DPItem As New List(Of ARAPItem)
+        Property SplitFrom As String = ""
     End Class
 End Namespace

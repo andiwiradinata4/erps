@@ -746,6 +746,22 @@ Public Class frmTraSalesContractDetVer2
         End With
     End Sub
 
+    Private Sub prvUnsplitItem()
+        intPos = grdItemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+
+        If Not UI.usForm.frmAskQuestion("Yakin ingin melakukan Batal Split?") Then Exit Sub
+
+        Try
+            BL.SalesContract.UnSplitItem(grdItemView.GetRowCellValue(intPos, "ID"))
+            UI.usForm.frmMessageBox("Data berhasil Batal Split")
+            prvQueryItem()
+            prvQueryItemConfirmationOrder()
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        End Try
+    End Sub
+
 #End Region
 
 #Region "Item Confirmation Order Handle"
@@ -917,6 +933,7 @@ Public Class frmTraSalesContractDetVer2
             Case "Remap" : prvRemapItem()
             Case "Hapus Duplicate" : prvDeleteDuplicateItem()
             Case "Split" : prvSplitItem()
+            Case "Batal Split" : prvUnsplitItem()
         End Select
     End Sub
 
