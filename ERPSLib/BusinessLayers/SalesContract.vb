@@ -1,4 +1,5 @@
 ﻿Imports System.Runtime.InteropServices.ComTypes
+Imports ERPSLib.VO
 
 Namespace BL
     Public Class SalesContract
@@ -78,7 +79,7 @@ Namespace BL
 
         Public Shared Function GetNewIDSubitem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                ByVal strSCID As String) As String
-            Dim strNewID As String = strSCID & "-"
+            Dim strNewID As String = strSCID & "-" & 1 & "-"
             strNewID &= Format(DL.SalesContract.GetMaxIDDetail(sqlCon, sqlTrans, strNewID) + 1, "000")
             Return strNewID
         End Function
@@ -932,6 +933,7 @@ Namespace BL
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
+                    '# SC Item
                     Dim clsSCExists As VO.SalesContractDet = DL.SalesContract.GetDetailItem(sqlCon, sqlTrans, clsSCCOMain.ID)
                     If clsSCExists.ReceiveAmount > 0 Then Err.Raise(515, "", "Data tidak dapat displit. Dikarenakan data telah diproses Pelunasan.")
 
@@ -949,11 +951,33 @@ Namespace BL
 
                     '# Update Existing SC Item
                     DL.SalesContract.UpdateSplitItem(sqlCon, sqlTrans, clsSCDetMain)
+                    '# --------------------------------------------------------------------------------------------
 
+                    '# SC CO Item
+                    DL.SalesContract.UpdateSplitDetailCO(sqlCon, sqlTrans, clsSCCOMain)
+                    Dim clsSCCO As VO.SalesContractDetConfirmationOrder = DL.SalesContract.GetDetailCOItem(sqlCon, sqlTrans, clsSCCOSplit.SCID, clsSCCOSplit.GroupID)
+                    Dim strNewSCCOID As String = clsSCDetSplit.SCID & "-" & 2 & "-"
+                    clsSCCO.ID = strNewSCCOID & Format(DL.SalesContract.GetMaxIDDetailCO(sqlCon, sqlTrans, strNewSCCOID) + 1, "000")
+                    clsSCCO.GroupID = clsSCDetSplit.GroupID
+                    clsSCCO.Weight = clsSCCOSplit.Weight
+                    clsSCCO.Quantity = clsSCCOSplit.Quantity
+                    clsSCCO.TotalWeight = clsSCCOSplit.TotalWeight
+                    clsSCCO.TotalPrice = clsSCCOSplit.TotalPrice
+                    DL.SalesContract.SaveDataDetailCO(sqlCon, sqlTrans, clsSCCO)
+
+                    '# Move Existing Sub Item to New SC CO Item
+                    For Each cls As VO.SalesContractDetConfirmationOrder In clsSCCOSplit.SubItem
+                        cls.GroupID = clsSCDetSplit.GroupID
+                        cls.ParentID = clsSCCO.ID
+                        DL.SalesContract.MoveDetailItemCO(sqlCon, sqlTrans, cls.ID, cls.GroupID, cls.ParentID)
+                    Next
+                    '# --------------------------------------------------------------------------------------------
+
+                    '# Down Payment Item
                     '# Insert new Down Payment Item
                     For Each cls As VO.ARAPItem In clsSCDetSplit.DPItem
                         Dim clsExists As VO.ARAPItem = DL.ARAP.GetDetailIItem(sqlCon, sqlTrans, cls.ID)
-                        Dim strNewID As String = cls.ParentID & "-" & 2 & "-"
+                        Dim strNewID As String = clsSCDetSplit.ID & "-" & 2 & "-"
                         clsExists.ID = strNewID & Format(DL.ARAP.GetMaxIDARAPItem(sqlCon, sqlTrans, strNewID) + 1, "000")
                         clsExists.ReferencesDetailID = clsSCDetSplit.ID
                         clsExists.Quantity = cls.Quantity
@@ -963,20 +987,19 @@ Namespace BL
                         clsExists.PPN = cls.PPN
                         clsExists.PPH = cls.PPH
                         DL.ARAP.SaveDataItem(sqlCon, sqlTrans, clsExists)
+                        DL.SalesContract.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, cls.ReferencesID, clsExists.ReferencesDetailID)
                     Next
 
                     '# Update Existing Down Payment
                     For Each cls As VO.ARAPItem In clsSCDetMain.DPItem
                         DL.ARAP.UpdateSplitItem(sqlCon, sqlTrans, cls)
                     Next
+                    '# --------------------------------------------------------------------------------------------
 
-                    For Each cls As VO.ARAPItem In clsSCDetSplit.DPItem
-                        DL.SalesContract.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, clsSCDetSplit.ID, cls.ReferencesDetailID)
-                    Next
-
-                    For Each cls As VO.ARAPItem In clsSCDetMain.DPItem
-                        DL.SalesContract.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, clsSCDetMain.ID, cls.ReferencesDetailID)
-                    Next
+                    '# Recalculate SC Item DP Amount
+                    DL.SalesContract.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, clsSCCOSplit.SCID, clsSCDetSplit.ID)
+                    DL.SalesContract.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, clsSCCOMain.SCID, clsSCDetMain.ID)
+                    '# --------------------------------------------------------------------------------------------
 
                     bolReturn = True
                     sqlTrans.Commit()

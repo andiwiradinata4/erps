@@ -1,4 +1,6 @@
-﻿Public Class frmTraSalesContractDetVer2SplitItem
+﻿Imports DevExpress.XtraGrid
+
+Public Class frmTraSalesContractDetVer2SplitItem
 
 #Region "Property"
 
@@ -370,7 +372,7 @@
             grdDownPaymentSplit.DataSource = dtDPSplit
             grdDownPaymentView.BestFitColumns()
             grdDownPaymentSplitView.BestFitColumns()
-
+            prvSumGrid()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -491,6 +493,8 @@
             cls.Amount = dr.Item("Amount")
             cls.PPN = dr.Item("PPN")
             cls.PPH = dr.Item("PPH")
+            cls.ReferencesID = clsData.SCID
+            cls.ReferencesDetailID = dr.Item("ReferencesDetailID")
             clsData.DPItem.Add(cls)
         Next
 
@@ -545,10 +549,14 @@
             cls.Amount = dr.Item("Amount")
             cls.PPN = dr.Item("PPN")
             cls.PPH = dr.Item("PPH")
+            cls.ReferencesID = clsData.SCID
+            cls.ReferencesDetailID = dr.Item("ReferencesDetailID")
             clsDataSplit.DPItem.Add(cls)
         Next
 
         '# CO Item
+        clsDataCO.SCID = clsData.SCID
+        clsDataCO.GroupID = clsData.GroupID
         clsDataCO.Weight = txtWeightCO.Value
         clsDataCO.Quantity = txtQuantityCO.Value
         clsDataCO.TotalWeight = txtTotalWeightCO.Value
@@ -573,6 +581,8 @@
         Next
 
         '# CO Split
+        clsDataCOSplit.SCID = clsData.SCID
+        clsDataCOSplit.GroupID = clsData.GroupID
         clsDataCOSplit.Weight = txtWeightCOSplit.Value
         clsDataCOSplit.Quantity = txtQuantityCOSplit.Value
         clsDataCOSplit.TotalWeight = txtTotalWeightCOSplit.Value
@@ -771,6 +781,79 @@
         txtTotalPriceCOSplit.Value = txtUnitPriceCOSplit.Value * txtTotalWeightCOSplit.Value
     End Sub
 
+    Private Sub prvSumGrid()
+        '# Sub Item
+        Dim SumTotalQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0}")
+        Dim SumGrandTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
+        Dim SumGrandTotalPrice As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
+
+        If grdSubitemView.Columns("Quantity").SummaryText.Trim = "" Then
+            grdSubitemView.Columns("Quantity").Summary.Add(SumTotalQuantity)
+        End If
+
+        If grdSubitemView.Columns("TotalWeight").SummaryText.Trim = "" Then
+            grdSubitemView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeight)
+        End If
+
+        If grdSubitemView.Columns("TotalPrice").SummaryText.Trim = "" Then
+            grdSubitemView.Columns("TotalPrice").Summary.Add(SumGrandTotalPrice)
+        End If
+        grdSubitemView.BestFitColumns()
+
+        Dim SumTotalQuantitySplit As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0}")
+        Dim SumGrandTotalWeightSplit As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
+        Dim SumGrandTotalPriceSplit As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
+
+        If grdSubitemSplitView.Columns("Quantity").SummaryText.Trim = "" Then
+            grdSubitemSplitView.Columns("Quantity").Summary.Add(SumTotalQuantitySplit)
+        End If
+
+        If grdSubitemSplitView.Columns("TotalWeight").SummaryText.Trim = "" Then
+            grdSubitemSplitView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeightSplit)
+        End If
+
+        If grdSubitemSplitView.Columns("TotalPrice").SummaryText.Trim = "" Then
+            grdSubitemSplitView.Columns("TotalPrice").Summary.Add(SumGrandTotalPriceSplit)
+        End If
+        grdSubitemSplitView.BestFitColumns()
+
+        '# Confirmation Order
+        Dim SumTotalQuantityOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0}")
+        Dim SumGrandTotalWeightOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
+        Dim SumGrandTotalPriceOrder As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
+
+        If grdSubItemCOView.Columns("Quantity").SummaryText.Trim = "" Then
+            grdSubItemCOView.Columns("Quantity").Summary.Add(SumTotalQuantityOrder)
+        End If
+
+        If grdSubItemCOView.Columns("TotalWeight").SummaryText.Trim = "" Then
+            grdSubItemCOView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeightOrder)
+        End If
+
+        If grdSubItemCOView.Columns("TotalPrice").SummaryText.Trim = "" Then
+            grdSubItemCOView.Columns("TotalPrice").Summary.Add(SumGrandTotalPriceOrder)
+        End If
+        grdSubItemCOView.BestFitColumns()
+
+        '# Confirmation Order
+        Dim SumTotalQuantityOrderSplit As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Total Quantity: {0:#,##0}")
+        Dim SumGrandTotalWeightOrderSplit As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat Keseluruhan: {0:#,##0.00}")
+        Dim SumGrandTotalPriceOrderSplit As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPrice", "Total Harga Keseluruhan: {0:#,##0.00}")
+
+        If grdSubItemCOSplitView.Columns("Quantity").SummaryText.Trim = "" Then
+            grdSubItemCOSplitView.Columns("Quantity").Summary.Add(SumTotalQuantityOrderSplit)
+        End If
+
+        If grdSubItemCOSplitView.Columns("TotalWeight").SummaryText.Trim = "" Then
+            grdSubItemCOSplitView.Columns("TotalWeight").Summary.Add(SumGrandTotalWeightOrderSplit)
+        End If
+
+        If grdSubItemCOSplitView.Columns("TotalPrice").SummaryText.Trim = "" Then
+            grdSubItemCOSplitView.Columns("TotalPrice").Summary.Add(SumGrandTotalPriceOrderSplit)
+        End If
+        grdSubItemCOSplitView.BestFitColumns()
+    End Sub
+
 #Region "Form Handle"
 
     Private Sub frmTraSalesContractDetVer2SplitItem_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -782,6 +865,8 @@
             tcHeader.SelectedTab = tpSalesContract
         ElseIf e.KeyCode = Keys.F2 Then
             tcHeader.SelectedTab = tpConfirmationOrder
+        ElseIf e.KeyCode = Keys.F3 Then
+            tcHeader.SelectedTab = tpDownPayment
         End If
     End Sub
 

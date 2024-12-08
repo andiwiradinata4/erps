@@ -2999,6 +2999,138 @@
             Return voReturn
         End Function
 
+        Public Shared Function GetDetailCOItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal strSCID As String, ByVal intGroupID As Integer) As VO.SalesContractDetConfirmationOrder
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim voReturn As New VO.SalesContractDetConfirmationOrder
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT	TOP 1 " & vbNewLine &
+                        "   A.ID, A.SCID, A.CODetailID, A.GroupID, A.ItemID, A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, A.Remarks, A.RoundingWeight, A.LevelItem, A.ParentID, " & vbNewLine &
+                        "   A.LocationID, A.PCDetailID, A3.CONumber, A1.OrderNumberSupplier, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, " & vbNewLine &
+                        "   D.ID AS ItemTypeID, D.Description AS ItemTypeName, A1.TotalWeight+A.TotalWeight-A1.SCWeight AS MaxTotalWeight, BPL.Address AS DeliveryAddress " & vbNewLine &
+                        "FROM traSalesContractDetConfirmationOrder A  	" & vbNewLine &
+                        "INNER JOIN traConfirmationOrderDet A1 ON  	" & vbNewLine &
+                        "    A.CODetailID=A1.ID  	" & vbNewLine &
+                        "INNER JOIN traConfirmationOrder A3 ON  	" & vbNewLine &
+                        "    A1.COID=A3.ID  	" & vbNewLine &
+                        "INNER JOIN mstItem B ON  	" & vbNewLine &
+                        "    A.ItemID=B.ID  	" & vbNewLine &
+                        "INNER JOIN mstItemSpecification C ON  	" & vbNewLine &
+                        "    B.ItemSpecificationID=C.ID  	" & vbNewLine &
+                        "INNER JOIN mstItemType D ON  	" & vbNewLine &
+                        "    B.ItemTypeID=D.ID  	" & vbNewLine &
+                        "INNER JOIN mstBusinessPartnerLocation BPL ON	" & vbNewLine &
+                        "	A.LocationID=BPL.ID " & vbNewLine &
+                        "WHERE  	" & vbNewLine &
+                        "    A.SCID=@SCID " & vbNewLine &
+                        "    AND A.GroupID=@GroupID " & vbNewLine
+
+                    .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = strSCID
+                    .Parameters.Add("@GroupID", SqlDbType.Int).Value = intGroupID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        voReturn.ID = .Item("ID")
+                        voReturn.SCID = .Item("SCID")
+                        voReturn.CODetailID = .Item("CODetailID")
+                        voReturn.GroupID = .Item("GroupID")
+                        voReturn.ItemID = .Item("ItemID")
+                        voReturn.Quantity = .Item("Quantity")
+                        voReturn.Weight = .Item("Weight")
+                        voReturn.TotalWeight = .Item("TotalWeight")
+                        voReturn.UnitPrice = .Item("UnitPrice")
+                        voReturn.TotalPrice = .Item("TotalPrice")
+                        voReturn.Remarks = .Item("Remarks")
+                        voReturn.RoundingWeight = .Item("RoundingWeight")
+                        voReturn.LevelItem = .Item("LevelItem")
+                        voReturn.ParentID = .Item("ParentID")
+                        voReturn.LocationID = .Item("LocationID")
+                        voReturn.PCDetailID = .Item("PCDetailID")
+                        voReturn.CONumber = .Item("CONumber")
+                        voReturn.OrderNumberSupplier = .Item("OrderNumberSupplier")
+                        voReturn.ItemCode = .Item("ItemCode")
+                        voReturn.ItemName = .Item("ItemName")
+                        voReturn.Thick = .Item("Thick")
+                        voReturn.Width = .Item("Width")
+                        voReturn.Length = .Item("Length")
+                        voReturn.ItemSpecificationID = .Item("ItemSpecificationID")
+                        voReturn.ItemSpecificationName = .Item("ItemSpecificationName")
+                        voReturn.ItemTypeID = .Item("ItemTypeID")
+                        voReturn.ItemTypeName = .Item("ItemTypeName")
+                        voReturn.MaxTotalWeight = .Item("MaxTotalWeight")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return voReturn
+        End Function
+
+        Public Shared Sub UpdateSplitDetailCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal clsData As VO.SalesContractDetConfirmationOrder)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesContractDetConfirmationOrder SET " & vbNewLine &
+                    "   GroupID=@GroupID, " & vbNewLine &
+                    "   Quantity=@Quantity, " & vbNewLine &
+                    "   Weight=@Weight, " & vbNewLine &
+                    "   TotalWeight=@TotalWeight, " & vbNewLine &
+                    "   TotalPrice=@TotalPrice " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@GroupID", SqlDbType.Int).Value = clsData.GroupID
+                .Parameters.Add("@Quantity", SqlDbType.Decimal).Value = clsData.Quantity
+                .Parameters.Add("@Weight", SqlDbType.Decimal).Value = clsData.Weight
+                .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
+                .Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = clsData.TotalPrice
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub MoveDetailItemCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                           ByVal strID As String, ByVal intGroupID As Integer,
+                                           ByVal strParentID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesContractDetConfirmationOrder SET " & vbNewLine &
+                    "   GroupID=@GroupID, ParentID=@ParentID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@GroupID", SqlDbType.Int).Value = intGroupID
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Payment Term"
