@@ -2516,7 +2516,7 @@
                 With sqlrdData
                     If .HasRows Then
                         .Read()
-                        intReturn = .Item("ID")
+                        intReturn = .Item("GroupID") + 1
                     End If
                 End With
             Catch ex As Exception
@@ -2572,6 +2572,7 @@
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@Weight", SqlDbType.Decimal).Value = clsData.Weight
                 .Parameters.Add("@Quantity", SqlDbType.Decimal).Value = clsData.Quantity
                 .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
                 .Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = clsData.TotalPrice

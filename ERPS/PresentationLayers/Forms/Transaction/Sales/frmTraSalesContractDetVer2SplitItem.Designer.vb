@@ -233,8 +233,8 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.grdDownPaymentSplitView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit5 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.ToolBarDPSplit = New ERPS.usToolBar()
-        Me.lblInfo = New System.Windows.Forms.Label()
         Me.BarDeleteDPSplit = New System.Windows.Forms.ToolBarButton()
+        Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader.SuspendLayout()
         Me.tpSalesContract.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -349,6 +349,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         '
         'tpSalesContract
         '
+        Me.tpSalesContract.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.tpSalesContract.Controls.Add(Me.TableLayoutPanel1)
         Me.tpSalesContract.Location = New System.Drawing.Point(4, 25)
         Me.tpSalesContract.Name = "tpSalesContract"
@@ -369,7 +370,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1156, 582)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1152, 578)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'Panel2
@@ -379,9 +380,9 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Panel2.Controls.Add(Me.Label20)
         Me.Panel2.Controls.Add(Me.Panel3)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel2.Location = New System.Drawing.Point(581, 3)
+        Me.Panel2.Location = New System.Drawing.Point(579, 3)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(572, 576)
+        Me.Panel2.Size = New System.Drawing.Size(570, 572)
         Me.Panel2.TabIndex = 1
         '
         'grdSubitemSplit
@@ -405,7 +406,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.grdSubitemSplit.MainView = Me.grdSubitemSplitView
         Me.grdSubitemSplit.Name = "grdSubitemSplit"
         Me.grdSubitemSplit.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdSubitemSplit.Size = New System.Drawing.Size(572, 239)
+        Me.grdSubitemSplit.Size = New System.Drawing.Size(570, 235)
         Me.grdSubitemSplit.TabIndex = 3
         Me.grdSubitemSplit.UseEmbeddedNavigator = True
         Me.grdSubitemSplit.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdSubitemSplitView})
@@ -438,7 +439,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.ToolBarItemSubitemSplit.Location = New System.Drawing.Point(0, 311)
         Me.ToolBarItemSubitemSplit.Name = "ToolBarItemSubitemSplit"
         Me.ToolBarItemSubitemSplit.ShowToolTips = True
-        Me.ToolBarItemSubitemSplit.Size = New System.Drawing.Size(572, 26)
+        Me.ToolBarItemSubitemSplit.Size = New System.Drawing.Size(570, 26)
         Me.ToolBarItemSubitemSplit.TabIndex = 2
         Me.ToolBarItemSubitemSplit.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -456,7 +457,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Label20.ForeColor = System.Drawing.Color.White
         Me.Label20.Location = New System.Drawing.Point(0, 289)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(572, 22)
+        Me.Label20.Size = New System.Drawing.Size(570, 22)
         Me.Label20.TabIndex = 1
         Me.Label20.Text = "« Subitem"
         Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -506,7 +507,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(572, 289)
+        Me.Panel3.Size = New System.Drawing.Size(570, 289)
         Me.Panel3.TabIndex = 0
         '
         'Label21
@@ -984,7 +985,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(3, 3)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(572, 576)
+        Me.Panel1.Size = New System.Drawing.Size(570, 572)
         Me.Panel1.TabIndex = 0
         '
         'grdSubitem
@@ -1008,7 +1009,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.grdSubitem.MainView = Me.grdSubitemView
         Me.grdSubitem.Name = "grdSubitem"
         Me.grdSubitem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit2})
-        Me.grdSubitem.Size = New System.Drawing.Size(572, 239)
+        Me.grdSubitem.Size = New System.Drawing.Size(570, 235)
         Me.grdSubitem.TabIndex = 3
         Me.grdSubitem.UseEmbeddedNavigator = True
         Me.grdSubitem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdSubitemView})
@@ -1041,7 +1042,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.ToolBarItemSubitem.Location = New System.Drawing.Point(0, 311)
         Me.ToolBarItemSubitem.Name = "ToolBarItemSubitem"
         Me.ToolBarItemSubitem.ShowToolTips = True
-        Me.ToolBarItemSubitem.Size = New System.Drawing.Size(572, 26)
+        Me.ToolBarItemSubitem.Size = New System.Drawing.Size(570, 26)
         Me.ToolBarItemSubitem.TabIndex = 2
         Me.ToolBarItemSubitem.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -1059,7 +1060,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Label19.ForeColor = System.Drawing.Color.White
         Me.Label19.Location = New System.Drawing.Point(0, 289)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(572, 22)
+        Me.Label19.Size = New System.Drawing.Size(570, 22)
         Me.Label19.TabIndex = 1
         Me.Label19.Text = "« Subitem"
         Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1109,7 +1110,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlDetail.Location = New System.Drawing.Point(0, 0)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(572, 289)
+        Me.pnlDetail.Size = New System.Drawing.Size(570, 289)
         Me.pnlDetail.TabIndex = 0
         '
         'Label1
@@ -1583,6 +1584,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         '
         'tpConfirmationOrder
         '
+        Me.tpConfirmationOrder.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.tpConfirmationOrder.Controls.Add(Me.TableLayoutPanel2)
         Me.tpConfirmationOrder.Location = New System.Drawing.Point(4, 25)
         Me.tpConfirmationOrder.Name = "tpConfirmationOrder"
@@ -1603,7 +1605,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1156, 582)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1152, 578)
         Me.TableLayoutPanel2.TabIndex = 0
         '
         'Panel5
@@ -1613,9 +1615,9 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Panel5.Controls.Add(Me.Label103)
         Me.Panel5.Controls.Add(Me.Panel7)
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel5.Location = New System.Drawing.Point(581, 3)
+        Me.Panel5.Location = New System.Drawing.Point(579, 3)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(572, 576)
+        Me.Panel5.Size = New System.Drawing.Size(570, 572)
         Me.Panel5.TabIndex = 1
         '
         'grdSubItemCOSplit
@@ -1639,7 +1641,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.grdSubItemCOSplit.MainView = Me.grdSubItemCOSplitView
         Me.grdSubItemCOSplit.Name = "grdSubItemCOSplit"
         Me.grdSubItemCOSplit.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit4})
-        Me.grdSubItemCOSplit.Size = New System.Drawing.Size(572, 215)
+        Me.grdSubItemCOSplit.Size = New System.Drawing.Size(570, 211)
         Me.grdSubItemCOSplit.TabIndex = 3
         Me.grdSubItemCOSplit.UseEmbeddedNavigator = True
         Me.grdSubItemCOSplit.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdSubItemCOSplitView})
@@ -1672,7 +1674,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.ToolBarItemCOSplit.Location = New System.Drawing.Point(0, 335)
         Me.ToolBarItemCOSplit.Name = "ToolBarItemCOSplit"
         Me.ToolBarItemCOSplit.ShowToolTips = True
-        Me.ToolBarItemCOSplit.Size = New System.Drawing.Size(572, 26)
+        Me.ToolBarItemCOSplit.Size = New System.Drawing.Size(570, 26)
         Me.ToolBarItemCOSplit.TabIndex = 2
         Me.ToolBarItemCOSplit.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -1690,7 +1692,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Label103.ForeColor = System.Drawing.Color.White
         Me.Label103.Location = New System.Drawing.Point(0, 313)
         Me.Label103.Name = "Label103"
-        Me.Label103.Size = New System.Drawing.Size(572, 22)
+        Me.Label103.Size = New System.Drawing.Size(570, 22)
         Me.Label103.TabIndex = 1
         Me.Label103.Text = "« Subitem"
         Me.Label103.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1739,7 +1741,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Panel7.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel7.Location = New System.Drawing.Point(0, 0)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(572, 313)
+        Me.Panel7.Size = New System.Drawing.Size(570, 313)
         Me.Panel7.TabIndex = 0
         '
         'Label67
@@ -2203,7 +2205,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(3, 3)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(572, 576)
+        Me.Panel4.Size = New System.Drawing.Size(570, 572)
         Me.Panel4.TabIndex = 0
         '
         'grdSubItemCO
@@ -2227,7 +2229,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.grdSubItemCO.MainView = Me.grdSubItemCOView
         Me.grdSubItemCO.Name = "grdSubItemCO"
         Me.grdSubItemCO.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit3})
-        Me.grdSubItemCO.Size = New System.Drawing.Size(572, 215)
+        Me.grdSubItemCO.Size = New System.Drawing.Size(570, 211)
         Me.grdSubItemCO.TabIndex = 3
         Me.grdSubItemCO.UseEmbeddedNavigator = True
         Me.grdSubItemCO.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdSubItemCOView})
@@ -2260,7 +2262,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.ToolBarItemCO.Location = New System.Drawing.Point(0, 335)
         Me.ToolBarItemCO.Name = "ToolBarItemCO"
         Me.ToolBarItemCO.ShowToolTips = True
-        Me.ToolBarItemCO.Size = New System.Drawing.Size(572, 26)
+        Me.ToolBarItemCO.Size = New System.Drawing.Size(570, 26)
         Me.ToolBarItemCO.TabIndex = 2
         Me.ToolBarItemCO.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -2278,7 +2280,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Label54.ForeColor = System.Drawing.Color.White
         Me.Label54.Location = New System.Drawing.Point(0, 313)
         Me.Label54.Name = "Label54"
-        Me.Label54.Size = New System.Drawing.Size(572, 22)
+        Me.Label54.Size = New System.Drawing.Size(570, 22)
         Me.Label54.TabIndex = 1
         Me.Label54.Text = "« Subitem"
         Me.Label54.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2327,7 +2329,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(572, 313)
+        Me.Panel6.Size = New System.Drawing.Size(570, 313)
         Me.Panel6.TabIndex = 0
         '
         'Label55
@@ -2784,6 +2786,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         '
         'tpDownPayment
         '
+        Me.tpDownPayment.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.tpDownPayment.Controls.Add(Me.TableLayoutPanel3)
         Me.tpDownPayment.Location = New System.Drawing.Point(4, 25)
         Me.tpDownPayment.Name = "tpDownPayment"
@@ -2805,7 +2808,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1150, 576)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1146, 572)
         Me.TableLayoutPanel3.TabIndex = 0
         '
         'Panel9
@@ -2815,7 +2818,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel9.Location = New System.Drawing.Point(3, 3)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(569, 570)
+        Me.Panel9.Size = New System.Drawing.Size(567, 566)
         Me.Panel9.TabIndex = 5
         '
         'grdDownPayment
@@ -2839,7 +2842,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.grdDownPayment.MainView = Me.grdDownPaymentView
         Me.grdDownPayment.Name = "grdDownPayment"
         Me.grdDownPayment.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
-        Me.grdDownPayment.Size = New System.Drawing.Size(569, 544)
+        Me.grdDownPayment.Size = New System.Drawing.Size(567, 540)
         Me.grdDownPayment.TabIndex = 11
         Me.grdDownPayment.UseEmbeddedNavigator = True
         Me.grdDownPayment.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdDownPaymentView})
@@ -2870,7 +2873,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.ToolBarDP.Location = New System.Drawing.Point(0, 0)
         Me.ToolBarDP.Name = "ToolBarDP"
         Me.ToolBarDP.ShowToolTips = True
-        Me.ToolBarDP.Size = New System.Drawing.Size(569, 26)
+        Me.ToolBarDP.Size = New System.Drawing.Size(567, 26)
         Me.ToolBarDP.TabIndex = 4
         Me.ToolBarDP.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -2885,9 +2888,9 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Panel8.Controls.Add(Me.grdDownPaymentSplit)
         Me.Panel8.Controls.Add(Me.ToolBarDPSplit)
         Me.Panel8.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel8.Location = New System.Drawing.Point(578, 3)
+        Me.Panel8.Location = New System.Drawing.Point(576, 3)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(569, 570)
+        Me.Panel8.Size = New System.Drawing.Size(567, 566)
         Me.Panel8.TabIndex = 4
         '
         'grdDownPaymentSplit
@@ -2911,7 +2914,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.grdDownPaymentSplit.MainView = Me.grdDownPaymentSplitView
         Me.grdDownPaymentSplit.Name = "grdDownPaymentSplit"
         Me.grdDownPaymentSplit.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit5})
-        Me.grdDownPaymentSplit.Size = New System.Drawing.Size(569, 544)
+        Me.grdDownPaymentSplit.Size = New System.Drawing.Size(567, 540)
         Me.grdDownPaymentSplit.TabIndex = 11
         Me.grdDownPaymentSplit.UseEmbeddedNavigator = True
         Me.grdDownPaymentSplit.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdDownPaymentSplitView})
@@ -2942,9 +2945,15 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.ToolBarDPSplit.Location = New System.Drawing.Point(0, 0)
         Me.ToolBarDPSplit.Name = "ToolBarDPSplit"
         Me.ToolBarDPSplit.ShowToolTips = True
-        Me.ToolBarDPSplit.Size = New System.Drawing.Size(569, 26)
+        Me.ToolBarDPSplit.Size = New System.Drawing.Size(567, 26)
         Me.ToolBarDPSplit.TabIndex = 4
         Me.ToolBarDPSplit.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'BarDeleteDPSplit
+        '
+        Me.BarDeleteDPSplit.Name = "BarDeleteDPSplit"
+        Me.BarDeleteDPSplit.Tag = "Delete"
+        Me.BarDeleteDPSplit.Text = "Hapus"
         '
         'lblInfo
         '
@@ -2959,12 +2968,6 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.lblInfo.Text = "« Split Barang"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'BarDeleteDPSplit
-        '
-        Me.BarDeleteDPSplit.Name = "BarDeleteDPSplit"
-        Me.BarDeleteDPSplit.Tag = "Delete"
-        Me.BarDeleteDPSplit.Text = "Hapus"
-        '
         'frmTraSalesContractDetVer2SplitItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2974,6 +2977,7 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.KeyPreview = True
         Me.Name = "frmTraSalesContractDetVer2SplitItem"
         Me.Text = "Split"
         Me.tcHeader.ResumeLayout(False)

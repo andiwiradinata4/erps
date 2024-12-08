@@ -108,7 +108,7 @@
     End Sub
 
     Private Sub frmTraSalesContractDetVer2SplitItemDP_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        UI.usForm.SetIcon(Me, "mylogo")
+        UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         prvFillForm()
     End Sub
@@ -120,10 +120,11 @@
         End Select
     End Sub
 
-#End Region
-
     Private Sub txtValue_ValueChanged(sender As Object, e As EventArgs) Handles txtQuantity.ValueChanged,
         txtWeight.ValueChanged, txtTotalAmount.ValueChanged, txtPPN.ValueChanged, txtPPH.ValueChanged
         prvCalculate()
     End Sub
+
+#End Region
+
 End Class

@@ -1,4 +1,6 @@
-﻿Namespace BL
+﻿Imports System.Runtime.InteropServices.ComTypes
+
+Namespace BL
     Public Class SalesContract
 
 #Region "Main"
@@ -966,6 +968,14 @@
                     '# Update Existing Down Payment
                     For Each cls As VO.ARAPItem In clsSCDetMain.DPItem
                         DL.ARAP.UpdateSplitItem(sqlCon, sqlTrans, cls)
+                    Next
+
+                    For Each cls As VO.ARAPItem In clsSCDetSplit.DPItem
+                        DL.SalesContract.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, clsSCDetSplit.ID, cls.ReferencesDetailID)
+                    Next
+
+                    For Each cls As VO.ARAPItem In clsSCDetMain.DPItem
+                        DL.SalesContract.CalculateItemTotalUsedDownPayment(sqlCon, sqlTrans, clsSCDetMain.ID, cls.ReferencesDetailID)
                     Next
 
                     bolReturn = True

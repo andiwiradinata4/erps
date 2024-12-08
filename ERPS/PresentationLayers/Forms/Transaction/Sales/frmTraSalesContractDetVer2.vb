@@ -735,7 +735,7 @@ Public Class frmTraSalesContractDetVer2
 
         Dim frmDetail As New frmTraSalesContractDetVer2SplitItem
         With frmDetail
-            .pubID = grdItemView.GetRowCellValue(intPos, "ID")
+            .pubID = clsSCDetail.ID
             .pubSCDetailCOID = drSelectedCO.Item("ID")
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)

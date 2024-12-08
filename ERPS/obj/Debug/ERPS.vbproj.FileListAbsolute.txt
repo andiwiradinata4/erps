@@ -748,7 +748,6 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\aa\ERPS.resources.dll
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPSLib.dll
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPSLib.pdb
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPSLib.xml
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbprojResolveAssemblyReference.cache
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.Resources.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstAccess.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstAccessDet.resources
@@ -976,3 +975,6 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.pdb
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetVer2SplitItemDP.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbproj.AssemblyReference.cache
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbproj.CoreCompileInputs.cache
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbproj.Up2Date

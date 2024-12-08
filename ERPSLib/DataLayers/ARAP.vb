@@ -1554,24 +1554,24 @@
                     .Transaction = sqlTrans
                     .CommandType = CommandType.Text
                     .CommandText =
-                        "SELECT TOP 1" & vbNewLine & _
-                        "	ARH.Percentage, SUM(ARI.Amount) Amount, SUM(ARI.PPN) PPN, SUM(ARI.PPH) PPH, SUM(ARI.Quantity) Quantity, ARI.Weight, SUM(ARI.TotalWeight) TotalWeight, ARH.PPNPercentage, ARH.PPHPercentage " & vbNewLine & _
-                        "FROM traAccountReceivable ARH " & vbNewLine & _
-                        "INNER JOIN traARAPItem ARI ON " & vbNewLine & _
-                        "	ARH.ID=ARI.ParentID " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
-                        "	ARI.ReferencesDetailID=@ReferencesDetailID " & vbNewLine & _
-                        "	AND ARH.IsDeleted=0" & vbNewLine & _
-                        "GROUP ARH.Percentage, ARI.Weight, ARH.PPNPercentage, ARH.PPHPercentage " & vbNewLine & _
-                        "UNION ALL " & vbNewLine & _
-                        "SELECT TOP 1" & vbNewLine & _
-                        "	APH.Percentage, SUM(ARI.Amount) Amount, SUM(ARI.PPN) PPN, SUM(ARI.PPH) PPH, SUM(ARI.Quantity) Quantity, ARI.Weight, SUM(ARI.TotalWeight) TotalWeight, APH.PPNPercentage, APH.PPHPercentage " & vbNewLine & _
-                        "FROM traAccountPayable APH " & vbNewLine & _
-                        "INNER JOIN traARAPItem ARI ON " & vbNewLine & _
-                        "	APH.ID=ARI.ParentID " & vbNewLine & _
-                        "WHERE " & vbNewLine & _
-                        "	ARI.ReferencesDetailID=@ReferencesDetailID " & vbNewLine & _
-                        "	AND APH.IsDeleted=0" & vbNewLine & _
+                        "SELECT TOP 1" & vbNewLine &
+                        "	ARH.Percentage, SUM(ARI.Amount) Amount, SUM(ARI.PPN) PPN, SUM(ARI.PPH) PPH, SUM(ARI.Quantity) Quantity, ARI.Weight, SUM(ARI.TotalWeight) TotalWeight, ARH.PPNPercentage, ARH.PPHPercentage " & vbNewLine &
+                        "FROM traAccountReceivable ARH " & vbNewLine &
+                        "INNER JOIN traARAPItem ARI ON " & vbNewLine &
+                        "	ARH.ID=ARI.ParentID " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "	ARI.ReferencesDetailID=@ReferencesDetailID " & vbNewLine &
+                        "	AND ARH.IsDeleted=0" & vbNewLine &
+                        "GROUP BY ARH.Percentage, ARI.Weight, ARH.PPNPercentage, ARH.PPHPercentage " & vbNewLine &
+                        "UNION ALL " & vbNewLine &
+                        "SELECT TOP 1" & vbNewLine &
+                        "	APH.Percentage, SUM(ARI.Amount) Amount, SUM(ARI.PPN) PPN, SUM(ARI.PPH) PPH, SUM(ARI.Quantity) Quantity, ARI.Weight, SUM(ARI.TotalWeight) TotalWeight, APH.PPNPercentage, APH.PPHPercentage " & vbNewLine &
+                        "FROM traAccountPayable APH " & vbNewLine &
+                        "INNER JOIN traARAPItem ARI ON " & vbNewLine &
+                        "	APH.ID=ARI.ParentID " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "	ARI.ReferencesDetailID=@ReferencesDetailID " & vbNewLine &
+                        "	AND APH.IsDeleted=0" & vbNewLine &
                         "GROUP BY APH.Percentage, ARI.Weight, APH.PPNPercentage, APH.PPHPercentage " & vbNewLine
 
                     .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strReferencesDetailID
@@ -1580,11 +1580,6 @@
                 With sqlrdData
                     If .HasRows Then
                         .Read()
-                        voReturn.ID = .Item("ID")
-                        voReturn.ParentID = .Item("ParentID")
-                        voReturn.ReferencesID = .Item("ReferencesID")
-                        voReturn.ReferencesDetailID = .Item("ReferencesDetailID")
-                        voReturn.ReferencesParentID = .Item("ReferencesParentID")
                         voReturn.Percentage = .Item("Percentage")
                         voReturn.Amount = .Item("Amount")
                         voReturn.PPN = .Item("PPN")
@@ -1618,7 +1613,7 @@
 "	PPH=@PPH,	" & vbNewLine &
 "	Quantity=@Quantity,	" & vbNewLine &
 "	Weight=@Weight,	" & vbNewLine &
-"	TotalWeight=@TotalWeight,	" & vbNewLine &
+"	TotalWeight=@TotalWeight	" & vbNewLine &
 "WHERE ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
@@ -1648,7 +1643,7 @@
                     .CommandText =
                         "SELECT TOP 1 " & vbNewLine &
                         "   ISNULL(RIGHT(ID, 3),'000') AS ID " & vbNewLine &
-                        "FROM traARAPIItem " & vbNewLine &
+                        "FROM traARAPItem " & vbNewLine &
                         "WHERE " & vbNewLine &
                         "   LEFT(ID,@Length)=@ID " & vbNewLine &
                         "ORDER BY ID DESC " & vbNewLine

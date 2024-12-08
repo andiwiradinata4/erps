@@ -308,6 +308,8 @@
             dtSubItemMain.AcceptChanges()
             grdSubitem.DataSource = dtSubItemMain
             grdSubitemSplit.DataSource = dtSubItemSplit
+            grdSubitemView.BestFitColumns()
+            grdSubitemSplitView.BestFitColumns()
 
             '# Fill Confirmation Order 
             clsDataCO = BL.SalesContract.GetDetailCOItem(strSCDetailCOID)
@@ -351,6 +353,8 @@
             dtSubItemCOMain.AcceptChanges()
             grdSubItemCO.DataSource = dtSubItemCOMain
             grdSubItemCOSplit.DataSource = dtSubItemCOSplit
+            grdSubItemCOView.BestFitColumns()
+            grdSubItemCOSplitView.BestFitColumns()
 
             '# Fill ARAP
             clsARAP = BL.ARAP.GetDetailAmountByReferencesDetailID(strID)
@@ -362,6 +366,11 @@
                 dtDPMain.ImportRow(dr)
             Next
             dtDPMain.AcceptChanges()
+            grdDownPayment.DataSource = dtDPMain
+            grdDownPaymentSplit.DataSource = dtDPSplit
+            grdDownPaymentView.BestFitColumns()
+            grdDownPaymentSplitView.BestFitColumns()
+
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -374,7 +383,7 @@
         ToolBar.Focus()
         prvCalculate()
         If txtTotalWeight.Value + txtTotalWeightSplit.Value <> clsData.TotalWeight Then
-            UI.usForm.frmMessageBox("Total Berat Keseluruhan harus sama dengan Maks. Total Berat")
+            UI.usForm.frmMessageBox("Total Berat Keseluruhan harus sama dengan Maks. Total Berat [Kontrak Penjualan]")
             tcHeader.SelectedTab = tpSalesContract
             Exit Sub
         ElseIf (grdSubitemView.RowCount > 0 And grdSubitemSplitView.RowCount = 0) Or (grdSubitemView.RowCount = 0 And grdSubitemSplitView.RowCount > 0) Then
@@ -382,7 +391,7 @@
             tcHeader.SelectedTab = tpSalesContract
             Exit Sub
         ElseIf txtTotalWeightCO.Value + txtTotalWeightCOSplit.Value <> clsDataCO.TotalWeight Then
-            UI.usForm.frmMessageBox("Total Berat Keseluruhan harus sama dengan Maks. Total Berat")
+            UI.usForm.frmMessageBox("Total Berat Keseluruhan harus sama dengan Maks. Total Berat [Konfirmasi Pesanan]")
             tcHeader.SelectedTab = tpConfirmationOrder
             Exit Sub
         ElseIf (grdSubItemCOView.RowCount > 0 And grdSubItemCOSplitView.RowCount = 0) Or (grdSubItemCOView.RowCount = 0 And grdSubItemCOSplitView.RowCount > 0) Then
@@ -435,6 +444,8 @@
         clsData.Quantity = txtQuantity.Value
         clsData.TotalWeight = txtTotalWeight.Value
         clsData.TotalPrice = txtTotalPrice.Value
+        clsData.SubItem = New List(Of VO.SalesContractDet)
+        clsData.DPItem = New List(Of VO.ARAPItem)
 
         '# SC Sub Item
         For Each dr As DataRow In dtSubItemMain.Rows
@@ -487,6 +498,8 @@
         clsDataSplit.Quantity = txtQuantitySplit.Value
         clsDataSplit.TotalWeight = txtTotalWeightSplit.Value
         clsDataSplit.TotalPrice = txtTotalPriceSplit.Value
+        clsDataSplit.SubItem = New List(Of VO.SalesContractDet)
+        clsDataSplit.DPItem = New List(Of VO.ARAPItem)
 
         '# SC Sub Item Split 
         For Each dr As DataRow In dtSubItemSplit.Rows
@@ -540,6 +553,7 @@
         clsDataCO.Quantity = txtQuantityCO.Value
         clsDataCO.TotalWeight = txtTotalWeightCO.Value
         clsDataCO.TotalPrice = txtTotalPriceCO.Value
+        clsDataCO.SubItem = New List(Of VO.SalesContractDetConfirmationOrder)
 
         '# CO Sub Item
         For Each dr As DataRow In dtSubItemCOMain.Rows
@@ -563,6 +577,7 @@
         clsDataCOSplit.Quantity = txtQuantityCOSplit.Value
         clsDataCOSplit.TotalWeight = txtTotalWeightCOSplit.Value
         clsDataCOSplit.TotalPrice = txtTotalPriceCOSplit.Value
+        clsDataCOSplit.SubItem = New List(Of VO.SalesContractDetConfirmationOrder)
 
         '# CO Sub Item Split 
         For Each dr As DataRow In dtSubItemCOSplit.Rows
@@ -598,12 +613,14 @@
         dtSubItemSplit.ImportRow(grdSubitemView.GetDataRow(intPos))
         dtSubItemSplit.AcceptChanges()
         grdSubitemSplit.DataSource = dtSubItemSplit
+        grdSubitemSplitView.BestFitColumns()
 
         For Each dr As DataRow In dtSubItemMain.Rows
             If dr.Item("ID") = grdSubitemView.GetRowCellValue(intPos, "ID") Then dr.Delete() : Exit For
         Next
         dtSubItemMain.AcceptChanges()
         grdSubitem.DataSource = dtSubItemMain
+        grdSubitemView.BestFitColumns()
     End Sub
 
     Private Sub prvMoveToMain()
@@ -613,12 +630,14 @@
         dtSubItemMain.ImportRow(grdSubitemSplitView.GetDataRow(intPos))
         dtSubItemMain.AcceptChanges()
         grdSubitem.DataSource = dtSubItemMain
+        grdSubitemView.BestFitColumns()
 
         For Each dr As DataRow In dtSubItemSplit.Rows
             If dr.Item("ID") = grdSubitemSplitView.GetRowCellValue(intPos, "ID") Then dr.Delete() : Exit For
         Next
         dtSubItemSplit.AcceptChanges()
         grdSubitemSplit.DataSource = dtSubItemSplit
+        grdSubitemSplitView.BestFitColumns()
     End Sub
 
     Private Sub prvMoveToSplitCO()
@@ -627,13 +646,15 @@
 
         dtSubItemCOSplit.ImportRow(grdSubItemCOView.GetDataRow(intPos))
         dtSubItemCOSplit.AcceptChanges()
-        grdSubitemSplit.DataSource = dtSubItemCOSplit
+        grdSubItemCOSplit.DataSource = dtSubItemCOSplit
+        grdSubItemCOSplitView.BestFitColumns()
 
         For Each dr As DataRow In dtSubItemCOMain.Rows
             If dr.Item("ID") = grdSubItemCOView.GetRowCellValue(intPos, "ID") Then dr.Delete() : Exit For
         Next
         dtSubItemCOMain.AcceptChanges()
         grdSubItemCO.DataSource = dtSubItemCOMain
+        grdSubItemCOView.BestFitColumns()
     End Sub
 
     Private Sub prvMoveToMainCO()
@@ -643,27 +664,43 @@
         dtSubItemCOMain.ImportRow(grdSubItemCOSplitView.GetDataRow(intPos))
         dtSubItemCOMain.AcceptChanges()
         grdSubItemCO.DataSource = dtSubItemCOMain
+        grdSubItemCOView.BestFitColumns()
 
         For Each dr As DataRow In dtSubItemCOSplit.Rows
             If dr.Item("ID") = grdSubItemCOSplitView.GetRowCellValue(intPos, "ID") Then dr.Delete() : Exit For
         Next
         dtSubItemCOSplit.AcceptChanges()
         grdSubItemCOSplit.DataSource = dtSubItemCOSplit
+        grdSubItemCOSplitView.BestFitColumns()
     End Sub
 
     Private Sub prvMoveDPToSplit()
         intPos = grdDownPaymentView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
+
+        Dim dtClone As DataTable = dtDP.Clone
+        For Each dr As DataRow In dtDP.Rows
+            dtClone.ImportRow(dr)
+        Next
+        dtClone.AcceptChanges()
+
+        Dim drSelected As DataRow = dtClone.NewRow
+        For Each dr As DataRow In dtClone.Rows
+            If dr.Item("ID") = grdDownPaymentView.GetRowCellValue(intPos, "ID") Then drSelected = dr : Exit For
+        Next
+
         Dim frmDetail As New frmTraSalesContractDetVer2SplitItemDP
         With frmDetail
             .pubClsARAPItem = clsARAP
-            .pubDrData = grdDownPaymentView.GetDataRow(intPos)
+            .pubDrData = drSelected
             .pubUnitPrice = txtUnitPrice.Value
+            .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             If .pubIsSave Then
                 dtDPSplit.ImportRow(.pubDrData)
                 dtDPSplit.AcceptChanges()
                 grdDownPaymentSplit.DataSource = dtDPSplit
+                grdDownPaymentSplitView.BestFitColumns()
 
                 For Each dr As DataRow In dtDPMain.Rows
                     If dr.Item("ID") = .pubDrData.Item("ID") Then
@@ -684,6 +721,7 @@
                 Next
                 dtDPMain.AcceptChanges()
                 grdDownPayment.DataSource = dtDPMain
+                grdDownPaymentView.BestFitColumns()
             End If
         End With
     End Sub
@@ -693,18 +731,27 @@
         If intPos < 0 Then Exit Sub
         Dim drSplit As DataRow = grdDownPaymentSplitView.GetDataRow(intPos)
 
+        For Each dr As DataRow In dtDPSplit.Rows
+            If dr.Item("ID") = drSplit.Item("ID") Then dr.Delete()
+        Next
+        grdDownPaymentSplit.DataSource = dtDPSplit
+        grdDownPaymentSplitView.BestFitColumns()
+
         For Each dr As DataRow In dtDPMain.Rows
             If dr.Item("ID") = drSplit.Item("ID") Then dr.Delete()
         Next
         dtDPMain.AcceptChanges()
+
         For Each dr As DataRow In dtDP.Rows
             If dr.Item("ID") = drSplit.Item("ID") Then dtDPMain.ImportRow(dr)
         Next
         dtDPMain.AcceptChanges()
+
         Dim dv As DataView = dtDPMain.DefaultView
         dv.Sort = "ID ASC"
         dtDPMain = dv.ToTable
         grdDownPayment.DataSource = dtDPMain
+        grdDownPaymentView.BestFitColumns()
     End Sub
 
     Private Sub prvCalculate()
@@ -716,8 +763,8 @@
         txtTotalWeightSplit.Value = txtWeightSplit.Value * txtQuantitySplit.Value
         txtTotalPriceSplit.Value = txtUnitPriceSplit.Value * txtTotalWeightSplit.Value
 
-        If clsDataCO.Quantity > 1 Then txtQuantityCO.Value = clsDataCO.Quantity - txtQuantitySplit.Value
-        If clsDataCO.Quantity <= 1 Then txtWeightCO.Value = clsDataCO.Weight - txtWeightSplit.Value
+        If clsDataCO.Quantity > 1 Then txtQuantityCO.Value = clsDataCO.Quantity - txtQuantityCOSplit.Value
+        If clsDataCO.Quantity <= 1 Then txtWeightCO.Value = clsDataCO.Weight - txtWeightCOSplit.Value
         txtTotalWeightCO.Value = txtWeightCO.Value * txtQuantityCO.Value
         txtTotalPriceCO.Value = txtUnitPriceCO.Value * txtTotalWeightCO.Value
         txtTotalWeightCOSplit.Value = txtWeightCOSplit.Value * txtQuantityCOSplit.Value
@@ -739,7 +786,7 @@
     End Sub
 
     Private Sub frmTraSalesContractDetVer2SplitItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        UI.usForm.SetIcon(Me, "mylogo")
+        UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         ToolBarItemCO.SetIcon(Me)
         ToolBarItemCOSplit.SetIcon(Me)
@@ -784,19 +831,18 @@
 
     Private Sub ToolBarDP_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarDP.ButtonClick
         Select Case e.Button.Text.Trim
-            Case "Pindah" : prvMoveDPToMain()
+            Case "Pindah" : prvMoveDPToSplit()
         End Select
     End Sub
 
     Private Sub ToolBarDPSplit_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarDPSplit.ButtonClick
         Select Case e.Button.Text.Trim
-            Case "Hapus" : prvMoveDPToSplit()
+            Case "Hapus" : prvMoveDPToMain()
         End Select
     End Sub
 
     Private Sub txtValueSplit_ValueChanged(sender As Object, e As EventArgs) Handles txtQuantitySplit.ValueChanged,
-        txtWeightSplit.ValueChanged, txtTotalWeightSplit.ValueChanged,
-        txtWeightCOSplit.ValueChanged, txtQuantityCOSplit.ValueChanged
+        txtWeightSplit.ValueChanged, txtTotalWeightSplit.ValueChanged, txtWeightCOSplit.ValueChanged, txtQuantityCOSplit.ValueChanged
         prvCalculate()
     End Sub
 
