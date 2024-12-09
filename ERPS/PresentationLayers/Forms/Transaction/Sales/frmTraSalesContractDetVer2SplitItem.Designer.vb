@@ -2459,6 +2459,8 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         '
         'txtQuantityCO
         '
+        Me.txtQuantityCO.BackColor = System.Drawing.Color.Azure
+        Me.txtQuantityCO.Enabled = False
         Me.txtQuantityCO.Location = New System.Drawing.Point(434, 197)
         Me.txtQuantityCO.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtQuantityCO.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
@@ -2773,8 +2775,9 @@ Partial Class frmTraSalesContractDetVer2SplitItem
         '
         'txtWeightCO
         '
-        Me.txtWeightCO.BackColor = System.Drawing.Color.White
+        Me.txtWeightCO.BackColor = System.Drawing.Color.Azure
         Me.txtWeightCO.DecimalPlaces = 2
+        Me.txtWeightCO.Enabled = False
         Me.txtWeightCO.Location = New System.Drawing.Point(153, 252)
         Me.txtWeightCO.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtWeightCO.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
