@@ -17,6 +17,7 @@
         Public Shared Sub CalculateTotalTotalPaymentSalesContract()
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                DL.Setup.ResetTotalPaymentSalesContractItem(sqlCon, Nothing)
                 DL.Setup.CalculateTotalTotalPaymentSalesContractItem(sqlCon, Nothing)
                 DL.Setup.CalculateTotalTotalPaymentSalesContractParentItem(sqlCon, Nothing)
                 DL.Setup.CalculateTotalTotalPaymentSalesContractHeader(sqlCon, Nothing)

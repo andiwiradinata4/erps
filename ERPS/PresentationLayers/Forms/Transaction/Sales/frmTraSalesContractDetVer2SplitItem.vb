@@ -388,18 +388,18 @@ Public Class frmTraSalesContractDetVer2SplitItem
             UI.usForm.frmMessageBox("Total Berat Keseluruhan harus sama dengan Maks. Total Berat [Kontrak Penjualan]")
             tcHeader.SelectedTab = tpSalesContract
             Exit Sub
-        ElseIf (grdSubitemView.RowCount > 0 And grdSubitemSplitView.RowCount = 0) Or (grdSubitemView.RowCount = 0 And grdSubitemSplitView.RowCount > 0) Then
-            UI.usForm.frmMessageBox("Subitem Kontrak Penjualan Belum dipindahkan")
-            tcHeader.SelectedTab = tpSalesContract
-            Exit Sub
+            'ElseIf (grdSubitemView.RowCount > 0 And grdSubitemSplitView.RowCount = 0) Or (grdSubitemView.RowCount = 0 And grdSubitemSplitView.RowCount > 0) Then
+            '    UI.usForm.frmMessageBox("Subitem Kontrak Penjualan Belum dipindahkan")
+            '    tcHeader.SelectedTab = tpSalesContract
+            '    Exit Sub
         ElseIf txtTotalWeightCO.Value + txtTotalWeightCOSplit.Value <> clsDataCO.TotalWeight Then
             UI.usForm.frmMessageBox("Total Berat Keseluruhan harus sama dengan Maks. Total Berat [Konfirmasi Pesanan]")
             tcHeader.SelectedTab = tpConfirmationOrder
             Exit Sub
-        ElseIf (grdSubItemCOView.RowCount > 0 And grdSubItemCOSplitView.RowCount = 0) Or (grdSubItemCOView.RowCount = 0 And grdSubItemCOSplitView.RowCount > 0) Then
-            UI.usForm.frmMessageBox("Subitem Konfirmasi Pesanan Belum dipindahkan")
-            tcHeader.SelectedTab = tpConfirmationOrder
-            Exit Sub
+            'ElseIf (grdSubItemCOView.RowCount > 0 And grdSubItemCOSplitView.RowCount = 0) Or (grdSubItemCOView.RowCount = 0 And grdSubItemCOSplitView.RowCount > 0) Then
+            '    UI.usForm.frmMessageBox("Subitem Konfirmasi Pesanan Belum dipindahkan")
+            '    tcHeader.SelectedTab = tpConfirmationOrder
+            '    Exit Sub
         ElseIf (grdDownPaymentView.RowCount > 0 And grdDownPaymentSplitView.RowCount = 0) Or (grdDownPaymentView.RowCount = 0 And grdDownPaymentSplitView.RowCount > 0) Then
             UI.usForm.frmMessageBox("Down Payment Pesanan Belum dipindahkan")
             tcHeader.SelectedTab = tpDownPayment

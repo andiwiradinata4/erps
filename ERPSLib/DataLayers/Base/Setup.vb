@@ -267,6 +267,21 @@
             End Try
         End Sub
 
+        Public Shared Sub ResetTotalPaymentSalesContractItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = "UPDATE traSalesContractDet SET AllocateDPAmount=0, ReceiveAmount=0, ReceiveAmountPPN=0, ReceiveAmountPPH=0, InvoiceQuantity=0, InvoiceTotalWeight=0 " & vbNewLine
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
         Public Shared Sub CalculateTotalTotalPaymentSalesContractItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
@@ -274,99 +289,99 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText =
-"DECLARE @ReferencesDetailID VARCHAR(100) " & vbNewLine & _
-"DECLARE db_cursor CURSOR FOR " & vbNewLine & _
-"SELECT DISTINCT SCD.ID  " & vbNewLine & _
-"FROM traSalesContractDet SCD  " & vbNewLine & _
-"INNER JOIN traSalesContract SCH ON  " & vbNewLine & _
-"	SCD.SCID=SCH.ID  " & vbNewLine & _
-"WHERE SCH.IsDeleted=0 AND SCH.StatusID=@StatusID " & vbNewLine & _
-"OPEN db_cursor; " & vbNewLine & _
-"FETCH NEXT FROM db_cursor INTO @ReferencesDetailID; " & vbNewLine & _
-"WHILE @@FETCH_STATUS = 0 " & vbNewLine & _
-"BEGIN " & vbNewLine & _
-" " & vbNewLine & _
-"UPDATE traSalesContractDet SET 	  " & vbNewLine & _
-"AllocateDPAmount=	  " & vbNewLine & _
-"(	  " & vbNewLine & _
-"    SELECT	  " & vbNewLine & _
-"        ISNULL(SUM(TDD.DPAmount),0) DPAmount   " & vbNewLine & _
-"    FROM traARAPItem TDD   " & vbNewLine & _
-"    INNER JOIN traAccountReceivable AR ON   " & vbNewLine & _
-"        TDD.ParentID=AR.ID    " & vbNewLine & _
-"    WHERE 	  " & vbNewLine & _
-"        TDD.ReferencesDetailID=@ReferencesDetailID 	  " & vbNewLine & _
-"        AND AR.IsDeleted=0   " & vbNewLine & _
-"        AND AR.Modules=@Modules   " & vbNewLine & _
-"),   " & vbNewLine & _
-"ReceiveAmount=	  " & vbNewLine & _
-"(	  " & vbNewLine & _
-"    SELECT	  " & vbNewLine & _
-"        ISNULL(SUM(TDD.Amount),0) ReceiveAmount   " & vbNewLine & _
-"    FROM traARAPItem TDD   " & vbNewLine & _
-"    INNER JOIN traAccountReceivable AR ON   " & vbNewLine & _
-"        TDD.ParentID=AR.ID    " & vbNewLine & _
-"    WHERE 	  " & vbNewLine & _
-"        TDD.ReferencesDetailID=@ReferencesDetailID 	  " & vbNewLine & _
-"        AND AR.IsDeleted=0   " & vbNewLine & _
-"        AND AR.Modules=@Modules   " & vbNewLine & _
-"),   " & vbNewLine & _
-"ReceiveAmountPPN=	  " & vbNewLine & _
-"(	  " & vbNewLine & _
-"    SELECT	  " & vbNewLine & _
-"        ISNULL(SUM(TDD.PPN),0) PPN   " & vbNewLine & _
-"    FROM traARAPItem TDD   " & vbNewLine & _
-"    INNER JOIN traAccountReceivable AR ON   " & vbNewLine & _
-"        TDD.ParentID=AR.ID    " & vbNewLine & _
-"    WHERE 	  " & vbNewLine & _
-"        TDD.ReferencesDetailID=@ReferencesDetailID 	  " & vbNewLine & _
-"        AND AR.IsDeleted=0   " & vbNewLine & _
-"        AND AR.Modules=@Modules   " & vbNewLine & _
-"),   " & vbNewLine & _
-"ReceiveAmountPPH=	  " & vbNewLine & _
-"(	  " & vbNewLine & _
-"    SELECT	  " & vbNewLine & _
-"        ISNULL(SUM(TDD.PPH),0) PPH   " & vbNewLine & _
-"    FROM traARAPItem TDD   " & vbNewLine & _
-"    INNER JOIN traAccountReceivable AR ON   " & vbNewLine & _
-"        TDD.ParentID=AR.ID    " & vbNewLine & _
-"    WHERE 	  " & vbNewLine & _
-"        TDD.ReferencesDetailID=@ReferencesDetailID 	  " & vbNewLine & _
-"        AND AR.IsDeleted=0   " & vbNewLine & _
-"        AND AR.Modules=@Modules   " & vbNewLine & _
-"),   " & vbNewLine & _
-"InvoiceQuantity=	  " & vbNewLine & _
-"(	  " & vbNewLine & _
-"    SELECT	  " & vbNewLine & _
-"        ISNULL(SUM(TDD.Quantity),0) Quantity   " & vbNewLine & _
-"    FROM traARAPItem TDD   " & vbNewLine & _
-"    INNER JOIN traAccountReceivable AR ON   " & vbNewLine & _
-"        TDD.ParentID=AR.ID    " & vbNewLine & _
-"    WHERE 	  " & vbNewLine & _
-"        TDD.ReferencesDetailID=@ReferencesDetailID 	  " & vbNewLine & _
-"        AND AR.IsDeleted=0   " & vbNewLine & _
-"        AND AR.Modules=@Modules   " & vbNewLine & _
-"),   " & vbNewLine & _
-"InvoiceTotalWeight=	  " & vbNewLine & _
-"(	  " & vbNewLine & _
-"    SELECT	  " & vbNewLine & _
-"        ISNULL(SUM(TDD.TotalWeight),0) Weight   " & vbNewLine & _
-"    FROM traARAPItem TDD   " & vbNewLine & _
-"    INNER JOIN traAccountReceivable AR ON   " & vbNewLine & _
-"        TDD.ParentID=AR.ID    " & vbNewLine & _
-"    WHERE 	  " & vbNewLine & _
-"        TDD.ReferencesDetailID=@ReferencesDetailID 	  " & vbNewLine & _
-"        AND AR.IsDeleted=0   " & vbNewLine & _
-"        AND AR.Modules=@Modules   " & vbNewLine & _
-")   " & vbNewLine & _
-"WHERE ID=@ReferencesDetailID   " & vbNewLine & _
-" " & vbNewLine & _
-" " & vbNewLine & _
-"FETCH NEXT FROM db_cursor INTO @ReferencesDetailID; " & vbNewLine & _
-"END " & vbNewLine & _
-" " & vbNewLine & _
-"CLOSE db_cursor; " & vbNewLine & _
-"DEALLOCATE db_cursor; " & vbNewLine & _
+"DECLARE @ReferencesDetailID VARCHAR(100) " & vbNewLine &
+"DECLARE db_cursor CURSOR FOR " & vbNewLine &
+"SELECT DISTINCT SCD.ID  " & vbNewLine &
+"FROM traSalesContractDet SCD  " & vbNewLine &
+"INNER JOIN traSalesContract SCH ON  " & vbNewLine &
+"	SCD.SCID=SCH.ID  " & vbNewLine &
+"WHERE SCH.IsDeleted=0 AND SCH.StatusID=@StatusID " & vbNewLine &
+"OPEN db_cursor; " & vbNewLine &
+"FETCH NEXT FROM db_cursor INTO @ReferencesDetailID; " & vbNewLine &
+"WHILE @@FETCH_STATUS = 0 " & vbNewLine &
+"BEGIN " & vbNewLine &
+" " & vbNewLine &
+"UPDATE traSalesContractDet SET 	  " & vbNewLine &
+"AllocateDPAmount=	  " & vbNewLine &
+"(	  " & vbNewLine &
+"    SELECT	  " & vbNewLine &
+"        ISNULL(SUM(TDD.DPAmount),0) DPAmount   " & vbNewLine &
+"    FROM traARAPItem TDD   " & vbNewLine &
+"    INNER JOIN traAccountReceivable AR ON   " & vbNewLine &
+"        TDD.ParentID=AR.ID    " & vbNewLine &
+"    WHERE 	  " & vbNewLine &
+"        TDD.ReferencesDetailID=@ReferencesDetailID 	  " & vbNewLine &
+"        AND AR.IsDeleted=0   " & vbNewLine &
+"        AND AR.Modules=@Modules   " & vbNewLine &
+"),   " & vbNewLine &
+"ReceiveAmount=	  " & vbNewLine &
+"(	  " & vbNewLine &
+"    SELECT	  " & vbNewLine &
+"        ISNULL(SUM(TDD.Amount),0) ReceiveAmount   " & vbNewLine &
+"    FROM traARAPItem TDD   " & vbNewLine &
+"    INNER JOIN traAccountReceivable AR ON   " & vbNewLine &
+"        TDD.ParentID=AR.ID    " & vbNewLine &
+"    WHERE 	  " & vbNewLine &
+"        TDD.ReferencesDetailID=@ReferencesDetailID 	  " & vbNewLine &
+"        AND AR.IsDeleted=0   " & vbNewLine &
+"        AND AR.Modules=@Modules   " & vbNewLine &
+"),   " & vbNewLine &
+"ReceiveAmountPPN=	  " & vbNewLine &
+"(	  " & vbNewLine &
+"    SELECT	  " & vbNewLine &
+"        ISNULL(SUM(TDD.PPN),0) PPN   " & vbNewLine &
+"    FROM traARAPItem TDD   " & vbNewLine &
+"    INNER JOIN traAccountReceivable AR ON   " & vbNewLine &
+"        TDD.ParentID=AR.ID    " & vbNewLine &
+"    WHERE 	  " & vbNewLine &
+"        TDD.ReferencesDetailID=@ReferencesDetailID 	  " & vbNewLine &
+"        AND AR.IsDeleted=0   " & vbNewLine &
+"        AND AR.Modules=@Modules   " & vbNewLine &
+"),   " & vbNewLine &
+"ReceiveAmountPPH=	  " & vbNewLine &
+"(	  " & vbNewLine &
+"    SELECT	  " & vbNewLine &
+"        ISNULL(SUM(TDD.PPH),0) PPH   " & vbNewLine &
+"    FROM traARAPItem TDD   " & vbNewLine &
+"    INNER JOIN traAccountReceivable AR ON   " & vbNewLine &
+"        TDD.ParentID=AR.ID    " & vbNewLine &
+"    WHERE 	  " & vbNewLine &
+"        TDD.ReferencesDetailID=@ReferencesDetailID 	  " & vbNewLine &
+"        AND AR.IsDeleted=0   " & vbNewLine &
+"        AND AR.Modules=@Modules   " & vbNewLine &
+"),   " & vbNewLine &
+"InvoiceQuantity=	  " & vbNewLine &
+"(	  " & vbNewLine &
+"    SELECT	  " & vbNewLine &
+"        ISNULL(SUM(TDD.Quantity),0) Quantity   " & vbNewLine &
+"    FROM traARAPItem TDD   " & vbNewLine &
+"    INNER JOIN traAccountReceivable AR ON   " & vbNewLine &
+"        TDD.ParentID=AR.ID    " & vbNewLine &
+"    WHERE 	  " & vbNewLine &
+"        TDD.ReferencesDetailID=@ReferencesDetailID 	  " & vbNewLine &
+"        AND AR.IsDeleted=0   " & vbNewLine &
+"        AND AR.Modules=@Modules   " & vbNewLine &
+"),   " & vbNewLine &
+"InvoiceTotalWeight=	  " & vbNewLine &
+"(	  " & vbNewLine &
+"    SELECT	  " & vbNewLine &
+"        ISNULL(SUM(TDD.TotalWeight),0) Weight   " & vbNewLine &
+"    FROM traARAPItem TDD   " & vbNewLine &
+"    INNER JOIN traAccountReceivable AR ON   " & vbNewLine &
+"        TDD.ParentID=AR.ID    " & vbNewLine &
+"    WHERE 	  " & vbNewLine &
+"        TDD.ReferencesDetailID=@ReferencesDetailID 	  " & vbNewLine &
+"        AND AR.IsDeleted=0   " & vbNewLine &
+"        AND AR.Modules=@Modules   " & vbNewLine &
+")   " & vbNewLine &
+"WHERE ID=@ReferencesDetailID   " & vbNewLine &
+" " & vbNewLine &
+" " & vbNewLine &
+"FETCH NEXT FROM db_cursor INTO @ReferencesDetailID; " & vbNewLine &
+"END " & vbNewLine &
+" " & vbNewLine &
+"CLOSE db_cursor; " & vbNewLine &
+"DEALLOCATE db_cursor; " & vbNewLine &
 " " & vbNewLine
                 .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountReceivable.ReceivePayment
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
