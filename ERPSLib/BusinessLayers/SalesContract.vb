@@ -1176,6 +1176,8 @@ Namespace BL
                                                 ByVal strID As String, ByVal strPCDetailID As String)
             DL.SalesContract.DeleteDataDetailCOByID(sqlCon, sqlTrans, strID)
             DL.PurchaseContract.CalculateSCTotalUsedSubitem(sqlCon, sqlTrans, strPCDetailID)
+            '# Calculate CO Detail Again
+
         End Sub
 
         Public Shared Function ChangeCODetailItem(ByVal clsData As VO.SalesContractDetConfirmationOrder) As Boolean
