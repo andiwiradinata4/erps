@@ -810,6 +810,7 @@ Public Class frmTraSalesContract
         ElseIf e.Button.Name = ToolBar.Buttons(cClose).Name Then
             Me.Close()
         ElseIf e.Button.Name = ToolBar.Buttons(cReviewDifferent).Name Then
+            ToolBar.Focus()
             prvReviewItemDifferent()
         ElseIf grdView.FocusedRowHandle >= 0 Then
             Select Case e.Button.Name

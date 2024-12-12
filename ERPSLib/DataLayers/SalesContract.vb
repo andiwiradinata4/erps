@@ -320,6 +320,106 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDifferentParentWithTotalChild(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                     ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                     ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT " & vbNewLine & _
+"	SCP.ProgramID, SCP.CompanyID, SCP.SCNumber, SCP.SCDate, SCP.SCID, SCP.ID, SCP.GroupID, SCP.OrderNumberSupplier, SCP.TotalWeight AS TotalParent, SCC.TotalWeight AS TotalChild," & vbNewLine & _
+"	SCP.TotalWeight-SCC.TotalWeight AS TotalDifferent " & vbNewLine & _
+"FROM " & vbNewLine & _
+"(" & vbNewLine & _
+"	SELECT " & vbNewLine & _
+"		SCH.ProgramID, SCH.CompanyID, SCH.SCDate, SCD.SCID, SCD.ID, SCD.GroupID, SCD.OrderNumberSupplier, SCH.SCNumber, SUM(SCD.TotalWeight) TotalWeight " & vbNewLine & _
+"	FROM traSalesContractDet SCD " & vbNewLine & _
+"	INNER JOIN traSalesContract SCH ON " & vbNewLine & _
+"		SCD.SCID=SCH.ID " & vbNewLine & _
+"		AND SCD.ParentID='' " & vbNewLine & _
+"		AND SCH.IsDeleted=0 " & vbNewLine & _
+"	GROUP BY SCH.ProgramID, SCH.CompanyID, SCH.SCDate, SCD.SCID, SCD.ID, SCD.GroupID, SCD.OrderNumberSupplier, SCH.SCNumber " & vbNewLine & _
+") SCP " & vbNewLine & _
+"INNER JOIN " & vbNewLine & _
+"(" & vbNewLine & _
+"	SELECT " & vbNewLine & _
+"		SCH.ProgramID, SCH.CompanyID, SCH.SCDate, SCD.SCID, SCD.ParentID, SUM(SCD.TotalWeight) TotalWeight " & vbNewLine & _
+"	FROM traSalesContractDet SCD " & vbNewLine & _
+"	INNER JOIN traSalesContract SCH ON " & vbNewLine & _
+"		SCD.SCID=SCH.ID " & vbNewLine & _
+"		AND SCD.ParentID<>'' " & vbNewLine & _
+"		AND SCH.IsDeleted=0 " & vbNewLine & _
+"	GROUP BY SCH.ProgramID, SCH.CompanyID, SCH.SCDate, SCD.SCID, SCD.ParentID, SCD.GroupID, SCD.OrderNumberSupplier " & vbNewLine & _
+") SCC ON	" & vbNewLine & _
+"	SCP.ID=SCC.ParentID " & vbNewLine & _
+"WHERE " & vbNewLine & _
+"	SCP.ProgramID=@ProgramID " & vbNewLine & _
+"	AND SCP.CompanyID=@CompanyID " & vbNewLine & _
+"	AND SCP.SCDate>=@DateFrom AND SCP.SCDate<=@DateTo " & vbNewLine & _
+"	AND SCP.TotalWeight-SCC.TotalWeight<0 " & vbNewLine & _
+"ORDER BY SCP.TotalWeight-SCC.TotalWeight" & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
+                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataDifferentParentWithTotalChildKO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                     ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                     ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT " & vbNewLine & _
+"	SCP.ProgramID, SCP.CompanyID, SCP.SCNumber, SCP.SCDate, SCP.SCID, SCP.ID, SCP.GroupID, SCP.TotalWeight AS TotalParent, SCC.TotalWeight AS TotalChild," & vbNewLine & _
+"	SCP.TotalWeight-SCC.TotalWeight AS TotalDifferent " & vbNewLine & _
+"FROM " & vbNewLine & _
+"(" & vbNewLine & _
+"	SELECT " & vbNewLine & _
+"		SCH.ProgramID, SCH.CompanyID, SCH.SCDate, SCD.SCID, SCD.ID, SCD.GroupID, SCH.SCNumber, SUM(SCD.TotalWeight) TotalWeight " & vbNewLine & _
+"	FROM traSalesContractDetConfirmationOrder SCD " & vbNewLine & _
+"	INNER JOIN traSalesContract SCH ON " & vbNewLine & _
+"		SCD.SCID=SCH.ID " & vbNewLine & _
+"		AND SCD.ParentID='' " & vbNewLine & _
+"		AND SCH.IsDeleted=0 " & vbNewLine & _
+"	GROUP BY SCH.ProgramID, SCH.CompanyID, SCH.SCDate, SCD.SCID, SCD.ID, SCD.GroupID, SCH.SCNumber " & vbNewLine & _
+") SCP " & vbNewLine & _
+"INNER JOIN " & vbNewLine & _
+"(" & vbNewLine & _
+"	SELECT " & vbNewLine & _
+"		SCH.ProgramID, SCH.CompanyID, SCH.SCDate, SCD.SCID, SCD.ParentID, SUM(SCD.TotalWeight) TotalWeight " & vbNewLine & _
+"	FROM traSalesContractDetConfirmationOrder SCD " & vbNewLine & _
+"	INNER JOIN traSalesContract SCH ON " & vbNewLine & _
+"		SCD.SCID=SCH.ID " & vbNewLine & _
+"		AND SCD.ParentID<>'' " & vbNewLine & _
+"		AND SCH.IsDeleted=0 " & vbNewLine & _
+"	GROUP BY SCH.ProgramID, SCH.CompanyID, SCH.SCDate, SCD.SCID, SCD.ParentID, SCD.GroupID " & vbNewLine & _
+") SCC ON	" & vbNewLine & _
+"	SCP.ID=SCC.ParentID " & vbNewLine & _
+"WHERE " & vbNewLine & _
+"	SCP.ProgramID=@ProgramID " & vbNewLine & _
+"	AND SCP.CompanyID=@CompanyID " & vbNewLine & _
+"	AND SCP.SCDate>=@DateFrom AND SCP.SCDate<=@DateTo " & vbNewLine & _
+"	AND SCP.TotalWeight-SCC.TotalWeight<0 " & vbNewLine & _
+"ORDER BY SCP.TotalWeight-SCC.TotalWeight" & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
+                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                    ByVal bolNew As Boolean, ByVal clsData As VO.SalesContract)
             Dim sqlCmdExecute As New SqlCommand
