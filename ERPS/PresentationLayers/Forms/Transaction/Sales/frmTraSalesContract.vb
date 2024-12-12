@@ -121,7 +121,7 @@ Public Class frmTraSalesContract
         pgMain.Value = 30
 
         Try
-            dtData = BL.SalesContract.ListData(intProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue)
+            dtData = BL.SalesContract.ListData(intProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue, prvSelectedCheckList(chkListItemType))
             grdMain.DataSource = dtData
             pgMain.Value = 80
 
@@ -732,6 +732,37 @@ Public Class frmTraSalesContract
         End With
     End Sub
 
+    Private Sub prvFillItemTypeListBox()
+        Try
+            Dim dtData As DataTable = BL.ItemType.ListDataForCombo
+            dtData.DefaultView.Sort = "ID ASC"
+
+            For Each dr As DataRow In dtData.Rows
+                chkListItemType.Items.Add(dr.Item("ID") & " | " & dr.Item("Description"))
+            Next
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Function prvSelectedCheckList(ByVal chkList As usCheckListBoxControl) As String
+        Dim strReturn As String = ""
+        Dim sb As New System.Text.StringBuilder
+        Dim aStr() As String
+        With chkList
+            For i As Integer = 0 To .Items.Count - 1
+                If .GetItemChecked(i) = True Then
+                    aStr = .Items.Item(i).ToString.Split(" | ")
+                    sb.Append("'" & aStr(0) & "', ")
+                End If
+            Next
+        End With
+        If sb.ToString <> "" Then
+            strReturn = Mid(sb.ToString, 1, Len(sb.ToString) - 2)
+        End If
+        Return strReturn.Trim
+    End Function
+
     Private Sub prvUserAccess()
         With ToolBar.Buttons
             .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.NewAccess)
@@ -760,6 +791,7 @@ Public Class frmTraSalesContract
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         prvFillCombo()
+        prvFillItemTypeListBox()
         prvSetGrid()
         cboStatus.SelectedValue = VO.Status.Values.All
         dtpDateFrom.Value = Today.Date.AddDays(-7)

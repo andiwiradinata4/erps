@@ -41,6 +41,8 @@ Partial Class frmTraSalesContract
         Me.BarPrint = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
         Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
+        Me.BarReviewDifferent = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep5 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
@@ -59,12 +61,13 @@ Partial Class frmTraSalesContract
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.BarSep5 = New System.Windows.Forms.ToolBarButton()
-        Me.BarReviewDifferent = New System.Windows.Forms.ToolBarButton()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.chkListItemType = New ERPS.usCheckListBoxControl()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkListItemType, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -75,7 +78,7 @@ Partial Class frmTraSalesContract
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(984, 72)
+        Me.ToolBar.Size = New System.Drawing.Size(1114, 72)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -177,6 +180,17 @@ Partial Class frmTraSalesContract
         Me.BarSep4.Name = "BarSep4"
         Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
+        'BarReviewDifferent
+        '
+        Me.BarReviewDifferent.Name = "BarReviewDifferent"
+        Me.BarReviewDifferent.Tag = "Alt"
+        Me.BarReviewDifferent.Text = "Review Selisih Barang"
+        '
+        'BarSep5
+        '
+        Me.BarSep5.Name = "BarSep5"
+        Me.BarSep5.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
         'BarRefresh
         '
         Me.BarRefresh.Name = "BarRefresh"
@@ -191,6 +205,8 @@ Partial Class frmTraSalesContract
         '
         'PanelControl1
         '
+        Me.PanelControl1.Controls.Add(Me.chkListItemType)
+        Me.PanelControl1.Controls.Add(Me.Label5)
         Me.PanelControl1.Controls.Add(Me.cboStatus)
         Me.PanelControl1.Controls.Add(Me.lblStatusID)
         Me.PanelControl1.Controls.Add(Me.Label2)
@@ -206,7 +222,7 @@ Partial Class frmTraSalesContract
         Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelControl1.Location = New System.Drawing.Point(0, 72)
         Me.PanelControl1.Name = "PanelControl1"
-        Me.PanelControl1.Size = New System.Drawing.Size(984, 141)
+        Me.PanelControl1.Size = New System.Drawing.Size(1114, 141)
         Me.PanelControl1.TabIndex = 1
         '
         'cboStatus
@@ -302,19 +318,19 @@ Partial Class frmTraSalesContract
         'btnClear
         '
         Me.btnClear.Image = CType(resources.GetObject("btnClear.Image"), System.Drawing.Image)
-        Me.btnClear.Location = New System.Drawing.Point(725, 96)
+        Me.btnClear.Location = New System.Drawing.Point(932, 95)
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(151, 23)
-        Me.btnClear.TabIndex = 6
+        Me.btnClear.TabIndex = 7
         Me.btnClear.Text = "Clear"
         '
         'btnExecute
         '
         Me.btnExecute.Image = CType(resources.GetObject("btnExecute.Image"), System.Drawing.Image)
-        Me.btnExecute.Location = New System.Drawing.Point(563, 96)
+        Me.btnExecute.Location = New System.Drawing.Point(770, 95)
         Me.btnExecute.Name = "btnExecute"
         Me.btnExecute.Size = New System.Drawing.Size(151, 23)
-        Me.btnExecute.TabIndex = 5
+        Me.btnExecute.TabIndex = 6
         Me.btnExecute.Text = "Execute"
         '
         'Label1
@@ -333,7 +349,7 @@ Partial Class frmTraSalesContract
         Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.pgMain.Location = New System.Drawing.Point(0, 589)
         Me.pgMain.Name = "pgMain"
-        Me.pgMain.Size = New System.Drawing.Size(984, 23)
+        Me.pgMain.Size = New System.Drawing.Size(1114, 23)
         Me.pgMain.TabIndex = 3
         '
         'grdMain
@@ -356,7 +372,7 @@ Partial Class frmTraSalesContract
         Me.grdMain.Location = New System.Drawing.Point(0, 213)
         Me.grdMain.MainView = Me.grdView
         Me.grdMain.Name = "grdMain"
-        Me.grdMain.Size = New System.Drawing.Size(984, 376)
+        Me.grdMain.Size = New System.Drawing.Size(1114, 376)
         Me.grdMain.TabIndex = 2
         Me.grdMain.UseEmbeddedNavigator = True
         Me.grdMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdView})
@@ -370,22 +386,31 @@ Partial Class frmTraSalesContract
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
-        'BarSep5
+        'Label5
         '
-        Me.BarSep5.Name = "BarSep5"
-        Me.BarSep5.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        Me.Label5.AutoSize = True
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
+        Me.Label5.ForeColor = System.Drawing.Color.Black
+        Me.Label5.Location = New System.Drawing.Point(523, 47)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(68, 13)
+        Me.Label5.TabIndex = 129
+        Me.Label5.Text = "Jenis Barang"
         '
-        'BarReviewDifferent
+        'chkListItemType
         '
-        Me.BarReviewDifferent.Name = "BarReviewDifferent"
-        Me.BarReviewDifferent.Tag = "Alt"
-        Me.BarReviewDifferent.Text = "Review Selisih Barang"
+        Me.chkListItemType.CheckOnClick = True
+        Me.chkListItemType.Cursor = System.Windows.Forms.Cursors.Default
+        Me.chkListItemType.Location = New System.Drawing.Point(601, 42)
+        Me.chkListItemType.Name = "chkListItemType"
+        Me.chkListItemType.Size = New System.Drawing.Size(150, 75)
+        Me.chkListItemType.TabIndex = 5
         '
         'frmTraSalesContract
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(984, 612)
+        Me.ClientSize = New System.Drawing.Size(1114, 612)
         Me.Controls.Add(Me.grdMain)
         Me.Controls.Add(Me.pgMain)
         Me.Controls.Add(Me.PanelControl1)
@@ -399,6 +424,7 @@ Partial Class frmTraSalesContract
         Me.PanelControl1.PerformLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkListItemType, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -442,4 +468,6 @@ Partial Class frmTraSalesContract
     Friend WithEvents BarCancelDelivery As ToolBarButton
     Friend WithEvents BarReviewDifferent As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarSep5 As System.Windows.Forms.ToolBarButton
+    Friend WithEvents Label5 As Label
+    Friend WithEvents chkListItemType As usCheckListBoxControl
 End Class

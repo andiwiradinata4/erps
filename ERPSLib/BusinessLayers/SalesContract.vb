@@ -7,10 +7,10 @@ Namespace BL
 
         Public Shared Function ListData(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                         ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
-                                        ByVal intStatusID As Integer) As DataTable
+                                        ByVal intStatusID As Integer, ByVal strSelectedItemType As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.SalesContract.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID)
+                Return DL.SalesContract.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID, strSelectedItemType)
             End Using
         End Function
 

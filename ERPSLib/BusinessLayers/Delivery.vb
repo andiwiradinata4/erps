@@ -5,10 +5,11 @@
 
         Public Shared Function ListData(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                         ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
-                                        ByVal intStatusID As Integer, ByVal bolIsStock As Boolean) As DataTable
+                                        ByVal intStatusID As Integer, ByVal bolIsStock As Boolean,
+                                        ByVal strSelectedItemType As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.Delivery.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID, bolIsStock)
+                Return DL.Delivery.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID, bolIsStock, strSelectedItemType)
             End Using
         End Function
 

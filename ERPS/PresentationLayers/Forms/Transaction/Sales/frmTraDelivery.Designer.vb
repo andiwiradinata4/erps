@@ -31,9 +31,11 @@ Partial Class frmTraDelivery
         Me.BarSubmit = New System.Windows.Forms.ToolBarButton()
         Me.BarCancelSubmit = New System.Windows.Forms.ToolBarButton()
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
+        Me.BarPaymentTransport = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarPrint = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
-        Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
@@ -52,12 +54,13 @@ Partial Class frmTraDelivery
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.BarPaymentTransport = New System.Windows.Forms.ToolBarButton()
-        Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
+        Me.chkListItemType = New ERPS.usCheckListBoxControl()
+        Me.Label5 = New System.Windows.Forms.Label()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkListItemType, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -112,6 +115,17 @@ Partial Class frmTraDelivery
         Me.BarSep2.Name = "BarSep2"
         Me.BarSep2.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
+        'BarPaymentTransport
+        '
+        Me.BarPaymentTransport.Name = "BarPaymentTransport"
+        Me.BarPaymentTransport.Tag = "Approved"
+        Me.BarPaymentTransport.Text = "Pembayaran Transport"
+        '
+        'BarSep3
+        '
+        Me.BarSep3.Name = "BarSep3"
+        Me.BarSep3.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
         'BarPrint
         '
         Me.BarPrint.Name = "BarPrint"
@@ -124,10 +138,10 @@ Partial Class frmTraDelivery
         Me.BarExportExcel.Tag = "Excel"
         Me.BarExportExcel.Text = "Export Excel"
         '
-        'BarSep3
+        'BarSep4
         '
-        Me.BarSep3.Name = "BarSep3"
-        Me.BarSep3.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        Me.BarSep4.Name = "BarSep4"
+        Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
         'BarRefresh
         '
@@ -143,6 +157,8 @@ Partial Class frmTraDelivery
         '
         'PanelControl1
         '
+        Me.PanelControl1.Controls.Add(Me.chkListItemType)
+        Me.PanelControl1.Controls.Add(Me.Label5)
         Me.PanelControl1.Controls.Add(Me.cboStatus)
         Me.PanelControl1.Controls.Add(Me.lblStatusID)
         Me.PanelControl1.Controls.Add(Me.Label2)
@@ -254,19 +270,19 @@ Partial Class frmTraDelivery
         'btnClear
         '
         Me.btnClear.Image = CType(resources.GetObject("btnClear.Image"), System.Drawing.Image)
-        Me.btnClear.Location = New System.Drawing.Point(725, 96)
+        Me.btnClear.Location = New System.Drawing.Point(904, 96)
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(151, 23)
-        Me.btnClear.TabIndex = 6
+        Me.btnClear.TabIndex = 7
         Me.btnClear.Text = "Clear"
         '
         'btnExecute
         '
         Me.btnExecute.Image = CType(resources.GetObject("btnExecute.Image"), System.Drawing.Image)
-        Me.btnExecute.Location = New System.Drawing.Point(563, 96)
+        Me.btnExecute.Location = New System.Drawing.Point(742, 96)
         Me.btnExecute.Name = "btnExecute"
         Me.btnExecute.Size = New System.Drawing.Size(151, 23)
-        Me.btnExecute.TabIndex = 5
+        Me.btnExecute.TabIndex = 6
         Me.btnExecute.Text = "Execute"
         '
         'Label1
@@ -322,16 +338,25 @@ Partial Class frmTraDelivery
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
-        'BarPaymentTransport
+        'chkListItemType
         '
-        Me.BarPaymentTransport.Name = "BarPaymentTransport"
-        Me.BarPaymentTransport.Tag = "Approved"
-        Me.BarPaymentTransport.Text = "Pembayaran Transport"
+        Me.chkListItemType.CheckOnClick = True
+        Me.chkListItemType.Cursor = System.Windows.Forms.Cursors.Default
+        Me.chkListItemType.Location = New System.Drawing.Point(564, 42)
+        Me.chkListItemType.Name = "chkListItemType"
+        Me.chkListItemType.Size = New System.Drawing.Size(150, 75)
+        Me.chkListItemType.TabIndex = 5
         '
-        'BarSep4
+        'Label5
         '
-        Me.BarSep4.Name = "BarSep4"
-        Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        Me.Label5.AutoSize = True
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
+        Me.Label5.ForeColor = System.Drawing.Color.Black
+        Me.Label5.Location = New System.Drawing.Point(486, 48)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(68, 13)
+        Me.Label5.TabIndex = 131
+        Me.Label5.Text = "Jenis Barang"
         '
         'frmTraDelivery
         '
@@ -351,6 +376,7 @@ Partial Class frmTraDelivery
         Me.PanelControl1.PerformLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkListItemType, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -386,4 +412,6 @@ Partial Class frmTraDelivery
     Friend WithEvents BarPrint As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarPaymentTransport As ToolBarButton
     Friend WithEvents BarSep4 As ToolBarButton
+    Friend WithEvents chkListItemType As usCheckListBoxControl
+    Friend WithEvents Label5 As Label
 End Class

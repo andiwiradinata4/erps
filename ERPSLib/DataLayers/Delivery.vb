@@ -6,7 +6,8 @@
         Public Shared Function ListData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                         ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                         ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
-                                        ByVal intStatusID As Integer, ByVal bolIsStock As Boolean) As DataTable
+                                        ByVal intStatusID As Integer, ByVal bolIsStock As Boolean,
+                                        ByVal strSelectedItemType As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -40,7 +41,25 @@
                     "INNER JOIN mstBusinessPartnerLocation BPL ON " & vbNewLine &
                     "   A.BPLocationID=BPL.ID " & vbNewLine &
                     "INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
-                    "   A.CoAofStock=COA.ID " & vbNewLine &
+                    "   A.CoAofStock=COA.ID " & vbNewLine
+
+
+                If strSelectedItemType.Trim <> "" Then
+                    .CommandText +=
+                        "INNER JOIN " & vbNewLine &
+                        "(" & vbNewLine &
+                        "    SELECT TDD.DeliveryID " & vbNewLine &
+                        "    FROM traDeliveryDet TDD " & vbNewLine &
+                        "    INNER JOIN mstItem MI ON " & vbNewLine &
+                        "        TDD.ItemID=MI.ID " & vbNewLine &
+                        "    WHERE " & vbNewLine &
+                        "       MI.ItemTypeID IN (" & strSelectedItemType.Trim & ")" & vbNewLine &
+                        "    GROUP BY TDD.DeliveryID " & vbNewLine &
+                        ") AD ON " & vbNewLine &
+                        "    A.ID=AD.DeliveryID " & vbNewLine
+                End If
+
+                .CommandText +=
                     "WHERE " & vbNewLine &
                     "   A.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.CompanyID=@CompanyID " & vbNewLine &
@@ -48,6 +67,7 @@
                     "   AND A.DeliveryDate>=@DateFrom AND A.DeliveryDate<=@DateTo " & vbNewLine
 
                 If intStatusID > 0 Then .CommandText += "   AND A.StatusID=@StatusID " & vbNewLine
+                .CommandText += "ORDER BY A.DeliveryDate, A.DeliveryNumber " & vbNewLine
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
