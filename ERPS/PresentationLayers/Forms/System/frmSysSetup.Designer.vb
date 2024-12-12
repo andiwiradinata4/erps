@@ -27,6 +27,7 @@ Partial Class frmSysSetup
         Me.btnCalculateTotalReceivePaymentInSalesContract = New DevExpress.XtraEditors.SimpleButton()
         Me.btnCalculateTotalPriceSalesContractSubItem = New DevExpress.XtraEditors.SimpleButton()
         Me.btnCalculateTotalPricePurchaseContractSubItem = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnCalculateSCWeightInSalesContract = New DevExpress.XtraEditors.SimpleButton()
         Me.SuspendLayout()
         '
         'btnCalculateSCWeightSubItemInPurchaseContract
@@ -35,7 +36,7 @@ Partial Class frmSysSetup
         Me.btnCalculateSCWeightSubItemInPurchaseContract.Location = New System.Drawing.Point(0, 23)
         Me.btnCalculateSCWeightSubItemInPurchaseContract.Name = "btnCalculateSCWeightSubItemInPurchaseContract"
         Me.btnCalculateSCWeightSubItemInPurchaseContract.Size = New System.Drawing.Size(659, 23)
-        Me.btnCalculateSCWeightSubItemInPurchaseContract.TabIndex = 0
+        Me.btnCalculateSCWeightSubItemInPurchaseContract.TabIndex = 1
         Me.btnCalculateSCWeightSubItemInPurchaseContract.Text = "Kalkulasi Penggunaan Subitem Kontrak Penjualan di Kontrak Pembelian"
         '
         'btnCalculateSCWeightInPurchaseContract
@@ -44,7 +45,7 @@ Partial Class frmSysSetup
         Me.btnCalculateSCWeightInPurchaseContract.Location = New System.Drawing.Point(0, 0)
         Me.btnCalculateSCWeightInPurchaseContract.Name = "btnCalculateSCWeightInPurchaseContract"
         Me.btnCalculateSCWeightInPurchaseContract.Size = New System.Drawing.Size(659, 23)
-        Me.btnCalculateSCWeightInPurchaseContract.TabIndex = 1
+        Me.btnCalculateSCWeightInPurchaseContract.TabIndex = 0
         Me.btnCalculateSCWeightInPurchaseContract.Text = "Kalkulasi Penggunaan Kontrak Penjualan di Kontrak Pembelian"
         '
         'btnCalculateTotalReceivePaymentInSalesContract
@@ -74,11 +75,21 @@ Partial Class frmSysSetup
         Me.btnCalculateTotalPricePurchaseContractSubItem.TabIndex = 4
         Me.btnCalculateTotalPricePurchaseContractSubItem.Text = "Kalkulasi Total Price Kontrak Pembelian"
         '
+        'btnCalculateSCWeightInSalesContract
+        '
+        Me.btnCalculateSCWeightInSalesContract.Dock = System.Windows.Forms.DockStyle.Top
+        Me.btnCalculateSCWeightInSalesContract.Location = New System.Drawing.Point(0, 115)
+        Me.btnCalculateSCWeightInSalesContract.Name = "btnCalculateSCWeightInSalesContract"
+        Me.btnCalculateSCWeightInSalesContract.Size = New System.Drawing.Size(659, 23)
+        Me.btnCalculateSCWeightInSalesContract.TabIndex = 5
+        Me.btnCalculateSCWeightInSalesContract.Text = "Kalkulasi Penggunaan Kontrak Penjualan di Konfirmasi Pesanan"
+        '
         'frmSysSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(659, 322)
+        Me.Controls.Add(Me.btnCalculateSCWeightInSalesContract)
         Me.Controls.Add(Me.btnCalculateTotalPricePurchaseContractSubItem)
         Me.Controls.Add(Me.btnCalculateTotalPriceSalesContractSubItem)
         Me.Controls.Add(Me.btnCalculateTotalReceivePaymentInSalesContract)
@@ -96,4 +107,5 @@ Partial Class frmSysSetup
     Friend WithEvents btnCalculateTotalReceivePaymentInSalesContract As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnCalculateTotalPriceSalesContractSubItem As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnCalculateTotalPricePurchaseContractSubItem As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btnCalculateSCWeightInSalesContract As DevExpress.XtraEditors.SimpleButton
 End Class

@@ -940,6 +940,7 @@
                     "			SCD.SCID=SCH.ID 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			SCD.CODetailID=@CODetailID 	" & vbNewLine &
+                    "			AND SCD.ParentID=''" & vbNewLine &
                     "			AND SCH.IsDeleted=0 	" & vbNewLine &
                     "	), 	" & vbNewLine &
                     "	SCQuantity=	" & vbNewLine &
@@ -951,6 +952,7 @@
                     "			SCD.SCID=SCH.ID 	" & vbNewLine &
                     "		WHERE 	" & vbNewLine &
                     "			SCD.CODetailID=@CODetailID 	" & vbNewLine &
+                    "			AND SCD.ParentID=''" & vbNewLine &
                     "			AND SCH.IsDeleted=0 	" & vbNewLine &
                     "	) 	" & vbNewLine &
                     "WHERE ID=@CODetailID	" & vbNewLine

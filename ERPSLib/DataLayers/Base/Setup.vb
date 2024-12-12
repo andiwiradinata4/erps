@@ -423,5 +423,81 @@
             End Try
         End Sub
 
+        Public Shared Sub ResetSCWeightConfirmationOrder(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = "UPDATE traConfirmationOrderDet SET SCWeight=0, SCQuantity=0  " & vbNewLine
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateSCWeightInSalesContract(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"DECLARE @CODetailID VARCHAR(100)  " & vbNewLine &
+"DECLARE db_cursor CURSOR FOR  " & vbNewLine &
+"" & vbNewLine &
+"SELECT DISTINCT COD.ID   " & vbNewLine &
+"FROM traConfirmationOrderDet COD   " & vbNewLine &
+"INNER JOIN traConfirmationOrder COH ON   " & vbNewLine &
+"	COD.COID=COH.ID   " & vbNewLine &
+"WHERE COH.IsDeleted=0 AND COD.ParentID='' " & vbNewLine &
+"" & vbNewLine &
+"OPEN db_cursor;  " & vbNewLine &
+"FETCH NEXT FROM db_cursor INTO @CODetailID;  " & vbNewLine &
+"WHILE @@FETCH_STATUS = 0  " & vbNewLine &
+"BEGIN  " & vbNewLine &
+"" & vbNewLine &
+"UPDATE traConfirmationOrderDet SET 	 " & vbNewLine &
+"    SCWeight=	 " & vbNewLine &
+"    (	 " & vbNewLine &
+"        SELECT	 " & vbNewLine &
+"            ISNULL(SUM(SCD.TotalWeight+SCD.RoundingWeight),0) TotalWeight  " & vbNewLine &
+"        FROM traSalesContractDetConfirmationOrder SCD 	 " & vbNewLine &
+"        INNER JOIN traSalesContract SCH ON	 " & vbNewLine &
+"            SCD.SCID=SCH.ID 	 " & vbNewLine &
+"        WHERE 	 " & vbNewLine &
+"            SCD.CODetailID=@CODetailID 	 " & vbNewLine &
+"            AND SCD.ParentID='' " & vbNewLine &
+"            AND SCH.IsDeleted=0 	 " & vbNewLine &
+"    ), 	 " & vbNewLine &
+"    SCQuantity=	 " & vbNewLine &
+"    (	 " & vbNewLine &
+"        SELECT	 " & vbNewLine &
+"            ISNULL(SUM(SCD.Quantity),0) TotalQuantity  " & vbNewLine &
+"        FROM traSalesContractDetConfirmationOrder SCD 	 " & vbNewLine &
+"        INNER JOIN traSalesContract SCH ON	 " & vbNewLine &
+"            SCD.SCID=SCH.ID 	 " & vbNewLine &
+"        WHERE 	 " & vbNewLine &
+"            SCD.CODetailID=@CODetailID 	 " & vbNewLine &
+"            AND SCD.ParentID='' " & vbNewLine &
+"            AND SCH.IsDeleted=0 	 " & vbNewLine &
+"    ) 	 " & vbNewLine &
+"WHERE ID=@CODetailID	 " & vbNewLine &
+"  " & vbNewLine &
+"FETCH NEXT FROM db_cursor INTO @CODetailID;  " & vbNewLine &
+"END  " & vbNewLine &
+"  " & vbNewLine &
+"CLOSE db_cursor;  " & vbNewLine &
+"DEALLOCATE db_cursor;" & vbNewLine
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
     End Class
 End Namespace

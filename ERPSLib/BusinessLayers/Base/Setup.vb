@@ -38,5 +38,13 @@
             End Using
         End Sub
 
+        Public Shared Sub CalculateSCWeightInSalesContract()
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                DL.Setup.ResetSCWeightConfirmationOrder(sqlCon, Nothing)
+                DL.Setup.CalculateSCWeightInSalesContract(sqlCon, Nothing)
+            End Using
+        End Sub
+
     End Class
 End Namespace

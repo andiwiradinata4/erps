@@ -44,4 +44,14 @@
             UI.usForm.frmMessageBox(ex.Message)
         End Try
     End Sub
+
+    Private Sub btnCalculateSCWeightInSalesContract_Click(sender As Object, e As EventArgs) Handles btnCalculateSCWeightInSalesContract.Click
+        Try
+            BL.Setup.CalculateSCWeightInSalesContract()
+            UI.usForm.frmMessageBox(btnCalculateSCWeightInSalesContract.Text.Trim & " berhasil")
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        End Try
+    End Sub
+
 End Class

@@ -1,6 +1,4 @@
-﻿Imports ERPSLib.VO
-
-Namespace BL
+﻿Namespace BL
     Public Class SalesContract
 
 #Region "Main"
