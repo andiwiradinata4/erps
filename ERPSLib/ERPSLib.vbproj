@@ -333,6 +333,7 @@
     <Compile Include="ValueObject\SalesReturn.vb" />
     <Compile Include="ValueObject\SalesReturnDet.vb" />
     <Compile Include="ValueObject\SalesReturnStatus.vb" />
+    <Compile Include="ValueObject\Stock.vb" />
     <Compile Include="ValueObject\StockIn.vb" />
     <Compile Include="ValueObject\StockOut.vb" />
   </ItemGroup>

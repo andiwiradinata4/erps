@@ -39,6 +39,9 @@ Partial Class frmMstStock
         Me.Label1 = New System.Windows.Forms.Label()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.BarHistorySalesContract = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
+        Me.BarHistoryPurchaseContract = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.chkShowAll.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -49,7 +52,7 @@ Partial Class frmMstStock
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarGet, Me.BarSep1, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarGet, Me.BarSep1, Me.BarHistorySalesContract, Me.BarHistoryPurchaseContract, Me.BarSep2, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -209,6 +212,23 @@ Partial Class frmMstStock
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowGroupPanel = False
         '
+        'BarHistorySalesContract
+        '
+        Me.BarHistorySalesContract.Name = "BarHistorySalesContract"
+        Me.BarHistorySalesContract.Tag = "Approved"
+        Me.BarHistorySalesContract.Text = "Kontrak Penjualan"
+        '
+        'BarSep2
+        '
+        Me.BarSep2.Name = "BarSep2"
+        Me.BarSep2.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarHistoryPurchaseContract
+        '
+        Me.BarHistoryPurchaseContract.Name = "BarHistoryPurchaseContract"
+        Me.BarHistoryPurchaseContract.Tag = "Checked"
+        Me.BarHistoryPurchaseContract.Text = "Kontrak Pembelian"
+        '
         'frmMstStock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -247,4 +267,7 @@ Partial Class frmMstStock
     Friend WithEvents Label1 As Label
     Friend WithEvents grdMain As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents BarHistorySalesContract As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarHistoryPurchaseContract As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarSep2 As System.Windows.Forms.ToolBarButton
 End Class

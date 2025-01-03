@@ -183,6 +183,9 @@
         mnuLaporanPembukuanLabaRugi.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, ERPSLib.VO.Modules.Values.ReportProfitAndLoss, VO.Access.Values.ViewAccess)
         mnuLaporanPembukuanNeraca.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, ERPSLib.VO.Modules.Values.ReportBalanceSheet, VO.Access.Values.ViewAccess)
 
+        '# Tidak bisa dipakai, ItemID Receive dengan ItemID Delivery berbeda sehingga tidak bisa cross total berat
+        mnuMasterPersediaan.Visible = False
+
         Me.Cursor = Cursors.Default
         pgMain.Visible = False
     End Sub

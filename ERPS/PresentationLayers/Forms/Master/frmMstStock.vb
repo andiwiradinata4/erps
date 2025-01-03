@@ -35,7 +35,7 @@
 #End Region
 
     Private Const _
-       cGet As Byte = 0, cSep1 As Byte = 1, cRefresh As Byte = 2, cClose As Byte = 3
+       cGet As Byte = 0, cSep1 As Byte = 1, cHistorySalesContract As Byte = 2, cHistoryPurchaseContract As Byte = 3, cSep2 As Byte = 4, cRefresh As Byte = 5, cClose As Byte = 6
 
     Private Sub prvSetTitleForm()
         If bolIsLookUp Then
@@ -163,6 +163,22 @@
         End Try
     End Sub
 
+    Private Sub prvHistory(ByVal enumHistory As VO.Stock.History)
+        Dim intPos As Integer = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim frmDetail As New frmMstStockHistory
+        With frmDetail
+            .pubItemID = grdView.GetRowCellValue(intPos, "ID")
+            .pubOrderNumberSupplier = grdView.GetRowCellValue(intPos, "OrderNumberSupplier")
+            .pubHistory = enumHistory
+            .ShowDialog()
+        End With
+    End Sub
+
+    Private Sub prvHistoryPurchaseContract()
+
+    End Sub
+
     Private Sub prvClear()
         grdMain.DataSource = Nothing
         grdView.Columns.Clear()
@@ -199,6 +215,8 @@
         ElseIf grdView.FocusedRowHandle >= 0 Then
             Select Case e.Button.Name
                 Case ToolBar.Buttons(cGet).Name : prvGet()
+                Case ToolBar.Buttons(cHistorySalesContract).Name : prvHistory(VO.Stock.History.SalesContract)
+                Case ToolBar.Buttons(cHistoryPurchaseContract).Name : prvHistory(VO.Stock.History.PurchaseContract)
             End Select
         End If
     End Sub

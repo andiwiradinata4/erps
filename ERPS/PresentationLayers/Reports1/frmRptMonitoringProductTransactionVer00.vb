@@ -37,6 +37,7 @@ Public Class frmRptMonitoringProductTransactionVer00
         UI.usForm.SetGrid(grdView, "SCTotalWeight", "Total Berat [Kontrak Penjualan]", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "DVQuantity", "Jumlah [Pengiriman]", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdView, "DVTotalWeight", "Total Berat [Pengiriman]", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "InventoryTotalWeight", "Total Berat [Kontrak Pembelian vs Kontrak Penjualan]", 100, UI.usDefGrid.gReal2Num)
 
         UI.usForm.SetGrid(grdSalesContractView, "ID", "ID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdSalesContractView, "PCDetailID", "PCDetailID", 100, UI.usDefGrid.gString, False)

@@ -806,7 +806,7 @@
 "SELECT " & vbNewLine & _
 "	PC.PCDetailID, PC.CODetailID, PC.PCNumber, PC.PCDate, PC.OrderNumberSupplier, PC.ItemCode, PC.ItemType, PC.ItemSpec, PC.Thick, PC.Width, PC.Length, PC.PCQuantity, PC.PCTotalWeight, " & vbNewLine & _
 "	SC.SCQuantity, SC.SCTotalWeight, RV.RVQuantity, RV.RVTotalWeight, RV.SPKQuantity, RV.SPKTotalWeight, RV.CUTQuantity, RV.CUTTotalWeight, " & vbNewLine & _
-"	SC.DVQuantity, SC.DVTotalWeight " & vbNewLine & _
+"	SC.DVQuantity, SC.DVTotalWeight, PC.PCTotalWeight-ISNULL(SC.SCTotalWeight,0) AS InventoryTotalWeight " & vbNewLine & _
 "FROM " & vbNewLine & _
 "(" & vbNewLine & _
 "	SELECT " & vbNewLine & _
