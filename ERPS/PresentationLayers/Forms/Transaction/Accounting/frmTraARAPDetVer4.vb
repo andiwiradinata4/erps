@@ -291,7 +291,7 @@ Public Class frmTraARAPDetVer4
         End If
 
         For i As Integer = 0 To grdItemView.RowCount - 1
-            If grdItemView.GetRowCellValue(i, "Pick") And grdItemView.GetRowCellValue(i, "Amount") = 0 Then
+            If grdItemView.GetRowCellValue(i, "Pick") And grdItemView.GetRowCellValue(i, "Amount") + grdItemView.GetRowCellValue(i, "DPAmount") = 0 Then
                 UI.usForm.frmMessageBox("Baris ke " & i + 1 & " tercentang namun nilai tagihan 0")
                 grdItemView.FocusedRowHandle = i
                 Exit Sub
@@ -856,6 +856,10 @@ Public Class frmTraARAPDetVer4
             pgMain.Value = 100
             prvResetProgressBar()
         End Try
+    End Sub
+
+    Private Sub chkIsFullDP_CheckedChanged(sender As Object, e As EventArgs) Handles chkIsFullDP.CheckedChanged
+
     End Sub
 
 #End Region
