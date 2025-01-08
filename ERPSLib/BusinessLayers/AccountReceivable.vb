@@ -888,8 +888,8 @@
                 For Each dr As DataRow In dtReferencesParentID.Rows
                     '# Revert Payment Item Parent Amount
                     If strModules.Trim = VO.AccountReceivable.DownPayment And dr.Item("ReferencesParentID") <> "" Then DL.SalesContract.CalculateItemTotalUsedDownPaymentParent(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
+                    If strModules.Trim = VO.AccountReceivable.ReceivePayment And dr.Item("ReferencesParentID") <> "" Then DL.SalesContract.CalculateTotalUsedReceiveItemPaymentParentVer02(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
                     'If strModules.Trim = VO.AccountReceivable.ReceivePayment And dr.Item("ReferencesParentID") <> "" Then DL.Delivery.CalculateItemTotalUsedReceivePaymentParent(sqlCon, sqlTrans, dr.Item("ReferencesParentID"))
-
                 Next
 
                 '# Revert Payment Amount
