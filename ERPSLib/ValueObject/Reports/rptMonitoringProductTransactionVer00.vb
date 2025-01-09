@@ -25,5 +25,6 @@
         Property CUTTotalWeight As Decimal
         Property DVQuantity As Decimal
         Property DVTotalWeight As Decimal
+        Property InventoryTotalWeight As Decimal
     End Class
 End Namespace

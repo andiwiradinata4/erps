@@ -129,7 +129,8 @@ Public Class frmRptMonitoringProductTransactionVer00
                             Thick = pc.Item("Thick"), Width = pc.Item("Width"), Length = pc.Item("Length"), PCQuantity = pc.Item("PCQuantity"), PCTotalWeight = pc.Item("PCTotalWeight"),
                             SCNumber = sc.Item("SCNumber"), SCDate = sc.Item("SCDate"), CustomerName = sc.Item("BPName"), SCQuantity = sc.Item("SCQuantity"), SCTotalWeight = sc.Item("SCTotalWeight"),
                             RVQuantity = pc.Item("RVQuantity"), RVTotalWeight = pc.Item("RVTotalWeight"), SPKQuantity = pc.Item("SPKQuantity"), SPKTotalWeight = pc.Item("SPKTotalWeight"),
-                            CUTQuantity = pc.Item("CUTQuantity"), CUTTotalWeight = pc.Item("CUTTotalWeight"), DVQuantity = pc.Item("DVQuantity"), DVTotalWeight = pc.Item("DVTotalWeight")
+                            CUTQuantity = pc.Item("CUTQuantity"), CUTTotalWeight = pc.Item("CUTTotalWeight"), DVQuantity = pc.Item("DVQuantity"), DVTotalWeight = pc.Item("DVTotalWeight"),
+                            InventoryTotalWeight = pc.Item("InventoryTotalWeight")
 
             Dim strFilterDate As String = Format(dtpDateFrom.Value, "dd-MMM-yyyy") & " - " & Format(dtpDateTo.Value, "dd-MMM-yyyy")
             Dim crReport As New rptMonitoringProductTransactionVer00

@@ -616,13 +616,25 @@ Public Class frmTraSalesContract
 
                 crReport.ghColumnName.Visible = False
                 crReport.sbDetail.Visible = False
+                crReport.gfOrderNumberDefault.Visible = False
+                crReport.sbGrandTotalDefault.Visible = False
+
+
                 crReport.ghColumnNameCoil.Visible = True
                 crReport.sbDetailCoil.Visible = True
+                crReport.gfOrderNumberCoil.Visible = True
+                crReport.sbGrandTotalCoil.Visible = True
+
             Else
                 crReport.ghColumnName.Visible = True
                 crReport.sbDetail.Visible = True
+                crReport.gfOrderNumberDefault.Visible = True
+                crReport.sbGrandTotalDefault.Visible = True
+
                 crReport.ghColumnNameCoil.Visible = False
                 crReport.sbDetailCoil.Visible = False
+                crReport.gfOrderNumberCoil.Visible = False
+                crReport.sbGrandTotalCoil.Visible = False
             End If
 
             If dtData.Rows.Count = 1 Then
