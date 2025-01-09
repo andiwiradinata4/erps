@@ -825,7 +825,6 @@ Public Class frmTraSalesContract
                 Case ToolBar.Buttons(cSetupDelivery).Name : prvSetupDelivery(True)
                 Case ToolBar.Buttons(cCancelSetupDelivery).Name : prvSetupDelivery(False)
                 Case ToolBar.Buttons(cPrint).Name : prvPrint()
-                Case ToolBar.Buttons(cPrint).Name : prvPrint()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If

@@ -30,6 +30,10 @@ Partial Class frmMstItemDet
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.cboUom = New ERPS.usComboBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.txtLengthInitial = New ERPS.usTextBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.txtItemCodeExternal = New ERPS.usTextBox()
         Me.txtLength = New ERPS.usNumeric()
@@ -62,10 +66,6 @@ Partial Class frmMstItemDet
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.txtLengthInitial = New ERPS.usTextBox()
-        Me.cboUom = New ERPS.usComboBox()
-        Me.Label17 = New System.Windows.Forms.Label()
         Me.StatusStrip.SuspendLayout()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -180,6 +180,48 @@ Partial Class frmMstItemDet
         Me.pnlDetail.Name = "pnlDetail"
         Me.pnlDetail.Size = New System.Drawing.Size(624, 312)
         Me.pnlDetail.TabIndex = 2
+        '
+        'cboUom
+        '
+        Me.cboUom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboUom.Enabled = False
+        Me.cboUom.FormattingEnabled = True
+        Me.cboUom.Location = New System.Drawing.Point(435, 174)
+        Me.cboUom.Name = "cboUom"
+        Me.cboUom.Size = New System.Drawing.Size(135, 21)
+        Me.cboUom.TabIndex = 12
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.BackColor = System.Drawing.Color.Transparent
+        Me.Label17.ForeColor = System.Drawing.Color.Black
+        Me.Label17.Location = New System.Drawing.Point(346, 178)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(41, 13)
+        Me.Label17.TabIndex = 122
+        Me.Label17.Text = "Satuan"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.BackColor = System.Drawing.Color.Transparent
+        Me.Label16.ForeColor = System.Drawing.Color.Black
+        Me.Label16.Location = New System.Drawing.Point(346, 259)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(73, 13)
+        Me.Label16.TabIndex = 120
+        Me.Label16.Text = "Kode Panjang"
+        '
+        'txtLengthInitial
+        '
+        Me.txtLengthInitial.BackColor = System.Drawing.Color.White
+        Me.txtLengthInitial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtLengthInitial.Location = New System.Drawing.Point(435, 255)
+        Me.txtLengthInitial.MaxLength = 250
+        Me.txtLengthInitial.Name = "txtLengthInitial"
+        Me.txtLengthInitial.Size = New System.Drawing.Size(135, 21)
+        Me.txtLengthInitial.TabIndex = 13
         '
         'Label15
         '
@@ -521,48 +563,6 @@ Partial Class frmMstItemDet
         Me.BarClose.Name = "BarClose"
         Me.BarClose.Tag = "Close"
         Me.BarClose.Text = "Tutup"
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.BackColor = System.Drawing.Color.Transparent
-        Me.Label16.ForeColor = System.Drawing.Color.Black
-        Me.Label16.Location = New System.Drawing.Point(346, 259)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(73, 13)
-        Me.Label16.TabIndex = 120
-        Me.Label16.Text = "Kode Panjang"
-        '
-        'txtLengthInitial
-        '
-        Me.txtLengthInitial.BackColor = System.Drawing.Color.White
-        Me.txtLengthInitial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtLengthInitial.Location = New System.Drawing.Point(435, 255)
-        Me.txtLengthInitial.MaxLength = 250
-        Me.txtLengthInitial.Name = "txtLengthInitial"
-        Me.txtLengthInitial.Size = New System.Drawing.Size(135, 21)
-        Me.txtLengthInitial.TabIndex = 13
-        '
-        'cboUom
-        '
-        Me.cboUom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboUom.Enabled = False
-        Me.cboUom.FormattingEnabled = True
-        Me.cboUom.Location = New System.Drawing.Point(435, 174)
-        Me.cboUom.Name = "cboUom"
-        Me.cboUom.Size = New System.Drawing.Size(135, 21)
-        Me.cboUom.TabIndex = 12
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.BackColor = System.Drawing.Color.Transparent
-        Me.Label17.ForeColor = System.Drawing.Color.Black
-        Me.Label17.Location = New System.Drawing.Point(346, 178)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(41, 13)
-        Me.Label17.TabIndex = 122
-        Me.Label17.Text = "Satuan"
         '
         'frmMstItemDet
         '
