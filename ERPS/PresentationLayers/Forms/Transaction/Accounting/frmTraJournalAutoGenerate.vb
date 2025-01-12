@@ -24,7 +24,7 @@ Public Class frmTraJournalAutoGenerate
         UI.usForm.SetGrid(grdView, "JournalNo", "Nomor", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "JournalDate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdView, "TotalAmount", "Total Jurnal", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdView, "ReferencesID", "No. Referensi", 100, UI.usDefGrid.gString, ERPSLib.UI.usUserApp.IsSuperUser)
+        UI.usForm.SetGrid(grdView, "ReferencesNo", "No. Referensi", 100, UI.usDefGrid.gString, ERPSLib.UI.usUserApp.IsSuperUser)
         UI.usForm.SetGrid(grdView, "IsAutoGenerate", "IsGenerate", 100, UI.usDefGrid.gBoolean)
         UI.usForm.SetGrid(grdView, "SubmitBy", "Disubmit Oleh", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "SubmitDate", "Tanggal Disubmit", 100, UI.usDefGrid.gFullDate)

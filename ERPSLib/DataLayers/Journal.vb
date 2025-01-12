@@ -17,7 +17,8 @@ Namespace DL
                    "    CAST(0 AS BIT) AS Pick, A.CompanyID, MC.Name AS CompanyName, A.ProgramID, MP.Name AS ProgramName, " & vbNewLine &
                    "    A.ID, A.JournalNo, A.JournalDate, A.ReferencesID, A.TotalAmount, A.IsAutoGenerate, A.IsClosedPeriod, A.ClosedPeriodBy,   " & vbNewLine &
                    "    A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine &
-                   "    CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, B.Name AS StatusInfo, A.Initial " & vbNewLine &
+                   "    CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, B.Name AS StatusInfo, " & vbNewLine &
+                   "    A.Initial, A.ReferencesNo " & vbNewLine &
                    "FROM traJournal A " & vbNewLine &
                    "INNER JOIN mstStatus B ON " & vbNewLine &
                    "    A.StatusID=B.ID " & vbNewLine &
