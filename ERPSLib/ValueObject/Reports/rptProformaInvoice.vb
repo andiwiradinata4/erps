@@ -36,6 +36,7 @@
         Property BankAccountNumber2 As String
         Property ContractNumber As String
         Property PurchaseNumber As String
+        Property RefTransNumber As String
 
         '# Items
         Property ItemID As Integer

@@ -712,9 +712,11 @@ Partial Public Class rptPurchaseOrder
         '
         'XrTableRow1
         '
+        Me.XrTableRow1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.XrTableRow1.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell1, Me.XrTableCell2, Me.XrTableCell3, Me.XrTableCell4, Me.XrTableCell5, Me.XrTableCell7, Me.XrTableCell8, Me.XrTableCell6, Me.XrTableCell9, Me.XrTableCell10, Me.XrTableCell11})
         Me.XrTableRow1.Dpi = 100.0!
         Me.XrTableRow1.Name = "XrTableRow1"
+        Me.XrTableRow1.StylePriority.UseBackColor = False
         Me.XrTableRow1.Weight = 1.0R
         '
         'XrTableCell1
@@ -864,6 +866,7 @@ Partial Public Class rptPurchaseOrder
         '
         'XrTable5
         '
+        Me.XrTable5.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.XrTable5.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
         Me.XrTable5.Dpi = 100.0!
@@ -872,6 +875,7 @@ Partial Public Class rptPurchaseOrder
         Me.XrTable5.Name = "XrTable5"
         Me.XrTable5.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow5})
         Me.XrTable5.SizeF = New System.Drawing.SizeF(469.9998!, 20.0!)
+        Me.XrTable5.StylePriority.UseBackColor = False
         Me.XrTable5.StylePriority.UseBorders = False
         Me.XrTable5.StylePriority.UseFont = False
         Me.XrTable5.StylePriority.UseTextAlignment = False
@@ -911,6 +915,7 @@ Partial Public Class rptPurchaseOrder
         '
         'XrTable4
         '
+        Me.XrTable4.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.XrTable4.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
         Me.XrTable4.Dpi = 100.0!
@@ -919,6 +924,7 @@ Partial Public Class rptPurchaseOrder
         Me.XrTable4.Name = "XrTable4"
         Me.XrTable4.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow4})
         Me.XrTable4.SizeF = New System.Drawing.SizeF(469.9998!, 20.0!)
+        Me.XrTable4.StylePriority.UseBackColor = False
         Me.XrTable4.StylePriority.UseBorders = False
         Me.XrTable4.StylePriority.UseFont = False
         Me.XrTable4.StylePriority.UseTextAlignment = False
@@ -959,6 +965,7 @@ Partial Public Class rptPurchaseOrder
         '
         'XrTable3
         '
+        Me.XrTable3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.XrTable3.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
         Me.XrTable3.Dpi = 100.0!
@@ -967,6 +974,7 @@ Partial Public Class rptPurchaseOrder
         Me.XrTable3.Name = "XrTable3"
         Me.XrTable3.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow3})
         Me.XrTable3.SizeF = New System.Drawing.SizeF(469.9998!, 20.0!)
+        Me.XrTable3.StylePriority.UseBackColor = False
         Me.XrTable3.StylePriority.UseBorders = False
         Me.XrTable3.StylePriority.UseFont = False
         Me.XrTable3.StylePriority.UseTextAlignment = False

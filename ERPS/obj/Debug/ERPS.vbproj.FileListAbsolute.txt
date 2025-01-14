@@ -980,3 +980,6 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractDetVer2SplitItemDP.r
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbprojResolveAssemblyReference.cache
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstStockHistory.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmMstStockHistory.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmMstStockHistory.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetVer2SplitItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetVer2SplitItemDP.resources

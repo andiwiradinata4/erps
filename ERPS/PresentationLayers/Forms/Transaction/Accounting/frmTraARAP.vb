@@ -764,7 +764,7 @@ Public Class frmTraARAP
             crReport.AmountPayment2.Value = 0
             crReport.AmountPayment3.Value = 0
             crReport.AmountPayment4.Value = 0
-
+            crReport.rhBPInfoInvoice.Visible = False
             Dim dtPaymentHistory As DataTable = BL.ARAP.ListPaymentHistoryVer02(clsCS.ProgramID, intCompanyID, clsData.ID, clsData.IsFullDP)
             'If dtPaymentHistory.Rows.Count = 0 Then
             '    Dim intValue As Decimal = CInt(dtData.Rows(0).Item("Percentage"))
@@ -937,9 +937,13 @@ Public Class frmTraARAP
             Dim clsInvoice As VO.ARAPInvoice = BL.ARAP.GetDetailInvoice(strSelectedInvoiceID)
             Dim intStatusID As Integer = clsInvoice.StatusID
             For Each dr As DataRow In dtData.Rows
+                dr.BeginEdit()
+                dr.Item("TransNumber") = clsInvoice.InvoiceNumber
                 dr.Item("TaxInvoiceNumber") = clsInvoice.TaxInvoiceNumber
                 dr.Item("TransDate") = clsInvoice.InvoiceDate
+                dr.EndEdit()
             Next
+            dtData.AcceptChanges()
 
             Dim crReport As New rptProformaInvoice
 
@@ -964,6 +968,7 @@ Public Class frmTraARAP
             crReport.AmountPayment2.Value = 0
             crReport.AmountPayment3.Value = 0
             crReport.AmountPayment4.Value = 0
+            crReport.rhBPInfo.Visible = False
 
             Dim dtPaymentHistory As DataTable = BL.ARAP.ListPaymentHistoryVer02(clsCS.ProgramID, intCompanyID, clsData.ID, clsData.IsFullDP)
             'If dtPaymentHistory.Rows.Count = 0 Then
