@@ -1629,6 +1629,7 @@
                     "INNER JOIN traSalesContractDetConfirmationOrder SCDCO ON " & vbNewLine &
                     "	SCD.SCID=SCDCO.SCID " & vbNewLine &
                     "	AND SCD.GroupID=SCDCO.GroupID " & vbNewLine &
+                    "	AND SCDCO.ParentID='' " & vbNewLine &
                     "INNER JOIN mstItem MI ON 	 " & vbNewLine &
                     "    SCD.ItemID=MI.ID 	 " & vbNewLine &
                     "INNER JOIN mstItemType IT ON 	 	 " & vbNewLine &
