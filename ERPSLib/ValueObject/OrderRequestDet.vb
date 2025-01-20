@@ -32,5 +32,7 @@
         Property Thick As Decimal
         Property Width As Decimal
         Property Length As Decimal
+        Property SCOQuantity As Decimal
+        Property SCOWeight As Decimal
     End Class
 End Namespace

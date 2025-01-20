@@ -20,16 +20,6 @@ Partial Public Class rptConfirmationOrderVer00
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim XrSummary11 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary12 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary13 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary14 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary15 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary16 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary17 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary18 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary19 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary20 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary1 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary2 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary3 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
@@ -40,6 +30,16 @@ Partial Public Class rptConfirmationOrderVer00
         Dim XrSummary8 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary9 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary10 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
+        Dim XrSummary11 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
+        Dim XrSummary12 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
+        Dim XrSummary13 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
+        Dim XrSummary14 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
+        Dim XrSummary15 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
+        Dim XrSummary16 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
+        Dim XrSummary17 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
+        Dim XrSummary18 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
+        Dim XrSummary19 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
+        Dim XrSummary20 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Me.CellHeaderLength = New DevExpress.XtraReports.UI.XRTableCell()
         Me.ReportHeader = New DevExpress.XtraReports.UI.ReportHeaderBand()
         Me.rhBPInfo = New DevExpress.XtraReports.UI.SubBand()
@@ -78,6 +78,24 @@ Partial Public Class rptConfirmationOrderVer00
         Me.XrTableCell27 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell29 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.ReportFooter = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.sbGrandTotalCoil = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrTable9 = New DevExpress.XtraReports.UI.XRTable()
+        Me.XrTableRow9 = New DevExpress.XtraReports.UI.XRTableRow()
+        Me.XrTableCell55 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell74 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell75 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell76 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell77 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell78 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.sbGrandTotalDefault = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrTable10 = New DevExpress.XtraReports.UI.XRTable()
+        Me.XrTableRow10 = New DevExpress.XtraReports.UI.XRTableRow()
+        Me.XrTableCell79 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell80 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell81 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell82 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell83 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell84 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.sbNumberToString = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel8 = New DevExpress.XtraReports.UI.XRLabel()
         Me.sbSignature = New DevExpress.XtraReports.UI.SubBand()
@@ -134,6 +152,26 @@ Partial Public Class rptConfirmationOrderVer00
         Me.XrTableCell73 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.BottomMargin = New DevExpress.XtraReports.UI.BottomMarginBand()
         Me.gfOrderNumber = New DevExpress.XtraReports.UI.GroupFooterBand()
+        Me.gfOrderNumberCoil = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrTable7 = New DevExpress.XtraReports.UI.XRTable()
+        Me.XrTableRow2 = New DevExpress.XtraReports.UI.XRTableRow()
+        Me.XrTableCell1 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell12 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell13 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell14 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell15 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell16 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell19 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.gfOrderNumberDefault = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrTable8 = New DevExpress.XtraReports.UI.XRTable()
+        Me.XrTableRow8 = New DevExpress.XtraReports.UI.XRTableRow()
+        Me.XrTableCell20 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell21 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell22 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell24 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell33 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell38 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell43 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.ghOrderNumber = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.ghColumnName = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.ghColumnNameCoil = New DevExpress.XtraReports.UI.GroupHeaderBand()
@@ -152,53 +190,15 @@ Partial Public Class rptConfirmationOrderVer00
         Me.XrTableCell48 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell49 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.ObjectDataSource1 = New DevExpress.DataAccess.ObjectBinding.ObjectDataSource(Me.components)
-        Me.gfOrderNumberCoil = New DevExpress.XtraReports.UI.SubBand()
-        Me.gfOrderNumberDefault = New DevExpress.XtraReports.UI.SubBand()
-        Me.XrTable7 = New DevExpress.XtraReports.UI.XRTable()
-        Me.XrTableRow2 = New DevExpress.XtraReports.UI.XRTableRow()
-        Me.XrTableCell1 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell12 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell13 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell14 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell15 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell16 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell19 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTable8 = New DevExpress.XtraReports.UI.XRTable()
-        Me.XrTableRow8 = New DevExpress.XtraReports.UI.XRTableRow()
-        Me.XrTableCell20 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell21 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell22 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell24 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell33 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell38 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell43 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.sbGrandTotalCoil = New DevExpress.XtraReports.UI.SubBand()
-        Me.sbGrandTotalDefault = New DevExpress.XtraReports.UI.SubBand()
-        Me.XrTable9 = New DevExpress.XtraReports.UI.XRTable()
-        Me.XrTableRow9 = New DevExpress.XtraReports.UI.XRTableRow()
-        Me.XrTableCell55 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell74 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell75 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell76 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell77 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell78 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTable10 = New DevExpress.XtraReports.UI.XRTable()
-        Me.XrTableRow10 = New DevExpress.XtraReports.UI.XRTableRow()
-        Me.XrTableCell79 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell80 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell81 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell82 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell83 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrTableCell84 = New DevExpress.XtraReports.UI.XRTableCell()
+        CType(Me.XrTable9, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.XrTable10, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable5, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.XrTable2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ObjectDataSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable7, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable8, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.XrTable9, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.XrTable10, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.XrTable2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ObjectDataSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
         'CellHeaderLength
@@ -613,6 +613,268 @@ Partial Public Class rptConfirmationOrderVer00
         Me.ReportFooter.HeightF = 0.0!
         Me.ReportFooter.Name = "ReportFooter"
         Me.ReportFooter.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.sbGrandTotalCoil, Me.sbGrandTotalDefault, Me.sbNumberToString, Me.sbSignature, Me.sbBankAccount})
+        '
+        'sbGrandTotalCoil
+        '
+        Me.sbGrandTotalCoil.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable9})
+        Me.sbGrandTotalCoil.Dpi = 100.0!
+        Me.sbGrandTotalCoil.HeightF = 20.0!
+        Me.sbGrandTotalCoil.Name = "sbGrandTotalCoil"
+        '
+        'XrTable9
+        '
+        Me.XrTable9.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.XrTable9.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrTable9.Dpi = 100.0!
+        Me.XrTable9.Font = New System.Drawing.Font("Tahoma", 7.0!, System.Drawing.FontStyle.Bold)
+        Me.XrTable9.LocationFloat = New DevExpress.Utils.PointFloat(0.0001831055!, 0.0!)
+        Me.XrTable9.Name = "XrTable9"
+        Me.XrTable9.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow9})
+        Me.XrTable9.SizeF = New System.Drawing.SizeF(776.9996!, 20.0!)
+        Me.XrTable9.StylePriority.UseBackColor = False
+        Me.XrTable9.StylePriority.UseBorders = False
+        Me.XrTable9.StylePriority.UseFont = False
+        Me.XrTable9.StylePriority.UseTextAlignment = False
+        Me.XrTable9.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'XrTableRow9
+        '
+        Me.XrTableRow9.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell55, Me.XrTableCell74, Me.XrTableCell75, Me.XrTableCell76, Me.XrTableCell77, Me.XrTableCell78})
+        Me.XrTableRow9.Dpi = 100.0!
+        Me.XrTableRow9.Name = "XrTableRow9"
+        Me.XrTableRow9.Weight = 1.0R
+        '
+        'XrTableCell55
+        '
+        Me.XrTableCell55.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell55.Dpi = 100.0!
+        Me.XrTableCell55.Name = "XrTableCell55"
+        Me.XrTableCell55.Padding = New DevExpress.XtraPrinting.PaddingInfo(10, 0, 0, 0, 100.0!)
+        Me.XrTableCell55.StylePriority.UseBorders = False
+        Me.XrTableCell55.StylePriority.UsePadding = False
+        Me.XrTableCell55.StylePriority.UseTextAlignment = False
+        Me.XrTableCell55.Text = "GRAND TOTAL"
+        Me.XrTableCell55.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.XrTableCell55.Weight = 2.51961313067486R
+        '
+        'XrTableCell74
+        '
+        Me.XrTableCell74.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell74.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Quantity")})
+        Me.XrTableCell74.Dpi = 100.0!
+        Me.XrTableCell74.Multiline = True
+        Me.XrTableCell74.Name = "XrTableCell74"
+        Me.XrTableCell74.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell74.StylePriority.UseBorders = False
+        Me.XrTableCell74.StylePriority.UsePadding = False
+        Me.XrTableCell74.StylePriority.UseTextAlignment = False
+        XrSummary1.FormatString = "{0:n0}"
+        XrSummary1.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.XrTableCell74.Summary = XrSummary1
+        Me.XrTableCell74.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell74.Weight = 0.38408771310099088R
+        '
+        'XrTableCell75
+        '
+        Me.XrTableCell75.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell75.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalWeightItem")})
+        Me.XrTableCell75.Dpi = 100.0!
+        Me.XrTableCell75.Name = "XrTableCell75"
+        Me.XrTableCell75.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell75.StylePriority.UseBorders = False
+        Me.XrTableCell75.StylePriority.UsePadding = False
+        Me.XrTableCell75.StylePriority.UseTextAlignment = False
+        XrSummary2.FormatString = "{0:n0}"
+        XrSummary2.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.XrTableCell75.Summary = XrSummary2
+        Me.XrTableCell75.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell75.Weight = 0.62990019065751879R
+        '
+        'XrTableCell76
+        '
+        Me.XrTableCell76.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell76.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPrice")})
+        Me.XrTableCell76.Dpi = 100.0!
+        Me.XrTableCell76.Name = "XrTableCell76"
+        Me.XrTableCell76.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell76.StylePriority.UseBorders = False
+        Me.XrTableCell76.StylePriority.UsePadding = False
+        Me.XrTableCell76.StylePriority.UseTextAlignment = False
+        XrSummary3.FormatString = "{0:n0}"
+        XrSummary3.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.XrTableCell76.Summary = XrSummary3
+        Me.XrTableCell76.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell76.Weight = 0.9602204140893924R
+        '
+        'XrTableCell77
+        '
+        Me.XrTableCell77.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell77.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPPNItem")})
+        Me.XrTableCell77.Dpi = 100.0!
+        Me.XrTableCell77.Name = "XrTableCell77"
+        Me.XrTableCell77.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell77.StylePriority.UseBorders = False
+        Me.XrTableCell77.StylePriority.UsePadding = False
+        Me.XrTableCell77.StylePriority.UseTextAlignment = False
+        XrSummary4.FormatString = "{0:n0}"
+        XrSummary4.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.XrTableCell77.Summary = XrSummary4
+        Me.XrTableCell77.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell77.Weight = 0.69135616275184175R
+        '
+        'XrTableCell78
+        '
+        Me.XrTableCell78.Borders = CType((((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Right) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell78.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPriceIncPPN")})
+        Me.XrTableCell78.Dpi = 100.0!
+        Me.XrTableCell78.Name = "XrTableCell78"
+        Me.XrTableCell78.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell78.StylePriority.UseBorders = False
+        Me.XrTableCell78.StylePriority.UsePadding = False
+        Me.XrTableCell78.StylePriority.UseTextAlignment = False
+        XrSummary5.FormatString = "{0:n0}"
+        XrSummary5.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.XrTableCell78.Summary = XrSummary5
+        Me.XrTableCell78.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell78.Weight = 0.7835279015338541R
+        '
+        'sbGrandTotalDefault
+        '
+        Me.sbGrandTotalDefault.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable10})
+        Me.sbGrandTotalDefault.Dpi = 100.0!
+        Me.sbGrandTotalDefault.HeightF = 20.0!
+        Me.sbGrandTotalDefault.Name = "sbGrandTotalDefault"
+        '
+        'XrTable10
+        '
+        Me.XrTable10.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.XrTable10.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrTable10.Dpi = 100.0!
+        Me.XrTable10.Font = New System.Drawing.Font("Tahoma", 7.0!, System.Drawing.FontStyle.Bold)
+        Me.XrTable10.LocationFloat = New DevExpress.Utils.PointFloat(0.0001831055!, 0.0!)
+        Me.XrTable10.Name = "XrTable10"
+        Me.XrTable10.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow10})
+        Me.XrTable10.SizeF = New System.Drawing.SizeF(776.9996!, 20.0!)
+        Me.XrTable10.StylePriority.UseBackColor = False
+        Me.XrTable10.StylePriority.UseBorders = False
+        Me.XrTable10.StylePriority.UseFont = False
+        Me.XrTable10.StylePriority.UseTextAlignment = False
+        Me.XrTable10.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'XrTableRow10
+        '
+        Me.XrTableRow10.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell79, Me.XrTableCell80, Me.XrTableCell81, Me.XrTableCell82, Me.XrTableCell83, Me.XrTableCell84})
+        Me.XrTableRow10.Dpi = 100.0!
+        Me.XrTableRow10.Name = "XrTableRow10"
+        Me.XrTableRow10.Weight = 1.0R
+        '
+        'XrTableCell79
+        '
+        Me.XrTableCell79.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell79.Dpi = 100.0!
+        Me.XrTableCell79.Name = "XrTableCell79"
+        Me.XrTableCell79.Padding = New DevExpress.XtraPrinting.PaddingInfo(10, 0, 0, 0, 100.0!)
+        Me.XrTableCell79.StylePriority.UseBorders = False
+        Me.XrTableCell79.StylePriority.UsePadding = False
+        Me.XrTableCell79.StylePriority.UseTextAlignment = False
+        Me.XrTableCell79.Text = "GRAND TOTAL"
+        Me.XrTableCell79.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.XrTableCell79.Weight = 2.8038396809517612R
+        '
+        'XrTableCell80
+        '
+        Me.XrTableCell80.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell80.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Quantity")})
+        Me.XrTableCell80.Dpi = 100.0!
+        Me.XrTableCell80.Multiline = True
+        Me.XrTableCell80.Name = "XrTableCell80"
+        Me.XrTableCell80.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell80.StylePriority.UseBorders = False
+        Me.XrTableCell80.StylePriority.UsePadding = False
+        Me.XrTableCell80.StylePriority.UseTextAlignment = False
+        XrSummary6.FormatString = "{0:n0}"
+        XrSummary6.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.XrTableCell80.Summary = XrSummary6
+        Me.XrTableCell80.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell80.Weight = 0.3072659059975551R
+        '
+        'XrTableCell81
+        '
+        Me.XrTableCell81.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell81.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalWeightItem")})
+        Me.XrTableCell81.Dpi = 100.0!
+        Me.XrTableCell81.Name = "XrTableCell81"
+        Me.XrTableCell81.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell81.StylePriority.UseBorders = False
+        Me.XrTableCell81.StylePriority.UsePadding = False
+        Me.XrTableCell81.StylePriority.UseTextAlignment = False
+        XrSummary7.FormatString = "{0:n0}"
+        XrSummary7.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.XrTableCell81.Summary = XrSummary7
+        Me.XrTableCell81.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell81.Weight = 0.42249544748405338R
+        '
+        'XrTableCell82
+        '
+        Me.XrTableCell82.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell82.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPrice")})
+        Me.XrTableCell82.Dpi = 100.0!
+        Me.XrTableCell82.Name = "XrTableCell82"
+        Me.XrTableCell82.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell82.StylePriority.UseBorders = False
+        Me.XrTableCell82.StylePriority.UsePadding = False
+        Me.XrTableCell82.StylePriority.UseTextAlignment = False
+        XrSummary8.FormatString = "{0:n0}"
+        XrSummary8.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.XrTableCell82.Summary = XrSummary8
+        Me.XrTableCell82.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell82.Weight = 0.9602204140893924R
+        '
+        'XrTableCell83
+        '
+        Me.XrTableCell83.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell83.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPPNItem")})
+        Me.XrTableCell83.Dpi = 100.0!
+        Me.XrTableCell83.Name = "XrTableCell83"
+        Me.XrTableCell83.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell83.StylePriority.UseBorders = False
+        Me.XrTableCell83.StylePriority.UsePadding = False
+        Me.XrTableCell83.StylePriority.UseTextAlignment = False
+        XrSummary9.FormatString = "{0:n0}"
+        XrSummary9.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.XrTableCell83.Summary = XrSummary9
+        Me.XrTableCell83.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell83.Weight = 0.69135616275184175R
+        '
+        'XrTableCell84
+        '
+        Me.XrTableCell84.Borders = CType((((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Right) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell84.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPriceIncPPN")})
+        Me.XrTableCell84.Dpi = 100.0!
+        Me.XrTableCell84.Name = "XrTableCell84"
+        Me.XrTableCell84.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell84.StylePriority.UseBorders = False
+        Me.XrTableCell84.StylePriority.UsePadding = False
+        Me.XrTableCell84.StylePriority.UseTextAlignment = False
+        XrSummary10.FormatString = "{0:n0}"
+        XrSummary10.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.XrTableCell84.Summary = XrSummary10
+        Me.XrTableCell84.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell84.Weight = 0.7835279015338541R
         '
         'sbNumberToString
         '
@@ -1362,6 +1624,338 @@ Partial Public Class rptConfirmationOrderVer00
         Me.gfOrderNumber.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.gfOrderNumberCoil, Me.gfOrderNumberDefault})
         Me.gfOrderNumber.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
+        'gfOrderNumberCoil
+        '
+        Me.gfOrderNumberCoil.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable7})
+        Me.gfOrderNumberCoil.Dpi = 100.0!
+        Me.gfOrderNumberCoil.HeightF = 20.0!
+        Me.gfOrderNumberCoil.Name = "gfOrderNumberCoil"
+        '
+        'XrTable7
+        '
+        Me.XrTable7.BackColor = System.Drawing.Color.Transparent
+        Me.XrTable7.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrTable7.Dpi = 100.0!
+        Me.XrTable7.Font = New System.Drawing.Font("Tahoma", 7.0!)
+        Me.XrTable7.LocationFloat = New DevExpress.Utils.PointFloat(0.0001525879!, 0.0!)
+        Me.XrTable7.Name = "XrTable7"
+        Me.XrTable7.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow2})
+        Me.XrTable7.SizeF = New System.Drawing.SizeF(776.9997!, 20.0!)
+        Me.XrTable7.StylePriority.UseBackColor = False
+        Me.XrTable7.StylePriority.UseBorders = False
+        Me.XrTable7.StylePriority.UseFont = False
+        Me.XrTable7.StylePriority.UseTextAlignment = False
+        Me.XrTable7.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'XrTableRow2
+        '
+        Me.XrTableRow2.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell1, Me.XrTableCell12, Me.XrTableCell13, Me.XrTableCell14, Me.XrTableCell15, Me.XrTableCell16, Me.XrTableCell19})
+        Me.XrTableRow2.Dpi = 100.0!
+        Me.XrTableRow2.Font = New System.Drawing.Font("Tahoma", 7.0!, System.Drawing.FontStyle.Bold)
+        Me.XrTableRow2.Name = "XrTableRow2"
+        Me.XrTableRow2.StylePriority.UseFont = False
+        Me.XrTableRow2.Weight = 1.0R
+        '
+        'XrTableCell1
+        '
+        Me.XrTableCell1.BorderColor = System.Drawing.Color.Black
+        Me.XrTableCell1.Borders = DevExpress.XtraPrinting.BorderSide.Left
+        Me.XrTableCell1.Dpi = 100.0!
+        Me.XrTableCell1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrTableCell1.Name = "XrTableCell1"
+        Me.XrTableCell1.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 30, 0, 0, 100.0!)
+        Me.XrTableCell1.StylePriority.UseBorderColor = False
+        Me.XrTableCell1.StylePriority.UseBorders = False
+        Me.XrTableCell1.StylePriority.UseFont = False
+        Me.XrTableCell1.StylePriority.UsePadding = False
+        Me.XrTableCell1.StylePriority.UseTextAlignment = False
+        Me.XrTableCell1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell1.Weight = 0.94264832880398886R
+        '
+        'XrTableCell12
+        '
+        Me.XrTableCell12.BackColor = System.Drawing.Color.Gainsboro
+        Me.XrTableCell12.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell12.Dpi = 100.0!
+        Me.XrTableCell12.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrTableCell12.Name = "XrTableCell12"
+        Me.XrTableCell12.Padding = New DevExpress.XtraPrinting.PaddingInfo(10, 30, 0, 0, 100.0!)
+        Me.XrTableCell12.StylePriority.UseBackColor = False
+        Me.XrTableCell12.StylePriority.UseBorders = False
+        Me.XrTableCell12.StylePriority.UseFont = False
+        Me.XrTableCell12.StylePriority.UsePadding = False
+        Me.XrTableCell12.StylePriority.UseTextAlignment = False
+        Me.XrTableCell12.Text = "Total"
+        Me.XrTableCell12.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.XrTableCell12.Weight = 2.6948806093822539R
+        '
+        'XrTableCell13
+        '
+        Me.XrTableCell13.BackColor = System.Drawing.Color.Gainsboro
+        Me.XrTableCell13.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell13.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Quantity")})
+        Me.XrTableCell13.Dpi = 100.0!
+        Me.XrTableCell13.Name = "XrTableCell13"
+        Me.XrTableCell13.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell13.StylePriority.UseBackColor = False
+        Me.XrTableCell13.StylePriority.UseBorders = False
+        Me.XrTableCell13.StylePriority.UsePadding = False
+        Me.XrTableCell13.StylePriority.UseTextAlignment = False
+        XrSummary11.FormatString = "{0:n0}"
+        XrSummary11.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.XrTableCell13.Summary = XrSummary11
+        Me.XrTableCell13.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell13.Weight = 0.55450308115429792R
+        '
+        'XrTableCell14
+        '
+        Me.XrTableCell14.BackColor = System.Drawing.Color.Gainsboro
+        Me.XrTableCell14.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell14.BorderWidth = 1.0!
+        Me.XrTableCell14.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalWeightItem")})
+        Me.XrTableCell14.Dpi = 100.0!
+        Me.XrTableCell14.Multiline = True
+        Me.XrTableCell14.Name = "XrTableCell14"
+        Me.XrTableCell14.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell14.StylePriority.UseBackColor = False
+        Me.XrTableCell14.StylePriority.UseBorders = False
+        Me.XrTableCell14.StylePriority.UseBorderWidth = False
+        Me.XrTableCell14.StylePriority.UsePadding = False
+        Me.XrTableCell14.StylePriority.UseTextAlignment = False
+        XrSummary12.FormatString = "{0:n0}"
+        XrSummary12.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.XrTableCell14.Summary = XrSummary12
+        Me.XrTableCell14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell14.Weight = 0.90937149359950853R
+        '
+        'XrTableCell15
+        '
+        Me.XrTableCell15.BackColor = System.Drawing.Color.Gainsboro
+        Me.XrTableCell15.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell15.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPrice")})
+        Me.XrTableCell15.Dpi = 100.0!
+        Me.XrTableCell15.Multiline = True
+        Me.XrTableCell15.Name = "XrTableCell15"
+        Me.XrTableCell15.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell15.StylePriority.UseBackColor = False
+        Me.XrTableCell15.StylePriority.UseBorders = False
+        Me.XrTableCell15.StylePriority.UsePadding = False
+        Me.XrTableCell15.StylePriority.UseTextAlignment = False
+        XrSummary13.FormatString = "{0:n0}"
+        XrSummary13.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.XrTableCell15.Summary = XrSummary13
+        Me.XrTableCell15.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell15.Weight = 1.3862537934701082R
+        '
+        'XrTableCell16
+        '
+        Me.XrTableCell16.BackColor = System.Drawing.Color.Gainsboro
+        Me.XrTableCell16.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell16.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPPNItem")})
+        Me.XrTableCell16.Dpi = 100.0!
+        Me.XrTableCell16.Name = "XrTableCell16"
+        Me.XrTableCell16.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell16.StylePriority.UseBackColor = False
+        Me.XrTableCell16.StylePriority.UseBorders = False
+        Me.XrTableCell16.StylePriority.UsePadding = False
+        Me.XrTableCell16.StylePriority.UseTextAlignment = False
+        XrSummary14.FormatString = "{0:n0}"
+        XrSummary14.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.XrTableCell16.Summary = XrSummary14
+        Me.XrTableCell16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell16.Weight = 0.9981006512478261R
+        '
+        'XrTableCell19
+        '
+        Me.XrTableCell19.BackColor = System.Drawing.Color.Gainsboro
+        Me.XrTableCell19.Borders = CType((((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Right) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell19.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPriceIncPPN")})
+        Me.XrTableCell19.Dpi = 100.0!
+        Me.XrTableCell19.Name = "XrTableCell19"
+        Me.XrTableCell19.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell19.StylePriority.UseBackColor = False
+        Me.XrTableCell19.StylePriority.UseBorders = False
+        Me.XrTableCell19.StylePriority.UsePadding = False
+        Me.XrTableCell19.StylePriority.UseTextAlignment = False
+        XrSummary15.FormatString = "{0:n0}"
+        XrSummary15.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.XrTableCell19.Summary = XrSummary15
+        Me.XrTableCell19.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell19.Weight = 1.1311746431439915R
+        '
+        'gfOrderNumberDefault
+        '
+        Me.gfOrderNumberDefault.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable8})
+        Me.gfOrderNumberDefault.Dpi = 100.0!
+        Me.gfOrderNumberDefault.HeightF = 20.0!
+        Me.gfOrderNumberDefault.Name = "gfOrderNumberDefault"
+        '
+        'XrTable8
+        '
+        Me.XrTable8.BackColor = System.Drawing.Color.Transparent
+        Me.XrTable8.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrTable8.Dpi = 100.0!
+        Me.XrTable8.Font = New System.Drawing.Font("Tahoma", 7.0!)
+        Me.XrTable8.LocationFloat = New DevExpress.Utils.PointFloat(0.0001525879!, 0.0!)
+        Me.XrTable8.Name = "XrTable8"
+        Me.XrTable8.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow8})
+        Me.XrTable8.SizeF = New System.Drawing.SizeF(776.9997!, 20.0!)
+        Me.XrTable8.StylePriority.UseBackColor = False
+        Me.XrTable8.StylePriority.UseBorders = False
+        Me.XrTable8.StylePriority.UseFont = False
+        Me.XrTable8.StylePriority.UseTextAlignment = False
+        Me.XrTable8.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'XrTableRow8
+        '
+        Me.XrTableRow8.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell20, Me.XrTableCell21, Me.XrTableCell22, Me.XrTableCell24, Me.XrTableCell33, Me.XrTableCell38, Me.XrTableCell43})
+        Me.XrTableRow8.Dpi = 100.0!
+        Me.XrTableRow8.Font = New System.Drawing.Font("Tahoma", 7.0!, System.Drawing.FontStyle.Bold)
+        Me.XrTableRow8.Name = "XrTableRow8"
+        Me.XrTableRow8.StylePriority.UseFont = False
+        Me.XrTableRow8.Weight = 1.0R
+        '
+        'XrTableCell20
+        '
+        Me.XrTableCell20.BorderColor = System.Drawing.Color.Black
+        Me.XrTableCell20.Borders = DevExpress.XtraPrinting.BorderSide.Left
+        Me.XrTableCell20.Dpi = 100.0!
+        Me.XrTableCell20.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrTableCell20.Name = "XrTableCell20"
+        Me.XrTableCell20.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 30, 0, 0, 100.0!)
+        Me.XrTableCell20.StylePriority.UseBorderColor = False
+        Me.XrTableCell20.StylePriority.UseBorders = False
+        Me.XrTableCell20.StylePriority.UseFont = False
+        Me.XrTableCell20.StylePriority.UsePadding = False
+        Me.XrTableCell20.StylePriority.UseTextAlignment = False
+        Me.XrTableCell20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell20.Weight = 0.94264832880398886R
+        '
+        'XrTableCell21
+        '
+        Me.XrTableCell21.BackColor = System.Drawing.Color.Gainsboro
+        Me.XrTableCell21.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell21.Dpi = 100.0!
+        Me.XrTableCell21.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrTableCell21.Name = "XrTableCell21"
+        Me.XrTableCell21.Padding = New DevExpress.XtraPrinting.PaddingInfo(10, 30, 0, 0, 100.0!)
+        Me.XrTableCell21.StylePriority.UseBackColor = False
+        Me.XrTableCell21.StylePriority.UseBorders = False
+        Me.XrTableCell21.StylePriority.UseFont = False
+        Me.XrTableCell21.StylePriority.UsePadding = False
+        Me.XrTableCell21.StylePriority.UseTextAlignment = False
+        Me.XrTableCell21.Text = "Total"
+        Me.XrTableCell21.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.XrTableCell21.Weight = 3.1052064946696616R
+        '
+        'XrTableCell22
+        '
+        Me.XrTableCell22.BackColor = System.Drawing.Color.Gainsboro
+        Me.XrTableCell22.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell22.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Quantity")})
+        Me.XrTableCell22.Dpi = 100.0!
+        Me.XrTableCell22.Name = "XrTableCell22"
+        Me.XrTableCell22.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell22.StylePriority.UseBackColor = False
+        Me.XrTableCell22.StylePriority.UseBorders = False
+        Me.XrTableCell22.StylePriority.UsePadding = False
+        Me.XrTableCell22.StylePriority.UseTextAlignment = False
+        XrSummary16.FormatString = "{0:n0}"
+        XrSummary16.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.XrTableCell22.Summary = XrSummary16
+        Me.XrTableCell22.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell22.Weight = 0.44359826596217816R
+        '
+        'XrTableCell24
+        '
+        Me.XrTableCell24.BackColor = System.Drawing.Color.Gainsboro
+        Me.XrTableCell24.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell24.BorderWidth = 1.0!
+        Me.XrTableCell24.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalWeightItem")})
+        Me.XrTableCell24.Dpi = 100.0!
+        Me.XrTableCell24.Multiline = True
+        Me.XrTableCell24.Name = "XrTableCell24"
+        Me.XrTableCell24.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell24.StylePriority.UseBackColor = False
+        Me.XrTableCell24.StylePriority.UseBorders = False
+        Me.XrTableCell24.StylePriority.UseBorderWidth = False
+        Me.XrTableCell24.StylePriority.UsePadding = False
+        Me.XrTableCell24.StylePriority.UseTextAlignment = False
+        XrSummary17.FormatString = "{0:n0}"
+        XrSummary17.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.XrTableCell24.Summary = XrSummary17
+        Me.XrTableCell24.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell24.Weight = 0.60995042350422091R
+        '
+        'XrTableCell33
+        '
+        Me.XrTableCell33.BackColor = System.Drawing.Color.Gainsboro
+        Me.XrTableCell33.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell33.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPrice")})
+        Me.XrTableCell33.Dpi = 100.0!
+        Me.XrTableCell33.Multiline = True
+        Me.XrTableCell33.Name = "XrTableCell33"
+        Me.XrTableCell33.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell33.StylePriority.UseBackColor = False
+        Me.XrTableCell33.StylePriority.UseBorders = False
+        Me.XrTableCell33.StylePriority.UsePadding = False
+        Me.XrTableCell33.StylePriority.UseTextAlignment = False
+        XrSummary18.FormatString = "{0:n0}"
+        XrSummary18.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.XrTableCell33.Summary = XrSummary18
+        Me.XrTableCell33.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell33.Weight = 1.3862537934701082R
+        '
+        'XrTableCell38
+        '
+        Me.XrTableCell38.BackColor = System.Drawing.Color.Gainsboro
+        Me.XrTableCell38.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell38.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPPNItem")})
+        Me.XrTableCell38.Dpi = 100.0!
+        Me.XrTableCell38.Name = "XrTableCell38"
+        Me.XrTableCell38.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell38.StylePriority.UseBackColor = False
+        Me.XrTableCell38.StylePriority.UseBorders = False
+        Me.XrTableCell38.StylePriority.UsePadding = False
+        Me.XrTableCell38.StylePriority.UseTextAlignment = False
+        XrSummary19.FormatString = "{0:n0}"
+        XrSummary19.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.XrTableCell38.Summary = XrSummary19
+        Me.XrTableCell38.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell38.Weight = 0.9981006512478261R
+        '
+        'XrTableCell43
+        '
+        Me.XrTableCell43.BackColor = System.Drawing.Color.Gainsboro
+        Me.XrTableCell43.Borders = CType((((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
+            Or DevExpress.XtraPrinting.BorderSide.Right) _
+            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
+        Me.XrTableCell43.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPriceIncPPN")})
+        Me.XrTableCell43.Dpi = 100.0!
+        Me.XrTableCell43.Name = "XrTableCell43"
+        Me.XrTableCell43.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
+        Me.XrTableCell43.StylePriority.UseBackColor = False
+        Me.XrTableCell43.StylePriority.UseBorders = False
+        Me.XrTableCell43.StylePriority.UsePadding = False
+        Me.XrTableCell43.StylePriority.UseTextAlignment = False
+        XrSummary20.FormatString = "{0:n0}"
+        XrSummary20.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.XrTableCell43.Summary = XrSummary20
+        Me.XrTableCell43.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell43.Weight = 1.1311746431439915R
+        '
         'ghOrderNumber
         '
         Me.ghOrderNumber.Dpi = 100.0!
@@ -1528,600 +2122,6 @@ Partial Public Class rptConfirmationOrderVer00
         Me.ObjectDataSource1.DataSource = GetType(ERPSLib.VO.rptConfirmationOrderVer00)
         Me.ObjectDataSource1.Name = "ObjectDataSource1"
         '
-        'gfOrderNumberCoil
-        '
-        Me.gfOrderNumberCoil.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable7})
-        Me.gfOrderNumberCoil.Dpi = 100.0!
-        Me.gfOrderNumberCoil.HeightF = 20.0!
-        Me.gfOrderNumberCoil.Name = "gfOrderNumberCoil"
-        '
-        'gfOrderNumberDefault
-        '
-        Me.gfOrderNumberDefault.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable8})
-        Me.gfOrderNumberDefault.Dpi = 100.0!
-        Me.gfOrderNumberDefault.HeightF = 20.0!
-        Me.gfOrderNumberDefault.Name = "gfOrderNumberDefault"
-        '
-        'XrTable7
-        '
-        Me.XrTable7.BackColor = System.Drawing.Color.Transparent
-        Me.XrTable7.Borders = DevExpress.XtraPrinting.BorderSide.None
-        Me.XrTable7.Dpi = 100.0!
-        Me.XrTable7.Font = New System.Drawing.Font("Tahoma", 7.0!)
-        Me.XrTable7.LocationFloat = New DevExpress.Utils.PointFloat(0.0001525879!, 0.0!)
-        Me.XrTable7.Name = "XrTable7"
-        Me.XrTable7.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow2})
-        Me.XrTable7.SizeF = New System.Drawing.SizeF(776.9997!, 20.0!)
-        Me.XrTable7.StylePriority.UseBackColor = False
-        Me.XrTable7.StylePriority.UseBorders = False
-        Me.XrTable7.StylePriority.UseFont = False
-        Me.XrTable7.StylePriority.UseTextAlignment = False
-        Me.XrTable7.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
-        '
-        'XrTableRow2
-        '
-        Me.XrTableRow2.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell1, Me.XrTableCell12, Me.XrTableCell13, Me.XrTableCell14, Me.XrTableCell15, Me.XrTableCell16, Me.XrTableCell19})
-        Me.XrTableRow2.Dpi = 100.0!
-        Me.XrTableRow2.Font = New System.Drawing.Font("Tahoma", 7.0!, System.Drawing.FontStyle.Bold)
-        Me.XrTableRow2.Name = "XrTableRow2"
-        Me.XrTableRow2.StylePriority.UseFont = False
-        Me.XrTableRow2.Weight = 1.0R
-        '
-        'XrTableCell1
-        '
-        Me.XrTableCell1.BorderColor = System.Drawing.Color.Black
-        Me.XrTableCell1.Borders = DevExpress.XtraPrinting.BorderSide.Left
-        Me.XrTableCell1.Dpi = 100.0!
-        Me.XrTableCell1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrTableCell1.Name = "XrTableCell1"
-        Me.XrTableCell1.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 30, 0, 0, 100.0!)
-        Me.XrTableCell1.StylePriority.UseBorderColor = False
-        Me.XrTableCell1.StylePriority.UseBorders = False
-        Me.XrTableCell1.StylePriority.UseFont = False
-        Me.XrTableCell1.StylePriority.UsePadding = False
-        Me.XrTableCell1.StylePriority.UseTextAlignment = False
-        Me.XrTableCell1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell1.Weight = 0.94264832880398886R
-        '
-        'XrTableCell12
-        '
-        Me.XrTableCell12.BackColor = System.Drawing.Color.Gainsboro
-        Me.XrTableCell12.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell12.Dpi = 100.0!
-        Me.XrTableCell12.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrTableCell12.Name = "XrTableCell12"
-        Me.XrTableCell12.Padding = New DevExpress.XtraPrinting.PaddingInfo(10, 30, 0, 0, 100.0!)
-        Me.XrTableCell12.StylePriority.UseBackColor = False
-        Me.XrTableCell12.StylePriority.UseBorders = False
-        Me.XrTableCell12.StylePriority.UseFont = False
-        Me.XrTableCell12.StylePriority.UsePadding = False
-        Me.XrTableCell12.StylePriority.UseTextAlignment = False
-        Me.XrTableCell12.Text = "Total"
-        Me.XrTableCell12.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        Me.XrTableCell12.Weight = 2.6948806093822539R
-        '
-        'XrTableCell13
-        '
-        Me.XrTableCell13.BackColor = System.Drawing.Color.Gainsboro
-        Me.XrTableCell13.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell13.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Quantity")})
-        Me.XrTableCell13.Dpi = 100.0!
-        Me.XrTableCell13.Name = "XrTableCell13"
-        Me.XrTableCell13.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell13.StylePriority.UseBackColor = False
-        Me.XrTableCell13.StylePriority.UseBorders = False
-        Me.XrTableCell13.StylePriority.UsePadding = False
-        Me.XrTableCell13.StylePriority.UseTextAlignment = False
-        XrSummary11.FormatString = "{0:n0}"
-        XrSummary11.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.XrTableCell13.Summary = XrSummary11
-        Me.XrTableCell13.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell13.Weight = 0.55450308115429792R
-        '
-        'XrTableCell14
-        '
-        Me.XrTableCell14.BackColor = System.Drawing.Color.Gainsboro
-        Me.XrTableCell14.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell14.BorderWidth = 1.0!
-        Me.XrTableCell14.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalWeightItem")})
-        Me.XrTableCell14.Dpi = 100.0!
-        Me.XrTableCell14.Multiline = True
-        Me.XrTableCell14.Name = "XrTableCell14"
-        Me.XrTableCell14.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell14.StylePriority.UseBackColor = False
-        Me.XrTableCell14.StylePriority.UseBorders = False
-        Me.XrTableCell14.StylePriority.UseBorderWidth = False
-        Me.XrTableCell14.StylePriority.UsePadding = False
-        Me.XrTableCell14.StylePriority.UseTextAlignment = False
-        XrSummary12.FormatString = "{0:n0}"
-        XrSummary12.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.XrTableCell14.Summary = XrSummary12
-        Me.XrTableCell14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell14.Weight = 0.90937149359950853R
-        '
-        'XrTableCell15
-        '
-        Me.XrTableCell15.BackColor = System.Drawing.Color.Gainsboro
-        Me.XrTableCell15.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell15.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPrice")})
-        Me.XrTableCell15.Dpi = 100.0!
-        Me.XrTableCell15.Multiline = True
-        Me.XrTableCell15.Name = "XrTableCell15"
-        Me.XrTableCell15.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell15.StylePriority.UseBackColor = False
-        Me.XrTableCell15.StylePriority.UseBorders = False
-        Me.XrTableCell15.StylePriority.UsePadding = False
-        Me.XrTableCell15.StylePriority.UseTextAlignment = False
-        XrSummary13.FormatString = "{0:n0}"
-        XrSummary13.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.XrTableCell15.Summary = XrSummary13
-        Me.XrTableCell15.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell15.Weight = 1.3862537934701082R
-        '
-        'XrTableCell16
-        '
-        Me.XrTableCell16.BackColor = System.Drawing.Color.Gainsboro
-        Me.XrTableCell16.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell16.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPPNItem")})
-        Me.XrTableCell16.Dpi = 100.0!
-        Me.XrTableCell16.Name = "XrTableCell16"
-        Me.XrTableCell16.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell16.StylePriority.UseBackColor = False
-        Me.XrTableCell16.StylePriority.UseBorders = False
-        Me.XrTableCell16.StylePriority.UsePadding = False
-        Me.XrTableCell16.StylePriority.UseTextAlignment = False
-        XrSummary14.FormatString = "{0:n0}"
-        XrSummary14.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.XrTableCell16.Summary = XrSummary14
-        Me.XrTableCell16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell16.Weight = 0.9981006512478261R
-        '
-        'XrTableCell19
-        '
-        Me.XrTableCell19.BackColor = System.Drawing.Color.Gainsboro
-        Me.XrTableCell19.Borders = CType((((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Right) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell19.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPriceIncPPN")})
-        Me.XrTableCell19.Dpi = 100.0!
-        Me.XrTableCell19.Name = "XrTableCell19"
-        Me.XrTableCell19.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell19.StylePriority.UseBackColor = False
-        Me.XrTableCell19.StylePriority.UseBorders = False
-        Me.XrTableCell19.StylePriority.UsePadding = False
-        Me.XrTableCell19.StylePriority.UseTextAlignment = False
-        XrSummary15.FormatString = "{0:n0}"
-        XrSummary15.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.XrTableCell19.Summary = XrSummary15
-        Me.XrTableCell19.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell19.Weight = 1.1311746431439915R
-        '
-        'XrTable8
-        '
-        Me.XrTable8.BackColor = System.Drawing.Color.Transparent
-        Me.XrTable8.Borders = DevExpress.XtraPrinting.BorderSide.None
-        Me.XrTable8.Dpi = 100.0!
-        Me.XrTable8.Font = New System.Drawing.Font("Tahoma", 7.0!)
-        Me.XrTable8.LocationFloat = New DevExpress.Utils.PointFloat(0.0001525879!, 0.0!)
-        Me.XrTable8.Name = "XrTable8"
-        Me.XrTable8.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow8})
-        Me.XrTable8.SizeF = New System.Drawing.SizeF(776.9997!, 20.0!)
-        Me.XrTable8.StylePriority.UseBackColor = False
-        Me.XrTable8.StylePriority.UseBorders = False
-        Me.XrTable8.StylePriority.UseFont = False
-        Me.XrTable8.StylePriority.UseTextAlignment = False
-        Me.XrTable8.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
-        '
-        'XrTableRow8
-        '
-        Me.XrTableRow8.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell20, Me.XrTableCell21, Me.XrTableCell22, Me.XrTableCell24, Me.XrTableCell33, Me.XrTableCell38, Me.XrTableCell43})
-        Me.XrTableRow8.Dpi = 100.0!
-        Me.XrTableRow8.Font = New System.Drawing.Font("Tahoma", 7.0!, System.Drawing.FontStyle.Bold)
-        Me.XrTableRow8.Name = "XrTableRow8"
-        Me.XrTableRow8.StylePriority.UseFont = False
-        Me.XrTableRow8.Weight = 1.0R
-        '
-        'XrTableCell20
-        '
-        Me.XrTableCell20.BorderColor = System.Drawing.Color.Black
-        Me.XrTableCell20.Borders = DevExpress.XtraPrinting.BorderSide.Left
-        Me.XrTableCell20.Dpi = 100.0!
-        Me.XrTableCell20.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrTableCell20.Name = "XrTableCell20"
-        Me.XrTableCell20.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 30, 0, 0, 100.0!)
-        Me.XrTableCell20.StylePriority.UseBorderColor = False
-        Me.XrTableCell20.StylePriority.UseBorders = False
-        Me.XrTableCell20.StylePriority.UseFont = False
-        Me.XrTableCell20.StylePriority.UsePadding = False
-        Me.XrTableCell20.StylePriority.UseTextAlignment = False
-        Me.XrTableCell20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell20.Weight = 0.94264832880398886R
-        '
-        'XrTableCell21
-        '
-        Me.XrTableCell21.BackColor = System.Drawing.Color.Gainsboro
-        Me.XrTableCell21.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell21.Dpi = 100.0!
-        Me.XrTableCell21.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrTableCell21.Name = "XrTableCell21"
-        Me.XrTableCell21.Padding = New DevExpress.XtraPrinting.PaddingInfo(10, 30, 0, 0, 100.0!)
-        Me.XrTableCell21.StylePriority.UseBackColor = False
-        Me.XrTableCell21.StylePriority.UseBorders = False
-        Me.XrTableCell21.StylePriority.UseFont = False
-        Me.XrTableCell21.StylePriority.UsePadding = False
-        Me.XrTableCell21.StylePriority.UseTextAlignment = False
-        Me.XrTableCell21.Text = "Total"
-        Me.XrTableCell21.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        Me.XrTableCell21.Weight = 3.1052064946696616R
-        '
-        'XrTableCell22
-        '
-        Me.XrTableCell22.BackColor = System.Drawing.Color.Gainsboro
-        Me.XrTableCell22.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell22.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Quantity")})
-        Me.XrTableCell22.Dpi = 100.0!
-        Me.XrTableCell22.Name = "XrTableCell22"
-        Me.XrTableCell22.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell22.StylePriority.UseBackColor = False
-        Me.XrTableCell22.StylePriority.UseBorders = False
-        Me.XrTableCell22.StylePriority.UsePadding = False
-        Me.XrTableCell22.StylePriority.UseTextAlignment = False
-        XrSummary16.FormatString = "{0:n0}"
-        XrSummary16.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.XrTableCell22.Summary = XrSummary16
-        Me.XrTableCell22.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell22.Weight = 0.44359826596217816R
-        '
-        'XrTableCell24
-        '
-        Me.XrTableCell24.BackColor = System.Drawing.Color.Gainsboro
-        Me.XrTableCell24.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell24.BorderWidth = 1.0!
-        Me.XrTableCell24.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalWeightItem")})
-        Me.XrTableCell24.Dpi = 100.0!
-        Me.XrTableCell24.Multiline = True
-        Me.XrTableCell24.Name = "XrTableCell24"
-        Me.XrTableCell24.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell24.StylePriority.UseBackColor = False
-        Me.XrTableCell24.StylePriority.UseBorders = False
-        Me.XrTableCell24.StylePriority.UseBorderWidth = False
-        Me.XrTableCell24.StylePriority.UsePadding = False
-        Me.XrTableCell24.StylePriority.UseTextAlignment = False
-        XrSummary17.FormatString = "{0:n0}"
-        XrSummary17.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.XrTableCell24.Summary = XrSummary17
-        Me.XrTableCell24.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell24.Weight = 0.60995042350422091R
-        '
-        'XrTableCell33
-        '
-        Me.XrTableCell33.BackColor = System.Drawing.Color.Gainsboro
-        Me.XrTableCell33.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell33.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPrice")})
-        Me.XrTableCell33.Dpi = 100.0!
-        Me.XrTableCell33.Multiline = True
-        Me.XrTableCell33.Name = "XrTableCell33"
-        Me.XrTableCell33.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell33.StylePriority.UseBackColor = False
-        Me.XrTableCell33.StylePriority.UseBorders = False
-        Me.XrTableCell33.StylePriority.UsePadding = False
-        Me.XrTableCell33.StylePriority.UseTextAlignment = False
-        XrSummary18.FormatString = "{0:n0}"
-        XrSummary18.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.XrTableCell33.Summary = XrSummary18
-        Me.XrTableCell33.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell33.Weight = 1.3862537934701082R
-        '
-        'XrTableCell38
-        '
-        Me.XrTableCell38.BackColor = System.Drawing.Color.Gainsboro
-        Me.XrTableCell38.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell38.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPPNItem")})
-        Me.XrTableCell38.Dpi = 100.0!
-        Me.XrTableCell38.Name = "XrTableCell38"
-        Me.XrTableCell38.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell38.StylePriority.UseBackColor = False
-        Me.XrTableCell38.StylePriority.UseBorders = False
-        Me.XrTableCell38.StylePriority.UsePadding = False
-        Me.XrTableCell38.StylePriority.UseTextAlignment = False
-        XrSummary19.FormatString = "{0:n0}"
-        XrSummary19.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.XrTableCell38.Summary = XrSummary19
-        Me.XrTableCell38.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell38.Weight = 0.9981006512478261R
-        '
-        'XrTableCell43
-        '
-        Me.XrTableCell43.BackColor = System.Drawing.Color.Gainsboro
-        Me.XrTableCell43.Borders = CType((((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Right) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell43.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPriceIncPPN")})
-        Me.XrTableCell43.Dpi = 100.0!
-        Me.XrTableCell43.Name = "XrTableCell43"
-        Me.XrTableCell43.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell43.StylePriority.UseBackColor = False
-        Me.XrTableCell43.StylePriority.UseBorders = False
-        Me.XrTableCell43.StylePriority.UsePadding = False
-        Me.XrTableCell43.StylePriority.UseTextAlignment = False
-        XrSummary20.FormatString = "{0:n0}"
-        XrSummary20.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.XrTableCell43.Summary = XrSummary20
-        Me.XrTableCell43.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell43.Weight = 1.1311746431439915R
-        '
-        'sbGrandTotalCoil
-        '
-        Me.sbGrandTotalCoil.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable9})
-        Me.sbGrandTotalCoil.Dpi = 100.0!
-        Me.sbGrandTotalCoil.HeightF = 20.0!
-        Me.sbGrandTotalCoil.Name = "sbGrandTotalCoil"
-        '
-        'sbGrandTotalDefault
-        '
-        Me.sbGrandTotalDefault.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable10})
-        Me.sbGrandTotalDefault.Dpi = 100.0!
-        Me.sbGrandTotalDefault.HeightF = 20.0!
-        Me.sbGrandTotalDefault.Name = "sbGrandTotalDefault"
-        '
-        'XrTable9
-        '
-        Me.XrTable9.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.XrTable9.Borders = DevExpress.XtraPrinting.BorderSide.None
-        Me.XrTable9.Dpi = 100.0!
-        Me.XrTable9.Font = New System.Drawing.Font("Tahoma", 7.0!, System.Drawing.FontStyle.Bold)
-        Me.XrTable9.LocationFloat = New DevExpress.Utils.PointFloat(0.0001831055!, 0.0!)
-        Me.XrTable9.Name = "XrTable9"
-        Me.XrTable9.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow9})
-        Me.XrTable9.SizeF = New System.Drawing.SizeF(776.9996!, 20.0!)
-        Me.XrTable9.StylePriority.UseBackColor = False
-        Me.XrTable9.StylePriority.UseBorders = False
-        Me.XrTable9.StylePriority.UseFont = False
-        Me.XrTable9.StylePriority.UseTextAlignment = False
-        Me.XrTable9.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
-        '
-        'XrTableRow9
-        '
-        Me.XrTableRow9.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell55, Me.XrTableCell74, Me.XrTableCell75, Me.XrTableCell76, Me.XrTableCell77, Me.XrTableCell78})
-        Me.XrTableRow9.Dpi = 100.0!
-        Me.XrTableRow9.Name = "XrTableRow9"
-        Me.XrTableRow9.Weight = 1.0R
-        '
-        'XrTableCell55
-        '
-        Me.XrTableCell55.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell55.Dpi = 100.0!
-        Me.XrTableCell55.Name = "XrTableCell55"
-        Me.XrTableCell55.Padding = New DevExpress.XtraPrinting.PaddingInfo(10, 0, 0, 0, 100.0!)
-        Me.XrTableCell55.StylePriority.UseBorders = False
-        Me.XrTableCell55.StylePriority.UsePadding = False
-        Me.XrTableCell55.StylePriority.UseTextAlignment = False
-        Me.XrTableCell55.Text = "GRAND TOTAL"
-        Me.XrTableCell55.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        Me.XrTableCell55.Weight = 2.51961313067486R
-        '
-        'XrTableCell74
-        '
-        Me.XrTableCell74.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell74.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Quantity")})
-        Me.XrTableCell74.Dpi = 100.0!
-        Me.XrTableCell74.Multiline = True
-        Me.XrTableCell74.Name = "XrTableCell74"
-        Me.XrTableCell74.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell74.StylePriority.UseBorders = False
-        Me.XrTableCell74.StylePriority.UsePadding = False
-        Me.XrTableCell74.StylePriority.UseTextAlignment = False
-        XrSummary1.FormatString = "{0:n0}"
-        XrSummary1.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.XrTableCell74.Summary = XrSummary1
-        Me.XrTableCell74.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell74.Weight = 0.38408771310099088R
-        '
-        'XrTableCell75
-        '
-        Me.XrTableCell75.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell75.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalWeightItem")})
-        Me.XrTableCell75.Dpi = 100.0!
-        Me.XrTableCell75.Name = "XrTableCell75"
-        Me.XrTableCell75.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell75.StylePriority.UseBorders = False
-        Me.XrTableCell75.StylePriority.UsePadding = False
-        Me.XrTableCell75.StylePriority.UseTextAlignment = False
-        XrSummary2.FormatString = "{0:n0}"
-        XrSummary2.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.XrTableCell75.Summary = XrSummary2
-        Me.XrTableCell75.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell75.Weight = 0.62990019065751879R
-        '
-        'XrTableCell76
-        '
-        Me.XrTableCell76.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell76.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPrice")})
-        Me.XrTableCell76.Dpi = 100.0!
-        Me.XrTableCell76.Name = "XrTableCell76"
-        Me.XrTableCell76.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell76.StylePriority.UseBorders = False
-        Me.XrTableCell76.StylePriority.UsePadding = False
-        Me.XrTableCell76.StylePriority.UseTextAlignment = False
-        XrSummary3.FormatString = "{0:n0}"
-        XrSummary3.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.XrTableCell76.Summary = XrSummary3
-        Me.XrTableCell76.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell76.Weight = 0.9602204140893924R
-        '
-        'XrTableCell77
-        '
-        Me.XrTableCell77.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell77.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPPNItem")})
-        Me.XrTableCell77.Dpi = 100.0!
-        Me.XrTableCell77.Name = "XrTableCell77"
-        Me.XrTableCell77.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell77.StylePriority.UseBorders = False
-        Me.XrTableCell77.StylePriority.UsePadding = False
-        Me.XrTableCell77.StylePriority.UseTextAlignment = False
-        XrSummary4.FormatString = "{0:n0}"
-        XrSummary4.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.XrTableCell77.Summary = XrSummary4
-        Me.XrTableCell77.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell77.Weight = 0.69135616275184175R
-        '
-        'XrTableCell78
-        '
-        Me.XrTableCell78.Borders = CType((((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Right) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell78.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPriceIncPPN")})
-        Me.XrTableCell78.Dpi = 100.0!
-        Me.XrTableCell78.Name = "XrTableCell78"
-        Me.XrTableCell78.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell78.StylePriority.UseBorders = False
-        Me.XrTableCell78.StylePriority.UsePadding = False
-        Me.XrTableCell78.StylePriority.UseTextAlignment = False
-        XrSummary5.FormatString = "{0:n0}"
-        XrSummary5.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.XrTableCell78.Summary = XrSummary5
-        Me.XrTableCell78.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell78.Weight = 0.7835279015338541R
-        '
-        'XrTable10
-        '
-        Me.XrTable10.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.XrTable10.Borders = DevExpress.XtraPrinting.BorderSide.None
-        Me.XrTable10.Dpi = 100.0!
-        Me.XrTable10.Font = New System.Drawing.Font("Tahoma", 7.0!, System.Drawing.FontStyle.Bold)
-        Me.XrTable10.LocationFloat = New DevExpress.Utils.PointFloat(0.0001831055!, 0.0!)
-        Me.XrTable10.Name = "XrTable10"
-        Me.XrTable10.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow10})
-        Me.XrTable10.SizeF = New System.Drawing.SizeF(776.9996!, 20.0!)
-        Me.XrTable10.StylePriority.UseBackColor = False
-        Me.XrTable10.StylePriority.UseBorders = False
-        Me.XrTable10.StylePriority.UseFont = False
-        Me.XrTable10.StylePriority.UseTextAlignment = False
-        Me.XrTable10.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
-        '
-        'XrTableRow10
-        '
-        Me.XrTableRow10.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell79, Me.XrTableCell80, Me.XrTableCell81, Me.XrTableCell82, Me.XrTableCell83, Me.XrTableCell84})
-        Me.XrTableRow10.Dpi = 100.0!
-        Me.XrTableRow10.Name = "XrTableRow10"
-        Me.XrTableRow10.Weight = 1.0R
-        '
-        'XrTableCell79
-        '
-        Me.XrTableCell79.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell79.Dpi = 100.0!
-        Me.XrTableCell79.Name = "XrTableCell79"
-        Me.XrTableCell79.Padding = New DevExpress.XtraPrinting.PaddingInfo(10, 0, 0, 0, 100.0!)
-        Me.XrTableCell79.StylePriority.UseBorders = False
-        Me.XrTableCell79.StylePriority.UsePadding = False
-        Me.XrTableCell79.StylePriority.UseTextAlignment = False
-        Me.XrTableCell79.Text = "GRAND TOTAL"
-        Me.XrTableCell79.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        Me.XrTableCell79.Weight = 2.8038396809517612R
-        '
-        'XrTableCell80
-        '
-        Me.XrTableCell80.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell80.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Quantity")})
-        Me.XrTableCell80.Dpi = 100.0!
-        Me.XrTableCell80.Multiline = True
-        Me.XrTableCell80.Name = "XrTableCell80"
-        Me.XrTableCell80.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell80.StylePriority.UseBorders = False
-        Me.XrTableCell80.StylePriority.UsePadding = False
-        Me.XrTableCell80.StylePriority.UseTextAlignment = False
-        XrSummary6.FormatString = "{0:n0}"
-        XrSummary6.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.XrTableCell80.Summary = XrSummary6
-        Me.XrTableCell80.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell80.Weight = 0.3072659059975551R
-        '
-        'XrTableCell81
-        '
-        Me.XrTableCell81.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell81.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalWeightItem")})
-        Me.XrTableCell81.Dpi = 100.0!
-        Me.XrTableCell81.Name = "XrTableCell81"
-        Me.XrTableCell81.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell81.StylePriority.UseBorders = False
-        Me.XrTableCell81.StylePriority.UsePadding = False
-        Me.XrTableCell81.StylePriority.UseTextAlignment = False
-        XrSummary7.FormatString = "{0:n0}"
-        XrSummary7.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.XrTableCell81.Summary = XrSummary7
-        Me.XrTableCell81.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell81.Weight = 0.42249544748405338R
-        '
-        'XrTableCell82
-        '
-        Me.XrTableCell82.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell82.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPrice")})
-        Me.XrTableCell82.Dpi = 100.0!
-        Me.XrTableCell82.Name = "XrTableCell82"
-        Me.XrTableCell82.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell82.StylePriority.UseBorders = False
-        Me.XrTableCell82.StylePriority.UsePadding = False
-        Me.XrTableCell82.StylePriority.UseTextAlignment = False
-        XrSummary8.FormatString = "{0:n0}"
-        XrSummary8.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.XrTableCell82.Summary = XrSummary8
-        Me.XrTableCell82.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell82.Weight = 0.9602204140893924R
-        '
-        'XrTableCell83
-        '
-        Me.XrTableCell83.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell83.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPPNItem")})
-        Me.XrTableCell83.Dpi = 100.0!
-        Me.XrTableCell83.Name = "XrTableCell83"
-        Me.XrTableCell83.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell83.StylePriority.UseBorders = False
-        Me.XrTableCell83.StylePriority.UsePadding = False
-        Me.XrTableCell83.StylePriority.UseTextAlignment = False
-        XrSummary9.FormatString = "{0:n0}"
-        XrSummary9.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.XrTableCell83.Summary = XrSummary9
-        Me.XrTableCell83.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell83.Weight = 0.69135616275184175R
-        '
-        'XrTableCell84
-        '
-        Me.XrTableCell84.Borders = CType((((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
-            Or DevExpress.XtraPrinting.BorderSide.Right) _
-            Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell84.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPriceIncPPN")})
-        Me.XrTableCell84.Dpi = 100.0!
-        Me.XrTableCell84.Name = "XrTableCell84"
-        Me.XrTableCell84.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
-        Me.XrTableCell84.StylePriority.UseBorders = False
-        Me.XrTableCell84.StylePriority.UsePadding = False
-        Me.XrTableCell84.StylePriority.UseTextAlignment = False
-        XrSummary10.FormatString = "{0:n0}"
-        XrSummary10.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.XrTableCell84.Summary = XrSummary10
-        Me.XrTableCell84.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.XrTableCell84.Weight = 0.7835279015338541R
-        '
         'rptConfirmationOrderVer00
         '
         Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail, Me.TopMargin, Me.BottomMargin, Me.ReportHeader, Me.ReportFooter, Me.PageFooter, Me.gfOrderNumber, Me.ghOrderNumber, Me.ghColumnName, Me.ghColumnNameCoil})
@@ -2137,15 +2137,15 @@ Partial Public Class rptConfirmationOrderVer00
         Me.Parameters.AddRange(New DevExpress.XtraReports.Parameters.Parameter() {Me.paramUom})
         Me.ScriptLanguage = DevExpress.XtraReports.ScriptLanguage.VisualBasic
         Me.Version = "16.2"
+        CType(Me.XrTable9, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.XrTable10, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.XrTable1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.XrTable4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.XrTable5, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.XrTable2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ObjectDataSource1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.XrTable7, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.XrTable8, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.XrTable9, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.XrTable10, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.XrTable2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ObjectDataSource1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub

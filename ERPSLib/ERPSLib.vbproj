@@ -116,6 +116,7 @@
     <Compile Include="BusinessLayers\PurchaseOrderTransport.vb" />
     <Compile Include="BusinessLayers\Receive.vb" />
     <Compile Include="BusinessLayers\Reports.vb" />
+    <Compile Include="BusinessLayers\SalesConfirmationOrder.vb" />
     <Compile Include="BusinessLayers\SalesContract.vb" />
     <Compile Include="BusinessLayers\SalesReturn.vb" />
     <Compile Include="BusinessLayers\Stock.vb" />
@@ -173,6 +174,7 @@
     <Compile Include="DataLayers\PurchaseOrderTransport.vb" />
     <Compile Include="DataLayers\Receive.vb" />
     <Compile Include="DataLayers\Reports.vb" />
+    <Compile Include="DataLayers\SalesConfirmationOrder.vb" />
     <Compile Include="DataLayers\SalesContract.vb" />
     <Compile Include="DataLayers\SalesReturn.vb" />
     <Compile Include="DataLayers\Base\Setup.vb" />
@@ -323,8 +325,13 @@
     <Compile Include="ValueObject\Reports\rptNeracaSaldo.vb" />
     <Compile Include="ValueObject\Reports\rptProformaInvoice.vb" />
     <Compile Include="ValueObject\Reports\rptPurchaseOrderCutting.vb" />
+    <Compile Include="ValueObject\Reports\rptSalesConfirmationOrderVer00.vb" />
     <Compile Include="ValueObject\Reports\rptSalesContractVer00.vb" />
     <Compile Include="ValueObject\Reports\rptShippingInvoiceVer00.vb" />
+    <Compile Include="ValueObject\SalesConfirmationOrder.vb" />
+    <Compile Include="ValueObject\SalesConfirmationOrderDet.vb" />
+    <Compile Include="ValueObject\SalesConfirmationOrderPaymentTerm.vb" />
+    <Compile Include="ValueObject\SalesConfirmationOrderStatus.vb" />
     <Compile Include="ValueObject\SalesContract.vb" />
     <Compile Include="ValueObject\SalesContractDet.vb" />
     <Compile Include="ValueObject\SalesContractDetConfirmationOrder.vb" />

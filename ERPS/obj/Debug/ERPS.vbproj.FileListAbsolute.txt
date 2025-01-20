@@ -983,3 +983,7 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmMstStockHistory.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmMstStockHistory.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetVer2SplitItem.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesContractDetVer2SplitItemDP.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesConfirmationOrder.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesConfirmationOrderDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesConfirmationOrderDetItem.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptSalesConfirmationOrderVer00.resources

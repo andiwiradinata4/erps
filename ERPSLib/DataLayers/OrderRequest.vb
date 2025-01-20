@@ -1409,6 +1409,48 @@
             End Try
         End Sub
 
+        Public Shared Sub CalculateSCOTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                    ByVal strOrderRequestDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traOrderRequestDet SET 	" & vbNewLine &
+                    "	SCOWeight=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(COD.TotalWeight+COD.RoundingWeight),0) TotalWeight		" & vbNewLine &
+                    "		FROM traSalesConfirmationOrderDet COD 	" & vbNewLine &
+                    "		INNER JOIN traSalesConfirmationOrder COH ON	" & vbNewLine &
+                    "			COD.COID=COH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			COD.ORDetailID=@OrderRequestDetailID " & vbNewLine &
+                    "			AND COH.IsDeleted=0 	" & vbNewLine &
+                    "	), 	" & vbNewLine &
+                    "	SCOQuantity=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(COD.Quantity+COD.RoundingWeight),0) TotalQuantity " & vbNewLine &
+                    "		FROM traSalesConfirmationOrderDet COD 	" & vbNewLine &
+                    "		INNER JOIN traSalesConfirmationOrder COH ON	" & vbNewLine &
+                    "			COD.COID=COH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			COD.ORDetailID=@OrderRequestDetailID " & vbNewLine &
+                    "			AND COH.IsDeleted=0 	" & vbNewLine &
+                    "	) 	" & vbNewLine &
+                    "WHERE ID=@OrderRequestDetailID	" & vbNewLine
+
+                .Parameters.Add("@OrderRequestDetailID", SqlDbType.VarChar, 100).Value = strOrderRequestDetailID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
         Public Shared Sub SetupIsIgnoreValidationPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                          ByVal strOrderRequestID As String, ByVal bolValue As Boolean)
             Dim sqlCmdExecute As New SqlCommand

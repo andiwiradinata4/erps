@@ -742,6 +742,48 @@
             End Try
         End Sub
 
+        Public Shared Sub CalculateSCOTotalUsed(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                ByVal strPODetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traPurchaseOrderDet SET 	" & vbNewLine &
+                    "	SCOWeight=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(COD.TotalWeight+COD.RoundingWeight),0) TotalWeight		" & vbNewLine &
+                    "		FROM traSalesConfirmationOrderDet COD 	" & vbNewLine &
+                    "		INNER JOIN traSalesConfirmationOrder COH ON	" & vbNewLine &
+                    "			COD.COID=COH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			COD.PODetailID=@PODetailID " & vbNewLine &
+                    "			AND COH.IsDeleted=0 	" & vbNewLine &
+                    "	), 	" & vbNewLine &
+                    "	SCOQuantity=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(COD.Quantity+COD.RoundingWeight),0) TotalQuantity " & vbNewLine &
+                    "		FROM traSalesConfirmationOrderDet COD 	" & vbNewLine &
+                    "		INNER JOIN traSalesConfirmationOrder COH ON	" & vbNewLine &
+                    "			COD.COID=COH.ID 	" & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			COD.PODetailID=@PODetailID " & vbNewLine &
+                    "			AND COH.IsDeleted=0 	" & vbNewLine &
+                    "	) 	" & vbNewLine &
+                    "WHERE ID=@PODetailID	" & vbNewLine
+
+                .Parameters.Add("@PODetailID", SqlDbType.VarChar, 100).Value = strPODetailID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Payment Term"

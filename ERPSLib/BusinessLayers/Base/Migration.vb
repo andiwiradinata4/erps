@@ -82,6 +82,7 @@
                 DevelopOnProgress_ID75(sqlCon, Nothing)
                 DevelopOnProgress_ID76(sqlCon, Nothing)
                 DevelopOnProgress_ID77(sqlCon, Nothing)
+                DevelopOnProgress_ID78(sqlCon, Nothing)
             End Using
         End Sub
 
@@ -2234,7 +2235,7 @@
             End If
         End Sub
 
-        '# ID = 76
+        '# ID = 77
         Private Shared Sub DevelopOnProgress_ID77(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
             Dim clsData As New VO.Migration
             clsData.ID = 77
@@ -2338,6 +2339,118 @@
 "		[ID] ASC" & vbNewLine &
 "	)" & vbNewLine &
 ")" & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 78
+        Private Shared Sub DevelopOnProgress_ID78(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 78
+            clsData.Name = "Create Table Sales Confirmation Order"
+            clsData.Scripts =
+"CREATE TABLE [dbo].[traSalesConfirmationOrder]( " & vbNewLine & _
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ID]  DEFAULT (''), " & vbNewLine & _
+"	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ProgramID]  DEFAULT ((0)), " & vbNewLine & _
+"	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_CompanyID]  DEFAULT ((0)), " & vbNewLine & _
+"	[CONumber] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_CONumber]  DEFAULT (''), " & vbNewLine & _
+"	[CODate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_CODate]  DEFAULT (getdate()), " & vbNewLine & _
+"	[BPID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_BPID]  DEFAULT ((0)), " & vbNewLine & _
+"	[DeliveryPeriodFrom] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DeliveryPeriodFrom]  DEFAULT (getdate()), " & vbNewLine & _
+"	[DeliveryPeriodTo] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DeliveryPeriodTo]  DEFAULT (getdate()), " & vbNewLine & _
+"	[PPN] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_PPN]  DEFAULT ((0)), " & vbNewLine & _
+"	[PPH] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_PPH]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_TotalQuantity]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_TotalWeight]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_TotalDPP]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_TotalPPN]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_TotalPPH]  DEFAULT ((0)), " & vbNewLine & _
+"	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_RoundingManual]  DEFAULT ((0)), " & vbNewLine & _
+"	[DelegationSeller] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DelegationSeller]  DEFAULT (''), " & vbNewLine & _
+"	[DelegationPositionSeller] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DelegationPositionSeller]  DEFAULT (''), " & vbNewLine & _
+"	[DelegationBuyer] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DelegationBuyer]  DEFAULT (''), " & vbNewLine & _
+"	[DelegationPositionBuyer] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DelegationPositionBuyer]  DEFAULT (''), " & vbNewLine & _
+"	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_IsDeleted]  DEFAULT ((0)), " & vbNewLine & _
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_Remarks]  DEFAULT (''), " & vbNewLine & _
+"	[StatusID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_StatusID]  DEFAULT ((0)), " & vbNewLine & _
+"	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_SubmitBy]  DEFAULT (''), " & vbNewLine & _
+"	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_SubmitDate]  DEFAULT (getdate()), " & vbNewLine & _
+"	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ApproveL1]  DEFAULT (''), " & vbNewLine & _
+"	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ApproveL1Date]  DEFAULT (getdate()), " & vbNewLine & _
+"	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ApprovedBy]  DEFAULT (''), " & vbNewLine & _
+"	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ApprovedDate]  DEFAULT (getdate()), " & vbNewLine & _
+"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_CreatedBy]  DEFAULT ('SYSTEM'), " & vbNewLine & _
+"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_CreatedDate]  DEFAULT (getdate()), " & vbNewLine & _
+"	[LogInc] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_LogInc]  DEFAULT ((0)), " & vbNewLine & _
+"	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_LogBy]  DEFAULT ('SYSTEM'), " & vbNewLine & _
+"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_LogDate]  DEFAULT (getdate()), " & vbNewLine & _
+"	[IsDone] [bit] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_IsDone]  DEFAULT ((0)), " & vbNewLine & _
+"	[DoneBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DoneBy]  DEFAULT (''), " & vbNewLine & _
+"	[DoneDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DoneDate]  DEFAULT (getdate()), " & vbNewLine & _
+"	CONSTRAINT [PK_traSalesConfirmationOrder] PRIMARY KEY CLUSTERED  " & vbNewLine & _
+"	( " & vbNewLine & _
+"[ID] ASC " & vbNewLine & _
+"	) " & vbNewLine & _
+") " & vbNewLine & _
+" " & vbNewLine & _
+"CREATE TABLE [dbo].[traSalesConfirmationOrderDet]( " & vbNewLine & _
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ID]  DEFAULT (''), " & vbNewLine & _
+"	[COID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_COID]  DEFAULT (''), " & vbNewLine & _
+"	[ORDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ORDetailID]  DEFAULT (''), " & vbNewLine & _
+"	[PODetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_PODetailID]  DEFAULT (''), " & vbNewLine & _
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ItemID]  DEFAULT ((0)), " & vbNewLine & _
+"	[Quantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_Quantity]  DEFAULT ((0)), " & vbNewLine & _
+"	[Weight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_Weight]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_TotalWeight]  DEFAULT ((0)), " & vbNewLine & _
+"	[UnitPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_UnitPrice]  DEFAULT ((0)), " & vbNewLine & _
+"	[TotalPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_TotalPrice]  DEFAULT ((0)), " & vbNewLine & _
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_Remarks]  DEFAULT (''), " & vbNewLine & _
+"	[RoundingWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_RoundingWeight]  DEFAULT ((0)), " & vbNewLine & _
+"	[ItemMin] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ItemMin]  DEFAULT ((0)), " & vbNewLine & _
+"	[ItemMax] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ItemMax]  DEFAULT ((0)), " & vbNewLine & _
+"	[ItemTolerances] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ItemTolerances]  DEFAULT ((0)), " & vbNewLine & _
+"	[LocationID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_LocationID]  DEFAULT ((0)), " & vbNewLine & _
+"	CONSTRAINT [PK_traSalesConfirmationOrderDet] PRIMARY KEY CLUSTERED  " & vbNewLine & _
+"	( " & vbNewLine & _
+"[ID] ASC " & vbNewLine & _
+"	) " & vbNewLine & _
+") " & vbNewLine & _
+" " & vbNewLine & _
+"CREATE TABLE [dbo].[traSalesConfirmationOrderPaymentTerm]( " & vbNewLine & _
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_ID]  DEFAULT (''), " & vbNewLine & _
+"	[COID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_COID]  DEFAULT (''), " & vbNewLine & _
+"	[Percentage] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_Percentage]  DEFAULT ((0)), " & vbNewLine & _
+"	[PaymentTypeID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_PaymentTypeID]  DEFAULT ((0)), " & vbNewLine & _
+"	[PaymentModeID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_PaymentModeID]  DEFAULT ((0)), " & vbNewLine & _
+"	[CreditTerm] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_CreditTerm]  DEFAULT ((0)), " & vbNewLine & _
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_Remarks]  DEFAULT ((0)), " & vbNewLine & _
+"	CONSTRAINT [PK_traSalesConfirmationOrderPaymentTerm] PRIMARY KEY CLUSTERED  " & vbNewLine & _
+"	( " & vbNewLine & _
+"[ID] ASC " & vbNewLine & _
+"	) " & vbNewLine & _
+") " & vbNewLine & _
+" " & vbNewLine & _
+"CREATE TABLE [dbo].[traSalesConfirmationOrderStatus]( " & vbNewLine & _
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_ID]  DEFAULT (''), " & vbNewLine & _
+"	[COID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_COID]  DEFAULT (''), " & vbNewLine & _
+"	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_Status]  DEFAULT ((0)), " & vbNewLine & _
+"	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_StatusBy]  DEFAULT ((0)), " & vbNewLine & _
+"	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_StatusDate]  DEFAULT ((0)), " & vbNewLine & _
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_Remarks]  DEFAULT ((0)), " & vbNewLine & _
+"	CONSTRAINT [PK_traSalesConfirmationOrderStatus] PRIMARY KEY CLUSTERED  " & vbNewLine & _
+"	( " & vbNewLine & _
+"[ID] ASC " & vbNewLine & _
+"	) " & vbNewLine & _
+") " & vbNewLine & _
+"" & vbNewLine & _
+"ALTER TABLE traPurchaseOrderDet ADD SCOQuantity DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderDet_SCOQuantity DEFAULT ((0))  " & vbNewLine & _
+"ALTER TABLE traPurchaseOrderDet ADD SCOWeight DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderDet_SCOWeight DEFAULT ((0))  " & vbNewLine & _
+"ALTER TABLE traOrderRequestDet ADD SCOQuantity DECIMAL(18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_SCOQuantity DEFAULT ((0))  " & vbNewLine & _
+"ALTER TABLE traOrderRequestDet ADD SCOWeight DECIMAL(18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_SCOWeight DEFAULT ((0))  " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

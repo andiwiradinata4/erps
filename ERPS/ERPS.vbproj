@@ -1167,6 +1167,24 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestVer2.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesConfirmationOrder.Designer.vb">
+      <DependentUpon>frmTraSalesConfirmationOrder.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesConfirmationOrder.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesConfirmationOrderDet.Designer.vb">
+      <DependentUpon>frmTraSalesConfirmationOrderDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesConfirmationOrderDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesConfirmationOrderDetItem.Designer.vb">
+      <DependentUpon>frmTraSalesConfirmationOrderDetItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesConfirmationOrderDetItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContract.Designer.vb">
       <DependentUpon>frmTraSalesContract.vb</DependentUpon>
     </Compile>
@@ -1453,6 +1471,12 @@
       <DependentUpon>rptPurchaseOrderCutting.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Reports2\rptPurchaseOrderCutting.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptSalesConfirmationOrderVer00.Designer.vb">
+      <DependentUpon>rptSalesConfirmationOrderVer00.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptSalesConfirmationOrderVer00.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Reports2\rptSalesContractVer00.Designer.vb">
@@ -2031,6 +2055,15 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraOrderRequestVer2.resx">
       <DependentUpon>frmTraOrderRequestVer2.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesConfirmationOrder.resx">
+      <DependentUpon>frmTraSalesConfirmationOrder.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesConfirmationOrderDet.resx">
+      <DependentUpon>frmTraSalesConfirmationOrderDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesConfirmationOrderDetItem.resx">
+      <DependentUpon>frmTraSalesConfirmationOrderDetItem.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContract.resx">
       <DependentUpon>frmTraSalesContract.vb</DependentUpon>
     </EmbeddedResource>
@@ -2162,6 +2195,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptPurchaseOrderCutting.resx">
       <DependentUpon>rptPurchaseOrderCutting.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports2\rptSalesConfirmationOrderVer00.resx">
+      <DependentUpon>rptSalesConfirmationOrderVer00.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptSalesContractVer00.resx">
       <DependentUpon>rptSalesContractVer00.vb</DependentUpon>
