@@ -39,9 +39,6 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.Label5 = New System.Windows.Forms.Label()
         Me.txtPONumber = New ERPS.usTextBox()
         Me.btnPOItem = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.txtUnitPriceHPP = New ERPS.usNumeric()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtRequestNumber = New ERPS.usTextBox()
@@ -89,7 +86,6 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         CType(Me.txtItemTolerances, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtItemMax, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtItemMin, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtThick, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -118,9 +114,6 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.pnlDetail.Controls.Add(Me.Label5)
         Me.pnlDetail.Controls.Add(Me.txtPONumber)
         Me.pnlDetail.Controls.Add(Me.btnPOItem)
-        Me.pnlDetail.Controls.Add(Me.Label11)
-        Me.pnlDetail.Controls.Add(Me.Label18)
-        Me.pnlDetail.Controls.Add(Me.txtUnitPriceHPP)
         Me.pnlDetail.Controls.Add(Me.lblInfo)
         Me.pnlDetail.Controls.Add(Me.Label4)
         Me.pnlDetail.Controls.Add(Me.txtRequestNumber)
@@ -165,14 +158,14 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.pnlDetail.Location = New System.Drawing.Point(0, 28)
         Me.pnlDetail.Name = "pnlDetail"
         Me.pnlDetail.Size = New System.Drawing.Size(622, 499)
-        Me.pnlDetail.TabIndex = 2
+        Me.pnlDetail.TabIndex = 1
         '
         'Label31
         '
         Me.Label31.AutoSize = True
         Me.Label31.BackColor = System.Drawing.Color.Transparent
         Me.Label31.ForeColor = System.Drawing.Color.Black
-        Me.Label31.Location = New System.Drawing.Point(563, 311)
+        Me.Label31.Location = New System.Drawing.Point(274, 312)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(19, 13)
         Me.Label31.TabIndex = 206
@@ -183,7 +176,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.Label32.AutoSize = True
         Me.Label32.BackColor = System.Drawing.Color.Transparent
         Me.Label32.ForeColor = System.Drawing.Color.Black
-        Me.Label32.Location = New System.Drawing.Point(336, 311)
+        Me.Label32.Location = New System.Drawing.Point(31, 312)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(50, 13)
         Me.Label32.TabIndex = 205
@@ -193,12 +186,12 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         '
         Me.txtItemTolerances.BackColor = System.Drawing.Color.White
         Me.txtItemTolerances.DecimalPlaces = 2
-        Me.txtItemTolerances.Location = New System.Drawing.Point(399, 307)
+        Me.txtItemTolerances.Location = New System.Drawing.Point(133, 308)
         Me.txtItemTolerances.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtItemTolerances.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtItemTolerances.Name = "txtItemTolerances"
-        Me.txtItemTolerances.Size = New System.Drawing.Size(160, 21)
-        Me.txtItemTolerances.TabIndex = 23
+        Me.txtItemTolerances.Size = New System.Drawing.Size(135, 21)
+        Me.txtItemTolerances.TabIndex = 14
         Me.txtItemTolerances.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtItemTolerances.ThousandsSeparator = True
         '
@@ -207,7 +200,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.Label22.AutoSize = True
         Me.Label22.BackColor = System.Drawing.Color.Transparent
         Me.Label22.ForeColor = System.Drawing.Color.Black
-        Me.Label22.Location = New System.Drawing.Point(274, 339)
+        Me.Label22.Location = New System.Drawing.Point(563, 311)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(19, 13)
         Me.Label22.TabIndex = 203
@@ -218,7 +211,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.Label30.AutoSize = True
         Me.Label30.BackColor = System.Drawing.Color.Transparent
         Me.Label30.ForeColor = System.Drawing.Color.Black
-        Me.Label30.Location = New System.Drawing.Point(31, 339)
+        Me.Label30.Location = New System.Drawing.Point(359, 311)
         Me.Label30.Name = "Label30"
         Me.Label30.Size = New System.Drawing.Size(27, 13)
         Me.Label30.TabIndex = 202
@@ -228,12 +221,12 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         '
         Me.txtItemMax.BackColor = System.Drawing.Color.White
         Me.txtItemMax.DecimalPlaces = 2
-        Me.txtItemMax.Location = New System.Drawing.Point(133, 335)
+        Me.txtItemMax.Location = New System.Drawing.Point(399, 307)
         Me.txtItemMax.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtItemMax.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtItemMax.Name = "txtItemMax"
-        Me.txtItemMax.Size = New System.Drawing.Size(135, 21)
-        Me.txtItemMax.TabIndex = 14
+        Me.txtItemMax.Size = New System.Drawing.Size(160, 21)
+        Me.txtItemMax.TabIndex = 23
         Me.txtItemMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtItemMax.ThousandsSeparator = True
         '
@@ -242,7 +235,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.Label20.AutoSize = True
         Me.Label20.BackColor = System.Drawing.Color.Transparent
         Me.Label20.ForeColor = System.Drawing.Color.Black
-        Me.Label20.Location = New System.Drawing.Point(274, 312)
+        Me.Label20.Location = New System.Drawing.Point(563, 284)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(19, 13)
         Me.Label20.TabIndex = 200
@@ -253,7 +246,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.Label21.AutoSize = True
         Me.Label21.BackColor = System.Drawing.Color.Transparent
         Me.Label21.ForeColor = System.Drawing.Color.Black
-        Me.Label21.Location = New System.Drawing.Point(31, 312)
+        Me.Label21.Location = New System.Drawing.Point(363, 284)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(23, 13)
         Me.Label21.TabIndex = 199
@@ -263,12 +256,12 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         '
         Me.txtItemMin.BackColor = System.Drawing.Color.White
         Me.txtItemMin.DecimalPlaces = 2
-        Me.txtItemMin.Location = New System.Drawing.Point(133, 308)
+        Me.txtItemMin.Location = New System.Drawing.Point(399, 280)
         Me.txtItemMin.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtItemMin.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtItemMin.Name = "txtItemMin"
-        Me.txtItemMin.Size = New System.Drawing.Size(135, 21)
-        Me.txtItemMin.TabIndex = 13
+        Me.txtItemMin.Size = New System.Drawing.Size(160, 21)
+        Me.txtItemMin.TabIndex = 22
         Me.txtItemMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtItemMin.ThousandsSeparator = True
         '
@@ -276,7 +269,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         '
         Me.txtBPLocationAddress.BackColor = System.Drawing.Color.Azure
         Me.txtBPLocationAddress.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtBPLocationAddress.Location = New System.Drawing.Point(133, 362)
+        Me.txtBPLocationAddress.Location = New System.Drawing.Point(133, 335)
         Me.txtBPLocationAddress.MaxLength = 250
         Me.txtBPLocationAddress.Multiline = True
         Me.txtBPLocationAddress.Name = "txtBPLocationAddress"
@@ -287,7 +280,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         'btnBPLocation
         '
         Me.btnBPLocation.Image = CType(resources.GetObject("btnBPLocation.Image"), System.Drawing.Image)
-        Me.btnBPLocation.Location = New System.Drawing.Point(563, 362)
+        Me.btnBPLocation.Location = New System.Drawing.Point(563, 335)
         Me.btnBPLocation.Name = "btnBPLocation"
         Me.btnBPLocation.Size = New System.Drawing.Size(23, 23)
         Me.btnBPLocation.TabIndex = 16
@@ -297,7 +290,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.Label19.AutoSize = True
         Me.Label19.BackColor = System.Drawing.Color.Transparent
         Me.Label19.ForeColor = System.Drawing.Color.Black
-        Me.Label19.Location = New System.Drawing.Point(31, 366)
+        Me.Label19.Location = New System.Drawing.Point(31, 339)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(95, 13)
         Me.Label19.TabIndex = 197
@@ -323,7 +316,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.txtPONumber.Name = "txtPONumber"
         Me.txtPONumber.ReadOnly = True
         Me.txtPONumber.Size = New System.Drawing.Size(135, 21)
-        Me.txtPONumber.TabIndex = 2
+        Me.txtPONumber.TabIndex = 3
         '
         'btnPOItem
         '
@@ -331,41 +324,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.btnPOItem.Location = New System.Drawing.Point(274, 62)
         Me.btnPOItem.Name = "btnPOItem"
         Me.btnPOItem.Size = New System.Drawing.Size(23, 23)
-        Me.btnPOItem.TabIndex = 3
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.BackColor = System.Drawing.Color.Transparent
-        Me.Label11.ForeColor = System.Drawing.Color.Black
-        Me.Label11.Location = New System.Drawing.Point(563, 284)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(19, 13)
-        Me.Label11.TabIndex = 189
-        Me.Label11.Text = "Kg"
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.BackColor = System.Drawing.Color.Transparent
-        Me.Label18.ForeColor = System.Drawing.Color.Black
-        Me.Label18.Location = New System.Drawing.Point(331, 284)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(55, 13)
-        Me.Label18.TabIndex = 188
-        Me.Label18.Text = "Harga Beli"
-        '
-        'txtUnitPriceHPP
-        '
-        Me.txtUnitPriceHPP.DecimalPlaces = 2
-        Me.txtUnitPriceHPP.Location = New System.Drawing.Point(399, 280)
-        Me.txtUnitPriceHPP.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtUnitPriceHPP.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtUnitPriceHPP.Name = "txtUnitPriceHPP"
-        Me.txtUnitPriceHPP.Size = New System.Drawing.Size(160, 21)
-        Me.txtUnitPriceHPP.TabIndex = 22
-        Me.txtUnitPriceHPP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtUnitPriceHPP.ThousandsSeparator = True
+        Me.btnPOItem.TabIndex = 4
         '
         'lblInfo
         '
@@ -400,7 +359,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.txtRequestNumber.Name = "txtRequestNumber"
         Me.txtRequestNumber.ReadOnly = True
         Me.txtRequestNumber.Size = New System.Drawing.Size(135, 21)
-        Me.txtRequestNumber.TabIndex = 0
+        Me.txtRequestNumber.TabIndex = 1
         '
         'txtLength
         '
@@ -412,7 +371,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.txtLength.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtLength.Name = "txtLength"
         Me.txtLength.Size = New System.Drawing.Size(135, 21)
-        Me.txtLength.TabIndex = 10
+        Me.txtLength.TabIndex = 11
         Me.txtLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtLength.ThousandsSeparator = True
         '
@@ -426,7 +385,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.txtWidth.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtWidth.Name = "txtWidth"
         Me.txtWidth.Size = New System.Drawing.Size(135, 21)
-        Me.txtWidth.TabIndex = 9
+        Me.txtWidth.TabIndex = 10
         Me.txtWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtWidth.ThousandsSeparator = True
         '
@@ -440,7 +399,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.txtThick.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtThick.Name = "txtThick"
         Me.txtThick.Size = New System.Drawing.Size(135, 21)
-        Me.txtThick.TabIndex = 8
+        Me.txtThick.TabIndex = 9
         Me.txtThick.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtThick.ThousandsSeparator = True
         '
@@ -476,7 +435,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.txtMaxTotalWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtMaxTotalWeight.Name = "txtMaxTotalWeight"
         Me.txtMaxTotalWeight.Size = New System.Drawing.Size(135, 21)
-        Me.txtMaxTotalWeight.TabIndex = 12
+        Me.txtMaxTotalWeight.TabIndex = 13
         Me.txtMaxTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtMaxTotalWeight.ThousandsSeparator = True
         '
@@ -614,14 +573,14 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.btnRequestItem.Location = New System.Drawing.Point(274, 35)
         Me.btnRequestItem.Name = "btnRequestItem"
         Me.btnRequestItem.Size = New System.Drawing.Size(23, 23)
-        Me.btnRequestItem.TabIndex = 1
+        Me.btnRequestItem.TabIndex = 2
         '
         'Label13
         '
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(31, 419)
+        Me.Label13.Location = New System.Drawing.Point(31, 392)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 170
@@ -631,7 +590,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(133, 416)
+        Me.txtRemarks.Location = New System.Drawing.Point(133, 389)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
@@ -702,7 +661,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.txtWeight.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtWeight.Name = "txtWeight"
         Me.txtWeight.Size = New System.Drawing.Size(135, 21)
-        Me.txtWeight.TabIndex = 11
+        Me.txtWeight.TabIndex = 12
         Me.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtWeight.ThousandsSeparator = True
         '
@@ -801,7 +760,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.txtItemCode.Name = "txtItemCode"
         Me.txtItemCode.ReadOnly = True
         Me.txtItemCode.Size = New System.Drawing.Size(135, 21)
-        Me.txtItemCode.TabIndex = 4
+        Me.txtItemCode.TabIndex = 5
         '
         'lblName
         '
@@ -824,7 +783,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.txtItemName.Name = "txtItemName"
         Me.txtItemName.ReadOnly = True
         Me.txtItemName.Size = New System.Drawing.Size(426, 48)
-        Me.txtItemName.TabIndex = 5
+        Me.txtItemName.TabIndex = 8
         '
         'ToolBar
         '
@@ -835,7 +794,7 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
         Me.ToolBar.Size = New System.Drawing.Size(622, 28)
-        Me.ToolBar.TabIndex = 1
+        Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
         'BarRefresh
@@ -867,7 +826,6 @@ Partial Class frmTraSalesConfirmationOrderDetItem
         CType(Me.txtItemTolerances, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtItemMax, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtItemMin, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtUnitPriceHPP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtLength, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWidth, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtThick, System.ComponentModel.ISupportInitialize).EndInit()
@@ -885,9 +843,6 @@ Partial Class frmTraSalesConfirmationOrderDetItem
     Friend WithEvents BarRefresh As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarClose As System.Windows.Forms.ToolBarButton
     Friend WithEvents pnlDetail As System.Windows.Forms.Panel
-    Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents Label18 As System.Windows.Forms.Label
-    Friend WithEvents txtUnitPriceHPP As ERPS.usNumeric
     Friend WithEvents lblInfo As System.Windows.Forms.Label
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents txtRequestNumber As ERPS.usTextBox

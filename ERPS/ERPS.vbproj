@@ -1185,6 +1185,18 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesConfirmationOrderDetItem.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesConfirmationOrderDetItemPO.Designer.vb">
+      <DependentUpon>frmTraSalesConfirmationOrderDetItemPO.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesConfirmationOrderDetItemPO.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesConfirmationOrderDetItemRequest.Designer.vb">
+      <DependentUpon>frmTraSalesConfirmationOrderDetItemRequest.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesConfirmationOrderDetItemRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContract.Designer.vb">
       <DependentUpon>frmTraSalesContract.vb</DependentUpon>
     </Compile>
@@ -2063,6 +2075,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesConfirmationOrderDetItem.resx">
       <DependentUpon>frmTraSalesConfirmationOrderDetItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesConfirmationOrderDetItemPO.resx">
+      <DependentUpon>frmTraSalesConfirmationOrderDetItemPO.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesConfirmationOrderDetItemRequest.resx">
+      <DependentUpon>frmTraSalesConfirmationOrderDetItemRequest.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesContract.resx">
       <DependentUpon>frmTraSalesContract.vb</DependentUpon>
