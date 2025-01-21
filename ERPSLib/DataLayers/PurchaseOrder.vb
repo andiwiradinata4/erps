@@ -646,6 +646,43 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailOutstandingSalesConfirmationOrder(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                               ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT 	" & vbNewLine &
+                    "   A.ID, A.POID, A1.PONumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, 	" & vbNewLine &
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, 	" & vbNewLine &
+                    "   D.Description AS ItemTypeName, A.UnitPrice, A.Quantity-A.COQuantity AS Quantity, A.Weight, " & vbNewLine &
+                    "   A.TotalWeight-A.SCOWeight AS TotalWeight, A.Remarks, A.RoundingWeight, A.TotalWeight+A.RoundingWeight-A.SCOWeight AS MaxTotalWeight " & vbNewLine &
+                    "FROM traPurchaseOrderDet A 	" & vbNewLine &
+                    "INNER JOIN traPurchaseOrder A1 ON 	" & vbNewLine &
+                    "   A.POID=A1.ID 	" & vbNewLine &
+                    "INNER JOIN mstItem B ON 	" & vbNewLine &
+                    "   A.ItemID=B.ID 	" & vbNewLine &
+                    "INNER JOIN mstItemSpecification C ON 	" & vbNewLine &
+                    "   B.ItemSpecificationID=C.ID 	" & vbNewLine &
+                    "INNER JOIN mstItemType D ON 	" & vbNewLine &
+                    "   B.ItemTypeID=D.ID 	" & vbNewLine &
+                    "WHERE 	" & vbNewLine &
+                    "   A1.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A1.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A1.IsDeleted=0 " & vbNewLine &
+                    "   AND A1.StatusID=@StatusID " & vbNewLine &
+                    "   AND A1.ApprovedBy<>'' " & vbNewLine &
+                    "   AND A.TotalWeight-A.RoundingWeight-A.SCOWeight>0	" & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                          ByVal clsData As VO.PurchaseOrderDet)
             Dim sqlCmdExecute As New SqlCommand

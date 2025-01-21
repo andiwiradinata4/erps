@@ -189,7 +189,7 @@ Partial Class frmTraSalesConfirmationOrderDet
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(925, 171)
+        Me.tcHeader.Size = New System.Drawing.Size(925, 200)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
@@ -214,7 +214,7 @@ Partial Class frmTraSalesConfirmationOrderDet
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(917, 142)
+        Me.tpMain.Size = New System.Drawing.Size(917, 171)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
@@ -275,7 +275,7 @@ Partial Class frmTraSalesConfirmationOrderDet
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(585, 42)
+        Me.txtRemarks.Location = New System.Drawing.Point(576, 17)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
@@ -319,7 +319,7 @@ Partial Class frmTraSalesConfirmationOrderDet
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(468, 46)
+        Me.Label13.Location = New System.Drawing.Point(490, 21)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(63, 13)
         Me.Label13.TabIndex = 129
@@ -330,9 +330,9 @@ Partial Class frmTraSalesConfirmationOrderDet
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(585, 15)
+        Me.cboStatus.Location = New System.Drawing.Point(145, 123)
         Me.cboStatus.Name = "cboStatus"
-        Me.cboStatus.Size = New System.Drawing.Size(105, 21)
+        Me.cboStatus.Size = New System.Drawing.Size(116, 21)
         Me.cboStatus.TabIndex = 7
         '
         'lblStatusID
@@ -340,7 +340,7 @@ Partial Class frmTraSalesConfirmationOrderDet
         Me.lblStatusID.AutoSize = True
         Me.lblStatusID.BackColor = System.Drawing.Color.Transparent
         Me.lblStatusID.ForeColor = System.Drawing.Color.Black
-        Me.lblStatusID.Location = New System.Drawing.Point(468, 19)
+        Me.lblStatusID.Location = New System.Drawing.Point(28, 127)
         Me.lblStatusID.Name = "lblStatusID"
         Me.lblStatusID.Size = New System.Drawing.Size(38, 13)
         Me.lblStatusID.TabIndex = 128
@@ -353,7 +353,7 @@ Partial Class frmTraSalesConfirmationOrderDet
         Me.dtpCODate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpCODate.Location = New System.Drawing.Point(145, 70)
         Me.dtpCODate.Name = "dtpCODate"
-        Me.dtpCODate.Size = New System.Drawing.Size(105, 21)
+        Me.dtpCODate.Size = New System.Drawing.Size(83, 21)
         Me.dtpCODate.TabIndex = 4
         Me.dtpCODate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
@@ -410,7 +410,7 @@ Partial Class frmTraSalesConfirmationOrderDet
         Me.tpAmount.Controls.Add(Me.txtPPN)
         Me.tpAmount.Location = New System.Drawing.Point(4, 25)
         Me.tpAmount.Name = "tpAmount"
-        Me.tpAmount.Size = New System.Drawing.Size(917, 170)
+        Me.tpAmount.Size = New System.Drawing.Size(917, 171)
         Me.tpAmount.TabIndex = 2
         Me.tpAmount.Text = "Harga - F2"
         Me.tpAmount.UseVisualStyleBackColor = True
@@ -607,7 +607,7 @@ Partial Class frmTraSalesConfirmationOrderDet
         Me.tpPaymentTerm.Controls.Add(Me.ToolBarPaymentTerm)
         Me.tpPaymentTerm.Location = New System.Drawing.Point(4, 25)
         Me.tpPaymentTerm.Name = "tpPaymentTerm"
-        Me.tpPaymentTerm.Size = New System.Drawing.Size(917, 170)
+        Me.tpPaymentTerm.Size = New System.Drawing.Size(917, 171)
         Me.tpPaymentTerm.TabIndex = 3
         Me.tpPaymentTerm.Text = "Syarat Pembayaran - F3"
         Me.tpPaymentTerm.UseVisualStyleBackColor = True
@@ -633,7 +633,7 @@ Partial Class frmTraSalesConfirmationOrderDet
         Me.grdPaymentTerm.MainView = Me.grdPaymentTermView
         Me.grdPaymentTerm.Name = "grdPaymentTerm"
         Me.grdPaymentTerm.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit2})
-        Me.grdPaymentTerm.Size = New System.Drawing.Size(913, 138)
+        Me.grdPaymentTerm.Size = New System.Drawing.Size(913, 139)
         Me.grdPaymentTerm.TabIndex = 2
         Me.grdPaymentTerm.UseEmbeddedNavigator = True
         Me.grdPaymentTerm.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdPaymentTermView})
@@ -693,7 +693,7 @@ Partial Class frmTraSalesConfirmationOrderDet
         Me.tpAdditionalInformation.Controls.Add(Me.gboDelegationBuyer)
         Me.tpAdditionalInformation.Location = New System.Drawing.Point(4, 25)
         Me.tpAdditionalInformation.Name = "tpAdditionalInformation"
-        Me.tpAdditionalInformation.Size = New System.Drawing.Size(917, 170)
+        Me.tpAdditionalInformation.Size = New System.Drawing.Size(917, 171)
         Me.tpAdditionalInformation.TabIndex = 4
         Me.tpAdditionalInformation.Text = "Informasi Tambahan - F4"
         Me.tpAdditionalInformation.UseVisualStyleBackColor = True
@@ -815,7 +815,7 @@ Partial Class frmTraSalesConfirmationOrderDet
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(917, 170)
+        Me.tpHistory.Size = New System.Drawing.Size(917, 171)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F5"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -840,7 +840,7 @@ Partial Class frmTraSalesConfirmationOrderDet
         Me.grdStatus.Location = New System.Drawing.Point(3, 3)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(907, 160)
+        Me.grdStatus.Size = New System.Drawing.Size(907, 161)
         Me.grdStatus.TabIndex = 13
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -860,7 +860,7 @@ Partial Class frmTraSalesConfirmationOrderDet
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(0, 221)
+        Me.Label1.Location = New System.Drawing.Point(0, 250)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(925, 22)
         Me.Label1.TabIndex = 3
@@ -872,10 +872,10 @@ Partial Class frmTraSalesConfirmationOrderDet
         Me.tcDetail.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tcDetail.Controls.Add(Me.tpItem)
         Me.tcDetail.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tcDetail.Location = New System.Drawing.Point(0, 243)
+        Me.tcDetail.Location = New System.Drawing.Point(0, 272)
         Me.tcDetail.Name = "tcDetail"
         Me.tcDetail.SelectedIndex = 0
-        Me.tcDetail.Size = New System.Drawing.Size(925, 395)
+        Me.tcDetail.Size = New System.Drawing.Size(925, 366)
         Me.tcDetail.TabIndex = 4
         '
         'tpItem
@@ -886,7 +886,7 @@ Partial Class frmTraSalesConfirmationOrderDet
         Me.tpItem.Location = New System.Drawing.Point(4, 25)
         Me.tpItem.Name = "tpItem"
         Me.tpItem.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpItem.Size = New System.Drawing.Size(917, 366)
+        Me.tpItem.Size = New System.Drawing.Size(917, 337)
         Me.tpItem.TabIndex = 1
         Me.tpItem.Text = "Item - F6"
         Me.tpItem.UseVisualStyleBackColor = True
@@ -912,7 +912,7 @@ Partial Class frmTraSalesConfirmationOrderDet
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1})
-        Me.grdItem.Size = New System.Drawing.Size(911, 310)
+        Me.grdItem.Size = New System.Drawing.Size(911, 281)
         Me.grdItem.TabIndex = 1
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
@@ -940,7 +940,7 @@ Partial Class frmTraSalesConfirmationOrderDet
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
-        Me.StatusStrip.Location = New System.Drawing.Point(3, 341)
+        Me.StatusStrip.Location = New System.Drawing.Point(3, 312)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(911, 22)
         Me.StatusStrip.TabIndex = 2

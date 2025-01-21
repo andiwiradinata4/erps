@@ -8,7 +8,7 @@ Public Class frmTraSalesConfirmationOrder
     Private intProgramID As Integer
     Private intCompanyID As Integer
     Private dtData As New DataTable
-    Private bolExport As Boolean
+    Private bolExport As Boolean = True
 
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
@@ -374,39 +374,7 @@ Public Class frmTraSalesConfirmationOrder
         End Try
     End Sub
 
-    'Private Sub prvPrint()
-    '    intPos = grdView.FocusedRowHandle
-    '    If intPos < 0 Then Exit Sub
-    '    clsData = prvGetData()
-    '    Dim enumPrintType As VO.SalesContract.PrintType = VO.SalesContract.PrintType.None
-    '    Using frmDetail As New frmTraSalesContractPrint
-    '        frmDetail.pubID = clsData.ID
-    '        frmDetail.StartPosition = FormStartPosition.CenterParent
-    '        frmDetail.ShowDialog()
-    '        If frmDetail.pubType = VO.SalesContract.PrintType.None Then Exit Sub
-    '        enumPrintType = frmDetail.pubType
-    '        clsData.AdditionalTerm1 = frmDetail.pubAdditionalTerm1
-    '        clsData.AdditionalTerm2 = frmDetail.pubAdditionalTerm2
-    '        clsData.AdditionalTerm3 = frmDetail.pubAdditionalTerm3
-    '        clsData.AdditionalTerm4 = frmDetail.pubAdditionalTerm4
-    '        clsData.AdditionalTerm5 = frmDetail.pubAdditionalTerm5
-    '        clsData.AdditionalTerm6 = frmDetail.pubAdditionalTerm6
-    '        clsData.AdditionalTerm7 = frmDetail.pubAdditionalTerm7
-    '        clsData.AdditionalTerm8 = frmDetail.pubAdditionalTerm8
-    '        clsData.AdditionalTerm9 = frmDetail.pubAdditionalTerm9
-    '        clsData.AdditionalTerm10 = frmDetail.pubAdditionalTerm10
-
-    '        Try
-    '            BL.SalesContract.UpdateAdditinalTerm(clsData)
-    '        Catch ex As Exception
-    '            UI.usForm.frmMessageBox(ex.Message)
-    '        End Try
-    '    End Using
-    '    prvPrintSCCO()
-    '    prvPrintSC(enumPrintType)
-    'End Sub
-
-    Private Sub prvPrint(ByVal enumPrintType As VO.SalesContract.PrintType)
+    Private Sub prvPrint()
         intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
@@ -417,6 +385,10 @@ Public Class frmTraSalesConfirmationOrder
             Dim crReport As New rptSalesConfirmationOrderVer00
             Dim dtData As DataTable = BL.SalesConfirmationOrder.PrintVer00(strID)
             Dim intStatusID As Integer = 0
+            For Each dr As DataRow In dtData.Rows
+                intStatusID = dr.Item("StatusID")
+                Exit For
+            Next
             crReport.PaperKind = System.Drawing.Printing.PaperKind.A4
 
             '# Setup Watermark Report
@@ -433,6 +405,10 @@ Public Class frmTraSalesConfirmationOrder
             crReport.ShowPreviewMarginLines = False
             crReport.ShowPrintMarginsWarning = False
 
+            If dtData.Rows.Count <= 1 Then
+                crReport.xrTableCellDeliveryAddress.CanGrow = True
+            End If
+
             Dim frmDetail As New frmReportPreview
             With frmDetail
                 .docViewer.DocumentSource = crReport
@@ -447,90 +423,6 @@ Public Class frmTraSalesConfirmationOrder
             pgMain.Value = 100
             prvResetProgressBar()
         End Try
-    End Sub
-
-    Private Sub prvPrintSCCO()
-        'intPos = grdView.FocusedRowHandle
-        'If intPos < 0 Then Exit Sub
-        'Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
-        'Me.Cursor = Cursors.WaitCursor
-        'pgMain.Value = 40
-
-        'Try
-        '    Dim dtData As DataTable = BL.SalesContract.PrintSCCOVer00(intProgramID, intCompanyID, strID)
-        '    Dim intStatusID As Integer = 0
-        '    Dim strUomInitial As String = "LBR"
-        '    For Each dr As DataRow In dtData.Rows
-        '        intStatusID = dr.Item("StatusID")
-        '        strUomInitial = dr.Item("UomInitial")
-        '        Exit For
-        '    Next
-
-        '    Dim crReport As New rptConfirmationOrderVer00
-        '    crReport.PaperKind = System.Drawing.Printing.PaperKind.A4
-
-        '    '# Setup Watermark Report
-        '    If intStatusID <> VO.Status.Values.Approved Then
-        '        crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
-        '        crReport.Watermark.ForeColor = System.Drawing.Color.DimGray
-        '        crReport.Watermark.Font = New System.Drawing.Font("Tahoma", 70.0!, System.Drawing.FontStyle.Bold)
-        '        crReport.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.Horizontal
-        '        crReport.Watermark.TextTransparency = 150
-        '    End If
-
-        '    crReport.paramUom.Value = strUomInitial.Trim
-        '    crReport.DataSource = dtData
-        '    crReport.CreateDocument(True)
-        '    crReport.ShowPreviewMarginLines = False
-        '    crReport.ShowPrintMarginsWarning = False
-
-        '    If strUomInitial = "QTY" Then
-        '        'crReport.CellHeaderWeighLbr.Text = ""
-        '        'crReport.CellHeaderWeighLbr.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
-        '        'crReport.CellDetailWeighLbr.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Top) Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-
-        '        crReport.ghColumnName.Visible = False
-        '        crReport.sbDetail.Visible = False
-        '        crReport.gfOrderNumberDefault.Visible = False
-        '        crReport.sbGrandTotalDefault.Visible = False
-
-
-        '        crReport.ghColumnNameCoil.Visible = True
-        '        crReport.sbDetailCoil.Visible = True
-        '        crReport.gfOrderNumberCoil.Visible = True
-        '        crReport.sbGrandTotalCoil.Visible = True
-
-        '    Else
-        '        crReport.ghColumnName.Visible = True
-        '        crReport.sbDetail.Visible = True
-        '        crReport.gfOrderNumberDefault.Visible = True
-        '        crReport.sbGrandTotalDefault.Visible = True
-
-        '        crReport.ghColumnNameCoil.Visible = False
-        '        crReport.sbDetailCoil.Visible = False
-        '        crReport.gfOrderNumberCoil.Visible = False
-        '        crReport.sbGrandTotalCoil.Visible = False
-        '    End If
-
-        '    If dtData.Rows.Count = 1 Then
-        '        crReport.xrTableCellDeliveryAddressCoil.CanGrow = True
-        '        crReport.xrTableCellDeliveryAddress.CanGrow = True
-        '    End If
-
-        '    Dim frmDetail As New frmReportPreview
-        '    With frmDetail
-        '        .docViewer.DocumentSource = crReport
-        '        .pgExportButton.Enabled = bolExport
-        '        .Text = Me.Text & " - " & VO.Reports.PrintOut
-        '        .WindowState = FormWindowState.Maximized
-        '        .Show()
-        '    End With
-        'Catch ex As Exception
-        '    UI.usForm.frmMessageBox(ex.Message)
-        'Finally
-        '    pgMain.Value = 100
-        '    prvResetProgressBar()
-        'End Try
     End Sub
 
     Private Sub prvExportExcel()

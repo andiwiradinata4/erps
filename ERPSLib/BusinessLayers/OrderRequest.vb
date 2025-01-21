@@ -392,6 +392,14 @@
             End Using
         End Function
 
+        Public Shared Function ListDataDetailOutstandingSalesConfirmationOrder(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                               ByVal intBPID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.OrderRequest.ListDataDetailOutstandingSalesConfirmationOrder(sqlCon, Nothing, intProgramID, intCompanyID, intBPID)
+            End Using
+        End Function
+
         Public Shared Function ChangeItemIDDetail(ByVal strID As String, ByVal bolIsStock As Boolean,
                                                   ByVal intOldItemID As Integer, ByVal intNewItemID As Integer) As Boolean
             Dim bolReturn As Boolean = False

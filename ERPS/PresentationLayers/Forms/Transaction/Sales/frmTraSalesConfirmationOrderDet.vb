@@ -43,8 +43,7 @@ Public Class frmTraSalesConfirmationOrderDet
         UI.usForm.SetGrid(grdItemView, "COID", "COID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "ORDetailID", "ORDetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "PODetailID", "PODetailID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdItemView, "RequestNumber", "Nomor Permintaan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdItemView, "OrderNumber", "Nomor Permintaan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "PONumber", "Nomor Pesanan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
@@ -413,50 +412,42 @@ Public Class frmTraSalesConfirmationOrderDet
             Exit Sub
         End If
 
-        'Dim frmDetail As New frmTraSalesConfirmationOrderDetItemVer2
-        'With frmDetail
-        '    .pubIsNew = True
-        '    .pubID = Guid.NewGuid.ToString
-        '    .pubCS = pubCS
-        '    .pubBPID = intBPID
-        '    .pubTableParentItem = dtItem
-        '    .pubTableParentCOItem = dtItemConfirmationOrder
-        '    .pubIsAutoSearch = True
-        '    .pubLevelItem = 0
-        '    .pubBPID = intBPID
-        '    .StartPosition = FormStartPosition.CenterParent
-        '    .pubShowDialog(Me)
-        '    prvSetButtonItem()
-        '    prvCalculate()
-        '    prvSetupTools()
-        '    prvSumGrid()
-        'End With
+        Dim frmDetail As New frmTraSalesConfirmationOrderDetItem
+        With frmDetail
+            .pubIsNew = True
+            .pubID = Guid.NewGuid.ToString
+            .pubCS = pubCS
+            .pubBPID = intBPID
+            .pubTableParentItem = dtItem
+            .pubIsAutoSearch = True
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            prvSetButtonItem()
+            prvCalculate()
+            prvSetupTools()
+            prvSumGrid()
+        End With
     End Sub
 
     Private Sub prvEditItem()
         intPos = grdItemView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
 
-        'Dim frmDetail As New frmTraSalesConfirmationOrderDetItemVer2
-        'With frmDetail
-        '    .pubIsNew = False
-        '    .pubCS = pubCS
-        '    .pubBPID = intBPID
-        '    .pubTableParentItem = dtItem
-        '    .pubTableParentCOItem = dtItemConfirmationOrder
-        '    .pubDataRowSelected = grdItemView.GetDataRow(intPos)
-        '    .pubLevelItem = 0
-        '    .pubCOID = pubID
-        '    .StartPosition = FormStartPosition.CenterParent
-        '    .pubShowDialog(Me)
-        '    prvSetButtonItem()
-        '    prvCalculate()
-        '    prvSetupTools()
-        '    prvSumGrid()
-        '    If .pubIsNeedRefresh Then
-        '        prvQueryItem()
-        '    End If
-        'End With
+        Dim frmDetail As New frmTraSalesConfirmationOrderDetItem
+        With frmDetail
+            .pubIsNew = False
+            .pubID = grdItemView.GetRowCellValue(intPos, "ID")
+            .pubCS = pubCS
+            .pubBPID = intBPID
+            .pubTableParentItem = dtItem
+            .pubDataRowSelected = grdItemView.GetDataRow(intPos)
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            prvSetButtonItem()
+            prvCalculate()
+            prvSetupTools()
+            prvSumGrid()
+        End With
     End Sub
 
     Private Sub prvDeleteItem()

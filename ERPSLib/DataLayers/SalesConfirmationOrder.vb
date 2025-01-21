@@ -32,11 +32,11 @@ Namespace DL
                     "WHERE " & vbNewLine &
                     "   A.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.CompanyID=@CompanyID " & vbNewLine &
-                    "   AND A.SCDate>=@DateFrom AND A.SCDate<=@DateTo " & vbNewLine
+                    "   AND A.CODate>=@DateFrom AND A.CODate<=@DateTo " & vbNewLine
 
                 If intStatusID > 0 Then .CommandText += "   AND A.StatusID=@StatusID " & vbNewLine
 
-                .CommandText += "ORDER BY A.SCDate, A.SCNumber "
+                .CommandText += "ORDER BY A.CODate, A.CONumber "
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
@@ -216,6 +216,7 @@ Namespace DL
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Deleted
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -271,7 +272,7 @@ Namespace DL
                         "SELECT COUNT(*) AS Total " & vbNewLine &
                         "FROM traSalesConfirmationOrder " & vbNewLine &
                         "WHERE " & vbNewLine &
-                        "   YEAR(SCDate)=@Year " & vbNewLine &
+                        "   YEAR(CODate)=@Year " & vbNewLine &
                         "   AND ProgramID=@ProgramID " & vbNewLine &
                         "   AND CompanyID=@CompanyID " & vbNewLine
 
@@ -295,7 +296,7 @@ Namespace DL
         End Function
 
         Public Shared Function DataExists(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                          ByVal strSCNumber As String, ByVal strID As String) As Boolean
+                                          ByVal strCONumber As String, ByVal strID As String) As Boolean
             Dim bolDataExists As Boolean = False
             Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Try
@@ -308,10 +309,10 @@ Namespace DL
                         "   ID " & vbNewLine &
                         "FROM traSalesConfirmationOrder " & vbNewLine &
                         "WHERE  " & vbNewLine &
-                        "   SCNumber=@SCNumber " & vbNewLine &
+                        "   CONumber=@CONumber " & vbNewLine &
                         "   AND ID<>@ID " & vbNewLine
 
-                    .Parameters.Add("@SCNumber", SqlDbType.VarChar, 100).Value = strSCNumber
+                    .Parameters.Add("@CONumber", SqlDbType.VarChar, 100).Value = strCONumber
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
@@ -506,15 +507,17 @@ Namespace DL
                 .CommandText =
 "SELECT  " & vbNewLine & _
 "	BP.Name AS BPName, IT.Description AS ItemTypeName, SCO.CONumber AS TransNumber, CAST('' AS VARCHAR(1000)) AS AllItemName,     " & vbNewLine & _
-"    SCO.CODate AS TransDate, BPL.Address AS DeliveryAddress, MIS.Description AS ItemTypeAndSpec, MI.Thick AS ItemThick,  " & vbNewLine & _
+"    SCO.CODate AS TransDate, BPL.Address AS DeliveryAddress, MIS.Description AS ItemSpec, MI.Thick AS ItemThick,  " & vbNewLine & _
 "	MI.Width AS ItemWidth, CASE WHEN MI.Length=0 THEN IT.LengthInitial ELSE CAST(MI.Length AS VARCHAR(100)) END AS ItemLength,  " & vbNewLine & _
 "	Weight=CASE WHEN IT.LengthInitial='COIL' THEN NULL ELSE SCOD.Weight END, SCOD.Quantity, SCOD.TotalWeight AS TotalWeightItem,  " & vbNewLine & _
 "	SCOD.UnitPrice, SCOD.TotalPrice, (SCOD.TotalPrice*SCO.PPN/100) AS TotalPPNItem, SCOD.TotalPrice + (SCOD.TotalPrice*SCO.PPN/100) AS TotalPriceIncPPN,  " & vbNewLine & _
 "	CAST('' AS VARCHAR(1000)) AS NumericToString, BP.PICName AS BPPIC, MC.DirectorName AS CompanyDirectorName,    " & vbNewLine & _
-"    SCO.TotalDPP + SCO.TotalPPN - SCO.TotalPPH + SCO.RoundingManual AS GrandTotal, SCO.PPN, SCO.StatusID, SCO.DelegationSeller,    " & vbNewLine & _
-"    SCO.DelegationPositionSeller, SCO.DelegationBuyer, SCO.DelegationPositionBuyer, MC.Name AS CompanyName,  " & vbNewLine & _
-"	UomInitial=CASE WHEN IT.LengthInitial='COIL' THEN 'QTY' ELSE 'LBR' END, SCOD.ItemMin, SCOD.ItemMax, SCOD.ItemTolerances,  " & vbNewLine & _
-"	CAST('' AS VARCHAR(1000)) AS PaymentTerms  " & vbNewLine & _
+"   SCO.TotalDPP + SCO.TotalPPN - SCO.TotalPPH + SCO.RoundingManual AS GrandTotal, SCO.PPN, SCO.StatusID, SCO.DelegationSeller,    " & vbNewLine & _
+"   SCO.DelegationPositionSeller, SCO.DelegationBuyer, SCO.DelegationPositionBuyer, MC.Name AS CompanyName,  " & vbNewLine & _
+"	UomInitial=CASE WHEN IT.LengthInitial='COIL' THEN 'QTY' ELSE 'LBR' END, CASE WHEN SCOD.ItemMin=0 THEN NULL ELSE SCOD.ItemMin END AS ItemMin, " & vbNewLine & _
+"   CASE WHEN SCOD.ItemMax=0 THEN NULL ELSE SCOD.ItemMax END ItemMax, CASE WHEN SCOD.ItemTolerances=0 THEN NULL ELSE SCOD.ItemTolerances END AS ItemTolerances,  " & vbNewLine & _
+"	CAST('' AS VARCHAR(1000)) AS PaymentTerms, CAST('' AS VARCHAR(1000)) AS DeliveryPeriod, SCO.DeliveryPeriodFrom, " & vbNewLine & _
+"   SCO.DeliveryPeriodTo, ORH.OrderNumber AS OrderRequestNumber, POH.PONumber  " & vbNewLine & _
 "FROM traSalesConfirmationOrder SCO  " & vbNewLine & _
 "INNER JOIN mstCompany MC ON    " & vbNewLine & _
 "    SCO.CompanyID=MC.ID    " & vbNewLine & _
@@ -530,6 +533,14 @@ Namespace DL
 "    SCO.BPID=BP.ID    " & vbNewLine & _
 "INNER JOIN mstBusinessPartnerLocation BPL ON	   " & vbNewLine & _
 "    SCOD.LocationID=BPL.ID    " & vbNewLine & _
+"INNER JOIN traOrderRequestDet ORD ON  	" & vbNewLine &
+"    SCOD.ORDetailID=ORD.ID  	" & vbNewLine &
+"INNER JOIN traOrderRequest ORH ON  	" & vbNewLine &
+"    ORD.OrderRequestID=ORH.ID  	" & vbNewLine &
+"INNER JOIN traPurchaseOrderDet POD ON  	" & vbNewLine &
+"    SCOD.PODetailID=POD.ID  	" & vbNewLine &
+"INNER JOIN traPurchaseOrder POH ON  	" & vbNewLine &
+"    POD.POID=POH.ID  	" & vbNewLine &
 "WHERE SCO.ID=@ID  " & vbNewLine & _
 "ORDER BY SCOD.LocationID ASC  " & vbNewLine
 
@@ -550,21 +561,27 @@ Namespace DL
                 .Transaction = sqlTrans
                 .CommandText =
                     "SELECT  " & vbNewLine & _
-                    "	A.ID, A.COID, A.ORDetailID, A.PODetailID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, A.Quantity, A.Weight,  " & vbNewLine & _
+                    "	A.ID, A.COID, A.ORDetailID, A1A.OrderNumber, A.PODetailID, A2A.PONumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, A.Quantity, A.Weight,  " & vbNewLine & _
                     "	C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, A.TotalWeight, " & vbNewLine & _
-                    "   A.UnitPrice, A.TotalPrice, A.Remarks, A.RoundingWeight, A.LocationID, A1.TotalWeight+A.TotalWeight-A1.SCOWeight AS MaxTotalWeightOR, " & vbNewLine & _
+                    "   A.UnitPrice, A.TotalPrice, A.Remarks, A.RoundingWeight, A.LocationID, BPL.Address AS DeliveryAddress, A1.TotalWeight+A.TotalWeight-A1.SCOWeight AS MaxTotalWeightOR, " & vbNewLine & _
                     "   A2.TotalWeight+A.TotalWeight-A2.SCOWeight AS MaxTotalWeightPO, A.ItemMin, A.ItemMax, A.ItemTolerances " & vbNewLine & _
                     "FROM traSalesConfirmationOrderDet A " & vbNewLine & _
                     "INNER JOIN traOrderRequestDet A1 ON  	" & vbNewLine &
                     "    A.ORDetailID=A1.ID  	" & vbNewLine &
-                    "INNER JOIN traOrderRequestDet A2 ON  	" & vbNewLine &
+                    "INNER JOIN traOrderRequest A1A ON  	" & vbNewLine &
+                    "    A1.OrderRequestID=A1A.ID  	" & vbNewLine &
+                    "INNER JOIN traPurchaseOrderDet A2 ON  	" & vbNewLine &
                     "    A.PODetailID=A2.ID  	" & vbNewLine &
+                    "INNER JOIN traPurchaseOrder A2A ON  	" & vbNewLine &
+                    "    A2.POID=A2A.ID  	" & vbNewLine &
                     "INNER JOIN mstItem B ON  	" & vbNewLine &
                     "    A.ItemID=B.ID  	" & vbNewLine &
                     "INNER JOIN mstItemSpecification C ON  	" & vbNewLine &
                     "    B.ItemSpecificationID=C.ID  	" & vbNewLine &
                     "INNER JOIN mstItemType D ON  	" & vbNewLine &
                     "    B.ItemTypeID=D.ID  	" & vbNewLine &
+                    "INNER JOIN mstBusinessPartnerLocation BPL ON	" & vbNewLine &
+                    "	A.LocationID=BPL.ID " & vbNewLine &
                     "WHERE  " & vbNewLine & _
                     "	A.COID=@COID  " & vbNewLine
 

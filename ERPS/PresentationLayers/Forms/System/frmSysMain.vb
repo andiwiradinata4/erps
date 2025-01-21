@@ -28,6 +28,7 @@
     Dim frmMainTraOrderRequest As frmTraOrderRequest
     Dim frmMainTraOrderRequestVer2 As frmTraOrderRequestVer2
     Dim frmMainTraSalesContract As frmTraSalesContract
+    Dim frmMainTraSalesConfirmationOrder As frmTraSalesConfirmationOrder
     Dim frmMainTraDelivery As frmTraDelivery
     Dim frmMainTraSalesReturn As frmTraSalesReturn
     Dim frmMainTraClaimSales As frmTraClaim
@@ -345,6 +346,10 @@
             frmMainTraOrderRequestVer2.Show()
         End If
         Me.Cursor = Cursors.Arrow
+    End Sub
+
+    Private Sub mnuTransaksiPenjualanKonfirmasiPesanan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanKonfirmasiPesanan.Click
+        UI.usForm.frmOpen(frmMainTraSalesConfirmationOrder, "frmTraSalesConfirmationOrder", Me)
     End Sub
 
     Private Sub mnuTransaksiPenjualanKontrakPenjualan_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanKontrakPenjualan.Click

@@ -303,6 +303,13 @@
             End Using
         End Function
 
+        Public Shared Function ListDataDetailOutstandingSalesConfirmationOrder(ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseOrder.ListDataDetailOutstandingSalesConfirmationOrder(sqlCon, Nothing, intProgramID, intCompanyID)
+            End Using
+        End Function
+
 #End Region
 
 #Region "Payment Term"

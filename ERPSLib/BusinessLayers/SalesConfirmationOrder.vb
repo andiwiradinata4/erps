@@ -102,7 +102,7 @@ Namespace BL
                     Throw ex
                 End Try
             End Using
-            Return clsData.ID
+            Return clsData.CONumber
         End Function
 
         Public Shared Function GetDetail(ByVal strID As String) As VO.SalesConfirmationOrder
@@ -275,14 +275,14 @@ Namespace BL
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 dtReturn = DL.SalesConfirmationOrder.PrintVer00(sqlCon, Nothing, strID)
                 Dim clsHelper As New DataSetHelper
-                Dim dtItemTypeAndSpec As DataTable = clsHelper.SelectGroupByInto("ItemTypeAndSpec", dtReturn, "ItemTypeAndSpec", "", "ItemTypeAndSpec")
+                Dim dtItemTypeAndSpec As DataTable = clsHelper.SelectGroupByInto("ItemTypeAndSpec", dtReturn, "ItemSpec", "", "ItemSpec")
 
                 '# Combine AllItemName
                 Dim strItemTypeAndSpec As String = ""
                 Dim strAllItemTypeAndSpec As String = ""
                 For Each dr As DataRow In dtItemTypeAndSpec.Rows
-                    If dr.Item("ItemTypeAndSpec") <> strItemTypeAndSpec Then
-                        strItemTypeAndSpec = dr.Item("ItemTypeAndSpec")
+                    If dr.Item("ItemSpec") <> strItemTypeAndSpec Then
+                        strItemTypeAndSpec = dr.Item("ItemSpec")
                         If strAllItemTypeAndSpec.Trim <> "" Then strAllItemTypeAndSpec += ", "
                         strAllItemTypeAndSpec += strItemTypeAndSpec
                     End If
@@ -290,7 +290,7 @@ Namespace BL
 
                 '# Combine Payment Terms
                 Dim strPaymentTerms As String = ""
-                Dim dtPaymentTerm As DataTable = DL.SalesContract.ListDataPaymentTerm(sqlCon, Nothing, strID)
+                Dim dtPaymentTerm As DataTable = DL.SalesConfirmationOrder.ListDataPaymentTerm(sqlCon, Nothing, strID)
                 Dim intMaxCreditTerms As Integer = 0
                 For Each dr As DataRow In dtPaymentTerm.Rows
                     If strPaymentTerms.Trim <> "" Then strPaymentTerms += ", "

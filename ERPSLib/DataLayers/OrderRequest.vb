@@ -1119,6 +1119,47 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailOutstandingSalesConfirmationOrder(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                               ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                               ByVal intBPID As Integer) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.OrderRequestID, A1.OrderNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, " & vbNewLine &
+                    "   D.Description AS ItemTypeName, A.UnitPrice, A.Quantity-A.SCOQuantity AS Quantity, A.Weight, " & vbNewLine &
+                    "   A.TotalWeight+A.RoundingWeight-A.SCOWeight AS MaxTotalWeight, A.Remarks, A.RoundingWeight, A.OrderNumberSupplier, A.GroupID " & vbNewLine &
+                    "FROM traOrderRequestDet A " & vbNewLine &
+                    "INNER JOIN traOrderRequest A1 ON " & vbNewLine &
+                    "   A.OrderRequestID=A1.ID " & vbNewLine &
+                    "INNER JOIN mstItem B ON " & vbNewLine &
+                    "   A.ItemID=B.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification C ON " & vbNewLine &
+                    "   B.ItemSpecificationID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItemType D ON " & vbNewLine &
+                    "   B.ItemTypeID=D.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A1.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A1.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A1.IsDeleted=0 " & vbNewLine &
+                    "   AND A1.StatusID=@StatusID " & vbNewLine &
+                    "   AND A1.SubmitBy<>'' " & vbNewLine &
+                    "   AND A.TotalWeight+A.RoundingWeight-A.SCOWeight>0 " & vbNewLine
+
+                If intBPID <> 0 Then .CommandText += "   AND A1.BPID=@BPID " & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Function GetMaxIDMapCO(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                              ByVal strOrderRequestID As String) As Integer
             Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing

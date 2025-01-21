@@ -1192,7 +1192,7 @@
                     "   A.ARID=@ARID " & vbNewLine
 
                 .CommandText +=
-                    "UNION ALL " & vbNewLine &
+                    "UNION ALL " & vbNewLine & _
                     "SELECT " & vbNewLine &
                     "   CAST(0 AS BIT) AS Pick, A.ID AS SalesID, A.SCNumber AS InvoiceNumber, A.SCDate AS InvoiceDate, " & vbNewLine &
                     "   A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual AS SalesAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, " & vbNewLine &
