@@ -25,7 +25,12 @@ Partial Class frmRptListPOCutting
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmRptListPOCutting))
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlMain = New System.Windows.Forms.Panel()
+        Me.cboCheckedBy = New ERPS.usComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.cboItemType = New ERPS.usComboBox()
         Me.Label28 = New System.Windows.Forms.Label()
+        Me.txtBPCode = New ERPS.usTextBox()
+        Me.txtBPName = New ERPS.usTextBox()
         Me.btnBP = New DevExpress.XtraEditors.SimpleButton()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtpDateTo = New System.Windows.Forms.DateTimePicker()
@@ -33,11 +38,6 @@ Partial Class frmRptListPOCutting
         Me.dtpDateFrom = New System.Windows.Forms.DateTimePicker()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.pgMain = New System.Windows.Forms.ProgressBar()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.cboCheckedBy = New ERPS.usComboBox()
-        Me.cboItemType = New ERPS.usComboBox()
-        Me.txtBPCode = New ERPS.usTextBox()
-        Me.txtBPName = New ERPS.usTextBox()
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarPreview = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
@@ -78,6 +78,35 @@ Partial Class frmRptListPOCutting
         Me.pnlMain.Size = New System.Drawing.Size(473, 169)
         Me.pnlMain.TabIndex = 2
         '
+        'cboCheckedBy
+        '
+        Me.cboCheckedBy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboCheckedBy.FormattingEnabled = True
+        Me.cboCheckedBy.Location = New System.Drawing.Point(109, 98)
+        Me.cboCheckedBy.Name = "cboCheckedBy"
+        Me.cboCheckedBy.Size = New System.Drawing.Size(293, 21)
+        Me.cboCheckedBy.TabIndex = 162
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.Transparent
+        Me.Label4.ForeColor = System.Drawing.Color.Black
+        Me.Label4.Location = New System.Drawing.Point(24, 102)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(75, 13)
+        Me.Label4.TabIndex = 163
+        Me.Label4.Text = "Diperiksa Oleh"
+        '
+        'cboItemType
+        '
+        Me.cboItemType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboItemType.FormattingEnabled = True
+        Me.cboItemType.Location = New System.Drawing.Point(109, 44)
+        Me.cboItemType.Name = "cboItemType"
+        Me.cboItemType.Size = New System.Drawing.Size(101, 21)
+        Me.cboItemType.TabIndex = 2
+        '
         'Label28
         '
         Me.Label28.AutoSize = True
@@ -88,6 +117,28 @@ Partial Class frmRptListPOCutting
         Me.Label28.Size = New System.Drawing.Size(31, 13)
         Me.Label28.TabIndex = 161
         Me.Label28.Text = "Jenis"
+        '
+        'txtBPCode
+        '
+        Me.txtBPCode.BackColor = System.Drawing.Color.Azure
+        Me.txtBPCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtBPCode.Location = New System.Drawing.Point(109, 71)
+        Me.txtBPCode.MaxLength = 250
+        Me.txtBPCode.Name = "txtBPCode"
+        Me.txtBPCode.ReadOnly = True
+        Me.txtBPCode.Size = New System.Drawing.Size(83, 21)
+        Me.txtBPCode.TabIndex = 3
+        '
+        'txtBPName
+        '
+        Me.txtBPName.BackColor = System.Drawing.Color.Azure
+        Me.txtBPName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtBPName.Location = New System.Drawing.Point(191, 71)
+        Me.txtBPName.MaxLength = 250
+        Me.txtBPName.Name = "txtBPName"
+        Me.txtBPName.ReadOnly = True
+        Me.txtBPName.Size = New System.Drawing.Size(211, 21)
+        Me.txtBPName.TabIndex = 4
         '
         'btnBP
         '
@@ -155,57 +206,6 @@ Partial Class frmRptListPOCutting
         Me.pgMain.Name = "pgMain"
         Me.pgMain.Size = New System.Drawing.Size(473, 23)
         Me.pgMain.TabIndex = 7
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.ForeColor = System.Drawing.Color.Black
-        Me.Label4.Location = New System.Drawing.Point(24, 102)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(75, 13)
-        Me.Label4.TabIndex = 163
-        Me.Label4.Text = "Diperiksa Oleh"
-        '
-        'cboCheckedBy
-        '
-        Me.cboCheckedBy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboCheckedBy.FormattingEnabled = True
-        Me.cboCheckedBy.Location = New System.Drawing.Point(109, 98)
-        Me.cboCheckedBy.Name = "cboCheckedBy"
-        Me.cboCheckedBy.Size = New System.Drawing.Size(293, 21)
-        Me.cboCheckedBy.TabIndex = 162
-        '
-        'cboItemType
-        '
-        Me.cboItemType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboItemType.FormattingEnabled = True
-        Me.cboItemType.Location = New System.Drawing.Point(109, 44)
-        Me.cboItemType.Name = "cboItemType"
-        Me.cboItemType.Size = New System.Drawing.Size(101, 21)
-        Me.cboItemType.TabIndex = 2
-        '
-        'txtBPCode
-        '
-        Me.txtBPCode.BackColor = System.Drawing.Color.Azure
-        Me.txtBPCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtBPCode.Location = New System.Drawing.Point(109, 71)
-        Me.txtBPCode.MaxLength = 250
-        Me.txtBPCode.Name = "txtBPCode"
-        Me.txtBPCode.ReadOnly = True
-        Me.txtBPCode.Size = New System.Drawing.Size(83, 21)
-        Me.txtBPCode.TabIndex = 3
-        '
-        'txtBPName
-        '
-        Me.txtBPName.BackColor = System.Drawing.Color.Azure
-        Me.txtBPName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtBPName.Location = New System.Drawing.Point(191, 71)
-        Me.txtBPName.MaxLength = 250
-        Me.txtBPName.Name = "txtBPName"
-        Me.txtBPName.ReadOnly = True
-        Me.txtBPName.Size = New System.Drawing.Size(211, 21)
-        Me.txtBPName.TabIndex = 4
         '
         'ToolBar
         '

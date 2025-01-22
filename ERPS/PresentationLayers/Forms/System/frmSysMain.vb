@@ -77,6 +77,7 @@
     Dim frmMainRptKartuHutangVer00 As frmRptKartuHutangVer00
     Dim frmMainRptKartuPiutangVer00 As frmRptKartuPiutangVer00
     Dim frmMainRptListPOCutting As frmRptListPOCutting
+    Dim frmMainRptPIWithSizeReport As frmRptPIWithSizeReport
 
     '## Pembukuan
     Dim frmMainRptBukuBesarVer00 As frmRptBukuBesarVer00
@@ -951,6 +952,10 @@
 
     Private Sub mnuLaporanPembelianSPKPotong_Click(sender As Object, e As EventArgs) Handles mnuLaporanPembelianSPKPotong.Click
         UI.usForm.frmOpen(frmMainRptListPOCutting, "frmRptListPOCutting", Me)
+    End Sub
+
+    Private Sub mnuLaporanPembukuanPIPenjualan_Click(sender As Object, e As EventArgs) Handles mnuLaporanPembukuanPIPenjualan.Click
+        UI.usForm.frmOpen(frmMainRptPIWithSizeReport, "frmRptPIWithSizeReport", Me)
     End Sub
 
 #End Region

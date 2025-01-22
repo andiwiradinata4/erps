@@ -1006,5 +1006,54 @@
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function SalesPIReport(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                             ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                             ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+                                             ByVal intBPID As Integer, ByVal intItemTypeID As Integer) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+"SELECT CAST(0 AS INT) AS No, " & vbNewLine & _
+"	ARI.ID, ORH.OrderNumber, ARH.ARNumber, ARH.ARDate, ARI.OrderNumberSupplier,  " & vbNewLine & _
+"	MIT.Description AS Item, MI.Thick, MI.Width, MI.Length, BP.Name AS BPName,  " & vbNewLine & _
+"	ARI.TotalWeight, ARI.Amount+ARI.PPN AS TotalIncPPN, ARI.TotalInvoiceAmount,  " & vbNewLine & _
+"	ARI.Amount+ARI.PPN-ARI.TotalInvoiceAmount AS OutstandingPaid " & vbNewLine & _
+"FROM traSalesContractDet SCD  " & vbNewLine & _
+"INNER JOIN traARAPItem ARI ON  " & vbNewLine & _
+"	SCD.ID=ARI.ReferencesDetailID  " & vbNewLine & _
+"INNER JOIN mstItem MI ON	 " & vbNewLine & _
+"	ARI.ItemID=MI.ID  " & vbNewLine & _
+"INNER JOIN mstItemType MIT ON  " & vbNewLine & _
+"	MI.ItemTypeID=MIT.ID  " & vbNewLine & _
+"INNER JOIN traAccountReceivable ARH ON  " & vbNewLine & _
+"	ARI.ParentID=ARH.ID " & vbNewLine & _
+"INNER JOIN traOrderRequestDet ORD ON  " & vbNewLine & _
+"	SCD.ORDetailID=ORD.ID  " & vbNewLine & _
+"INNER JOIN traOrderRequest ORH ON  " & vbNewLine & _
+"	ORD.OrderRequestID=ORH.ID  " & vbNewLine & _
+"INNER JOIN mstBusinessPartner BP ON  " & vbNewLine & _
+"	ARH.BPID=BP.ID  " & vbNewLine & _
+"WHERE  " & vbNewLine & _
+"	ARH.ApprovedBy<>''  " & vbNewLine & _
+"	AND ARH.ProgramID=@ProgramID  " & vbNewLine & _
+"	AND ARH.CompanyID=@CompanyID  " & vbNewLine & _
+"	AND ARH.ARDate>=@DateFrom AND ARH.ARDate<=@DateTo  " & vbNewLine
+
+                If intItemTypeID > 0 Then .CommandText += "	AND MIT.ID=@ItemTypeID  " & vbNewLine
+                If intBPID > 0 Then .CommandText += "	AND BP.ID=@BPID  " & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
+                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+                .Parameters.Add("@ItemTypeID", SqlDbType.Int).Value = intItemTypeID
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
     End Class
 End Namespace
