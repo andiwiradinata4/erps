@@ -578,24 +578,24 @@ Public Class frmTraARAPDetVer4
             End If
 
             '# Delete Parent item if Data is Subitem
-            If bolIsUseSubItem Then
-                For Each dr As DataRow In dtItem.Rows
-                    If dr.Item("ReferencesParentID") = "" Then dr.Delete()
-                Next
-                dtItem.AcceptChanges()
-            End If
-
-            ''# If 1 Kontrak bisa gabung Plat dan Subcoil maka perlu dibuka function dibawah
-            ''# Delete Item Parent if already have sub item
-            'Dim drSelected() As DataRow = dtItem.Select("ReferencesParentID<>''")
-            'If drSelected.Length > 0 Then
-            '    For Each drChild As DataRow In drSelected
-            '        For Each dr As DataRow In dtItem.Rows
-            '            If dr.Item("ReferencesDetailID") = drChild.Item("ReferencesParentID") Then dr.Delete()
-            '        Next
-            '        dtItem.AcceptChanges()
+            'If bolIsUseSubItem Then
+            '    For Each dr As DataRow In dtItem.Rows
+            '        If dr.Item("ReferencesParentID") = "" Then dr.Delete()
             '    Next
+            '    dtItem.AcceptChanges()
             'End If
+
+            '# If 1 Kontrak bisa gabung Plat dan Subcoil maka perlu dibuka function dibawah
+            '# Delete Item Parent if already have sub item
+            Dim drSelected() As DataRow = dtItem.Select("ReferencesParentID<>''")
+            If drSelected.Length > 0 Then
+                For Each drChild As DataRow In drSelected
+                    For Each dr As DataRow In dtItem.Rows
+                        If Not dr.Item("Pick") And dr.Item("ReferencesDetailID") = drChild.Item("ReferencesParentID") Then dr.Delete()
+                    Next
+                    dtItem.AcceptChanges()
+                Next
+            End If
 
             grdItem.DataSource = dtItem
             grdItemView.BestFitColumns()

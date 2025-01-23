@@ -991,3 +991,11 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.pdb
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptPIWithSizeReportVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptPIWithSizeReport.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesConfirmationOrder.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesConfirmationOrderDet.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesConfirmationOrderDetItem.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesConfirmationOrderDetItemPO.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesConfirmationOrderDetItemRequest.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptPIWithSizeReport.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptPIWithSizeReportVer00.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptSalesConfirmationOrderVer00.resources

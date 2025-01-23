@@ -572,6 +572,11 @@ Public Class frmTraPurchaseContract
             bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.ExportReportAccess)
             .Item(cPrint).Visible = False
             .Item(cNew).Visible = False
+            .Item(cDelete).Visible = False
+            .Item(cApprove).Visible = False
+            .Item(cCancelApprove).Visible = False
+            .Item(cSubmit).Visible = False
+            .Item(cCancelSubmit).Visible = False
         End With
     End Sub
 
