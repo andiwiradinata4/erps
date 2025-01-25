@@ -1,4 +1,4 @@
-﻿Public Class frmRptListPOCutting
+﻿Public Class frmRptListPOCuttingVer00
 
 #Region "Property"
 

@@ -454,7 +454,6 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptBukuBesarVer00.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptKartuHutangVer00.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptKartuPiutangVer00.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptLabaRugiVer00.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptListPOCutting.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptMonitoringProductTransactionVer00.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptNeracaSaldoVer00.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptNeracaVer00.resources
@@ -999,3 +998,14 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesConfirmationOrderDetItemRequ
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptPIWithSizeReport.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptPIWithSizeReportVer00.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptSalesConfirmationOrderVer00.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesConfirmationOrder.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesConfirmationOrderDet.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesConfirmationOrderDetItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesConfirmationOrderDetItemPO.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesConfirmationOrderDetItemRequest.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptPIWithSizeReportVer00.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptSalesConfirmationOrderVer00.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptSalesConfirmationOrderReportVer00.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptListPOCuttingVer00.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptPIWithSizeReportVer00.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptSalesConfirmationOrderReportVer00.resources

@@ -1,4 +1,4 @@
-﻿Public Class frmRptPIWithSizeReport
+﻿Public Class frmRptPIWithSizeReportVer00
 
 #Region "Property"
 

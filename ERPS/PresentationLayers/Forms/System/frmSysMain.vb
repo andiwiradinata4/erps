@@ -76,8 +76,9 @@
     Dim frmMainRptMonitoringProductTransactionVer00 As frmRptMonitoringProductTransactionVer00
     Dim frmMainRptKartuHutangVer00 As frmRptKartuHutangVer00
     Dim frmMainRptKartuPiutangVer00 As frmRptKartuPiutangVer00
-    Dim frmMainRptListPOCutting As frmRptListPOCutting
-    Dim frmMainRptPIWithSizeReport As frmRptPIWithSizeReport
+    Dim frmMainRptListPOCuttingVer00 As frmRptListPOCuttingVer00
+    Dim frmMainRptPIWithSizeReportVer00 As frmRptPIWithSizeReportVer00
+    Dim frmMainRptSalesConfirmationOrderReportVer00 As frmRptSalesConfirmationOrderReportVer00
 
     '## Pembukuan
     Dim frmMainRptBukuBesarVer00 As frmRptBukuBesarVer00
@@ -951,11 +952,15 @@
     End Sub
 
     Private Sub mnuLaporanPembelianSPKPotong_Click(sender As Object, e As EventArgs) Handles mnuLaporanPembelianSPKPotong.Click
-        UI.usForm.frmOpen(frmMainRptListPOCutting, "frmRptListPOCutting", Me)
+        UI.usForm.frmOpen(frmMainRptListPOCuttingVer00, "frmRptListPOCutting", Me)
     End Sub
 
     Private Sub mnuLaporanPembukuanPIPenjualan_Click(sender As Object, e As EventArgs) Handles mnuLaporanPembukuanPIPenjualan.Click
-        UI.usForm.frmOpen(frmMainRptPIWithSizeReport, "frmRptPIWithSizeReport", Me)
+        UI.usForm.frmOpen(frmMainRptPIWithSizeReportVer00, "frmRptPIWithSizeReport", Me)
+    End Sub
+
+    Private Sub mnuLaporanPenjualanKonfirmasiPesanan_Click(sender As Object, e As EventArgs) Handles mnuLaporanPenjualanKonfirmasiPesanan.Click
+        UI.usForm.frmOpen(frmMainRptSalesConfirmationOrderReportVer00, "frmRptSalesConfirmationOrderReportVer00", Me)
     End Sub
 
 #End Region

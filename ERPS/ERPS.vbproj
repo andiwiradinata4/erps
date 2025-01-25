@@ -1401,6 +1401,12 @@
     <Compile Include="PresentationLayers\Reports1\frmRptPIWithSizeReport.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Reports1\frmRptSalesConfirmationOrderReportVer00.Designer.vb">
+      <DependentUpon>frmRptSalesConfirmationOrderReportVer00.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports1\frmRptSalesConfirmationOrderReportVer00.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Reports2\rptARAPVoucher.Designer.vb">
       <DependentUpon>rptARAPVoucher.vb</DependentUpon>
     </Compile>
@@ -1495,6 +1501,12 @@
       <DependentUpon>rptPurchaseOrderCutting.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Reports2\rptPurchaseOrderCutting.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptSalesConfirmationOrderReportVer00.Designer.vb">
+      <DependentUpon>rptSalesConfirmationOrderReportVer00.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptSalesConfirmationOrderReportVer00.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Reports2\rptSalesConfirmationOrderVer00.Designer.vb">
@@ -2187,6 +2199,9 @@
     <EmbeddedResource Include="PresentationLayers\Reports1\frmRptPIWithSizeReport.resx">
       <DependentUpon>frmRptPIWithSizeReport.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports1\frmRptSalesConfirmationOrderReportVer00.resx">
+      <DependentUpon>frmRptSalesConfirmationOrderReportVer00.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptARAPVoucher.resx">
       <DependentUpon>rptARAPVoucher.vb</DependentUpon>
     </EmbeddedResource>
@@ -2231,6 +2246,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptPurchaseOrderCutting.resx">
       <DependentUpon>rptPurchaseOrderCutting.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports2\rptSalesConfirmationOrderReportVer00.resx">
+      <DependentUpon>rptSalesConfirmationOrderReportVer00.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptSalesConfirmationOrderVer00.resx">
       <DependentUpon>rptSalesConfirmationOrderVer00.vb</DependentUpon>

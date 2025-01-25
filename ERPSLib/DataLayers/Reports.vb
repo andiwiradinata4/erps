@@ -1055,5 +1055,68 @@
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function SalesConfirmationReport(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                       ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                       ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+                                                       ByVal intBPID As Integer, ByVal intItemTypeID As Integer) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+"SELECT CAST(0 AS INT) AS No, " & vbNewLine & _
+"	SCO.CODate, POD.PONumber, ORD.OrderNumber, MIS.Description AS ItemSpec, MIT.Description AS ItemType,  " & vbNewLine & _
+"	MI.Thick, MI.Width, MI.Length, SCOD.TotalWeight, SCOD.UnitPrice, SCOD.TotalPrice + (SCOD.TotalPrice*SCO.PPN/100) AS TotalIncPPN " & vbNewLine & _
+"FROM traSalesConfirmationOrder SCO  " & vbNewLine & _
+"INNER JOIN traSalesConfirmationOrderDet SCOD ON  " & vbNewLine & _
+"	SCO.ID=SCOD.COID  " & vbNewLine & _
+"INNER JOIN mstItem MI ON  " & vbNewLine & _
+"	SCOD.ItemID=MI.ID  " & vbNewLine & _
+"INNER JOIN mstItemSpecification MIS ON  " & vbNewLine & _
+"	MI.ItemSpecificationID=MIS.ID  " & vbNewLine & _
+"INNER JOIN mstItemType MIT ON  " & vbNewLine & _
+"	MI.ItemTypeID=MIT.ID  " & vbNewLine & _
+"INNER JOIN  " & vbNewLine & _
+"( " & vbNewLine & _
+"	SELECT DISTINCT  " & vbNewLine & _
+"POD.ID, POH.PONumber  " & vbNewLine & _
+"	FROM traPurchaseOrder POH  " & vbNewLine & _
+"	INNER JOIN traPurchaseOrderDet POD ON  " & vbNewLine & _
+"POH.ID=POD.POID  " & vbNewLine & _
+"	WHERE  " & vbNewLine & _
+"POH.ApprovedBy<>''  " & vbNewLine & _
+") POD ON  " & vbNewLine & _
+"	SCOD.PODetailID=POD.ID  " & vbNewLine & _
+"INNER JOIN  " & vbNewLine & _
+"( " & vbNewLine & _
+"	SELECT DISTINCT  " & vbNewLine & _
+"ORD.ID, ORH.OrderNumber " & vbNewLine & _
+"	FROM traOrderRequest ORH  " & vbNewLine & _
+"	INNER JOIN traOrderRequestDet ORD ON  " & vbNewLine & _
+"ORH.ID=ORD.OrderRequestID  " & vbNewLine & _
+"	WHERE  " & vbNewLine & _
+"ORH.SubmitBy<>''  " & vbNewLine & _
+") ORD ON  " & vbNewLine & _
+"	SCOD.ORDetailID=ORD.ID  " & vbNewLine & _
+"WHERE  " & vbNewLine & _
+"	SCO.ApprovedBy<>''  " & vbNewLine & _
+"	AND SCO.ProgramID=@ProgramID  " & vbNewLine & _
+"	AND SCO.CompanyID=@CompanyID  " & vbNewLine & _
+"	AND SCO.CODate>=@DateFrom AND SCO.CODate<=@DateTo  " & vbNewLine
+
+                If intItemTypeID > 0 Then .CommandText += "	AND MIT.ID=@ItemTypeID  " & vbNewLine
+                If intBPID > 0 Then .CommandText += "	AND SCO.BPID=@BPID  " & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
+                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+                .Parameters.Add("@ItemTypeID", SqlDbType.Int).Value = intItemTypeID
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
     End Class
 End Namespace
