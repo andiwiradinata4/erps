@@ -1009,3 +1009,4 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptSalesConfirmationOrderReportVer00.re
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptListPOCuttingVer00.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptPIWithSizeReportVer00.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptSalesConfirmationOrderReportVer00.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraDeliveryDetMultiItemVer01.resources

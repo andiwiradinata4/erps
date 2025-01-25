@@ -578,6 +578,33 @@ Public Class frmTraDeliveryDet
         End With
     End Sub
 
+    Private Sub prvAddMultiItem()
+        If txtBPCode.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih Pelanggan terlebih dahulu")
+            txtBPCode.Focus()
+            Exit Sub
+        ElseIf txtSCNumber.Text.Trim = "" Then
+            UI.usForm.frmMessageBox("Pilih Kontrak terlebih dahulu")
+            txtSCNumber.Focus()
+            Exit Sub
+        End If
+        Dim frmDetail As New frmTraDeliveryDetItemVer01
+        With frmDetail
+            .pubIsNew = True
+            .pubCS = pubCS
+            .pubSCID = strSCID
+            .pubTableItem = dtItem
+            .pubIsAutoSearch = True
+            .pubIsUseSubItem = bolIsUseSubItem
+            .pubIsStock = bolIsStock
+            .StartPosition = FormStartPosition.CenterParent
+            .pubShowDialog(Me)
+            prvSetButtonItem()
+            prvCalculate()
+            prvSetupTools()
+        End With
+    End Sub
+
     Private Sub prvEditItem()
         intPos = grdItemView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
@@ -688,6 +715,7 @@ Public Class frmTraDeliveryDet
     Private Sub ToolBarItem_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarItem.ButtonClick
         Select Case e.Button.Text.Trim
             Case "Tambah" : prvAddItem()
+            Case "Tambah Multi" : prvAddItem()
             Case "Edit" : prvEditItem()
             Case "Hapus" : prvDeleteItem()
         End Select

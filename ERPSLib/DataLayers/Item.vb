@@ -10,7 +10,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT " & vbNewLine &
-                    "   ComboID=CAST(A.ID AS VARCHAR(100)), A.ID, A.ItemCode, A.ItemCodeExternal, A.ItemName, " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, ComboID=CAST(A.ID AS VARCHAR(100)), A.ID, A.ItemCode, A.ItemCodeExternal, A.ItemName, " & vbNewLine &
                     "   A.ItemTypeID, C.Description AS ItemTypeName, A.ItemSpecificationID, D.Description AS ItemSpecificationName, " & vbNewLine &
                     "   A.Thick, A.Width, A.Length, A.Weight, A.BasePrice, A.StatusID, B.Name AS StatusInfo, " & vbNewLine &
                     "   A.Remarks, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc, A.RefID " & vbNewLine &

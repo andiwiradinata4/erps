@@ -118,6 +118,8 @@ Partial Class frmTraDeliveryDet
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarAddMultiItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep1ItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         Me.tpAmount.SuspendLayout()
@@ -1226,7 +1228,7 @@ Partial Class frmTraDeliveryDet
         'ToolBarItem
         '
         Me.ToolBarItem.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder})
+        Me.ToolBarItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder, Me.BarSep1ItemOrder, Me.BarAddMultiItemOrder})
         Me.ToolBarItem.DropDownArrows = True
         Me.ToolBarItem.Location = New System.Drawing.Point(3, 3)
         Me.ToolBarItem.Name = "ToolBarItem"
@@ -1252,6 +1254,17 @@ Partial Class frmTraDeliveryDet
         Me.BarDeleteItemOrder.Name = "BarDeleteItemOrder"
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
+        '
+        'BarAddMultiItemOrder
+        '
+        Me.BarAddMultiItemOrder.Name = "BarAddMultiItemOrder"
+        Me.BarAddMultiItemOrder.Tag = "Add"
+        Me.BarAddMultiItemOrder.Text = "Tambah Multi"
+        '
+        'BarSep1ItemOrder
+        '
+        Me.BarSep1ItemOrder.Name = "BarSep1ItemOrder"
+        Me.BarSep1ItemOrder.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
         'frmTraDeliveryDet
         '
@@ -1406,4 +1419,6 @@ Partial Class frmTraDeliveryDet
     Friend WithEvents btnCoAOfStock As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label29 As System.Windows.Forms.Label
     Friend WithEvents txtCoANameOfStock As ERPS.usTextBox
+    Friend WithEvents BarSep1ItemOrder As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarAddMultiItemOrder As System.Windows.Forms.ToolBarButton
 End Class

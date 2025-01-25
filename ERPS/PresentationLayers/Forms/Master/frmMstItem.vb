@@ -1,8 +1,10 @@
 ﻿Public Class frmMstItem
 
     Public pubLUdtRow As DataRow
+    Public pubLUdtRowMulti() As DataRow
     Public pubIsLookUp As Boolean = False
     Public pubIsLookUpGet As Boolean = False
+    Public pubIsMultiselect As Boolean = False
     Private dtData As New DataTable
 
     Private Const _
@@ -17,6 +19,7 @@
     End Sub
 
     Private Sub prvSetGrid()
+        UI.usForm.SetGrid(grdView, "Pick", "Pilih", 100, UI.usDefGrid.gString, pubIsMultiselect, False)
         UI.usForm.SetGrid(grdView, "ComboID", "ComboID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "ID", "ID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
@@ -64,7 +67,8 @@
 
     Private Sub prvQuery()
         Try
-            grdMain.DataSource = BL.Item.ListData(cboItemType.SelectedValue, cboItemSpecification.SelectedValue, chkShowAll.Checked)
+            dtData = BL.Item.ListData(cboItemType.SelectedValue, cboItemSpecification.SelectedValue, chkShowAll.Checked)
+            grdMain.DataSource = dtData
             grdView.BestFitColumns()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -83,17 +87,35 @@
     End Sub
 
     Private Sub prvGet()
-        Dim intPos As Integer = grdView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
+        ToolBar.Focus()
         If Not pubIsLookUp Then Exit Sub
-        If grdView.GetRowCellValue(intPos, "StatusID") = VO.Status.Values.InActive Then
-            UI.usForm.frmMessageBox("Tidak dapat pilih barang " & grdView.GetRowCellValue(intPos, "ItemCode") & " | " & grdView.GetRowCellValue(intPos, "ItemName") & ". Dikarenakan data tersebut sudah tidak aktif")
-            Exit Sub
-        Else
-            pubLUdtRow = grdView.GetDataRow(grdView.FocusedRowHandle)
-            pubIsLookUpGet = True
+        If pubIsMultiselect Then
+            Dim drSelect() As DataRow = dtData.Select("Pick=1")
+            If drSelect.Count = 0 Then
+                UI.usForm.frmMessageBox("Pilih barang terlebih dahulu")
+                Exit Sub
+            End If
+            For Each dr As DataRow In drSelect
+                If dr.Item("StatusID") = VO.Status.Values.InActive Then
+                    UI.usForm.frmMessageBox("Tidak dapat pilih barang " & dr.Item("ItemCode") & " | " & dr.Item("ItemName") & ". Dikarenakan data tersebut sudah tidak aktif")
+                    Exit Sub
+                End If
+            Next
+            pubLUdtRowMulti = drSelect
             Me.Close()
+        Else
+            Dim intPos As Integer = grdView.FocusedRowHandle
+            If intPos < 0 Then Exit Sub
+            If grdView.GetRowCellValue(intPos, "StatusID") = VO.Status.Values.InActive Then
+                UI.usForm.frmMessageBox("Tidak dapat pilih barang " & grdView.GetRowCellValue(intPos, "ItemCode") & " | " & grdView.GetRowCellValue(intPos, "ItemName") & ". Dikarenakan data tersebut sudah tidak aktif")
+                Exit Sub
+            Else
+                pubLUdtRow = grdView.GetDataRow(grdView.FocusedRowHandle)
+                pubIsLookUpGet = True
+            End If
         End If
+
+        Me.Close()
     End Sub
 
     Private Sub prvNew()
