@@ -588,9 +588,8 @@ Public Class frmTraDeliveryDet
             txtSCNumber.Focus()
             Exit Sub
         End If
-        Dim frmDetail As New frmTraDeliveryDetItemVer01
+        Dim frmDetail As New frmTraDeliveryDetMultiItemVer01
         With frmDetail
-            .pubIsNew = True
             .pubCS = pubCS
             .pubSCID = strSCID
             .pubTableItem = dtItem
@@ -715,7 +714,7 @@ Public Class frmTraDeliveryDet
     Private Sub ToolBarItem_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarItem.ButtonClick
         Select Case e.Button.Text.Trim
             Case "Tambah" : prvAddItem()
-            Case "Tambah Multi" : prvAddItem()
+            Case "Tambah Multi" : prvAddMultiItem()
             Case "Edit" : prvEditItem()
             Case "Hapus" : prvDeleteItem()
         End Select

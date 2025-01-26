@@ -102,6 +102,7 @@
                 End If
             Next
             pubLUdtRowMulti = drSelect
+            pubIsLookUpGet = True
             Me.Close()
         Else
             Dim intPos As Integer = grdView.FocusedRowHandle

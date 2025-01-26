@@ -3,14 +3,11 @@
 #Region "Property"
 
     Private frmParent As frmTraDeliveryDet
-    Private bolIsNew As Boolean = False
-    Private strID As String = ""
     Private strSCDetailID As String = ""
     Private strSCID As String = ""
     Private intGroupID As Integer = 0
     Private clsCS As VO.CS
     Private dtItem As New DataTable
-    Private drSelectedItem As DataRow
     Private bolIsAutoSearch As Boolean
     Private bolIsUseSubItem As Boolean
     Private intLevelItem As Integer
@@ -27,24 +24,6 @@
     Public WriteOnly Property pubTableItem As DataTable
         Set(value As DataTable)
             dtItem = value
-        End Set
-    End Property
-
-    Public WriteOnly Property pubDataRowSelected As DataRow
-        Set(value As DataRow)
-            drSelectedItem = value
-        End Set
-    End Property
-
-    Public WriteOnly Property pubIsNew As Boolean
-        Set(value As Boolean)
-            bolIsNew = value
-        End Set
-    End Property
-
-    Public WriteOnly Property pubID As String
-        Set(value As String)
-            strID = value
         End Set
     End Property
 
@@ -79,7 +58,7 @@
 
 #End Region
 
-    Private Const cSave As Byte = 0, cClose As Byte = 1
+    Private Const cClose As Byte = 0
 
     Private Sub prvChooseItem()
         If bolIsStock Then
@@ -137,41 +116,46 @@
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
             If .pubIsLookUpGet Then
-                If Not UI.usForm.frmAskQuestion("Tambah barang yang sudah dipilih?") Then Exit Sub
-                For Each dr As DataRow In .pubLUdtRowMulti
-                    Dim drItem As DataRow = dtItem.NewRow
-                    intGroupID = dtItem.Rows.Count + 1
-                    With drItem
-                        .BeginEdit()
-                        .Item("ID") = Guid.NewGuid
-                        .Item("SCDetailID") = strSCDetailID
-                        .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
-                        .Item("SCNumber") = ""
-                        .Item("GroupID") = intGroupID
-                        .Item("ItemID") = dr.Item("ID")
-                        .Item("ItemCode") = dr.Item("ItemCode")
-                        .Item("ItemName") = dr.Item("ItemName")
-                        .Item("Thick") = dr.Item("Thick")
-                        .Item("Width") = dr.Item("Width")
-                        .Item("Length") = dr.Item("Length")
-                        .Item("ItemSpecificationID") = dr.Item("ItemSpecificationID")
-                        .Item("ItemSpecificationName") = dr.Item("ItemSpecificationName")
-                        .Item("ItemTypeID") = dr.Item("ItemTypeID")
-                        .Item("ItemTypeName") = dr.Item("ItemTypeName")
-                        .Item("Quantity") = 1
-                        .Item("Weight") = dr.Item("Weight")
-                        .Item("TotalWeight") = dr.Item("TotalWeight")
-                        .Item("RoundingWeight") = 0
-                        .Item("MaxTotalWeight") = dr.Item("TotalWeight")
-                        .Item("UnitPrice") = decUnitPrice
-                        .Item("TotalPrice") = decUnitPrice * dr.Item("TotalWeight")
-                        .Item("Remarks") = ""
-                        .Item("LevelItem") = intLevelItem
-                        .Item("ParentID") = strParentID
-                        .EndEdit()
-                    End With
-                    dtItem.Rows.Add(drItem)
-                Next
+                If UI.usForm.frmAskQuestion("Tambah barang yang sudah dipilih?") Then
+                    For Each dr As DataRow In .pubLUdtRowMulti
+                        Dim drItem As DataRow = dtItem.NewRow
+                        intGroupID = dtItem.Rows.Count + 1
+                        With drItem
+                            .BeginEdit()
+                            .Item("ID") = Guid.NewGuid
+                            .Item("SCDetailID") = strSCDetailID
+                            .Item("OrderNumberSupplier") = txtOrderNumberSupplier.Text.Trim
+                            .Item("SCNumber") = ""
+                            .Item("GroupID") = intGroupID
+                            .Item("ItemID") = dr.Item("ID")
+                            .Item("ItemCode") = dr.Item("ItemCode")
+                            .Item("ItemName") = dr.Item("ItemName")
+                            .Item("Thick") = dr.Item("Thick")
+                            .Item("Width") = dr.Item("Width")
+                            .Item("Length") = dr.Item("Length")
+                            .Item("ItemSpecificationID") = dr.Item("ItemSpecificationID")
+                            .Item("ItemSpecificationName") = dr.Item("ItemSpecificationName")
+                            .Item("ItemTypeID") = dr.Item("ItemTypeID")
+                            .Item("ItemTypeName") = dr.Item("ItemTypeName")
+                            .Item("Quantity") = 1
+                            .Item("Weight") = dr.Item("Weight")
+                            .Item("TotalWeight") = dr.Item("Weight")
+                            .Item("RoundingWeight") = 0
+                            .Item("MaxTotalWeight") = dr.Item("Weight")
+                            .Item("UnitPrice") = decUnitPrice
+                            .Item("TotalPrice") = decUnitPrice * dr.Item("Weight")
+                            .Item("Remarks") = ""
+                            .Item("LevelItem") = intLevelItem
+                            .Item("ParentID") = strParentID
+                            .EndEdit()
+                        End With
+                        dtItem.Rows.Add(drItem)
+                    Next
+                    Me.Close()
+                Else
+                    Exit Sub
+                End If
+                
             End If
         End With
     End Sub
