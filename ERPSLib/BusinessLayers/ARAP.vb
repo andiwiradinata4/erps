@@ -755,6 +755,7 @@
                 clsReturn.TotalDPPInvoiceAmount = clsData.TotalDPPInvoiceAmount
                 clsReturn.TotalPPNInvoiceAmount = clsData.TotalPPNInvoiceAmount
                 clsReturn.TotalPPHInvoiceAmount = clsData.TotalPPHInvoiceAmount
+                clsReturn.ReferencesNumber = clsData.ReferencesNumber
                 clsReturn.IsFullDP = clsData.IsFullDP
                 Return clsReturn
             Else
@@ -824,6 +825,7 @@
                 clsReturn.TotalDPPInvoiceAmount = clsData.TotalDPPInvoiceAmount
                 clsReturn.TotalPPNInvoiceAmount = clsData.TotalPPNInvoiceAmount
                 clsReturn.TotalPPHInvoiceAmount = clsData.TotalPPHInvoiceAmount
+                clsReturn.ReferencesNumber = clsData.ReferencesNumber
                 clsReturn.IsFullDP = clsData.IsFullDP
                 Return clsReturn
             End If

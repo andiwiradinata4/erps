@@ -243,6 +243,17 @@ Public Class frmTraARAPDetVer4
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
                 chkIsFullDP.Checked = clsData.IsFullDP
                 'dtpARAPDate.Enabled = False
+
+                If intBPID = 0 Then
+                    intBPID = clsData.BPID
+                    strBPCode = clsData.BPCode
+                    strBPName = clsData.BPName
+                End If
+
+                If strReferencesNumber.Trim = "" Then
+                    strReferencesID = clsData.ReferencesID
+                    strReferencesNumber = clsData.ReferencesNote
+                End If
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)

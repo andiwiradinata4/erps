@@ -65,6 +65,7 @@
         Property TotalDPPInvoiceAmount As Decimal
         Property TotalPPNInvoiceAmount As Decimal
         Property TotalPPHInvoiceAmount As Decimal
+        Property ReferencesNumber As String
         Property IsFullDP As Boolean
 
         Public Const All As String = "AP"

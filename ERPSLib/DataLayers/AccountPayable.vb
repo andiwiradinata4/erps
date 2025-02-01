@@ -218,7 +218,7 @@
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
                         "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice, A.InvoiceNumberBP, A.IsUseSubItem, " & vbNewLine &
                         "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, A.PPNPercentage, A.PPHPercentage, " & vbNewLine &
-                        "   A.PPNPercentage, A.PPHPercentage, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, A.IsFullDP " & vbNewLine &
+                        "   A.PPNPercentage, A.PPHPercentage, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, A.ReferencesNumber, A.IsFullDP " & vbNewLine &
                         "FROM traAccountPayable A " & vbNewLine &
                         "INNER JOIN mstStatus B ON " & vbNewLine &
                         "   A.StatusID=B.ID " & vbNewLine &
@@ -303,6 +303,7 @@
                         voReturn.TotalDPPInvoiceAmount = .Item("TotalDPPInvoiceAmount")
                         voReturn.TotalPPNInvoiceAmount = .Item("TotalPPNInvoiceAmount")
                         voReturn.TotalPPHInvoiceAmount = .Item("TotalPPHInvoiceAmount")
+                        voReturn.ReferencesNumber = .Item("ReferencesNumber")
                         voReturn.IsFullDP = .Item("IsFullDP")
                     End If
                 End With
@@ -2058,7 +2059,7 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 '# Receive CBD
-                If intPaymentTypeID = VO.PaymentType.Values.CBD Then
+                If intPaymentTypeID = VO.PaymentType.Values.CBD Or intPaymentTypeID = 0 Then
                     .CommandText +=
                     "SELECT " & vbNewLine &
                     "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, D.OrderNumberSupplier, " & vbNewLine &

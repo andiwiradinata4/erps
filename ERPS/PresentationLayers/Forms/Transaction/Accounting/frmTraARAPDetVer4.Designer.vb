@@ -465,7 +465,7 @@ Partial Class frmTraARAPDetVer4
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.ForeColor = System.Drawing.Color.Black
-        Me.Label6.Location = New System.Drawing.Point(21, 128)
+        Me.Label6.Location = New System.Drawing.Point(21, 101)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(45, 13)
         Me.Label6.TabIndex = 124
@@ -475,12 +475,13 @@ Partial Class frmTraARAPDetVer4
         '
         Me.txtCoACode.BackColor = System.Drawing.Color.Azure
         Me.txtCoACode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACode.Location = New System.Drawing.Point(134, 97)
+        Me.txtCoACode.Location = New System.Drawing.Point(134, 179)
         Me.txtCoACode.MaxLength = 250
         Me.txtCoACode.Name = "txtCoACode"
         Me.txtCoACode.ReadOnly = True
         Me.txtCoACode.Size = New System.Drawing.Size(83, 21)
         Me.txtCoACode.TabIndex = 7
+        Me.txtCoACode.Visible = False
         '
         'txtTotalPPN
         '
@@ -500,17 +501,18 @@ Partial Class frmTraARAPDetVer4
         'btnCoAOfOutgoingPayment
         '
         Me.btnCoAOfOutgoingPayment.Image = CType(resources.GetObject("btnCoAOfOutgoingPayment.Image"), System.Drawing.Image)
-        Me.btnCoAOfOutgoingPayment.Location = New System.Drawing.Point(389, 96)
+        Me.btnCoAOfOutgoingPayment.Location = New System.Drawing.Point(389, 178)
         Me.btnCoAOfOutgoingPayment.Name = "btnCoAOfOutgoingPayment"
         Me.btnCoAOfOutgoingPayment.Size = New System.Drawing.Size(23, 23)
         Me.btnCoAOfOutgoingPayment.TabIndex = 9
+        Me.btnCoAOfOutgoingPayment.Visible = False
         '
         'dtpARAPDate
         '
         Me.dtpARAPDate.CustomFormat = "dd/MM/yyyy"
         Me.dtpARAPDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpARAPDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpARAPDate.Location = New System.Drawing.Point(134, 124)
+        Me.dtpARAPDate.Location = New System.Drawing.Point(134, 97)
         Me.dtpARAPDate.Name = "dtpARAPDate"
         Me.dtpARAPDate.Size = New System.Drawing.Size(83, 21)
         Me.dtpARAPDate.TabIndex = 10
@@ -544,18 +546,19 @@ Partial Class frmTraARAPDetVer4
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(21, 101)
+        Me.Label2.Location = New System.Drawing.Point(21, 183)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(52, 13)
         Me.Label2.TabIndex = 137
         Me.Label2.Text = "Pilih Akun"
+        Me.Label2.Visible = False
         '
         'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(21, 183)
+        Me.Label5.Location = New System.Drawing.Point(21, 156)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(38, 13)
         Me.Label5.TabIndex = 128
@@ -581,7 +584,7 @@ Partial Class frmTraARAPDetVer4
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(134, 179)
+        Me.cboStatus.Location = New System.Drawing.Point(134, 152)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(118, 21)
         Me.cboStatus.TabIndex = 12
@@ -590,19 +593,20 @@ Partial Class frmTraARAPDetVer4
         '
         Me.txtCoAName.BackColor = System.Drawing.Color.Azure
         Me.txtCoAName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoAName.Location = New System.Drawing.Point(216, 97)
+        Me.txtCoAName.Location = New System.Drawing.Point(216, 179)
         Me.txtCoAName.MaxLength = 250
         Me.txtCoAName.Name = "txtCoAName"
         Me.txtCoAName.ReadOnly = True
         Me.txtCoAName.Size = New System.Drawing.Size(167, 21)
         Me.txtCoAName.TabIndex = 8
+        Me.txtCoAName.Visible = False
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.BackColor = System.Drawing.Color.Transparent
         Me.Label10.ForeColor = System.Drawing.Color.Black
-        Me.Label10.Location = New System.Drawing.Point(226, 155)
+        Me.Label10.Location = New System.Drawing.Point(226, 128)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(26, 13)
         Me.Label10.TabIndex = 159
@@ -613,7 +617,7 @@ Partial Class frmTraARAPDetVer4
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.ForeColor = System.Drawing.Color.Black
-        Me.Label9.Location = New System.Drawing.Point(21, 155)
+        Me.Label9.Location = New System.Drawing.Point(21, 128)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(69, 13)
         Me.Label9.TabIndex = 158
@@ -644,7 +648,7 @@ Partial Class frmTraARAPDetVer4
         'txtDueDateValue
         '
         Me.txtDueDateValue.BackColor = System.Drawing.Color.White
-        Me.txtDueDateValue.Location = New System.Drawing.Point(134, 151)
+        Me.txtDueDateValue.Location = New System.Drawing.Point(134, 124)
         Me.txtDueDateValue.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtDueDateValue.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtDueDateValue.Name = "txtDueDateValue"
