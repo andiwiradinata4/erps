@@ -1006,6 +1006,38 @@
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function MonitoringProductTransactionReportPurchaseContractVer00(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                                      ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                                      ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT  " & vbNewLine & _
+"	ROW_NUMBER() OVER(ORDER BY PCD.ID) AS ID, PCD.ParentID AS PCDetailID, MI.ItemCode, MI.ItemCodeExternal, MI.Thick, MI.Width, MI.Length, PCD.Quantity, PCD.TotalWeight, PCD.DCQuantity, PCD.DCWeight  " & vbNewLine & _
+"FROM traPurchaseContractDet PCD  " & vbNewLine & _
+"INNER JOIN traPurchaseContract PCH ON  " & vbNewLine & _
+"	PCD.PCID=PCH.ID  " & vbNewLine & _
+"	AND PCD.ParentID<>'' " & vbNewLine & _
+"INNER JOIN mstItem MI ON  " & vbNewLine & _
+"	PCD.ItemID=MI.ID  " & vbNewLine & _
+" " & vbNewLine & _
+"WHERE  " & vbNewLine & _
+"	PCH.IsDeleted=0  " & vbNewLine & _
+"	AND PCH.ProgramID=@ProgramID  " & vbNewLine & _
+"	AND PCH.CompanyID=@CompanyID  " & vbNewLine & _
+"	AND PCH.PCDate>=@DateFrom AND PCH.PCDate<=@DateTo  " & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
+                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
         Public Shared Function SalesPIReport(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                              ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                              ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,

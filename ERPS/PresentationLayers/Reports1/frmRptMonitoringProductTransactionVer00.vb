@@ -9,6 +9,7 @@ Public Class frmRptMonitoringProductTransactionVer00
     Private ds As New DataSet
     Private dtDataMain As New DataTable
     Private dtDataSalesContract As New DataTable
+    Private dtDataPurchaseContract As New DataTable
     Private Const cPreview As Byte = 0, cExportExcel As Byte = 1, cSep1 As Byte = 2, cRefresh As Byte = 3, cClose As Byte = 4
 
 #End Region
@@ -48,6 +49,20 @@ Public Class frmRptMonitoringProductTransactionVer00
         UI.usForm.SetGrid(grdSalesContractView, "SCTotalWeight", "Total Berat [Kontrak Penjualan]", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdSalesContractView, "DVQuantity", "Jumlah [Pengiriman]", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdSalesContractView, "DVTotalWeight", "Total Berat [Pengiriman]", 100, UI.usDefGrid.gReal2Num)
+
+
+        UI.usForm.SetGrid(grdPurchaseContractView, "ID", "ID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdPurchaseContractView, "PCDetailID", "PCDetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdPurchaseContractView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdPurchaseContractView, "ItemCodeExternal", "Kode Barang Eksternal", 100, UI.usDefGrid.gString)
+
+        UI.usForm.SetGrid(grdPurchaseContractView, "Thick", "Tebal", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdPurchaseContractView, "Width", "Lebar", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdPurchaseContractView, "Length", "Panjang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdPurchaseContractView, "Quantity", "Jumlah [Kontrak Pembelian]", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdPurchaseContractView, "TotalWeight", "Total Berat [Kontrak Pembelian]", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdPurchaseContractView, "DCQuantity", "Jumlah [Penerimaan]", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdPurchaseContractView, "DCWeight", "Total Berat [Penerimaan]", 100, UI.usDefGrid.gReal2Num)
     End Sub
 
     Private Sub prvSetProgressBar(ByVal intMax As Integer)
@@ -79,15 +94,22 @@ Public Class frmRptMonitoringProductTransactionVer00
             ds = New DataSet
             dtDataMain = BL.Reports.MonitoringProductTransactionReportMainVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
             dtDataSalesContract = BL.Reports.MonitoringProductTransactionReportSalesContractVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
+            dtDataPurchaseContract = BL.Reports.MonitoringProductTransactionReportPurchaseContractVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
+
             dtDataMain.Columns.Item("PCDetailID").Unique = True
             dtDataSalesContract.Columns.Item("ID").Unique = True
+            dtDataPurchaseContract.Columns.Item("ID").Unique = True
+
             ds.Tables.Add(dtDataMain)
             ds.Tables.Add(dtDataSalesContract)
+            ds.Tables.Add(dtDataPurchaseContract)
 
-            ds.Relations.Add("SalesContract", dtDataMain.Columns.Item("PCDetailID"), dtDataSalesContract.Columns.Item("PCDetailID"))
+            ds.Relations.Add("Kontrak Penjualan", dtDataMain.Columns.Item("PCDetailID"), dtDataSalesContract.Columns.Item("PCDetailID"))
+            ds.Relations.Add("Kontrak Pembelian", dtDataMain.Columns.Item("PCDetailID"), dtDataPurchaseContract.Columns.Item("PCDetailID"))
 
             grdMain.DataSource = dtDataMain
-            grdMain.LevelTree.Nodes.Add("SalesContract", grdSalesContractView)
+            grdMain.LevelTree.Nodes.Add("Kontrak Penjualan", grdSalesContractView)
+            grdMain.LevelTree.Nodes.Add("Kontrak Pembelian", grdPurchaseContractView)
 
             grdMain.Refresh()
             prvSumGrid()
@@ -215,6 +237,18 @@ Public Class frmRptMonitoringProductTransactionVer00
 
         If grdSalesContractView.Columns("DVQuantity").SummaryText.Trim = "" Then grdSalesContractView.Columns("DVQuantity").Summary.Add(SumDVQuantitySub)
         If grdSalesContractView.Columns("DVTotalWeight").SummaryText.Trim = "" Then grdSalesContractView.Columns("DVTotalWeight").Summary.Add(SumDVTotalWeightSub)
+
+        '# Purchase Contract
+        Dim SumPCQuantitySub As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Jumlah [Kontrak Pembelian]: {0:#,##0.00}")
+        Dim SumPCTotalWeightSub As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat [Kontrak Pembelian]: {0:#,##0.00}")
+        Dim SumDCQuantitySub As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DCQuantity", "Jumlah [Penerimaan]: {0:#,##0.00}")
+        Dim SumDCTotalWeightSub As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DCWeight", "Total Berat [Penerimaan]: {0:#,##0.00}")
+
+        If grdPurchaseContractView.Columns("Quantity").SummaryText.Trim = "" Then grdPurchaseContractView.Columns("Quantity").Summary.Add(SumPCQuantitySub)
+        If grdPurchaseContractView.Columns("TotalWeight").SummaryText.Trim = "" Then grdPurchaseContractView.Columns("TotalWeight").Summary.Add(SumPCTotalWeightSub)
+
+        If grdPurchaseContractView.Columns("DCQuantity").SummaryText.Trim = "" Then grdPurchaseContractView.Columns("DCQuantity").Summary.Add(SumDCQuantitySub)
+        If grdPurchaseContractView.Columns("DCWeight").SummaryText.Trim = "" Then grdPurchaseContractView.Columns("DCWeight").Summary.Add(SumDCTotalWeightSub)
 
     End Sub
 

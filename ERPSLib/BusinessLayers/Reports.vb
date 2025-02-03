@@ -240,6 +240,19 @@
             Return dtReturn
         End Function
 
+        Public Shared Function MonitoringProductTransactionReportPurchaseContractVer00(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                                       ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable
+            dtmDateTo = dtmDateTo.AddHours(23).AddMinutes(59).AddSeconds(59)
+            BL.Server.ServerDefault()
+            Dim dtReturn As New DataTable
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                dtReturn = DL.Reports.MonitoringProductTransactionReportPurchaseContractVer00(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo)
+            End Using
+            dtReturn.DefaultView.Sort = "ItemCodeExternal ASC"
+            dtReturn = dtReturn.DefaultView.ToTable
+            Return dtReturn
+        End Function
+
         Public Shared Function SalesPIReport(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                              ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
                                              ByVal intBPID As Integer, ByVal intItemTypeID As Integer) As DataTable

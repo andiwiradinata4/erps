@@ -23,12 +23,15 @@ Partial Class frmRptMonitoringProductTransactionVer00
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim GridLevelNode1 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
+        Dim GridLevelNode2 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmRptMonitoringProductTransactionVer00))
         Me.grdSalesContractView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
+        Me.grdPurchaseContractView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.ToolBar = New ERPS.usToolBar()
+        Me.BarPreview = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
         Me.BarSep1 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
@@ -44,9 +47,9 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
         Me.btnExecute = New DevExpress.XtraEditors.SimpleButton()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.BarPreview = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdSalesContractView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdPurchaseContractView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
@@ -79,14 +82,24 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.grdMain.EmbeddedNavigator.Buttons.Remove.Visible = False
         GridLevelNode1.LevelTemplate = Me.grdSalesContractView
         GridLevelNode1.RelationName = "Level1"
-        Me.grdMain.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1})
+        GridLevelNode2.LevelTemplate = Me.grdPurchaseContractView
+        GridLevelNode2.RelationName = "Level2"
+        Me.grdMain.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1, GridLevelNode2})
         Me.grdMain.Location = New System.Drawing.Point(0, 148)
         Me.grdMain.MainView = Me.grdView
         Me.grdMain.Name = "grdMain"
         Me.grdMain.Size = New System.Drawing.Size(984, 441)
         Me.grdMain.TabIndex = 5
         Me.grdMain.UseEmbeddedNavigator = True
-        Me.grdMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdView, Me.grdSalesContractView})
+        Me.grdMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdPurchaseContractView, Me.grdView, Me.grdSalesContractView})
+        '
+        'grdPurchaseContractView
+        '
+        Me.grdPurchaseContractView.GridControl = Me.grdMain
+        Me.grdPurchaseContractView.Name = "grdPurchaseContractView"
+        Me.grdPurchaseContractView.OptionsView.ShowAutoFilterRow = True
+        Me.grdPurchaseContractView.OptionsView.ShowFooter = True
+        Me.grdPurchaseContractView.OptionsView.ShowGroupPanel = False
         '
         'grdView
         '
@@ -116,6 +129,12 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.ToolBar.Size = New System.Drawing.Size(984, 28)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'BarPreview
+        '
+        Me.BarPreview.Name = "BarPreview"
+        Me.BarPreview.Tag = "Print"
+        Me.BarPreview.Text = "Preview"
         '
         'BarExportExcel
         '
@@ -257,12 +276,6 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Query berdasarkan:"
         '
-        'BarPreview
-        '
-        Me.BarPreview.Name = "BarPreview"
-        Me.BarPreview.Tag = "Print"
-        Me.BarPreview.Text = "Preview"
-        '
         'frmRptMonitoringProductTransactionVer00
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -278,6 +291,7 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.Text = "Laporan Transaksi Barang"
         CType(Me.grdSalesContractView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdPurchaseContractView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl1.ResumeLayout(False)
@@ -307,4 +321,5 @@ Partial Class frmRptMonitoringProductTransactionVer00
     Friend WithEvents BarRefresh As ToolBarButton
     Friend WithEvents grdSalesContractView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents BarPreview As System.Windows.Forms.ToolBarButton
+    Friend WithEvents grdPurchaseContractView As DevExpress.XtraGrid.Views.Grid.GridView
 End Class
