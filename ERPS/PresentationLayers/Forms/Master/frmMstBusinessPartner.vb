@@ -9,7 +9,8 @@
     Private Const _
        cGet As Byte = 0, cSep1 As Byte = 1, cNew As Byte = 2, cDetail As Byte = 3, cDelete As Byte = 4, cSep2 As Byte = 5,
        cBankAccount As Byte = 6, cAssign As Byte = 7, cLocation As Byte = 8, cSep3 As Byte = 9, cSetupARBalance As Byte = 10,
-       cSetupAPBalance As Byte = 11, cSep4 As Byte = 12, cRefresh As Byte = 13, cClose As Byte = 14
+       cSetupAPBalance As Byte = 11, cSep4 As Byte = 12, cExportExcel As Byte = 13, cSep5 As Byte = 14, cRefresh As Byte = 15,
+       cClose As Byte = 16
 
     Private Sub prvSetTitleForm()
         If pubIsLookUp Then
@@ -196,6 +197,11 @@
         prvSetButton()
     End Sub
 
+    Private Sub prvExportExcel()
+        Dim dxExporter As New DX.usDXHelper
+        dxExporter.DevExport(Me, grdMain, Me.Text, Me.Text, DX.usDxExportFormat.fXls, True, True, DX.usDXExportType.etDefault)
+    End Sub
+
     Private Sub prvUserAccess()
         With ToolBar.Buttons
             .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterBusinessPartner, VO.Access.Values.NewAccess)
@@ -240,6 +246,7 @@
                 Case ToolBar.Buttons(cLocation).Name : prvLocation()
                 Case ToolBar.Buttons(cSetupARBalance).Name : prvSetupARBalance()
                 Case ToolBar.Buttons(cSetupAPBalance).Name : prvSetupAPBalance()
+                Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If
     End Sub

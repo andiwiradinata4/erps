@@ -36,8 +36,8 @@ Partial Class frmTraOrderRequest
         Me.BarSetupDelivery = New System.Windows.Forms.ToolBarButton()
         Me.BarCancelSetupDelivery = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
-        Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
@@ -143,16 +143,16 @@ Partial Class frmTraOrderRequest
         Me.BarSep3.Name = "BarSep3"
         Me.BarSep3.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
-        'BarSep4
-        '
-        Me.BarSep4.Name = "BarSep4"
-        Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
-        '
         'BarExportExcel
         '
         Me.BarExportExcel.Name = "BarExportExcel"
         Me.BarExportExcel.Tag = "Excel"
         Me.BarExportExcel.Text = "Export Excel"
+        '
+        'BarSep4
+        '
+        Me.BarSep4.Name = "BarSep4"
+        Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
         'BarRefresh
         '

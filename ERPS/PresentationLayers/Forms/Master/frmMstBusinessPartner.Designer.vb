@@ -40,6 +40,8 @@ Partial Class frmMstBusinessPartner
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.BarSep5 = New System.Windows.Forms.ToolBarButton()
+        Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -47,7 +49,7 @@ Partial Class frmMstBusinessPartner
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarGet, Me.BarSep1, Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep2, Me.BarBankAccount, Me.BarAssign, Me.BarLocation, Me.BarSep3, Me.BarSetupARBalance, Me.BarSetupAPBalance, Me.BarSep4, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarGet, Me.BarSep1, Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep2, Me.BarBankAccount, Me.BarAssign, Me.BarLocation, Me.BarSep3, Me.BarSetupARBalance, Me.BarSetupAPBalance, Me.BarSep4, Me.BarExportExcel, Me.BarSep5, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -177,6 +179,17 @@ Partial Class frmMstBusinessPartner
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowGroupPanel = False
         '
+        'BarSep5
+        '
+        Me.BarSep5.Name = "BarSep5"
+        Me.BarSep5.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarExportExcel
+        '
+        Me.BarExportExcel.Name = "BarExportExcel"
+        Me.BarExportExcel.Tag = "Excel"
+        Me.BarExportExcel.Text = "Export Excel"
+        '
         'frmMstBusinessPartner
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -212,4 +225,6 @@ Partial Class frmMstBusinessPartner
     Friend WithEvents BarSetupAPBalance As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarSep4 As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarLocation As ToolBarButton
+    Friend WithEvents BarExportExcel As ToolBarButton
+    Friend WithEvents BarSep5 As ToolBarButton
 End Class
