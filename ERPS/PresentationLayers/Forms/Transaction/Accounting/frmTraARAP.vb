@@ -1205,7 +1205,17 @@ Public Class frmTraARAP
             grdView.Columns("TotalInvoiceAmount").Summary.Add(SumGrandTotalInvoiceAmount)
         End If
 
-        If grdView.GroupCount > 0 Then grdView.ExpandAllGroups()
+        If grdView.GroupCount > 0 Then
+            grdView.ExpandAllGroups()
+            grdView.GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalAmount", grdView.Columns("TotalAmount"), "Total DPP: {0:#,##0.00}"))
+            grdView.GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPN", grdView.Columns("TotalPPN"), "Total PPN: {0:#,##0.00}"))
+            grdView.GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPH", grdView.Columns("TotalPPH"), "Total PPH: {0:#,##0.00}"))
+            grdView.GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "GrandTotal", grdView.Columns("GrandTotal"), "Grand Total: {0:#,##0.00}"))
+            grdView.GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalDPPInvoiceAmount", grdView.Columns("TotalDPPInvoiceAmount"), "Total DPP Invoice: {0:#,##0.00}"))
+            grdView.GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPNInvoiceAmount", grdView.Columns("TotalPPNInvoiceAmount"), "Total PPN Invoice: {0:#,##0.00}"))
+            grdView.GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPHInvoiceAmount", grdView.Columns("TotalPPHInvoiceAmount"), "Total PPH Invoice: {0:#,##0.00}"))
+            grdView.GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalInvoiceAmount", grdView.Columns("TotalInvoiceAmount"), "Grand Total Invoice: {0:#,##0.00}"))
+        End If
     End Sub
 
     Private Sub prvUserAccess()
