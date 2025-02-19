@@ -60,6 +60,10 @@
             txtPaymentTerm9.Text = clsDetail.PaymentTerm9
             txtPaymentTerm10.Text = clsDetail.PaymentTerm10
             txtPurchaseNumber.Text = IIf(clsDetail.ReferencesNumber.Trim = "", BL.OrderRequest.GetReferencesNumberBySCID(clsDetail.ReferencesID), clsDetail.ReferencesNumber)
+            If txtPurchaseNumber.Text.Trim = "" Then
+                Dim clsOrderRequest As VO.OrderRequest = BL.OrderRequest.GetDetail(clsDetail.ReferencesID)
+                txtPurchaseNumber.Text = clsOrderRequest.OrderNumber
+            End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()

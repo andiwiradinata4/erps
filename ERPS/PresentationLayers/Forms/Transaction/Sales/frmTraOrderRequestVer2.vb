@@ -460,11 +460,11 @@ Public Class frmTraOrderRequestVer2
             .Item(cCancelSetupDelivery).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.CancelSetupDelivery)
             .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.ExportExcelAccess)
 
-            '.Item(cDownPayment).Visible = bolIsStock
-            '.Item(cReceive).Visible = bolIsStock
-            'If BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.SetupDelivery) Then .Item(cSetupDelivery).Visible = bolIsStock
-            'If BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.CancelSetupDelivery) Then .Item(cCancelSetupDelivery).Visible = bolIsStock
-            'If BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.CancelSetupDelivery) Then .Item(cSep3).Visible = bolIsStock
+            .Item(cDownPayment).Visible = bolIsStock
+            .Item(cReceive).Visible = bolIsStock
+            If BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.SetupDelivery) Then .Item(cSetupDelivery).Visible = bolIsStock
+            If BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.CancelSetupDelivery) Then .Item(cCancelSetupDelivery).Visible = bolIsStock
+            If BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.CancelSetupDelivery) Then .Item(cSep3).Visible = bolIsStock
         End With
     End Sub
 

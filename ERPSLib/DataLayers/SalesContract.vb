@@ -1054,6 +1054,52 @@
             End Try
         End Sub
 
+        Public Shared Sub CalculateItemTotalUsedDownPaymentInOrderRequest(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                          ByVal strID As String, ByVal strORDetailID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesContractDet SET 	" & vbNewLine &
+                    "	DPAmount=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(ORD.DPAmount),0) TotalPayment		" & vbNewLine &
+                    "		FROM traOrderRequestDet ORD " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			ORD.ID=@ORDetailID" & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	DPAmountPPN=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(ORD.DPAmountPPN),0) TotalPayment		" & vbNewLine &
+                    "		FROM traOrderRequestDet ORD " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			ORD.ID=@ORDetailID" & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	DPAmountPPH=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(ORD.DPAmountPPH),0) TotalPayment		" & vbNewLine &
+                    "		FROM traOrderRequestDet ORD " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			ORD.ID=@ORDetailID" & vbNewLine &
+                    "	) " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@ORDetailID", SqlDbType.VarChar, 100).Value = strORDetailID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
         Public Shared Sub CalculateItemTotalUsedDownPaymentParent(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                                   ByVal strID As String)
             Dim sqlCmdExecute As New SqlCommand

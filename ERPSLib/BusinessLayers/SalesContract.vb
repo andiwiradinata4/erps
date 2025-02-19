@@ -247,7 +247,9 @@
                     '# Calculate SC Quantity in Order Request
                     For Each clsDet As VO.SalesContractDet In clsData.Detail
                         DL.OrderRequest.CalculateTotalUsed(sqlCon, sqlTrans, clsDet.ORDetailID)
+                        'DL.SalesContract.CalculateItemTotalUsedDownPaymentInOrderRequest(sqlCon, sqlTrans, clsDet.ID, clsDet.ORDetailID)
                     Next
+                    'DL.SalesContract.CalculateTotalUsedDownPaymentVer1(sqlCon, sqlTrans, clsData.ID)
 
                     '# Calculate SC Quantity in Confirmation Order
                     For Each clsDet As VO.SalesContractDetConfirmationOrder In clsData.DetailConfirmationOrder

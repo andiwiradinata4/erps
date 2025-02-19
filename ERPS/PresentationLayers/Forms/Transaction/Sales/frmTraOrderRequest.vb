@@ -319,11 +319,14 @@ Public Class frmTraOrderRequest
 
         Dim frmDetail As New frmTraARAP
         With frmDetail
-            .pubModules = VO.AccountReceivable.DownPaymentOrderRequest
+            .pubModules = VO.AccountReceivable.DownPaymentOrderRequestVer2
             .pubARAPType = VO.ARAP.ARAPTypeValue.Sales
             .pubBPID = clsData.BPID
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
+            .pubIsUseSubItem = False
+            .pubPPNPercentage = clsData.PPN
+            .pubPPHPercentage = clsData.PPH
             .ShowDialog()
         End With
     End Sub

@@ -763,6 +763,11 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptListPOCuttingVer00.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptPIWithSizeReportVer00.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmRptSalesConfirmationOrderReportVer00.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraDeliveryDetMultiItemVer01.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryDetMultiItemVer01.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptListPOCuttingVer00.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptPIWithSizeReportVer00.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptSalesConfirmationOrderReportVer00.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptSalesConfirmationOrderReportVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPS.exe.config
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPS.pdb
@@ -1011,8 +1016,3 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\aa\ERPS.resources.dll
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.pdb
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryDetMultiItemVer01.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptListPOCuttingVer00.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptPIWithSizeReportVer00.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmRptSalesConfirmationOrderReportVer00.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptSalesConfirmationOrderReportVer00.resources

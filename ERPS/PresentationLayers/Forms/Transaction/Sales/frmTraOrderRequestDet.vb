@@ -324,6 +324,7 @@ Public Class frmTraOrderRequestDet
             .Buttons(cEditItem).Enabled = bolEnabled
             .Buttons(cDeleteItem).Enabled = bolEnabled
             .Buttons(cChangeItem).Enabled = IIf(pubIsNew, False, bolEnabled)
+            .Buttons(cChangeItemPriceAndQuantity).Enabled = IIf(pubIsNew, False, bolEnabled)
         End With
     End Sub
 

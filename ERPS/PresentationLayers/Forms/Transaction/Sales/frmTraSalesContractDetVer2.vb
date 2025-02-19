@@ -24,7 +24,8 @@ Public Class frmTraSalesContractDetVer2
 
     Private Const _
        cSave As Byte = 0, cClose As Byte = 1,
-       cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2, cSepItem1 As Byte = 3, cRemapItem As Byte = 4
+       cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2, cSepItem1 As Byte = 3, cRemapItem As Byte = 4, cDeleteDuplicate As Byte = 5,
+       cSep2 As Byte = 6, cSplitItem As Byte = 7, cCancelSplitItem As Byte = 8
 
     Private Sub prvSetTitleForm()
         If pubIsNew Then
@@ -558,6 +559,9 @@ Public Class frmTraSalesContractDetVer2
             .Buttons(cEditItem).Enabled = bolEnabled
             .Buttons(cDeleteItem).Enabled = bolEnabled
             .Buttons(cRemapItem).Enabled = IIf(pubIsNew, False, bolEnabled)
+            .Buttons(cDeleteDuplicate).Enabled = IIf(pubIsNew, False, bolEnabled)
+            .Buttons(cSplitItem).Enabled = IIf(pubIsNew, False, bolEnabled)
+            .Buttons(cCancelSplitItem).Enabled = IIf(pubIsNew, False, bolEnabled)
         End With
     End Sub
 

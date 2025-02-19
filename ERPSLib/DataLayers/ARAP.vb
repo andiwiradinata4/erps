@@ -270,6 +270,61 @@
 "	ARI.TotalWeight, SCD.TotalWeight, SCD.UnitPrice, ARI.Amount, ARI.DPAmount, ARH.ReceiveAmount, ARH.DPAmount, ARI.PPN, ARI.PPH, ARH.Percentage, ARH.Modules, ARH.CreatedDate, ARH.TaxInvoiceNumber, " & vbNewLine &
 "   C.NPWP, ARH.ReferencesNumber, ARH.IsDP, SCH.TotalDPP, SCH.TotalPPN, SCH.TotalPPH, SCD.Quantity, SCH.TotalWeight, SCD.TotalPrice, ARH.TotalAmount, ARH.TotalPPN, ARH.TotalPPH, MI.ItemCodeExternal   " & vbNewLine
 
+                .CommandText +=
+"UNION ALL " & vbNewLine &
+"SELECT     " & vbNewLine &
+"	ARH.ID, ARH.ProgramID, MP.Name AS ProgramName, ARH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress,     " & vbNewLine &
+"	ARH.ARNumber AS TransNumber, ARH.ARDate AS TransDate, ARH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, ARH.ReferencesID, ARH.ReferencesNote,     " & vbNewLine &
+"	ORH.PPN, ORH.PPH, CASE WHEN ARH.IsDP=1 THEN ORH.TotalDPP ELSE ARH.ReceiveAmount+ARH.DPAmount END AS TotalDPP, CASE WHEN ARH.IsDP=1 THEN ORH.TotalPPN ELSE (ARH.ReceiveAmount+ARH.DPAmount)*ORH.PPN/100 END AS TotalPPN, " & vbNewLine &
+"   CASE WHEN ARH.IsDP=1 THEN ORH.TotalPPH ELSE (ARH.ReceiveAmount+ARH.DPAmount)*ORH.PPH/100 END AS TotalPPH,  " & vbNewLine &
+"	GrandTotal=CASE WHEN ARH.IsDP=1 THEN ORH.TotalDPP+ORH.TotalPPN-ORH.TotalPPH ELSE (ARH.ReceiveAmount+ARH.DPAmount)+((ARH.ReceiveAmount+ARH.DPAmount)*ORH.PPN/100)-((ARH.ReceiveAmount+ARH.DPAmount)*ORH.PPH/100) END, MC.DirectorName AS DirectorName,  " & vbNewLine &
+"	ISNULL(MBC1.AccountName,'') AS BankAccountName1, ISNULL(MBC1.BankName,'') AS BankAccountBankName1, ISNULL(MBC1.AccountNumber,'') AS BankAccountNumber1,  " & vbNewLine &
+"	ISNULL(MBC2.AccountName,'') AS BankAccountName2, ISNULL(MBC2.BankName,'') AS BankAccountBankName2, ISNULL(MBC2.AccountNumber,'') AS BankAccountNumber2, ARH.StatusID,  " & vbNewLine &
+"	CASE WHEN MI.ItemCodeExternal='' THEN MIS.Description ELSE MI.ItemCodeExternal END AS ItemSpec, ARI.OrderNumberSupplier AS ItemType, MI.Thick AS ItemThick, MI.Width AS ItemWidth, CASE WHEN MI.Length=0 THEN IT.LengthInitial ELSE CAST(MI.Length AS VARCHAR(100)) END AS ItemLength, " & vbNewLine &
+"	ORD.Weight, ARI.Quantity, ARI.TotalWeight AS TotalWeightItem, ORD.UnitPrice, CASE WHEN ARH.IsDP=1 THEN ORD.UnitPrice*ARI.TotalWeight ELSE ARI.Amount+ARI.DPAmount END AS TotalPrice, " & vbNewLine &
+"	ARI.Amount+ARI.PPN-ARI.PPH AS TotalAmount, ARH.Percentage, CAST('' AS VARCHAR(1000)) AS NumericToString, ARH.Modules, ARH.CreatedDate, ARH.TaxInvoiceNumber, C.NPWP, ARH.ReferencesNumber AS PurchaseNumber, CAST('' AS VARCHAR(1000)) AS ContractNumber, " & vbNewLine &
+"   CASE WHEN ARH.IsDP=1 THEN ARH.TotalAmount+ARH.TotalPPN-ARH.TotalPPH ELSE ARH.DPAmount+(ARH.DPAmount*ORH.PPN/100) END AS DPAmount, ARH.IsDP, ARH.ARNumber AS RefTransNumber " & vbNewLine &
+"FROM traAccountReceivable ARH     " & vbNewLine &
+"INNER JOIN traAccountReceivableDet ARD ON     " & vbNewLine &
+"	ARH.ID=ARD.ARID     " & vbNewLine &
+"INNER JOIN mstStatus B ON     " & vbNewLine &
+"    ARH.StatusID=B.ID     " & vbNewLine &
+"INNER JOIN mstBusinessPartner C ON     " & vbNewLine &
+"    ARH.BPID=C.ID     " & vbNewLine &
+"INNER JOIN mstCompany MC ON     " & vbNewLine &
+"    ARH.CompanyID=MC.ID     " & vbNewLine &
+"INNER JOIN mstProgram MP ON     " & vbNewLine &
+"    ARH.ProgramID=MP.ID     " & vbNewLine &
+"INNER JOIN traOrderRequest ORH ON  " & vbNewLine &
+"	ARD.SalesID=ORH.ID  " & vbNewLine &
+"INNER JOIN traOrderRequestDet ORD ON  " & vbNewLine &
+"	ORH.ID=ORD.OrderRequestID " & vbNewLine &
+"INNER JOIN mstItem MI ON 	      " & vbNewLine &
+"    ORD.ItemID=MI.ID 	      " & vbNewLine &
+"INNER JOIN mstItemSpecification MIS ON 	 	      " & vbNewLine &
+"    MI.ItemSpecificationID=MIS.ID 	 	      " & vbNewLine &
+"INNER JOIN mstItemType IT ON 	 	      " & vbNewLine &
+"    MI.ItemTypeID=IT.ID 	 	      " & vbNewLine &
+"INNER JOIN traARAPItem ARI ON     " & vbNewLine &
+"	ARH.ID=ARI.ParentID     " & vbNewLine &
+"	AND ORD.OrderRequestID=ARI.ReferencesID     " & vbNewLine &
+"	AND ORD.ID=ARI.ReferencesDetailID     " & vbNewLine &
+"LEFT JOIN mstCompanyBankAccount MBC1 ON  " & vbNewLine &
+"	ARH.CompanyBankAccountID1=MBC1.ID  " & vbNewLine &
+"LEFT JOIN mstCompanyBankAccount MBC2 ON  " & vbNewLine &
+"	ARH.CompanyBankAccountID2=MBC2.ID  " & vbNewLine &
+"WHERE 	    " & vbNewLine &
+"	ARH.ProgramID=@ProgramID     " & vbNewLine &
+"	AND ARH.CompanyID=@CompanyID     " & vbNewLine &
+"	AND ARH.ID=@ID 	    " & vbNewLine &
+"GROUP BY     " & vbNewLine &
+"	ARH.ID, ARH.ProgramID, MP.Name, ARH.CompanyID, MC.Name, MC.Address, MC.Warehouse, ARH.ARNumber, ARH.ARDate, ARH.BPID, C.Code, C.Name, C.Address, ARH.ReferencesID,     " & vbNewLine &
+"	ARH.ReferencesNote, ORH.PPN, ORH.PPH, MC.DirectorName, MBC1.AccountName, MBC1.BankName, MBC1.AccountNumber,  " & vbNewLine &
+"	MBC2.AccountName, MBC2.BankName, MBC2.AccountNumber, ARH.StatusID, MIS.Description, ARI.OrderNumberSupplier, MI.Thick, MI.Width, MI.Length, IT.LengthInitial, ORD.Weight, ARI.Quantity,  " & vbNewLine &
+"	ARI.TotalWeight, ORD.TotalWeight, ORD.UnitPrice, ARI.Amount, ARI.DPAmount, ARH.ReceiveAmount, ARH.DPAmount, ARI.PPN, ARI.PPH, ARH.Percentage, ARH.Modules, ARH.CreatedDate, ARH.TaxInvoiceNumber, " & vbNewLine &
+"   C.NPWP, ARH.ReferencesNumber, ARH.IsDP, ORH.TotalDPP, ORH.TotalPPN, ORH.TotalPPH, ORD.Quantity, ORH.TotalWeight, ORD.TotalPrice, ARH.TotalAmount, ARH.TotalPPN, ARH.TotalPPH, MI.ItemCodeExternal   " & vbNewLine
+
+
                 '                .CommandText +=
                 '"UNION ALL " & vbNewLine &
                 '"SELECT " & vbNewLine &

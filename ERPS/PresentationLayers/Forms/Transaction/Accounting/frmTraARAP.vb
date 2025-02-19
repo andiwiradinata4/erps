@@ -150,6 +150,7 @@ Public Class frmTraARAP
         UI.usForm.SetGrid(grdView, "TotalPPNInvoiceAmount", "Total PPN Invoice", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalPPHInvoiceAmount", "Total PPH Invoice", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalInvoiceAmount", "Grand Total Invoice", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "OutstandingInvoiceAmount", "Total yang belum dibayar", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "PaymentBy", "Dibayar Oleh", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "PaymentDate", "Tanggal Bayar", 100, UI.usDefGrid.gFullDate, False)
         UI.usForm.SetGrid(grdView, "TaxInvoiceNumber", "No. Faktur Pajak", 100, UI.usDefGrid.gString, False)
@@ -1172,50 +1173,64 @@ Public Class frmTraARAP
         Dim SumTotalPPNInvoiceAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPNInvoiceAmount", "Total PPN Invoice: {0:#,##0.00}")
         Dim SumTotalPPHInvoiceAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPHInvoiceAmount", "Total PPH Invoice: {0:#,##0.00}")
         Dim SumGrandTotalInvoiceAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalInvoiceAmount", "Grand Total Invoice: {0:#,##0.00}")
+        Dim SumOutstandingInvoiceAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "OutstandingInvoiceAmount", "Total yang belum dibayar: {0:#,##0.00}")
+
+        Dim sumGroupTotalAmount As New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalAmount", grdView.Columns("TotalAmount"), "Total DPP: {0:#,##0.00}")
+        Dim sumGroupTotalPPN As New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPN", grdView.Columns("TotalPPN"), "Total PPN: {0:#,##0.00}")
+        Dim sumGroupTotalPPH As New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPH", grdView.Columns("TotalPPH"), "Total PPH: {0:#,##0.00}")
+        Dim sumGroupGrandTotal As New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "GrandTotal", grdView.Columns("GrandTotal"), "Grand Total: {0:#,##0.00}")
+        Dim sumGroupTotalDPPInvoiceAmount As New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalDPPInvoiceAmount", grdView.Columns("TotalDPPInvoiceAmount"), "Total DPP Invoice: {0:#,##0.00}")
+        Dim sumGroupTotalPPNInvoiceAmount As New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPNInvoiceAmount", grdView.Columns("TotalPPNInvoiceAmount"), "Total PPN Invoice: {0:#,##0.00}")
+        Dim sumGroupTotalPPHInvoiceAmount As New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPHInvoiceAmount", grdView.Columns("TotalPPHInvoiceAmount"), "Total PPH Invoice: {0:#,##0.00}")
+        Dim sumGroupTotalInvoiceAmount As New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalInvoiceAmount", grdView.Columns("TotalInvoiceAmount"), "Grand Total Invoice: {0:#,##0.00}")
+        Dim SumGroupOutstandingInvoiceAmount As New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "OutstandingInvoiceAmount", grdView.Columns("OutstandingInvoiceAmount"), "Total yang belum dibayar: {0:#,##0.00}")
 
         If grdView.Columns("TotalAmount").SummaryText.Trim = "" Then
             grdView.Columns("TotalAmount").Summary.Add(SumTotalAmount)
+            If grdView.GroupCount > 0 Then grdView.GroupSummary.Add(sumGroupTotalAmount)
         End If
 
         If grdView.Columns("TotalPPN").SummaryText.Trim = "" Then
             grdView.Columns("TotalPPN").Summary.Add(SumTotalPPN)
+            If grdView.GroupCount > 0 Then grdView.GroupSummary.Add(sumGroupTotalPPN)
         End If
 
         If grdView.Columns("TotalPPH").SummaryText.Trim = "" Then
             grdView.Columns("TotalPPH").Summary.Add(SumTotalPPH)
+            If grdView.GroupCount > 0 Then grdView.GroupSummary.Add(sumGroupTotalPPH)
         End If
 
         If grdView.Columns("GrandTotal").SummaryText.Trim = "" Then
             grdView.Columns("GrandTotal").Summary.Add(SumGrandTotal)
+            If grdView.GroupCount > 0 Then grdView.GroupSummary.Add(sumGroupGrandTotal)
         End If
 
         If grdView.Columns("TotalDPPInvoiceAmount").SummaryText.Trim = "" Then
             grdView.Columns("TotalDPPInvoiceAmount").Summary.Add(SumTotalDPPInvoiceAmount)
+            If grdView.GroupCount > 0 Then grdView.GroupSummary.Add(sumGroupTotalDPPInvoiceAmount)
         End If
 
         If grdView.Columns("TotalPPNInvoiceAmount").SummaryText.Trim = "" Then
             grdView.Columns("TotalPPNInvoiceAmount").Summary.Add(SumTotalPPNInvoiceAmount)
+            If grdView.GroupCount > 0 Then grdView.GroupSummary.Add(sumGroupTotalPPNInvoiceAmount)
         End If
 
         If grdView.Columns("TotalPPHInvoiceAmount").SummaryText.Trim = "" Then
             grdView.Columns("TotalPPHInvoiceAmount").Summary.Add(SumTotalPPHInvoiceAmount)
+            If grdView.GroupCount > 0 Then grdView.GroupSummary.Add(sumGroupTotalPPHInvoiceAmount)
         End If
 
         If grdView.Columns("TotalInvoiceAmount").SummaryText.Trim = "" Then
             grdView.Columns("TotalInvoiceAmount").Summary.Add(SumGrandTotalInvoiceAmount)
+            If grdView.GroupCount > 0 Then grdView.GroupSummary.Add(sumGroupTotalInvoiceAmount)
         End If
 
-        If grdView.GroupCount > 0 Then
-            grdView.ExpandAllGroups()
-            grdView.GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalAmount", grdView.Columns("TotalAmount"), "Total DPP: {0:#,##0.00}"))
-            grdView.GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPN", grdView.Columns("TotalPPN"), "Total PPN: {0:#,##0.00}"))
-            grdView.GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPH", grdView.Columns("TotalPPH"), "Total PPH: {0:#,##0.00}"))
-            grdView.GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "GrandTotal", grdView.Columns("GrandTotal"), "Grand Total: {0:#,##0.00}"))
-            grdView.GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalDPPInvoiceAmount", grdView.Columns("TotalDPPInvoiceAmount"), "Total DPP Invoice: {0:#,##0.00}"))
-            grdView.GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPNInvoiceAmount", grdView.Columns("TotalPPNInvoiceAmount"), "Total PPN Invoice: {0:#,##0.00}"))
-            grdView.GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPHInvoiceAmount", grdView.Columns("TotalPPHInvoiceAmount"), "Total PPH Invoice: {0:#,##0.00}"))
-            grdView.GroupSummary.Add(New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalInvoiceAmount", grdView.Columns("TotalInvoiceAmount"), "Grand Total Invoice: {0:#,##0.00}"))
+        If grdView.Columns("OutstandingInvoiceAmount").SummaryText.Trim = "" Then
+            grdView.Columns("OutstandingInvoiceAmount").Summary.Add(SumOutstandingInvoiceAmount)
+            If grdView.GroupCount > 0 Then grdView.GroupSummary.Add(SumGroupOutstandingInvoiceAmount)
         End If
+
+        If grdView.GroupCount > 0 Then grdView.ExpandAllGroups()
     End Sub
 
     Private Sub prvUserAccess()
@@ -1310,6 +1325,8 @@ Public Class frmTraARAP
             pubRefresh()
         ElseIf e.Button.Name = ToolBar.Buttons(cClose).Name Then
             Me.Close()
+        ElseIf e.Button.Name = ToolBar.Buttons(cExportExcel).Name Then
+            prvExportExcel()
         ElseIf grdView.FocusedRowHandle >= 0 Then
             Select Case e.Button.Name
                 Case ToolBar.Buttons(cDetail).Name : prvDetail()
@@ -1326,7 +1343,6 @@ Public Class frmTraARAP
                 Case ToolBar.Buttons(cExtendDueDate).Name : prvExtendDueDate()
                 Case ToolBar.Buttons(cPrintPI).Name : prvPrintPI()
                 Case ToolBar.Buttons(cPrintInvoice).Name : prvPrintInvoice()
-                Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If
     End Sub
