@@ -341,7 +341,7 @@ Public Class frmTraOrderRequestVer2
 
         Dim frmDetail As New frmTraARAP
         With frmDetail
-            .pubModules = VO.AccountReceivable.ReceivePaymentOrderRequest
+            .pubModules = VO.AccountReceivable.ReceivePaymentOrderRequestVer2
             .pubARAPType = VO.ARAP.ARAPTypeValue.Sales
             .pubBPID = clsData.BPID
             .pubBPCode = clsData.BPCode
@@ -349,6 +349,9 @@ Public Class frmTraOrderRequestVer2
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
             .pubReferencesNumber = clsData.OrderNumber
+            .pubPPNPercentage = clsData.PPN
+            .pubPPHPercentage = clsData.PPH
+            '.pubIsUseSubItem = clsData.IsUseSubItem
             .ShowDialog()
         End With
     End Sub
@@ -451,6 +454,7 @@ Public Class frmTraOrderRequestVer2
     End Sub
 
     Private Sub prvUserAccess()
+        If ERPSLib.UI.usUserApp.IsSuperUser Then Exit Sub
         With ToolBar.Buttons
             .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.NewAccess)
             .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.DeleteAccess)

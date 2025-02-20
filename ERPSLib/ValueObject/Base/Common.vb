@@ -49,6 +49,8 @@
                 Return "Uang Muka Penjualan"
             ElseIf strModules = VO.AccountReceivable.ReceivePaymentOrderRequest Then
                 Return "Pelunasan Piutang Penjualan [Stock]"
+            ElseIf strModules = VO.AccountReceivable.ReceivePaymentOrderRequestVer2 Then
+                Return "Pelunasan Piutang Penjualan"
             ElseIf strModules = VO.AccountReceivable.All Then
                 Return "Semua Daftar Pelunasan"
             ElseIf strModules = VO.AccountReceivable.ReceivePaymentSalesReturn Then

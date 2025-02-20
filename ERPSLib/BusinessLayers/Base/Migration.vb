@@ -4,85 +4,93 @@
         Public Shared Sub Migrate()
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                CreateTableMigration(sqlCon, Nothing)
-                AddColumnPCIDInTableConfirmationOrderAddJournalIDAndTotalPayemntInTableReceive_ID1(sqlCon, Nothing)
-                AddColumnIsAutoGenerateInTablePurchaseContract_ID2(sqlCon, Nothing)
-                DevelopARAPForUsingDownPayment_ID3(sqlCon, Nothing)
-                CreateTableARAPDP_ID4(sqlCon, Nothing)
-                AlterTableCuttingAndDelivery_ID5(sqlCon, Nothing)
-                AlterTableReceive_ID6(sqlCon, Nothing)
-                AlterTableCutting_ID7(sqlCon, Nothing)
-                CreateTableDeliveryTransport_ID8(sqlCon, Nothing)
-                AlterTableSysJournalPost_ID9(sqlCon, Nothing)
-                AlterTableSysJournalPost_ID10(sqlCon, Nothing)
-                AlterTableForHandleCoAofStock_ID11(sqlCon, Nothing)
-                AlterTableForHandleCoAofStock_ID12(sqlCon, Nothing)
-                CreateTableBPLocation_ID13(sqlCon, Nothing)
-                DevelopARAPForItem_ID14(sqlCon, Nothing)
-                DevelopOnProgress_ID15(sqlCon, Nothing)
-                DevelopOnProgress_ID16(sqlCon, Nothing)
-                DevelopOnProgress_ID17(sqlCon, Nothing)
-                DevelopOnProgress_ID18(sqlCon, Nothing)
-                DevelopOnProgress_ID19(sqlCon, Nothing)
-                DevelopOnProgress_ID20(sqlCon, Nothing)
-                DevelopOnProgress_ID21(sqlCon, Nothing)
-                DevelopOnProgress_ID22(sqlCon, Nothing)
-                DevelopOnProgress_ID23(sqlCon, Nothing)
-                DevelopOnProgress_ID24(sqlCon, Nothing)
-                CreateTableAppVersion_ID25(sqlCon, Nothing)
-                DevelopOnProgress_ID26(sqlCon, Nothing)
-                DevelopOnProgress_ID27(sqlCon, Nothing)
-                DevelopOnProgress_ID28(sqlCon, Nothing)
-                DevelopOnProgress_ID29(sqlCon, Nothing)
-                DevelopOnProgress_ID30(sqlCon, Nothing)
-                DevelopOnProgress_ID31(sqlCon, Nothing)
-                DevelopOnProgress_ID32(sqlCon, Nothing)
-                DevelopOnProgress_ID33(sqlCon, Nothing)
-                DevelopOnProgress_ID34(sqlCon, Nothing)
-                DevelopOnProgress_ID35(sqlCon, Nothing)
-                DevelopOnProgress_ID36(sqlCon, Nothing)
-                DevelopOnProgress_ID37(sqlCon, Nothing)
-                DevelopOnProgress_ID38(sqlCon, Nothing)
-                DevelopOnProgress_ID39(sqlCon, Nothing)
-                DevelopOnProgress_ID40(sqlCon, Nothing)
-                DevelopOnProgress_ID41(sqlCon, Nothing)
-                DevelopOnProgress_ID42(sqlCon, Nothing)
-                DevelopOnProgress_ID43(sqlCon, Nothing)
-                DevelopOnProgress_ID44(sqlCon, Nothing)
-                DevelopOnProgress_ID45(sqlCon, Nothing)
-                DevelopOnProgress_ID46(sqlCon, Nothing)
-                DevelopOnProgress_ID47(sqlCon, Nothing)
-                DevelopOnProgress_ID48(sqlCon, Nothing)
-                DevelopOnProgress_ID49(sqlCon, Nothing)
-                DevelopOnProgress_ID50(sqlCon, Nothing)
-                DevelopOnProgress_ID51(sqlCon, Nothing)
-                DevelopOnProgress_ID52(sqlCon, Nothing)
-                DevelopOnProgress_ID53(sqlCon, Nothing)
-                CreateTableItemResult_ID54(sqlCon, Nothing)
-                DevelopOnProgress_ID55(sqlCon, Nothing)
-                DevelopOnProgress_ID56(sqlCon, Nothing)
-                DevelopOnProgress_ID57(sqlCon, Nothing)
-                DevelopOnProgress_ID58(sqlCon, Nothing)
-                DevelopOnProgress_ID59(sqlCon, Nothing)
-                DevelopOnProgress_ID60(sqlCon, Nothing)
-                DevelopOnProgress_ID61(sqlCon, Nothing)
-                DevelopOnProgress_ID62(sqlCon, Nothing)
-                DevelopOnProgress_ID63(sqlCon, Nothing)
-                DevelopOnProgress_ID64(sqlCon, Nothing)
-                DevelopOnProgress_ID65(sqlCon, Nothing)
-                DevelopOnProgress_ID66(sqlCon, Nothing)
-                DevelopOnProgress_ID67(sqlCon, Nothing)
-                DevelopOnProgress_ID68(sqlCon, Nothing)
-                DevelopOnProgress_ID69(sqlCon, Nothing)
-                DevelopOnProgress_ID70(sqlCon, Nothing)
-                CreateARAPInvoiceItem_ID71(sqlCon, Nothing)
-                DevelopOnProgress_ID72(sqlCon, Nothing)
-                DevelopOnProgress_ID73(sqlCon, Nothing)
-                DevelopOnProgress_ID74(sqlCon, Nothing)
-                DevelopOnProgress_ID75(sqlCon, Nothing)
-                DevelopOnProgress_ID76(sqlCon, Nothing)
-                DevelopOnProgress_ID77(sqlCon, Nothing)
-                DevelopOnProgress_ID78(sqlCon, Nothing)
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    CreateTableMigration(sqlCon, sqlTrans)
+                    AddColumnPCIDInTableConfirmationOrderAddJournalIDAndTotalPayemntInTableReceive_ID1(sqlCon, sqlTrans)
+                    AddColumnIsAutoGenerateInTablePurchaseContract_ID2(sqlCon, sqlTrans)
+                    DevelopARAPForUsingDownPayment_ID3(sqlCon, sqlTrans)
+                    CreateTableARAPDP_ID4(sqlCon, sqlTrans)
+                    AlterTableCuttingAndDelivery_ID5(sqlCon, sqlTrans)
+                    AlterTableReceive_ID6(sqlCon, sqlTrans)
+                    AlterTableCutting_ID7(sqlCon, sqlTrans)
+                    CreateTableDeliveryTransport_ID8(sqlCon, sqlTrans)
+                    AlterTableSysJournalPost_ID9(sqlCon, sqlTrans)
+                    AlterTableSysJournalPost_ID10(sqlCon, sqlTrans)
+                    AlterTableForHandleCoAofStock_ID11(sqlCon, sqlTrans)
+                    AlterTableForHandleCoAofStock_ID12(sqlCon, sqlTrans)
+                    CreateTableBPLocation_ID13(sqlCon, sqlTrans)
+                    DevelopARAPForItem_ID14(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID15(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID16(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID17(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID18(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID19(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID20(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID21(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID22(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID23(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID24(sqlCon, sqlTrans)
+                    CreateTableAppVersion_ID25(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID26(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID27(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID28(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID29(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID30(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID31(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID32(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID33(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID34(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID35(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID36(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID37(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID38(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID39(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID40(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID41(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID42(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID43(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID44(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID45(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID46(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID47(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID48(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID49(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID50(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID51(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID52(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID53(sqlCon, sqlTrans)
+                    CreateTableItemResult_ID54(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID55(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID56(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID57(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID58(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID59(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID60(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID61(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID62(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID63(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID64(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID65(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID66(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID67(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID68(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID69(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID70(sqlCon, sqlTrans)
+                    CreateARAPInvoiceItem_ID71(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID72(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID73(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID74(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID75(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID76(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID77(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID78(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID79(sqlCon, sqlTrans)
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
             End Using
         End Sub
 
@@ -2451,6 +2459,35 @@
 "ALTER TABLE traPurchaseOrderDet ADD SCOWeight DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderDet_SCOWeight DEFAULT ((0))  " & vbNewLine & _
 "ALTER TABLE traOrderRequestDet ADD SCOQuantity DECIMAL(18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_SCOQuantity DEFAULT ((0))  " & vbNewLine & _
 "ALTER TABLE traOrderRequestDet ADD SCOWeight DECIMAL(18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_SCOWeight DEFAULT ((0))  " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 79
+        Private Shared Sub DevelopOnProgress_ID79(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 79
+            clsData.Name = "Development On Progress 79 | Enchance Order Request to use Receive Payment"
+            clsData.Scripts =
+"ALTER TABLE traOrderRequestDet ADD InvoiceQuantity DECIMAL(18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_InvoiceQuantity DEFAULT ((0))  " & vbNewLine & _
+"ALTER TABLE traOrderRequestDet ADD InvoiceWeight DECIMAL(18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_InvoiceWeight DEFAULT ((0))  " & vbNewLine & _
+"ALTER TABLE traOrderRequestDet ADD InvoiceTotalWeight DECIMAL(18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_InvoiceTotalWeight DEFAULT ((0))  " & vbNewLine & _
+"ALTER TABLE traOrderRequestDet ADD LevelItem INT NOT NULL CONSTRAINT DF_traOrderRequestDet_LevelItem DEFAULT ((0))  " & vbNewLine & _
+"ALTER TABLE traOrderRequestDet ADD ParentID VARCHAR(100) NOT NULL CONSTRAINT DF_traOrderRequestDet_ParentID DEFAULT ('')  " & vbNewLine & _
+"ALTER TABLE traOrderRequest ADD AdditionalTerm1 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm1 DEFAULT ((0))  " & vbNewLine & _
+"ALTER TABLE traOrderRequest ADD AdditionalTerm2 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm2 DEFAULT ((0))  " & vbNewLine & _
+"ALTER TABLE traOrderRequest ADD AdditionalTerm3 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm3 DEFAULT ((0))  " & vbNewLine & _
+"ALTER TABLE traOrderRequest ADD AdditionalTerm4 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm4 DEFAULT ((0))  " & vbNewLine & _
+"ALTER TABLE traOrderRequest ADD AdditionalTerm5 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm5 DEFAULT ((0))  " & vbNewLine & _
+"ALTER TABLE traOrderRequest ADD AdditionalTerm6 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm6 DEFAULT ((0))  " & vbNewLine & _
+"ALTER TABLE traOrderRequest ADD AdditionalTerm7 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm7 DEFAULT ((0))  " & vbNewLine & _
+"ALTER TABLE traOrderRequest ADD AdditionalTerm8 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm8 DEFAULT ((0))  " & vbNewLine & _
+"ALTER TABLE traOrderRequest ADD AdditionalTerm9 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm9 DEFAULT ((0))  " & vbNewLine & _
+"ALTER TABLE traOrderRequest ADD AdditionalTerm10 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm10 DEFAULT ((0))  " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
