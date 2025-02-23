@@ -61,12 +61,10 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.Label22 = New System.Windows.Forms.Label()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.Label20 = New System.Windows.Forms.Label()
-        Me.txtPersonInCharge = New ERPS.usTextBox()
         Me.txtRemarks = New ERPS.usTextBox()
         Me.txtBPCode = New ERPS.usTextBox()
         Me.txtBPName = New ERPS.usTextBox()
         Me.txtPONumber = New ERPS.usTextBox()
-        Me.Label19 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.cboStatus = New ERPS.usComboBox()
         Me.lblStatusID = New System.Windows.Forms.Label()
@@ -94,6 +92,8 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.tpHistory = New System.Windows.Forms.TabPage()
         Me.grdStatus = New DevExpress.XtraGrid.GridControl()
         Me.grdStatusView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.txtPersonInCharge = New ERPS.usTextBox()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.tcDetail.SuspendLayout()
         Me.tpItem.SuspendLayout()
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -561,17 +561,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.Label20.Text = "Periode Pengiriman"
         Me.Label20.Visible = False
         '
-        'txtPersonInCharge
-        '
-        Me.txtPersonInCharge.BackColor = System.Drawing.Color.White
-        Me.txtPersonInCharge.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtPersonInCharge.Location = New System.Drawing.Point(597, 245)
-        Me.txtPersonInCharge.MaxLength = 250
-        Me.txtPersonInCharge.Name = "txtPersonInCharge"
-        Me.txtPersonInCharge.Size = New System.Drawing.Size(249, 21)
-        Me.txtPersonInCharge.TabIndex = 9
-        Me.txtPersonInCharge.Visible = False
-        '
         'txtRemarks
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
@@ -614,18 +603,6 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.txtPONumber.Name = "txtPONumber"
         Me.txtPONumber.Size = New System.Drawing.Size(167, 21)
         Me.txtPONumber.TabIndex = 0
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.BackColor = System.Drawing.Color.Transparent
-        Me.Label19.ForeColor = System.Drawing.Color.Black
-        Me.Label19.Location = New System.Drawing.Point(465, 249)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(24, 13)
-        Me.Label19.TabIndex = 132
-        Me.Label19.Text = "PIC"
-        Me.Label19.Visible = False
         '
         'Label13
         '
@@ -958,6 +935,29 @@ Partial Class frmTraPurchaseOrderCuttingDet
         Me.grdStatusView.OptionsCustomization.AllowGroup = False
         Me.grdStatusView.OptionsView.ColumnAutoWidth = False
         Me.grdStatusView.OptionsView.ShowGroupPanel = False
+        '
+        'txtPersonInCharge
+        '
+        Me.txtPersonInCharge.BackColor = System.Drawing.Color.White
+        Me.txtPersonInCharge.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPersonInCharge.Location = New System.Drawing.Point(597, 245)
+        Me.txtPersonInCharge.MaxLength = 250
+        Me.txtPersonInCharge.Name = "txtPersonInCharge"
+        Me.txtPersonInCharge.Size = New System.Drawing.Size(249, 21)
+        Me.txtPersonInCharge.TabIndex = 9
+        Me.txtPersonInCharge.Visible = False
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.BackColor = System.Drawing.Color.Transparent
+        Me.Label19.ForeColor = System.Drawing.Color.Black
+        Me.Label19.Location = New System.Drawing.Point(465, 249)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(24, 13)
+        Me.Label19.TabIndex = 132
+        Me.Label19.Text = "PIC"
+        Me.Label19.Visible = False
         '
         'frmTraPurchaseOrderCuttingDet
         '

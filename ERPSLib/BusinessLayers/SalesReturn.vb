@@ -355,6 +355,67 @@ Namespace BL
 
                 '# Update Journal ID in Sales Return
                 DL.SalesReturn.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
+
+                If clsData.TotalDPPTransport > 0 Then
+                    '# Sales Return Transport
+                    intGroupID = 1
+                    PrevJournal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalIDTransport)
+                    bolNew = IIf(PrevJournal.ID = "", True, False)
+
+                    '# Generate Journal
+                    decTotalAmount = 0
+                    decTotalAmount += clsData.TotalDPPTransport
+                    clsJournalDetail = New List(Of VO.JournalDet)
+                    '# Biaya Transport -> Debit
+                    clsJournalDetail.Add(New VO.JournalDet With
+                            {
+                                .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAOfTransport,
+                                .DebitAmount = decTotalAmount,
+                                .CreditAmount = 0,
+                                .Remarks = "",
+                                .GroupID = intGroupID,
+                                .BPID = clsData.TransporterID
+                            })
+
+                    '# Hutang Transport Belum ditagih -> Kredit
+                    clsJournalDetail.Add(New VO.JournalDet With
+                            {
+                                .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountPayableTransportOutstandingPayment,
+                                .DebitAmount = 0,
+                                .CreditAmount = decTotalAmount,
+                                .Remarks = "",
+                                .GroupID = intGroupID,
+                                .BPID = clsData.TransporterID
+                            })
+
+                    clsJournal = New VO.Journal With
+                    {
+                        .ProgramID = clsData.ProgramID,
+                        .CompanyID = clsData.CompanyID,
+                        .ID = PrevJournal.ID,
+                        .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
+                        .ReferencesID = clsData.ID,
+                        .JournalDate = clsData.SalesReturnDate,
+                        .TotalAmount = decTotalAmount,
+                        .IsAutoGenerate = True,
+                        .StatusID = VO.Status.Values.Draft,
+                        .Remarks = clsData.Remarks,
+                        .LogBy = ERPSLib.UI.usUserApp.UserID,
+                        .Initial = "",
+                        .ReferencesNo = clsData.DeliveryNumber,
+                        .Detail = clsJournalDetail,
+                        .Save = VO.Save.Action.SaveAndSubmit
+                    }
+
+                    '# Save Journal
+                    strJournalID = BL.Journal.SaveData(sqlCon, sqlTrans, bolNew, clsJournal)
+
+                    '# Approve Journal
+                    BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
+
+                    '# Update Journal ID in Sales Return
+                    DL.SalesReturn.UpdateJournalIDTransport(sqlCon, sqlTrans, clsData.ID, strJournalID)
+                End If
             Catch ex As Exception
                 Throw ex
             End Try

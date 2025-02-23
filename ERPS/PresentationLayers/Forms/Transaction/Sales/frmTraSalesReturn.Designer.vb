@@ -34,6 +34,7 @@ Partial Class frmTraSalesReturn
         Me.BarCancelApprove = New System.Windows.Forms.ToolBarButton()
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
         Me.BarReceive = New System.Windows.Forms.ToolBarButton()
+        Me.BarReceiveTransport = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
         Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
@@ -55,7 +56,6 @@ Partial Class frmTraSalesReturn
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.BarReceiveTransport = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -131,6 +131,12 @@ Partial Class frmTraSalesReturn
         Me.BarReceive.Name = "BarReceive"
         Me.BarReceive.Tag = "Calculation"
         Me.BarReceive.Text = "Pembayaran"
+        '
+        'BarReceiveTransport
+        '
+        Me.BarReceiveTransport.Name = "BarReceiveTransport"
+        Me.BarReceiveTransport.Tag = "Shipped"
+        Me.BarReceiveTransport.Text = "Pembayaran Transport"
         '
         'BarSep3
         '
@@ -340,12 +346,6 @@ Partial Class frmTraSalesReturn
         Me.grdView.OptionsView.ColumnAutoWidth = False
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
-        '
-        'BarReceiveTransport
-        '
-        Me.BarReceiveTransport.Name = "BarReceiveTransport"
-        Me.BarReceiveTransport.Tag = "Shipped"
-        Me.BarReceiveTransport.Text = "Pembayaran Transport"
         '
         'frmTraSalesReturn
         '

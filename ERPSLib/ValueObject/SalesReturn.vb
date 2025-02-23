@@ -61,5 +61,6 @@ Namespace VO
         Property Detail As List(Of VO.SalesReturnDet)
         Property Save As VO.Save.Action
         Property TotalCostRawMaterial As Decimal
+        Property JournalIDTransport As String
     End Class
 End Namespace

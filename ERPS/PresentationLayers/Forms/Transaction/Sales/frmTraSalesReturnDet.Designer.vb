@@ -61,6 +61,8 @@ Partial Class frmTraSalesReturnDet
         Me.Label2 = New System.Windows.Forms.Label()
         Me.tpAmount = New System.Windows.Forms.TabPage()
         Me.gboDelivery = New System.Windows.Forms.GroupBox()
+        Me.txtTotalCostRawMaterial = New ERPS.usNumeric()
+        Me.Label29 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.txtGrandTotal = New ERPS.usNumeric()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -115,12 +117,11 @@ Partial Class frmTraSalesReturnDet
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.txtTotalCostRawMaterial = New ERPS.usNumeric()
-        Me.Label29 = New System.Windows.Forms.Label()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         Me.tpAmount.SuspendLayout()
         Me.gboDelivery.SuspendLayout()
+        CType(Me.txtTotalCostRawMaterial, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtGrandTotal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalDPP, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -147,7 +148,6 @@ Partial Class frmTraSalesReturnDet
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip.SuspendLayout()
-        CType(Me.txtTotalCostRawMaterial, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -586,6 +586,31 @@ Partial Class frmTraSalesReturnDet
         Me.gboDelivery.TabIndex = 2
         Me.gboDelivery.TabStop = False
         Me.gboDelivery.Text = "Total Harga"
+        '
+        'txtTotalCostRawMaterial
+        '
+        Me.txtTotalCostRawMaterial.BackColor = System.Drawing.Color.LightYellow
+        Me.txtTotalCostRawMaterial.DecimalPlaces = 2
+        Me.txtTotalCostRawMaterial.Enabled = False
+        Me.txtTotalCostRawMaterial.Location = New System.Drawing.Point(485, 23)
+        Me.txtTotalCostRawMaterial.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtTotalCostRawMaterial.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtTotalCostRawMaterial.Name = "txtTotalCostRawMaterial"
+        Me.txtTotalCostRawMaterial.Size = New System.Drawing.Size(186, 21)
+        Me.txtTotalCostRawMaterial.TabIndex = 4
+        Me.txtTotalCostRawMaterial.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalCostRawMaterial.ThousandsSeparator = True
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.BackColor = System.Drawing.Color.Transparent
+        Me.Label29.ForeColor = System.Drawing.Color.Black
+        Me.Label29.Location = New System.Drawing.Point(383, 27)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(90, 13)
+        Me.Label29.TabIndex = 127
+        Me.Label29.Text = "Total Bahan Baku"
         '
         'Label15
         '
@@ -1221,31 +1246,6 @@ Partial Class frmTraSalesReturnDet
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
         '
-        'txtTotalCostRawMaterial
-        '
-        Me.txtTotalCostRawMaterial.BackColor = System.Drawing.Color.LightYellow
-        Me.txtTotalCostRawMaterial.DecimalPlaces = 2
-        Me.txtTotalCostRawMaterial.Enabled = False
-        Me.txtTotalCostRawMaterial.Location = New System.Drawing.Point(485, 23)
-        Me.txtTotalCostRawMaterial.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtTotalCostRawMaterial.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtTotalCostRawMaterial.Name = "txtTotalCostRawMaterial"
-        Me.txtTotalCostRawMaterial.Size = New System.Drawing.Size(186, 21)
-        Me.txtTotalCostRawMaterial.TabIndex = 4
-        Me.txtTotalCostRawMaterial.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtTotalCostRawMaterial.ThousandsSeparator = True
-        '
-        'Label29
-        '
-        Me.Label29.AutoSize = True
-        Me.Label29.BackColor = System.Drawing.Color.Transparent
-        Me.Label29.ForeColor = System.Drawing.Color.Black
-        Me.Label29.Location = New System.Drawing.Point(383, 27)
-        Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(90, 13)
-        Me.Label29.TabIndex = 127
-        Me.Label29.Text = "Total Bahan Baku"
-        '
         'frmTraSalesReturnDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1270,6 +1270,7 @@ Partial Class frmTraSalesReturnDet
         Me.tpAmount.PerformLayout()
         Me.gboDelivery.ResumeLayout(False)
         Me.gboDelivery.PerformLayout()
+        CType(Me.txtTotalCostRawMaterial, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtGrandTotal, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalDPP, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1300,7 +1301,6 @@ Partial Class frmTraSalesReturnDet
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip.ResumeLayout(False)
         Me.StatusStrip.PerformLayout()
-        CType(Me.txtTotalCostRawMaterial, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

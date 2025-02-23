@@ -163,7 +163,8 @@ Namespace DL
 "   A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, " & vbNewLine &
 "	A.LogBy, A.LogDate, A.JournalID, A.DPAmount, A.TotalPayment, A.CoAofStock, A.IsUseSubItem, A.DPAmountPPN, A.DPAmountPPH, A.TotalPaymentPPN, A.TotalPaymentPPH, " & vbNewLine &
 "	A.TransporterID, TP.Code AS TransporterCode, TP.Name AS TransporterName, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, A.UnitPriceTransport, A.DPAmountTransport, A.TotalPaymentTransport,  " & vbNewLine &
-"	A.DPAmountPPNTransport, A.DPAmountPPHTransport, A.TotalPaymentPPNTransport, A.TotalPaymentPPHTransport, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock, A.TotalCostRawMaterial " & vbNewLine &
+"	A.DPAmountPPNTransport, A.DPAmountPPHTransport, A.TotalPaymentPPNTransport, A.TotalPaymentPPHTransport, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock, A.TotalCostRawMaterial, " & vbNewLine &
+"   A.JournalIDTransport " & vbNewLine &
 "FROM traSalesReturn A " & vbNewLine &
 "INNER JOIN traDelivery A1 ON " & vbNewLine &
 "   A.DeliveryID=A1.ID " & vbNewLine &
@@ -255,6 +256,7 @@ Namespace DL
                         voReturn.TotalPaymentPPNTransport = .Item("TotalPaymentPPNTransport")
                         voReturn.TotalPaymentPPHTransport = .Item("TotalPaymentPPHTransport")
                         voReturn.TotalCostRawMaterial = .Item("TotalCostRawMaterial")
+                        voReturn.JournalIDTransport = .Item("JournalIDTransport")
                     End If
                 End With
             Catch ex As Exception
@@ -535,6 +537,29 @@ Namespace DL
                 .CommandText =
                     "UPDATE traSalesReturn SET " & vbNewLine &
                     "    JournalID=@JournalID " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@JournalID", SqlDbType.VarChar, 100).Value = strJournalID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub UpdateJournalIDTransport(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal strID As String, ByVal strJournalID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesReturn SET " & vbNewLine &
+                    "    JournalIDTransport=@JournalID " & vbNewLine &
                     "WHERE   " & vbNewLine &
                     "    ID=@ID " & vbNewLine
 

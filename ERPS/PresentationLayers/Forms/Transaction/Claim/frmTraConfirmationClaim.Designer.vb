@@ -50,10 +50,10 @@ Partial Class frmTraConfirmationClaim
         Me.BarDetail = New System.Windows.Forms.ToolBarButton()
         Me.BarNew = New System.Windows.Forms.ToolBarButton()
         Me.ToolBar = New ERPS.usToolBar()
+        Me.BarPayment = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.pgMain = New System.Windows.Forms.ProgressBar()
-        Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
-        Me.BarPayment = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -308,6 +308,17 @@ Partial Class frmTraConfirmationClaim
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
+        'BarPayment
+        '
+        Me.BarPayment.Name = "BarPayment"
+        Me.BarPayment.Tag = "Calculation"
+        Me.BarPayment.Text = "Pembayaran"
+        '
+        'BarSep4
+        '
+        Me.BarSep4.Name = "BarSep4"
+        Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
         'BarClose
         '
         Me.BarClose.Name = "BarClose"
@@ -321,17 +332,6 @@ Partial Class frmTraConfirmationClaim
         Me.pgMain.Name = "pgMain"
         Me.pgMain.Size = New System.Drawing.Size(984, 23)
         Me.pgMain.TabIndex = 3
-        '
-        'BarSep4
-        '
-        Me.BarSep4.Name = "BarSep4"
-        Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
-        '
-        'BarPayment
-        '
-        Me.BarPayment.Name = "BarPayment"
-        Me.BarPayment.Tag = "Calculation"
-        Me.BarPayment.Text = "Pembayaran"
         '
         'frmTraConfirmationClaim
         '

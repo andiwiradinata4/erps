@@ -24,6 +24,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraPurchaseOrderCuttingDetItem))
         Me.pnlDetail = New System.Windows.Forms.Panel()
+        Me.chkIsShowCoil = New DevExpress.XtraEditors.CheckEdit()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.txtOrderNumberSupplier = New ERPS.usTextBox()
         Me.Label18 = New System.Windows.Forms.Label()
@@ -95,8 +96,8 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.BarEditRemarksResult = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteRemarksResult = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
-        Me.chkIsShowCoil = New DevExpress.XtraEditors.CheckEdit()
         Me.pnlDetail.SuspendLayout()
+        CType(Me.chkIsShowCoil.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPriceRawMaterial, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtUnitPriceRawMaterial, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -117,7 +118,6 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.tpRemarks.SuspendLayout()
         CType(Me.grdRemarksResult, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdRemarksResultView, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.chkIsShowCoil.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'pnlDetail
@@ -176,6 +176,14 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.pnlDetail.Name = "pnlDetail"
         Me.pnlDetail.Size = New System.Drawing.Size(708, 411)
         Me.pnlDetail.TabIndex = 2
+        '
+        'chkIsShowCoil
+        '
+        Me.chkIsShowCoil.Location = New System.Drawing.Point(85, 205)
+        Me.chkIsShowCoil.Name = "chkIsShowCoil"
+        Me.chkIsShowCoil.Properties.Caption = "COIL ?"
+        Me.chkIsShowCoil.Size = New System.Drawing.Size(61, 19)
+        Me.chkIsShowCoil.TabIndex = 10
         '
         'Label21
         '
@@ -876,7 +884,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.tpRemarks.Location = New System.Drawing.Point(4, 25)
         Me.tpRemarks.Name = "tpRemarks"
         Me.tpRemarks.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpRemarks.Size = New System.Drawing.Size(697, 417)
+        Me.tpRemarks.Size = New System.Drawing.Size(714, 417)
         Me.tpRemarks.TabIndex = 1
         Me.tpRemarks.Text = "Keterangan - F2"
         Me.tpRemarks.UseVisualStyleBackColor = True
@@ -901,7 +909,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.grdRemarksResult.Location = New System.Drawing.Point(3, 31)
         Me.grdRemarksResult.MainView = Me.grdRemarksResultView
         Me.grdRemarksResult.Name = "grdRemarksResult"
-        Me.grdRemarksResult.Size = New System.Drawing.Size(691, 383)
+        Me.grdRemarksResult.Size = New System.Drawing.Size(708, 383)
         Me.grdRemarksResult.TabIndex = 17
         Me.grdRemarksResult.UseEmbeddedNavigator = True
         Me.grdRemarksResult.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdRemarksResultView})
@@ -923,7 +931,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.ToolBarRemarksResult.Location = New System.Drawing.Point(3, 3)
         Me.ToolBarRemarksResult.Name = "ToolBarRemarksResult"
         Me.ToolBarRemarksResult.ShowToolTips = True
-        Me.ToolBarRemarksResult.Size = New System.Drawing.Size(691, 28)
+        Me.ToolBarRemarksResult.Size = New System.Drawing.Size(708, 28)
         Me.ToolBarRemarksResult.TabIndex = 16
         Me.ToolBarRemarksResult.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -958,14 +966,6 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.lblInfo.Text = "« Barang yang akan diproduksi"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'chkIsShowCoil
-        '
-        Me.chkIsShowCoil.Location = New System.Drawing.Point(85, 205)
-        Me.chkIsShowCoil.Name = "chkIsShowCoil"
-        Me.chkIsShowCoil.Properties.Caption = "COIL ?"
-        Me.chkIsShowCoil.Size = New System.Drawing.Size(61, 19)
-        Me.chkIsShowCoil.TabIndex = 10
-        '
         'frmTraPurchaseOrderCuttingDetItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -985,6 +985,7 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.Text = "Barang"
         Me.pnlDetail.ResumeLayout(False)
         Me.pnlDetail.PerformLayout()
+        CType(Me.chkIsShowCoil.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalPriceRawMaterial, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtUnitPriceRawMaterial, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1006,7 +1007,6 @@ Partial Class frmTraPurchaseOrderCuttingDetItem
         Me.tpRemarks.PerformLayout()
         CType(Me.grdRemarksResult, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdRemarksResultView, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.chkIsShowCoil.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

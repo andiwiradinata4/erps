@@ -365,29 +365,29 @@
                     decTotalAmount += decTotalAmount
                 End If
 
-                'intGroupID += 1
-                ''# Akun Persediaan -> Debit
-                'clsJournalDetail.Add(New VO.JournalDet With
-                '                     {
-                '                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofStock,
-                '                         .DebitAmount = decTotalDPPRawMaterial,
-                '                         .CreditAmount = 0,
-                '                         .Remarks = "",
-                '                         .GroupID = intGroupID,
-                '                         .BPID = clsData.BPID
-                '                     })
+                intGroupID += 1
+                '# Akun Persediaan -> Debit
+                clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofStock,
+                                         .DebitAmount = decTotalDPPRawMaterial,
+                                         .CreditAmount = 0,
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     })
 
-                ''# Akun Persediaan Cutting Center -> Kredit
-                'clsJournalDetail.Add(New VO.JournalDet With
-                '                     {
-                '                         .CoAID = clsData.CoAIDofStock,
-                '                         .DebitAmount = 0,
-                '                         .CreditAmount = decTotalDPPRawMaterial,
-                '                         .Remarks = "",
-                '                         .GroupID = intGroupID,
-                '                         .BPID = clsData.BPID
-                '                     })
-                'decTotalAmount += decTotalDPPRawMaterial
+                '# Akun Persediaan Cutting Center -> Kredit
+                clsJournalDetail.Add(New VO.JournalDet With
+                                     {
+                                         .CoAID = clsData.CoAIDofStock,
+                                         .DebitAmount = 0,
+                                         .CreditAmount = decTotalDPPRawMaterial,
+                                         .Remarks = "",
+                                         .GroupID = intGroupID,
+                                         .BPID = clsData.BPID
+                                     })
+                decTotalAmount += decTotalDPPRawMaterial
 
                 Dim clsJournal As New VO.Journal With
                 {

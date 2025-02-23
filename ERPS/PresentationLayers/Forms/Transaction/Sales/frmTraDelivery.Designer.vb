@@ -39,6 +39,8 @@ Partial Class frmTraDelivery
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
+        Me.chkListItemType = New ERPS.usCheckListBoxControl()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.cboStatus = New ERPS.usComboBox()
         Me.lblStatusID = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -54,13 +56,11 @@ Partial Class frmTraDelivery
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.chkListItemType = New ERPS.usCheckListBoxControl()
-        Me.Label5 = New System.Windows.Forms.Label()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
+        CType(Me.chkListItemType, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.chkListItemType, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -176,6 +176,26 @@ Partial Class frmTraDelivery
         Me.PanelControl1.Name = "PanelControl1"
         Me.PanelControl1.Size = New System.Drawing.Size(984, 141)
         Me.PanelControl1.TabIndex = 1
+        '
+        'chkListItemType
+        '
+        Me.chkListItemType.CheckOnClick = True
+        Me.chkListItemType.Cursor = System.Windows.Forms.Cursors.Default
+        Me.chkListItemType.Location = New System.Drawing.Point(564, 42)
+        Me.chkListItemType.Name = "chkListItemType"
+        Me.chkListItemType.Size = New System.Drawing.Size(150, 75)
+        Me.chkListItemType.TabIndex = 5
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
+        Me.Label5.ForeColor = System.Drawing.Color.Black
+        Me.Label5.Location = New System.Drawing.Point(486, 48)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(68, 13)
+        Me.Label5.TabIndex = 131
+        Me.Label5.Text = "Jenis Barang"
         '
         'cboStatus
         '
@@ -338,26 +358,6 @@ Partial Class frmTraDelivery
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
-        'chkListItemType
-        '
-        Me.chkListItemType.CheckOnClick = True
-        Me.chkListItemType.Cursor = System.Windows.Forms.Cursors.Default
-        Me.chkListItemType.Location = New System.Drawing.Point(564, 42)
-        Me.chkListItemType.Name = "chkListItemType"
-        Me.chkListItemType.Size = New System.Drawing.Size(150, 75)
-        Me.chkListItemType.TabIndex = 5
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.BackColor = System.Drawing.Color.Transparent
-        Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(486, 48)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(68, 13)
-        Me.Label5.TabIndex = 131
-        Me.Label5.Text = "Jenis Barang"
-        '
         'frmTraDelivery
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -374,9 +374,9 @@ Partial Class frmTraDelivery
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl1.ResumeLayout(False)
         Me.PanelControl1.PerformLayout()
+        CType(Me.chkListItemType, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.chkListItemType, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -1703,6 +1703,20 @@
                                                      .GroupID = intGroupID,
                                                      .BPID = clsARAP.BPID
                                                  })
+
+                        If clsARAPInvoice.TotalPPN Then
+                            '# Akun PPN Keluaran -> Debit
+                            clsJournalDetail.Add(New VO.JournalDet With
+                                                     {
+                                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofSalesTax,
+                                                         .DebitAmount = clsARAPInvoice.TotalPPN,
+                                                         .CreditAmount = 0,
+                                                         .Remarks = "",
+                                                         .GroupID = intGroupID,
+                                                         .BPID = clsARAP.BPID
+                                                     })
+                        End If
+                        
                         '# Akun Kas / Bank -> Kredit
                         clsJournalDetail.Add(New VO.JournalDet With
                                                  {
@@ -1993,26 +2007,42 @@
                                                      .GroupID = intGroupID,
                                                      .BPID = clsARAP.BPID
                                                  })
-                        '# Akun Kas / Bank -> Kredit
+
+                        '# Akun Pendapatan Kompensasi -> Kredit
                         clsJournalDetail.Add(New VO.JournalDet With
                                                  {
                                                      .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofCompensasionRevenue,
                                                      .DebitAmount = 0,
-                                                     .CreditAmount = clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN,
+                                                     .CreditAmount = clsARAPInvoice.TotalDPP,
                                                      .Remarks = "",
                                                      .GroupID = intGroupID,
                                                      .BPID = clsARAP.BPID
                                                  })
+
+                        If clsARAPInvoice.TotalPPN > 0 Then
+                            '# Akun PPN Masukan -> Kredit
+                            clsJournalDetail.Add(New VO.JournalDet With
+                                                     {
+                                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPurchaseTax,
+                                                         .DebitAmount = 0,
+                                                         .CreditAmount = clsARAPInvoice.TotalPPN,
+                                                         .Remarks = "",
+                                                         .GroupID = intGroupID,
+                                                         .BPID = clsARAP.BPID
+                                                     })
+
+                        End If
 
                         decTotalAmount += clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN
 
                         '# Setup Akun PPH
                         If clsARAPInvoice.TotalPPH > 0 Then
                             intGroupID += 1
-                            '# Akun Kas / Bank -> Debit
+
+                            '# Akun PPH -> Kredit
                             clsJournalDetail.Add(New VO.JournalDet With
                                              {
-                                                 .CoAID = clsARAPInvoice.CoAID,
+                                                 .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPPHPurchase,
                                                  .DebitAmount = clsARAPInvoice.TotalPPH,
                                                  .CreditAmount = 0,
                                                  .Remarks = "",
@@ -2020,10 +2050,10 @@
                                                  .BPID = clsARAP.BPID
                                              })
 
-                            '# Akun PPH -> Kredit
+                            '# Akun Kas / Bank -> Debit
                             clsJournalDetail.Add(New VO.JournalDet With
                                              {
-                                                 .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPPHSales,
+                                                 .CoAID = clsARAPInvoice.CoAID,
                                                  .DebitAmount = 0,
                                                  .CreditAmount = clsARAPInvoice.TotalPPH,
                                                  .Remarks = "",

@@ -86,6 +86,7 @@
                     DevelopOnProgress_ID77(sqlCon, sqlTrans)
                     DevelopOnProgress_ID78(sqlCon, sqlTrans)
                     DevelopOnProgress_ID79(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID80(sqlCon, sqlTrans)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -2488,6 +2489,22 @@
 "ALTER TABLE traOrderRequest ADD AdditionalTerm8 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm8 DEFAULT ((0))  " & vbNewLine & _
 "ALTER TABLE traOrderRequest ADD AdditionalTerm9 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm9 DEFAULT ((0))  " & vbNewLine & _
 "ALTER TABLE traOrderRequest ADD AdditionalTerm10 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm10 DEFAULT ((0))  " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 80
+        Private Shared Sub DevelopOnProgress_ID80(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 80
+            clsData.Name = "Development On Progress 80"
+            clsData.Scripts =
+                "ALTER TABLE traSalesReturn ADD JournalIDTransport VARCHAR(100) NOT NULL CONSTRAINT DF_traSalesReturn_JournalIDTransport DEFAULT ('')  " & vbNewLine &
+                "UPDATE sysAppVersion SET Version='1.0.0.53' " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
