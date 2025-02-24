@@ -27,5 +27,7 @@
         Property AllocateDPAmount As Decimal
         Property UnitPrice As Decimal
         Property TotalPrice As Decimal
+        Property UnitPriceClaim As Decimal
+        Property TotalPriceClaim As Decimal
     End Class
 End Namespace

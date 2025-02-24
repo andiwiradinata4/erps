@@ -259,6 +259,12 @@ Namespace BL
                     '# Cancel Submit Journal
                     BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
 
+                    '# Cancel Approve Journal Transport
+                    BL.Journal.Unapprove(clsData.JournalIDTransport.Trim, "")
+
+                    '# Cancel Submit Journal Transport
+                    BL.Journal.Unsubmit(clsData.JournalIDTransport.Trim, "")
+
                     RecalculateStockIn(sqlCon, sqlTrans, clsData)
                     sqlTrans.Commit()
                 Catch ex As Exception

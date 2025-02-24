@@ -679,7 +679,8 @@
                     "   A.ID, A.CuttingID, A.PODetailID, A.GroupID, A2.PONumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
                     "   A.Quantity, A.Weight, A.TotalWeight, A1.TotalWeight+A.TotalWeight-A1.DoneWeight AS MaxTotalWeight, A.Remarks, A.UnitPrice, " & vbNewLine &
-                    "   A.TotalPrice, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceRawMaterial, A.TotalPriceRawMaterial, A3.CoAIDofStock " & vbNewLine &
+                    "   A.TotalPrice, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, A.ParentID, A.UnitPriceRawMaterial, A.TotalPriceRawMaterial, A3.CoAIDofStock, " & vbNewLine &
+                    "   A.UnitPriceClaim, A.TotalPriceClaim " & vbNewLine &
                     "FROM traCuttingDet A " & vbNewLine &
                     "INNER JOIN traPurchaseOrderCuttingDet A1 ON " & vbNewLine &
                     "   A.PODetailID=A1.ID " & vbNewLine &
@@ -710,9 +711,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traCuttingDet " & vbNewLine &
-                    "   (ID, CuttingID, PODetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, Remarks, UnitPrice, TotalPrice, OrderNumberSupplier, RoundingWeight, LevelItem, ParentID) " & vbNewLine &
+                    "   (ID, CuttingID, PODetailID, GroupID, ItemID, Quantity, Weight, TotalWeight, Remarks, UnitPrice, TotalPrice, OrderNumberSupplier, RoundingWeight, LevelItem, ParentID, UnitPriceClaim, TotalPriceClaim) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @CuttingID, @PODetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @Remarks, @UnitPrice, @TotalPrice, @OrderNumberSupplier, @RoundingWeight, @LevelItem, @ParentID) " & vbNewLine
+                    "   (@ID, @CuttingID, @PODetailID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @Remarks, @UnitPrice, @TotalPrice, @OrderNumberSupplier, @RoundingWeight, @LevelItem, @ParentID, @UnitPriceClaim, @TotalPriceClaim) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@CuttingID", SqlDbType.VarChar, 100).Value = clsData.CuttingID
@@ -729,6 +730,8 @@
                 .Parameters.Add("@RoundingWeight", SqlDbType.Decimal).Value = clsData.RoundingWeight
                 .Parameters.Add("@LevelItem", SqlDbType.Int).Value = clsData.LevelItem
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
+                .Parameters.Add("@UnitPriceClaim", SqlDbType.Decimal).Value = clsData.UnitPriceClaim
+                .Parameters.Add("@TotalPriceClaim", SqlDbType.Decimal).Value = clsData.TotalPriceClaim
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -900,7 +903,8 @@
                     "   A.ID, A.CuttingID, A.GroupID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName, " & vbNewLine &
                     "   A.Quantity, A.Weight, A.TotalWeight, A.Remarks, A.PODetailResultID, A.OrderNumberSupplier, A.RoundingWeight, A.LevelItem, " & vbNewLine &
-                    "   A.ParentID, A.UnitPriceHPP, A.TotalPriceHPP, POD.TotalWeight+A.TotalWeight-POD.DoneWeight AS MaxTotalWeight, A3.CoAIDofStock, A.UnitPrice, A.TotalPrice " & vbNewLine &
+                    "   A.ParentID, A.UnitPriceHPP, A.TotalPriceHPP, POD.TotalWeight+A.TotalWeight-POD.DoneWeight AS MaxTotalWeight, A3.CoAIDofStock, A.UnitPrice, A.TotalPrice, " & vbNewLine &
+                    "   A.UnitPriceClaim, A.TotalPriceClaim " & vbNewLine &
                     "FROM traCuttingDetResult A " & vbNewLine &
                     "INNER JOIN traPurchaseOrderCuttingDetResult POD ON " & vbNewLine &
                     "   A.PODetailResultID=POD.ID " & vbNewLine &
@@ -929,9 +933,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traCuttingDetResult " & vbNewLine &
-                    "   (ID, CuttingID, GroupID, ItemID, Quantity, Weight, TotalWeight, Remarks, PODetailResultID, OrderNumberSupplier, RoundingWeight, LevelItem, ParentID, UnitPriceHPP, UnitPrice, TotalPrice) " & vbNewLine &
+                    "   (ID, CuttingID, GroupID, ItemID, Quantity, Weight, TotalWeight, Remarks, PODetailResultID, OrderNumberSupplier, RoundingWeight, LevelItem, ParentID, UnitPriceHPP, UnitPrice, TotalPrice, UnitPriceClaim, TotalPriceClaim) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @CuttingID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @Remarks, @PODetailResultID, @OrderNumberSupplier, @RoundingWeight, @LevelItem, @ParentID, @UnitPriceHPP, @UnitPrice, @TotalPrice) " & vbNewLine
+                    "   (@ID, @CuttingID, @GroupID, @ItemID, @Quantity, @Weight, @TotalWeight, @Remarks, @PODetailResultID, @OrderNumberSupplier, @RoundingWeight, @LevelItem, @ParentID, @UnitPriceHPP, @UnitPrice, @TotalPrice, @UnitPriceClaim, @TotalPriceClaim) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@CuttingID", SqlDbType.VarChar, 100).Value = clsData.CuttingID
@@ -949,6 +953,8 @@
                 .Parameters.Add("@UnitPriceHPP", SqlDbType.Decimal).Value = clsData.UnitPriceHPP
                 .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = clsData.UnitPrice
                 .Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = clsData.TotalPrice
+                .Parameters.Add("@UnitPriceClaim", SqlDbType.Decimal).Value = clsData.UnitPriceClaim
+                .Parameters.Add("@TotalPriceClaim", SqlDbType.Decimal).Value = clsData.TotalPriceClaim
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

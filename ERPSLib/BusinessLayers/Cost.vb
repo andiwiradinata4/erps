@@ -174,7 +174,8 @@
             Return bolReturn
         End Function
 
-        Public Shared Function Approve(ByVal strID As String, ByVal strRemarks As String) As Boolean
+        Public Shared Function Approve(ByVal strID As String, ByVal strRemarks As String,
+                                       ByVal intCoAID As Integer, ByVal dtmPaymentDate As DateTime) As Boolean
             Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
@@ -191,7 +192,7 @@
                         Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan data telah dihapus")
                     End If
 
-                    DL.Cost.Approve(sqlCon, sqlTrans, strID)
+                    DL.Cost.Approve(sqlCon, sqlTrans, strID, intCoAID, dtmPaymentDate)
 
                     '# Save Data Status
                     BL.Cost.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
@@ -245,7 +246,7 @@
                     '# Approve Journal
                     BL.Journal.Approve(sqlCon, sqlTrans, strJournalID, "")
 
-                    '# Update Journal ID in Business Partners
+                    '# Update Journal ID in Cost
                     DL.Cost.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
 
                     sqlTrans.Commit()
@@ -282,7 +283,7 @@
                     '# Cancel Submit Journal
                     BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
 
-                    '# Unapprove Account Receivable
+                    '# Unapprove Cost
                     DL.Cost.Unapprove(sqlCon, sqlTrans, strID)
 
                     '# Save Data Status

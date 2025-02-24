@@ -757,6 +757,7 @@
                 clsReturn.TotalPPHInvoiceAmount = clsData.TotalPPHInvoiceAmount
                 clsReturn.ReferencesNumber = clsData.ReferencesNumber
                 clsReturn.IsFullDP = clsData.IsFullDP
+                clsReturn.IsGenerate = clsData.IsGenerate
                 Return clsReturn
             Else
                 Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
@@ -827,6 +828,7 @@
                 clsReturn.TotalPPHInvoiceAmount = clsData.TotalPPHInvoiceAmount
                 clsReturn.ReferencesNumber = clsData.ReferencesNumber
                 clsReturn.IsFullDP = clsData.IsFullDP
+                clsReturn.IsGenerate = clsData.IsGenerate
                 Return clsReturn
             End If
         End Function

@@ -210,6 +210,7 @@ Partial Class frmTraCostDet
         '
         'btnCoA
         '
+        Me.btnCoA.Enabled = False
         Me.btnCoA.Image = CType(resources.GetObject("btnCoA.Image"), System.Drawing.Image)
         Me.btnCoA.Location = New System.Drawing.Point(387, 42)
         Me.btnCoA.Name = "btnCoA"

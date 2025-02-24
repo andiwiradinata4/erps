@@ -64,6 +64,8 @@ Public Class frmTraCuttingDet
         UI.usForm.SetGrid(grdItemView, "MaxTotalWeight", "Maks. Total Berat", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "UnitPriceClaim", "Harga Customer", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "TotalPriceClaim", "Total Harga Customer", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "UnitPriceRawMaterial", "HPP", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalPriceRawMaterial", "Total HPP", 100, UI.usDefGrid.gReal2Num)
@@ -224,7 +226,9 @@ Public Class frmTraCuttingDet
                                .Remarks = dr.Item("Remarks"),
                                .OrderNumberSupplier = dr.Item("OrderNumberSupplier"),
                                .UnitPriceRawMaterial = dr.Item("UnitPriceRawMaterial"),
-                               .TotalPriceRawMaterial = dr.Item("TotalPriceRawMaterial")
+                               .TotalPriceRawMaterial = dr.Item("TotalPriceRawMaterial"),
+                               .UnitPriceClaim = dr.Item("UnitPriceClaim"),
+                               .TotalPriceClaim = dr.Item("TotalPriceClaim")
                            })
         Next
 
@@ -243,7 +247,9 @@ Public Class frmTraCuttingDet
                                     .UnitPriceHPP = dr.Item("UnitPriceHPP"),
                                     .TotalPriceHPP = dr.Item("TotalPriceHPP"),
                                     .UnitPrice = dr.Item("UnitPrice"),
-                                    .TotalPrice = dr.Item("TotalPrice")
+                                    .TotalPrice = dr.Item("TotalPrice"),
+                                    .UnitPriceClaim = dr.Item("UnitPriceClaim"),
+                                    .TotalPriceClaim = dr.Item("TotalPriceClaim")
                                 })
         Next
 

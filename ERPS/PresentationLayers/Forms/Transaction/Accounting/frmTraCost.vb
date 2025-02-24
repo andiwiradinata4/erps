@@ -284,15 +284,29 @@ Public Class frmTraCost
         If intPos < 0 Then Exit Sub
         clsData = prvGetData()
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        If Not UI.usForm.frmAskQuestion("Approve Nomor " & clsData.CostNumber & "?") Then Exit Sub
+        'If Not UI.usForm.frmAskQuestion("Approve Nomor " & clsData.CostNumber & "?") Then Exit Sub
+
+        Dim frmDetail As New frmTraAccountSetPaymentDate
+        With frmDetail
+            .pubCoAID = clsData.CoAID
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsSave Then
+                clsData.CoAID = .pubCoAID
+                clsData.PaymentDate = .pubPaymentDate
+                clsData.PaymentBy = ERPSLib.UI.usUserApp.UserID
+                clsData.Remarks = .pubRemarks
+            Else
+                Exit Sub
+            End If
+        End With
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
         
         Try
-            BL.Cost.Approve(clsData.ID, "")
+            BL.Cost.Approve(clsData.ID, "", clsData.CoAID, clsData.PaymentDate)
             pgMain.Value = 100
-            
             UI.usForm.frmMessageBox("Approve data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "CostNumber"))
         Catch ex As Exception

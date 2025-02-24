@@ -87,6 +87,7 @@
                     DevelopOnProgress_ID78(sqlCon, sqlTrans)
                     DevelopOnProgress_ID79(sqlCon, sqlTrans)
                     DevelopOnProgress_ID80(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID81(sqlCon, sqlTrans)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -2505,6 +2506,26 @@
             clsData.Scripts =
                 "ALTER TABLE traSalesReturn ADD JournalIDTransport VARCHAR(100) NOT NULL CONSTRAINT DF_traSalesReturn_JournalIDTransport DEFAULT ('')  " & vbNewLine &
                 "UPDATE sysAppVersion SET Version='1.0.0.53' " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 81
+        Private Shared Sub DevelopOnProgress_ID81(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 81
+            clsData.Name = "Development On Progress 81"
+            clsData.Scripts =
+                "ALTER TABLE traAccountPayable ADD IsGenerate BIT NOT NULL CONSTRAINT DF_traAccountPayable_IsGenerate DEFAULT (0)  " & vbNewLine &
+                "ALTER TABLE traAccountReceivable ADD IsGenerate BIT NOT NULL CONSTRAINT DF_traAccountReceivable_IsGenerate DEFAULT (0)  " & vbNewLine &
+                "ALTER TABLE traCuttingDet ADD UnitPriceClaim DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCuttingDet_UnitPriceClaim DEFAULT (0)  " & vbNewLine &
+                "ALTER TABLE traCuttingDet ADD TotalPriceClaim DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCuttingDet_TotalPriceClaim DEFAULT (0)  " & vbNewLine &
+                "ALTER TABLE traCuttingDetResult ADD UnitPriceClaim DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_UnitPriceClaim DEFAULT (0)  " & vbNewLine &
+                "ALTER TABLE traCuttingDetResult ADD TotalPriceClaim DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_TotalPriceClaim DEFAULT (0)  " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

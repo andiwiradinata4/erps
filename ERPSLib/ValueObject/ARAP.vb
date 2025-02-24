@@ -66,6 +66,8 @@
         Property TotalPPNInvoiceAmount As Decimal
         Property TotalPPHInvoiceAmount As Decimal
         Property IsFullDP As Boolean
+        Property IsGenerate As Boolean
+
         Enum ARAPTypeValue
             All
             Sales

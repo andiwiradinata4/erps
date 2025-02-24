@@ -1459,15 +1459,17 @@
                                              })
 
                         '# Akun PPN -> Debit
-                        clsJournalDetail.Add(New VO.JournalDet With
-                                             {
-                                                 .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofSalesTax,
-                                                 .DebitAmount = clsData.TotalPPN,
-                                                 .CreditAmount = 0,
-                                                 .Remarks = "",
-                                                 .GroupID = intGroupID,
-                                                 .BPID = clsData.BPID
-                                             })
+                        If clsData.TotalPPN > 0 Then
+                            clsJournalDetail.Add(New VO.JournalDet With
+                                                 {
+                                                     .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofSalesTax,
+                                                     .DebitAmount = clsData.TotalPPN,
+                                                     .CreditAmount = 0,
+                                                     .Remarks = "",
+                                                     .GroupID = intGroupID,
+                                                     .BPID = clsData.BPID
+                                                 })
+                        End If
 
                         '# Akun Piutang -> Kredit
                         clsJournalDetail.Add(New VO.JournalDet With
@@ -1535,15 +1537,18 @@
                                              })
 
                         '# Akun PPN -> Kredit
-                        clsJournalDetail.Add(New VO.JournalDet With
-                                             {
-                                                 .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofSalesTax,
-                                                 .DebitAmount = 0,
-                                                 .CreditAmount = clsData.TotalPPN,
-                                                 .Remarks = "",
-                                                 .GroupID = intGroupID,
-                                                 .BPID = clsData.BPID
-                                             })
+                        If clsData.TotalPPN Then
+                            clsJournalDetail.Add(New VO.JournalDet With
+                                                 {
+                                                     .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofSalesTax,
+                                                     .DebitAmount = 0,
+                                                     .CreditAmount = clsData.TotalPPN,
+                                                     .Remarks = "",
+                                                     .GroupID = intGroupID,
+                                                     .BPID = clsData.BPID
+                                                 })
+                        End If
+
                         decTotalAmount += clsData.ReceiveAmount + clsData.DPAmount + clsData.TotalPPN
 
                         '# Setup / Cross Akun DP

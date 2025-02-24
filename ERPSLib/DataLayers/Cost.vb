@@ -14,7 +14,7 @@
                 .CommandText = _
                     "SELECT " & vbNewLine & _
                     "   A.ID, A.CompanyID, MC.Name AS CompanyName, A.ProgramID, MP.Name AS ProgramName, A.CostNumber, A.COAID, " & vbNewLine & _
-                    "   C.Code AS COACode, C.Name AS COAName, A.ReferencesID, A.ReferencesNote, A.CostDate, A.TotalAmount, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
+                    "   ISNULL(C.Code,'') AS COACode, ISNULL(C.Name,'') AS COAName, A.ReferencesID, A.ReferencesNote, A.CostDate, A.TotalAmount, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
                     "   A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine & _
                     "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.PaymentBy, " & vbNewLine & _
                     "   CASE WHEN A.PaymentBy = '' THEN NULL ELSE A.PaymentDate END AS PaymentDate, A.TaxInvoiceNumber, " & vbNewLine & _
@@ -23,7 +23,7 @@
                     "FROM traCost A " & vbNewLine & _
                     "INNER JOIN mstStatus B ON " & vbNewLine & _
                     "   A.StatusID=B.ID " & vbNewLine & _
-                    "INNER JOIN mstChartOfAccount C ON " & vbNewLine & _
+                    "LEFT JOIN mstChartOfAccount C ON " & vbNewLine & _
                     "   A.COAID=C.ID " & vbNewLine & _
                     "INNER JOIN mstCompany MC ON " & vbNewLine & _
                     "   A.CompanyID=MC.ID " & vbNewLine & _
@@ -116,14 +116,14 @@
                     .CommandText = _
                         "SELECT TOP 1 " & vbNewLine & _
                         "   A.ID, A.CompanyID, MC.Name AS CompanyName, A.ProgramID, MP.Name AS ProgramName, A.CostNumber, A.COAID, " & vbNewLine & _
-                        "   C.Code AS COACode, C.Name AS COAName, A.ReferencesID, A.ReferencesNote, A.CostDate, A.TotalAmount, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
+                        "   ISNULL(C.Code,'') AS COACode, ISNULL(C.Name,'') AS COAName, A.ReferencesID, A.ReferencesNote, A.CostDate, A.TotalAmount, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
                         "   A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.PaymentBy, A.PaymentDate, A.TaxInvoiceNumber, " & vbNewLine & _
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine & _
                         "   A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
                         "FROM traCost A " & vbNewLine & _
                         "INNER JOIN mstStatus B ON " & vbNewLine & _
                         "   A.StatusID=B.ID " & vbNewLine & _
-                        "INNER JOIN mstChartOfAccount C ON " & vbNewLine & _
+                        "LEFT JOIN mstChartOfAccount C ON " & vbNewLine & _
                         "   A.COAID=C.ID " & vbNewLine & _
                         "INNER JOIN mstCompany MC ON " & vbNewLine & _
                         "   A.CompanyID=MC.ID " & vbNewLine & _
@@ -389,7 +389,7 @@
         End Sub
 
         Public Shared Sub Approve(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                  ByVal strID As String)
+                                  ByVal strID As String, ByVal intCoAID As Integer, ByVal dtmPaymentDate As DateTime)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -397,6 +397,9 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "UPDATE traCost SET " & vbNewLine & _
+                    "    CoAID=@CoAID, " & vbNewLine & _
+                    "    PaymentDate=@PaymentDate, " & vbNewLine & _
+                    "    PaymentBy=@LogBy, " & vbNewLine & _
                     "    StatusID=@StatusID, " & vbNewLine & _
                     "    ApproveL1=@LogBy, " & vbNewLine & _
                     "    ApproveL1Date=GETDATE(), " & vbNewLine & _
@@ -408,6 +411,9 @@
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Approved
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = ERPSLib.UI.usUserApp.UserID
+                .Parameters.Add("@CoAID", SqlDbType.Int).Value = intCoAID
+                .Parameters.Add("@PaymentDate", SqlDbType.DateTime).Value = dtmPaymentDate
+
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -427,7 +433,8 @@
                     "UPDATE traCost SET " & vbNewLine & _
                     "    StatusID=@StatusID, " & vbNewLine & _
                     "    ApproveL1='', " & vbNewLine & _
-                    "    ApprovedBy='' " & vbNewLine & _
+                    "    ApprovedBy='', " & vbNewLine & _
+                    "    PaymentBy='' " & vbNewLine & _
                     "WHERE   " & vbNewLine & _
                     "    ID=@ID " & vbNewLine
 

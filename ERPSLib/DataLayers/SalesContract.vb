@@ -524,14 +524,14 @@
                         "SELECT TOP 1 " & vbNewLine &
                         "   A.ID, A.ProgramID, A.CompanyID, A.SCNumber, A.SCDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.AllowanceProduction, A.Franco, " & vbNewLine &
                         "   A.DelegationSeller, A.DelegationPositionSeller, A.DelegationBuyer, A.DelegationPositionBuyer, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, " & vbNewLine &
-                        "   A.RoundingManual, A.IsDeleted, A.Remarks, A.JournalID, A.StatusID, A.CompanyBankAccountID, C.AccountName, C.BankName, C.AccountNumber, C.Currency AS CurrencyBank, A.SubmitBy, A.SubmitDate, " & vbNewLine &
+                        "   A.RoundingManual, A.IsDeleted, A.Remarks, A.JournalID, A.StatusID, A.CompanyBankAccountID, ISNULL(C.AccountName,'') AccountName, ISNULL(C.BankName,'') BankName, ISNULL(C.AccountNumber,'') AccountNumber, ISNULL(C.Currency,'') AS CurrencyBank, A.SubmitBy, A.SubmitDate, " & vbNewLine &
                         "   A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.ReceiveAmount, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual, " & vbNewLine &
                         "   A.BPLocationID, ISNULL(BPL.Address,'') AS BPLocationAddress, A.IsUseSubItem, A.ReferencesNumber, A.AdditionalTerm1, A.AdditionalTerm2, A.AdditionalTerm3, A.AdditionalTerm4, A.AdditionalTerm5, A.AdditionalTerm6, " & vbNewLine &
                         "   A.AdditionalTerm7, A.AdditionalTerm8, A.AdditionalTerm9, A.AdditionalTerm10 " & vbNewLine &
                         "FROM traSalesContract A " & vbNewLine &
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
                         "   A.BPID=B.ID " & vbNewLine &
-                        "INNER JOIN mstCompanyBankAccount C ON " & vbNewLine &
+                        "LEFT JOIN mstCompanyBankAccount C ON " & vbNewLine &
                         "   A.CompanyBankAccountID=C.ID " & vbNewLine &
                         "LEFT JOIN mstBusinessPartnerLocation BPL ON " & vbNewLine &
                         "   A.BPLocationID=BPL.ID " & vbNewLine &

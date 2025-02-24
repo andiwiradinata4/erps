@@ -223,16 +223,16 @@ Public Class frmTraSalesContractDetVer2
             tcHeader.SelectedTab = tpMain
             cboStatus.Focus()
             Exit Sub
-        ElseIf txtFranco.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Syarat penyerahan tidak boleh kosong")
-            tcHeader.SelectedTab = tpMain
-            txtFranco.Focus()
-            Exit Sub
-        ElseIf txtAllowanceProduction.Value <= 0 Then
-            UI.usForm.frmMessageBox("Allowance produksi harus lebih besar dari 0")
-            tcHeader.SelectedTab = tpMain
-            txtAllowanceProduction.Focus()
-            Exit Sub
+            'ElseIf txtFranco.Text.Trim = "" Then
+            '    UI.usForm.frmMessageBox("Syarat penyerahan tidak boleh kosong")
+            '    tcHeader.SelectedTab = tpMain
+            '    txtFranco.Focus()
+            '    Exit Sub
+            'ElseIf txtAllowanceProduction.Value <= 0 Then
+            '    UI.usForm.frmMessageBox("Allowance produksi harus lebih besar dari 0")
+            '    tcHeader.SelectedTab = tpMain
+            '    txtAllowanceProduction.Focus()
+            '    Exit Sub
         ElseIf dtpDeliveryPeriodFrom.EditValue > dtpDeliveryPeriodTo.EditValue Then
             UI.usForm.frmMessageBox("Periode pengiriman tidak valid")
             tcHeader.SelectedTab = tpMain
@@ -248,31 +248,31 @@ Public Class frmTraSalesContractDetVer2
             tcDetail.SelectedTab = tpConfirmationOrder
             grdItemCOView.Focus()
             Exit Sub
-        ElseIf grdPaymentTermView.RowCount = 0 Then
-            UI.usForm.frmMessageBox("Syarat pembayaran kosong. Mohon untuk diinput syarat pembayaran terlebih dahulu")
-            tcHeader.SelectedTab = tpPaymentTerm
-            grdPaymentTermView.Focus()
-            Exit Sub
-        ElseIf grdPaymentTermView.Columns("Percentage").SummaryItem.SummaryValue <> 100 Then
-            UI.usForm.frmMessageBox("Total persentase syarat pembayaran harus 100%")
-            tcHeader.SelectedTab = tpPaymentTerm
-            grdPaymentTermView.Focus()
-            Exit Sub
-        ElseIf txtAccountName.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih Akun Bank Perusahaan terlebih dahulu")
-            tcHeader.SelectedTab = tpAmount
-            txtAccountName.Focus()
-            Exit Sub
-        ElseIf txtDelegationBuyer.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Isi Nama Pihak Pembeli terlebih dahulu")
-            tcHeader.SelectedTab = tpAdditionalInformation
-            txtDelegationBuyer.Focus()
-            Exit Sub
-        ElseIf txtDelegationSeller.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Isi Nama Pihak Penjual terlebih dahulu")
-            tcHeader.SelectedTab = tpAdditionalInformation
-            txtDelegationSeller.Focus()
-            Exit Sub
+            'ElseIf grdPaymentTermView.RowCount = 0 Then
+            '    UI.usForm.frmMessageBox("Syarat pembayaran kosong. Mohon untuk diinput syarat pembayaran terlebih dahulu")
+            '    tcHeader.SelectedTab = tpPaymentTerm
+            '    grdPaymentTermView.Focus()
+            '    Exit Sub
+            'ElseIf grdPaymentTermView.Columns("Percentage").SummaryItem.SummaryValue <> 100 Then
+            '    UI.usForm.frmMessageBox("Total persentase syarat pembayaran harus 100%")
+            '    tcHeader.SelectedTab = tpPaymentTerm
+            '    grdPaymentTermView.Focus()
+            '    Exit Sub
+            'ElseIf txtAccountName.Text.Trim = "" Then
+            '    UI.usForm.frmMessageBox("Pilih Akun Bank Perusahaan terlebih dahulu")
+            '    tcHeader.SelectedTab = tpAmount
+            '    txtAccountName.Focus()
+            '    Exit Sub
+            'ElseIf txtDelegationBuyer.Text.Trim = "" Then
+            '    UI.usForm.frmMessageBox("Isi Nama Pihak Pembeli terlebih dahulu")
+            '    tcHeader.SelectedTab = tpAdditionalInformation
+            '    txtDelegationBuyer.Focus()
+            '    Exit Sub
+            'ElseIf txtDelegationSeller.Text.Trim = "" Then
+            '    UI.usForm.frmMessageBox("Isi Nama Pihak Penjual terlebih dahulu")
+            '    tcHeader.SelectedTab = tpAdditionalInformation
+            '    txtDelegationSeller.Focus()
+            '    Exit Sub
         End If
 
         Dim frmDetail As New usFormSave

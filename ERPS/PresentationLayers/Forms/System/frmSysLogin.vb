@@ -54,13 +54,15 @@
                 Application.Exit()
             End If
 
-            If ERPSLib.UI.usUserApp.AccessList.Rows.Count = 1 Then
-                ERPSLib.UI.usUserApp.ProgramID = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("ProgramID")
-                ERPSLib.UI.usUserApp.ProgramName = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("ProgramName")
-                ERPSLib.UI.usUserApp.CompanyID = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("CompanyID")
-                ERPSLib.UI.usUserApp.CompanyName = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("CompanyName")
-                ERPSLib.UI.usUserApp.CompanyAddress = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("Address")
-                ERPSLib.UI.usUserApp.CompanyInitial = ERPSLib.UI.usUserApp.AccessList.Rows(0).Item("CompanyInitial")
+            Dim dsHelper As New DataSetHelper
+            Dim dtAccessGroup As DataTable = dsHelper.SelectGroupByInto("Program", ERPSLib.UI.usUserApp.AccessList, "ProgramID,ProgramName,CompanyID,CompanyName,Address,CompanyInitial", "", "ProgramID,ProgramName,CompanyID,CompanyName,Address,CompanyInitial")
+            If dtAccessGroup.Rows.Count = 1 Then
+                ERPSLib.UI.usUserApp.ProgramID = dtAccessGroup.Rows(0).Item("ProgramID")
+                ERPSLib.UI.usUserApp.ProgramName = dtAccessGroup.Rows(0).Item("ProgramName")
+                ERPSLib.UI.usUserApp.CompanyID = dtAccessGroup.Rows(0).Item("CompanyID")
+                ERPSLib.UI.usUserApp.CompanyName = dtAccessGroup.Rows(0).Item("CompanyName")
+                ERPSLib.UI.usUserApp.CompanyAddress = dtAccessGroup.Rows(0).Item("Address")
+                ERPSLib.UI.usUserApp.CompanyInitial = dtAccessGroup.Rows(0).Item("CompanyInitial")
                 ERPSLib.UI.usUserApp.JournalPost = BL.JournalPost.GetDetail(ERPSLib.UI.usUserApp.ProgramID)
                 frmSysMain.Show()
             Else

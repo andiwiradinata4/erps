@@ -107,11 +107,11 @@ Public Class frmTraCostDet
             UI.usForm.frmMessageBox("Item belum diinput")
             grdItemView.Focus()
             Exit Sub
-        ElseIf txtCoACode.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih akun terlebih dahulu")
-            tcHeader.SelectedTab = tpMain
-            txtCoACode.Focus()
-            Exit Sub
+            'ElseIf txtCoACode.Text.Trim = "" Then
+            '    UI.usForm.frmMessageBox("Pilih akun terlebih dahulu")
+            '    tcHeader.SelectedTab = tpMain
+            '    txtCoACode.Focus()
+            '    Exit Sub
         ElseIf txtTotalAmount.Value <= 0 Then
             UI.usForm.frmMessageBox("Total Bayar harus lebih besar dari 0")
             tcHeader.SelectedTab = tpMain
@@ -168,12 +168,11 @@ Public Class frmTraCostDet
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
         
-
         Try
             Dim strID As String = BL.Cost.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strID)
             pgMain.Value = 80
-            
+
             frmParent.pubRefresh(strID)
             If pubIsNew Then
                 prvClear()
@@ -186,7 +185,7 @@ Public Class frmTraCostDet
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub

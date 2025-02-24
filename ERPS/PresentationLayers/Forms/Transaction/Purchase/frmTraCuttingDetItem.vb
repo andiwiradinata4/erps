@@ -163,6 +163,8 @@ Public Class frmTraCuttingDetItem
                 txtQuantity.Value = drSelectedItem.Item("Quantity")
                 txtRemarks.Text = drSelectedItem.Item("Remarks")
                 txtUnitPriceRawMaterial.Value = drSelectedItem.Item("UnitPriceRawMaterial")
+                txtUnitPriceClaim.Value = drSelectedItem.Item("UnitPriceClaim")
+                txtTotalPriceClaim.Value = drSelectedItem.Item("TotalPriceClaim")
 
                 For Each dr As DataRow In dtItemResultParent.Rows
                     If dr.Item("GroupID") = intGroupID Then dtResult.ImportRow(dr)
@@ -235,6 +237,8 @@ Public Class frmTraCuttingDetItem
                 .Item("Remarks") = txtRemarks.Text.Trim
                 .Item("UnitPriceRawMaterial") = txtUnitPriceRawMaterial.Value
                 .Item("TotalPriceRawMaterial") = txtUnitPriceRawMaterial.Value * txtTotalWeight.Value
+                .Item("UnitPriceClaim") = txtUnitPriceClaim.Value
+                .Item("TotalPriceClaim") = txtTotalPriceClaim.Value
                 .EndEdit()
             End With
             dtItem.Rows.Add(drItem)
@@ -267,6 +271,8 @@ Public Class frmTraCuttingDetItem
                         .Item("Remarks") = txtRemarks.Text.Trim
                         .Item("UnitPriceRawMaterial") = txtUnitPriceRawMaterial.Value
                         .Item("TotalPriceRawMaterial") = txtUnitPriceRawMaterial.Value * txtTotalWeight.Value
+                        .Item("UnitPriceClaim") = txtUnitPriceClaim.Value
+                        .Item("TotalPriceClaim") = txtTotalPriceClaim.Value
                         .EndEdit()
                     End If
                 End With
@@ -286,6 +292,8 @@ Public Class frmTraCuttingDetItem
             dr.Item("GroupID") = intGroupID
             dr.Item("UnitPrice") = txtUnitPrice.Value
             dr.Item("TotalPrice") = txtUnitPrice.Value * dr.Item("TotalWeight")
+            dr.Item("UnitPriceClaim") = txtUnitPriceClaim.Value
+            dr.Item("TotalPriceClaim") = txtUnitPriceClaim.Value * dr.Item("TotalWeight")
             dr.EndEdit()
             dtItemResultParent.ImportRow(dr)
         Next
@@ -311,6 +319,7 @@ Public Class frmTraCuttingDetItem
         txtWeight.Value = 0
         txtMaxTotalWeight.Value = 0
         txtUnitPrice.Value = 0
+        txtUnitPriceClaim.Value = 0
         txtQuantity.Value = 0
         txtTotalWeight.Value = 0
         txtTotalPrice.Value = 0
@@ -361,6 +370,7 @@ Public Class frmTraCuttingDetItem
     Private Sub prvCalculate()
         txtTotalWeight.Value = txtWeight.Value * txtQuantity.Value
         txtTotalPrice.Value = txtUnitPrice.Value * txtTotalWeight.Value
+        txtTotalPriceClaim.Value = txtUnitPriceClaim.Value * txtTotalWeight.Value
     End Sub
 
 #Region "Item Result Item"
@@ -466,7 +476,8 @@ Public Class frmTraCuttingDetItem
         prvChooseItem()
     End Sub
 
-    Private Sub txtQuantity_ValueChanged(sender As Object, e As EventArgs) Handles txtQuantity.ValueChanged, txtWeight.ValueChanged, txtUnitPrice.ValueChanged
+    Private Sub txtQuantity_ValueChanged(sender As Object, e As EventArgs) Handles txtQuantity.ValueChanged, txtWeight.ValueChanged,
+        txtUnitPrice.ValueChanged, txtUnitPriceClaim.ValueChanged
         prvCalculate()
     End Sub
 

@@ -279,7 +279,7 @@ Public Class frmTraARAPDetVer4
             tcHeader.SelectedTab = tpMain
             txtBPCode.Focus()
             Exit Sub
-        ElseIf txtTotalAmount.Value + txtTotalDP.Value <= 0 Then
+        ElseIf txtTotalAmount.Value + txtDPAllocate.Value <= 0 Then
             UI.usForm.frmMessageBox("Total Bayar harus lebih besar dari 0")
             tcHeader.SelectedTab = tpMain
             txtTotalAmount.Focus()

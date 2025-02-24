@@ -32,5 +32,7 @@
         Property ClaimInvoiceQuantity As Decimal
         Property ClaimInvoiceWeight As Decimal
         Property ClaimInvoiceTotalWeight As Decimal
+        Property UnitPriceClaim As Decimal
+        Property TotalPriceClaim As Decimal
     End Class
 End Namespace
