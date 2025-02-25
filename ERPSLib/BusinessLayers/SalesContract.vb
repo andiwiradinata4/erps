@@ -256,6 +256,14 @@
                         DL.ConfirmationOrder.CalculateSCTotalUsed(sqlCon, sqlTrans, clsDet.CODetailID)
                     Next
 
+                    '# Checking Total SC Weight
+                    For Each clsDet As VO.SalesContractDet In clsData.Detail
+                        Dim dtData As DataTable = DL.OrderRequest.ListDataDetailByID(sqlCon, sqlTrans, clsDet.ORDetailID)
+                        For Each dr As DataRow In dtData.Rows
+                            If dr.Item("TotalWeight") - dr.Item("SCWeight") < 0 Then Err.Raise(515, "", "Tidak dapat disimpan. Barang" & dr.Item("ItemName") & " telah melebihi Total Berat Permintaan Pesanan.")
+                        Next
+                    Next
+
                     '# Save Data Status
                     BL.SalesContract.SaveDataStatus(sqlCon, sqlTrans, clsData.ID, IIf(bolNew, "BARU", "EDIT"), ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
 

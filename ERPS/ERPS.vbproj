@@ -1449,6 +1449,12 @@
     <Compile Include="PresentationLayers\Reports2\rptConfirmationOrderVer00.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptCostBankOutVer00.Designer.vb">
+      <DependentUpon>rptCostBankOutVer00.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptCostBankOutVer00.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Reports2\rptKartuHutangPiutangReportVer00.Designer.vb">
       <DependentUpon>rptKartuHutangPiutangReportVer00.vb</DependentUpon>
     </Compile>
@@ -2225,6 +2231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptConfirmationOrderVer00.resx">
       <DependentUpon>rptConfirmationOrderVer00.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports2\rptCostBankOutVer00.resx">
+      <DependentUpon>rptCostBankOutVer00.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptKartuHutangPiutangReportVer00.resx">
       <DependentUpon>rptKartuHutangPiutangReportVer00.vb</DependentUpon>

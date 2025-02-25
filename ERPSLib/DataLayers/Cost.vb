@@ -60,10 +60,10 @@
                     .CommandText = _
                         "INSERT INTO traCost " & vbNewLine & _
                         "   (ID, CompanyID, ProgramID, CostNumber, COAID, ReferencesID, ReferencesNote, " & vbNewLine & _
-                        "    CostDate, TotalAmount, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate) " & vbNewLine & _
+                        "    CostDate, TotalAmount, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, PaidTo, PaidAccount) " & vbNewLine & _
                         "VALUES " & vbNewLine & _
                         "   (@ID, @CompanyID, @ProgramID, @CostNumber, @COAID, @ReferencesID, @ReferencesNote, " & vbNewLine & _
-                        "    @CostDate, @TotalAmount, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE()) " & vbNewLine
+                        "    @CostDate, @TotalAmount, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @PaidTo, @PaidAccount) " & vbNewLine
                 Else
                     .CommandText = _
                         "UPDATE traCost SET " & vbNewLine & _
@@ -79,7 +79,9 @@
                         "    StatusID=@StatusID, " & vbNewLine & _
                         "    LogInc=LogInc+1, " & vbNewLine & _
                         "    LogBy=@LogBy, " & vbNewLine & _
-                        "    LogDate=GETDATE() " & vbNewLine & _
+                        "    LogDate=GETDATE(), " & vbNewLine & _
+                        "    PaidTo=@PaidTo, " & vbNewLine & _
+                        "    PaidAccount=@PaidAccount " & vbNewLine & _
                         "WHERE   " & vbNewLine & _
                         "    ID=@ID " & vbNewLine
                 End If
@@ -96,6 +98,8 @@
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 500).Value = clsData.Remarks
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
+                .Parameters.Add("@PaidTo", SqlDbType.VarChar, 250).Value = clsData.PaidTo
+                .Parameters.Add("@PaidAccount", SqlDbType.VarChar, 250).Value = clsData.PaidAccount
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -119,7 +123,7 @@
                         "   ISNULL(C.Code,'') AS COACode, ISNULL(C.Name,'') AS COAName, A.ReferencesID, A.ReferencesNote, A.CostDate, A.TotalAmount, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
                         "   A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.PaymentBy, A.PaymentDate, A.TaxInvoiceNumber, " & vbNewLine & _
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine & _
-                        "   A.LogInc, A.LogBy, A.LogDate " & vbNewLine & _
+                        "   A.LogInc, A.LogBy, A.LogDate, A.PaidTo, A.PaidAccount " & vbNewLine & _
                         "FROM traCost A " & vbNewLine & _
                         "INNER JOIN mstStatus B ON " & vbNewLine & _
                         "   A.StatusID=B.ID " & vbNewLine & _
@@ -170,6 +174,8 @@
                         voReturn.LogInc = .Item("LogInc")
                         voReturn.LogBy = .Item("LogBy")
                         voReturn.LogDate = .Item("LogDate")
+                        voReturn.PaidTo = .Item("PaidTo")
+                        voReturn.PaidAccount = .Item("PaidAccount")
                     End If
                 End With
             Catch ex As Exception
@@ -545,6 +551,33 @@
             End Try
         End Sub
 
+        Public Shared Function PrintCostBankOut(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                ByVal strID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+                    "SELECT  " & vbNewLine & _
+"	CH.CostNumber AS TransNumber, CH.CostDate AS TransDate, MC.Name AS CompanyName, '' AS VoucherCode,  " & vbNewLine & _
+"	CH.PaidTo, CH.PaidAccount, CH.TotalAmount, CH.Remarks, MUC.Name AS CreatedBy, CH.CreatedDate, NULL AS CheckedDate,  " & vbNewLine & _
+"	'' AS CheckedBy, MUP.Name AS PaidBy, CASE WHEN CH.PaymentBy='' THEN NULL ELSE CH.PaymentDate END AS PaidDate, " & vbNewLine & _
+"	MC.DirectorName AS ApprovedBy, NULL AS ApprovedDate " & vbNewLine & _
+"FROM traCost CH  " & vbNewLine & _
+"INNER JOIN mstCompany MC ON  " & vbNewLine & _
+"	CH.CompanyID=MC.ID  " & vbNewLine & _
+"INNER JOIN mstUser MUC ON  " & vbNewLine & _
+"	CH.CreatedBy=MUC.ID  " & vbNewLine & _
+"LEFT JOIN mstUser MUP ON  " & vbNewLine & _
+"	CH.PaymentBy=MUP.ID  " & vbNewLine & _
+"WHERE CH.ID=@ID  " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
 #End Region
 
 #Region "Detail"
@@ -558,7 +591,7 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "SELECT " & vbNewLine & _
-                    "   A.ID, A.CostID, A.COAID, B.Code AS COACode, B.Name AS COAName, A.Amount, A.Remarks " & vbNewLine & _
+                    "   A.ID, A.CostID, A.COAID, B.Code AS COACode, B.Name AS COAName, A.Amount, A.Remarks, A.ReceiveDate, A.InvoiceDate " & vbNewLine & _
                     "FROM traCostDet A " & vbNewLine & _
                     "INNER JOIN mstChartOfAccount B ON " & vbNewLine & _
                     "   A.COAID=B.ID " & vbNewLine & _
@@ -579,15 +612,17 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "INSERT INTO traCostDet " & vbNewLine & _
-                    "   (ID, CostID, COAID, Amount, Remarks) " & vbNewLine & _
+                    "   (ID, CostID, COAID, Amount, Remarks, ReceiveDate, InvoiceDate) " & vbNewLine & _
                     "VALUES " & vbNewLine & _
-                    "   (@ID, @CostID, @COAID, @Amount, @Remarks) " & vbNewLine
+                    "   (@ID, @CostID, @COAID, @Amount, @Remarks, @ReceiveDate, @InvoiceDate) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@CostID", SqlDbType.VarChar, 100).Value = clsData.CostID
                 .Parameters.Add("@COAID", SqlDbType.Int).Value = clsData.CoAID
                 .Parameters.Add("@Amount", SqlDbType.Decimal).Value = clsData.Amount
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 500).Value = clsData.Remarks
+                .Parameters.Add("@ReceiveDate", SqlDbType.DateTime).Value = clsData.ReceiveDate
+                .Parameters.Add("@InvoiceDate", SqlDbType.DateTime).Value = clsData.InvoiceDate
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

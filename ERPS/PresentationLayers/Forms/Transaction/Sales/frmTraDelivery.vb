@@ -486,7 +486,7 @@ Public Class frmTraDelivery
         If clsData.StatusID <> VO.Status.Values.Submit Then
             UI.usForm.frmMessageBox("Status Data harus disubmit terlebih dahulu")
             Exit Sub
-        ElseIf clsData.TotalPPHTransport <= 0 Then
+        ElseIf clsData.TotalDPPTransport <= 0 Then
             UI.usForm.frmMessageBox("Total DPP Transport bernilai 0")
             Exit Sub
         End If

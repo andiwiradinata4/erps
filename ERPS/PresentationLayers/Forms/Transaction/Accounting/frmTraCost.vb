@@ -10,7 +10,7 @@ Public Class frmTraCost
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
        cSep2 As Byte = 8, cSetPaymentDate As Byte = 9, cDeletePaymentDate As Byte = 10, cSetTaxInvoiceNumber As Byte = 11,
-       cSep3 As Byte = 12, cExportExcel As Byte = 13, cSep4 As Byte = 14, cRefresh As Byte = 15, cClose As Byte = 16
+       cSep3 As Byte = 12, cPrintBankOut As Byte = 13, cExportExcel As Byte = 14, cSep4 As Byte = 15, cRefresh As Byte = 16, cClose As Byte = 17
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -61,6 +61,7 @@ Public Class frmTraCost
             .Item(cSetPaymentDate).Enabled = bolEnable
             .Item(cDeletePaymentDate).Enabled = bolEnable
             .Item(cSetTaxInvoiceNumber).Enabled = bolEnable
+            .Item(cPrintBankOut).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
         End With
     End Sub
@@ -500,6 +501,36 @@ Public Class frmTraCost
         End If
     End Sub
 
+    Private Sub prvPrintBankOut()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+        Try
+            Dim crReport As New rptCostBankOutVer00
+            crReport.DataSource = BL.Cost.PrintCostBankOut(strID)
+            crReport.CreateDocument(True)
+            crReport.ShowPreviewMarginLines = False
+            crReport.ShowPrintMarginsWarning = False
+
+            Dim frmDetail As New frmReportPreview
+            With frmDetail
+                .docViewer.DocumentSource = crReport
+                .pgExportButton.Enabled = True
+                .Text = Me.Text & " - " & VO.Reports.PrintOut
+                .WindowState = FormWindowState.Maximized
+                .Show()
+            End With
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            pgMain.Value = 100
+            Me.Cursor = Cursors.Default
+            prvResetProgressBar()
+        End Try
+    End Sub
+
     Private Sub prvUserAccess()
         With ToolBar.Buttons
             .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCost, VO.Access.Values.NewAccess)
@@ -547,6 +578,7 @@ Public Class frmTraCost
                 Case ToolBar.Buttons(cSetPaymentDate).Name : prvSetupPaymentDate()
                 Case ToolBar.Buttons(cDeletePaymentDate).Name : prvSetupCancelPaymentDate()
                 Case ToolBar.Buttons(cSetTaxInvoiceNumber).Name : prvSetupTaxInvoiceNumber()
+                Case ToolBar.Buttons(cPrintBankOut).Name : prvPrintBankOut()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If
@@ -576,4 +608,5 @@ Public Class frmTraCost
     End Sub
 
 #End Region
+
 End Class

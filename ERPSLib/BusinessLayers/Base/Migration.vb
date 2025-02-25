@@ -88,6 +88,7 @@
                     DevelopOnProgress_ID79(sqlCon, sqlTrans)
                     DevelopOnProgress_ID80(sqlCon, sqlTrans)
                     DevelopOnProgress_ID81(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID82(sqlCon, sqlTrans)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -2526,6 +2527,24 @@
                 "ALTER TABLE traCuttingDet ADD TotalPriceClaim DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCuttingDet_TotalPriceClaim DEFAULT (0)  " & vbNewLine &
                 "ALTER TABLE traCuttingDetResult ADD UnitPriceClaim DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_UnitPriceClaim DEFAULT (0)  " & vbNewLine &
                 "ALTER TABLE traCuttingDetResult ADD TotalPriceClaim DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCuttingDetResult_TotalPriceClaim DEFAULT (0)  " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 82
+        Private Shared Sub DevelopOnProgress_ID82(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 82
+            clsData.Name = "Development On Progress 82"
+            clsData.Scripts =
+                "ALTER TABLE traCost ADD PaidTo VARCHAR(250) NOT NULL CONSTRAINT DF_traCost_PaidTo DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traCost ADD PaidAccount VARCHAR(250) NOT NULL CONSTRAINT DF_traCost_PaidAccount DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traCostDet ADD ReceiveDate DATETIME NOT NULL CONSTRAINT DF_traCostDet_ReceiveDate DEFAULT (GETDATE())  " & vbNewLine &
+                "ALTER TABLE traCostDet ADD InvoiceDate DATETIME NOT NULL CONSTRAINT DF_traCostDet_InvoiceDate DEFAULT (GETDATE())  " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

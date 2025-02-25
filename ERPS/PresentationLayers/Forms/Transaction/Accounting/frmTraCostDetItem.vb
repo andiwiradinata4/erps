@@ -49,6 +49,8 @@
         intCoAID = 0
         txtCoACode.Text = ""
         txtCoAName.Text = ""
+        dtpReceiveDate.Value = Today.Date
+        dtpInvoiceDate.Value = Today.Date
         txtAmount.Value = 0
         txtRemarks.Text = ""
     End Sub
@@ -61,6 +63,8 @@
             intCoAID = drSelected.Item("CoAID")
             txtCoACode.Text = drSelected.Item("CoACode")
             txtCoAName.Text = drSelected.Item("CoAName")
+            dtpReceiveDate.Value = drSelected.Item("ReceiveDate")
+            dtpInvoiceDate.Value = drSelected.Item("InvoiceDate")
             txtAmount.Value = drSelected.Item("Amount")
             txtRemarks.Text = drSelected.Item("Remarks")
         End If
@@ -86,6 +90,8 @@
             dr.Item("CoAID") = intCoAID
             dr.Item("CoACode") = txtCoACode.Text.Trim
             dr.Item("CoAName") = txtCoAName.Text.Trim
+            dr.Item("ReceiveDate") = dtpReceiveDate.Value
+            dr.Item("InvoiceDate") = dtpInvoiceDate.Value
             dr.Item("Amount") = txtAmount.Value
             dr.Item("Remarks") = txtRemarks.Text.Trim
             dr.EndEdit()
@@ -101,6 +107,8 @@
                     dr.Item("CoAID") = intCoAID
                     dr.Item("CoACode") = txtCoACode.Text.Trim
                     dr.Item("CoAName") = txtCoAName.Text.Trim
+                    dr.Item("ReceiveDate") = dtpReceiveDate.Value
+                    dr.Item("InvoiceDate") = dtpInvoiceDate.Value
                     dr.Item("Amount") = txtAmount.Value
                     dr.Item("Remarks") = txtRemarks.Text.Trim
                     dr.EndEdit()

@@ -47,6 +47,8 @@ Public Class frmTraCostDet
         UI.usForm.SetGrid(grdItemView, "COACode", "Kode Akun", 200, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "COAName", "Nama Akun", 200, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "Amount", "Harga", 180, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "ReceiveDate", "Tanggal Terima", 180, UI.usDefGrid.gSmallDate)
+        UI.usForm.SetGrid(grdItemView, "InvoiceDate", "Tanggal Invoice", 180, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 200, UI.usDefGrid.gString)
 
         UI.usForm.SetGrid(grdStatusView, "ID", "ID", 100, UI.usDefGrid.gString, False)
@@ -81,6 +83,8 @@ Public Class frmTraCostDet
                 intCoAID = clsData.CoAID
                 txtCoACode.Text = clsData.CoACode
                 txtCoAName.Text = clsData.CoAName
+                txtPaidTo.Text = clsData.PaidTo
+                txtPaidAccount.Text = clsData.PaidAccount
                 txtReferencesID.Text = clsData.ReferencesID
                 dtpCostDate.Value = clsData.CostDate
                 txtTotalAmount.Value = clsData.TotalAmount
@@ -90,7 +94,7 @@ Public Class frmTraCostDet
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
 
-                dtpCostDate.Enabled = False
+                'dtpCostDate.Enabled = False
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -144,7 +148,9 @@ Public Class frmTraCostDet
                                          .CostID = pubID,
                                          .CoAID = dr.Item("CoAID"),
                                          .Amount = dr.Item("Amount"),
-                                         .Remarks = dr.Item("Remarks")
+                                         .Remarks = dr.Item("Remarks"),
+                                         .ReceiveDate = dr.Item("ReceiveDate"),
+                                         .InvoiceDate = dr.Item("InvoiceDate")
                                     })
             Next
         End With
@@ -159,6 +165,8 @@ Public Class frmTraCostDet
         clsData.ReferencesNote = ""
         clsData.TotalAmount = txtTotalAmount.Value
         clsData.CostDate = dtpCostDate.Value
+        clsData.PaidTo = txtPaidTo.Text.Trim
+        clsData.PaidAccount = txtPaidAccount.Text.Trim
         clsData.StatusID = cboStatus.SelectedValue
         clsData.Remarks = txtRemarks.Text.Trim
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
@@ -172,7 +180,6 @@ Public Class frmTraCostDet
             Dim strID As String = BL.Cost.SaveData(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strID)
             pgMain.Value = 80
-
             frmParent.pubRefresh(strID)
             If pubIsNew Then
                 prvClear()
@@ -197,6 +204,8 @@ Public Class frmTraCostDet
         txtCoACode.Text = ""
         txtCoAName.Text = ""
         txtReferencesID.Text = ""
+        txtPaidTo.Text = ""
+        txtPaidAccount.Text = ""
         txtTotalAmount.Value = 0
         dtpCostDate.Value = Now
         cboStatus.SelectedValue = VO.Status.Values.Draft

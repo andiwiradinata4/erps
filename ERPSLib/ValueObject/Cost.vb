@@ -26,5 +26,7 @@
         Property StatusID As Integer
         Property Detail As New List(Of VO.CostDet)
         Property Save As VO.Save.Action
+        Property PaidTo As String
+        Property PaidAccount As String
     End Class
 End Namespace

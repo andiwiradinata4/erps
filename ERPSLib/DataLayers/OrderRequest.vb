@@ -1034,6 +1034,35 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailByID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                  ByVal strORDetailID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.OrderRequestID, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length, " & vbNewLine &
+                    "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, " & vbNewLine &
+                    "   D.Description AS ItemTypeName, A.Quantity, A.Weight, A.TotalWeight, A.UnitPrice, A.TotalPrice, " & vbNewLine &
+                    "   A.Remarks, A.RoundingWeight, A.OrderNumberSupplier, A.UnitPriceHPP, A.IsIgnoreValidationPayment, " & vbNewLine &
+                    "   A.SCQuantity, A.SCWeight, A.GroupID " & vbNewLine &
+                    "FROM traOrderRequestDet A " & vbNewLine &
+                    "INNER JOIN mstItem B ON " & vbNewLine &
+                    "   A.ItemID=B.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification C ON " & vbNewLine &
+                    "   B.ItemSpecificationID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItemType D ON " & vbNewLine &
+                    "   B.ItemTypeID=D.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ID=@ORDetailID " & vbNewLine
+
+                .Parameters.Add("@ORDetailID", SqlDbType.VarChar, 100).Value = strORDetailID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Function ListDataDetailOutstanding(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                          ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                                          ByVal intBPID As Integer, ByVal strOrderRequestID As String) As DataTable

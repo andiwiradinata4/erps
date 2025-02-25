@@ -381,6 +381,13 @@
             Return bolReturn
         End Function
 
+        Public Shared Function PrintCostBankOut(ByVal strID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.Cost.PrintCostBankOut(sqlCon, Nothing, strID)
+            End Using
+        End Function
+
 #End Region
 
 #Region "Detail"

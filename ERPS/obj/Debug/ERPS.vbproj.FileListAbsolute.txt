@@ -1016,3 +1016,4 @@ C:\Project\Toni\erps\ERPS\obj\Debug\aa\ERPS.resources.dll
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.exe
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.xml
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.pdb
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptCostBankOutVer00.resources

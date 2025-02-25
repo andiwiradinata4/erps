@@ -157,6 +157,7 @@ Public Class frmTraARAPDetVer4
         UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemCodeExternal", "Kode Barang Eksternal", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "InvoiceAmount", "InvoiceAmount", 250, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdItemView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Quantity", "Jumlah", 150, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "Weight", "Berat", 150, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 150, UI.usDefGrid.gReal2Num, True, False)
@@ -173,7 +174,6 @@ Public Class frmTraARAPDetVer4
         UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "ItemName", "Nama Barang", 250, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdItemView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdItemView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdItemView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
@@ -696,6 +696,7 @@ Public Class frmTraARAPDetVer4
         Dim SumTotalAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Amount", "Total Tagihan: {0:#,##0.00}")
         Dim SumTotalPPN As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PPN", "Total PPN: {0:#,##0.00}")
         Dim SumTotalPPH As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PPH", "Total PPH: {0:#,##0.00}")
+        Dim SumTotalWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat: {0:#,##0.00}")
 
         If grdItemView.Columns("DPAmount").SummaryText.Trim = "" Then
             grdItemView.Columns("DPAmount").Summary.Add(SumTotalDP)
@@ -711,6 +712,10 @@ Public Class frmTraARAPDetVer4
 
         If grdItemView.Columns("PPH").SummaryText.Trim = "" Then
             grdItemView.Columns("PPH").Summary.Add(SumTotalPPH)
+        End If
+
+        If grdItemView.Columns("TotalWeight").SummaryText.Trim = "" Then
+            grdItemView.Columns("TotalWeight").Summary.Add(SumTotalWeight)
         End If
 
         If grdItemView.GroupCount > 0 Then grdItemView.ExpandAllGroups()

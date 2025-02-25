@@ -63,6 +63,10 @@ Partial Class frmTraCostDet
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtPaidTo = New ERPS.usTextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtPaidAccount = New ERPS.usTextBox()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -121,12 +125,16 @@ Partial Class frmTraCostDet
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(859, 172)
+        Me.tcHeader.Size = New System.Drawing.Size(859, 230)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.Label9)
+        Me.tpMain.Controls.Add(Me.txtPaidAccount)
+        Me.tpMain.Controls.Add(Me.Label3)
+        Me.tpMain.Controls.Add(Me.txtPaidTo)
         Me.tpMain.Controls.Add(Me.txtTotalAmount)
         Me.tpMain.Controls.Add(Me.Label7)
         Me.tpMain.Controls.Add(Me.Label4)
@@ -146,7 +154,7 @@ Partial Class frmTraCostDet
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(851, 143)
+        Me.tpMain.Size = New System.Drawing.Size(851, 201)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
@@ -156,12 +164,12 @@ Partial Class frmTraCostDet
         Me.txtTotalAmount.BackColor = System.Drawing.Color.LightYellow
         Me.txtTotalAmount.DecimalPlaces = 2
         Me.txtTotalAmount.Enabled = False
-        Me.txtTotalAmount.Location = New System.Drawing.Point(132, 97)
+        Me.txtTotalAmount.Location = New System.Drawing.Point(132, 151)
         Me.txtTotalAmount.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalAmount.Name = "txtTotalAmount"
         Me.txtTotalAmount.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalAmount.TabIndex = 5
+        Me.txtTotalAmount.TabIndex = 7
         Me.txtTotalAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalAmount.ThousandsSeparator = True
         '
@@ -170,7 +178,7 @@ Partial Class frmTraCostDet
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.ForeColor = System.Drawing.Color.Black
-        Me.Label7.Location = New System.Drawing.Point(28, 101)
+        Me.Label7.Location = New System.Drawing.Point(28, 155)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(62, 13)
         Me.Label7.TabIndex = 140
@@ -259,7 +267,7 @@ Partial Class frmTraCostDet
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 8
+        Me.txtRemarks.TabIndex = 10
         '
         'cboStatus
         '
@@ -269,7 +277,7 @@ Partial Class frmTraCostDet
         Me.cboStatus.Location = New System.Drawing.Point(572, 43)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(127, 21)
-        Me.cboStatus.TabIndex = 7
+        Me.cboStatus.TabIndex = 9
         '
         'Label5
         '
@@ -290,7 +298,7 @@ Partial Class frmTraCostDet
         Me.dtpCostDate.Location = New System.Drawing.Point(572, 16)
         Me.dtpCostDate.Name = "dtpCostDate"
         Me.dtpCostDate.Size = New System.Drawing.Size(127, 21)
-        Me.dtpCostDate.TabIndex = 6
+        Me.dtpCostDate.TabIndex = 8
         Me.dtpCostDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
         'Label6
@@ -377,7 +385,7 @@ Partial Class frmTraCostDet
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(0, 222)
+        Me.Label1.Location = New System.Drawing.Point(0, 280)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(859, 22)
         Me.Label1.TabIndex = 3
@@ -448,7 +456,7 @@ Partial Class frmTraCostDet
         Me.ToolBarDetail.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
         Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAdd, Me.BarEdit, Me.BarDelete})
         Me.ToolBarDetail.DropDownArrows = True
-        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 244)
+        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 302)
         Me.ToolBarDetail.Name = "ToolBarDetail"
         Me.ToolBarDetail.ShowToolTips = True
         Me.ToolBarDetail.Size = New System.Drawing.Size(859, 28)
@@ -490,11 +498,11 @@ Partial Class frmTraCostDet
         Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdItem.Location = New System.Drawing.Point(0, 272)
+        Me.grdItem.Location = New System.Drawing.Point(0, 330)
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
-        Me.grdItem.Size = New System.Drawing.Size(859, 308)
+        Me.grdItem.Size = New System.Drawing.Size(859, 250)
         Me.grdItem.TabIndex = 5
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
@@ -515,6 +523,48 @@ Partial Class frmTraCostDet
         Me.rpiValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
+        Me.Label3.ForeColor = System.Drawing.Color.Black
+        Me.Label3.Location = New System.Drawing.Point(28, 101)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(59, 13)
+        Me.Label3.TabIndex = 142
+        Me.Label3.Text = "Dibayar Ke"
+        '
+        'txtPaidTo
+        '
+        Me.txtPaidTo.BackColor = System.Drawing.Color.White
+        Me.txtPaidTo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPaidTo.Location = New System.Drawing.Point(132, 97)
+        Me.txtPaidTo.MaxLength = 250
+        Me.txtPaidTo.Name = "txtPaidTo"
+        Me.txtPaidTo.Size = New System.Drawing.Size(249, 21)
+        Me.txtPaidTo.TabIndex = 5
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.BackColor = System.Drawing.Color.Transparent
+        Me.Label9.ForeColor = System.Drawing.Color.Black
+        Me.Label9.Location = New System.Drawing.Point(28, 128)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(71, 13)
+        Me.Label9.TabIndex = 144
+        Me.Label9.Text = "No. Rekening"
+        '
+        'txtPaidAccount
+        '
+        Me.txtPaidAccount.BackColor = System.Drawing.Color.White
+        Me.txtPaidAccount.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtPaidAccount.Location = New System.Drawing.Point(132, 124)
+        Me.txtPaidAccount.MaxLength = 250
+        Me.txtPaidAccount.Name = "txtPaidAccount"
+        Me.txtPaidAccount.Size = New System.Drawing.Size(249, 21)
+        Me.txtPaidAccount.TabIndex = 6
         '
         'frmTraCostDet
         '
@@ -591,4 +641,8 @@ Partial Class frmTraCostDet
     Friend WithEvents grdItem As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdItemView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents rpiValue As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents txtPaidAccount As ERPS.usTextBox
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents txtPaidTo As ERPS.usTextBox
 End Class

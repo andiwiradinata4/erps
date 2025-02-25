@@ -92,12 +92,12 @@ Public Class frmTraOrderRequestOutstandingItemVer1
         Me.Cursor = Cursors.WaitCursor
         Try
             dtData = BL.OrderRequest.ListDataDetailOutstanding(clsCS.ProgramID, clsCS.CompanyID, intBPID, strOrderRequestID)
-            For Each drParent As DataRow In dtParent.Rows
-                For Each dr As DataRow In dtData.Rows
-                    If drParent.Item("ORDetailID") = dr.Item("ID") Then dr.Delete()
-                Next
-                dtData.AcceptChanges()
-            Next
+            'For Each drParent As DataRow In dtParent.Rows
+            '    For Each dr As DataRow In dtData.Rows
+            '        If drParent.Item("ORDetailID") = dr.Item("ID") Then dr.Delete()
+            '    Next
+            '    dtData.AcceptChanges()
+            'Next
             grdMain.DataSource = dtData
             prvSumGrid()
             grdView.BestFitColumns()

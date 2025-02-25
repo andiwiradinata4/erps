@@ -37,6 +37,10 @@ Partial Class frmTraCostDetItem
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label29 = New System.Windows.Forms.Label()
+        Me.dtpReceiveDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.dtpInvoiceDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtAmount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -81,6 +85,10 @@ Partial Class frmTraCostDetItem
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.dtpInvoiceDate)
+        Me.pnlDetail.Controls.Add(Me.Label3)
+        Me.pnlDetail.Controls.Add(Me.dtpReceiveDate)
+        Me.pnlDetail.Controls.Add(Me.Label6)
         Me.pnlDetail.Controls.Add(Me.txtCoAName)
         Me.pnlDetail.Controls.Add(Me.txtCoACode)
         Me.pnlDetail.Controls.Add(Me.btnCoA)
@@ -93,7 +101,7 @@ Partial Class frmTraCostDetItem
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlDetail.Location = New System.Drawing.Point(0, 50)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(469, 188)
+        Me.pnlDetail.Size = New System.Drawing.Size(469, 247)
         Me.pnlDetail.TabIndex = 2
         '
         'txtCoAName
@@ -129,12 +137,12 @@ Partial Class frmTraCostDetItem
         'txtAmount
         '
         Me.txtAmount.DecimalPlaces = 2
-        Me.txtAmount.Location = New System.Drawing.Point(118, 70)
+        Me.txtAmount.Location = New System.Drawing.Point(118, 124)
         Me.txtAmount.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtAmount.Name = "txtAmount"
         Me.txtAmount.Size = New System.Drawing.Size(160, 21)
-        Me.txtAmount.TabIndex = 3
+        Me.txtAmount.TabIndex = 5
         Me.txtAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtAmount.ThousandsSeparator = True
         '
@@ -142,19 +150,19 @@ Partial Class frmTraCostDetItem
         '
         Me.txtRemarks.BackColor = System.Drawing.Color.White
         Me.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtRemarks.Location = New System.Drawing.Point(118, 97)
+        Me.txtRemarks.Location = New System.Drawing.Point(118, 151)
         Me.txtRemarks.MaxLength = 250
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(300, 59)
-        Me.txtRemarks.TabIndex = 4
+        Me.txtRemarks.TabIndex = 6
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(31, 102)
+        Me.Label2.Location = New System.Drawing.Point(25, 156)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(63, 13)
         Me.Label2.TabIndex = 172
@@ -165,7 +173,7 @@ Partial Class frmTraCostDetItem
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(31, 74)
+        Me.Label1.Location = New System.Drawing.Point(25, 128)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(26, 13)
         Me.Label1.TabIndex = 171
@@ -176,7 +184,7 @@ Partial Class frmTraCostDetItem
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(31, 47)
+        Me.Label13.Location = New System.Drawing.Point(25, 47)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(61, 13)
         Me.Label13.TabIndex = 170
@@ -187,17 +195,61 @@ Partial Class frmTraCostDetItem
         Me.Label29.AutoSize = True
         Me.Label29.BackColor = System.Drawing.Color.Transparent
         Me.Label29.ForeColor = System.Drawing.Color.Black
-        Me.Label29.Location = New System.Drawing.Point(31, 20)
+        Me.Label29.Location = New System.Drawing.Point(25, 20)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(58, 13)
         Me.Label29.TabIndex = 158
         Me.Label29.Text = "Kode Akun"
         '
+        'dtpReceiveDate
+        '
+        Me.dtpReceiveDate.CustomFormat = "dd/MM/yyyy"
+        Me.dtpReceiveDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpReceiveDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpReceiveDate.Location = New System.Drawing.Point(118, 70)
+        Me.dtpReceiveDate.Name = "dtpReceiveDate"
+        Me.dtpReceiveDate.Size = New System.Drawing.Size(127, 21)
+        Me.dtpReceiveDate.TabIndex = 3
+        Me.dtpReceiveDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.BackColor = System.Drawing.Color.Transparent
+        Me.Label6.ForeColor = System.Drawing.Color.Black
+        Me.Label6.Location = New System.Drawing.Point(25, 74)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(80, 13)
+        Me.Label6.TabIndex = 174
+        Me.Label6.Text = "Tanggal Terima"
+        '
+        'dtpInvoiceDate
+        '
+        Me.dtpInvoiceDate.CustomFormat = "dd/MM/yyyy"
+        Me.dtpInvoiceDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpInvoiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpInvoiceDate.Location = New System.Drawing.Point(118, 97)
+        Me.dtpInvoiceDate.Name = "dtpInvoiceDate"
+        Me.dtpInvoiceDate.Size = New System.Drawing.Size(127, 21)
+        Me.dtpInvoiceDate.TabIndex = 4
+        Me.dtpInvoiceDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
+        Me.Label3.ForeColor = System.Drawing.Color.Black
+        Me.Label3.Location = New System.Drawing.Point(25, 101)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(83, 13)
+        Me.Label3.TabIndex = 176
+        Me.Label3.Text = "Tanggal Invoice"
+        '
         'frmTraCostDetItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(469, 238)
+        Me.ClientSize = New System.Drawing.Size(469, 297)
         Me.Controls.Add(Me.pnlDetail)
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
@@ -228,4 +280,8 @@ Partial Class frmTraCostDetItem
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents Label29 As System.Windows.Forms.Label
+    Friend WithEvents dtpInvoiceDate As System.Windows.Forms.DateTimePicker
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents dtpReceiveDate As System.Windows.Forms.DateTimePicker
+    Friend WithEvents Label6 As System.Windows.Forms.Label
 End Class

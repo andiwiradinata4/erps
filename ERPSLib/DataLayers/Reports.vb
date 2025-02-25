@@ -45,7 +45,7 @@
                                                     ByVal dtmDateFrom As DateTime, ByVal intCoAID As Integer,
                                                     ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As Decimal
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
-            Dim decReturn As Integer = 0
+            Dim decReturn As Decimal = 0
             Try
                 With sqlcmdExecute
                     .Connection = sqlCon
