@@ -1,0 +1,29 @@
+KOntrak Stok tidak input Akun Bank, Syarat Pembayaran, informasi TAmbahan,ALlowance Produksi bisa 0 -> Done.
+
+Biaya proses submit sudah bisa Print, Approve input Tanggal Bayar dan Akun Bank -> Done.
+
+PI DP dari PO Customer dan PI DP di Kontrak Penjualan di hilangkan
+Penambahan Harga Klaim / Customer -> Done.
+
+PI Pelunasan bisa tagihan 0, dikarenakan menggunakan full DP. -> Done.
+
+Buat history penggunaan DP.
+
+Buat Tombol selesai bayar agar sisa hutang dan piutang di kontrak jadi 0.
+
+Auto nomor voucher BI (Bank IN) / BO (Bank Out) yyyyMMdd/BI|BO/KodeAkun/0001
+20250225/BO/110.001/0001
+20250225/BO/110.001/0002
+20250225/BO/110.004/0001
+
+Ada potongan Harga dari biaya transport.
+
+Buat printout lampiran biaya.
+
+
+PO Ke Supplier bisa generate KO.
+
+Return Pembelian dan barang tersebut bisa dijual Kembali.
+Return Penjualan juga barang nya bisa di jual lagi dan link dengan PO Pembelian terputus.
+
+
