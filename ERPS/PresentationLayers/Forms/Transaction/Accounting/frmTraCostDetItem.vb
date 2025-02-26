@@ -52,6 +52,8 @@
         dtpReceiveDate.Value = Today.Date
         dtpInvoiceDate.Value = Today.Date
         txtAmount.Value = 0
+        txtPPNAmount.Value = 0
+        txtPPHAmount.Value = 0
         txtRemarks.Text = ""
     End Sub
 
@@ -65,6 +67,8 @@
             txtCoAName.Text = drSelected.Item("CoAName")
             dtpReceiveDate.Value = drSelected.Item("ReceiveDate")
             dtpInvoiceDate.Value = drSelected.Item("InvoiceDate")
+            txtPPNAmount.Value = drSelected.Item("PPNAmount")
+            txtPPHAmount.Value = drSelected.Item("PPHAmount")
             txtAmount.Value = drSelected.Item("Amount")
             txtRemarks.Text = drSelected.Item("Remarks")
         End If
@@ -93,6 +97,9 @@
             dr.Item("ReceiveDate") = dtpReceiveDate.Value
             dr.Item("InvoiceDate") = dtpInvoiceDate.Value
             dr.Item("Amount") = txtAmount.Value
+            dr.Item("PPNAmount") = txtPPNAmount.Value
+            dr.Item("PPHAmount") = txtPPHAmount.Value
+            dr.Item("GrandTotal") = txtGrandTotal.Value
             dr.Item("Remarks") = txtRemarks.Text.Trim
             dr.EndEdit()
             dtParent.Rows.Add(dr)
@@ -110,6 +117,9 @@
                     dr.Item("ReceiveDate") = dtpReceiveDate.Value
                     dr.Item("InvoiceDate") = dtpInvoiceDate.Value
                     dr.Item("Amount") = txtAmount.Value
+                    dr.Item("PPNAmount") = txtPPNAmount.Value
+                    dr.Item("PPHAmount") = txtPPHAmount.Value
+                    dr.Item("GrandTotal") = txtGrandTotal.Value
                     dr.Item("Remarks") = txtRemarks.Text.Trim
                     dr.EndEdit()
                     frmParent.grdItemView.BestFitColumns()
@@ -136,6 +146,10 @@
                 txtAmount.Focus()
             End If
         End With
+    End Sub
+
+    Private Sub prvCalculate()
+        txtGrandTotal.Value = txtAmount.Value + txtPPNAmount.Value - txtPPHAmount.Value
     End Sub
 
 #Region "Form Handle"
@@ -182,5 +196,11 @@
         End If
     End Sub
 
+    Private Sub txtAmount_ValueChanged(sender As Object, e As EventArgs) Handles txtAmount.ValueChanged,
+        txtPPNAmount.ValueChanged, txtPPHAmount.ValueChanged
+        prvCalculate()
+    End Sub
+
 #End Region
+
 End Class

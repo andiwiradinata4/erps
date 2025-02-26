@@ -9,6 +9,9 @@
         Property ReferencesID As String
         Property ReferencesNote As String
         Property CostDate As DateTime
+        Property TotalDPP As Decimal
+        Property TotalPPN As Decimal
+        Property TotalPPH As Decimal
         Property TotalAmount As Decimal
         Property SubmitBy As String
         Property SubmitDate As DateTime

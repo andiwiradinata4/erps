@@ -87,6 +87,7 @@ Partial Class frmTraARAPDetVer4
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.pgMain = New System.Windows.Forms.ProgressBar()
+        Me.chkMaxQuantity = New System.Windows.Forms.CheckBox()
         Me.StatusStrip.SuspendLayout()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
@@ -213,6 +214,7 @@ Partial Class frmTraARAPDetVer4
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.chkMaxQuantity)
         Me.tpMain.Controls.Add(Me.chkIsFullDP)
         Me.tpMain.Controls.Add(Me.txtGrandTotal)
         Me.tpMain.Controls.Add(Me.Label16)
@@ -277,7 +279,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtGrandTotal.Name = "txtGrandTotal"
         Me.txtGrandTotal.ReadOnly = True
         Me.txtGrandTotal.Size = New System.Drawing.Size(249, 21)
-        Me.txtGrandTotal.TabIndex = 17
+        Me.txtGrandTotal.TabIndex = 18
         Me.txtGrandTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtGrandTotal.ThousandsSeparator = True
         '
@@ -373,7 +375,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtDPAllocate.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtDPAllocate.Name = "txtDPAllocate"
         Me.txtDPAllocate.Size = New System.Drawing.Size(249, 21)
-        Me.txtDPAllocate.TabIndex = 13
+        Me.txtDPAllocate.TabIndex = 14
         Me.txtDPAllocate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtDPAllocate.ThousandsSeparator = True
         '
@@ -410,7 +412,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtTotalPPH.Name = "txtTotalPPH"
         Me.txtTotalPPH.ReadOnly = True
         Me.txtTotalPPH.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalPPH.TabIndex = 16
+        Me.txtTotalPPH.TabIndex = 17
         Me.txtTotalPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPPH.ThousandsSeparator = True
         '
@@ -434,7 +436,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtTotalAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalAmount.Name = "txtTotalAmount"
         Me.txtTotalAmount.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalAmount.TabIndex = 14
+        Me.txtTotalAmount.TabIndex = 15
         Me.txtTotalAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalAmount.ThousandsSeparator = True
         '
@@ -480,7 +482,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtCoACode.Name = "txtCoACode"
         Me.txtCoACode.ReadOnly = True
         Me.txtCoACode.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACode.TabIndex = 7
+        Me.txtCoACode.TabIndex = 11
         Me.txtCoACode.Visible = False
         '
         'txtTotalPPN
@@ -494,7 +496,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtTotalPPN.Name = "txtTotalPPN"
         Me.txtTotalPPN.ReadOnly = True
         Me.txtTotalPPN.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalPPN.TabIndex = 15
+        Me.txtTotalPPN.TabIndex = 16
         Me.txtTotalPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPPN.ThousandsSeparator = True
         '
@@ -504,7 +506,7 @@ Partial Class frmTraARAPDetVer4
         Me.btnCoAOfOutgoingPayment.Location = New System.Drawing.Point(389, 178)
         Me.btnCoAOfOutgoingPayment.Name = "btnCoAOfOutgoingPayment"
         Me.btnCoAOfOutgoingPayment.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAOfOutgoingPayment.TabIndex = 9
+        Me.btnCoAOfOutgoingPayment.TabIndex = 13
         Me.btnCoAOfOutgoingPayment.Visible = False
         '
         'dtpARAPDate
@@ -515,7 +517,7 @@ Partial Class frmTraARAPDetVer4
         Me.dtpARAPDate.Location = New System.Drawing.Point(134, 97)
         Me.dtpARAPDate.Name = "dtpARAPDate"
         Me.dtpARAPDate.Size = New System.Drawing.Size(83, 21)
-        Me.dtpARAPDate.TabIndex = 10
+        Me.dtpARAPDate.TabIndex = 7
         Me.dtpARAPDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
         'Label4
@@ -587,7 +589,7 @@ Partial Class frmTraARAPDetVer4
         Me.cboStatus.Location = New System.Drawing.Point(134, 152)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(118, 21)
-        Me.cboStatus.TabIndex = 12
+        Me.cboStatus.TabIndex = 9
         '
         'txtCoAName
         '
@@ -598,7 +600,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtCoAName.Name = "txtCoAName"
         Me.txtCoAName.ReadOnly = True
         Me.txtCoAName.Size = New System.Drawing.Size(167, 21)
-        Me.txtCoAName.TabIndex = 8
+        Me.txtCoAName.TabIndex = 12
         Me.txtCoAName.Visible = False
         '
         'Label10
@@ -632,7 +634,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 18
+        Me.txtRemarks.TabIndex = 19
         '
         'Label13
         '
@@ -653,7 +655,7 @@ Partial Class frmTraARAPDetVer4
         Me.txtDueDateValue.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtDueDateValue.Name = "txtDueDateValue"
         Me.txtDueDateValue.Size = New System.Drawing.Size(83, 21)
-        Me.txtDueDateValue.TabIndex = 11
+        Me.txtDueDateValue.TabIndex = 8
         Me.txtDueDateValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtDueDateValue.ThousandsSeparator = True
         '
@@ -662,7 +664,7 @@ Partial Class frmTraARAPDetVer4
         Me.tpDownPayment.Controls.Add(Me.grdDownPayment)
         Me.tpDownPayment.Location = New System.Drawing.Point(4, 25)
         Me.tpDownPayment.Name = "tpDownPayment"
-        Me.tpDownPayment.Size = New System.Drawing.Size(876, 391)
+        Me.tpDownPayment.Size = New System.Drawing.Size(876, 219)
         Me.tpDownPayment.TabIndex = 2
         Me.tpDownPayment.Text = "Panjar - F2"
         Me.tpDownPayment.UseVisualStyleBackColor = True
@@ -688,7 +690,7 @@ Partial Class frmTraARAPDetVer4
         Me.grdDownPayment.MainView = Me.grdDownPaymentView
         Me.grdDownPayment.Name = "grdDownPayment"
         Me.grdDownPayment.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiDPAmount})
-        Me.grdDownPayment.Size = New System.Drawing.Size(876, 391)
+        Me.grdDownPayment.Size = New System.Drawing.Size(876, 219)
         Me.grdDownPayment.TabIndex = 14
         Me.grdDownPayment.UseEmbeddedNavigator = True
         Me.grdDownPayment.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdDownPaymentView})
@@ -714,7 +716,7 @@ Partial Class frmTraARAPDetVer4
         Me.tpHistory.Controls.Add(Me.grdStatus)
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
-        Me.tpHistory.Size = New System.Drawing.Size(876, 391)
+        Me.tpHistory.Size = New System.Drawing.Size(876, 219)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -739,7 +741,7 @@ Partial Class frmTraARAPDetVer4
         Me.grdStatus.Location = New System.Drawing.Point(0, 0)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(876, 391)
+        Me.grdStatus.Size = New System.Drawing.Size(876, 219)
         Me.grdStatus.TabIndex = 14
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -853,6 +855,16 @@ Partial Class frmTraARAPDetVer4
         Me.pgMain.Size = New System.Drawing.Size(884, 22)
         Me.pgMain.TabIndex = 7
         '
+        'chkMaxQuantity
+        '
+        Me.chkMaxQuantity.AutoSize = True
+        Me.chkMaxQuantity.Location = New System.Drawing.Point(265, 154)
+        Me.chkMaxQuantity.Name = "chkMaxQuantity"
+        Me.chkMaxQuantity.Size = New System.Drawing.Size(118, 17)
+        Me.chkMaxQuantity.TabIndex = 10
+        Me.chkMaxQuantity.Text = "Maksimal Quantity?"
+        Me.chkMaxQuantity.UseVisualStyleBackColor = True
+        '
         'frmTraARAPDetVer4
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -961,4 +973,5 @@ Partial Class frmTraARAPDetVer4
     Friend WithEvents txtGrandTotal As usNumeric
     Friend WithEvents Label16 As Label
     Friend WithEvents chkIsFullDP As CheckBox
+    Friend WithEvents chkMaxQuantity As System.Windows.Forms.CheckBox
 End Class

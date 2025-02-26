@@ -89,6 +89,7 @@
                     DevelopOnProgress_ID80(sqlCon, sqlTrans)
                     DevelopOnProgress_ID81(sqlCon, sqlTrans)
                     DevelopOnProgress_ID82(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID83(sqlCon, sqlTrans)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -2545,6 +2546,25 @@
                 "ALTER TABLE traCost ADD PaidAccount VARCHAR(250) NOT NULL CONSTRAINT DF_traCost_PaidAccount DEFAULT ('')  " & vbNewLine &
                 "ALTER TABLE traCostDet ADD ReceiveDate DATETIME NOT NULL CONSTRAINT DF_traCostDet_ReceiveDate DEFAULT (GETDATE())  " & vbNewLine &
                 "ALTER TABLE traCostDet ADD InvoiceDate DATETIME NOT NULL CONSTRAINT DF_traCostDet_InvoiceDate DEFAULT (GETDATE())  " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 83
+        Private Shared Sub DevelopOnProgress_ID83(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 83
+            clsData.Name = "Development On Progress 83"
+            clsData.Scripts =
+                "ALTER TABLE traCost ADD TotalDPP DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCost_TotalDPP DEFAULT ((0))  " & vbNewLine &
+                "ALTER TABLE traCost ADD TotalPPN DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCost_TotalPPN DEFAULT ((0))  " & vbNewLine &
+                "ALTER TABLE traCost ADD TotalPPH DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCost_TotalPPH DEFAULT ((0))  " & vbNewLine &
+                "ALTER TABLE traCostDet ADD PPNAmount DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCostDet_PPNAmount DEFAULT ((0))  " & vbNewLine &
+                "ALTER TABLE traCostDet ADD PPHAmount DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCostDet_PPHAmount DEFAULT ((0))  " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

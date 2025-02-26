@@ -1,0 +1,7 @@
+PO Customer langsung link ke PO Pembelian dan ditentukan berdasarkan Harga / unitprice
+
+Return Pembelian ada di Octa
+
+Komisi diinput di Biaya dimana ada informasi PPH.
+
+

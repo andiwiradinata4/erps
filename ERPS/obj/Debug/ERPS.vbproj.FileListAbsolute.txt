@@ -988,6 +988,7 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptBukuBesarVer00.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptCOAPerGroupVer00.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptCOAPerTypeVer00.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptConfirmationOrderVer00.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptCostBankOutVer00.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptKartuHutangPiutangReportVer00.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptLabaRugiVer00.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptListPOCutting.resources
@@ -1016,4 +1017,3 @@ C:\Project\Toni\erps\ERPS\obj\Debug\aa\ERPS.resources.dll
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.exe
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.xml
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.pdb
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptCostBankOutVer00.resources

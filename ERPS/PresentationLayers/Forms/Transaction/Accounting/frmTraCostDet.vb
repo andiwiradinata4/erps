@@ -47,6 +47,9 @@ Public Class frmTraCostDet
         UI.usForm.SetGrid(grdItemView, "COACode", "Kode Akun", 200, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "COAName", "Nama Akun", 200, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "Amount", "Harga", 180, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "PPNAmount", "PPN", 180, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "PPHAmount", "PPH", 180, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "GrandTotal", "GrandTotal", 180, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "ReceiveDate", "Tanggal Terima", 180, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdItemView, "InvoiceDate", "Tanggal Invoice", 180, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 200, UI.usDefGrid.gString)
@@ -87,6 +90,9 @@ Public Class frmTraCostDet
                 txtPaidAccount.Text = clsData.PaidAccount
                 txtReferencesID.Text = clsData.ReferencesID
                 dtpCostDate.Value = clsData.CostDate
+                txtTotalDPP.Value = clsData.TotalDPP
+                txtTotalPPN.Value = clsData.TotalPPN
+                txtTotalPPH.Value = clsData.TotalPPH
                 txtTotalAmount.Value = clsData.TotalAmount
                 cboStatus.SelectedValue = clsData.StatusID
                 txtRemarks.Text = clsData.Remarks
@@ -148,6 +154,8 @@ Public Class frmTraCostDet
                                          .CostID = pubID,
                                          .CoAID = dr.Item("CoAID"),
                                          .Amount = dr.Item("Amount"),
+                                         .PPNAmount = dr.Item("PPNAmount"),
+                                         .PPHAmount = dr.Item("PPHAmount"),
                                          .Remarks = dr.Item("Remarks"),
                                          .ReceiveDate = dr.Item("ReceiveDate"),
                                          .InvoiceDate = dr.Item("InvoiceDate")
@@ -163,6 +171,9 @@ Public Class frmTraCostDet
         clsData.CoAID = intCoAID
         clsData.ReferencesID = txtReferencesID.Text.Trim
         clsData.ReferencesNote = ""
+        clsData.TotalDPP = txtTotalDPP.Value
+        clsData.TotalPPN = txtTotalPPN.Value
+        clsData.TotalPPH = txtTotalPPH.Value
         clsData.TotalAmount = txtTotalAmount.Value
         clsData.CostDate = dtpCostDate.Value
         clsData.PaidTo = txtPaidTo.Text.Trim
@@ -268,13 +279,19 @@ Public Class frmTraCostDet
     End Sub
 
     Private Sub prvCalculate()
-        Dim decAmount As Decimal = 0
+        Dim decDPPAmount As Decimal = 0
+        Dim decPPNAmount As Decimal = 0
+        Dim decPPHAmount As Decimal = 0
 
         For Each dr As DataRow In dtItem.Rows
-            decAmount += dr.Item("Amount")
+            decDPPAmount += dr.Item("Amount")
+            decPPNAmount += dr.Item("PPNAmount")
+            decPPHAmount += dr.Item("PPHAmount")
         Next
-
-        txtTotalAmount.Value = decAmount
+        txtTotalDPP.Value = decDPPAmount
+        txtTotalPPN.Value = decPPNAmount
+        txtTotalPPH.Value = decPPHAmount
+        txtTotalAmount.Value = decDPPAmount + decPPNAmount - decPPHAmount
     End Sub
 
     Private Sub prvAdd()

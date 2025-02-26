@@ -375,7 +375,6 @@ Public Class frmTraSalesContract
         Try
             BL.SalesContract.Unapprove(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-
             UI.usForm.frmMessageBox("Batal approve data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "SCNumber"))
         Catch ex As Exception

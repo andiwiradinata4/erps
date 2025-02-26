@@ -139,7 +139,7 @@
 "    MI.ItemSpecificationID=MIS.ID 	 	      " & vbNewLine &
 "INNER JOIN mstItemType IT ON 	 	      " & vbNewLine &
 "    MI.ItemTypeID=IT.ID 	 	      " & vbNewLine &
-"INNER JOIN mstCompanyBankAccount MBC ON     " & vbNewLine &
+"LEFT JOIN mstCompanyBankAccount MBC ON     " & vbNewLine &
 "	SCH.CompanyBankAccountID=MBC.ID     " & vbNewLine &
 "INNER JOIN traARAPItem ARI ON     " & vbNewLine &
 "	ARH.ID=ARI.ParentID     " & vbNewLine &

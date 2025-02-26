@@ -1807,7 +1807,7 @@
                         "   SCD.SCID=SCH.ID " & vbNewLine &
                         "WHERE  " & vbNewLine &
                         "   SCH.ID=@ID " & vbNewLine &
-                        "   AND SCD.ClaimQuantity>0 OR SCD.ClaimWeight>0 " & vbNewLine
+                        "   AND (SCD.ClaimQuantity>0 OR SCD.ClaimWeight>0) " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 End With

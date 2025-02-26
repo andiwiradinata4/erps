@@ -202,11 +202,14 @@
                     Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
 
                     '# Generate Journal
+                    Dim intGroupID As Integer = 1
+                    Dim decTotalAmount As Decimal = 0
                     Dim clsJournalDetail As New List(Of VO.JournalDet)
                     Dim dtDetail As DataTable = DL.Cost.ListDataDetail(sqlCon, sqlTrans, strID)
                     For Each dr As DataRow In dtDetail.Rows
                         clsJournalDetail.Add(New VO.JournalDet With
                                              {
+                                                 .GroupID = intGroupID,
                                                  .CoAID = dr.Item("COAID"),
                                                  .DebitAmount = dr.Item("Amount"),
                                                  .CreditAmount = 0,
@@ -216,11 +219,50 @@
 
                     clsJournalDetail.Add(New VO.JournalDet With
                                          {
+                                             .GroupID = intGroupID,
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPurchaseTax,
+                                             .DebitAmount = clsData.TotalPPN,
+                                             .CreditAmount = 0,
+                                             .Remarks = "PEMBAYARAN BIAYA PPN " & clsData.ID & IIf(clsData.Remarks.Trim <> "", " | ", "") & clsData.Remarks
+                                         })
+
+
+                    clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .GroupID = intGroupID,
                                              .CoAID = clsData.CoAID,
                                              .DebitAmount = 0,
-                                             .CreditAmount = clsData.TotalAmount,
+                                             .CreditAmount = clsData.TotalDPP + clsData.TotalPPN,
                                              .Remarks = "PEMBAYARAN BIAYA " & clsData.ID & IIf(clsData.Remarks.Trim <> "", " | ", "") & clsData.Remarks
                                          })
+                    decTotalAmount += clsData.TotalDPP + clsData.TotalPPN
+
+                    '# Setup Akun PPH
+                    If clsData.TotalPPH > 0 Then
+                        intGroupID += 1
+
+                        '# Akun Kas / Bank -> Debit
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = clsData.CoAID,
+                                             .DebitAmount = clsData.TotalPPH,
+                                             .CreditAmount = 0,
+                                             .Remarks = "PEMBAYARAN BIAYA PPH " & clsData.ID & IIf(clsData.Remarks.Trim <> "", " | ", "") & clsData.Remarks,
+                                             .GroupID = intGroupID
+                                         })
+
+                        '# Akun PPH -> Kredit
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPPHPurchase,
+                                             .DebitAmount = 0,
+                                             .CreditAmount = clsData.TotalPPH,
+                                             .Remarks = "PEMBAYARAN BIAYA PPH " & clsData.ID & IIf(clsData.Remarks.Trim <> "", " | ", "") & clsData.Remarks,
+                                             .GroupID = intGroupID
+                                         })
+
+                        decTotalAmount += clsData.TotalPPH
+                    End If
 
                     Dim clsJournal As New VO.Journal With
                         {
@@ -230,7 +272,7 @@
                             .JournalNo = IIf(bolNew, "", PrevJournal.JournalNo),
                             .ReferencesID = clsData.ID,
                             .JournalDate = IIf(bolNew, clsData.CostDate, PrevJournal.JournalDate),
-                            .TotalAmount = clsData.TotalAmount,
+                            .TotalAmount = decTotalAmount,
                             .IsAutoGenerate = True,
                             .StatusID = VO.Status.Values.Draft,
                             .Remarks = clsData.Remarks,
