@@ -171,7 +171,7 @@
         mnuTransaksiPembukuanPembayaranHutangPesananPemotongan.Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountPayableCutting, VO.Access.Values.ViewAccess)
         mnuTransaksiPembukuanSep5.Visible = False
         mnuTransaksiPembukuanPanjarPesananPengiriman.Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseDPTransport, VO.Access.Values.ViewAccess)
-        mnuTransaksiPembukuanPembayaranHutangPesananPengiriman.Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountPayableTransport, VO.Access.Values.ViewAccess)
+        mnuTransaksiPembukuanPembayaranTransportasi.Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionAccountPayableTransport, VO.Access.Values.ViewAccess)
         mnuTransaksiPembukuanSep6.Visible = False
         'mnuTransaksiPembukuanPembayaranBiaya.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCost, VO.Access.Values.ViewAccess)
         'mnuTransaksiPembukuanJurnalUmum.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionJournal, VO.Access.Values.ViewAccess)
@@ -820,7 +820,7 @@
         Me.Cursor = Cursors.Arrow
     End Sub
 
-    Private Sub mnuTransaksiPembukuanPembayaranHutangPesananPengiriman_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPembayaranHutangPesananPengiriman.Click
+    Private Sub mnuTransaksiPembukuanPembayaranHutangPesananPengiriman_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPembayaranTransportasi.Click
         Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraAccountPayable"
         Me.Cursor = Cursors.WaitCursor
         If Not IsNothing(frmMainTraAccountPayableReceivePaymentTransport) Then

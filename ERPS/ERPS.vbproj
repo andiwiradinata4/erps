@@ -543,6 +543,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetVoucherNumber.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAPTransporterDet.Designer.vb">
+      <DependentUpon>frmTraAPTransporterDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAPTransporterDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPChooseBankAccount.Designer.vb">
       <DependentUpon>frmTraARAPChooseBankAccount.vb</DependentUpon>
     </Compile>
@@ -1790,6 +1796,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetVoucherNumber.resx">
       <DependentUpon>frmTraAccountSetVoucherNumber.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAPTransporterDet.resx">
+      <DependentUpon>frmTraAPTransporterDet.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPChooseBankAccount.resx">
       <DependentUpon>frmTraARAPChooseBankAccount.vb</DependentUpon>

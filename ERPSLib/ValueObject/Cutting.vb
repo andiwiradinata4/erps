@@ -45,5 +45,6 @@
         Property ClaimReceiveAmount As Decimal
         Property ClaimReceiveAmountPPN As Decimal
         Property ClaimReceiveAmountPPH As Decimal
+        Property TotalDiscountTransport As Decimal
     End Class
 End Namespace

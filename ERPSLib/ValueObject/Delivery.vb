@@ -59,6 +59,7 @@
         Property CoAofStock As Integer
         Property CoACodeOfStock As String
         Property CoANameOfStock As String
+        Property TotalDiscountTransport As Decimal
 
         Public Enum PrintType
             None

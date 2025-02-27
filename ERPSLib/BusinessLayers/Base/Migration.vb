@@ -90,6 +90,7 @@
                     DevelopOnProgress_ID81(sqlCon, sqlTrans)
                     DevelopOnProgress_ID82(sqlCon, sqlTrans)
                     DevelopOnProgress_ID83(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID84(sqlCon, sqlTrans)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -2565,6 +2566,37 @@
                 "ALTER TABLE traCost ADD TotalPPH DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCost_TotalPPH DEFAULT ((0))  " & vbNewLine &
                 "ALTER TABLE traCostDet ADD PPNAmount DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCostDet_PPNAmount DEFAULT ((0))  " & vbNewLine &
                 "ALTER TABLE traCostDet ADD PPHAmount DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCostDet_PPHAmount DEFAULT ((0))  " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 84
+        Private Shared Sub DevelopOnProgress_ID84(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 84
+            clsData.Name = "Development On Progress 84"
+            clsData.Scripts =
+"ALTER TABLE traAccountPayableDet ADD ReceiveDate DATETIME NOT NULL CONSTRAINT DF_traAccountPayableDet_ReceiveDate DEFAULT (GETDATE())  " & vbNewLine &
+"ALTER TABLE traAccountPayableDet ADD InvoiceDate DATETIME NOT NULL CONSTRAINT DF_traAccountPayableDet_InvoiceDate DEFAULT (GETDATE())  " & vbNewLine &
+"ALTER TABLE traAccountReceivableDet ADD ReceiveDate DATETIME NOT NULL CONSTRAINT DF_traAccountReceivableDet_ReceiveDate DEFAULT (GETDATE())  " & vbNewLine &
+"ALTER TABLE traAccountReceivableDet ADD InvoiceDate DATETIME NOT NULL CONSTRAINT DF_traAccountReceivableDet_InvoiceDate DEFAULT (GETDATE())  " & vbNewLine &
+"ALTER TABLE traDelivery ADD TotalDiscountTransport DECIMAL(18,4) NOT NULL CONSTRAINT DF_traDelivery_TotalDiscountTransport DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traCutting ADD TotalDiscount DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCutting_TotalDiscount DEFAULT ((0))  " & vbNewLine &
+" " & vbNewLine &
+"CREATE TABLE [dbo].[traARAPRemarks](  " & vbNewLine & _
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPRemarks_ID]  DEFAULT (''),  " & vbNewLine & _
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPRemarks_ParentID]  DEFAULT (''),  " & vbNewLine & _
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traARAPRemarks_Remarks]  DEFAULT (''),  " & vbNewLine & _
+"   CONSTRAINT [PK_traARAPRemarks] PRIMARY KEY CLUSTERED   " & vbNewLine & _
+"   (  " & vbNewLine & _
+"   	[ID] ASC  " & vbNewLine & _
+"   )   " & vbNewLine & _
+")  " & vbNewLine & _
+"" & vbNewLine 
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

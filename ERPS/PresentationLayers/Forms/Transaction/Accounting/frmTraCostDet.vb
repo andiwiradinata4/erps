@@ -367,6 +367,10 @@ Public Class frmTraCostDet
         If e.KeyCode = Keys.F1 Then
             tcHeader.SelectedTab = tpMain
         ElseIf e.KeyCode = Keys.F2 Then
+            tcHeader.SelectedTab = tpPrice
+        ElseIf e.KeyCode = Keys.F3 Then
+            tcHeader.SelectedTab = tpRemarks
+        ElseIf e.KeyCode = Keys.F4 Then
             tcHeader.SelectedTab = tpHistory
         ElseIf e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()

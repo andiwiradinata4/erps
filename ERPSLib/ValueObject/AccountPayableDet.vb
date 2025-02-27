@@ -14,5 +14,7 @@
         Property Quantity As Decimal
         Property Weight As Decimal
         Property TotalWeight As Decimal
+        Property ReceiveDate As DateTime
+        Property InvoiceDate As DateTime
     End Class
 End Namespace
