@@ -215,7 +215,7 @@ Public Class frmTraARAPDetVer3
     Private Sub prvGetAmount()
         Dim clsReferences As New Object
         If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then
-            If strModules = VO.AccountReceivable.DownPaymentOrderRequest Then
+            If strModules = VO.AccountReceivable.DownPaymentOrderRequest Or strModules = VO.AccountReceivable.DownPaymentOrderRequestVer2 Then
                 clsReferences = BL.OrderRequest.GetDetail(strReferencesID)
             ElseIf strModules = VO.AccountReceivable.DownPayment Then
                 clsReferences = BL.SalesContract.GetDetail(strReferencesID)

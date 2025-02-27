@@ -325,6 +325,9 @@ Public Class frmTraOrderRequestVer2
             .pubBPID = clsData.BPID
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
+            .pubIsUseSubItem = False
+            .pubPPNPercentage = clsData.PPN
+            .pubPPHPercentage = clsData.PPH
             .ShowDialog()
         End With
     End Sub
@@ -464,7 +467,7 @@ Public Class frmTraOrderRequestVer2
             .Item(cCancelSetupDelivery).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.CancelSetupDelivery)
             .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.ExportExcelAccess)
 
-            .Item(cDownPayment).Visible = bolIsStock
+            '.Item(cDownPayment).Visible = bolIsStock
             .Item(cReceive).Visible = bolIsStock
             If BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.SetupDelivery) Then .Item(cSetupDelivery).Visible = bolIsStock
             If BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionOrderRequest, VO.Access.Values.CancelSetupDelivery) Then .Item(cCancelSetupDelivery).Visible = bolIsStock

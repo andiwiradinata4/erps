@@ -88,7 +88,7 @@
                 Return VO.Modules.Values.TransactionAccountReceivableBalance
             ElseIf strModules = VO.AccountReceivable.DownPaymentManual Then
                 Return VO.Modules.Values.TransactionSalesDPManual
-            ElseIf strModules = VO.AccountReceivable.DownPayment Then
+            ElseIf strModules = VO.AccountReceivable.DownPayment Or strModules = VO.AccountReceivable.DownPaymentOrderRequest Then
                 Return VO.Modules.Values.TransactionSalesDP
             ElseIf strModules = VO.AccountReceivable.ReceivePayment Then
                 Return VO.Modules.Values.TransactionAccountReceivable
