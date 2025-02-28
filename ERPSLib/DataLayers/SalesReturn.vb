@@ -21,7 +21,7 @@ Namespace DL
 "   A.IsFreePPNTransport, A.IsFreePPHTransport, A.UnitPriceTransport, A.TotalDPPTransport, A.TotalPPNTransport, A.TotalPPHTransport, A.RoundingManualTransport, " & vbNewLine &
 "   A.IsDeleted, A.Remarks, A.StatusID, B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine &
 "   A.TotalDPPTransport+A.TotalPPNTransport+A.TotalPPHTransport AS GrandTotalTransport, CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, " & vbNewLine &
-"   A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.TransporterID, TP.Code AS TransporterCode, TP.Name AS TransporterName " & vbNewLine &
+"   A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.TransporterID, TP.Code AS TransporterCode, TP.Name AS TransporterName, A.IsManualTransportPrice " & vbNewLine &
 "FROM traSalesReturn A " & vbNewLine &
 "INNER JOIN traDelivery A1 ON " & vbNewLine &
 "   A.DeliveryID=A1.ID " & vbNewLine &
@@ -61,11 +61,11 @@ Namespace DL
 "INSERT INTO traSalesReturn " & vbNewLine & _
 "	(ID, ProgramID, CompanyID, SalesReturnNumber, SalesReturnDate, BPID, DeliveryID, PlatNumber, Driver, ReferencesNumber, PPN, PPH, " & vbNewLine & _
 "    TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, RoundingManual, TotalDPPTransport, TotalPPNTransport, TotalPPHTransport, RoundingManualTransport, " & vbNewLine & _
-"    Remarks, StatusID, CreatedBy, LogBy, CoAofStock, TransporterID, PPNTransport, PPHTransport, IsFreePPNTransport, IsFreePPHTransport, UnitPriceTransport, TotalCostRawMaterial) " & vbNewLine & _
+"    Remarks, StatusID, CreatedBy, LogBy, CoAofStock, TransporterID, PPNTransport, PPHTransport, IsFreePPNTransport, IsFreePPHTransport, UnitPriceTransport, TotalCostRawMaterial, IsManualTransportPrice) " & vbNewLine & _
 "VALUES " & vbNewLine & _
 "	(@ID, @ProgramID, @CompanyID, @SalesReturnNumber, @SalesReturnDate, @BPID, @DeliveryID, @PlatNumber, @Driver, @ReferencesNumber, @PPN, @PPH, " & vbNewLine & _
 "    @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @RoundingManual, @TotalDPPTransport, @TotalPPNTransport, @TotalPPHTransport, @RoundingManualTransport, " & vbNewLine & _
-"    @Remarks, @StatusID, @LogBy, @LogBy, @CoAofStock, @TransporterID, @PPNTransport, @PPHTransport, @IsFreePPNTransport, @IsFreePPHTransport, @UnitPriceTransport, @TotalCostRawMaterial) " & vbNewLine
+"    @Remarks, @StatusID, @LogBy, @LogBy, @CoAofStock, @TransporterID, @PPNTransport, @PPHTransport, @IsFreePPNTransport, @IsFreePPHTransport, @UnitPriceTransport, @TotalCostRawMaterial, @IsManualTransportPrice) " & vbNewLine
                 Else
                     .CommandText =
 "UPDATE traSalesReturn SET  " & vbNewLine & _
@@ -102,7 +102,8 @@ Namespace DL
 "	IsFreePPNTransport=@IsFreePPNTransport,  " & vbNewLine & _
 "	IsFreePPHTransport=@IsFreePPHTransport,  " & vbNewLine & _
 "	UnitPriceTransport=@UnitPriceTransport,  " & vbNewLine & _
-"	TotalCostRawMaterial=@TotalCostRawMaterial  " & vbNewLine & _
+"	TotalCostRawMaterial=@TotalCostRawMaterial,  " & vbNewLine & _
+"	IsManualTransportPrice=@IsManualTransportPrice  " & vbNewLine & _
 "WHERE " & vbNewLine & _
 "	ID=@ID " & vbNewLine
                 End If
@@ -140,6 +141,7 @@ Namespace DL
                 .Parameters.Add("@IsFreePPHTransport", SqlDbType.Bit).Value = clsData.IsFreePPHTransport
                 .Parameters.Add("@UnitPriceTransport", SqlDbType.Decimal).Value = clsData.UnitPriceTransport
                 .Parameters.Add("@TotalCostRawMaterial", SqlDbType.Decimal).Value = clsData.TotalCostRawMaterial
+                .Parameters.Add("@IsManualTransportPrice", SqlDbType.Decimal).Value = clsData.IsManualTransportPrice
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -164,7 +166,7 @@ Namespace DL
 "	A.LogBy, A.LogDate, A.JournalID, A.DPAmount, A.TotalPayment, A.CoAofStock, A.IsUseSubItem, A.DPAmountPPN, A.DPAmountPPH, A.TotalPaymentPPN, A.TotalPaymentPPH, " & vbNewLine &
 "	A.TransporterID, TP.Code AS TransporterCode, TP.Name AS TransporterName, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, A.UnitPriceTransport, A.DPAmountTransport, A.TotalPaymentTransport,  " & vbNewLine &
 "	A.DPAmountPPNTransport, A.DPAmountPPHTransport, A.TotalPaymentPPNTransport, A.TotalPaymentPPHTransport, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock, A.TotalCostRawMaterial, " & vbNewLine &
-"   A.JournalIDTransport " & vbNewLine &
+"   A.JournalIDTransport, A.IsManualTransportPrice " & vbNewLine &
 "FROM traSalesReturn A " & vbNewLine &
 "INNER JOIN traDelivery A1 ON " & vbNewLine &
 "   A.DeliveryID=A1.ID " & vbNewLine &
@@ -257,6 +259,7 @@ Namespace DL
                         voReturn.TotalPaymentPPHTransport = .Item("TotalPaymentPPHTransport")
                         voReturn.TotalCostRawMaterial = .Item("TotalCostRawMaterial")
                         voReturn.JournalIDTransport = .Item("JournalIDTransport")
+                        voReturn.IsManualTransportPrice = .Item("IsManualTransportPrice")
                     End If
                 End With
             Catch ex As Exception

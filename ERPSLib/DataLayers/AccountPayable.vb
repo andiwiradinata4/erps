@@ -26,7 +26,8 @@
                     "   ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName, A.TotalPPN, A.TotalPPH, A.DPAmount, A.ReceiveAmount, A.IsDP, A.InvoiceNumberBP, A.CompanyBankAccountID1, A.CompanyBankAccountID2, A.IsUseSubItem, " & vbNewLine &
                     "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, A.PPNPercentage, A.PPHPercentage, " & vbNewLine &
                     "   GrandTotal=A.TotalAmount+A.TotalPPN-A.TotalPPH, GrandTotal=A.TotalAmount+A.TotalPPN-A.TotalPPH, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, " & vbNewLine &
-                    "   DueDateVSNowValue=DATEDIFF(DAY,DueDate, GETDATE()), A.ReferencesNumber, A.IsFullDP, OutstandingInvoiceAmount=(A.TotalAmount+A.TotalPPN-A.TotalPPH)-A.TotalInvoiceAmount " & vbNewLine &
+                    "   DueDateVSNowValue=DATEDIFF(DAY,DueDate, GETDATE()), A.ReferencesNumber, A.IsFullDP, OutstandingInvoiceAmount=(A.TotalAmount+A.TotalPPN-A.TotalPPH)-A.TotalInvoiceAmount, " & vbNewLine &
+                    "   A.BPBankAccountID, ISNULL(BPBA.BankName,'') AS BPBankAccountBank, ISNULL(BPBA.AccountNumber,'') AS BPBankAccountNumber " & vbNewLine &
                     "FROM traAccountPayable A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -38,6 +39,8 @@
                     "   A.ProgramID=MP.ID " & vbNewLine &
                     "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
                     "   A.CoAIDOfOutgoingPayment=COA.ID " & vbNewLine &
+                    "LEFT JOIN mstBusinessPartnerBankAccount BPBA ON " & vbNewLine &
+                    "   A.BPBankAccountID=BPBA.ID " & vbNewLine &
                     "WHERE  " & vbNewLine &
                     "   A.CompanyID=@CompanyID " & vbNewLine &
                     "   AND A.ProgramID=@ProgramID " & vbNewLine &
@@ -127,11 +130,11 @@
                         "INSERT INTO traAccountPayable " & vbNewLine &
                         "   (ID, CompanyID, ProgramID, APNumber, BPID, CoAIDOfOutgoingPayment, Modules, ReferencesID, ReferencesNote, " & vbNewLine &
                         "    APDate, DueDateValue, DueDate, TotalAmount, Percentage, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, " & vbNewLine &
-                        "    TotalPPN, TotalPPH, IsDP, DPAmount, ReceiveAmount, IsUseSubItem, PPNPercentage, PPHPercentage, IsFullDP) " & vbNewLine &
+                        "    TotalPPN, TotalPPH, IsDP, DPAmount, ReceiveAmount, IsUseSubItem, PPNPercentage, PPHPercentage, IsFullDP, BPBankAccountID) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @CompanyID, @ProgramID, @APNumber, @BPID, @CoAIDOfOutgoingPayment, @Modules, @ReferencesID, @ReferencesNote, " & vbNewLine &
                         "    @APDate, @DueDateValue, @DueDate, @TotalAmount, @Percentage, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), " & vbNewLine &
-                        "    @TotalPPN, @TotalPPH, @IsDP, @DPAmount, @ReceiveAmount, @IsUseSubItem, @PPNPercentage, @PPHPercentage, @IsFullDP) " & vbNewLine
+                        "    @TotalPPN, @TotalPPH, @IsDP, @DPAmount, @ReceiveAmount, @IsUseSubItem, @PPNPercentage, @PPHPercentage, @IsFullDP, @BPBankAccountID) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE traAccountPayable SET " & vbNewLine &
@@ -161,7 +164,8 @@
                         "    IsUseSubItem=@IsUseSubItem, " & vbNewLine &
                         "    PPNPercentage=@PPNPercentage, " & vbNewLine &
                         "    PPHPercentage=@PPHPercentage, " & vbNewLine &
-                        "    IsFullDP=@IsFullDP " & vbNewLine &
+                        "    IsFullDP=@IsFullDP, " & vbNewLine &
+                        "    BPBankAccountID=@BPBankAccountID " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -192,6 +196,7 @@
                 .Parameters.Add("@PPNPercentage", SqlDbType.Decimal).Value = clsData.PPNPercentage
                 .Parameters.Add("@PPHPercentage", SqlDbType.Decimal).Value = clsData.PPHPercentage
                 .Parameters.Add("@IsFullDP", SqlDbType.Bit).Value = clsData.IsFullDP
+                .Parameters.Add("@BPBankAccountID", SqlDbType.Int).Value = clsData.BPBankAccountID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -218,7 +223,8 @@
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
                         "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice, A.InvoiceNumberBP, A.IsUseSubItem, " & vbNewLine &
                         "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, A.PPNPercentage, A.PPHPercentage, " & vbNewLine &
-                        "   A.PPNPercentage, A.PPHPercentage, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, A.ReferencesNumber, A.IsFullDP, A.IsGenerate " & vbNewLine &
+                        "   A.PPNPercentage, A.PPHPercentage, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, A.ReferencesNumber, A.IsFullDP, A.IsGenerate, " & vbNewLine &
+                        "   A.BPBankAccountID, ISNULL(BPBA.BankName,'') AS BPBankAccountBank, ISNULL(BPBA.AccountNumber,'') AS BPBankAccountNumber " & vbNewLine &
                         "FROM traAccountPayable A " & vbNewLine &
                         "INNER JOIN mstStatus B ON " & vbNewLine &
                         "   A.StatusID=B.ID " & vbNewLine &
@@ -230,6 +236,8 @@
                         "   A.ProgramID=MP.ID " & vbNewLine &
                         "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
                         "   A.CoAIDOfOutgoingPayment=COA.ID " & vbNewLine &
+                        "LEFT JOIN mstBusinessPartnerBankAccount BPBA ON " & vbNewLine &
+                        "   A.BPBankAccountID=BPBA.ID " & vbNewLine &
                         "WHERE " & vbNewLine &
                         "   A.ID=@ID " & vbNewLine
 
@@ -306,6 +314,9 @@
                         voReturn.ReferencesNumber = .Item("ReferencesNumber")
                         voReturn.IsFullDP = .Item("IsFullDP")
                         voReturn.IsGenerate = .Item("IsGenerate")
+                        voReturn.BPBankAccountID = .Item("BPBankAccountID")
+                        voReturn.BPBankAccountBank = .Item("BPBankAccountBank")
+                        voReturn.BPBankAccountNumber = .Item("BPBankAccountNumber")
                     End If
                 End With
             Catch ex As Exception
@@ -2456,6 +2467,103 @@
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
                 .Parameters.Add("@ReferencesID", SqlDbType.VarChar, 100).Value = strReferencesID
                 .Parameters.Add("@ClaimType", SqlDbType.Int).Value = VO.Claim.ClaimTypeValue.Sales
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataDetailTransportReceiveWithOutstandingVer00(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                                  ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                                  ByVal intBPID As Integer, ByVal strAPID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                '# Delivery Transport
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.PurchaseID, A.Amount, A.PPN, A.PPH, MaxAmount=B.TotalDPPTransport-B.DPAmountTransport+A.Amount-B.TotalPaymentTransport, " & vbNewLine &
+                    "   MaxPPN=B.TotalPPNTransport-B.DPAmountPPNTransport+A.PPN-B.TotalPaymentPPNTransport, MaxPPH=B.TotalPPHTransport-B.DPAmountPPHTransport+A.PPH-B.TotalPaymentPPHTransport, " & vbNewLine &
+                    "   A.InvoiceNumberBP, A.ReceiveDate, A.InvoiceDate, A.InvoiceNumberBP, A.Remarks " & vbNewLine &
+                    "FROM traAccountPayableDet A " & vbNewLine &
+                    "INNER JOIN traDelivery B ON " & vbNewLine &
+                    "   A.PurchaseID=B.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.APID=@APID " & vbNewLine &
+                    " " & vbNewLine &
+                    "UNION ALL " & vbNewLine &
+                    "SELECT " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, A.ID AS PurchaseID, A.TotalDPPTransport AS Amount, A.TotalPPNTransport AS PPN, A.TotalPPHTransport AS PPH, MaxAmount=A.TotalDPPTransport-A.DPAmountTransport-A.TotalPaymentTransport, " & vbNewLine &
+                    "   MaxPPN=A.TotalPPNTransport-A.DPAmountPPNTransport-A.TotalPaymentPPNTransport, MaxPPH=A.TotalPPHTransport-A.DPAmountPPHTransport-A.TotalPaymentPPHTransport, CAST('' AS VARCHAR(1000)) AS InvoiceNumberBP, " & vbNewLine &
+                    "   GETDATE() AS ReceiveDate, GETDATE() AS InvoiceDate, CAST('' AS VARCHAR(250)) AS InvoiceNumberBP, CAST('' AS VARCHAR(250)) AS Remarks  " & vbNewLine &
+                    "FROM traDelivery A " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   A.TransporterID=@BPID " & vbNewLine &
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.SubmitBy<>'' " & vbNewLine &
+                    "   AND A.TotalDPPTransport-A.DPAmountTransport-A.TotalPaymentTransport>0 " & vbNewLine &
+                    "   AND A.ID NOT IN " & vbNewLine &
+                    "       ( " & vbNewLine &
+                    "           SELECT ARD.PurchaseID 	" & vbNewLine &
+                    "           FROM traAccountPayableDet ARD 	" & vbNewLine &
+                    "           INNER JOIN traAccountPayable ARH ON 	" & vbNewLine &
+                    "	            ARD.APID=ARH.ID		" & vbNewLine &
+                    "           WHERE 	" & vbNewLine &
+                    "               ARH.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	            AND ARH.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	            AND ARH.BPID=@BPID " & vbNewLine &
+                    "	            AND ARH.IsDeleted=0	" & vbNewLine &
+                    "	            AND ARH.ID=@APID " & vbNewLine &
+                    "	            AND ARH.Modules=@ModulesTransport" & vbNewLine &
+                    "       ) " & vbNewLine
+
+                '# Sales Return Transport
+                If .CommandText.Trim <> "" Then .CommandText += "UNION ALL " & vbNewLine
+                .CommandText +=
+                    "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.PurchaseID, A.Amount, A.PPN, A.PPH, MaxAmount=B.TotalDPPTransport-B.DPAmountTransport+A.Amount-B.TotalPaymentTransport, " & vbNewLine &
+                    "   MaxPPN=B.TotalPPNTransport-B.DPAmountPPNTransport+A.PPN-B.TotalPaymentPPNTransport, MaxPPH=B.TotalPPHTransport-B.DPAmountPPHTransport+A.PPH-B.TotalPaymentPPHTransport, " & vbNewLine &
+                    "   A.InvoiceNumberBP, A.ReceiveDate, A.InvoiceDate, A.InvoiceNumberBP, A.Remarks " & vbNewLine &
+                    "FROM traAccountPayableDet A " & vbNewLine &
+                    "INNER JOIN traSalesReturn B ON " & vbNewLine &
+                    "   A.PurchaseID=B.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.APID=@APID " & vbNewLine &
+                    " " & vbNewLine &
+                    "UNION ALL " & vbNewLine &
+                    "SELECT " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, A.ID AS PurchaseID, A.TotalDPPTransport AS Amount, A.TotalPPNTransport AS PPN, A.TotalPPHTransport AS PPH, MaxAmount=A.TotalDPPTransport-A.DPAmountTransport-A.TotalPaymentTransport, " & vbNewLine &
+                    "   MaxPPN=A.TotalPPNTransport-A.DPAmountPPNTransport-A.TotalPaymentPPNTransport, MaxPPH=A.TotalPPHTransport-A.DPAmountPPHTransport-A.TotalPaymentPPHTransport, CAST('' AS VARCHAR(1000)) AS InvoiceNumberBP, " & vbNewLine &
+                    "   GETDATE() AS ReceiveDate, GETDATE() AS InvoiceDate, CAST('' AS VARCHAR(250)) AS InvoiceNumberBP, CAST('' AS VARCHAR(250)) AS Remarks  " & vbNewLine &
+                    "FROM traSalesReturn A " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   A.TransporterID=@BPID " & vbNewLine &
+                    "   AND A.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.ApprovedBy<>'' " & vbNewLine &
+                    "   AND A.TotalDPPTransport-A.DPAmountTransport-A.TotalPaymentTransport>0 " & vbNewLine &
+                    "   AND A.ID NOT IN " & vbNewLine &
+                    "       ( " & vbNewLine &
+                    "           SELECT ARD.PurchaseID 	" & vbNewLine &
+                    "           FROM traAccountPayableDet ARD 	" & vbNewLine &
+                    "           INNER JOIN traAccountPayable ARH ON 	" & vbNewLine &
+                    "	            ARD.APID=ARH.ID		" & vbNewLine &
+                    "           WHERE 	" & vbNewLine &
+                    "               ARH.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	            AND ARH.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	            AND ARH.BPID=@BPID " & vbNewLine &
+                    "	            AND ARH.IsDeleted=0	" & vbNewLine &
+                    "	            AND ARH.ID=@APID " & vbNewLine &
+                    "	            AND ARH.Modules=@ModulesTransport" & vbNewLine &
+                    "       ) " & vbNewLine
+
+
+                .Parameters.Add("@APID", SqlDbType.VarChar, 100).Value = strAPID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+                .Parameters.Add("@ModulesTransport", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePaymentTransport
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function

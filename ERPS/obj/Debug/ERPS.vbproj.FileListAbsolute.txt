@@ -1020,3 +1020,6 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.xml
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.pdb
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraAPTransporterDet.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPItemRemarks.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraAPTransporterDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPItemRemarks.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptCostBankOutVer00.resources

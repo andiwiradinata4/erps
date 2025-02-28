@@ -327,37 +327,49 @@ Public Class frmTraARAP
     Private Sub prvNew()
         prvResetProgressBar()
         Dim frmDetail As Object
-        If strModules = VO.AccountPayable.DownPayment Or
-            strModules = VO.AccountPayable.DownPaymentCutting Or
-            strModules = VO.AccountPayable.DownPaymentTransport Or
-            strModules = VO.AccountReceivable.DownPaymentOrderRequest Or
-            strModules = VO.AccountReceivable.DownPaymentOrderRequestVer2 Or
-            strModules = VO.AccountReceivable.DownPayment Then
-            frmDetail = New frmTraARAPDetVer3
+        If strModules = VO.AccountPayable.ReceivePaymentTransport Then
+            frmDetail = New frmTraAPTransporterDet
+            With frmDetail
+                .pubIsNew = True
+                .pubCS = prvGetCS()
+                .Text = Me.Text
+                .StartPosition = FormStartPosition.CenterScreen
+                .pubShowDialog(Me)
+            End With
         Else
-            '# Only for Receive Payment
-            frmDetail = New frmTraARAPDetVer4
-            frmDetail.pubBPCode = strBPCode
-            frmDetail.pubBPName = strBPName
-            frmDetail.pubReferencesNumber = strReferencesNumber
-            frmDetail.pubIsLookup = True
-            frmDetail.pubPaymentTypeID = intPaymentTypeID
+            If strModules = VO.AccountPayable.DownPayment Or
+                strModules = VO.AccountPayable.DownPaymentCutting Or
+                strModules = VO.AccountPayable.DownPaymentTransport Or
+                strModules = VO.AccountReceivable.DownPaymentOrderRequest Or
+                strModules = VO.AccountReceivable.DownPaymentOrderRequestVer2 Or
+                strModules = VO.AccountReceivable.DownPayment Then
+                frmDetail = New frmTraARAPDetVer3
+            Else
+                '# Only for Receive Payment
+                frmDetail = New frmTraARAPDetVer4
+                frmDetail.pubBPCode = strBPCode
+                frmDetail.pubBPName = strBPName
+                frmDetail.pubReferencesNumber = strReferencesNumber
+                frmDetail.pubIsLookup = True
+                frmDetail.pubPaymentTypeID = intPaymentTypeID
+            End If
+
+            With frmDetail
+                .pubIsNew = True
+                .pubCS = prvGetCS()
+                .pubModules = strModules
+                .pubBPID = intBPID
+                .pubARAPType = enumARAPType
+                .pubReferencesID = strReferencesID
+                .pubIsUseSubItem = bolIsUseSubItem
+                .pubPPHPercentage = decPPHPercentage
+                .pubPPNPercentage = decPPNPercentage
+                .Text = Me.Text
+                .StartPosition = FormStartPosition.CenterScreen
+                .pubShowDialog(Me)
+            End With
         End If
 
-        With frmDetail
-            .pubIsNew = True
-            .pubCS = prvGetCS()
-            .pubModules = strModules
-            .pubBPID = intBPID
-            .pubARAPType = enumARAPType
-            .pubReferencesID = strReferencesID
-            .pubIsUseSubItem = bolIsUseSubItem
-            .pubPPHPercentage = decPPHPercentage
-            .pubPPNPercentage = decPPNPercentage
-            .Text = Me.Text
-            .StartPosition = FormStartPosition.CenterScreen
-            .pubShowDialog(Me)
-        End With
     End Sub
 
     Private Sub prvDetail()
@@ -366,36 +378,48 @@ Public Class frmTraARAP
         If intPos < 0 Then Exit Sub
         clsData = prvGetData()
         Dim frmDetail As Object
-        If strModules = VO.AccountPayable.DownPayment Or
-            strModules = VO.AccountPayable.DownPaymentCutting Or
-            strModules = VO.AccountPayable.DownPaymentTransport Or
-            strModules = VO.AccountReceivable.DownPaymentOrderRequest Or
-            strModules = VO.AccountReceivable.DownPayment Then
-            frmDetail = New frmTraARAPDetVer3
+        If strModules = VO.AccountPayable.ReceivePaymentTransport Then
+            frmDetail = New frmTraAPTransporterDet
+            With frmDetail
+                .pubIsNew = False
+                .pubID = clsData.ID
+                .pubCS = prvGetCS()
+                .Text = Me.Text
+                .StartPosition = FormStartPosition.CenterScreen
+                .pubShowDialog(Me)
+            End With
         Else
-            frmDetail = New frmTraARAPDetVer4
-            frmDetail.pubBPCode = strBPCode
-            frmDetail.pubBPName = strBPName
-            frmDetail.pubReferencesNumber = strReferencesNumber
-            frmDetail.pubIsLookup = True
-            frmDetail.pubPaymentTypeID = intPaymentTypeID
-        End If
+            If strModules = VO.AccountPayable.DownPayment Or
+                strModules = VO.AccountPayable.DownPaymentCutting Or
+                strModules = VO.AccountPayable.DownPaymentTransport Or
+                strModules = VO.AccountReceivable.DownPaymentOrderRequest Or
+                strModules = VO.AccountReceivable.DownPayment Then
+                frmDetail = New frmTraARAPDetVer3
+            Else
+                frmDetail = New frmTraARAPDetVer4
+                frmDetail.pubBPCode = strBPCode
+                frmDetail.pubBPName = strBPName
+                frmDetail.pubReferencesNumber = strReferencesNumber
+                frmDetail.pubIsLookup = True
+                frmDetail.pubPaymentTypeID = intPaymentTypeID
+            End If
 
-        With frmDetail
-            .pubIsNew = False
-            .pubCS = prvGetCS()
-            .pubID = clsData.ID
-            .pubModules = strModules
-            .pubBPID = intBPID
-            .pubARAPType = enumARAPType
-            .pubReferencesID = strReferencesID
-            .pubIsUseSubItem = bolIsUseSubItem
-            .pubPPHPercentage = decPPHPercentage
-            .pubPPNPercentage = decPPNPercentage
-            .Text = Me.Text
-            .StartPosition = FormStartPosition.CenterScreen
-            .pubShowDialog(Me)
-        End With
+            With frmDetail
+                .pubIsNew = False
+                .pubCS = prvGetCS()
+                .pubID = clsData.ID
+                .pubModules = strModules
+                .pubBPID = intBPID
+                .pubARAPType = enumARAPType
+                .pubReferencesID = strReferencesID
+                .pubIsUseSubItem = bolIsUseSubItem
+                .pubPPHPercentage = decPPHPercentage
+                .pubPPNPercentage = decPPNPercentage
+                .Text = Me.Text
+                .StartPosition = FormStartPosition.CenterScreen
+                .pubShowDialog(Me)
+            End With
+        End If
     End Sub
 
     Private Sub prvDelete()

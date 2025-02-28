@@ -51,6 +51,7 @@ Public Class frmTraCostDet
         UI.usForm.SetGrid(grdItemView, "PPNAmount", "PPN", 180, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "PPHAmount", "PPH", 180, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "GrandTotal", "GrandTotal", 180, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "InvoiceNumberBP", "Nomor Invoice", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ReceiveDate", "Tanggal Terima", 180, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdItemView, "InvoiceDate", "Tanggal Invoice", 180, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 200, UI.usDefGrid.gString)
@@ -161,6 +162,7 @@ Public Class frmTraCostDet
                                          .PPNAmount = dr.Item("PPNAmount"),
                                          .PPHAmount = dr.Item("PPHAmount"),
                                          .Remarks = dr.Item("Remarks"),
+                                         .InvoiceNumberBP = dr.Item("InvoiceNumberBP"),
                                          .ReceiveDate = dr.Item("ReceiveDate"),
                                          .InvoiceDate = dr.Item("InvoiceDate")
                                     })
@@ -260,6 +262,32 @@ Public Class frmTraCostDet
         End With
     End Sub
 
+    Private Sub prvSumGrid()
+        Dim SumTotalAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Amount", "Total Tagihan: {0:#,##0.00}")
+        Dim SumTotalPPN As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PPNAmount", "PPN: {0:#,##0.00}")
+        Dim SumTotalPPH As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PPHAmount", "PPH: {0:#,##0.00}")
+        Dim SumGrandTotal As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "GrandTotal", "Grand Total: {0:#,##0.00}")
+
+        If grdItemView.Columns("Amount").SummaryText.Trim = "" Then
+            grdItemView.Columns("Amount").Summary.Add(SumTotalAmount)
+        End If
+
+        If grdItemView.Columns("PPNAmount").SummaryText.Trim = "" Then
+            grdItemView.Columns("PPNAmount").Summary.Add(SumTotalPPN)
+        End If
+
+        If grdItemView.Columns("PPHAmount").SummaryText.Trim = "" Then
+            grdItemView.Columns("PPHAmount").Summary.Add(SumTotalPPH)
+        End If
+
+        If grdItemView.Columns("GrandTotal").SummaryText.Trim = "" Then
+            grdItemView.Columns("GrandTotal").Summary.Add(SumGrandTotal)
+        End If
+
+        If grdItemView.GroupCount > 0 Then grdItemView.ExpandAllGroups()
+        grdItemView.BestFitColumns(True)
+    End Sub
+
     Private Sub prvUserAccess()
         ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, pubCS.ProgramID, VO.Modules.Values.TransactionCost, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
         bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCost, VO.Access.Values.ExportReportAccess)
@@ -281,7 +309,7 @@ Public Class frmTraCostDet
         Try
             dtItem = BL.Cost.ListDataDetail(pubID)
             grdItem.DataSource = dtItem
-            grdItemView.BestFitColumns()
+            prvSumGrid()
             prvCalculate()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)

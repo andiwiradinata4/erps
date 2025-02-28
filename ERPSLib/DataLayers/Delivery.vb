@@ -22,7 +22,7 @@
                     "   A.RoundingManual, A.IsDeleted, A.Remarks, A.StatusID, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, " & vbNewLine &
                     "   A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, StatusInfo=B.Name, A.TransporterID, TP.Code AS TransporterCode, TP.Name AS TransporterName,  " & vbNewLine &
                     "   A.PPNTransport, A.PPHTransport, A.UnitPriceTransport, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, " & vbNewLine &
-                    "   A.BPLocationID, BPLocationName=BPL.Address, A.CoAofStock, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock " & vbNewLine &
+                    "   A.BPLocationID, BPLocationName=BPL.Address, A.CoAofStock, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock, A.IsManualTransportPrice " & vbNewLine &
                     "FROM traDelivery A " & vbNewLine &
                     "LEFT JOIN traSalesContract A1 ON " & vbNewLine &
                     "   A.SCID=A1.ID " & vbNewLine &
@@ -136,13 +136,13 @@
                         "    PPN, PPH, TotalQuantity, TotalWeight, TotalDPP, TotalPPN, TotalPPH, TotalDPPTransport, TotalPPNTransport, " & vbNewLine &
                         "    TotalPPHTransport, RoundingManual, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, TotalCostRawMaterial, " & vbNewLine &
                         "    TransporterID, UnitPriceTransport, PPNTransport, PPHTransport, IsFreePPNTransport, IsFreePPHTransport, IsUseSubItem, " & vbNewLine &
-                        "    IsStock, BPLocationID, CoAofStock) " & vbNewLine &
+                        "    IsStock, BPLocationID, CoAofStock, IsManualTransportPrice) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @ProgramID, @CompanyID, @DeliveryNumber, @DeliveryDate, @BPID, @SCID, @PlatNumber, @Driver, @ReferencesNumber, " & vbNewLine &
                         "    @PPN, @PPH, @TotalQuantity, @TotalWeight, @TotalDPP, @TotalPPN, @TotalPPH, @TotalDPPTransport, @TotalPPNTransport, " & vbNewLine &
                         "    @TotalPPHTransport, @RoundingManual, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), @TotalCostRawMaterial, " & vbNewLine &
                         "    @TransporterID, @UnitPriceTransport, @PPNTransport, @PPHTransport, @IsFreePPNTransport, @IsFreePPHTransport, @IsUseSubItem, " & vbNewLine &
-                        "    @IsStock, @BPLocationID, @CoAofStock) " & vbNewLine
+                        "    @IsStock, @BPLocationID, @CoAofStock, @IsManualTransportPrice) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE traDelivery SET " & vbNewLine &
@@ -181,7 +181,8 @@
                         "   IsUseSubItem=@IsUseSubItem, " & vbNewLine &
                         "   IsStock=@IsStock, " & vbNewLine &
                         "   BPLocationID=@BPLocationID, " & vbNewLine &
-                        "   CoAofStock=@CoAofStock " & vbNewLine &
+                        "   CoAofStock=@CoAofStock, " & vbNewLine &
+                        "   IsManualTransportPrice=@IsManualTransportPrice " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -221,6 +222,7 @@
                 .Parameters.Add("@IsStock", SqlDbType.Bit).Value = clsData.IsStock
                 .Parameters.Add("@BPLocationID", SqlDbType.Int).Value = clsData.BPLocationID
                 .Parameters.Add("@CoAofStock", SqlDbType.Int).Value = clsData.CoAofStock
+                .Parameters.Add("@IsManualTransportPrice", SqlDbType.Bit).Value = clsData.IsManualTransportPrice
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -246,7 +248,8 @@
                         "   A.StatusID, A.SubmitBy, A.SubmitDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.TotalPayment, " & vbNewLine &
                         "   A.JournalID, A.JournalIDTransport, A.TotalCostRawMaterial, A.TransporterID, TP.Code AS TransporterCode, TP.Name AS TransporterName, " & vbNewLine &
                         "   A.UnitPriceTransport, A.PPNTransport, A.PPHTransport, A.IsFreePPNTransport, A.IsFreePPHTransport, A.IsUseSubItem, A.IsStock, " & vbNewLine &
-                        "   A.BPLocationID, BPLocationName=BPL.Address, A.CoAofStock, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock, A.DPAmountTransport, A.TotalPaymentTransport " & vbNewLine &
+                        "   A.BPLocationID, BPLocationName=BPL.Address, A.CoAofStock, COA.Code AS CoACodeofStock, COA.Name AS CoANameofStock, A.DPAmountTransport, A.TotalPaymentTransport, " & vbNewLine &
+                        "   A.IsManualTransportPrice " & vbNewLine &
                         "FROM traDelivery A " & vbNewLine &
                         "LEFT JOIN traSalesContract A1 ON " & vbNewLine &
                         "   A.SCID=A1.ID " & vbNewLine &
@@ -325,6 +328,7 @@
                         voReturn.CoANameOfStock = .Item("CoANameOfStock")
                         voReturn.DPAmountTransport = .Item("DPAmountTransport")
                         voReturn.TotalPaymentTransport = .Item("TotalPaymentTransport")
+                        voReturn.IsManualTransportPrice = .Item("IsManualTransportPrice")
                     End If
                 End With
             Catch ex As Exception
@@ -847,50 +851,50 @@
             End Try
         End Sub
 
-        Public Shared Sub CalculateTotalUsedReceivePaymentTransportVer02(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                                         ByVal strID As String)
-            Dim sqlCmdExecute As New SqlCommand
-            With sqlCmdExecute
-                .Connection = sqlCon
-                .Transaction = sqlTrans
-                .CommandType = CommandType.Text
-                .CommandText =
-                    "UPDATE traDelivery SET 	" & vbNewLine &
-                    "	TotalPaymentTransport=	" & vbNewLine &
-                    "	(	" & vbNewLine &
-                    "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(TDD.ReceiveAmountTransport),0) TotalPayment		" & vbNewLine &
-                    "		FROM traDeliveryDet TDD " & vbNewLine &
-                    "		WHERE 	" & vbNewLine &
-                    "			TDD.DeliveryID=@ID 	" & vbNewLine &
-                    "	), " & vbNewLine &
-                    "	TotalPaymentPPNTransport=	" & vbNewLine &
-                    "	(	" & vbNewLine &
-                    "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(TDD.ReceiveAmountPPNTransport),0) TotalPayment		" & vbNewLine &
-                    "		FROM traDeliveryDet TDD " & vbNewLine &
-                    "		WHERE 	" & vbNewLine &
-                    "			TDD.DeliveryID=@ID 	" & vbNewLine &
-                    "	), " & vbNewLine &
-                    "	TotalPaymentPPHTransport=	" & vbNewLine &
-                    "	(	" & vbNewLine &
-                    "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(TDD.ReceiveAmountPPHTransport),0) TotalPayment		" & vbNewLine &
-                    "		FROM traDeliveryDet TDD " & vbNewLine &
-                    "		WHERE 	" & vbNewLine &
-                    "			TDD.DeliveryID=@ID 	" & vbNewLine &
-                    "	) " & vbNewLine &
-                    "WHERE ID=@ID " & vbNewLine
+        'Public Shared Sub CalculateTotalUsedReceivePaymentTransportVer02(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+        '                                                                 ByVal strID As String)
+        '    Dim sqlCmdExecute As New SqlCommand
+        '    With sqlCmdExecute
+        '        .Connection = sqlCon
+        '        .Transaction = sqlTrans
+        '        .CommandType = CommandType.Text
+        '        .CommandText =
+        '            "UPDATE traDelivery SET 	" & vbNewLine &
+        '            "	TotalPaymentTransport=	" & vbNewLine &
+        '            "	(	" & vbNewLine &
+        '            "		SELECT	" & vbNewLine &
+        '            "			ISNULL(SUM(TDD.ReceiveAmountTransport),0) TotalPayment		" & vbNewLine &
+        '            "		FROM traDeliveryDet TDD " & vbNewLine &
+        '            "		WHERE 	" & vbNewLine &
+        '            "			TDD.DeliveryID=@ID 	" & vbNewLine &
+        '            "	), " & vbNewLine &
+        '            "	TotalPaymentPPNTransport=	" & vbNewLine &
+        '            "	(	" & vbNewLine &
+        '            "		SELECT	" & vbNewLine &
+        '            "			ISNULL(SUM(TDD.ReceiveAmountPPNTransport),0) TotalPayment		" & vbNewLine &
+        '            "		FROM traDeliveryDet TDD " & vbNewLine &
+        '            "		WHERE 	" & vbNewLine &
+        '            "			TDD.DeliveryID=@ID 	" & vbNewLine &
+        '            "	), " & vbNewLine &
+        '            "	TotalPaymentPPHTransport=	" & vbNewLine &
+        '            "	(	" & vbNewLine &
+        '            "		SELECT	" & vbNewLine &
+        '            "			ISNULL(SUM(TDD.ReceiveAmountPPHTransport),0) TotalPayment		" & vbNewLine &
+        '            "		FROM traDeliveryDet TDD " & vbNewLine &
+        '            "		WHERE 	" & vbNewLine &
+        '            "			TDD.DeliveryID=@ID 	" & vbNewLine &
+        '            "	) " & vbNewLine &
+        '            "WHERE ID=@ID " & vbNewLine
 
-                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
-                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePaymentTransport
-            End With
-            Try
-                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
-            Catch ex As Exception
-                Throw ex
-            End Try
-        End Sub
+        '        .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+        '        .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePaymentTransport
+        '    End With
+        '    Try
+        '        SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+        '    Catch ex As Exception
+        '        Throw ex
+        '    End Try
+        'End Sub
 
         Public Shared Sub UpdateJournalID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                           ByVal strID As String, ByVal strJournalID As String,
@@ -1477,6 +1481,63 @@
                     "WHERE ID=@ReferencesDetailID " & vbNewLine
 
                 .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strDetailID
+                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePaymentTransport
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateTotalUsedReceivePaymentTransportVer02(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                         ByVal strPurchaseID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traDelivery SET 	" & vbNewLine &
+                    "	TotalPaymentTransport=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.Amount),0) Amount " & vbNewLine &
+                    "		FROM traAccountPayableDet TDD " & vbNewLine &
+                    "		INNER JOIN traAccountPayable AR ON " & vbNewLine &
+                    "		    TDD.APID=AR.ID  " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.PurchaseID=@PurchaseID 	" & vbNewLine &
+                    "			AND AR.IsDeleted=0 " & vbNewLine &
+                    "			AND AR.Modules=@Modules " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	TotalPaymentPPNTransport=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.PPN),0) Amount " & vbNewLine &
+                    "		FROM traAccountPayableDet TDD " & vbNewLine &
+                    "		INNER JOIN traAccountPayable AR ON " & vbNewLine &
+                    "		    TDD.APID=AR.ID  " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.PurchaseID=@PurchaseID 	" & vbNewLine &
+                    "			AND AR.IsDeleted=0 " & vbNewLine &
+                    "			AND AR.Modules=@Modules " & vbNewLine &
+                    "	), " & vbNewLine &
+                    "	TotalPaymentPPHTransport=	" & vbNewLine &
+                    "	(	" & vbNewLine &
+                    "		SELECT	" & vbNewLine &
+                    "			ISNULL(SUM(TDD.PPH),0) Amount " & vbNewLine &
+                    "		FROM traAccountPayableDet TDD " & vbNewLine &
+                    "		INNER JOIN traAccountPayable AR ON " & vbNewLine &
+                    "		    TDD.APID=AR.ID  " & vbNewLine &
+                    "		WHERE 	" & vbNewLine &
+                    "			TDD.PurchaseID=@PurchaseID 	" & vbNewLine &
+                    "			AND AR.IsDeleted=0 " & vbNewLine &
+                    "			AND AR.Modules=@Modules " & vbNewLine &
+                    "	)" & vbNewLine &
+                    "WHERE ID=@PurchaseID " & vbNewLine
+
+                .Parameters.Add("@PurchaseID", SqlDbType.VarChar, 100).Value = strPurchaseID
                 .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePaymentTransport
             End With
             Try

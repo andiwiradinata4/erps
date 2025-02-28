@@ -29,6 +29,10 @@ Partial Class frmTraAPTransporterDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.txtBPBankAccountBank = New ERPS.usTextBox()
+        Me.txtBPBankAccountNumber = New ERPS.usTextBox()
+        Me.btnBPBankAccount = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.txtGrandTotal = New ERPS.usNumeric()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.txtBPCode = New ERPS.usTextBox()
@@ -53,7 +57,7 @@ Partial Class frmTraAPTransporterDet
         Me.tpRemarks = New System.Windows.Forms.TabPage()
         Me.grdRemarks = New DevExpress.XtraGrid.GridControl()
         Me.grdRemarksView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.ToolBarRemarksResult = New ERPS.usToolBar()
+        Me.ToolBarRemarks = New ERPS.usToolBar()
         Me.BarAddRemarksResult = New System.Windows.Forms.ToolBarButton()
         Me.BarEditRemarksResult = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteRemarksResult = New System.Windows.Forms.ToolBarButton()
@@ -68,6 +72,12 @@ Partial Class frmTraAPTransporterDet
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.StatusStrip = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripEmpty = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripLogInc = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripLogBy = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         CType(Me.txtGrandTotal, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -84,6 +94,7 @@ Partial Class frmTraAPTransporterDet
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -133,12 +144,16 @@ Partial Class frmTraAPTransporterDet
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(884, 200)
+        Me.tcHeader.Size = New System.Drawing.Size(884, 197)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.txtBPBankAccountBank)
+        Me.tpMain.Controls.Add(Me.txtBPBankAccountNumber)
+        Me.tpMain.Controls.Add(Me.btnBPBankAccount)
+        Me.tpMain.Controls.Add(Me.Label1)
         Me.tpMain.Controls.Add(Me.txtGrandTotal)
         Me.tpMain.Controls.Add(Me.Label16)
         Me.tpMain.Controls.Add(Me.txtBPCode)
@@ -163,10 +178,51 @@ Partial Class frmTraAPTransporterDet
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(876, 171)
+        Me.tpMain.Size = New System.Drawing.Size(876, 168)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'txtBPBankAccountBank
+        '
+        Me.txtBPBankAccountBank.BackColor = System.Drawing.Color.Azure
+        Me.txtBPBankAccountBank.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtBPBankAccountBank.Location = New System.Drawing.Point(134, 70)
+        Me.txtBPBankAccountBank.MaxLength = 250
+        Me.txtBPBankAccountBank.Name = "txtBPBankAccountBank"
+        Me.txtBPBankAccountBank.ReadOnly = True
+        Me.txtBPBankAccountBank.Size = New System.Drawing.Size(83, 21)
+        Me.txtBPBankAccountBank.TabIndex = 4
+        '
+        'txtBPBankAccountNumber
+        '
+        Me.txtBPBankAccountNumber.BackColor = System.Drawing.Color.Azure
+        Me.txtBPBankAccountNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtBPBankAccountNumber.Location = New System.Drawing.Point(216, 70)
+        Me.txtBPBankAccountNumber.MaxLength = 250
+        Me.txtBPBankAccountNumber.Name = "txtBPBankAccountNumber"
+        Me.txtBPBankAccountNumber.ReadOnly = True
+        Me.txtBPBankAccountNumber.Size = New System.Drawing.Size(167, 21)
+        Me.txtBPBankAccountNumber.TabIndex = 5
+        '
+        'btnBPBankAccount
+        '
+        Me.btnBPBankAccount.Image = CType(resources.GetObject("btnBPBankAccount.Image"), System.Drawing.Image)
+        Me.btnBPBankAccount.Location = New System.Drawing.Point(389, 69)
+        Me.btnBPBankAccount.Name = "btnBPBankAccount"
+        Me.btnBPBankAccount.Size = New System.Drawing.Size(23, 23)
+        Me.btnBPBankAccount.TabIndex = 6
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
+        Me.Label1.ForeColor = System.Drawing.Color.Black
+        Me.Label1.Location = New System.Drawing.Point(21, 74)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(57, 13)
+        Me.Label1.TabIndex = 179
+        Me.Label1.Text = "Akun Bank"
         '
         'txtGrandTotal
         '
@@ -179,7 +235,7 @@ Partial Class frmTraAPTransporterDet
         Me.txtGrandTotal.Name = "txtGrandTotal"
         Me.txtGrandTotal.ReadOnly = True
         Me.txtGrandTotal.Size = New System.Drawing.Size(249, 21)
-        Me.txtGrandTotal.TabIndex = 10
+        Me.txtGrandTotal.TabIndex = 12
         Me.txtGrandTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtGrandTotal.ThousandsSeparator = True
         '
@@ -257,7 +313,7 @@ Partial Class frmTraAPTransporterDet
         Me.txtTotalPPH.Name = "txtTotalPPH"
         Me.txtTotalPPH.ReadOnly = True
         Me.txtTotalPPH.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalPPH.TabIndex = 9
+        Me.txtTotalPPH.TabIndex = 11
         Me.txtTotalPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPPH.ThousandsSeparator = True
         '
@@ -281,7 +337,7 @@ Partial Class frmTraAPTransporterDet
         Me.txtTotalAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalAmount.Name = "txtTotalAmount"
         Me.txtTotalAmount.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalAmount.TabIndex = 7
+        Me.txtTotalAmount.TabIndex = 9
         Me.txtTotalAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalAmount.ThousandsSeparator = True
         '
@@ -312,7 +368,7 @@ Partial Class frmTraAPTransporterDet
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.ForeColor = System.Drawing.Color.Black
-        Me.Label6.Location = New System.Drawing.Point(21, 74)
+        Me.Label6.Location = New System.Drawing.Point(21, 101)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(45, 13)
         Me.Label6.TabIndex = 124
@@ -329,7 +385,7 @@ Partial Class frmTraAPTransporterDet
         Me.txtTotalPPN.Name = "txtTotalPPN"
         Me.txtTotalPPN.ReadOnly = True
         Me.txtTotalPPN.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalPPN.TabIndex = 8
+        Me.txtTotalPPN.TabIndex = 10
         Me.txtTotalPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPPN.ThousandsSeparator = True
         '
@@ -338,10 +394,10 @@ Partial Class frmTraAPTransporterDet
         Me.dtpARAPDate.CustomFormat = "dd/MM/yyyy"
         Me.dtpARAPDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpARAPDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpARAPDate.Location = New System.Drawing.Point(134, 70)
+        Me.dtpARAPDate.Location = New System.Drawing.Point(134, 97)
         Me.dtpARAPDate.Name = "dtpARAPDate"
         Me.dtpARAPDate.Size = New System.Drawing.Size(83, 21)
-        Me.dtpARAPDate.TabIndex = 4
+        Me.dtpARAPDate.TabIndex = 7
         Me.dtpARAPDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
         'Label11
@@ -360,7 +416,7 @@ Partial Class frmTraAPTransporterDet
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(21, 129)
+        Me.Label5.Location = New System.Drawing.Point(463, 129)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(38, 13)
         Me.Label5.TabIndex = 128
@@ -371,17 +427,17 @@ Partial Class frmTraAPTransporterDet
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(134, 125)
+        Me.cboStatus.Location = New System.Drawing.Point(578, 125)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(118, 21)
-        Me.cboStatus.TabIndex = 6
+        Me.cboStatus.TabIndex = 13
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.BackColor = System.Drawing.Color.Transparent
         Me.Label10.ForeColor = System.Drawing.Color.Black
-        Me.Label10.Location = New System.Drawing.Point(226, 101)
+        Me.Label10.Location = New System.Drawing.Point(226, 128)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(26, 13)
         Me.Label10.TabIndex = 159
@@ -392,7 +448,7 @@ Partial Class frmTraAPTransporterDet
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.ForeColor = System.Drawing.Color.Black
-        Me.Label9.Location = New System.Drawing.Point(21, 101)
+        Me.Label9.Location = New System.Drawing.Point(21, 128)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(69, 13)
         Me.Label9.TabIndex = 158
@@ -401,22 +457,22 @@ Partial Class frmTraAPTransporterDet
         'txtDueDateValue
         '
         Me.txtDueDateValue.BackColor = System.Drawing.Color.White
-        Me.txtDueDateValue.Location = New System.Drawing.Point(134, 97)
+        Me.txtDueDateValue.Location = New System.Drawing.Point(134, 124)
         Me.txtDueDateValue.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtDueDateValue.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtDueDateValue.Name = "txtDueDateValue"
         Me.txtDueDateValue.Size = New System.Drawing.Size(83, 21)
-        Me.txtDueDateValue.TabIndex = 5
+        Me.txtDueDateValue.TabIndex = 8
         Me.txtDueDateValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtDueDateValue.ThousandsSeparator = True
         '
         'tpRemarks
         '
         Me.tpRemarks.Controls.Add(Me.grdRemarks)
-        Me.tpRemarks.Controls.Add(Me.ToolBarRemarksResult)
+        Me.tpRemarks.Controls.Add(Me.ToolBarRemarks)
         Me.tpRemarks.Location = New System.Drawing.Point(4, 25)
         Me.tpRemarks.Name = "tpRemarks"
-        Me.tpRemarks.Size = New System.Drawing.Size(876, 171)
+        Me.tpRemarks.Size = New System.Drawing.Size(876, 168)
         Me.tpRemarks.TabIndex = 2
         Me.tpRemarks.Text = "Keterangan - F2"
         Me.tpRemarks.UseVisualStyleBackColor = True
@@ -441,7 +497,7 @@ Partial Class frmTraAPTransporterDet
         Me.grdRemarks.Location = New System.Drawing.Point(0, 28)
         Me.grdRemarks.MainView = Me.grdRemarksView
         Me.grdRemarks.Name = "grdRemarks"
-        Me.grdRemarks.Size = New System.Drawing.Size(876, 143)
+        Me.grdRemarks.Size = New System.Drawing.Size(876, 140)
         Me.grdRemarks.TabIndex = 19
         Me.grdRemarks.UseEmbeddedNavigator = True
         Me.grdRemarks.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdRemarksView})
@@ -455,17 +511,17 @@ Partial Class frmTraAPTransporterDet
         Me.grdRemarksView.OptionsView.ColumnAutoWidth = False
         Me.grdRemarksView.OptionsView.ShowGroupPanel = False
         '
-        'ToolBarRemarksResult
+        'ToolBarRemarks
         '
-        Me.ToolBarRemarksResult.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarRemarksResult.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddRemarksResult, Me.BarEditRemarksResult, Me.BarDeleteRemarksResult})
-        Me.ToolBarRemarksResult.DropDownArrows = True
-        Me.ToolBarRemarksResult.Location = New System.Drawing.Point(0, 0)
-        Me.ToolBarRemarksResult.Name = "ToolBarRemarksResult"
-        Me.ToolBarRemarksResult.ShowToolTips = True
-        Me.ToolBarRemarksResult.Size = New System.Drawing.Size(876, 28)
-        Me.ToolBarRemarksResult.TabIndex = 18
-        Me.ToolBarRemarksResult.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        Me.ToolBarRemarks.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBarRemarks.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddRemarksResult, Me.BarEditRemarksResult, Me.BarDeleteRemarksResult})
+        Me.ToolBarRemarks.DropDownArrows = True
+        Me.ToolBarRemarks.Location = New System.Drawing.Point(0, 0)
+        Me.ToolBarRemarks.Name = "ToolBarRemarks"
+        Me.ToolBarRemarks.ShowToolTips = True
+        Me.ToolBarRemarks.Size = New System.Drawing.Size(876, 28)
+        Me.ToolBarRemarks.TabIndex = 18
+        Me.ToolBarRemarks.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
         'BarAddRemarksResult
         '
@@ -490,7 +546,7 @@ Partial Class frmTraAPTransporterDet
         Me.tpHistory.Controls.Add(Me.grdStatus)
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
-        Me.tpHistory.Size = New System.Drawing.Size(876, 171)
+        Me.tpHistory.Size = New System.Drawing.Size(876, 168)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -515,7 +571,7 @@ Partial Class frmTraAPTransporterDet
         Me.grdStatus.Location = New System.Drawing.Point(0, 0)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(876, 171)
+        Me.grdStatus.Size = New System.Drawing.Size(876, 168)
         Me.grdStatus.TabIndex = 14
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -535,7 +591,7 @@ Partial Class frmTraAPTransporterDet
         Me.Label14.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label14.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.ForeColor = System.Drawing.Color.White
-        Me.Label14.Location = New System.Drawing.Point(0, 250)
+        Me.Label14.Location = New System.Drawing.Point(0, 247)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(884, 22)
         Me.Label14.TabIndex = 3
@@ -547,7 +603,7 @@ Partial Class frmTraAPTransporterDet
         Me.ToolBarDetail.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
         Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarCheckAll, Me.BarUncheckAll})
         Me.ToolBarDetail.DropDownArrows = True
-        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 272)
+        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 269)
         Me.ToolBarDetail.Name = "ToolBarDetail"
         Me.ToolBarDetail.ShowToolTips = True
         Me.ToolBarDetail.Size = New System.Drawing.Size(884, 28)
@@ -591,11 +647,11 @@ Partial Class frmTraAPTransporterDet
         Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdItem.Location = New System.Drawing.Point(0, 300)
+        Me.grdItem.Location = New System.Drawing.Point(0, 297)
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
-        Me.grdItem.Size = New System.Drawing.Size(884, 309)
+        Me.grdItem.Size = New System.Drawing.Size(884, 290)
         Me.grdItem.TabIndex = 5
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
@@ -618,12 +674,64 @@ Partial Class frmTraAPTransporterDet
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
         '
+        'StatusStrip
+        '
+        Me.StatusStrip.Font = New System.Drawing.Font("Tahoma", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 587)
+        Me.StatusStrip.Name = "StatusStrip"
+        Me.StatusStrip.Size = New System.Drawing.Size(884, 22)
+        Me.StatusStrip.TabIndex = 7
+        Me.StatusStrip.Text = "StatusStrip1"
+        '
+        'ToolStripEmpty
+        '
+        Me.ToolStripEmpty.Name = "ToolStripEmpty"
+        Me.ToolStripEmpty.Size = New System.Drawing.Size(761, 17)
+        Me.ToolStripEmpty.Spring = True
+        '
+        'ToolStripLogInc
+        '
+        Me.ToolStripLogInc.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.ToolStripLogInc.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.ToolStripLogInc.Name = "ToolStripLogInc"
+        Me.ToolStripLogInc.Size = New System.Drawing.Size(48, 17)
+        Me.ToolStripLogInc.Text = "Log Inc : "
+        '
+        'ToolStripLogBy
+        '
+        Me.ToolStripLogBy.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.ToolStripLogBy.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.ToolStripLogBy.Name = "ToolStripLogBy"
+        Me.ToolStripLogBy.Size = New System.Drawing.Size(48, 17)
+        Me.ToolStripLogBy.Text = "Last Log :"
+        '
+        'ToolStripStatusLabel1
+        '
+        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(0, 17)
+        '
+        'ToolStripLogDate
+        '
+        Me.ToolStripLogDate.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.ToolStripLogDate.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.ToolStripLogDate.Name = "ToolStripLogDate"
+        Me.ToolStripLogDate.Size = New System.Drawing.Size(12, 17)
+        Me.ToolStripLogDate.Text = "-"
+        '
         'frmTraAPTransporterDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(884, 631)
         Me.Controls.Add(Me.grdItem)
+        Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.pgMain)
         Me.Controls.Add(Me.ToolBarDetail)
         Me.Controls.Add(Me.Label14)
@@ -652,6 +760,8 @@ Partial Class frmTraAPTransporterDet
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.StatusStrip.ResumeLayout(False)
+        Me.StatusStrip.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -695,10 +805,20 @@ Partial Class frmTraAPTransporterDet
     Friend WithEvents grdItem As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdItemView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents rpiValue As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
-    Friend WithEvents ToolBarRemarksResult As ERPS.usToolBar
+    Friend WithEvents ToolBarRemarks As ERPS.usToolBar
     Friend WithEvents BarAddRemarksResult As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarEditRemarksResult As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarDeleteRemarksResult As System.Windows.Forms.ToolBarButton
     Friend WithEvents grdRemarks As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdRemarksView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents txtBPBankAccountBank As ERPS.usTextBox
+    Friend WithEvents txtBPBankAccountNumber As ERPS.usTextBox
+    Friend WithEvents btnBPBankAccount As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents StatusStrip As System.Windows.Forms.StatusStrip
+    Friend WithEvents ToolStripEmpty As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents ToolStripLogInc As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents ToolStripLogBy As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents ToolStripLogDate As System.Windows.Forms.ToolStripStatusLabel
 End Class

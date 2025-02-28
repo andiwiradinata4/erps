@@ -570,19 +570,26 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText = _
-                    "SELECT  " & vbNewLine & _
-"	CH.CostNumber AS TransNumber, CH.CostDate AS TransDate, MC.Name AS CompanyName, '' AS VoucherCode,  " & vbNewLine & _
-"	CH.PaidTo, CH.PaidAccount, CH.TotalAmount, CH.Remarks, MUC.Name AS CreatedBy, CH.CreatedDate, NULL AS CheckedDate,  " & vbNewLine & _
-"	'' AS CheckedBy, MUP.Name AS PaidBy, CASE WHEN CH.PaymentBy='' THEN NULL ELSE CH.PaymentDate END AS PaidDate, " & vbNewLine & _
-"	MC.DirectorName AS ApprovedBy, NULL AS ApprovedDate " & vbNewLine & _
-"FROM traCost CH  " & vbNewLine & _
-"INNER JOIN mstCompany MC ON  " & vbNewLine & _
-"	CH.CompanyID=MC.ID  " & vbNewLine & _
-"INNER JOIN mstUser MUC ON  " & vbNewLine & _
-"	CH.CreatedBy=MUC.ID  " & vbNewLine & _
-"LEFT JOIN mstUser MUP ON  " & vbNewLine & _
-"	CH.PaymentBy=MUP.ID  " & vbNewLine & _
-"WHERE CH.ID=@ID  " & vbNewLine
+"SELECT    " & vbNewLine & _
+"	CH.CostNumber AS TransNumber, CH.CostDate AS TransDate, MC.Name AS CompanyName, '' AS VoucherCode,    " & vbNewLine & _
+"	CH.PaidTo, CH.PaidAccount, CH.TotalAmount, CASE WHEN COD.Remarks='' THEN CH.Remarks ELSE COD.Remarks END AS Remarks, MUC.Name AS CreatedBy, CH.CreatedDate, NULL AS CheckedDate,    " & vbNewLine & _
+"	'' AS CheckedBy, MUP.Name AS PaidBy, CASE WHEN CH.PaymentBy='' THEN NULL ELSE CH.PaymentDate END AS PaidDate,   " & vbNewLine & _
+"	MC.DirectorName AS ApprovedBy, NULL AS ApprovedDate, 'KETERANGAN' AS Description, ':' AS DescriptionSeparator   " & vbNewLine & _
+"FROM traCost CH    " & vbNewLine & _
+"INNER JOIN  " & vbNewLine & _
+"( " & vbNewLine & _
+"	SELECT DISTINCT COD.CostID, COD.Remarks  " & vbNewLine & _
+"	FROM traCostDet COD " & vbNewLine & _
+"	WHERE COD.CostID=@ID  " & vbNewLine & _
+") COD ON  " & vbNewLine & _
+"	CH.ID=COD.CostID  " & vbNewLine & _
+"INNER JOIN mstCompany MC ON    " & vbNewLine & _
+"	CH.CompanyID=MC.ID    " & vbNewLine & _
+"INNER JOIN mstUser MUC ON    " & vbNewLine & _
+"	CH.CreatedBy=MUC.ID    " & vbNewLine & _
+"LEFT JOIN mstUser MUP ON    " & vbNewLine & _
+"	CH.PaymentBy=MUP.ID    " & vbNewLine & _
+"WHERE CH.ID=@ID    " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
             End With
@@ -603,7 +610,7 @@
                 .CommandText = _
                     "SELECT " & vbNewLine & _
                     "   A.ID, A.CostID, A.COAID, B.Code AS COACode, B.Name AS COAName, A.Amount, A.Remarks, " & vbNewLine & _
-                    "   A.ReceiveDate, A.InvoiceDate, A.PPNAmount, A.PPHAmount, A.Amount+A.PPNAmount-A.PPHAmount AS GrandTotal " & vbNewLine & _
+                    "   A.InvoiceNumberBP, A.ReceiveDate, A.InvoiceDate, A.PPNAmount, A.PPHAmount, A.Amount+A.PPNAmount-A.PPHAmount AS GrandTotal " & vbNewLine & _
                     "FROM traCostDet A " & vbNewLine & _
                     "INNER JOIN mstChartOfAccount B ON " & vbNewLine & _
                     "   A.COAID=B.ID " & vbNewLine & _
@@ -624,15 +631,16 @@
                 .CommandType = CommandType.Text
                 .CommandText = _
                     "INSERT INTO traCostDet " & vbNewLine & _
-                    "   (ID, CostID, COAID, Amount, Remarks, ReceiveDate, InvoiceDate, PPNAmount, PPHAmount) " & vbNewLine & _
+                    "   (ID, CostID, COAID, Amount, Remarks, InvoiceNumberBP, ReceiveDate, InvoiceDate, PPNAmount, PPHAmount) " & vbNewLine & _
                     "VALUES " & vbNewLine & _
-                    "   (@ID, @CostID, @COAID, @Amount, @Remarks, @ReceiveDate, @InvoiceDate, @PPNAmount, @PPHAmount) " & vbNewLine
+                    "   (@ID, @CostID, @COAID, @Amount, @Remarks, @InvoiceNumberBP, @ReceiveDate, @InvoiceDate, @PPNAmount, @PPHAmount) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@CostID", SqlDbType.VarChar, 100).Value = clsData.CostID
                 .Parameters.Add("@COAID", SqlDbType.Int).Value = clsData.CoAID
                 .Parameters.Add("@Amount", SqlDbType.Decimal).Value = clsData.Amount
                 .Parameters.Add("@Remarks", SqlDbType.VarChar, 500).Value = clsData.Remarks
+                .Parameters.Add("@InvoiceNumberBP", SqlDbType.VarChar, 1000).Value = clsData.InvoiceNumberBP
                 .Parameters.Add("@ReceiveDate", SqlDbType.DateTime).Value = clsData.ReceiveDate
                 .Parameters.Add("@InvoiceDate", SqlDbType.DateTime).Value = clsData.InvoiceDate
                 .Parameters.Add("@PPNAmount", SqlDbType.Decimal).Value = clsData.PPNAmount

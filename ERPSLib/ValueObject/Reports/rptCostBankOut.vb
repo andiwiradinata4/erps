@@ -7,6 +7,8 @@
         Property PaidTo As String
         Property PaidAccount As String
         Property TotalAmount As String
+        Property Description As String
+        Property DescriptionSeparator As String
         Property Remarks As String
         Property CreatedBy As String
         Property CreatedDate As DateTime

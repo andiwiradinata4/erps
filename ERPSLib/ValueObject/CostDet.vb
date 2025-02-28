@@ -8,6 +8,7 @@
         Property PPHAmount As Decimal
         Property GrandTotal As Decimal
         Property Remarks As String
+        Property InvoiceNumberBP As String
         Property ReceiveDate As DateTime
         Property InvoiceDate As DateTime
     End Class

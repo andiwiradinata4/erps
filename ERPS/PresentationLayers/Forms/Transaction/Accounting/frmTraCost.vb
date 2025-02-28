@@ -535,6 +535,9 @@ Public Class frmTraCost
         With ToolBar.Buttons
             .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCost, VO.Access.Values.NewAccess)
             .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCost, VO.Access.Values.DeleteAccess)
+
+            .Item(cSetPaymentDate).Visible = False
+            .Item(cDeletePaymentDate).Visible = False
         End With
     End Sub
 

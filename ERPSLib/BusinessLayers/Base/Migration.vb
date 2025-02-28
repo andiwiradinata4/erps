@@ -91,6 +91,7 @@
                     DevelopOnProgress_ID82(sqlCon, sqlTrans)
                     DevelopOnProgress_ID83(sqlCon, sqlTrans)
                     DevelopOnProgress_ID84(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID85(sqlCon, sqlTrans)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -2597,6 +2598,31 @@
 "   )   " & vbNewLine & _
 ")  " & vbNewLine & _
 "" & vbNewLine 
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 85
+        Private Shared Sub DevelopOnProgress_ID85(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 85
+            clsData.Name = "Development On Progress 85"
+            clsData.Scripts =
+"ALTER TABLE traAccountPayable ADD BPBankAccountID INT NOT NULL CONSTRAINT DF_traAccountPayable_BPBankAccountID DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traAccountPayable ADD InvoiceDateBP DATETIME NOT NULL CONSTRAINT DF_traAccountPayable_InvoiceDateBP DEFAULT (GETDATE())  " & vbNewLine &
+"ALTER TABLE traAccountPayable ADD ReceiveDateInvoice DATETIME NOT NULL CONSTRAINT DF_traAccountPayable_ReceiveDateInvoice DEFAULT (GETDATE())  " & vbNewLine &
+"ALTER TABLE traAccountReceivable ADD BPBankAccountID INT NOT NULL CONSTRAINT DF_traAccountReceivable_BPBankAccountID DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traAccountReceivable ADD InvoiceDateBP DATETIME NOT NULL CONSTRAINT DF_traAccountReceivable_InvoiceDateBP DEFAULT (GETDATE())  " & vbNewLine &
+"ALTER TABLE traAccountReceivable ADD ReceiveDateInvoice DATETIME NOT NULL CONSTRAINT DF_traAccountReceivable_ReceiveDateInvoice DEFAULT (GETDATE())  " & vbNewLine &
+"ALTER TABLE traDelivery ADD IsManualTransportPrice BIT NOT NULL CONSTRAINT DF_traDelivery_IsManualTransportPrice DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traSalesReturn ADD IsManualTransportPrice BIT NOT NULL CONSTRAINT DF_traSalesReturn_IsManualTransportPrice DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traCostDet ADD InvoiceNumberBP VARCHAR(1000) NOT NULL CONSTRAINT DF_traCostDet_InvoiceNumberBP DEFAULT ('')  " & vbNewLine &
+"ALTER TABLE traAccountPayableDet ADD InvoiceNumberBP VARCHAR(1000) NOT NULL CONSTRAINT DF_traAccountPayableDet_InvoiceNumberBP DEFAULT ('')  " & vbNewLine &
+"ALTER TABLE traAccountReceivableDet ADD InvoiceNumberBP VARCHAR(1000) NOT NULL CONSTRAINT DF_traAccountReceivableDet_InvoiceNumberBP DEFAULT ('')  " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

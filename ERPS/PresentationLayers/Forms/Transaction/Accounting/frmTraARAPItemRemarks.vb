@@ -72,6 +72,7 @@
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         prvFillForm()
+        txtRemarks.MaxLength = 100
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick

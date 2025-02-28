@@ -534,13 +534,13 @@ Partial Class frmTraCostDet
         Me.grdRemarksView.OptionsView.ColumnAutoWidth = False
         Me.grdRemarksView.OptionsView.ShowGroupPanel = False
         '
-        'ToolBarRemarksResult
+        'ToolBarRemarks
         '
         Me.ToolBarRemarks.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
         Me.ToolBarRemarks.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddRemarksResult, Me.BarEditRemarksResult, Me.BarDeleteRemarksResult})
         Me.ToolBarRemarks.DropDownArrows = True
         Me.ToolBarRemarks.Location = New System.Drawing.Point(0, 0)
-        Me.ToolBarRemarks.Name = "ToolBarRemarksResult"
+        Me.ToolBarRemarks.Name = "ToolBarRemarks"
         Me.ToolBarRemarks.ShowToolTips = True
         Me.ToolBarRemarks.Size = New System.Drawing.Size(851, 28)
         Me.ToolBarRemarks.TabIndex = 17
@@ -746,6 +746,7 @@ Partial Class frmTraCostDet
         Me.grdItemView.OptionsCustomization.AllowGroup = False
         Me.grdItemView.OptionsView.ColumnAutoWidth = False
         Me.grdItemView.OptionsView.ShowAutoFilterRow = True
+        Me.grdItemView.OptionsView.ShowFooter = True
         Me.grdItemView.OptionsView.ShowGroupPanel = False
         '
         'rpiValue

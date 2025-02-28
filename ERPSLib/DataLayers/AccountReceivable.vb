@@ -26,7 +26,8 @@
                     "   A.TotalPPN, A.TotalPPH, A.DPAmount, A.ReceiveAmount, A.IsDP, A.InvoiceNumberBP, A.CompanyBankAccountID1, A.CompanyBankAccountID2, A.IsUseSubItem, " & vbNewLine &
                     "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, A.PPNPercentage, A.PPHPercentage, " & vbNewLine &
                     "   GrandTotal=A.TotalAmount+A.TotalPPN-A.TotalPPH, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, " & vbNewLine &
-                    "   DueDateVSNowValue=DATEDIFF(DAY,DueDate, GETDATE()), A.ReferencesNumber, A.IsFullDP, OutstandingInvoiceAmount=(A.TotalAmount+A.TotalPPN-A.TotalPPH)-A.TotalInvoiceAmount " & vbNewLine &
+                    "   DueDateVSNowValue=DATEDIFF(DAY,DueDate, GETDATE()), A.ReferencesNumber, A.IsFullDP, OutstandingInvoiceAmount=(A.TotalAmount+A.TotalPPN-A.TotalPPH)-A.TotalInvoiceAmount, " & vbNewLine &
+                    "   A.BPBankAccountID, ISNULL(BPBA.BankName,'') AS BPBankAccountBank, ISNULL(BPBA.AccountNumber,'') AS BPBankAccountNumber " & vbNewLine &
                     "FROM traAccountReceivable A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -38,6 +39,8 @@
                     "   A.ProgramID=MP.ID " & vbNewLine &
                     "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
                     "   A.CoAIDOfIncomePayment=COA.ID " & vbNewLine &
+                    "LEFT JOIN mstBusinessPartnerBankAccount BPBA ON " & vbNewLine &
+                    "   A.BPBankAccountID=BPBA.ID " & vbNewLine &
                     "WHERE  " & vbNewLine &
                     "   A.CompanyID=@CompanyID " & vbNewLine &
                     "   AND A.ProgramID=@ProgramID " & vbNewLine &
@@ -127,11 +130,11 @@
                         "INSERT INTO traAccountReceivable " & vbNewLine &
                         "   (ID, CompanyID, ProgramID, ARNumber, BPID, CoAIDOfIncomePayment, Modules, ReferencesID, ReferencesNote, " & vbNewLine &
                         "    ARDate, DueDateValue, DueDate, TotalAmount, Percentage, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, " & vbNewLine &
-                        "    TotalPPN, TotalPPH, IsDP, DPAmount, ReceiveAmount, IsUseSubItem, PPNPercentage, PPHPercentage, IsFullDP) " & vbNewLine &
+                        "    TotalPPN, TotalPPH, IsDP, DPAmount, ReceiveAmount, IsUseSubItem, PPNPercentage, PPHPercentage, IsFullDP, BPBankAccountID) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @CompanyID, @ProgramID, @ARNumber, @BPID, @CoAIDOfIncomePayment, @Modules, @ReferencesID, @ReferencesNote, " & vbNewLine &
                         "    @ARDate, @DueDateValue, @DueDate, @TotalAmount, @Percentage, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), " & vbNewLine &
-                        "    @TotalPPN, @TotalPPH, @IsDP, @DPAmount, @ReceiveAmount, @IsUseSubItem, @PPNPercentage, @PPHPercentage, @IsFullDP) " & vbNewLine
+                        "    @TotalPPN, @TotalPPH, @IsDP, @DPAmount, @ReceiveAmount, @IsUseSubItem, @PPNPercentage, @PPHPercentage, @IsFullDP, @BPBankAccountID) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE traAccountReceivable SET " & vbNewLine &
@@ -161,7 +164,8 @@
                         "    IsUseSubItem=@IsUseSubItem, " & vbNewLine &
                         "    PPNPercentage=@PPNPercentage, " & vbNewLine &
                         "    PPHPercentage=@PPHPercentage, " & vbNewLine &
-                        "    IsFullDP=@IsFullDP " & vbNewLine &
+                        "    IsFullDP=@IsFullDP, " & vbNewLine &
+                        "    BPBankAccountID=@BPBankAccountID " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -192,6 +196,7 @@
                 .Parameters.Add("@PPNPercentage", SqlDbType.Decimal).Value = clsData.PPNPercentage
                 .Parameters.Add("@PPHPercentage", SqlDbType.Decimal).Value = clsData.PPHPercentage
                 .Parameters.Add("@IsFullDP", SqlDbType.Bit).Value = clsData.IsFullDP
+                .Parameters.Add("@BPBankAccountID", SqlDbType.Int).Value = clsData.BPBankAccountID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -218,7 +223,8 @@
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
                         "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice, A.InvoiceNumberBP, " & vbNewLine &
                         "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, " & vbNewLine &
-                        "   A.PPNPercentage, A.PPHPercentage, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, A.ReferencesNumber, A.IsFullDP, A.IsGenerate " & vbNewLine &
+                        "   A.PPNPercentage, A.PPHPercentage, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, A.ReferencesNumber, A.IsFullDP, A.IsGenerate, " & vbNewLine &
+                        "   A.BPBankAccountID, ISNULL(BPBA.BankName,'') AS BPBankAccountBank, ISNULL(BPBA.AccountNumber,'') AS BPBankAccountNumber " & vbNewLine &
                         "FROM traAccountReceivable A " & vbNewLine &
                         "INNER JOIN mstStatus B ON " & vbNewLine &
                         "   A.StatusID=B.ID " & vbNewLine &
@@ -230,6 +236,8 @@
                         "   A.ProgramID=MP.ID " & vbNewLine &
                         "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
                         "   A.CoAIDOfIncomePayment=COA.ID " & vbNewLine &
+                        "LEFT JOIN mstBusinessPartnerBankAccount BPBA ON " & vbNewLine &
+                        "   A.BPBankAccountID=BPBA.ID " & vbNewLine &
                         "WHERE " & vbNewLine &
                         "   A.ID=@ID " & vbNewLine
 
@@ -305,6 +313,9 @@
                         voReturn.ReferencesNumber = .Item("ReferencesNumber")
                         voReturn.IsFullDP = .Item("IsFullDP")
                         voReturn.IsGenerate = .Item("IsGenerate")
+                        voReturn.BPBankAccountID = .Item("BPBankAccountID")
+                        voReturn.BPBankAccountBank = .Item("BPBankAccountBank")
+                        voReturn.BPBankAccountNumber = .Item("BPBankAccountNumber")
                     End If
                 End With
             Catch ex As Exception
@@ -333,7 +344,8 @@
                         "   A.SubmitBy, A.SubmitDate, A.ApproveL1, A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.PaymentBy, A.PaymentDate, A.TaxInvoiceNumber, " & vbNewLine &
                         "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, " & vbNewLine &
                         "   A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice, A.InvoiceNumberBP, A.CompanyBankAccountID1, A.CompanyBankAccountID2, " & vbNewLine &
-                        "   A.PPNPercentage, A.PPHPercentage, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, A.IsFullDP, A.IsGenerate " & vbNewLine &
+                        "   A.PPNPercentage, A.PPHPercentage, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, A.IsFullDP, A.IsGenerate, " & vbNewLine &
+                        "   A.BPBankAccountID, ISNULL(BPBA.BankName,'') AS BPBankAccountBank, ISNULL(BPBA.AccountNumber,'') AS BPBankAccountNumber " & vbNewLine &
                         "FROM traAccountReceivable A " & vbNewLine &
                         "INNER JOIN mstStatus B ON " & vbNewLine &
                         "   A.StatusID=B.ID " & vbNewLine &
@@ -345,6 +357,8 @@
                         "   A.ProgramID=MP.ID " & vbNewLine &
                         "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
                         "   A.CoAIDOfIncomePayment=COA.ID " & vbNewLine &
+                        "LEFT JOIN mstBusinessPartnerBankAccount BPBA ON " & vbNewLine &
+                        "   A.BPBankAccountID=BPBA.ID " & vbNewLine &
                         "WHERE " & vbNewLine &
                         "   A.CompanyID=@CompanyID " & vbNewLine &
                         "   AND A.ProgramID=@ProgramID " & vbNewLine &
@@ -418,6 +432,9 @@
                         voReturn.TotalPPHInvoiceAmount = .Item("TotalPPHInvoiceAmount")
                         voReturn.IsFullDP = .Item("IsFullDP")
                         voReturn.IsGenerate = .Item("IsGenerate")
+                        voReturn.BPBankAccountID = .Item("BPBankAccountID")
+                        voReturn.BPBankAccountBank = .Item("BPBankAccountBank")
+                        voReturn.BPBankAccountNumber = .Item("BPBankAccountNumber")
                     End If
                 End With
             Catch ex As Exception

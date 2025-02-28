@@ -62,5 +62,6 @@ Namespace VO
         Property Save As VO.Save.Action
         Property TotalCostRawMaterial As Decimal
         Property JournalIDTransport As String
+        Property IsManualTransportPrice As Boolean
     End Class
 End Namespace

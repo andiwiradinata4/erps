@@ -16,5 +16,6 @@
         Property TotalWeight As Decimal
         Property ReceiveDate As DateTime
         Property InvoiceDate As DateTime
+        Property InvoiceNumberBP As String
     End Class
 End Namespace

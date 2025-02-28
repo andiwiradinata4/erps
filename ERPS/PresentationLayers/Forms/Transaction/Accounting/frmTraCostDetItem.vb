@@ -65,6 +65,7 @@
             intCoAID = drSelected.Item("CoAID")
             txtCoACode.Text = drSelected.Item("CoACode")
             txtCoAName.Text = drSelected.Item("CoAName")
+            txtInvoiceNumberBP.Text = drSelected.Item("InvoiceNumberBP")
             dtpReceiveDate.Value = drSelected.Item("ReceiveDate")
             dtpInvoiceDate.Value = drSelected.Item("InvoiceDate")
             txtPPNAmount.Value = drSelected.Item("PPNAmount")
@@ -94,6 +95,7 @@
             dr.Item("CoAID") = intCoAID
             dr.Item("CoACode") = txtCoACode.Text.Trim
             dr.Item("CoAName") = txtCoAName.Text.Trim
+            dr.Item("InvoiceNumberBP") = txtInvoiceNumberBP.Text
             dr.Item("ReceiveDate") = dtpReceiveDate.Value
             dr.Item("InvoiceDate") = dtpInvoiceDate.Value
             dr.Item("Amount") = txtAmount.Value
@@ -114,6 +116,7 @@
                     dr.Item("CoAID") = intCoAID
                     dr.Item("CoACode") = txtCoACode.Text.Trim
                     dr.Item("CoAName") = txtCoAName.Text.Trim
+                    dr.Item("InvoiceNumberBP") = txtInvoiceNumberBP.Text
                     dr.Item("ReceiveDate") = dtpReceiveDate.Value
                     dr.Item("InvoiceDate") = dtpInvoiceDate.Value
                     dr.Item("Amount") = txtAmount.Value

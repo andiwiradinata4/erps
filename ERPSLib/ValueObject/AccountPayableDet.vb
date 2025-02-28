@@ -14,7 +14,8 @@
         Property Quantity As Decimal
         Property Weight As Decimal
         Property TotalWeight As Decimal
-        Property ReceiveDate As DateTime
-        Property InvoiceDate As DateTime
+        Property ReceiveDate As DateTime = Today.Date
+        Property InvoiceDate As DateTime = Today.Date
+        Property InvoiceNumberBP As String = ""
     End Class
 End Namespace

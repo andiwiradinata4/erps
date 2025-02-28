@@ -60,6 +60,7 @@
         Property CoACodeOfStock As String
         Property CoANameOfStock As String
         Property TotalDiscountTransport As Decimal
+        Property IsManualTransportPrice As Boolean
 
         Public Enum PrintType
             None

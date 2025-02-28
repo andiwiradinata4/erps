@@ -44,6 +44,7 @@
         Property InvoiceNumberBP As String
         Property IsUseSubItem As Boolean
         Property Detail As New List(Of VO.AccountPayableDet)
+        Property DetailRemarks As New List(Of VO.ARAPRemarks)
         Property ARAPDownPayment As New List(Of VO.ARAPDP)
         Property ARAPDownPaymentDetail As New List(Of VO.ARAPDPDet)
         Property ARAPItem As New List(Of VO.ARAPItem)
@@ -68,6 +69,11 @@
         Property ReferencesNumber As String
         Property IsFullDP As Boolean
         Property IsGenerate As Boolean
+        Property BPBankAccountID As Integer
+        Property BPBankAccountBank As String
+        Property BPBankAccountNumber As String
+        Property InvoiceDateBP As DateTime
+        Property ReceiveDateInvoice As DateTime
 
         Public Const All As String = "AP"
         Public Const PurchaseBalance As String = "PB"

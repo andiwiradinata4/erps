@@ -191,6 +191,7 @@
         mnuTransaksiPembukuanPembayaranTransportasi.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, -1, VO.Access.Values.ViewAccess)
         Me.Cursor = Cursors.Default
         pgMain.Visible = False
+        mnuTransaksiPenjualanStock.Visible = False
     End Sub
 
 
@@ -821,24 +822,28 @@
     End Sub
 
     Private Sub mnuTransaksiPembukuanPembayaranHutangPesananPengiriman_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPembayaranTransportasi.Click
-        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraAccountPayable"
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraARAP"
         Me.Cursor = Cursors.WaitCursor
-        If Not IsNothing(frmMainTraAccountPayableReceivePaymentTransport) Then
-            If Not frmMainTraAccountPayableReceivePaymentTransport.IsDisposed Then
-                frmMainTraAccountPayableReceivePaymentTransport.WindowState = FormWindowState.Normal
-                frmMainTraAccountPayableReceivePaymentTransport.BringToFront()
-                frmMainTraAccountPayableReceivePaymentTransport.WindowState = FormWindowState.Maximized
+        If Not IsNothing(frmMainTraARAPPayable) Then
+            If Not frmMainTraARAPPayable.IsDisposed Then
+                frmMainTraARAPPayable.pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
+                frmMainTraARAPReceivable.pubModules = VO.AccountPayable.ReceivePaymentTransport
+                frmMainTraARAPPayable.WindowState = FormWindowState.Normal
+                frmMainTraARAPPayable.BringToFront()
+                frmMainTraARAPPayable.WindowState = FormWindowState.Maximized
             Else
-                frmMainTraAccountPayableReceivePaymentTransport = Activator.CreateInstance(Type.GetType(s_fT))
-                frmMainTraAccountPayableReceivePaymentTransport.MdiParent = Me
-                frmMainTraAccountPayableReceivePaymentTransport.pubModules = VO.AccountPayable.ReceivePaymentTransport
-                frmMainTraAccountPayableReceivePaymentTransport.Show()
+                frmMainTraARAPPayable = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraARAPPayable.MdiParent = Me
+                frmMainTraARAPPayable.pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
+                frmMainTraARAPPayable.pubModules = VO.AccountPayable.ReceivePaymentTransport
+                frmMainTraARAPPayable.Show()
             End If
         Else
-            frmMainTraAccountPayableReceivePaymentTransport = Activator.CreateInstance(Type.GetType(s_fT))
-            frmMainTraAccountPayableReceivePaymentTransport.MdiParent = Me
-            frmMainTraAccountPayableReceivePaymentTransport.pubModules = VO.AccountPayable.ReceivePaymentTransport
-            frmMainTraAccountPayableReceivePaymentTransport.Show()
+            frmMainTraARAPPayable = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraARAPPayable.MdiParent = Me
+            frmMainTraARAPPayable.pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
+            frmMainTraARAPPayable.pubModules = VO.AccountPayable.ReceivePaymentTransport
+            frmMainTraARAPPayable.Show()
         End If
         Me.Cursor = Cursors.Arrow
     End Sub

@@ -68,6 +68,11 @@
         Property ReferencesNumber As String
         Property IsFullDP As Boolean
         Property IsGenerate As Boolean
+        Property BPBankAccountID As Integer
+        Property BPBankAccountBank As String
+        Property BPBankAccountNumber As String
+        Property InvoiceDateBP As DateTime
+        Property ReceiveDateInvoice As DateTime
 
         Public Const All As String = "AR"
         Public Const SalesBalance As String = "SB"
