@@ -28,6 +28,7 @@
         Property Remarks As String
         Property StatusID As Integer
         Property Detail As New List(Of VO.CostDet)
+        Property DetailRemarks As New List(Of VO.ARAPRemarks)
         Property Save As VO.Save.Action
         Property PaidTo As String
         Property PaidAccount As String

@@ -31,6 +31,7 @@
                         If clsData.CostNumber.Trim = "" Then clsData.CostNumber = clsData.ID
                     Else
                         DL.Cost.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
+                        DL.ARAP.DeleteDataRemarks(sqlCon, sqlTrans, clsData.ID)
                     End If
 
                     Dim intStatusID As Integer = DL.Cost.GetStatusID(sqlCon, sqlTrans, clsData.ID)
@@ -54,6 +55,15 @@
                         clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
                         clsDet.CostID = clsData.ID
                         DL.Cost.SaveDataDetail(sqlCon, sqlTrans, clsDet)
+                        intCount += 1
+                    Next
+
+                    '# Save Data Remarks
+                    intCount = 1
+                    For Each clsDet As VO.ARAPRemarks In clsData.DetailRemarks
+                        clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
+                        clsDet.ParentID = clsData.ID
+                        DL.ARAP.SaveDataRemarks(sqlCon, sqlTrans, clsDet)
                         intCount += 1
                     Next
 

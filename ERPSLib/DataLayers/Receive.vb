@@ -1017,7 +1017,7 @@
                         "   RVD.ReceiveID=RVH.ID " & vbNewLine &
                         "WHERE  " & vbNewLine &
                         "   RVH.ID=@ID " & vbNewLine &
-                        "   AND RVD.ClaimQuantity>0 OR RVD.ClaimWeight>0 " & vbNewLine
+                        "   AND (RVD.ClaimQuantity>0 OR RVD.ClaimWeight>0) " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 End With

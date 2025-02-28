@@ -188,7 +188,7 @@
 
         '# Tidak bisa dipakai, ItemID Receive dengan ItemID Delivery berbeda sehingga tidak bisa cross total berat
         mnuMasterPersediaan.Visible = False
-
+        mnuTransaksiPembukuanPembayaranTransportasi.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, -1, VO.Access.Values.ViewAccess)
         Me.Cursor = Cursors.Default
         pgMain.Visible = False
     End Sub

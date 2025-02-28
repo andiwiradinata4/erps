@@ -1018,3 +1018,5 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.vbproj.Up2Date
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.exe
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.xml
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.pdb
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraAPTransporterDet.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPItemRemarks.resources

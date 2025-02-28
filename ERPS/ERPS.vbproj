@@ -603,6 +603,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPInvoiceDet.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPItemRemarks.Designer.vb">
+      <DependentUpon>frmTraARAPItemRemarks.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPItemRemarks.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraCost.Designer.vb">
       <DependentUpon>frmTraCost.vb</DependentUpon>
     </Compile>
@@ -1826,6 +1832,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPInvoiceDet.resx">
       <DependentUpon>frmTraARAPInvoiceDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPItemRemarks.resx">
+      <DependentUpon>frmTraARAPItemRemarks.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraCost.resx">
       <DependentUpon>frmTraCost.vb</DependentUpon>

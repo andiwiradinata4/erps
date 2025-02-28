@@ -509,7 +509,7 @@
                     "	POD.ItemID, MI.ItemCode, MI.ItemName, MI.ItemTypeID, IT.Description ItemType, 	" & vbNewLine &
                     "	MI.ItemSpecificationID, MIS.Description AS ItemSpec, MI.Thick AS ItemThick, 	" & vbNewLine &
                     "	MI.Width AS ItemWidth, MI.Length AS ItemLength, POD.Quantity, POD.Weight, 	" & vbNewLine &
-                    "	POD.TotalWeight AS TotalWeightItem, POD.UnitPrice, POD.TotalPrice, POH.StatusID " & vbNewLine &
+                    "	POD.TotalWeight AS TotalWeightItem, POD.UnitPrice, POD.TotalPrice, POH.StatusID, POD.ID AS PODetailID " & vbNewLine &
                     "FROM traPurchaseOrder POH 	" & vbNewLine &
                     "INNER JOIN mstCompany MC ON 	" & vbNewLine &
                     "	POH.CompanyID=MC.ID 	" & vbNewLine &
@@ -525,7 +525,8 @@
                     "	MI.ItemTypeID=IT.ID 	" & vbNewLine &
                     "INNER JOIN mstItemSpecification MIS ON 	" & vbNewLine &
                     "	MI.ItemSpecificationID=MIS.ID 	" & vbNewLine &
-                    "WHERE POH.ID=@ID	" & vbNewLine
+                    "WHERE POH.ID=@ID	" & vbNewLine &
+                    "ORDER BY MI.Thick ASC " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
             End With

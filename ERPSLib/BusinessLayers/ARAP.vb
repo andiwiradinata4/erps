@@ -2243,5 +2243,16 @@
 
 #End Region
 
+#Region "Remarks"
+
+        Public Shared Function ListDataRemarks(ByVal strParentID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ARAP.ListDataRemarks(sqlCon, Nothing, strParentID)
+            End Using
+        End Function
+
+#End Region
+
     End Class
 End Namespace

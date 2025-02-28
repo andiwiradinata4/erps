@@ -50,6 +50,13 @@ Partial Class frmTraAPTransporterDet
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.txtDueDateValue = New ERPS.usNumeric()
+        Me.tpRemarks = New System.Windows.Forms.TabPage()
+        Me.grdRemarks = New DevExpress.XtraGrid.GridControl()
+        Me.grdRemarksView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.ToolBarRemarksResult = New ERPS.usToolBar()
+        Me.BarAddRemarksResult = New System.Windows.Forms.ToolBarButton()
+        Me.BarEditRemarksResult = New System.Windows.Forms.ToolBarButton()
+        Me.BarDeleteRemarksResult = New System.Windows.Forms.ToolBarButton()
         Me.tpHistory = New System.Windows.Forms.TabPage()
         Me.grdStatus = New DevExpress.XtraGrid.GridControl()
         Me.grdStatusView = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -61,13 +68,6 @@ Partial Class frmTraAPTransporterDet
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.tpRemarks = New System.Windows.Forms.TabPage()
-        Me.ToolBarRemarksResult = New ERPS.usToolBar()
-        Me.BarAddRemarksResult = New System.Windows.Forms.ToolBarButton()
-        Me.BarEditRemarksResult = New System.Windows.Forms.ToolBarButton()
-        Me.BarDeleteRemarksResult = New System.Windows.Forms.ToolBarButton()
-        Me.grdRemarks = New DevExpress.XtraGrid.GridControl()
-        Me.grdRemarksView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         CType(Me.txtGrandTotal, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -75,15 +75,15 @@ Partial Class frmTraAPTransporterDet
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtDueDateValue, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tpRemarks.SuspendLayout()
+        CType(Me.grdRemarks, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdRemarksView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpHistory.SuspendLayout()
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tpRemarks.SuspendLayout()
-        CType(Me.grdRemarks, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdRemarksView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -95,7 +95,7 @@ Partial Class frmTraAPTransporterDet
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
         Me.ToolBar.Size = New System.Drawing.Size(884, 28)
-        Me.ToolBar.TabIndex = 1
+        Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
         'BarRefresh
@@ -119,7 +119,7 @@ Partial Class frmTraAPTransporterDet
         Me.lblInfo.Location = New System.Drawing.Point(0, 28)
         Me.lblInfo.Name = "lblInfo"
         Me.lblInfo.Size = New System.Drawing.Size(884, 22)
-        Me.lblInfo.TabIndex = 2
+        Me.lblInfo.TabIndex = 1
         Me.lblInfo.Text = "« Pembayaran Biaya Transporter"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -134,7 +134,7 @@ Partial Class frmTraAPTransporterDet
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
         Me.tcHeader.Size = New System.Drawing.Size(884, 200)
-        Me.tcHeader.TabIndex = 3
+        Me.tcHeader.TabIndex = 2
         '
         'tpMain
         '
@@ -179,7 +179,7 @@ Partial Class frmTraAPTransporterDet
         Me.txtGrandTotal.Name = "txtGrandTotal"
         Me.txtGrandTotal.ReadOnly = True
         Me.txtGrandTotal.Size = New System.Drawing.Size(249, 21)
-        Me.txtGrandTotal.TabIndex = 18
+        Me.txtGrandTotal.TabIndex = 10
         Me.txtGrandTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtGrandTotal.ThousandsSeparator = True
         '
@@ -203,7 +203,7 @@ Partial Class frmTraAPTransporterDet
         Me.txtBPCode.Name = "txtBPCode"
         Me.txtBPCode.ReadOnly = True
         Me.txtBPCode.Size = New System.Drawing.Size(83, 21)
-        Me.txtBPCode.TabIndex = 2
+        Me.txtBPCode.TabIndex = 1
         '
         'txtBPName
         '
@@ -214,7 +214,7 @@ Partial Class frmTraAPTransporterDet
         Me.txtBPName.Name = "txtBPName"
         Me.txtBPName.ReadOnly = True
         Me.txtBPName.Size = New System.Drawing.Size(167, 21)
-        Me.txtBPName.TabIndex = 3
+        Me.txtBPName.TabIndex = 2
         '
         'btnBP
         '
@@ -222,7 +222,7 @@ Partial Class frmTraAPTransporterDet
         Me.btnBP.Location = New System.Drawing.Point(389, 42)
         Me.btnBP.Name = "btnBP"
         Me.btnBP.Size = New System.Drawing.Size(23, 23)
-        Me.btnBP.TabIndex = 4
+        Me.btnBP.TabIndex = 3
         '
         'Label12
         '
@@ -257,7 +257,7 @@ Partial Class frmTraAPTransporterDet
         Me.txtTotalPPH.Name = "txtTotalPPH"
         Me.txtTotalPPH.ReadOnly = True
         Me.txtTotalPPH.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalPPH.TabIndex = 17
+        Me.txtTotalPPH.TabIndex = 9
         Me.txtTotalPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPPH.ThousandsSeparator = True
         '
@@ -281,7 +281,7 @@ Partial Class frmTraAPTransporterDet
         Me.txtTotalAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalAmount.Name = "txtTotalAmount"
         Me.txtTotalAmount.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalAmount.TabIndex = 15
+        Me.txtTotalAmount.TabIndex = 7
         Me.txtTotalAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalAmount.ThousandsSeparator = True
         '
@@ -329,7 +329,7 @@ Partial Class frmTraAPTransporterDet
         Me.txtTotalPPN.Name = "txtTotalPPN"
         Me.txtTotalPPN.ReadOnly = True
         Me.txtTotalPPN.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalPPN.TabIndex = 16
+        Me.txtTotalPPN.TabIndex = 8
         Me.txtTotalPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPPN.ThousandsSeparator = True
         '
@@ -341,7 +341,7 @@ Partial Class frmTraAPTransporterDet
         Me.dtpARAPDate.Location = New System.Drawing.Point(134, 70)
         Me.dtpARAPDate.Name = "dtpARAPDate"
         Me.dtpARAPDate.Size = New System.Drawing.Size(83, 21)
-        Me.dtpARAPDate.TabIndex = 7
+        Me.dtpARAPDate.TabIndex = 4
         Me.dtpARAPDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
         'Label11
@@ -374,7 +374,7 @@ Partial Class frmTraAPTransporterDet
         Me.cboStatus.Location = New System.Drawing.Point(134, 125)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(118, 21)
-        Me.cboStatus.TabIndex = 9
+        Me.cboStatus.TabIndex = 6
         '
         'Label10
         '
@@ -406,9 +406,84 @@ Partial Class frmTraAPTransporterDet
         Me.txtDueDateValue.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtDueDateValue.Name = "txtDueDateValue"
         Me.txtDueDateValue.Size = New System.Drawing.Size(83, 21)
-        Me.txtDueDateValue.TabIndex = 8
+        Me.txtDueDateValue.TabIndex = 5
         Me.txtDueDateValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtDueDateValue.ThousandsSeparator = True
+        '
+        'tpRemarks
+        '
+        Me.tpRemarks.Controls.Add(Me.grdRemarks)
+        Me.tpRemarks.Controls.Add(Me.ToolBarRemarksResult)
+        Me.tpRemarks.Location = New System.Drawing.Point(4, 25)
+        Me.tpRemarks.Name = "tpRemarks"
+        Me.tpRemarks.Size = New System.Drawing.Size(876, 171)
+        Me.tpRemarks.TabIndex = 2
+        Me.tpRemarks.Text = "Keterangan - F2"
+        Me.tpRemarks.UseVisualStyleBackColor = True
+        '
+        'grdRemarks
+        '
+        Me.grdRemarks.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdRemarks.EmbeddedNavigator.Buttons.Append.Enabled = False
+        Me.grdRemarks.EmbeddedNavigator.Buttons.Append.Visible = False
+        Me.grdRemarks.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
+        Me.grdRemarks.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
+        Me.grdRemarks.EmbeddedNavigator.Buttons.Edit.Enabled = False
+        Me.grdRemarks.EmbeddedNavigator.Buttons.Edit.Visible = False
+        Me.grdRemarks.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
+        Me.grdRemarks.EmbeddedNavigator.Buttons.EndEdit.Visible = False
+        Me.grdRemarks.EmbeddedNavigator.Buttons.NextPage.Enabled = False
+        Me.grdRemarks.EmbeddedNavigator.Buttons.NextPage.Visible = False
+        Me.grdRemarks.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
+        Me.grdRemarks.EmbeddedNavigator.Buttons.PrevPage.Visible = False
+        Me.grdRemarks.EmbeddedNavigator.Buttons.Remove.Enabled = False
+        Me.grdRemarks.EmbeddedNavigator.Buttons.Remove.Visible = False
+        Me.grdRemarks.Location = New System.Drawing.Point(0, 28)
+        Me.grdRemarks.MainView = Me.grdRemarksView
+        Me.grdRemarks.Name = "grdRemarks"
+        Me.grdRemarks.Size = New System.Drawing.Size(876, 143)
+        Me.grdRemarks.TabIndex = 19
+        Me.grdRemarks.UseEmbeddedNavigator = True
+        Me.grdRemarks.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdRemarksView})
+        '
+        'grdRemarksView
+        '
+        Me.grdRemarksView.GridControl = Me.grdRemarks
+        Me.grdRemarksView.Name = "grdRemarksView"
+        Me.grdRemarksView.OptionsCustomization.AllowColumnMoving = False
+        Me.grdRemarksView.OptionsCustomization.AllowGroup = False
+        Me.grdRemarksView.OptionsView.ColumnAutoWidth = False
+        Me.grdRemarksView.OptionsView.ShowGroupPanel = False
+        '
+        'ToolBarRemarksResult
+        '
+        Me.ToolBarRemarksResult.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
+        Me.ToolBarRemarksResult.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddRemarksResult, Me.BarEditRemarksResult, Me.BarDeleteRemarksResult})
+        Me.ToolBarRemarksResult.DropDownArrows = True
+        Me.ToolBarRemarksResult.Location = New System.Drawing.Point(0, 0)
+        Me.ToolBarRemarksResult.Name = "ToolBarRemarksResult"
+        Me.ToolBarRemarksResult.ShowToolTips = True
+        Me.ToolBarRemarksResult.Size = New System.Drawing.Size(876, 28)
+        Me.ToolBarRemarksResult.TabIndex = 18
+        Me.ToolBarRemarksResult.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'BarAddRemarksResult
+        '
+        Me.BarAddRemarksResult.Name = "BarAddRemarksResult"
+        Me.BarAddRemarksResult.Tag = "Add"
+        Me.BarAddRemarksResult.Text = "Tambah"
+        '
+        'BarEditRemarksResult
+        '
+        Me.BarEditRemarksResult.Name = "BarEditRemarksResult"
+        Me.BarEditRemarksResult.Tag = "Edit"
+        Me.BarEditRemarksResult.Text = "Edit"
+        '
+        'BarDeleteRemarksResult
+        '
+        Me.BarDeleteRemarksResult.Name = "BarDeleteRemarksResult"
+        Me.BarDeleteRemarksResult.Tag = "Delete"
+        Me.BarDeleteRemarksResult.Text = "Hapus"
         '
         'tpHistory
         '
@@ -463,7 +538,7 @@ Partial Class frmTraAPTransporterDet
         Me.Label14.Location = New System.Drawing.Point(0, 250)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(884, 22)
-        Me.Label14.TabIndex = 4
+        Me.Label14.TabIndex = 3
         Me.Label14.Text = "« Item"
         Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -476,7 +551,7 @@ Partial Class frmTraAPTransporterDet
         Me.ToolBarDetail.Name = "ToolBarDetail"
         Me.ToolBarDetail.ShowToolTips = True
         Me.ToolBarDetail.Size = New System.Drawing.Size(884, 28)
-        Me.ToolBarDetail.TabIndex = 5
+        Me.ToolBarDetail.TabIndex = 4
         Me.ToolBarDetail.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
         'BarCheckAll
@@ -497,7 +572,7 @@ Partial Class frmTraAPTransporterDet
         Me.pgMain.Location = New System.Drawing.Point(0, 609)
         Me.pgMain.Name = "pgMain"
         Me.pgMain.Size = New System.Drawing.Size(884, 22)
-        Me.pgMain.TabIndex = 8
+        Me.pgMain.TabIndex = 6
         '
         'grdItem
         '
@@ -521,7 +596,7 @@ Partial Class frmTraAPTransporterDet
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
         Me.grdItem.Size = New System.Drawing.Size(884, 309)
-        Me.grdItem.TabIndex = 9
+        Me.grdItem.TabIndex = 5
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
         '
@@ -542,81 +617,6 @@ Partial Class frmTraAPTransporterDet
         Me.rpiValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
-        '
-        'tpRemarks
-        '
-        Me.tpRemarks.Controls.Add(Me.grdRemarks)
-        Me.tpRemarks.Controls.Add(Me.ToolBarRemarksResult)
-        Me.tpRemarks.Location = New System.Drawing.Point(4, 25)
-        Me.tpRemarks.Name = "tpRemarks"
-        Me.tpRemarks.Size = New System.Drawing.Size(876, 171)
-        Me.tpRemarks.TabIndex = 2
-        Me.tpRemarks.Text = "Keterangan - F2"
-        Me.tpRemarks.UseVisualStyleBackColor = True
-        '
-        'ToolBarRemarksResult
-        '
-        Me.ToolBarRemarksResult.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarRemarksResult.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddRemarksResult, Me.BarEditRemarksResult, Me.BarDeleteRemarksResult})
-        Me.ToolBarRemarksResult.DropDownArrows = True
-        Me.ToolBarRemarksResult.Location = New System.Drawing.Point(0, 0)
-        Me.ToolBarRemarksResult.Name = "ToolBarRemarksResult"
-        Me.ToolBarRemarksResult.ShowToolTips = True
-        Me.ToolBarRemarksResult.Size = New System.Drawing.Size(876, 28)
-        Me.ToolBarRemarksResult.TabIndex = 18
-        Me.ToolBarRemarksResult.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
-        'BarAddRemarksResult
-        '
-        Me.BarAddRemarksResult.Name = "BarAddRemarksResult"
-        Me.BarAddRemarksResult.Tag = "Add"
-        Me.BarAddRemarksResult.Text = "Tambah"
-        '
-        'BarEditRemarksResult
-        '
-        Me.BarEditRemarksResult.Name = "BarEditRemarksResult"
-        Me.BarEditRemarksResult.Tag = "Edit"
-        Me.BarEditRemarksResult.Text = "Edit"
-        '
-        'BarDeleteRemarksResult
-        '
-        Me.BarDeleteRemarksResult.Name = "BarDeleteRemarksResult"
-        Me.BarDeleteRemarksResult.Tag = "Delete"
-        Me.BarDeleteRemarksResult.Text = "Hapus"
-        '
-        'grdRemarks
-        '
-        Me.grdRemarks.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdRemarks.EmbeddedNavigator.Buttons.Append.Enabled = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.Append.Visible = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.Edit.Enabled = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.Edit.Visible = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.EndEdit.Visible = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.NextPage.Enabled = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.NextPage.Visible = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.PrevPage.Visible = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.Remove.Enabled = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdRemarks.Location = New System.Drawing.Point(0, 28)
-        Me.grdRemarks.MainView = Me.grdRemarksView
-        Me.grdRemarks.Name = "grdRemarks"
-        Me.grdRemarks.Size = New System.Drawing.Size(876, 143)
-        Me.grdRemarks.TabIndex = 19
-        Me.grdRemarks.UseEmbeddedNavigator = True
-        Me.grdRemarks.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdRemarksView})
-        '
-        'grdRemarksView
-        '
-        Me.grdRemarksView.GridControl = Me.grdRemarks
-        Me.grdRemarksView.Name = "grdRemarksView"
-        Me.grdRemarksView.OptionsCustomization.AllowColumnMoving = False
-        Me.grdRemarksView.OptionsCustomization.AllowGroup = False
-        Me.grdRemarksView.OptionsView.ColumnAutoWidth = False
-        Me.grdRemarksView.OptionsView.ShowGroupPanel = False
         '
         'frmTraAPTransporterDet
         '
@@ -642,16 +642,16 @@ Partial Class frmTraAPTransporterDet
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtDueDateValue, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tpRemarks.ResumeLayout(False)
+        Me.tpRemarks.PerformLayout()
+        CType(Me.grdRemarks, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdRemarksView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpHistory.ResumeLayout(False)
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tpRemarks.ResumeLayout(False)
-        Me.tpRemarks.PerformLayout()
-        CType(Me.grdRemarks, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdRemarksView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
