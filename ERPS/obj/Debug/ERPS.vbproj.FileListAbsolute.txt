@@ -1024,3 +1024,7 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraAPTransporterD
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPItemRemarks.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptCostBankOutVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraAPCost.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraAPCost.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraAPCuttingDet.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraAPTransporterDet.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPItemRemarks.resources

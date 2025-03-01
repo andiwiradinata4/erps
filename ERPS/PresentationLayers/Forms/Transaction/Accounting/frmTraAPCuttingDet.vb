@@ -63,7 +63,6 @@ Public Class frmTraAPCuttingDet
         UI.usForm.SetGrid(grdItemView, "InvoiceNumberBP", "Nomor Invoice", 100, UI.usDefGrid.gString, True, False)
         UI.usForm.SetGrid(grdItemView, "ReceiveDate", "Tanggal Terima", 180, UI.usDefGrid.gSmallDate, True, False)
         UI.usForm.SetGrid(grdItemView, "InvoiceDate", "Tanggal Invoice", 180, UI.usDefGrid.gSmallDate, True, False)
-        UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 250, UI.usDefGrid.gString, True, False)
         UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "ItemName", "Nama Barang", 250, UI.usDefGrid.gString, False)
@@ -117,8 +116,8 @@ Public Class frmTraAPCuttingDet
                 txtBPBankAccountBank.Text = clsData.BPBankAccountBank
                 txtBPBankAccountNumber.Text = clsData.BPBankAccountNumber
                 txtInvoiceNumberBP.Text = clsData.InvoiceNumberBP
-                dtpReceiveDate.Value = Today.Date
-                dtpInvoiceDate.Value = Today.Date
+                dtpReceiveDate.Value = clsData.ReceiveDateInvoice
+                dtpInvoiceDate.Value = clsData.InvoiceDateBP
                 dtpARAPDate.Value = clsData.APDate
                 txtDueDateValue.Value = clsData.DueDateValue
                 txtPPN.Value = clsData.PPNPercentage
@@ -126,6 +125,7 @@ Public Class frmTraAPCuttingDet
                 txtTotalAmount.Value = clsData.TotalAmount
                 txtTotalPPN.Value = clsData.TotalPPN
                 txtTotalPPH.Value = clsData.TotalPPH
+                txtGrandTotal.Value = clsData.TotalAmount + clsData.TotalPPN - clsData.TotalPPH
                 cboStatus.SelectedValue = clsData.StatusID
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
@@ -202,6 +202,12 @@ Public Class frmTraAPCuttingDet
             Exit Sub
         End If
 
+        Dim drPick() As DataRow = dtItem.Select("Pick=True")
+        If drPick.Count = 0 Then
+            UI.usForm.frmMessageBox("Tidak ada item yang tercentang")
+            Exit Sub
+        End If
+
         Dim frmDetail As New usFormSave
         Dim intSave As VO.Save.Action
         With frmDetail
@@ -214,25 +220,57 @@ Public Class frmTraAPCuttingDet
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
 
-        Dim clsDataDetailAll As New List(Of VO.AccountPayableDet)
-        With dtItem
-            For Each dr As DataRow In .Rows
-                If Not dr.Item("Pick") Or dr.Item("Amount") = 0 Then Continue For
-                clsDataDetailAll.Add(New VO.AccountPayableDet With
-                                     {
-                                         .APID = pubID,
-                                         .PurchaseID = dr.Item("PurchaseID"),
-                                         .Amount = dr.Item("Amount"),
-                                         .PPN = dr.Item("PPN"),
-                                         .PPH = dr.Item("PPH"),
-                                         .Remarks = UCase(dr.Item("Remarks")),
-                                         .InvoiceNumberBP = UCase(dr.Item("InvoiceNumberBP")),
-                                         .ReceiveDate = dr.Item("ReceiveDate"),
-                                         .InvoiceDate = dr.Item("InvoiceDate"),
-                                         .ReferencesParentID = ""
-                                    })
-            Next
-        End With
+        Dim listDetailItem As New List(Of VO.ARAPItem)
+        For Each dr As DataRow In dtItem.Rows
+            If dr.Item("Pick") Then
+                Dim clsDetailItem As New VO.ARAPItem
+                clsDetailItem.ID = ""
+                clsDetailItem.ParentID = strID
+                clsDetailItem.ReferencesID = dr.Item("ReferencesID")
+                clsDetailItem.ReferencesDetailID = dr.Item("ReferencesDetailID")
+                clsDetailItem.OrderNumberSupplier = dr.Item("OrderNumberSupplier")
+                clsDetailItem.ItemID = dr.Item("ItemID")
+                clsDetailItem.Amount = dr.Item("Amount")
+                clsDetailItem.PPN = dr.Item("PPN")
+                clsDetailItem.PPH = dr.Item("PPH")
+                clsDetailItem.DPAmount = 0
+                clsDetailItem.Rounding = 0
+                clsDetailItem.LevelItem = dr.Item("LevelItem")
+                clsDetailItem.ReferencesParentID = dr.Item("ReferencesParentID")
+                clsDetailItem.Quantity = 0
+                clsDetailItem.Weight = 0
+                clsDetailItem.TotalWeight = 0
+                clsDetailItem.InvoiceNumberBP = txtInvoiceNumberBP.Text.Trim
+                clsDetailItem.ReceiveDateInvoice = dtpReceiveDate.Value.Date
+                clsDetailItem.InvoiceDateBP = dtpInvoiceDate.Value.Date
+                listDetailItem.Add(clsDetailItem)
+            End If
+        Next
+
+        Dim dsHelper As New DataSetHelper
+        Dim dtARAPDet As DataTable = dsHelper.SelectGroupByInto("ARAPDet", dtItem, "Pick, ReferencesID, SUM(Amount) Amount, SUM(PPN) PPN, SUM(PPH) PPH, LevelItem, ReferencesParentID", "Pick=True", "Pick, ReferencesID, LevelItem, ReferencesParentID")
+        Dim listDetail As New List(Of VO.AccountPayableDet)
+        For Each dr As DataRow In dtARAPDet.Rows
+            listDetail.Add(New ERPSLib.VO.AccountPayableDet With
+                       {
+                           .ID = "",
+                           .APID = strID,
+                           .PurchaseID = dr.Item("ReferencesID"),
+                           .Amount = dr.Item("Amount"),
+                           .PPN = dr.Item("PPN"),
+                           .PPH = dr.Item("PPH"),
+                           .Remarks = "",
+                           .DPAmount = 0,
+                           .LevelItem = dr.Item("LevelItem"),
+                           .ReferencesParentID = dr.Item("ReferencesParentID"),
+                           .Quantity = 0,
+                           .Weight = 0,
+                           .TotalWeight = 0,
+                           .InvoiceNumberBP = txtInvoiceNumberBP.Text.Trim,
+                           .ReceiveDate = dtpReceiveDate.Value.Date,
+                           .InvoiceDate = dtpInvoiceDate.Value.Date
+                       })
+        Next
 
         Dim clsDataRemarksAll As New List(Of VO.ARAPRemarks)
         With dtRemarks
@@ -250,7 +288,7 @@ Public Class frmTraAPCuttingDet
         clsData.CompanyID = pubCS.CompanyID
         clsData.ID = pubID
         clsData.APNumber = txtARAPNumber.Text.Trim
-        clsData.Modules = VO.AccountPayable.ReceivePaymentTransport
+        clsData.Modules = VO.AccountPayable.ReceivePaymentCutting
         clsData.ReferencesID = ""
         clsData.ReferencesNote = ""
         clsData.BPID = intBPID
@@ -260,14 +298,21 @@ Public Class frmTraAPCuttingDet
         clsData.BPBankAccountBank = txtBPBankAccountBank.Text.Trim
         clsData.BPBankAccountNumber = txtBPBankAccountNumber.Text.Trim
         clsData.APDate = dtpARAPDate.Value
+        clsData.InvoiceNumberBP = txtInvoiceNumberBP.Text.Trim
+        clsData.InvoiceDateBP = dtpInvoiceDate.Value.Date
+        clsData.ReceiveDateInvoice = dtpReceiveDate.Value.Date
+        clsData.DueDateValue = txtDueDateValue.Value
         clsData.TotalAmount = txtTotalAmount.Value
         clsData.TotalPPN = txtTotalPPN.Value
         clsData.TotalPPH = txtTotalPPH.Value
         clsData.ReceiveAmount = txtTotalAmount.Value
         clsData.StatusID = cboStatus.SelectedValue
+        clsData.PPNPercentage = txtPPN.Value
+        clsData.PPHPercentage = txtPPH.Value
         clsData.Remarks = ""
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        clsData.Detail = clsDataDetailAll
+        clsData.Detail = listDetail
+        clsData.ARAPItem = listDetailItem
         clsData.DetailRemarks = clsDataRemarksAll
         clsData.Save = intSave
 
@@ -275,7 +320,7 @@ Public Class frmTraAPCuttingDet
         pgMain.Value = 30
 
         Try
-            Dim strID As String = BL.AccountPayable.SaveDataVer00_ReceivePaymentTransport(pubIsNew, clsData)
+            Dim strID As String = BL.AccountPayable.SaveDataVer00_ReceivePaymentCutting(pubIsNew, clsData)
             UI.usForm.frmMessageBox("Data berhasil disimpan. " & vbCrLf & "Nomor : " & strID)
             pgMain.Value = 80
             frmParent.pubRefresh(strID)
@@ -373,7 +418,7 @@ Public Class frmTraAPCuttingDet
                 .SetRowCellValue(i, "Pick", bolValue)
                 .UpdateCurrentRow()
             Next
-            prvCalculate()
+            prvRecalculateItem()
         End With
     End Sub
 
@@ -407,6 +452,8 @@ Public Class frmTraAPCuttingDet
                     intBPBankAccountID = 0
                     txtBPBankAccountBank.Text = ""
                     txtBPBankAccountNumber.Text = ""
+                    txtPPN.Value = .pubLUdtRow.Item("PPN")
+                    txtPPH.Value = .pubLUdtRow.Item("PPH")
                 End If
 
                 intBPID = .pubLUdtRow.Item("ID")
@@ -422,6 +469,8 @@ Public Class frmTraAPCuttingDet
         With grdItemView
             For i As Integer = 0 To .RowCount - 1
                 If .GetRowCellValue(i, "Pick") Then
+                    .SetRowCellValue(i, "PPN", 0)
+                    .SetRowCellValue(i, "PPH", 0)
                     Dim decAmount As Decimal = .GetRowCellValue(i, "Amount")
                     If txtPPN.Value > 0 Then .SetRowCellValue(i, "PPN", ERPSLib.SharedLib.Math.Round(decAmount * txtPPN.Value / 100, 2))
                     If txtPPH.Value > 0 Then .SetRowCellValue(i, "PPH", ERPSLib.SharedLib.Math.Round(decAmount * txtPPH.Value / 100, 2))

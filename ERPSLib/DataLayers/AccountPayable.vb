@@ -130,11 +130,11 @@
                         "INSERT INTO traAccountPayable " & vbNewLine &
                         "   (ID, CompanyID, ProgramID, APNumber, BPID, CoAIDOfOutgoingPayment, Modules, ReferencesID, ReferencesNote, " & vbNewLine &
                         "    APDate, DueDateValue, DueDate, TotalAmount, Percentage, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, " & vbNewLine &
-                        "    TotalPPN, TotalPPH, IsDP, DPAmount, ReceiveAmount, IsUseSubItem, PPNPercentage, PPHPercentage, IsFullDP, BPBankAccountID) " & vbNewLine &
+                        "    TotalPPN, TotalPPH, IsDP, DPAmount, ReceiveAmount, IsUseSubItem, PPNPercentage, PPHPercentage, IsFullDP, BPBankAccountID, InvoiceNumberBP, InvoiceDateBP, ReceiveDateInvoice) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @CompanyID, @ProgramID, @APNumber, @BPID, @CoAIDOfOutgoingPayment, @Modules, @ReferencesID, @ReferencesNote, " & vbNewLine &
                         "    @APDate, @DueDateValue, @DueDate, @TotalAmount, @Percentage, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), " & vbNewLine &
-                        "    @TotalPPN, @TotalPPH, @IsDP, @DPAmount, @ReceiveAmount, @IsUseSubItem, @PPNPercentage, @PPHPercentage, @IsFullDP, @BPBankAccountID) " & vbNewLine
+                        "    @TotalPPN, @TotalPPH, @IsDP, @DPAmount, @ReceiveAmount, @IsUseSubItem, @PPNPercentage, @PPHPercentage, @IsFullDP, @BPBankAccountID, @InvoiceNumberBP, @InvoiceDateBP, @ReceiveDateInvoice) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE traAccountPayable SET " & vbNewLine &
@@ -165,7 +165,10 @@
                         "    PPNPercentage=@PPNPercentage, " & vbNewLine &
                         "    PPHPercentage=@PPHPercentage, " & vbNewLine &
                         "    IsFullDP=@IsFullDP, " & vbNewLine &
-                        "    BPBankAccountID=@BPBankAccountID " & vbNewLine &
+                        "    BPBankAccountID=@BPBankAccountID, " & vbNewLine &
+                        "    InvoiceNumberBP=@InvoiceNumberBP, " & vbNewLine &
+                        "    InvoiceDateBP=@InvoiceDateBP, " & vbNewLine &
+                        "    ReceiveDateInvoice=@ReceiveDateInvoice " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -197,6 +200,9 @@
                 .Parameters.Add("@PPHPercentage", SqlDbType.Decimal).Value = clsData.PPHPercentage
                 .Parameters.Add("@IsFullDP", SqlDbType.Bit).Value = clsData.IsFullDP
                 .Parameters.Add("@BPBankAccountID", SqlDbType.Int).Value = clsData.BPBankAccountID
+                .Parameters.Add("@InvoiceNumberBP", SqlDbType.VarChar, 1000).Value = clsData.InvoiceNumberBP
+                .Parameters.Add("@InvoiceDateBP", SqlDbType.DateTime).Value = clsData.InvoiceDateBP
+                .Parameters.Add("@ReceiveDateInvoice", SqlDbType.DateTime).Value = clsData.ReceiveDateInvoice
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -224,7 +230,7 @@
                         "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice, A.InvoiceNumberBP, A.IsUseSubItem, " & vbNewLine &
                         "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, A.PPNPercentage, A.PPHPercentage, " & vbNewLine &
                         "   A.PPNPercentage, A.PPHPercentage, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, A.ReferencesNumber, A.IsFullDP, A.IsGenerate, " & vbNewLine &
-                        "   A.BPBankAccountID, ISNULL(BPBA.BankName,'') AS BPBankAccountBank, ISNULL(BPBA.AccountNumber,'') AS BPBankAccountNumber " & vbNewLine &
+                        "   A.BPBankAccountID, ISNULL(BPBA.BankName,'') AS BPBankAccountBank, ISNULL(BPBA.AccountNumber,'') AS BPBankAccountNumber, A.InvoiceNumberBP, A.InvoiceDateBP, A.ReceiveDateInvoice " & vbNewLine &
                         "FROM traAccountPayable A " & vbNewLine &
                         "INNER JOIN mstStatus B ON " & vbNewLine &
                         "   A.StatusID=B.ID " & vbNewLine &
@@ -317,6 +323,8 @@
                         voReturn.BPBankAccountID = .Item("BPBankAccountID")
                         voReturn.BPBankAccountBank = .Item("BPBankAccountBank")
                         voReturn.BPBankAccountNumber = .Item("BPBankAccountNumber")
+                        voReturn.InvoiceDateBP = .Item("InvoiceDateBP")
+                        voReturn.ReceiveDateInvoice = .Item("ReceiveDateInvoice")
                     End If
                 End With
             Catch ex As Exception
@@ -838,7 +846,7 @@
                 .CommandText = _
 "SELECT    " & vbNewLine & _
 "	CH.APNumber AS TransNumber, CH.APDate AS TransDate, MC.Name AS CompanyName, '' AS VoucherCode,    " & vbNewLine & _
-"	MBP.Name AS PaidTo, MBPBA.BankName + ' A/C ' + MBPBA.AccountNumber AS PaidAccount, CH.TotalAmount, ISNULL(ARR.Remarks,CH.Remarks) AS Remarks, MUC.Name AS CreatedBy, CH.CreatedDate, NULL AS CheckedDate,    " & vbNewLine & _
+"	MBP.Name AS PaidTo, MBPBA.BankName + ' A/C ' + MBPBA.AccountNumber AS PaidAccount, CH.TotalAmount+CH.TotalPPN-CH.TotalPPH AS TotalAmount, ISNULL(ARR.Remarks,CH.Remarks) AS Remarks, MUC.Name AS CreatedBy, CH.CreatedDate, NULL AS CheckedDate,    " & vbNewLine & _
 "	'' AS CheckedBy, MUP.Name AS PaidBy, CASE WHEN CH.PaymentBy='' THEN NULL ELSE CH.PaymentDate END AS PaidDate,   " & vbNewLine & _
 "	MC.DirectorName AS ApprovedBy, NULL AS ApprovedDate, 'KETERANGAN' AS Description, ':' AS DescriptionSeparator   " & vbNewLine & _
 "FROM traAccountPayable CH    " & vbNewLine & _
@@ -2652,7 +2660,7 @@
                     "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, B.TotalPrice AS InvoiceAmount, A.Amount, A.PPN, A.PPH, A.Rounding, B.TotalPrice-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, " & vbNewLine &
                     "   MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length, MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, " & vbNewLine &
-                    "   MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID, MI.ItemCodeExternal, A.InvoiceNumberBP, A.ReceiveDate, A.InvoiceDate, CAST('' AS VARCHAR(250)) AS Remarks " & vbNewLine &
+                    "   MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID, MI.ItemCodeExternal, A.InvoiceNumberBP, A.ReceiveDateInvoice AS ReceiveDate, A.InvoiceDateBP AS InvoiceDate, CAST('' AS VARCHAR(250)) AS Remarks " & vbNewLine &
                     "FROM traARAPItem A " & vbNewLine &
                     "INNER JOIN traCuttingDet B ON " & vbNewLine &
                     "   A.ReferencesDetailID=B.ID " & vbNewLine &
@@ -2672,8 +2680,8 @@
                     "   CAST(0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.CuttingID AS ReferencesID, A.ID AS ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, A.TotalPrice AS InvoiceAmount, A.TotalPrice-A.ReceiveAmount AS Amount, CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
                     "   A.TotalPrice-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length, MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, " & vbNewLine &
-                    "   MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID, CAST('' AS VARCHAR(1000)) AS InvoiceNumberBP, GETDATE() AS ReceiveDate, GETDATE() AS InvoiceDate, CAST('' AS VARCHAR(250)) AS Remarks " & vbNewLine &
-                    "   MI.ItemCodeExternal " & vbNewLine &
+                    "   MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID, MI.ItemCodeExternal, CAST('' AS VARCHAR(1000)) AS InvoiceNumberBP, GETDATE() AS ReceiveDate, GETDATE() AS InvoiceDate, " & vbNewLine &
+                    "   CAST('' AS VARCHAR(250)) AS Remarks " & vbNewLine &
                     "FROM traCuttingDet A " & vbNewLine &
                     "INNER JOIN traCutting B ON " & vbNewLine &
                     "   A.CuttingID=B.ID " & vbNewLine &
@@ -2687,7 +2695,6 @@
                     "   B.BPID=@BPID " & vbNewLine &
                     "   AND B.CompanyID=@CompanyID " & vbNewLine &
                     "   AND B.ProgramID=@ProgramID " & vbNewLine &
-                    "   AND A.CuttingID=@ReferencesID " & vbNewLine &
                     "   AND B.SubmitBy<>'' " & vbNewLine &
                     "   AND A.TotalPrice-A.ReceiveAmount>0 " & vbNewLine &
                     "   AND A.TotalWeight-A.InvoiceTotalWeight>0 " & vbNewLine &

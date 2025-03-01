@@ -726,31 +726,44 @@ Namespace DL
                     "	TotalPaymentTransport=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(TDD.ReceiveAmountTransport),0) TotalPayment		" & vbNewLine &
-                    "		FROM traSalesReturnDet TDD " & vbNewLine &
+                    "			ISNULL(SUM(TDD.Amount),0) Amount " & vbNewLine &
+                    "		FROM traAccountPayableDet TDD " & vbNewLine &
+                    "		INNER JOIN traAccountPayable AR ON " & vbNewLine &
+                    "		    TDD.APID=AR.ID  " & vbNewLine &
                     "		WHERE 	" & vbNewLine &
-                    "			TDD.SalesReturnID=@ID 	" & vbNewLine &
+                    "			TDD.PurchaseID=@PurchaseID 	" & vbNewLine &
+                    "			AND AR.IsDeleted=0 " & vbNewLine &
+                    "			AND (AR.Modules=@ModulesDeliveryTransport OR AR.Modules=@ModulesReturnTransport) " & vbNewLine &
                     "	), " & vbNewLine &
                     "	TotalPaymentPPNTransport=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(TDD.ReceiveAmountPPNTransport),0) TotalPayment		" & vbNewLine &
-                    "		FROM traSalesReturnDet TDD " & vbNewLine &
+                    "			ISNULL(SUM(TDD.PPN),0) Amount " & vbNewLine &
+                    "		FROM traAccountPayableDet TDD " & vbNewLine &
+                    "		INNER JOIN traAccountPayable AR ON " & vbNewLine &
+                    "		    TDD.APID=AR.ID  " & vbNewLine &
                     "		WHERE 	" & vbNewLine &
-                    "			TDD.SalesReturnID=@ID 	" & vbNewLine &
+                    "			TDD.PurchaseID=@PurchaseID 	" & vbNewLine &
+                    "			AND AR.IsDeleted=0 " & vbNewLine &
+                    "			AND (AR.Modules=@ModulesDeliveryTransport OR AR.Modules=@ModulesReturnTransport) " & vbNewLine &
                     "	), " & vbNewLine &
                     "	TotalPaymentPPHTransport=	" & vbNewLine &
                     "	(	" & vbNewLine &
                     "		SELECT	" & vbNewLine &
-                    "			ISNULL(SUM(TDD.ReceiveAmountPPHTransport),0) TotalPayment		" & vbNewLine &
-                    "		FROM traSalesReturnDet TDD " & vbNewLine &
+                    "			ISNULL(SUM(TDD.PPH),0) Amount " & vbNewLine &
+                    "		FROM traAccountPayableDet TDD " & vbNewLine &
+                    "		INNER JOIN traAccountPayable AR ON " & vbNewLine &
+                    "		    TDD.APID=AR.ID  " & vbNewLine &
                     "		WHERE 	" & vbNewLine &
-                    "			TDD.SalesReturnID=@ID 	" & vbNewLine &
+                    "			TDD.PurchaseID=@PurchaseID 	" & vbNewLine &
+                    "			AND AR.IsDeleted=0 " & vbNewLine &
+                    "			AND (AR.Modules=@ModulesDeliveryTransport OR AR.Modules=@ModulesReturnTransport) " & vbNewLine &
                     "	) " & vbNewLine &
                     "WHERE ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
-                .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePaymentTransportSalesReturn
+                .Parameters.Add("@ModulesDeliveryTransport", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePaymentTransport
+                .Parameters.Add("@ModulesReturnTransport", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePaymentTransportSalesReturn
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

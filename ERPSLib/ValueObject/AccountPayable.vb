@@ -41,7 +41,7 @@
         Property CompanyBankAccount1 As Integer
         Property CompanyBankAccount2 As Integer
         Property OtherExpenses As Decimal
-        Property InvoiceNumberBP As String
+        Property InvoiceNumberBP As String = ""
         Property IsUseSubItem As Boolean
         Property Detail As New List(Of VO.AccountPayableDet)
         Property DetailRemarks As New List(Of VO.ARAPRemarks)
@@ -72,8 +72,8 @@
         Property BPBankAccountID As Integer
         Property BPBankAccountBank As String
         Property BPBankAccountNumber As String
-        Property InvoiceDateBP As DateTime
-        Property ReceiveDateInvoice As DateTime
+        Property InvoiceDateBP As DateTime = Today.Date
+        Property ReceiveDateInvoice As DateTime = Today.Date
 
         Public Const All As String = "AP"
         Public Const PurchaseBalance As String = "PB"

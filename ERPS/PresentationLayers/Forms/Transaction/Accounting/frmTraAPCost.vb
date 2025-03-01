@@ -252,7 +252,7 @@ Public Class frmTraAPCost
                 .StartPosition = FormStartPosition.CenterScreen
                 .pubShowDialog(Me)
             End With
-        ElseIf strModules = VO.AccountPayable.ReceivePaymentTransport Then
+        ElseIf strModules = VO.AccountPayable.ReceivePaymentCutting Then
             frmDetail = New frmTraAPCuttingDet
             With frmDetail
                 .pubIsNew = False

@@ -1374,9 +1374,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traARAPItem " & vbNewLine &
-                    "   (ID, ParentID, ReferencesID, ReferencesDetailID, OrderNumberSupplier, ItemID, Amount, PPN, PPH, DPAmount, Rounding, LevelItem, ReferencesParentID, Quantity, Weight, TotalWeight, SplitFrom) " & vbNewLine &
+                    "   (ID, ParentID, ReferencesID, ReferencesDetailID, OrderNumberSupplier, ItemID, Amount, PPN, PPH, DPAmount, Rounding, LevelItem, ReferencesParentID, Quantity, Weight, TotalWeight, SplitFrom, InvoiceDateBP, ReceiveDateInvoice, InvoiceNumberBP) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @ParentID, @ReferencesID, @ReferencesDetailID, @OrderNumberSupplier, @ItemID, @Amount, @PPN, @PPH, @DPAmount, @Rounding, @LevelItem, @ReferencesParentID, @Quantity, @Weight, @TotalWeight, @SplitFrom) " & vbNewLine
+                    "   (@ID, @ParentID, @ReferencesID, @ReferencesDetailID, @OrderNumberSupplier, @ItemID, @Amount, @PPN, @PPH, @DPAmount, @Rounding, @LevelItem, @ReferencesParentID, @Quantity, @Weight, @TotalWeight, @SplitFrom, @InvoiceDateBP, @ReceiveDateInvoice, @InvoiceNumberBP) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
@@ -1395,6 +1395,9 @@
                 .Parameters.Add("@Weight", SqlDbType.Decimal).Value = clsData.Weight
                 .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
                 .Parameters.Add("@SplitFrom", SqlDbType.VarChar, 100).Value = clsData.SplitFrom
+                .Parameters.Add("@InvoiceDateBP", SqlDbType.DateTime).Value = clsData.InvoiceDateBP
+                .Parameters.Add("@ReceiveDateInvoice", SqlDbType.DateTime).Value = clsData.ReceiveDateInvoice
+                .Parameters.Add("@InvoiceNumberBP", SqlDbType.VarChar, 1000).Value = clsData.InvoiceNumberBP
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

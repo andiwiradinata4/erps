@@ -183,6 +183,12 @@ Public Class frmTraAPTransporterDet
             Exit Sub
         End If
 
+        Dim drPick() As DataRow = dtItem.Select("Pick=True")
+        If drPick.Count = 0 Then
+            UI.usForm.frmMessageBox("Tidak ada item yang tercentang")
+            Exit Sub
+        End If
+
         Dim frmDetail As New usFormSave
         Dim intSave As VO.Save.Action
         With frmDetail

@@ -92,6 +92,7 @@
                     DevelopOnProgress_ID83(sqlCon, sqlTrans)
                     DevelopOnProgress_ID84(sqlCon, sqlTrans)
                     DevelopOnProgress_ID85(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID86(sqlCon, sqlTrans)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()

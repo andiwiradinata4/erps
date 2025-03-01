@@ -118,8 +118,8 @@ Partial Class frmTraDeliveryDet
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.BarAddMultiItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarSep1ItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarAddMultiItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         Me.tpAmount.SuspendLayout()
@@ -933,7 +933,7 @@ Partial Class frmTraDeliveryDet
         Me.gboTransport.Controls.Add(Me.txtTotalPPNTransport)
         Me.gboTransport.Location = New System.Drawing.Point(424, 15)
         Me.gboTransport.Name = "gboTransport"
-        Me.gboTransport.Size = New System.Drawing.Size(334, 145)
+        Me.gboTransport.Size = New System.Drawing.Size(461, 145)
         Me.gboTransport.TabIndex = 5
         Me.gboTransport.TabStop = False
         Me.gboTransport.Text = "Total Harga Transport"
@@ -1255,16 +1255,16 @@ Partial Class frmTraDeliveryDet
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
         '
+        'BarSep1ItemOrder
+        '
+        Me.BarSep1ItemOrder.Name = "BarSep1ItemOrder"
+        Me.BarSep1ItemOrder.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
         'BarAddMultiItemOrder
         '
         Me.BarAddMultiItemOrder.Name = "BarAddMultiItemOrder"
         Me.BarAddMultiItemOrder.Tag = "Add"
         Me.BarAddMultiItemOrder.Text = "Tambah Multi"
-        '
-        'BarSep1ItemOrder
-        '
-        Me.BarSep1ItemOrder.Name = "BarSep1ItemOrder"
-        Me.BarSep1ItemOrder.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
         'frmTraDeliveryDet
         '
