@@ -27,5 +27,8 @@
         Property PPNPercentage As Decimal
         Property PPHPercentage As Decimal
         Property SplitFrom As String = ""
+        Property ReceiveDate As DateTime = Today
+        Property InvoiceDate As DateTime = Today
+        Property InvoiceNumberBP As String = ""
     End Class
 End Namespace

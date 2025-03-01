@@ -422,6 +422,40 @@
             Return intReturn
         End Function
 
+        Public Shared Function GetMaxNo(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                        ByVal strNewID As String) As Integer
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim intReturn As Integer = 0
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 ISNULL(RIGHT(APNumber,4),'0000') APNumber " & vbNewLine &
+                        "FROM traAccountPayable " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   LEFT(APNumber,@Length)=@NewID " & vbNewLine &
+                        "ORDER BY CreatedDate DESC " & vbNewLine
+
+                    .Parameters.Add("@NewID", SqlDbType.VarChar, strNewID.Length).Value = strNewID
+                    .Parameters.Add("@Length", SqlDbType.Int).Value = strNewID.Length
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        intReturn = .Item("APNumber")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return intReturn
+        End Function
+
         Public Shared Function DataExists(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                           ByVal strAPNumber As String, ByVal strID As String) As Boolean
             Dim bolDataExists As Boolean = False
@@ -793,6 +827,39 @@
                 Throw ex
             End Try
         End Sub
+
+        Public Shared Function PrintCostBankOut(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                ByVal strID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText = _
+"SELECT    " & vbNewLine & _
+"	CH.APNumber AS TransNumber, CH.APDate AS TransDate, MC.Name AS CompanyName, '' AS VoucherCode,    " & vbNewLine & _
+"	MBP.Name AS PaidTo, MBPBA.BankName + ' A/C ' + MBPBA.AccountNumber AS PaidAccount, CH.TotalAmount, ISNULL(ARR.Remarks,CH.Remarks) AS Remarks, MUC.Name AS CreatedBy, CH.CreatedDate, NULL AS CheckedDate,    " & vbNewLine & _
+"	'' AS CheckedBy, MUP.Name AS PaidBy, CASE WHEN CH.PaymentBy='' THEN NULL ELSE CH.PaymentDate END AS PaidDate,   " & vbNewLine & _
+"	MC.DirectorName AS ApprovedBy, NULL AS ApprovedDate, 'KETERANGAN' AS Description, ':' AS DescriptionSeparator   " & vbNewLine & _
+"FROM traAccountPayable CH    " & vbNewLine & _
+"INNER JOIN mstCompany MC ON    " & vbNewLine & _
+"	CH.CompanyID=MC.ID    " & vbNewLine & _
+"INNER JOIN mstBusinessPartner MBP ON    " & vbNewLine & _
+"	CH.BPID=MBP.ID    " & vbNewLine & _
+"INNER JOIN mstBusinessPartnerBankAccount MBPBA ON    " & vbNewLine & _
+"	CH.BPBankAccountID=MBPBA.ID    " & vbNewLine & _
+"INNER JOIN mstUser MUC ON    " & vbNewLine & _
+"	CH.CreatedBy=MUC.ID    " & vbNewLine & _
+"LEFT JOIN traARAPRemarks ARR ON  " & vbNewLine & _
+"	CH.ID=ARR.ParentID  " & vbNewLine & _
+"LEFT JOIN mstUser MUP ON    " & vbNewLine & _
+"	CH.PaymentBy=MUP.ID    " & vbNewLine & _
+"WHERE CH.ID=@ID    " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
 
 #End Region
 
@@ -2482,9 +2549,10 @@
                 '# Delivery Transport
                 .CommandText =
                     "SELECT " & vbNewLine &
-                    "   CAST (1 AS BIT) AS Pick, A.PurchaseID, A.Amount, A.PPN, A.PPH, MaxAmount=B.TotalDPPTransport-B.DPAmountTransport+A.Amount-B.TotalPaymentTransport, " & vbNewLine &
-                    "   MaxPPN=B.TotalPPNTransport-B.DPAmountPPNTransport+A.PPN-B.TotalPaymentPPNTransport, MaxPPH=B.TotalPPHTransport-B.DPAmountPPHTransport+A.PPH-B.TotalPaymentPPHTransport, " & vbNewLine &
-                    "   A.InvoiceNumberBP, A.ReceiveDate, A.InvoiceDate, A.InvoiceNumberBP, A.Remarks " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.PurchaseID, B.DeliveryNumber AS PurchaseNumber, A.Amount, A.PPN, A.PPH, GrandTotal=A.Amount+A.PPN-A.PPH, " & vbNewLine &
+                    "   MaxAmount=B.TotalDPPTransport-B.DPAmountTransport+A.Amount-B.TotalPaymentTransport, MaxPPN=B.TotalPPNTransport-B.DPAmountPPNTransport+A.PPN-B.TotalPaymentPPNTransport, " & vbNewLine &
+                    "   MaxPPH=B.TotalPPHTransport-B.DPAmountPPHTransport+A.PPH-B.TotalPaymentPPHTransport, A.InvoiceNumberBP, A.ReceiveDate, A.InvoiceDate, A.Remarks, " & vbNewLine &
+                    "   MaxGrandTotal=(B.TotalDPPTransport-B.DPAmountTransport+A.Amount-B.TotalPaymentTransport)+(B.TotalPPNTransport-B.DPAmountPPNTransport+A.PPN-B.TotalPaymentPPNTransport)-(B.TotalPPHTransport-B.DPAmountPPHTransport+A.PPH-B.TotalPaymentPPHTransport) " & vbNewLine &
                     "FROM traAccountPayableDet A " & vbNewLine &
                     "INNER JOIN traDelivery B ON " & vbNewLine &
                     "   A.PurchaseID=B.ID " & vbNewLine &
@@ -2493,9 +2561,10 @@
                     " " & vbNewLine &
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
-                    "   CAST(0 AS BIT) AS Pick, A.ID AS PurchaseID, A.TotalDPPTransport AS Amount, A.TotalPPNTransport AS PPN, A.TotalPPHTransport AS PPH, MaxAmount=A.TotalDPPTransport-A.DPAmountTransport-A.TotalPaymentTransport, " & vbNewLine &
-                    "   MaxPPN=A.TotalPPNTransport-A.DPAmountPPNTransport-A.TotalPaymentPPNTransport, MaxPPH=A.TotalPPHTransport-A.DPAmountPPHTransport-A.TotalPaymentPPHTransport, CAST('' AS VARCHAR(1000)) AS InvoiceNumberBP, " & vbNewLine &
-                    "   GETDATE() AS ReceiveDate, GETDATE() AS InvoiceDate, CAST('' AS VARCHAR(250)) AS InvoiceNumberBP, CAST('' AS VARCHAR(250)) AS Remarks  " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, A.ID AS PurchaseID, A.DeliveryNumber AS PurchaseNumber, A.TotalDPPTransport-A.DPAmountTransport-A.TotalPaymentTransport AS Amount, A.TotalPPNTransport-A.DPAmountPPNTransport-A.TotalPaymentPPNTransport AS PPN, A.TotalPPHTransport-A.DPAmountPPHTransport-A.TotalPaymentPPHTransport AS PPH, GrandTotal=(A.TotalDPPTransport-A.DPAmountTransport-A.TotalPaymentTransport)+(A.TotalPPNTransport-A.DPAmountPPNTransport-A.TotalPaymentPPNTransport)-(A.TotalPPHTransport-A.DPAmountPPHTransport-A.TotalPaymentPPHTransport), " & vbNewLine &
+                    "   MaxAmount=A.TotalDPPTransport-A.DPAmountTransport-A.TotalPaymentTransport, MaxPPN=A.TotalPPNTransport-A.DPAmountPPNTransport-A.TotalPaymentPPNTransport, MaxPPH=A.TotalPPHTransport-A.DPAmountPPHTransport-A.TotalPaymentPPHTransport, " & vbNewLine &
+                    "   CAST('' AS VARCHAR(1000)) AS InvoiceNumberBP, GETDATE() AS ReceiveDate, GETDATE() AS InvoiceDate, CAST('' AS VARCHAR(250)) AS Remarks, " & vbNewLine &
+                    "   MaxGrandTotal=(A.TotalDPPTransport-A.DPAmountTransport-A.TotalPaymentTransport)+(A.TotalPPNTransport-A.DPAmountPPNTransport-A.TotalPaymentPPNTransport)-(A.TotalPPHTransport-A.DPAmountPPHTransport-A.TotalPaymentPPHTransport) " & vbNewLine &
                     "FROM traDelivery A " & vbNewLine &
                     "WHERE  " & vbNewLine &
                     "   A.TransporterID=@BPID " & vbNewLine &
@@ -2522,9 +2591,10 @@
                 If .CommandText.Trim <> "" Then .CommandText += "UNION ALL " & vbNewLine
                 .CommandText +=
                     "SELECT " & vbNewLine &
-                    "   CAST (1 AS BIT) AS Pick, A.PurchaseID, A.Amount, A.PPN, A.PPH, MaxAmount=B.TotalDPPTransport-B.DPAmountTransport+A.Amount-B.TotalPaymentTransport, " & vbNewLine &
-                    "   MaxPPN=B.TotalPPNTransport-B.DPAmountPPNTransport+A.PPN-B.TotalPaymentPPNTransport, MaxPPH=B.TotalPPHTransport-B.DPAmountPPHTransport+A.PPH-B.TotalPaymentPPHTransport, " & vbNewLine &
-                    "   A.InvoiceNumberBP, A.ReceiveDate, A.InvoiceDate, A.InvoiceNumberBP, A.Remarks " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.PurchaseID, B.SalesReturnNumber AS PurchaseNumber, A.Amount, A.PPN, A.PPH, GrandTotal=A.Amount+A.PPN-A.PPH, " & vbNewLine &
+                    "   MaxAmount=B.TotalDPPTransport-B.DPAmountTransport+A.Amount-B.TotalPaymentTransport, MaxPPN=B.TotalPPNTransport-B.DPAmountPPNTransport+A.PPN-B.TotalPaymentPPNTransport, " & vbNewLine &
+                    "   MaxPPH=B.TotalPPHTransport-B.DPAmountPPHTransport+A.PPH-B.TotalPaymentPPHTransport, A.InvoiceNumberBP, A.ReceiveDate, A.InvoiceDate, A.Remarks, " & vbNewLine &
+                    "   MaxGrandTotal=(B.TotalDPPTransport-B.DPAmountTransport+A.Amount-B.TotalPaymentTransport)+(B.TotalPPNTransport-B.DPAmountPPNTransport+A.PPN-B.TotalPaymentPPNTransport)-(B.TotalPPHTransport-B.DPAmountPPHTransport+A.PPH-B.TotalPaymentPPHTransport) " & vbNewLine &
                     "FROM traAccountPayableDet A " & vbNewLine &
                     "INNER JOIN traSalesReturn B ON " & vbNewLine &
                     "   A.PurchaseID=B.ID " & vbNewLine &
@@ -2533,9 +2603,10 @@
                     " " & vbNewLine &
                     "UNION ALL " & vbNewLine &
                     "SELECT " & vbNewLine &
-                    "   CAST(0 AS BIT) AS Pick, A.ID AS PurchaseID, A.TotalDPPTransport AS Amount, A.TotalPPNTransport AS PPN, A.TotalPPHTransport AS PPH, MaxAmount=A.TotalDPPTransport-A.DPAmountTransport-A.TotalPaymentTransport, " & vbNewLine &
-                    "   MaxPPN=A.TotalPPNTransport-A.DPAmountPPNTransport-A.TotalPaymentPPNTransport, MaxPPH=A.TotalPPHTransport-A.DPAmountPPHTransport-A.TotalPaymentPPHTransport, CAST('' AS VARCHAR(1000)) AS InvoiceNumberBP, " & vbNewLine &
-                    "   GETDATE() AS ReceiveDate, GETDATE() AS InvoiceDate, CAST('' AS VARCHAR(250)) AS InvoiceNumberBP, CAST('' AS VARCHAR(250)) AS Remarks  " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, A.ID AS PurchaseID, A.SalesReturnNumber AS PurchaseNumber, A.TotalDPPTransport AS Amount, A.TotalPPNTransport AS PPN, A.TotalPPHTransport AS PPH, GrandTotal=(A.TotalDPPTransport-A.DPAmountTransport-A.TotalPaymentTransport)+(A.TotalPPNTransport-A.DPAmountPPNTransport-A.TotalPaymentPPNTransport)-(A.TotalPPHTransport-A.DPAmountPPHTransport-A.TotalPaymentPPHTransport), " & vbNewLine &
+                    "   MaxAmount=A.TotalDPPTransport-A.DPAmountTransport-A.TotalPaymentTransport, MaxPPN=A.TotalPPNTransport-A.DPAmountPPNTransport-A.TotalPaymentPPNTransport, MaxPPH=A.TotalPPHTransport-A.DPAmountPPHTransport-A.TotalPaymentPPHTransport, " & vbNewLine &
+                    "   CAST('' AS VARCHAR(1000)) AS InvoiceNumberBP, GETDATE() AS ReceiveDate, GETDATE() AS InvoiceDate, CAST('' AS VARCHAR(250)) AS Remarks, " & vbNewLine &
+                    "   MaxGrandTotal=(A.TotalDPPTransport-A.DPAmountTransport-A.TotalPaymentTransport)+(A.TotalPPNTransport-A.DPAmountPPNTransport-A.TotalPaymentPPNTransport)-(A.TotalPPHTransport-A.DPAmountPPHTransport-A.TotalPaymentPPHTransport) " & vbNewLine &
                     "FROM traSalesReturn A " & vbNewLine &
                     "WHERE  " & vbNewLine &
                     "   A.TransporterID=@BPID " & vbNewLine &
@@ -2564,6 +2635,80 @@
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
                 .Parameters.Add("@ModulesTransport", SqlDbType.VarChar, 250).Value = VO.AccountPayable.ReceivePaymentTransport
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Function ListDataDetailItemCuttingReceiveWithOutstandingVer00(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                                    ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                                    ByVal intBPID As Integer, ByVal strAPID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText +=
+                    "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
+                    "   A.ItemID, B.TotalPrice AS InvoiceAmount, A.Amount, A.PPN, A.PPH, A.Rounding, B.TotalPrice-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, " & vbNewLine &
+                    "   MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length, MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, " & vbNewLine &
+                    "   MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID, MI.ItemCodeExternal, A.InvoiceNumberBP, A.ReceiveDate, A.InvoiceDate, CAST('' AS VARCHAR(250)) AS Remarks " & vbNewLine &
+                    "FROM traARAPItem A " & vbNewLine &
+                    "INNER JOIN traCuttingDet B ON " & vbNewLine &
+                    "   A.ReferencesDetailID=B.ID " & vbNewLine &
+                    "INNER JOIN traCutting C ON " & vbNewLine &
+                    "   B.CuttingID=C.ID " & vbNewLine &
+                    "INNER JOIN mstItem MI ON " & vbNewLine &
+                    "   A.ItemID=MI.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
+                    "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
+                    "INNER JOIN mstItemType MIT ON " & vbNewLine &
+                    "   MI.ItemTypeID=MIT.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ParentID=@APID " & vbNewLine &
+                    " " & vbNewLine &
+                    "UNION ALL " & vbNewLine &
+                    "SELECT " & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.CuttingID AS ReferencesID, A.ID AS ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
+                    "   A.ItemID, A.TotalPrice AS InvoiceAmount, A.TotalPrice-A.ReceiveAmount AS Amount, CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
+                    "   A.TotalPrice-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length, MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, " & vbNewLine &
+                    "   MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID, CAST('' AS VARCHAR(1000)) AS InvoiceNumberBP, GETDATE() AS ReceiveDate, GETDATE() AS InvoiceDate, CAST('' AS VARCHAR(250)) AS Remarks " & vbNewLine &
+                    "   MI.ItemCodeExternal " & vbNewLine &
+                    "FROM traCuttingDet A " & vbNewLine &
+                    "INNER JOIN traCutting B ON " & vbNewLine &
+                    "   A.CuttingID=B.ID " & vbNewLine &
+                    "INNER JOIN mstItem MI ON " & vbNewLine &
+                    "   A.ItemID=MI.ID " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON " & vbNewLine &
+                    "   MI.ItemSpecificationID=MIS.ID " & vbNewLine &
+                    "INNER JOIN mstItemType MIT ON " & vbNewLine &
+                    "   MI.ItemTypeID=MIT.ID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   B.BPID=@BPID " & vbNewLine &
+                    "   AND B.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND B.ProgramID=@ProgramID " & vbNewLine &
+                    "   AND A.CuttingID=@ReferencesID " & vbNewLine &
+                    "   AND B.SubmitBy<>'' " & vbNewLine &
+                    "   AND A.TotalPrice-A.ReceiveAmount>0 " & vbNewLine &
+                    "   AND A.TotalWeight-A.InvoiceTotalWeight>0 " & vbNewLine &
+                    "   AND A.ID NOT IN " & vbNewLine &
+                    "       ( " & vbNewLine &
+                    "           SELECT ARD.ReferencesDetailID 	" & vbNewLine &
+                    "           FROM traARAPItem ARD 	" & vbNewLine &
+                    "           INNER JOIN traAccountPayable ARH ON 	" & vbNewLine &
+                    "	            ARD.ParentID=ARH.ID		" & vbNewLine &
+                    "           WHERE 	" & vbNewLine &
+                    "               ARH.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	            AND ARH.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	            AND ARH.BPID=@BPID " & vbNewLine &
+                    "	            AND ARH.IsDeleted=0	" & vbNewLine &
+                    "	            AND ARH.ID=@APID " & vbNewLine &
+                    "       ) " & vbNewLine
+
+                .Parameters.Add("@APID", SqlDbType.VarChar, 100).Value = strAPID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function

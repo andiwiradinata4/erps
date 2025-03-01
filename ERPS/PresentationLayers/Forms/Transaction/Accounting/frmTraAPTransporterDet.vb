@@ -5,7 +5,7 @@ Public Class frmTraAPTransporterDet
 
 #Region "Property"
 
-    Private frmParent As frmTraARAP
+    Private frmParent As frmTraAPCost
     Private clsData As VO.AccountPayable
     Private dtItem As New DataTable
     Private dtRemarks As New DataTable
@@ -49,18 +49,19 @@ Public Class frmTraAPTransporterDet
         UI.usForm.SetGrid(grdItemView, "Pick", "Pick", 100, UI.usDefGrid.gBoolean, True, False)
         UI.usForm.SetGrid(grdItemView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "PurchaseID", "PurchaseID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdItemView, "PurchaseNumber", "Nomor Surat Jalan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "Amount", "Total Tagihan", 180, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "PPN", "PPN", 180, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "PPH", "PPH", 180, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "GrandTotal", "GrandTotal", 180, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemView, "MaxAmount", "Maksimal Tagihan", 180, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemView, "MaxPPN", "Maksimal PPN", 180, UI.usDefGrid.gReal2Num, True, False)
-        UI.usForm.SetGrid(grdItemView, "MaxPPH", "Maksimal PPH", 180, UI.usDefGrid.gReal2Num, True, False)
-        UI.usForm.SetGrid(grdItemView, "MaxGrandTotal", "Maksimal GrandTotal", 180, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "InvoiceNumberBP", "Nomor Invoice", 100, UI.usDefGrid.gString, True, False)
         UI.usForm.SetGrid(grdItemView, "ReceiveDate", "Tanggal Terima", 180, UI.usDefGrid.gSmallDate, True, False)
         UI.usForm.SetGrid(grdItemView, "InvoiceDate", "Tanggal Invoice", 180, UI.usDefGrid.gSmallDate, True, False)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 200, UI.usDefGrid.gString, True, False)
+        UI.usForm.SetGrid(grdItemView, "MaxAmount", "Maksimal Tagihan", 180, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "MaxPPN", "Maksimal PPN", 180, UI.usDefGrid.gReal2Num, True, False)
+        UI.usForm.SetGrid(grdItemView, "MaxPPH", "Maksimal PPH", 180, UI.usDefGrid.gReal2Num, True, False)
+        UI.usForm.SetGrid(grdItemView, "MaxGrandTotal", "Maksimal GrandTotal", 180, UI.usDefGrid.gReal2Num)
 
         UI.usForm.SetGrid(grdRemarksView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdRemarksView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
@@ -102,6 +103,7 @@ Public Class frmTraAPTransporterDet
                 txtBPBankAccountBank.Text = clsData.BPBankAccountBank
                 txtBPBankAccountNumber.Text = clsData.BPBankAccountNumber
                 dtpARAPDate.Value = clsData.APDate
+                txtDueDateValue.Value = clsData.DueDateValue
                 txtTotalAmount.Value = clsData.TotalAmount
                 txtTotalPPN.Value = clsData.TotalPPN
                 txtTotalPPH.Value = clsData.TotalPPH
@@ -144,6 +146,7 @@ Public Class frmTraAPTransporterDet
             End If
 
             grdItem.DataSource = dtItem
+            prvSumGrid()
             pgMain.Value = 100
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -158,6 +161,8 @@ Public Class frmTraAPTransporterDet
     Private Sub prvSave()
         ToolBar.Focus()
         If Not bolValid Then Exit Sub
+        grdItemView.ClearColumnsFilter()
+        prvCalculate()
         If grdItemView.RowCount = 0 Then
             UI.usForm.frmMessageBox("Item belum diinput")
             grdItemView.Focus()
@@ -166,6 +171,11 @@ Public Class frmTraAPTransporterDet
             UI.usForm.frmMessageBox("Total Bayar harus lebih besar dari 0")
             tcHeader.SelectedTab = tpMain
             txtTotalAmount.Focus()
+            Exit Sub
+        ElseIf intBPBankAccountID = 0 Then
+            UI.usForm.frmMessageBox("Pilih Akun Bank Rekan Bisnis terlebih dahulu")
+            tcHeader.SelectedTab = tpMain
+            txtBPBankAccountBank.Focus()
             Exit Sub
         ElseIf cboStatus.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Status kosong. Mohon untuk tutup form dan buka kembali")
@@ -199,7 +209,8 @@ Public Class frmTraAPTransporterDet
                                          .Remarks = UCase(dr.Item("Remarks")),
                                          .InvoiceNumberBP = UCase(dr.Item("InvoiceNumberBP")),
                                          .ReceiveDate = dr.Item("ReceiveDate"),
-                                         .InvoiceDate = dr.Item("InvoiceDate")
+                                         .InvoiceDate = dr.Item("InvoiceDate"),
+                                         .ReferencesParentID = ""
                                     })
             Next
         End With
@@ -221,6 +232,8 @@ Public Class frmTraAPTransporterDet
         clsData.ID = pubID
         clsData.APNumber = txtARAPNumber.Text.Trim
         clsData.Modules = VO.AccountPayable.ReceivePaymentTransport
+        clsData.ReferencesID = ""
+        clsData.ReferencesNote = ""
         clsData.BPID = intBPID
         clsData.BPCode = txtBPCode.Text.Trim
         clsData.BPName = txtBPName.Text.Trim
@@ -231,6 +244,7 @@ Public Class frmTraAPTransporterDet
         clsData.TotalAmount = txtTotalAmount.Value
         clsData.TotalPPN = txtTotalPPN.Value
         clsData.TotalPPH = txtTotalPPH.Value
+        clsData.ReceiveAmount = txtTotalAmount.Value
         clsData.StatusID = cboStatus.SelectedValue
         clsData.Remarks = ""
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
@@ -272,6 +286,7 @@ Public Class frmTraAPTransporterDet
         txtBPBankAccountBank.Text = ""
         txtBPBankAccountNumber.Text = ""
         dtpARAPDate.Value = Today.Date
+        txtDueDateValue.Value = 0
         txtTotalAmount.Value = 0
         txtTotalPPN.Value = 0
         txtTotalPPH.Value = 0
@@ -324,7 +339,7 @@ Public Class frmTraAPTransporterDet
         End If
 
         If grdItemView.GroupCount > 0 Then grdItemView.ExpandAllGroups()
-        grdItemView.BestFitColumns(True)
+        grdItemView.BestFitColumns()
     End Sub
 
     Private Sub prvChangeCheckedValue(ByVal bolValue As Boolean)
@@ -583,6 +598,10 @@ Public Class frmTraAPTransporterDet
                     .UpdateCurrentRow()
                     prvCalculate()
                 End If
+            ElseIf col.Name = "Pick" Then
+                .SetRowCellValue(intFocus, col.Name, e.Value)
+                .UpdateCurrentRow()
+                prvCalculate()
             End If
         End With
     End Sub

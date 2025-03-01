@@ -88,7 +88,6 @@ Namespace DL
                     "   ID=@ID " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
-
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)

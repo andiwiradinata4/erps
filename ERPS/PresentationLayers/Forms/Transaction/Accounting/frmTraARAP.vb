@@ -113,7 +113,7 @@ Public Class frmTraARAP
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
        cSep2 As Byte = 8, cSetPaymentDate As Byte = 9, cDeletePaymentDate As Byte = 10, cSetTaxInvoiceNumber As Byte = 11,
        cSetInvoiceNumberBP As Byte = 12, cInvoice As Byte = 13, cExtendDueDate As Byte = 14, cSep3 As Byte = 15, cPrintPI As Byte = 16,
-       cPrintInvoice As Byte = 17, cExportExcel As Byte = 18, cSep4 As Byte = 19, cRefresh As Byte = 20, cClose As Byte = 21
+       cPrintInvoice As Byte = 17, cPrintPaymentBank As Byte = 18, cExportExcel As Byte = 19, cSep4 As Byte = 20, cRefresh As Byte = 21, cClose As Byte = 22
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -1162,6 +1162,36 @@ Public Class frmTraARAP
         End Try
     End Sub
 
+    Private Sub prvPrintBankOut()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+        Try
+            Dim crReport As New rptCostBankOutVer00
+            crReport.DataSource = BL.AccountPayable.PrintCostBankOut(strID)
+            crReport.CreateDocument(True)
+            crReport.ShowPreviewMarginLines = False
+            crReport.ShowPrintMarginsWarning = False
+
+            Dim frmDetail As New frmReportPreview
+            With frmDetail
+                .docViewer.DocumentSource = crReport
+                .pgExportButton.Enabled = True
+                .Text = Me.Text & " - " & VO.Reports.PrintOut
+                .WindowState = FormWindowState.Maximized
+                .Show()
+            End With
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            pgMain.Value = 100
+            Me.Cursor = Cursors.Default
+            prvResetProgressBar()
+        End Try
+    End Sub
+
     Private Sub prvExportExcel()
         Dim dxExporter As New DX.usDXHelper
         dxExporter.DevExport(Me, grdMain, Me.Text, Me.Text, DX.usDxExportFormat.fXls, True, True, DX.usDXExportType.etDefault)
@@ -1281,6 +1311,7 @@ Public Class frmTraARAP
             .Item(cSetInvoiceNumberBP).Visible = False 'enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.InvoiceNumberBusinessPartner)
             .Item(cSep3).Visible = False
             If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase Or (enumARAPType = VO.ARAP.ARAPTypeValue.Sales And strModules = VO.AccountReceivable.ReceivePaymentSalesReturn) Then .Item(cPrintPI).Visible = False : .Item(cPrintInvoice).Visible = False
+            If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And strModules <> VO.AccountPayable.ReceivePaymentTransport Then .Item(cPrintPaymentBank).Visible = False
         End With
     End Sub
 
@@ -1367,8 +1398,13 @@ Public Class frmTraARAP
                 Case ToolBar.Buttons(cExtendDueDate).Name : prvExtendDueDate()
                 Case ToolBar.Buttons(cPrintPI).Name : prvPrintPI()
                 Case ToolBar.Buttons(cPrintInvoice).Name : prvPrintInvoice()
+                Case ToolBar.Buttons(cPrintPaymentBank).Name : prvPrintBankOut()
             End Select
         End If
+    End Sub
+
+    Private Sub btnCompany_Click(sender As Object, e As EventArgs) Handles btnCompany.Click
+        prvChooseCompany()
     End Sub
 
     Private Sub btnExecute_Click(sender As Object, e As EventArgs) Handles btnExecute.Click

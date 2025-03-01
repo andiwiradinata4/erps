@@ -22,7 +22,8 @@
         End Function
 
         Public Shared Function GetNewNo(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                        ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer, ByVal intProgramID As Integer) As String
+                                        ByVal dtmTransDate As DateTime, ByVal intCompanyID As Integer,
+                                        ByVal intProgramID As Integer, Optional ByVal strInitial As String = "") As String
             Dim strNewID As String = Format(dtmTransDate, "yy") & "/"
             Select Case dtmTransDate.Month
                 Case 1 : strNewID &= "I"
@@ -39,7 +40,13 @@
                 Case 12 : strNewID &= "XII"
             End Select
             strNewID &= "/"
-            strNewID &= Format(DL.AccountPayable.GetMaxNo(sqlCon, sqlTrans, dtmTransDate.Year, intCompanyID, intProgramID) + 1, "0000")
+            If strInitial.Trim <> "" Then
+                strNewID &= strInitial & "/"
+                strNewID &= Format(DL.AccountPayable.GetMaxNo(sqlCon, sqlTrans, strNewID) + 1, "0000")
+            Else
+                strNewID &= Format(DL.AccountPayable.GetMaxNo(sqlCon, sqlTrans, dtmTransDate.Year, intCompanyID, intProgramID) + 1, "0000")
+            End If
+
             Return strNewID
         End Function
 
@@ -650,14 +657,14 @@
                 Try
                     If bolNew Then
                         clsData.ID = GetNewID(sqlCon, sqlTrans, clsData.APDate, clsData.CompanyID, clsData.ProgramID, clsData.Modules)
-                        If clsData.APNumber = "" Then clsData.APNumber = GetNewNo(sqlCon, sqlTrans, clsData.APDate, clsData.CompanyID, clsData.ProgramID)
+                        If clsData.APNumber = "" Then clsData.APNumber = GetNewNo(sqlCon, sqlTrans, clsData.APDate, clsData.CompanyID, clsData.ProgramID, "TRANSPORT")
                     Else
                         Dim dtDetail As DataTable = DL.AccountPayable.ListDataDetailOnly(sqlCon, sqlTrans, clsData.ID)
                         
                         '# Revert Payment Amount
                         DL.AccountPayable.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
                         For Each dr As DataRow In dtDetail.Rows
-                            DL.Delivery.CalculateTotalUsedReceivePaymentTransportVer02(sqlCon, sqlTrans, dr.Item("PurchaseID"))
+                            DL.Delivery.CalculateTotalUsedReceivePaymentTransportVer02(sqlCon, sqlTrans, dr.Item("InvoiceID"))
                         Next
 
                         DL.ARAP.DeleteDataRemarks(sqlCon, sqlTrans, clsData.ID)
@@ -686,6 +693,15 @@
                         clsDet.APID = clsData.ID
                         DL.AccountPayable.SaveDataDetail(sqlCon, sqlTrans, clsDet)
                         DL.Delivery.CalculateTotalUsedReceivePaymentTransportVer02(sqlCon, sqlTrans, clsDet.PurchaseID)
+                        intCount += 1
+                    Next
+
+                    '# Save Data Remarks
+                    intCount = 1
+                    For Each clsDet As VO.ARAPRemarks In clsData.DetailRemarks
+                        clsDet.ID = clsData.ID & "-" & Format(intCount, "000")
+                        clsDet.ParentID = clsData.ID
+                        DL.ARAP.SaveDataRemarks(sqlCon, sqlTrans, clsDet)
                         intCount += 1
                     Next
 
@@ -1232,6 +1248,40 @@
             Return bolReturn
         End Function
 
+        Public Shared Function ApproveCostOperational(ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
+                    If clsData.StatusID = VO.Status.Values.Draft Then
+                        Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data masih DRAFT")
+                    ElseIf clsData.StatusID = VO.Status.Values.Approved Then
+                        Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data telah APPROVED")
+                    ElseIf clsData.StatusID = VO.Status.Values.Payment Then
+                        Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data telah DIBAYAR")
+                    ElseIf clsData.IsDeleted Then
+                        Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan data telah dihapus")
+                    End If
+
+                    DL.AccountPayable.Approve(sqlCon, sqlTrans, strID)
+
+                    '# Save Data Status
+                    BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+                    GenerateJournal(sqlCon, sqlTrans, strID)
+
+                    sqlTrans.Commit()
+                    bolReturn = True
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+
+            Return bolReturn
+        End Function
+
         Public Shared Function Unapprove(ByVal strID As String, ByVal strRemarks As String) As Boolean
             Dim bolReturn As Boolean = False
             BL.Server.ServerDefault()
@@ -1249,10 +1299,10 @@
         End Function
 
         Public Shared Function Unapprove(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                         ByVal strID As String, ByVal strRemarks As String) As Boolean
+                                         ByVal strID As String, ByVal strRemarks As String, Optional ByVal clsData As VO.AccountPayable = Nothing) As Boolean
             Dim bolReturn As Boolean = False
             Try
-                Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
+                If clsData Is Nothing Then clsData = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
                 If clsData.StatusID = VO.Status.Values.Draft Then
                     Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan status data masih DRAFT")
                 ElseIf clsData.StatusID = VO.Status.Values.Submit Then
@@ -1280,6 +1330,22 @@
             Catch ex As Exception
                 Throw ex
             End Try
+            Return bolReturn
+        End Function
+
+        Public Shared Function UnapproveCostOperational(ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Unapprove(sqlCon, sqlTrans, strID, strRemarks)
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
             Return bolReturn
         End Function
 
@@ -1357,6 +1423,19 @@
                 End If
 
                 Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
+                clsData.Remarks = strRemarks
+                SetupCancelPayment(sqlCon, sqlTrans, clsData)
+                bolReturn = True
+            Catch ex As Exception
+                Throw ex
+            End Try
+            Return bolReturn
+        End Function
+
+        Public Shared Function SetupCancelPayment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                  ByVal clsData As VO.AccountPayable) As Boolean
+            Dim bolReturn As Boolean
+            Try
                 If Not clsData.IsDP Then
                     '# Cancel Approve Journal
                     BL.Journal.Unapprove(sqlCon, sqlTrans, clsData.JournalIDInvoice.Trim, "")
@@ -1365,10 +1444,10 @@
                     BL.Journal.Unsubmit(sqlCon, sqlTrans, clsData.JournalIDInvoice.Trim, "")
                 End If
 
-                DL.AccountPayable.SetupCancelPayment(sqlCon, sqlTrans, strID)
+                DL.AccountPayable.SetupCancelPayment(sqlCon, sqlTrans, clsData.ID)
 
                 '# Save Data Status
-                BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL PROSES PEMBAYARAN", ERPSLib.UI.usUserApp.UserID, strRemarks)
+                BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, clsData.ID, "BATAL PROSES PEMBAYARAN", ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
 
                 bolReturn = True
             Catch ex As Exception
@@ -1563,17 +1642,18 @@
                                          .GroupID = intGroupID,
                                          .BPID = clsData.BPID
                                      })
-
-                    '# Akun PPN -> Debit
-                    clsJournalDetail.Add(New VO.JournalDet With
-                                     {
-                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPurchaseTax,
-                                         .DebitAmount = clsData.TotalPPN,
-                                         .CreditAmount = 0,
-                                         .Remarks = strJournalDetailRemarks,
-                                         .GroupID = intGroupID,
-                                         .BPID = clsData.BPID
-                                     })
+                    If clsData.TotalPPN > 0 Then
+                        '# Akun PPN -> Debit
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofPurchaseTax,
+                                             .DebitAmount = clsData.TotalPPN,
+                                             .CreditAmount = 0,
+                                             .Remarks = strJournalDetailRemarks,
+                                             .GroupID = intGroupID,
+                                             .BPID = clsData.BPID
+                                         })
+                    End If
 
                     '# Akun Hutang Usaha -> Kredit
                     clsJournalDetail.Add(New VO.JournalDet With
@@ -1759,6 +1839,13 @@
             End Try
         End Sub
 
+        Public Shared Function PrintCostBankOut(ByVal strID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.AccountPayable.PrintCostBankOut(sqlCon, Nothing, strID)
+            End Using
+        End Function
+
 #End Region
 
 #Region "Detail"
@@ -1858,6 +1945,14 @@
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Return DL.AccountPayable.ListDataDetailTransportReceiveWithOutstandingVer00(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID)
+            End Using
+        End Function
+
+        Public Shared Function ListDataDetailItemCuttingReceiveWithOutstandingVer00(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                                    ByVal intBPID As Integer, ByVal strAPID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.AccountPayable.ListDataDetailItemCuttingReceiveWithOutstandingVer00(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID)
             End Using
         End Function
 

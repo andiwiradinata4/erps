@@ -2631,5 +2631,22 @@
             End If
         End Sub
 
+        '# ID = 86
+        Private Shared Sub DevelopOnProgress_ID86(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 86
+            clsData.Name = "Development On Progress 86"
+            clsData.Scripts =
+"ALTER TABLE traARAPItem ADD InvoiceDateBP DATETIME NOT NULL CONSTRAINT DF_traARAPItem_InvoiceDateBP DEFAULT (GETDATE())  " & vbNewLine &
+"ALTER TABLE traARAPItem ADD ReceiveDateInvoice DATETIME NOT NULL CONSTRAINT DF_traARAPItem_ReceiveDateInvoice DEFAULT (GETDATE())  " & vbNewLine &
+"ALTER TABLE traARAPItem ADD InvoiceNumberBP VARCHAR(1000) NOT NULL CONSTRAINT DF_traARAPItem_InvoiceNumberBP DEFAULT ('')  " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
     End Class
 End Namespace

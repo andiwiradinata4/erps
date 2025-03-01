@@ -267,6 +267,10 @@ Public Class frmTraARAPDetVer4
 
     Private Sub prvSave()
         ToolBar.Focus()
+        grdItemView.ClearColumnsFilter()
+        prvCalculate()
+        prvCalculateDP()
+
         If Not bolValid Then Exit Sub
 
         Dim drPick() As DataRow = dtItem.Select("Pick=True")
@@ -670,7 +674,10 @@ Public Class frmTraARAPDetVer4
                 If enumARAPType = VO.ARAP.ARAPTypeValue.Sales And strModules = VO.AccountReceivable.ReceivePaymentClaimPurchase Then .SetRowCellValue(i, "TotalWeight", .GetRowCellValue(i, "Quantity") * .GetRowCellValue(i, "Weight"))
                 If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And strModules = VO.AccountPayable.ReceivePaymentClaimSales Then .SetRowCellValue(i, "TotalWeight", .GetRowCellValue(i, "Quantity") * .GetRowCellValue(i, "Weight"))
                 If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And strModules = VO.AccountPayable.ReceivePaymentTransportSalesReturn Then .SetRowCellValue(i, "TotalWeight", .GetRowCellValue(i, "Quantity") * .GetRowCellValue(i, "Weight"))
-                If chkMaxQuantity.Checked Then .SetRowCellValue(i, "Quantity", .GetRowCellValue(i, "MaxTotalQuantity"))
+                If chkMaxQuantity.Checked Then
+                    .SetRowCellValue(i, "Quantity", .GetRowCellValue(i, "MaxTotalQuantity"))
+                    prvSetTotalWeight(i)
+                End If
                 .UpdateCurrentRow()
             Next
             prvAllocateDP()

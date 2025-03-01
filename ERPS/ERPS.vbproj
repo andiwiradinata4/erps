@@ -543,6 +543,18 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetVoucherNumber.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAPCost.Designer.vb">
+      <DependentUpon>frmTraAPCost.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAPCost.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAPCuttingDet.Designer.vb">
+      <DependentUpon>frmTraAPCuttingDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAPCuttingDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAPTransporterDet.Designer.vb">
       <DependentUpon>frmTraAPTransporterDet.vb</DependentUpon>
     </Compile>
@@ -1802,6 +1814,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAccountSetVoucherNumber.resx">
       <DependentUpon>frmTraAccountSetVoucherNumber.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAPCost.resx">
+      <DependentUpon>frmTraAPCost.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAPCuttingDet.resx">
+      <DependentUpon>frmTraAPCuttingDet.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraAPTransporterDet.resx">
       <DependentUpon>frmTraAPTransporterDet.vb</DependentUpon>

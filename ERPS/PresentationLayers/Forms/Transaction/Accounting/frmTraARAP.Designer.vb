@@ -45,6 +45,7 @@ Partial Class frmTraARAP
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
         Me.BarPrint = New System.Windows.Forms.ToolBarButton()
         Me.BarPrintInvoice = New System.Windows.Forms.ToolBarButton()
+        Me.BarPrintBankOut = New System.Windows.Forms.ToolBarButton()
         Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
         Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
@@ -113,7 +114,7 @@ Partial Class frmTraARAP
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarSetPaymentDate, Me.BarDeletePaymentDate, Me.BarSetTaxInvoiceNumber, Me.BarSetInvoiceNumberBP, Me.BarInvoice, Me.BarExtendDueDate, Me.BarSep3, Me.BarPrint, Me.BarPrintInvoice, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarSetPaymentDate, Me.BarDeletePaymentDate, Me.BarSetTaxInvoiceNumber, Me.BarSetInvoiceNumberBP, Me.BarInvoice, Me.BarExtendDueDate, Me.BarSep3, Me.BarPrint, Me.BarPrintInvoice, Me.BarPrintBankOut, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -226,6 +227,12 @@ Partial Class frmTraARAP
         Me.BarPrintInvoice.Name = "BarPrintInvoice"
         Me.BarPrintInvoice.Tag = "Print"
         Me.BarPrintInvoice.Text = "Print Invoice"
+        '
+        'BarPrintBankOut
+        '
+        Me.BarPrintBankOut.Name = "BarPrintBankOut"
+        Me.BarPrintBankOut.Tag = "Print"
+        Me.BarPrintBankOut.Text = "Print Payment Bank"
         '
         'BarExportExcel
         '
@@ -449,4 +456,5 @@ Partial Class frmTraARAP
     Friend WithEvents BarInvoice As ToolBarButton
     Friend WithEvents BarExtendDueDate As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarPrintInvoice As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarPrintBankOut As System.Windows.Forms.ToolBarButton
 End Class

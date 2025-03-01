@@ -131,7 +131,7 @@ Partial Class frmTraAPTransporterDet
         Me.lblInfo.Name = "lblInfo"
         Me.lblInfo.Size = New System.Drawing.Size(884, 22)
         Me.lblInfo.TabIndex = 1
-        Me.lblInfo.Text = "« Pembayaran Biaya Transporter"
+        Me.lblInfo.Text = "« Pembayaran Biaya Transportasi"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'tcHeader
@@ -741,7 +741,7 @@ Partial Class frmTraAPTransporterDet
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.KeyPreview = True
         Me.Name = "frmTraAPTransporterDet"
-        Me.Text = "Pembayaran Biaya Transporter"
+        Me.Text = "Pembayaran Biaya Transportasi"
         Me.tcHeader.ResumeLayout(False)
         Me.tpMain.ResumeLayout(False)
         Me.tpMain.PerformLayout()
