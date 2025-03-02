@@ -658,6 +658,7 @@ Public Class frmTraAPCost
         prvDefaultFilter()
         prvQuery()
         prvUserAccess()
+        Me.Text &= IIf(strModules = VO.AccountPayable.ReceivePaymentTransport, " - Transportasi", " - Potong")
         Me.WindowState = FormWindowState.Maximized
     End Sub
 

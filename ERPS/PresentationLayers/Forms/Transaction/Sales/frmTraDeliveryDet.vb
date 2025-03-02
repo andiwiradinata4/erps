@@ -15,6 +15,7 @@ Public Class frmTraDeliveryDet
     Private bolIsUseSubItem As Boolean
     Private bolIsStock As Boolean
     Private intBPLocationID As Integer
+    Private intCountCalculate As Integer = 0
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
@@ -147,6 +148,7 @@ Public Class frmTraDeliveryDet
                 intCoAIDOfStock = clsData.CoAofStock
                 txtCoACodeOfStock.Text = clsData.CoACodeOfStock
                 txtCoANameOfStock.Text = clsData.CoANameOfStock
+                chkIsManualTransportPrice.Checked = clsData.IsManualTransportPrice
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -160,6 +162,9 @@ Public Class frmTraDeliveryDet
 
     Private Sub prvSave()
         ToolBar.Focus()
+        grdItemView.ClearColumnsFilter()
+        prvCalculate()
+        prvCalculateTransport()
         If txtBPCode.Text.Trim = "" Then
             UI.usForm.frmMessageBox("Pilih pemasok terlebih dahulu")
             tcHeader.SelectedTab = tpMain
@@ -280,6 +285,7 @@ Public Class frmTraDeliveryDet
         clsData.CoAofStock = intCoAIDOfStock
         clsData.CoACodeOfStock = txtCoACodeOfStock.Text.Trim
         clsData.CoANameOfStock = txtCoANameOfStock.Text.Trim
+        clsData.IsManualTransportPrice = chkIsManualTransportPrice.Checked
 
         pgMain.Value = 60
         Try
@@ -344,6 +350,7 @@ Public Class frmTraDeliveryDet
         intCoAIDOfStock = 0
         txtCoACodeOfStock.Text = ""
         txtCoANameOfStock.Text = ""
+        chkIsManualTransportPrice.Checked = False
     End Sub
 
     Private Sub prvChooseBP()
@@ -475,16 +482,20 @@ Public Class frmTraDeliveryDet
         txtTotalPPN.Value = txtTotalDPP.Value * (txtPPN.Value / 100)
         txtTotalPPH.Value = txtTotalDPP.Value * (txtPPH.Value / 100)
         txtGrandTotal.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
+    End Sub
 
+    Private Sub prvCalculateTransport()
+        intCountCalculate += 1
+        Console.WriteLine("Print " & intCountCalculate)
         '# Transport
-        txtTotalDPPTransport.Value = 0
+        If Not chkIsManualTransportPrice.Checked Then txtTotalDPPTransport.Value = 0
         txtTotalPPNTransport.Value = 0
         txtTotalPPHTransport.Value = 0
         Dim decTotalWeight As Decimal = 0
         For Each dr As DataRow In dtItem.Rows
             decTotalWeight += dr.Item("TotalWeight")
         Next
-        txtTotalDPPTransport.Value += decTotalWeight * txtUnitPriceTransport.Value
+        If Not chkIsManualTransportPrice.Checked Then txtTotalDPPTransport.Value += decTotalWeight * txtUnitPriceTransport.Value
         txtTotalPPNTransport.Value += txtTotalDPPTransport.Value * txtPPNTransport.Value / 100
         txtTotalPPHTransport.Value += txtTotalDPPTransport.Value * txtPPHTransport.Value / 100
         txtGrandTotalTransport.Value = txtTotalDPPTransport.Value + txtTotalPPNTransport.Value - txtTotalPPHTransport.Value
@@ -529,6 +540,7 @@ Public Class frmTraDeliveryDet
         dtItem.AcceptChanges()
         grdItem.DataSource = dtItem
         prvCalculate()
+        prvCalculateTransport()
     End Sub
 
     Private Sub prvQueryItem()
@@ -574,6 +586,7 @@ Public Class frmTraDeliveryDet
             .pubShowDialog(Me)
             prvSetButtonItem()
             prvCalculate()
+            prvCalculateTransport()
             prvSetupTools()
         End With
     End Sub
@@ -600,6 +613,7 @@ Public Class frmTraDeliveryDet
             .pubShowDialog(Me)
             prvSetButtonItem()
             prvCalculate()
+            prvCalculateTransport()
             prvSetupTools()
         End With
     End Sub
@@ -620,6 +634,7 @@ Public Class frmTraDeliveryDet
             .pubShowDialog(Me)
             prvSetButtonItem()
             prvCalculate()
+            prvCalculateTransport()
             prvSetupTools()
         End With
     End Sub
@@ -646,6 +661,7 @@ Public Class frmTraDeliveryDet
         Next
         dtItem.AcceptChanges()
         prvCalculate()
+        prvCalculateTransport()
         prvSetButtonItem()
         prvSetupTools()
     End Sub
@@ -699,9 +715,15 @@ Public Class frmTraDeliveryDet
         prvFillForm()
         prvQueryItem()
         prvCalculate()
+        prvCalculateTransport()
         prvQueryHistory()
         prvUserAccess()
         If bolIsStock Then lblReferencesNumber.Text = "No. Permintaan Pesanan"
+
+        AddHandler txtUnitPriceTransport.ValueChanged, AddressOf txtUnitPriceTransport_ValueChanged
+        AddHandler txtTotalDPPTransport.LostFocus, AddressOf txtUnitPriceTransport_ValueChanged
+        AddHandler txtPPNTransport.ValueChanged, AddressOf txtUnitPriceTransport_ValueChanged
+        AddHandler txtPPHTransport.ValueChanged, AddressOf txtUnitPriceTransport_ValueChanged
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
@@ -740,9 +762,8 @@ Public Class frmTraDeliveryDet
         prvChooseTransporter()
     End Sub
 
-    Private Sub txtUnitPriceTransport_ValueChanged(sender As Object, e As EventArgs) Handles txtUnitPriceTransport.ValueChanged,
-        txtPPNTransport.ValueChanged, txtPPHTransport.ValueChanged
-        prvCalculate()
+    Private Sub txtUnitPriceTransport_ValueChanged(sender As Object, e As EventArgs) 
+        prvCalculateTransport()
     End Sub
 
     Private Sub chkIsFreeTaxTransport_CheckedChanged(sender As Object, e As EventArgs) Handles chkIsFreePPNTransport.CheckedChanged,
@@ -755,6 +776,16 @@ Public Class frmTraDeliveryDet
 
     Private Sub btnCoAOfStock_Click(sender As Object, e As EventArgs) Handles btnCoAOfStock.Click
         prvChooseCOA()
+    End Sub
+
+    Private Sub chkIsManualTransportPrice_CheckedChanged(sender As Object, e As EventArgs) Handles chkIsManualTransportPrice.CheckedChanged
+        If chkIsManualTransportPrice.Checked Then
+            txtTotalDPPTransport.BackColor = Color.White
+            txtTotalDPPTransport.Enabled = True
+        Else
+            txtTotalDPPTransport.BackColor = Color.LightYellow
+            txtTotalDPPTransport.Enabled = False
+        End If
     End Sub
 
 #End Region

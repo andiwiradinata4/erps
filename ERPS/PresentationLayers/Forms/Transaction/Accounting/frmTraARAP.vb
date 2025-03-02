@@ -21,6 +21,7 @@ Public Class frmTraARAP
     Private decPPNPercentage As Decimal = 0
     Private decPPHPercentage As Decimal = 0
     Private bolIsControlARAP As Boolean = False
+    Private intIsGenerate As Integer = -1
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -106,14 +107,20 @@ Public Class frmTraARAP
         End Set
     End Property
 
+    Public WriteOnly Property pubIsGenerate As Integer
+        Set(value As Integer)
+            intIsGenerate = value
+        End Set
+    End Property
+
 #End Region
 
     Private Const _
-       cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
-       cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
-       cSep2 As Byte = 8, cSetPaymentDate As Byte = 9, cDeletePaymentDate As Byte = 10, cSetTaxInvoiceNumber As Byte = 11,
-       cSetInvoiceNumberBP As Byte = 12, cInvoice As Byte = 13, cExtendDueDate As Byte = 14, cSep3 As Byte = 15, cPrintPI As Byte = 16,
-       cPrintInvoice As Byte = 17, cPrintPaymentBank As Byte = 18, cExportExcel As Byte = 19, cSep4 As Byte = 20, cRefresh As Byte = 21, cClose As Byte = 22
+       cImport As Byte = 0, cNew As Byte = 1, cDetail As Byte = 2, cDelete As Byte = 3, cSep1 As Byte = 4,
+       cSubmit As Byte = 5, cCancelSubmit As Byte = 6, cApprove As Byte = 7, cCancelApprove As Byte = 8,
+       cSep2 As Byte = 9, cSetPaymentDate As Byte = 10, cDeletePaymentDate As Byte = 11, cSetTaxInvoiceNumber As Byte = 12,
+       cSetInvoiceNumberBP As Byte = 13, cInvoice As Byte = 14, cExtendDueDate As Byte = 15, cSep3 As Byte = 16, cPrintPI As Byte = 17,
+       cPrintInvoice As Byte = 18, cPrintPaymentBank As Byte = 19, cExportExcel As Byte = 20, cSep4 As Byte = 21, cRefresh As Byte = 22, cClose As Byte = 23
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -185,7 +192,7 @@ Public Class frmTraARAP
         UI.usForm.SetGrid(grdView, "PPNPercentage", "PPNPercentage", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdView, "PPHPercentage", "PPHPercentage", 100, UI.usDefGrid.gReal2Num, False)
         UI.usForm.SetGrid(grdView, "IsFullDP", "Full DP ?", 100, UI.usDefGrid.gBoolean)
-
+        UI.usForm.SetGrid(grdView, "IsGenerate", "Generate ?", 100, UI.usDefGrid.gBoolean)
         If bolIsControlARAP Then grdView.Columns("BPName").GroupIndex = 0
     End Sub
 
@@ -246,7 +253,7 @@ Public Class frmTraARAP
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
         Try
-            dtData = BL.ARAP.ListData(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue, strModules, enumARAPType, intBPID, strReferencesID)
+            dtData = BL.ARAP.ListData(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue, strModules, enumARAPType, intBPID, strReferencesID, intIsGenerate)
             grdMain.DataSource = dtData
             prvSumGrid()
             grdView.BestFitColumns()
@@ -321,6 +328,7 @@ Public Class frmTraARAP
         clsReturn.PPNPercentage = grdView.GetRowCellValue(intPos, "PPNPercentage")
         clsReturn.PPHPercentage = grdView.GetRowCellValue(intPos, "PPHPercentage")
         clsReturn.IsFullDP = grdView.GetRowCellValue(intPos, "IsFullDP")
+        clsReturn.IsGenerate = grdView.GetRowCellValue(intPos, "IsGenerate")
         Return clsReturn
     End Function
 
@@ -1290,6 +1298,8 @@ Public Class frmTraARAP
     Private Sub prvUserAccess()
         Dim intModules As Integer = VO.Common.GetModuleID(strModules)
         With ToolBar.Buttons
+            .Item(cImport).Visible = strModules = VO.AccountReceivable.DownPayment
+
             If bolIsControlARAP Then
                 .Item(cNew).Visible = False
                 .Item(cDelete).Visible = False
@@ -1298,7 +1308,9 @@ Public Class frmTraARAP
                 .Item(cApprove).Visible = False
                 .Item(cCancelApprove).Visible = False
             Else
-                .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.NewAccess)
+                .Item(cNew).Visible = strModules <> VO.AccountReceivable.DownPayment
+
+                '.Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.NewAccess)
                 .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.DeleteAccess)
                 .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.SubmitAccess)
                 .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelSubmitAccess)
@@ -1312,6 +1324,8 @@ Public Class frmTraARAP
             .Item(cSep3).Visible = False
             If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase Or (enumARAPType = VO.ARAP.ARAPTypeValue.Sales And strModules = VO.AccountReceivable.ReceivePaymentSalesReturn) Then .Item(cPrintPI).Visible = False : .Item(cPrintInvoice).Visible = False
             If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And strModules <> VO.AccountPayable.ReceivePaymentTransport Then .Item(cPrintPaymentBank).Visible = False
+            .Item(cPrintPaymentBank).Visible = strModules = VO.AccountPayable.ReceivePaymentTransport Or strModules = VO.AccountPayable.ReceivePaymentCutting
+
         End With
     End Sub
 
@@ -1322,6 +1336,9 @@ Public Class frmTraARAP
 
         If clsData.StatusID <> VO.Status.Values.Approved And clsData.StatusID <> VO.Status.Values.Payment Then
             UI.usForm.frmMessageBox("Data harus di setujui terlebih dahulu")
+            Exit Sub
+        ElseIf clsData.IsGenerate Then
+            UI.usForm.frmMessageBox("Data yang diimport tidak perlu dilakukan proses Invoice")
             Exit Sub
         End If
 
@@ -1350,6 +1367,40 @@ Public Class frmTraARAP
         End With
     End Sub
 
+    Private Sub prvImport()
+        prvResetProgressBar()
+
+        Try
+            Dim frmLookup As New frmTraARAPDPLookup
+            frmLookup.pubListReferencesID = BL.SalesContract.ListDataOrderRequest(strReferencesID)
+            frmLookup.StartPosition = FormStartPosition.CenterParent
+            frmLookup.ShowDialog()
+            If frmLookup.pubIsLookUpGet Then
+                Dim frmDetail As New frmTraARAPDetVer3Import
+                With frmDetail
+                    .pubIsNew = True
+                    .pubIDLookup = frmLookup.pubLUdtRow("ID")
+                    .pubCS = prvGetCS()
+                    .pubModules = VO.AccountReceivable.DownPayment
+                    .pubBPID = intBPID
+                    .pubARAPType = enumARAPType
+                    .pubReferencesID = strReferencesID
+                    .pubIsUseSubItem = bolIsUseSubItem
+                    .pubPPHPercentage = decPPHPercentage
+                    .pubPPNPercentage = decPPNPercentage
+                    .pubDtItemImport = BL.ARAP.ListDataDetailVer2(frmLookup.pubLUdtRow("ID"), enumARAPType)
+                    .Text = Me.Text
+                    .StartPosition = FormStartPosition.CenterScreen
+                    .pubShowDialog(Me)
+                End With
+            Else : Exit Sub
+            End If
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+            Me.Close()
+        End Try
+    End Sub
+
 #Region "Form Handle"
 
     Private Sub frmTraDownPayment_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -1376,6 +1427,8 @@ Public Class frmTraARAP
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
         If e.Button.Name = ToolBar.Buttons(cNew).Name Then
             prvNew()
+        ElseIf e.Button.Name = ToolBar.Buttons(cImport).Name Then
+            prvImport()
         ElseIf e.Button.Name = ToolBar.Buttons(cRefresh).Name Then
             pubRefresh()
         ElseIf e.Button.Name = ToolBar.Buttons(cClose).Name Then

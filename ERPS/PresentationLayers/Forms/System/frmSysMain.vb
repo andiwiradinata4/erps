@@ -878,6 +878,7 @@
                 frmMainTraARAPPayable.pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
                 frmMainTraARAPPayable.pubModules = VO.AccountPayable.All
                 frmMainTraARAPPayable.pubIsControlARAP = True
+                frmMainTraARAPReceivable.pubIsGenerate = 0
                 frmMainTraARAPPayable.WindowState = FormWindowState.Normal
                 frmMainTraARAPPayable.BringToFront()
                 frmMainTraARAPPayable.WindowState = FormWindowState.Maximized
@@ -887,6 +888,7 @@
                 frmMainTraARAPPayable.pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
                 frmMainTraARAPPayable.pubModules = VO.AccountPayable.All
                 frmMainTraARAPPayable.pubIsControlARAP = True
+                frmMainTraARAPReceivable.pubIsGenerate = 0
                 frmMainTraARAPPayable.Show()
             End If
         Else
@@ -895,6 +897,7 @@
             frmMainTraARAPPayable.pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
             frmMainTraARAPPayable.pubModules = VO.AccountPayable.All
             frmMainTraARAPPayable.pubIsControlARAP = True
+            frmMainTraARAPReceivable.pubIsGenerate = 0
             frmMainTraARAPPayable.Show()
         End If
         Me.Cursor = Cursors.Arrow
@@ -909,6 +912,7 @@
                 frmMainTraARAPReceivable.pubARAPType = VO.ARAP.ARAPTypeValue.Sales
                 frmMainTraARAPReceivable.pubModules = VO.AccountReceivable.All
                 frmMainTraARAPReceivable.pubIsControlARAP = True
+                frmMainTraARAPReceivable.pubIsGenerate = 0
                 frmMainTraARAPReceivable.WindowState = FormWindowState.Normal
                 frmMainTraARAPReceivable.BringToFront()
                 frmMainTraARAPReceivable.WindowState = FormWindowState.Maximized
@@ -918,6 +922,7 @@
                 frmMainTraARAPReceivable.pubARAPType = VO.ARAP.ARAPTypeValue.Sales
                 frmMainTraARAPReceivable.pubModules = VO.AccountReceivable.All
                 frmMainTraARAPReceivable.pubIsControlARAP = True
+                frmMainTraARAPReceivable.pubIsGenerate = 0
                 frmMainTraARAPReceivable.Show()
             End If
         Else
@@ -926,6 +931,7 @@
             frmMainTraARAPReceivable.pubARAPType = VO.ARAP.ARAPTypeValue.Sales
             frmMainTraARAPReceivable.pubModules = VO.AccountReceivable.All
             frmMainTraARAPReceivable.pubIsControlARAP = True
+            frmMainTraARAPReceivable.pubIsGenerate = 0
             frmMainTraARAPReceivable.Show()
         End If
         Me.Cursor = Cursors.Arrow

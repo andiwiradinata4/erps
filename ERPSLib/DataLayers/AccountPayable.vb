@@ -7,7 +7,8 @@
                                         ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
                                         ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
                                         ByVal intStatusID As Integer, ByVal strModules As String,
-                                        ByVal intBPID As Integer, ByVal strReferencesID As String) As DataTable
+                                        ByVal intBPID As Integer, ByVal strReferencesID As String,
+                                        ByVal intIsGenerate As Integer) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -27,7 +28,7 @@
                     "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, A.PPNPercentage, A.PPHPercentage, " & vbNewLine &
                     "   GrandTotal=A.TotalAmount+A.TotalPPN-A.TotalPPH, GrandTotal=A.TotalAmount+A.TotalPPN-A.TotalPPH, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, " & vbNewLine &
                     "   DueDateVSNowValue=DATEDIFF(DAY,DueDate, GETDATE()), A.ReferencesNumber, A.IsFullDP, OutstandingInvoiceAmount=(A.TotalAmount+A.TotalPPN-A.TotalPPH)-A.TotalInvoiceAmount, " & vbNewLine &
-                    "   A.BPBankAccountID, ISNULL(BPBA.BankName,'') AS BPBankAccountBank, ISNULL(BPBA.AccountNumber,'') AS BPBankAccountNumber " & vbNewLine &
+                    "   A.BPBankAccountID, ISNULL(BPBA.BankName,'') AS BPBankAccountBank, ISNULL(BPBA.AccountNumber,'') AS BPBankAccountNumber, A.IsGenerate " & vbNewLine &
                     "FROM traAccountPayable A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -54,6 +55,8 @@
 
                 If strReferencesID.Trim <> "" Then .CommandText += "   AND A.ReferencesID=@ReferencesID " & vbNewLine
 
+                If intIsGenerate <> -1 Then .CommandText += "   AND A.IsGenerate=@IsGenerate " & vbNewLine
+
                 .CommandText += "ORDER BY A.APDate, A.ID ASC " & vbNewLine
 
                 .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
@@ -64,6 +67,7 @@
                 .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = strModules
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
                 .Parameters.Add("@ReferencesID", SqlDbType.VarChar, 100).Value = strReferencesID
+                .Parameters.Add("@IsGenerate", SqlDbType.TinyInt).Value = intIsGenerate
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
@@ -130,11 +134,11 @@
                         "INSERT INTO traAccountPayable " & vbNewLine &
                         "   (ID, CompanyID, ProgramID, APNumber, BPID, CoAIDOfOutgoingPayment, Modules, ReferencesID, ReferencesNote, " & vbNewLine &
                         "    APDate, DueDateValue, DueDate, TotalAmount, Percentage, Remarks, StatusID, CreatedBy, CreatedDate, LogBy, LogDate, " & vbNewLine &
-                        "    TotalPPN, TotalPPH, IsDP, DPAmount, ReceiveAmount, IsUseSubItem, PPNPercentage, PPHPercentage, IsFullDP, BPBankAccountID, InvoiceNumberBP, InvoiceDateBP, ReceiveDateInvoice) " & vbNewLine &
+                        "    TotalPPN, TotalPPH, IsDP, DPAmount, ReceiveAmount, IsUseSubItem, PPNPercentage, PPHPercentage, IsFullDP, BPBankAccountID, InvoiceNumberBP, InvoiceDateBP, ReceiveDateInvoice, IsGenerate) " & vbNewLine &
                         "VALUES " & vbNewLine &
                         "   (@ID, @CompanyID, @ProgramID, @APNumber, @BPID, @CoAIDOfOutgoingPayment, @Modules, @ReferencesID, @ReferencesNote, " & vbNewLine &
                         "    @APDate, @DueDateValue, @DueDate, @TotalAmount, @Percentage, @Remarks, @StatusID, @LogBy, GETDATE(), @LogBy, GETDATE(), " & vbNewLine &
-                        "    @TotalPPN, @TotalPPH, @IsDP, @DPAmount, @ReceiveAmount, @IsUseSubItem, @PPNPercentage, @PPHPercentage, @IsFullDP, @BPBankAccountID, @InvoiceNumberBP, @InvoiceDateBP, @ReceiveDateInvoice) " & vbNewLine
+                        "    @TotalPPN, @TotalPPH, @IsDP, @DPAmount, @ReceiveAmount, @IsUseSubItem, @PPNPercentage, @PPHPercentage, @IsFullDP, @BPBankAccountID, @InvoiceNumberBP, @InvoiceDateBP, @ReceiveDateInvoice, @IsGenerate) " & vbNewLine
                 Else
                     .CommandText =
                         "UPDATE traAccountPayable SET " & vbNewLine &
@@ -168,7 +172,8 @@
                         "    BPBankAccountID=@BPBankAccountID, " & vbNewLine &
                         "    InvoiceNumberBP=@InvoiceNumberBP, " & vbNewLine &
                         "    InvoiceDateBP=@InvoiceDateBP, " & vbNewLine &
-                        "    ReceiveDateInvoice=@ReceiveDateInvoice " & vbNewLine &
+                        "    ReceiveDateInvoice=@ReceiveDateInvoice, " & vbNewLine &
+                        "    IsGenerate=@IsGenerate " & vbNewLine &
                         "WHERE   " & vbNewLine &
                         "    ID=@ID " & vbNewLine
                 End If
@@ -203,6 +208,7 @@
                 .Parameters.Add("@InvoiceNumberBP", SqlDbType.VarChar, 1000).Value = clsData.InvoiceNumberBP
                 .Parameters.Add("@InvoiceDateBP", SqlDbType.DateTime).Value = clsData.InvoiceDateBP
                 .Parameters.Add("@ReceiveDateInvoice", SqlDbType.DateTime).Value = clsData.ReceiveDateInvoice
+                .Parameters.Add("@IsGenerate", SqlDbType.Bit).Value = clsData.IsGenerate
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -230,7 +236,7 @@
                         "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice, A.InvoiceNumberBP, A.IsUseSubItem, " & vbNewLine &
                         "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, A.PPNPercentage, A.PPHPercentage, " & vbNewLine &
                         "   A.PPNPercentage, A.PPHPercentage, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, A.ReferencesNumber, A.IsFullDP, A.IsGenerate, " & vbNewLine &
-                        "   A.BPBankAccountID, ISNULL(BPBA.BankName,'') AS BPBankAccountBank, ISNULL(BPBA.AccountNumber,'') AS BPBankAccountNumber, A.InvoiceNumberBP, A.InvoiceDateBP, A.ReceiveDateInvoice " & vbNewLine &
+                        "   A.BPBankAccountID, ISNULL(BPBA.BankName,'') AS BPBankAccountBank, ISNULL(BPBA.AccountNumber,'') AS BPBankAccountNumber, A.InvoiceNumberBP, A.InvoiceDateBP, A.ReceiveDateInvoice, A.IsGenerate " & vbNewLine &
                         "FROM traAccountPayable A " & vbNewLine &
                         "INNER JOIN mstStatus B ON " & vbNewLine &
                         "   A.StatusID=B.ID " & vbNewLine &
@@ -325,6 +331,7 @@
                         voReturn.BPBankAccountNumber = .Item("BPBankAccountNumber")
                         voReturn.InvoiceDateBP = .Item("InvoiceDateBP")
                         voReturn.ReceiveDateInvoice = .Item("ReceiveDateInvoice")
+                        voReturn.IsGenerate = .Item("IsGenerate")
                     End If
                 End With
             Catch ex As Exception
@@ -1220,9 +1227,9 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "INSERT INTO traAccountPayableDet " & vbNewLine &
-                    "   (ID, APID, PurchaseID, Amount, Remarks, PPN, PPH, DPAmount, Rounding, LevelItem, ReferencesParentID, Quantity, Weight, TotalWeight) " & vbNewLine &
+                    "   (ID, APID, PurchaseID, Amount, Remarks, PPN, PPH, DPAmount, Rounding, LevelItem, ReferencesParentID, Quantity, Weight, TotalWeight, ReceiveDate, InvoiceDate, InvoiceNumberBP) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @APID, @PurchaseID, @Amount, @Remarks, @PPN, @PPH, @DPAmount, @Rounding, @LevelItem, @ReferencesParentID, @Quantity, @Weight, @TotalWeight) " & vbNewLine
+                    "   (@ID, @APID, @PurchaseID, @Amount, @Remarks, @PPN, @PPH, @DPAmount, @Rounding, @LevelItem, @ReferencesParentID, @Quantity, @Weight, @TotalWeight, @ReceiveDate, @InvoiceDate, @InvoiceNumberBP) " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
                 .Parameters.Add("@APID", SqlDbType.VarChar, 100).Value = clsData.APID
@@ -1238,6 +1245,9 @@
                 .Parameters.Add("@Quantity", SqlDbType.Decimal).Value = clsData.Quantity
                 .Parameters.Add("@Weight", SqlDbType.Decimal).Value = clsData.Weight
                 .Parameters.Add("@TotalWeight", SqlDbType.Decimal).Value = clsData.TotalWeight
+                .Parameters.Add("@ReceiveDate", SqlDbType.DateTime).Value = clsData.ReceiveDate
+                .Parameters.Add("@InvoiceDate", SqlDbType.DateTime).Value = clsData.InvoiceDate
+                .Parameters.Add("@InvoiceNumberBP", SqlDbType.VarChar, 1000).Value = clsData.InvoiceNumberBP
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

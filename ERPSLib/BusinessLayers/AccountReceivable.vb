@@ -8,7 +8,7 @@
                                         ByVal intStatusID As Integer, ByVal strModules As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.AccountReceivable.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID, strModules, 0, "")
+                Return DL.AccountReceivable.ListData(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, intStatusID, strModules, 0, "", -1)
             End Using
         End Function
 
@@ -315,7 +315,7 @@
                     Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan status data telah DIBAYAR")
                 ElseIf DL.AccountReceivable.IsDeleted(sqlCon, sqlTrans, clsData.ID) Then
                     Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
-                ElseIf DL.AccountReceivable.DataExists(sqlCon, sqlTrans, clsData.ARNumber, clsData.ID) Then
+                ElseIf Not clsData.IsGenerate And DL.AccountReceivable.DataExists(sqlCon, sqlTrans, clsData.ARNumber, clsData.ID) Then
                     Err.Raise(515, "", "Tidak dapat disimpan. Nomor " & clsData.ARNumber & " sudah ada.")
                 End If
 
@@ -1377,6 +1377,8 @@
             Try
                 '# Generate Journal
                 Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
+                If clsData.IsGenerate Then GoTo EndProcess
+
                 Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
                 Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
                 Dim intGroupID As Integer = 1
@@ -1609,6 +1611,7 @@
 
                 '# Update Journal ID in Account Receivable
                 DL.AccountReceivable.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
+EndProcess:
             Catch ex As Exception
                 Throw ex
             End Try
@@ -1619,6 +1622,8 @@
             Try
                 '# Generate Journal
                 Dim clsData As VO.AccountReceivable = DL.AccountReceivable.GetDetail(sqlCon, sqlTrans, strID)
+                If clsData.IsGenerate Then GoTo EndProcess
+
                 Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalIDInvoice)
                 Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
                 Dim intGroupID As Integer = 1
@@ -1811,6 +1816,7 @@
 
                 '# Update Journal ID in Account Receivable
                 DL.AccountReceivable.UpdateJournalIDInvoice(sqlCon, sqlTrans, clsData.ID, strJournalID)
+EndProcess:
             Catch ex As Exception
                 Throw ex
             End Try

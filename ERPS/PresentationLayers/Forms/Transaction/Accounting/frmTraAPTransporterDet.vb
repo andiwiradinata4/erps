@@ -270,6 +270,7 @@ Public Class frmTraAPTransporterDet
                 prvClear()
                 prvQueryItem()
                 prvQueryHistory()
+                prvQueryRemarks()
             Else
                 Me.Close()
             End If

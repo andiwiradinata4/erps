@@ -353,7 +353,7 @@ Public Class frmTraDelivery
             Dim crReport As New rptShippingInvoiceVer00
 
             '# setup watermark report
-            If intStatusID <> VO.Status.Values.Approved Then
+            If intStatusID = VO.Status.Values.Draft Then
                 crReport.Watermark.ShowBehind = False
                 crReport.Watermark.Text = "DRAFT" & vbCrLf & "NOT OFFICIAL"
                 crReport.Watermark.ForeColor = System.Drawing.Color.DimGray

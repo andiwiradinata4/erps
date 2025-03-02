@@ -585,10 +585,22 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer3.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer3Import.Designer.vb">
+      <DependentUpon>frmTraARAPDetVer3Import.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer3Import.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer4.Designer.vb">
       <DependentUpon>frmTraARAPDetVer4.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer4.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDPLookup.Designer.vb">
+      <DependentUpon>frmTraARAPDPLookup.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDPLookup.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPExtendDueDate.Designer.vb">
@@ -1836,8 +1848,14 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer3.resx">
       <DependentUpon>frmTraARAPDetVer3.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer3Import.resx">
+      <DependentUpon>frmTraARAPDetVer3Import.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer4.resx">
       <DependentUpon>frmTraARAPDetVer4.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDPLookup.resx">
+      <DependentUpon>frmTraARAPDPLookup.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPExtendDueDate.resx">
       <DependentUpon>frmTraARAPExtendDueDate.vb</DependentUpon>

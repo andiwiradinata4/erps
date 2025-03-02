@@ -689,6 +689,12 @@
             End Using
         End Sub
 
+        Public Shared Function ListDataOrderRequest(ByVal strSCID As String) As List(Of String)
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.SalesContract.ListDataOrderRequest(sqlCon, Nothing, strSCID)
+            End Using
+        End Function
 #End Region
 
 #Region "Detail"

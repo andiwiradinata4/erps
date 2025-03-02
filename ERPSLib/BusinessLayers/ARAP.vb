@@ -7,13 +7,14 @@
                                         ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
                                         ByVal intStatusID As Integer, ByVal strModules As String,
                                         ByVal enumDPType As VO.ARAP.ARAPTypeValue,
-                                        ByVal intBPID As Integer, ByVal strReferencesID As String) As DataTable
+                                        ByVal intBPID As Integer, ByVal strReferencesID As String,
+                                        Optional ByVal intIsGenerate As Integer = 0) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 If enumDPType = VO.ARAP.ARAPTypeValue.Sales Then
-                    Return DL.AccountReceivable.ListData(sqlCon, Nothing, intCompanyID, intProgramID, dtmDateFrom, dtmDateTo, intStatusID, strModules, intBPID, strReferencesID)
+                    Return DL.AccountReceivable.ListData(sqlCon, Nothing, intCompanyID, intProgramID, dtmDateFrom, dtmDateTo, intStatusID, strModules, intBPID, strReferencesID, intIsGenerate)
                 Else
-                    Return DL.AccountPayable.ListData(sqlCon, Nothing, intCompanyID, intProgramID, dtmDateFrom, dtmDateTo, intStatusID, strModules, intBPID, strReferencesID)
+                    Return DL.AccountPayable.ListData(sqlCon, Nothing, intCompanyID, intProgramID, dtmDateFrom, dtmDateTo, intStatusID, strModules, intBPID, strReferencesID, intIsGenerate)
                 End If
             End Using
         End Function
@@ -35,6 +36,13 @@
                 End If
             End Using
             Return dtData
+        End Function
+
+        Public Shared Function ListDataForLookupDP(ByVal strReferencesID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.AccountReceivable.ListDataForLookupDP(sqlCon, Nothing, strReferencesID)
+            End Using
         End Function
 
         Public Shared Function SaveData(ByVal bolNew As Boolean, ByVal clsDataARAP As VO.ARAP) As String
@@ -309,6 +317,7 @@
                         clsData.Save = clsDataARAP.Save
                         clsData.PPNPercentage = clsDataARAP.PPNPercentage
                         clsData.PPHPercentage = clsDataARAP.PPHPercentage
+                        clsData.IsGenerate = clsDataARAP.IsGenerate
 
                         BL.AccountReceivable.SaveDataVer01(sqlCon, sqlTrans, bolNew, clsData)
 
@@ -386,6 +395,7 @@
                         clsData.Save = clsDataARAP.Save
                         clsData.PPNPercentage = clsDataARAP.PPNPercentage
                         clsData.PPHPercentage = clsDataARAP.PPHPercentage
+                        clsData.IsGenerate = clsDataARAP.IsGenerate
 
                         BL.AccountPayable.SaveDataVer01(sqlCon, sqlTrans, bolNew, clsData)
 
@@ -1668,6 +1678,7 @@
                 Dim clsARAPInvoice As VO.ARAPInvoice = DL.ARAP.GetDetailInvoice(sqlCon, sqlTrans, strID)
                 Dim clsARAP As VO.ARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsARAPInvoice.ParentID, VO.ARAP.ARAPTypeValue.Purchase)
                 If clsARAP.ID Is Nothing Then clsARAP = BL.ARAP.GetDetail(sqlCon, sqlTrans, clsARAPInvoice.ParentID, VO.ARAP.ARAPTypeValue.Sales)
+                If clsARAP.IsGenerate Then GoTo EndProcess
 
                 '# Generate Journal
                 Dim clsJournalDetail As New List(Of VO.JournalDet)
@@ -2214,6 +2225,7 @@
 
                 '# Update Journal ID in Account Payable
                 DL.ARAP.UpdateJournalIDInvoice(sqlCon, sqlTrans, clsARAPInvoice.ID, strJournalID)
+EndProcess:
             Catch ex As Exception
                 Throw ex
             End Try

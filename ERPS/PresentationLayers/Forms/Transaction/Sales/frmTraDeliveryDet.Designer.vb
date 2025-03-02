@@ -90,6 +90,7 @@ Partial Class frmTraDeliveryDet
         Me.Label26 = New System.Windows.Forms.Label()
         Me.txtPPNTransport = New ERPS.usNumeric()
         Me.gboTransport = New System.Windows.Forms.GroupBox()
+        Me.chkIsManualTransportPrice = New DevExpress.XtraEditors.CheckEdit()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.txtGrandTotalTransport = New ERPS.usNumeric()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -137,6 +138,7 @@ Partial Class frmTraDeliveryDet
         CType(Me.txtPPHTransport, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtPPNTransport, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gboTransport.SuspendLayout()
+        CType(Me.chkIsManualTransportPrice.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtGrandTotalTransport, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPPHTransport, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalDPPTransport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -923,6 +925,7 @@ Partial Class frmTraDeliveryDet
         '
         'gboTransport
         '
+        Me.gboTransport.Controls.Add(Me.chkIsManualTransportPrice)
         Me.gboTransport.Controls.Add(Me.Label10)
         Me.gboTransport.Controls.Add(Me.txtGrandTotalTransport)
         Me.gboTransport.Controls.Add(Me.Label12)
@@ -937,6 +940,14 @@ Partial Class frmTraDeliveryDet
         Me.gboTransport.TabIndex = 5
         Me.gboTransport.TabStop = False
         Me.gboTransport.Text = "Total Harga Transport"
+        '
+        'chkIsManualTransportPrice
+        '
+        Me.chkIsManualTransportPrice.Location = New System.Drawing.Point(307, 23)
+        Me.chkIsManualTransportPrice.Name = "chkIsManualTransportPrice"
+        Me.chkIsManualTransportPrice.Properties.Caption = "Harga Paket?"
+        Me.chkIsManualTransportPrice.Size = New System.Drawing.Size(139, 19)
+        Me.chkIsManualTransportPrice.TabIndex = 126
         '
         'Label10
         '
@@ -1305,6 +1316,7 @@ Partial Class frmTraDeliveryDet
         CType(Me.txtPPNTransport, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gboTransport.ResumeLayout(False)
         Me.gboTransport.PerformLayout()
+        CType(Me.chkIsManualTransportPrice.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtGrandTotalTransport, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalPPHTransport, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalDPPTransport, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1421,4 +1433,5 @@ Partial Class frmTraDeliveryDet
     Friend WithEvents txtCoANameOfStock As ERPS.usTextBox
     Friend WithEvents BarSep1ItemOrder As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarAddMultiItemOrder As System.Windows.Forms.ToolBarButton
+    Friend WithEvents chkIsManualTransportPrice As DevExpress.XtraEditors.CheckEdit
 End Class

@@ -1857,6 +1857,36 @@
             End Try
         End Sub
 
+        Public Shared Function ListDataOrderRequest(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                    ByVal strSCID As String) As List(Of String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT DISTINCT " & vbNewLine &
+                    "   ORH.ID " & vbNewLine &
+                    "FROM traSalesContractDet SCD " & vbNewLine &
+                    "INNER JOIN traOrderRequestDet ORD ON " & vbNewLine &
+                    "   SCD.ORDetailID=ORD.ID " & vbNewLine &
+                    "INNER JOIN traOrderRequest ORH ON " & vbNewLine &
+                    "   ORD.OrderRequestID=ORH.ID " & vbNewLine &
+                    "   AND ORH.IsDeleted=0 " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   SCD.SCID=@SCID " & vbNewLine
+
+                .Parameters.Add("@SCID", SqlDbType.VarChar, 100).Value = strSCID
+            End With
+
+            Dim dtData As DataTable = SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+            Dim listValue As New List(Of String)
+            For Each dr As DataRow In dtData.Rows
+                listValue.Add(dr.Item("ID"))
+            Next
+            Return listValue
+        End Function
+
 #End Region
 
 #Region "Detail"

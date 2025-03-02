@@ -63,6 +63,7 @@ Partial Class frmTraARAP
         Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
         Me.btnExecute = New DevExpress.XtraEditors.SimpleButton()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.BarImport = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -114,7 +115,7 @@ Partial Class frmTraARAP
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarSetPaymentDate, Me.BarDeletePaymentDate, Me.BarSetTaxInvoiceNumber, Me.BarSetInvoiceNumberBP, Me.BarInvoice, Me.BarExtendDueDate, Me.BarSep3, Me.BarPrint, Me.BarPrintInvoice, Me.BarPrintBankOut, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarImport, Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarSetPaymentDate, Me.BarDeletePaymentDate, Me.BarSetTaxInvoiceNumber, Me.BarSetInvoiceNumberBP, Me.BarInvoice, Me.BarExtendDueDate, Me.BarSep3, Me.BarPrint, Me.BarPrintInvoice, Me.BarPrintBankOut, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -396,6 +397,12 @@ Partial Class frmTraARAP
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Query berdasarkan:"
         '
+        'BarImport
+        '
+        Me.BarImport.Name = "BarImport"
+        Me.BarImport.Tag = "Track"
+        Me.BarImport.Text = "Import"
+        '
         'frmTraARAP
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -457,4 +464,5 @@ Partial Class frmTraARAP
     Friend WithEvents BarExtendDueDate As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarPrintInvoice As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarPrintBankOut As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarImport As System.Windows.Forms.ToolBarButton
 End Class
