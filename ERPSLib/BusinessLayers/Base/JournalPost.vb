@@ -13,7 +13,7 @@ Namespace BL
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Try
-                    DL.JournalPost.SaveData(sqlCon, Nothing, Not DL.JournalPost.DataExists(sqlCon, Nothing), clsData)
+                    DL.JournalPost.SaveData(sqlCon, Nothing, Not DL.JournalPost.DataExists(sqlCon, Nothing, clsData.ProgramID, clsData.CompanyID), clsData)
                     bolReturn = True
                 Catch ex As Exception
                     Throw ex
@@ -22,10 +22,10 @@ Namespace BL
             Return bolReturn
         End Function
 
-        Public Shared Function GetDetail(ByVal intProgramID As Integer) As VO.JournalPost
+        Public Shared Function GetDetail(ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As VO.JournalPost
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.JournalPost.GetDetail(sqlCon, Nothing, intProgramID)
+                Return DL.JournalPost.GetDetail(sqlCon, Nothing, intProgramID, intCompanyID)
             End Using
         End Function
 

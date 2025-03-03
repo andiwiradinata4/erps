@@ -103,6 +103,8 @@
         clsData.StatusID = cboStatus.SelectedValue
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Initial = txtInitial.Text.Trim
+        clsData.ProgramID = ERPSLib.UI.usUserApp.ProgramID
+        clsData.CompanyID = ERPSLib.UI.usUserApp.CompanyID
 
         Try
             BL.ChartOfAccount.SaveData(pubIsNew, clsData)

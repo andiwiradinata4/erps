@@ -93,6 +93,8 @@
                     DevelopOnProgress_ID84(sqlCon, sqlTrans)
                     DevelopOnProgress_ID85(sqlCon, sqlTrans)
                     DevelopOnProgress_ID86(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID87(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID88(sqlCon, sqlTrans)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -2641,6 +2643,37 @@
 "ALTER TABLE traARAPItem ADD InvoiceDateBP DATETIME NOT NULL CONSTRAINT DF_traARAPItem_InvoiceDateBP DEFAULT (GETDATE())  " & vbNewLine &
 "ALTER TABLE traARAPItem ADD ReceiveDateInvoice DATETIME NOT NULL CONSTRAINT DF_traARAPItem_ReceiveDateInvoice DEFAULT (GETDATE())  " & vbNewLine &
 "ALTER TABLE traARAPItem ADD InvoiceNumberBP VARCHAR(1000) NOT NULL CONSTRAINT DF_traARAPItem_InvoiceNumberBP DEFAULT ('')  " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 87
+        Private Shared Sub DevelopOnProgress_ID87(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 87
+            clsData.Name = "Alter Chart of Account"
+            clsData.Scripts =
+"ALTER TABLE mstChartOfAccount ADD ProgramID INT NOT NULL CONSTRAINT DF_mstChartOfAccount_ProgramID DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE mstChartOfAccount ADD CompanyID INT NOT NULL CONSTRAINT DF_mstChartOfAccount_CompanyID DEFAULT ((0))  " & vbNewLine &
+"" & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 88
+        Private Shared Sub DevelopOnProgress_ID88(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 88
+            clsData.Name = "Alter Default Journal Post"
+            clsData.Scripts = "ALTER TABLE sysJournalPost ADD CompanyID INT NOT NULL CONSTRAINT DF_sysJournalPost_CompanyID DEFAULT ((0))  " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

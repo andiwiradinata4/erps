@@ -55,7 +55,7 @@ Namespace BL
                         End If
                     End If
 
-                    If DL.ChartOfAccount.CodeExists(sqlCon, sqlTrans, clsData.Code, clsData.ID) Then
+                    If DL.ChartOfAccount.CodeExists(sqlCon, sqlTrans, clsData.Code, clsData.ID, clsData.ProgramID, clsData.CompanyID) Then
                         Err.Raise(515, "", "Kode akun sudah ada sebelumnya")
                     End If
 

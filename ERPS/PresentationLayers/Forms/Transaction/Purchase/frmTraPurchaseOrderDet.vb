@@ -278,6 +278,8 @@ Public Class frmTraPurchaseOrderDet
                 intBPID = .pubLUdtRow.Item("ID")
                 txtBPCode.Text = .pubLUdtRow.Item("Code")
                 txtBPName.Text = .pubLUdtRow.Item("Name")
+                txtPPN.Value = .pubLUdtRow.Item("PPN")
+                txtPPH.Value = .pubLUdtRow.Item("PPH")
             End If
         End With
     End Sub

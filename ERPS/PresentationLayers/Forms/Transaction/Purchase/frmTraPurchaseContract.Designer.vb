@@ -57,6 +57,9 @@ Partial Class frmTraPurchaseContract
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.BarDone = New System.Windows.Forms.ToolBarButton()
+        Me.BarCancelDone = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep5 = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -66,7 +69,7 @@ Partial Class frmTraPurchaseContract
         'ToolBar
         '
         Me.ToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarDownPayment, Me.BarReceive, Me.BarSep3, Me.BarPrint, Me.BarExportExcel, Me.BarSep4, Me.BarRefresh, Me.BarClose})
+        Me.ToolBar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarNew, Me.BarDetail, Me.BarDelete, Me.BarSep1, Me.BarSubmit, Me.BarCancelSubmit, Me.BarApprove, Me.BarCancelApprove, Me.BarSep2, Me.BarDownPayment, Me.BarReceive, Me.BarSep3, Me.BarDone, Me.BarCancelDone, Me.BarSep4, Me.BarPrint, Me.BarExportExcel, Me.BarSep5, Me.BarRefresh, Me.BarClose})
         Me.ToolBar.DropDownArrows = True
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
@@ -354,6 +357,23 @@ Partial Class frmTraPurchaseContract
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
         '
+        'BarDone
+        '
+        Me.BarDone.Name = "BarDone"
+        Me.BarDone.Tag = "Checked"
+        Me.BarDone.Text = "Selesai"
+        '
+        'BarCancelDone
+        '
+        Me.BarCancelDone.Name = "BarCancelDone"
+        Me.BarCancelDone.Tag = "Cancel"
+        Me.BarCancelDone.Text = "Batal Selesai"
+        '
+        'BarSep5
+        '
+        Me.BarSep5.Name = "BarSep5"
+        Me.BarSep5.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
         'frmTraPurchaseContract
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -410,4 +430,7 @@ Partial Class frmTraPurchaseContract
     Friend WithEvents BarDownPayment As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarReceive As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarSep4 As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarDone As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarCancelDone As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarSep5 As System.Windows.Forms.ToolBarButton
 End Class

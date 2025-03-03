@@ -40,5 +40,8 @@
         Property PaymentTerm As List(Of VO.PurchaseContractPaymentTerm)
         Property Save As VO.Save.Action
         Property PaymentTypeID As Integer
+        Property IsDone As Integer
+        Property DoneBy As String
+        Property DoneDate As DateTime
     End Class
 End Namespace

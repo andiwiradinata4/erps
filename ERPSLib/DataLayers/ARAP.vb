@@ -103,7 +103,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
 "SELECT     " & vbNewLine &
-"	ARH.ID, ARH.ProgramID, MP.Name AS ProgramName, ARH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress,     " & vbNewLine &
+"	ARH.ID, ARH.ProgramID, MP.Name AS ProgramName, ARH.CompanyID, MC.Name AS CompanyName, MC.Address + CASE WHEN MC.Warehouse='' THEN '' ELSE CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse END AS CompanyAddress,     " & vbNewLine &
 "	ARH.ARNumber AS TransNumber, ARH.ARDate AS TransDate, ARH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, ARH.ReferencesID, ARH.ReferencesNote,     " & vbNewLine &
 "	SCH.PPN, SCH.PPH, CASE WHEN ARH.IsDP=1 THEN SCH.TotalDPP ELSE ARH.ReceiveAmount+ARH.DPAmount END AS TotalDPP, CASE WHEN ARH.IsDP=1 THEN SCH.TotalPPN ELSE (ARH.ReceiveAmount+ARH.DPAmount)*SCH.PPN/100 END AS TotalPPN, " & vbNewLine &
 "   CASE WHEN ARH.IsDP=1 THEN SCH.TotalPPH ELSE (ARH.ReceiveAmount+ARH.DPAmount)*SCH.PPH/100 END AS TotalPPH,  " & vbNewLine &
@@ -164,7 +164,7 @@
                 .CommandText +=
 "UNION ALL " & vbNewLine &
 "SELECT     " & vbNewLine &
-"	ARH.ID, ARH.ProgramID, MP.Name AS ProgramName, ARH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress,     " & vbNewLine &
+"	ARH.ID, ARH.ProgramID, MP.Name AS ProgramName, ARH.CompanyID, MC.Name AS CompanyName, MC.Address + CASE WHEN MC.Warehouse='' THEN '' ELSE CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse END AS CompanyAddress,     " & vbNewLine &
 "	ARH.ARNumber AS TransNumber, ARH.ARDate AS TransDate, ARH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, ARH.ReferencesID, ARH.ReferencesNote,     " & vbNewLine &
 "	SCH.PPN, SCH.PPH, CASE WHEN ARH.IsDP=1 THEN SCH.TotalDPP ELSE ARH.ReceiveAmount+ARH.DPAmount END AS TotalDPP, CASE WHEN ARH.IsDP=1 THEN SCH.TotalPPN ELSE (ARH.ReceiveAmount+ARH.DPAmount)*SCH.PPN/100 END AS TotalPPN, " & vbNewLine &
 "   CASE WHEN ARH.IsDP=1 THEN SCH.TotalPPH ELSE (ARH.ReceiveAmount+ARH.DPAmount)*SCH.PPH/100 END AS TotalPPH,  " & vbNewLine &
@@ -219,7 +219,7 @@
                 .CommandText +=
 "UNION ALL " & vbNewLine &
 "SELECT     " & vbNewLine &
-"	ARH.ID, ARH.ProgramID, MP.Name AS ProgramName, ARH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress,     " & vbNewLine &
+"	ARH.ID, ARH.ProgramID, MP.Name AS ProgramName, ARH.CompanyID, MC.Name AS CompanyName, MC.Address + CASE WHEN MC.Warehouse='' THEN '' ELSE CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse END AS CompanyAddress,     " & vbNewLine &
 "	ARH.ARNumber AS TransNumber, ARH.ARDate AS TransDate, ARH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, ARH.ReferencesID, ARH.ReferencesNote,     " & vbNewLine &
 "	SCH.PPN, SCH.PPH, CASE WHEN ARH.IsDP=1 THEN SCH.TotalDPP ELSE ARH.ReceiveAmount+ARH.DPAmount END AS TotalDPP, CASE WHEN ARH.IsDP=1 THEN SCH.TotalPPN ELSE (ARH.ReceiveAmount+ARH.DPAmount)*SCH.PPN/100 END AS TotalPPN, " & vbNewLine &
 "   CASE WHEN ARH.IsDP=1 THEN SCH.TotalPPH ELSE (ARH.ReceiveAmount+ARH.DPAmount)*SCH.PPH/100 END AS TotalPPH,  " & vbNewLine &
@@ -273,7 +273,7 @@
                 .CommandText +=
 "UNION ALL " & vbNewLine &
 "SELECT     " & vbNewLine &
-"	ARH.ID, ARH.ProgramID, MP.Name AS ProgramName, ARH.CompanyID, MC.Name AS CompanyName, MC.Address + CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse AS CompanyAddress,     " & vbNewLine &
+"	ARH.ID, ARH.ProgramID, MP.Name AS ProgramName, ARH.CompanyID, MC.Name AS CompanyName, MC.Address + CASE WHEN MC.Warehouse='' THEN '' ELSE CHAR(10) + 'WAREHOUSE: ' + MC.Warehouse END AS CompanyAddress,     " & vbNewLine &
 "	ARH.ARNumber AS TransNumber, ARH.ARDate AS TransDate, ARH.BPID, C.Code AS BPCode, C.Name AS BPName, C.Address AS BPAddress, ARH.ReferencesID, ARH.ReferencesNote,     " & vbNewLine &
 "	ORH.PPN, ORH.PPH, CASE WHEN ARH.IsDP=1 THEN ORH.TotalDPP ELSE ARH.ReceiveAmount+ARH.DPAmount END AS TotalDPP, CASE WHEN ARH.IsDP=1 THEN ORH.TotalPPN ELSE (ARH.ReceiveAmount+ARH.DPAmount)*ORH.PPN/100 END AS TotalPPN, " & vbNewLine &
 "   CASE WHEN ARH.IsDP=1 THEN ORH.TotalPPH ELSE (ARH.ReceiveAmount+ARH.DPAmount)*ORH.PPH/100 END AS TotalPPH,  " & vbNewLine &

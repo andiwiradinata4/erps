@@ -23,7 +23,7 @@
 
     Private Sub prvFillForm()
         Try
-            clsData = BL.JournalPost.GetDetail(ERPSLib.UI.usUserApp.ProgramID)
+            clsData = BL.JournalPost.GetDetail(ERPSLib.UI.usUserApp.ProgramID, ERPSLib.UI.usUserApp.CompanyID)
             intCoAIDofRevenue = clsData.CoAofRevenue
             txtCoACodeOfRevenue.Text = clsData.CoACodeofRevenue
             txtCoANameOfRevenue.Text = clsData.CoANameofRevenue
@@ -218,13 +218,14 @@
         clsData.CoAofSalesReturn = intCoAIDofSalesReturn
         clsData.CoAofCompensasionRevenue = intCoAIDofCompensasionRevenue
         clsData.CoAofClaimCost = intCoAIDofClaimCost
+        clsData.CompanyID = ERPSLib.UI.usUserApp.CompanyID
 
         Me.Cursor = Cursors.WaitCursor
         Try
             If BL.JournalPost.SaveData(clsData) Then
                 pgMain.Value = 100
                 UI.usForm.frmMessageBox("Simpan data berhasil.")
-                ERPSLib.UI.usUserApp.JournalPost = BL.JournalPost.GetDetail(ERPSLib.UI.usUserApp.ProgramID)
+                ERPSLib.UI.usUserApp.JournalPost = BL.JournalPost.GetDetail(ERPSLib.UI.usUserApp.ProgramID, ERPSLib.UI.usUserApp.CompanyID)
                 Me.Close()
             End If
         Catch ex As Exception

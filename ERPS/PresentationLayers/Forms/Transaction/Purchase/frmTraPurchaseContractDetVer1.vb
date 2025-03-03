@@ -24,7 +24,7 @@ Public Class frmTraPurchaseContractDetVer1
 
     Private Const _
        cSave As Byte = 0, cClose As Byte = 1,
-       cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2
+       cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2, cSep1Item As Byte = 3, cHistoryItem As Byte = 4
 
     Private Sub prvSetTitleForm()
         If pubIsNew Then
@@ -530,6 +530,7 @@ Public Class frmTraPurchaseContractDetVer1
         With ToolBarItem
             .Buttons(cEditItem).Enabled = bolEnabled
             .Buttons(cDeleteItem).Enabled = bolEnabled
+            .Buttons(cHistoryItem).Enabled = IIf(pubIsNew, False, bolEnabled)
         End With
     End Sub
 

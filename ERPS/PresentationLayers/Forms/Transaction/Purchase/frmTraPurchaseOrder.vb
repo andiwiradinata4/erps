@@ -375,7 +375,6 @@ Public Class frmTraPurchaseOrder
         Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
 
         Try
             Dim dtData As DataTable = BL.PurchaseOrder.Print(intProgramID, intCompanyID, strID)

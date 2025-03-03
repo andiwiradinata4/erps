@@ -20,6 +20,8 @@
     End Sub
 
     Private Sub prvSetGrid()
+        UI.usForm.SetGrid(grdView, "ProgramID", "ProgramID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdView, "CompanyID", "CompanyID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "ID", "ID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "AccountGroupID", "AccountGroupID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "AccountGroupName", "AccountGroupName", 100, UI.usDefGrid.gString, False)
@@ -46,12 +48,16 @@
             .Item(cGet).Enabled = bolEnable
             .Item(cDetail).Enabled = bolEnable
             .Item(cDelete).Enabled = bolEnable
+            .Item(cHistory).Enabled = bolEnable
             .Item(cAssign).Enabled = bolEnable
         End With
     End Sub
 
     Private Sub prvQuery()
         Try
+            If pubProgramID = 0 Then pubProgramID = ERPSLib.UI.usUserApp.ProgramID
+            If pubCompanyID = 0 Then pubCompanyID = ERPSLib.UI.usUserApp.CompanyID
+
             dtData = BL.ChartOfAccount.ListData(pubFilterGroup, pubCompanyID, pubProgramID, VO.Status.Values.All)
             grdMain.DataSource = dtData
             grdView.Columns("TypeAccount").GroupIndex = 0
@@ -77,6 +83,8 @@
     Private Function prvGetData() As VO.ChartOfAccount
         Dim clsReturn As New VO.ChartOfAccount
         clsReturn.ID = grdView.GetRowCellValue(intPos, "ID")
+        clsReturn.ProgramID = grdView.GetRowCellValue(intPos, "ProgramID")
+        clsReturn.CompanyID = grdView.GetRowCellValue(intPos, "CompanyID")
         clsReturn.AccountGroupID = grdView.GetRowCellValue(intPos, "AccountGroupID")
         clsReturn.AccountGroupName = grdView.GetRowCellValue(intPos, "AccountGroupName")
         clsReturn.Code = grdView.GetRowCellValue(intPos, "Code")

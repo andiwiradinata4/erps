@@ -891,11 +891,7 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResult.res
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResultDet.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResultDetItem.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrder.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDet.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItem.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrder.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemAddress.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderOutstanding.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderOutstandingVer1.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderUpdatePrice.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseContractDetChangeSubItem.resources
@@ -944,7 +940,6 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryDetMul
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryOutstandingSalesReturn.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryOutstandingSalesReturnItem.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryPrint.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequest.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestDet.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestDetChangeItem.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestDetItem.resources
@@ -1036,3 +1031,4 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraAPCuttingDet.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer3Import.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDPLookup.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmViewLookupHistory.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmViewLookupHistory.resources

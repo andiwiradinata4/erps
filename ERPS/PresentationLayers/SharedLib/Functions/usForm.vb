@@ -218,56 +218,9 @@ Namespace UI
             Return img
         End Function
 
-        'Public Shared Function PrintDO(ByVal frmMe As Form, ByVal strID As String, ByVal doColor As List(Of SharedLib.usDOColors)) As Boolean
-        '    Dim bolReturn As Boolean
-        '    frmMe.Cursor = Cursors.WaitCursor
-        '    Try
-        '        For i As Integer = 0 To doColor.Count - 1
-        '            Using cr As New rptDeliveryOrder
-        '                cr.CreateDocument(True)
-        '                'cr.DataSource = BL.Sales.ListDataDeliveryOrder(strID)
-        '                cr.ShowPreviewMarginLines = False
-
-        '                cr.DisplayName = doColor(i).DisplayName
-        '                cr.labelMark.BackColor = doColor(i).TextColor
-        '                cr.labelMark.Text = doColor(i).TextName
-
-        '                Using tool As New ReportPrintTool(cr)
-        '                    tool.Print()
-        '                End Using
-        '            End Using
-        '        Next
-        '    Catch ex As Exception
-        '        UI.usForm.frmMessageBox(ex.Message)
-        '    Finally
-        '        frmMe.Cursor = Cursors.Default
-        '    End Try
-        '    Return bolReturn
-        'End Function
-
-        'Public Shared Function PrintBonFaktur(ByVal frmMe As Form, ByVal strID As String) As Boolean
-        '    Dim bolReturn As Boolean
-        '    frmMe.Cursor = Cursors.WaitCursor
-        '    Try
-        '        Using cr As New rptBonFaktur
-        '            cr.CreateDocument(True)
-        '            cr.DataSource = BL.Sales.ListDataFakturPenjualan(strID)
-        '            cr.ShowPreviewMarginLines = False
-        '            cr.ShowPrintMarginsWarning = False
-        '            cr.DisplayName = strID
-
-        '            Using tool As New ReportPrintTool(cr)
-        '                tool.Print()
-        '            End Using
-        '        End Using
-        '        bolReturn = True
-        '    Catch ex As Exception
-        '        UI.usForm.frmMessageBox(ex.Message)
-        '    Finally
-        '        frmMe.Cursor = Cursors.Default
-        '    End Try
-        '    Return bolReturn
-        'End Function
+        Public Shared Function GetLogoCompanyByInitial(ByVal strCompanyInitial As String) As Image
+            Return Image.FromFile(System.IO.Path.Combine(Application.StartupPath, strCompanyInitial & ".Logo.png"))
+        End Function
 
     End Class
 

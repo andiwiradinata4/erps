@@ -338,6 +338,8 @@
 
                     '# Update Purchase Contract
                     If clsData.PCID <> "" Then
+                        Dim clsPCExists As VO.PurchaseContract = DL.PurchaseContract.GetDetail(sqlCon, sqlTrans, clsData.PCID)
+                        If clsPCExists.IsDone Then BL.PurchaseContract.CancelDone(sqlCon, sqlTrans, clsPCExists.ID, strRemarks)
                         BL.PurchaseContract.Unapprove(sqlCon, sqlTrans, clsContract.ID, strRemarks)
                         BL.PurchaseContract.Unsubmit(sqlCon, sqlTrans, clsContract.ID, strRemarks)
                     End If

@@ -29,7 +29,8 @@ Public Class frmTraOrderRequestDet
 
     Private Const _
        cSave As Byte = 0, cClose As Byte = 1,
-       cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2, cSep1Item As Byte = 3, cChangeItem As Byte = 4, cChangeItemPriceAndQuantity As Byte = 5
+       cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2, cSep1Item As Byte = 3, cChangeItem As Byte = 4,
+       cChangeItemPriceAndQuantity As Byte = 5, cSep2Item As Byte = 6, cHistory As Byte = 7
 
     Private Sub prvSetTitleForm()
         If bolIsStock Then Me.Text += " [Stock]"
@@ -280,6 +281,9 @@ Public Class frmTraOrderRequestDet
                 intBPID = .pubLUdtRow.Item("ID")
                 txtBPCode.Text = .pubLUdtRow.Item("Code")
                 txtBPName.Text = .pubLUdtRow.Item("Name")
+                txtPPN.Value = .pubLUdtRow.Item("PPN")
+                txtPPH.Value = .pubLUdtRow.Item("PPH")
+                txtPersonInCharge.Text = .pubLUdtRow.Item("PICName")
             End If
         End With
     End Sub
@@ -325,6 +329,7 @@ Public Class frmTraOrderRequestDet
             .Buttons(cDeleteItem).Enabled = bolEnabled
             .Buttons(cChangeItem).Enabled = IIf(pubIsNew, False, bolEnabled)
             .Buttons(cChangeItemPriceAndQuantity).Enabled = IIf(pubIsNew, False, bolEnabled)
+            .Buttons(cHistory).Enabled = IIf(pubIsNew, False, bolEnabled)
         End With
     End Sub
 

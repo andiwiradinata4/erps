@@ -74,7 +74,7 @@ Public Class frmTraPurchaseContractDetItemVer1
 
     Private Const _
        cSave As Byte = 0, cClose As Byte = 1,
-       cAdd As Byte = 0, cEdit As Byte = 1, cDelete As Byte = 2
+       cAdd As Byte = 0, cEdit As Byte = 1, cDelete As Byte = 2, cSep1Item As Byte = 3, cChangeItem As Byte = 4, cSep2Item As Byte = 5, cHistoryItem As Byte = 6
 
     Private Sub prvSetGrid()
         '# Sub Item
@@ -110,6 +110,8 @@ Public Class frmTraPurchaseContractDetItemVer1
             .Item(cAdd).Enabled = IIf(bolIsNew, False, True)
             .Item(cEdit).Enabled = bolEnable
             .Item(cDelete).Enabled = bolEnable
+            .Item(cChangeItem).Enabled = IIf(bolIsNew, False, bolEnable)
+            .Item(cHistoryItem).Enabled = IIf(bolIsNew, False, bolEnable)
         End With
     End Sub
 

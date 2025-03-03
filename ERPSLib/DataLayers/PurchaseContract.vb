@@ -17,10 +17,10 @@
                     "   A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.PCNumber, A.PCDate, " & vbNewLine &
                     "   A.BPID, C.Code AS BPCode, C.Name AS BPName, A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.AllowanceProduction, A.Franco, " & vbNewLine &
                     "   A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine &
-                    "   A.DPAmount, A.ReceiveAmount, (A.TotalDPP+A.RoundingManual)-(A.DPAmount+A.ReceiveAmount) AS OutstandingPayment, A.IsDeleted, A.Remarks, A.StatusID, " & vbNewLine &
+                    "   A.DPAmount, A.ReceiveAmount, CASE WHEN A.IsDone=1 THEN 0 ELSE (A.TotalDPP+A.RoundingManual)-(A.DPAmount+A.ReceiveAmount) END AS OutstandingPayment, A.IsDeleted, A.Remarks, A.StatusID, " & vbNewLine &
                     "   B.Name AS StatusInfo, A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine &
                     "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.IsAutoGenerate, " & vbNewLine &
-                    "   A.IsUseSubItem, A.PaymentTypeID, ISNULL(MPT.Name, '') AS PaymentTypeName " & vbNewLine &
+                    "   A.IsUseSubItem, A.PaymentTypeID, ISNULL(MPT.Name, '') AS PaymentTypeName, A.IsDone, A.DoneBy, CASE WHEN A.IsDone=1 THEN A.DoneDate ELSE NULL END AS DoneDate " & vbNewLine &
                     "FROM traPurchaseContract A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &
@@ -220,7 +220,8 @@
                         "SELECT TOP 1 " & vbNewLine &
                         "   A.ID, A.ProgramID, A.CompanyID, A.PCNumber, A.PCDate, A.BPID, B.Code AS BPCode, B.Name AS BPName, A.DeliveryPeriodFrom, A.DeliveryPeriodTo, A.AllowanceProduction, A.Franco, " & vbNewLine &
                         "   A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.IsDeleted, A.Remarks, A.JournalID, A.StatusID, A.SubmitBy, A.SubmitDate, A.ApproveL1, " & vbNewLine &
-                        "   A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.ReceiveAmount, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual, A.IsAutoGenerate, A.IsUseSubItem, A.PaymentTypeID  " & vbNewLine &
+                        "   A.ApproveL1Date, A.ApprovedBy, A.ApprovedDate, A.CreatedBy, A.CreatedDate, A.LogInc, A.LogBy, A.LogDate, A.DPAmount, A.ReceiveAmount, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual, " & vbNewLine &
+                        "   A.IsAutoGenerate, A.IsUseSubItem, A.PaymentTypeID, A.IsDone, A.DoneBy, A.DoneDate  " & vbNewLine &
                         "FROM traPurchaseContract A " & vbNewLine &
                         "INNER JOIN mstBusinessPartner B ON " & vbNewLine &
                         "   A.BPID=B.ID " & vbNewLine &
@@ -274,6 +275,9 @@
                         voReturn.IsAutoGenerate = .Item("IsAutoGenerate")
                         voReturn.IsUseSubItem = .Item("IsUseSubItem")
                         voReturn.PaymentTypeID = .Item("PaymentTypeID")
+                        voReturn.IsDone = .Item("IsDone")
+                        voReturn.DoneBy = .Item("DoneBy")
+                        voReturn.DoneDate = .Item("DoneDate")
                     End If
                 End With
             Catch ex As Exception
@@ -558,6 +562,87 @@
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Function IsDone(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal strID As String) As Boolean
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim bolReturn As Boolean = False
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ID " & vbNewLine &
+                        "FROM traPurchaseContract " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   ID=@ID " & vbNewLine &
+                        "   AND IsDone=1 " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        bolReturn = True
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return bolReturn
+        End Function
+
+        Public Shared Sub Done(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                               ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traPurchaseContract SET " & vbNewLine &
+                    "    IsDone=1, " & vbNewLine &
+                    "    DoneBy=@LogBy, " & vbNewLine &
+                    "    DoneDate=GETDATE() " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = ERPSLib.UI.usUserApp.UserID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CancelDone(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                     ByVal strID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traPurchaseContract SET " & vbNewLine &
+                    "    IsDone=0, " & vbNewLine &
+                    "    DoneBy='' " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)

@@ -758,6 +758,7 @@ Public Class frmTraARAP
                 Dim frmChooseBankAccount As New frmTraARAPChooseBankAccount
                 With frmChooseBankAccount
                     .pubID = strID
+                    .pubCompanyID = clsData.CompanyID
                     .pubCompanyBankAccount1 = clsData.CompanyBankAccountID1
                     .pubCompanyBankAccount2 = clsData.CompanyBankAccountID2
                     .StartPosition = FormStartPosition.CenterParent
@@ -903,6 +904,15 @@ Public Class frmTraARAP
                 End If
                 Exit For
             Next
+
+            '# Setup Logo
+            If clsData.CompanyID = VO.Company.Values.TBU Then
+                crReport.sbLogoImage.Visible = True
+            Else
+                Dim img As Image = UI.usForm.GetLogoCompanyByInitial(ERPSLib.UI.usUserApp.CompanyInitial)
+                crReport.sbLogoStandart.Visible = True
+                crReport.xrLogo.Image = img
+            End If
 
             crReport.DataSource = dtData
             crReport.CreateDocument(True)

@@ -16,6 +16,11 @@ Namespace VO
         Property CompanyInitial As String
         Property StatusID As Integer
         Property NPWP As String
+
+        Public Enum Values
+            TBU = 1
+            OKS = 2
+        End Enum
     End Class
 End Namespace
 

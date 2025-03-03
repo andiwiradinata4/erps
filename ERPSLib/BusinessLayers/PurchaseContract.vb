@@ -220,6 +220,8 @@ Namespace BL
                 Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan status data telah APPROVED")
             ElseIf DL.PurchaseContract.IsDeleted(sqlCon, sqlTrans, strID) Then
                 Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan data telah dihapus")
+            ElseIf DL.PurchaseContract.IsDone(sqlCon, sqlTrans, strID) Then
+                Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan data telah diproses SELESAI")
             End If
 
             DL.PurchaseContract.Submit(sqlCon, sqlTrans, strID)
@@ -252,6 +254,8 @@ Namespace BL
                     Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah DRAFT")
                 ElseIf intStatusID = VO.Status.Values.Approved Then
                     Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah APPROVED")
+                ElseIf DL.PurchaseContract.IsDone(sqlCon, sqlTrans, strID) Then
+                    Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses SELESAI")
                 ElseIf DL.PurchaseContract.IsDeleted(sqlCon, sqlTrans, strID) Then
                     Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
                 End If
@@ -291,6 +295,8 @@ Namespace BL
                     Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan status data telah APPROVED")
                 ElseIf DL.PurchaseContract.IsDeleted(sqlCon, sqlTrans, strID) Then
                     Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan data telah dihapus")
+                ElseIf DL.PurchaseContract.IsDone(sqlCon, sqlTrans, strID) Then
+                    Err.Raise(515, "", "Data tidak dapat di Approve. Dikarenakan data telah diproses SELESAI")
                 End If
 
                 DL.PurchaseContract.Approve(sqlCon, sqlTrans, strID)
@@ -332,6 +338,8 @@ Namespace BL
                     Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dihapus")
                 ElseIf DL.PurchaseContract.IsAlreadyPayment(sqlCon, sqlTrans, strID) Then
                     Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah dilanjutkan proses pembayaran")
+                ElseIf DL.PurchaseContract.IsDone(sqlCon, sqlTrans, strID) Then
+                    Err.Raise(515, "", "Data tidak dapat di Batal Approve. Dikarenakan data telah diproses SELESAI")
                 End If
 
                 Dim dtItem As DataTable = DL.PurchaseContract.ListDataDetail(sqlCon, sqlTrans, strID, "")
@@ -406,6 +414,74 @@ Namespace BL
 
                 '# Update Journal ID in Purchase Contract
                 DL.PurchaseContract.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Function Done(ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Done(sqlCon, sqlTrans, strID, strRemarks)
+                    sqlTrans.Commit()
+                    bolReturn = True
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Sub Done(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                 ByVal strID As String, ByVal strRemarks As String)
+            Dim bolReturn As Boolean = False
+            Dim intStatusID As Integer = DL.PurchaseContract.GetStatusID(sqlCon, sqlTrans, strID)
+            If intStatusID <> VO.Status.Values.Approved Then
+                Err.Raise(515, "", "Data tidak dapat di proses selesai. Dikarenakan status data belum DISETUJUI / APPROVED")
+            ElseIf DL.PurchaseContract.IsDeleted(sqlCon, sqlTrans, strID) Then
+                Err.Raise(515, "", "Data tidak dapat di proses selesai. Dikarenakan data telah dihapus")
+            End If
+
+            DL.PurchaseContract.Done(sqlCon, sqlTrans, strID)
+
+            '# Save Data Status
+            BL.PurchaseContract.SaveDataStatus(sqlCon, sqlTrans, strID, "SELESAI", ERPSLib.UI.usUserApp.UserID, strRemarks)
+        End Sub
+
+        Public Shared Function CancelDone(ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    BL.PurchaseContract.CancelDone(sqlCon, sqlTrans, strID, strRemarks)
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Sub CancelDone(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                     ByVal strID As String, ByVal strRemarks As String)
+            Try
+                Dim intStatusID As Integer = DL.PurchaseContract.GetStatusID(sqlCon, sqlTrans, strID)
+                If Not DL.PurchaseContract.IsDone(sqlCon, sqlTrans, strID) Then
+                    Err.Raise(515, "", "Data tidak dapat di batal selesai. Dikarenakan status data telah belum di proses SELESAI")
+                ElseIf DL.PurchaseContract.IsDeleted(sqlCon, sqlTrans, strID) Then
+                    Err.Raise(515, "", "Data tidak dapat di batal selesai. Dikarenakan data telah dihapus")
+                End If
+
+                DL.PurchaseContract.CancelDone(sqlCon, sqlTrans, strID)
+
+                '# Save Data Status
+                BL.PurchaseContract.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL SELESAI", ERPSLib.UI.usUserApp.UserID, strRemarks)
             Catch ex As Exception
                 Throw ex
             End Try

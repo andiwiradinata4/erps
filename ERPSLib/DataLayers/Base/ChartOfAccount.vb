@@ -13,7 +13,7 @@ Namespace DL
                 .CommandText = _
                     "SELECT CAST(0 AS BIT) AS Pick, " & vbNewLine & _
                     "	COA.ID, COA.AccountGroupID, COAG.Name AS AccountGroupName, COAG.AliasName + ' ' + COAG.Name AS GroupAccount, COAT.Name AS TypeAccount, COA.Code, COA.Name, 	" & vbNewLine & _
-                    "	COA.FirstBalance AS Balance, COA.StatusID, MS.Name AS StatusInfo, COA.CreatedBy, COA.CreatedDate, COA.LogBy, COA.LogDate, COA.LogInc, COA.Initial" & vbNewLine & _
+                    "	COA.FirstBalance AS Balance, COA.StatusID, MS.Name AS StatusInfo, COA.CreatedBy, COA.CreatedDate, COA.LogBy, COA.LogDate, COA.LogInc, COA.Initial, COA.ProgramID, COA.CompanyID " & vbNewLine & _
                     "FROM mstChartOfAccount COA 	" & vbNewLine & _
                     "INNER JOIN mstChartOfAccountGroup COAG ON  	" & vbNewLine & _
                     "    COA.AccountGroupID=COAG.ID 	" & vbNewLine & _
@@ -22,14 +22,17 @@ Namespace DL
                     "INNER JOIN mstStatus MS ON  	" & vbNewLine & _
                     "    COA.StatusID=MS.ID 	" & vbNewLine
 
-                If intCompanyID <> 0 And intProgramID <> 0 Then
-                    .CommandText += _
-                        "INNER JOIN mstChartOfAccountAssign COAA ON  	" & vbNewLine & _
-                        "    COA.ID=COAA.COAID " & vbNewLine & _
-                        "    AND COAA.CompanyID=@CompanyID " & vbNewLine & _
-                        "    AND COAA.ProgramID=@ProgramID " & vbNewLine
-                End If
-                .CommandText += "WHERE 1=1 " & vbNewLine
+                'If intCompanyID <> 0 And intProgramID <> 0 Then
+                '    .CommandText += _
+                '        "INNER JOIN mstChartOfAccountAssign COAA ON  	" & vbNewLine & _
+                '        "    COA.ID=COAA.COAID " & vbNewLine & _
+                '        "    AND COAA.CompanyID=@CompanyID " & vbNewLine & _
+                '        "    AND COAA.ProgramID=@ProgramID " & vbNewLine
+                'End If
+                .CommandText +=
+                    "WHERE " & vbNewLine &
+                    "   COA.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND COA.ProgramID=@ProgramID " & vbNewLine
 
                 If enumFilterGroup = VO.ChartOfAccount.FilterGroup.CashOrBank Then
                     .CommandText += "AND COAG.ID IN (1,2)" & vbNewLine
@@ -75,6 +78,8 @@ SELECT [ID]
       ,[LogDate]
       ,[LogInc]
       ,[Initial]
+      ,[ProgramID]
+      ,[CompanyID]
 FROM [dbo].[mstChartOfAccount]
                     </a>.Value
             End With
@@ -128,10 +133,10 @@ FROM [dbo].[mstChartOfAccount]
                     .CommandText = _
                        "INSERT INTO mstChartOfAccount " & vbNewLine & _
                        "    (ID, AccountGroupID, Code, Name, FirstBalance, FirstBalanceDate, StatusID,   " & vbNewLine & _
-                       "      CreatedBy, CreatedDate, LogBy, LogDate, Initial)   " & vbNewLine & _
+                       "      CreatedBy, CreatedDate, LogBy, LogDate, Initial, ProgramID, CompanyID)   " & vbNewLine & _
                        "VALUES " & vbNewLine & _
                        "    (@ID, @AccountGroupID, @Code, @Name, @FirstBalance, @FirstBalanceDate, @StatusID,   " & vbNewLine & _
-                       "      @LogBy, GETDATE(), @LogBy, GETDATE(), @Initial)  " & vbNewLine
+                       "      @LogBy, GETDATE(), @LogBy, GETDATE(), @Initial, @ProgramID, @CompanyID)  " & vbNewLine
                 Else
                     .CommandText = _
                     "UPDATE mstChartOfAccount SET " & vbNewLine & _
@@ -144,7 +149,9 @@ FROM [dbo].[mstChartOfAccount]
                     "    LogInc=LogInc+1, " & vbNewLine & _
                     "    LogBy=@LogBy, " & vbNewLine & _
                     "    LogDate=GETDATE(), " & vbNewLine & _
-                    "    Initial=@Initial " & vbNewLine & _
+                    "    Initial=@Initial, " & vbNewLine & _
+                    "    ProgramID=@ProgramID, " & vbNewLine & _
+                    "    CompanyID=@CompanyID " & vbNewLine & _
                     "WHERE " & vbNewLine & _
                     "    ID=@ID " & vbNewLine
                 End If
@@ -158,6 +165,8 @@ FROM [dbo].[mstChartOfAccount]
                 .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
                 .Parameters.Add("@Initial", SqlDbType.VarChar, 10).Value = clsData.Initial
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = clsData.ProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = clsData.CompanyID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -176,10 +185,10 @@ FROM [dbo].[mstChartOfAccount]
                 .CommandText = _
                    "INSERT INTO mstChartOfAccount " & vbNewLine & _
                    "    (ID, AccountGroupID, Code, Name, FirstBalance, FirstBalanceDate, StatusID,   " & vbNewLine & _
-                   "     CreatedBy, CreatedDate, LogBy, LogDate, LogInc, Initial)   " & vbNewLine & _
+                   "     CreatedBy, CreatedDate, LogBy, LogDate, LogInc, Initial, ProgramID, CompanyID)   " & vbNewLine & _
                    "VALUES " & vbNewLine & _
                    "    (@ID, @AccountGroupID, @Code, @Name, @FirstBalance, @FirstBalanceDate, @StatusID,   " & vbNewLine & _
-                   "     @CreatedBy, @CreatedDate, @LogBy, @LogDate, @LogInc, @Initial)  " & vbNewLine
+                   "     @CreatedBy, @CreatedDate, @LogBy, @LogDate, @LogInc, @Initial, @ProgramID, @CompanyID)  " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.Int).Value = clsData.ID
                 .Parameters.Add("@AccountGroupID", SqlDbType.Int).Value = clsData.AccountGroupID
@@ -194,6 +203,8 @@ FROM [dbo].[mstChartOfAccount]
                 .Parameters.Add("@LogDate", SqlDbType.DateTime).Value = clsData.LogDate
                 .Parameters.Add("@LogInc", SqlDbType.Int).Value = clsData.LogInc
                 .Parameters.Add("@Initial", SqlDbType.VarChar, 10).Value = clsData.Initial
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = clsData.ProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = clsData.CompanyID
             End With
             Try
                 SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
@@ -214,7 +225,7 @@ FROM [dbo].[mstChartOfAccount]
                     .CommandText = _
                        "SELECT TOP 1 " & vbNewLine & _
                        "    A.ID, A.AccountGroupID, A.Code, A.Name, A.FirstBalance, A.FirstBalanceDate, A.StatusID,   " & vbNewLine & _
-                       "    A.LogBy, A.LogDate, A.Initial  " & vbNewLine & _
+                       "    A.LogBy, A.LogDate, A.Initial, A.ProgramID, A.CompanyID  " & vbNewLine & _
                        "FROM mstChartOfAccount A " & vbNewLine & _
                        "WHERE " & vbNewLine & _
                        "    ID=@ID " & vbNewLine
@@ -235,6 +246,8 @@ FROM [dbo].[mstChartOfAccount]
                         voReturn.LogBy = .Item("LogBy")
                         voReturn.LogDate = .Item("LogDate")
                         voReturn.Initial = .Item("Initial")
+                        voReturn.ProgramID = .Item("ProgramID")
+                        voReturn.CompanyID = .Item("CompanyID")
                     End If
                 End With
             Catch ex As Exception
@@ -257,7 +270,7 @@ FROM [dbo].[mstChartOfAccount]
                     .CommandText = _
                        "SELECT TOP 1 " & vbNewLine & _
                        "    A.ID, A.AccountGroupID, A.Code, A.Name, A.FirstBalance, A.FirstBalanceDate, A.StatusID,   " & vbNewLine & _
-                       "    A.LogBy, A.LogDate, A.Initial  " & vbNewLine & _
+                       "    A.LogBy, A.LogDate, A.Initial, A.ProgramID, A.CompanyID  " & vbNewLine & _
                        "FROM mstChartOfAccount A " & vbNewLine & _
                        "WHERE " & vbNewLine & _
                        "    Code=@Code " & vbNewLine
@@ -278,6 +291,8 @@ FROM [dbo].[mstChartOfAccount]
                         voReturn.LogBy = .Item("LogBy")
                         voReturn.LogDate = .Item("LogDate")
                         voReturn.Initial = .Item("Initial")
+                        voReturn.ProgramID = .Item("ProgramID")
+                        voReturn.CompanyID = .Item("CompanyID")
                     End If
                 End With
             Catch ex As Exception
@@ -391,7 +406,8 @@ FROM [dbo].[mstChartOfAccount]
         End Function
 
         Public Shared Function CodeExists(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                          ByVal strCode As String, ByVal intID As Integer) As Boolean
+                                          ByVal strCode As String, ByVal intID As Integer,
+                                          ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As Boolean
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim bolExists As Boolean = False
             Try
@@ -405,10 +421,14 @@ FROM [dbo].[mstChartOfAccount]
                         "FROM mstChartOfAccount " & vbNewLine & _
                         "WHERE  " & vbNewLine & _
                         "   Code=@Code " & vbNewLine & _
+                        "   AND ProgramID=@ProgramID " & vbNewLine & _
+                        "   AND CompanyID=@CompanyID " & vbNewLine & _
                         "   AND ID<>@ID " & vbNewLine
 
                     .Parameters.Add("@Code", SqlDbType.VarChar, 10).Value = strCode
                     .Parameters.Add("@ID", SqlDbType.Int).Value = intID
+                    .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                    .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
                 With sqlrdData

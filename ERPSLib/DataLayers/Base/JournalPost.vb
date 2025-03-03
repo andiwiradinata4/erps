@@ -71,14 +71,14 @@ SELECT [ProgramID]
                        "     CoAofVentureCapital, CoAOfPPHSales, CoAOfPPHPurchase, CoAofPrepaidIncomeCutting, CoAofPrepaidIncomeTransport, CoAofStockCutting, CoAofStockCutting2, " & vbNewLine &
                        "     CoAofStockCutting3, CoAofStockTransport, CoAofAccountPayableCutting, CoAofAccountPayableCutting2, CoAofAccountPayableCutting3, CoAofAccountPayableTransport, " & vbNewLine &
                        "     CoAofAccountReceivableOutstandingPayment, CoAofAccountPayableOutstandingPayment, CoAofAccountPayableCuttingOutstandingPayment, CoAofAccountPayableTransportOutstandingPayment, " & vbNewLine &
-                       "     CoAOfCutting, CoAOfTransport, CoAOfCostRawMaterial, CoAOfSalesReturn, CoAofCompensasionRevenue, CoAofClaimCost)   " & vbNewLine &
+                       "     CoAOfCutting, CoAOfTransport, CoAOfCostRawMaterial, CoAOfSalesReturn, CoAofCompensasionRevenue, CoAofClaimCost, CompanyID)   " & vbNewLine &
                        "VALUES " & vbNewLine &
                        "    (@ProgramID, @CoAofRevenue, @CoAofAccountReceivable, @CoAofSalesDisc, @CoAofPrepaidIncome, @CoAofCOGS, @CoAofStock, @CoAofCash, @CoAofAccountPayable,   " & vbNewLine &
                        "     @CoAofPurchaseDisc, @CoAofPurchaseEquipments, @CoAofAdvancePayment, @CoAofSalesTax, @CoAofPurchaseTax, @Remarks, @LogBy, GETDATE(), @LogBy, GETDATE(), " & vbNewLine &
                        "     @CoAofVentureCapital, @CoAOfPPHSales, @CoAOfPPHPurchase, @CoAofPrepaidIncomeCutting, @CoAofPrepaidIncomeTransport, @CoAofStockCutting, @CoAofStockCutting2, " & vbNewLine &
                        "     @CoAofStockCutting3, @CoAofStockTransport, @CoAofAccountPayableCutting, @CoAofAccountPayableCutting2, @CoAofAccountPayableCutting3, @CoAofAccountPayableTransport, " & vbNewLine &
                        "     @CoAofAccountReceivableOutstandingPayment, @CoAofAccountPayableOutstandingPayment, @CoAofAccountPayableCuttingOutstandingPayment, @CoAofAccountPayableTransportOutstandingPayment, " & vbNewLine &
-                       "     @CoAOfCutting, @CoAOfTransport, @CoAOfCostRawMaterial, @CoAOfSalesReturn, @CoAofCompensasionRevenue, @CoAofClaimCost)   " & vbNewLine
+                       "     @CoAOfCutting, @CoAOfTransport, @CoAOfCostRawMaterial, @CoAOfSalesReturn, @CoAofCompensasionRevenue, @CoAofClaimCost, @CompanyID)   " & vbNewLine
                 Else
                     .CommandText =
                     "UPDATE sysJournalPost SET " & vbNewLine &
@@ -122,10 +122,11 @@ SELECT [ProgramID]
                     "    CoAOfSalesReturn=@CoAOfSalesReturn, " & vbNewLine &
                     "    CoAofCompensasionRevenue=@CoAofCompensasionRevenue, " & vbNewLine &
                     "    CoAofClaimCost=@CoAofClaimCost " & vbNewLine &
-                    "WHERE ProgramID=@ProgramID " & vbNewLine
+                    "WHERE ProgramID=@ProgramID AND CompanyID=@CompanyID " & vbNewLine
                 End If
 
                 .Parameters.Add("@ProgramID", SqlDbType.Int).Value = clsData.ProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = clsData.CompanyID
                 .Parameters.Add("@CoAofRevenue", SqlDbType.Int).Value = clsData.CoAofRevenue
                 .Parameters.Add("@CoAofAccountReceivable", SqlDbType.Int).Value = clsData.CoAofAccountReceivable
                 .Parameters.Add("@CoAofSalesDisc", SqlDbType.Int).Value = clsData.CoAofSalesDisc
@@ -245,7 +246,7 @@ SELECT [ProgramID]
             End Try
         End Sub
 
-        Public Shared Function GetDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal intProgramID As Integer) As VO.JournalPost
+        Public Shared Function GetDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As VO.JournalPost
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim voReturn As New VO.JournalPost
             Try
@@ -366,9 +367,11 @@ SELECT [ProgramID]
                         "LEFT JOIN mstChartOfAccount COCC ON 	" & vbNewLine &
                         "	A.CoAofClaimCost=COCC.ID	" & vbNewLine &
                         "WHERE " & vbNewLine &
-                        "	A.ProgramID=@ProgramID " & vbNewLine
+                        "	A.ProgramID=@ProgramID " & vbNewLine &
+                        "	AND A.CompanyID=@CompanyID " & vbNewLine
 
                     .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                    .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
                 With sqlrdData
@@ -532,7 +535,8 @@ SELECT [ProgramID]
             Return voReturn
         End Function
 
-        Public Shared Function DataExists(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction) As Boolean
+        Public Shared Function DataExists(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal intProgramID As Integer, ByVal intCompanyID As Integer) As Boolean
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim bolExists As Boolean = False
             Try
@@ -544,9 +548,12 @@ SELECT [ProgramID]
                         "SELECT TOP 1 " & vbNewLine &
                         "   CoAofRevenue " & vbNewLine &
                         "FROM sysJournalPost " & vbNewLine &
-                        "WHERE ProgramID=@ProgramID " & vbNewLine
+                        "WHERE " & vbNewLine &
+                        "   ProgramID=@ProgramID " & vbNewLine &
+                        "   AND CompanyID=@CompanyID " & vbNewLine
 
-                    .Parameters.Add("@ProgramID", SqlDbType.Int).Value = UI.usUserApp.ProgramID
+                    .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                    .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                 End With
                 sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
                 With sqlrdData

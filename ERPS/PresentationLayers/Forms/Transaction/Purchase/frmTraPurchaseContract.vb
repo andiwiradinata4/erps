@@ -11,8 +11,9 @@ Public Class frmTraPurchaseContract
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
-       cSep2 As Byte = 8, cDownPayment As Byte = 9, cReceive As Byte = 10, cSep3 As Byte = 11, cPrint As Byte = 12,
-       cExportExcel As Byte = 13, cSep4 As Byte = 14, cRefresh As Byte = 15, cClose As Byte = 16
+       cSep2 As Byte = 8, cDownPayment As Byte = 9, cReceive As Byte = 10, cSep3 As Byte = 11,
+       cDone As Byte = 12, cCancelDone As Byte = 13, cSep4 As Byte = 14, cPrint As Byte = 15,
+       cExportExcel As Byte = 16, cSep5 As Byte = 17, cRefresh As Byte = 18, cClose As Byte = 19
 
     Private Sub prvResetProgressBar()
         pgMain.Value = 0
@@ -53,6 +54,9 @@ Public Class frmTraPurchaseContract
         UI.usForm.SetGrid(grdView, "ApprovedBy", "Diapprove Oleh", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ApproveL1", "ApproveL1", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "ApprovedDate", "Tanggal Approve", 100, UI.usDefGrid.gFullDate)
+        UI.usForm.SetGrid(grdView, "IsDone", "Selesai?", 100, UI.usDefGrid.gBoolean)
+        UI.usForm.SetGrid(grdView, "DoneBy", "Diselesaikan Oleh", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "DoneDate", "Tanggal Diselesaikan", 100, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdView, "IsDeleted", "IsDeleted", 100, UI.usDefGrid.gBoolean, False)
         UI.usForm.SetGrid(grdView, "Remarks", "Keterangan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "StatusID", "StatusID", 100, UI.usDefGrid.gIntNum, False)
@@ -76,6 +80,8 @@ Public Class frmTraPurchaseContract
             .Item(cCancelApprove).Enabled = bolEnable
             .Item(cDownPayment).Enabled = bolEnable
             .Item(cReceive).Enabled = bolEnable
+            .Item(cDone).Enabled = bolEnable
+            .Item(cCancelDone).Enabled = bolEnable
             .Item(cPrint).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
         End With
@@ -496,6 +502,68 @@ Public Class frmTraPurchaseContract
         prvSetButton()
     End Sub
 
+    Private Sub prvDone()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+        If Not UI.usForm.frmAskQuestion("Selesaikan Nomor " & clsData.PCNumber & "?") Then Exit Sub
+
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+
+        Try
+            BL.PurchaseContract.Done(clsData.ID, "")
+            pgMain.Value = 100
+            UI.usForm.frmMessageBox("Proses Selesai Data Berhasil.")
+            pubRefresh(grdView.GetRowCellValue(intPos, "PCNumber"))
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+    Private Sub prvCancelDone()
+        intPos = grdView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        clsData = prvGetData()
+        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+        If Not UI.usForm.frmAskQuestion("Batal Selesai Nomor " & clsData.PCNumber & "?") Then Exit Sub
+
+        Dim frmDetail As New usFormRemarks
+        With frmDetail
+            .StartPosition = FormStartPosition.CenterParent
+            .ShowDialog()
+            If .pubIsSave Then
+                clsData.Remarks = .pubValue
+            Else
+                Exit Sub
+            End If
+        End With
+
+        Me.Cursor = Cursors.WaitCursor
+        pgMain.Value = 40
+
+        Try
+            BL.PurchaseContract.CancelDone(clsData.ID, clsData.Remarks)
+            pgMain.Value = 100
+
+            UI.usForm.frmMessageBox("Batal Selesai Data Berhasil.")
+            pubRefresh(grdView.GetRowCellValue(intPos, "PCNumber"))
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+
+            prvResetProgressBar()
+        End Try
+    End Sub
+
     Private Sub prvChooseCompany()
         Dim frmDetail As New frmViewCompany
         With frmDetail
@@ -619,6 +687,8 @@ Public Class frmTraPurchaseContract
                 Case ToolBar.Buttons(cCancelApprove).Name : prvCancelApprove()
                 Case ToolBar.Buttons(cDownPayment).Name : prvDownPayment()
                 Case ToolBar.Buttons(cReceive).Name : prvReceivePayment()
+                Case ToolBar.Buttons(cDone).Name : prvDone()
+                Case ToolBar.Buttons(cCancelDone).Name : prvCancelDone()
                 Case ToolBar.Buttons(cPrint).Name : prvPrint()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
