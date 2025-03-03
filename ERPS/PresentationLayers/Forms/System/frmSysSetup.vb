@@ -54,4 +54,12 @@
         End Try
     End Sub
 
+    Private Sub btnCalculateDPAmountInDPSalesContract_Click(sender As Object, e As EventArgs) Handles btnCalculateDPAmountInDPSalesContract.Click
+        Try
+            BL.Setup.CalculateDPAmountOrderRequestInDPSalesContract()
+            UI.usForm.frmMessageBox(btnCalculateDPAmountInDPSalesContract.Text.Trim & " berhasil")
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        End Try
+    End Sub
 End Class

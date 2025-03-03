@@ -78,6 +78,9 @@ Partial Class frmTraARAPDetVer3
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.tpHistoryReceive = New System.Windows.Forms.TabPage()
+        Me.grdHistoryReceive = New DevExpress.XtraGrid.GridControl()
+        Me.grdHistoryReceiveView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.StatusStrip.SuspendLayout()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
@@ -95,6 +98,9 @@ Partial Class frmTraARAPDetVer3
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tpHistoryReceive.SuspendLayout()
+        CType(Me.grdHistoryReceive, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdHistoryReceiveView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -198,6 +204,7 @@ Partial Class frmTraARAPDetVer3
         Me.tcHeader.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tcHeader.Controls.Add(Me.tpMain)
         Me.tcHeader.Controls.Add(Me.tpHistory)
+        Me.tcHeader.Controls.Add(Me.tpHistoryReceive)
         Me.tcHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
@@ -732,6 +739,50 @@ Partial Class frmTraARAPDetVer3
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
         '
+        'tpHistoryReceive
+        '
+        Me.tpHistoryReceive.Controls.Add(Me.grdHistoryReceive)
+        Me.tpHistoryReceive.Location = New System.Drawing.Point(4, 25)
+        Me.tpHistoryReceive.Name = "tpHistoryReceive"
+        Me.tpHistoryReceive.Size = New System.Drawing.Size(876, 226)
+        Me.tpHistoryReceive.TabIndex = 2
+        Me.tpHistoryReceive.Text = "History Pelunasan - F3"
+        Me.tpHistoryReceive.UseVisualStyleBackColor = True
+        '
+        'grdHistoryReceive
+        '
+        Me.grdHistoryReceive.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdHistoryReceive.EmbeddedNavigator.Buttons.Append.Enabled = False
+        Me.grdHistoryReceive.EmbeddedNavigator.Buttons.Append.Visible = False
+        Me.grdHistoryReceive.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
+        Me.grdHistoryReceive.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
+        Me.grdHistoryReceive.EmbeddedNavigator.Buttons.Edit.Enabled = False
+        Me.grdHistoryReceive.EmbeddedNavigator.Buttons.Edit.Visible = False
+        Me.grdHistoryReceive.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
+        Me.grdHistoryReceive.EmbeddedNavigator.Buttons.EndEdit.Visible = False
+        Me.grdHistoryReceive.EmbeddedNavigator.Buttons.NextPage.Enabled = False
+        Me.grdHistoryReceive.EmbeddedNavigator.Buttons.NextPage.Visible = False
+        Me.grdHistoryReceive.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
+        Me.grdHistoryReceive.EmbeddedNavigator.Buttons.PrevPage.Visible = False
+        Me.grdHistoryReceive.EmbeddedNavigator.Buttons.Remove.Enabled = False
+        Me.grdHistoryReceive.EmbeddedNavigator.Buttons.Remove.Visible = False
+        Me.grdHistoryReceive.Location = New System.Drawing.Point(0, 0)
+        Me.grdHistoryReceive.MainView = Me.grdHistoryReceiveView
+        Me.grdHistoryReceive.Name = "grdHistoryReceive"
+        Me.grdHistoryReceive.Size = New System.Drawing.Size(876, 226)
+        Me.grdHistoryReceive.TabIndex = 14
+        Me.grdHistoryReceive.UseEmbeddedNavigator = True
+        Me.grdHistoryReceive.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdHistoryReceiveView})
+        '
+        'grdHistoryReceiveView
+        '
+        Me.grdHistoryReceiveView.GridControl = Me.grdHistoryReceive
+        Me.grdHistoryReceiveView.Name = "grdHistoryReceiveView"
+        Me.grdHistoryReceiveView.OptionsCustomization.AllowColumnMoving = False
+        Me.grdHistoryReceiveView.OptionsCustomization.AllowGroup = False
+        Me.grdHistoryReceiveView.OptionsView.ColumnAutoWidth = False
+        Me.grdHistoryReceiveView.OptionsView.ShowGroupPanel = False
+        '
         'frmTraARAPDetVer3
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -770,6 +821,9 @@ Partial Class frmTraARAPDetVer3
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tpHistoryReceive.ResumeLayout(False)
+        CType(Me.grdHistoryReceive, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdHistoryReceiveView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -830,4 +884,7 @@ Partial Class frmTraARAPDetVer3
     Friend WithEvents rpiValue As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents BarSep1Item As ToolBarButton
     Friend WithEvents BarCalculate As ToolBarButton
+    Friend WithEvents tpHistoryReceive As TabPage
+    Friend WithEvents grdHistoryReceive As DevExpress.XtraGrid.GridControl
+    Friend WithEvents grdHistoryReceiveView As DevExpress.XtraGrid.Views.Grid.GridView
 End Class

@@ -1977,6 +1977,37 @@
                 Throw ex
             End Try
         End Sub
+
+        Public Shared Function ListDataDetailHistorySCItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                           ByVal strReferencesDetailID As String, ByVal bolIsSubItem As Boolean) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT DISTINCT " & vbNewLine &
+"	SCH.SCNumber AS [Nomor Kontrak Penjualan], SCD.GroupID, CAST(SCDCO.TotalWeight AS DECIMAL(18,2)) AS [Total Berat] " & vbNewLine &
+"FROM traSalesContractDet SCD  " & vbNewLine &
+"INNER JOIN traSalesContract SCH ON  " & vbNewLine &
+"	SCD.SCID=SCH.ID  " & vbNewLine &
+"INNER JOIN traSalesContractDetConfirmationOrder SCDCO ON  " & vbNewLine &
+"	SCDCO.SCID=SCH.ID  " & vbNewLine &
+"	AND SCDCO.GroupID=SCD.GroupID  " & vbNewLine &
+"WHERE  " & vbNewLine &
+"	SCH.IsDeleted=0  " & vbNewLine
+
+                If bolIsSubItem Then
+                    .CommandText += "	AND SCDCO.PCDetailID=@ReferencesDetailID AND SCDCO.ParentID<>'' " & vbNewLine
+                Else
+                    .CommandText += "	AND SCDCO.CODetailID=@ReferencesDetailID AND SCDCO.ParentID='' " & vbNewLine
+                End If
+
+                .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strReferencesDetailID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
 #End Region
 
 #Region "Payment Term"

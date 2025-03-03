@@ -46,5 +46,13 @@
             End Using
         End Sub
 
+        Public Shared Sub CalculateDPAmountOrderRequestInDPSalesContract()
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                DL.Setup.CalculateDPAmountOrderRequestInDPSalesContract(sqlCon, Nothing)
+                DL.Setup.CalculateDPAmountOrderRequestInOrderRequestHeader(sqlCon, Nothing)
+            End Using
+        End Sub
+
     End Class
 End Namespace

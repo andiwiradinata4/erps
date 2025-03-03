@@ -562,6 +562,13 @@
             End Using
         End Function
 
+        Public Shared Function ListDataDetailHistorySCItem(ByVal strReferencesDetailID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.OrderRequest.ListDataDetailHistorySCItem(sqlCon, Nothing, strReferencesDetailID)
+            End Using
+        End Function
+
 #End Region
 
 #Region "Detail CO"

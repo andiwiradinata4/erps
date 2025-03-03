@@ -1658,6 +1658,29 @@
             Return voReturn 
         End Function
 
+        Public Shared Function ListDataDetailHistorySCItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                           ByVal strReferencesDetailID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT DISTINCT  " & vbNewLine &
+"	SCH.SCNumber AS [Nomor KontraK Penjualan], SCD.GroupID, CAST(SCD.TotalWeight AS DECIMAL(18,2)) AS [Total Berat] " & vbNewLine &
+"FROM traSalesContractDet SCD  " & vbNewLine &
+"INNER JOIN traSalesContract SCH ON  " & vbNewLine &
+"	SCD.SCID=SCH.ID  " & vbNewLine &
+"WHERE  " & vbNewLine &
+"	SCH.IsDeleted=0  " & vbNewLine &
+"	AND SCD.ORDetailID=@ReferencesDetailID " & vbNewLine &
+"	AND SCD.ParentID='' " & vbNewLine
+
+                .Parameters.Add("@ReferencesDetailID", SqlDbType.VarChar, 100).Value = strReferencesDetailID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
 #End Region
 
 #Region "Detail CO Detail"

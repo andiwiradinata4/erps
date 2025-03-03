@@ -649,6 +649,22 @@ Public Class frmTraPurchaseContractDetVer1
         Next
     End Sub
 
+    Private Sub prvHistoryItem()
+        intPos = grdItemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Try
+            Dim frmDetail As New frmViewLookupHistory
+            With frmDetail
+                .pubDtData = BL.PurchaseContract.ListDataDetailHistorySCItem(grdItemView.GetRowCellValue(intPos, "CODetailID"), False)
+                .Text += " Kontrak Penjualan"
+                .StartPosition = FormStartPosition.CenterParent
+                .ShowDialog()
+            End With
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        End Try
+    End Sub
+
 #End Region
 
 #Region "History Handle"
@@ -736,6 +752,7 @@ Public Class frmTraPurchaseContractDetVer1
             Case "Tambah" : prvAddItem()
             Case "Edit" : prvEditItem()
             Case "Hapus" : prvDeleteItem()
+            Case "Histori" : prvHistoryItem()
         End Select
     End Sub
 

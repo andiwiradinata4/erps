@@ -1031,3 +1031,8 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.pdb
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer3Import.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDPLookup.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraAPCost.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraAPCuttingDet.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer3Import.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDPLookup.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmViewLookupHistory.resources

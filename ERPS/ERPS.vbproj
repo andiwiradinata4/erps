@@ -1371,6 +1371,12 @@
     <Compile Include="PresentationLayers\Forms\View\frmViewCompany.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\View\frmViewLookupHistory.Designer.vb">
+      <DependentUpon>frmViewLookupHistory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\View\frmViewLookupHistory.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\View\frmViewProgram.designer.vb">
       <DependentUpon>frmViewProgram.vb</DependentUpon>
     </Compile>
@@ -2237,6 +2243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesReturnDetItem.resx">
       <DependentUpon>frmTraSalesReturnDetItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\View\frmViewLookupHistory.resx">
+      <DependentUpon>frmViewLookupHistory.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports1\frmReportPreview.resx">
       <DependentUpon>frmReportPreview.vb</DependentUpon>

@@ -74,12 +74,14 @@ Partial Class frmTraPurchaseContractDetItemVer1
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarEditItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep1ItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarChangeItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.BarChangeItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.BarSep1ItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep2ItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.BarHistoryItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.pnlDetail.SuspendLayout()
         CType(Me.txtTotalPrice, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtQuantity, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -668,7 +670,7 @@ Partial Class frmTraPurchaseContractDetItemVer1
         'ToolBarSubItem
         '
         Me.ToolBarSubItem.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarSubItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarEditItemOrder, Me.BarDeleteItemOrder, Me.BarSep1ItemOrder, Me.BarChangeItemOrder})
+        Me.ToolBarSubItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarEditItemOrder, Me.BarDeleteItemOrder, Me.BarSep1ItemOrder, Me.BarChangeItemOrder, Me.BarSep2ItemOrder, Me.BarHistoryItemOrder})
         Me.ToolBarSubItem.Divider = False
         Me.ToolBarSubItem.DropDownArrows = True
         Me.ToolBarSubItem.Location = New System.Drawing.Point(645, 50)
@@ -695,6 +697,17 @@ Partial Class frmTraPurchaseContractDetItemVer1
         Me.BarDeleteItemOrder.Name = "BarDeleteItemOrder"
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
+        '
+        'BarSep1ItemOrder
+        '
+        Me.BarSep1ItemOrder.Name = "BarSep1ItemOrder"
+        Me.BarSep1ItemOrder.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
+        'BarChangeItemOrder
+        '
+        Me.BarChangeItemOrder.Name = "BarChangeItemOrder"
+        Me.BarChangeItemOrder.Tag = "Alt"
+        Me.BarChangeItemOrder.Text = "Ubah Barang"
         '
         'grdItem
         '
@@ -746,16 +759,16 @@ Partial Class frmTraPurchaseContractDetItemVer1
         Me.GridView1.GridControl = Me.grdItem
         Me.GridView1.Name = "GridView1"
         '
-        'BarChangeItemOrder
+        'BarSep2ItemOrder
         '
-        Me.BarChangeItemOrder.Name = "BarChangeItemOrder"
-        Me.BarChangeItemOrder.Tag = "Alt"
-        Me.BarChangeItemOrder.Text = "Ubah Barang"
+        Me.BarSep2ItemOrder.Name = "BarSep2ItemOrder"
+        Me.BarSep2ItemOrder.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
-        'BarSep1ItemOrder
+        'BarHistoryItemOrder
         '
-        Me.BarSep1ItemOrder.Name = "BarSep1ItemOrder"
-        Me.BarSep1ItemOrder.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        Me.BarHistoryItemOrder.Name = "BarHistoryItemOrder"
+        Me.BarHistoryItemOrder.Tag = "History"
+        Me.BarHistoryItemOrder.Text = "Histori"
         '
         'frmTraPurchaseContractDetItemVer1
         '
@@ -850,4 +863,6 @@ Partial Class frmTraPurchaseContractDetItemVer1
     Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents BarSep1ItemOrder As System.Windows.Forms.ToolBarButton
     Friend WithEvents BarChangeItemOrder As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarSep2ItemOrder As ToolBarButton
+    Friend WithEvents BarHistoryItemOrder As ToolBarButton
 End Class

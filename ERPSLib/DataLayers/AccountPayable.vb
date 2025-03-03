@@ -67,7 +67,7 @@
                 .Parameters.Add("@Modules", SqlDbType.VarChar, 250).Value = strModules
                 .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
                 .Parameters.Add("@ReferencesID", SqlDbType.VarChar, 100).Value = strReferencesID
-                .Parameters.Add("@IsGenerate", SqlDbType.TinyInt).Value = intIsGenerate
+                .Parameters.Add("@IsGenerate", SqlDbType.Int).Value = intIsGenerate
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function

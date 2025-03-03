@@ -1212,6 +1212,13 @@
             End Using
         End Function
 
+        Public Shared Function ListDataDownPaymentReceive(ByVal strDPID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ARAP.ListDataDownPaymentReceive(sqlCon, Nothing, strDPID)
+            End Using
+        End Function
+
 #End Region
 
 #Region "Invoice"

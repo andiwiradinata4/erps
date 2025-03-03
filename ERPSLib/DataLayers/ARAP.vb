@@ -640,6 +640,41 @@
 
 #Region "Down Payment"
 
+        Public Shared Function ListDataDownPaymentReceive(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                          ByVal strDPID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT  " & vbNewLine &
+"	AR.ARNumber AS TransNumber, AR.ARDate AS TransDate, DP.DPAmount, " & vbNewLine &
+"	AR.TaxInvoiceNumber, AR.InvoiceNumberBP, AR.Remarks, AR.CreatedBy, AR.CreatedDate, AR.LogBy, AR.LogDate  " & vbNewLine &
+"FROM traARAPDP DP  " & vbNewLine &
+"INNER JOIN traAccountReceivable AR ON  " & vbNewLine &
+"	DP.ParentID=AR.ID  " & vbNewLine &
+"WHERE  " & vbNewLine &
+"	AR.IsDeleted=0  " & vbNewLine &
+"	AND DP.DPID=@DPID  " & vbNewLine &
+" " & vbNewLine &
+"UNION ALL  " & vbNewLine &
+"SELECT  " & vbNewLine &
+"	AR.APNumber AS TransNumber, AR.APDate AS TransDate, DP.DPAmount, " & vbNewLine &
+"	AR.TaxInvoiceNumber, AR.InvoiceNumberBP, AR.Remarks, AR.CreatedBy, AR.CreatedDate, AR.LogBy, AR.LogDate  " & vbNewLine &
+"FROM traARAPDP DP  " & vbNewLine &
+"INNER JOIN traAccountPayable AR ON  " & vbNewLine &
+"	DP.ParentID=AR.ID  " & vbNewLine &
+"WHERE  " & vbNewLine &
+"	AR.IsDeleted=0  " & vbNewLine &
+"	AND DP.DPID=@DPID  " & vbNewLine &
+" " & vbNewLine
+
+                .Parameters.Add("@DPID", SqlDbType.VarChar, 100).Value = strDPID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveDataDP(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                      ByVal clsData As VO.ARAPDP)
             Dim sqlCmdExecute As New SqlCommand

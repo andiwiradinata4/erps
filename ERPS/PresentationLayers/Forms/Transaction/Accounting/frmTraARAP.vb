@@ -397,11 +397,11 @@ Public Class frmTraARAP
                 .pubShowDialog(Me)
             End With
         Else
-            If strModules = VO.AccountPayable.DownPayment Or
-                strModules = VO.AccountPayable.DownPaymentCutting Or
-                strModules = VO.AccountPayable.DownPaymentTransport Or
-                strModules = VO.AccountReceivable.DownPaymentOrderRequest Or
-                strModules = VO.AccountReceivable.DownPayment Then
+            If clsData.Modules = VO.AccountPayable.DownPayment Or
+               clsData.Modules = VO.AccountPayable.DownPaymentCutting Or
+                clsData.Modules = VO.AccountPayable.DownPaymentTransport Or
+                clsData.Modules = VO.AccountReceivable.DownPaymentOrderRequest Or
+                clsData.Modules = VO.AccountReceivable.DownPayment Then
                 frmDetail = New frmTraARAPDetVer3
             Else
                 frmDetail = New frmTraARAPDetVer4

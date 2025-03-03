@@ -421,6 +421,22 @@ Public Class frmTraOrderRequestDet
         End With
     End Sub
 
+    Private Sub prvHistoryItem()
+        intPos = grdItemView.FocusedRowHandle
+        If intPos < 0 Then Exit Sub
+        Try
+            Dim frmDetail As New frmViewLookupHistory
+            With frmDetail
+                .pubDtData = BL.OrderRequest.ListDataDetailHistorySCItem(grdItemView.GetRowCellValue(intPos, "ID"))
+                .Text += " Kontrak Penjualan"
+                .StartPosition = FormStartPosition.CenterParent
+                .ShowDialog()
+            End With
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        End Try
+    End Sub
+
 #End Region
 
 #Region "History Handle"
@@ -513,6 +529,7 @@ Public Class frmTraOrderRequestDet
             Case "Hapus" : prvDeleteItem()
             Case "Ubah Barang" : prvChangeItem()
             Case "Ubah Harga dan Jumlah" : prvChangeItemPriceAndQuantity()
+            Case "Histori" : prvHistoryItem()
         End Select
     End Sub
 

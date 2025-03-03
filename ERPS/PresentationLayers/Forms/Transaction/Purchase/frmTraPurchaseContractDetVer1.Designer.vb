@@ -77,6 +77,9 @@ Partial Class frmTraPurchaseContractDetVer1
         Me.tpHistory = New System.Windows.Forms.TabPage()
         Me.grdStatus = New DevExpress.XtraGrid.GridControl()
         Me.grdStatusView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.tpSalesContract = New System.Windows.Forms.TabPage()
+        Me.grdSalesContract = New DevExpress.XtraGrid.GridControl()
+        Me.grdSalesContractView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.tcDetail = New System.Windows.Forms.TabControl()
         Me.tpItem = New System.Windows.Forms.TabPage()
@@ -90,9 +93,8 @@ Partial Class frmTraPurchaseContractDetVer1
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDetailItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
-        Me.tpSalesContract = New System.Windows.Forms.TabPage()
-        Me.grdSalesContract = New DevExpress.XtraGrid.GridControl()
-        Me.grdSalesContractView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.BarSep1Item = New System.Windows.Forms.ToolBarButton()
+        Me.BarHistoryItem = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdSubItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -115,12 +117,12 @@ Partial Class frmTraPurchaseContractDetVer1
         Me.tpHistory.SuspendLayout()
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tcDetail.SuspendLayout()
-        Me.tpItem.SuspendLayout()
-        Me.StatusStrip.SuspendLayout()
         Me.tpSalesContract.SuspendLayout()
         CType(Me.grdSalesContract, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdSalesContractView, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tcDetail.SuspendLayout()
+        Me.tpItem.SuspendLayout()
+        Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
         '
         'grdSubItemView
@@ -778,6 +780,52 @@ Partial Class frmTraPurchaseContractDetVer1
         Me.grdStatusView.OptionsView.ColumnAutoWidth = False
         Me.grdStatusView.OptionsView.ShowGroupPanel = False
         '
+        'tpSalesContract
+        '
+        Me.tpSalesContract.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpSalesContract.Controls.Add(Me.grdSalesContract)
+        Me.tpSalesContract.Location = New System.Drawing.Point(4, 25)
+        Me.tpSalesContract.Name = "tpSalesContract"
+        Me.tpSalesContract.Padding = New System.Windows.Forms.Padding(3)
+        Me.tpSalesContract.Size = New System.Drawing.Size(876, 180)
+        Me.tpSalesContract.TabIndex = 3
+        Me.tpSalesContract.Text = "Kontrak Penjualan - F4"
+        Me.tpSalesContract.UseVisualStyleBackColor = True
+        '
+        'grdSalesContract
+        '
+        Me.grdSalesContract.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.Append.Enabled = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.Append.Visible = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.Edit.Enabled = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.Edit.Visible = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.EndEdit.Visible = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.NextPage.Enabled = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.NextPage.Visible = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.PrevPage.Visible = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.Remove.Enabled = False
+        Me.grdSalesContract.EmbeddedNavigator.Buttons.Remove.Visible = False
+        Me.grdSalesContract.Location = New System.Drawing.Point(3, 3)
+        Me.grdSalesContract.MainView = Me.grdSalesContractView
+        Me.grdSalesContract.Name = "grdSalesContract"
+        Me.grdSalesContract.Size = New System.Drawing.Size(866, 170)
+        Me.grdSalesContract.TabIndex = 0
+        Me.grdSalesContract.UseEmbeddedNavigator = True
+        Me.grdSalesContract.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdSalesContractView})
+        '
+        'grdSalesContractView
+        '
+        Me.grdSalesContractView.GridControl = Me.grdSalesContract
+        Me.grdSalesContractView.Name = "grdSalesContractView"
+        Me.grdSalesContractView.OptionsCustomization.AllowColumnMoving = False
+        Me.grdSalesContractView.OptionsCustomization.AllowGroup = False
+        Me.grdSalesContractView.OptionsView.ColumnAutoWidth = False
+        Me.grdSalesContractView.OptionsView.ShowGroupPanel = False
+        '
         'Label1
         '
         Me.Label1.BackColor = System.Drawing.Color.CadetBlue
@@ -869,7 +917,7 @@ Partial Class frmTraPurchaseContractDetVer1
         'ToolBarItem
         '
         Me.ToolBarItem.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder})
+        Me.ToolBarItem.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddItemOrder, Me.BarDetailItemOrder, Me.BarDeleteItemOrder, Me.BarSep1Item, Me.BarHistoryItem})
         Me.ToolBarItem.DropDownArrows = True
         Me.ToolBarItem.Location = New System.Drawing.Point(3, 3)
         Me.ToolBarItem.Name = "ToolBarItem"
@@ -896,51 +944,16 @@ Partial Class frmTraPurchaseContractDetVer1
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
         '
-        'tpSalesContract
+        'BarSep1Item
         '
-        Me.tpSalesContract.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.tpSalesContract.Controls.Add(Me.grdSalesContract)
-        Me.tpSalesContract.Location = New System.Drawing.Point(4, 25)
-        Me.tpSalesContract.Name = "tpSalesContract"
-        Me.tpSalesContract.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpSalesContract.Size = New System.Drawing.Size(876, 180)
-        Me.tpSalesContract.TabIndex = 3
-        Me.tpSalesContract.Text = "Kontrak Penjualan - F4"
-        Me.tpSalesContract.UseVisualStyleBackColor = True
+        Me.BarSep1Item.Name = "BarSep1Item"
+        Me.BarSep1Item.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
-        'grdSalesContract
+        'BarHistoryItem
         '
-        Me.grdSalesContract.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdSalesContract.EmbeddedNavigator.Buttons.Append.Enabled = False
-        Me.grdSalesContract.EmbeddedNavigator.Buttons.Append.Visible = False
-        Me.grdSalesContract.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
-        Me.grdSalesContract.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
-        Me.grdSalesContract.EmbeddedNavigator.Buttons.Edit.Enabled = False
-        Me.grdSalesContract.EmbeddedNavigator.Buttons.Edit.Visible = False
-        Me.grdSalesContract.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
-        Me.grdSalesContract.EmbeddedNavigator.Buttons.EndEdit.Visible = False
-        Me.grdSalesContract.EmbeddedNavigator.Buttons.NextPage.Enabled = False
-        Me.grdSalesContract.EmbeddedNavigator.Buttons.NextPage.Visible = False
-        Me.grdSalesContract.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
-        Me.grdSalesContract.EmbeddedNavigator.Buttons.PrevPage.Visible = False
-        Me.grdSalesContract.EmbeddedNavigator.Buttons.Remove.Enabled = False
-        Me.grdSalesContract.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdSalesContract.Location = New System.Drawing.Point(3, 3)
-        Me.grdSalesContract.MainView = Me.grdSalesContractView
-        Me.grdSalesContract.Name = "grdSalesContract"
-        Me.grdSalesContract.Size = New System.Drawing.Size(866, 170)
-        Me.grdSalesContract.TabIndex = 0
-        Me.grdSalesContract.UseEmbeddedNavigator = True
-        Me.grdSalesContract.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdSalesContractView})
-        '
-        'grdSalesContractView
-        '
-        Me.grdSalesContractView.GridControl = Me.grdSalesContract
-        Me.grdSalesContractView.Name = "grdSalesContractView"
-        Me.grdSalesContractView.OptionsCustomization.AllowColumnMoving = False
-        Me.grdSalesContractView.OptionsCustomization.AllowGroup = False
-        Me.grdSalesContractView.OptionsView.ColumnAutoWidth = False
-        Me.grdSalesContractView.OptionsView.ShowGroupPanel = False
+        Me.BarHistoryItem.Name = "BarHistoryItem"
+        Me.BarHistoryItem.Tag = "History"
+        Me.BarHistoryItem.Text = "Histori"
         '
         'frmTraPurchaseContractDetVer1
         '
@@ -984,14 +997,14 @@ Partial Class frmTraPurchaseContractDetVer1
         Me.tpHistory.ResumeLayout(False)
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tpSalesContract.ResumeLayout(False)
+        CType(Me.grdSalesContract, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdSalesContractView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tcDetail.ResumeLayout(False)
         Me.tpItem.ResumeLayout(False)
         Me.tpItem.PerformLayout()
         Me.StatusStrip.ResumeLayout(False)
         Me.StatusStrip.PerformLayout()
-        Me.tpSalesContract.ResumeLayout(False)
-        CType(Me.grdSalesContract, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdSalesContractView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1066,4 +1079,6 @@ Partial Class frmTraPurchaseContractDetVer1
     Friend WithEvents tpSalesContract As System.Windows.Forms.TabPage
     Friend WithEvents grdSalesContract As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdSalesContractView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents BarSep1Item As ToolBarButton
+    Friend WithEvents BarHistoryItem As ToolBarButton
 End Class

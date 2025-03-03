@@ -499,5 +499,142 @@
             End Try
         End Sub
 
+        Public Shared Sub CalculateDPAmountOrderRequestInDPSalesContract(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"DECLARE @ORDetailID VARCHAR(100)  " & vbNewLine &
+"DECLARE db_cursor CURSOR FOR  " & vbNewLine &
+"" & vbNewLine &
+"SELECT DISTINCT ORD.ID   " & vbNewLine &
+"FROM traOrderRequestDet ORD " & vbNewLine &
+"INNER JOIN traOrderRequest ORH ON   " & vbNewLine &
+"	ORD.OrderRequestID=ORH.ID   " & vbNewLine &
+"WHERE ORH.IsDeleted=0 AND ORD.DPAmount=0 " & vbNewLine &
+"" & vbNewLine &
+"OPEN db_cursor;  " & vbNewLine &
+"FETCH NEXT FROM db_cursor INTO @ORDetailID;  " & vbNewLine &
+"WHILE @@FETCH_STATUS = 0  " & vbNewLine &
+"BEGIN  " & vbNewLine &
+"" & vbNewLine &
+"UPDATE traOrderRequestDet SET 	" & vbNewLine &
+"	DPAmount=	" & vbNewLine &
+"	(	" & vbNewLine &
+"		SELECT	" & vbNewLine &
+"			ISNULL(SUM(SCD.DPAmount),0) TotalPayment		" & vbNewLine &
+"		FROM traSalesContractDet SCD 	" & vbNewLine &
+"		INNER JOIN traSalesContract SCH ON	" & vbNewLine &
+"			SCD.SCID=SCH.ID 	" & vbNewLine &
+"		WHERE 	" & vbNewLine &
+"			SCD.ORDetailID=@ORDetailID " & vbNewLine &
+"			AND SCD.ParentID='' " & vbNewLine &
+"			AND SCH.IsDeleted=0 " & vbNewLine &
+"	), " & vbNewLine &
+"	DPAmountPPN=	" & vbNewLine &
+"	(	" & vbNewLine &
+"		SELECT	" & vbNewLine &
+"			ISNULL(SUM(SCD.DPAmountPPN),0) TotalPayment		" & vbNewLine &
+"		FROM traSalesContractDet SCD 	" & vbNewLine &
+"		INNER JOIN traSalesContract SCH ON	" & vbNewLine &
+"			SCD.SCID=SCH.ID 	" & vbNewLine &
+"		WHERE 	" & vbNewLine &
+"			SCD.ORDetailID=@ORDetailID " & vbNewLine &
+"			AND SCD.ParentID='' " & vbNewLine &
+"			AND SCH.IsDeleted=0 " & vbNewLine &
+"	), " & vbNewLine &
+"	DPAmountPPH=	" & vbNewLine &
+"	(	" & vbNewLine &
+"		SELECT	" & vbNewLine &
+"			ISNULL(SUM(SCD.DPAmountPPH),0) TotalPayment		" & vbNewLine &
+"		FROM traSalesContractDet SCD 	" & vbNewLine &
+"		INNER JOIN traSalesContract SCH ON	" & vbNewLine &
+"			SCD.SCID=SCH.ID 	" & vbNewLine &
+"		WHERE 	" & vbNewLine &
+"			SCD.ORDetailID=@ORDetailID " & vbNewLine &
+"			AND SCD.ParentID='' " & vbNewLine &
+"			AND SCH.IsDeleted=0 " & vbNewLine &
+"	) " & vbNewLine &
+"WHERE " & vbNewLine &
+"   ID=@ORDetailID " & vbNewLine &
+"  " & vbNewLine &
+"FETCH NEXT FROM db_cursor INTO @ORDetailID;  " & vbNewLine &
+"END  " & vbNewLine &
+"  " & vbNewLine &
+"CLOSE db_cursor;  " & vbNewLine &
+"DEALLOCATE db_cursor;" & vbNewLine
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub CalculateDPAmountOrderRequestInOrderRequestHeader(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"DECLARE @OrderRequestID VARCHAR(100)  " & vbNewLine &
+"DECLARE db_cursor CURSOR FOR  " & vbNewLine &
+"" & vbNewLine &
+"SELECT DISTINCT ORH.ID   " & vbNewLine &
+"FROM traOrderRequest ORH " & vbNewLine &
+"WHERE ORH.IsDeleted=0 AND ORH.DPAmount=0 " & vbNewLine &
+"" & vbNewLine &
+"OPEN db_cursor;  " & vbNewLine &
+"FETCH NEXT FROM db_cursor INTO @OrderRequestID;  " & vbNewLine &
+"WHILE @@FETCH_STATUS = 0  " & vbNewLine &
+"BEGIN  " & vbNewLine &
+"" & vbNewLine &
+"UPDATE traOrderRequest SET 	" & vbNewLine &
+"	DPAmount=	" & vbNewLine &
+"	(	" & vbNewLine &
+"		SELECT	" & vbNewLine &
+"			ISNULL(SUM(ORD.DPAmount),0) TotalPayment		" & vbNewLine &
+"		FROM traOrderRequestDet ORD " & vbNewLine &
+"		WHERE 	" & vbNewLine &
+"			ORD.OrderRequestID=@OrderRequestID " & vbNewLine &
+"			AND ORD.ParentID='' " & vbNewLine &
+"	), " & vbNewLine &
+"	DPAmountPPN=	" & vbNewLine &
+"	(	" & vbNewLine &
+"		SELECT	" & vbNewLine &
+"			ISNULL(SUM(ORD.DPAmountPPN),0) TotalPayment		" & vbNewLine &
+"		FROM traOrderRequestDet ORD " & vbNewLine &
+"		WHERE 	" & vbNewLine &
+"			ORD.OrderRequestID=@OrderRequestID " & vbNewLine &
+"			AND ORD.ParentID='' " & vbNewLine &
+"	), " & vbNewLine &
+"	DPAmountPPH=	" & vbNewLine &
+"	(	" & vbNewLine &
+"		SELECT	" & vbNewLine &
+"			ISNULL(SUM(ORD.DPAmountPPH),0) TotalPayment		" & vbNewLine &
+"		FROM traOrderRequestDet ORD " & vbNewLine &
+"		WHERE 	" & vbNewLine &
+"			ORD.OrderRequestID=@OrderRequestID " & vbNewLine &
+"			AND ORD.ParentID='' " & vbNewLine &
+"	) " & vbNewLine &
+"WHERE " & vbNewLine &
+"   ID=@OrderRequestID " & vbNewLine &
+"  " & vbNewLine &
+"FETCH NEXT FROM db_cursor INTO @OrderRequestID;  " & vbNewLine &
+"END  " & vbNewLine &
+"  " & vbNewLine &
+"CLOSE db_cursor;  " & vbNewLine &
+"DEALLOCATE db_cursor;" & vbNewLine
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
     End Class
 End Namespace

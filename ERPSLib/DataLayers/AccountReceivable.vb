@@ -1790,7 +1790,7 @@
                     "   AND A.OrderRequestID=@ReferencesID " & vbNewLine &
                     "   AND B.SubmitBy<>'' " & vbNewLine &
                     "   AND A.TotalPrice-A.DPAmount-A.ReceiveAmount>0 " & vbNewLine &
-                    "   AND A.TotalWeight-A.SCWeight>0 " & vbNewLine &
+                    "   --AND A.TotalWeight-A.SCWeight>0 " & vbNewLine &
                     "   AND A.ID NOT IN " & vbNewLine &
                     "       ( " & vbNewLine &
                     "           SELECT ARD.ReferencesDetailID 	" & vbNewLine &

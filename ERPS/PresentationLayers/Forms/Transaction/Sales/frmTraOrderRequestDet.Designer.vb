@@ -84,11 +84,13 @@ Partial Class frmTraOrderRequestDet
         Me.BarDelete = New System.Windows.Forms.ToolBarButton()
         Me.BarItemSep1 = New System.Windows.Forms.ToolBarButton()
         Me.BarChangeItem = New System.Windows.Forms.ToolBarButton()
+        Me.BarChangePriceAndQuantity = New System.Windows.Forms.ToolBarButton()
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.BarChangePriceAndQuantity = New System.Windows.Forms.ToolBarButton()
+        Me.BarHistoryItem = New System.Windows.Forms.ToolBarButton()
+        Me.BarItemSep2 = New System.Windows.Forms.ToolBarButton()
         Me.StatusStrip.SuspendLayout()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
@@ -764,7 +766,7 @@ Partial Class frmTraOrderRequestDet
         'ToolBarDetail
         '
         Me.ToolBarDetail.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAdd, Me.BarEdit, Me.BarDelete, Me.BarItemSep1, Me.BarChangeItem, Me.BarChangePriceAndQuantity})
+        Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAdd, Me.BarEdit, Me.BarDelete, Me.BarItemSep1, Me.BarChangeItem, Me.BarChangePriceAndQuantity, Me.BarItemSep2, Me.BarHistoryItem})
         Me.ToolBarDetail.DropDownArrows = True
         Me.ToolBarDetail.Location = New System.Drawing.Point(0, 265)
         Me.ToolBarDetail.Name = "ToolBarDetail"
@@ -801,6 +803,12 @@ Partial Class frmTraOrderRequestDet
         Me.BarChangeItem.Name = "BarChangeItem"
         Me.BarChangeItem.Tag = "Alt"
         Me.BarChangeItem.Text = "Ubah Barang"
+        '
+        'BarChangePriceAndQuantity
+        '
+        Me.BarChangePriceAndQuantity.Name = "BarChangePriceAndQuantity"
+        Me.BarChangePriceAndQuantity.Tag = "Price"
+        Me.BarChangePriceAndQuantity.Text = "Ubah Harga dan Jumlah"
         '
         'pgMain
         '
@@ -855,11 +863,16 @@ Partial Class frmTraOrderRequestDet
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
         '
-        'BarChangePriceAndQuantity
+        'BarHistoryItem
         '
-        Me.BarChangePriceAndQuantity.Name = "BarChangePriceAndQuantity"
-        Me.BarChangePriceAndQuantity.Tag = "Price"
-        Me.BarChangePriceAndQuantity.Text = "Ubah Harga dan Jumlah"
+        Me.BarHistoryItem.Name = "BarHistoryItem"
+        Me.BarHistoryItem.Tag = "History"
+        Me.BarHistoryItem.Text = "Histori"
+        '
+        'BarItemSep2
+        '
+        Me.BarItemSep2.Name = "BarItemSep2"
+        Me.BarItemSep2.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
         'frmTraOrderRequestDet
         '
@@ -974,4 +987,6 @@ Partial Class frmTraOrderRequestDet
     Friend WithEvents txtPersonInCharge As usTextBox
     Friend WithEvents Label19 As Label
     Friend WithEvents BarChangePriceAndQuantity As System.Windows.Forms.ToolBarButton
+    Friend WithEvents BarItemSep2 As ToolBarButton
+    Friend WithEvents BarHistoryItem As ToolBarButton
 End Class

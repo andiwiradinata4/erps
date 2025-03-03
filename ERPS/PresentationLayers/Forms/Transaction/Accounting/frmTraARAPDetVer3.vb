@@ -153,6 +153,18 @@ Public Class frmTraARAPDetVer3
         UI.usForm.SetGrid(grdStatusView, "StatusBy", "Oleh", 200, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdStatusView, "StatusDate", "Tanggal", 180, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdStatusView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
+
+        '# History Receive
+        UI.usForm.SetGrid(grdHistoryReceiveView, "TransNumber", "Nomor", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdHistoryReceiveView, "TransDate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
+        UI.usForm.SetGrid(grdHistoryReceiveView, "DPAmount", "Alokasi DP", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdHistoryReceiveView, "TaxInvoiceNumber", "No. Faktur Pajak", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdHistoryReceiveView, "InvoiceNumberBP", "Nomor Invoice", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdHistoryReceiveView, "Remarks", "Keterangan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdHistoryReceiveView, "CreatedBy", "Dibuat Oleh", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdHistoryReceiveView, "CreatedDate", "Tanggal Buat", 100, UI.usDefGrid.gFullDate)
+        UI.usForm.SetGrid(grdHistoryReceiveView, "LogBy", "Diedit Oleh", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdHistoryReceiveView, "LogDate", "Tanggal Edit", 100, UI.usDefGrid.gFullDate)
     End Sub
 
     Private Sub prvFillCombo()
@@ -583,6 +595,26 @@ Public Class frmTraARAPDetVer3
 
 #End Region
 
+#Region "History Down Payment Receive Handle"
+
+    Private Sub prvQueryHistoryDPReceive()
+        pgMain.Value = 30
+        Me.Cursor = Cursors.WaitCursor
+        Try
+            grdHistoryReceive.DataSource = BL.ARAP.ListDataDownPaymentReceive(strID)
+            grdHistoryReceiveView.BestFitColumns()
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+            Me.Close()
+        Finally
+            Me.Cursor = Cursors.Default
+            pgMain.Value = 100
+            prvResetProgressBar()
+        End Try
+    End Sub
+
+#End Region
+
 #Region "Form Handle"
 
     Private Sub frmTraARAPDetVer3_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -607,6 +639,7 @@ Public Class frmTraARAPDetVer3
         prvFillForm()
         prvQueryItem()
         prvQueryHistory()
+        prvQueryHistoryDPReceive()
         prvUserAccess()
         txtDueDateValue.Minimum = 0
         txtPercentage.Maximum = 100

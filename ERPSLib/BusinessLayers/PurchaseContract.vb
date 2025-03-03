@@ -586,6 +586,13 @@ Namespace BL
             Return bolReturn
         End Function
 
+        Public Shared Function ListDataDetailHistorySCItem(ByVal strReferencesDetailID As String, ByVal bolIsSubItem As Boolean) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.PurchaseContract.ListDataDetailHistorySCItem(sqlCon, Nothing, strReferencesDetailID, bolIsSubItem)
+            End Using
+        End Function
+
 #End Region
 
 #Region "Payment Term"

@@ -28,6 +28,7 @@ Partial Class frmSysSetup
         Me.btnCalculateTotalPriceSalesContractSubItem = New DevExpress.XtraEditors.SimpleButton()
         Me.btnCalculateTotalPricePurchaseContractSubItem = New DevExpress.XtraEditors.SimpleButton()
         Me.btnCalculateSCWeightInSalesContract = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnCalculateDPAmountInDPSalesContract = New DevExpress.XtraEditors.SimpleButton()
         Me.SuspendLayout()
         '
         'btnCalculateSCWeightSubItemInPurchaseContract
@@ -84,11 +85,21 @@ Partial Class frmSysSetup
         Me.btnCalculateSCWeightInSalesContract.TabIndex = 5
         Me.btnCalculateSCWeightInSalesContract.Text = "Kalkulasi Penggunaan Kontrak Penjualan di Konfirmasi Pesanan"
         '
+        'btnCalculateDPAmountInDPSalesContract
+        '
+        Me.btnCalculateDPAmountInDPSalesContract.Dock = System.Windows.Forms.DockStyle.Top
+        Me.btnCalculateDPAmountInDPSalesContract.Location = New System.Drawing.Point(0, 138)
+        Me.btnCalculateDPAmountInDPSalesContract.Name = "btnCalculateDPAmountInDPSalesContract"
+        Me.btnCalculateDPAmountInDPSalesContract.Size = New System.Drawing.Size(659, 23)
+        Me.btnCalculateDPAmountInDPSalesContract.TabIndex = 6
+        Me.btnCalculateDPAmountInDPSalesContract.Text = "Kalkulasi Penggunaan DP Permintaan Pesanan berdasarkan DP Kontrak Penjualan"
+        '
         'frmSysSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(659, 322)
+        Me.Controls.Add(Me.btnCalculateDPAmountInDPSalesContract)
         Me.Controls.Add(Me.btnCalculateSCWeightInSalesContract)
         Me.Controls.Add(Me.btnCalculateTotalPricePurchaseContractSubItem)
         Me.Controls.Add(Me.btnCalculateTotalPriceSalesContractSubItem)
@@ -108,4 +119,5 @@ Partial Class frmSysSetup
     Friend WithEvents btnCalculateTotalPriceSalesContractSubItem As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnCalculateTotalPricePurchaseContractSubItem As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnCalculateSCWeightInSalesContract As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btnCalculateDPAmountInDPSalesContract As DevExpress.XtraEditors.SimpleButton
 End Class
