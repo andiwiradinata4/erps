@@ -56,13 +56,6 @@ Partial Class frmTraCostDet
         Me.Label10 = New System.Windows.Forms.Label()
         Me.txtTotalAmount = New ERPS.usNumeric()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.tpRemarks = New System.Windows.Forms.TabPage()
-        Me.grdRemarks = New DevExpress.XtraGrid.GridControl()
-        Me.grdRemarksView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.ToolBarRemarks = New ERPS.usToolBar()
-        Me.BarAddRemarksResult = New System.Windows.Forms.ToolBarButton()
-        Me.BarEditRemarksResult = New System.Windows.Forms.ToolBarButton()
-        Me.BarDeleteRemarksResult = New System.Windows.Forms.ToolBarButton()
         Me.tpHistory = New System.Windows.Forms.TabPage()
         Me.grdStatus = New DevExpress.XtraGrid.GridControl()
         Me.grdStatusView = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -88,9 +81,6 @@ Partial Class frmTraCostDet
         CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tpRemarks.SuspendLayout()
-        CType(Me.grdRemarks, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdRemarksView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpHistory.SuspendLayout()
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -142,7 +132,6 @@ Partial Class frmTraCostDet
         Me.tcHeader.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tcHeader.Controls.Add(Me.tpMain)
         Me.tcHeader.Controls.Add(Me.tpPrice)
-        Me.tcHeader.Controls.Add(Me.tpRemarks)
         Me.tcHeader.Controls.Add(Me.tpHistory)
         Me.tcHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
@@ -489,81 +478,6 @@ Partial Class frmTraCostDet
         Me.Label7.TabIndex = 142
         Me.Label7.Text = "Total DPP"
         '
-        'tpRemarks
-        '
-        Me.tpRemarks.Controls.Add(Me.grdRemarks)
-        Me.tpRemarks.Controls.Add(Me.ToolBarRemarks)
-        Me.tpRemarks.Location = New System.Drawing.Point(4, 25)
-        Me.tpRemarks.Name = "tpRemarks"
-        Me.tpRemarks.Size = New System.Drawing.Size(851, 172)
-        Me.tpRemarks.TabIndex = 3
-        Me.tpRemarks.Text = "Keterangan - F3"
-        Me.tpRemarks.UseVisualStyleBackColor = True
-        '
-        'grdRemarks
-        '
-        Me.grdRemarks.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdRemarks.EmbeddedNavigator.Buttons.Append.Enabled = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.Append.Visible = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.CancelEdit.Enabled = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.CancelEdit.Visible = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.Edit.Enabled = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.Edit.Visible = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.EndEdit.Enabled = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.EndEdit.Visible = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.NextPage.Enabled = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.NextPage.Visible = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.PrevPage.Enabled = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.PrevPage.Visible = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.Remove.Enabled = False
-        Me.grdRemarks.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdRemarks.Location = New System.Drawing.Point(0, 28)
-        Me.grdRemarks.MainView = Me.grdRemarksView
-        Me.grdRemarks.Name = "grdRemarks"
-        Me.grdRemarks.Size = New System.Drawing.Size(851, 144)
-        Me.grdRemarks.TabIndex = 18
-        Me.grdRemarks.UseEmbeddedNavigator = True
-        Me.grdRemarks.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdRemarksView})
-        '
-        'grdRemarksView
-        '
-        Me.grdRemarksView.GridControl = Me.grdRemarks
-        Me.grdRemarksView.Name = "grdRemarksView"
-        Me.grdRemarksView.OptionsCustomization.AllowColumnMoving = False
-        Me.grdRemarksView.OptionsCustomization.AllowGroup = False
-        Me.grdRemarksView.OptionsView.ColumnAutoWidth = False
-        Me.grdRemarksView.OptionsView.ShowGroupPanel = False
-        '
-        'ToolBarRemarks
-        '
-        Me.ToolBarRemarks.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
-        Me.ToolBarRemarks.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarAddRemarksResult, Me.BarEditRemarksResult, Me.BarDeleteRemarksResult})
-        Me.ToolBarRemarks.DropDownArrows = True
-        Me.ToolBarRemarks.Location = New System.Drawing.Point(0, 0)
-        Me.ToolBarRemarks.Name = "ToolBarRemarks"
-        Me.ToolBarRemarks.ShowToolTips = True
-        Me.ToolBarRemarks.Size = New System.Drawing.Size(851, 28)
-        Me.ToolBarRemarks.TabIndex = 17
-        Me.ToolBarRemarks.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
-        'BarAddRemarksResult
-        '
-        Me.BarAddRemarksResult.Name = "BarAddRemarksResult"
-        Me.BarAddRemarksResult.Tag = "Add"
-        Me.BarAddRemarksResult.Text = "Tambah"
-        '
-        'BarEditRemarksResult
-        '
-        Me.BarEditRemarksResult.Name = "BarEditRemarksResult"
-        Me.BarEditRemarksResult.Tag = "Edit"
-        Me.BarEditRemarksResult.Text = "Edit"
-        '
-        'BarDeleteRemarksResult
-        '
-        Me.BarDeleteRemarksResult.Name = "BarDeleteRemarksResult"
-        Me.BarDeleteRemarksResult.Tag = "Delete"
-        Me.BarDeleteRemarksResult.Text = "Hapus"
-        '
         'tpHistory
         '
         Me.tpHistory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
@@ -573,7 +487,7 @@ Partial Class frmTraCostDet
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
         Me.tpHistory.Size = New System.Drawing.Size(851, 172)
         Me.tpHistory.TabIndex = 1
-        Me.tpHistory.Text = "History - F4"
+        Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
         '
         'grdStatus
@@ -784,10 +698,6 @@ Partial Class frmTraCostDet
         CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalPPN, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tpRemarks.ResumeLayout(False)
-        Me.tpRemarks.PerformLayout()
-        CType(Me.grdRemarks, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdRemarksView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpHistory.ResumeLayout(False)
         CType(Me.grdStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdStatusView, System.ComponentModel.ISupportInitialize).EndInit()
@@ -851,11 +761,4 @@ Partial Class frmTraCostDet
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents txtTotalAmount As ERPS.usNumeric
     Friend WithEvents Label7 As System.Windows.Forms.Label
-    Friend WithEvents tpRemarks As System.Windows.Forms.TabPage
-    Friend WithEvents ToolBarRemarks As ERPS.usToolBar
-    Friend WithEvents BarAddRemarksResult As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarEditRemarksResult As System.Windows.Forms.ToolBarButton
-    Friend WithEvents BarDeleteRemarksResult As System.Windows.Forms.ToolBarButton
-    Friend WithEvents grdRemarks As DevExpress.XtraGrid.GridControl
-    Friend WithEvents grdRemarksView As DevExpress.XtraGrid.Views.Grid.GridView
 End Class

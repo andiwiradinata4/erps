@@ -527,8 +527,8 @@ Namespace DL
                         "INNER JOIN traClaimDet CD ON " & vbNewLine &
                         "   CH.ID=CD.ClaimID " & vbNewLine &
                         "WHERE  " & vbNewLine &
-                        "   CD.ConfirmationQuantity>0 OR CD.ConfirmationWeight>0 " & vbNewLine &
-                        "   AND CH.ID=@ID " & vbNewLine
+                        "   CH.ID=@ID " & vbNewLine &
+                        "   AND (CD.ConfirmationQuantity>0 OR CD.ConfirmationWeight>0) " & vbNewLine
 
                     .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
                 End With

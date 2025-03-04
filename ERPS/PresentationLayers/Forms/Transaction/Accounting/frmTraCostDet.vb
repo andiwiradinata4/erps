@@ -6,7 +6,6 @@ Public Class frmTraCostDet
     Private frmParent As frmTraCost
     Private clsData As VO.Cost
     Private dtItem As New DataTable
-    Private dtRemarks As New DataTable
     Private intPos As Integer = 0
     Private bolExport As Boolean = False
     Private strID As String = ""
@@ -55,10 +54,6 @@ Public Class frmTraCostDet
         UI.usForm.SetGrid(grdItemView, "ReceiveDate", "Tanggal Terima", 180, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdItemView, "InvoiceDate", "Tanggal Invoice", 180, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdItemView, "Remarks", "Keterangan", 200, UI.usDefGrid.gString)
-
-        UI.usForm.SetGrid(grdRemarksView, "ID", "ID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdRemarksView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdRemarksView, "Remarks", "Keterangan", 300, UI.usDefGrid.gString)
 
         UI.usForm.SetGrid(grdStatusView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdStatusView, "CostID", "CostID", 100, UI.usDefGrid.gString, False)
@@ -123,11 +118,6 @@ Public Class frmTraCostDet
             UI.usForm.frmMessageBox("Item belum diinput")
             grdItemView.Focus()
             Exit Sub
-            'ElseIf txtCoACode.Text.Trim = "" Then
-            '    UI.usForm.frmMessageBox("Pilih akun terlebih dahulu")
-            '    tcHeader.SelectedTab = tpMain
-            '    txtCoACode.Focus()
-            '    Exit Sub
         ElseIf txtTotalAmount.Value <= 0 Then
             UI.usForm.frmMessageBox("Total Bayar harus lebih besar dari 0")
             tcHeader.SelectedTab = tpMain
@@ -169,17 +159,6 @@ Public Class frmTraCostDet
             Next
         End With
 
-        Dim clsDataRemarksAll As New List(Of VO.ARAPRemarks)
-        With dtRemarks
-            For Each dr As DataRow In .Rows
-                clsDataRemarksAll.Add(New VO.ARAPRemarks With
-                                     {
-                                         .ParentID = pubID,
-                                         .Remarks = dr.Item("Remarks")
-                                    })
-            Next
-        End With
-
         clsData = New VO.Cost
         clsData.ProgramID = pubCS.ProgramID
         clsData.CompanyID = pubCS.CompanyID
@@ -199,7 +178,7 @@ Public Class frmTraCostDet
         clsData.Remarks = txtRemarks.Text.Trim
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
         clsData.Detail = clsDataDetailAll
-        clsData.DetailRemarks = clsDataRemarksAll
+        clsData.DetailRemarks = New List(Of VO.ARAPRemarks)
         clsData.Save = intSave
 
         Me.Cursor = Cursors.WaitCursor
@@ -405,96 +384,6 @@ Public Class frmTraCostDet
 
 #End Region
 
-#Region "Remarks"
-
-    Private Sub prvSetButtonRemarks()
-        Dim bolEnabled As Boolean = IIf(grdRemarksView.RowCount = 0, False, True)
-        With ToolBarRemarks
-            .Buttons(cEdit).Enabled = bolEnabled
-            .Buttons(cDelete).Enabled = bolEnabled
-        End With
-    End Sub
-
-    Private Sub prvQueryRemarks()
-        pgMain.Value = 30
-        Me.Cursor = Cursors.WaitCursor
-        Try
-            dtRemarks = BL.ARAP.ListDataRemarks(pubID)
-            grdRemarks.DataSource = dtRemarks
-            grdRemarksView.BestFitColumns()
-        Catch ex As Exception
-            UI.usForm.frmMessageBox(ex.Message)
-            Me.Close()
-        Finally
-            Me.Cursor = Cursors.Default
-            pgMain.Value = 100
-            prvResetProgressBar()
-            prvSetButtonRemarks()
-        End Try
-    End Sub
-
-    Private Sub prvAddRemarks()
-        Dim frmDetail As New frmTraARAPItemRemarks
-        With frmDetail
-            .pubIsNew = True
-            .StartPosition = FormStartPosition.CenterScreen
-            .ShowDialog()
-            If .pubIsSave Then
-                Dim dr As DataRow = dtRemarks.NewRow
-                dr.BeginEdit()
-                dr.Item("ID") = Guid.NewGuid.ToString()
-                dr.Item("Remarks") = .pubRemarks
-                dr.EndEdit()
-                dtRemarks.Rows.Add(dr)
-                dtRemarks.AcceptChanges()
-                grdRemarksView.BestFitColumns()
-            End If
-            prvSetButtonRemarks()
-        End With
-    End Sub
-
-    Private Sub prvEditRemarks()
-        intPos = grdRemarksView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        Dim frmDetail As New frmTraARAPItemRemarks
-        With frmDetail
-            .pubIsNew = False
-            .pubRemarks = grdRemarksView.GetRowCellValue(intPos, "Remarks")
-            .StartPosition = FormStartPosition.CenterScreen
-            .ShowDialog()
-            If .pubIsSave Then
-                For Each dr As DataRow In dtRemarks.Rows
-                    If dr.Item("ID") <> grdRemarksView.GetRowCellValue(intPos, "ID") Then Continue For
-                    dr.BeginEdit()
-                    dr.Item("ID") = Guid.NewGuid.ToString()
-                    dr.Item("Remarks") = .pubRemarks
-                    dr.EndEdit()
-                    Exit For
-                Next
-                dtRemarks.AcceptChanges()
-                grdRemarksView.BestFitColumns()
-            End If
-            prvSetButtonRemarks()
-        End With
-    End Sub
-
-    Private Sub prvDeleteRemarks()
-        intPos = grdRemarksView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        Dim strID As String = grdRemarksView.GetRowCellValue(intPos, "ID")
-        For i As Integer = 0 To dtRemarks.Rows.Count - 1
-            If dtRemarks.Rows(i).Item("ID") = strID Then
-                dtRemarks.Rows(i).Delete()
-                Exit For
-            End If
-        Next
-        dtRemarks.AcceptChanges()
-        grdRemarks.DataSource = dtRemarks
-        prvSetButtonRemarks()
-    End Sub
-
-#End Region
-
 #Region "Form Handle"
 
     Private Sub frmTraCostDet_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -503,8 +392,6 @@ Public Class frmTraCostDet
         ElseIf e.KeyCode = Keys.F2 Then
             tcHeader.SelectedTab = tpPrice
         ElseIf e.KeyCode = Keys.F3 Then
-            tcHeader.SelectedTab = tpRemarks
-        ElseIf e.KeyCode = Keys.F4 Then
             tcHeader.SelectedTab = tpHistory
         ElseIf e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Tutup form?") Then Me.Close()
@@ -517,13 +404,11 @@ Public Class frmTraCostDet
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         ToolBarDetail.SetIcon(Me)
-        ToolBarRemarks.SetIcon(Me)
         prvSetTitleForm()
         prvSetGrid()
         prvFillForm()
         prvQueryItem()
         prvQueryHistory()
-        prvQueryRemarks()
         prvUserAccess()
     End Sub
 
@@ -539,14 +424,6 @@ Public Class frmTraCostDet
             Case "Tambah" : prvAdd()
             Case "Edit" : prvEdit()
             Case "Hapus" : prvDelete()
-        End Select
-    End Sub
-
-    Private Sub ToolBarRemarksResult_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarRemarks.ButtonClick
-        Select Case e.Button.Text.Trim
-            Case "Tambah" : prvAddRemarks()
-            Case "Edit" : prvEditRemarks()
-            Case "Hapus" : prvDeleteRemarks()
         End Select
     End Sub
 

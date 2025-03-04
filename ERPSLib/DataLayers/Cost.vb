@@ -4,7 +4,7 @@
 #Region "Main"
 
         Public Shared Function ListData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                        ByVal intCompanyID As Integer, ByVal intProgramID As Integer, _
+                                        ByVal intProgramID As Integer, ByVal intCompanyID As Integer, _
                                         ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime, ByVal intStatusID As Integer) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
