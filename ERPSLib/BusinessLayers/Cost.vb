@@ -440,6 +440,13 @@
             End Using
         End Function
 
+        Public Shared Function PrintCostBankOutAttachment(ByVal strID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.Cost.PrintCostBankOutAttachment(sqlCon, Nothing, strID)
+            End Using
+        End Function
+
 #End Region
 
 #Region "Detail"

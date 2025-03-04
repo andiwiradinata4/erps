@@ -596,6 +596,48 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function PrintCostBankOutAttachment(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                          ByVal strID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"-- Others Expenses " & vbNewLine &
+"SELECT  " & vbNewLine &
+"	COD.ReceiveDate, COD.InvoiceDate, COD.InvoiceNumberBP, CAST(1 AS DECIMAL(18,4)) AS Quantity,  " & vbNewLine &
+"	SUM(COD.Amount) AS Amount, SUM(COD.PPNAmount) AS PPNAmount, SUM(COD.PPHAmount) AS PPHAmount,  " & vbNewLine &
+"	SUM(COD.Amount+COD.PPNAmount-COD.PPHAmount) AS GrandTotal " & vbNewLine &
+"FROM traCostDet COD  " & vbNewLine &
+"WHERE COD.CostID=@ParentID " & vbNewLine &
+"GROUP BY COD.ReceiveDate, COD.InvoiceDate, COD.InvoiceNumberBP  " & vbNewLine &
+" " & vbNewLine &
+"-- Cutting " & vbNewLine &
+"UNION ALL  " & vbNewLine &
+"SELECT  " & vbNewLine &
+"	COD.ReceiveDateInvoice AS ReceiveDate, COD.InvoiceDateBP AS InvoiceDate, COD.InvoiceNumberBP, CAST(1 AS DECIMAL(18,4)) AS Quantity,  " & vbNewLine &
+"	SUM(COD.Amount) AS Amount, SUM(COD.PPN) AS PPNAmount, SUM(COD.PPH) AS PPHAmount,  " & vbNewLine &
+"	SUM(COD.Amount+COD.PPN-COD.PPH) AS GrandTotal " & vbNewLine &
+"FROM traARAPItem COD  " & vbNewLine &
+"WHERE COD.ParentID=@ParentID " & vbNewLine &
+"GROUP BY COD.ReceiveDateInvoice, COD.InvoiceDateBP, COD.InvoiceNumberBP  " & vbNewLine &
+" " & vbNewLine &
+"-- Delivery " & vbNewLine &
+"UNION ALL  " & vbNewLine &
+"SELECT  " & vbNewLine &
+"	COD.ReceiveDate, COD.InvoiceDate, COD.InvoiceNumberBP, CAST(1 AS DECIMAL(18,4)) AS Quantity,  " & vbNewLine &
+"	SUM(COD.Amount) AS Amount, SUM(COD.PPN) AS PPNAmount, SUM(COD.PPH) AS PPHAmount,  " & vbNewLine &
+"	SUM(COD.Amount+COD.PPN-COD.PPH) AS GrandTotal " & vbNewLine &
+"FROM traAccountPayableDet COD  " & vbNewLine &
+"WHERE COD.APID=@ParentID " & vbNewLine &
+"GROUP BY COD.ReceiveDate, COD.InvoiceDate, COD.InvoiceNumberBP  " & vbNewLine
+
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
 #End Region
 
 #Region "Detail"

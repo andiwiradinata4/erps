@@ -2682,5 +2682,46 @@
             End If
         End Sub
 
+        '# ID = 89
+        Private Shared Sub CreateARAPVoucher_ID89(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 89
+            clsData.Name = "Create ARAP Voucher"
+            clsData.Scripts =
+"CREATE TABLE [dbo].[mstVoucherType](" & vbNewLine &
+"	[ID] [int] NOT NULL CONSTRAINT [DF_mstVoucherType_ID]  DEFAULT ((0)), " & vbNewLine &
+"	[Name] [varchar](250) NOT NULL CONSTRAINT [DF_mstVoucherType_Name]  DEFAULT (''), " & vbNewLine &
+"	[Remarks] [varchar](5000) NOT NULL CONSTRAINT [DF_mstVoucherType_Remarks]  DEFAULT (''), " & vbNewLine &
+"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_mstVoucherType_CreatedBy]  DEFAULT ('SYSTEM'), " & vbNewLine &
+"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_mstVoucherType_CreatedDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"   CONSTRAINT [PK_mstVoucherType] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine &
+" " & vbNewLine &
+"CREATE TABLE [dbo].[traARAPVoucher](" & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPVoucher_ID]  DEFAULT (''), " & vbNewLine &
+"	[TransDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPVoucher_TransDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[VoucherType] [int] NOT NULL CONSTRAINT [DF_traARAPVoucher_VoucherType]  DEFAULT (''), " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPVoucher_ParentID]  DEFAULT (''), " & vbNewLine &
+"	[InvoiceNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPVoucher_InvoiceNumber]  DEFAULT (''), " & vbNewLine &
+"	[CoAID] [int] NOT NULL CONSTRAINT [DF_traARAPVoucher_CoAID]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalAmount] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPVoucher_TotalAmount]  DEFAULT ((0)), " & vbNewLine &
+"	[Remarks] [varchar](5000) NOT NULL CONSTRAINT [DF_traARAPVoucher_Remarks]  DEFAULT (''), " & vbNewLine &
+"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traARAPVoucher_CreatedBy]  DEFAULT ('SYSTEM'), " & vbNewLine &
+"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traARAPVoucher_CreatedDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"   CONSTRAINT [PK_traARAPVoucher] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
     End Class
 End Namespace
