@@ -1,4 +1,6 @@
 ﻿Imports DevExpress.XtraGrid
+Imports DevExpress.XtraReports.UI
+
 Public Class frmTraCost
 
     Private intPos As Integer = 0
@@ -200,11 +202,11 @@ Public Class frmTraCost
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
             BL.Cost.DeleteData(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            
+
             UI.usForm.frmMessageBox("Hapus data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "CostNumber"))
         Catch ex As Exception
@@ -212,7 +214,7 @@ Public Class frmTraCost
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -226,11 +228,11 @@ Public Class frmTraCost
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
             BL.Cost.Submit(clsData.ID, "")
             pgMain.Value = 100
-            
+
             UI.usForm.frmMessageBox("Submit data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "CostNumber"))
         Catch ex As Exception
@@ -238,7 +240,7 @@ Public Class frmTraCost
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -263,11 +265,11 @@ Public Class frmTraCost
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
             BL.Cost.Unsubmit(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            
+
             UI.usForm.frmMessageBox("Batal submit data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "CostNumber"))
         Catch ex As Exception
@@ -275,7 +277,7 @@ Public Class frmTraCost
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -304,7 +306,7 @@ Public Class frmTraCost
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
             BL.Cost.Approve(clsData.ID, "", clsData.CoAID, clsData.PaymentDate)
             pgMain.Value = 100
@@ -315,7 +317,7 @@ Public Class frmTraCost
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -340,11 +342,11 @@ Public Class frmTraCost
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
             BL.Cost.Unapprove(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            
+
             UI.usForm.frmMessageBox("Batal approve data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "CostNumber"))
         Catch ex As Exception
@@ -352,7 +354,7 @@ Public Class frmTraCost
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -377,11 +379,11 @@ Public Class frmTraCost
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
             BL.Cost.SetupPayment(clsData.ID, clsData.PaymentDate, clsData.Remarks)
             pgMain.Value = 100
-            
+
             UI.usForm.frmMessageBox("Setup tanggal pembayaran berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "CostNumber"))
         Catch ex As Exception
@@ -389,7 +391,7 @@ Public Class frmTraCost
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -415,11 +417,11 @@ Public Class frmTraCost
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
             BL.Cost.SetupCancelPayment(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            
+
             UI.usForm.frmMessageBox("Hapus tanggal pembayaran berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "CostNumber"))
         Catch ex As Exception
@@ -427,7 +429,7 @@ Public Class frmTraCost
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -451,11 +453,11 @@ Public Class frmTraCost
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
             BL.Cost.UpdateTaxInvoiceNumber(clsData.ID, clsData.TaxInvoiceNumber, clsData.Remarks)
             pgMain.Value = 100
-            
+
             UI.usForm.frmMessageBox("Update nomor faktur pajak berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "CostNumber"))
         Catch ex As Exception
@@ -463,7 +465,7 @@ Public Class frmTraCost
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -508,20 +510,8 @@ Public Class frmTraCost
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
         Try
-            Dim crReport As New rptCostBankOutVer00
-            crReport.DataSource = BL.Cost.PrintCostBankOut(strID)
-            crReport.CreateDocument(True)
-            crReport.ShowPreviewMarginLines = False
-            crReport.ShowPrintMarginsWarning = False
-
-            Dim frmDetail As New frmReportPreview
-            With frmDetail
-                .docViewer.DocumentSource = crReport
-                .pgExportButton.Enabled = True
-                .Text = Me.Text & " - " & VO.Reports.PrintOut
-                .WindowState = FormWindowState.Maximized
-                .Show()
-            End With
+            Dim sharedPrintout As New SharedLib.usSharedPrintout
+            sharedPrintout.PrintCostBankOut(Me, strID, BL.Cost.PrintCostBankOut(strID))
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally

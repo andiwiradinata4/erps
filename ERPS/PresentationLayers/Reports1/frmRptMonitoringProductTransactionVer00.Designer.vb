@@ -29,6 +29,7 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.grdSalesContractView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdPurchaseContractView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.grdReceiveView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.ToolBar = New ERPS.usToolBar()
@@ -48,14 +49,13 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
         Me.btnExecute = New DevExpress.XtraEditors.SimpleButton()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.grdReceiveView = New DevExpress.XtraGrid.Views.Grid.GridView()
         CType(Me.grdSalesContractView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdPurchaseContractView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdReceiveView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
-        CType(Me.grdReceiveView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'grdSalesContractView
@@ -96,7 +96,7 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.grdMain.Size = New System.Drawing.Size(984, 441)
         Me.grdMain.TabIndex = 5
         Me.grdMain.UseEmbeddedNavigator = True
-        Me.grdMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdPurchaseContractView, Me.grdView, Me.grdSalesContractView, Me.grdReceiveView})
+        Me.grdMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdPurchaseContractView, Me.grdReceiveView, Me.grdView, Me.grdSalesContractView})
         '
         'grdPurchaseContractView
         '
@@ -105,6 +105,14 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.grdPurchaseContractView.OptionsView.ShowAutoFilterRow = True
         Me.grdPurchaseContractView.OptionsView.ShowFooter = True
         Me.grdPurchaseContractView.OptionsView.ShowGroupPanel = False
+        '
+        'grdReceiveView
+        '
+        Me.grdReceiveView.GridControl = Me.grdMain
+        Me.grdReceiveView.Name = "grdReceiveView"
+        Me.grdReceiveView.OptionsView.ShowAutoFilterRow = True
+        Me.grdReceiveView.OptionsView.ShowFooter = True
+        Me.grdReceiveView.OptionsView.ShowGroupPanel = False
         '
         'grdView
         '
@@ -281,11 +289,6 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Query berdasarkan:"
         '
-        'grdReceiveView
-        '
-        Me.grdReceiveView.GridControl = Me.grdMain
-        Me.grdReceiveView.Name = "grdReceiveView"
-        '
         'frmRptMonitoringProductTransactionVer00
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -302,11 +305,11 @@ Partial Class frmRptMonitoringProductTransactionVer00
         CType(Me.grdSalesContractView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdPurchaseContractView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdReceiveView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl1.ResumeLayout(False)
         Me.PanelControl1.PerformLayout()
-        CType(Me.grdReceiveView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

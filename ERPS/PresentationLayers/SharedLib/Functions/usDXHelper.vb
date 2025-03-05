@@ -1,4 +1,5 @@
 ﻿Imports DevExpress.XtraPrinting
+Imports DevExpress.XtraReports.UI
 
 Namespace DX
     Public Class usDXHelper
@@ -44,6 +45,24 @@ Namespace DX
                 End Try
             End If
             frmMe.Cursor = Cursors.Default
+        End Sub
+
+        Public Sub SetSubReportDataSource(ByVal mainReport As XtraReport, ByVal subReportControlName As String, ByVal dtSubReport As Object,
+                                          Optional ByVal dctParam As Dictionary(Of String, Object) = Nothing)
+            '# Find Sub Report Control
+            Dim subReport As XRSubreport = CType(mainReport.FindControl(subReportControlName, True), XRSubreport)
+
+            '# Check if the subreport is found
+            If subReport Is Nothing Then Throw New ArgumentException("Subreport control " & subReportControlName & " not found in the main report")
+            Dim subRpt As XtraReport = subReport.ReportSource
+            subRpt.DataSource = dtSubReport
+
+            '# Set Parameters
+            If dctParam IsNot Nothing AndAlso dctParam.Count > 0 Then
+                For Each kvp As KeyValuePair(Of String, Object) In dctParam
+                    subRpt.Parameters(kvp.Key).Value = kvp.Value
+                Next
+            End If
         End Sub
 
 #Region "Print Preview"

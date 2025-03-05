@@ -1461,6 +1461,12 @@
     <Compile Include="PresentationLayers\Reports2\rptConfirmationOrderVer00.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptCostBankOutAttachmentVer00.Designer.vb">
+      <DependentUpon>rptCostBankOutAttachmentVer00.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Reports2\rptCostBankOutAttachmentVer00.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Reports2\rptCostBankOutVer00.Designer.vb">
       <DependentUpon>rptCostBankOutVer00.vb</DependentUpon>
     </Compile>
@@ -1601,6 +1607,7 @@
     <Compile Include="PresentationLayers\SharedLib\Functions\usDxExportFormat.vb" />
     <Compile Include="PresentationLayers\SharedLib\Functions\usDXHelper.vb" />
     <Compile Include="PresentationLayers\SharedLib\Functions\usForm.vb" />
+    <Compile Include="PresentationLayers\SharedLib\Functions\usSharedPrintout.vb" />
     <Compile Include="PresentationLayers\SharedLib\Functions\usXML.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -2249,6 +2256,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptConfirmationOrderVer00.resx">
       <DependentUpon>rptConfirmationOrderVer00.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Reports2\rptCostBankOutAttachmentVer00.resx">
+      <DependentUpon>rptCostBankOutAttachmentVer00.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Reports2\rptCostBankOutVer00.resx">
       <DependentUpon>rptCostBankOutVer00.vb</DependentUpon>

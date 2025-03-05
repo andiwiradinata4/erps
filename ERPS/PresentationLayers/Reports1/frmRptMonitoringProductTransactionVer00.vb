@@ -71,11 +71,11 @@ Public Class frmRptMonitoringProductTransactionVer00
         UI.usForm.SetGrid(grdReceiveView, "ReferencesNumber", "Nomor Referesi", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdReceiveView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdReceiveView, "ItemCodeExternal", "Kode Barang Eksternal", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdReceiveView, "Quantity", "Jumlah [Penerimaan]", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdReceiveView, "TotalWeight", "Total Berat [Penerimaan]", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdReceiveView, "Thick", "Tebal", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdReceiveView, "Width", "Lebar", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdReceiveView, "Length", "Panjang", 100, UI.usDefGrid.gString)
-        UI.usForm.SetGrid(grdReceiveView, "Quantity", "Jumlah [Penerimaan]", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdReceiveView, "TotalWeight", "Total Berat [Penerimaan]", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdReceiveView, "ClaimQuantity", "Jumlah [Klaim]", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdReceiveView, "ClaimWeight", "Total Berat [Klaim]", 100, UI.usDefGrid.gReal2Num)
     End Sub
@@ -110,7 +110,7 @@ Public Class frmRptMonitoringProductTransactionVer00
             dtDataMain = BL.Reports.MonitoringProductTransactionReportMainVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
             dtDataSalesContract = BL.Reports.MonitoringProductTransactionReportSalesContractVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
             dtDataPurchaseContract = BL.Reports.MonitoringProductTransactionReportPurchaseContractVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
-            dtDataReceive = BL.Reports.MonitoringProductTransactionReportPurchaseContractVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
+            dtDataReceive = BL.Reports.MonitoringProductTransactionReportReceiveVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
 
             dtDataMain.Columns.Item("PCDetailID").Unique = True
             dtDataSalesContract.Columns.Item("ID").Unique = True
@@ -276,11 +276,11 @@ Public Class frmRptMonitoringProductTransactionVer00
         Dim SumClaimQuantitySub As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ClaimQuantity", "Jumlah [Klaim]: {0:#,##0.00}")
         Dim SumClaimTotalWeightSub As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ClaimWeight", "Total Berat [Klaim]: {0:#,##0.00}")
 
-        If grdPurchaseContractView.Columns("Quantity").SummaryText.Trim = "" Then grdPurchaseContractView.Columns("Quantity").Summary.Add(SumReceiveQuantity)
-        If grdPurchaseContractView.Columns("TotalWeight").SummaryText.Trim = "" Then grdPurchaseContractView.Columns("TotalWeight").Summary.Add(SumReceiveWeightSub)
+        If grdReceiveView.Columns("Quantity").SummaryText.Trim = "" Then grdReceiveView.Columns("Quantity").Summary.Add(SumReceiveQuantity)
+        If grdReceiveView.Columns("TotalWeight").SummaryText.Trim = "" Then grdReceiveView.Columns("TotalWeight").Summary.Add(SumReceiveWeightSub)
 
-        'If grdPurchaseContractView.Columns("ClaimQuantity").SummaryText.Trim = "" Then grdPurchaseContractView.Columns("ClaimQuantity").Summary.Add(SumClaimQuantitySub)
-        'If grdPurchaseContractView.Columns("ClaimWeight").SummaryText.Trim = "" Then grdPurchaseContractView.Columns("ClaimWeight").Summary.Add(SumClaimTotalWeightSub)
+        If grdReceiveView.Columns("ClaimQuantity").SummaryText.Trim = "" Then grdReceiveView.Columns("ClaimQuantity").Summary.Add(SumClaimQuantitySub)
+        If grdReceiveView.Columns("ClaimWeight").SummaryText.Trim = "" Then grdReceiveView.Columns("ClaimWeight").Summary.Add(SumClaimTotalWeightSub)
 
     End Sub
 

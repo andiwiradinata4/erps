@@ -1048,7 +1048,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
 "SELECT  " & vbNewLine &
-"	ROW_NUMBER() OVER(ORDER BY RVD.ID) AS ID, RVD.PCDetailID, RVH.ReceiveNumber, RVH.ReceiveDate, RVH.ReferencesNumber, MI.ItemCode, MI.ItemCodeExternal, MI.Thick, MI.Width, MI.Length, RVD.ClaimQuantity, RVD.ClaimWeight " & vbNewLine &
+"	RVD.ID AS ID, RVD.ParentID AS PCDetailID, RVH.ReceiveNumber, RVH.ReceiveDate, RVH.ReferencesNumber, RVD.Quantity, RVD.TotalWeight, MI.ItemCode, MI.ItemCodeExternal, MI.Thick, MI.Width, MI.Length, RVD.ClaimQuantity, RVD.ClaimWeight " & vbNewLine &
 "FROM traReceiveDet RVD  " & vbNewLine &
 "INNER JOIN traReceive RVH ON  " & vbNewLine &
 "	RVD.ReceiveID=RVH.ID  " & vbNewLine &
@@ -1057,6 +1057,23 @@
 " " & vbNewLine &
 "WHERE  " & vbNewLine &
 "	RVH.IsDeleted=0  " & vbNewLine &
+"	AND RVD.ParentID<>'' " & vbNewLine &
+"	AND RVH.ProgramID=@ProgramID  " & vbNewLine &
+"	AND RVH.CompanyID=@CompanyID  " & vbNewLine &
+"	AND RVH.ReceiveDate>=@DateFrom AND RVH.ReceiveDate<=@DateTo  " & vbNewLine &
+"" & vbNewLine &
+"UNION ALL " & vbNewLine &
+"SELECT  " & vbNewLine &
+"	RVD.ID AS ID, RVD.PCDetailID, RVH.ReceiveNumber, RVH.ReceiveDate, RVH.ReferencesNumber, RVD.Quantity, RVD.TotalWeight, MI.ItemCode, MI.ItemCodeExternal, MI.Thick, MI.Width, MI.Length, RVD.ClaimQuantity, RVD.ClaimWeight " & vbNewLine &
+"FROM traReceiveDet RVD  " & vbNewLine &
+"INNER JOIN traReceive RVH ON  " & vbNewLine &
+"	RVD.ReceiveID=RVH.ID  " & vbNewLine &
+"INNER JOIN mstItem MI ON  " & vbNewLine &
+"	RVD.ItemID=MI.ID  " & vbNewLine &
+" " & vbNewLine &
+"WHERE  " & vbNewLine &
+"	RVH.IsDeleted=0  " & vbNewLine &
+"	AND RVD.ParentID='' " & vbNewLine &
 "	AND RVH.ProgramID=@ProgramID  " & vbNewLine &
 "	AND RVH.CompanyID=@CompanyID  " & vbNewLine &
 "	AND RVH.ReceiveDate>=@DateFrom AND RVH.ReceiveDate<=@DateTo  " & vbNewLine

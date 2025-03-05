@@ -320,6 +320,7 @@
     <Compile Include="ValueObject\Reports\rptCOAPerType.vb" />
     <Compile Include="ValueObject\Reports\rptConfirmationOrderVer00.vb" />
     <Compile Include="ValueObject\Reports\rptCostBankOut.vb" />
+    <Compile Include="ValueObject\Reports\rptCostBankOutAttachment.vb" />
     <Compile Include="ValueObject\Reports\rptKartuHutangPiutangReport.vb" />
     <Compile Include="ValueObject\Reports\rptLabaRugi.vb" />
     <Compile Include="ValueObject\Reports\rptListPOCutting.vb" />
