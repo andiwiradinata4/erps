@@ -526,7 +526,7 @@
                     "INNER JOIN mstItemSpecification MIS ON 	" & vbNewLine &
                     "	MI.ItemSpecificationID=MIS.ID 	" & vbNewLine &
                     "WHERE POH.ID=@ID	" & vbNewLine &
-                    "ORDER BY MI.Thick ASC " & vbNewLine
+                    "ORDER BY POD.ID ASC " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
             End With

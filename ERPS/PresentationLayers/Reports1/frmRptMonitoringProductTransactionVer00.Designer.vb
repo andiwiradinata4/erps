@@ -24,6 +24,7 @@ Partial Class frmRptMonitoringProductTransactionVer00
     Private Sub InitializeComponent()
         Dim GridLevelNode1 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
         Dim GridLevelNode2 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
+        Dim GridLevelNode3 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmRptMonitoringProductTransactionVer00))
         Me.grdSalesContractView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
@@ -47,12 +48,14 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
         Me.btnExecute = New DevExpress.XtraEditors.SimpleButton()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.grdReceiveView = New DevExpress.XtraGrid.Views.Grid.GridView()
         CType(Me.grdSalesContractView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdPurchaseContractView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
+        CType(Me.grdReceiveView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'grdSalesContractView
@@ -84,14 +87,16 @@ Partial Class frmRptMonitoringProductTransactionVer00
         GridLevelNode1.RelationName = "Level1"
         GridLevelNode2.LevelTemplate = Me.grdPurchaseContractView
         GridLevelNode2.RelationName = "Level2"
-        Me.grdMain.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1, GridLevelNode2})
+        GridLevelNode3.LevelTemplate = Me.grdReceiveView
+        GridLevelNode3.RelationName = "Level3"
+        Me.grdMain.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1, GridLevelNode2, GridLevelNode3})
         Me.grdMain.Location = New System.Drawing.Point(0, 148)
         Me.grdMain.MainView = Me.grdView
         Me.grdMain.Name = "grdMain"
         Me.grdMain.Size = New System.Drawing.Size(984, 441)
         Me.grdMain.TabIndex = 5
         Me.grdMain.UseEmbeddedNavigator = True
-        Me.grdMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdPurchaseContractView, Me.grdView, Me.grdSalesContractView})
+        Me.grdMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdPurchaseContractView, Me.grdView, Me.grdSalesContractView, Me.grdReceiveView})
         '
         'grdPurchaseContractView
         '
@@ -276,6 +281,11 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Query berdasarkan:"
         '
+        'grdReceiveView
+        '
+        Me.grdReceiveView.GridControl = Me.grdMain
+        Me.grdReceiveView.Name = "grdReceiveView"
+        '
         'frmRptMonitoringProductTransactionVer00
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -296,6 +306,7 @@ Partial Class frmRptMonitoringProductTransactionVer00
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl1.ResumeLayout(False)
         Me.PanelControl1.PerformLayout()
+        CType(Me.grdReceiveView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -322,4 +333,5 @@ Partial Class frmRptMonitoringProductTransactionVer00
     Friend WithEvents grdSalesContractView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents BarPreview As System.Windows.Forms.ToolBarButton
     Friend WithEvents grdPurchaseContractView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents grdReceiveView As DevExpress.XtraGrid.Views.Grid.GridView
 End Class

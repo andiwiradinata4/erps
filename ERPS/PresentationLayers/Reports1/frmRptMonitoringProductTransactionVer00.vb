@@ -10,6 +10,7 @@ Public Class frmRptMonitoringProductTransactionVer00
     Private dtDataMain As New DataTable
     Private dtDataSalesContract As New DataTable
     Private dtDataPurchaseContract As New DataTable
+    Private dtDataReceive As New DataTable
     Private Const cPreview As Byte = 0, cExportExcel As Byte = 1, cSep1 As Byte = 2, cRefresh As Byte = 3, cClose As Byte = 4
 
 #End Region
@@ -55,7 +56,6 @@ Public Class frmRptMonitoringProductTransactionVer00
         UI.usForm.SetGrid(grdPurchaseContractView, "PCDetailID", "PCDetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdPurchaseContractView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdPurchaseContractView, "ItemCodeExternal", "Kode Barang Eksternal", 100, UI.usDefGrid.gString)
-
         UI.usForm.SetGrid(grdPurchaseContractView, "Thick", "Tebal", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdPurchaseContractView, "Width", "Lebar", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdPurchaseContractView, "Length", "Panjang", 100, UI.usDefGrid.gString)
@@ -63,6 +63,21 @@ Public Class frmRptMonitoringProductTransactionVer00
         UI.usForm.SetGrid(grdPurchaseContractView, "TotalWeight", "Total Berat [Kontrak Pembelian]", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdPurchaseContractView, "DCQuantity", "Jumlah [Penerimaan]", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdPurchaseContractView, "DCWeight", "Total Berat [Penerimaan]", 100, UI.usDefGrid.gReal2Num)
+
+        UI.usForm.SetGrid(grdReceiveView, "ID", "ID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdReceiveView, "PCDetailID", "PCDetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdReceiveView, "ReceiveNumber", "Nomor", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdReceiveView, "ReceiveDate", "Tanggal", 100, UI.usDefGrid.gSmallDate)
+        UI.usForm.SetGrid(grdReceiveView, "ReferencesNumber", "Nomor Referesi", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdReceiveView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdReceiveView, "ItemCodeExternal", "Kode Barang Eksternal", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdReceiveView, "Thick", "Tebal", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdReceiveView, "Width", "Lebar", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdReceiveView, "Length", "Panjang", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdReceiveView, "Quantity", "Jumlah [Penerimaan]", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdReceiveView, "TotalWeight", "Total Berat [Penerimaan]", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdReceiveView, "ClaimQuantity", "Jumlah [Klaim]", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdReceiveView, "ClaimWeight", "Total Berat [Klaim]", 100, UI.usDefGrid.gReal2Num)
     End Sub
 
     Private Sub prvSetProgressBar(ByVal intMax As Integer)
@@ -95,21 +110,26 @@ Public Class frmRptMonitoringProductTransactionVer00
             dtDataMain = BL.Reports.MonitoringProductTransactionReportMainVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
             dtDataSalesContract = BL.Reports.MonitoringProductTransactionReportSalesContractVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
             dtDataPurchaseContract = BL.Reports.MonitoringProductTransactionReportPurchaseContractVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
+            dtDataReceive = BL.Reports.MonitoringProductTransactionReportPurchaseContractVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
 
             dtDataMain.Columns.Item("PCDetailID").Unique = True
             dtDataSalesContract.Columns.Item("ID").Unique = True
             dtDataPurchaseContract.Columns.Item("ID").Unique = True
+            dtDataReceive.Columns.Item("ID").Unique = True
 
             ds.Tables.Add(dtDataMain)
             ds.Tables.Add(dtDataSalesContract)
             ds.Tables.Add(dtDataPurchaseContract)
+            ds.Tables.Add(dtDataReceive)
 
             ds.Relations.Add("Kontrak Penjualan", dtDataMain.Columns.Item("PCDetailID"), dtDataSalesContract.Columns.Item("PCDetailID"))
             ds.Relations.Add("Kontrak Pembelian", dtDataMain.Columns.Item("PCDetailID"), dtDataPurchaseContract.Columns.Item("PCDetailID"))
+            ds.Relations.Add("Penerimaan Pembelian", dtDataMain.Columns.Item("PCDetailID"), dtDataReceive.Columns.Item("PCDetailID"))
 
             grdMain.DataSource = dtDataMain
             grdMain.LevelTree.Nodes.Add("Kontrak Penjualan", grdSalesContractView)
             grdMain.LevelTree.Nodes.Add("Kontrak Pembelian", grdPurchaseContractView)
+            grdMain.LevelTree.Nodes.Add("Penerimaan Pembelian", grdReceiveView)
 
             grdMain.Refresh()
             prvSumGrid()
@@ -249,6 +269,18 @@ Public Class frmRptMonitoringProductTransactionVer00
 
         If grdPurchaseContractView.Columns("DCQuantity").SummaryText.Trim = "" Then grdPurchaseContractView.Columns("DCQuantity").Summary.Add(SumDCQuantitySub)
         If grdPurchaseContractView.Columns("DCWeight").SummaryText.Trim = "" Then grdPurchaseContractView.Columns("DCWeight").Summary.Add(SumDCTotalWeightSub)
+
+        '# Receive
+        Dim SumReceiveQuantity As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Quantity", "Jumlah [Penerimaan]: {0:#,##0.00}")
+        Dim SumReceiveWeightSub As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat [Penerimaan]: {0:#,##0.00}")
+        Dim SumClaimQuantitySub As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ClaimQuantity", "Jumlah [Klaim]: {0:#,##0.00}")
+        Dim SumClaimTotalWeightSub As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ClaimWeight", "Total Berat [Klaim]: {0:#,##0.00}")
+
+        If grdPurchaseContractView.Columns("Quantity").SummaryText.Trim = "" Then grdPurchaseContractView.Columns("Quantity").Summary.Add(SumReceiveQuantity)
+        If grdPurchaseContractView.Columns("TotalWeight").SummaryText.Trim = "" Then grdPurchaseContractView.Columns("TotalWeight").Summary.Add(SumReceiveWeightSub)
+
+        'If grdPurchaseContractView.Columns("ClaimQuantity").SummaryText.Trim = "" Then grdPurchaseContractView.Columns("ClaimQuantity").Summary.Add(SumClaimQuantitySub)
+        'If grdPurchaseContractView.Columns("ClaimWeight").SummaryText.Trim = "" Then grdPurchaseContractView.Columns("ClaimWeight").Summary.Add(SumClaimTotalWeightSub)
 
     End Sub
 

@@ -630,11 +630,7 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResult.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResultDet.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraItemResultDetItem.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrder.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDet.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItem.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrder.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemAddress.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderOutstanding.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderOutstandingVer1.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderUpdatePrice.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraPurchaseContractDetChangeSubItem.resources
@@ -683,7 +679,6 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryDetMultiItemVer01.resourc
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryOutstandingSalesReturn.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryOutstandingSalesReturnItem.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraDeliveryPrint.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequest.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestDet.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestDetChangeItem.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraOrderRequestDetItem.resources

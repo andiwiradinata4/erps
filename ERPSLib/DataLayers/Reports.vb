@@ -1038,6 +1038,37 @@
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function MonitoringProductTransactionReportReceiveVer00(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                              ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                              ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT  " & vbNewLine &
+"	ROW_NUMBER() OVER(ORDER BY RVD.ID) AS ID, RVD.PCDetailID, RVH.ReceiveNumber, RVH.ReceiveDate, RVH.ReferencesNumber, MI.ItemCode, MI.ItemCodeExternal, MI.Thick, MI.Width, MI.Length, RVD.ClaimQuantity, RVD.ClaimWeight " & vbNewLine &
+"FROM traReceiveDet RVD  " & vbNewLine &
+"INNER JOIN traReceive RVH ON  " & vbNewLine &
+"	RVD.ReceiveID=RVH.ID  " & vbNewLine &
+"INNER JOIN mstItem MI ON  " & vbNewLine &
+"	RVD.ItemID=MI.ID  " & vbNewLine &
+" " & vbNewLine &
+"WHERE  " & vbNewLine &
+"	RVH.IsDeleted=0  " & vbNewLine &
+"	AND RVH.ProgramID=@ProgramID  " & vbNewLine &
+"	AND RVH.CompanyID=@CompanyID  " & vbNewLine &
+"	AND RVH.ReceiveDate>=@DateFrom AND RVH.ReceiveDate<=@DateTo  " & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
+                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
         Public Shared Function SalesPIReport(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                              ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                              ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
