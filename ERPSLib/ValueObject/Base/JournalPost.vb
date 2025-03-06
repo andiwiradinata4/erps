@@ -153,6 +153,10 @@
         Property CoACodeofClaimCost As String
         Property CoANameofClaimCost As String
 
+        Property CoAofRounding As Integer
+        Property CoACodeofRounding As String
+        Property CoANameofRounding As String
+
         Property Remarks As String
     End Class
 End Namespace

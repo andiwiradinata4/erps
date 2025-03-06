@@ -67,6 +67,7 @@
         Property TotalPPHInvoiceAmount As Decimal
         Property IsFullDP As Boolean
         Property IsGenerate As Boolean
+        Property Rounding As Decimal
 
         Enum ARAPTypeValue
             All

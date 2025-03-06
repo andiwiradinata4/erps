@@ -107,6 +107,7 @@ Public Class frmTraAPTransporterDet
                 txtTotalAmount.Value = clsData.TotalAmount
                 txtTotalPPN.Value = clsData.TotalPPN
                 txtTotalPPH.Value = clsData.TotalPPH
+                txtRounding.Value = clsData.Rounding
                 cboStatus.SelectedValue = clsData.StatusID
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
@@ -257,6 +258,7 @@ Public Class frmTraAPTransporterDet
         clsData.Detail = clsDataDetailAll
         clsData.DetailRemarks = clsDataRemarksAll
         clsData.Save = intSave
+        clsData.Rounding = txtRounding.Value
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
@@ -297,6 +299,7 @@ Public Class frmTraAPTransporterDet
         txtTotalAmount.Value = 0
         txtTotalPPN.Value = 0
         txtTotalPPH.Value = 0
+        txtRounding.Value = 0
         cboStatus.SelectedValue = VO.Status.Values.Draft
         ToolStripLogInc.Text = "Jumlah Edit : -"
         ToolStripLogBy.Text = "Dibuat Oleh : -"
@@ -375,7 +378,7 @@ Public Class frmTraAPTransporterDet
         txtTotalAmount.Value = decAmount
         txtTotalPPN.Value = decPPN
         txtTotalPPH.Value = decPPH
-        txtGrandTotal.Value = decAmount + decPPN - decPPH
+        txtGrandTotal.Value = decAmount + decPPN - decPPH + txtRounding.Value
     End Sub
 
     Private Sub prvChooseBP()

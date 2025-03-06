@@ -32,6 +32,8 @@ Partial Class frmTraAPCost
         Me.BarCancelSubmit = New System.Windows.Forms.ToolBarButton()
         Me.BarApprove = New System.Windows.Forms.ToolBarButton()
         Me.BarCancelApprove = New System.Windows.Forms.ToolBarButton()
+        Me.BarSetPaymentDate = New System.Windows.Forms.ToolBarButton()
+        Me.BarCancelSetPaymentDate = New System.Windows.Forms.ToolBarButton()
         Me.BarSep2 = New System.Windows.Forms.ToolBarButton()
         Me.BarSetTaxInvoiceNumber = New System.Windows.Forms.ToolBarButton()
         Me.BarSep3 = New System.Windows.Forms.ToolBarButton()
@@ -56,8 +58,6 @@ Partial Class frmTraAPCost
         Me.Label1 = New System.Windows.Forms.Label()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.BarSetPaymentDate = New System.Windows.Forms.ToolBarButton()
-        Me.BarCancelSetPaymentDate = New System.Windows.Forms.ToolBarButton()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -122,6 +122,18 @@ Partial Class frmTraAPCost
         Me.BarCancelApprove.Name = "BarCancelApprove"
         Me.BarCancelApprove.Tag = "Cancel"
         Me.BarCancelApprove.Text = "Batal Approve"
+        '
+        'BarSetPaymentDate
+        '
+        Me.BarSetPaymentDate.Name = "BarSetPaymentDate"
+        Me.BarSetPaymentDate.Tag = "Hold"
+        Me.BarSetPaymentDate.Text = "Set Tanggal Pembayaran"
+        '
+        'BarCancelSetPaymentDate
+        '
+        Me.BarCancelSetPaymentDate.Name = "BarCancelSetPaymentDate"
+        Me.BarCancelSetPaymentDate.Tag = "Cancel"
+        Me.BarCancelSetPaymentDate.Text = "Hapus Tanggal Pembayaran"
         '
         'BarSep2
         '
@@ -348,18 +360,6 @@ Partial Class frmTraAPCost
         Me.grdView.OptionsView.ColumnAutoWidth = False
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
-        '
-        'BarSetPaymentDate
-        '
-        Me.BarSetPaymentDate.Name = "BarSetPaymentDate"
-        Me.BarSetPaymentDate.Tag = "Hold"
-        Me.BarSetPaymentDate.Text = "Set Tanggal Pembayaran"
-        '
-        'BarCancelSetPaymentDate
-        '
-        Me.BarCancelSetPaymentDate.Name = "BarCancelSetPaymentDate"
-        Me.BarCancelSetPaymentDate.Tag = "Cancel"
-        Me.BarCancelSetPaymentDate.Text = "Hapus Tanggal Pembayaran"
         '
         'frmTraAPCost
         '

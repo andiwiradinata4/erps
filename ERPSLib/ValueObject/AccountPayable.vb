@@ -74,6 +74,7 @@
         Property BPBankAccountNumber As String
         Property InvoiceDateBP As DateTime = Today.Date
         Property ReceiveDateInvoice As DateTime = Today.Date
+        Property Rounding As Decimal
 
         Public Const All As String = "AP"
         Public Const PurchaseBalance As String = "PB"

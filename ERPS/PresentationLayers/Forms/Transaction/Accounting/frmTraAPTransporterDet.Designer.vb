@@ -78,6 +78,8 @@ Partial Class frmTraAPTransporterDet
         Me.ToolStripLogBy = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.txtRounding = New ERPS.usNumeric()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
         CType(Me.txtGrandTotal, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -95,6 +97,7 @@ Partial Class frmTraAPTransporterDet
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip.SuspendLayout()
+        CType(Me.txtRounding, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -144,12 +147,14 @@ Partial Class frmTraAPTransporterDet
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(884, 197)
+        Me.tcHeader.Size = New System.Drawing.Size(884, 220)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.txtRounding)
+        Me.tpMain.Controls.Add(Me.Label2)
         Me.tpMain.Controls.Add(Me.txtBPBankAccountBank)
         Me.tpMain.Controls.Add(Me.txtBPBankAccountNumber)
         Me.tpMain.Controls.Add(Me.btnBPBankAccount)
@@ -178,7 +183,7 @@ Partial Class frmTraAPTransporterDet
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(876, 168)
+        Me.tpMain.Size = New System.Drawing.Size(876, 191)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
@@ -229,13 +234,13 @@ Partial Class frmTraAPTransporterDet
         Me.txtGrandTotal.BackColor = System.Drawing.Color.LightYellow
         Me.txtGrandTotal.DecimalPlaces = 2
         Me.txtGrandTotal.Enabled = False
-        Me.txtGrandTotal.Location = New System.Drawing.Point(578, 98)
+        Me.txtGrandTotal.Location = New System.Drawing.Point(578, 125)
         Me.txtGrandTotal.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtGrandTotal.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtGrandTotal.Name = "txtGrandTotal"
         Me.txtGrandTotal.ReadOnly = True
         Me.txtGrandTotal.Size = New System.Drawing.Size(249, 21)
-        Me.txtGrandTotal.TabIndex = 12
+        Me.txtGrandTotal.TabIndex = 14
         Me.txtGrandTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtGrandTotal.ThousandsSeparator = True
         '
@@ -244,7 +249,7 @@ Partial Class frmTraAPTransporterDet
         Me.Label16.AutoSize = True
         Me.Label16.BackColor = System.Drawing.Color.Transparent
         Me.Label16.ForeColor = System.Drawing.Color.Black
-        Me.Label16.Location = New System.Drawing.Point(463, 102)
+        Me.Label16.Location = New System.Drawing.Point(463, 129)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(63, 13)
         Me.Label16.TabIndex = 175
@@ -313,7 +318,7 @@ Partial Class frmTraAPTransporterDet
         Me.txtTotalPPH.Name = "txtTotalPPH"
         Me.txtTotalPPH.ReadOnly = True
         Me.txtTotalPPH.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalPPH.TabIndex = 11
+        Me.txtTotalPPH.TabIndex = 12
         Me.txtTotalPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPPH.ThousandsSeparator = True
         '
@@ -337,7 +342,7 @@ Partial Class frmTraAPTransporterDet
         Me.txtTotalAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalAmount.Name = "txtTotalAmount"
         Me.txtTotalAmount.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalAmount.TabIndex = 9
+        Me.txtTotalAmount.TabIndex = 10
         Me.txtTotalAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalAmount.ThousandsSeparator = True
         '
@@ -385,7 +390,7 @@ Partial Class frmTraAPTransporterDet
         Me.txtTotalPPN.Name = "txtTotalPPN"
         Me.txtTotalPPN.ReadOnly = True
         Me.txtTotalPPN.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalPPN.TabIndex = 10
+        Me.txtTotalPPN.TabIndex = 11
         Me.txtTotalPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPPN.ThousandsSeparator = True
         '
@@ -416,7 +421,7 @@ Partial Class frmTraAPTransporterDet
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(463, 129)
+        Me.Label5.Location = New System.Drawing.Point(21, 155)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(38, 13)
         Me.Label5.TabIndex = 128
@@ -427,10 +432,10 @@ Partial Class frmTraAPTransporterDet
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(578, 125)
+        Me.cboStatus.Location = New System.Drawing.Point(134, 151)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(118, 21)
-        Me.cboStatus.TabIndex = 13
+        Me.cboStatus.TabIndex = 9
         '
         'Label10
         '
@@ -591,7 +596,7 @@ Partial Class frmTraAPTransporterDet
         Me.Label14.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label14.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.ForeColor = System.Drawing.Color.White
-        Me.Label14.Location = New System.Drawing.Point(0, 247)
+        Me.Label14.Location = New System.Drawing.Point(0, 270)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(884, 22)
         Me.Label14.TabIndex = 3
@@ -603,7 +608,7 @@ Partial Class frmTraAPTransporterDet
         Me.ToolBarDetail.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
         Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarCheckAll, Me.BarUncheckAll})
         Me.ToolBarDetail.DropDownArrows = True
-        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 269)
+        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 292)
         Me.ToolBarDetail.Name = "ToolBarDetail"
         Me.ToolBarDetail.ShowToolTips = True
         Me.ToolBarDetail.Size = New System.Drawing.Size(884, 28)
@@ -647,11 +652,11 @@ Partial Class frmTraAPTransporterDet
         Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdItem.Location = New System.Drawing.Point(0, 297)
+        Me.grdItem.Location = New System.Drawing.Point(0, 320)
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
-        Me.grdItem.Size = New System.Drawing.Size(884, 290)
+        Me.grdItem.Size = New System.Drawing.Size(884, 267)
         Me.grdItem.TabIndex = 5
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
@@ -725,6 +730,31 @@ Partial Class frmTraAPTransporterDet
         Me.ToolStripLogDate.Size = New System.Drawing.Size(12, 17)
         Me.ToolStripLogDate.Text = "-"
         '
+        'txtRounding
+        '
+        Me.txtRounding.BackColor = System.Drawing.Color.White
+        Me.txtRounding.DecimalPlaces = 2
+        Me.txtRounding.Location = New System.Drawing.Point(578, 98)
+        Me.txtRounding.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtRounding.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtRounding.Name = "txtRounding"
+        Me.txtRounding.ReadOnly = True
+        Me.txtRounding.Size = New System.Drawing.Size(249, 21)
+        Me.txtRounding.TabIndex = 13
+        Me.txtRounding.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtRounding.ThousandsSeparator = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.ForeColor = System.Drawing.Color.Black
+        Me.Label2.Location = New System.Drawing.Point(463, 102)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(63, 13)
+        Me.Label2.TabIndex = 181
+        Me.Label2.Text = "Pembulatan"
+        '
         'frmTraAPTransporterDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -762,6 +792,7 @@ Partial Class frmTraAPTransporterDet
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip.ResumeLayout(False)
         Me.StatusStrip.PerformLayout()
+        CType(Me.txtRounding, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -821,4 +852,6 @@ Partial Class frmTraAPTransporterDet
     Friend WithEvents ToolStripLogBy As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents ToolStripLogDate As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents txtRounding As usNumeric
+    Friend WithEvents Label2 As Label
 End Class

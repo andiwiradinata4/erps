@@ -945,7 +945,7 @@ Partial Class frmTraDeliveryDet
         '
         Me.chkIsManualTransportPrice.Location = New System.Drawing.Point(307, 23)
         Me.chkIsManualTransportPrice.Name = "chkIsManualTransportPrice"
-        Me.chkIsManualTransportPrice.Properties.Caption = "Harga Paket?"
+        Me.chkIsManualTransportPrice.Properties.Caption = "Harga Spesial?"
         Me.chkIsManualTransportPrice.Size = New System.Drawing.Size(139, 19)
         Me.chkIsManualTransportPrice.TabIndex = 126
         '

@@ -768,6 +768,7 @@
                 clsReturn.ReferencesNumber = clsData.ReferencesNumber
                 clsReturn.IsFullDP = clsData.IsFullDP
                 clsReturn.IsGenerate = clsData.IsGenerate
+                clsReturn.Rounding = clsData.Rounding
                 Return clsReturn
             Else
                 Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
@@ -839,6 +840,7 @@
                 clsReturn.ReferencesNumber = clsData.ReferencesNumber
                 clsReturn.IsFullDP = clsData.IsFullDP
                 clsReturn.IsGenerate = clsData.IsGenerate
+                clsReturn.Rounding = clsData.Rounding
                 Return clsReturn
             End If
         End Function

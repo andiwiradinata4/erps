@@ -1827,11 +1827,25 @@ EndProcess:
                                      {
                                          .CoAID = clsData.CoAIDOfOutgoingPayment,
                                          .DebitAmount = 0,
-                                         .CreditAmount = clsData.ReceiveAmount + clsData.TotalPPN,
+                                         .CreditAmount = clsData.ReceiveAmount + clsData.TotalPPN + clsData.Rounding,
                                          .Remarks = strJournalDetailRemarks,
                                          .GroupID = intGroupID,
                                          .BPID = clsData.BPID
                                      })
+
+                '# Jika ada Rounding | Buat akun Beban Pembulatan
+                'If clsData.Rounding <> 0 Then
+                '    clsJournalDetail.Add(New VO.JournalDet With
+                '                     {
+                '                         .CoAID = clsData.CoAIDOfOutgoingPayment,
+                '                         .DebitAmount = 0,
+                '                         .CreditAmount = clsData.Rounding * -1,
+                '                         .Remarks = strJournalDetailRemarks,
+                '                         .GroupID = intGroupID,
+                '                         .BPID = clsData.BPID
+                '                     })
+                'End If
+
                 decTotalAmount += clsData.TotalAmount + clsData.TotalPPN
 
                 '# Setup Akun PPH

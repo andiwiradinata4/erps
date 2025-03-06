@@ -35,6 +35,7 @@ Partial Class frmTraARAPDetVer4
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.chkMaxQuantity = New System.Windows.Forms.CheckBox()
         Me.chkIsFullDP = New System.Windows.Forms.CheckBox()
         Me.txtGrandTotal = New ERPS.usNumeric()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -87,7 +88,6 @@ Partial Class frmTraARAPDetVer4
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.pgMain = New System.Windows.Forms.ProgressBar()
-        Me.chkMaxQuantity = New System.Windows.Forms.CheckBox()
         Me.StatusStrip.SuspendLayout()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
@@ -257,6 +257,16 @@ Partial Class frmTraARAPDetVer4
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'chkMaxQuantity
+        '
+        Me.chkMaxQuantity.AutoSize = True
+        Me.chkMaxQuantity.Location = New System.Drawing.Point(265, 154)
+        Me.chkMaxQuantity.Name = "chkMaxQuantity"
+        Me.chkMaxQuantity.Size = New System.Drawing.Size(118, 17)
+        Me.chkMaxQuantity.TabIndex = 10
+        Me.chkMaxQuantity.Text = "Maksimal Quantity?"
+        Me.chkMaxQuantity.UseVisualStyleBackColor = True
         '
         'chkIsFullDP
         '
@@ -854,16 +864,6 @@ Partial Class frmTraARAPDetVer4
         Me.pgMain.Name = "pgMain"
         Me.pgMain.Size = New System.Drawing.Size(884, 22)
         Me.pgMain.TabIndex = 7
-        '
-        'chkMaxQuantity
-        '
-        Me.chkMaxQuantity.AutoSize = True
-        Me.chkMaxQuantity.Location = New System.Drawing.Point(265, 154)
-        Me.chkMaxQuantity.Name = "chkMaxQuantity"
-        Me.chkMaxQuantity.Size = New System.Drawing.Size(118, 17)
-        Me.chkMaxQuantity.TabIndex = 10
-        Me.chkMaxQuantity.Text = "Maksimal Quantity?"
-        Me.chkMaxQuantity.UseVisualStyleBackColor = True
         '
         'frmTraARAPDetVer4
         '

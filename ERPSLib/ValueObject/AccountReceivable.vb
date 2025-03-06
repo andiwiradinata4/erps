@@ -73,6 +73,7 @@
         Property BPBankAccountNumber As String
         Property InvoiceDateBP As DateTime
         Property ReceiveDateInvoice As DateTime
+        Property Rounding As Decimal
 
         Public Const All As String = "AR"
         Public Const SalesBalance As String = "SB"
