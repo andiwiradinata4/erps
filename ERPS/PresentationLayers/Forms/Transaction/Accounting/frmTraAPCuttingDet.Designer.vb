@@ -37,6 +37,14 @@ Partial Class frmTraAPCuttingDet
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.txtRounding = New ERPS.usNumeric()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.txtPPH = New ERPS.usNumeric()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.txtPPN = New ERPS.usNumeric()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtInvoiceNumberBP = New ERPS.usTextBox()
         Me.dtpInvoiceDate = New System.Windows.Forms.DateTimePicker()
@@ -85,15 +93,12 @@ Partial Class frmTraAPCuttingDet
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.txtPPH = New ERPS.usNumeric()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.Label19 = New System.Windows.Forms.Label()
-        Me.txtPPN = New ERPS.usNumeric()
         Me.StatusStrip.SuspendLayout()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
+        CType(Me.txtRounding, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtPPN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtGrandTotal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -108,8 +113,6 @@ Partial Class frmTraAPCuttingDet
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtPPN, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -226,12 +229,14 @@ Partial Class frmTraAPCuttingDet
         Me.tcHeader.Location = New System.Drawing.Point(0, 50)
         Me.tcHeader.Name = "tcHeader"
         Me.tcHeader.SelectedIndex = 0
-        Me.tcHeader.Size = New System.Drawing.Size(976, 221)
+        Me.tcHeader.Size = New System.Drawing.Size(976, 254)
         Me.tcHeader.TabIndex = 2
         '
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.txtRounding)
+        Me.tpMain.Controls.Add(Me.Label20)
         Me.tpMain.Controls.Add(Me.Label15)
         Me.tpMain.Controls.Add(Me.Label17)
         Me.tpMain.Controls.Add(Me.txtPPH)
@@ -272,10 +277,102 @@ Partial Class frmTraAPCuttingDet
         Me.tpMain.Location = New System.Drawing.Point(4, 25)
         Me.tpMain.Name = "tpMain"
         Me.tpMain.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMain.Size = New System.Drawing.Size(968, 192)
+        Me.tpMain.Size = New System.Drawing.Size(968, 225)
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'txtRounding
+        '
+        Me.txtRounding.BackColor = System.Drawing.Color.White
+        Me.txtRounding.DecimalPlaces = 2
+        Me.txtRounding.Location = New System.Drawing.Point(622, 124)
+        Me.txtRounding.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtRounding.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtRounding.Name = "txtRounding"
+        Me.txtRounding.Size = New System.Drawing.Size(249, 21)
+        Me.txtRounding.TabIndex = 18
+        Me.txtRounding.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtRounding.ThousandsSeparator = True
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.BackColor = System.Drawing.Color.Transparent
+        Me.Label20.ForeColor = System.Drawing.Color.Black
+        Me.Label20.Location = New System.Drawing.Point(523, 128)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(63, 13)
+        Me.Label20.TabIndex = 198
+        Me.Label20.Text = "Pembulatan"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.BackColor = System.Drawing.Color.Transparent
+        Me.Label15.ForeColor = System.Drawing.Color.Black
+        Me.Label15.Location = New System.Drawing.Point(874, 20)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(18, 13)
+        Me.Label15.TabIndex = 196
+        Me.Label15.Text = "%"
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.BackColor = System.Drawing.Color.Transparent
+        Me.Label17.ForeColor = System.Drawing.Color.Black
+        Me.Label17.Location = New System.Drawing.Point(755, 20)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(25, 13)
+        Me.Label17.TabIndex = 195
+        Me.Label17.Text = "PPh"
+        '
+        'txtPPH
+        '
+        Me.txtPPH.DecimalPlaces = 2
+        Me.txtPPH.Location = New System.Drawing.Point(794, 16)
+        Me.txtPPH.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtPPH.Name = "txtPPH"
+        Me.txtPPH.Size = New System.Drawing.Size(77, 21)
+        Me.txtPPH.TabIndex = 14
+        Me.txtPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtPPH.ThousandsSeparator = True
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.BackColor = System.Drawing.Color.Transparent
+        Me.Label18.ForeColor = System.Drawing.Color.Black
+        Me.Label18.Location = New System.Drawing.Point(702, 20)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(18, 13)
+        Me.Label18.TabIndex = 194
+        Me.Label18.Text = "%"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.BackColor = System.Drawing.Color.Transparent
+        Me.Label19.ForeColor = System.Drawing.Color.Black
+        Me.Label19.Location = New System.Drawing.Point(523, 20)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(26, 13)
+        Me.Label19.TabIndex = 193
+        Me.Label19.Text = "PPN"
+        '
+        'txtPPN
+        '
+        Me.txtPPN.DecimalPlaces = 2
+        Me.txtPPN.Location = New System.Drawing.Point(622, 16)
+        Me.txtPPN.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtPPN.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtPPN.Name = "txtPPN"
+        Me.txtPPN.Size = New System.Drawing.Size(77, 21)
+        Me.txtPPN.TabIndex = 13
+        Me.txtPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtPPN.ThousandsSeparator = True
         '
         'Label2
         '
@@ -306,7 +403,7 @@ Partial Class frmTraAPCuttingDet
         Me.dtpInvoiceDate.Location = New System.Drawing.Point(342, 124)
         Me.dtpInvoiceDate.Name = "dtpInvoiceDate"
         Me.dtpInvoiceDate.Size = New System.Drawing.Size(83, 21)
-        Me.dtpInvoiceDate.TabIndex = 10
+        Me.dtpInvoiceDate.TabIndex = 9
         Me.dtpInvoiceDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
         'Label4
@@ -388,13 +485,13 @@ Partial Class frmTraAPCuttingDet
         Me.txtGrandTotal.BackColor = System.Drawing.Color.LightYellow
         Me.txtGrandTotal.DecimalPlaces = 2
         Me.txtGrandTotal.Enabled = False
-        Me.txtGrandTotal.Location = New System.Drawing.Point(622, 124)
+        Me.txtGrandTotal.Location = New System.Drawing.Point(622, 151)
         Me.txtGrandTotal.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtGrandTotal.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtGrandTotal.Name = "txtGrandTotal"
         Me.txtGrandTotal.ReadOnly = True
         Me.txtGrandTotal.Size = New System.Drawing.Size(249, 21)
-        Me.txtGrandTotal.TabIndex = 17
+        Me.txtGrandTotal.TabIndex = 19
         Me.txtGrandTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtGrandTotal.ThousandsSeparator = True
         '
@@ -403,7 +500,7 @@ Partial Class frmTraAPCuttingDet
         Me.Label16.AutoSize = True
         Me.Label16.BackColor = System.Drawing.Color.Transparent
         Me.Label16.ForeColor = System.Drawing.Color.Black
-        Me.Label16.Location = New System.Drawing.Point(523, 128)
+        Me.Label16.Location = New System.Drawing.Point(523, 155)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(63, 13)
         Me.Label16.TabIndex = 175
@@ -472,7 +569,7 @@ Partial Class frmTraAPCuttingDet
         Me.txtTotalPPH.Name = "txtTotalPPH"
         Me.txtTotalPPH.ReadOnly = True
         Me.txtTotalPPH.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalPPH.TabIndex = 16
+        Me.txtTotalPPH.TabIndex = 17
         Me.txtTotalPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPPH.ThousandsSeparator = True
         '
@@ -496,7 +593,7 @@ Partial Class frmTraAPCuttingDet
         Me.txtTotalAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalAmount.Name = "txtTotalAmount"
         Me.txtTotalAmount.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalAmount.TabIndex = 14
+        Me.txtTotalAmount.TabIndex = 15
         Me.txtTotalAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalAmount.ThousandsSeparator = True
         '
@@ -544,7 +641,7 @@ Partial Class frmTraAPCuttingDet
         Me.txtTotalPPN.Name = "txtTotalPPN"
         Me.txtTotalPPN.ReadOnly = True
         Me.txtTotalPPN.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalPPN.TabIndex = 15
+        Me.txtTotalPPN.TabIndex = 16
         Me.txtTotalPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalPPN.ThousandsSeparator = True
         '
@@ -556,7 +653,7 @@ Partial Class frmTraAPCuttingDet
         Me.dtpARAPDate.Location = New System.Drawing.Point(134, 151)
         Me.dtpARAPDate.Name = "dtpARAPDate"
         Me.dtpARAPDate.Size = New System.Drawing.Size(83, 21)
-        Me.dtpARAPDate.TabIndex = 9
+        Me.dtpARAPDate.TabIndex = 10
         Me.dtpARAPDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
         'Label11
@@ -575,7 +672,7 @@ Partial Class frmTraAPCuttingDet
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(523, 155)
+        Me.Label5.Location = New System.Drawing.Point(21, 182)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(38, 13)
         Me.Label5.TabIndex = 128
@@ -586,10 +683,10 @@ Partial Class frmTraAPCuttingDet
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(622, 151)
+        Me.cboStatus.Location = New System.Drawing.Point(134, 178)
         Me.cboStatus.Name = "cboStatus"
-        Me.cboStatus.Size = New System.Drawing.Size(249, 21)
-        Me.cboStatus.TabIndex = 18
+        Me.cboStatus.Size = New System.Drawing.Size(291, 21)
+        Me.cboStatus.TabIndex = 12
         '
         'Label10
         '
@@ -631,7 +728,7 @@ Partial Class frmTraAPCuttingDet
         Me.tpRemarks.Controls.Add(Me.ToolBarRemarks)
         Me.tpRemarks.Location = New System.Drawing.Point(4, 25)
         Me.tpRemarks.Name = "tpRemarks"
-        Me.tpRemarks.Size = New System.Drawing.Size(876, 222)
+        Me.tpRemarks.Size = New System.Drawing.Size(968, 225)
         Me.tpRemarks.TabIndex = 2
         Me.tpRemarks.Text = "Keterangan - F2"
         Me.tpRemarks.UseVisualStyleBackColor = True
@@ -656,7 +753,7 @@ Partial Class frmTraAPCuttingDet
         Me.grdRemarks.Location = New System.Drawing.Point(0, 28)
         Me.grdRemarks.MainView = Me.grdRemarksView
         Me.grdRemarks.Name = "grdRemarks"
-        Me.grdRemarks.Size = New System.Drawing.Size(876, 194)
+        Me.grdRemarks.Size = New System.Drawing.Size(968, 197)
         Me.grdRemarks.TabIndex = 19
         Me.grdRemarks.UseEmbeddedNavigator = True
         Me.grdRemarks.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdRemarksView})
@@ -678,7 +775,7 @@ Partial Class frmTraAPCuttingDet
         Me.ToolBarRemarks.Location = New System.Drawing.Point(0, 0)
         Me.ToolBarRemarks.Name = "ToolBarRemarks"
         Me.ToolBarRemarks.ShowToolTips = True
-        Me.ToolBarRemarks.Size = New System.Drawing.Size(876, 28)
+        Me.ToolBarRemarks.Size = New System.Drawing.Size(968, 28)
         Me.ToolBarRemarks.TabIndex = 18
         Me.ToolBarRemarks.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -705,7 +802,7 @@ Partial Class frmTraAPCuttingDet
         Me.tpHistory.Controls.Add(Me.grdStatus)
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
-        Me.tpHistory.Size = New System.Drawing.Size(876, 222)
+        Me.tpHistory.Size = New System.Drawing.Size(968, 225)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -730,7 +827,7 @@ Partial Class frmTraAPCuttingDet
         Me.grdStatus.Location = New System.Drawing.Point(0, 0)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(876, 222)
+        Me.grdStatus.Size = New System.Drawing.Size(968, 225)
         Me.grdStatus.TabIndex = 14
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -750,7 +847,7 @@ Partial Class frmTraAPCuttingDet
         Me.Label14.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label14.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.ForeColor = System.Drawing.Color.White
-        Me.Label14.Location = New System.Drawing.Point(0, 271)
+        Me.Label14.Location = New System.Drawing.Point(0, 304)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(976, 22)
         Me.Label14.TabIndex = 3
@@ -762,7 +859,7 @@ Partial Class frmTraAPCuttingDet
         Me.ToolBarDetail.Appearance = System.Windows.Forms.ToolBarAppearance.Flat
         Me.ToolBarDetail.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.BarCheckAll, Me.BarUncheckAll})
         Me.ToolBarDetail.DropDownArrows = True
-        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 293)
+        Me.ToolBarDetail.Location = New System.Drawing.Point(0, 326)
         Me.ToolBarDetail.Name = "ToolBarDetail"
         Me.ToolBarDetail.ShowToolTips = True
         Me.ToolBarDetail.Size = New System.Drawing.Size(976, 28)
@@ -798,11 +895,11 @@ Partial Class frmTraAPCuttingDet
         Me.grdItem.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdItem.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdItem.Location = New System.Drawing.Point(0, 321)
+        Me.grdItem.Location = New System.Drawing.Point(0, 354)
         Me.grdItem.MainView = Me.grdItemView
         Me.grdItem.Name = "grdItem"
         Me.grdItem.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.rpiValue})
-        Me.grdItem.Size = New System.Drawing.Size(976, 244)
+        Me.grdItem.Size = New System.Drawing.Size(976, 211)
         Me.grdItem.TabIndex = 5
         Me.grdItem.UseEmbeddedNavigator = True
         Me.grdItem.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdItemView})
@@ -824,74 +921,6 @@ Partial Class frmTraAPCuttingDet
         Me.rpiValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.BackColor = System.Drawing.Color.Transparent
-        Me.Label15.ForeColor = System.Drawing.Color.Black
-        Me.Label15.Location = New System.Drawing.Point(874, 20)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(18, 13)
-        Me.Label15.TabIndex = 196
-        Me.Label15.Text = "%"
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.BackColor = System.Drawing.Color.Transparent
-        Me.Label17.ForeColor = System.Drawing.Color.Black
-        Me.Label17.Location = New System.Drawing.Point(755, 20)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(25, 13)
-        Me.Label17.TabIndex = 195
-        Me.Label17.Text = "PPh"
-        '
-        'txtPPH
-        '
-        Me.txtPPH.DecimalPlaces = 2
-        Me.txtPPH.Location = New System.Drawing.Point(794, 16)
-        Me.txtPPH.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtPPH.Name = "txtPPH"
-        Me.txtPPH.Size = New System.Drawing.Size(77, 21)
-        Me.txtPPH.TabIndex = 13
-        Me.txtPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtPPH.ThousandsSeparator = True
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.BackColor = System.Drawing.Color.Transparent
-        Me.Label18.ForeColor = System.Drawing.Color.Black
-        Me.Label18.Location = New System.Drawing.Point(702, 20)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(18, 13)
-        Me.Label18.TabIndex = 194
-        Me.Label18.Text = "%"
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.BackColor = System.Drawing.Color.Transparent
-        Me.Label19.ForeColor = System.Drawing.Color.Black
-        Me.Label19.Location = New System.Drawing.Point(523, 20)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(26, 13)
-        Me.Label19.TabIndex = 193
-        Me.Label19.Text = "PPN"
-        '
-        'txtPPN
-        '
-        Me.txtPPN.DecimalPlaces = 2
-        Me.txtPPN.Location = New System.Drawing.Point(622, 16)
-        Me.txtPPN.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtPPN.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtPPN.Name = "txtPPN"
-        Me.txtPPN.Size = New System.Drawing.Size(77, 21)
-        Me.txtPPN.TabIndex = 12
-        Me.txtPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtPPN.ThousandsSeparator = True
         '
         'frmTraAPCuttingDet
         '
@@ -915,6 +944,9 @@ Partial Class frmTraAPCuttingDet
         Me.tcHeader.ResumeLayout(False)
         Me.tpMain.ResumeLayout(False)
         Me.tpMain.PerformLayout()
+        CType(Me.txtRounding, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtPPN, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtGrandTotal, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).EndInit()
@@ -930,8 +962,6 @@ Partial Class frmTraAPCuttingDet
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtPPN, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1004,4 +1034,6 @@ Partial Class frmTraAPCuttingDet
     Friend WithEvents Label18 As System.Windows.Forms.Label
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents txtPPN As ERPS.usNumeric
+    Friend WithEvents txtRounding As ERPS.usNumeric
+    Friend WithEvents Label20 As System.Windows.Forms.Label
 End Class

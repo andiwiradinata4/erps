@@ -28,6 +28,14 @@ Partial Class frmSysJournalPost
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlMain = New System.Windows.Forms.Panel()
+        Me.txtCoACodeofClaimCost = New ERPS.usTextBox()
+        Me.txtCoANameofClaimCost = New ERPS.usTextBox()
+        Me.btnCoAofClaimCost = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.txtCoACodeofCompensasionRevenue = New ERPS.usTextBox()
+        Me.txtCoANameofCompensasionRevenue = New ERPS.usTextBox()
+        Me.btnCoAofCompensasionRevenue = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label36 = New System.Windows.Forms.Label()
         Me.txtCoACodeofSalesReturn = New ERPS.usTextBox()
         Me.txtCoANameofSalesReturn = New ERPS.usTextBox()
         Me.btnCoAofSalesReturn = New DevExpress.XtraEditors.SimpleButton()
@@ -171,14 +179,10 @@ Partial Class frmSysJournalPost
         Me.ToolStripLogBy = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.txtCoACodeofClaimCost = New ERPS.usTextBox()
-        Me.txtCoANameofClaimCost = New ERPS.usTextBox()
-        Me.btnCoAofClaimCost = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label35 = New System.Windows.Forms.Label()
-        Me.txtCoACodeofCompensasionRevenue = New ERPS.usTextBox()
-        Me.txtCoANameofCompensasionRevenue = New ERPS.usTextBox()
-        Me.btnCoAofCompensasionRevenue = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label36 = New System.Windows.Forms.Label()
+        Me.txtCoACodeofRounding = New ERPS.usTextBox()
+        Me.txtCoANameofRounding = New ERPS.usTextBox()
+        Me.btnCoAofRounding = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label37 = New System.Windows.Forms.Label()
         Me.pnlMain.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -224,6 +228,10 @@ Partial Class frmSysJournalPost
         '
         Me.pnlMain.AutoScroll = True
         Me.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlMain.Controls.Add(Me.txtCoACodeofRounding)
+        Me.pnlMain.Controls.Add(Me.txtCoANameofRounding)
+        Me.pnlMain.Controls.Add(Me.btnCoAofRounding)
+        Me.pnlMain.Controls.Add(Me.Label37)
         Me.pnlMain.Controls.Add(Me.txtCoACodeofClaimCost)
         Me.pnlMain.Controls.Add(Me.txtCoANameofClaimCost)
         Me.pnlMain.Controls.Add(Me.btnCoAofClaimCost)
@@ -373,6 +381,88 @@ Partial Class frmSysJournalPost
         Me.pnlMain.Name = "pnlMain"
         Me.pnlMain.Size = New System.Drawing.Size(1286, 966)
         Me.pnlMain.TabIndex = 2
+        '
+        'txtCoACodeofClaimCost
+        '
+        Me.txtCoACodeofClaimCost.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofClaimCost.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofClaimCost.Location = New System.Drawing.Point(818, 40)
+        Me.txtCoACodeofClaimCost.MaxLength = 250
+        Me.txtCoACodeofClaimCost.Name = "txtCoACodeofClaimCost"
+        Me.txtCoACodeofClaimCost.ReadOnly = True
+        Me.txtCoACodeofClaimCost.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofClaimCost.TabIndex = 105
+        '
+        'txtCoANameofClaimCost
+        '
+        Me.txtCoANameofClaimCost.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofClaimCost.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofClaimCost.Location = New System.Drawing.Point(900, 40)
+        Me.txtCoANameofClaimCost.MaxLength = 250
+        Me.txtCoANameofClaimCost.Name = "txtCoANameofClaimCost"
+        Me.txtCoANameofClaimCost.ReadOnly = True
+        Me.txtCoANameofClaimCost.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofClaimCost.TabIndex = 106
+        '
+        'btnCoAofClaimCost
+        '
+        Me.btnCoAofClaimCost.Image = CType(resources.GetObject("btnCoAofClaimCost.Image"), System.Drawing.Image)
+        Me.btnCoAofClaimCost.Location = New System.Drawing.Point(1226, 39)
+        Me.btnCoAofClaimCost.Name = "btnCoAofClaimCost"
+        Me.btnCoAofClaimCost.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofClaimCost.TabIndex = 107
+        '
+        'Label35
+        '
+        Me.Label35.AutoSize = True
+        Me.Label35.BackColor = System.Drawing.Color.Transparent
+        Me.Label35.ForeColor = System.Drawing.Color.Black
+        Me.Label35.Location = New System.Drawing.Point(686, 44)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(60, 13)
+        Me.Label35.TabIndex = 270
+        Me.Label35.Text = "Biaya Klaim"
+        '
+        'txtCoACodeofCompensasionRevenue
+        '
+        Me.txtCoACodeofCompensasionRevenue.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofCompensasionRevenue.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofCompensasionRevenue.Location = New System.Drawing.Point(818, 13)
+        Me.txtCoACodeofCompensasionRevenue.MaxLength = 250
+        Me.txtCoACodeofCompensasionRevenue.Name = "txtCoACodeofCompensasionRevenue"
+        Me.txtCoACodeofCompensasionRevenue.ReadOnly = True
+        Me.txtCoACodeofCompensasionRevenue.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofCompensasionRevenue.TabIndex = 102
+        '
+        'txtCoANameofCompensasionRevenue
+        '
+        Me.txtCoANameofCompensasionRevenue.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofCompensasionRevenue.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofCompensasionRevenue.Location = New System.Drawing.Point(900, 13)
+        Me.txtCoANameofCompensasionRevenue.MaxLength = 250
+        Me.txtCoANameofCompensasionRevenue.Name = "txtCoANameofCompensasionRevenue"
+        Me.txtCoANameofCompensasionRevenue.ReadOnly = True
+        Me.txtCoANameofCompensasionRevenue.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofCompensasionRevenue.TabIndex = 103
+        '
+        'btnCoAofCompensasionRevenue
+        '
+        Me.btnCoAofCompensasionRevenue.Image = CType(resources.GetObject("btnCoAofCompensasionRevenue.Image"), System.Drawing.Image)
+        Me.btnCoAofCompensasionRevenue.Location = New System.Drawing.Point(1226, 12)
+        Me.btnCoAofCompensasionRevenue.Name = "btnCoAofCompensasionRevenue"
+        Me.btnCoAofCompensasionRevenue.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofCompensasionRevenue.TabIndex = 104
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.BackColor = System.Drawing.Color.Transparent
+        Me.Label36.ForeColor = System.Drawing.Color.Black
+        Me.Label36.Location = New System.Drawing.Point(686, 17)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(124, 13)
+        Me.Label36.TabIndex = 269
+        Me.Label36.Text = "Pendapatan Kompensasi"
         '
         'txtCoACodeofSalesReturn
         '
@@ -1827,87 +1917,46 @@ Partial Class frmSysJournalPost
         Me.ToolStripLogDate.Size = New System.Drawing.Size(12, 17)
         Me.ToolStripLogDate.Text = "-"
         '
-        'txtCoACodeofClaimCost
+        'txtCoACodeofRounding
         '
-        Me.txtCoACodeofClaimCost.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeofClaimCost.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeofClaimCost.Location = New System.Drawing.Point(818, 40)
-        Me.txtCoACodeofClaimCost.MaxLength = 250
-        Me.txtCoACodeofClaimCost.Name = "txtCoACodeofClaimCost"
-        Me.txtCoACodeofClaimCost.ReadOnly = True
-        Me.txtCoACodeofClaimCost.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofClaimCost.TabIndex = 105
+        Me.txtCoACodeofRounding.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofRounding.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofRounding.Location = New System.Drawing.Point(818, 67)
+        Me.txtCoACodeofRounding.MaxLength = 250
+        Me.txtCoACodeofRounding.Name = "txtCoACodeofRounding"
+        Me.txtCoACodeofRounding.ReadOnly = True
+        Me.txtCoACodeofRounding.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofRounding.TabIndex = 108
         '
-        'txtCoANameofClaimCost
+        'txtCoANameofRounding
         '
-        Me.txtCoANameofClaimCost.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameofClaimCost.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameofClaimCost.Location = New System.Drawing.Point(900, 40)
-        Me.txtCoANameofClaimCost.MaxLength = 250
-        Me.txtCoANameofClaimCost.Name = "txtCoANameofClaimCost"
-        Me.txtCoANameofClaimCost.ReadOnly = True
-        Me.txtCoANameofClaimCost.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofClaimCost.TabIndex = 106
+        Me.txtCoANameofRounding.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofRounding.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofRounding.Location = New System.Drawing.Point(900, 67)
+        Me.txtCoANameofRounding.MaxLength = 250
+        Me.txtCoANameofRounding.Name = "txtCoANameofRounding"
+        Me.txtCoANameofRounding.ReadOnly = True
+        Me.txtCoANameofRounding.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofRounding.TabIndex = 109
         '
-        'btnCoAofClaimCost
+        'btnCoAofRounding
         '
-        Me.btnCoAofClaimCost.Image = CType(resources.GetObject("btnCoAofClaimCost.Image"), System.Drawing.Image)
-        Me.btnCoAofClaimCost.Location = New System.Drawing.Point(1226, 39)
-        Me.btnCoAofClaimCost.Name = "btnCoAofClaimCost"
-        Me.btnCoAofClaimCost.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofClaimCost.TabIndex = 107
+        Me.btnCoAofRounding.Image = CType(resources.GetObject("btnCoAofRounding.Image"), System.Drawing.Image)
+        Me.btnCoAofRounding.Location = New System.Drawing.Point(1226, 66)
+        Me.btnCoAofRounding.Name = "btnCoAofRounding"
+        Me.btnCoAofRounding.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofRounding.TabIndex = 110
         '
-        'Label35
+        'Label37
         '
-        Me.Label35.AutoSize = True
-        Me.Label35.BackColor = System.Drawing.Color.Transparent
-        Me.Label35.ForeColor = System.Drawing.Color.Black
-        Me.Label35.Location = New System.Drawing.Point(686, 44)
-        Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(60, 13)
-        Me.Label35.TabIndex = 270
-        Me.Label35.Text = "Biaya Klaim"
-        '
-        'txtCoACodeofCompensasionRevenue
-        '
-        Me.txtCoACodeofCompensasionRevenue.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeofCompensasionRevenue.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeofCompensasionRevenue.Location = New System.Drawing.Point(818, 13)
-        Me.txtCoACodeofCompensasionRevenue.MaxLength = 250
-        Me.txtCoACodeofCompensasionRevenue.Name = "txtCoACodeofCompensasionRevenue"
-        Me.txtCoACodeofCompensasionRevenue.ReadOnly = True
-        Me.txtCoACodeofCompensasionRevenue.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofCompensasionRevenue.TabIndex = 102
-        '
-        'txtCoANameofCompensasionRevenue
-        '
-        Me.txtCoANameofCompensasionRevenue.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameofCompensasionRevenue.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameofCompensasionRevenue.Location = New System.Drawing.Point(900, 13)
-        Me.txtCoANameofCompensasionRevenue.MaxLength = 250
-        Me.txtCoANameofCompensasionRevenue.Name = "txtCoANameofCompensasionRevenue"
-        Me.txtCoANameofCompensasionRevenue.ReadOnly = True
-        Me.txtCoANameofCompensasionRevenue.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofCompensasionRevenue.TabIndex = 103
-        '
-        'btnCoAofCompensasionRevenue
-        '
-        Me.btnCoAofCompensasionRevenue.Image = CType(resources.GetObject("btnCoAofCompensasionRevenue.Image"), System.Drawing.Image)
-        Me.btnCoAofCompensasionRevenue.Location = New System.Drawing.Point(1226, 12)
-        Me.btnCoAofCompensasionRevenue.Name = "btnCoAofCompensasionRevenue"
-        Me.btnCoAofCompensasionRevenue.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofCompensasionRevenue.TabIndex = 104
-        '
-        'Label36
-        '
-        Me.Label36.AutoSize = True
-        Me.Label36.BackColor = System.Drawing.Color.Transparent
-        Me.Label36.ForeColor = System.Drawing.Color.Black
-        Me.Label36.Location = New System.Drawing.Point(686, 17)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(124, 13)
-        Me.Label36.TabIndex = 269
-        Me.Label36.Text = "Pendapatan Kompensasi"
+        Me.Label37.AutoSize = True
+        Me.Label37.BackColor = System.Drawing.Color.Transparent
+        Me.Label37.ForeColor = System.Drawing.Color.Black
+        Me.Label37.Location = New System.Drawing.Point(686, 71)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(96, 13)
+        Me.Label37.TabIndex = 274
+        Me.Label37.Text = "Beban Pembulatan"
         '
         'frmSysJournalPost
         '
@@ -2087,4 +2136,8 @@ Partial Class frmSysJournalPost
     Friend WithEvents txtCoANameofCompensasionRevenue As ERPS.usTextBox
     Friend WithEvents btnCoAofCompensasionRevenue As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label36 As System.Windows.Forms.Label
+    Friend WithEvents txtCoACodeofRounding As ERPS.usTextBox
+    Friend WithEvents txtCoANameofRounding As ERPS.usTextBox
+    Friend WithEvents btnCoAofRounding As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label37 As System.Windows.Forms.Label
 End Class

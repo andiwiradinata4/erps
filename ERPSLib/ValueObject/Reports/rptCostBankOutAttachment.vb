@@ -7,6 +7,7 @@
         Property Amount As Decimal
         Property PPNAmount As Decimal
         Property PPHAmount As Decimal
+        Property Rounding As Decimal
         Property GrandTotal As Decimal
     End Class
 End Namespace

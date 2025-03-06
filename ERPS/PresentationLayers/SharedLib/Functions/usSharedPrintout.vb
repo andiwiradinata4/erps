@@ -6,9 +6,17 @@
             crReport.CreateDocument(True)
             crReport.ShowPreviewMarginLines = False
             crReport.ShowPrintMarginsWarning = False
+            Dim decRounding As Decimal = 0
+
+            For Each dr As DataRow In dtSource.Rows
+                decRounding = dr.Item("Rounding")
+                Exit For
+            Next
+            Dim params As New Dictionary(Of String, Object)
+            params.Add("paramRounding", decRounding)
 
             Dim dxHelper As New DX.usDXHelper
-            dxHelper.SetSubReportDataSource(crReport, "xsAttachment", BL.Cost.PrintCostBankOutAttachment(strID))
+            dxHelper.SetSubReportDataSource(crReport, "xsAttachment", BL.Cost.PrintCostBankOutAttachment(strID), params)
             Dim frmDetail As New frmReportPreview
             With frmDetail
                 .docViewer.DocumentSource = crReport

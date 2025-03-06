@@ -858,9 +858,8 @@
                 .CommandText =
 "SELECT    " & vbNewLine &
 "	CH.APNumber AS TransNumber, CH.APDate AS TransDate, MC.Name AS CompanyName, '' AS VoucherCode,    " & vbNewLine &
-"	MBP.Name AS PaidTo, MBPBA.BankName + ' A/C ' + MBPBA.AccountNumber AS PaidAccount, CH.TotalAmount+CH.TotalPPN-CH.TotalPPH+A.Rounding AS TotalAmount, ISNULL(ARR.Remarks,CH.Remarks) AS Remarks, MUC.Name AS CreatedBy, CH.CreatedDate, NULL AS CheckedDate,    " & vbNewLine &
-"	'' AS CheckedBy, MUP.Name AS PaidBy, CASE WHEN CH.PaymentBy='' THEN NULL ELSE CH.PaymentDate END AS PaidDate,   " & vbNewLine &
-"	MC.DirectorName AS ApprovedBy, NULL AS ApprovedDate, 'KETERANGAN' AS Description, ':' AS DescriptionSeparator   " & vbNewLine &
+"	MBP.Name AS PaidTo, MBPBA.BankName + ' A/C ' + MBPBA.AccountNumber AS PaidAccount, CH.TotalAmount+CH.TotalPPN-CH.TotalPPH+CH.Rounding AS TotalAmount, ISNULL(ARR.Remarks,CH.Remarks) AS Remarks, MUC.Name AS CreatedBy, CH.CreatedDate, NULL AS CheckedDate,    " & vbNewLine &
+"	'' AS CheckedBy, MUP.Name AS PaidBy, CASE WHEN CH.PaymentBy='' THEN NULL ELSE CH.PaymentDate END AS PaidDate, MC.DirectorName AS ApprovedBy, NULL AS ApprovedDate, 'KETERANGAN' AS Description, ':' AS DescriptionSeparator, CH.Rounding " & vbNewLine &
 "FROM traAccountPayable CH    " & vbNewLine &
 "INNER JOIN mstCompany MC ON    " & vbNewLine &
 "	CH.CompanyID=MC.ID    " & vbNewLine &

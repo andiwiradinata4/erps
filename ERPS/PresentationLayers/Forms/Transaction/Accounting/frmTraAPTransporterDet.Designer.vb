@@ -29,6 +29,8 @@ Partial Class frmTraAPTransporterDet
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.tcHeader = New System.Windows.Forms.TabControl()
         Me.tpMain = New System.Windows.Forms.TabPage()
+        Me.txtRounding = New ERPS.usNumeric()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.txtBPBankAccountBank = New ERPS.usTextBox()
         Me.txtBPBankAccountNumber = New ERPS.usTextBox()
         Me.btnBPBankAccount = New DevExpress.XtraEditors.SimpleButton()
@@ -78,10 +80,9 @@ Partial Class frmTraAPTransporterDet
         Me.ToolStripLogBy = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.txtRounding = New ERPS.usNumeric()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.tcHeader.SuspendLayout()
         Me.tpMain.SuspendLayout()
+        CType(Me.txtRounding, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtGrandTotal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -97,7 +98,6 @@ Partial Class frmTraAPTransporterDet
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip.SuspendLayout()
-        CType(Me.txtRounding, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -187,6 +187,30 @@ Partial Class frmTraAPTransporterDet
         Me.tpMain.TabIndex = 0
         Me.tpMain.Text = "Main - F1"
         Me.tpMain.UseVisualStyleBackColor = True
+        '
+        'txtRounding
+        '
+        Me.txtRounding.BackColor = System.Drawing.Color.White
+        Me.txtRounding.DecimalPlaces = 2
+        Me.txtRounding.Location = New System.Drawing.Point(578, 98)
+        Me.txtRounding.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtRounding.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtRounding.Name = "txtRounding"
+        Me.txtRounding.Size = New System.Drawing.Size(249, 21)
+        Me.txtRounding.TabIndex = 13
+        Me.txtRounding.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtRounding.ThousandsSeparator = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.ForeColor = System.Drawing.Color.Black
+        Me.Label2.Location = New System.Drawing.Point(463, 102)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(63, 13)
+        Me.Label2.TabIndex = 181
+        Me.Label2.Text = "Pembulatan"
         '
         'txtBPBankAccountBank
         '
@@ -477,7 +501,7 @@ Partial Class frmTraAPTransporterDet
         Me.tpRemarks.Controls.Add(Me.ToolBarRemarks)
         Me.tpRemarks.Location = New System.Drawing.Point(4, 25)
         Me.tpRemarks.Name = "tpRemarks"
-        Me.tpRemarks.Size = New System.Drawing.Size(876, 168)
+        Me.tpRemarks.Size = New System.Drawing.Size(876, 191)
         Me.tpRemarks.TabIndex = 2
         Me.tpRemarks.Text = "Keterangan - F2"
         Me.tpRemarks.UseVisualStyleBackColor = True
@@ -502,7 +526,7 @@ Partial Class frmTraAPTransporterDet
         Me.grdRemarks.Location = New System.Drawing.Point(0, 28)
         Me.grdRemarks.MainView = Me.grdRemarksView
         Me.grdRemarks.Name = "grdRemarks"
-        Me.grdRemarks.Size = New System.Drawing.Size(876, 140)
+        Me.grdRemarks.Size = New System.Drawing.Size(876, 163)
         Me.grdRemarks.TabIndex = 19
         Me.grdRemarks.UseEmbeddedNavigator = True
         Me.grdRemarks.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdRemarksView})
@@ -551,7 +575,7 @@ Partial Class frmTraAPTransporterDet
         Me.tpHistory.Controls.Add(Me.grdStatus)
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
-        Me.tpHistory.Size = New System.Drawing.Size(876, 168)
+        Me.tpHistory.Size = New System.Drawing.Size(876, 191)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -576,7 +600,7 @@ Partial Class frmTraAPTransporterDet
         Me.grdStatus.Location = New System.Drawing.Point(0, 0)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(876, 168)
+        Me.grdStatus.Size = New System.Drawing.Size(876, 191)
         Me.grdStatus.TabIndex = 14
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
@@ -730,31 +754,6 @@ Partial Class frmTraAPTransporterDet
         Me.ToolStripLogDate.Size = New System.Drawing.Size(12, 17)
         Me.ToolStripLogDate.Text = "-"
         '
-        'txtRounding
-        '
-        Me.txtRounding.BackColor = System.Drawing.Color.White
-        Me.txtRounding.DecimalPlaces = 2
-        Me.txtRounding.Location = New System.Drawing.Point(578, 98)
-        Me.txtRounding.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtRounding.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtRounding.Name = "txtRounding"
-        Me.txtRounding.ReadOnly = True
-        Me.txtRounding.Size = New System.Drawing.Size(249, 21)
-        Me.txtRounding.TabIndex = 13
-        Me.txtRounding.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtRounding.ThousandsSeparator = True
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(463, 102)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(63, 13)
-        Me.Label2.TabIndex = 181
-        Me.Label2.Text = "Pembulatan"
-        '
         'frmTraAPTransporterDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -775,6 +774,7 @@ Partial Class frmTraAPTransporterDet
         Me.tcHeader.ResumeLayout(False)
         Me.tpMain.ResumeLayout(False)
         Me.tpMain.PerformLayout()
+        CType(Me.txtRounding, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtGrandTotal, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).EndInit()
@@ -792,7 +792,6 @@ Partial Class frmTraAPTransporterDet
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip.ResumeLayout(False)
         Me.StatusStrip.PerformLayout()
-        CType(Me.txtRounding, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

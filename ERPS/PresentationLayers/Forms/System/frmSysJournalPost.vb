@@ -13,7 +13,7 @@
         intCoAIDofAccountPayableTransport As Integer = 0, intCoAIDofAccountReceivableOutstandingPayment As Integer = 0, intCoAIDofAccountPayableOutstandingPayment As Integer = 0,
         intCoAIDofAccountPayableCuttingOutstandingPayment As Integer = 0, intCoAIDofAccountPayableTransportOutstandingPayment As Integer = 0,
         intCoAIDofCutting As Integer = 0, intCoAIDofTransport As Integer = 0, intCoAIDofCostRawMaterial As Integer = 0, intCoAIDofSalesReturn As Integer = 0,
-        intCoAIDofCompensasionRevenue As Integer = 0, intCoAIDofClaimCost As Integer = 0
+        intCoAIDofCompensasionRevenue As Integer = 0, intCoAIDofClaimCost As Integer = 0, intCoAofRounding As Integer = 0
 
     Private clsData As New VO.JournalPost
     Private Const _
@@ -168,6 +168,14 @@
             txtCoACodeofClaimCost.Text = clsData.CoACodeofClaimCost
             txtCoANameofClaimCost.Text = clsData.CoANameofClaimCost
 
+            intCoAIDofClaimCost = clsData.CoAofClaimCost
+            txtCoACodeofClaimCost.Text = clsData.CoACodeofClaimCost
+            txtCoANameofClaimCost.Text = clsData.CoANameofClaimCost
+
+            intCoAofRounding = clsData.CoAofRounding
+            txtCoACodeofRounding.Text = clsData.CoACodeofRounding
+            txtCoANameofRounding.Text = clsData.CoANameofRounding
+
             ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
             ToolStripLogBy.Text = "Dibuat Oleh : " & IIf(clsData.LogBy Is Nothing, ERPSLib.UI.usUserApp.UserID, clsData.LogBy)
             ToolStripLogDate.Text = Format(IIf(clsData.LogBy Is Nothing, Now(), clsData.LogDate), UI.usDefCons.DateFull)
@@ -218,6 +226,7 @@
         clsData.CoAofSalesReturn = intCoAIDofSalesReturn
         clsData.CoAofCompensasionRevenue = intCoAIDofCompensasionRevenue
         clsData.CoAofClaimCost = intCoAIDofClaimCost
+        clsData.CoAofRounding = intCoAofRounding
         clsData.CompanyID = ERPSLib.UI.usUserApp.CompanyID
 
         Me.Cursor = Cursors.WaitCursor
@@ -763,6 +772,20 @@
                 intCoAIDofClaimCost = .pubLUdtRow.Item("ID")
                 txtCoACodeofClaimCost.Text = .pubLUdtRow.Item("Code")
                 txtCoANameofClaimCost.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAofRounding_Click(sender As Object, e As EventArgs) Handles btnCoAofRounding.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAofRounding = .pubLUdtRow.Item("ID")
+                txtCoACodeofRounding.Text = .pubLUdtRow.Item("Code")
+                txtCoANameofRounding.Text = .pubLUdtRow.Item("Name")
             End If
         End With
     End Sub

@@ -108,6 +108,7 @@ Public Class frmTraAPTransporterDet
                 txtTotalPPN.Value = clsData.TotalPPN
                 txtTotalPPH.Value = clsData.TotalPPH
                 txtRounding.Value = clsData.Rounding
+                txtGrandTotal.Value = clsData.TotalAmount + clsData.TotalPPN - clsData.TotalPPH + clsData.Rounding
                 cboStatus.SelectedValue = clsData.StatusID
                 ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
@@ -541,6 +542,8 @@ Public Class frmTraAPTransporterDet
         prvQueryHistory()
         prvQueryRemarks()
         'prvUserAccess()
+
+        AddHandler txtRounding.ValueChanged, AddressOf txtRounding_ValueChanged
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
@@ -614,6 +617,10 @@ Public Class frmTraAPTransporterDet
                 prvCalculate()
             End If
         End With
+    End Sub
+
+    Private Sub txtRounding_ValueChanged(sender As Object, e As EventArgs)
+        prvCalculate()
     End Sub
 
 #End Region

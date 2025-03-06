@@ -1827,24 +1827,11 @@ EndProcess:
                                      {
                                          .CoAID = clsData.CoAIDOfOutgoingPayment,
                                          .DebitAmount = 0,
-                                         .CreditAmount = clsData.ReceiveAmount + clsData.TotalPPN + clsData.Rounding,
+                                         .CreditAmount = clsData.ReceiveAmount + clsData.TotalPPN,
                                          .Remarks = strJournalDetailRemarks,
                                          .GroupID = intGroupID,
                                          .BPID = clsData.BPID
                                      })
-
-                '# Jika ada Rounding | Buat akun Beban Pembulatan
-                'If clsData.Rounding <> 0 Then
-                '    clsJournalDetail.Add(New VO.JournalDet With
-                '                     {
-                '                         .CoAID = clsData.CoAIDOfOutgoingPayment,
-                '                         .DebitAmount = 0,
-                '                         .CreditAmount = clsData.Rounding * -1,
-                '                         .Remarks = strJournalDetailRemarks,
-                '                         .GroupID = intGroupID,
-                '                         .BPID = clsData.BPID
-                '                     })
-                'End If
 
                 decTotalAmount += clsData.TotalAmount + clsData.TotalPPN
 
@@ -1874,6 +1861,61 @@ EndProcess:
                                          .BPID = clsData.BPID
                                      })
                     decTotalAmount += clsData.TotalPPH
+                End If
+
+                If clsData.Rounding <> 0 Then
+                    intGroupID += 1
+
+                    '# Jika Rounding / Pembulatan Negatif Maka Nilai Bayar Lebih kecil dari Hutang sebelumnya, sehingga Kas terpakai lebih sedikit sehingga Kas bertambah
+                    If clsData.Rounding < 0 Then
+                        '# Akun Kas / Bank -> Debit
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = clsData.CoAIDOfOutgoingPayment,
+                                             .DebitAmount = Math.Abs(clsData.Rounding),
+                                             .CreditAmount = 0,
+                                             .Remarks = "PEMBULATAN TAGIHAN",
+                                             .GroupID = intGroupID,
+                                             .BPID = clsData.BPID
+                                         })
+
+                        '# Akun Beban Pembulatan -> Kredit
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofRounding,
+                                             .DebitAmount = 0,
+                                             .CreditAmount = Math.Abs(clsData.Rounding),
+                                             .Remarks = "PEMBULATAN TAGIHAN",
+                                             .GroupID = intGroupID,
+                                             .BPID = clsData.BPID
+                                         })
+                    Else
+                        '# Jika Rounding / Pembulatan Positif Maka Nilai Bayar Lebih Besar dari Hutang sebelumnya, sehingga Kas terpakai semakin banyak
+                        '# Akun Beban Pembulatan -> Debit
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofRounding,
+                                             .DebitAmount = Math.Abs(clsData.Rounding),
+                                             .CreditAmount = 0,
+                                             .Remarks = "PEMBULATAN TAGIHAN",
+                                             .GroupID = intGroupID,
+                                             .BPID = clsData.BPID
+                                         })
+
+                        '# Akun Kas / Bank -> Kredit
+                        clsJournalDetail.Add(New VO.JournalDet With
+                                         {
+                                             .CoAID = clsData.CoAIDOfOutgoingPayment,
+                                             .DebitAmount = 0,
+                                             .CreditAmount = Math.Abs(clsData.Rounding),
+                                             .Remarks = "PEMBULATAN TAGIHAN",
+                                             .GroupID = intGroupID,
+                                             .BPID = clsData.BPID
+                                         })
+
+                    End If
+
+                    decTotalAmount += clsData.Rounding
                 End If
 
                 Dim clsJournal As New VO.Journal With

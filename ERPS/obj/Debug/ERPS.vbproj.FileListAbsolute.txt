@@ -771,6 +771,11 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraAPCost.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraAPCuttingDet.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraAPTransporterDet.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPItemRemarks.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraAPCost.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraAPCuttingDet.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer3Import.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDPLookup.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmViewLookupHistory.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPS.exe.config
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPS.pdb
@@ -851,7 +856,9 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPChooseBank
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPChooseInvoice.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer2.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer3.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer3Import.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer4.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDPLookup.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDate.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueDateDet.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPInvoice.resources
@@ -974,6 +981,7 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesContractP
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesReturn.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesReturnDet.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesReturnDetItem.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmViewLookupHistory.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmReportPreview.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptBukuBesarVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmRptKartuHutangVer00.resources
@@ -990,6 +998,7 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptBukuBesarVer00.re
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptCOAPerGroupVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptCOAPerTypeVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptConfirmationOrderVer00.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptCostBankOutAttachmentVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptCostBankOutVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptKartuHutangPiutangReportVer00.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptLabaRugiVer00.resources
@@ -1019,12 +1028,3 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\aa\ERPS.resources.dll
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.pdb
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer3Import.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDPLookup.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraAPCost.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraAPCuttingDet.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer3Import.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDPLookup.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmViewLookupHistory.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmViewLookupHistory.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.rptCostBankOutAttachmentVer00.resources

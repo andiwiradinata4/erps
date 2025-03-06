@@ -61,6 +61,7 @@ Public Class frmTraAPCost
         UI.usForm.SetGrid(grdView, "TotalAmount", "Total DPP", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalPPN", "Total PPN", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalPPH", "Total PPH", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "Rounding", "Pembulatan", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "GrandTotal", "Grand Total", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "PaymentBy", "Dibayar Oleh", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "PaymentDate", "Tanggal Bayar", 100, UI.usDefGrid.gFullDate, False)
@@ -600,11 +601,13 @@ Public Class frmTraAPCost
         Dim SumTotalAmount As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalAmount", "Total DPP: {0:#,##0.00}")
         Dim SumTotalPPN As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPN", "Total PPN: {0:#,##0.00}")
         Dim SumTotalPPH As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPH", "Total PPH: {0:#,##0.00}")
+        Dim SumRounding As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Rounding", "Total Pembulatan: {0:#,##0.00}")
         Dim SumGrandTotal As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "GrandTotal", "Grand Total: {0:#,##0.00}")
 
         Dim sumGroupTotalAmount As New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalAmount", grdView.Columns("TotalAmount"), "Total DPP: {0:#,##0.00}")
         Dim sumGroupTotalPPN As New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPN", grdView.Columns("TotalPPN"), "Total PPN: {0:#,##0.00}")
         Dim sumGroupTotalPPH As New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalPPH", grdView.Columns("TotalPPH"), "Total PPH: {0:#,##0.00}")
+        Dim sumGroupRounding As New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Rounding", grdView.Columns("Rounding"), "Total Pembulatan: {0:#,##0.00}")
         Dim sumGroupGrandTotal As New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "GrandTotal", grdView.Columns("GrandTotal"), "Grand Total: {0:#,##0.00}")
 
         If grdView.Columns("TotalAmount").SummaryText.Trim = "" Then
@@ -620,6 +623,11 @@ Public Class frmTraAPCost
         If grdView.Columns("TotalPPH").SummaryText.Trim = "" Then
             grdView.Columns("TotalPPH").Summary.Add(SumTotalPPH)
             If grdView.GroupCount > 0 Then grdView.GroupSummary.Add(sumGroupTotalPPH)
+        End If
+
+        If grdView.Columns("Rounding").SummaryText.Trim = "" Then
+            grdView.Columns("Rounding").Summary.Add(SumRounding)
+            If grdView.GroupCount > 0 Then grdView.GroupSummary.Add(sumGroupRounding)
         End If
 
         If grdView.Columns("GrandTotal").SummaryText.Trim = "" Then
