@@ -569,26 +569,26 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-"SELECT    " & vbNewLine & _
-"	CH.CostNumber AS TransNumber, CH.CostDate AS TransDate, MC.Name AS CompanyName, '' AS VoucherCode,    " & vbNewLine & _
-"	CH.PaidTo, CH.PaidAccount, CH.TotalAmount, CASE WHEN COD.Remarks='' THEN CH.Remarks ELSE COD.Remarks END AS Remarks, MUC.Name AS CreatedBy, CH.CreatedDate, NULL AS CheckedDate,    " & vbNewLine & _
-"	'' AS CheckedBy, MUP.Name AS PaidBy, CASE WHEN CH.PaymentBy='' THEN NULL ELSE CH.PaymentDate END AS PaidDate,   " & vbNewLine & _
-"	MC.DirectorName AS ApprovedBy, NULL AS ApprovedDate, 'KETERANGAN' AS Description, ':' AS DescriptionSeparator   " & vbNewLine & _
-"FROM traCost CH    " & vbNewLine & _
-"INNER JOIN  " & vbNewLine & _
-"( " & vbNewLine & _
-"	SELECT DISTINCT COD.CostID, COD.Remarks  " & vbNewLine & _
-"	FROM traCostDet COD " & vbNewLine & _
-"	WHERE COD.CostID=@ID  " & vbNewLine & _
-") COD ON  " & vbNewLine & _
-"	CH.ID=COD.CostID  " & vbNewLine & _
-"INNER JOIN mstCompany MC ON    " & vbNewLine & _
-"	CH.CompanyID=MC.ID    " & vbNewLine & _
-"INNER JOIN mstUser MUC ON    " & vbNewLine & _
-"	CH.CreatedBy=MUC.ID    " & vbNewLine & _
-"LEFT JOIN mstUser MUP ON    " & vbNewLine & _
-"	CH.PaymentBy=MUP.ID    " & vbNewLine & _
+                .CommandText =
+"SELECT    " & vbNewLine &
+"	CH.CostNumber AS TransNumber, CH.CostDate AS TransDate, MC.Name AS CompanyName, '' AS VoucherCode,    " & vbNewLine &
+"	CH.PaidTo, CH.PaidAccount, CH.TotalAmount, CASE WHEN COD.Remarks='' THEN CH.Remarks ELSE COD.Remarks END AS Remarks, MUC.Name AS CreatedBy, CH.CreatedDate, NULL AS CheckedDate,    " & vbNewLine &
+"	'' AS CheckedBy, MUP.Name AS PaidBy, CASE WHEN CH.PaymentBy='' THEN NULL ELSE CH.PaymentDate END AS PaidDate,   " & vbNewLine &
+"	MC.DirectorName AS ApprovedBy, NULL AS ApprovedDate, 'KETERANGAN' AS Description, ':' AS DescriptionSeparator, CAST(0 AS DECIMAL(18,4)) AS Rounding   " & vbNewLine &
+"FROM traCost CH    " & vbNewLine &
+"INNER JOIN  " & vbNewLine &
+"( " & vbNewLine &
+"	SELECT DISTINCT COD.CostID, COD.Remarks  " & vbNewLine &
+"	FROM traCostDet COD " & vbNewLine &
+"	WHERE COD.CostID=@ID  " & vbNewLine &
+") COD ON  " & vbNewLine &
+"	CH.ID=COD.CostID  " & vbNewLine &
+"INNER JOIN mstCompany MC ON    " & vbNewLine &
+"	CH.CompanyID=MC.ID    " & vbNewLine &
+"INNER JOIN mstUser MUC ON    " & vbNewLine &
+"	CH.CreatedBy=MUC.ID    " & vbNewLine &
+"LEFT JOIN mstUser MUP ON    " & vbNewLine &
+"	CH.PaymentBy=MUP.ID    " & vbNewLine &
 "WHERE CH.ID=@ID    " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
