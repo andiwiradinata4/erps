@@ -1945,6 +1945,10 @@ EndProcess:
 
                 '# Update Journal ID in Account Payable
                 DL.AccountPayable.UpdateJournalIDInvoice(sqlCon, sqlTrans, clsData.ID, strJournalID)
+
+                '# Generate Voucher
+                BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsData.ProgramID, clsData.CompanyID, clsData.PaymentDate, VO.VoucherType.Values.BankOut, clsData.ID, clsData.InvoiceNumberBP, clsData.CoAIDOfOutgoingPayment, clsData.ReceiveAmount + clsData.TotalPPN - clsData.TotalPPH + clsData.Rounding, "", ERPSLib.UI.usUserApp.UserID)
+
 EndProcess:
             Catch ex As Exception
                 Throw ex

@@ -98,6 +98,7 @@
                     CreateARAPVoucher_ID89(sqlCon, sqlTrans)
                     DevelopOnProgress_ID90(sqlCon, sqlTrans)
                     DevelopOnProgress_ID91(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID92(sqlCon, sqlTrans)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -2750,6 +2751,25 @@
             clsData.Name = "Add Rounding in ARAP Invoice"
             clsData.Scripts =
                 "ALTER TABLE traARAPInvoice ADD Rounding DECIMAL(18,4) NOT NULL CONSTRAINT DF_traARAPInvoice_Rounding DEFAULT ((0))  " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 92
+        Private Shared Sub DevelopOnProgress_ID92(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 92
+            clsData.Name = "Insert Data Voucher Type"
+            clsData.Scripts =
+                "ALTER TABLE traARAPVoucher ADD ProgramID INT NOT NULL CONSTRAINT DF_traARAPVoucher_ProgramID DEFAULT ((0))  " & vbNewLine &
+                "ALTER TABLE traARAPVoucher ADD CompanyID INT NOT NULL CONSTRAINT DF_traARAPVoucher_CompanyID DEFAULT ((0))  " & vbNewLine &
+                "ALTER TABLE traARAPVoucher ADD VoucherNumber VARCHAR(100) NOT NULL CONSTRAINT DF_traARAPVoucher_VoucherNumber DEFAULT ('')  " & vbNewLine &
+                "INSERT INTO mstVoucherType (ID, Name) VALUES (1, 'BANK IN') " & vbNewLine &
+                "INSERT INTO mstVoucherType (ID, Name) VALUES (2, 'BANK OUT') " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

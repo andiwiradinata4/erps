@@ -4,8 +4,8 @@
 #Region "Main"
 
         Public Shared Function PrintVer00(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                  ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                  ByVal strID As String) As DataTable
+                                          ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                          ByVal strID As String) As DataTable
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon
@@ -2291,6 +2291,166 @@
                 Throw ex
             End Try
         End Sub
+
+#End Region
+
+#Region "Voucher"
+
+        Public Shared Function ListDataVoucher(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                               ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+                                               ByVal enumVoucherType As VO.VoucherType.Values) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.VoucherNumber, A.TransDate, A.VoucherType, B.Name AS VoucherTypeName, A.ParentID, " & vbNewLine &
+                    "   A.InvoiceNumber, A.CoAID, A.TotalAmount, A.Remarks, A.CreatedBy, A.CreatedDate " & vbNewLine &
+                    "FROM traARAPVoucher A " & vbNewLine &
+                    "INNER JOIN mstVoucherType B ON " & vbNewLine &
+                    "    A.VoucherType=B.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "	A.ProgramID=@ProgramID " & vbNewLine &
+                    "	AND A.CompanyID=@CompanyID " & vbNewLine &
+                    "	AND A.TransDate>=@DateFrom AND A.TransDate<=@DateTo " & vbNewLine
+
+                If enumVoucherType <> VO.VoucherType.Values.All Then .CommandText += "	AND A.VoucherType=@VoucherType " & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom.Date
+                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo.Date.AddHours(23).AddMinutes(59).AddSeconds(59)
+                .Parameters.Add("@VoucherType", SqlDbType.Int).Value = enumVoucherType
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
+        Public Shared Sub SaveDataVoucher(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal clsData As VO.ARAPVoucher)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "INSERT INTO traARAPVoucher " & vbNewLine &
+                    "   (ID, TransDate, VoucherType, ParentID, InvoiceNumber, CoAID, TotalAmount, Remarks, CreatedBy, CreatedDate, VoucherNumber, ProgramID, CompanyID) " & vbNewLine &
+                    "VALUES " & vbNewLine &
+                    "   (@ID, @TransDate, @VoucherType, @ParentID, @InvoiceNumber, @CoAID, @TotalAmount, @Remarks, @CreatedBy, GETDATE(), @VoucherNumber, @ProgramID, @CompanyID) " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = clsData.ID
+                .Parameters.Add("@TransDate", SqlDbType.DateTime).Value = clsData.TransDate
+                .Parameters.Add("@VoucherType", SqlDbType.Int).Value = clsData.VoucherType
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = clsData.ParentID
+                .Parameters.Add("@InvoiceNumber", SqlDbType.VarChar, 100).Value = clsData.InvoiceNumber
+                .Parameters.Add("@CoAID", SqlDbType.Int).Value = clsData.CoAID
+                .Parameters.Add("@TotalAmount", SqlDbType.Decimal).Value = clsData.TotalAmount
+                .Parameters.Add("@Remarks", SqlDbType.VarChar, 250).Value = clsData.Remarks
+                .Parameters.Add("@CreatedBy", SqlDbType.VarChar, 20).Value = clsData.CreatedBy
+                .Parameters.Add("@VoucherNumber", SqlDbType.VarChar, 100).Value = clsData.VoucherNumber
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = clsData.ProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = clsData.CompanyID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub DeleteDataRemarks(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                            ByVal strParentID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "DELETE traARAPVoucher " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   ParentID=@ParentID " & vbNewLine
+
+                .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Function GetMaxIDVoucher(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal strNewID As String) As Integer
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim intReturn As Integer = 0
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ISNULL(RIGHT(ID, 4),'0000') AS ID " & vbNewLine &
+                        "FROM traARAPVoucher " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   LEFT(ID,@Length)=@ID " & vbNewLine &
+                        "ORDER BY ID DESC " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, strNewID.Length).Value = strNewID
+                    .Parameters.Add("@Length", SqlDbType.Int).Value = strNewID.Length
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        intReturn = .Item("ID")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return intReturn
+        End Function
+
+        Public Shared Function GetMaxVoucherNumber(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal strNewID As String) As Integer
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim intReturn As Integer = 0
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT TOP 1 " & vbNewLine &
+                        "   ISNULL(RIGHT(VoucherNumber, 4),'0000') AS ID " & vbNewLine &
+                        "FROM traARAPVoucher " & vbNewLine &
+                        "WHERE " & vbNewLine &
+                        "   LEFT(VoucherNumber,@Length)=@ID " & vbNewLine &
+                        "ORDER BY ID DESC " & vbNewLine
+
+                    .Parameters.Add("@ID", SqlDbType.VarChar, strNewID.Length).Value = strNewID
+                    .Parameters.Add("@Length", SqlDbType.Int).Value = strNewID.Length
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        intReturn = .Item("ID")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return intReturn
+        End Function
 
 #End Region
 

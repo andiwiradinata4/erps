@@ -217,6 +217,7 @@
     <Compile Include="ValueObject\ARAPInvoiceStatus.vb" />
     <Compile Include="ValueObject\ARAPItem.vb" />
     <Compile Include="ValueObject\ARAPRemarks.vb" />
+    <Compile Include="ValueObject\ARAPVoucher.vb" />
     <Compile Include="ValueObject\Base\Access.vb" />
     <Compile Include="ValueObject\Base\AppVersion.vb" />
     <Compile Include="ValueObject\Base\ChartOfAccount.vb" />
@@ -348,6 +349,7 @@
     <Compile Include="ValueObject\Stock.vb" />
     <Compile Include="ValueObject\StockIn.vb" />
     <Compile Include="ValueObject\StockOut.vb" />
+    <Compile Include="ValueObject\VoucherType.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

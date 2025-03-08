@@ -2420,5 +2420,37 @@ EndProcess:
 
 #End Region
 
+#Region "Voucher"
+
+        Public Shared Function ListDataVoucher(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                               ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime,
+                                               ByVal enumVoucherType As VO.VoucherType.Values) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.ARAP.ListDataVoucher(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo, enumVoucherType)
+            End Using
+        End Function
+
+        Public Shared Function GetNewIDVoucher(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                               ByVal dtmTransDate As DateTime, ByVal enumVoucherType As VO.VoucherType.Values,
+                                               ByVal intCoAID As Integer) As String
+
+        End Function
+
+        Public Shared Sub GenerateVoucher(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                          ByVal dtmTransDate As DateTime, ByVal enumVoucherType As VO.VoucherType.Values,
+                                          ByVal strParentID As String, ByVal strInvoiceNumber As String,
+                                          ByVal intCoAID As Integer, ByVal decTotalAmount As Decimal,
+                                          ByVal strRemarks As String, ByVal strCreatedBy As String)
+            Dim strNewID As String = ""
+        End Sub
+
+
+
+
+#End Region
+
     End Class
 End Namespace
