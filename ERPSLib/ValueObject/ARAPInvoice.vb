@@ -30,5 +30,6 @@
         Property Item As New List(Of VO.ARAPInvoiceItem)
         Property VoucherNumber As String
         Property VoucherDate As DateTime
+        Property Rounding As Decimal
     End Class
 End Namespace

@@ -130,6 +130,7 @@ Public Class frmTraARAPInvoiceDet
                 txtRemarks.Text = clsData.Remarks
                 txtPPN.Value = clsData.PPN
                 txtPPH.Value = clsData.PPH
+                txtRounding.Value = clsData.Rounding
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -149,11 +150,13 @@ Public Class frmTraARAPInvoiceDet
         txtTotalDPP.Value = 0
         txtTotalPPN.Value = 0
         txtTotalPPH.Value = 0
+        txtRounding.Value = 0
         txtTotalAmount.Value = 0
         cboStatus.SelectedValue = VO.Status.Values.Draft
         txtRemarks.Text = ""
         txtPPN.Value = decPPNPercentage
         txtPPH.Value = decPPHPercentage
+        txtRounding.Value = 0
     End Sub
 
     Private Sub prvChooseCOA()
@@ -180,10 +183,6 @@ Public Class frmTraARAPInvoiceDet
             txtTotalDPP.Focus()
             UI.usForm.frmMessageBox("Total DPP harus lebih besar dari 0")
             Exit Sub
-            'ElseIf intCoAID <= 0 Then
-            '    txtCoACode.Focus()
-            '    UI.usForm.frmMessageBox("Pilih Akun terlebih dahulu")
-            '    Exit Sub
         End If
 
         If Not UI.usForm.frmAskQuestion("Simpan data?") Then Exit Sub
@@ -219,7 +218,8 @@ Public Class frmTraARAPInvoiceDet
                 .StatusID = cboStatus.SelectedValue,
                 .ReferencesNumber = "",
                 .Item = listItem,
-                .LogBy = ERPSLib.UI.usUserApp.UserID
+                .LogBy = ERPSLib.UI.usUserApp.UserID,
+                .Rounding = txtRounding.Value
             }
 
         Try
@@ -284,7 +284,7 @@ Public Class frmTraARAPInvoiceDet
         txtTotalDPP.Value = decAmount
         txtTotalPPN.Value = decPPN
         txtTotalPPH.Value = decPPH
-        txtTotalAmount.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value
+        txtTotalAmount.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value + txtRounding.Value
     End Sub
 
     Private Sub prvChangeCheckedValue(ByVal bolValue As Boolean)
@@ -506,6 +506,10 @@ Public Class frmTraARAPInvoiceDet
                 prvCalculate()
             End If
         End With
+    End Sub
+
+    Private Sub txtRounding_ValueChanged(sender As Object, e As EventArgs) Handles txtRounding.ValueChanged
+        txtTotalAmount.Value = txtTotalDPP.Value + txtTotalPPN.Value - txtTotalPPH.Value + txtRounding.Value
     End Sub
 
 #End Region

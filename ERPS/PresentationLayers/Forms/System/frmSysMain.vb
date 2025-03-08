@@ -898,7 +898,7 @@
             frmMainTraARAPPayable.pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
             frmMainTraARAPPayable.pubModules = VO.AccountPayable.All
             frmMainTraARAPPayable.pubIsControlARAP = True
-            frmMainTraARAPReceivable.pubIsGenerate = 0
+            frmMainTraARAPPayable.pubIsGenerate = 0
             frmMainTraARAPPayable.Show()
         End If
         Me.Cursor = Cursors.Arrow

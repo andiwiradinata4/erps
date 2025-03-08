@@ -547,21 +547,6 @@ Public Class frmTraAPCost
         Try
             Dim sharedPrintout As New SharedLib.usSharedPrintout
             sharedPrintout.PrintCostBankOut(Me, strID, BL.AccountPayable.PrintCostBankOut(strID))
-
-            'Dim crReport As New rptCostBankOutVer00
-            'crReport.DataSource = BL.AccountPayable.PrintCostBankOut(strID)
-            'crReport.CreateDocument(True)
-            'crReport.ShowPreviewMarginLines = False
-            'crReport.ShowPrintMarginsWarning = False
-
-            'Dim frmDetail As New frmReportPreview
-            'With frmDetail
-            '    .docViewer.DocumentSource = crReport
-            '    .pgExportButton.Enabled = True
-            '    .Text = Me.Text & " - " & VO.Reports.PrintOut
-            '    .WindowState = FormWindowState.Maximized
-            '    .Show()
-            'End With
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally

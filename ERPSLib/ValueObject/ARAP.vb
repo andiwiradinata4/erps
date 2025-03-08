@@ -6,6 +6,9 @@
         Property BPID As Integer
         Property BPCode As String
         Property BPName As String
+        Property BPBankAccountID As Integer
+        Property BPBankAccountBank As String
+        Property BPBankAccountNumber As String
         Property CoAID As Integer
         Property CoACode As String
         Property CoAName As String
@@ -68,6 +71,9 @@
         Property IsFullDP As Boolean
         Property IsGenerate As Boolean
         Property Rounding As Decimal
+        Property InvoiceNumberBP As String = ""
+        Property InvoiceDateBP As DateTime = Today.Date
+        Property ReceiveDateInvoice As DateTime = Today.Date
 
         Enum ARAPTypeValue
             All

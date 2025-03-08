@@ -493,7 +493,10 @@
                                         .ReferencesParentID = cls.ReferencesParentID,
                                         .Quantity = cls.Quantity,
                                         .Weight = cls.Weight,
-                                        .TotalWeight = cls.TotalWeight
+                                        .TotalWeight = cls.TotalWeight,
+                                        .InvoiceNumberBP = cls.InvoiceNumberBP,
+                                        .InvoiceDate = cls.InvoiceDate,
+                                        .ReceiveDate = cls.ReceiveDate
                                     })
                         Next
 
@@ -528,6 +531,14 @@
                         clsData.PPNPercentage = clsDataARAP.PPNPercentage
                         clsData.PPHPercentage = clsDataARAP.PPHPercentage
                         clsData.IsFullDP = clsDataARAP.IsFullDP
+                        clsData.IsGenerate = clsDataARAP.IsGenerate
+                        clsData.Rounding = clsDataARAP.Rounding
+                        clsData.BPBankAccountID = clsDataARAP.BPBankAccountID
+                        clsData.BPBankAccountBank = clsDataARAP.BPBankAccountBank
+                        clsData.BPBankAccountNumber = clsDataARAP.BPBankAccountNumber
+                        clsData.InvoiceNumberBP = clsDataARAP.InvoiceNumberBP
+                        clsData.ReceiveDateInvoice = clsDataARAP.ReceiveDateInvoice
+                        clsData.InvoiceDateBP = clsDataARAP.InvoiceDateBP
 
                         BL.AccountReceivable.SaveDataVer02_ReceivePayment(sqlCon, sqlTrans, bolNew, clsData)
 
@@ -592,7 +603,10 @@
                                             .ReferencesParentID = cls.ReferencesParentID,
                                             .Quantity = cls.Quantity,
                                             .Weight = cls.Weight,
-                                            .TotalWeight = cls.TotalWeight
+                                            .TotalWeight = cls.TotalWeight,
+                                            .InvoiceNumberBP = cls.InvoiceNumberBP,
+                                            .InvoiceDate = cls.InvoiceDate,
+                                            .ReceiveDate = cls.ReceiveDate
                                         })
                         Next
 
@@ -628,6 +642,14 @@
                         clsData.PPNPercentage = clsDataARAP.PPNPercentage
                         clsData.PPHPercentage = clsDataARAP.PPHPercentage
                         clsData.IsFullDP = clsDataARAP.IsFullDP
+                        clsData.IsGenerate = clsDataARAP.IsGenerate
+                        clsData.Rounding = clsDataARAP.Rounding
+                        clsData.BPBankAccountID = clsDataARAP.BPBankAccountID
+                        clsData.BPBankAccountBank = clsDataARAP.BPBankAccountBank
+                        clsData.BPBankAccountNumber = clsDataARAP.BPBankAccountNumber
+                        clsData.InvoiceNumberBP = clsDataARAP.InvoiceNumberBP
+                        clsData.ReceiveDateInvoice = clsDataARAP.ReceiveDateInvoice
+                        clsData.InvoiceDateBP = clsDataARAP.InvoiceDateBP
 
                         BL.AccountPayable.SaveDataVer02_ReceivePayment(sqlCon, sqlTrans, bolNew, clsData)
 
@@ -768,6 +790,12 @@
                 clsReturn.ReferencesNumber = clsData.ReferencesNumber
                 clsReturn.IsFullDP = clsData.IsFullDP
                 clsReturn.IsGenerate = clsData.IsGenerate
+                clsReturn.InvoiceNumberBP = clsData.InvoiceNumberBP
+                clsReturn.InvoiceDateBP = clsData.InvoiceDateBP
+                clsReturn.ReceiveDateInvoice = clsData.ReceiveDateInvoice
+                clsReturn.BPBankAccountID = clsData.BPBankAccountID
+                clsReturn.BPBankAccountBank = clsData.BPBankAccountBank
+                clsReturn.BPBankAccountNumber = clsData.BPBankAccountNumber
                 clsReturn.Rounding = clsData.Rounding
                 Return clsReturn
             Else
@@ -840,6 +868,12 @@
                 clsReturn.ReferencesNumber = clsData.ReferencesNumber
                 clsReturn.IsFullDP = clsData.IsFullDP
                 clsReturn.IsGenerate = clsData.IsGenerate
+                clsReturn.InvoiceNumberBP = clsData.InvoiceNumberBP
+                clsReturn.InvoiceDateBP = clsData.InvoiceDateBP
+                clsReturn.ReceiveDateInvoice = clsData.ReceiveDateInvoice
+                clsReturn.BPBankAccountID = clsData.BPBankAccountID
+                clsReturn.BPBankAccountBank = clsData.BPBankAccountBank
+                clsReturn.BPBankAccountNumber = clsData.BPBankAccountNumber
                 clsReturn.Rounding = clsData.Rounding
                 Return clsReturn
             End If
@@ -1846,6 +1880,62 @@
                                                  })
                                 decTotalAmount += clsARAPInvoice.TotalPPH
                             End If
+
+                            '# Rounding
+                            If clsARAPInvoice.Rounding <> 0 Then
+                                intGroupID += 1
+
+                                '# Jika Rounding / Pembulatan Negatif Maka Nilai Bayar Lebih kecil dari Hutang sebelumnya, sehingga Kas terpakai lebih sedikit sehingga Kas bertambah
+                                If clsARAPInvoice.Rounding < 0 Then
+                                    '# Akun Kas / Bank -> Debit
+                                    clsJournalDetail.Add(New VO.JournalDet With
+                                                     {
+                                                         .CoAID = clsARAPInvoice.CoAID,
+                                                         .DebitAmount = Math.Abs(clsARAPInvoice.Rounding),
+                                                         .CreditAmount = 0,
+                                                         .Remarks = "PEMBULATAN TAGIHAN",
+                                                         .GroupID = intGroupID,
+                                                         .BPID = clsARAP.BPID
+                                                     })
+
+                                    '# Akun Beban Pembulatan -> Kredit
+                                    clsJournalDetail.Add(New VO.JournalDet With
+                                                     {
+                                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofRounding,
+                                                         .DebitAmount = 0,
+                                                         .CreditAmount = Math.Abs(clsARAPInvoice.Rounding),
+                                                         .Remarks = "PEMBULATAN TAGIHAN",
+                                                         .GroupID = intGroupID,
+                                                         .BPID = clsARAP.BPID
+                                                     })
+                                Else
+                                    '# Jika Rounding / Pembulatan Positif Maka Nilai Bayar Lebih Besar dari Hutang sebelumnya, sehingga Kas terpakai semakin banyak
+                                    '# Akun Beban Pembulatan -> Debit
+                                    clsJournalDetail.Add(New VO.JournalDet With
+                                                     {
+                                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofRounding,
+                                                         .DebitAmount = Math.Abs(clsARAPInvoice.Rounding),
+                                                         .CreditAmount = 0,
+                                                         .Remarks = "PEMBULATAN TAGIHAN",
+                                                         .GroupID = intGroupID,
+                                                         .BPID = clsARAP.BPID
+                                                     })
+
+                                    '# Akun Kas / Bank -> Kredit
+                                    clsJournalDetail.Add(New VO.JournalDet With
+                                                     {
+                                                         .CoAID = clsARAPInvoice.CoAID,
+                                                         .DebitAmount = 0,
+                                                         .CreditAmount = Math.Abs(clsARAPInvoice.Rounding),
+                                                         .Remarks = "PEMBULATAN TAGIHAN",
+                                                         .GroupID = intGroupID,
+                                                         .BPID = clsARAP.BPID
+                                                     })
+
+                                End If
+
+                                decTotalAmount += Math.Abs(clsARAPInvoice.Rounding)
+                            End If
                         Else
                             '# Akun Hutang Usaha -> Debit
                             clsJournalDetail.Add(New VO.JournalDet With
@@ -1898,6 +1988,61 @@
                                 decTotalAmount += clsARAPInvoice.TotalPPH
                             End If
 
+                            '# Rounding
+                            If clsARAPInvoice.Rounding <> 0 Then
+                                intGroupID += 1
+
+                                '# Jika Rounding / Pembulatan Negatif Maka Nilai Bayar Lebih kecil dari Hutang sebelumnya, sehingga Kas terpakai lebih sedikit sehingga Kas bertambah
+                                If clsARAPInvoice.Rounding < 0 Then
+                                    '# Akun Kas / Bank -> Debit
+                                    clsJournalDetail.Add(New VO.JournalDet With
+                                                     {
+                                                         .CoAID = clsARAPInvoice.CoAID,
+                                                         .DebitAmount = Math.Abs(clsARAPInvoice.Rounding),
+                                                         .CreditAmount = 0,
+                                                         .Remarks = "PEMBULATAN TAGIHAN",
+                                                         .GroupID = intGroupID,
+                                                         .BPID = clsARAP.BPID
+                                                     })
+
+                                    '# Akun Beban Pembulatan -> Kredit
+                                    clsJournalDetail.Add(New VO.JournalDet With
+                                                     {
+                                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofRounding,
+                                                         .DebitAmount = 0,
+                                                         .CreditAmount = Math.Abs(clsARAPInvoice.Rounding),
+                                                         .Remarks = "PEMBULATAN TAGIHAN",
+                                                         .GroupID = intGroupID,
+                                                         .BPID = clsARAP.BPID
+                                                     })
+                                Else
+                                    '# Jika Rounding / Pembulatan Positif Maka Nilai Bayar Lebih Besar dari Hutang sebelumnya, sehingga Kas terpakai semakin banyak
+                                    '# Akun Beban Pembulatan -> Debit
+                                    clsJournalDetail.Add(New VO.JournalDet With
+                                                     {
+                                                         .CoAID = ERPSLib.UI.usUserApp.JournalPost.CoAofRounding,
+                                                         .DebitAmount = Math.Abs(clsARAPInvoice.Rounding),
+                                                         .CreditAmount = 0,
+                                                         .Remarks = "PEMBULATAN TAGIHAN",
+                                                         .GroupID = intGroupID,
+                                                         .BPID = clsARAP.BPID
+                                                     })
+
+                                    '# Akun Kas / Bank -> Kredit
+                                    clsJournalDetail.Add(New VO.JournalDet With
+                                                     {
+                                                         .CoAID = clsARAPInvoice.CoAID,
+                                                         .DebitAmount = 0,
+                                                         .CreditAmount = Math.Abs(clsARAPInvoice.Rounding),
+                                                         .Remarks = "PEMBULATAN TAGIHAN",
+                                                         .GroupID = intGroupID,
+                                                         .BPID = clsARAP.BPID
+                                                     })
+
+                                End If
+
+                                decTotalAmount += Math.Abs(clsARAPInvoice.Rounding)
+                            End If
                         End If
                     End If
                 ElseIf clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Sales Then

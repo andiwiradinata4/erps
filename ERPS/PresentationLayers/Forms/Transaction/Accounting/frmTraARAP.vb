@@ -152,6 +152,7 @@ Public Class frmTraARAP
         UI.usForm.SetGrid(grdView, "TotalAmount", "Total DPP", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalPPN", "Total PPN", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalPPH", "Total PPH", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "Rounding", "Rounding", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "GrandTotal", "Grand Total", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalDPPInvoiceAmount", "Total DPP Invoice", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalPPNInvoiceAmount", "Total PPN Invoice", 100, UI.usDefGrid.gReal2Num)
@@ -1187,20 +1188,23 @@ Public Class frmTraARAP
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
         Try
-            Dim crReport As New rptCostBankOutVer00
-            crReport.DataSource = BL.AccountPayable.PrintCostBankOut(strID)
-            crReport.CreateDocument(True)
-            crReport.ShowPreviewMarginLines = False
-            crReport.ShowPrintMarginsWarning = False
+            Dim sharedPrintout As New SharedLib.usSharedPrintout
+            sharedPrintout.PrintCostBankOut(Me, strID, BL.AccountPayable.PrintCostBankOut(strID))
 
-            Dim frmDetail As New frmReportPreview
-            With frmDetail
-                .docViewer.DocumentSource = crReport
-                .pgExportButton.Enabled = True
-                .Text = Me.Text & " - " & VO.Reports.PrintOut
-                .WindowState = FormWindowState.Maximized
-                .Show()
-            End With
+            'Dim crReport As New rptCostBankOutVer00
+            'crReport.DataSource = BL.AccountPayable.PrintCostBankOut(strID)
+            'crReport.CreateDocument(True)
+            'crReport.ShowPreviewMarginLines = False
+            'crReport.ShowPrintMarginsWarning = False
+
+            'Dim frmDetail As New frmReportPreview
+            'With frmDetail
+            '    .docViewer.DocumentSource = crReport
+            '    .pgExportButton.Enabled = True
+            '    .Text = Me.Text & " - " & VO.Reports.PrintOut
+            '    .WindowState = FormWindowState.Maximized
+            '    .Show()
+            'End With
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally
@@ -1334,8 +1338,7 @@ Public Class frmTraARAP
             .Item(cSep3).Visible = False
             If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase Or (enumARAPType = VO.ARAP.ARAPTypeValue.Sales And strModules = VO.AccountReceivable.ReceivePaymentSalesReturn) Then .Item(cPrintPI).Visible = False : .Item(cPrintInvoice).Visible = False
             If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And strModules <> VO.AccountPayable.ReceivePaymentTransport Then .Item(cPrintPaymentBank).Visible = False
-            .Item(cPrintPaymentBank).Visible = strModules = VO.AccountPayable.ReceivePaymentTransport Or strModules = VO.AccountPayable.ReceivePaymentCutting
-
+            .Item(cPrintPaymentBank).Visible = strModules = VO.AccountPayable.ReceivePayment Or strModules = VO.AccountPayable.DownPayment
         End With
     End Sub
 

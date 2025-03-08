@@ -1915,7 +1915,7 @@ EndProcess:
 
                     End If
 
-                    decTotalAmount += clsData.Rounding
+                    decTotalAmount += Math.Abs(clsData.Rounding)
                 End If
 
                 Dim clsJournal As New VO.Journal With

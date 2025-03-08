@@ -95,6 +95,7 @@ Public Class frmTraARAPInvoice
         UI.usForm.SetGrid(grdView, "TotalDPP", "Total DPP Dibayar", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalPPN", "Total PPN Dibayar", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TotalPPH", "Total PPH Dibayar", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdView, "Rounding", "Rounding", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdView, "TaxInvoiceNumber", "No. Faktur Pajak", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "VoucherNumber", "No. Voucher", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "VoucherDate", "Tanggal Voucher", 100, UI.usDefGrid.gSmallDate, False)
@@ -207,7 +208,8 @@ Public Class frmTraARAPInvoice
             .LogDate = grdView.GetRowCellValue(intPos, "LogDate"),
             .LogInc = grdView.GetRowCellValue(intPos, "LogInc"),
             .VoucherDate = grdView.GetRowCellValue(intPos, "VoucherDate"),
-            .VoucherNumber = grdView.GetRowCellValue(intPos, "VoucherNumber")
+            .VoucherNumber = grdView.GetRowCellValue(intPos, "VoucherNumber"),
+            .Rounding = grdView.GetRowCellValue(intPos, "Rounding")
         }
     End Function
 

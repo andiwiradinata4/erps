@@ -97,6 +97,7 @@
                     DevelopOnProgress_ID88(sqlCon, sqlTrans)
                     CreateARAPVoucher_ID89(sqlCon, sqlTrans)
                     DevelopOnProgress_ID90(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID91(sqlCon, sqlTrans)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -2734,6 +2735,21 @@
                 "ALTER TABLE traAccountPayable ADD Rounding DECIMAL(18,4) NOT NULL CONSTRAINT DF_traAccountPayable_Rounding DEFAULT ((0))  " & vbNewLine &
                 "ALTER TABLE traAccountReceivable ADD Rounding DECIMAL(18,4) NOT NULL CONSTRAINT DF_traAccountReceivable_Rounding DEFAULT ((0))  " & vbNewLine &
                 "ALTER TABLE sysJournalPost ADD CoAofRounding INT NOT NULL CONSTRAINT DF_sysJournalPost_CoAofRounding DEFAULT ((0))  " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 91
+        Private Shared Sub DevelopOnProgress_ID91(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 91
+            clsData.Name = "Add Rounding in ARAP Invoice"
+            clsData.Scripts =
+                "ALTER TABLE traARAPInvoice ADD Rounding DECIMAL(18,4) NOT NULL CONSTRAINT DF_traARAPInvoice_Rounding DEFAULT ((0))  " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

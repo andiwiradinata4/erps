@@ -68,6 +68,8 @@ Partial Class frmTraARAPInvoiceDet
         Me.grdItem = New DevExpress.XtraGrid.GridControl()
         Me.grdItemView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.rpiValue = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.txtRounding = New ERPS.usNumeric()
+        Me.Label20 = New System.Windows.Forms.Label()
         CType(Me.txtTotalAmount, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalPPH, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtPPH, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -82,6 +84,7 @@ Partial Class frmTraARAPInvoiceDet
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtRounding, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblInfo
@@ -135,7 +138,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(27, 163)
+        Me.Label5.Location = New System.Drawing.Point(27, 190)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(38, 13)
         Me.Label5.TabIndex = 155
@@ -146,17 +149,17 @@ Partial Class frmTraARAPInvoiceDet
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(123, 159)
+        Me.cboStatus.Location = New System.Drawing.Point(123, 186)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(118, 21)
-        Me.cboStatus.TabIndex = 8
+        Me.cboStatus.TabIndex = 9
         '
         'Label15
         '
         Me.Label15.AutoSize = True
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.ForeColor = System.Drawing.Color.Black
-        Me.Label15.Location = New System.Drawing.Point(27, 136)
+        Me.Label15.Location = New System.Drawing.Point(27, 163)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(62, 13)
         Me.Label15.TabIndex = 125
@@ -167,12 +170,12 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtTotalAmount.BackColor = System.Drawing.Color.LightYellow
         Me.txtTotalAmount.DecimalPlaces = 2
         Me.txtTotalAmount.Enabled = False
-        Me.txtTotalAmount.Location = New System.Drawing.Point(123, 132)
+        Me.txtTotalAmount.Location = New System.Drawing.Point(123, 159)
         Me.txtTotalAmount.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalAmount.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalAmount.Name = "txtTotalAmount"
         Me.txtTotalAmount.Size = New System.Drawing.Size(249, 21)
-        Me.txtTotalAmount.TabIndex = 7
+        Me.txtTotalAmount.TabIndex = 8
         Me.txtTotalAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotalAmount.ThousandsSeparator = True
         '
@@ -233,7 +236,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtPPH.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtPPH.Name = "txtPPH"
         Me.txtPPH.Size = New System.Drawing.Size(77, 21)
-        Me.txtPPH.TabIndex = 11
+        Me.txtPPH.TabIndex = 12
         Me.txtPPH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtPPH.ThousandsSeparator = True
         '
@@ -319,7 +322,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtPPN.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtPPN.Name = "txtPPN"
         Me.txtPPN.Size = New System.Drawing.Size(77, 21)
-        Me.txtPPN.TabIndex = 10
+        Me.txtPPN.TabIndex = 11
         Me.txtPPN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtPPN.ThousandsSeparator = True
         '
@@ -353,7 +356,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtCoACode.Name = "txtCoACode"
         Me.txtCoACode.ReadOnly = True
         Me.txtCoACode.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACode.TabIndex = 12
+        Me.txtCoACode.TabIndex = 13
         '
         'btnCoA
         '
@@ -362,7 +365,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.btnCoA.Location = New System.Drawing.Point(782, 76)
         Me.btnCoA.Name = "btnCoA"
         Me.btnCoA.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoA.TabIndex = 14
+        Me.btnCoA.TabIndex = 15
         '
         'Label2
         '
@@ -384,7 +387,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtCoAName.Name = "txtCoAName"
         Me.txtCoAName.ReadOnly = True
         Me.txtCoAName.Size = New System.Drawing.Size(167, 21)
-        Me.txtCoAName.TabIndex = 13
+        Me.txtCoAName.TabIndex = 14
         '
         'Label13
         '
@@ -406,7 +409,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.txtRemarks.Multiline = True
         Me.txtRemarks.Name = "txtRemarks"
         Me.txtRemarks.Size = New System.Drawing.Size(249, 48)
-        Me.txtRemarks.TabIndex = 15
+        Me.txtRemarks.TabIndex = 16
         '
         'dtpInvoiceDate
         '
@@ -416,7 +419,7 @@ Partial Class frmTraARAPInvoiceDet
         Me.dtpInvoiceDate.Location = New System.Drawing.Point(527, 24)
         Me.dtpInvoiceDate.Name = "dtpInvoiceDate"
         Me.dtpInvoiceDate.Size = New System.Drawing.Size(127, 21)
-        Me.dtpInvoiceDate.TabIndex = 9
+        Me.dtpInvoiceDate.TabIndex = 10
         Me.dtpInvoiceDate.Value = New Date(2019, 5, 1, 0, 0, 0, 0)
         '
         'Label6
@@ -469,6 +472,8 @@ Partial Class frmTraARAPInvoiceDet
         'tpMain
         '
         Me.tpMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.tpMain.Controls.Add(Me.txtRounding)
+        Me.tpMain.Controls.Add(Me.Label20)
         Me.tpMain.Controls.Add(Me.txtInvoiceNumber)
         Me.tpMain.Controls.Add(Me.chkChangeTotalPPH)
         Me.tpMain.Controls.Add(Me.Label6)
@@ -632,6 +637,30 @@ Partial Class frmTraARAPInvoiceDet
         Me.rpiValue.Name = "rpiValue"
         Me.rpiValue.NullText = "0.00"
         '
+        'txtRounding
+        '
+        Me.txtRounding.BackColor = System.Drawing.Color.White
+        Me.txtRounding.DecimalPlaces = 2
+        Me.txtRounding.Location = New System.Drawing.Point(123, 132)
+        Me.txtRounding.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtRounding.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtRounding.Name = "txtRounding"
+        Me.txtRounding.Size = New System.Drawing.Size(249, 21)
+        Me.txtRounding.TabIndex = 7
+        Me.txtRounding.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtRounding.ThousandsSeparator = True
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.BackColor = System.Drawing.Color.Transparent
+        Me.Label20.ForeColor = System.Drawing.Color.Black
+        Me.Label20.Location = New System.Drawing.Point(27, 136)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(63, 13)
+        Me.Label20.TabIndex = 200
+        Me.Label20.Text = "Pembulatan"
+        '
         'frmTraARAPInvoiceDet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -662,6 +691,7 @@ Partial Class frmTraARAPInvoiceDet
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.rpiValue, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtRounding, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -712,4 +742,6 @@ Partial Class frmTraARAPInvoiceDet
     Friend WithEvents grdItem As DevExpress.XtraGrid.GridControl
     Friend WithEvents grdItemView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents rpiValue As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents txtRounding As ERPS.usNumeric
+    Friend WithEvents Label20 As System.Windows.Forms.Label
 End Class

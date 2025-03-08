@@ -240,7 +240,7 @@
                         "   A.LogInc, A.LogBy, A.LogDate, A.TotalPPN, A.TotalPPH, A.IsDP, A.DPAmount, A.ReceiveAmount, A.TotalAmountUsed, A.JournalIDInvoice, A.InvoiceNumberBP, A.IsUseSubItem, " & vbNewLine &
                         "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, A.PPNPercentage, A.PPHPercentage, " & vbNewLine &
                         "   A.PPNPercentage, A.PPHPercentage, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, A.ReferencesNumber, A.IsFullDP, A.IsGenerate, " & vbNewLine &
-                        "   A.BPBankAccountID, ISNULL(BPBA.BankName,'') AS BPBankAccountBank, ISNULL(BPBA.AccountNumber,'') AS BPBankAccountNumber, A.InvoiceNumberBP, A.InvoiceDateBP, A.ReceiveDateInvoice, A.IsGenerate, A.Rounding " & vbNewLine &
+                        "   A.BPBankAccountID, ISNULL(BPBA.BankName,'') AS BPBankAccountBank, ISNULL(BPBA.AccountNumber,'') AS BPBankAccountNumber, A.InvoiceDateBP, A.ReceiveDateInvoice, A.Rounding " & vbNewLine &
                         "FROM traAccountPayable A " & vbNewLine &
                         "INNER JOIN mstStatus B ON " & vbNewLine &
                         "   A.StatusID=B.ID " & vbNewLine &
@@ -335,7 +335,6 @@
                         voReturn.BPBankAccountNumber = .Item("BPBankAccountNumber")
                         voReturn.InvoiceDateBP = .Item("InvoiceDateBP")
                         voReturn.ReceiveDateInvoice = .Item("ReceiveDateInvoice")
-                        voReturn.IsGenerate = .Item("IsGenerate")
                         voReturn.Rounding = .Item("Rounding")
                     End If
                 End With

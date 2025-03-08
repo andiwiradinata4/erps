@@ -813,7 +813,7 @@
                     "	ARI.ID, ARI.ParentID, ARI.InvoiceNumber, ARI.InvoiceDate, ARI.CoAID, ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName, " & vbNewLine &
                     "	ARI.PPN, ARI.PPH, ARI.TotalAmount, ARI.TotalDPP, ARI.TotalPPN, ARI.TotalPPH, ARI.TaxInvoiceNumber, ARI.InvoiceNumberExternal, " & vbNewLine &
                     "	ARI.SubmitBy, ARI.SubmitDate, ARI.ApprovedBy, ARI.ApprovedDate, ARI.IsDeleted, ARI.Remarks, ARI.CreatedBy, ARI.CreatedDate, " & vbNewLine &
-                    "	ARI.LogBy, ARI.LogDate, ARI.LogInc, ARI.VoucherNumber, ARI.VoucherDate " & vbNewLine &
+                    "	ARI.LogBy, ARI.LogDate, ARI.LogInc, ARI.VoucherNumber, ARI.VoucherDate, ARI.Rounding " & vbNewLine &
                     "FROM traARAPInvoice ARI " & vbNewLine &
                     "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
                     "	ARI.CoAID=COA.ID " & vbNewLine &
@@ -836,9 +836,9 @@
                 If bolNew Then
                     .CommandText =
                     "INSERT INTO traARAPInvoice " & vbNewLine &
-                    "   (ID, ParentID, InvoiceNumber, InvoiceDate, CoAID, PPN, PPH, TotalAmount, TotalDPP, TotalPPN, TotalPPH, StatusID, ReferencesNumber, CreatedBy) " & vbNewLine &
+                    "   (ID, ParentID, InvoiceNumber, InvoiceDate, CoAID, PPN, PPH, TotalAmount, TotalDPP, TotalPPN, TotalPPH, StatusID, ReferencesNumber, CreatedBy, Rounding) " & vbNewLine &
                     "VALUES " & vbNewLine &
-                    "   (@ID, @ParentID, @InvoiceNumber, @InvoiceDate, @CoAID, @PPN, @PPH, @TotalAmount, @TotalDPP, @TotalPPN, @TotalPPH, @StatusID, @ReferencesNumber, @LogBy) " & vbNewLine
+                    "   (@ID, @ParentID, @InvoiceNumber, @InvoiceDate, @CoAID, @PPN, @PPH, @TotalAmount, @TotalDPP, @TotalPPN, @TotalPPH, @StatusID, @ReferencesNumber, @LogBy, @Rounding) " & vbNewLine
                 Else
                     .CommandText =
                     "UPDATE traARAPInvoice SET " & vbNewLine &
@@ -857,7 +857,8 @@
                     "   ReferencesNumber=@ReferencesNumber, " & vbNewLine &
                     "   LogBy=@LogBy, " & vbNewLine &
                     "   LogDate=GETDATE(), " & vbNewLine &
-                    "   LogInc=LogInc+1 " & vbNewLine &
+                    "   LogInc=LogInc+1, " & vbNewLine &
+                    "   Rounding=@Rounding " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "   ID=@ID " & vbNewLine
                 End If
@@ -873,9 +874,10 @@
                 .Parameters.Add("@TotalDPP", SqlDbType.Decimal).Value = clsData.TotalDPP
                 .Parameters.Add("@TotalPPN", SqlDbType.Decimal).Value = clsData.TotalPPN
                 .Parameters.Add("@TotalPPH", SqlDbType.Decimal).Value = clsData.TotalPPH
-                .Parameters.Add("@StatusID", SqlDbType.Decimal).Value = clsData.StatusID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = clsData.StatusID
                 .Parameters.Add("@ReferencesNumber", SqlDbType.VarChar, 100).Value = clsData.ReferencesNumber
                 .Parameters.Add("@LogBy", SqlDbType.VarChar, 20).Value = clsData.LogBy
+                .Parameters.Add("@Rounding", SqlDbType.Decimal).Value = clsData.Rounding
             End With
             Try
                 SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
@@ -1093,7 +1095,7 @@
                         "	ARI.ID, ARI.ParentID, ARI.InvoiceNumber, ARI.InvoiceDate, ARI.CoAID, ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName, " & vbNewLine &
                         "	ARI.PPN, ARI.PPH, ARI.TotalAmount, ARI.TotalDPP, ARI.TotalPPN, ARI.TotalPPH, ARI.StatusID, ARI.IsDeleted, ARI.ReferencesNumber, " & vbNewLine &
                         "   ARI.TaxInvoiceNumber, ARI.InvoiceNumberExternal, ARI.SubmitBy, ARI.SubmitDate, ARI.ApproveL1, ARI.ApproveL1Date, ARI.ApprovedBy, ARI.ApprovedDate, " & vbNewLine &
-                        "   ARI.JournalID, ARI.Remarks, ARI.CreatedBy, ARI.CreatedDate, ARI.LogBy, ARI.LogDate, ARI.LogInc, ARI.PaymentDate " & vbNewLine &
+                        "   ARI.JournalID, ARI.Remarks, ARI.CreatedBy, ARI.CreatedDate, ARI.LogBy, ARI.LogDate, ARI.LogInc, ARI.PaymentDate, ARI.Rounding " & vbNewLine &
                         "FROM traARAPInvoice ARI " & vbNewLine &
                         "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
                         "	ARI.CoAID=COA.ID " & vbNewLine &
@@ -1138,6 +1140,7 @@
                         voReturn.LogDate = .Item("LogDate")
                         voReturn.LogInc = .Item("LogInc")
                         voReturn.PaymentDate = .Item("PaymentDate")
+                        voReturn.Rounding = .Item("Rounding")
                     End If
                 End With
             Catch ex As Exception

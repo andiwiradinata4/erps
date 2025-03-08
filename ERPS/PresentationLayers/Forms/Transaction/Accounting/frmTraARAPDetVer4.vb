@@ -27,6 +27,7 @@ Public Class frmTraARAPDetVer4
     Private decPPNPercentage As Decimal = 0
     Private decPPHPercentage As Decimal = 0
     Private bolIsControlARAP As Boolean = False
+    Private intBPBankAccountID As Integer = 0
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -242,7 +243,9 @@ Public Class frmTraARAPDetVer4
                 ToolStripLogBy.Text = "Dibuat Oleh : " & clsData.LogBy
                 ToolStripLogDate.Text = Format(clsData.LogDate, UI.usDefCons.DateFull)
                 chkIsFullDP.Checked = clsData.IsFullDP
-                'dtpARAPDate.Enabled = False
+                txtInvoiceNumberBP.Text = clsData.InvoiceNumberBP
+                dtpReceiveDate.Value = clsData.ReceiveDateInvoice
+                dtpInvoiceDate.Value = clsData.InvoiceDateBP
 
                 If intBPID = 0 Then
                     intBPID = clsData.BPID
@@ -250,10 +253,15 @@ Public Class frmTraARAPDetVer4
                     strBPName = clsData.BPName
                 End If
 
+                intBPBankAccountID = clsData.BPBankAccountID
+                txtBPBankAccountBank.Text = clsData.BPBankAccountBank
+                txtBPBankAccountNumber.Text = clsData.BPBankAccountNumber
+
                 If strReferencesNumber.Trim = "" Then
                     strReferencesID = clsData.ReferencesID
                     strReferencesNumber = clsData.ReferencesNote
                 End If
+                txtRounding.Value = clsData.Rounding
             End If
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -411,7 +419,10 @@ Public Class frmTraARAPDetVer4
                            .ReferencesParentID = dr.Item("ReferencesParentID"),
                            .Quantity = dr.Item("Quantity"),
                            .Weight = dr.Item("Weight"),
-                           .TotalWeight = dr.Item("TotalWeight")
+                           .TotalWeight = dr.Item("TotalWeight"),
+                           .InvoiceNumberBP = txtInvoiceNumberBP.Text.Trim,
+                           .ReceiveDate = dtpReceiveDate.Value.Date,
+                           .InvoiceDate = dtpInvoiceDate.Value.Date
                        })
         Next
 
@@ -434,6 +445,11 @@ Public Class frmTraARAPDetVer4
         clsData.CompanyID = clsCS.CompanyID
         clsData.TransNumber = txtARAPNumber.Text.Trim
         clsData.BPID = intBPID
+        clsData.BPCode = txtBPCode.Text.Trim
+        clsData.BPName = txtBPName.Text.Trim
+        clsData.BPBankAccountID = intBPBankAccountID
+        clsData.BPBankAccountBank = txtBPBankAccountBank.Text.Trim
+        clsData.BPBankAccountNumber = txtBPBankAccountNumber.Text.Trim
         clsData.CoAID = intCoAID
         clsData.ReferencesID = strReferencesID.Trim
         clsData.ReferencesNumber = txtReferencesNumber.Text.Trim
@@ -460,6 +476,10 @@ Public Class frmTraARAPDetVer4
         clsData.PPNPercentage = decPPNPercentage
         clsData.PPHPercentage = decPPHPercentage
         clsData.IsFullDP = chkIsFullDP.Checked
+        clsData.InvoiceNumberBP = txtInvoiceNumberBP.Text.Trim
+        clsData.InvoiceDateBP = dtpInvoiceDate.Value.Date
+        clsData.ReceiveDateInvoice = dtpReceiveDate.Value.Date
+        clsData.Rounding = txtRounding.Value
         pgMain.Value = 60
 
         Try
@@ -493,6 +513,9 @@ Public Class frmTraARAPDetVer4
         If Not bolIsLookup Then txtBPName.Text = ""
         If Not bolIsLookup Then strReferencesID = ""
         If Not bolIsLookup Then txtReferencesNumber.Text = ""
+        If Not bolIsLookup Then intBPBankAccountID = 0
+        If Not bolIsLookup Then txtBPBankAccountBank.Text = ""
+        If Not bolIsLookup Then txtBPBankAccountNumber.Text = ""
         intCoAID = 0
         txtCoACode.Text = ""
         txtCoAName.Text = ""
@@ -508,8 +531,12 @@ Public Class frmTraARAPDetVer4
         ToolStripLogInc.Text = "Jumlah Edit : -"
         ToolStripLogBy.Text = "Dibuat Oleh : -"
         ToolStripLogDate.Text = Format(Now, UI.usDefCons.DateFull)
+        txtRounding.Value = 0
         txtGrandTotal.Value = 0
         chkIsFullDP.Checked = False
+        txtInvoiceNumberBP.Text = ""
+        dtpReceiveDate.Value = Today.Date
+        dtpInvoiceDate.Value = Today.Date
     End Sub
 
     Private Sub prvChooseBP()
@@ -522,6 +549,9 @@ Public Class frmTraARAPDetVer4
                 If intBPID <> .pubLUdtRow.Item("ID") Then
                     strReferencesID = ""
                     txtReferencesNumber.Text = ""
+                    intBPBankAccountID = 0
+                    txtBPBankAccountBank.Text = ""
+                    txtBPBankAccountNumber.Text = ""
                 End If
 
                 intBPID = .pubLUdtRow.Item("ID")
@@ -534,8 +564,24 @@ Public Class frmTraARAPDetVer4
         End With
     End Sub
 
-    Private Sub prvChooseReferences()
-
+    Private Sub prvChooseBPBankAccount()
+        If intBPID = 0 Then
+            UI.usForm.frmMessageBox("Pilih rekan bisnis terlebih dahulu")
+            Exit Sub
+        End If
+        Dim frmDetail As New frmMstBusinessPartnerBankAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .pubBPID = intBPID
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intBPBankAccountID = .pubLUdtRow.Item("ID")
+                txtBPBankAccountBank.Text = .pubLUdtRow.Item("BankName")
+                txtBPBankAccountNumber.Text = .pubLUdtRow.Item("AccountNumber")
+                txtDueDateValue.Focus()
+            End If
+        End With
     End Sub
 
     Private Sub prvChooseCOA()
@@ -646,20 +692,11 @@ Public Class frmTraARAPDetVer4
             grdItemView.BestFitColumns()
         End With
 
-
-
-        'For Each dr As DataRow In dtItem.Rows
-        '    If Not dr.Item("Pick") Then Continue For
-        '    decDPAllocate += dr.Item("DPAmount")
-        '    decAmount += dr.Item("Amount")
-        '    decPPN += dr.Item("PPN")
-        '    decPPH += dr.Item("PPH")
-        'Next
         txtDPAllocate.Value = decDPAllocate
         txtTotalAmount.Value = decAmount
         txtTotalPPN.Value = decPPN
         txtTotalPPH.Value = decPPH
-        txtGrandTotal.Value = decAmount + decPPN - decPPH
+        txtGrandTotal.Value = decAmount + decPPN - decPPH + txtRounding.Value
     End Sub
 
     Private Sub prvChangeCheckedValue(ByVal bolValue As Boolean)
@@ -950,11 +987,14 @@ Public Class frmTraARAPDetVer4
     End Sub
 
     Private Sub btnReferences_Click(sender As Object, e As EventArgs) Handles btnReferences.Click
-        prvChooseReferences()
     End Sub
 
     Private Sub btnCoAOfOutgoingPayment_Click(sender As Object, e As EventArgs) Handles btnCoAOfOutgoingPayment.Click
         prvChooseCOA()
+    End Sub
+
+    Private Sub btnBPBankAccount_Click(sender As Object, e As EventArgs) Handles btnBPBankAccount.Click
+        prvChooseBPBankAccount()
     End Sub
 
     Private Sub grdItemView_ValidatingEditor(sender As Object, e As DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventArgs) Handles grdItemView.ValidatingEditor
@@ -1064,6 +1104,10 @@ Public Class frmTraARAPDetVer4
                 End If
             End If
         End With
+    End Sub
+
+    Private Sub txtRounding_ValueChanged(sender As Object, e As EventArgs) Handles txtRounding.ValueChanged
+        txtGrandTotal.Value = txtTotalAmount.Value + txtTotalPPN.Value - txtTotalPPH.Value + txtRounding.Value
     End Sub
 
 #End Region
