@@ -1816,6 +1816,10 @@ EndProcess:
 
                 '# Update Journal ID in Account Receivable
                 DL.AccountReceivable.UpdateJournalIDInvoice(sqlCon, sqlTrans, clsData.ID, strJournalID)
+
+                '# Generate Voucher
+                BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsData.ProgramID, clsData.CompanyID, clsData.PaymentDate, VO.VoucherType.Values.BankOut, clsData.ID, clsData.InvoiceNumberBP, clsData.CoAIDOfIncomePayment, clsData.ReceiveAmount + clsData.TotalPPN - clsData.TotalPPH + clsData.Rounding, "", ERPSLib.UI.usUserApp.UserID)
+
 EndProcess:
             Catch ex As Exception
                 Throw ex

@@ -2768,8 +2768,9 @@
                 "ALTER TABLE traARAPVoucher ADD ProgramID INT NOT NULL CONSTRAINT DF_traARAPVoucher_ProgramID DEFAULT ((0))  " & vbNewLine &
                 "ALTER TABLE traARAPVoucher ADD CompanyID INT NOT NULL CONSTRAINT DF_traARAPVoucher_CompanyID DEFAULT ((0))  " & vbNewLine &
                 "ALTER TABLE traARAPVoucher ADD VoucherNumber VARCHAR(100) NOT NULL CONSTRAINT DF_traARAPVoucher_VoucherNumber DEFAULT ('')  " & vbNewLine &
-                "INSERT INTO mstVoucherType (ID, Name) VALUES (1, 'BANK IN') " & vbNewLine &
-                "INSERT INTO mstVoucherType (ID, Name) VALUES (2, 'BANK OUT') " & vbNewLine
+                "ALTER TABLE mstVoucherType ADD Initial VARCHAR(100) NOT NULL CONSTRAINT DF_mstVoucherType_Initial DEFAULT ('')  " & vbNewLine &
+                "INSERT INTO mstVoucherType (ID, Name) VALUES (1, 'BANK IN', 'BI') " & vbNewLine &
+                "INSERT INTO mstVoucherType (ID, Name) VALUES (2, 'BANK OUT', 'BO') " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

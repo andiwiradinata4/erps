@@ -1440,6 +1440,7 @@
                 '# Generate Journal
                 Dim clsData As VO.AccountPayable = DL.AccountPayable.GetDetail(sqlCon, sqlTrans, strID)
                 If Not clsData.IsDP Then GenerateJournalInvoice(sqlCon, sqlTrans, strID)
+
                 bolReturn = True
             Catch ex As Exception
                 Throw ex
@@ -1500,6 +1501,9 @@
 
                 '# Save Data Status
                 BL.AccountPayable.SaveDataStatus(sqlCon, sqlTrans, clsData.ID, "BATAL PROSES PEMBAYARAN", ERPSLib.UI.usUserApp.UserID, clsData.Remarks)
+
+                '# Delete Voucher
+                DL.ARAP.DeleteDataVoucher(sqlCon, sqlTrans, clsData.ID)
 
                 bolReturn = True
             Catch ex As Exception
@@ -1947,8 +1951,8 @@ EndProcess:
                 DL.AccountPayable.UpdateJournalIDInvoice(sqlCon, sqlTrans, clsData.ID, strJournalID)
 
                 '# Generate Voucher
-                BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsData.ProgramID, clsData.CompanyID, clsData.PaymentDate, VO.VoucherType.Values.BankOut, clsData.ID, clsData.InvoiceNumberBP, clsData.CoAIDOfOutgoingPayment, clsData.ReceiveAmount + clsData.TotalPPN - clsData.TotalPPH + clsData.Rounding, "", ERPSLib.UI.usUserApp.UserID)
-
+                Dim clsCOA As VO.ChartOfAccount = DL.ChartOfAccount.GetDetail(sqlCon, sqlTrans, clsData.CoAIDOfOutgoingPayment)
+                BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsData.ProgramID, clsData.CompanyID, clsData.PaymentDate, VO.VoucherType.Values.BankOut, clsData.ID, clsData.InvoiceNumberBP, clsData.CoAIDOfOutgoingPayment, clsData.ReceiveAmount + clsData.TotalPPN - clsData.TotalPPH + clsData.Rounding, "PEMBAYARAN " & clsCOA.Name, ERPSLib.UI.usUserApp.UserID)
 EndProcess:
             Catch ex As Exception
                 Throw ex

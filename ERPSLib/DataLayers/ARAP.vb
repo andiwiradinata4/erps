@@ -2307,11 +2307,14 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT " & vbNewLine &
-                    "   A.ID, A.VoucherNumber, A.TransDate, A.VoucherType, B.Name AS VoucherTypeName, A.ParentID, " & vbNewLine &
-                    "   A.InvoiceNumber, A.CoAID, A.TotalAmount, A.Remarks, A.CreatedBy, A.CreatedDate " & vbNewLine &
+                    "   A.ProgramID, A.CompanyID, A.ID, A.VoucherNumber, A.TransDate, A.VoucherType, B.Name AS VoucherTypeName, A.ParentID, " & vbNewLine &
+                    "   A.InvoiceNumber, A.CoAID, COA.Code AS CoACode, COA.Name AS CoAName, A.TotalAmount, A.Remarks, " & vbNewLine &
+                    "   A.CreatedBy, A.CreatedDate " & vbNewLine &
                     "FROM traARAPVoucher A " & vbNewLine &
                     "INNER JOIN mstVoucherType B ON " & vbNewLine &
                     "    A.VoucherType=B.ID " & vbNewLine &
+                    "INNER JOIN mstChartOfAccount COA ON " & vbNewLine &
+                    "    A.CoAID=COA.ID " & vbNewLine &
                     "WHERE " & vbNewLine &
                     "	A.ProgramID=@ProgramID " & vbNewLine &
                     "	AND A.CompanyID=@CompanyID " & vbNewLine &
@@ -2361,7 +2364,7 @@
             End Try
         End Sub
 
-        Public Shared Sub DeleteDataRemarks(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+        Public Shared Sub DeleteDataVoucher(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                             ByVal strParentID As String)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
@@ -2383,6 +2386,7 @@
         End Sub
 
         Public Shared Function GetMaxIDVoucher(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                                ByVal strNewID As String) As Integer
             Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim intReturn As Integer = 0
@@ -2396,9 +2400,13 @@
                         "   ISNULL(RIGHT(ID, 4),'0000') AS ID " & vbNewLine &
                         "FROM traARAPVoucher " & vbNewLine &
                         "WHERE " & vbNewLine &
-                        "   LEFT(ID,@Length)=@ID " & vbNewLine &
+                        "   ProgramID=@ProgramID " & vbNewLine &
+                        "   AND CompanyID=@CompanyID " & vbNewLine &
+                        "   AND LEFT(ID,@Length)=@ID " & vbNewLine &
                         "ORDER BY ID DESC " & vbNewLine
 
+                    .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                    .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                     .Parameters.Add("@ID", SqlDbType.VarChar, strNewID.Length).Value = strNewID
                     .Parameters.Add("@Length", SqlDbType.Int).Value = strNewID.Length
                 End With
@@ -2418,6 +2426,7 @@
         End Function
 
         Public Shared Function GetMaxVoucherNumber(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                                    ByVal strNewID As String) As Integer
             Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
             Dim intReturn As Integer = 0
@@ -2431,9 +2440,13 @@
                         "   ISNULL(RIGHT(VoucherNumber, 4),'0000') AS ID " & vbNewLine &
                         "FROM traARAPVoucher " & vbNewLine &
                         "WHERE " & vbNewLine &
-                        "   LEFT(VoucherNumber,@Length)=@ID " & vbNewLine &
+                        "   ProgramID=@ProgramID " & vbNewLine &
+                        "   AND CompanyID=@CompanyID " & vbNewLine &
+                        "   AND LEFT(VoucherNumber,@Length)=@ID " & vbNewLine &
                         "ORDER BY ID DESC " & vbNewLine
 
+                    .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                    .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
                     .Parameters.Add("@ID", SqlDbType.VarChar, strNewID.Length).Value = strNewID
                     .Parameters.Add("@Length", SqlDbType.Int).Value = strNewID.Length
                 End With

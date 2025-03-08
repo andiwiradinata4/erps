@@ -2,6 +2,7 @@
     Public Class VoucherType
         Property ID As Integer
         Property Name As String
+        Property Initial As String
         Property Remarks As String
         Property CreatedBy As String
         Property CreatedDate As DateTime

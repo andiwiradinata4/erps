@@ -301,6 +301,9 @@
                     '# Update Journal ID in Cost
                     DL.Cost.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
 
+                    '# Generate Voucher
+                    BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsData.ProgramID, clsData.CompanyID, clsData.PaymentDate, VO.VoucherType.Values.BankOut, clsData.ID, clsData.CostNumber, clsData.CoAID, clsData.TotalDPP + clsData.TotalPPN - clsData.TotalPPH, "PEMBAYARAN BIAYA", ERPSLib.UI.usUserApp.UserID)
+
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -340,6 +343,9 @@
 
                     '# Save Data Status
                     BL.Cost.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL APPROVE", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+                    '# Delete Voucher
+                    DL.ARAP.DeleteDataVoucher(sqlCon, sqlTrans, strID)
 
                     sqlTrans.Commit()
                 Catch ex As Exception

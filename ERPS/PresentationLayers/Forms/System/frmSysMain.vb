@@ -69,6 +69,7 @@
     Dim frmMainTraAccountPayable As frmTraAccountPayable
 
     Dim frmMainTraCost As frmTraCost
+    Dim frmMainTraARAPVoucher As frmTraARAPVoucher
     Dim frmMainTraJournal As frmTraJournal
     Dim frmMainTraJournalAutoGenerate As frmTraJournalAutoGenerate
 
@@ -940,6 +941,10 @@
 
     Private Sub mnuTransaksiPembukuanPembayaranBiaya_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanPembayaranBiaya.Click
         UI.usForm.frmOpen(frmMainTraCost, "frmTraCost", Me)
+    End Sub
+
+    Private Sub mnuTransaksiPembukuanKasBankVoucher_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanKasBankVoucher.Click
+        UI.usForm.frmOpen(frmMainTraARAPVoucher, "frmTraARAPVoucher", Me)
     End Sub
 
     Private Sub mnuTransaksiPembukuanJurnalUmum_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPembukuanJurnalUmum.Click
