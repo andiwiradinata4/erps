@@ -1952,7 +1952,7 @@ EndProcess:
 
                 '# Generate Voucher
                 Dim clsCOA As VO.ChartOfAccount = DL.ChartOfAccount.GetDetail(sqlCon, sqlTrans, clsData.CoAIDOfOutgoingPayment)
-                BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsData.ProgramID, clsData.CompanyID, clsData.PaymentDate, VO.VoucherType.Values.BankOut, clsData.ID, clsData.InvoiceNumberBP, clsData.CoAIDOfOutgoingPayment, clsData.ReceiveAmount + clsData.TotalPPN - clsData.TotalPPH + clsData.Rounding, "PEMBAYARAN " & clsCOA.Name, ERPSLib.UI.usUserApp.UserID)
+                BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsData.ProgramID, clsData.CompanyID, clsData.PaymentDate, VO.VoucherType.Values.BankOut, clsData.ID, IIf(clsData.InvoiceNumberBP = "", clsData.APNumber, clsData.InvoiceNumberBP), clsData.CoAIDOfOutgoingPayment, clsData.ReceiveAmount + clsData.TotalPPN - clsData.TotalPPH + clsData.Rounding, "PEMBAYARAN " & clsCOA.Name, ERPSLib.UI.usUserApp.UserID)
 EndProcess:
             Catch ex As Exception
                 Throw ex

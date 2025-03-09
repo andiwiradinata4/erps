@@ -26,7 +26,7 @@ Public Class frmTraARAPVoucher
         UI.usForm.SetGrid(grdView, "VoucherType", "VoucherType", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "VoucherTypeName", "Type", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "ParentID", "ParentID", 100, UI.usDefGrid.gString, False)
-        UI.usForm.SetGrid(grdView, "InvoiceNumber", "InvoiceNumber", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdView, "InvoiceNumber", "Nomor Invoice", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "CoAID", "CoAID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "CoACode", "Kode Akun", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "CoAName", "Nama Akun", 100, UI.usDefGrid.gString)

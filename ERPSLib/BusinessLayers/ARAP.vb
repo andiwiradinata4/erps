@@ -2734,12 +2734,12 @@
                             BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankOut, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PEMBAYARAN RETUR " & ERPSLib.UI.usUserApp.JournalPost.CoANameofAccountReceivable, ERPSLib.UI.usUserApp.UserID)
                         End If
                     ElseIf clsARAP.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then
-                        BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankOut, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PENERIMAAN " & ERPSLib.UI.usUserApp.JournalPost.CoANameofCompensasionRevenue, ERPSLib.UI.usUserApp.UserID)
+                        BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankIn, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PENERIMAAN " & ERPSLib.UI.usUserApp.JournalPost.CoANameofCompensasionRevenue, ERPSLib.UI.usUserApp.UserID)
                     Else
                         If clsARAP.IsDP Then
-                            BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankOut, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PENERIMAAN " & ERPSLib.UI.usUserApp.JournalPost.CoANameofPrepaidIncome, ERPSLib.UI.usUserApp.UserID)
+                            BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankIn, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PENERIMAAN " & ERPSLib.UI.usUserApp.JournalPost.CoANameofPrepaidIncome, ERPSLib.UI.usUserApp.UserID)
                         Else
-                            BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankOut, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PENERIMAAN " & ERPSLib.UI.usUserApp.JournalPost.CoANameofAccountReceivable, ERPSLib.UI.usUserApp.UserID)
+                            BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankIn, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PENERIMAAN " & ERPSLib.UI.usUserApp.JournalPost.CoANameofAccountReceivable, ERPSLib.UI.usUserApp.UserID)
                         End If
                     End If
                 End If
@@ -2828,6 +2828,8 @@ EndProcess:
             Dim clsData As New VO.ARAPVoucher
             clsData.ID = GetNewIDVoucher(sqlCon, sqlTrans, intProgramID, intCompanyID, dtmTransDate, enumVoucherType, intCoAID)
             clsData.VoucherNumber = GetNewVoucherNumber(sqlCon, sqlTrans, intProgramID, intCompanyID, dtmTransDate, enumVoucherType, intCoAID)
+            clsData.ProgramID = intProgramID
+            clsData.CompanyID = intCompanyID
             clsData.TransDate = dtmTransDate
             clsData.VoucherType = enumVoucherType
             clsData.ParentID = strParentID
