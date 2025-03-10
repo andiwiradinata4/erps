@@ -11,27 +11,27 @@
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                    "SELECT " & vbNewLine & _
-                    "   A.ID, A.CompanyID, MC.Name AS CompanyName, A.ProgramID, MP.Name AS ProgramName, A.CostNumber, A.COAID, " & vbNewLine & _
-                    "   ISNULL(C.Code,'') AS COACode, ISNULL(C.Name,'') AS COAName, A.ReferencesID, A.ReferencesNote, A.CostDate, A.TotalAmount, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine & _
-                    "   A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine & _
-                    "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.PaymentBy, " & vbNewLine & _
-                    "   CASE WHEN A.PaymentBy = '' THEN NULL ELSE A.PaymentDate END AS PaymentDate, A.TaxInvoiceNumber, " & vbNewLine & _
-                    "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine & _
-                    "   A.LogInc, A.LogBy, A.LogDate, A.TotalDPP, A.TotalPPN, A.TotalPPH " & vbNewLine & _
-                    "FROM traCost A " & vbNewLine & _
-                    "INNER JOIN mstStatus B ON " & vbNewLine & _
-                    "   A.StatusID=B.ID " & vbNewLine & _
-                    "LEFT JOIN mstChartOfAccount C ON " & vbNewLine & _
-                    "   A.COAID=C.ID " & vbNewLine & _
-                    "INNER JOIN mstCompany MC ON " & vbNewLine & _
-                    "   A.CompanyID=MC.ID " & vbNewLine & _
-                    "INNER JOIN mstProgram MP ON " & vbNewLine & _
-                    "   A.ProgramID=MP.ID " & vbNewLine & _
-                    "WHERE  " & vbNewLine & _
-                    "   A.CompanyID=@CompanyID " & vbNewLine & _
-                    "   AND A.ProgramID=@ProgramID " & vbNewLine & _
+                .CommandText =
+                    "SELECT " & vbNewLine &
+                    "   A.ID, A.CompanyID, MC.Name AS CompanyName, A.ProgramID, MP.Name AS ProgramName, A.CostNumber, A.COAID, " & vbNewLine &
+                    "   ISNULL(C.Code,'') AS COACode, ISNULL(C.Name,'') AS COAName, A.ReferencesID, A.ReferencesNote, A.CostDate, A.TotalAmount, A.JournalID, A.StatusID, B.Name AS StatusInfo, " & vbNewLine &
+                    "   A.SubmitBy, CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.ApprovedBy, " & vbNewLine &
+                    "   CASE WHEN A.ApprovedBy = '' THEN NULL ELSE A.ApprovedDate END AS ApprovedDate, A.PaymentBy, " & vbNewLine &
+                    "   CASE WHEN A.PaymentBy = '' THEN NULL ELSE A.PaymentDate END AS PaymentDate, A.TaxInvoiceNumber, " & vbNewLine &
+                    "   A.IsClosedPeriod, A.ClosedPeriodBy, A.ClosedPeriodDate, A.IsDeleted, A.Remarks, A.CreatedBy, A.CreatedDate, " & vbNewLine &
+                    "   A.LogInc, A.LogBy, A.LogDate, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.VoucherNumber " & vbNewLine &
+                    "FROM traCost A " & vbNewLine &
+                    "INNER JOIN mstStatus B ON " & vbNewLine &
+                    "   A.StatusID=B.ID " & vbNewLine &
+                    "LEFT JOIN mstChartOfAccount C ON " & vbNewLine &
+                    "   A.COAID=C.ID " & vbNewLine &
+                    "INNER JOIN mstCompany MC ON " & vbNewLine &
+                    "   A.CompanyID=MC.ID " & vbNewLine &
+                    "INNER JOIN mstProgram MP ON " & vbNewLine &
+                    "   A.ProgramID=MP.ID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   A.CompanyID=@CompanyID " & vbNewLine &
+                    "   AND A.ProgramID=@ProgramID " & vbNewLine &
                     "   AND A.CostDate>=@DateFrom AND A.CostDate<=@DateTo " & vbNewLine
 
                 If intStatusID <> VO.Status.Values.All Then
