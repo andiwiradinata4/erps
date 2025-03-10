@@ -219,7 +219,7 @@ Public Class frmTraConfirmationOrderDetItemVer1
     End Sub
 
     Private Sub prvSave()
-        If txtOrderNumberSupplier.Text.Trim = "" Then
+        If txtOrderNumberSupplier.Text.Trim = "" And Not chkGenerate.Checked Then
             UI.usForm.frmMessageBox("Isi nomor pesanan pemasok terlebih dahulu")
             txtOrderNumberSupplier.Focus()
             Exit Sub
@@ -244,6 +244,8 @@ Public Class frmTraConfirmationOrderDetItemVer1
                 End If
             Next
             dtParentItem.AcceptChanges()
+        Else
+            If chkGenerate.Checked Then txtOrderNumberSupplier.Text = Format(Now, "yyyyMMddHHmmssss")
         End If
 
         '# Item Handle

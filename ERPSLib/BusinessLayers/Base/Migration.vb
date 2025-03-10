@@ -101,6 +101,7 @@
                     DevelopOnProgress_ID92(sqlCon, sqlTrans)
                     DevelopOnProgress_ID93(sqlCon, sqlTrans)
                     DevelopOnProgress_ID94(sqlCon, sqlTrans)
+                    DevelopOnProgress_ID95(sqlCon, sqlTrans)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -2814,5 +2815,23 @@
                 DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
             End If
         End Sub
+
+        '# ID = 95
+        Private Shared Sub DevelopOnProgress_ID95(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 95
+            clsData.Name = "Add Voucher Number and Voucher Date"
+            clsData.Scripts =
+                "ALTER TABLE mstCompanyBankAccount ADD AccountType VARCHAR(250) NOT NULL CONSTRAINT DF_mstCompanyBankAccount_AccountType DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traAccountReceivable ADD CompanyBankAccountID3 INT NOT NULL CONSTRAINT DF_traAccountReceivable_CompanyBankAccountID3 DEFAULT ((0))  " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD CompanyBankAccountID3 INT NOT NULL CONSTRAINT DF_traAccountPayable_CompanyBankAccountID3 DEFAULT ((0))  " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
     End Class
 End Namespace

@@ -74,6 +74,9 @@
         Property InvoiceDateBP As DateTime
         Property ReceiveDateInvoice As DateTime
         Property Rounding As Decimal
+        Property VoucherNumber As String
+        Property VoucherDate As DateTime
+        Property CompanyBankAccountID3 As Integer
 
         Public Const All As String = "AR"
         Public Const SalesBalance As String = "SB"

@@ -137,6 +137,11 @@ Partial Public Class rptShippingInvoiceVer00
         Me.XrLabel63 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel64 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ObjectDataSource1 = New DevExpress.DataAccess.ObjectBinding.ObjectDataSource(Me.components)
+        Me.sbLogoImage = New DevExpress.XtraReports.UI.SubBand()
+        Me.sbLogoStandart = New DevExpress.XtraReports.UI.SubBand()
+        Me.xrCompanyName = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel65 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.xrLogo = New DevExpress.XtraReports.UI.XRPictureBox()
         CType(Me.XrTable1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.xtDetail, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -539,7 +544,7 @@ Partial Public Class rptShippingInvoiceVer00
         '
         Me.XrPictureBox1.Dpi = 100.0!
         Me.XrPictureBox1.Image = CType(resources.GetObject("XrPictureBox1.Image"), System.Drawing.Image)
-        Me.XrPictureBox1.LocationFloat = New DevExpress.Utils.PointFloat(54.07152!, 0.0!)
+        Me.XrPictureBox1.LocationFloat = New DevExpress.Utils.PointFloat(54.07143!, 0.0!)
         Me.XrPictureBox1.Name = "XrPictureBox1"
         Me.XrPictureBox1.SizeF = New System.Drawing.SizeF(122.2069!, 56.93732!)
         Me.XrPictureBox1.Sizing = DevExpress.XtraPrinting.ImageSizeMode.AutoSize
@@ -556,7 +561,7 @@ Partial Public Class rptShippingInvoiceVer00
         '
         Me.XrPictureBox2.Dpi = 100.0!
         Me.XrPictureBox2.Image = CType(resources.GetObject("XrPictureBox2.Image"), System.Drawing.Image)
-        Me.XrPictureBox2.LocationFloat = New DevExpress.Utils.PointFloat(176.2785!, 12.49844!)
+        Me.XrPictureBox2.LocationFloat = New DevExpress.Utils.PointFloat(176.2783!, 12.49842!)
         Me.XrPictureBox2.Name = "XrPictureBox2"
         Me.XrPictureBox2.SizeF = New System.Drawing.SizeF(481.8842!, 44.43889!)
         Me.XrPictureBox2.Sizing = DevExpress.XtraPrinting.ImageSizeMode.AutoSize
@@ -639,11 +644,10 @@ Partial Public Class rptShippingInvoiceVer00
         '
         'ReportHeader
         '
-        Me.ReportHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel9, Me.XrPictureBox1, Me.XrPictureBox2})
         Me.ReportHeader.Dpi = 100.0!
-        Me.ReportHeader.HeightF = 99.02066!
+        Me.ReportHeader.HeightF = 0.0!
         Me.ReportHeader.Name = "ReportHeader"
-        Me.ReportHeader.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.sbTitle})
+        Me.ReportHeader.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.sbLogoImage, Me.sbLogoStandart, Me.sbTitle})
         '
         'XrLabel9
         '
@@ -652,7 +656,7 @@ Partial Public Class rptShippingInvoiceVer00
         Me.XrLabel9.Dpi = 100.0!
         Me.XrLabel9.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
         Me.XrLabel9.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.XrLabel9.LocationFloat = New DevExpress.Utils.PointFloat(0.0004371007!, 56.93734!)
+        Me.XrLabel9.LocationFloat = New DevExpress.Utils.PointFloat(0.001653036!, 56.93731!)
         Me.XrLabel9.Multiline = True
         Me.XrLabel9.Name = "XrLabel9"
         Me.XrLabel9.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
@@ -1616,6 +1620,64 @@ Partial Public Class rptShippingInvoiceVer00
         Me.ObjectDataSource1.DataSource = GetType(ERPSLib.VO.rptShippingInvoiceVer00)
         Me.ObjectDataSource1.Name = "ObjectDataSource1"
         '
+        'sbLogoImage
+        '
+        Me.sbLogoImage.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel9, Me.XrPictureBox2, Me.XrPictureBox1})
+        Me.sbLogoImage.Dpi = 100.0!
+        Me.sbLogoImage.HeightF = 100.0!
+        Me.sbLogoImage.Name = "sbLogoImage"
+        Me.sbLogoImage.Visible = False
+        '
+        'sbLogoStandart
+        '
+        Me.sbLogoStandart.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.xrCompanyName, Me.XrLabel65, Me.xrLogo})
+        Me.sbLogoStandart.Dpi = 100.0!
+        Me.sbLogoStandart.HeightF = 100.0!
+        Me.sbLogoStandart.Name = "sbLogoStandart"
+        Me.sbLogoStandart.Visible = False
+        '
+        'xrCompanyName
+        '
+        Me.xrCompanyName.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CompanyName")})
+        Me.xrCompanyName.Dpi = 100.0!
+        Me.xrCompanyName.Font = New System.Drawing.Font("Tahoma", 20.0!, System.Drawing.FontStyle.Bold)
+        Me.xrCompanyName.LocationFloat = New DevExpress.Utils.PointFloat(138.14!, 0.0!)
+        Me.xrCompanyName.Name = "xrCompanyName"
+        Me.xrCompanyName.Padding = New DevExpress.XtraPrinting.PaddingInfo(10, 0, 0, 0, 100.0!)
+        Me.xrCompanyName.SizeF = New System.Drawing.SizeF(630.72!, 57.91671!)
+        Me.xrCompanyName.StylePriority.UseFont = False
+        Me.xrCompanyName.StylePriority.UsePadding = False
+        Me.xrCompanyName.StylePriority.UseTextAlignment = False
+        Me.xrCompanyName.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'XrLabel65
+        '
+        Me.XrLabel65.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrLabel65.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CompanyAddress")})
+        Me.XrLabel65.Dpi = 100.0!
+        Me.XrLabel65.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel65.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.XrLabel65.LocationFloat = New DevExpress.Utils.PointFloat(138.14!, 57.91671!)
+        Me.XrLabel65.Multiline = True
+        Me.XrLabel65.Name = "XrLabel65"
+        Me.XrLabel65.Padding = New DevExpress.XtraPrinting.PaddingInfo(10, 10, 0, 0, 100.0!)
+        Me.XrLabel65.SizeF = New System.Drawing.SizeF(630.72!, 42.08331!)
+        Me.XrLabel65.StylePriority.UseBorders = False
+        Me.XrLabel65.StylePriority.UseFont = False
+        Me.XrLabel65.StylePriority.UseForeColor = False
+        Me.XrLabel65.StylePriority.UsePadding = False
+        Me.XrLabel65.StylePriority.UseTextAlignment = False
+        Me.XrLabel65.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'xrLogo
+        '
+        Me.xrLogo.Dpi = 100.0!
+        Me.xrLogo.ImageAlignment = DevExpress.XtraPrinting.ImageAlignment.MiddleRight
+        Me.xrLogo.LocationFloat = New DevExpress.Utils.PointFloat(38.14001!, 0.0!)
+        Me.xrLogo.Name = "xrLogo"
+        Me.xrLogo.SizeF = New System.Drawing.SizeF(100.0!, 100.0!)
+        Me.xrLogo.Sizing = DevExpress.XtraPrinting.ImageSizeMode.ZoomImage
+        '
         'rptShippingInvoiceVer00
         '
         Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail, Me.TopMargin, Me.BottomMargin, Me.ReportHeader, Me.PageHeader, Me.ReportFooter, Me.PageFooter, Me.ghColumnNameCoil, Me.ghColumnNamePlate})
@@ -1749,4 +1811,9 @@ Partial Public Class rptShippingInvoiceVer00
     Friend WithEvents XrTableCell12 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrTableCell4 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrLabel55 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents sbLogoImage As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents sbLogoStandart As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents xrCompanyName As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel65 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents xrLogo As DevExpress.XtraReports.UI.XRPictureBox
 End Class

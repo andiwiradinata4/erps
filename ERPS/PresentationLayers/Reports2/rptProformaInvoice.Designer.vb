@@ -135,7 +135,7 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell68 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell69 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.AmountInvoice5 = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.sbPaymentTerm1_3 = New DevExpress.XtraReports.UI.SubBand()
+        Me.sbPaymentTerm1 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel15 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel16 = New DevExpress.XtraReports.UI.XRLabel()
         Me.PaymentTerm3 = New DevExpress.XtraReports.Parameters.Parameter()
@@ -256,6 +256,7 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell46 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell22 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.ReportHeader = New DevExpress.XtraReports.UI.ReportHeaderBand()
+        Me.sbLogoImage = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel9 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrPictureBox1 = New DevExpress.XtraReports.UI.XRPictureBox()
         Me.XrPictureBox2 = New DevExpress.XtraReports.UI.XRPictureBox()
@@ -301,8 +302,9 @@ Partial Public Class rptProformaInvoice
         Me.CalGrandTotal = New DevExpress.XtraReports.UI.CalculatedField()
         Me.ImageCollection4 = New DevExpress.Utils.ImageCollection(Me.components)
         Me.ImageCollection5 = New DevExpress.Utils.ImageCollection(Me.components)
-        Me.sbLogoImage = New DevExpress.XtraReports.UI.SubBand()
         Me.ObjectDataSource1 = New DevExpress.DataAccess.ObjectBinding.ObjectDataSource(Me.components)
+        Me.sbPaymentTerm2 = New DevExpress.XtraReports.UI.SubBand()
+        Me.sbPaymentTerm3 = New DevExpress.XtraReports.UI.SubBand()
         CType(Me.XrTable2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -438,7 +440,7 @@ Partial Public Class rptProformaInvoice
         Me.ReportFooter.Dpi = 100.0!
         Me.ReportFooter.HeightF = 20.0!
         Me.ReportFooter.Name = "ReportFooter"
-        Me.ReportFooter.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.sbTotalDPP, Me.sbPayment1, Me.sbPayment2, Me.sbPayment3, Me.sbPayment4, Me.sbInvoice1, Me.sbInvoice2, Me.sbInvoice3, Me.sbInvoice4, Me.sbInvoice5, Me.sbNumberToString, Me.sbPaymentTerm1_3, Me.sbPaymentTerm4, Me.sbPaymentTerm5, Me.sbPaymentTerm6, Me.sbPaymentTerm7, Me.sbPaymentTerm8, Me.sbPaymentTerm9, Me.sbPaymentTerm10, Me.sbCompanyBankAccount1, Me.sbCompanyBankAccount2})
+        Me.ReportFooter.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.sbTotalDPP, Me.sbPayment1, Me.sbPayment2, Me.sbPayment3, Me.sbPayment4, Me.sbInvoice1, Me.sbInvoice2, Me.sbInvoice3, Me.sbInvoice4, Me.sbInvoice5, Me.sbNumberToString, Me.sbPaymentTerm1, Me.sbPaymentTerm2, Me.sbPaymentTerm3, Me.sbPaymentTerm4, Me.sbPaymentTerm5, Me.sbPaymentTerm6, Me.sbPaymentTerm7, Me.sbPaymentTerm8, Me.sbPaymentTerm9, Me.sbPaymentTerm10, Me.sbCompanyBankAccount1, Me.sbCompanyBankAccount2})
         '
         'XrTable2
         '
@@ -1478,18 +1480,18 @@ Partial Public Class rptProformaInvoice
         Me.AmountInvoice5.Type = GetType(Integer)
         Me.AmountInvoice5.ValueInfo = "0"
         '
-        'sbPaymentTerm1_3
+        'sbPaymentTerm1
         '
-        Me.sbPaymentTerm1_3.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel15, Me.XrLabel16, Me.XrLabel14, Me.XrLabel13, Me.XrLabel12, Me.XrLabel10, Me.XrLabel6})
-        Me.sbPaymentTerm1_3.Dpi = 100.0!
-        Me.sbPaymentTerm1_3.HeightF = 90.00008!
-        Me.sbPaymentTerm1_3.Name = "sbPaymentTerm1_3"
+        Me.sbPaymentTerm1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel13, Me.XrLabel10, Me.XrLabel6})
+        Me.sbPaymentTerm1.Dpi = 100.0!
+        Me.sbPaymentTerm1.HeightF = 50.00005!
+        Me.sbPaymentTerm1.Name = "sbPaymentTerm1"
         '
         'XrLabel15
         '
         Me.XrLabel15.Dpi = 100.0!
         Me.XrLabel15.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel15.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 70.00002!)
+        Me.XrLabel15.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
         Me.XrLabel15.Name = "XrLabel15"
         Me.XrLabel15.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
         Me.XrLabel15.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
@@ -1504,7 +1506,7 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel16.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm3, "Text", "")})
         Me.XrLabel16.Dpi = 100.0!
         Me.XrLabel16.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel16.LocationFloat = New DevExpress.Utils.PointFloat(30.00069!, 70.00008!)
+        Me.XrLabel16.LocationFloat = New DevExpress.Utils.PointFloat(30.00056!, 0.0!)
         Me.XrLabel16.Name = "XrLabel16"
         Me.XrLabel16.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
         Me.XrLabel16.SizeF = New System.Drawing.SizeF(777.0002!, 20.00001!)
@@ -1523,7 +1525,7 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel14.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.PaymentTerm2, "Text", "")})
         Me.XrLabel14.Dpi = 100.0!
         Me.XrLabel14.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel14.LocationFloat = New DevExpress.Utils.PointFloat(30.00078!, 50.0!)
+        Me.XrLabel14.LocationFloat = New DevExpress.Utils.PointFloat(30.00056!, 0.0!)
         Me.XrLabel14.Name = "XrLabel14"
         Me.XrLabel14.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
         Me.XrLabel14.SizeF = New System.Drawing.SizeF(776.9982!, 20.0!)
@@ -1560,7 +1562,7 @@ Partial Public Class rptProformaInvoice
         '
         Me.XrLabel12.Dpi = 100.0!
         Me.XrLabel12.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel12.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 50.0!)
+        Me.XrLabel12.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
         Me.XrLabel12.Name = "XrLabel12"
         Me.XrLabel12.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
         Me.XrLabel12.SizeF = New System.Drawing.SizeF(30.0!, 20.0!)
@@ -2909,6 +2911,14 @@ Partial Public Class rptProformaInvoice
         Me.ReportHeader.Name = "ReportHeader"
         Me.ReportHeader.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.sbLogoImage, Me.sbLogoStandart, Me.sbTitle, Me.rhTransNumber, Me.rhBPInfo, Me.rhBPInfoInvoice, Me.rhTaxInfo})
         '
+        'sbLogoImage
+        '
+        Me.sbLogoImage.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel9, Me.XrPictureBox1, Me.XrPictureBox2})
+        Me.sbLogoImage.Dpi = 100.0!
+        Me.sbLogoImage.HeightF = 99.02063!
+        Me.sbLogoImage.Name = "sbLogoImage"
+        Me.sbLogoImage.Visible = False
+        '
         'XrLabel9
         '
         Me.XrLabel9.Borders = DevExpress.XtraPrinting.BorderSide.Bottom
@@ -3369,18 +3379,24 @@ Partial Public Class rptProformaInvoice
         '
         Me.ImageCollection5.ImageStream = CType(resources.GetObject("ImageCollection5.ImageStream"), DevExpress.Utils.ImageCollectionStreamer)
         '
-        'sbLogoImage
-        '
-        Me.sbLogoImage.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel9, Me.XrPictureBox1, Me.XrPictureBox2})
-        Me.sbLogoImage.Dpi = 100.0!
-        Me.sbLogoImage.HeightF = 99.02063!
-        Me.sbLogoImage.Name = "sbLogoImage"
-        Me.sbLogoImage.Visible = False
-        '
         'ObjectDataSource1
         '
         Me.ObjectDataSource1.DataSource = GetType(ERPSLib.VO.rptProformaInvoice)
         Me.ObjectDataSource1.Name = "ObjectDataSource1"
+        '
+        'sbPaymentTerm2
+        '
+        Me.sbPaymentTerm2.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel12, Me.XrLabel14})
+        Me.sbPaymentTerm2.Dpi = 100.0!
+        Me.sbPaymentTerm2.HeightF = 20.0!
+        Me.sbPaymentTerm2.Name = "sbPaymentTerm2"
+        '
+        'sbPaymentTerm3
+        '
+        Me.sbPaymentTerm3.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel15, Me.XrLabel16})
+        Me.sbPaymentTerm3.Dpi = 100.0!
+        Me.sbPaymentTerm3.HeightF = 20.00001!
+        Me.sbPaymentTerm3.Name = "sbPaymentTerm3"
         '
         'rptProformaInvoice
         '
@@ -3555,7 +3571,7 @@ Partial Public Class rptProformaInvoice
     Friend WithEvents sbTitle As DevExpress.XtraReports.UI.SubBand
     Friend WithEvents HeaderType As DevExpress.XtraReports.Parameters.Parameter
     Friend WithEvents XrRichText1 As DevExpress.XtraReports.UI.XRRichText
-    Friend WithEvents sbPaymentTerm1_3 As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents sbPaymentTerm1 As DevExpress.XtraReports.UI.SubBand
     Friend WithEvents XrLabel22 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel21 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel19 As DevExpress.XtraReports.UI.XRLabel
@@ -3700,4 +3716,6 @@ Partial Public Class rptProformaInvoice
     Friend WithEvents xrLogo As DevExpress.XtraReports.UI.XRPictureBox
     Friend WithEvents XrLine1 As DevExpress.XtraReports.UI.XRLine
     Friend WithEvents sbLogoImage As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents sbPaymentTerm2 As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents sbPaymentTerm3 As DevExpress.XtraReports.UI.SubBand
 End Class

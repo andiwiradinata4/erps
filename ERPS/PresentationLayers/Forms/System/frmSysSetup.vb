@@ -62,4 +62,14 @@
             UI.usForm.frmMessageBox(ex.Message)
         End Try
     End Sub
+
+    Private Sub btnGenerateVoucher_Click(sender As Object, e As EventArgs) Handles btnGenerateVoucher.Click
+        Try
+            BL.Setup.GenerateVoucher()
+            UI.usForm.frmMessageBox(btnGenerateVoucher.Text.Trim & " berhasil")
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        End Try
+    End Sub
+
 End Class

@@ -32,5 +32,8 @@
         Property Save As VO.Save.Action
         Property PaidTo As String
         Property PaidAccount As String
+        Property VoucherNumber As String
+        Property VoucherDate As DateTime
+
     End Class
 End Namespace

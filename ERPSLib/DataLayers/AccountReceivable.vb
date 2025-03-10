@@ -28,7 +28,7 @@
                     "   A.PaymentTerm1, A.PaymentTerm2, A.PaymentTerm3, A.PaymentTerm4, A.PaymentTerm5, A.PaymentTerm6, A.PaymentTerm7, A.PaymentTerm8, A.PaymentTerm9, A.PaymentTerm10, A.PPNPercentage, A.PPHPercentage, " & vbNewLine &
                     "   A.Rounding, GrandTotal=A.TotalAmount+A.TotalPPN-A.TotalPPH+A.Rounding, A.TotalInvoiceAmount, A.TotalDPPInvoiceAmount, A.TotalPPNInvoiceAmount, A.TotalPPHInvoiceAmount, " & vbNewLine &
                     "   DueDateVSNowValue=DATEDIFF(DAY,DueDate, GETDATE()), A.ReferencesNumber, A.IsFullDP, OutstandingInvoiceAmount=(A.TotalAmount+A.TotalPPN-A.TotalPPH)-A.TotalInvoiceAmount, " & vbNewLine &
-                    "   A.BPBankAccountID, ISNULL(BPBA.BankName,'') AS BPBankAccountBank, ISNULL(BPBA.AccountNumber,'') AS BPBankAccountNumber, A.IsGenerate " & vbNewLine &
+                    "   A.BPBankAccountID, ISNULL(BPBA.BankName,'') AS BPBankAccountBank, ISNULL(BPBA.AccountNumber,'') AS BPBankAccountNumber, A.IsGenerate, A.VoucherNumber " & vbNewLine &
                     "FROM traAccountReceivable A " & vbNewLine &
                     "INNER JOIN mstStatus B ON " & vbNewLine &
                     "   A.StatusID=B.ID " & vbNewLine &

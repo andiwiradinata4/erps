@@ -362,6 +362,15 @@ Public Class frmTraDelivery
                 crReport.Watermark.TextTransparency = 150
             End If
 
+            '# Setup Logo
+            If clsData.CompanyID = VO.Company.Values.TBU Then
+                crReport.sbLogoImage.Visible = True
+            Else
+                Dim img As Image = UI.usForm.GetLogoCompanyByInitial(ERPSLib.UI.usUserApp.CompanyInitial)
+                crReport.sbLogoStandart.Visible = True
+                crReport.xrLogo.Image = img
+            End If
+
             crReport.DataSource = dtData
             crReport.CreateDocument(True)
             crReport.ShowPreviewMarginLines = False

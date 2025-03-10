@@ -776,6 +776,8 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraAPCuttingDet.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer3Import.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDPLookup.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmViewLookupHistory.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptCostBankOutAttachmentVer00.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPVoucher.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPS.exe.config
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPS.pdb
@@ -864,6 +866,7 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPExtendDueD
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPInvoice.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPInvoiceDet.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPItemRemarks.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPVoucher.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraCost.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraAccountPayable.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraAccountPayableDet.resources
@@ -1028,6 +1031,3 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\aa\ERPS.resources.dll
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.pdb
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.rptCostBankOutAttachmentVer00.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPVoucher.resources
-C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPVoucher.resources

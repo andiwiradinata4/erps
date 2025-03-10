@@ -643,48 +643,47 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText =
-" " & vbNewLine &
-"SELECT  " & vbNewLine &
-"	0 AS VoucherType, " & vbNewLine &
-"	AI.ID, AI.InvoiceNumber, AI.PaymentDate, AI.CoAID, COA.Code AS CoACode, COA.Name AS CoAName, AI.TotalAmount  " & vbNewLine &
-"FROM traARAPInvoice AI  " & vbNewLine &
-"INNER JOIN traAccountReceivable ARAP ON  " & vbNewLine &
-"	AI.ParentID=ARAP.ID  " & vbNewLine &
-"INNER JOIN mstChartOfAccount COA ON  " & vbNewLine &
-"	AI.CoAID=COA.ID  " & vbNewLine &
-"WHERE  " & vbNewLine &
-"	AI.IsDeleted=0  " & vbNewLine &
-"	AND AI.CoAID<>0  " & vbNewLine &
-" " & vbNewLine &
-"-- Payment Invoice Supplier (Product) " & vbNewLine &
-"UNION ALL  " & vbNewLine &
-"SELECT  " & vbNewLine &
-"	1 AS VoucherType, " & vbNewLine &
-"	AI.ID, AI.InvoiceNumber, AI.PaymentDate, AI.CoAID, COA.Code AS CoACode, COA.Name AS CoAName, AI.TotalAmount  " & vbNewLine &
-"FROM traARAPInvoice AI  " & vbNewLine &
-"INNER JOIN traAccountPayable ARAP ON  " & vbNewLine &
-"	AI.ParentID=ARAP.ID  " & vbNewLine &
-"INNER JOIN mstChartOfAccount COA ON  " & vbNewLine &
-"	AI.CoAID=COA.ID  " & vbNewLine &
-"WHERE  " & vbNewLine &
-"	AI.IsDeleted=0  " & vbNewLine &
-"	AND AI.CoAID<>0  " & vbNewLine &
-" " & vbNewLine &
-"-- Payment Invoice Supplier (Service) " & vbNewLine &
-"UNION ALL  " & vbNewLine &
-"SELECT  " & vbNewLine &
-"	1 AS VoucherType, " & vbNewLine &
-"	ARAP.ID, ARAP.InvoiceNumberBP AS InvoiceNumber, ARAP.PaymentDate, ARAP.CoAIDOfOutgoingPayment AS CoAID, COA.Code AS CoACode, COA.Name AS CoAName,  " & vbNewLine &
-"	ARAP.TotalAmount+ARAP.TotalPPN-ARAP.TotalPPH AS TotalAmount  " & vbNewLine &
-"FROM traAccountPayable ARAP  " & vbNewLine &
-"INNER JOIN mstChartOfAccount COA ON  " & vbNewLine &
-"	ARAP.CoAIDOfOutgoingPayment=COA.ID  " & vbNewLine &
-"WHERE  " & vbNewLine &
-"	ARAP.IsDeleted=0  " & vbNewLine &
-"	AND ARAP.CoAIDOfOutgoingPayment<>0  " & vbNewLine &
-"ORDER BY PaymentDate  " & vbNewLine
+"SELECT 'COST' AS Trans, " & vbNewLine & _
+"	ARAP.PaymentDate AS TransDate, 2 AS VoucherType, ARAP.ID ParentID, ARAP.CostNumber AS InvoiceNumber, ARAP.CoAID,  " & vbNewLine & _
+"	ARAP.TotalAmount, ARAP.ProgramID, ARAP.CompanyID  " & vbNewLine & _
+"FROM traCost ARAP  " & vbNewLine & _
+"WHERE  " & vbNewLine & _
+"	ARAP.ApprovedBy<>'' " & vbNewLine & _
+" " & vbNewLine & _
+"UNION ALL  " & vbNewLine & _
+"SELECT 'AP' AS Trans, " & vbNewLine & _
+"	ARAP.PaymentDate AS TransDate, 2 AS VoucherType, ARAP.ID ParentID, ARAP.APNumber AS InvoiceNumber, ARAP.CoAIDOfOutgoingPayment AS CoAID,  " & vbNewLine & _
+"	ARAP.TotalAmount+ARAP.TotalPPN-ARAP.TotalPPH+ARAP.Rounding AS TotalAmount,  " & vbNewLine & _
+"	ARAP.ProgramID, ARAP.CompanyID  " & vbNewLine & _
+"FROM traAccountPayable ARAP  " & vbNewLine & _
+"WHERE  " & vbNewLine & _
+"	ARAP.PaymentBy<>''  " & vbNewLine & _
+"   AND ARAP.CoAIDOfOutgoingPayment<>0 " & vbNewLine & _
+"" & vbNewLine & _
+"UNION ALL  " & vbNewLine & _
+"SELECT 'ARAPINV' AS Trans, " & vbNewLine & _
+"	INV.PaymentDate AS TransDate, 2 AS VoucherType, INV.ID AS ParentID, INV.InvoiceNumber, INV.CoAID, INV.TotalDPP+INV.TotalPPN-INV.TotalPPH+INV.Rounding AS TotalAmount,  " & vbNewLine & _
+"	ARAP.ProgramID, ARAP.CompanyID  " & vbNewLine & _
+"FROM traARAPInvoice INV  " & vbNewLine & _
+"INNER JOIN traAccountPayable ARAP ON  " & vbNewLine & _
+"	INV.ParentID=ARAP.ID  " & vbNewLine & _
+"WHERE  " & vbNewLine & _
+"	INV.ApprovedBy<>''  " & vbNewLine & _
+" " & vbNewLine & _
+"UNION ALL " & vbNewLine & _
+"SELECT 'ARAPINV' AS Trans, " & vbNewLine & _
+"	INV.PaymentDate AS TransDate, 1 AS VoucherType, INV.ID AS ParentID, INV.InvoiceNumber, INV.CoAID, INV.TotalDPP+INV.TotalPPN-INV.TotalPPH+INV.Rounding AS TotalAmount,  " & vbNewLine & _
+"	ARAP.ProgramID, ARAP.CompanyID  " & vbNewLine & _
+"FROM traARAPInvoice INV  " & vbNewLine & _
+"INNER JOIN traAccountReceivable ARAP ON  " & vbNewLine & _
+"	INV.ParentID=ARAP.ID  " & vbNewLine & _
+"WHERE  " & vbNewLine & _
+"	INV.ApprovedBy<>''  " & vbNewLine & _
+"	AND ARAP.IsGenerate=0  " & vbNewLine & _
+"ORDER BY CoAID, ParentID  " & vbNewLine
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
+
     End Class
 End Namespace

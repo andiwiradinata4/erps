@@ -54,5 +54,25 @@
             End Using
         End Sub
 
+        Public Shared Sub GenerateVoucher()
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Dim dtData As DataTable = DL.Setup.ListDataARAPForCreateVoucher(sqlCon, sqlTrans)
+                    For Each dr As DataRow In dtData.Rows
+                        Dim clsVourcher As VO.ARAPVoucher = BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, dr.Item("ProgramID"), dr.Item("CompanyID"), dr.Item("TransDate"), dr.Item("VoucherType"), dr.Item("ParentID"), dr.Item("InvoiceNumber"), dr.Item("CoAID"), dr.Item("TotalAmount"), "", "SYSTEM")
+                        If dr.Item("Trans") = "COST" Then DL.Cost.UpdateVoucherNumber(sqlCon, sqlTrans, dr.Item("ParentID"), clsVourcher.VoucherNumber, dr.Item("TransDate"))
+                        If dr.Item("Trans") = "AP" Then DL.AccountPayable.UpdateVoucherNumber(sqlCon, sqlTrans, dr.Item("ParentID"), clsVourcher.VoucherNumber, dr.Item("TransDate"))
+                        If dr.Item("Trans") = "ARAPINV" Then DL.ARAP.UpdateVoucherNumberInvoice(sqlCon, sqlTrans, dr.Item("ParentID"), clsVourcher.VoucherNumber, dr.Item("TransDate"))
+                    Next
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+        End Sub
+
     End Class
 End Namespace

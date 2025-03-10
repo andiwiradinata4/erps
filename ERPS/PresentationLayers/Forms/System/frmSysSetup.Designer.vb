@@ -29,6 +29,7 @@ Partial Class frmSysSetup
         Me.btnCalculateTotalPricePurchaseContractSubItem = New DevExpress.XtraEditors.SimpleButton()
         Me.btnCalculateSCWeightInSalesContract = New DevExpress.XtraEditors.SimpleButton()
         Me.btnCalculateDPAmountInDPSalesContract = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnGenerateVoucher = New DevExpress.XtraEditors.SimpleButton()
         Me.SuspendLayout()
         '
         'btnCalculateSCWeightSubItemInPurchaseContract
@@ -94,11 +95,21 @@ Partial Class frmSysSetup
         Me.btnCalculateDPAmountInDPSalesContract.TabIndex = 6
         Me.btnCalculateDPAmountInDPSalesContract.Text = "Kalkulasi Penggunaan DP Permintaan Pesanan berdasarkan DP Kontrak Penjualan"
         '
+        'btnGenerateVoucher
+        '
+        Me.btnGenerateVoucher.Dock = System.Windows.Forms.DockStyle.Top
+        Me.btnGenerateVoucher.Location = New System.Drawing.Point(0, 161)
+        Me.btnGenerateVoucher.Name = "btnGenerateVoucher"
+        Me.btnGenerateVoucher.Size = New System.Drawing.Size(659, 23)
+        Me.btnGenerateVoucher.TabIndex = 7
+        Me.btnGenerateVoucher.Text = "Generate Voucher"
+        '
         'frmSysSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(659, 322)
+        Me.Controls.Add(Me.btnGenerateVoucher)
         Me.Controls.Add(Me.btnCalculateDPAmountInDPSalesContract)
         Me.Controls.Add(Me.btnCalculateSCWeightInSalesContract)
         Me.Controls.Add(Me.btnCalculateTotalPricePurchaseContractSubItem)
@@ -120,4 +131,5 @@ Partial Class frmSysSetup
     Friend WithEvents btnCalculateTotalPricePurchaseContractSubItem As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnCalculateSCWeightInSalesContract As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnCalculateDPAmountInDPSalesContract As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btnGenerateVoucher As DevExpress.XtraEditors.SimpleButton
 End Class

@@ -44,12 +44,14 @@ Partial Class frmTraConfirmationOrderDetItemVer1
         Me.BarAddItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarEditItemOrder = New System.Windows.Forms.ToolBarButton()
         Me.BarDeleteItemOrder = New System.Windows.Forms.ToolBarButton()
+        Me.chkGenerate = New DevExpress.XtraEditors.CheckEdit()
         CType(Me.grdSubItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItem, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItemView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlDetail.SuspendLayout()
+        CType(Me.chkGenerate.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'grdSubItemView
@@ -154,6 +156,7 @@ Partial Class frmTraConfirmationOrderDetItemVer1
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.chkGenerate)
         Me.pnlDetail.Controls.Add(Me.btnDeliveryAddress)
         Me.pnlDetail.Controls.Add(Me.txtOrderNumberSupplier)
         Me.pnlDetail.Controls.Add(Me.Label13)
@@ -171,7 +174,7 @@ Partial Class frmTraConfirmationOrderDetItemVer1
         Me.btnDeliveryAddress.Location = New System.Drawing.Point(635, 43)
         Me.btnDeliveryAddress.Name = "btnDeliveryAddress"
         Me.btnDeliveryAddress.Size = New System.Drawing.Size(23, 23)
-        Me.btnDeliveryAddress.TabIndex = 2
+        Me.btnDeliveryAddress.TabIndex = 3
         '
         'txtOrderNumberSupplier
         '
@@ -203,14 +206,14 @@ Partial Class frmTraConfirmationOrderDetItemVer1
         Me.txtDeliveryAddress.Multiline = True
         Me.txtDeliveryAddress.Name = "txtDeliveryAddress"
         Me.txtDeliveryAddress.Size = New System.Drawing.Size(456, 48)
-        Me.txtDeliveryAddress.TabIndex = 1
+        Me.txtDeliveryAddress.TabIndex = 2
         '
         'Label29
         '
         Me.Label29.AutoSize = True
         Me.Label29.BackColor = System.Drawing.Color.Transparent
         Me.Label29.ForeColor = System.Drawing.Color.Black
-        Me.Label29.Location = New System.Drawing.Point(31, 19)
+        Me.Label29.Location = New System.Drawing.Point(31, 20)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(127, 13)
         Me.Label29.TabIndex = 158
@@ -259,6 +262,14 @@ Partial Class frmTraConfirmationOrderDetItemVer1
         Me.BarDeleteItemOrder.Tag = "Delete"
         Me.BarDeleteItemOrder.Text = "Hapus"
         '
+        'chkGenerate
+        '
+        Me.chkGenerate.Location = New System.Drawing.Point(350, 17)
+        Me.chkGenerate.Name = "chkGenerate"
+        Me.chkGenerate.Properties.Caption = "Generate ?"
+        Me.chkGenerate.Size = New System.Drawing.Size(75, 19)
+        Me.chkGenerate.TabIndex = 1
+        '
         'frmTraConfirmationOrderDetItemVer1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -283,6 +294,7 @@ Partial Class frmTraConfirmationOrderDetItemVer1
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlDetail.ResumeLayout(False)
         Me.pnlDetail.PerformLayout()
+        CType(Me.chkGenerate.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -307,4 +319,5 @@ Partial Class frmTraConfirmationOrderDetItemVer1
     Friend WithEvents txtOrderNumberSupplier As ERPS.usTextBox
     Friend WithEvents btnDeliveryAddress As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents grdSubItemView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents chkGenerate As DevExpress.XtraEditors.CheckEdit
 End Class
