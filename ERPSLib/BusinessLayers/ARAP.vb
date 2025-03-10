@@ -1604,6 +1604,8 @@
                 '# Delete Voucher
                 DL.ARAP.DeleteDataVoucher(sqlCon, sqlTrans, strID)
 
+                '# Delete Voucher Number
+                DL.ARAP.UpdateVoucherNumberInvoice(sqlCon, sqlTrans, strID, "", "2000/01/01")
                 bolReturn = True
             Catch ex As Exception
                 Throw ex
@@ -1682,7 +1684,7 @@
                         Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
                     End If
 
-                    DL.ARAP.UpdateVoucherNumber(sqlCon, sqlTrans, strID, strVoucherNumber, dtmVoucherDate)
+                    DL.ARAP.UpdateVoucherNumberInvoice(sqlCon, sqlTrans, strID, strVoucherNumber, dtmVoucherDate)
 
                     '# Save Data Status
                     BL.ARAP.SaveDataInvoiceStatus(sqlCon, sqlTrans, strID, "UPDATE NOMOR VOUCHER", ERPSLib.UI.usUserApp.UserID, strRemarks)
@@ -2720,29 +2722,32 @@
                 '# Update Journal ID in Account Payable
                 DL.ARAP.UpdateJournalIDInvoice(sqlCon, sqlTrans, clsARAPInvoice.ID, strJournalID)
 
+                Dim clsVoucher As New VO.ARAPVoucher
                 If clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Purchase Then
                     If clsARAP.Modules.Trim = VO.AccountPayable.ReceivePaymentClaimSales Then
-                        BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankOut, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PEMBAYARAN " & ERPSLib.UI.usUserApp.JournalPost.CoANameofClaimCost, ERPSLib.UI.usUserApp.UserID)
+                        clsVoucher = BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankOut, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PEMBAYARAN " & ERPSLib.UI.usUserApp.JournalPost.CoANameofClaimCost, ERPSLib.UI.usUserApp.UserID)
                     Else
-                        BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankOut, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PEMBAYARAN " & clsCOA.Name, ERPSLib.UI.usUserApp.UserID)
+                        clsVoucher = BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankOut, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PEMBAYARAN " & clsCOA.Name, ERPSLib.UI.usUserApp.UserID)
                     End If
                 ElseIf clsARAP.ARAPType = VO.ARAP.ARAPTypeValue.Sales Then
                     If clsARAP.Modules = VO.AccountReceivable.ReceivePaymentSalesReturn Then
                         If clsARAP.IsDP Then
-                            BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankOut, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PEMBAYARAN RETUR " & ERPSLib.UI.usUserApp.JournalPost.CoANameofPrepaidIncome, ERPSLib.UI.usUserApp.UserID)
+                            clsVoucher = BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankOut, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PEMBAYARAN RETUR " & ERPSLib.UI.usUserApp.JournalPost.CoANameofPrepaidIncome, ERPSLib.UI.usUserApp.UserID)
                         Else
-                            BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankOut, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PEMBAYARAN RETUR " & ERPSLib.UI.usUserApp.JournalPost.CoANameofAccountReceivable, ERPSLib.UI.usUserApp.UserID)
+                            clsVoucher = BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankOut, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PEMBAYARAN RETUR " & ERPSLib.UI.usUserApp.JournalPost.CoANameofAccountReceivable, ERPSLib.UI.usUserApp.UserID)
                         End If
                     ElseIf clsARAP.Modules.Trim = VO.AccountReceivable.ReceivePaymentClaimPurchase Then
-                        BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankIn, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PENERIMAAN " & ERPSLib.UI.usUserApp.JournalPost.CoANameofCompensasionRevenue, ERPSLib.UI.usUserApp.UserID)
+                        clsVoucher = BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankIn, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PENERIMAAN " & ERPSLib.UI.usUserApp.JournalPost.CoANameofCompensasionRevenue, ERPSLib.UI.usUserApp.UserID)
                     Else
                         If clsARAP.IsDP Then
-                            BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankIn, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PENERIMAAN " & ERPSLib.UI.usUserApp.JournalPost.CoANameofPrepaidIncome, ERPSLib.UI.usUserApp.UserID)
+                            clsVoucher = BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankIn, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PENERIMAAN " & ERPSLib.UI.usUserApp.JournalPost.CoANameofPrepaidIncome, ERPSLib.UI.usUserApp.UserID)
                         Else
-                            BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankIn, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PENERIMAAN " & ERPSLib.UI.usUserApp.JournalPost.CoANameofAccountReceivable, ERPSLib.UI.usUserApp.UserID)
+                            clsVoucher = BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsARAP.ProgramID, clsARAP.CompanyID, clsARAPInvoice.PaymentDate, VO.VoucherType.Values.BankIn, clsARAPInvoice.ID, clsARAPInvoice.InvoiceNumber, clsARAPInvoice.CoAID, clsARAPInvoice.TotalDPP + clsARAPInvoice.TotalPPN - clsARAPInvoice.TotalPPH + clsARAPInvoice.Rounding, "PENERIMAAN " & ERPSLib.UI.usUserApp.JournalPost.CoANameofAccountReceivable, ERPSLib.UI.usUserApp.UserID)
                         End If
                     End If
                 End If
+
+                DL.ARAP.UpdateVoucherNumberInvoice(sqlCon, sqlTrans, clsARAPInvoice.ID, clsVoucher.VoucherNumber, clsARAPInvoice.PaymentDate)
 EndProcess:
             Catch ex As Exception
                 Throw ex
@@ -2818,13 +2823,12 @@ EndProcess:
             Return strNewID
         End Function
 
-        Public Shared Sub GenerateVoucher(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                          ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                          ByVal dtmTransDate As DateTime, ByVal enumVoucherType As VO.VoucherType.Values,
-                                          ByVal strParentID As String, ByVal strInvoiceNumber As String,
-                                          ByVal intCoAID As Integer, ByVal decTotalAmount As Decimal,
-                                          ByVal strRemarks As String, ByVal strCreatedBy As String)
-
+        Public Shared Function GenerateVoucher(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                               ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                               ByVal dtmTransDate As DateTime, ByVal enumVoucherType As VO.VoucherType.Values,
+                                               ByVal strParentID As String, ByVal strInvoiceNumber As String,
+                                               ByVal intCoAID As Integer, ByVal decTotalAmount As Decimal,
+                                               ByVal strRemarks As String, ByVal strCreatedBy As String) As VO.ARAPVoucher
             Dim clsData As New VO.ARAPVoucher
             clsData.ID = GetNewIDVoucher(sqlCon, sqlTrans, intProgramID, intCompanyID, dtmTransDate, enumVoucherType, intCoAID)
             clsData.VoucherNumber = GetNewVoucherNumber(sqlCon, sqlTrans, intProgramID, intCompanyID, dtmTransDate, enumVoucherType, intCoAID)
@@ -2839,7 +2843,8 @@ EndProcess:
             clsData.Remarks = strRemarks
             clsData.CreatedBy = strCreatedBy
             DL.ARAP.SaveDataVoucher(sqlCon, sqlTrans, clsData)
-        End Sub
+            Return clsData
+        End Function
 
 
 

@@ -879,6 +879,32 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Sub UpdateVoucherNumber(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal strID As String, ByVal strVoucherNumber As String,
+                                              ByVal dtmVoucherDate As DateTime)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traAccountPayable SET " & vbNewLine &
+                    "    VoucherNumber=@VoucherNumber, " & vbNewLine &
+                    "    VoucherDate=@VoucherDate " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@VoucherNumber", SqlDbType.VarChar, 100).Value = strVoucherNumber
+                .Parameters.Add("@VoucherDate", SqlDbType.DateTime).Value = dtmVoucherDate
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail"

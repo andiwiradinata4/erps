@@ -623,22 +623,36 @@
 "GROUP BY COD.ReceiveDate, COD.InvoiceDate, COD.InvoiceNumberBP  " & vbNewLine
 
 
-                '                " " & vbNewLine &
-                '"-- Cutting " & vbNewLine &
-                '"UNION ALL  " & vbNewLine &
-                '"SELECT  " & vbNewLine &
-                '"	COD.ReceiveDateInvoice AS ReceiveDate, COD.InvoiceDateBP AS InvoiceDate, COD.InvoiceNumberBP, CAST(1 AS DECIMAL(18,4)) AS Quantity,  " & vbNewLine &
-                '"	SUM(COD.Amount) AS Amount, SUM(COD.PPN) AS PPNAmount, SUM(COD.PPH) AS PPHAmount,  " & vbNewLine &
-                '"	SUM(COD.Amount+COD.PPN-COD.PPH) AS GrandTotal " & vbNewLine &
-                '"FROM traARAPItem COD  " & vbNewLine &
-                '"WHERE COD.ParentID=@ParentID " & vbNewLine &
-                '"GROUP BY COD.ReceiveDateInvoice, COD.InvoiceDateBP, COD.InvoiceNumberBP  " & vbNewLine &
-                '" " & vbNewLine &
-
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strID
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
+
+        Public Shared Sub UpdateVoucherNumber(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                              ByVal strID As String, ByVal strVoucherNumber As String,
+                                              ByVal dtmVoucherDate As DateTime)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traCost SET " & vbNewLine &
+                    "    VoucherNumber=@VoucherNumber, " & vbNewLine &
+                    "    VoucherDate=@VoucherDate " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@VoucherNumber", SqlDbType.VarChar, 100).Value = strVoucherNumber
+                .Parameters.Add("@VoucherDate", SqlDbType.DateTime).Value = dtmVoucherDate
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
 
 #End Region
 

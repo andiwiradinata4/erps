@@ -2794,5 +2794,24 @@
             End If
         End Sub
 
+        '# ID = 94
+        Private Shared Sub DevelopOnProgress_ID94(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 94
+            clsData.Name = "Add Voucher Number and Voucher Date"
+            clsData.Scripts =
+                "ALTER TABLE traAccountPayable ADD VoucherNumber VARCHAR(100) NOT NULL CONSTRAINT DF_traAccountPayable_VoucherNumber DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traAccountPayable ADD VoucherDate DATEIME NOT NULL CONSTRAINT DF_traAccountPayable_VoucherDate DEFAULT (GETDATE())  " & vbNewLine &
+                "ALTER TABLE traAccountReceivable ADD VoucherNumber VARCHAR(100) NOT NULL CONSTRAINT DF_traAccountReceivable_VoucherNumber DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traAccountReceivable ADD VoucherDate DATEIME NOT NULL CONSTRAINT DF_traAccountReceivable_VoucherDate DEFAULT (GETDATE())  " & vbNewLine &
+                "ALTER TABLE traCost ADD VoucherNumber VARCHAR(100) NOT NULL CONSTRAINT DF_traCost_VoucherNumber DEFAULT ('')  " & vbNewLine &
+                "ALTER TABLE traCost ADD VoucherDate DATEIME NOT NULL CONSTRAINT DF_traCost_VoucherDate DEFAULT (GETDATE())  " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
     End Class
 End Namespace

@@ -1224,9 +1224,9 @@
             End Try
         End Sub
 
-        Public Shared Sub UpdateVoucherNumber(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                              ByVal strID As String, ByVal strVoucherNumber As String,
-                                              ByVal dtmVoucherDate As DateTime)
+        Public Shared Sub UpdateVoucherNumberInvoice(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                     ByVal strID As String, ByVal strVoucherNumber As String,
+                                                     ByVal dtmVoucherDate As DateTime)
             Dim sqlCmdExecute As New SqlCommand
             With sqlCmdExecute
                 .Connection = sqlCon

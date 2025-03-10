@@ -1504,6 +1504,7 @@
 
                 '# Delete Voucher
                 DL.ARAP.DeleteDataVoucher(sqlCon, sqlTrans, clsData.ID)
+                DL.AccountPayable.UpdateVoucherNumber(sqlCon, sqlTrans, clsData.ID, "", "2000/01/01")
 
                 bolReturn = True
             Catch ex As Exception
@@ -1952,7 +1953,8 @@ EndProcess:
 
                 '# Generate Voucher
                 Dim clsCOA As VO.ChartOfAccount = DL.ChartOfAccount.GetDetail(sqlCon, sqlTrans, clsData.CoAIDOfOutgoingPayment)
-                BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsData.ProgramID, clsData.CompanyID, clsData.PaymentDate, VO.VoucherType.Values.BankOut, clsData.ID, IIf(clsData.InvoiceNumberBP = "", clsData.APNumber, clsData.InvoiceNumberBP), clsData.CoAIDOfOutgoingPayment, clsData.ReceiveAmount + clsData.TotalPPN - clsData.TotalPPH + clsData.Rounding, "PEMBAYARAN " & clsCOA.Name, ERPSLib.UI.usUserApp.UserID)
+                Dim clsVoucher As VO.ARAPVoucher = BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsData.ProgramID, clsData.CompanyID, clsData.PaymentDate, VO.VoucherType.Values.BankOut, clsData.ID, IIf(clsData.InvoiceNumberBP = "", clsData.APNumber, clsData.InvoiceNumberBP), clsData.CoAIDOfOutgoingPayment, clsData.ReceiveAmount + clsData.TotalPPN - clsData.TotalPPH + clsData.Rounding, "PEMBAYARAN " & clsCOA.Name, ERPSLib.UI.usUserApp.UserID)
+                DL.AccountPayable.UpdateVoucherNumber(sqlCon, sqlTrans, strID, clsVoucher.VoucherNumber, clsData.PaymentDate)
 EndProcess:
             Catch ex As Exception
                 Throw ex

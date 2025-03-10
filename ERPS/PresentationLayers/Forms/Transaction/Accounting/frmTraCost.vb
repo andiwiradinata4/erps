@@ -287,7 +287,6 @@ Public Class frmTraCost
         If intPos < 0 Then Exit Sub
         clsData = prvGetData()
         clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        'If Not UI.usForm.frmAskQuestion("Approve Nomor " & clsData.CostNumber & "?") Then Exit Sub
 
         Dim frmDetail As New frmTraAccountSetPaymentDate
         With frmDetail

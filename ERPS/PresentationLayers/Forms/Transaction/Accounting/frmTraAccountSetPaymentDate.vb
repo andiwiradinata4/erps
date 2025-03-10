@@ -55,7 +55,7 @@
         With frmDetail
             .pubIsLookUp = True
             .pubCompanyID = ERPSLib.UI.usUserApp.CompanyID
-            .pubProgramID = ERPSLib.UI.usUserApp.CompanyID
+            .pubProgramID = ERPSLib.UI.usUserApp.ProgramID
             .pubFilterGroup = VO.ChartOfAccount.FilterGroup.CashOrBank
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()

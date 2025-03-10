@@ -302,7 +302,8 @@
                     DL.Cost.UpdateJournalID(sqlCon, sqlTrans, clsData.ID, strJournalID)
 
                     '# Generate Voucher
-                    BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsData.ProgramID, clsData.CompanyID, clsData.PaymentDate, VO.VoucherType.Values.BankOut, clsData.ID, clsData.CostNumber, clsData.CoAID, clsData.TotalDPP + clsData.TotalPPN - clsData.TotalPPH, "PEMBAYARAN BIAYA", ERPSLib.UI.usUserApp.UserID)
+                    Dim clsVoucher As VO.ARAPVoucher = BL.ARAP.GenerateVoucher(sqlCon, sqlTrans, clsData.ProgramID, clsData.CompanyID, clsData.PaymentDate, VO.VoucherType.Values.BankOut, clsData.ID, clsData.CostNumber, clsData.CoAID, clsData.TotalDPP + clsData.TotalPPN - clsData.TotalPPH, "PEMBAYARAN BIAYA", ERPSLib.UI.usUserApp.UserID)
+                    DL.Cost.UpdateVoucherNumber(sqlCon, sqlTrans, clsData.ID, clsVoucher.VoucherNumber, clsData.PaymentDate)
 
                     sqlTrans.Commit()
                 Catch ex As Exception
@@ -346,6 +347,7 @@
 
                     '# Delete Voucher
                     DL.ARAP.DeleteDataVoucher(sqlCon, sqlTrans, strID)
+                    DL.Cost.UpdateVoucherNumber(sqlCon, sqlTrans, strID, "", "2000/01/01")
 
                     sqlTrans.Commit()
                 Catch ex As Exception
