@@ -321,6 +321,8 @@ Public Class frmTraARAPDetVer4
             End If
         Next
 
+        If Not prvCheckIsValidItem() Then Exit Sub
+
         Dim decTotalDPUsed As Decimal = 0
         For i As Integer = 0 To grdItemView.RowCount - 1
             decTotalDPUsed += grdItemView.GetRowCellValue(i, "DPAmount")
@@ -786,6 +788,21 @@ Public Class frmTraARAPDetVer4
         grdItemView.SetRowCellValue(intPos, "TotalWeight", IIf(decAllocateTotalWeight > grdItemView.GetRowCellValue(intPos, "MaxTotalWeight"), grdItemView.GetRowCellValue(intPos, "MaxTotalWeight"), decAllocateTotalWeight))
         grdItemView.UpdateCurrentRow()
     End Sub
+
+    Private Function prvCheckIsValidItem() As Boolean
+        For i As Integer = 0 To grdItemView.RowCount - 1
+            Dim decMaxAmount As Decimal = grdItemView.GetRowCellValue(i, "MaxPaymentAmount")
+            Dim decUnitPrice As Decimal = grdItemView.GetRowCellValue(i, "UnitPrice")
+            Dim decTotalWeight As Decimal = grdItemView.GetRowCellValue(i, "TotalWeight")
+            Dim decAmount As Decimal = decUnitPrice * decTotalWeight
+            decAmount = decAmount - grdItemView.GetRowCellValue(i, "DPAmount")
+            If decAmount > decMaxAmount Then
+                UI.usForm.frmMessageBox("Total tagihan baris ke " & i + 1 & " tidak boleh lebih besar dari total maksimal tagihan")
+                Return False
+            End If
+        Next
+        Return True
+    End Function
 
 #End Region
 

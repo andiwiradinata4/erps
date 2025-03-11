@@ -309,6 +309,8 @@ Public Class frmTraARAPDetVer3Import
             Next
         End With
 
+        If Not prvCheckIsValidItem() Then Exit Sub
+
         Dim frmDetail As New usFormSave
         Dim intSave As VO.Save.Action
         With frmDetail
@@ -502,6 +504,23 @@ Public Class frmTraARAPDetVer3Import
 
         grdItemView.SetRowCellValue(intPos, "Amount", decAmount)
     End Sub
+
+    Private Function prvCheckIsValidItem() As Boolean
+        For i As Integer = 0 To grdItemView.RowCount - 1
+            Dim decMaxAmount As Decimal = grdItemView.GetRowCellValue(i, "MaxPaymentAmount")
+            Dim decUnitPrice As Decimal = grdItemView.GetRowCellValue(i, "UnitPrice")
+            Dim decTotalWeight As Decimal = grdItemView.GetRowCellValue(i, "TotalWeight")
+            Dim decAmount As Decimal = IIf(grdItemView.GetRowCellValue(i, "Pick") = 0, 0, decUnitPrice * decTotalWeight)
+            If chkUsePercentage.Checked And txtPercentage.Value > 0 And decAmount > 0 Then
+                decAmount = ERPSLib.SharedLib.Math.Round(decAmount * txtPercentage.Value / 100, 2)
+            End If
+            If decAmount > decMaxAmount Then
+                UI.usForm.frmMessageBox("Total tagihan baris ke " & i + 1 & " tidak boleh lebih besar dari total maksimal tagihan")
+                Return False
+            End If
+        Next
+        Return True
+    End Function
 
     Private Sub prvSetTotalWeight(ByVal intPos As Integer)
         Dim decAllocateTotalWeight As Decimal = grdItemView.GetRowCellValue(intPos, "Quantity") * grdItemView.GetRowCellValue(intPos, "Weight")

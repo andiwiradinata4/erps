@@ -1329,7 +1329,6 @@ Public Class frmTraARAP
 
     Private Sub prvImport()
         prvResetProgressBar()
-
         Try
             Dim frmLookup As New frmTraARAPDPLookup
             frmLookup.pubListReferencesID = BL.SalesContract.ListDataOrderRequest(strReferencesID)

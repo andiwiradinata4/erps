@@ -1890,7 +1890,7 @@
                     "   And B.ApprovedBy<>'' " & vbNewLine &
                     "   And A.ParentID='' " & vbNewLine &
                     "   AND A.TotalPrice-A.DPAmount-A.ReceiveAmount>0 " & vbNewLine &
-                    "   AND A.TotalWeight-A.DCWeight>0 " & vbNewLine
+                    "   --AND A.TotalWeight-A.DCWeight>0 " & vbNewLine
 
                 'If bolIsUseSubItem Then .CommandText += "   AND A.ParentID<>'' " & vbNewLine
 

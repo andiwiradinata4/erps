@@ -120,6 +120,9 @@ Public Class frmTraARAPDetVer3
         UI.usForm.SetGrid(grdItemView, "ReferencesDetailID", "ReferencesDetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdItemView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "InvoiceAmount", "InvoiceAmount", 250, UI.usDefGrid.gReal2Num, False)
+        UI.usForm.SetGrid(grdItemView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
+        UI.usForm.SetGrid(grdItemView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdItemView, "Quantity", "Jumlah", 150, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "Weight", "Berat", 150, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 150, UI.usDefGrid.gReal2Num, True, False)
@@ -134,9 +137,6 @@ Public Class frmTraARAPDetVer3
         UI.usForm.SetGrid(grdItemView, "ItemID", "ItemID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemCode", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemName", "Nama Barang", 250, UI.usDefGrid.gSmallDate)
-        UI.usForm.SetGrid(grdItemView, "Thick", "Tebal", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemView, "Width", "Lebar", 100, UI.usDefGrid.gIntNum)
-        UI.usForm.SetGrid(grdItemView, "Length", "Panjang", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdItemView, "ItemSpecificationID", "ItemSpecificationID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdItemView, "ItemSpecificationName", "Spec", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "ItemTypeID", "ItemTypeID", 100, UI.usDefGrid.gIntNum, False)
@@ -302,6 +302,8 @@ Public Class frmTraARAPDetVer3
                 End If
             Next
         End With
+
+        If Not prvCheckIsValidItem() Then Exit Sub
 
         Dim frmDetail As New usFormSave
         Dim intSave As VO.Save.Action
@@ -568,6 +570,23 @@ Public Class frmTraARAPDetVer3
         prvCalculateItem()
         ToolBarDetail.Focus()
     End Sub
+
+    Private Function prvCheckIsValidItem() As Boolean
+        For i As Integer = 0 To grdItemView.RowCount - 1
+            Dim decMaxAmount As Decimal = grdItemView.GetRowCellValue(i, "MaxPaymentAmount")
+            Dim decUnitPrice As Decimal = grdItemView.GetRowCellValue(i, "UnitPrice")
+            Dim decTotalWeight As Decimal = grdItemView.GetRowCellValue(i, "TotalWeight")
+            Dim decAmount As Decimal = IIf(grdItemView.GetRowCellValue(i, "Pick") = 0, 0, decUnitPrice * decTotalWeight)
+            If chkUsePercentage.Checked And txtPercentage.Value > 0 And decAmount > 0 Then
+                decAmount = ERPSLib.SharedLib.Math.Round(decAmount * txtPercentage.Value / 100, 2)
+            End If
+            If decAmount > decMaxAmount Then
+                UI.usForm.frmMessageBox("Total tagihan baris ke " & i + 1 & " tidak boleh lebih besar dari total maksimal tagihan")
+                Return False
+            End If
+        Next
+        Return True
+    End Function
 
 #End Region
 
