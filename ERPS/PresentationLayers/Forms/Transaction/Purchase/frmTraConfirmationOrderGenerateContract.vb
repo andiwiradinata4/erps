@@ -6,6 +6,7 @@
     Private clsCO As New VO.ConfirmationOrder
     Private strCOID As String = ""
     Private bolIsSave As Boolean
+    Private bolIsUpdate As Boolean
 
     Public WriteOnly Property pubCOID As String
         Set(value As String)
@@ -17,6 +18,12 @@
         Get
             Return bolIsSave
         End Get
+    End Property
+
+    Public WriteOnly Property pubIsUpdate As Boolean
+        Set(value As Boolean)
+            bolIsUpdate = value
+        End Set
     End Property
 
 #End Region
@@ -46,14 +53,20 @@
 
     Private Sub prvSave()
         ToolBar.Focus()
-        If Not UI.usForm.frmAskQuestion("Generate Data Kontrak Pembelian?") Then Exit Sub
+        If Not bolIsSave Then If Not UI.usForm.frmAskQuestion("Generate Data Kontrak Pembelian?") Then Exit Sub
+        If bolIsSave Then If Not UI.usForm.frmAskQuestion("Ubah Nomor Kontrak Pembelian?") Then Exit Sub
         prvResetProgressBar()
 
         pgMain.Value = 30
         Me.Cursor = Cursors.WaitCursor
         Try
-            BL.ConfirmationOrder.GeneratePurchaseContract(strCOID, txtPCNumber.Text.Trim, txtFranco.Text.Trim)
-            UI.usForm.frmMessageBox("Data berhasil di Generate")
+            If bolIsUpdate Then
+                BL.ConfirmationOrder.UpdatePCNumber(strCOID, txtPCNumber.Text.Trim, txtFranco.Text.Trim)
+                UI.usForm.frmMessageBox("Data berhasil di Update")
+            Else
+                BL.ConfirmationOrder.GeneratePurchaseContract(strCOID, txtPCNumber.Text.Trim, txtFranco.Text.Trim)
+                UI.usForm.frmMessageBox("Data berhasil di Generate")
+            End If
             bolIsSave = True
             Me.Close()
         Catch ex As Exception

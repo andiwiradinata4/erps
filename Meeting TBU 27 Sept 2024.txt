@@ -1,7 +1,0 @@
-List PI yang masih outstanding -> bisa ditarik ke payment schedule agar bisa mengetahui per periode yang ditentukan akan masuk dana berapa rupiah, dihitung selisih jatuh tempo.
-Bisa filter per Customer, Periode dan PI Number.
-Template data berdasarkan List QS yang ditagih didalam PI.
-
-1 PI bisa beberapa Invoice dan setiap invoice memiliki Faktur Pajak.
-
-Quantity / Berat di kontrak pembelian bisa dilakukan perubahan agar saat penerimaan bisa dilakukan penerimaan actual.

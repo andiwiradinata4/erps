@@ -24,7 +24,7 @@ Public Class frmTraConfirmationOrderDetVer1
 #End Region
 
     Private Const _
-       cSave As Byte = 0, cClose As Byte = 1, cSep1 As Byte = 2, cGenerateContract As Byte = 3,
+       cSave As Byte = 0, cClose As Byte = 1, cSep1 As Byte = 2, cGenerateContract As Byte = 3, cChangePCNumber As Byte = 4,
        cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2, cSep1Item As Byte = 3, cUpdatePriceItem As Byte = 4
 
     Private Sub prvSetTitleForm()
@@ -444,6 +444,7 @@ Public Class frmTraConfirmationOrderDetVer1
             ToolBar.Buttons.Item(cGenerateContract).Enabled = False
         Else
             ToolBar.Buttons.Item(cGenerateContract).Enabled = IIf(txtPCNumber.Text.Trim = "", True, False)
+            ToolBar.Buttons.Item(cChangePCNumber).Enabled = IIf(txtPCNumber.Text.Trim = "", False, True)
         End If
 
         For i As Integer = 0 To grdItemView.RowCount - 1
@@ -460,6 +461,24 @@ Public Class frmTraConfirmationOrderDetVer1
         Dim frmDetail As New frmTraConfirmationOrderGenerateContract
         With frmDetail
             .pubCOID = pubID
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog(Me)
+            If .pubIsSave Then
+                prvFillForm()
+            End If
+        End With
+    End Sub
+
+    Private Sub prvChangeContractNumber()
+        If clsData.StatusID <> VO.Status.Values.Submit Then
+            UI.usForm.frmMessageBox("Data harus di Submit terlebih dahulu.")
+            Exit Sub
+        End If
+
+        Dim frmDetail As New frmTraConfirmationOrderGenerateContract
+        With frmDetail
+            .pubCOID = pubID
+            .pubIsUpdate = True
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog(Me)
             If .pubIsSave Then
@@ -669,6 +688,7 @@ Public Class frmTraConfirmationOrderDetVer1
             Case "Simpan" : prvSave()
             Case "Tutup" : Me.Close()
             Case "Generate Kontrak" : prvGenerateContract()
+            Case "Ubah Nomor Kontrak" : prvChangeContractNumber()
             Case "Update Subitem" : prvUpdateSubItem()
         End Select
     End Sub

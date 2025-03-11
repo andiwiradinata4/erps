@@ -4,4 +4,7 @@ Return Pembelian ada di Octa
 
 Komisi diinput di Biaya dimana ada informasi PPH.
 
+- Logo Kontrak Penjualan disesuaikan
+- Logo Pengiriman Penjualan disesuaikan
+- Tagihan Penjualan Jasa
 

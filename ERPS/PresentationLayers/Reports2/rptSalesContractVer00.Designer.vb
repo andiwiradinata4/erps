@@ -189,6 +189,14 @@ Partial Public Class rptSalesContractVer00
         Me.ReportFooter = New DevExpress.XtraReports.UI.ReportFooterBand()
         Me.PageFooter = New DevExpress.XtraReports.UI.PageFooterBand()
         Me.FilteringUIContext1 = New DevExpress.Utils.Filtering.FilteringUIContext(Me.components)
+        Me.sbLogoImage = New DevExpress.XtraReports.UI.SubBand()
+        Me.sbLogoStandart = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel107 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel108 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel109 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel110 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel111 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.xrLogo = New DevExpress.XtraReports.UI.XRPictureBox()
         Me.SalesContractVer00 = New DevExpress.DataAccess.ObjectBinding.ObjectDataSource(Me.components)
         CType(Me.XrTable1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrRichText4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -230,16 +238,16 @@ Partial Public Class rptSalesContractVer00
         '
         'ReportHeader
         '
-        Me.ReportHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrPictureBox1, Me.XrPictureBox2, Me.XrLabel5, Me.XrLabel4, Me.XrLabel3, Me.XrLabel2, Me.XrLabel1})
         Me.ReportHeader.Dpi = 100.0!
-        Me.ReportHeader.HeightF = 100.0!
+        Me.ReportHeader.HeightF = 0.0!
         Me.ReportHeader.Name = "ReportHeader"
+        Me.ReportHeader.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.sbLogoImage, Me.sbLogoStandart})
         '
         'XrPictureBox1
         '
         Me.XrPictureBox1.Dpi = 100.0!
         Me.XrPictureBox1.Image = CType(resources.GetObject("XrPictureBox1.Image"), System.Drawing.Image)
-        Me.XrPictureBox1.LocationFloat = New DevExpress.Utils.PointFloat(0.0003496806!, 20.0!)
+        Me.XrPictureBox1.LocationFloat = New DevExpress.Utils.PointFloat(0.002797445!, 20.00002!)
         Me.XrPictureBox1.Name = "XrPictureBox1"
         Me.XrPictureBox1.SizeF = New System.Drawing.SizeF(90.0!, 40.0!)
         Me.XrPictureBox1.Sizing = DevExpress.XtraPrinting.ImageSizeMode.StretchImage
@@ -248,7 +256,7 @@ Partial Public Class rptSalesContractVer00
         '
         Me.XrPictureBox2.Dpi = 100.0!
         Me.XrPictureBox2.Image = CType(resources.GetObject("XrPictureBox2.Image"), System.Drawing.Image)
-        Me.XrPictureBox2.LocationFloat = New DevExpress.Utils.PointFloat(90.00034!, 30.0!)
+        Me.XrPictureBox2.LocationFloat = New DevExpress.Utils.PointFloat(90.00295!, 29.99999!)
         Me.XrPictureBox2.Name = "XrPictureBox2"
         Me.XrPictureBox2.SizeF = New System.Drawing.SizeF(160.0!, 30.0!)
         Me.XrPictureBox2.Sizing = DevExpress.XtraPrinting.ImageSizeMode.StretchImage
@@ -257,10 +265,10 @@ Partial Public Class rptSalesContractVer00
         '
         Me.XrLabel5.Dpi = 100.0!
         Me.XrLabel5.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.XrLabel5.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 80.0!)
+        Me.XrLabel5.LocationFloat = New DevExpress.Utils.PointFloat(0.002543132!, 79.99998!)
         Me.XrLabel5.Name = "XrLabel5"
         Me.XrLabel5.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel5.SizeF = New System.Drawing.SizeF(767.0!, 20.0!)
+        Me.XrLabel5.SizeF = New System.Drawing.SizeF(766.994!, 20.0!)
         Me.XrLabel5.StylePriority.UseFont = False
         Me.XrLabel5.StylePriority.UseTextAlignment = False
         Me.XrLabel5.Text = "TENTANG JUAL BELI"
@@ -271,10 +279,10 @@ Partial Public Class rptSalesContractVer00
         Me.XrLabel4.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BPName")})
         Me.XrLabel4.Dpi = 100.0!
         Me.XrLabel4.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel4.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 60.0!)
+        Me.XrLabel4.LocationFloat = New DevExpress.Utils.PointFloat(0.002543132!, 60.00001!)
         Me.XrLabel4.Name = "XrLabel4"
         Me.XrLabel4.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel4.SizeF = New System.Drawing.SizeF(767.0!, 20.0!)
+        Me.XrLabel4.SizeF = New System.Drawing.SizeF(766.994!, 20.0!)
         Me.XrLabel4.StylePriority.UseFont = False
         Me.XrLabel4.StylePriority.UseTextAlignment = False
         Me.XrLabel4.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
@@ -283,7 +291,7 @@ Partial Public Class rptSalesContractVer00
         '
         Me.XrLabel3.Dpi = 100.0!
         Me.XrLabel3.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel3.LocationFloat = New DevExpress.Utils.PointFloat(250.0003!, 39.99999!)
+        Me.XrLabel3.LocationFloat = New DevExpress.Utils.PointFloat(250.0028!, 39.99999!)
         Me.XrLabel3.Name = "XrLabel3"
         Me.XrLabel3.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel3.SizeF = New System.Drawing.SizeF(266.9996!, 20.0!)
@@ -297,7 +305,7 @@ Partial Public Class rptSalesContractVer00
         Me.XrLabel2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CompanyName")})
         Me.XrLabel2.Dpi = 100.0!
         Me.XrLabel2.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel2.LocationFloat = New DevExpress.Utils.PointFloat(250.0003!, 20.0!)
+        Me.XrLabel2.LocationFloat = New DevExpress.Utils.PointFloat(250.0028!, 20.00002!)
         Me.XrLabel2.Name = "XrLabel2"
         Me.XrLabel2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel2.SizeF = New System.Drawing.SizeF(266.9996!, 20.0!)
@@ -310,10 +318,10 @@ Partial Public Class rptSalesContractVer00
         '
         Me.XrLabel1.Dpi = 100.0!
         Me.XrLabel1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel1.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.XrLabel1.LocationFloat = New DevExpress.Utils.PointFloat(0.001525879!, 0.0!)
         Me.XrLabel1.Name = "XrLabel1"
         Me.XrLabel1.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel1.SizeF = New System.Drawing.SizeF(767.0!, 20.0!)
+        Me.XrLabel1.SizeF = New System.Drawing.SizeF(766.995!, 20.0!)
         Me.XrLabel1.StylePriority.UseFont = False
         Me.XrLabel1.StylePriority.UseTextAlignment = False
         Me.XrLabel1.Text = "KONTRAK ANTARA"
@@ -1928,6 +1936,96 @@ Partial Public Class rptSalesContractVer00
         Me.PageFooter.HeightF = 10.0!
         Me.PageFooter.Name = "PageFooter"
         '
+        'sbLogoImage
+        '
+        Me.sbLogoImage.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrPictureBox1, Me.XrPictureBox2, Me.XrLabel5, Me.XrLabel4, Me.XrLabel3, Me.XrLabel2, Me.XrLabel1})
+        Me.sbLogoImage.Dpi = 100.0!
+        Me.sbLogoImage.HeightF = 100.0!
+        Me.sbLogoImage.Name = "sbLogoImage"
+        Me.sbLogoImage.Visible = False
+        '
+        'sbLogoStandart
+        '
+        Me.sbLogoStandart.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.xrLogo, Me.XrLabel107, Me.XrLabel108, Me.XrLabel109, Me.XrLabel110, Me.XrLabel111})
+        Me.sbLogoStandart.Dpi = 100.0!
+        Me.sbLogoStandart.HeightF = 100.0!
+        Me.sbLogoStandart.Name = "sbLogoStandart"
+        Me.sbLogoStandart.Visible = False
+        '
+        'XrLabel107
+        '
+        Me.XrLabel107.Dpi = 100.0!
+        Me.XrLabel107.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel107.LocationFloat = New DevExpress.Utils.PointFloat(250.0038!, 0.0!)
+        Me.XrLabel107.Name = "XrLabel107"
+        Me.XrLabel107.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel107.SizeF = New System.Drawing.SizeF(266.9986!, 20.0!)
+        Me.XrLabel107.StylePriority.UseFont = False
+        Me.XrLabel107.StylePriority.UseTextAlignment = False
+        Me.XrLabel107.Text = "KONTRAK ANTARA"
+        Me.XrLabel107.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'XrLabel108
+        '
+        Me.XrLabel108.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CompanyName")})
+        Me.XrLabel108.Dpi = 100.0!
+        Me.XrLabel108.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel108.LocationFloat = New DevExpress.Utils.PointFloat(250.0038!, 20.00002!)
+        Me.XrLabel108.Name = "XrLabel108"
+        Me.XrLabel108.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel108.SizeF = New System.Drawing.SizeF(266.9996!, 20.0!)
+        Me.XrLabel108.StylePriority.UseFont = False
+        Me.XrLabel108.StylePriority.UseTextAlignment = False
+        Me.XrLabel108.Text = "PT. TEKNIK BAJA UTAMA, TBK"
+        Me.XrLabel108.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'XrLabel109
+        '
+        Me.XrLabel109.Dpi = 100.0!
+        Me.XrLabel109.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel109.LocationFloat = New DevExpress.Utils.PointFloat(250.0038!, 40.0!)
+        Me.XrLabel109.Name = "XrLabel109"
+        Me.XrLabel109.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel109.SizeF = New System.Drawing.SizeF(266.9996!, 20.0!)
+        Me.XrLabel109.StylePriority.UseFont = False
+        Me.XrLabel109.StylePriority.UseTextAlignment = False
+        Me.XrLabel109.Text = "DENGAN"
+        Me.XrLabel109.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'XrLabel110
+        '
+        Me.XrLabel110.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BPName")})
+        Me.XrLabel110.Dpi = 100.0!
+        Me.XrLabel110.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel110.LocationFloat = New DevExpress.Utils.PointFloat(150.5256!, 60.00001!)
+        Me.XrLabel110.Name = "XrLabel110"
+        Me.XrLabel110.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel110.SizeF = New System.Drawing.SizeF(465.9559!, 20.0!)
+        Me.XrLabel110.StylePriority.UseFont = False
+        Me.XrLabel110.StylePriority.UseTextAlignment = False
+        Me.XrLabel110.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'XrLabel111
+        '
+        Me.XrLabel111.Dpi = 100.0!
+        Me.XrLabel111.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.XrLabel111.LocationFloat = New DevExpress.Utils.PointFloat(250.0038!, 79.99998!)
+        Me.XrLabel111.Name = "XrLabel111"
+        Me.XrLabel111.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel111.SizeF = New System.Drawing.SizeF(266.9995!, 20.0!)
+        Me.XrLabel111.StylePriority.UseFont = False
+        Me.XrLabel111.StylePriority.UseTextAlignment = False
+        Me.XrLabel111.Text = "TENTANG JUAL BELI"
+        Me.XrLabel111.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'xrLogo
+        '
+        Me.xrLogo.Dpi = 100.0!
+        Me.xrLogo.LocationFloat = New DevExpress.Utils.PointFloat(50.52563!, 0.0!)
+        Me.xrLogo.Name = "xrLogo"
+        Me.xrLogo.SizeF = New System.Drawing.SizeF(100.0!, 100.0!)
+        Me.xrLogo.Sizing = DevExpress.XtraPrinting.ImageSizeMode.ZoomImage
+        '
         'SalesContractVer00
         '
         Me.SalesContractVer00.DataSource = GetType(ERPSLib.VO.rptSalesContractVer00)
@@ -2131,4 +2229,12 @@ Partial Public Class rptSalesContractVer00
     Friend WithEvents paramCountTerm4_2 As DevExpress.XtraReports.Parameters.Parameter
     Friend WithEvents XrPictureBox1 As DevExpress.XtraReports.UI.XRPictureBox
     Friend WithEvents XrPictureBox2 As DevExpress.XtraReports.UI.XRPictureBox
+    Friend WithEvents sbLogoImage As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents sbLogoStandart As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents xrLogo As DevExpress.XtraReports.UI.XRPictureBox
+    Friend WithEvents XrLabel107 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel108 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel109 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel110 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel111 As DevExpress.XtraReports.UI.XRLabel
 End Class

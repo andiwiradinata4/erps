@@ -509,6 +509,7 @@ Public Class frmTraSalesContract
         intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
         Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
+        clsData = prvGetData()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
 
@@ -551,6 +552,16 @@ Public Class frmTraSalesContract
             crReport.paramCountTerm4_1.Value = intCountTerm + 1 & ")"
             crReport.paramCountTerm4_2.Value = intCountTerm + 2 & ")"
             '# --------------------------------------------------------
+
+            '# Setup Logo
+            If clsData.CompanyID = VO.Company.Values.TBU Then
+                crReport.sbLogoImage.Visible = True
+            Else
+                Dim img As Image = UI.usForm.GetLogoCompanyByInitial(ERPSLib.UI.usUserApp.CompanyInitial)
+                crReport.sbLogoStandart.Visible = True
+                crReport.xrLogo.Image = img
+            End If
+
             crReport.paramUom.Value = strUomInitial.Trim
             crReport.DataSource = dtData
             crReport.CreateDocument(True)

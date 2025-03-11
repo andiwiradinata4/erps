@@ -1401,6 +1401,31 @@
             End Try
         End Sub
 
+        Public Shared Sub UpdatePCNumber(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                         ByVal strID As String, ByVal strPCNumber As String, ByVal strFranco As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traPurchaseContract SET " & vbNewLine &
+                    "    PCNumber=@PCNumber, " & vbNewLine &
+                    "    Franco=@Franco " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@PCNumber", SqlDbType.VarChar, 100).Value = strPCNumber
+                .Parameters.Add("@Franco", SqlDbType.VarChar, 250).Value = strFranco
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail"

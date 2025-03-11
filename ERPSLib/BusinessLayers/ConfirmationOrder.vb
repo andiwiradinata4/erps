@@ -444,6 +444,29 @@
             Return bolReturn
         End Function
 
+        Public Shared Function UpdatePCNumber(ByVal strID As String, ByVal strPCNumber As String, ByVal strFranco As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Dim clsData As VO.ConfirmationOrder = DL.ConfirmationOrder.GetDetail(sqlCon, sqlTrans, strID)
+
+                    DL.PurchaseContract.UpdatePCNumber(sqlCon, sqlTrans, clsData.PCID, strPCNumber, strFranco)
+
+                    '# Save Data Status
+                    BL.PurchaseContract.SaveDataStatus(sqlCon, sqlTrans, clsData.PCID, "UPDATE NOMOR", ERPSLib.UI.usUserApp.UserID, "")
+
+                    sqlTrans.Commit()
+                    bolReturn = True
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
 #End Region
 
 #Region "Detail"
