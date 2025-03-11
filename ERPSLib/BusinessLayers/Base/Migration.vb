@@ -2833,5 +2833,34 @@
             End If
         End Sub
 
+        '# ID = 96
+        Private Shared Sub CreateARAPServiceItem_ID96(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 71
+            clsData.Name = "Create ARAP Service Item"
+            clsData.Scripts =
+"CREATE TABLE [dbo].[traARAPServiceItem](" & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPServiceItem_ID]  DEFAULT (''), " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPServiceItem_ParentID]  DEFAULT (''), " & vbNewLine &
+"	[Description] [varchar](500) NOT NULL CONSTRAINT [DF_traARAPServiceItem_Description]  DEFAULT (''), " & vbNewLine &
+"	[Amount] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPServiceItem_Amount]  DEFAULT ((0)), " & vbNewLine &
+"	[PPN] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPServiceItem_PPN]  DEFAULT ((0)), " & vbNewLine &
+"	[PPH] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPServiceItem_PPH]  DEFAULT ((0)), " & vbNewLine &
+"	[Rounding] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPServiceItem_Rounding]  DEFAULT ((0)), " & vbNewLine &
+"	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPServiceItem_Quantity]  DEFAULT ((0)), " & vbNewLine &
+"	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPServiceItem_Weight]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPServiceItem_TotalWeight]  DEFAULT ((0)), " & vbNewLine &
+"   CONSTRAINT [PK_traARAPServiceItem] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
     End Class
 End Namespace
