@@ -864,7 +864,7 @@
 "	CH.CompanyID=MC.ID    " & vbNewLine &
 "INNER JOIN mstBusinessPartner MBP ON    " & vbNewLine &
 "	CH.BPID=MBP.ID    " & vbNewLine &
-"INNER JOIN mstBusinessPartnerBankAccount MBPBA ON    " & vbNewLine &
+"LEFT JOIN mstBusinessPartnerBankAccount MBPBA ON    " & vbNewLine &
 "	CH.BPBankAccountID=MBPBA.ID    " & vbNewLine &
 "INNER JOIN mstUser MUC ON    " & vbNewLine &
 "	CH.CreatedBy=MUC.ID    " & vbNewLine &

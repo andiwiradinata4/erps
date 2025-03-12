@@ -215,6 +215,7 @@ Public Class frmTraARAP
             .Item(cPrintPI).Enabled = bolEnable
             .Item(cPrintInvoice).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
+            .Item(cPrintPaymentBank).Enabled = bolEnable
         End With
     End Sub
 

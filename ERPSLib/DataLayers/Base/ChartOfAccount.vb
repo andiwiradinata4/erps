@@ -37,7 +37,7 @@ Namespace DL
                 If enumFilterGroup = VO.ChartOfAccount.FilterGroup.CashOrBank Then
                     .CommandText += "AND COAG.ID IN (1,2)" & vbNewLine
                 ElseIf enumFilterGroup = VO.ChartOfAccount.FilterGroup.Expense Then
-                    .CommandText += "AND COAT.ID=6 " & vbNewLine
+                    .CommandText += "AND (COAT.ID=6 OR COAT.ID=2)" & vbNewLine
                 ElseIf enumFilterGroup = VO.ChartOfAccount.FilterGroup.Stock Then
                     .CommandText += "AND COAG.ID=4 " & vbNewLine
                 End If
