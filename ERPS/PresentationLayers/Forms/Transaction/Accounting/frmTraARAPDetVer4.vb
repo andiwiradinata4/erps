@@ -1,5 +1,4 @@
-﻿
-Imports DevExpress.XtraGrid
+﻿Imports DevExpress.XtraGrid
 Imports DevExpress.XtraGrid.Columns
 Public Class frmTraARAPDetVer4
 

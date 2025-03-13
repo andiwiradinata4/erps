@@ -403,8 +403,12 @@ Public Class frmTraPurchaseContract
             .pubModules = VO.AccountPayable.DownPayment
             .pubARAPType = VO.ARAP.ARAPTypeValue.Purchase
             .pubBPID = clsData.BPID
+            .pubBPCode = clsData.BPCode
+            .pubBPName = clsData.BPName
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
+            .pubReferencesNumber = clsData.PCNumber
+            .pubIsLookup = True
             .pubIsUseSubItem = clsData.IsUseSubItem
             .pubPPNPercentage = clsData.PPN
             .pubPPHPercentage = clsData.PPH

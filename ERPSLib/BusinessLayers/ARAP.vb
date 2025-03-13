@@ -283,7 +283,13 @@
                                         .DPAmount = cls.DPAmount,
                                         .Rounding = cls.Rounding,
                                         .LevelItem = cls.LevelItem,
-                                        .ReferencesParentID = cls.ReferencesParentID
+                                        .ReferencesParentID = cls.ReferencesParentID,
+                                        .Quantity = cls.Quantity,
+                                        .Weight = cls.Weight,
+                                        .TotalWeight = cls.TotalWeight,
+                                        .InvoiceNumberBP = cls.InvoiceNumberBP,
+                                        .InvoiceDate = cls.InvoiceDate,
+                                        .ReceiveDate = cls.ReceiveDate
                                     })
                         Next
 
@@ -318,6 +324,13 @@
                         clsData.PPNPercentage = clsDataARAP.PPNPercentage
                         clsData.PPHPercentage = clsDataARAP.PPHPercentage
                         clsData.IsGenerate = clsDataARAP.IsGenerate
+                        clsData.Rounding = clsDataARAP.Rounding
+                        clsData.BPBankAccountID = clsDataARAP.BPBankAccountID
+                        clsData.BPBankAccountBank = clsDataARAP.BPBankAccountBank
+                        clsData.BPBankAccountNumber = clsDataARAP.BPBankAccountNumber
+                        clsData.InvoiceNumberBP = clsDataARAP.InvoiceNumberBP
+                        clsData.ReceiveDateInvoice = clsDataARAP.ReceiveDateInvoice
+                        clsData.InvoiceDateBP = clsDataARAP.InvoiceDateBP
 
                         BL.AccountReceivable.SaveDataVer01(sqlCon, sqlTrans, bolNew, clsData)
 
@@ -361,7 +374,13 @@
                                             .DPAmount = cls.DPAmount,
                                             .Rounding = cls.Rounding,
                                             .LevelItem = cls.LevelItem,
-                                            .ReferencesParentID = cls.ReferencesParentID
+                                            .ReferencesParentID = cls.ReferencesParentID,
+                                            .Quantity = cls.Quantity,
+                                            .Weight = cls.Weight,
+                                            .TotalWeight = cls.TotalWeight,
+                                            .InvoiceNumberBP = cls.InvoiceNumberBP,
+                                            .InvoiceDate = cls.InvoiceDate,
+                                            .ReceiveDate = cls.ReceiveDate
                                         })
                         Next
 
@@ -396,6 +415,13 @@
                         clsData.PPNPercentage = clsDataARAP.PPNPercentage
                         clsData.PPHPercentage = clsDataARAP.PPHPercentage
                         clsData.IsGenerate = clsDataARAP.IsGenerate
+                        clsData.Rounding = clsDataARAP.Rounding
+                        clsData.BPBankAccountID = clsDataARAP.BPBankAccountID
+                        clsData.BPBankAccountBank = clsDataARAP.BPBankAccountBank
+                        clsData.BPBankAccountNumber = clsDataARAP.BPBankAccountNumber
+                        clsData.InvoiceNumberBP = clsDataARAP.InvoiceNumberBP
+                        clsData.ReceiveDateInvoice = clsDataARAP.ReceiveDateInvoice
+                        clsData.InvoiceDateBP = clsDataARAP.InvoiceDateBP
 
                         BL.AccountPayable.SaveDataVer01(sqlCon, sqlTrans, bolNew, clsData)
 

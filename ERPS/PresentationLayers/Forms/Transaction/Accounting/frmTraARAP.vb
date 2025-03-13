@@ -353,18 +353,18 @@ Public Class frmTraARAP
                 strModules = VO.AccountReceivable.DownPaymentOrderRequest Or
                 strModules = VO.AccountReceivable.DownPaymentOrderRequestVer2 Or
                 strModules = VO.AccountReceivable.DownPayment Then
-                frmDetail = New frmTraARAPDetVer3
+                frmDetail = New frmTraARAPDetVer5
             Else
                 '# Only for Receive Payment
                 frmDetail = New frmTraARAPDetVer4
-                frmDetail.pubBPCode = strBPCode
-                frmDetail.pubBPName = strBPName
-                frmDetail.pubReferencesNumber = strReferencesNumber
-                frmDetail.pubIsLookup = True
                 frmDetail.pubPaymentTypeID = intPaymentTypeID
             End If
 
             With frmDetail
+                .pubBPCode = strBPCode
+                .pubBPName = strBPName
+                .pubReferencesNumber = strReferencesNumber
+                .pubIsLookup = True
                 .pubIsNew = True
                 .pubCS = prvGetCS()
                 .pubModules = strModules
@@ -404,17 +404,17 @@ Public Class frmTraARAP
                 clsData.Modules = VO.AccountPayable.DownPaymentTransport Or
                 clsData.Modules = VO.AccountReceivable.DownPaymentOrderRequest Or
                 clsData.Modules = VO.AccountReceivable.DownPayment Then
-                frmDetail = New frmTraARAPDetVer3
+                frmDetail = New frmTraARAPDetVer5
             Else
                 frmDetail = New frmTraARAPDetVer4
-                frmDetail.pubBPCode = strBPCode
-                frmDetail.pubBPName = strBPName
-                frmDetail.pubReferencesNumber = strReferencesNumber
-                frmDetail.pubIsLookup = True
                 frmDetail.pubPaymentTypeID = intPaymentTypeID
             End If
 
             With frmDetail
+                .pubBPCode = strBPCode
+                .pubBPName = strBPName
+                .pubReferencesNumber = strReferencesNumber
+                .pubIsLookup = True
                 .pubIsNew = False
                 .pubCS = prvGetCS()
                 .pubID = clsData.ID
