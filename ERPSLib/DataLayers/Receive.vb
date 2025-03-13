@@ -14,7 +14,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT " & vbNewLine &
-                    "    A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.ReceiveNumber, A.ReceiveDate, " & vbNewLine &
+                    "    CAST(0 AS BIT) AS Pick, A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.ReceiveNumber, A.ReceiveDate, " & vbNewLine &
                     "    A.BPID, C.Code AS BPCode, C.Name AS BPName, A.PlatNumber, A.Driver, A.PCID, PC.PCNumber, A.CoAofStock, COA.Code AS CoACodeofStock, " & vbNewLine &
                     "    COA.Name AS CoANameofStock, A.ReferencesNumber, A.PPN, A.PPH, A.TotalQuantity, A.TotalWeight, A.TotalDPP, A.TotalPPN, A.TotalPPH, " & vbNewLine &
                     "    A.RoundingManual, A.IsDeleted, A.Remarks, A.TotalDPP+A.TotalPPN-A.TotalPPh+A.RoundingManual AS GrandTotal, " & vbNewLine &

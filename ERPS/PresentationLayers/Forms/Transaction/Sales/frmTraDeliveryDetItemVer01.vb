@@ -294,26 +294,66 @@
                 .StartPosition = FormStartPosition.CenterParent
                 .pubShowDialog(Me)
                 If .pubIsLookupGet Then
-                    strSCDetailID = .pubLUdtRow.Item("ID")
-                    txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
-                    intItemID = .pubLUdtRow.Item("ItemID")
-                    cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
-                    txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
-                    txtItemName.Text = .pubLUdtRow.Item("ItemName")
-                    cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
-                    txtThick.Value = .pubLUdtRow.Item("Thick")
-                    txtWidth.Value = .pubLUdtRow.Item("Width")
-                    txtLength.Value = .pubLUdtRow.Item("Length")
-                    txtWeight.Value = .pubLUdtRow.Item("Weight")
-                    txtMaxTotalWeight.Value = .pubLUdtRow.Item("MaxTotalWeight")
-                    txtUnitPrice.Value = .pubLUdtRow.Item("UnitPrice")
-                    txtQuantity.Value = .pubLUdtRow.Item("Quantity")
-                    intLevelItem = .pubLUdtRow.Item("LevelItem")
-                    strParentID = .pubLUdtRow.Item("ParentID")
-                    txtQuantity.Focus()
-                    txtRemarks.Text = ""
-                    bolIsAutoSearch = False
-                    txtRounding.Value = 0
+                    If .pubLUdtRow.Count > 1 And bolIsAutoSearch Then
+                        For Each dr As DataRow In .pubLUdtRow
+                            Dim drItem As DataRow = dtItem.NewRow
+                            intGroupID = dtItem.Rows.Count + 1
+                            With drItem
+                                .BeginEdit()
+                                .Item("ID") = Guid.NewGuid
+                                .Item("SCDetailID") = dr.Item("ID")
+                                .Item("OrderNumberSupplier") = dr.Item("OrderNumberSupplier")
+                                .Item("SCNumber") = ""
+                                .Item("GroupID") = intGroupID
+                                .Item("ItemID") = dr.Item("ItemID")
+                                .Item("ItemCode") = dr.Item("ItemCode")
+                                .Item("ItemName") = dr.Item("ItemName")
+                                .Item("Thick") = dr.Item("Thick")
+                                .Item("Width") = dr.Item("Width")
+                                .Item("Length") = dr.Item("Length")
+                                .Item("ItemSpecificationID") = dr.Item("ItemSpecificationID")
+                                .Item("ItemSpecificationName") = dr.Item("ItemSpecificationName")
+                                .Item("ItemTypeID") = dr.Item("ItemTypeID")
+                                .Item("ItemTypeName") = dr.Item("ItemTypeName")
+                                .Item("Quantity") = 1
+                                .Item("Weight") = dr.Item("Weight")
+                                .Item("TotalWeight") = dr.Item("Weight")
+                                .Item("RoundingWeight") = 0
+                                .Item("MaxTotalWeight") = dr.Item("MaxTotalWeight")
+                                .Item("UnitPrice") = dr.Item("UnitPrice")
+                                .Item("TotalPrice") = dr.Item("UnitPrice") * dr.Item("Weight")
+                                .Item("Remarks") = ""
+                                .Item("LevelItem") = intLevelItem
+                                .Item("ParentID") = strParentID
+                                .EndEdit()
+                            End With
+                            dtItem.Rows.Add(drItem)
+                        Next
+                        dtItem.AcceptChanges()
+                        Me.Close()
+                    Else
+                        strSCDetailID = .pubLUdtRow.First.Item("ID")
+                        txtOrderNumberSupplier.Text = .pubLUdtRow.First.Item("OrderNumberSupplier")
+                        intItemID = .pubLUdtRow.First.Item("ItemID")
+                        cboItemType.SelectedValue = .pubLUdtRow.First.Item("ItemTypeID")
+                        txtItemCode.Text = .pubLUdtRow.First.Item("ItemCode")
+                        txtItemName.Text = .pubLUdtRow.First.Item("ItemName")
+                        cboItemSpecification.SelectedValue = .pubLUdtRow.First.Item("ItemSpecificationID")
+                        txtThick.Value = .pubLUdtRow.First.Item("Thick")
+                        txtWidth.Value = .pubLUdtRow.First.Item("Width")
+                        txtLength.Value = .pubLUdtRow.First.Item("Length")
+                        txtWeight.Value = .pubLUdtRow.First.Item("Weight")
+                        txtMaxTotalWeight.Value = .pubLUdtRow.First.Item("MaxTotalWeight")
+                        txtUnitPrice.Value = .pubLUdtRow.First.Item("UnitPrice")
+                        txtQuantity.Value = .pubLUdtRow.First.Item("Quantity")
+                        intLevelItem = .pubLUdtRow.First.Item("LevelItem")
+                        strParentID = .pubLUdtRow.First.Item("ParentID")
+                        txtQuantity.Focus()
+                        txtRemarks.Text = ""
+                        bolIsAutoSearch = False
+                        txtRounding.Value = 0
+                    End If
+
                 Else
                     If bolIsAutoSearch Then Me.Close()
                 End If
@@ -370,7 +410,6 @@
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
-
         Select Case e.Button.Name
             Case ToolBar.Buttons(cSave).Name : prvSave()
             Case ToolBar.Buttons(cClose).Name : Me.Close()

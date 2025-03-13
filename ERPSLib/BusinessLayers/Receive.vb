@@ -225,10 +225,30 @@
             Return bolReturn
         End Function
 
+        Public Shared Function Submit(ByVal strAllID As List(Of String), ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    For Each strID As String In strAllID
+                        Submit(sqlCon, sqlTrans, strID, strRemarks)
+                    Next
+                    sqlTrans.Commit()
+                    bolReturn = True
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
         Public Shared Sub Submit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                  ByVal strID As String, ByVal strRemarks As String)
             Dim bolReturn As Boolean = False
             Dim clsData As VO.Receive = DL.Receive.GetDetail(sqlCon, sqlTrans, strID)
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If clsData.StatusID = VO.Status.Values.Submit Then
                 Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan status data telah SUBMIT")
             ElseIf clsData.IsDeleted Then
@@ -251,35 +271,7 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim clsData As VO.Receive = DL.Receive.GetDetail(sqlCon, sqlTrans, strID)
-                    If clsData.StatusID = VO.Status.Values.Draft Then
-                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah DRAFT")
-                    ElseIf clsData.IsDeleted Then
-                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
-                    ElseIf clsData.DPAmount > 0 Or clsData.TotalPayment > 0 Then
-                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses pembayaran")
-                    ElseIf DL.Receive.IsAlreadyClaim(sqlCon, sqlTrans, strID) Then
-                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses Klaim")
-                    End If
-
-                    Dim dtItem As DataTable = DL.Receive.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
-                    For Each dr As DataRow In dtItem.Rows
-                        If dr.Item("OutWeight") > 0 Then Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses Pesanan Pemotongan")
-                    Next
-
-                    '# Cancel Approve Journal
-                    BL.Journal.Unapprove(clsData.JournalID.Trim, "")
-
-                    '# Cancel Submit Journal
-                    BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
-
-                    DL.Receive.Unsubmit(sqlCon, sqlTrans, strID)
-
-                    '# Save Data Status
-                    BL.Receive.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
-
-                    RecalculateStockIn(sqlCon, sqlTrans, clsData)
-
+                    Unsubmit(sqlCon, sqlTrans, strID, strRemarks)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -288,6 +280,62 @@
             End Using
             Return bolReturn
         End Function
+
+        Public Shared Function Unsubmit(ByVal strAllID As List(Of String), ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    For Each strID As String In strAllID
+                        Unsubmit(sqlCon, sqlTrans, strID, strRemarks)
+                    Next
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Sub Unsubmit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                   ByVal strID As String, ByVal strRemarks As String)
+            Try
+                Dim clsData As VO.Receive = DL.Receive.GetDetail(sqlCon, sqlTrans, strID)
+                clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+                If clsData.StatusID = VO.Status.Values.Draft Then
+                    Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah DRAFT")
+                ElseIf clsData.IsDeleted Then
+                    Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
+                ElseIf clsData.DPAmount > 0 Or clsData.TotalPayment > 0 Then
+                    Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses pembayaran")
+                ElseIf DL.Receive.IsAlreadyClaim(sqlCon, sqlTrans, strID) Then
+                    Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses Klaim")
+                End If
+
+                Dim dtItem As DataTable = DL.Receive.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
+                For Each dr As DataRow In dtItem.Rows
+                    If dr.Item("OutWeight") > 0 Then Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah diproses Pesanan Pemotongan")
+                Next
+
+                '# Cancel Approve Journal
+                BL.Journal.Unapprove(clsData.JournalID.Trim, "")
+
+                '# Cancel Submit Journal
+                BL.Journal.Unsubmit(clsData.JournalID.Trim, "")
+
+                DL.Receive.Unsubmit(sqlCon, sqlTrans, strID)
+
+                '# Save Data Status
+                BL.Receive.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+                RecalculateStockIn(sqlCon, sqlTrans, clsData)
+
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
 
         Public Shared Sub GenerateJournal(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                           ByVal strID As String)

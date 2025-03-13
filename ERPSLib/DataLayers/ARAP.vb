@@ -1586,6 +1586,9 @@
 "		SELECT	" & vbNewLine &
 "			ISNULL(SUM(INV.Quantity),0) Quantity " & vbNewLine &
 "		FROM traARAPInvoiceItem INV " & vbNewLine &
+"		INNER JOIN traARAPInvoice ARI ON " & vbNewLine &
+"		    INV.ParentID=ARI.ID " & vbNewLine &
+"		    AND ARI.IsDeleted=0 " & vbNewLine &
 "		WHERE 	" & vbNewLine &
 "			INV.ReferencesDetailID=@ID " & vbNewLine &
 "	), " & vbNewLine &
@@ -1594,6 +1597,9 @@
 "		SELECT	" & vbNewLine &
 "			ISNULL(SUM(INV.TotalWeight),0) TotalWeight " & vbNewLine &
 "		FROM traARAPInvoiceItem INV " & vbNewLine &
+"		INNER JOIN traARAPInvoice ARI ON " & vbNewLine &
+"		    INV.ParentID=ARI.ID " & vbNewLine &
+"		    AND ARI.IsDeleted=0 " & vbNewLine &
 "		WHERE 	" & vbNewLine &
 "			INV.ReferencesDetailID=@ID " & vbNewLine &
 "	), " & vbNewLine &
@@ -1602,6 +1608,9 @@
 "		SELECT	" & vbNewLine &
 "			ISNULL(SUM(INV.Amount+INV.PPN-INV.PPH),0) TotalAmount " & vbNewLine &
 "		FROM traARAPInvoiceItem INV " & vbNewLine &
+"		INNER JOIN traARAPInvoice ARI ON " & vbNewLine &
+"		    INV.ParentID=ARI.ID " & vbNewLine &
+"		    AND ARI.IsDeleted=0 " & vbNewLine &
 "		WHERE 	" & vbNewLine &
 "			INV.ReferencesDetailID=@ID " & vbNewLine &
 "	), " & vbNewLine &
@@ -1610,6 +1619,9 @@
 "		SELECT	" & vbNewLine &
 "			ISNULL(SUM(INV.Amount),0) PPN " & vbNewLine &
 "		FROM traARAPInvoiceItem INV " & vbNewLine &
+"		INNER JOIN traARAPInvoice ARI ON " & vbNewLine &
+"		    INV.ParentID=ARI.ID " & vbNewLine &
+"		    AND ARI.IsDeleted=0 " & vbNewLine &
 "		WHERE 	" & vbNewLine &
 "			INV.ReferencesDetailID=@ID " & vbNewLine &
 "	), " & vbNewLine &
@@ -1618,6 +1630,9 @@
 "		SELECT	" & vbNewLine &
 "			ISNULL(SUM(INV.PPN),0) PPN " & vbNewLine &
 "		FROM traARAPInvoiceItem INV " & vbNewLine &
+"		INNER JOIN traARAPInvoice ARI ON " & vbNewLine &
+"		    INV.ParentID=ARI.ID " & vbNewLine &
+"		    AND ARI.IsDeleted=0 " & vbNewLine &
 "		WHERE 	" & vbNewLine &
 "			INV.ReferencesDetailID=@ID " & vbNewLine &
 "	), " & vbNewLine &
@@ -1626,6 +1641,9 @@
 "		SELECT	" & vbNewLine &
 "			ISNULL(SUM(INV.PPH),0) PPH " & vbNewLine &
 "		FROM traARAPInvoiceItem INV " & vbNewLine &
+"		INNER JOIN traARAPInvoice ARI ON " & vbNewLine &
+"		    INV.ParentID=ARI.ID " & vbNewLine &
+"		    AND ARI.IsDeleted=0 " & vbNewLine &
 "		WHERE 	" & vbNewLine &
 "			INV.ReferencesDetailID=@ID " & vbNewLine &
 "	) " & vbNewLine &

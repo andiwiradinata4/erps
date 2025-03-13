@@ -172,23 +172,56 @@
         Dim frmDetail As New frmMstItem
         With frmDetail
             .pubIsLookUp = True
+            .pubIsMultiselect = bolIsAutoSearch
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
             If .pubIsLookUpGet Then
-                txtOrderNumberSupplier.Text = drParentItem.Item("OrderNumberSupplier")
-                intItemID = .pubLUdtRow.Item("ID")
-                txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
-                cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
-                txtItemName.Text = .pubLUdtRow.Item("ItemName")
-                txtThick.Value = .pubLUdtRow.Item("Thick")
-                txtWidth.Value = .pubLUdtRow.Item("Width")
-                txtLength.Value = .pubLUdtRow.Item("Length")
-                cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
-                txtWeight.Value = .pubLUdtRow.Item("Weight")
-                txtQuantity.Value = 0
-                txtUnitPrice.Focus()
-                txtRemarks.Text = ""
-                bolIsAutoSearch = False
+                If Not .pubLUdtRowMulti Is Nothing Then
+                    If Not UI.usForm.frmAskQuestion("Tambah subitem yang sudah dipilih?") Then Exit Sub
+                    Me.Cursor = Cursors.WaitCursor
+                    For Each dr As DataRow In .pubLUdtRowMulti
+                        Try
+                            BL.SalesContract.SaveDataSubitem(bolIsNew, drParentItem.Item("SCID"), New VO.SalesContractDet With
+                                                                                                  {
+                                                                                                    .ID = strID,
+                                                                                                    .SCID = drParentItem.Item("SCID"),
+                                                                                                    .ORDetailID = drParentItem.Item("ORDetailID"),
+                                                                                                    .GroupID = drParentItem.Item("GroupID"),
+                                                                                                    .ItemID = dr.Item("ID"),
+                                                                                                    .Quantity = 1,
+                                                                                                    .Weight = dr.Item("Weight"),
+                                                                                                    .TotalWeight = dr.Item("Weight"),
+                                                                                                    .UnitPrice = drParentItem.Item("UnitPrice"),
+                                                                                                    .TotalPrice = dr.Item("Weight") * drParentItem.Item("UnitPrice"),
+                                                                                                    .Remarks = "",
+                                                                                                    .OrderNumberSupplier = drParentItem.Item("OrderNumberSupplier"),
+                                                                                                    .LevelItem = drParentItem.Item("LevelItem") + 1,
+                                                                                                    .ParentID = drParentItem.Item("ID"),
+                                                                                                    .UnitPriceHPP = decUnitPriceHPP
+                                                                                                })
+                        Catch ex As Exception
+                            UI.usForm.frmMessageBox(ex.Message)
+                        Finally
+                            Me.Cursor = Cursors.Default
+                        End Try
+                    Next
+                    Me.Close()
+                Else
+                    txtOrderNumberSupplier.Text = drParentItem.Item("OrderNumberSupplier")
+                    intItemID = .pubLUdtRow.Item("ID")
+                    txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
+                    cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
+                    txtItemName.Text = .pubLUdtRow.Item("ItemName")
+                    txtThick.Value = .pubLUdtRow.Item("Thick")
+                    txtWidth.Value = .pubLUdtRow.Item("Width")
+                    txtLength.Value = .pubLUdtRow.Item("Length")
+                    cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
+                    txtWeight.Value = .pubLUdtRow.Item("Weight")
+                    txtQuantity.Value = 0
+                    txtUnitPrice.Focus()
+                    txtRemarks.Text = ""
+                    bolIsAutoSearch = False
+                End If
             Else
                 If bolIsAutoSearch Then Me.Close()
             End If

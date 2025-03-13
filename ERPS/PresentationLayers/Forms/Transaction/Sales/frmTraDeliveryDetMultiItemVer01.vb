@@ -90,11 +90,11 @@
                 .StartPosition = FormStartPosition.CenterParent
                 .pubShowDialog(Me)
                 If .pubIsLookupGet Then
-                    strSCDetailID = .pubLUdtRow.Item("ID")
-                    txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
-                    intLevelItem = .pubLUdtRow.Item("LevelItem")
-                    strParentID = .pubLUdtRow.Item("ParentID")
-                    decUnitPrice = .pubLUdtRow.Item("UnitPrice")
+                    strSCDetailID = .pubLUdtRow.First.Item("ID")
+                    txtOrderNumberSupplier.Text = .pubLUdtRow.First.Item("OrderNumberSupplier")
+                    intLevelItem = .pubLUdtRow.First.Item("LevelItem")
+                    strParentID = .pubLUdtRow.First.Item("ParentID")
+                    decUnitPrice = .pubLUdtRow.First.Item("UnitPrice")
                     bolIsAutoSearch = False
                 Else
                     If bolIsAutoSearch Then Me.Close()

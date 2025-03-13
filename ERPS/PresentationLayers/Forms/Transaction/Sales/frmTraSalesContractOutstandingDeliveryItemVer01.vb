@@ -9,7 +9,7 @@ Public Class frmTraSalesContractOutstandingDeliveryItemVer01
     Private clsCS As VO.CS
     Private strSCID As String
     Private dtData As New DataTable
-    Private drLookupGet As DataRow
+    Private drLookupGet() As DataRow
     Private bolIsLookupGet As Boolean = False
     Private dtParent As New DataTable
     Private bolIsUseSubItem As Boolean
@@ -26,7 +26,7 @@ Public Class frmTraSalesContractOutstandingDeliveryItemVer01
         End Set
     End Property
 
-    Public ReadOnly Property pubLUdtRow As DataRow
+    Public ReadOnly Property pubLUdtRow As DataRow()
         Get
             Return drLookupGet
         End Get
@@ -61,6 +61,7 @@ Public Class frmTraSalesContractOutstandingDeliveryItemVer01
        cGet As Byte = 0, cClose As Byte = 1
 
     Private Sub prvSetGrid()
+        UI.usForm.SetGrid(grdView, "Pick", "Pick", 100, UI.usDefGrid.gBoolean, True, False)
         UI.usForm.SetGrid(grdView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "SCID", "SCID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "OrderNumberSupplier", "Nomor Pesanan Pemasok", 100, UI.usDefGrid.gString)
@@ -113,9 +114,12 @@ Public Class frmTraSalesContractOutstandingDeliveryItemVer01
     End Sub
 
     Private Sub prvGet()
-        intPos = grdView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        drLookupGet = grdView.GetDataRow(intPos)
+        ToolBar.Focus()
+        drLookupGet = dtData.Select("Pick=True")
+        If drLookupGet.Count = 0 Then
+            UI.usForm.frmMessageBox("Pilih item terlebih dahulu")
+            Exit Sub
+        End If
         bolIsLookupGet = True
         Me.Close()
     End Sub
@@ -152,7 +156,7 @@ Public Class frmTraSalesContractOutstandingDeliveryItemVer01
     End Sub
 
     Private Sub grdView_DoubleClick(sender As Object, e As EventArgs) Handles grdView.DoubleClick
-        prvGet()
+        'prvGet()
     End Sub
 
 #End Region

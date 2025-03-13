@@ -2041,7 +2041,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
                     "SELECT	" & vbNewLine &
-                    "   A.ID, A.SCID, A1.SCNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  	" & vbNewLine &
+                    "   CAST(0 AS BIT) AS Pick, A.ID, A.SCID, A1.SCNumber, A.ItemID, B.ItemCode, B.ItemName, B.Thick, B.Width, B.Length,  	" & vbNewLine &
                     "   C.ID AS ItemSpecificationID, C.Description AS ItemSpecificationName, D.ID AS ItemTypeID, D.Description AS ItemTypeName,  	" & vbNewLine &
                     "   A.UnitPrice, CASE WHEN A.Quantity-A.DCQuantity <=0 THEN 1 ELSE A.Quantity-A.DCQuantity END AS Quantity, A.Weight, " & vbNewLine &
                     "   CASE WHEN A.IsIgnoreValidationPayment=1 THEN A.TotalWeight-A.DCWeight ELSE A.InvoiceTotalWeight-A.DCWeight END AS TotalWeight, " & vbNewLine &

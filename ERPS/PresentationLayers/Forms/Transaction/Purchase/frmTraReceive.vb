@@ -19,6 +19,7 @@ Public Class frmTraReceive
     End Sub
 
     Private Sub prvSetGrid()
+        UI.usForm.SetGrid(grdView, "Pick", "Pick", 100, UI.usDefGrid.gBoolean, True, False)
         UI.usForm.SetGrid(grdView, "ID", "ID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "ProgramID", "ProgramID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "ProgramName", "ProgramName", 100, UI.usDefGrid.gString, False)
@@ -242,37 +243,47 @@ Public Class frmTraReceive
     End Sub
 
     Private Sub prvSubmit()
-        intPos = grdView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        clsData = prvGetData()
-        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        If Not UI.usForm.frmAskQuestion("Submit Nomor " & clsData.ReceiveNumber & "?") Then Exit Sub
+        ToolBar.Focus()
+        Dim drPick() As DataRow = dtData.Select("Pick=True")
+        If drPick.Length = 0 Then
+            UI.usForm.frmMessageBox("Pilih data yang ingin disubmit terlebih dahulu")
+            Exit Sub
+        End If
+
+        If Not UI.usForm.frmAskQuestion("Submit semua nomor yang telah dipilih?") Then Exit Sub
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
-            BL.Receive.Submit(clsData.ID, "")
+            Dim strAllID As New List(Of String)
+            For Each dr As DataRow In drPick
+                If dr.Item("Pick") Then strAllID.Add(dr.Item("ID"))
+            Next
+
+            BL.Receive.Submit(strAllID, "")
             pgMain.Value = 100
-            
+
             UI.usForm.frmMessageBox("Submit data berhasil.")
-            pubRefresh(grdView.GetRowCellValue(intPos, "ReceiveNumber"))
+            pubRefresh()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
             prvResetProgressBar()
         End Try
     End Sub
 
     Private Sub prvCancelSubmit()
-        intPos = grdView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        clsData = prvGetData()
-        clsData.LogBy = ERPSLib.UI.usUserApp.UserID
-        If Not UI.usForm.frmAskQuestion("Batal Submit Nomor " & clsData.ReceiveNumber & "?") Then Exit Sub
+        ToolBar.Focus()
+        Dim drPick() As DataRow = dtData.Select("Pick=True")
+        If drPick.Length = 0 Then
+            UI.usForm.frmMessageBox("Pilih data yang ingin di batal submit terlebih dahulu")
+            Exit Sub
+        End If
+
+        If Not UI.usForm.frmAskQuestion("Batal Submit semua nomor yang telah dipilih?") Then Exit Sub
 
         Dim frmDetail As New usFormRemarks
         With frmDetail
@@ -287,19 +298,22 @@ Public Class frmTraReceive
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
-            BL.Receive.Unsubmit(clsData.ID, clsData.Remarks)
+            Dim strAllID As New List(Of String)
+            For Each dr As DataRow In drPick
+                If dr.Item("Pick") Then strAllID.Add(dr.Item("ID"))
+            Next
+
+            BL.Receive.Unsubmit(strAllID, clsData.Remarks)
             pgMain.Value = 100
-            
             UI.usForm.frmMessageBox("Batal submit data berhasil.")
-            pubRefresh(grdView.GetRowCellValue(intPos, "ReceiveNumber"))
+            pubRefresh()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
             prvResetProgressBar()
         End Try
     End Sub
