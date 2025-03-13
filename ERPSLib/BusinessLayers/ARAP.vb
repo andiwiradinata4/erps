@@ -1184,7 +1184,7 @@
                     dr.Item("LocationAndDate") = dr.Item("City") & ", " & Format(dr.Item("VoucherDate"), "dd MMMM yyyy")
                     dr.EndEdit()
                 Next
-                If dtData.Rows.Count <= 2 Then
+                If dtData.Rows.Count <= 2 And dtData.Rows.Count > 0 Then
                     Dim dr As DataRow = dtData.NewRow
                     dtData.Rows.Add(dr)
                 End If

@@ -258,6 +258,7 @@ Public Class frmTraARAPDetVer5
                     strReferencesNumber = clsData.ReferencesNote
                 End If
             End If
+            prvGetAmount()
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()

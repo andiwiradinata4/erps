@@ -879,6 +879,40 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function PrintVoucherBankOut(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                   ByVal strID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT    " & vbNewLine &
+"	ARI.InvoiceNumber AS TransNumber, CASE WHEN ARI.ApprovedBy='' THEN NULL ELSE CH.PaymentDate END AS TransDate, MC.Name AS CompanyName, ARI.VoucherNumber AS VoucherCode, MBP.Name AS PaidTo, MBPBA.BankName + ' A/C ' + MBPBA.AccountNumber AS PaidAccount, " & vbNewLine &
+"	ARI.TotalAmount AS TotalAmount, CASE WHEN ISNULL(ARR.Remarks,CH.Remarks)='' THEN ARI.Remarks ELSE ISNULL(ARR.Remarks,CH.Remarks) END AS Remarks, MUC.Name AS CreatedBy, ARI.CreatedDate, NULL AS CheckedDate,    " & vbNewLine &
+"	'' AS CheckedBy, '' AS PaidBy, CASE WHEN ARI.ApprovedBy='' THEN NULL ELSE CH.PaymentDate END AS PaidDate, MC.DirectorName AS ApprovedBy, NULL AS ApprovedDate, 'KETERANGAN' AS Description, ':' AS DescriptionSeparator, ARI.Rounding " & vbNewLine &
+"FROM traAccountPayable CH    " & vbNewLine &
+"INNER JOIN traARAPInvoice ARI ON    " & vbNewLine &
+"	CH.ID=ARI.ParentID    " & vbNewLine &
+"INNER JOIN mstCompany MC ON    " & vbNewLine &
+"	CH.CompanyID=MC.ID    " & vbNewLine &
+"INNER JOIN mstBusinessPartner MBP ON    " & vbNewLine &
+"	CH.BPID=MBP.ID    " & vbNewLine &
+"LEFT JOIN mstBusinessPartnerBankAccount MBPBA ON    " & vbNewLine &
+"	CH.BPBankAccountID=MBPBA.ID    " & vbNewLine &
+"INNER JOIN mstUser MUC ON    " & vbNewLine &
+"	ARI.CreatedBy=MUC.ID    " & vbNewLine &
+"LEFT JOIN traARAPRemarks ARR ON  " & vbNewLine &
+"	CH.ID=ARR.ParentID  " & vbNewLine &
+"LEFT JOIN mstUser MUP ON    " & vbNewLine &
+"	CH.PaymentBy=MUP.ID    " & vbNewLine &
+"WHERE ARI.ID=@ID    " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub UpdateVoucherNumber(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                               ByVal strID As String, ByVal strVoucherNumber As String,
                                               ByVal dtmVoucherDate As DateTime)

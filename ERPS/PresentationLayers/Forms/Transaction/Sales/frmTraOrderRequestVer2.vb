@@ -323,8 +323,11 @@ Public Class frmTraOrderRequestVer2
             .pubModules = VO.AccountReceivable.DownPaymentOrderRequest
             .pubARAPType = VO.ARAP.ARAPTypeValue.Sales
             .pubBPID = clsData.BPID
+            .pubBPCode = clsData.BPCode
+            .pubBPName = clsData.BPName
             .pubCS = prvGetCS()
             .pubReferencesID = clsData.ID
+            .pubReferencesNumber = clsData.OrderNumber
             .pubIsUseSubItem = False
             .pubPPNPercentage = clsData.PPN
             .pubPPHPercentage = clsData.PPH

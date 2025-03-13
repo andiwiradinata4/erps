@@ -1286,7 +1286,8 @@ Public Class frmTraARAP
             .Item(cSep3).Visible = False
             If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase Or (enumARAPType = VO.ARAP.ARAPTypeValue.Sales And strModules = VO.AccountReceivable.ReceivePaymentSalesReturn) Then .Item(cPrintPI).Visible = False : .Item(cPrintInvoice).Visible = False
             If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And strModules <> VO.AccountPayable.ReceivePaymentTransport Then .Item(cPrintPaymentBank).Visible = False
-            .Item(cPrintPaymentBank).Visible = strModules = VO.AccountPayable.ReceivePayment Or strModules = VO.AccountPayable.DownPayment
+            If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then .Item(cPrintPaymentBank).Visible = False
+            '.Item(cPrintPaymentBank).Visible = strModules = VO.AccountPayable.ReceivePayment Or strModules = VO.AccountPayable.DownPayment
         End With
     End Sub
 

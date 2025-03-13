@@ -620,7 +620,18 @@
 "	SUM(COD.Amount+COD.PPN-COD.PPH) AS GrandTotal " & vbNewLine &
 "FROM traAccountPayableDet COD  " & vbNewLine &
 "WHERE COD.APID=@ParentID " & vbNewLine &
-"GROUP BY COD.ReceiveDate, COD.InvoiceDate, COD.InvoiceNumberBP  " & vbNewLine
+"GROUP BY COD.ReceiveDate, COD.InvoiceDate, COD.InvoiceNumberBP  " & vbNewLine &
+"-- Payment Account Payable " & vbNewLine &
+"UNION ALL  " & vbNewLine &
+"SELECT  " & vbNewLine &
+"	APH.ReceiveDateInvoice AS ReceiveDate, APH.InvoiceDateBP AS InvoiceDate, APH.InvoiceNumberBP, CAST(1 AS DECIMAL(18,4)) AS Quantity,  " & vbNewLine &
+"	SUM(ARI.TotalDPP) AS Amount, SUM(ARI.TotalPPN) AS PPNAmount, SUM(ARI.TotalPPH) AS PPHAmount,  " & vbNewLine &
+"	SUM(ARI.TotalDPP+ARI.TotalPPN-ARI.TotalPPH) AS GrandTotal " & vbNewLine &
+"FROM traAccountPayable APH  " & vbNewLine &
+"INNER JOIN traARAPInvoice ARI ON    " & vbNewLine &
+"	APH.ID=ARI.ParentID    " & vbNewLine &
+"WHERE ARI.ID=@ParentID " & vbNewLine &
+"GROUP BY APH.ReceiveDateInvoice, APH.InvoiceDateBP, APH.InvoiceNumberBP  " & vbNewLine
 
 
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strID
