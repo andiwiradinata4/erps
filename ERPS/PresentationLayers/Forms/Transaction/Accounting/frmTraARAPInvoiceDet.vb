@@ -188,6 +188,7 @@ Public Class frmTraARAPInvoiceDet
         If Not UI.usForm.frmAskQuestion("Simpan data?") Then Exit Sub
         Dim listItem As New List(Of VO.ARAPInvoiceItem)
         For i As Integer = 0 To grdItemView.RowCount - 1
+            If Not grdItemView.GetRowCellValue(i, "Pick") Then Continue For
             listItem.Add(New VO.ARAPInvoiceItem With
                          {
                              .ReferencesDetailID = grdItemView.GetRowCellValue(i, "ReferencesDetailID"),

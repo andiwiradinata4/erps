@@ -1,12 +1,202 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Project\\Tony\\ERPS\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|c:\\project\\tony\\erps\\erpslib\\businesslayers\\base\\migration.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|solutionrelative:erpslib\\businesslayers\\base\\migration.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|c:\\project\\tony\\erps\\erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapdetver4.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapdetver4.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|c:\\project\\tony\\erps\\erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapdetver3.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapdetver3.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|c:\\project\\tony\\erps\\erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapdetver4.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapdetver4.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|c:\\project\\tony\\erps\\erps\\presentationlayers\\forms\\system\\frmsysmain.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\system\\frmsysmain.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|c:\\project\\tony\\erps\\erps\\presentationlayers\\forms\\system\\frmsysmain.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\system\\frmsysmain.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|c:\\project\\tony\\erps\\erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapinvoicedet.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapinvoicedet.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|c:\\project\\tony\\erps\\erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapinvoicedet.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarapinvoicedet.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|c:\\project\\tony\\erps\\erpslib\\businesslayers\\accountpayable.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{F31C7881-7E63-4B5C-A390-A20EA6D2047C}|ERPSLib\\ERPSLib.vbproj|solutionrelative:erpslib\\businesslayers\\accountpayable.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|c:\\project\\tony\\erps\\erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarap.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarap.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|c:\\project\\tony\\erps\\erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarap.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{BE4034BB-0CD7-49DA-BB52-49CC6461C3E8}|ERPS\\ERPS.vbproj|solutionrelative:erps\\presentationlayers\\forms\\transaction\\accounting\\frmtraarap.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Migration.vb",
+              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPSLib\\BusinessLayers\\Base\\Migration.vb",
+              "RelativeDocumentMoniker": "ERPSLib\\BusinessLayers\\Base\\Migration.vb",
+              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPSLib\\BusinessLayers\\Base\\Migration.vb",
+              "RelativeToolTip": "ERPSLib\\BusinessLayers\\Base\\Migration.vb",
+              "ViewState": "AQIAAAELAAAAAAAAAAAcwDELAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-03-13T08:31:33.129Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "frmTraARAPDetVer3.vb [Design]",
+              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPDetVer3.vb",
+              "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPDetVer3.vb",
+              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPDetVer3.vb [Design]",
+              "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPDetVer3.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-03-13T07:45:37.97Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "frmTraARAPDetVer4.vb",
+              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPDetVer4.vb",
+              "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPDetVer4.vb",
+              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPDetVer4.vb",
+              "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPDetVer4.vb",
+              "ViewState": "AQIAALMBAAAAAAAAAAAuwN8BAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-03-13T07:43:57.776Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "frmTraARAPDetVer4.vb [Design]",
+              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPDetVer4.vb",
+              "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPDetVer4.vb",
+              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPDetVer4.vb [Design]",
+              "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPDetVer4.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-03-13T07:43:32.022Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "frmSysMain.vb",
+              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\System\\frmSysMain.vb",
+              "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\System\\frmSysMain.vb",
+              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\System\\frmSysMain.vb",
+              "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\System\\frmSysMain.vb",
+              "ViewState": "AQIAAEsAAAAAAAAAAAAMwGkAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-03-13T07:31:05.19Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "frmSysMain.vb [Design]",
+              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\System\\frmSysMain.vb",
+              "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\System\\frmSysMain.vb",
+              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\System\\frmSysMain.vb [Design]",
+              "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\System\\frmSysMain.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-03-13T07:31:02.411Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "frmTraARAPInvoiceDet.vb",
+              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPInvoiceDet.vb",
+              "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPInvoiceDet.vb",
+              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPInvoiceDet.vb",
+              "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPInvoiceDet.vb",
+              "ViewState": "AQIAAKEAAAAAAAAAAAAwwL8AAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-03-13T07:28:25.632Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "frmTraARAPInvoiceDet.vb [Design]",
+              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPInvoiceDet.vb",
+              "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPInvoiceDet.vb",
+              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPInvoiceDet.vb [Design]",
+              "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAPInvoiceDet.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-03-13T07:28:20.169Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AccountPayable.vb",
+              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPSLib\\BusinessLayers\\AccountPayable.vb",
+              "RelativeDocumentMoniker": "ERPSLib\\BusinessLayers\\AccountPayable.vb",
+              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPSLib\\BusinessLayers\\AccountPayable.vb",
+              "RelativeToolTip": "ERPSLib\\BusinessLayers\\AccountPayable.vb",
+              "ViewState": "AQIAAJIHAAAAAAAAAAAewLcHAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-03-13T07:19:18.436Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "frmTraARAP.vb",
+              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb",
+              "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb",
+              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb",
+              "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb",
+              "ViewState": "AQIAAFMEAAAAAAAAAAAMwHMEAABNAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-03-13T07:18:55.833Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "frmTraARAP.vb [Design]",
+              "DocumentMoniker": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb",
+              "RelativeDocumentMoniker": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb",
+              "ToolTip": "C:\\Project\\Tony\\ERPS\\ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb [Design]",
+              "RelativeToolTip": "ERPS\\PresentationLayers\\Forms\\Transaction\\Accounting\\frmTraARAP.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-03-13T07:18:47.975Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

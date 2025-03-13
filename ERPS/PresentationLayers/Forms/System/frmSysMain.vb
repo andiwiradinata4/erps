@@ -103,7 +103,7 @@
         tssProgram.Text = ERPSLib.UI.usUserApp.ProgramName
         tssCompany.Text = ERPSLib.UI.usUserApp.CompanyName
         tssServer.Text = ERPSLib.UI.usUserApp.ServerName
-        ssBuildDate.Text = "Build : 12/03/2025 15:17"
+        ssBuildDate.Text = "Build : 13/03/2025 14:31"
     End Sub
 
     Private Sub prvUserAccess()

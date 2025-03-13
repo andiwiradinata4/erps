@@ -1964,7 +1964,21 @@ EndProcess:
         Public Shared Function PrintCostBankOut(ByVal strID As String) As DataTable
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.AccountPayable.PrintCostBankOut(sqlCon, Nothing, strID)
+                Dim dtReturn As DataTable = DL.AccountPayable.PrintCostBankOut(sqlCon, Nothing, strID)
+                Dim dtARAPInvoice As DataTable = DL.ARAP.ListDataInvoice(sqlCon, Nothing, strID)
+                Dim strAllVOucherNumber As String = ""
+                For Each dr As DataRow In dtARAPInvoice.Rows
+                    If dr.Item("VoucherNumber") <> "" Then strAllVOucherNumber += IIf(strAllVOucherNumber.Trim <> "", ", ", "") & dr.Item("VoucherNumber")
+                Next
+                If strAllVOucherNumber.Trim <> "" Then
+                    For Each dr As DataRow In dtReturn.Rows
+                        dr.BeginEdit()
+                        dr.Item("VoucherCode") = strAllVOucherNumber
+                        dr.EndEdit()
+                    Next
+                    dtReturn.AcceptChanges()
+                End If
+                Return dtReturn
             End Using
         End Function
 
