@@ -61,6 +61,10 @@
         Property CoANameOfStock As String
         Property TotalDiscountTransport As Decimal
         Property IsManualTransportPrice As Boolean
+        Property IsIgnoreTransportPrice As Boolean
+        Property SourceID As Integer
+        Property DestinationID As Integer
+        Property TransporterPriceTypeID As Integer
 
         Public Enum PrintType
             None

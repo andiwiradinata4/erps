@@ -888,7 +888,7 @@
                 .CommandType = CommandType.Text
                 .CommandText =
 "SELECT    " & vbNewLine &
-"	ARI.InvoiceNumber AS TransNumber, CASE WHEN ARI.ApprovedBy='' THEN NULL ELSE CH.PaymentDate END AS TransDate, MC.Name AS CompanyName, ARI.VoucherNumber AS VoucherCode, MBP.Name AS PaidTo, MBPBA.BankName + ' A/C ' + MBPBA.AccountNumber AS PaidAccount, " & vbNewLine &
+"	ARI.InvoiceNumber AS TransNumber, CASE WHEN ARI.ApprovedBy='' THEN NULL ELSE ARI.PaymentDate END AS TransDate, MC.Name AS CompanyName, ARI.VoucherNumber AS VoucherCode, MBP.Name AS PaidTo, MBPBA.BankName + ' A/C ' + MBPBA.AccountNumber AS PaidAccount, " & vbNewLine &
 "	ARI.TotalAmount AS TotalAmount, CASE WHEN ISNULL(ARR.Remarks,CH.Remarks)='' THEN ARI.Remarks ELSE ISNULL(ARR.Remarks,CH.Remarks) END AS Remarks, MUC.Name AS CreatedBy, ARI.CreatedDate, NULL AS CheckedDate,    " & vbNewLine &
 "	'' AS CheckedBy, '' AS PaidBy, CASE WHEN ARI.ApprovedBy='' THEN NULL ELSE CH.PaymentDate END AS PaidDate, MC.DirectorName AS ApprovedBy, NULL AS ApprovedDate, 'KETERANGAN' AS Description, ':' AS DescriptionSeparator, ARI.Rounding " & vbNewLine &
 "FROM traAccountPayable CH    " & vbNewLine &

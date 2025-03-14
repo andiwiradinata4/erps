@@ -295,23 +295,23 @@
             clsData.Name = "Create Table Delivery Transport"
             clsData.Scripts =
 "CREATE TABLE [dbo].[traDeliveryTransport](" & vbNewLine &
-"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryTransport_ID]  DEFAULT (''), " & vbNewLine & _
-"	[DeliveryID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryTransport_DeliveryID]  DEFAULT (''), " & vbNewLine & _
-"	[DeliveryNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryTransport_DeliveryNumber]  DEFAULT (''), " & vbNewLine & _
-"	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryTransport_POID]  DEFAULT (''), " & vbNewLine & _
-"	[BPID] [int] NOT NULL CONSTRAINT [DF_traDeliveryTransport_BPID]  DEFAULT ((0)), " & vbNewLine & _
-"	[PPN] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traDeliveryTransport_PPN]  DEFAULT ((0)), " & vbNewLine & _
-"	[PPH] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traDeliveryTransport_PPH]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDeliveryTransport_TotalQuantity]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDeliveryTransport_TotalWeight]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDeliveryTransport_TotalDPP]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDeliveryTransport_TotalPPN]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDeliveryTransport_TotalPPH]  DEFAULT ((0)), " & vbNewLine & _
-"	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDeliveryTransport_RoundingManual]  DEFAULT ((0)), " & vbNewLine & _
-"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traDeliveryTransport_Remarks]  DEFAULT (''), " & vbNewLine & _
-"	[DPAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traDeliveryTransport_DPAmount]  DEFAULT (''), " & vbNewLine & _
-"	[TotalPayment] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traDeliveryTransport_TotalPayment]  DEFAULT (''), " & vbNewLine & _
-"	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryTransport_JournalID]  DEFAULT (''), " & vbNewLine & _
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryTransport_ID]  DEFAULT (''), " & vbNewLine &
+"	[DeliveryID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryTransport_DeliveryID]  DEFAULT (''), " & vbNewLine &
+"	[DeliveryNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryTransport_DeliveryNumber]  DEFAULT (''), " & vbNewLine &
+"	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryTransport_POID]  DEFAULT (''), " & vbNewLine &
+"	[BPID] [int] NOT NULL CONSTRAINT [DF_traDeliveryTransport_BPID]  DEFAULT ((0)), " & vbNewLine &
+"	[PPN] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traDeliveryTransport_PPN]  DEFAULT ((0)), " & vbNewLine &
+"	[PPH] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traDeliveryTransport_PPH]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDeliveryTransport_TotalQuantity]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDeliveryTransport_TotalWeight]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDeliveryTransport_TotalDPP]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDeliveryTransport_TotalPPN]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDeliveryTransport_TotalPPH]  DEFAULT ((0)), " & vbNewLine &
+"	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traDeliveryTransport_RoundingManual]  DEFAULT ((0)), " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traDeliveryTransport_Remarks]  DEFAULT (''), " & vbNewLine &
+"	[DPAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traDeliveryTransport_DPAmount]  DEFAULT (''), " & vbNewLine &
+"	[TotalPayment] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traDeliveryTransport_TotalPayment]  DEFAULT (''), " & vbNewLine &
+"	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traDeliveryTransport_JournalID]  DEFAULT (''), " & vbNewLine &
 "   CONSTRAINT [PK_traDeliveryTransport] PRIMARY KEY CLUSTERED " & vbNewLine &
 "   (" & vbNewLine &
 "   	[ID] ASC" & vbNewLine &
@@ -608,7 +608,7 @@
             Dim clsData As New VO.Migration
             clsData.ID = 18
             clsData.Name = "Develop On Progress 18"
-            clsData.Scripts = _
+            clsData.Scripts =
 "ALTER TABLE traDelivery ADD UnitPriceTransport decimal(18,4) NOT NULL CONSTRAINT DF_traDelivery_UnitPriceTransport DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE mstBusinessPartner ADD PPN decimal(18,4) NOT NULL CONSTRAINT DF_mstBusinessPartner_PPN DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE mstBusinessPartner ADD IsFreePPN bit NOT NULL CONSTRAINT DF_mstBusinessPartner_IsFreePPN DEFAULT ((0)) " & vbNewLine &
@@ -1481,47 +1481,47 @@
             Dim clsData As New VO.Migration
             clsData.ID = 54
             clsData.Name = "Create Table Item Result"
-            clsData.Scripts += _
-"CREATE TABLE [dbo].[traItemResult](  " & vbNewLine & _
-"	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traItemResult_ProgramID]  DEFAULT ((0)),  " & vbNewLine & _
-"	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traItemResult_CompanyID]  DEFAULT ((0)),  " & vbNewLine & _
-"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResult_ID]  DEFAULT (''),  " & vbNewLine & _
-"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traItemResult_ItemID]  DEFAULT ((0)),  " & vbNewLine & _
-"	[Name] [varchar](1000) NOT NULL CONSTRAINT [DF_traItemResult_Name]  DEFAULT (''),  " & vbNewLine & _
-"	[StatusID] [int] NOT NULL CONSTRAINT [DF_traItemResult_StatusID]  DEFAULT ((0)),  " & vbNewLine & _
-"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traItemResult_Remarks]  DEFAULT (''),  " & vbNewLine & _
-"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traItemResult_CreatedBy]  DEFAULT ('SYSTEM'),  " & vbNewLine & _
-"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traItemResult_CreatedDate]  DEFAULT (GETDATE()),  " & vbNewLine & _
-"	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traItemResult_LogBy]  DEFAULT ('SYSTEM'),  " & vbNewLine & _
-"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traItemResult_LogDate]  DEFAULT (GETDATE()),  " & vbNewLine & _
-"	[LogInc] [int] NOT NULL CONSTRAINT [DF_traItemResult_LogInc]  DEFAULT ((0)),  " & vbNewLine & _
-"   CONSTRAINT [PK_traItemResult] PRIMARY KEY CLUSTERED   " & vbNewLine & _
-"   (  " & vbNewLine & _
-"   	[ID] ASC  " & vbNewLine & _
-"   )   " & vbNewLine & _
-")  " & vbNewLine & _
-"CREATE TABLE [dbo].[traItemResultDet](  " & vbNewLine & _
-"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResultDet_ID]  DEFAULT (''),  " & vbNewLine & _
-"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResultDet_ParentID]  DEFAULT (''),  " & vbNewLine & _
-"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traItemResultDet_ItemID]  DEFAULT ((0)),  " & vbNewLine & _
-"	[Multiple] [decimal](18,2) NOT NULL CONSTRAINT [DF_traItemResultDet_Multiple]  DEFAULT ((0))," & vbNewLine & _
-"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traItemResultDet_Remarks]  DEFAULT (''),  " & vbNewLine & _
-"   CONSTRAINT [PK_traItemResultDet] PRIMARY KEY CLUSTERED   " & vbNewLine & _
-"   (  " & vbNewLine & _
-"   	[ID] ASC  " & vbNewLine & _
-"   )   " & vbNewLine & _
-")  " & vbNewLine & _
-"CREATE TABLE [dbo].[traItemResultStatus](" & vbNewLine & _
-"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResultStatus_ID]  DEFAULT (''),  " & vbNewLine & _
-"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResultStatus_ParentID]  DEFAULT (''),  " & vbNewLine & _
-"	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResultStatus_Status]  DEFAULT ('')," & vbNewLine & _
-"	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traItemResultStatus_StatusBy]  DEFAULT ('')," & vbNewLine & _
-"	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traItemResultStatus_StatusDate]  DEFAULT (GETDATE())," & vbNewLine & _
-"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traItemResultStatus_Remarks]  DEFAULT ('')," & vbNewLine & _
-"	CONSTRAINT [PK_traItemResultStatus] PRIMARY KEY CLUSTERED " & vbNewLine & _
-"	(" & vbNewLine & _
-"	[ID] ASC" & vbNewLine & _
-"	)" & vbNewLine & _
+            clsData.Scripts +=
+"CREATE TABLE [dbo].[traItemResult](  " & vbNewLine &
+"	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traItemResult_ProgramID]  DEFAULT ((0)),  " & vbNewLine &
+"	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traItemResult_CompanyID]  DEFAULT ((0)),  " & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResult_ID]  DEFAULT (''),  " & vbNewLine &
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traItemResult_ItemID]  DEFAULT ((0)),  " & vbNewLine &
+"	[Name] [varchar](1000) NOT NULL CONSTRAINT [DF_traItemResult_Name]  DEFAULT (''),  " & vbNewLine &
+"	[StatusID] [int] NOT NULL CONSTRAINT [DF_traItemResult_StatusID]  DEFAULT ((0)),  " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traItemResult_Remarks]  DEFAULT (''),  " & vbNewLine &
+"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traItemResult_CreatedBy]  DEFAULT ('SYSTEM'),  " & vbNewLine &
+"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traItemResult_CreatedDate]  DEFAULT (GETDATE()),  " & vbNewLine &
+"	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traItemResult_LogBy]  DEFAULT ('SYSTEM'),  " & vbNewLine &
+"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traItemResult_LogDate]  DEFAULT (GETDATE()),  " & vbNewLine &
+"	[LogInc] [int] NOT NULL CONSTRAINT [DF_traItemResult_LogInc]  DEFAULT ((0)),  " & vbNewLine &
+"   CONSTRAINT [PK_traItemResult] PRIMARY KEY CLUSTERED   " & vbNewLine &
+"   (  " & vbNewLine &
+"   	[ID] ASC  " & vbNewLine &
+"   )   " & vbNewLine &
+")  " & vbNewLine &
+"CREATE TABLE [dbo].[traItemResultDet](  " & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResultDet_ID]  DEFAULT (''),  " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResultDet_ParentID]  DEFAULT (''),  " & vbNewLine &
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traItemResultDet_ItemID]  DEFAULT ((0)),  " & vbNewLine &
+"	[Multiple] [decimal](18,2) NOT NULL CONSTRAINT [DF_traItemResultDet_Multiple]  DEFAULT ((0))," & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traItemResultDet_Remarks]  DEFAULT (''),  " & vbNewLine &
+"   CONSTRAINT [PK_traItemResultDet] PRIMARY KEY CLUSTERED   " & vbNewLine &
+"   (  " & vbNewLine &
+"   	[ID] ASC  " & vbNewLine &
+"   )   " & vbNewLine &
+")  " & vbNewLine &
+"CREATE TABLE [dbo].[traItemResultStatus](" & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResultStatus_ID]  DEFAULT (''),  " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResultStatus_ParentID]  DEFAULT (''),  " & vbNewLine &
+"	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traItemResultStatus_Status]  DEFAULT ('')," & vbNewLine &
+"	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traItemResultStatus_StatusBy]  DEFAULT ('')," & vbNewLine &
+"	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traItemResultStatus_StatusDate]  DEFAULT (GETDATE())," & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traItemResultStatus_Remarks]  DEFAULT ('')," & vbNewLine &
+"	CONSTRAINT [PK_traItemResultStatus] PRIMARY KEY CLUSTERED " & vbNewLine &
+"	(" & vbNewLine &
+"	[ID] ASC" & vbNewLine &
+"	)" & vbNewLine &
 ")" & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
@@ -1610,126 +1610,126 @@
             clsData.ID = 59
             clsData.Name = "Create Table Sales Return"
             clsData.Scripts =
-"CREATE TABLE [dbo].[traSalesReturn]( " & vbNewLine & _
-"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturn_ID]  DEFAULT (''), " & vbNewLine & _
-"	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traSalesReturn_ProgramID]  DEFAULT ((0)), " & vbNewLine & _
-"	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traSalesReturn_CompanyID]  DEFAULT ((0)), " & vbNewLine & _
-"	[SalesReturnNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturn_SalesReturnNumber]  DEFAULT (''), " & vbNewLine & _
-"	[SalesReturnDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesReturn_SalesReturnDate]  DEFAULT (getdate()), " & vbNewLine & _
-"	[BPID] [int] NOT NULL CONSTRAINT [DF_traSalesReturn_BPID]  DEFAULT ((0)), " & vbNewLine & _
-"	[DeliveryID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturn_DeliveryID]  DEFAULT (''), " & vbNewLine & _
-"	[PlatNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturn_PlatNumber]  DEFAULT (''), " & vbNewLine & _
-"	[Driver] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturn_Driver]  DEFAULT (''), " & vbNewLine & _
-"	[ReferencesNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturn_ReferencesNumber]  DEFAULT (''), " & vbNewLine & _
-"	[PPN] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traSalesReturn_PPN]  DEFAULT ((0)), " & vbNewLine & _
-"	[PPH] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traSalesReturn_PPH]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalQuantity]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalWeight]  DEFAULT ((0)), " & vbNewLine & _
-"	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_RoundingManual]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalDPP]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPPN]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPPH]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalDPPTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalDPPTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalPPNTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPPNTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalPPHTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPPHTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[RoundingManualTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_RoundingManualTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traSalesReturn_IsDeleted]  DEFAULT ((0)), " & vbNewLine & _
-"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesReturn_Remarks]  DEFAULT (''), " & vbNewLine & _
-"	[StatusID] [int] NOT NULL CONSTRAINT [DF_traSalesReturn_StatusID]  DEFAULT ((0)), " & vbNewLine & _
-"	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesReturn_SubmitBy]  DEFAULT (''), " & vbNewLine & _
-"	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesReturn_SubmitDate]  DEFAULT (getdate()), " & vbNewLine & _
-"	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesReturn_ApproveL1]  DEFAULT (''), " & vbNewLine & _
-"	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traSalesReturn_ApproveL1Date]  DEFAULT (getdate()), " & vbNewLine & _
-"	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesReturn_ApprovedBy]  DEFAULT (''), " & vbNewLine & _
-"	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesReturn_ApprovedDate]  DEFAULT (getdate()), " & vbNewLine & _
-"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesReturn_CreatedBy]  DEFAULT ('SYSTEM'), " & vbNewLine & _
-"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesReturn_CreatedDate]  DEFAULT (getdate()), " & vbNewLine & _
-"	[LogInc] [int] NOT NULL CONSTRAINT [DF_traSalesReturn_LogInc]  DEFAULT ((0)), " & vbNewLine & _
-"	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesReturn_LogBy]  DEFAULT ('SYSTEM'), " & vbNewLine & _
-"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesReturn_LogDate]  DEFAULT (getdate()), " & vbNewLine & _
-"	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturn_JournalID]  DEFAULT (''), " & vbNewLine & _
-"	[DPAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traSalesReturn_DPAmount]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalPayment] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPayment]  DEFAULT ((0)), " & vbNewLine & _
-"	[CoAofStock] [int] NOT NULL CONSTRAINT [DF_traSalesReturn_CoAofStock]  DEFAULT ((0)), " & vbNewLine & _
-"	[IsUseSubItem] [bit] NOT NULL CONSTRAINT [DF_traSalesReturnDet_IsUseSubItem]  DEFAULT ((0)), " & vbNewLine & _
-"	[DPAmountPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_DPAmountPPN]  DEFAULT ((0)), " & vbNewLine & _
-"	[DPAmountPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_DPAmountPPH]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalPaymentPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPaymentPPN]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalPaymentPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPaymentPPH]  DEFAULT ((0)), " & vbNewLine & _
-"	[TransporterID] [int] NOT NULL CONSTRAINT [DF_traSalesReturn_TransporterID]  DEFAULT ((0)), " & vbNewLine & _
-"	[PPNTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_PPNTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[PPHTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_PPHTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[IsFreePPNTransport] [bit] NOT NULL CONSTRAINT [DF_traSalesReturn_IsFreePPNTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[IsFreePPHTransport] [bit] NOT NULL CONSTRAINT [DF_traSalesReturn_IsFreePPHTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[UnitPriceTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_UnitPriceTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[DPAmountTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_DPAmountTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalPaymentTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPaymentTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[DPAmountPPNTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_DPAmountPPNTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[DPAmountPPHTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_DPAmountPPHTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalPaymentPPNTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPaymentPPNTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalPaymentPPHTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPaymentPPHTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	CONSTRAINT [PK_traSalesReturn] PRIMARY KEY CLUSTERED  " & vbNewLine & _
-"	( " & vbNewLine & _
-"       [ID] ASC " & vbNewLine & _
-"	) " & vbNewLine & _
-") " & vbNewLine & _
-"" & vbNewLine & _
-"CREATE TABLE [dbo].[traSalesReturnDet]( " & vbNewLine & _
-"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturnDet_ID]  DEFAULT (''), " & vbNewLine & _
-"	[SalesReturnID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturnDet_SalesReturnID]  DEFAULT (''), " & vbNewLine & _
-"	[DeliveryDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturnDet_DeliveryDetailID]  DEFAULT (''), " & vbNewLine & _
-"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traSalesReturnDet_ItemID]  DEFAULT ((0)), " & vbNewLine & _
-"	[Quantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_Quantity]  DEFAULT ((0)), " & vbNewLine & _
-"	[Weight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_Weight]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_TotalWeight]  DEFAULT ((0)), " & vbNewLine & _
-"	[UnitPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_UnitPrice]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_TotalPrice]  DEFAULT ((0)), " & vbNewLine & _
-"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesReturnDet_Remarks]  DEFAULT (''), " & vbNewLine & _
-"	[UnitPriceTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_UnitPriceTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[DPAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_DPAmount]  DEFAULT ((0)), " & vbNewLine & _
-"	[ReceiveAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_ReceiveAmount]  DEFAULT ((0)), " & vbNewLine & _
-"	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturnDet_OrderNumberSupplier]  DEFAULT (''), " & vbNewLine & _
-"	[TotalPriceTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_TotalPriceTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[DPAmountTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_DPAmountTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[ReceiveAmountTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_ReceiveAmountTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[LevelItem] [int] NOT NULL CONSTRAINT [DF_traSalesReturnDet_LevelItem]  DEFAULT ((0)), " & vbNewLine & _
-"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturnDet_ParentID]  DEFAULT (''), " & vbNewLine & _
-"	[RoundingWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_RoundingWeight]  DEFAULT ((0)), " & vbNewLine & _
-"	[DPAmountPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_DPAmountPPN]  DEFAULT ((0)), " & vbNewLine & _
-"	[DPAmountPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_DPAmountPPH]  DEFAULT ((0)), " & vbNewLine & _
-"	[ReceiveAmountPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_ReceiveAmountPPN]  DEFAULT ((0)), " & vbNewLine & _
-"	[ReceiveAmountPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_ReceiveAmountPPH]  DEFAULT ((0)), " & vbNewLine & _
-"	[DPAmountPPNTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_DPAmountPPNTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[DPAmountPPHTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_DPAmountPPHTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[ReceiveAmountPPNTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_ReceiveAmountPPNTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[ReceiveAmountPPHTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_ReceiveAmountPPHTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[InvoiceQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_InvoiceQuantity]  DEFAULT ((0)), " & vbNewLine & _
-"	[InvoiceWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_InvoiceWeight]  DEFAULT ((0)), " & vbNewLine & _
-"	[InvoiceTotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_InvoiceTotalWeight]  DEFAULT ((0)), " & vbNewLine & _
-"	[InvoiceQuantityTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_InvoiceQuantityTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[InvoiceWeightTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_InvoiceWeightTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[InvoiceTotalWeightTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_InvoiceTotalWeightTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	[AllocateDPAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_AllocateDPAmount]  DEFAULT ((0)), " & vbNewLine & _
-"	[AllocateDPAmountTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_AllocateDPAmountTransport]  DEFAULT ((0)), " & vbNewLine & _
-"	CONSTRAINT [PK_traSalesReturnDet] PRIMARY KEY CLUSTERED  " & vbNewLine & _
-"	( " & vbNewLine & _
-"       [ID] ASC " & vbNewLine & _
-"	) " & vbNewLine & _
-")  " & vbNewLine & _
-"" & vbNewLine & _
-"CREATE TABLE [dbo].[traSalesReturnStatus]( " & vbNewLine & _
-"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturnStatus_ID]  DEFAULT (''), " & vbNewLine & _
-"	[SalesReturnID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturnStatus_SalesReturnID]  DEFAULT (''), " & vbNewLine & _
-"	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturnStatus_Status]  DEFAULT (''), " & vbNewLine & _
-"	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesReturnStatus_StatusBy]  DEFAULT (''), " & vbNewLine & _
-"	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesReturnStatus_StatusDate]  DEFAULT (GETDATE()), " & vbNewLine & _
-"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesReturnStatus_Remarks]  DEFAULT (''), " & vbNewLine & _
-"	CONSTRAINT [PK_traSalesReturnStatus] PRIMARY KEY CLUSTERED  " & vbNewLine & _
-"	( " & vbNewLine & _
-"       [ID] ASC " & vbNewLine & _
-"	) " & vbNewLine & _
-") " & vbNewLine & _
-"" & vbNewLine & _
+"CREATE TABLE [dbo].[traSalesReturn]( " & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturn_ID]  DEFAULT (''), " & vbNewLine &
+"	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traSalesReturn_ProgramID]  DEFAULT ((0)), " & vbNewLine &
+"	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traSalesReturn_CompanyID]  DEFAULT ((0)), " & vbNewLine &
+"	[SalesReturnNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturn_SalesReturnNumber]  DEFAULT (''), " & vbNewLine &
+"	[SalesReturnDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesReturn_SalesReturnDate]  DEFAULT (getdate()), " & vbNewLine &
+"	[BPID] [int] NOT NULL CONSTRAINT [DF_traSalesReturn_BPID]  DEFAULT ((0)), " & vbNewLine &
+"	[DeliveryID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturn_DeliveryID]  DEFAULT (''), " & vbNewLine &
+"	[PlatNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturn_PlatNumber]  DEFAULT (''), " & vbNewLine &
+"	[Driver] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturn_Driver]  DEFAULT (''), " & vbNewLine &
+"	[ReferencesNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturn_ReferencesNumber]  DEFAULT (''), " & vbNewLine &
+"	[PPN] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traSalesReturn_PPN]  DEFAULT ((0)), " & vbNewLine &
+"	[PPH] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traSalesReturn_PPH]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalQuantity]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalWeight]  DEFAULT ((0)), " & vbNewLine &
+"	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_RoundingManual]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalDPP]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPPN]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPPH]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalDPPTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalDPPTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPPNTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPPNTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPPHTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPPHTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[RoundingManualTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_RoundingManualTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traSalesReturn_IsDeleted]  DEFAULT ((0)), " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesReturn_Remarks]  DEFAULT (''), " & vbNewLine &
+"	[StatusID] [int] NOT NULL CONSTRAINT [DF_traSalesReturn_StatusID]  DEFAULT ((0)), " & vbNewLine &
+"	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesReturn_SubmitBy]  DEFAULT (''), " & vbNewLine &
+"	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesReturn_SubmitDate]  DEFAULT (getdate()), " & vbNewLine &
+"	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesReturn_ApproveL1]  DEFAULT (''), " & vbNewLine &
+"	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traSalesReturn_ApproveL1Date]  DEFAULT (getdate()), " & vbNewLine &
+"	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesReturn_ApprovedBy]  DEFAULT (''), " & vbNewLine &
+"	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesReturn_ApprovedDate]  DEFAULT (getdate()), " & vbNewLine &
+"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesReturn_CreatedBy]  DEFAULT ('SYSTEM'), " & vbNewLine &
+"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesReturn_CreatedDate]  DEFAULT (getdate()), " & vbNewLine &
+"	[LogInc] [int] NOT NULL CONSTRAINT [DF_traSalesReturn_LogInc]  DEFAULT ((0)), " & vbNewLine &
+"	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesReturn_LogBy]  DEFAULT ('SYSTEM'), " & vbNewLine &
+"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesReturn_LogDate]  DEFAULT (getdate()), " & vbNewLine &
+"	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturn_JournalID]  DEFAULT (''), " & vbNewLine &
+"	[DPAmount] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traSalesReturn_DPAmount]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPayment] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPayment]  DEFAULT ((0)), " & vbNewLine &
+"	[CoAofStock] [int] NOT NULL CONSTRAINT [DF_traSalesReturn_CoAofStock]  DEFAULT ((0)), " & vbNewLine &
+"	[IsUseSubItem] [bit] NOT NULL CONSTRAINT [DF_traSalesReturnDet_IsUseSubItem]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmountPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_DPAmountPPN]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmountPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_DPAmountPPH]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPaymentPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPaymentPPN]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPaymentPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPaymentPPH]  DEFAULT ((0)), " & vbNewLine &
+"	[TransporterID] [int] NOT NULL CONSTRAINT [DF_traSalesReturn_TransporterID]  DEFAULT ((0)), " & vbNewLine &
+"	[PPNTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_PPNTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[PPHTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_PPHTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[IsFreePPNTransport] [bit] NOT NULL CONSTRAINT [DF_traSalesReturn_IsFreePPNTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[IsFreePPHTransport] [bit] NOT NULL CONSTRAINT [DF_traSalesReturn_IsFreePPHTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[UnitPriceTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_UnitPriceTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmountTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_DPAmountTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPaymentTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPaymentTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmountPPNTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_DPAmountPPNTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmountPPHTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_DPAmountPPHTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPaymentPPNTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPaymentPPNTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPaymentPPHTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturn_TotalPaymentPPHTransport]  DEFAULT ((0)), " & vbNewLine &
+"	CONSTRAINT [PK_traSalesReturn] PRIMARY KEY CLUSTERED  " & vbNewLine &
+"	( " & vbNewLine &
+"       [ID] ASC " & vbNewLine &
+"	) " & vbNewLine &
+") " & vbNewLine &
+"" & vbNewLine &
+"CREATE TABLE [dbo].[traSalesReturnDet]( " & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturnDet_ID]  DEFAULT (''), " & vbNewLine &
+"	[SalesReturnID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturnDet_SalesReturnID]  DEFAULT (''), " & vbNewLine &
+"	[DeliveryDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturnDet_DeliveryDetailID]  DEFAULT (''), " & vbNewLine &
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traSalesReturnDet_ItemID]  DEFAULT ((0)), " & vbNewLine &
+"	[Quantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_Quantity]  DEFAULT ((0)), " & vbNewLine &
+"	[Weight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_Weight]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_TotalWeight]  DEFAULT ((0)), " & vbNewLine &
+"	[UnitPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_UnitPrice]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_TotalPrice]  DEFAULT ((0)), " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesReturnDet_Remarks]  DEFAULT (''), " & vbNewLine &
+"	[UnitPriceTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_UnitPriceTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_DPAmount]  DEFAULT ((0)), " & vbNewLine &
+"	[ReceiveAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_ReceiveAmount]  DEFAULT ((0)), " & vbNewLine &
+"	[OrderNumberSupplier] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturnDet_OrderNumberSupplier]  DEFAULT (''), " & vbNewLine &
+"	[TotalPriceTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_TotalPriceTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmountTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_DPAmountTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[ReceiveAmountTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_ReceiveAmountTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[LevelItem] [int] NOT NULL CONSTRAINT [DF_traSalesReturnDet_LevelItem]  DEFAULT ((0)), " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturnDet_ParentID]  DEFAULT (''), " & vbNewLine &
+"	[RoundingWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_RoundingWeight]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmountPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_DPAmountPPN]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmountPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_DPAmountPPH]  DEFAULT ((0)), " & vbNewLine &
+"	[ReceiveAmountPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_ReceiveAmountPPN]  DEFAULT ((0)), " & vbNewLine &
+"	[ReceiveAmountPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_ReceiveAmountPPH]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmountPPNTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_DPAmountPPNTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmountPPHTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_DPAmountPPHTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[ReceiveAmountPPNTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_ReceiveAmountPPNTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[ReceiveAmountPPHTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_ReceiveAmountPPHTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[InvoiceQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_InvoiceQuantity]  DEFAULT ((0)), " & vbNewLine &
+"	[InvoiceWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_InvoiceWeight]  DEFAULT ((0)), " & vbNewLine &
+"	[InvoiceTotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_InvoiceTotalWeight]  DEFAULT ((0)), " & vbNewLine &
+"	[InvoiceQuantityTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_InvoiceQuantityTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[InvoiceWeightTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_InvoiceWeightTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[InvoiceTotalWeightTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_InvoiceTotalWeightTransport]  DEFAULT ((0)), " & vbNewLine &
+"	[AllocateDPAmount] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_AllocateDPAmount]  DEFAULT ((0)), " & vbNewLine &
+"	[AllocateDPAmountTransport] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesReturnDet_AllocateDPAmountTransport]  DEFAULT ((0)), " & vbNewLine &
+"	CONSTRAINT [PK_traSalesReturnDet] PRIMARY KEY CLUSTERED  " & vbNewLine &
+"	( " & vbNewLine &
+"       [ID] ASC " & vbNewLine &
+"	) " & vbNewLine &
+")  " & vbNewLine &
+"" & vbNewLine &
+"CREATE TABLE [dbo].[traSalesReturnStatus]( " & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturnStatus_ID]  DEFAULT (''), " & vbNewLine &
+"	[SalesReturnID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturnStatus_SalesReturnID]  DEFAULT (''), " & vbNewLine &
+"	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesReturnStatus_Status]  DEFAULT (''), " & vbNewLine &
+"	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesReturnStatus_StatusBy]  DEFAULT (''), " & vbNewLine &
+"	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesReturnStatus_StatusDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesReturnStatus_Remarks]  DEFAULT (''), " & vbNewLine &
+"	CONSTRAINT [PK_traSalesReturnStatus] PRIMARY KEY CLUSTERED  " & vbNewLine &
+"	( " & vbNewLine &
+"       [ID] ASC " & vbNewLine &
+"	) " & vbNewLine &
+") " & vbNewLine &
+"" & vbNewLine &
 "ALTER TABLE traDeliveryDet ADD ReturnQuantity [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_ReturnQuantity DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE traDeliveryDet ADD ReturnWeight [decimal](18,4) NOT NULL CONSTRAINT DF_traDeliveryDet_ReturnWeight DEFAULT ((0)) " & vbNewLine &
 "ALTER TABLE traStockIn ADD CoAofStock [int] NOT NULL CONSTRAINT DF_traStockIn_CoAofStock DEFAULT ((0)) " & vbNewLine &
@@ -2073,17 +2073,17 @@
             Dim clsData As New VO.Migration
             clsData.ID = 69
             clsData.Name = "Create Table Remarks Result"
-            clsData.Scripts += _
-"CREATE TABLE [dbo].[traPurchaseOrderRemarksResult](  " & vbNewLine & _
-"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderRemarksResult_ID]  DEFAULT (''),  " & vbNewLine & _
-"	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderRemarksResult_POID]  DEFAULT (''),  " & vbNewLine & _
-"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrderRemarksResult_Remarks]  DEFAULT (''),  " & vbNewLine & _
-"   CONSTRAINT [PK_traPurchaseOrderRemarksResult] PRIMARY KEY CLUSTERED   " & vbNewLine & _
-"   (  " & vbNewLine & _
-"   	[ID] ASC  " & vbNewLine & _
-"   )   " & vbNewLine & _
-")  " & vbNewLine & _
-"" & vbNewLine & _
+            clsData.Scripts +=
+"CREATE TABLE [dbo].[traPurchaseOrderRemarksResult](  " & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderRemarksResult_ID]  DEFAULT (''),  " & vbNewLine &
+"	[POID] [varchar](100) NOT NULL CONSTRAINT [DF_traPurchaseOrderRemarksResult_POID]  DEFAULT (''),  " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traPurchaseOrderRemarksResult_Remarks]  DEFAULT (''),  " & vbNewLine &
+"   CONSTRAINT [PK_traPurchaseOrderRemarksResult] PRIMARY KEY CLUSTERED   " & vbNewLine &
+"   (  " & vbNewLine &
+"   	[ID] ASC  " & vbNewLine &
+"   )   " & vbNewLine &
+")  " & vbNewLine &
+"" & vbNewLine &
 "ALTER TABLE mstItem ADD RefID INT NOT NULL CONSTRAINT DF_mstItem_RefID DEFAULT ((0)) " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
@@ -2377,103 +2377,103 @@
             clsData.ID = 78
             clsData.Name = "Create Table Sales Confirmation Order"
             clsData.Scripts =
-"CREATE TABLE [dbo].[traSalesConfirmationOrder]( " & vbNewLine & _
-"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ID]  DEFAULT (''), " & vbNewLine & _
-"	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ProgramID]  DEFAULT ((0)), " & vbNewLine & _
-"	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_CompanyID]  DEFAULT ((0)), " & vbNewLine & _
-"	[CONumber] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_CONumber]  DEFAULT (''), " & vbNewLine & _
-"	[CODate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_CODate]  DEFAULT (getdate()), " & vbNewLine & _
-"	[BPID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_BPID]  DEFAULT ((0)), " & vbNewLine & _
-"	[DeliveryPeriodFrom] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DeliveryPeriodFrom]  DEFAULT (getdate()), " & vbNewLine & _
-"	[DeliveryPeriodTo] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DeliveryPeriodTo]  DEFAULT (getdate()), " & vbNewLine & _
-"	[PPN] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_PPN]  DEFAULT ((0)), " & vbNewLine & _
-"	[PPH] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_PPH]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_TotalQuantity]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_TotalWeight]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_TotalDPP]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_TotalPPN]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_TotalPPH]  DEFAULT ((0)), " & vbNewLine & _
-"	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_RoundingManual]  DEFAULT ((0)), " & vbNewLine & _
-"	[DelegationSeller] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DelegationSeller]  DEFAULT (''), " & vbNewLine & _
-"	[DelegationPositionSeller] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DelegationPositionSeller]  DEFAULT (''), " & vbNewLine & _
-"	[DelegationBuyer] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DelegationBuyer]  DEFAULT (''), " & vbNewLine & _
-"	[DelegationPositionBuyer] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DelegationPositionBuyer]  DEFAULT (''), " & vbNewLine & _
-"	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_IsDeleted]  DEFAULT ((0)), " & vbNewLine & _
-"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_Remarks]  DEFAULT (''), " & vbNewLine & _
-"	[StatusID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_StatusID]  DEFAULT ((0)), " & vbNewLine & _
-"	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_SubmitBy]  DEFAULT (''), " & vbNewLine & _
-"	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_SubmitDate]  DEFAULT (getdate()), " & vbNewLine & _
-"	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ApproveL1]  DEFAULT (''), " & vbNewLine & _
-"	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ApproveL1Date]  DEFAULT (getdate()), " & vbNewLine & _
-"	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ApprovedBy]  DEFAULT (''), " & vbNewLine & _
-"	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ApprovedDate]  DEFAULT (getdate()), " & vbNewLine & _
-"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_CreatedBy]  DEFAULT ('SYSTEM'), " & vbNewLine & _
-"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_CreatedDate]  DEFAULT (getdate()), " & vbNewLine & _
-"	[LogInc] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_LogInc]  DEFAULT ((0)), " & vbNewLine & _
-"	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_LogBy]  DEFAULT ('SYSTEM'), " & vbNewLine & _
-"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_LogDate]  DEFAULT (getdate()), " & vbNewLine & _
-"	[IsDone] [bit] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_IsDone]  DEFAULT ((0)), " & vbNewLine & _
-"	[DoneBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DoneBy]  DEFAULT (''), " & vbNewLine & _
-"	[DoneDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DoneDate]  DEFAULT (getdate()), " & vbNewLine & _
-"	CONSTRAINT [PK_traSalesConfirmationOrder] PRIMARY KEY CLUSTERED  " & vbNewLine & _
-"	( " & vbNewLine & _
-"[ID] ASC " & vbNewLine & _
-"	) " & vbNewLine & _
-") " & vbNewLine & _
-" " & vbNewLine & _
-"CREATE TABLE [dbo].[traSalesConfirmationOrderDet]( " & vbNewLine & _
-"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ID]  DEFAULT (''), " & vbNewLine & _
-"	[COID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_COID]  DEFAULT (''), " & vbNewLine & _
-"	[ORDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ORDetailID]  DEFAULT (''), " & vbNewLine & _
-"	[PODetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_PODetailID]  DEFAULT (''), " & vbNewLine & _
-"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ItemID]  DEFAULT ((0)), " & vbNewLine & _
-"	[Quantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_Quantity]  DEFAULT ((0)), " & vbNewLine & _
-"	[Weight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_Weight]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_TotalWeight]  DEFAULT ((0)), " & vbNewLine & _
-"	[UnitPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_UnitPrice]  DEFAULT ((0)), " & vbNewLine & _
-"	[TotalPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_TotalPrice]  DEFAULT ((0)), " & vbNewLine & _
-"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_Remarks]  DEFAULT (''), " & vbNewLine & _
-"	[RoundingWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_RoundingWeight]  DEFAULT ((0)), " & vbNewLine & _
-"	[ItemMin] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ItemMin]  DEFAULT ((0)), " & vbNewLine & _
-"	[ItemMax] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ItemMax]  DEFAULT ((0)), " & vbNewLine & _
-"	[ItemTolerances] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ItemTolerances]  DEFAULT ((0)), " & vbNewLine & _
-"	[LocationID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_LocationID]  DEFAULT ((0)), " & vbNewLine & _
-"	CONSTRAINT [PK_traSalesConfirmationOrderDet] PRIMARY KEY CLUSTERED  " & vbNewLine & _
-"	( " & vbNewLine & _
-"[ID] ASC " & vbNewLine & _
-"	) " & vbNewLine & _
-") " & vbNewLine & _
-" " & vbNewLine & _
-"CREATE TABLE [dbo].[traSalesConfirmationOrderPaymentTerm]( " & vbNewLine & _
-"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_ID]  DEFAULT (''), " & vbNewLine & _
-"	[COID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_COID]  DEFAULT (''), " & vbNewLine & _
-"	[Percentage] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_Percentage]  DEFAULT ((0)), " & vbNewLine & _
-"	[PaymentTypeID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_PaymentTypeID]  DEFAULT ((0)), " & vbNewLine & _
-"	[PaymentModeID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_PaymentModeID]  DEFAULT ((0)), " & vbNewLine & _
-"	[CreditTerm] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_CreditTerm]  DEFAULT ((0)), " & vbNewLine & _
-"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_Remarks]  DEFAULT ((0)), " & vbNewLine & _
-"	CONSTRAINT [PK_traSalesConfirmationOrderPaymentTerm] PRIMARY KEY CLUSTERED  " & vbNewLine & _
-"	( " & vbNewLine & _
-"[ID] ASC " & vbNewLine & _
-"	) " & vbNewLine & _
-") " & vbNewLine & _
-" " & vbNewLine & _
-"CREATE TABLE [dbo].[traSalesConfirmationOrderStatus]( " & vbNewLine & _
-"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_ID]  DEFAULT (''), " & vbNewLine & _
-"	[COID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_COID]  DEFAULT (''), " & vbNewLine & _
-"	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_Status]  DEFAULT ((0)), " & vbNewLine & _
-"	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_StatusBy]  DEFAULT ((0)), " & vbNewLine & _
-"	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_StatusDate]  DEFAULT ((0)), " & vbNewLine & _
-"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_Remarks]  DEFAULT ((0)), " & vbNewLine & _
-"	CONSTRAINT [PK_traSalesConfirmationOrderStatus] PRIMARY KEY CLUSTERED  " & vbNewLine & _
-"	( " & vbNewLine & _
-"[ID] ASC " & vbNewLine & _
-"	) " & vbNewLine & _
-") " & vbNewLine & _
-"" & vbNewLine & _
-"ALTER TABLE traPurchaseOrderDet ADD SCOQuantity DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderDet_SCOQuantity DEFAULT ((0))  " & vbNewLine & _
-"ALTER TABLE traPurchaseOrderDet ADD SCOWeight DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderDet_SCOWeight DEFAULT ((0))  " & vbNewLine & _
-"ALTER TABLE traOrderRequestDet ADD SCOQuantity DECIMAL(18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_SCOQuantity DEFAULT ((0))  " & vbNewLine & _
+"CREATE TABLE [dbo].[traSalesConfirmationOrder]( " & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ID]  DEFAULT (''), " & vbNewLine &
+"	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ProgramID]  DEFAULT ((0)), " & vbNewLine &
+"	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_CompanyID]  DEFAULT ((0)), " & vbNewLine &
+"	[CONumber] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_CONumber]  DEFAULT (''), " & vbNewLine &
+"	[CODate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_CODate]  DEFAULT (getdate()), " & vbNewLine &
+"	[BPID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_BPID]  DEFAULT ((0)), " & vbNewLine &
+"	[DeliveryPeriodFrom] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DeliveryPeriodFrom]  DEFAULT (getdate()), " & vbNewLine &
+"	[DeliveryPeriodTo] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DeliveryPeriodTo]  DEFAULT (getdate()), " & vbNewLine &
+"	[PPN] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_PPN]  DEFAULT ((0)), " & vbNewLine &
+"	[PPH] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_PPH]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalQuantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_TotalQuantity]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_TotalWeight]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalDPP] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_TotalDPP]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPPN] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_TotalPPN]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPPH] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_TotalPPH]  DEFAULT ((0)), " & vbNewLine &
+"	[RoundingManual] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_RoundingManual]  DEFAULT ((0)), " & vbNewLine &
+"	[DelegationSeller] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DelegationSeller]  DEFAULT (''), " & vbNewLine &
+"	[DelegationPositionSeller] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DelegationPositionSeller]  DEFAULT (''), " & vbNewLine &
+"	[DelegationBuyer] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DelegationBuyer]  DEFAULT (''), " & vbNewLine &
+"	[DelegationPositionBuyer] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DelegationPositionBuyer]  DEFAULT (''), " & vbNewLine &
+"	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_IsDeleted]  DEFAULT ((0)), " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_Remarks]  DEFAULT (''), " & vbNewLine &
+"	[StatusID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_StatusID]  DEFAULT ((0)), " & vbNewLine &
+"	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_SubmitBy]  DEFAULT (''), " & vbNewLine &
+"	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_SubmitDate]  DEFAULT (getdate()), " & vbNewLine &
+"	[ApproveL1] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ApproveL1]  DEFAULT (''), " & vbNewLine &
+"	[ApproveL1Date] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ApproveL1Date]  DEFAULT (getdate()), " & vbNewLine &
+"	[ApprovedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ApprovedBy]  DEFAULT (''), " & vbNewLine &
+"	[ApprovedDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_ApprovedDate]  DEFAULT (getdate()), " & vbNewLine &
+"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_CreatedBy]  DEFAULT ('SYSTEM'), " & vbNewLine &
+"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_CreatedDate]  DEFAULT (getdate()), " & vbNewLine &
+"	[LogInc] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_LogInc]  DEFAULT ((0)), " & vbNewLine &
+"	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_LogBy]  DEFAULT ('SYSTEM'), " & vbNewLine &
+"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_LogDate]  DEFAULT (getdate()), " & vbNewLine &
+"	[IsDone] [bit] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_IsDone]  DEFAULT ((0)), " & vbNewLine &
+"	[DoneBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DoneBy]  DEFAULT (''), " & vbNewLine &
+"	[DoneDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrder_DoneDate]  DEFAULT (getdate()), " & vbNewLine &
+"	CONSTRAINT [PK_traSalesConfirmationOrder] PRIMARY KEY CLUSTERED  " & vbNewLine &
+"	( " & vbNewLine &
+"[ID] ASC " & vbNewLine &
+"	) " & vbNewLine &
+") " & vbNewLine &
+" " & vbNewLine &
+"CREATE TABLE [dbo].[traSalesConfirmationOrderDet]( " & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ID]  DEFAULT (''), " & vbNewLine &
+"	[COID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_COID]  DEFAULT (''), " & vbNewLine &
+"	[ORDetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ORDetailID]  DEFAULT (''), " & vbNewLine &
+"	[PODetailID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_PODetailID]  DEFAULT (''), " & vbNewLine &
+"	[ItemID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ItemID]  DEFAULT ((0)), " & vbNewLine &
+"	[Quantity] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_Quantity]  DEFAULT ((0)), " & vbNewLine &
+"	[Weight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_Weight]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_TotalWeight]  DEFAULT ((0)), " & vbNewLine &
+"	[UnitPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_UnitPrice]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPrice] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_TotalPrice]  DEFAULT ((0)), " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_Remarks]  DEFAULT (''), " & vbNewLine &
+"	[RoundingWeight] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_RoundingWeight]  DEFAULT ((0)), " & vbNewLine &
+"	[ItemMin] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ItemMin]  DEFAULT ((0)), " & vbNewLine &
+"	[ItemMax] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ItemMax]  DEFAULT ((0)), " & vbNewLine &
+"	[ItemTolerances] [decimal](18, 4) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_ItemTolerances]  DEFAULT ((0)), " & vbNewLine &
+"	[LocationID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderDet_LocationID]  DEFAULT ((0)), " & vbNewLine &
+"	CONSTRAINT [PK_traSalesConfirmationOrderDet] PRIMARY KEY CLUSTERED  " & vbNewLine &
+"	( " & vbNewLine &
+"[ID] ASC " & vbNewLine &
+"	) " & vbNewLine &
+") " & vbNewLine &
+" " & vbNewLine &
+"CREATE TABLE [dbo].[traSalesConfirmationOrderPaymentTerm]( " & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_ID]  DEFAULT (''), " & vbNewLine &
+"	[COID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_COID]  DEFAULT (''), " & vbNewLine &
+"	[Percentage] [decimal](18, 2) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_Percentage]  DEFAULT ((0)), " & vbNewLine &
+"	[PaymentTypeID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_PaymentTypeID]  DEFAULT ((0)), " & vbNewLine &
+"	[PaymentModeID] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_PaymentModeID]  DEFAULT ((0)), " & vbNewLine &
+"	[CreditTerm] [int] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_CreditTerm]  DEFAULT ((0)), " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderPaymentTerm_Remarks]  DEFAULT ((0)), " & vbNewLine &
+"	CONSTRAINT [PK_traSalesConfirmationOrderPaymentTerm] PRIMARY KEY CLUSTERED  " & vbNewLine &
+"	( " & vbNewLine &
+"[ID] ASC " & vbNewLine &
+"	) " & vbNewLine &
+") " & vbNewLine &
+" " & vbNewLine &
+"CREATE TABLE [dbo].[traSalesConfirmationOrderStatus]( " & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_ID]  DEFAULT (''), " & vbNewLine &
+"	[COID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_COID]  DEFAULT (''), " & vbNewLine &
+"	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_Status]  DEFAULT ((0)), " & vbNewLine &
+"	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_StatusBy]  DEFAULT ((0)), " & vbNewLine &
+"	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_StatusDate]  DEFAULT ((0)), " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesConfirmationOrderStatus_Remarks]  DEFAULT ((0)), " & vbNewLine &
+"	CONSTRAINT [PK_traSalesConfirmationOrderStatus] PRIMARY KEY CLUSTERED  " & vbNewLine &
+"	( " & vbNewLine &
+"[ID] ASC " & vbNewLine &
+"	) " & vbNewLine &
+") " & vbNewLine &
+"" & vbNewLine &
+"ALTER TABLE traPurchaseOrderDet ADD SCOQuantity DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderDet_SCOQuantity DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traPurchaseOrderDet ADD SCOWeight DECIMAL(18,4) NOT NULL CONSTRAINT DF_traPurchaseOrderDet_SCOWeight DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traOrderRequestDet ADD SCOQuantity DECIMAL(18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_SCOQuantity DEFAULT ((0))  " & vbNewLine &
 "ALTER TABLE traOrderRequestDet ADD SCOWeight DECIMAL(18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_SCOWeight DEFAULT ((0))  " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
@@ -2489,20 +2489,20 @@
             clsData.ID = 79
             clsData.Name = "Development On Progress 79 | Enchance Order Request to use Receive Payment"
             clsData.Scripts =
-"ALTER TABLE traOrderRequestDet ADD InvoiceQuantity DECIMAL(18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_InvoiceQuantity DEFAULT ((0))  " & vbNewLine & _
-"ALTER TABLE traOrderRequestDet ADD InvoiceWeight DECIMAL(18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_InvoiceWeight DEFAULT ((0))  " & vbNewLine & _
-"ALTER TABLE traOrderRequestDet ADD InvoiceTotalWeight DECIMAL(18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_InvoiceTotalWeight DEFAULT ((0))  " & vbNewLine & _
-"ALTER TABLE traOrderRequestDet ADD LevelItem INT NOT NULL CONSTRAINT DF_traOrderRequestDet_LevelItem DEFAULT ((0))  " & vbNewLine & _
-"ALTER TABLE traOrderRequestDet ADD ParentID VARCHAR(100) NOT NULL CONSTRAINT DF_traOrderRequestDet_ParentID DEFAULT ('')  " & vbNewLine & _
-"ALTER TABLE traOrderRequest ADD AdditionalTerm1 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm1 DEFAULT ((0))  " & vbNewLine & _
-"ALTER TABLE traOrderRequest ADD AdditionalTerm2 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm2 DEFAULT ((0))  " & vbNewLine & _
-"ALTER TABLE traOrderRequest ADD AdditionalTerm3 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm3 DEFAULT ((0))  " & vbNewLine & _
-"ALTER TABLE traOrderRequest ADD AdditionalTerm4 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm4 DEFAULT ((0))  " & vbNewLine & _
-"ALTER TABLE traOrderRequest ADD AdditionalTerm5 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm5 DEFAULT ((0))  " & vbNewLine & _
-"ALTER TABLE traOrderRequest ADD AdditionalTerm6 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm6 DEFAULT ((0))  " & vbNewLine & _
-"ALTER TABLE traOrderRequest ADD AdditionalTerm7 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm7 DEFAULT ((0))  " & vbNewLine & _
-"ALTER TABLE traOrderRequest ADD AdditionalTerm8 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm8 DEFAULT ((0))  " & vbNewLine & _
-"ALTER TABLE traOrderRequest ADD AdditionalTerm9 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm9 DEFAULT ((0))  " & vbNewLine & _
+"ALTER TABLE traOrderRequestDet ADD InvoiceQuantity DECIMAL(18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_InvoiceQuantity DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traOrderRequestDet ADD InvoiceWeight DECIMAL(18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_InvoiceWeight DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traOrderRequestDet ADD InvoiceTotalWeight DECIMAL(18,4) NOT NULL CONSTRAINT DF_traOrderRequestDet_InvoiceTotalWeight DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traOrderRequestDet ADD LevelItem INT NOT NULL CONSTRAINT DF_traOrderRequestDet_LevelItem DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traOrderRequestDet ADD ParentID VARCHAR(100) NOT NULL CONSTRAINT DF_traOrderRequestDet_ParentID DEFAULT ('')  " & vbNewLine &
+"ALTER TABLE traOrderRequest ADD AdditionalTerm1 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm1 DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traOrderRequest ADD AdditionalTerm2 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm2 DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traOrderRequest ADD AdditionalTerm3 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm3 DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traOrderRequest ADD AdditionalTerm4 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm4 DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traOrderRequest ADD AdditionalTerm5 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm5 DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traOrderRequest ADD AdditionalTerm6 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm6 DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traOrderRequest ADD AdditionalTerm7 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm7 DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traOrderRequest ADD AdditionalTerm8 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm8 DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traOrderRequest ADD AdditionalTerm9 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm9 DEFAULT ((0))  " & vbNewLine &
 "ALTER TABLE traOrderRequest ADD AdditionalTerm10 VARCHAR(5000) NOT NULL CONSTRAINT DF_traOrderRequest_AdditionalTerm10 DEFAULT ((0))  " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
@@ -2598,16 +2598,16 @@
 "ALTER TABLE traDelivery ADD TotalDiscountTransport DECIMAL(18,4) NOT NULL CONSTRAINT DF_traDelivery_TotalDiscountTransport DEFAULT ((0))  " & vbNewLine &
 "ALTER TABLE traCutting ADD TotalDiscount DECIMAL(18,4) NOT NULL CONSTRAINT DF_traCutting_TotalDiscount DEFAULT ((0))  " & vbNewLine &
 " " & vbNewLine &
-"CREATE TABLE [dbo].[traARAPRemarks](  " & vbNewLine & _
-"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPRemarks_ID]  DEFAULT (''),  " & vbNewLine & _
-"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPRemarks_ParentID]  DEFAULT (''),  " & vbNewLine & _
-"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traARAPRemarks_Remarks]  DEFAULT (''),  " & vbNewLine & _
-"   CONSTRAINT [PK_traARAPRemarks] PRIMARY KEY CLUSTERED   " & vbNewLine & _
-"   (  " & vbNewLine & _
-"   	[ID] ASC  " & vbNewLine & _
-"   )   " & vbNewLine & _
-")  " & vbNewLine & _
-"" & vbNewLine 
+"CREATE TABLE [dbo].[traARAPRemarks](  " & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPRemarks_ID]  DEFAULT (''),  " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPRemarks_ParentID]  DEFAULT (''),  " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traARAPRemarks_Remarks]  DEFAULT (''),  " & vbNewLine &
+"   CONSTRAINT [PK_traARAPRemarks] PRIMARY KEY CLUSTERED   " & vbNewLine &
+"   (  " & vbNewLine &
+"   	[ID] ASC  " & vbNewLine &
+"   )   " & vbNewLine &
+")  " & vbNewLine &
+"" & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
@@ -2771,7 +2771,7 @@
                 "ALTER TABLE traARAPVoucher ADD ProgramID INT NOT NULL CONSTRAINT DF_traARAPVoucher_ProgramID DEFAULT ((0))  " & vbNewLine &
                 "ALTER TABLE traARAPVoucher ADD CompanyID INT NOT NULL CONSTRAINT DF_traARAPVoucher_CompanyID DEFAULT ((0))  " & vbNewLine &
                 "ALTER TABLE traARAPVoucher ADD VoucherNumber VARCHAR(100) NOT NULL CONSTRAINT DF_traARAPVoucher_VoucherNumber DEFAULT ('')  " & vbNewLine &
-                "ALTER TABLE mstVoucherType ADD Initial VARCHAR(100) NOT NULL CONSTRAINT DF_mstVoucherType_Initial DEFAULT ('')  " & vbNewLine 
+                "ALTER TABLE mstVoucherType ADD Initial VARCHAR(100) NOT NULL CONSTRAINT DF_mstVoucherType_Initial DEFAULT ('')  " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
@@ -2834,27 +2834,97 @@
         End Sub
 
         '# ID = 96
-        Private Shared Sub CreateARAPServiceItem_ID96(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+        Private Shared Sub CreateDeliveryLocation_ID96(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
             Dim clsData As New VO.Migration
             clsData.ID = 71
-            clsData.Name = "Create ARAP Service Item"
+            clsData.Name = "Create Delivery Location"
             clsData.Scripts =
-"CREATE TABLE [dbo].[traARAPServiceItem](" & vbNewLine &
-"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPServiceItem_ID]  DEFAULT (''), " & vbNewLine &
-"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traARAPServiceItem_ParentID]  DEFAULT (''), " & vbNewLine &
-"	[Description] [varchar](500) NOT NULL CONSTRAINT [DF_traARAPServiceItem_Description]  DEFAULT (''), " & vbNewLine &
-"	[Amount] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPServiceItem_Amount]  DEFAULT ((0)), " & vbNewLine &
-"	[PPN] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPServiceItem_PPN]  DEFAULT ((0)), " & vbNewLine &
-"	[PPH] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPServiceItem_PPH]  DEFAULT ((0)), " & vbNewLine &
-"	[Rounding] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPServiceItem_Rounding]  DEFAULT ((0)), " & vbNewLine &
-"	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPServiceItem_Quantity]  DEFAULT ((0)), " & vbNewLine &
-"	[Weight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPServiceItem_Weight]  DEFAULT ((0)), " & vbNewLine &
-"	[TotalWeight] [decimal](18,4) NOT NULL CONSTRAINT [DF_traARAPServiceItem_TotalWeight]  DEFAULT ((0)), " & vbNewLine &
-"   CONSTRAINT [PK_traARAPServiceItem] PRIMARY KEY CLUSTERED " & vbNewLine &
+"ALTER TABLE traDelivery ADD IsIgnoreTransportPrice BIT NOT NULL CONSTRAINT DF_traDelivery_IsIgnoreTransportPrice DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traDelivery ADD SourceID INT NOT NULL CONSTRAINT DF_traDelivery_SourceID DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traDelivery ADD DestinationID INT NOT NULL CONSTRAINT DF_traDelivery_DestinationID DEFAULT ((0))  " & vbNewLine &
+"ALTER TABLE traDelivery ADD TransporterPriceTypeID INT NOT NULL CONSTRAINT DF_traDelivery_TransporterPriceTypeID DEFAULT ((0))  " & vbNewLine &
+"" & vbNewLine &
+"CREATE TABLE [dbo].[mstDeliveryLocation](" & vbNewLine &
+"	[ID] [int] NOT NULL CONSTRAINT [DF_mstDeliveryLocation_ID]  DEFAULT ((0)), " & vbNewLine &
+"	[Name] [varchar](500) NOT NULL CONSTRAINT [DF_mstDeliveryLocation_Name]  DEFAULT (''), " & vbNewLine &
+"	[StatusID] [int] NOT NULL CONSTRAINT [DF_mstDeliveryLocation_StatusID]  DEFAULT ((0)), " & vbNewLine &
+"	[Remarks] [varchar](500) NOT NULL CONSTRAINT [DF_mstDeliveryLocation_Remarks]  DEFAULT (''), " & vbNewLine &
+"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_mstDeliveryLocation_CreatedBy]  DEFAULT ('SYSTEM'), " & vbNewLine &
+"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_mstDeliveryLocation_CreatedDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_mstDeliveryLocation_LogBy]  DEFAULT ('SYSTEM'), " & vbNewLine &
+"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_mstDeliveryLocation_LogDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[LogInc] [int] NOT NULL CONSTRAINT [DF_mstDeliveryLocation_LogInc]  DEFAULT ((0)), " & vbNewLine &
+"   CONSTRAINT [PK_mstDeliveryLocation] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine &
+" " & vbNewLine &
+"CREATE TABLE [dbo].[mstTransporterPriceType](" & vbNewLine &
+"	[ID] [int] NOT NULL CONSTRAINT [DF_mstTransporterPriceType_ID]  DEFAULT ((0)), " & vbNewLine &
+"	[Name] [varchar](500) NOT NULL CONSTRAINT [DF_mstTransporterPriceType_Name]  DEFAULT (''), " & vbNewLine &
+"	[StatusID] [int] NOT NULL CONSTRAINT [DF_mstTransporterPriceType_StatusID]  DEFAULT ((0)), " & vbNewLine &
+"	[Remarks] [varchar](500) NOT NULL CONSTRAINT [DF_mstTransporterPriceType_Remarks]  DEFAULT (''), " & vbNewLine &
+"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_mstTransporterPriceType_CreatedBy]  DEFAULT ('SYSTEM'), " & vbNewLine &
+"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_mstTransporterPriceType_CreatedDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_mstTransporterPriceType_LogBy]  DEFAULT ('SYSTEM'), " & vbNewLine &
+"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_mstTransporterPriceType_LogDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[LogInc] [int] NOT NULL CONSTRAINT [DF_mstTransporterPriceType_LogInc]  DEFAULT ((0)), " & vbNewLine &
+"   CONSTRAINT [PK_mstTransporterPriceType] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine &
+" " & vbNewLine &
+"CREATE TABLE [dbo].[traTransporterPriceList](" & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traTransporterPriceList_ID]  DEFAULT (''), " & vbNewLine &
+"	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traTransporterPriceList_ProgramID]  DEFAULT ((0)), " & vbNewLine &
+"	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traTransporterPriceList_CompanyID]  DEFAULT ((0)), " & vbNewLine &
+"	[TransNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traTransporterPriceList_TransNumber]  DEFAULT (''), " & vbNewLine &
+"	[TransDate] [datetime] NOT NULL CONSTRAINT [DF_traTransporterPriceList_TransNumber]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[BPID] [int] NOT NULL CONSTRAINT [DF_traTransporterPriceList_BPID]  DEFAULT ((0)), " & vbNewLine &
+"	[PriceTypeID] [int] NOT NULL CONSTRAINT [DF_traTransporterPriceList_PriceTypeID]  DEFAULT ((0)), " & vbNewLine &
+"	[IsActive] [bit] NOT NULL CONSTRAINT [DF_traTransporterPriceList_IsActive]  DEFAULT ((0)), " & vbNewLine &
+"	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traTransporterPriceList_IsDeleted]  DEFAULT ((0)), " & vbNewLine &
+"	[StatusID] [int] NOT NULL CONSTRAINT [DF_traTransporterPriceList_StatusID]  DEFAULT ((0)), " & vbNewLine &
+"	[Remarks] [varchar](500) NOT NULL CONSTRAINT [DF_traTransporterPriceList_Remarks]  DEFAULT (''), " & vbNewLine &
+"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traTransporterPriceList_CreatedBy]  DEFAULT ('SYSTEM'), " & vbNewLine &
+"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traTransporterPriceList_CreatedDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traTransporterPriceList_LogBy]  DEFAULT ('SYSTEM'), " & vbNewLine &
+"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traTransporterPriceList_LogDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[LogInc] [int] NOT NULL CONSTRAINT [DF_traTransporterPriceList_LogInc]  DEFAULT ((0)), " & vbNewLine &
+"   CONSTRAINT [PK_traTransporterPriceList] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine &
+" " & vbNewLine &
+"CREATE TABLE [dbo].[traTransporterPriceListDet](" & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traTransporterPriceListDet_ID]  DEFAULT (''), " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traTransporterPriceListDet_ParentID]  DEFAULT (''), " & vbNewLine &
+"	[SourceID] [int] NOT NULL CONSTRAINT [DF_traTransporterPriceListDet_SourceID]  DEFAULT ((0)), " & vbNewLine &
+"	[DestinationID] [int] NOT NULL CONSTRAINT [DF_traTransporterPriceListDet_DestinationID]  DEFAULT ((0)), " & vbNewLine &
+"	[Price] [decimal](18,2) NOT NULL CONSTRAINT [DF_traTransporterPriceListDet_Price]  DEFAULT ((0)), " & vbNewLine &
+"   CONSTRAINT [PK_traTransporterPriceListDet] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine &
+" " & vbNewLine &
+"CREATE TABLE [dbo].[traTransporterPriceListStatus](" & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traTransporterPriceListStatus_ID]  DEFAULT (''), " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traTransporterPriceListStatus_ParentID]  DEFAULT (''), " & vbNewLine &
+"	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traTransporterPriceListStatus_Status]  DEFAULT (''), " & vbNewLine &
+"	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traTransporterPriceListStatus_StatusBy]  DEFAULT (''), " & vbNewLine &
+"	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traTransporterPriceListStatus_StatusDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traTransporterPriceListStatus_Remarks]  DEFAULT (''), " & vbNewLine &
+"   CONSTRAINT [PK_traTransporterPriceListStatus] PRIMARY KEY CLUSTERED " & vbNewLine &
 "   (" & vbNewLine &
 "   	[ID] ASC" & vbNewLine &
 "   ) " & vbNewLine &
 ") " & vbNewLine
+
+
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
@@ -2864,3 +2934,10 @@
 
     End Class
 End Namespace
+'"
+'LDS-HRC-CLG-20250103-020
+'LDS-HRC-CLG-20250313-689
+'LDS-HRC-CLG-20250203-352
+'LDS-HRC-CLG-20250122-269
+'LDS-HRC-CLG-20250207-382
+'"
