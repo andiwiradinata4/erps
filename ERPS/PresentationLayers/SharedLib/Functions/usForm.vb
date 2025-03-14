@@ -178,9 +178,10 @@ Namespace UI
             End With
         End Sub
 
-        Public Shared Sub FillComboBoxEdit(ByRef usComboBoxEdit As usComboBoxEdit, ByVal dtSource As DataTable, ByVal valueMember As String, ByVal displayMember As String, Optional ByVal initialMember As String = "")
+        Public Shared Sub FillComboBoxEdit(ByRef usComboBoxEdit As usComboBoxEdit, ByVal dtSource As DataTable, ByVal valueMember As String, ByVal displayMember As String, Optional ByVal initialMember As String = "",
+                                           Optional ByVal bolSortData As Boolean = False)
             Dim col As DevExpress.XtraEditors.Controls.LookUpColumnInfo = New DevExpress.XtraEditors.Controls.LookUpColumnInfo(displayMember, initialMember)
-            col.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending
+            If bolSortData Then col.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending
 
             With usComboBoxEdit
                 .Properties.DataSource = dtSource

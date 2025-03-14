@@ -72,4 +72,12 @@
         End Try
     End Sub
 
+    Private Sub btnCalculateUnitPriceHPP_Click(sender As Object, e As EventArgs) Handles btnCalculateUnitPriceHPP.Click
+        Try
+            BL.Setup.CalculateUnitPriceHPPSalesContract()
+            UI.usForm.frmMessageBox(btnCalculateUnitPriceHPP.Text.Trim & " berhasil")
+        Catch ex As Exception
+            UI.usForm.frmMessageBox(ex.Message)
+        End Try
+    End Sub
 End Class

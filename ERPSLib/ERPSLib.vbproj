@@ -104,6 +104,7 @@
     <Compile Include="BusinessLayers\Cutting.vb" />
     <Compile Include="BusinessLayers\Delivery.vb" />
     <Compile Include="BusinessLayers\ARAP.vb" />
+    <Compile Include="BusinessLayers\DeliveryLocation.vb" />
     <Compile Include="BusinessLayers\Item.vb" />
     <Compile Include="BusinessLayers\ItemResult.vb" />
     <Compile Include="BusinessLayers\ItemSpecification.vb" />
@@ -122,6 +123,8 @@
     <Compile Include="BusinessLayers\Stock.vb" />
     <Compile Include="BusinessLayers\StockIn.vb" />
     <Compile Include="BusinessLayers\StockOut.vb" />
+    <Compile Include="BusinessLayers\TransporterPriceList.vb" />
+    <Compile Include="BusinessLayers\TransporterPriceType.vb" />
     <Compile Include="BusinessLayers\VoucherType.vb" />
     <Compile Include="DataLayers\AccountPayable.vb" />
     <Compile Include="DataLayers\AccountReceivable.vb" />
@@ -163,6 +166,7 @@
     <Compile Include="DataLayers\Cutting.vb" />
     <Compile Include="DataLayers\Delivery.vb" />
     <Compile Include="DataLayers\ARAP.vb" />
+    <Compile Include="DataLayers\DeliveryLocation.vb" />
     <Compile Include="DataLayers\Item.vb" />
     <Compile Include="DataLayers\ItemResult.vb" />
     <Compile Include="DataLayers\ItemSpecification.vb" />
@@ -182,6 +186,8 @@
     <Compile Include="DataLayers\Stock.vb" />
     <Compile Include="DataLayers\StockIn.vb" />
     <Compile Include="DataLayers\StockOut.vb" />
+    <Compile Include="DataLayers\TransporterPriceList.vb" />
+    <Compile Include="DataLayers\TransporterPriceType.vb" />
     <Compile Include="DataLayers\VoucherType.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -278,6 +284,7 @@
     <Compile Include="ValueObject\Delivery.vb" />
     <Compile Include="ValueObject\DeliveryDet.vb" />
     <Compile Include="ValueObject\DeliveryDetTransport.vb" />
+    <Compile Include="ValueObject\DeliveryLocation.vb" />
     <Compile Include="ValueObject\DeliveryStatus.vb" />
     <Compile Include="ValueObject\ARAP.vb" />
     <Compile Include="ValueObject\DeliveryTransport.vb" />
@@ -351,6 +358,10 @@
     <Compile Include="ValueObject\Stock.vb" />
     <Compile Include="ValueObject\StockIn.vb" />
     <Compile Include="ValueObject\StockOut.vb" />
+    <Compile Include="ValueObject\TransporterPriceList.vb" />
+    <Compile Include="ValueObject\TransporterPriceListDet.vb" />
+    <Compile Include="ValueObject\TransporterPriceListStatus.vb" />
+    <Compile Include="ValueObject\TransporterPriceType.vb" />
     <Compile Include="ValueObject\VoucherType.vb" />
   </ItemGroup>
   <ItemGroup>

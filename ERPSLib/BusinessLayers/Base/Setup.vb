@@ -74,5 +74,12 @@
             End Using
         End Sub
 
+        Public Shared Sub CalculateUnitPriceHPPSalesContract()
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                DL.Setup.CalculateUnitPriceHPPSalesContract(sqlCon, Nothing)
+            End Using
+        End Sub
+
     End Class
 End Namespace

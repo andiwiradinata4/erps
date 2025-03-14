@@ -685,5 +685,48 @@
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Sub CalculateUnitPriceHPPSalesContract(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"DECLARE @SCID VARCHAR(100)   " & vbNewLine & _
+"DECLARE @SCDetailID VARCHAR(100)   " & vbNewLine & _
+"DECLARE @GroupID INT  " & vbNewLine & _
+"DECLARE @UnitPrice DECIMAL(18,4) " & vbNewLine & _
+"DECLARE db_cursor CURSOR FOR   " & vbNewLine & _
+" " & vbNewLine & _
+"SELECT DISTINCT SCD.SCID, SCD.GroupID, COD.UnitPrice, SCD.ID  " & vbNewLine & _
+"FROM traSalesContractDet SCD    " & vbNewLine & _
+"INNER JOIN traSalesContract SCH ON    " & vbNewLine & _
+"	SCD.SCID=SCH.ID    " & vbNewLine & _
+"INNER JOIN traSalesContractDetConfirmationOrder SCDCO ON    " & vbNewLine & _
+"	SCD.SCID=SCDCO.SCID  " & vbNewLine & _
+"	AND SCD.GroupID=SCDCO.GroupID  " & vbNewLine & _
+"INNER JOIN traConfirmationOrderDet COD ON  " & vbNewLine & _
+"	SCDCO.CODetailID=COD.ID  " & vbNewLine & _
+"WHERE SCH.IsDeleted=0 AND SCD.UnitPriceHPP<>COD.UnitPrice AND COD.UnitPrice>0  " & vbNewLine & _
+" " & vbNewLine & _
+"OPEN db_cursor;   " & vbNewLine & _
+"FETCH NEXT FROM db_cursor INTO @SCID, @GroupID, @UnitPrice, @SCDetailID;   " & vbNewLine & _
+"WHILE @@FETCH_STATUS = 0   " & vbNewLine & _
+"BEGIN   " & vbNewLine & _
+"  UPDATE traSalesContractDet SET UnitPriceHPP=@UnitPrice WHERE ID=@SCDetailID  " & vbNewLine & _
+" " & vbNewLine & _
+"FETCH NEXT FROM db_cursor INTO @SCID, @GroupID, @UnitPrice, @SCDetailID;   " & vbNewLine & _
+"END   " & vbNewLine & _
+"   " & vbNewLine & _
+"CLOSE db_cursor;   " & vbNewLine & _
+"DEALLOCATE db_cursor;   " & vbNewLine
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
     End Class
 End Namespace

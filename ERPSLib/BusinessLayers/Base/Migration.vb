@@ -102,6 +102,7 @@
                     DevelopOnProgress_ID93(sqlCon, sqlTrans)
                     DevelopOnProgress_ID94(sqlCon, sqlTrans)
                     DevelopOnProgress_ID95(sqlCon, sqlTrans)
+                    CreateDeliveryLocation_ID96(sqlCon, sqlTrans)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -2836,7 +2837,7 @@
         '# ID = 96
         Private Shared Sub CreateDeliveryLocation_ID96(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
             Dim clsData As New VO.Migration
-            clsData.ID = 71
+            clsData.ID = 96
             clsData.Name = "Create Delivery Location"
             clsData.Scripts =
 "ALTER TABLE traDelivery ADD IsIgnoreTransportPrice BIT NOT NULL CONSTRAINT DF_traDelivery_IsIgnoreTransportPrice DEFAULT ((0))  " & vbNewLine &
@@ -2846,7 +2847,7 @@
 "" & vbNewLine &
 "CREATE TABLE [dbo].[mstDeliveryLocation](" & vbNewLine &
 "	[ID] [int] NOT NULL CONSTRAINT [DF_mstDeliveryLocation_ID]  DEFAULT ((0)), " & vbNewLine &
-"	[Name] [varchar](500) NOT NULL CONSTRAINT [DF_mstDeliveryLocation_Name]  DEFAULT (''), " & vbNewLine &
+"	[Description] [varchar](500) NOT NULL CONSTRAINT [DF_mstDeliveryLocation_Description]  DEFAULT (''), " & vbNewLine &
 "	[StatusID] [int] NOT NULL CONSTRAINT [DF_mstDeliveryLocation_StatusID]  DEFAULT ((0)), " & vbNewLine &
 "	[Remarks] [varchar](500) NOT NULL CONSTRAINT [DF_mstDeliveryLocation_Remarks]  DEFAULT (''), " & vbNewLine &
 "	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_mstDeliveryLocation_CreatedBy]  DEFAULT ('SYSTEM'), " & vbNewLine &
@@ -2862,7 +2863,7 @@
 " " & vbNewLine &
 "CREATE TABLE [dbo].[mstTransporterPriceType](" & vbNewLine &
 "	[ID] [int] NOT NULL CONSTRAINT [DF_mstTransporterPriceType_ID]  DEFAULT ((0)), " & vbNewLine &
-"	[Name] [varchar](500) NOT NULL CONSTRAINT [DF_mstTransporterPriceType_Name]  DEFAULT (''), " & vbNewLine &
+"	[Description] [varchar](500) NOT NULL CONSTRAINT [DF_mstTransporterPriceType_Description]  DEFAULT (''), " & vbNewLine &
 "	[StatusID] [int] NOT NULL CONSTRAINT [DF_mstTransporterPriceType_StatusID]  DEFAULT ((0)), " & vbNewLine &
 "	[Remarks] [varchar](500) NOT NULL CONSTRAINT [DF_mstTransporterPriceType_Remarks]  DEFAULT (''), " & vbNewLine &
 "	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_mstTransporterPriceType_CreatedBy]  DEFAULT ('SYSTEM'), " & vbNewLine &
@@ -2881,7 +2882,7 @@
 "	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traTransporterPriceList_ProgramID]  DEFAULT ((0)), " & vbNewLine &
 "	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traTransporterPriceList_CompanyID]  DEFAULT ((0)), " & vbNewLine &
 "	[TransNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traTransporterPriceList_TransNumber]  DEFAULT (''), " & vbNewLine &
-"	[TransDate] [datetime] NOT NULL CONSTRAINT [DF_traTransporterPriceList_TransNumber]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[TransDate] [datetime] NOT NULL CONSTRAINT [DF_traTransporterPriceList_TransDate]  DEFAULT (GETDATE()), " & vbNewLine &
 "	[BPID] [int] NOT NULL CONSTRAINT [DF_traTransporterPriceList_BPID]  DEFAULT ((0)), " & vbNewLine &
 "	[PriceTypeID] [int] NOT NULL CONSTRAINT [DF_traTransporterPriceList_PriceTypeID]  DEFAULT ((0)), " & vbNewLine &
 "	[IsActive] [bit] NOT NULL CONSTRAINT [DF_traTransporterPriceList_IsActive]  DEFAULT ((0)), " & vbNewLine &
@@ -2924,7 +2925,6 @@
 "   ) " & vbNewLine &
 ") " & vbNewLine
 
-
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
                 DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
@@ -2934,10 +2934,3 @@
 
     End Class
 End Namespace
-'"
-'LDS-HRC-CLG-20250103-020
-'LDS-HRC-CLG-20250313-689
-'LDS-HRC-CLG-20250203-352
-'LDS-HRC-CLG-20250122-269
-'LDS-HRC-CLG-20250207-382
-'"

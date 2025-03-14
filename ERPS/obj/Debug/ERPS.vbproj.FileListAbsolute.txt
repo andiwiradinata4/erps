@@ -1033,3 +1033,7 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.xml
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.pdb
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer5.resources
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraARAPDetVer5.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstDeliveryLocation.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstDeliveryLocationDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstTransporterPriceType.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstTransporterPriceTypeDet.resources

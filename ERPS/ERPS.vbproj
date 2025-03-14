@@ -321,6 +321,18 @@
     <Compile Include="PresentationLayers\Forms\Master\frmMstCompanyDet.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstDeliveryLocation.Designer.vb">
+      <DependentUpon>frmMstDeliveryLocation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstDeliveryLocation.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstDeliveryLocationDet.Designer.vb">
+      <DependentUpon>frmMstDeliveryLocationDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstDeliveryLocationDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstItem.Designer.vb">
       <DependentUpon>frmMstItem.vb</DependentUpon>
     </Compile>
@@ -457,6 +469,18 @@
       <DependentUpon>frmMstStockHistory.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstStockHistory.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstTransporterPriceType.Designer.vb">
+      <DependentUpon>frmMstTransporterPriceType.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstTransporterPriceType.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstTransporterPriceTypeDet.Designer.vb">
+      <DependentUpon>frmMstTransporterPriceTypeDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Master\frmMstTransporterPriceTypeDet.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Master\frmMstUOM.designer.vb">
@@ -793,6 +817,24 @@
       <DependentUpon>frmTraConfirmationClaimOutstandingClaimItem.vb</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Claim\frmTraConfirmationClaimOutstandingClaimItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Configuration\frmTraTransporterPriceListDet.Designer.vb">
+      <DependentUpon>frmTraTransporterPriceListDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Configuration\frmTraTransporterPriceListDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Configuration\frmTraTransporterPriceList.Designer.vb">
+      <DependentUpon>frmTraTransporterPriceList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Configuration\frmTraTransporterPriceList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Configuration\frmTraTransporterPriceListDetItem.Designer.vb">
+      <DependentUpon>frmTraTransporterPriceListDetItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Configuration\frmTraTransporterPriceListDetItem.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Item\frmTraItemResult.Designer.vb">
@@ -1714,6 +1756,12 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstCompanyDet.resx">
       <DependentUpon>frmMstCompanyDet.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstDeliveryLocation.resx">
+      <DependentUpon>frmMstDeliveryLocation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstDeliveryLocationDet.resx">
+      <DependentUpon>frmMstDeliveryLocationDet.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstItem.resx">
       <DependentUpon>frmMstItem.vb</DependentUpon>
     </EmbeddedResource>
@@ -1782,6 +1830,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstStockHistory.resx">
       <DependentUpon>frmMstStockHistory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstTransporterPriceType.resx">
+      <DependentUpon>frmMstTransporterPriceType.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstTransporterPriceTypeDet.resx">
+      <DependentUpon>frmMstTransporterPriceTypeDet.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Master\frmMstUOM.resx">
       <DependentUpon>frmMstUOM.vb</DependentUpon>
@@ -1947,6 +2001,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Claim\frmTraConfirmationClaimOutstandingClaimItem.resx">
       <DependentUpon>frmTraConfirmationClaimOutstandingClaimItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Configuration\frmTraTransporterPriceList.resx">
+      <DependentUpon>frmTraTransporterPriceList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Configuration\frmTraTransporterPriceListDet.resx">
+      <DependentUpon>frmTraTransporterPriceListDet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Configuration\frmTraTransporterPriceListDetItem.resx">
+      <DependentUpon>frmTraTransporterPriceListDetItem.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Item\frmTraItemResult.resx">
       <DependentUpon>frmTraItemResult.vb</DependentUpon>

@@ -30,6 +30,7 @@ Partial Class frmSysSetup
         Me.btnCalculateSCWeightInSalesContract = New DevExpress.XtraEditors.SimpleButton()
         Me.btnCalculateDPAmountInDPSalesContract = New DevExpress.XtraEditors.SimpleButton()
         Me.btnGenerateVoucher = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnCalculateUnitPriceHPP = New DevExpress.XtraEditors.SimpleButton()
         Me.SuspendLayout()
         '
         'btnCalculateSCWeightSubItemInPurchaseContract
@@ -104,11 +105,21 @@ Partial Class frmSysSetup
         Me.btnGenerateVoucher.TabIndex = 7
         Me.btnGenerateVoucher.Text = "Generate Voucher"
         '
+        'btnCalculateUnitPriceHPP
+        '
+        Me.btnCalculateUnitPriceHPP.Dock = System.Windows.Forms.DockStyle.Top
+        Me.btnCalculateUnitPriceHPP.Location = New System.Drawing.Point(0, 184)
+        Me.btnCalculateUnitPriceHPP.Name = "btnCalculateUnitPriceHPP"
+        Me.btnCalculateUnitPriceHPP.Size = New System.Drawing.Size(659, 23)
+        Me.btnCalculateUnitPriceHPP.TabIndex = 8
+        Me.btnCalculateUnitPriceHPP.Text = "Kalkulasi HPP Unit Price"
+        '
         'frmSysSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(659, 322)
+        Me.Controls.Add(Me.btnCalculateUnitPriceHPP)
         Me.Controls.Add(Me.btnGenerateVoucher)
         Me.Controls.Add(Me.btnCalculateDPAmountInDPSalesContract)
         Me.Controls.Add(Me.btnCalculateSCWeightInSalesContract)
@@ -132,4 +143,5 @@ Partial Class frmSysSetup
     Friend WithEvents btnCalculateSCWeightInSalesContract As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnCalculateDPAmountInDPSalesContract As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnGenerateVoucher As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btnCalculateUnitPriceHPP As DevExpress.XtraEditors.SimpleButton
 End Class

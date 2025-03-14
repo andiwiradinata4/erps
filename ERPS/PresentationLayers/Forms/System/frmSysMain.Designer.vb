@@ -103,6 +103,8 @@ Partial Class frmSysMain
         Me.mnuTransaksiPembukuanPembayaranBiaya = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuanPembayaranBiayaTransportasi = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuanPembayaranBiayaPotong = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembukuanKasBankVoucher = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTransaksiPembukuanSep8 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuTransaksiPembukuanJurnalUmum = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTransaksiPembukuanJurnalUmumAutoGenerate = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLaporan = New System.Windows.Forms.ToolStripMenuItem()
@@ -129,8 +131,9 @@ Partial Class frmSysMain
         Me.mnuWindowsCascade = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuWindowsCloseAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLogout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuTransaksiPembukuanKasBankVoucher = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuTransaksiPembukuanSep8 = New System.Windows.Forms.ToolStripSeparator()
+        Me.mnuMasterSep3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.mnuMasterLokasiPengiriman = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuMasterJenisBiayaTransportasi = New System.Windows.Forms.ToolStripMenuItem()
         Me.ssMain.SuspendLayout()
         Me.mnuMain.SuspendLayout()
         Me.SuspendLayout()
@@ -238,7 +241,7 @@ Partial Class frmSysMain
         '
         'mnuMaster
         '
-        Me.mnuMaster.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuMasterProgram, Me.mnuMasterStatus, Me.mnuMasterModule, Me.mnuMasterAkses, Me.mnuMasterPerusahaan, Me.mnuMasterKaryawan, Me.mnuMasterSatuan, Me.mnuMasterTipeAkunPerkiraan, Me.mnuMasterGroupAkunPerkiraan, Me.mnuMasterAkunPerkiraan, Me.mnuMasterSep1, Me.mnuMasterJenisBarang, Me.mnuMasterSpesifikasiBarang, Me.mnuMasterBarang, Me.mnuMasterPersediaan, Me.mnuMasterSep2, Me.mnuMasterRekanBisnis, Me.mnuMasterAkunBankPerusahaan, Me.mnuMasterPaymentTypeCategory, Me.mnuMasterMetodePembayaran, Me.mnuMasterJenisPembayaran})
+        Me.mnuMaster.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuMasterProgram, Me.mnuMasterStatus, Me.mnuMasterModule, Me.mnuMasterAkses, Me.mnuMasterPerusahaan, Me.mnuMasterKaryawan, Me.mnuMasterSatuan, Me.mnuMasterTipeAkunPerkiraan, Me.mnuMasterGroupAkunPerkiraan, Me.mnuMasterAkunPerkiraan, Me.mnuMasterSep1, Me.mnuMasterJenisBarang, Me.mnuMasterSpesifikasiBarang, Me.mnuMasterBarang, Me.mnuMasterPersediaan, Me.mnuMasterSep2, Me.mnuMasterRekanBisnis, Me.mnuMasterAkunBankPerusahaan, Me.mnuMasterPaymentTypeCategory, Me.mnuMasterMetodePembayaran, Me.mnuMasterJenisPembayaran, Me.mnuMasterSep3, Me.mnuMasterLokasiPengiriman, Me.mnuMasterJenisBiayaTransportasi})
         Me.mnuMaster.Name = "mnuMaster"
         Me.mnuMaster.Size = New System.Drawing.Size(55, 20)
         Me.mnuMaster.Text = "&Master"
@@ -662,6 +665,17 @@ Partial Class frmSysMain
         Me.mnuTransaksiPembukuanPembayaranBiayaPotong.Size = New System.Drawing.Size(302, 22)
         Me.mnuTransaksiPembukuanPembayaranBiayaPotong.Text = "Pembayaran Biaya Potong"
         '
+        'mnuTransaksiPembukuanKasBankVoucher
+        '
+        Me.mnuTransaksiPembukuanKasBankVoucher.Name = "mnuTransaksiPembukuanKasBankVoucher"
+        Me.mnuTransaksiPembukuanKasBankVoucher.Size = New System.Drawing.Size(302, 22)
+        Me.mnuTransaksiPembukuanKasBankVoucher.Text = "Kas / Bank Voucher"
+        '
+        'mnuTransaksiPembukuanSep8
+        '
+        Me.mnuTransaksiPembukuanSep8.Name = "mnuTransaksiPembukuanSep8"
+        Me.mnuTransaksiPembukuanSep8.Size = New System.Drawing.Size(299, 6)
+        '
         'mnuTransaksiPembukuanJurnalUmum
         '
         Me.mnuTransaksiPembukuanJurnalUmum.Name = "mnuTransaksiPembukuanJurnalUmum"
@@ -823,16 +837,22 @@ Partial Class frmSysMain
         Me.mnuLogout.Size = New System.Drawing.Size(57, 20)
         Me.mnuLogout.Text = "L&ogout"
         '
-        'mnuTransaksiPembukuanKasBankVoucher
+        'mnuMasterSep3
         '
-        Me.mnuTransaksiPembukuanKasBankVoucher.Name = "mnuTransaksiPembukuanKasBankVoucher"
-        Me.mnuTransaksiPembukuanKasBankVoucher.Size = New System.Drawing.Size(302, 22)
-        Me.mnuTransaksiPembukuanKasBankVoucher.Text = "Kas / Bank Voucher"
+        Me.mnuMasterSep3.Name = "mnuMasterSep3"
+        Me.mnuMasterSep3.Size = New System.Drawing.Size(196, 6)
         '
-        'mnuTransaksiPembukuanSep8
+        'mnuMasterLokasiPengiriman
         '
-        Me.mnuTransaksiPembukuanSep8.Name = "mnuTransaksiPembukuanSep8"
-        Me.mnuTransaksiPembukuanSep8.Size = New System.Drawing.Size(299, 6)
+        Me.mnuMasterLokasiPengiriman.Name = "mnuMasterLokasiPengiriman"
+        Me.mnuMasterLokasiPengiriman.Size = New System.Drawing.Size(199, 22)
+        Me.mnuMasterLokasiPengiriman.Text = "Lokasi Pengiriman"
+        '
+        'mnuMasterJenisBiayaTransportasi
+        '
+        Me.mnuMasterJenisBiayaTransportasi.Name = "mnuMasterJenisBiayaTransportasi"
+        Me.mnuMasterJenisBiayaTransportasi.Size = New System.Drawing.Size(199, 22)
+        Me.mnuMasterJenisBiayaTransportasi.Text = "Jenis Biaya Transportasi"
         '
         'frmSysMain
         '
@@ -966,4 +986,7 @@ Partial Class frmSysMain
     Friend WithEvents ssBuildDate As ToolStripStatusLabel
     Friend WithEvents mnuTransaksiPembukuanKasBankVoucher As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuTransaksiPembukuanSep8 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents mnuMasterSep3 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents mnuMasterLokasiPengiriman As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuMasterJenisBiayaTransportasi As System.Windows.Forms.ToolStripMenuItem
 End Class

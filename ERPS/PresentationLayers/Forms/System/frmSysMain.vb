@@ -22,6 +22,8 @@
     Dim frmMainMstPaymentTypeCategory As frmMstPaymentTypeCategory
     Dim frmMainMstPaymentMode As frmMstPaymentMode
     Dim frmMainMstPaymentType As frmMstPaymentType
+    Dim frmMainMstDeliveryLocation As frmMstDeliveryLocation
+    Dim frmMainMstTransporterPriceType As frmMstTransporterPriceType
 
     '# Transaction
     '## Sales
@@ -301,6 +303,14 @@
 
     Private Sub mnuMasterJenisPembayaran_Click(sender As Object, e As EventArgs) Handles mnuMasterJenisPembayaran.Click
         UI.usForm.frmOpen(frmMainMstPaymentType, "frmMstPaymentType", Me)
+    End Sub
+
+    Private Sub mnuMasterLokasiPengiriman_Click(sender As Object, e As EventArgs) Handles mnuMasterLokasiPengiriman.Click
+        UI.usForm.frmOpen(frmMainMstDeliveryLocation, "frmMstDeliveryLocation", Me)
+    End Sub
+
+    Private Sub mnuMasterJenisBiayaTransportasi_Click(sender As Object, e As EventArgs) Handles mnuMasterJenisBiayaTransportasi.Click
+        UI.usForm.frmOpen(frmMainMstTransporterPriceType, "frmMstTransporterPriceType", Me)
     End Sub
 
 #End Region
