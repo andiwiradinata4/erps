@@ -1044,3 +1044,6 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.vbproj.Up2Date
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.exe
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.xml
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.pdb
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraTransporterPriceList.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraTransporterPriceListDet.resources
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraTransporterPriceListDetItem.resources

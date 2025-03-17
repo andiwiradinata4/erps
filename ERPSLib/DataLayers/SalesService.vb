@@ -459,11 +459,10 @@ Namespace DL
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandText =
-"
-DELETE FROM traSalesServiceDet
-WHERE
-	ParentID=@ParentID 
-"
+"DELETE FROM traSalesServiceDet " & vbNewLine & _
+"WHERE " & vbNewLine & _
+"	ParentID=@ParentID  " & vbNewLine
+
                 .Parameters.Add("@ParentID", SqlDbType.VarChar, 100).Value = strParentID
             End With
             Try

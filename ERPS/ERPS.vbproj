@@ -1389,6 +1389,24 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesReturnDetItem.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesService.Designer.vb">
+      <DependentUpon>frmTraSalesService.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesService.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesServiceDet.Designer.vb">
+      <DependentUpon>frmTraSalesServiceDet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesServiceDet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesServiceDetItem.Designer.vb">
+      <DependentUpon>frmTraSalesServiceDetItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesServiceDetItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\View\frmViewCompany.designer.vb">
       <DependentUpon>frmViewCompany.vb</DependentUpon>
     </Compile>
@@ -2286,6 +2304,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesReturnDetItem.resx">
       <DependentUpon>frmTraSalesReturnDetItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesServiceDetItem.resx">
+      <DependentUpon>frmTraSalesServiceDetItem.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\View\frmViewLookupHistory.resx">
       <DependentUpon>frmViewLookupHistory.vb</DependentUpon>

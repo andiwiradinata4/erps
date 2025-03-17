@@ -21,7 +21,7 @@ Namespace BL
             If intServiceType = VO.ServiceType.Value.Transport Then strServiceTypeInitial = "SST"
             If intServiceType = VO.ServiceType.Value.Cutting Then strServiceTypeInitial = "SSC"
             Dim strNewID As String = strServiceTypeInitial & Format(dtmTransDate, "yyyyMMdd") & "-" & clsCompany.CompanyInitial & "-" & Format(intProgramID, "00") & "-"
-            strNewID &= Format(DL.SalesContract.GetMaxID(sqlCon, sqlTrans, strNewID) + 1, "0000")
+            strNewID &= Format(DL.SalesService.GetMaxID(sqlCon, sqlTrans, strNewID) + 1, "0000")
             Return strNewID
         End Function
 
@@ -37,15 +37,13 @@ Namespace BL
                     Else
                         DL.SalesService.DeleteDataDetail(sqlCon, sqlTrans, clsData.ID)
                     End If
-                    Dim intStatusID As Integer = DL.SalesContract.GetStatusID(sqlCon, sqlTrans, clsData.ID)
-                    If intStatusID = VO.Status.Values.Approved Then
-                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di approve")
-                    ElseIf intStatusID = VO.Status.Values.Submit Then
+                    Dim intStatusID As Integer = DL.SalesService.GetStatusID(sqlCon, sqlTrans, clsData.ID)
+                    If intStatusID = VO.Status.Values.Submit Then
                         Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data telah di submit")
-                    ElseIf DL.SalesContract.IsDeleted(sqlCon, sqlTrans, clsData.ID) Then
+                    ElseIf DL.SalesService.IsDeleted(sqlCon, sqlTrans, clsData.ID) Then
                         Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
-                    ElseIf DL.SalesContract.DataExists(sqlCon, sqlTrans, clsData.SCNumber, clsData.ID) Then
-                        Err.Raise(515, "", "Tidak dapat disimpan. Nomor " & clsData.SCNumber & " sudah ada.")
+                    ElseIf DL.SalesService.DataExists(sqlCon, sqlTrans, clsData.TransNumber, clsData.ID) Then
+                        Err.Raise(515, "", "Tidak dapat disimpan. Nomor " & clsData.TransNumber & " sudah ada.")
                     End If
 
                     DL.SalesService.SaveData(sqlCon, sqlTrans, bolNew, clsData)
@@ -79,17 +77,22 @@ Namespace BL
             End Using
         End Function
 
-        Public Shared Sub DeleteData(ByVal strID As String)
+        Public Shared Sub DeleteData(ByVal strID As String, ByVal strRemarks As String)
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-
-                    'If DL.SalesService.XXX(sqlCon, sqlTransstrID) Then 
-                    '    Err.Raise(515,"","Cannot Delete. Data already used at XXX") 
-                    'End If 
+                    Dim intStatusID As Integer = DL.SalesService.GetStatusID(sqlCon, sqlTrans, strID)
+                    If intStatusID = VO.Status.Values.Submit Then
+                        Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data telah di submit")
+                    ElseIf DL.SalesService.IsDeleted(sqlCon, sqlTrans, strID) Then
+                        Err.Raise(515, "", "Data tidak dapat dihapus. Dikarenakan data sudah pernah dihapus")
+                    End If
 
                     DL.SalesService.DeleteData(sqlCon, sqlTrans, strID)
+
+                    '# Save Data Status
+                    BL.SalesService.SaveDataStatus(sqlCon, sqlTrans, strID, "HAPUS", ERPSLib.UI.usUserApp.UserID, strRemarks)
 
                     sqlTrans.Commit()
                 Catch ex As Exception
@@ -99,7 +102,105 @@ Namespace BL
             End Using
         End Sub
 
+        Public Shared Function Submit(ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Submit(sqlCon, sqlTrans, strID, strRemarks)
+                    sqlTrans.Commit()
+                    bolReturn = True
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Sub Submit(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                 ByVal strID As String, ByVal strRemarks As String)
+            Dim bolReturn As Boolean = False
+            Dim intStatusID As Integer = DL.SalesService.GetStatusID(sqlCon, sqlTrans, strID)
+            If intStatusID = VO.Status.Values.Submit Then
+                Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan status data telah SUBMIT")
+            ElseIf DL.SalesService.IsDeleted(sqlCon, sqlTrans, strID) Then
+                Err.Raise(515, "", "Data tidak dapat di submit. Dikarenakan data telah dihapus")
+            End If
+
+            DL.SalesService.Submit(sqlCon, sqlTrans, strID)
+
+            '# Save Data Status
+            BL.SalesService.SaveDataStatus(sqlCon, sqlTrans, strID, "SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
+        End Sub
+
+        Public Shared Function Unsubmit(ByVal strID As String, ByVal strRemarks As String) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    Dim intStatusID As Integer = DL.SalesService.GetStatusID(sqlCon, sqlTrans, strID)
+                    If intStatusID = VO.Status.Values.Draft Then
+                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan status data telah DRAFT")
+                    ElseIf DL.SalesService.IsDeleted(sqlCon, sqlTrans, strID) Then
+                        Err.Raise(515, "", "Data tidak dapat di batal submit. Dikarenakan data telah dihapus")
+                    End If
+
+                    DL.SalesService.Unsubmit(sqlCon, sqlTrans, strID)
+
+                    '# Save Data Status
+                    BL.SalesService.SaveDataStatus(sqlCon, sqlTrans, strID, "BATAL SUBMIT", ERPSLib.UI.usUserApp.UserID, strRemarks)
+
+                    sqlTrans.Commit()
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
 #End Region
+
+#Region "Detail"
+
+        Public Shared Function ListDataDetail(ByVal strParentID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.SalesService.ListDataDetail(sqlCon, Nothing, strParentID)
+            End Using
+        End Function
+
+#End Region
+
+#Region "Status"
+
+        Public Shared Function ListDataStatus(ByVal strParentID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.SalesService.ListDataStatus(sqlCon, Nothing, strParentID)
+            End Using
+        End Function
+
+        Public Shared Sub SaveDataStatus(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                         ByVal strParentID As String, ByVal strStatus As String,
+                                         ByVal strStatusBy As String, ByVal strRemarks As String)
+            Dim strNewID As String = strParentID & "-" & Format(DL.SalesService.GetMaxIDStatus(sqlCon, sqlTrans, strParentID) + 1, "000")
+            Dim clsData As New VO.SalesServiceStatus With
+                {
+                    .ID = strNewID,
+                    .ParentID = strParentID,
+                    .Status = strStatus,
+                    .StatusBy = strStatusBy,
+                    .Remarks = strRemarks
+                }
+            DL.SalesService.SaveDataStatus(sqlCon, sqlTrans, clsData)
+        End Sub
+
+#End Region
+
     End Class 
 
 End Namespace

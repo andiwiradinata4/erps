@@ -184,6 +184,7 @@ Namespace UI
             If bolSortData Then col.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending
 
             With usComboBoxEdit
+                .Properties.Columns.Clear()
                 .Properties.DataSource = dtSource
                 .Properties.ValueMember = valueMember
                 .Properties.DisplayMember = displayMember
