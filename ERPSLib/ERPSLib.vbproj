@@ -120,6 +120,7 @@
     <Compile Include="BusinessLayers\SalesConfirmationOrder.vb" />
     <Compile Include="BusinessLayers\SalesContract.vb" />
     <Compile Include="BusinessLayers\SalesReturn.vb" />
+    <Compile Include="BusinessLayers\SalesService.vb" />
     <Compile Include="BusinessLayers\Stock.vb" />
     <Compile Include="BusinessLayers\StockIn.vb" />
     <Compile Include="BusinessLayers\StockOut.vb" />
@@ -183,6 +184,7 @@
     <Compile Include="DataLayers\SalesContract.vb" />
     <Compile Include="DataLayers\SalesReturn.vb" />
     <Compile Include="DataLayers\Base\Setup.vb" />
+    <Compile Include="DataLayers\SalesService.vb" />
     <Compile Include="DataLayers\Stock.vb" />
     <Compile Include="DataLayers\StockIn.vb" />
     <Compile Include="DataLayers\StockOut.vb" />
@@ -355,6 +357,10 @@
     <Compile Include="ValueObject\SalesReturn.vb" />
     <Compile Include="ValueObject\SalesReturnDet.vb" />
     <Compile Include="ValueObject\SalesReturnStatus.vb" />
+    <Compile Include="ValueObject\SalesService.vb" />
+    <Compile Include="ValueObject\SalesServiceDet.vb" />
+    <Compile Include="ValueObject\SalesServiceStatus.vb" />
+    <Compile Include="ValueObject\ServiceType.vb" />
     <Compile Include="ValueObject\Stock.vb" />
     <Compile Include="ValueObject\StockIn.vb" />
     <Compile Include="ValueObject\StockOut.vb" />

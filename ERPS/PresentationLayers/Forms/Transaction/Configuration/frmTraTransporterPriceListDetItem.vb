@@ -5,9 +5,9 @@
     Private listDestination As New List(Of VO.DeliveryLocation)
 
     Private Sub prvFillCombo()
-        dtDeliveryLocation = BL.DeliveryLocation.ListDataForCombo(False)
-        UI.usForm.FillComboBoxEdit(cboSource, dtDeliveryLocation, "ID", "Description", "Lokasi")
-        UI.usForm.FillComboBoxEdit(cboDestination, dtDeliveryLocation, "ID", "Description", "Lokasi")
+        'dtDeliveryLocation = BL.DeliveryLocation.ListDataForCombo(False)
+        'UI.usForm.FillComboBoxEdit(cboSource, dtDeliveryLocation, "ID", "Description", "Lokasi")
+        'UI.usForm.FillComboBoxEdit(cboDestination, dtDeliveryLocation, "ID", "Description", "Lokasi")
     End Sub
 
     Private Sub prvSave()

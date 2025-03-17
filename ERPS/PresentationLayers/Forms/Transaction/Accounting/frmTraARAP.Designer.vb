@@ -27,6 +27,7 @@ Partial Class frmTraARAP
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.ToolBar = New ERPS.usToolBar()
+        Me.BarImport = New System.Windows.Forms.ToolBarButton()
         Me.BarNew = New System.Windows.Forms.ToolBarButton()
         Me.BarDetail = New System.Windows.Forms.ToolBarButton()
         Me.BarDelete = New System.Windows.Forms.ToolBarButton()
@@ -63,7 +64,6 @@ Partial Class frmTraARAP
         Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
         Me.btnExecute = New DevExpress.XtraEditors.SimpleButton()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.BarImport = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -123,6 +123,12 @@ Partial Class frmTraARAP
         Me.ToolBar.Size = New System.Drawing.Size(984, 116)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
+        '
+        'BarImport
+        '
+        Me.BarImport.Name = "BarImport"
+        Me.BarImport.Tag = "Track"
+        Me.BarImport.Text = "Import"
         '
         'BarNew
         '
@@ -396,12 +402,6 @@ Partial Class frmTraARAP
         Me.Label1.Size = New System.Drawing.Size(145, 17)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Query berdasarkan:"
-        '
-        'BarImport
-        '
-        Me.BarImport.Name = "BarImport"
-        Me.BarImport.Tag = "Track"
-        Me.BarImport.Text = "Import"
         '
         'frmTraARAP
         '

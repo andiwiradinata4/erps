@@ -1172,8 +1172,9 @@
                         ElseIf clsSC.IsDeleted Then
                             Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
                         Else
+                            Dim clsSCCO As VO.SalesContractDetConfirmationOrder = DL.SalesContract.GetDetailCOItem(sqlCon, sqlTrans, clsData.ID)
                             DL.SalesContract.DeleteDataDetailCOByID(sqlCon, sqlTrans, clsData.ID)
-                            DL.PurchaseContract.CalculateSCTotalUsedSubitem(sqlCon, sqlTrans, clsData.PCDetailID)
+                            DL.PurchaseContract.CalculateSCTotalUsedSubitem(sqlCon, sqlTrans, clsSCCO.PCDetailID)
                         End If
                     End If
 

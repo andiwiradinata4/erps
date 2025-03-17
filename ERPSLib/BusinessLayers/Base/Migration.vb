@@ -103,6 +103,7 @@
                     DevelopOnProgress_ID94(sqlCon, sqlTrans)
                     DevelopOnProgress_ID95(sqlCon, sqlTrans)
                     CreateDeliveryLocation_ID96(sqlCon, sqlTrans)
+                    CreateSalesService_ID97(sqlCon, sqlTrans)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -2920,6 +2921,95 @@
 "	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traTransporterPriceListStatus_StatusDate]  DEFAULT (GETDATE()), " & vbNewLine &
 "	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traTransporterPriceListStatus_Remarks]  DEFAULT (''), " & vbNewLine &
 "   CONSTRAINT [PK_traTransporterPriceListStatus] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 97
+        Private Shared Sub CreateSalesService_ID97(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 97
+            clsData.Name = "Create Sales Service"
+            clsData.Scripts =
+"CREATE TABLE [dbo].[traSalesService](" & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesService_ID]  DEFAULT (''), " & vbNewLine &
+"	[ProgramID] [int] NOT NULL CONSTRAINT [DF_traSalesService_ProgramID]  DEFAULT ((0)), " & vbNewLine &
+"	[CompanyID] [int] NOT NULL CONSTRAINT [DF_traSalesService_CompanyID]  DEFAULT ((0)), " & vbNewLine &
+"	[TransNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesService_TransNumber]  DEFAULT (''), " & vbNewLine &
+"	[TransDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesService_TransDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[BPID] [int] NOT NULL CONSTRAINT [DF_traSalesService_BPID]  DEFAULT ((0)), " & vbNewLine &
+"	[ServiceType] [int] NOT NULL CONSTRAINT [DF_traSalesService_ServiceType]  DEFAULT ((0)), " & vbNewLine &
+"	[PPN] [decimal](18,2) NOT NULL CONSTRAINT [DF_traSalesService_PPN]  DEFAULT ((0)), " & vbNewLine &
+"	[PPH] [decimal](18,2) NOT NULL CONSTRAINT [DF_traSalesService_PPH]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesService_TotalQuantity]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalDPP] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesService_TotalDPP]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPPN] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesService_TotalPPN]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPPH] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesService_TotalPPH]  DEFAULT ((0)), " & vbNewLine &
+"	[RoundingManual] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesService_RoundingManual]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmount] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesService_DPAmount]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmountPPN] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesService_DPAmountPPN]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmountPPH] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesService_DPAmountPPH]  DEFAULT ((0)), " & vbNewLine &
+"	[ReceiveAmount] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesService_ReceiveAmount]  DEFAULT ((0)), " & vbNewLine &
+"	[ReceiveAmountPPN] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesService_ReceiveAmountPPN]  DEFAULT ((0)), " & vbNewLine &
+"	[ReceiveAmountPPH] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesService_ReceiveAmountPPH]  DEFAULT ((0)), " & vbNewLine &
+"	[StatusID] [int] NOT NULL CONSTRAINT [DF_traSalesService_StatusID]  DEFAULT ((0)), " & vbNewLine &
+"	[Remarks] [varchar](500) NOT NULL CONSTRAINT [DF_traSalesService_Remarks]  DEFAULT (''), " & vbNewLine &
+"	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_traSalesService_IsDeleted]  DEFAULT ((0)), " & vbNewLine &
+"	[CreatedBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesService_CreatedBy]  DEFAULT ('SYSTEM'), " & vbNewLine &
+"	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesService_CreatedDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[LogBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesService_LogBy]  DEFAULT ('SYSTEM'), " & vbNewLine &
+"	[LogDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesService_LogDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[LogInc] [int] NOT NULL CONSTRAINT [DF_traSalesService_LogInc]  DEFAULT ((0)), " & vbNewLine &
+"	[SubmitBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesService_SubmitBy]  DEFAULT (''), " & vbNewLine &
+"	[SubmitDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesService_SubmitDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[JournalID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesService_JournalID]  DEFAULT (''), " & vbNewLine &
+"   CONSTRAINT [PK_traSalesService] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine &
+" " & vbNewLine &
+"CREATE TABLE [dbo].[traSalesServiceDet](" & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesServiceDet_ID]  DEFAULT (''), " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesServiceDet_ParentID]  DEFAULT (''), " & vbNewLine &
+"	[SourceID] [int] NOT NULL CONSTRAINT [DF_traSalesServiceDet_SourceID]  DEFAULT ((0)), " & vbNewLine &
+"	[DestinationID] [int] NOT NULL CONSTRAINT [DF_traSalesServiceDet_DestinationID]  DEFAULT ((0)), " & vbNewLine &
+"	[PlatNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesServiceDet_PlatNumber]  DEFAULT (''), " & vbNewLine &
+"	[DeliveryNumber] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesServiceDet_DeliveryNumber]  DEFAULT (''), " & vbNewLine &
+"	[Quantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesServiceDet_Quantity]  DEFAULT ((0)), " & vbNewLine &
+"	[Price] [decimal](18,2) NOT NULL CONSTRAINT [DF_traSalesServiceDet_Price]  DEFAULT ((0)), " & vbNewLine &
+"	[TotalPrice] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesServiceDet_TotalPrice]  DEFAULT ((0)), " & vbNewLine &
+"	[Rounding] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesServiceDet_Rounding]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmount] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesServiceDet_DPAmount]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmountPPN] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesServiceDet_DPAmountPPN]  DEFAULT ((0)), " & vbNewLine &
+"	[DPAmountPPH] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesServiceDet_DPAmountPPH]  DEFAULT ((0)), " & vbNewLine &
+"	[ReceiveAmount] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesServiceDet_ReceiveAmount]  DEFAULT ((0)), " & vbNewLine &
+"	[ReceiveAmountPPN] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesServiceDet_ReceiveAmountPPN]  DEFAULT ((0)), " & vbNewLine &
+"	[ReceiveAmountPPH] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesServiceDet_ReceiveAmountPPH]  DEFAULT ((0)), " & vbNewLine &
+"	[AllocateDPAmount] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesServiceDet_AllocateDPAmount]  DEFAULT ((0)), " & vbNewLine &
+"	[InvoiceQuantity] [decimal](18,4) NOT NULL CONSTRAINT [DF_traSalesServiceDet_InvoiceQuantity]  DEFAULT ((0)), " & vbNewLine &
+"   CONSTRAINT [PK_traSalesServiceDet] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine &
+" " & vbNewLine &
+"CREATE TABLE [dbo].[traSalesServiceStatus](" & vbNewLine &
+"	[ID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesServiceStatus_ID]  DEFAULT (''), " & vbNewLine &
+"	[ParentID] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesServiceStatus_ParentID]  DEFAULT (''), " & vbNewLine &
+"	[Status] [varchar](100) NOT NULL CONSTRAINT [DF_traSalesServiceStatus_Status]  DEFAULT (''), " & vbNewLine &
+"	[StatusBy] [varchar](20) NOT NULL CONSTRAINT [DF_traSalesServiceStatus_StatusBy]  DEFAULT (''), " & vbNewLine &
+"	[StatusDate] [datetime] NOT NULL CONSTRAINT [DF_traSalesServiceStatus_StatusDate]  DEFAULT (GETDATE()), " & vbNewLine &
+"	[Remarks] [varchar](250) NOT NULL CONSTRAINT [DF_traSalesServiceStatus_Remarks]  DEFAULT (''), " & vbNewLine &
+"   CONSTRAINT [PK_traSalesServiceStatus] PRIMARY KEY CLUSTERED " & vbNewLine &
 "   (" & vbNewLine &
 "   	[ID] ASC" & vbNewLine &
 "   ) " & vbNewLine &
