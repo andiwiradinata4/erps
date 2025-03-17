@@ -381,11 +381,7 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraItemResult.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraItemResultDet.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraItemResultDetItem.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrder.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDet.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItem.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrder.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemAddress.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderOutstanding.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderOutstandingVer1.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraConfirmationOrderDetItemOrderUpdatePrice.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraPurchaseContractDetChangeSubItem.resources
@@ -434,7 +430,6 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraDeliveryDetMultiItemVer01.resourc
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraDeliveryOutstandingSalesReturn.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraDeliveryOutstandingSalesReturnItem.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraDeliveryPrint.resources
-C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequest.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestDet.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestDetChangeItem.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraOrderRequestDetItem.resources
@@ -1047,3 +1042,17 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.pdb
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraTransporterPriceList.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraTransporterPriceListDet.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmTraTransporterPriceListDetItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmMstDeliveryLocation.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmMstDeliveryLocationDet.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmMstTransporterPriceType.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmMstTransporterPriceTypeDet.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPDetVer3Import.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPDetVer5.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPDPLookup.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraARAPVoucher.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraTransporterPriceList.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraTransporterPriceListDet.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraTransporterPriceListDetItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesServiceDetItem.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmViewLookupHistory.resources
+C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptCostBankOutAttachmentVer00.resources
