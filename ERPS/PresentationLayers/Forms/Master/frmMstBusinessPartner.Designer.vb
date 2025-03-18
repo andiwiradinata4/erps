@@ -36,12 +36,12 @@ Partial Class frmMstBusinessPartner
         Me.BarSetupARBalance = New System.Windows.Forms.ToolBarButton()
         Me.BarSetupAPBalance = New System.Windows.Forms.ToolBarButton()
         Me.BarSep4 = New System.Windows.Forms.ToolBarButton()
+        Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
+        Me.BarSep5 = New System.Windows.Forms.ToolBarButton()
         Me.BarRefresh = New System.Windows.Forms.ToolBarButton()
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.BarSep5 = New System.Windows.Forms.ToolBarButton()
-        Me.BarExportExcel = New System.Windows.Forms.ToolBarButton()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -132,6 +132,17 @@ Partial Class frmMstBusinessPartner
         Me.BarSep4.Name = "BarSep4"
         Me.BarSep4.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
         '
+        'BarExportExcel
+        '
+        Me.BarExportExcel.Name = "BarExportExcel"
+        Me.BarExportExcel.Tag = "Excel"
+        Me.BarExportExcel.Text = "Export Excel"
+        '
+        'BarSep5
+        '
+        Me.BarSep5.Name = "BarSep5"
+        Me.BarSep5.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
+        '
         'BarRefresh
         '
         Me.BarRefresh.Name = "BarRefresh"
@@ -178,17 +189,6 @@ Partial Class frmMstBusinessPartner
         Me.grdView.OptionsView.ColumnAutoWidth = False
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowGroupPanel = False
-        '
-        'BarSep5
-        '
-        Me.BarSep5.Name = "BarSep5"
-        Me.BarSep5.Style = System.Windows.Forms.ToolBarButtonStyle.Separator
-        '
-        'BarExportExcel
-        '
-        Me.BarExportExcel.Name = "BarExportExcel"
-        Me.BarExportExcel.Tag = "Excel"
-        Me.BarExportExcel.Text = "Export Excel"
         '
         'frmMstBusinessPartner
         '

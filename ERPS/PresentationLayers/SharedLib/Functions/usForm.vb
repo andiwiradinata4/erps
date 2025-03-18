@@ -230,14 +230,14 @@ Namespace UI
             grdView.SaveLayoutToStream(stream)
             stream.Seek(0, System.IO.SeekOrigin.Begin)
             Dim streamReader As New System.IO.StreamReader(stream)
-            Dim strConfigData As String = streamReader.Read
+            Dim strConfigData As String = streamReader.ReadToEnd
             Try
-                'BL.UserConfig.SaveData(New VO.UserConfig With
-                '                       {
-                '                            .ID = strFormName & "_" & IIf(strUserID.Trim = "", ERPSLib.UI.usUserApp.UserID, strUserID) & "_GridControl",
-                '                            .UserID = IIf(strUserID.Trim = "", ERPSLib.UI.usUserApp.UserID, strUserID),
-                '                            .ConfigData = strConfigData
-                '                       })
+                BL.UserConfig.SaveData(New VO.UserConfig With
+                                       {
+                                            .ID = strFormName & "_" & IIf(strUserID.Trim = "", ERPSLib.UI.usUserApp.UserID, strUserID) & "_GridControl",
+                                            .UserID = IIf(strUserID.Trim = "", ERPSLib.UI.usUserApp.UserID, strUserID),
+                                            .ConfigData = strConfigData
+                                       })
             Catch ex As Exception
                 UI.usForm.frmMessageBox(ex.Message, "Save Grid Control Layout")
                 Throw ex
@@ -247,13 +247,13 @@ Namespace UI
         Public Shared Sub RestoreGridControlLayout(ByVal strFormName As String, ByVal grdView As DevExpress.XtraGrid.Views.Grid.GridView,
                                                    Optional ByVal strUserID As String = "")
             Try
-                'Dim strConfigData As String = BL.UserConfig.GetDetailConfigData(strFormName & "_" & IIf(strUserID.Trim = "", ERPSLib.UI.usUserApp.UserID, strUserID) & "_GridControl")
-                'If strConfigData.Trim <> "" Then
-                '    Dim byteArray As Byte() = System.Text.Encoding.ASCII.GetBytes(strConfigData)
-                '    Dim stream As New System.IO.MemoryStream(byteArray)
-                '    grdView.RestoreLayoutFromStream(stream)
-                '    grdView.ClearColumnsFilter()
-                'End If
+                Dim strConfigData As String = BL.UserConfig.GetDetailConfigData(strFormName & "_" & IIf(strUserID.Trim = "", ERPSLib.UI.usUserApp.UserID, strUserID) & "_GridControl")
+                If strConfigData.Trim <> "" Then
+                    Dim byteArray As Byte() = System.Text.Encoding.ASCII.GetBytes(strConfigData)
+                    Dim stream As New System.IO.MemoryStream(byteArray)
+                    grdView.RestoreLayoutFromStream(stream)
+                    grdView.ClearColumnsFilter()
+                End If
             Catch ex As Exception
                 UI.usForm.frmMessageBox(ex.Message, "Restore Grid Control Layout")
                 Throw ex
@@ -266,6 +266,46 @@ Namespace UI
                 BL.UserConfig.DeleteData(strFormName & "_" & IIf(strUserID.Trim = "", ERPSLib.UI.usUserApp.UserID, strUserID) & "_GridControl")
             Catch ex As Exception
                 UI.usForm.frmMessageBox(ex.Message, "Delete Grid Control Layout")
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub SavePivotGridControlLayout(ByVal strFormName As String, ByVal pivotGrid As DevExpress.XtraPivotGrid.PivotGridControl,
+                                                     Optional ByVal strUserID As String = "")
+            Dim stream As System.IO.Stream
+            stream = New System.IO.MemoryStream()
+            pivotGrid.SaveLayoutToStream(stream)
+            stream.Seek(0, System.IO.SeekOrigin.Begin)
+            Dim streamReader As New System.IO.StreamReader(stream)
+            Dim strConfigData As String = streamReader.ReadToEnd
+            Try
+                BL.UserConfig.SaveData(New VO.UserConfig With
+                                       {
+                                            .ID = strFormName & "_" & IIf(strUserID.Trim = "", ERPSLib.UI.usUserApp.UserID, strUserID) & "_PivotGridControl",
+                                            .UserID = IIf(strUserID.Trim = "", ERPSLib.UI.usUserApp.UserID, strUserID),
+                                            .ConfigData = strConfigData
+                                       })
+            Catch ex As Exception
+                UI.usForm.frmMessageBox(ex.Message, "Save Grid Control Layout")
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub RestorePivotGridControlLayout(ByVal strFormName As String, ByRef pivotGrid As DevExpress.XtraPivotGrid.PivotGridControl,
+                                                        Optional ByVal strUserID As String = "")
+            Try
+                Dim strConfigData As String = BL.UserConfig.GetDetailConfigData(strFormName & "_" & IIf(strUserID.Trim = "", ERPSLib.UI.usUserApp.UserID, strUserID) & "_PivotGridControl")
+                If strConfigData.Trim <> "" Then
+                    Dim byteArray As Byte() = System.Text.Encoding.ASCII.GetBytes(strConfigData)
+                    Dim stream As New System.IO.MemoryStream(byteArray)
+                    pivotGrid.RestoreLayoutFromStream(stream)
+                    stream.Seek(0, System.IO.SeekOrigin.Begin)
+                    pivotGrid.BestFitColumnArea()
+                    pivotGrid.BestFitRowArea()
+                    pivotGrid.BestFit()
+                End If
+            Catch ex As Exception
+                UI.usForm.frmMessageBox(ex.Message, "Restore Grid Control Layout")
                 Throw ex
             End Try
         End Sub

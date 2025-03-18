@@ -1000,7 +1000,7 @@
     End Sub
 
     Private Sub mnuLaporanPembelianSPKPotong_Click(sender As Object, e As EventArgs) Handles mnuLaporanPembelianSPKPotong.Click
-        UI.usForm.frmOpen(frmMainRptListPOCuttingVer00, "frmRptListPOCutting", Me)
+        UI.usForm.frmOpen(frmMainRptListPOCuttingVer00, "frmRptListPOCuttingVer00", Me)
     End Sub
 
     Private Sub mnuLaporanPembukuanPIPenjualan_Click(sender As Object, e As EventArgs) Handles mnuLaporanPembukuanPIPenjualan.Click
