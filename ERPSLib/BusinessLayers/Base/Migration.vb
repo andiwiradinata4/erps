@@ -104,6 +104,7 @@
                     DevelopOnProgress_ID95(sqlCon, sqlTrans)
                     CreateDeliveryLocation_ID96(sqlCon, sqlTrans)
                     CreateSalesService_ID97(sqlCon, sqlTrans)
+                    CreateUserConfig_ID98(sqlCon, sqlTrans)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -3014,6 +3015,30 @@
 "   	[ID] ASC" & vbNewLine &
 "   ) " & vbNewLine &
 ") " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 98
+        Private Shared Sub CreateUserConfig_ID98(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 98
+            clsData.Name = "Create User Config"
+            clsData.Scripts =
+"CREATE TABLE [dbo].[sysUserConfig](" & vbNewLine &
+"	[ID] [nvarchar](1000) NOT NULL CONSTRAINT [DF_sysUserConfig_ID]  DEFAULT (''), " & vbNewLine &
+"	[UserID] [varchar](20) NOT NULL CONSTRAINT [DF_sysUserConfig_ConfigData]  DEFAULT (''), " & vbNewLine &
+"	[ConfigData] [text] NOT NULL CONSTRAINT [DF_sysUserConfig_ConfigData]  DEFAULT (''), " & vbNewLine &
+"   CONSTRAINT [PK_sysConfigData] PRIMARY KEY CLUSTERED " & vbNewLine &
+"   (" & vbNewLine &
+"   	[ID] ASC" & vbNewLine &
+"   ) " & vbNewLine &
+") " & vbNewLine &
+" " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

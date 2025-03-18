@@ -93,6 +93,7 @@
     <Compile Include="BusinessLayers\Base\User.vb" />
     <Compile Include="BusinessLayers\Base\UserAccess.vb" />
     <Compile Include="BusinessLayers\Base\UserCompany.vb" />
+    <Compile Include="BusinessLayers\Base\UserConfig.vb" />
     <Compile Include="BusinessLayers\BukuBesar.vb" />
     <Compile Include="BusinessLayers\BusinessPartner.vb" />
     <Compile Include="BusinessLayers\BusinessPartnerAPBalance.vb" />
@@ -156,6 +157,7 @@
     <Compile Include="DataLayers\Base\User.vb" />
     <Compile Include="DataLayers\Base\UserAccess.vb" />
     <Compile Include="DataLayers\Base\UserCompany.vb" />
+    <Compile Include="DataLayers\Base\UserConfig.vb" />
     <Compile Include="DataLayers\BukuBesar.vb" />
     <Compile Include="DataLayers\BusinessPartner.vb" />
     <Compile Include="DataLayers\BusinessPartnerAPBalance.vb" />
@@ -259,6 +261,7 @@
     <Compile Include="ValueObject\Base\User.vb" />
     <Compile Include="ValueObject\Base\UserAccess.vb" />
     <Compile Include="ValueObject\Base\UserCompany.vb" />
+    <Compile Include="ValueObject\Base\UserConfig.vb" />
     <Compile Include="ValueObject\BukuBesar.vb" />
     <Compile Include="ValueObject\BusinessPartner.vb" />
     <Compile Include="ValueObject\BusinessPartnerAPBalance.vb" />

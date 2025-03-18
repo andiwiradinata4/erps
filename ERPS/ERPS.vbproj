@@ -1656,6 +1656,7 @@
     <Compile Include="PresentationLayers\SharedLib\Components\usFormSave.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\SharedLib\Components\usGridViewMenu.vb" />
     <Compile Include="PresentationLayers\SharedLib\Components\usNumeric.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -1671,6 +1672,7 @@
     <Compile Include="PresentationLayers\SharedLib\Components\usXtraScrollTabControl.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\SharedLib\Functions\modExtension.vb" />
     <Compile Include="PresentationLayers\SharedLib\Functions\modSharedForm.vb" />
     <Compile Include="PresentationLayers\SharedLib\Functions\modUsFolderBrowserDialog.vb" />
     <Compile Include="PresentationLayers\SharedLib\Functions\usDefCons.vb" />

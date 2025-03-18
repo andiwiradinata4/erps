@@ -1056,3 +1056,4 @@ C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraTransporterPriceListDetItem.resou
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmTraSalesServiceDetItem.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.frmViewLookupHistory.resources
 C:\Project\Toni\erps\ERPS\obj\Debug\ERPS.rptCostBankOutAttachmentVer00.resources
+C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.frmTraSalesServiceDetItem.resources

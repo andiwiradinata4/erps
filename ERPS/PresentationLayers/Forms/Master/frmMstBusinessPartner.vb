@@ -1,10 +1,13 @@
-﻿Public Class frmMstBusinessPartner
+﻿Imports DevExpress.Internal
+
+Public Class frmMstBusinessPartner
 
     Public pubLUdtRow As DataRow
     Public pubIsLookUp As Boolean = False
     Public pubIsLookUpGet As Boolean = False
     Private dtData As New DataTable
     Private intPos As Integer = 0
+    Private bolGridChange As Boolean = False
 
     Private Const _
        cGet As Byte = 0, cSep1 As Byte = 1, cNew As Byte = 2, cDetail As Byte = 3, cDelete As Byte = 4, cSep2 As Byte = 5,
@@ -18,7 +21,7 @@
         End If
     End Sub
 
-    Private Sub prvSetGrid()
+    Private Sub prvSetGrid(ByVal bolReset As Boolean)
         UI.usForm.SetGrid(grdView, "ID", "ID", 100, UI.usDefGrid.gIntNum, False)
         UI.usForm.SetGrid(grdView, "Code", "Kode Rekan Bisnis", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "Name", "Nama Rekan Bisnis", 100, UI.usDefGrid.gString)
@@ -41,6 +44,12 @@
         UI.usForm.SetGrid(grdView, "CreatedDate", "Tanggal Buat", 100, UI.usDefGrid.gFullDate)
         UI.usForm.SetGrid(grdView, "LogBy", "Diedit Oleh", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdView, "LogDate", "Tanggal Edit", 100, UI.usDefGrid.gFullDate)
+
+        If bolReset Then
+            UI.usForm.SaveGridControlLayout(Me.Name, grdView)
+        Else
+            UI.usForm.RestoreGridControlLayout(Me.Name, grdView)
+        End If
     End Sub
 
     Private Sub prvSetButton()
@@ -193,7 +202,7 @@
     Private Sub prvClear()
         grdMain.DataSource = Nothing
         grdView.Columns.Clear()
-        prvSetGrid()
+        prvSetGrid(False)
         prvSetButton()
     End Sub
 
@@ -223,7 +232,7 @@
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         prvSetTitleForm()
-        prvSetGrid()
+        prvSetGrid(False)
         prvQuery()
         prvUserAccess()
         If Not pubIsLookUp Then Me.WindowState = FormWindowState.Maximized
@@ -266,6 +275,15 @@
                 e.Appearance.BackColor2 = Color.SeaShell
             End If
         End If
+    End Sub
+
+    Private Sub frmMstBusinessPartner_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If bolGridChange Then UI.usForm.SaveGridControlLayout(Me.Name, grdView)
+    End Sub
+
+    Private Sub grdView_Changed(sender As Object, e As EventArgs) Handles grdView.ColumnPositionChanged,
+        grdView.ColumnWidthChanged, grdView.EndGrouping
+        bolGridChange = True
     End Sub
 
 #End Region
