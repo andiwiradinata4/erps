@@ -3031,7 +3031,7 @@
             clsData.Scripts =
 "CREATE TABLE [dbo].[sysUserConfig](" & vbNewLine &
 "	[ID] [nvarchar](1000) NOT NULL CONSTRAINT [DF_sysUserConfig_ID]  DEFAULT (''), " & vbNewLine &
-"	[UserID] [varchar](20) NOT NULL CONSTRAINT [DF_sysUserConfig_ConfigData]  DEFAULT (''), " & vbNewLine &
+"	[UserID] [varchar](20) NOT NULL CONSTRAINT [DF_sysUserConfig_UserID]  DEFAULT (''), " & vbNewLine &
 "	[ConfigData] [text] NOT NULL CONSTRAINT [DF_sysUserConfig_ConfigData]  DEFAULT (''), " & vbNewLine &
 "   CONSTRAINT [PK_sysConfigData] PRIMARY KEY CLUSTERED " & vbNewLine &
 "   (" & vbNewLine &

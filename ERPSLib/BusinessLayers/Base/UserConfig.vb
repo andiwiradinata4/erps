@@ -8,7 +8,7 @@
             End Using
         End Function
 
-        Public Shared Function SaveData(ByVal clsData As VO.UserConfig) As Integer
+        Public Shared Function SaveData(ByVal clsData As VO.UserConfig) As String
             BL.Server.ServerDefault()
             Try
                 Using sqlCon As SqlConnection = DL.SQL.OpenConnection
@@ -22,26 +22,26 @@
             Return clsData.ID
         End Function
 
-        Public Shared Function GetDetail(ByVal intID As Integer) As VO.UserConfig
+        Public Shared Function GetDetail(ByVal strID As String) As VO.UserConfig
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Return DL.UserConfig.GetDetail(sqlCon, Nothing, intID)
+                Return DL.UserConfig.GetDetail(sqlCon, Nothing, strID)
             End Using
         End Function
 
-        Public Shared Function GetDetailConfigData(ByVal intID As Integer) As String
+        Public Shared Function GetDetailConfigData(ByVal strID As String) As String
             BL.Server.ServerDefault()
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                Dim clsData As VO.UserConfig = DL.UserConfig.GetDetail(sqlCon, Nothing, intID)
-                Return clsData.ConfigData
+                Dim clsData As VO.UserConfig = DL.UserConfig.GetDetail(sqlCon, Nothing, strID)
+                Return IIf(clsData.ConfigData Is Nothing, "", clsData.ConfigData)
             End Using
         End Function
 
-        Public Shared Sub DeleteData(ByVal intID As Integer)
+        Public Shared Sub DeleteData(ByVal strID As String)
             BL.Server.ServerDefault()
             Try
                 Using sqlCon As SqlConnection = DL.SQL.OpenConnection
-                    DL.UserConfig.DeleteData(sqlCon, Nothing, intID)
+                    DL.UserConfig.DeleteData(sqlCon, Nothing, strID)
                 End Using
             Catch ex As Exception
                 Throw ex

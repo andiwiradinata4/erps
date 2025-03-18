@@ -2041,7 +2041,7 @@
                     "SELECT " & vbNewLine &
                     "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, A.Quantity, A.Weight, A.TotalWeight, MaxTotalWeight=B.TotalWeight-B.InvoiceTotalWeight+A.TotalWeight, " & vbNewLine &
-                    "   B.UnitPriceClaim, B.TotalPriceClaim AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
+                    "   B.UnitPriceClaim AS UnitPrice, B.TotalPriceClaim AS InvoiceAmount, A.Amount, A.DPAmount, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH, A.Rounding, " & vbNewLine &
                     "   B.TotalPriceClaim-B.ReceiveAmount+A.Amount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
                     "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ReferencesParentID, " & vbNewLine &
                     "   MaxTotalQuantity=CASE WHEN B.Quantity-B.InvoiceQuantity<=0 THEN 1 ELSE B.Quantity-B.InvoiceQuantity+A.Quantity END, MI.ItemCodeExternal " & vbNewLine &
@@ -2064,7 +2064,7 @@
                     "SELECT " & vbNewLine &
                     "   CAST(0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.CuttingID AS ReferencesID, A.ID AS ReferencesDetailID, A.OrderNumberSupplier, " & vbNewLine &
                     "   A.ItemID, A.Quantity, A.Weight, CAST(0 AS DECIMAL(18,4)) AS TotalWeight, MaxTotalWeight=A.TotalWeight-A.InvoiceTotalWeight, " & vbNewLine &
-                    "   A.UnitPriceClaim, A.TotalPriceClaim AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, CAST(0 AS DECIMAL(18,2)) AS DPAmount, B.PPN AS PPNPercent, B.PPH AS PPHPercent, " & vbNewLine &
+                    "   A.UnitPriceClaim AS UnitPrice, A.TotalPriceClaim AS InvoiceAmount, CAST(0 AS DECIMAL(18,2)) AS Amount, CAST(0 AS DECIMAL(18,2)) AS DPAmount, B.PPN AS PPNPercent, B.PPH AS PPHPercent, " & vbNewLine &
                     "   CAST(0 AS DECIMAL(18,2)) AS PPN, CAST(0 AS DECIMAL(18,2)) AS PPH, CAST(0 AS DECIMAL(18,2)) AS Rounding, " & vbNewLine &
                     "   A.TotalPriceClaim-A.ReceiveAmount AS MaxPaymentAmount, MI.ItemCode, MI.ItemName, MI.Thick, MI.Width, MI.Length,  " & vbNewLine &
                     "   MIS.ID AS ItemSpecificationID, MIS.Description AS ItemSpecificationName, MIT.ID AS ItemTypeID, MIT.Description AS ItemTypeName, A.LevelItem, A.ParentID AS ReferencesParentID, " & vbNewLine &

@@ -163,6 +163,7 @@ Public Class frmTraARAPDetVer4
         UI.usForm.SetGrid(grdItemView, "Quantity", "Jumlah", 150, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "Weight", "Berat", 150, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalWeight", "Total Berat", 150, UI.usDefGrid.gReal2Num, True, False)
+        UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 150, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "Amount", "Total Tagihan", 150, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "DPAmount", "Total DP", 150, UI.usDefGrid.gReal2Num, True, False)
         UI.usForm.SetGrid(grdItemView, "PPNPercent", "PPNPercent", 150, UI.usDefGrid.gReal2Num, False)
