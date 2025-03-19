@@ -90,6 +90,13 @@ Public Class frmRptMonitoringProductTransactionVer00
         UI.usForm.SetGrid(grdSCARView, "SCDate", "Tanggal Kontrak", 100, UI.usDefGrid.gSmallDate)
         UI.usForm.SetGrid(grdSCARView, "BPName", "Nama Pelanggan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdSCARView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
+
+
+        UI.usForm.SetGrid(grdSCARView, "ID", "ID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSCARView, "SCDetailID", "SCDetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSCARView, "ARNumber", "Nomor Pelunasan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSCARView, "ARDate", "Tanggal Pelunasan", 100, UI.usDefGrid.gSmallDate)
+        UI.usForm.SetGrid(grdSCARView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
     End Sub
 
     Private Sub prvSetProgressBar(ByVal intMax As Integer)
@@ -124,6 +131,7 @@ Public Class frmRptMonitoringProductTransactionVer00
             dtDataPurchaseContract = BL.Reports.MonitoringProductTransactionReportPurchaseContractVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
             dtDataReceive = BL.Reports.MonitoringProductTransactionReportReceiveVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
             dtDataSalesContractAR = BL.Reports.MonitoringProductTransactionReportSalesContractARVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
+
 
             dtDataMain.Columns.Item("PCDetailID").Unique = True
             dtDataSalesContract.Columns.Item("ID").Unique = True

@@ -1066,7 +1066,6 @@
 "		GROUP BY ARH.ARDate, ARH.ARNumber, ARI.ReferencesParentID" & vbNewLine &
 "	) ARD ON  " & vbNewLine &
 "		SCD.ID=ARD.ReferencesDetailID " & vbNewLine &
-"		AND SCD.SCID='SC20241010-TBU-01-0001'" & vbNewLine &
 "	WHERE SCH.IsDeleted=0  " & vbNewLine &
 ") SC ON  " & vbNewLine &
 "	PCD.CODetailID=SC.CODetailID  " & vbNewLine &

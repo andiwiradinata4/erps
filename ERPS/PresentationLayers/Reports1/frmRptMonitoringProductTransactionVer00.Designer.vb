@@ -32,7 +32,10 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdPurchaseContractView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.grdReceiveView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.grdSCARView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.grdPCAPView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.grdSalecContractARView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.pgMain = New System.Windows.Forms.ProgressBar()
         Me.ToolBar = New ERPS.usToolBar()
         Me.BarPreview = New System.Windows.Forms.ToolBarButton()
@@ -51,17 +54,16 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
         Me.btnExecute = New DevExpress.XtraEditors.SimpleButton()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.grdSCARView = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.grdPCAPView = New DevExpress.XtraGrid.Views.Grid.GridView()
         CType(Me.grdSalesContractView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdPurchaseContractView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdReceiveView, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PanelControl1.SuspendLayout()
         CType(Me.grdSCARView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdPCAPView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdSalecContractARView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelControl1.SuspendLayout()
         Me.SuspendLayout()
         '
         'grdSalesContractView
@@ -106,7 +108,7 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.grdMain.Size = New System.Drawing.Size(984, 441)
         Me.grdMain.TabIndex = 5
         Me.grdMain.UseEmbeddedNavigator = True
-        Me.grdMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdPurchaseContractView, Me.grdReceiveView, Me.grdView, Me.grdSalesContractView, Me.grdSCARView, Me.grdPCAPView})
+        Me.grdMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdPurchaseContractView, Me.grdReceiveView, Me.grdSCARView, Me.grdPCAPView, Me.grdView, Me.grdSalecContractARView, Me.grdSalesContractView})
         '
         'grdPurchaseContractView
         '
@@ -124,6 +126,16 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.grdReceiveView.OptionsView.ShowFooter = True
         Me.grdReceiveView.OptionsView.ShowGroupPanel = False
         '
+        'grdSCARView
+        '
+        Me.grdSCARView.GridControl = Me.grdMain
+        Me.grdSCARView.Name = "grdSCARView"
+        '
+        'grdPCAPView
+        '
+        Me.grdPCAPView.GridControl = Me.grdMain
+        Me.grdPCAPView.Name = "grdPCAPView"
+        '
         'grdView
         '
         Me.grdView.GridControl = Me.grdMain
@@ -132,6 +144,11 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.grdView.OptionsView.ColumnAutoWidth = False
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowFooter = True
+        '
+        'grdSalecContractARView
+        '
+        Me.grdSalecContractARView.GridControl = Me.grdMain
+        Me.grdSalecContractARView.Name = "grdSalecContractARView"
         '
         'pgMain
         '
@@ -242,7 +259,7 @@ Partial Class frmRptMonitoringProductTransactionVer00
         '
         'btnCompany
         '
-        Me.btnCompany.Image = CType(resources.GetObject("btnCompany.Image"), System.Drawing.Image)
+        Me.btnCompany.ImageOptions.Image = CType(resources.GetObject("btnCompany.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCompany.Location = New System.Drawing.Point(441, 42)
         Me.btnCompany.Name = "btnCompany"
         Me.btnCompany.Size = New System.Drawing.Size(23, 23)
@@ -272,7 +289,7 @@ Partial Class frmRptMonitoringProductTransactionVer00
         '
         'btnClear
         '
-        Me.btnClear.Image = CType(resources.GetObject("btnClear.Image"), System.Drawing.Image)
+        Me.btnClear.ImageOptions.Image = CType(resources.GetObject("btnClear.ImageOptions.Image"), System.Drawing.Image)
         Me.btnClear.Location = New System.Drawing.Point(725, 69)
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(151, 23)
@@ -281,7 +298,7 @@ Partial Class frmRptMonitoringProductTransactionVer00
         '
         'btnExecute
         '
-        Me.btnExecute.Image = CType(resources.GetObject("btnExecute.Image"), System.Drawing.Image)
+        Me.btnExecute.ImageOptions.Image = CType(resources.GetObject("btnExecute.ImageOptions.Image"), System.Drawing.Image)
         Me.btnExecute.Location = New System.Drawing.Point(563, 69)
         Me.btnExecute.Name = "btnExecute"
         Me.btnExecute.Size = New System.Drawing.Size(151, 23)
@@ -298,16 +315,6 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.Label1.Size = New System.Drawing.Size(145, 17)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Query berdasarkan:"
-        '
-        'grdSCARView
-        '
-        Me.grdSCARView.GridControl = Me.grdMain
-        Me.grdSCARView.Name = "grdSCARView"
-        '
-        'grdPCAPView
-        '
-        Me.grdPCAPView.GridControl = Me.grdMain
-        Me.grdPCAPView.Name = "grdPCAPView"
         '
         'frmRptMonitoringProductTransactionVer00
         '
@@ -326,12 +333,13 @@ Partial Class frmRptMonitoringProductTransactionVer00
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdPurchaseContractView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdReceiveView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdSCARView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdPCAPView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdSalecContractARView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl1.ResumeLayout(False)
         Me.PanelControl1.PerformLayout()
-        CType(Me.grdSCARView, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdPCAPView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -361,4 +369,5 @@ Partial Class frmRptMonitoringProductTransactionVer00
     Friend WithEvents grdReceiveView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents grdSCARView As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents grdPCAPView As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents grdSalecContractARView As DevExpress.XtraGrid.Views.Grid.GridView
 End Class
