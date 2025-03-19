@@ -228,7 +228,7 @@
         End Function
 
         Public Shared Function MonitoringProductTransactionReportSalesContractVer00(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
-                                                                       ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable
+                                                                                    ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable
             dtmDateTo = dtmDateTo.AddHours(23).AddMinutes(59).AddSeconds(59)
             BL.Server.ServerDefault()
             Dim dtReturn As New DataTable
@@ -236,6 +236,19 @@
                 dtReturn = DL.Reports.MonitoringProductTransactionReportSalesContractVer00(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo)
             End Using
             dtReturn.DefaultView.Sort = "SCDate, SCNumber ASC"
+            dtReturn = dtReturn.DefaultView.ToTable
+            Return dtReturn
+        End Function
+
+        Public Shared Function MonitoringProductTransactionReportSalesContractARVer00(ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                                      ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable
+            dtmDateTo = dtmDateTo.AddHours(23).AddMinutes(59).AddSeconds(59)
+            BL.Server.ServerDefault()
+            Dim dtReturn As New DataTable
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                dtReturn = DL.Reports.MonitoringProductTransactionReportSalesContractARVer00(sqlCon, Nothing, intProgramID, intCompanyID, dtmDateFrom, dtmDateTo)
+            End Using
+            dtReturn.DefaultView.Sort = "ARDate, ARNumber ASC"
             dtReturn = dtReturn.DefaultView.ToTable
             Return dtReturn
         End Function

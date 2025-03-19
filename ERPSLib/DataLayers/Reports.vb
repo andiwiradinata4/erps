@@ -1006,6 +1006,83 @@
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function MonitoringProductTransactionReportSalesContractARVer00(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                                      ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
+                                                                                      ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT  " & vbNewLine &
+"	ROW_NUMBER() OVER(ORDER BY PCD.ID) AS ID, PCD.ID AS PCDetailID, SC.SCNumber, SC.SCDate, SC.BPName, SC.ARNumber, SC.ARDate, PCD.OrderNumberSupplier, SC.TotalWeight   " & vbNewLine &
+"FROM traPurchaseContract PC  " & vbNewLine &
+"INNER JOIN traPurchaseContractDet PCD ON  " & vbNewLine &
+"	PC.ID=PCD.PCID  " & vbNewLine &
+"	AND PC.IsDeleted=0  " & vbNewLine &
+"   AND PCD.ParentID=''  " & vbNewLine &
+"INNER JOIN  " & vbNewLine &
+"(	 " & vbNewLine &
+"	SELECT DISTINCT " & vbNewLine &
+"		SCDCO.CODetailID, SCH.SCNumber, SCH.SCDate, BP.Name AS BPName, SCD.OrderNumberSupplier, ARD.ARNumber, ARD.ARDate, ARD.TotalWeight   " & vbNewLine &
+"	FROM traSalesContract SCH  " & vbNewLine &
+"	INNER JOIN mstBusinessPartner BP ON  " & vbNewLine &
+"		SCH.BPID=BP.ID  " & vbNewLine &
+"	INNER JOIN traSalesContractDet SCD ON  " & vbNewLine &
+"		SCH.ID=SCD.SCID " & vbNewLine &
+"		AND SCD.ParentID=''  " & vbNewLine &
+"	INNER JOIN traSalesContractDetConfirmationOrder SCDCO ON  " & vbNewLine &
+"		SCD.SCID=SCDCO.SCID  " & vbNewLine &
+"		AND SCD.GroupID=SCDCO.GroupID  " & vbNewLine &
+"		AND SCDCO.ParentID=''  " & vbNewLine &
+"	INNER JOIN  " & vbNewLine &
+"	( " & vbNewLine &
+"		SELECT " & vbNewLine &
+"			ARH.ARDate, ARH.ARNumber, ARI.ReferencesDetailID, SUM(ARI.TotalWeight) TotalWeight" & vbNewLine &
+"		FROM traAccountReceivable ARH " & vbNewLine &
+"		INNER JOIN traARAPItem ARI ON " & vbNewLine &
+"			ARH.ID=ARI.ParentID " & vbNewLine &
+"			AND ARI.ReferencesParentID='' " & vbNewLine &
+"		INNER JOIN mstItem MI ON " & vbNewLine &
+"			ARI.ItemID=MI.ID " & vbNewLine &
+"		WHERE " & vbNewLine &
+"			ARH.IsDeleted=0 " & vbNewLine &
+"			AND ARH.ApprovedBy<>'' " & vbNewLine &
+"		GROUP BY ARH.ARDate, ARH.ARNumber, ARI.ReferencesDetailID" & vbNewLine &
+"" & vbNewLine &
+"		UNION ALL " & vbNewLine &
+"		SELECT " & vbNewLine &
+"			ARH.ARDate, ARH.ARNumber, ARI.ReferencesParentID AS ReferencesDetailID, SUM(ARI.TotalWeight) TotalWeight" & vbNewLine &
+"		FROM traAccountReceivable ARH " & vbNewLine &
+"		INNER JOIN traARAPItem ARI ON " & vbNewLine &
+"			ARH.ID=ARI.ParentID " & vbNewLine &
+"			AND ARI.ReferencesParentID<>'' " & vbNewLine &
+"		INNER JOIN mstItem MI ON " & vbNewLine &
+"			ARI.ItemID=MI.ID " & vbNewLine &
+"		WHERE " & vbNewLine &
+"			ARH.IsDeleted=0 " & vbNewLine &
+"			AND ARH.ApprovedBy<>'' " & vbNewLine &
+"		GROUP BY ARH.ARDate, ARH.ARNumber, ARI.ReferencesParentID" & vbNewLine &
+"	) ARD ON  " & vbNewLine &
+"		SCD.ID=ARD.ReferencesDetailID " & vbNewLine &
+"		AND SCD.SCID='SC20241010-TBU-01-0001'" & vbNewLine &
+"	WHERE SCH.IsDeleted=0  " & vbNewLine &
+") SC ON  " & vbNewLine &
+"	PCD.CODetailID=SC.CODetailID  " & vbNewLine &
+"WHERE  " & vbNewLine &
+"	PC.ProgramID=@ProgramID  " & vbNewLine &
+"	AND PC.CompanyID=@CompanyID  " & vbNewLine &
+"	AND PC.PCDate>=@DateFrom AND PC.PCDate<=@DateTo" & vbNewLine
+
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dtmDateFrom
+                .Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dtmDateTo
+            End With
+            Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
+        End Function
+
         Public Shared Function MonitoringProductTransactionReportPurchaseContractVer00(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                                                       ByVal intProgramID As Integer, ByVal intCompanyID As Integer,
                                                                                       ByVal dtmDateFrom As DateTime, ByVal dtmDateTo As DateTime) As DataTable

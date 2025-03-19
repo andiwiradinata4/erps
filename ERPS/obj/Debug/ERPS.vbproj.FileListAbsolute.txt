@@ -1058,3 +1058,9 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\aa\ERPS.resources.dll
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.pdb
+C:\Project\Tony\ERPS\ERPS\bin\Debug\DevExpress.XtraPivotGrid.v16.2.dll
+C:\Project\Tony\ERPS\ERPS\bin\Debug\DevExpress.XtraPivotGrid.v16.2.xml
+C:\Project\Tony\ERPS\ERPS\bin\Debug\de\DevExpress.XtraPivotGrid.v16.2.resources.dll
+C:\Project\Tony\ERPS\ERPS\bin\Debug\es\DevExpress.XtraPivotGrid.v16.2.resources.dll
+C:\Project\Tony\ERPS\ERPS\bin\Debug\ja\DevExpress.XtraPivotGrid.v16.2.resources.dll
+C:\Project\Tony\ERPS\ERPS\bin\Debug\ru\DevExpress.XtraPivotGrid.v16.2.resources.dll

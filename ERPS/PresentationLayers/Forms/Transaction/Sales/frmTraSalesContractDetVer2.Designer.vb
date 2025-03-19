@@ -22,7 +22,7 @@ Partial Class frmTraSalesContractDetVer2
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim GridLevelNode2 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
+        Dim GridLevelNode1 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTraSalesContractDetVer2))
         Me.grdSubItemCOView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.grdItemCO = New DevExpress.XtraGrid.GridControl()
@@ -192,9 +192,9 @@ Partial Class frmTraSalesContractDetVer2
         Me.grdItemCO.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdItemCO.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdItemCO.EmbeddedNavigator.Buttons.Remove.Visible = False
-        GridLevelNode2.LevelTemplate = Me.grdSubItemCOView
-        GridLevelNode2.RelationName = "SubView"
-        Me.grdItemCO.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode2})
+        GridLevelNode1.LevelTemplate = Me.grdSubItemCOView
+        GridLevelNode1.RelationName = "SubView"
+        Me.grdItemCO.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1})
         Me.grdItemCO.Location = New System.Drawing.Point(0, 0)
         Me.grdItemCO.MainView = Me.grdItemCOView
         Me.grdItemCO.Name = "grdItemCO"

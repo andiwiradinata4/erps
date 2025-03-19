@@ -12,6 +12,8 @@ Public Class frmRptMonitoringProductTransactionVer00
     Private dtDataSalesContract As New DataTable
     Private dtDataPurchaseContract As New DataTable
     Private dtDataReceive As New DataTable
+    Private dtDataSalesContractAR As New DataTable
+    Private dtDataSalesContractAP As New DataTable
     Private Const cPreview As Byte = 0, cExportExcel As Byte = 1, cSep1 As Byte = 2, cRefresh As Byte = 3, cClose As Byte = 4
 
 #End Region
@@ -79,6 +81,15 @@ Public Class frmRptMonitoringProductTransactionVer00
         UI.usForm.SetGrid(grdReceiveView, "Length", "Panjang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdReceiveView, "ClaimQuantity", "Jumlah [Klaim]", 100, UI.usDefGrid.gIntNum)
         UI.usForm.SetGrid(grdReceiveView, "ClaimWeight", "Total Berat [Klaim]", 100, UI.usDefGrid.gReal2Num)
+
+        UI.usForm.SetGrid(grdSCARView, "ID", "ID", 100, UI.usDefGrid.gIntNum, False)
+        UI.usForm.SetGrid(grdSCARView, "PCDetailID", "PCDetailID", 100, UI.usDefGrid.gString, False)
+        UI.usForm.SetGrid(grdSCARView, "ARNumber", "Nomor Pelunasan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSCARView, "ARDate", "Tanggal Pelunasan", 100, UI.usDefGrid.gSmallDate)
+        UI.usForm.SetGrid(grdSCARView, "SCNumber", "Nomor Kontrak", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSCARView, "SCDate", "Tanggal Kontrak", 100, UI.usDefGrid.gSmallDate)
+        UI.usForm.SetGrid(grdSCARView, "BPName", "Nama Pelanggan", 100, UI.usDefGrid.gString)
+        UI.usForm.SetGrid(grdSCARView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
     End Sub
 
     Private Sub prvSetProgressBar(ByVal intMax As Integer)
@@ -112,25 +123,30 @@ Public Class frmRptMonitoringProductTransactionVer00
             dtDataSalesContract = BL.Reports.MonitoringProductTransactionReportSalesContractVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
             dtDataPurchaseContract = BL.Reports.MonitoringProductTransactionReportPurchaseContractVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
             dtDataReceive = BL.Reports.MonitoringProductTransactionReportReceiveVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
+            dtDataSalesContractAR = BL.Reports.MonitoringProductTransactionReportSalesContractARVer00(ERPSLib.UI.usUserApp.ProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date)
 
             dtDataMain.Columns.Item("PCDetailID").Unique = True
             dtDataSalesContract.Columns.Item("ID").Unique = True
             dtDataPurchaseContract.Columns.Item("ID").Unique = True
             dtDataReceive.Columns.Item("ID").Unique = True
+            dtDataSalesContractAR.Columns.Item("ID").Unique = True
 
             ds.Tables.Add(dtDataMain)
             ds.Tables.Add(dtDataSalesContract)
             ds.Tables.Add(dtDataPurchaseContract)
             ds.Tables.Add(dtDataReceive)
+            ds.Tables.Add(dtDataSalesContractAR)
 
             ds.Relations.Add("Kontrak Penjualan", dtDataMain.Columns.Item("PCDetailID"), dtDataSalesContract.Columns.Item("PCDetailID"))
             ds.Relations.Add("Kontrak Pembelian", dtDataMain.Columns.Item("PCDetailID"), dtDataPurchaseContract.Columns.Item("PCDetailID"))
             ds.Relations.Add("Penerimaan Pembelian", dtDataMain.Columns.Item("PCDetailID"), dtDataReceive.Columns.Item("PCDetailID"))
+            ds.Relations.Add("Pelunasan Kontrak Penjualan", dtDataMain.Columns.Item("PCDetailID"), dtDataSalesContractAR.Columns.Item("PCDetailID"))
 
             grdMain.DataSource = dtDataMain
             grdMain.LevelTree.Nodes.Add("Kontrak Penjualan", grdSalesContractView)
             grdMain.LevelTree.Nodes.Add("Kontrak Pembelian", grdPurchaseContractView)
             grdMain.LevelTree.Nodes.Add("Penerimaan Pembelian", grdReceiveView)
+            grdMain.LevelTree.Nodes.Add("Pelunasan Kontrak Penjualan", grdSCARView)
 
             grdMain.Refresh()
             prvSumGrid()
