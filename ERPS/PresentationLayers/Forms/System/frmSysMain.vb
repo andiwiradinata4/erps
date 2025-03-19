@@ -1004,7 +1004,7 @@
     End Sub
 
     Private Sub mnuLaporanPembukuanPIPenjualan_Click(sender As Object, e As EventArgs) Handles mnuLaporanPembukuanPIPenjualan.Click
-        UI.usForm.frmOpen(frmMainRptPIWithSizeReportVer00, "frmRptPIWithSizeReport", Me)
+        UI.usForm.frmOpen(frmMainRptPIWithSizeReportVer00, "frmRptPIWithSizeReportVer00", Me)
     End Sub
 
     Private Sub mnuLaporanPenjualanKonfirmasiPesanan_Click(sender As Object, e As EventArgs) Handles mnuLaporanPenjualanKonfirmasiPesanan.Click

@@ -292,7 +292,7 @@ Public Class frmTraARAPDetVer4
             txtBPCode.Focus()
             Exit Sub
         ElseIf txtTotalAmount.Value + txtDPAllocate.Value <= 0 Then
-            UI.usForm.frmMessageBox("Total Bayar harus lebih besar dari 0")
+            UI.usForm.frmMessageBox("Total Harga harus lebih besar dari 0")
             tcHeader.SelectedTab = tpMain
             txtTotalAmount.Focus()
             Exit Sub

@@ -270,7 +270,8 @@ Partial Class frmTraAPCost
         '
         'btnCompany
         '
-        Me.btnCompany.Image = CType(resources.GetObject("btnCompany.Image"), System.Drawing.Image)
+        Me.btnCompany.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.btnCompany.ImageOptions.Image = CType(resources.GetObject("btnCompany.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCompany.Location = New System.Drawing.Point(441, 42)
         Me.btnCompany.Name = "btnCompany"
         Me.btnCompany.Size = New System.Drawing.Size(23, 23)
@@ -300,7 +301,7 @@ Partial Class frmTraAPCost
         '
         'btnClear
         '
-        Me.btnClear.Image = CType(resources.GetObject("btnClear.Image"), System.Drawing.Image)
+        Me.btnClear.ImageOptions.Image = CType(resources.GetObject("btnClear.ImageOptions.Image"), System.Drawing.Image)
         Me.btnClear.Location = New System.Drawing.Point(725, 96)
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(151, 23)
@@ -309,10 +310,10 @@ Partial Class frmTraAPCost
         '
         'btnExecute
         '
-        Me.btnExecute.Image = CType(resources.GetObject("btnExecute.Image"), System.Drawing.Image)
+        Me.btnExecute.ImageOptions.Image = CType(resources.GetObject("btnExecute.ImageOptions.Image"), System.Drawing.Image)
         Me.btnExecute.Location = New System.Drawing.Point(563, 96)
         Me.btnExecute.Name = "btnExecute"
-        Me.btnExecute.Size = New System.Drawing.Size(151, 23)
+        Me.btnExecute.Size = New System.Drawing.Size(151, 22)
         Me.btnExecute.TabIndex = 5
         Me.btnExecute.Text = "Execute"
         '
