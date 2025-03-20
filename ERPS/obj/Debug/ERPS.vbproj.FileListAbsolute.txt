@@ -565,17 +565,6 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraReports.v2
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraReports.v24.1.Extensions.dll
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraTreeList.v24.1.dll
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPSLib.dll
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.CodeParser.v24.1.dll
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraRichEdit.v24.1.dll
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraVerticalGrid.v24.1.dll
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.DataVisualization.v24.1.Core.dll
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.DataAccess.v24.1.UI.dll
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraNavBar.v24.1.dll
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraCharts.v24.1.Wizard.dll
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraCharts.v24.1.Extensions.dll
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.Images.v24.1.dll
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraDiagram.v24.1.dll
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.Diagram.v24.1.Core.dll
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPSLib.pdb
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\ERPSLib.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.Charts.v24.1.Core.xml
@@ -604,16 +593,7 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraPrinting.v
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraReports.v24.1.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraReports.v24.1.Extensions.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraTreeList.v24.1.xml
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraRichEdit.v24.1.xml
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraVerticalGrid.v24.1.xml
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.DataAccess.v24.1.UI.xml
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraNavBar.v24.1.xml
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraCharts.v24.1.Wizard.xml
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.XtraDiagram.v24.1.xml
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\bin\Debug\DevExpress.Diagram.v24.1.Core.xml
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbproj.AssemblyReference.cache
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.Resources.resources
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.Form1.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstAccess.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstAccessDet.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstBusinessPartner.resources
@@ -862,9 +842,7 @@ D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmViewProgramCompan
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.frmMstBusinessPartnerSetupBalanceAPDet.aa.resources
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbproj.GenerateResource.cache
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.exe.licenses
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbproj.CoreCompileInputs.cache
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\aa\ERPS.resources.dll
-D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbproj.Up2Date
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.exe
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.xml
 D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.pdb
@@ -1203,3 +1181,4 @@ C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.vbproj.Up2Date
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.exe
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.xml
 C:\Project\Tony\ERPS\ERPS\obj\Debug\ERPS.pdb
+D:\My Project\Desktop\Toni Jakarta\ERPS\ERPS\obj\Debug\ERPS.vbprojResolveAssemblyReference.cache
