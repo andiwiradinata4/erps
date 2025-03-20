@@ -527,7 +527,7 @@ Partial Public Class rptShippingInvoiceVer00
         Me.XrPictureBox1.ImageSource = New DevExpress.XtraPrinting.Drawing.ImageSource("img", resources.GetString("XrPictureBox1.ImageSource"))
         Me.XrPictureBox1.LocationFloat = New DevExpress.Utils.PointFloat(54.07143!, 0!)
         Me.XrPictureBox1.Name = "XrPictureBox1"
-        Me.XrPictureBox1.SizeF = New System.Drawing.SizeF(122.2501!, 56.95742!)
+        Me.XrPictureBox1.SizeF = New System.Drawing.SizeF(122.3364!, 56.99765!)
         Me.XrPictureBox1.Sizing = DevExpress.XtraPrinting.ImageSizeMode.AutoSize
         '
         'TopMargin
@@ -540,9 +540,9 @@ Partial Public Class rptShippingInvoiceVer00
         'XrPictureBox2
         '
         Me.XrPictureBox2.ImageSource = New DevExpress.XtraPrinting.Drawing.ImageSource("img", resources.GetString("XrPictureBox2.ImageSource"))
-        Me.XrPictureBox2.LocationFloat = New DevExpress.Utils.PointFloat(176.3215!, 12.50285!)
+        Me.XrPictureBox2.LocationFloat = New DevExpress.Utils.PointFloat(176.4078!, 12.48716!)
         Me.XrPictureBox2.Name = "XrPictureBox2"
-        Me.XrPictureBox2.SizeF = New System.Drawing.SizeF(482.0543!, 44.45457!)
+        Me.XrPictureBox2.SizeF = New System.Drawing.SizeF(482.3947!, 44.48597!)
         Me.XrPictureBox2.Sizing = DevExpress.XtraPrinting.ImageSizeMode.AutoSize
         '
         'XrLabel1
@@ -633,11 +633,11 @@ Partial Public Class rptShippingInvoiceVer00
         Me.XrLabel9.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[CompanyAddress]")})
         Me.XrLabel9.Font = New DevExpress.Drawing.DXFont("Tahoma", 9.0!, DevExpress.Drawing.DXFontStyle.Bold)
         Me.XrLabel9.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.XrLabel9.LocationFloat = New DevExpress.Utils.PointFloat(0.001525879!, 56.95742!)
+        Me.XrLabel9.LocationFloat = New DevExpress.Utils.PointFloat(0.001525879!, 56.99767!)
         Me.XrLabel9.Multiline = True
         Me.XrLabel9.Name = "XrLabel9"
         Me.XrLabel9.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel9.SizeF = New System.Drawing.SizeF(806.9993!, 42.0632!)
+        Me.XrLabel9.SizeF = New System.Drawing.SizeF(806.9993!, 42.02296!)
         Me.XrLabel9.StylePriority.UseBorders = False
         Me.XrLabel9.StylePriority.UseFont = False
         Me.XrLabel9.StylePriority.UseForeColor = False

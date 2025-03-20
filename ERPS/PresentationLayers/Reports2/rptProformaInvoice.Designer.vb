@@ -28,6 +28,7 @@ Partial Public Class rptProformaInvoice
         Dim XrSummary6 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary7 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(rptProformaInvoice))
+        Dim XrWatermark1 As DevExpress.XtraReports.UI.XRWatermark = New DevExpress.XtraReports.UI.XRWatermark()
         Me.XrLabel39 = New DevExpress.XtraReports.UI.XRLabel()
         Me.sbNumberToString = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel5 = New DevExpress.XtraReports.UI.XRLabel()
@@ -67,114 +68,86 @@ Partial Public Class rptProformaInvoice
         Me.XrTable6 = New DevExpress.XtraReports.UI.XRTable()
         Me.XrTableRow7 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.XrTableCell37 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.DescPayment1 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrTableCell51 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell39 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.AmountPayment1 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.sbPayment2 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrTable7 = New DevExpress.XtraReports.UI.XRTable()
         Me.XrTableRow8 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.XrTableCell40 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.DescPayment2 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrTableCell52 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell41 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.AmountPayment2 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.sbPayment3 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrTable8 = New DevExpress.XtraReports.UI.XRTable()
         Me.XrTableRow9 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.XrTableCell42 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.DescPayment3 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrTableCell53 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell43 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.AmountPayment3 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.sbPayment4 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrTable9 = New DevExpress.XtraReports.UI.XRTable()
         Me.XrTableRow10 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.XrTableCell44 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.DescPayment4 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrTableCell54 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell45 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.AmountPayment4 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.sbInvoice1 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrTable10 = New DevExpress.XtraReports.UI.XRTable()
         Me.XrTableRow11 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.XrTableCell55 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.DescInvoice1 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrTableCell56 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell57 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.AmountInvoice1 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.sbInvoice2 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrTable11 = New DevExpress.XtraReports.UI.XRTable()
         Me.XrTableRow12 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.XrTableCell58 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.DescInvoice2 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrTableCell59 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell60 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.AmountInvoice2 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.sbInvoice3 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrTable12 = New DevExpress.XtraReports.UI.XRTable()
         Me.XrTableRow13 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.XrTableCell61 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.DescInvoice3 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrTableCell62 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell63 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.AmountInvoice3 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.sbInvoice4 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrTable13 = New DevExpress.XtraReports.UI.XRTable()
         Me.XrTableRow14 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.XrTableCell64 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.DescInvoice4 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrTableCell65 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell66 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.AmountInvoice4 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.sbInvoice5 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrTable14 = New DevExpress.XtraReports.UI.XRTable()
         Me.XrTableRow15 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.XrTableCell67 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.DescInvoice5 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrTableCell68 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell69 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.AmountInvoice5 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.sbPaymentTerm1 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel13 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.PaymentTerm1 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrLabel10 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel6 = New DevExpress.XtraReports.UI.XRLabel()
         Me.sbPaymentTerm2 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel12 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel14 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.PaymentTerm2 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.sbPaymentTerm3 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel15 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel16 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.PaymentTerm3 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.sbPaymentTerm4 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel18 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel17 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.PaymentTerm4 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.sbPaymentTerm5 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel19 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel20 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.PaymentTerm5 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.sbPaymentTerm6 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel64 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.PaymentTerm6 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrLabel65 = New DevExpress.XtraReports.UI.XRLabel()
         Me.sbPaymentTerm7 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel66 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel67 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.PaymentTerm7 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.sbPaymentTerm8 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel68 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.PaymentTerm8 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrLabel69 = New DevExpress.XtraReports.UI.XRLabel()
         Me.sbPaymentTerm9 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel70 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel71 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.PaymentTerm9 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.sbPaymentTerm10 = New DevExpress.XtraReports.UI.SubBand()
         Me.XrLabel72 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.PaymentTerm10 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrLabel73 = New DevExpress.XtraReports.UI.XRLabel()
         Me.sbCompanyBankAccount1 = New DevExpress.XtraReports.UI.SubBand()
         Me.xrBankAccountDescription2 = New DevExpress.XtraReports.UI.XRLabel()
@@ -202,6 +175,34 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel23 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel22 = New DevExpress.XtraReports.UI.XRLabel()
         Me.sbCompanyBankAccount2 = New DevExpress.XtraReports.UI.SubBand()
+        Me.DescPayment1 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.AmountPayment1 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.DescPayment2 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.AmountPayment2 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.DescPayment3 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.AmountPayment3 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.DescPayment4 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.AmountPayment4 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.DescInvoice1 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.AmountInvoice1 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.DescInvoice2 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.AmountInvoice2 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.DescInvoice3 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.AmountInvoice3 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.DescInvoice4 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.AmountInvoice4 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.DescInvoice5 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.AmountInvoice5 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.PaymentTerm1 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.PaymentTerm2 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.PaymentTerm3 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.PaymentTerm4 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.PaymentTerm5 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.PaymentTerm6 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.PaymentTerm7 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.PaymentTerm8 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.PaymentTerm9 = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.PaymentTerm10 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrLabel41 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrTableCell3 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.BottomMargin = New DevExpress.XtraReports.UI.BottomMarginBand()
@@ -759,11 +760,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell37.StylePriority.UseBorders = False
         Me.XrTableCell37.Weight = 5.18700419649548R
         '
-        'DescPayment1
-        '
-        Me.DescPayment1.Description = "Parameter1"
-        Me.DescPayment1.Name = "DescPayment1"
-        '
         'XrTableCell51
         '
         Me.XrTableCell51.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
@@ -789,13 +785,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell39.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.XrTableCell39.TextFormatString = "{0:n0}"
         Me.XrTableCell39.Weight = 0.91292618756449107R
-        '
-        'AmountPayment1
-        '
-        Me.AmountPayment1.Description = "AmountPayment1"
-        Me.AmountPayment1.Name = "AmountPayment1"
-        Me.AmountPayment1.Type = GetType(Decimal)
-        Me.AmountPayment1.ValueInfo = "0"
         '
         'sbPayment2
         '
@@ -835,11 +824,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell40.StylePriority.UseBorders = False
         Me.XrTableCell40.Weight = 5.18700419649548R
         '
-        'DescPayment2
-        '
-        Me.DescPayment2.Description = "DescPayment2"
-        Me.DescPayment2.Name = "DescPayment2"
-        '
         'XrTableCell52
         '
         Me.XrTableCell52.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
@@ -865,13 +849,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell41.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.XrTableCell41.TextFormatString = "{0:n0}"
         Me.XrTableCell41.Weight = 0.91292618756449107R
-        '
-        'AmountPayment2
-        '
-        Me.AmountPayment2.Description = "AmountPayment2"
-        Me.AmountPayment2.Name = "AmountPayment2"
-        Me.AmountPayment2.Type = GetType(Decimal)
-        Me.AmountPayment2.ValueInfo = "0"
         '
         'sbPayment3
         '
@@ -911,11 +888,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell42.StylePriority.UseBorders = False
         Me.XrTableCell42.Weight = 5.18700419649548R
         '
-        'DescPayment3
-        '
-        Me.DescPayment3.Description = "DescPayment3"
-        Me.DescPayment3.Name = "DescPayment3"
-        '
         'XrTableCell53
         '
         Me.XrTableCell53.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
@@ -941,13 +913,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell43.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.XrTableCell43.TextFormatString = "{0:n0}"
         Me.XrTableCell43.Weight = 0.91292618756449107R
-        '
-        'AmountPayment3
-        '
-        Me.AmountPayment3.Description = "AmountPayment3"
-        Me.AmountPayment3.Name = "AmountPayment3"
-        Me.AmountPayment3.Type = GetType(Decimal)
-        Me.AmountPayment3.ValueInfo = "0"
         '
         'sbPayment4
         '
@@ -987,11 +952,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell44.StylePriority.UseBorders = False
         Me.XrTableCell44.Weight = 5.18700419649548R
         '
-        'DescPayment4
-        '
-        Me.DescPayment4.Description = "DescPayment4"
-        Me.DescPayment4.Name = "DescPayment4"
-        '
         'XrTableCell54
         '
         Me.XrTableCell54.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
@@ -1017,13 +977,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell45.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.XrTableCell45.TextFormatString = "{0:n0}"
         Me.XrTableCell45.Weight = 0.91292618756449107R
-        '
-        'AmountPayment4
-        '
-        Me.AmountPayment4.Description = "AmountPayment4"
-        Me.AmountPayment4.Name = "AmountPayment4"
-        Me.AmountPayment4.Type = GetType(Decimal)
-        Me.AmountPayment4.ValueInfo = "0"
         '
         'sbInvoice1
         '
@@ -1063,11 +1016,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell55.StylePriority.UseBorders = False
         Me.XrTableCell55.Weight = 5.18700419649548R
         '
-        'DescInvoice1
-        '
-        Me.DescInvoice1.Description = "Parameter1"
-        Me.DescInvoice1.Name = "DescInvoice1"
-        '
         'XrTableCell56
         '
         Me.XrTableCell56.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
@@ -1093,13 +1041,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell57.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.XrTableCell57.TextFormatString = "{0:n0}"
         Me.XrTableCell57.Weight = 0.91292618756449107R
-        '
-        'AmountInvoice1
-        '
-        Me.AmountInvoice1.Description = "AmountInvoice1"
-        Me.AmountInvoice1.Name = "AmountInvoice1"
-        Me.AmountInvoice1.Type = GetType(Integer)
-        Me.AmountInvoice1.ValueInfo = "0"
         '
         'sbInvoice2
         '
@@ -1139,11 +1080,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell58.StylePriority.UseBorders = False
         Me.XrTableCell58.Weight = 5.18700419649548R
         '
-        'DescInvoice2
-        '
-        Me.DescInvoice2.Description = "DescInvoice2"
-        Me.DescInvoice2.Name = "DescInvoice2"
-        '
         'XrTableCell59
         '
         Me.XrTableCell59.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
@@ -1169,13 +1105,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell60.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.XrTableCell60.TextFormatString = "{0:n0}"
         Me.XrTableCell60.Weight = 0.91292618756449107R
-        '
-        'AmountInvoice2
-        '
-        Me.AmountInvoice2.Description = "AmountInvoice2"
-        Me.AmountInvoice2.Name = "AmountInvoice2"
-        Me.AmountInvoice2.Type = GetType(Integer)
-        Me.AmountInvoice2.ValueInfo = "0"
         '
         'sbInvoice3
         '
@@ -1215,10 +1144,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell61.StylePriority.UseBorders = False
         Me.XrTableCell61.Weight = 5.18700419649548R
         '
-        'DescInvoice3
-        '
-        Me.DescInvoice3.Name = "DescInvoice3"
-        '
         'XrTableCell62
         '
         Me.XrTableCell62.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
@@ -1244,13 +1169,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell63.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.XrTableCell63.TextFormatString = "{0:n0}"
         Me.XrTableCell63.Weight = 0.91292618756449107R
-        '
-        'AmountInvoice3
-        '
-        Me.AmountInvoice3.Description = "AmountInvoice3"
-        Me.AmountInvoice3.Name = "AmountInvoice3"
-        Me.AmountInvoice3.Type = GetType(Integer)
-        Me.AmountInvoice3.ValueInfo = "0"
         '
         'sbInvoice4
         '
@@ -1290,11 +1208,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell64.StylePriority.UseBorders = False
         Me.XrTableCell64.Weight = 5.18700419649548R
         '
-        'DescInvoice4
-        '
-        Me.DescInvoice4.Description = "DescInvoice4"
-        Me.DescInvoice4.Name = "DescInvoice4"
-        '
         'XrTableCell65
         '
         Me.XrTableCell65.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
@@ -1320,13 +1233,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell66.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.XrTableCell66.TextFormatString = "{0:n0}"
         Me.XrTableCell66.Weight = 0.91292618756449107R
-        '
-        'AmountInvoice4
-        '
-        Me.AmountInvoice4.Description = "AmountInvoice14"
-        Me.AmountInvoice4.Name = "AmountInvoice4"
-        Me.AmountInvoice4.Type = GetType(Integer)
-        Me.AmountInvoice4.ValueInfo = "0"
         '
         'sbInvoice5
         '
@@ -1366,11 +1272,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell67.StylePriority.UseBorders = False
         Me.XrTableCell67.Weight = 5.18700419649548R
         '
-        'DescInvoice5
-        '
-        Me.DescInvoice5.Description = "DescInvoice5"
-        Me.DescInvoice5.Name = "DescInvoice5"
-        '
         'XrTableCell68
         '
         Me.XrTableCell68.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top), DevExpress.XtraPrinting.BorderSide)
@@ -1397,13 +1298,6 @@ Partial Public Class rptProformaInvoice
         Me.XrTableCell69.TextFormatString = "{0:n0}"
         Me.XrTableCell69.Weight = 0.91292618756449107R
         '
-        'AmountInvoice5
-        '
-        Me.AmountInvoice5.Description = "AmountInvoice15"
-        Me.AmountInvoice5.Name = "AmountInvoice5"
-        Me.AmountInvoice5.Type = GetType(Integer)
-        Me.AmountInvoice5.ValueInfo = "0"
-        '
         'sbPaymentTerm1
         '
         Me.sbPaymentTerm1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel13, Me.XrLabel10, Me.XrLabel6})
@@ -1422,11 +1316,6 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel13.StylePriority.UsePadding = False
         Me.XrLabel13.StylePriority.UseTextAlignment = False
         Me.XrLabel13.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'PaymentTerm1
-        '
-        Me.PaymentTerm1.Description = "Payment Term 1"
-        Me.PaymentTerm1.Name = "PaymentTerm1"
         '
         'XrLabel10
         '
@@ -1486,11 +1375,6 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel14.StylePriority.UseTextAlignment = False
         Me.XrLabel14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
-        'PaymentTerm2
-        '
-        Me.PaymentTerm2.Description = "PaymentTerm2"
-        Me.PaymentTerm2.Name = "PaymentTerm2"
-        '
         'sbPaymentTerm3
         '
         Me.sbPaymentTerm3.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel15, Me.XrLabel16})
@@ -1522,11 +1406,6 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel16.StylePriority.UsePadding = False
         Me.XrLabel16.StylePriority.UseTextAlignment = False
         Me.XrLabel16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'PaymentTerm3
-        '
-        Me.PaymentTerm3.Description = "PaymentTerm3"
-        Me.PaymentTerm3.Name = "PaymentTerm3"
         '
         'sbPaymentTerm4
         '
@@ -1562,11 +1441,6 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel17.StylePriority.UseTextAlignment = False
         Me.XrLabel17.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
-        'PaymentTerm4
-        '
-        Me.PaymentTerm4.Description = "PaymentTerm4"
-        Me.PaymentTerm4.Name = "PaymentTerm4"
-        '
         'sbPaymentTerm5
         '
         Me.sbPaymentTerm5.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel19, Me.XrLabel20})
@@ -1601,11 +1475,6 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel20.StylePriority.UseTextAlignment = False
         Me.XrLabel20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
-        'PaymentTerm5
-        '
-        Me.PaymentTerm5.Description = "PaymentTerm5"
-        Me.PaymentTerm5.Name = "PaymentTerm5"
-        '
         'sbPaymentTerm6
         '
         Me.sbPaymentTerm6.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel64, Me.XrLabel65})
@@ -1626,11 +1495,6 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel64.StylePriority.UsePadding = False
         Me.XrLabel64.StylePriority.UseTextAlignment = False
         Me.XrLabel64.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'PaymentTerm6
-        '
-        Me.PaymentTerm6.Description = "PaymentTerm6"
-        Me.PaymentTerm6.Name = "PaymentTerm6"
         '
         'XrLabel65
         '
@@ -1679,11 +1543,6 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel67.StylePriority.UseTextAlignment = False
         Me.XrLabel67.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
-        'PaymentTerm7
-        '
-        Me.PaymentTerm7.Description = "PaymentTerm7"
-        Me.PaymentTerm7.Name = "PaymentTerm7"
-        '
         'sbPaymentTerm8
         '
         Me.sbPaymentTerm8.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel68, Me.XrLabel69})
@@ -1703,11 +1562,6 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel68.StylePriority.UsePadding = False
         Me.XrLabel68.StylePriority.UseTextAlignment = False
         Me.XrLabel68.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'PaymentTerm8
-        '
-        Me.PaymentTerm8.Description = "PaymentTerm8"
-        Me.PaymentTerm8.Name = "PaymentTerm8"
         '
         'XrLabel69
         '
@@ -1755,11 +1609,6 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel71.StylePriority.UseTextAlignment = False
         Me.XrLabel71.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
-        'PaymentTerm9
-        '
-        Me.PaymentTerm9.Description = "PaymentTerm9"
-        Me.PaymentTerm9.Name = "PaymentTerm9"
-        '
         'sbPaymentTerm10
         '
         Me.sbPaymentTerm10.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel72, Me.XrLabel73})
@@ -1779,11 +1628,6 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel72.StylePriority.UsePadding = False
         Me.XrLabel72.StylePriority.UseTextAlignment = False
         Me.XrLabel72.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'PaymentTerm10
-        '
-        Me.PaymentTerm10.Description = "PaymentTerm10"
-        Me.PaymentTerm10.Name = "PaymentTerm10"
         '
         'XrLabel73
         '
@@ -2122,6 +1966,191 @@ Partial Public Class rptProformaInvoice
         '
         Me.sbCompanyBankAccount2.HeightF = 0!
         Me.sbCompanyBankAccount2.Name = "sbCompanyBankAccount2"
+        '
+        'DescPayment1
+        '
+        Me.DescPayment1.Description = "Parameter1"
+        Me.DescPayment1.Name = "DescPayment1"
+        Me.DescPayment1.Visible = False
+        '
+        'AmountPayment1
+        '
+        Me.AmountPayment1.Description = "AmountPayment1"
+        Me.AmountPayment1.Name = "AmountPayment1"
+        Me.AmountPayment1.Type = GetType(Decimal)
+        Me.AmountPayment1.ValueInfo = "0"
+        Me.AmountPayment1.Visible = False
+        '
+        'DescPayment2
+        '
+        Me.DescPayment2.Description = "DescPayment2"
+        Me.DescPayment2.Name = "DescPayment2"
+        Me.DescPayment2.Visible = False
+        '
+        'AmountPayment2
+        '
+        Me.AmountPayment2.Description = "AmountPayment2"
+        Me.AmountPayment2.Name = "AmountPayment2"
+        Me.AmountPayment2.Type = GetType(Decimal)
+        Me.AmountPayment2.ValueInfo = "0"
+        Me.AmountPayment2.Visible = False
+        '
+        'DescPayment3
+        '
+        Me.DescPayment3.Description = "DescPayment3"
+        Me.DescPayment3.Name = "DescPayment3"
+        Me.DescPayment3.Visible = False
+        '
+        'AmountPayment3
+        '
+        Me.AmountPayment3.Description = "AmountPayment3"
+        Me.AmountPayment3.Name = "AmountPayment3"
+        Me.AmountPayment3.Type = GetType(Decimal)
+        Me.AmountPayment3.ValueInfo = "0"
+        Me.AmountPayment3.Visible = False
+        '
+        'DescPayment4
+        '
+        Me.DescPayment4.Description = "DescPayment4"
+        Me.DescPayment4.Name = "DescPayment4"
+        Me.DescPayment4.Visible = False
+        '
+        'AmountPayment4
+        '
+        Me.AmountPayment4.Description = "AmountPayment4"
+        Me.AmountPayment4.Name = "AmountPayment4"
+        Me.AmountPayment4.Type = GetType(Decimal)
+        Me.AmountPayment4.ValueInfo = "0"
+        Me.AmountPayment4.Visible = False
+        '
+        'DescInvoice1
+        '
+        Me.DescInvoice1.Description = "Parameter1"
+        Me.DescInvoice1.Name = "DescInvoice1"
+        Me.DescInvoice1.Visible = False
+        '
+        'AmountInvoice1
+        '
+        Me.AmountInvoice1.Description = "AmountInvoice1"
+        Me.AmountInvoice1.Name = "AmountInvoice1"
+        Me.AmountInvoice1.Type = GetType(Integer)
+        Me.AmountInvoice1.ValueInfo = "0"
+        Me.AmountInvoice1.Visible = False
+        '
+        'DescInvoice2
+        '
+        Me.DescInvoice2.Description = "DescInvoice2"
+        Me.DescInvoice2.Name = "DescInvoice2"
+        Me.DescInvoice2.Visible = False
+        '
+        'AmountInvoice2
+        '
+        Me.AmountInvoice2.Description = "AmountInvoice2"
+        Me.AmountInvoice2.Name = "AmountInvoice2"
+        Me.AmountInvoice2.Type = GetType(Integer)
+        Me.AmountInvoice2.ValueInfo = "0"
+        Me.AmountInvoice2.Visible = False
+        '
+        'DescInvoice3
+        '
+        Me.DescInvoice3.Name = "DescInvoice3"
+        Me.DescInvoice3.Visible = False
+        '
+        'AmountInvoice3
+        '
+        Me.AmountInvoice3.Description = "AmountInvoice3"
+        Me.AmountInvoice3.Name = "AmountInvoice3"
+        Me.AmountInvoice3.Type = GetType(Integer)
+        Me.AmountInvoice3.ValueInfo = "0"
+        Me.AmountInvoice3.Visible = False
+        '
+        'DescInvoice4
+        '
+        Me.DescInvoice4.Description = "DescInvoice4"
+        Me.DescInvoice4.Name = "DescInvoice4"
+        Me.DescInvoice4.Visible = False
+        '
+        'AmountInvoice4
+        '
+        Me.AmountInvoice4.Description = "AmountInvoice14"
+        Me.AmountInvoice4.Name = "AmountInvoice4"
+        Me.AmountInvoice4.Type = GetType(Integer)
+        Me.AmountInvoice4.ValueInfo = "0"
+        Me.AmountInvoice4.Visible = False
+        '
+        'DescInvoice5
+        '
+        Me.DescInvoice5.Description = "DescInvoice5"
+        Me.DescInvoice5.Name = "DescInvoice5"
+        Me.DescInvoice5.Visible = False
+        '
+        'AmountInvoice5
+        '
+        Me.AmountInvoice5.Description = "AmountInvoice15"
+        Me.AmountInvoice5.Name = "AmountInvoice5"
+        Me.AmountInvoice5.Type = GetType(Integer)
+        Me.AmountInvoice5.ValueInfo = "0"
+        Me.AmountInvoice5.Visible = False
+        '
+        'PaymentTerm1
+        '
+        Me.PaymentTerm1.Description = "Payment Term 1"
+        Me.PaymentTerm1.Name = "PaymentTerm1"
+        Me.PaymentTerm1.Visible = False
+        '
+        'PaymentTerm2
+        '
+        Me.PaymentTerm2.Description = "PaymentTerm2"
+        Me.PaymentTerm2.Name = "PaymentTerm2"
+        Me.PaymentTerm2.Visible = False
+        '
+        'PaymentTerm3
+        '
+        Me.PaymentTerm3.Description = "PaymentTerm3"
+        Me.PaymentTerm3.Name = "PaymentTerm3"
+        Me.PaymentTerm3.Visible = False
+        '
+        'PaymentTerm4
+        '
+        Me.PaymentTerm4.Description = "PaymentTerm4"
+        Me.PaymentTerm4.Name = "PaymentTerm4"
+        Me.PaymentTerm4.Visible = False
+        '
+        'PaymentTerm5
+        '
+        Me.PaymentTerm5.Description = "PaymentTerm5"
+        Me.PaymentTerm5.Name = "PaymentTerm5"
+        Me.PaymentTerm5.Visible = False
+        '
+        'PaymentTerm6
+        '
+        Me.PaymentTerm6.Description = "PaymentTerm6"
+        Me.PaymentTerm6.Name = "PaymentTerm6"
+        Me.PaymentTerm6.Visible = False
+        '
+        'PaymentTerm7
+        '
+        Me.PaymentTerm7.Description = "PaymentTerm7"
+        Me.PaymentTerm7.Name = "PaymentTerm7"
+        Me.PaymentTerm7.Visible = False
+        '
+        'PaymentTerm8
+        '
+        Me.PaymentTerm8.Description = "PaymentTerm8"
+        Me.PaymentTerm8.Name = "PaymentTerm8"
+        Me.PaymentTerm8.Visible = False
+        '
+        'PaymentTerm9
+        '
+        Me.PaymentTerm9.Description = "PaymentTerm9"
+        Me.PaymentTerm9.Name = "PaymentTerm9"
+        Me.PaymentTerm9.Visible = False
+        '
+        'PaymentTerm10
+        '
+        Me.PaymentTerm10.Description = "PaymentTerm10"
+        Me.PaymentTerm10.Name = "PaymentTerm10"
+        Me.PaymentTerm10.Visible = False
         '
         'XrLabel41
         '
@@ -2755,11 +2784,11 @@ Partial Public Class rptProformaInvoice
         Me.XrLabel9.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[CompanyAddress]")})
         Me.XrLabel9.Font = New DevExpress.Drawing.DXFont("Tahoma", 9.0!, DevExpress.Drawing.DXFontStyle.Bold)
         Me.XrLabel9.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.XrLabel9.LocationFloat = New DevExpress.Utils.PointFloat(0.0002441406!, 56.93732!)
+        Me.XrLabel9.LocationFloat = New DevExpress.Utils.PointFloat(0.000222524!, 56.97751!)
         Me.XrLabel9.Multiline = True
         Me.XrLabel9.Name = "XrLabel9"
         Me.XrLabel9.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 10, 0, 0, 100.0!)
-        Me.XrLabel9.SizeF = New System.Drawing.SizeF(806.9988!, 42.08331!)
+        Me.XrLabel9.SizeF = New System.Drawing.SizeF(806.9987!, 42.04311!)
         Me.XrLabel9.StylePriority.UseBorders = False
         Me.XrLabel9.StylePriority.UseFont = False
         Me.XrLabel9.StylePriority.UseForeColor = False
@@ -2772,15 +2801,15 @@ Partial Public Class rptProformaInvoice
         Me.XrPictureBox1.ImageSource = New DevExpress.XtraPrinting.Drawing.ImageSource("img", resources.GetString("XrPictureBox1.ImageSource"))
         Me.XrPictureBox1.LocationFloat = New DevExpress.Utils.PointFloat(54.07181!, 0!)
         Me.XrPictureBox1.Name = "XrPictureBox1"
-        Me.XrPictureBox1.SizeF = New System.Drawing.SizeF(122.2069!, 56.93733!)
+        Me.XrPictureBox1.SizeF = New System.Drawing.SizeF(122.2932!, 56.97752!)
         Me.XrPictureBox1.Sizing = DevExpress.XtraPrinting.ImageSizeMode.AutoSize
         '
         'XrPictureBox2
         '
         Me.XrPictureBox2.ImageSource = New DevExpress.XtraPrinting.Drawing.ImageSource("img", resources.GetString("XrPictureBox2.ImageSource"))
-        Me.XrPictureBox2.LocationFloat = New DevExpress.Utils.PointFloat(176.2789!, 12.49844!)
+        Me.XrPictureBox2.LocationFloat = New DevExpress.Utils.PointFloat(176.365!, 12.48716!)
         Me.XrPictureBox2.Name = "XrPictureBox2"
-        Me.XrPictureBox2.SizeF = New System.Drawing.SizeF(481.8842!, 44.4389!)
+        Me.XrPictureBox2.SizeF = New System.Drawing.SizeF(482.2244!, 44.47026!)
         Me.XrPictureBox2.Sizing = DevExpress.XtraPrinting.ImageSizeMode.AutoSize
         '
         'sbLogoStandart
@@ -3089,6 +3118,7 @@ Partial Public Class rptProformaInvoice
         Me.InvoiceType.Description = "Invoice Type"
         Me.InvoiceType.Name = "InvoiceType"
         Me.InvoiceType.ValueInfo = "DP"
+        Me.InvoiceType.Visible = False
         '
         'xtDetail
         '
@@ -3144,6 +3174,7 @@ Partial Public Class rptProformaInvoice
         Me.HeaderType.Description = "Header Type"
         Me.HeaderType.Name = "HeaderType"
         Me.HeaderType.ValueInfo = "PROFORMA INVOICE"
+        Me.HeaderType.Visible = False
         '
         'ghColumnName
         '
@@ -3190,9 +3221,12 @@ Partial Public Class rptProformaInvoice
         Me.PageHeight = 1169
         Me.PageWidth = 827
         Me.PaperKind = DevExpress.Drawing.Printing.DXPaperKind.A4
+        Me.ParameterPanelLayoutItems.AddRange(New DevExpress.XtraReports.Parameters.ParameterPanelLayoutItem() {New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.InvoiceType, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.DescPayment1, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.DescPayment2, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.DescPayment3, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.AmountPayment1, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.AmountPayment2, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.AmountPayment3, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.DescPayment4, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.AmountPayment4, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.HeaderType, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.PaymentTerm1, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.PaymentTerm2, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.PaymentTerm3, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.PaymentTerm4, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.PaymentTerm5, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.PaymentTerm6, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.PaymentTerm7, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.PaymentTerm8, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.PaymentTerm9, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.PaymentTerm10, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.DescInvoice1, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.DescInvoice2, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.DescInvoice3, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.DescInvoice4, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.DescInvoice5, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.AmountInvoice1, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.AmountInvoice2, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.AmountInvoice3, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.AmountInvoice4, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.AmountInvoice5, DevExpress.XtraReports.Parameters.Orientation.Horizontal)})
         Me.Parameters.AddRange(New DevExpress.XtraReports.Parameters.Parameter() {Me.InvoiceType, Me.DescPayment1, Me.DescPayment2, Me.DescPayment3, Me.AmountPayment1, Me.AmountPayment2, Me.AmountPayment3, Me.DescPayment4, Me.AmountPayment4, Me.HeaderType, Me.PaymentTerm1, Me.PaymentTerm2, Me.PaymentTerm3, Me.PaymentTerm4, Me.PaymentTerm5, Me.PaymentTerm6, Me.PaymentTerm7, Me.PaymentTerm8, Me.PaymentTerm9, Me.PaymentTerm10, Me.DescInvoice1, Me.DescInvoice2, Me.DescInvoice3, Me.DescInvoice4, Me.DescInvoice5, Me.AmountInvoice1, Me.AmountInvoice2, Me.AmountInvoice3, Me.AmountInvoice4, Me.AmountInvoice5})
         Me.ScriptLanguage = DevExpress.XtraReports.ScriptLanguage.VisualBasic
         Me.Version = "24.1"
+        XrWatermark1.Id = "Watermark1"
+        Me.Watermarks.AddRange(New DevExpress.XtraPrinting.Drawing.Watermark() {XrWatermark1})
         CType(Me.XrTable2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.XrTable5, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.XrTable4, System.ComponentModel.ISupportInitialize).EndInit()

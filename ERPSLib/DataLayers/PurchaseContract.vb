@@ -1559,26 +1559,26 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText =
-                    "SELECT " & vbNewLine & _
-                    "	PCD.OrderNumberSupplier, PCD.UnitPrice, PCD.CODetailID, PCD.ItemID, MI.ItemCode, MI.ItemCodeExternal, MI.ItemName,  " & vbNewLine & _
-                    "	MI.ItemTypeID, IT.Description AS ItemTypeName, MI.ItemSpecificationID, MIS.Description AS ItemSpecificationName,  " & vbNewLine & _
-                    "	MI.Thick, MI.Width, MI.Length, PCD.Weight, PCD.Quantity, PCD.TotalWeight, PCD.Remarks, PCH.CreatedBy, PCH.CreatedDate, PCH.LogBy, " & vbNewLine & _
-                    "	PCH.LogDate, PCH.LogInc, PCD.ID AS PCDetailID, MI.ItemCodeExternal, PCD.LevelItem " & vbNewLine & _
-                    "FROM traPurchaseContract PCH " & vbNewLine & _
-                    "INNER JOIN traPurchaseContractDet PCD ON " & vbNewLine & _
-                    "	PCH.ID=PCD.PCID " & vbNewLine & _
-                    "INNER JOIN traConfirmationOrderDet COD ON " & vbNewLine & _
-                    "	PCD.CODetailID=COD.ID " & vbNewLine & _
-                    "INNER JOIN mstItem MI ON " & vbNewLine & _
-                    "	PCD.ItemID=MI.ID " & vbNewLine & _
-                    "INNER JOIN mstItemType IT ON  " & vbNewLine & _
-                    "    MI.ItemTypeID=IT.ID  " & vbNewLine & _
-                    "INNER JOIN mstItemSpecification MIS ON  " & vbNewLine & _
-                    "    MI.ItemSpecificationID=MIS.ID  " & vbNewLine & _
-                    "WHERE " & vbNewLine & _
-                    "	PCD.CODetailID=@CODetailID" & vbNewLine & _
-                    "	AND PCD.ParentID<>'' " & vbNewLine & _
-                    "	AND PCD.TotalWeight-PCD.SCWeight>0 " & vbNewLine & _
+                    "SELECT " & vbNewLine &
+                    "	CAST(0 AS BIT) AS Pick, PCD.OrderNumberSupplier, PCD.UnitPrice, PCD.CODetailID, PCD.ItemID, MI.ItemCode, MI.ItemCodeExternal, MI.ItemName,  " & vbNewLine &
+                    "	MI.ItemTypeID, IT.Description AS ItemTypeName, MI.ItemSpecificationID, MIS.Description AS ItemSpecificationName,  " & vbNewLine &
+                    "	MI.Thick, MI.Width, MI.Length, PCD.Weight, PCD.Quantity, PCD.TotalWeight, PCD.Remarks, PCH.CreatedBy, PCH.CreatedDate, PCH.LogBy, " & vbNewLine &
+                    "	PCH.LogDate, PCH.LogInc, PCD.ID AS PCDetailID, MI.ItemCodeExternal, PCD.LevelItem " & vbNewLine &
+                    "FROM traPurchaseContract PCH " & vbNewLine &
+                    "INNER JOIN traPurchaseContractDet PCD ON " & vbNewLine &
+                    "	PCH.ID=PCD.PCID " & vbNewLine &
+                    "INNER JOIN traConfirmationOrderDet COD ON " & vbNewLine &
+                    "	PCD.CODetailID=COD.ID " & vbNewLine &
+                    "INNER JOIN mstItem MI ON " & vbNewLine &
+                    "	PCD.ItemID=MI.ID " & vbNewLine &
+                    "INNER JOIN mstItemType IT ON  " & vbNewLine &
+                    "    MI.ItemTypeID=IT.ID  " & vbNewLine &
+                    "INNER JOIN mstItemSpecification MIS ON  " & vbNewLine &
+                    "    MI.ItemSpecificationID=MIS.ID  " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "	PCD.CODetailID=@CODetailID" & vbNewLine &
+                    "	AND PCD.ParentID<>'' " & vbNewLine &
+                    "	AND PCD.TotalWeight-PCD.SCWeight>0 " & vbNewLine &
                     "	AND PCD.ID NOT IN (SELECT SCD.PCDetailID FROM traSalesContractDetConfirmationOrder SCD INNER JOIN traSalesContract SCH ON SCD.SCID=SCH.ID WHERE SCH.IsDeleted=0 AND SCD.CODetailID<>'') " & vbNewLine
 
                 .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID

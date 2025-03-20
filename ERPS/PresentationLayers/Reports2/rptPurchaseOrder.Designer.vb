@@ -117,7 +117,6 @@ Partial Public Class rptPurchaseOrder
         'Detail
         '
         Me.Detail.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable2})
-        Me.Detail.Dpi = 100.0!
         Me.Detail.HeightF = 20.0!
         Me.Detail.Name = "Detail"
         Me.Detail.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
@@ -127,9 +126,8 @@ Partial Public Class rptPurchaseOrder
         '
         Me.XrTable2.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTable2.Dpi = 100.0!
-        Me.XrTable2.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.XrTable2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.XrTable2.Font = New DevExpress.Drawing.DXFont("Tahoma", 8.25!)
+        Me.XrTable2.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
         Me.XrTable2.Name = "XrTable2"
         Me.XrTable2.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow2})
         Me.XrTable2.SizeF = New System.Drawing.SizeF(759.9999!, 20.0!)
@@ -141,7 +139,6 @@ Partial Public Class rptPurchaseOrder
         'XrTableRow2
         '
         Me.XrTableRow2.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell12, Me.XrTableCell13, Me.XrTableCell14, Me.XrTableCell15, Me.XrTableCell16, Me.XrTableCell17, Me.XrTableCell18, Me.XrTableCell19, Me.XrTableCell20, Me.XrTableCell21, Me.XrTableCell22})
-        Me.XrTableRow2.Dpi = 100.0!
         Me.XrTableRow2.Name = "XrTableRow2"
         Me.XrTableRow2.Weight = 1.0R
         '
@@ -149,7 +146,6 @@ Partial Public Class rptPurchaseOrder
         '
         Me.XrTableCell12.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell12.Dpi = 100.0!
         Me.XrTableCell12.Name = "XrTableCell12"
         Me.XrTableCell12.StylePriority.UseBorders = False
         XrSummary1.FormatString = "{0:n0}"
@@ -162,8 +158,7 @@ Partial Public Class rptPurchaseOrder
         '
         Me.XrTableCell13.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell13.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "ItemType")})
-        Me.XrTableCell13.Dpi = 100.0!
+        Me.XrTableCell13.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[ItemType]")})
         Me.XrTableCell13.Name = "XrTableCell13"
         Me.XrTableCell13.StylePriority.UseBorders = False
         Me.XrTableCell13.Weight = 0.65598726306689659R
@@ -172,8 +167,7 @@ Partial Public Class rptPurchaseOrder
         '
         Me.XrTableCell14.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell14.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "ItemSpec")})
-        Me.XrTableCell14.Dpi = 100.0!
+        Me.XrTableCell14.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[ItemSpec]")})
         Me.XrTableCell14.Name = "XrTableCell14"
         Me.XrTableCell14.StylePriority.UseBorders = False
         Me.XrTableCell14.Weight = 0.65598718607020068R
@@ -182,45 +176,44 @@ Partial Public Class rptPurchaseOrder
         '
         Me.XrTableCell15.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell15.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "ItemThick", "{0:n2}")})
-        Me.XrTableCell15.Dpi = 100.0!
+        Me.XrTableCell15.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[ItemThick]")})
         Me.XrTableCell15.Name = "XrTableCell15"
         Me.XrTableCell15.StylePriority.UseBorders = False
+        Me.XrTableCell15.TextFormatString = "{0:n2}"
         Me.XrTableCell15.Weight = 0.65598734006359216R
         '
         'XrTableCell16
         '
         Me.XrTableCell16.Borders = CType((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell16.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "ItemWidth", "{0:n0}")})
-        Me.XrTableCell16.Dpi = 100.0!
+        Me.XrTableCell16.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[ItemWidth]")})
         Me.XrTableCell16.Name = "XrTableCell16"
         Me.XrTableCell16.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
         Me.XrTableCell16.StylePriority.UseBorders = False
         Me.XrTableCell16.StylePriority.UsePadding = False
         Me.XrTableCell16.StylePriority.UseTextAlignment = False
         Me.XrTableCell16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell16.TextFormatString = "{0:n0}"
         Me.XrTableCell16.Weight = 0.65598780204376694R
         '
         'XrTableCell17
         '
         Me.XrTableCell17.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell17.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "ItemLength", "{0:n0}")})
-        Me.XrTableCell17.Dpi = 100.0!
+        Me.XrTableCell17.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[ItemLength]")})
         Me.XrTableCell17.Name = "XrTableCell17"
         Me.XrTableCell17.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
         Me.XrTableCell17.StylePriority.UseBorders = False
         Me.XrTableCell17.StylePriority.UsePadding = False
         Me.XrTableCell17.StylePriority.UseTextAlignment = False
         Me.XrTableCell17.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell17.TextFormatString = "{0:n0}"
         Me.XrTableCell17.Weight = 0.65598657009663419R
         '
         'XrTableCell18
         '
         Me.XrTableCell18.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell18.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Weight", "{0:n2}")})
-        Me.XrTableCell18.Dpi = 100.0!
+        Me.XrTableCell18.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Weight]")})
         Me.XrTableCell18.Multiline = True
         Me.XrTableCell18.Name = "XrTableCell18"
         Me.XrTableCell18.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
@@ -228,28 +221,28 @@ Partial Public Class rptPurchaseOrder
         Me.XrTableCell18.StylePriority.UsePadding = False
         Me.XrTableCell18.StylePriority.UseTextAlignment = False
         Me.XrTableCell18.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell18.TextFormatString = "{0:n2}"
         Me.XrTableCell18.Weight = 0.65598749405698376R
         '
         'XrTableCell19
         '
         Me.XrTableCell19.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell19.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Quantity", "{0:n0}")})
-        Me.XrTableCell19.Dpi = 100.0!
+        Me.XrTableCell19.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Quantity]")})
         Me.XrTableCell19.Name = "XrTableCell19"
         Me.XrTableCell19.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
         Me.XrTableCell19.StylePriority.UseBorders = False
         Me.XrTableCell19.StylePriority.UsePadding = False
         Me.XrTableCell19.StylePriority.UseTextAlignment = False
         Me.XrTableCell19.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell19.TextFormatString = "{0:n0}"
         Me.XrTableCell19.Weight = 0.65598718607020057R
         '
         'XrTableCell20
         '
         Me.XrTableCell20.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell20.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalWeightItem", "{0:n0}")})
-        Me.XrTableCell20.Dpi = 100.0!
+        Me.XrTableCell20.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[TotalWeightItem]")})
         Me.XrTableCell20.Multiline = True
         Me.XrTableCell20.Name = "XrTableCell20"
         Me.XrTableCell20.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
@@ -257,14 +250,14 @@ Partial Public Class rptPurchaseOrder
         Me.XrTableCell20.StylePriority.UsePadding = False
         Me.XrTableCell20.StylePriority.UseTextAlignment = False
         Me.XrTableCell20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell20.TextFormatString = "{0:n0}"
         Me.XrTableCell20.Weight = 0.90828969526197667R
         '
         'XrTableCell21
         '
         Me.XrTableCell21.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell21.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "UnitPrice", "{0:n0}")})
-        Me.XrTableCell21.Dpi = 100.0!
+        Me.XrTableCell21.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[UnitPrice]")})
         Me.XrTableCell21.Multiline = True
         Me.XrTableCell21.Name = "XrTableCell21"
         Me.XrTableCell21.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
@@ -272,14 +265,14 @@ Partial Public Class rptPurchaseOrder
         Me.XrTableCell21.StylePriority.UsePadding = False
         Me.XrTableCell21.StylePriority.UseTextAlignment = False
         Me.XrTableCell21.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell21.TextFormatString = "{0:n0}"
         Me.XrTableCell21.Weight = 0.793606758559723R
         '
         'XrTableCell22
         '
         Me.XrTableCell22.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell22.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPrice", "{0:n0}")})
-        Me.XrTableCell22.Dpi = 100.0!
+        Me.XrTableCell22.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[TotalPrice]")})
         Me.XrTableCell22.Multiline = True
         Me.XrTableCell22.Name = "XrTableCell22"
         Me.XrTableCell22.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
@@ -287,11 +280,11 @@ Partial Public Class rptPurchaseOrder
         Me.XrTableCell22.StylePriority.UsePadding = False
         Me.XrTableCell22.StylePriority.UseTextAlignment = False
         Me.XrTableCell22.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell22.TextFormatString = "{0:n0}"
         Me.XrTableCell22.Weight = 1.0734324332955929R
         '
         'TopMargin
         '
-        Me.TopMargin.Dpi = 100.0!
         Me.TopMargin.HeightF = 30.0!
         Me.TopMargin.Name = "TopMargin"
         Me.TopMargin.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
@@ -299,7 +292,6 @@ Partial Public Class rptPurchaseOrder
         '
         'BottomMargin
         '
-        Me.BottomMargin.Dpi = 100.0!
         Me.BottomMargin.HeightF = 30.0!
         Me.BottomMargin.Name = "BottomMargin"
         Me.BottomMargin.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
@@ -308,15 +300,13 @@ Partial Public Class rptPurchaseOrder
         'ReportHeader
         '
         Me.ReportHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel1})
-        Me.ReportHeader.Dpi = 100.0!
         Me.ReportHeader.HeightF = 46.95835!
         Me.ReportHeader.Name = "ReportHeader"
         '
         'XrLabel1
         '
-        Me.XrLabel1.Dpi = 100.0!
-        Me.XrLabel1.Font = New System.Drawing.Font("Tahoma", 20.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel1.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.XrLabel1.Font = New DevExpress.Drawing.DXFont("Tahoma", 20.0!, DevExpress.Drawing.DXFontStyle.Bold)
+        Me.XrLabel1.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
         Me.XrLabel1.Name = "XrLabel1"
         Me.XrLabel1.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel1.SizeF = New System.Drawing.SizeF(767.0!, 46.95835!)
@@ -326,16 +316,14 @@ Partial Public Class rptPurchaseOrder
         'PageHeader
         '
         Me.PageHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel4, Me.XrLabel3, Me.XrLabel2})
-        Me.PageHeader.Dpi = 100.0!
         Me.PageHeader.HeightF = 95.68586!
         Me.PageHeader.Name = "PageHeader"
         Me.PageHeader.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.sbPOHeader, Me.sbItemHeader})
         '
         'XrLabel4
         '
-        Me.XrLabel4.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CompanyAddress")})
-        Me.XrLabel4.Dpi = 100.0!
-        Me.XrLabel4.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel4.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[CompanyAddress]")})
+        Me.XrLabel4.Font = New DevExpress.Drawing.DXFont("Tahoma", 8.25!, DevExpress.Drawing.DXFontStyle.Bold)
         Me.XrLabel4.LocationFloat = New DevExpress.Utils.PointFloat(389.9999!, 35.73149!)
         Me.XrLabel4.Multiline = True
         Me.XrLabel4.Name = "XrLabel4"
@@ -345,11 +333,10 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel3
         '
-        Me.XrLabel3.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CompanyName")})
-        Me.XrLabel3.Dpi = 100.0!
-        Me.XrLabel3.Font = New System.Drawing.Font("Tahoma", 16.0!)
+        Me.XrLabel3.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[CompanyName]")})
+        Me.XrLabel3.Font = New DevExpress.Drawing.DXFont("Tahoma", 16.0!)
         Me.XrLabel3.ForeColor = System.Drawing.Color.Black
-        Me.XrLabel3.LocationFloat = New DevExpress.Utils.PointFloat(389.9999!, 0.0!)
+        Me.XrLabel3.LocationFloat = New DevExpress.Utils.PointFloat(389.9999!, 0!)
         Me.XrLabel3.Multiline = True
         Me.XrLabel3.Name = "XrLabel3"
         Me.XrLabel3.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -359,10 +346,9 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel2
         '
-        Me.XrLabel2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BPName")})
-        Me.XrLabel2.Dpi = 100.0!
-        Me.XrLabel2.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.XrLabel2.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[BPName]")})
+        Me.XrLabel2.Font = New DevExpress.Drawing.DXFont("Tahoma", 12.0!, DevExpress.Drawing.DXFontStyle.Bold)
+        Me.XrLabel2.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
         Me.XrLabel2.Name = "XrLabel2"
         Me.XrLabel2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel2.SizeF = New System.Drawing.SizeF(389.9999!, 35.73149!)
@@ -371,14 +357,12 @@ Partial Public Class rptPurchaseOrder
         'sbPOHeader
         '
         Me.sbPOHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel35, Me.XrLabel36, Me.XrLabel37, Me.XrLabel34, Me.XrLabel26, Me.XrLabel27, Me.XrLabel22, Me.XrLabel23, Me.XrLabel24, Me.XrLabel25, Me.XrLabel28, Me.XrLabel29, Me.XrLabel30, Me.XrLabel21, Me.XrLabel20, Me.XrLabel19, Me.XrLabel17, Me.XrLabel16, Me.XrLabel15, Me.XrLabel14, Me.XrLabel13, Me.XrLabel12, Me.XrLabel10, Me.XrLabel9, Me.XrLabel8, Me.XrLabel7, Me.XrLabel6, Me.XrLabel5})
-        Me.sbPOHeader.Dpi = 100.0!
         Me.sbPOHeader.HeightF = 119.8122!
         Me.sbPOHeader.Name = "sbPOHeader"
         '
         'XrLabel35
         '
-        Me.XrLabel35.Dpi = 100.0!
-        Me.XrLabel35.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 95.00001!)
+        Me.XrLabel35.LocationFloat = New DevExpress.Utils.PointFloat(0!, 95.00001!)
         Me.XrLabel35.Name = "XrLabel35"
         Me.XrLabel35.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel35.SizeF = New System.Drawing.SizeF(117.9629!, 18.0!)
@@ -388,7 +372,6 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel36
         '
-        Me.XrLabel36.Dpi = 100.0!
         Me.XrLabel36.LocationFloat = New DevExpress.Utils.PointFloat(117.9629!, 95.00001!)
         Me.XrLabel36.Name = "XrLabel36"
         Me.XrLabel36.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -399,8 +382,7 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel37
         '
-        Me.XrLabel37.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PaymentTerms")})
-        Me.XrLabel37.Dpi = 100.0!
+        Me.XrLabel37.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PaymentTerms]")})
         Me.XrLabel37.LocationFloat = New DevExpress.Utils.PointFloat(131.8055!, 95.00001!)
         Me.XrLabel37.Multiline = True
         Me.XrLabel37.Name = "XrLabel37"
@@ -411,8 +393,7 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel34
         '
-        Me.XrLabel34.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DeliveryPeriod")})
-        Me.XrLabel34.Dpi = 100.0!
+        Me.XrLabel34.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[DeliveryPeriod]")})
         Me.XrLabel34.LocationFloat = New DevExpress.Utils.PointFloat(521.8055!, 40.99997!)
         Me.XrLabel34.Name = "XrLabel34"
         Me.XrLabel34.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -422,8 +403,7 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel26
         '
-        Me.XrLabel26.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Remarks")})
-        Me.XrLabel26.Dpi = 100.0!
+        Me.XrLabel26.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Remarks]")})
         Me.XrLabel26.LocationFloat = New DevExpress.Utils.PointFloat(521.8054!, 77.00002!)
         Me.XrLabel26.Multiline = True
         Me.XrLabel26.Name = "XrLabel26"
@@ -434,8 +414,7 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel27
         '
-        Me.XrLabel27.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "Validity")})
-        Me.XrLabel27.Dpi = 100.0!
+        Me.XrLabel27.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Validity]")})
         Me.XrLabel27.LocationFloat = New DevExpress.Utils.PointFloat(521.8055!, 59.00002!)
         Me.XrLabel27.Name = "XrLabel27"
         Me.XrLabel27.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -445,8 +424,7 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel22
         '
-        Me.XrLabel22.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DeliveryAddress")})
-        Me.XrLabel22.Dpi = 100.0!
+        Me.XrLabel22.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[DeliveryAddress]")})
         Me.XrLabel22.LocationFloat = New DevExpress.Utils.PointFloat(521.8054!, 23.00002!)
         Me.XrLabel22.Name = "XrLabel22"
         Me.XrLabel22.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -456,7 +434,6 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel23
         '
-        Me.XrLabel23.Dpi = 100.0!
         Me.XrLabel23.LocationFloat = New DevExpress.Utils.PointFloat(389.9999!, 23.00001!)
         Me.XrLabel23.Name = "XrLabel23"
         Me.XrLabel23.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -467,7 +444,6 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel24
         '
-        Me.XrLabel24.Dpi = 100.0!
         Me.XrLabel24.LocationFloat = New DevExpress.Utils.PointFloat(389.9999!, 59.00001!)
         Me.XrLabel24.Name = "XrLabel24"
         Me.XrLabel24.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -478,7 +454,6 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel25
         '
-        Me.XrLabel25.Dpi = 100.0!
         Me.XrLabel25.LocationFloat = New DevExpress.Utils.PointFloat(389.9998!, 77.00001!)
         Me.XrLabel25.Name = "XrLabel25"
         Me.XrLabel25.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -489,7 +464,6 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel28
         '
-        Me.XrLabel28.Dpi = 100.0!
         Me.XrLabel28.LocationFloat = New DevExpress.Utils.PointFloat(507.9628!, 23.00001!)
         Me.XrLabel28.Name = "XrLabel28"
         Me.XrLabel28.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -500,7 +474,6 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel29
         '
-        Me.XrLabel29.Dpi = 100.0!
         Me.XrLabel29.LocationFloat = New DevExpress.Utils.PointFloat(507.9628!, 59.00001!)
         Me.XrLabel29.Name = "XrLabel29"
         Me.XrLabel29.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -511,7 +484,6 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel30
         '
-        Me.XrLabel30.Dpi = 100.0!
         Me.XrLabel30.LocationFloat = New DevExpress.Utils.PointFloat(507.9628!, 77.00001!)
         Me.XrLabel30.Name = "XrLabel30"
         Me.XrLabel30.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -522,8 +494,7 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel21
         '
-        Me.XrLabel21.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "ItemSpec")})
-        Me.XrLabel21.Dpi = 100.0!
+        Me.XrLabel21.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[ItemSpec]")})
         Me.XrLabel21.LocationFloat = New DevExpress.Utils.PointFloat(131.8055!, 77.00001!)
         Me.XrLabel21.Name = "XrLabel21"
         Me.XrLabel21.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -533,19 +504,18 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel20
         '
-        Me.XrLabel20.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PODate", "{0:dd MMMM yyyy}")})
-        Me.XrLabel20.Dpi = 100.0!
+        Me.XrLabel20.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PODate]")})
         Me.XrLabel20.LocationFloat = New DevExpress.Utils.PointFloat(131.8055!, 59.00001!)
         Me.XrLabel20.Name = "XrLabel20"
         Me.XrLabel20.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel20.SizeF = New System.Drawing.SizeF(258.1945!, 18.0!)
         Me.XrLabel20.StylePriority.UseTextAlignment = False
         Me.XrLabel20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.XrLabel20.TextFormatString = "{0:dd MMMM yyyy}"
         '
         'XrLabel19
         '
-        Me.XrLabel19.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PersonInCharge")})
-        Me.XrLabel19.Dpi = 100.0!
+        Me.XrLabel19.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PersonInCharge]")})
         Me.XrLabel19.LocationFloat = New DevExpress.Utils.PointFloat(131.8055!, 41.00001!)
         Me.XrLabel19.Name = "XrLabel19"
         Me.XrLabel19.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -555,8 +525,7 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel17
         '
-        Me.XrLabel17.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PONumber")})
-        Me.XrLabel17.Dpi = 100.0!
+        Me.XrLabel17.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PONumber]")})
         Me.XrLabel17.LocationFloat = New DevExpress.Utils.PointFloat(131.8054!, 23.00001!)
         Me.XrLabel17.Name = "XrLabel17"
         Me.XrLabel17.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -566,7 +535,6 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel16
         '
-        Me.XrLabel16.Dpi = 100.0!
         Me.XrLabel16.LocationFloat = New DevExpress.Utils.PointFloat(507.9629!, 40.99997!)
         Me.XrLabel16.Name = "XrLabel16"
         Me.XrLabel16.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -577,7 +545,6 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel15
         '
-        Me.XrLabel15.Dpi = 100.0!
         Me.XrLabel15.LocationFloat = New DevExpress.Utils.PointFloat(117.9629!, 77.00001!)
         Me.XrLabel15.Name = "XrLabel15"
         Me.XrLabel15.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -588,7 +555,6 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel14
         '
-        Me.XrLabel14.Dpi = 100.0!
         Me.XrLabel14.LocationFloat = New DevExpress.Utils.PointFloat(117.9629!, 59.00001!)
         Me.XrLabel14.Name = "XrLabel14"
         Me.XrLabel14.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -599,7 +565,6 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel13
         '
-        Me.XrLabel13.Dpi = 100.0!
         Me.XrLabel13.LocationFloat = New DevExpress.Utils.PointFloat(117.9629!, 41.00001!)
         Me.XrLabel13.Name = "XrLabel13"
         Me.XrLabel13.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -610,7 +575,6 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel12
         '
-        Me.XrLabel12.Dpi = 100.0!
         Me.XrLabel12.LocationFloat = New DevExpress.Utils.PointFloat(117.9629!, 23.00001!)
         Me.XrLabel12.Name = "XrLabel12"
         Me.XrLabel12.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -621,7 +585,6 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel10
         '
-        Me.XrLabel10.Dpi = 100.0!
         Me.XrLabel10.LocationFloat = New DevExpress.Utils.PointFloat(390.0!, 40.99997!)
         Me.XrLabel10.Name = "XrLabel10"
         Me.XrLabel10.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -632,8 +595,7 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel9
         '
-        Me.XrLabel9.Dpi = 100.0!
-        Me.XrLabel9.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 77.00001!)
+        Me.XrLabel9.LocationFloat = New DevExpress.Utils.PointFloat(0!, 77.00001!)
         Me.XrLabel9.Name = "XrLabel9"
         Me.XrLabel9.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel9.SizeF = New System.Drawing.SizeF(117.9629!, 18.0!)
@@ -643,8 +605,7 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel8
         '
-        Me.XrLabel8.Dpi = 100.0!
-        Me.XrLabel8.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 59.00001!)
+        Me.XrLabel8.LocationFloat = New DevExpress.Utils.PointFloat(0!, 59.00001!)
         Me.XrLabel8.Name = "XrLabel8"
         Me.XrLabel8.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel8.SizeF = New System.Drawing.SizeF(117.9629!, 18.0!)
@@ -654,8 +615,7 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel7
         '
-        Me.XrLabel7.Dpi = 100.0!
-        Me.XrLabel7.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 41.00001!)
+        Me.XrLabel7.LocationFloat = New DevExpress.Utils.PointFloat(0!, 41.00001!)
         Me.XrLabel7.Name = "XrLabel7"
         Me.XrLabel7.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel7.SizeF = New System.Drawing.SizeF(117.9629!, 18.0!)
@@ -665,8 +625,7 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel6
         '
-        Me.XrLabel6.Dpi = 100.0!
-        Me.XrLabel6.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 23.00001!)
+        Me.XrLabel6.LocationFloat = New DevExpress.Utils.PointFloat(0!, 23.00001!)
         Me.XrLabel6.Name = "XrLabel6"
         Me.XrLabel6.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel6.SizeF = New System.Drawing.SizeF(117.9629!, 18.0!)
@@ -676,9 +635,8 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel5
         '
-        Me.XrLabel5.Dpi = 100.0!
-        Me.XrLabel5.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel5.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.XrLabel5.Font = New DevExpress.Drawing.DXFont("Tahoma", 8.25!, DevExpress.Drawing.DXFontStyle.Bold)
+        Me.XrLabel5.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
         Me.XrLabel5.Name = "XrLabel5"
         Me.XrLabel5.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel5.SizeF = New System.Drawing.SizeF(759.9999!, 23.0!)
@@ -690,7 +648,6 @@ Partial Public Class rptPurchaseOrder
         'sbItemHeader
         '
         Me.sbItemHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable1})
-        Me.sbItemHeader.Dpi = 100.0!
         Me.sbItemHeader.HeightF = 41.20368!
         Me.sbItemHeader.Name = "sbItemHeader"
         '
@@ -699,9 +656,8 @@ Partial Public Class rptPurchaseOrder
         Me.XrTable1.Borders = CType((((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
             Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTable1.Dpi = 100.0!
-        Me.XrTable1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrTable1.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.XrTable1.Font = New DevExpress.Drawing.DXFont("Tahoma", 8.25!, DevExpress.Drawing.DXFontStyle.Bold)
+        Me.XrTable1.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
         Me.XrTable1.Name = "XrTable1"
         Me.XrTable1.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow1})
         Me.XrTable1.SizeF = New System.Drawing.SizeF(759.9999!, 41.20368!)
@@ -714,35 +670,30 @@ Partial Public Class rptPurchaseOrder
         '
         Me.XrTableRow1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.XrTableRow1.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell1, Me.XrTableCell2, Me.XrTableCell3, Me.XrTableCell4, Me.XrTableCell5, Me.XrTableCell7, Me.XrTableCell8, Me.XrTableCell6, Me.XrTableCell9, Me.XrTableCell10, Me.XrTableCell11})
-        Me.XrTableRow1.Dpi = 100.0!
         Me.XrTableRow1.Name = "XrTableRow1"
         Me.XrTableRow1.StylePriority.UseBackColor = False
         Me.XrTableRow1.Weight = 1.0R
         '
         'XrTableCell1
         '
-        Me.XrTableCell1.Dpi = 100.0!
         Me.XrTableCell1.Name = "XrTableCell1"
         Me.XrTableCell1.Text = "NO"
         Me.XrTableCell1.Weight = 0.3R
         '
         'XrTableCell2
         '
-        Me.XrTableCell2.Dpi = 100.0!
         Me.XrTableCell2.Name = "XrTableCell2"
         Me.XrTableCell2.Text = "PRODUCT"
         Me.XrTableCell2.Weight = 0.65000000000000013R
         '
         'XrTableCell3
         '
-        Me.XrTableCell3.Dpi = 100.0!
         Me.XrTableCell3.Name = "XrTableCell3"
         Me.XrTableCell3.Text = "SPEC"
         Me.XrTableCell3.Weight = 0.65000000000000013R
         '
         'XrTableCell4
         '
-        Me.XrTableCell4.Dpi = 100.0!
         Me.XrTableCell4.Name = "XrTableCell4"
         Me.XrTableCell4.Text = "T (mm)"
         Me.XrTableCell4.Weight = 0.64999999999999991R
@@ -751,7 +702,6 @@ Partial Public Class rptPurchaseOrder
         '
         Me.XrTableCell5.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell5.Dpi = 100.0!
         Me.XrTableCell5.Name = "XrTableCell5"
         Me.XrTableCell5.StylePriority.UseBorders = False
         Me.XrTableCell5.Text = "W (mm)"
@@ -759,14 +709,12 @@ Partial Public Class rptPurchaseOrder
         '
         'XrTableCell7
         '
-        Me.XrTableCell7.Dpi = 100.0!
         Me.XrTableCell7.Name = "XrTableCell7"
         Me.XrTableCell7.Text = "L (mm)"
         Me.XrTableCell7.Weight = 0.65000000000000013R
         '
         'XrTableCell8
         '
-        Me.XrTableCell8.Dpi = 100.0!
         Me.XrTableCell8.Multiline = True
         Me.XrTableCell8.Name = "XrTableCell8"
         Me.XrTableCell8.Text = "WEIGHT" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(Kg)"
@@ -774,14 +722,12 @@ Partial Public Class rptPurchaseOrder
         '
         'XrTableCell6
         '
-        Me.XrTableCell6.Dpi = 100.0!
         Me.XrTableCell6.Name = "XrTableCell6"
         Me.XrTableCell6.Text = "QTY"
         Me.XrTableCell6.Weight = 0.64999999999999991R
         '
         'XrTableCell9
         '
-        Me.XrTableCell9.Dpi = 100.0!
         Me.XrTableCell9.Multiline = True
         Me.XrTableCell9.Name = "XrTableCell9"
         Me.XrTableCell9.Text = "TOTAL " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "WEIGHT (Kg)"
@@ -789,7 +735,6 @@ Partial Public Class rptPurchaseOrder
         '
         'XrTableCell10
         '
-        Me.XrTableCell10.Dpi = 100.0!
         Me.XrTableCell10.Multiline = True
         Me.XrTableCell10.Name = "XrTableCell10"
         Me.XrTableCell10.Text = "PRICE" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(Kg)"
@@ -797,7 +742,6 @@ Partial Public Class rptPurchaseOrder
         '
         'XrTableCell11
         '
-        Me.XrTableCell11.Dpi = 100.0!
         Me.XrTableCell11.Multiline = True
         Me.XrTableCell11.Name = "XrTableCell11"
         Me.XrTableCell11.Text = "TOTAL" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "PRICE"
@@ -806,14 +750,12 @@ Partial Public Class rptPurchaseOrder
         'ReportFooter
         '
         Me.ReportFooter.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel38, Me.XrLabel33, Me.XrLabel32, Me.XrLabel18, Me.XrTable5, Me.XrTable4, Me.XrTable3})
-        Me.ReportFooter.Dpi = 100.0!
         Me.ReportFooter.HeightF = 325.2315!
         Me.ReportFooter.Name = "ReportFooter"
         '
         'XrLabel38
         '
-        Me.XrLabel38.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PODateAndCity")})
-        Me.XrLabel38.Dpi = 100.0!
+        Me.XrLabel38.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PODateAndCity]")})
         Me.XrLabel38.LocationFloat = New DevExpress.Utils.PointFloat(485.0!, 152.3148!)
         Me.XrLabel38.Name = "XrLabel38"
         Me.XrLabel38.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -823,8 +765,7 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel33
         '
-        Me.XrLabel33.Dpi = 100.0!
-        Me.XrLabel33.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel33.Font = New DevExpress.Drawing.DXFont("Tahoma", 8.25!, DevExpress.Drawing.DXFontStyle.Bold)
         Me.XrLabel33.LocationFloat = New DevExpress.Utils.PointFloat(485.0!, 292.2315!)
         Me.XrLabel33.Name = "XrLabel33"
         Me.XrLabel33.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -836,9 +777,8 @@ Partial Public Class rptPurchaseOrder
         '
         'XrLabel32
         '
-        Me.XrLabel32.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PersonInCharge", "{0:}")})
-        Me.XrLabel32.Dpi = 100.0!
-        Me.XrLabel32.Font = New System.Drawing.Font("Tahoma", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle))
+        Me.XrLabel32.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PersonInCharge]")})
+        Me.XrLabel32.Font = New DevExpress.Drawing.DXFont("Tahoma", 8.25!, CType((DevExpress.Drawing.DXFontStyle.Bold Or DevExpress.Drawing.DXFontStyle.Underline), DevExpress.Drawing.DXFontStyle))
         Me.XrLabel32.LocationFloat = New DevExpress.Utils.PointFloat(485.0!, 269.2315!)
         Me.XrLabel32.Name = "XrLabel32"
         Me.XrLabel32.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -846,12 +786,12 @@ Partial Public Class rptPurchaseOrder
         Me.XrLabel32.StylePriority.UseFont = False
         Me.XrLabel32.StylePriority.UseTextAlignment = False
         Me.XrLabel32.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.XrLabel32.TextFormatString = "{0:}"
         '
         'XrLabel18
         '
-        Me.XrLabel18.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CompanyName")})
-        Me.XrLabel18.Dpi = 100.0!
-        Me.XrLabel18.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel18.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[CompanyName]")})
+        Me.XrLabel18.Font = New DevExpress.Drawing.DXFont("Tahoma", 9.0!, DevExpress.Drawing.DXFontStyle.Bold)
         Me.XrLabel18.ForeColor = System.Drawing.Color.Black
         Me.XrLabel18.LocationFloat = New DevExpress.Utils.PointFloat(485.0!, 129.3148!)
         Me.XrLabel18.Multiline = True
@@ -869,8 +809,7 @@ Partial Public Class rptPurchaseOrder
         Me.XrTable5.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.XrTable5.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTable5.Dpi = 100.0!
-        Me.XrTable5.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrTable5.Font = New DevExpress.Drawing.DXFont("Tahoma", 8.25!, DevExpress.Drawing.DXFontStyle.Bold)
         Me.XrTable5.LocationFloat = New DevExpress.Utils.PointFloat(290.0!, 40.00002!)
         Me.XrTable5.Name = "XrTable5"
         Me.XrTable5.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow5})
@@ -884,14 +823,12 @@ Partial Public Class rptPurchaseOrder
         'XrTableRow5
         '
         Me.XrTableRow5.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell24, Me.XrTableCell26})
-        Me.XrTableRow5.Dpi = 100.0!
         Me.XrTableRow5.Name = "XrTableRow5"
         Me.XrTableRow5.Weight = 1.0R
         '
         'XrTableCell24
         '
-        Me.XrTableCell24.Dpi = 100.0!
-        Me.XrTableCell24.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrTableCell24.Font = New DevExpress.Drawing.DXFont("Tahoma", 8.25!, DevExpress.Drawing.DXFontStyle.Bold)
         Me.XrTableCell24.Name = "XrTableCell24"
         Me.XrTableCell24.Padding = New DevExpress.XtraPrinting.PaddingInfo(20, 0, 0, 0, 100.0!)
         Me.XrTableCell24.StylePriority.UseFont = False
@@ -903,14 +840,14 @@ Partial Public Class rptPurchaseOrder
         '
         'XrTableCell26
         '
-        Me.XrTableCell26.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "GrandTotal", "{0:n0}")})
-        Me.XrTableCell26.Dpi = 100.0!
+        Me.XrTableCell26.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[GrandTotal]")})
         Me.XrTableCell26.Multiline = True
         Me.XrTableCell26.Name = "XrTableCell26"
         Me.XrTableCell26.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
         Me.XrTableCell26.StylePriority.UsePadding = False
         Me.XrTableCell26.StylePriority.UseTextAlignment = False
         Me.XrTableCell26.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell26.TextFormatString = "{0:n0}"
         Me.XrTableCell26.Weight = 1.421119401447102R
         '
         'XrTable4
@@ -918,8 +855,7 @@ Partial Public Class rptPurchaseOrder
         Me.XrTable4.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.XrTable4.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTable4.Dpi = 100.0!
-        Me.XrTable4.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrTable4.Font = New DevExpress.Drawing.DXFont("Tahoma", 8.25!, DevExpress.Drawing.DXFontStyle.Bold)
         Me.XrTable4.LocationFloat = New DevExpress.Utils.PointFloat(290.0!, 20.00001!)
         Me.XrTable4.Name = "XrTable4"
         Me.XrTable4.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow4})
@@ -933,34 +869,33 @@ Partial Public Class rptPurchaseOrder
         'XrTableRow4
         '
         Me.XrTableRow4.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell23, Me.XrTableCell25})
-        Me.XrTableRow4.Dpi = 100.0!
         Me.XrTableRow4.Name = "XrTableRow4"
         Me.XrTableRow4.StylePriority.UseBorders = False
         Me.XrTableRow4.Weight = 1.0R
         '
         'XrTableCell23
         '
-        Me.XrTableCell23.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PPN", "PPN {0:n0}%")})
-        Me.XrTableCell23.Dpi = 100.0!
-        Me.XrTableCell23.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.XrTableCell23.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PPN]")})
+        Me.XrTableCell23.Font = New DevExpress.Drawing.DXFont("Tahoma", 8.25!, DevExpress.Drawing.DXFontStyle.Bold)
         Me.XrTableCell23.Name = "XrTableCell23"
         Me.XrTableCell23.Padding = New DevExpress.XtraPrinting.PaddingInfo(20, 0, 0, 0, 100.0!)
         Me.XrTableCell23.StylePriority.UseFont = False
         Me.XrTableCell23.StylePriority.UsePadding = False
         Me.XrTableCell23.StylePriority.UseTextAlignment = False
         Me.XrTableCell23.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.XrTableCell23.TextFormatString = "PPN {0:n0}%"
         Me.XrTableCell23.Weight = 2.189294500341485R
         '
         'XrTableCell25
         '
-        Me.XrTableCell25.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalPPN", "{0:n0}")})
-        Me.XrTableCell25.Dpi = 100.0!
+        Me.XrTableCell25.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[TotalPPN]")})
         Me.XrTableCell25.Multiline = True
         Me.XrTableCell25.Name = "XrTableCell25"
         Me.XrTableCell25.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
         Me.XrTableCell25.StylePriority.UsePadding = False
         Me.XrTableCell25.StylePriority.UseTextAlignment = False
         Me.XrTableCell25.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell25.TextFormatString = "{0:n0}"
         Me.XrTableCell25.Weight = 1.421119401447102R
         '
         'XrTable3
@@ -968,9 +903,8 @@ Partial Public Class rptPurchaseOrder
         Me.XrTable3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.XrTable3.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTable3.Dpi = 100.0!
-        Me.XrTable3.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.XrTable3.LocationFloat = New DevExpress.Utils.PointFloat(290.0!, 0.0!)
+        Me.XrTable3.Font = New DevExpress.Drawing.DXFont("Tahoma", 8.25!, DevExpress.Drawing.DXFontStyle.Bold)
+        Me.XrTable3.LocationFloat = New DevExpress.Utils.PointFloat(290.0!, 0!)
         Me.XrTable3.Name = "XrTable3"
         Me.XrTable3.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow3})
         Me.XrTable3.SizeF = New System.Drawing.SizeF(469.9998!, 20.0!)
@@ -983,7 +917,6 @@ Partial Public Class rptPurchaseOrder
         'XrTableRow3
         '
         Me.XrTableRow3.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.XrTableCell28, Me.xrTotalWeight, Me.XrTableCell33})
-        Me.XrTableRow3.Dpi = 100.0!
         Me.XrTableRow3.Name = "XrTableRow3"
         Me.XrTableRow3.Weight = 1.0R
         '
@@ -991,7 +924,6 @@ Partial Public Class rptPurchaseOrder
         '
         Me.XrTableCell28.Borders = CType(((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrTableCell28.Dpi = 100.0!
         Me.XrTableCell28.Name = "XrTableCell28"
         Me.XrTableCell28.Padding = New DevExpress.XtraPrinting.PaddingInfo(20, 0, 0, 0, 100.0!)
         Me.XrTableCell28.StylePriority.UseBorders = False
@@ -1003,31 +935,30 @@ Partial Public Class rptPurchaseOrder
         '
         'xrTotalWeight
         '
-        Me.xrTotalWeight.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalWeight", "{0:n0}")})
-        Me.xrTotalWeight.Dpi = 100.0!
+        Me.xrTotalWeight.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[TotalWeight]")})
         Me.xrTotalWeight.Multiline = True
         Me.xrTotalWeight.Name = "xrTotalWeight"
         Me.xrTotalWeight.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
         Me.xrTotalWeight.StylePriority.UsePadding = False
         Me.xrTotalWeight.StylePriority.UseTextAlignment = False
         Me.xrTotalWeight.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.xrTotalWeight.TextFormatString = "{0:n0}"
         Me.xrTotalWeight.Weight = 0.6913558631794422R
         '
         'XrTableCell33
         '
-        Me.XrTableCell33.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TotalDPP", "{0:n0}")})
-        Me.XrTableCell33.Dpi = 100.0!
+        Me.XrTableCell33.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[TotalDPP]")})
         Me.XrTableCell33.Multiline = True
         Me.XrTableCell33.Name = "XrTableCell33"
         Me.XrTableCell33.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
         Me.XrTableCell33.StylePriority.UsePadding = False
         Me.XrTableCell33.StylePriority.UseTextAlignment = False
         Me.XrTableCell33.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrTableCell33.TextFormatString = "{0:n0}"
         Me.XrTableCell33.Weight = 1.4211194029360952R
         '
         'PageFooter
         '
-        Me.PageFooter.Dpi = 100.0!
         Me.PageFooter.HeightF = 25.0!
         Me.PageFooter.Name = "PageFooter"
         '
@@ -1043,13 +974,13 @@ Partial Public Class rptPurchaseOrder
         Me.DataSource = Me.ObjectDataSource1
         Me.DisplayName = "Purchase Order"
         Me.DrawWatermark = True
-        Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.Margins = New System.Drawing.Printing.Margins(30, 30, 30, 30)
+        Me.Font = New DevExpress.Drawing.DXFont("Tahoma", 8.25!)
+        Me.Margins = New DevExpress.Drawing.DXMargins(30.0!, 30.0!, 30.0!, 30.0!)
         Me.PageHeight = 1169
         Me.PageWidth = 827
-        Me.PaperKind = System.Drawing.Printing.PaperKind.A4
+        Me.PaperKind = DevExpress.Drawing.Printing.DXPaperKind.A4
         Me.ScriptLanguage = DevExpress.XtraReports.ScriptLanguage.VisualBasic
-        Me.Version = "16.2"
+        Me.Version = "24.1"
         CType(Me.XrTable2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.XrTable1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.XrTable5, System.ComponentModel.ISupportInitialize).EndInit()

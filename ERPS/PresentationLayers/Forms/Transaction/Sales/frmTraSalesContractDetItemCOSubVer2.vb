@@ -165,25 +165,80 @@
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             If .pubIsLookUpGet Then
-                strCODetailID = .pubLUdtRow.Item("CODetailID")
-                txtOrderNumberSupplier.Text = .pubLUdtRow.Item("OrderNumberSupplier")
-                intItemID = .pubLUdtRow.Item("ItemID")
-                cboItemType.SelectedValue = .pubLUdtRow.Item("ItemTypeID")
-                txtItemCode.Text = .pubLUdtRow.Item("ItemCode")
-                txtItemName.Text = .pubLUdtRow.Item("ItemName")
-                cboItemSpecification.SelectedValue = .pubLUdtRow.Item("ItemSpecificationID")
-                txtThick.Value = .pubLUdtRow.Item("Thick")
-                txtWidth.Value = .pubLUdtRow.Item("Width")
-                txtLength.Value = .pubLUdtRow.Item("Length")
-                txtWeight.Value = .pubLUdtRow.Item("Weight")
-                txtMaxTotalWeight.Value = .pubLUdtRow.Item("TotalWeight")
-                txtUnitPrice.Value = .pubLUdtRow.Item("UnitPrice")
-                txtQuantity.Value = .pubLUdtRow.Item("Quantity")
-                intLevelItem = .pubLUdtRow.Item("LevelItem")
-                strPCDetailID = .pubLUdtRow.Item("PCDetailID")
-                txtWeight.Focus()
-                txtRemarks.Text = ""
-                bolIsAutoSearch = False
+                If .pubLUdtRow.Count > 1 And bolIsNew Then
+                    Dim listSCCO As New List(Of VO.SalesContractDetConfirmationOrder)
+                    For Each dr As DataRow In .pubLUdtRow
+                        If dr.Item("UnitPrice") <= 0 Then
+                            UI.usForm.frmMessageBox("Harga harus lebih besar dari 0")
+                            Exit Sub
+                        ElseIf dr.Item("Weight") <= 0 Then
+                            UI.usForm.frmMessageBox("Berat harus lebih besar dari 0")
+                            Exit Sub
+                        End If
+                        strCODetailID = .pubLUdtRow.First.Item("CODetailID")
+                        txtOrderNumberSupplier.Text = .pubLUdtRow.First.Item("OrderNumberSupplier")
+                        intItemID = .pubLUdtRow.First.Item("ItemID")
+                        cboItemType.SelectedValue = .pubLUdtRow.First.Item("ItemTypeID")
+                        txtItemCode.Text = .pubLUdtRow.First.Item("ItemCode")
+                        txtItemName.Text = .pubLUdtRow.First.Item("ItemName")
+                        cboItemSpecification.SelectedValue = .pubLUdtRow.First.Item("ItemSpecificationID")
+                        txtThick.Value = .pubLUdtRow.First.Item("Thick")
+                        txtWidth.Value = .pubLUdtRow.First.Item("Width")
+                        txtLength.Value = .pubLUdtRow.First.Item("Length")
+                        txtWeight.Value = .pubLUdtRow.First.Item("Weight")
+                        txtMaxTotalWeight.Value = .pubLUdtRow.First.Item("TotalWeight")
+                        txtUnitPrice.Value = .pubLUdtRow.First.Item("UnitPrice")
+                        txtQuantity.Value = .pubLUdtRow.First.Item("Quantity")
+                        intLevelItem = .pubLUdtRow.First.Item("LevelItem")
+                        strPCDetailID = .pubLUdtRow.First.Item("PCDetailID")
+
+                        listSCCO.Add(New VO.SalesContractDetConfirmationOrder With
+                                        {
+                                            .ID = strID,
+                                            .SCID = drSelectedCO.Item("SCID"),
+                                            .CODetailID = dr.Item("CODetailID"),
+                                            .GroupID = drSelectedCO.Item("GroupID"),
+                                            .ItemID = dr.Item("ItemID"),
+                                            .Quantity = dr.Item("Quantity"),
+                                            .Weight = dr.Item("Weight"),
+                                            .TotalWeight = dr.Item("Quantity") * dr.Item("Weight"),
+                                            .UnitPrice = dr.Item("UnitPrice"),
+                                            .TotalPrice = dr.Item("UnitPrice") * dr.Item("TotalWeight"),
+                                            .Remarks = "",
+                                            .LevelItem = dr.Item("LevelItem"),
+                                            .ParentID = drSelectedCO.Item("ID"),
+                                            .LocationID = drSelectedCO.Item("LocationID"),
+                                            .PCDetailID = dr.Item("PCDetailID")
+                                        })
+
+                        Try
+                            BL.SalesContract.SaveDataDetailCOSubitemMultiple(drSelectedCO.Item("SCID"), listSCCO)
+                            Me.Close()
+                        Catch ex As Exception
+                            UI.usForm.frmMessageBox(ex.Message)
+                        End Try
+                    Next
+                Else
+                    strCODetailID = .pubLUdtRow.First.Item("CODetailID")
+                    txtOrderNumberSupplier.Text = .pubLUdtRow.First.Item("OrderNumberSupplier")
+                    intItemID = .pubLUdtRow.First.Item("ItemID")
+                    cboItemType.SelectedValue = .pubLUdtRow.First.Item("ItemTypeID")
+                    txtItemCode.Text = .pubLUdtRow.First.Item("ItemCode")
+                    txtItemName.Text = .pubLUdtRow.First.Item("ItemName")
+                    cboItemSpecification.SelectedValue = .pubLUdtRow.First.Item("ItemSpecificationID")
+                    txtThick.Value = .pubLUdtRow.First.Item("Thick")
+                    txtWidth.Value = .pubLUdtRow.First.Item("Width")
+                    txtLength.Value = .pubLUdtRow.First.Item("Length")
+                    txtWeight.Value = .pubLUdtRow.First.Item("Weight")
+                    txtMaxTotalWeight.Value = .pubLUdtRow.First.Item("TotalWeight")
+                    txtUnitPrice.Value = .pubLUdtRow.First.Item("UnitPrice")
+                    txtQuantity.Value = .pubLUdtRow.First.Item("Quantity")
+                    intLevelItem = .pubLUdtRow.First.Item("LevelItem")
+                    strPCDetailID = .pubLUdtRow.First.Item("PCDetailID")
+                    txtWeight.Focus()
+                    txtRemarks.Text = ""
+                    bolIsAutoSearch = False
+                End If
             Else
                 If bolIsAutoSearch Then Me.Close()
             End If

@@ -71,9 +71,8 @@ Partial Public Class rptLabaRugiVer00
         '
         'XrTable3
         '
-        Me.XrTable3.Dpi = 100.0!
-        Me.XrTable3.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.XrTable3.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 10.0!)
+        Me.XrTable3.Font = New DevExpress.Drawing.DXFont("Tahoma", 9.75!, DevExpress.Drawing.DXFontStyle.Bold)
+        Me.XrTable3.LocationFloat = New DevExpress.Utils.PointFloat(0!, 10.0!)
         Me.XrTable3.Name = "XrTable3"
         Me.XrTable3.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow3})
         Me.XrTable3.SizeF = New System.Drawing.SizeF(787.0!, 25.0!)
@@ -84,13 +83,11 @@ Partial Public Class rptLabaRugiVer00
         'XrTableRow3
         '
         Me.XrTableRow3.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.xrTotalLabaRugiBersih, Me.XrTableCell2})
-        Me.XrTableRow3.Dpi = 100.0!
         Me.XrTableRow3.Name = "XrTableRow3"
         Me.XrTableRow3.Weight = 1.0R
         '
         'xrTotalLabaRugiBersih
         '
-        Me.xrTotalLabaRugiBersih.Dpi = 100.0!
         Me.xrTotalLabaRugiBersih.Name = "xrTotalLabaRugiBersih"
         Me.xrTotalLabaRugiBersih.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 100.0!)
         Me.xrTotalLabaRugiBersih.StylePriority.UsePadding = False
@@ -102,12 +99,12 @@ Partial Public Class rptLabaRugiVer00
         'XrTableCell2
         '
         Me.XrTableCell2.Borders = DevExpress.XtraPrinting.BorderSide.Top
-        Me.XrTableCell2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramTotalLabaRugiBersih, "Text", "{0:n2}")})
-        Me.XrTableCell2.Dpi = 100.0!
+        Me.XrTableCell2.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "?paramTotalLabaRugiBersih")})
         Me.XrTableCell2.Name = "XrTableCell2"
         Me.XrTableCell2.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
         Me.XrTableCell2.StylePriority.UseBorders = False
         Me.XrTableCell2.StylePriority.UsePadding = False
+        Me.XrTableCell2.TextFormatString = "{0:n2}"
         Me.XrTableCell2.Weight = 0.88330380586384216R
         '
         'paramTotalLabaRugiBersih
@@ -116,6 +113,7 @@ Partial Public Class rptLabaRugiVer00
         Me.paramTotalLabaRugiBersih.Name = "paramTotalLabaRugiBersih"
         Me.paramTotalLabaRugiBersih.Type = GetType(Decimal)
         Me.paramTotalLabaRugiBersih.ValueInfo = "0"
+        Me.paramTotalLabaRugiBersih.Visible = False
         '
         'paramTotalLabaUsaha
         '
@@ -123,17 +121,16 @@ Partial Public Class rptLabaRugiVer00
         Me.paramTotalLabaUsaha.Name = "paramTotalLabaUsaha"
         Me.paramTotalLabaUsaha.Type = GetType(Decimal)
         Me.paramTotalLabaUsaha.ValueInfo = "0"
+        Me.paramTotalLabaUsaha.Visible = False
         '
         'XrTableRow2
         '
         Me.XrTableRow2.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.xrTotalLabaUsaha, Me.XrTableCell4})
-        Me.XrTableRow2.Dpi = 100.0!
         Me.XrTableRow2.Name = "XrTableRow2"
         Me.XrTableRow2.Weight = 1.0R
         '
         'xrTotalLabaUsaha
         '
-        Me.xrTotalLabaUsaha.Dpi = 100.0!
         Me.xrTotalLabaUsaha.Name = "xrTotalLabaUsaha"
         Me.xrTotalLabaUsaha.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 100.0!)
         Me.xrTotalLabaUsaha.StylePriority.UsePadding = False
@@ -145,38 +142,34 @@ Partial Public Class rptLabaRugiVer00
         'XrTableCell4
         '
         Me.XrTableCell4.Borders = DevExpress.XtraPrinting.BorderSide.Top
-        Me.XrTableCell4.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramTotalLabaUsaha, "Text", "{0:n2}")})
-        Me.XrTableCell4.Dpi = 100.0!
+        Me.XrTableCell4.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "?paramTotalLabaUsaha")})
         Me.XrTableCell4.Name = "XrTableCell4"
         Me.XrTableCell4.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
         Me.XrTableCell4.StylePriority.UseBorders = False
         Me.XrTableCell4.StylePriority.UsePadding = False
+        Me.XrTableCell4.TextFormatString = "{0:n2}"
         Me.XrTableCell4.Weight = 0.88330380586384216R
         '
         'PageFooter
         '
         Me.PageFooter.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrPageInfo1, Me.XrPageInfo2})
-        Me.PageFooter.Dpi = 100.0!
         Me.PageFooter.HeightF = 23.0!
         Me.PageFooter.Name = "PageFooter"
         '
         'XrPageInfo1
         '
-        Me.XrPageInfo1.Dpi = 100.0!
-        Me.XrPageInfo1.Format = "Halaman: {0} dari {1}"
-        Me.XrPageInfo1.LocationFloat = New DevExpress.Utils.PointFloat(381.25!, 0.0!)
+        Me.XrPageInfo1.LocationFloat = New DevExpress.Utils.PointFloat(381.25!, 0!)
         Me.XrPageInfo1.Name = "XrPageInfo1"
         Me.XrPageInfo1.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 5, 0, 0, 100.0!)
         Me.XrPageInfo1.SizeF = New System.Drawing.SizeF(405.75!, 23.0!)
         Me.XrPageInfo1.StylePriority.UsePadding = False
         Me.XrPageInfo1.StylePriority.UseTextAlignment = False
         Me.XrPageInfo1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrPageInfo1.TextFormatString = "Halaman: {0} dari {1}"
         '
         'XrPageInfo2
         '
-        Me.XrPageInfo2.Dpi = 100.0!
-        Me.XrPageInfo2.Format = "Tanggal Cetak: {0:dd MMMM yyyy HH:mm:ss}"
-        Me.XrPageInfo2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.XrPageInfo2.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
         Me.XrPageInfo2.Name = "XrPageInfo2"
         Me.XrPageInfo2.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 2, 0, 0, 100.0!)
         Me.XrPageInfo2.PageInfo = DevExpress.XtraPrinting.PageInfo.DateTime
@@ -184,17 +177,16 @@ Partial Public Class rptLabaRugiVer00
         Me.XrPageInfo2.StylePriority.UsePadding = False
         Me.XrPageInfo2.StylePriority.UseTextAlignment = False
         Me.XrPageInfo2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.XrPageInfo2.TextFormatString = "Tanggal Cetak: {0:dd MMMM yyyy HH:mm:ss}"
         '
         'XrTableRow1
         '
         Me.XrTableRow1.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.xrTotalLabaKotor, Me.XrTableCell3})
-        Me.XrTableRow1.Dpi = 100.0!
         Me.XrTableRow1.Name = "XrTableRow1"
         Me.XrTableRow1.Weight = 1.0R
         '
         'xrTotalLabaKotor
         '
-        Me.xrTotalLabaKotor.Dpi = 100.0!
         Me.xrTotalLabaKotor.Name = "xrTotalLabaKotor"
         Me.xrTotalLabaKotor.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 100.0!)
         Me.xrTotalLabaKotor.StylePriority.UsePadding = False
@@ -206,12 +198,12 @@ Partial Public Class rptLabaRugiVer00
         'XrTableCell3
         '
         Me.XrTableCell3.Borders = DevExpress.XtraPrinting.BorderSide.Top
-        Me.XrTableCell3.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramTotalLabaKotor, "Text", "{0:n2}")})
-        Me.XrTableCell3.Dpi = 100.0!
+        Me.XrTableCell3.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "?paramTotalLabaKotor")})
         Me.XrTableCell3.Name = "XrTableCell3"
         Me.XrTableCell3.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 5, 0, 0, 100.0!)
         Me.XrTableCell3.StylePriority.UseBorders = False
         Me.XrTableCell3.StylePriority.UsePadding = False
+        Me.XrTableCell3.TextFormatString = "{0:n2}"
         Me.XrTableCell3.Weight = 0.88330380586384216R
         '
         'paramTotalLabaKotor
@@ -220,38 +212,38 @@ Partial Public Class rptLabaRugiVer00
         Me.paramTotalLabaKotor.Name = "paramTotalLabaKotor"
         Me.paramTotalLabaKotor.Type = GetType(Decimal)
         Me.paramTotalLabaKotor.ValueInfo = "0"
+        Me.paramTotalLabaKotor.Visible = False
         '
         'ReportHeader
         '
         Me.ReportHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.xrPeriod, Me.xrCompanyName, Me.xrTitle})
-        Me.ReportHeader.Dpi = 100.0!
         Me.ReportHeader.HeightF = 111.625!
         Me.ReportHeader.Name = "ReportHeader"
         '
         'xrPeriod
         '
-        Me.xrPeriod.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.FilterPeriod, "Text", "Tanggal: {0}")})
-        Me.xrPeriod.Dpi = 100.0!
-        Me.xrPeriod.Font = New System.Drawing.Font("Tahoma", 10.0!)
-        Me.xrPeriod.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 70.00002!)
+        Me.xrPeriod.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "?FilterPeriod")})
+        Me.xrPeriod.Font = New DevExpress.Drawing.DXFont("Tahoma", 10.0!)
+        Me.xrPeriod.LocationFloat = New DevExpress.Utils.PointFloat(0!, 70.00002!)
         Me.xrPeriod.Name = "xrPeriod"
         Me.xrPeriod.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.xrPeriod.SizeF = New System.Drawing.SizeF(787.0!, 30.0!)
         Me.xrPeriod.StylePriority.UseFont = False
         Me.xrPeriod.StylePriority.UseTextAlignment = False
         Me.xrPeriod.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.xrPeriod.TextFormatString = "Tanggal: {0}"
         '
         'FilterPeriod
         '
         Me.FilterPeriod.Description = "FilterPeriod"
         Me.FilterPeriod.Name = "FilterPeriod"
+        Me.FilterPeriod.Visible = False
         '
         'xrCompanyName
         '
-        Me.xrCompanyName.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.CompanyName, "Text", "")})
-        Me.xrCompanyName.Dpi = 100.0!
-        Me.xrCompanyName.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.xrCompanyName.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 9.999974!)
+        Me.xrCompanyName.ExpressionBindings.AddRange(New DevExpress.XtraReports.UI.ExpressionBinding() {New DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "?CompanyName")})
+        Me.xrCompanyName.Font = New DevExpress.Drawing.DXFont("Tahoma", 11.25!, DevExpress.Drawing.DXFontStyle.Bold, DevExpress.Drawing.DXGraphicsUnit.Point, New DevExpress.Drawing.DXFontAdditionalProperty() {New DevExpress.Drawing.DXFontAdditionalProperty("GdiCharSet", CType(0, Byte))})
+        Me.xrCompanyName.LocationFloat = New DevExpress.Utils.PointFloat(0!, 9.999974!)
         Me.xrCompanyName.Name = "xrCompanyName"
         Me.xrCompanyName.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.xrCompanyName.SizeF = New System.Drawing.SizeF(787.0!, 30.0!)
@@ -263,12 +255,12 @@ Partial Public Class rptLabaRugiVer00
         '
         Me.CompanyName.Description = "CompanyName"
         Me.CompanyName.Name = "CompanyName"
+        Me.CompanyName.Visible = False
         '
         'xrTitle
         '
-        Me.xrTitle.Dpi = 100.0!
-        Me.xrTitle.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.xrTitle.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 39.99996!)
+        Me.xrTitle.Font = New DevExpress.Drawing.DXFont("Tahoma", 11.25!, DevExpress.Drawing.DXFontStyle.Bold, DevExpress.Drawing.DXGraphicsUnit.Point, New DevExpress.Drawing.DXFontAdditionalProperty() {New DevExpress.Drawing.DXFontAdditionalProperty("GdiCharSet", CType(0, Byte))})
+        Me.xrTitle.LocationFloat = New DevExpress.Utils.PointFloat(0!, 39.99996!)
         Me.xrTitle.Name = "xrTitle"
         Me.xrTitle.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.xrTitle.SizeF = New System.Drawing.SizeF(787.0!, 29.99999!)
@@ -279,24 +271,20 @@ Partial Public Class rptLabaRugiVer00
         '
         'ReportFooter
         '
-        Me.ReportFooter.Dpi = 100.0!
         Me.ReportFooter.Expanded = False
-        Me.ReportFooter.HeightF = 100.0!
         Me.ReportFooter.Name = "ReportFooter"
         '
         'srCOGS
         '
-        Me.srCOGS.Dpi = 100.0!
-        Me.srCOGS.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.srCOGS.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
         Me.srCOGS.Name = "srCOGS"
         Me.srCOGS.ReportSource = New ERPS.rptCOAPerGroupVer00()
         Me.srCOGS.SizeF = New System.Drawing.SizeF(787.0!, 50.0!)
         '
         'XrTable1
         '
-        Me.XrTable1.Dpi = 100.0!
-        Me.XrTable1.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.XrTable1.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 10.0!)
+        Me.XrTable1.Font = New DevExpress.Drawing.DXFont("Tahoma", 9.75!, DevExpress.Drawing.DXFontStyle.Bold)
+        Me.XrTable1.LocationFloat = New DevExpress.Utils.PointFloat(0!, 10.0!)
         Me.XrTable1.Name = "XrTable1"
         Me.XrTable1.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow1})
         Me.XrTable1.SizeF = New System.Drawing.SizeF(787.0!, 25.0!)
@@ -306,8 +294,7 @@ Partial Public Class rptLabaRugiVer00
         '
         'srRevenueAndSales
         '
-        Me.srRevenueAndSales.Dpi = 100.0!
-        Me.srRevenueAndSales.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.srRevenueAndSales.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
         Me.srRevenueAndSales.Name = "srRevenueAndSales"
         Me.srRevenueAndSales.ReportSource = New ERPS.rptCOAPerGroupVer00()
         Me.srRevenueAndSales.SizeF = New System.Drawing.SizeF(787.0!, 50.0!)
@@ -315,74 +302,63 @@ Partial Public Class rptLabaRugiVer00
         'banTotalLabaRugiBersih
         '
         Me.banTotalLabaRugiBersih.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable3})
-        Me.banTotalLabaRugiBersih.Dpi = 100.0!
         Me.banTotalLabaRugiBersih.HeightF = 35.0!
         Me.banTotalLabaRugiBersih.Name = "banTotalLabaRugiBersih"
         '
         'Detail
         '
-        Me.Detail.Dpi = 100.0!
         Me.Detail.Expanded = False
-        Me.Detail.HeightF = 100.0!
         Me.Detail.Name = "Detail"
         Me.Detail.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
         Me.Detail.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
         'srOperationalExpenses
         '
-        Me.srOperationalExpenses.Dpi = 100.0!
-        Me.srOperationalExpenses.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.srOperationalExpenses.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
         Me.srOperationalExpenses.Name = "srOperationalExpenses"
         Me.srOperationalExpenses.ReportSource = New ERPS.rptCOAPerGroupVer00()
         Me.srOperationalExpenses.SizeF = New System.Drawing.SizeF(787.0!, 50.0!)
         '
         'PageHeader
         '
-        Me.PageHeader.Dpi = 100.0!
-        Me.PageHeader.HeightF = 0.0!
+        Me.PageHeader.HeightF = 0!
         Me.PageHeader.Name = "PageHeader"
         Me.PageHeader.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.bandRevenueAndSales, Me.banCOGS, Me.banLabaKotor, Me.banOperationalExpense, Me.banTotalLabaUsaha, Me.banOtherRevenue, Me.banOtherExpenses, Me.banTotalLabaRugiBersih})
         '
         'bandRevenueAndSales
         '
         Me.bandRevenueAndSales.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.srRevenueAndSales})
-        Me.bandRevenueAndSales.Dpi = 100.0!
         Me.bandRevenueAndSales.HeightF = 50.0!
         Me.bandRevenueAndSales.Name = "bandRevenueAndSales"
         '
         'banCOGS
         '
         Me.banCOGS.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.srCOGS})
-        Me.banCOGS.Dpi = 100.0!
         Me.banCOGS.HeightF = 50.0!
         Me.banCOGS.Name = "banCOGS"
         '
         'banLabaKotor
         '
         Me.banLabaKotor.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable1})
-        Me.banLabaKotor.Dpi = 100.0!
         Me.banLabaKotor.HeightF = 35.0!
         Me.banLabaKotor.Name = "banLabaKotor"
         '
         'banOperationalExpense
         '
         Me.banOperationalExpense.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.srOperationalExpenses})
-        Me.banOperationalExpense.Dpi = 100.0!
         Me.banOperationalExpense.HeightF = 50.0!
         Me.banOperationalExpense.Name = "banOperationalExpense"
         '
         'banTotalLabaUsaha
         '
         Me.banTotalLabaUsaha.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable2})
-        Me.banTotalLabaUsaha.Dpi = 100.0!
         Me.banTotalLabaUsaha.HeightF = 35.0!
         Me.banTotalLabaUsaha.Name = "banTotalLabaUsaha"
         '
         'XrTable2
         '
-        Me.XrTable2.Dpi = 100.0!
-        Me.XrTable2.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.XrTable2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 10.0!)
+        Me.XrTable2.Font = New DevExpress.Drawing.DXFont("Tahoma", 9.75!, DevExpress.Drawing.DXFontStyle.Bold)
+        Me.XrTable2.LocationFloat = New DevExpress.Utils.PointFloat(0!, 10.0!)
         Me.XrTable2.Name = "XrTable2"
         Me.XrTable2.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow2})
         Me.XrTable2.SizeF = New System.Drawing.SizeF(787.0!, 25.0!)
@@ -393,14 +369,12 @@ Partial Public Class rptLabaRugiVer00
         'banOtherRevenue
         '
         Me.banOtherRevenue.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.srOthersRevenue})
-        Me.banOtherRevenue.Dpi = 100.0!
         Me.banOtherRevenue.HeightF = 50.0!
         Me.banOtherRevenue.Name = "banOtherRevenue"
         '
         'srOthersRevenue
         '
-        Me.srOthersRevenue.Dpi = 100.0!
-        Me.srOthersRevenue.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.srOthersRevenue.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
         Me.srOthersRevenue.Name = "srOthersRevenue"
         Me.srOthersRevenue.ReportSource = New ERPS.rptCOAPerGroupVer00()
         Me.srOthersRevenue.SizeF = New System.Drawing.SizeF(787.0!, 50.0!)
@@ -408,21 +382,18 @@ Partial Public Class rptLabaRugiVer00
         'banOtherExpenses
         '
         Me.banOtherExpenses.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.srOthersExpenses})
-        Me.banOtherExpenses.Dpi = 100.0!
         Me.banOtherExpenses.HeightF = 50.0!
         Me.banOtherExpenses.Name = "banOtherExpenses"
         '
         'srOthersExpenses
         '
-        Me.srOthersExpenses.Dpi = 100.0!
-        Me.srOthersExpenses.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.srOthersExpenses.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
         Me.srOthersExpenses.Name = "srOthersExpenses"
         Me.srOthersExpenses.ReportSource = New ERPS.rptCOAPerGroupVer00()
         Me.srOthersExpenses.SizeF = New System.Drawing.SizeF(787.0!, 50.0!)
         '
         'BottomMargin
         '
-        Me.BottomMargin.Dpi = 100.0!
         Me.BottomMargin.HeightF = 22.99995!
         Me.BottomMargin.Name = "BottomMargin"
         Me.BottomMargin.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
@@ -430,7 +401,6 @@ Partial Public Class rptLabaRugiVer00
         '
         'TopMargin
         '
-        Me.TopMargin.Dpi = 100.0!
         Me.TopMargin.HeightF = 20.0!
         Me.TopMargin.Name = "TopMargin"
         Me.TopMargin.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
@@ -447,14 +417,15 @@ Partial Public Class rptLabaRugiVer00
         Me.ComponentStorage.AddRange(New System.ComponentModel.IComponent() {Me.ObjectDataSource1})
         Me.DataSource = Me.ObjectDataSource1
         Me.DisplayName = "Laba Rugi"
-        Me.Font = New System.Drawing.Font("Tahoma", 9.75!)
-        Me.Margins = New System.Drawing.Printing.Margins(20, 20, 20, 23)
+        Me.Font = New DevExpress.Drawing.DXFont("Tahoma", 9.75!)
+        Me.Margins = New DevExpress.Drawing.DXMargins(20.0!, 20.0!, 20.0!, 22.99995!)
         Me.PageHeight = 1169
         Me.PageWidth = 827
-        Me.PaperKind = System.Drawing.Printing.PaperKind.A4
+        Me.PaperKind = DevExpress.Drawing.Printing.DXPaperKind.A4
+        Me.ParameterPanelLayoutItems.AddRange(New DevExpress.XtraReports.Parameters.ParameterPanelLayoutItem() {New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.CompanyName, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.FilterPeriod, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.paramTotalLabaKotor, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.paramTotalLabaUsaha, DevExpress.XtraReports.Parameters.Orientation.Horizontal), New DevExpress.XtraReports.Parameters.ParameterLayoutItem(Me.paramTotalLabaRugiBersih, DevExpress.XtraReports.Parameters.Orientation.Horizontal)})
         Me.Parameters.AddRange(New DevExpress.XtraReports.Parameters.Parameter() {Me.CompanyName, Me.FilterPeriod, Me.paramTotalLabaKotor, Me.paramTotalLabaUsaha, Me.paramTotalLabaRugiBersih})
         Me.ScriptLanguage = DevExpress.XtraReports.ScriptLanguage.VisualBasic
-        Me.Version = "16.2"
+        Me.Version = "24.1"
         CType(Me.XrTable3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.XrTable1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.XrTable2, System.ComponentModel.ISupportInitialize).EndInit()

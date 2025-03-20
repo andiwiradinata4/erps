@@ -1163,29 +1163,60 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    If bolNew Then
-                        If clsData.ID.Trim = "" Then clsData.ID = GetNewIDDetailCOSubitem(sqlCon, sqlTrans, clsData.ParentID)
-                    Else
-                        Dim clsSC As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, sqlTrans, strSCID)
-                        If clsSC.StatusID <> VO.Status.Values.Approved Then
-                            Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data belum di approve")
-                        ElseIf clsSC.IsDeleted Then
-                            Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
-                        Else
-                            Dim clsSCCO As VO.SalesContractDetConfirmationOrder = DL.SalesContract.GetDetailCOItem(sqlCon, sqlTrans, clsData.ID)
-                            DL.SalesContract.DeleteDataDetailCOByID(sqlCon, sqlTrans, clsData.ID)
-                            DL.PurchaseContract.CalculateSCTotalUsedSubitem(sqlCon, sqlTrans, clsSCCO.PCDetailID)
-                        End If
-                    End If
-
-                    DL.SalesContract.SaveDataDetailCO(sqlCon, sqlTrans, clsData)
-                    DL.PurchaseContract.CalculateSCTotalUsedSubitem(sqlCon, sqlTrans, clsData.PCDetailID)
+                    bolReturn = SaveDataDetailCOSubitem(sqlCon, sqlTrans, bolNew, strSCID, clsData)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
                     Throw ex
                 End Try
             End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function SaveDataDetailCOSubitemMultiple(ByVal strSCID As String, ByVal clsDataAll As List(Of VO.SalesContractDetConfirmationOrder)) As Boolean
+            Dim bolReturn As Boolean = False
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
+                Try
+                    For Each clsData As VO.SalesContractDetConfirmationOrder In clsDataAll
+                        SaveDataDetailCOSubitem(sqlCon, sqlTrans, True, strSCID, clsData)
+                    Next
+                    sqlTrans.Commit()
+                    bolReturn = True
+                Catch ex As Exception
+                    sqlTrans.Rollback()
+                    Throw ex
+                End Try
+            End Using
+            Return bolReturn
+        End Function
+
+        Public Shared Function SaveDataDetailCOSubitem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                       ByVal bolNew As Boolean, ByVal strSCID As String,
+                                                       ByVal clsData As VO.SalesContractDetConfirmationOrder) As Boolean
+            Dim bolReturn As Boolean = False
+            Try
+                If bolNew Then
+                    If clsData.ID.Trim = "" Then clsData.ID = GetNewIDDetailCOSubitem(sqlCon, sqlTrans, clsData.ParentID)
+                Else
+                    Dim clsSC As VO.SalesContract = DL.SalesContract.GetDetail(sqlCon, sqlTrans, strSCID)
+                    If clsSC.StatusID <> VO.Status.Values.Approved Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data belum di approve")
+                    ElseIf clsSC.IsDeleted Then
+                        Err.Raise(515, "", "Data tidak dapat disimpan. Dikarenakan data sudah pernah dihapus")
+                    Else
+                        Dim clsSCCO As VO.SalesContractDetConfirmationOrder = DL.SalesContract.GetDetailCOItem(sqlCon, sqlTrans, clsData.ID)
+                        DL.SalesContract.DeleteDataDetailCOByID(sqlCon, sqlTrans, clsData.ID)
+                        DL.PurchaseContract.CalculateSCTotalUsedSubitem(sqlCon, sqlTrans, clsSCCO.PCDetailID)
+                    End If
+                End If
+
+                DL.SalesContract.SaveDataDetailCO(sqlCon, sqlTrans, clsData)
+                DL.PurchaseContract.CalculateSCTotalUsedSubitem(sqlCon, sqlTrans, clsData.PCDetailID)
+            Catch ex As Exception
+                Throw ex
+            End Try
             Return bolReturn
         End Function
 

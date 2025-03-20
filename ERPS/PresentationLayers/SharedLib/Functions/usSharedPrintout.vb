@@ -6,6 +6,7 @@
             crReport.CreateDocument(True)
             crReport.ShowPreviewMarginLines = False
             crReport.ShowPrintMarginsWarning = False
+
             Dim decRounding As Decimal = 0
 
             For Each dr As DataRow In dtSource.Rows

@@ -6,7 +6,8 @@ Public Class frmTraSalesContractDetItemCOSubItemVer2
     Private intPos As Integer = 0
     Private frmParent As frmTraSalesContractDetItemCOSubVer2
     Private strParentID As String = ""
-    Public pubLUdtRow As DataRow
+    Private dtData As New DataTable
+    Public pubLUdtRow() As DataRow
     Public pubIsLookUpGet As Boolean = False
 
     Public WriteOnly Property pubParentID As String
@@ -26,6 +27,7 @@ Public Class frmTraSalesContractDetItemCOSubItemVer2
        cGet As Byte = 0, cClose As Byte = 1
 
     Private Sub prvSetGrid()
+        UI.usForm.SetGrid(grdView, "Pick", "Pilih", 300, UI.usDefGrid.gBoolean, True, False)
         UI.usForm.SetGrid(grdView, "PCDetailID", "PCDetailID", 300, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "CODetailID", "CODetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdView, "COID", "COID", 100, UI.usDefGrid.gString, False)
@@ -60,7 +62,8 @@ Public Class frmTraSalesContractDetItemCOSubItemVer2
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         Try
-            grdMain.DataSource = BL.PurchaseContract.ListDataDetailOutstandingSC(strParentID)
+            dtData = BL.PurchaseContract.ListDataDetailOutstandingSC(strParentID)
+            grdMain.DataSource = dtData
             prvSumGrid()
             grdView.BestFitColumns()
         Catch ex As Exception
@@ -86,9 +89,13 @@ Public Class frmTraSalesContractDetItemCOSubItemVer2
     End Sub
 
     Private Sub prvGet()
-        intPos = grdView.FocusedRowHandle
-        If intPos < 0 Then Exit Sub
-        pubLUdtRow = grdView.GetDataRow(intPos)
+        ToolBar.Focus()
+        Dim drPick() As DataRow = dtData.Select("Pick=True")
+        If drPick.Length = 0 Then
+            UI.usForm.frmMessageBox("Pilih item terlebih dahulu")
+            Exit Sub
+        End If
+        pubLUdtRow = drPick
         pubIsLookUpGet = True
         Me.Close()
     End Sub
