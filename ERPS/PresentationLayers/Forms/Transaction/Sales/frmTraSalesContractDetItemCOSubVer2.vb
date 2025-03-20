@@ -175,26 +175,10 @@
                             UI.usForm.frmMessageBox("Berat harus lebih besar dari 0")
                             Exit Sub
                         End If
-                        strCODetailID = .pubLUdtRow.First.Item("CODetailID")
-                        txtOrderNumberSupplier.Text = .pubLUdtRow.First.Item("OrderNumberSupplier")
-                        intItemID = .pubLUdtRow.First.Item("ItemID")
-                        cboItemType.SelectedValue = .pubLUdtRow.First.Item("ItemTypeID")
-                        txtItemCode.Text = .pubLUdtRow.First.Item("ItemCode")
-                        txtItemName.Text = .pubLUdtRow.First.Item("ItemName")
-                        cboItemSpecification.SelectedValue = .pubLUdtRow.First.Item("ItemSpecificationID")
-                        txtThick.Value = .pubLUdtRow.First.Item("Thick")
-                        txtWidth.Value = .pubLUdtRow.First.Item("Width")
-                        txtLength.Value = .pubLUdtRow.First.Item("Length")
-                        txtWeight.Value = .pubLUdtRow.First.Item("Weight")
-                        txtMaxTotalWeight.Value = .pubLUdtRow.First.Item("TotalWeight")
-                        txtUnitPrice.Value = .pubLUdtRow.First.Item("UnitPrice")
-                        txtQuantity.Value = .pubLUdtRow.First.Item("Quantity")
-                        intLevelItem = .pubLUdtRow.First.Item("LevelItem")
-                        strPCDetailID = .pubLUdtRow.First.Item("PCDetailID")
-
+                      
                         listSCCO.Add(New VO.SalesContractDetConfirmationOrder With
                                         {
-                                            .ID = strID,
+                                            .ID = "",
                                             .SCID = drSelectedCO.Item("SCID"),
                                             .CODetailID = dr.Item("CODetailID"),
                                             .GroupID = drSelectedCO.Item("GroupID"),
@@ -210,14 +194,14 @@
                                             .LocationID = drSelectedCO.Item("LocationID"),
                                             .PCDetailID = dr.Item("PCDetailID")
                                         })
-
-                        Try
-                            BL.SalesContract.SaveDataDetailCOSubitemMultiple(drSelectedCO.Item("SCID"), listSCCO)
-                            Me.Close()
-                        Catch ex As Exception
-                            UI.usForm.frmMessageBox(ex.Message)
-                        End Try
                     Next
+
+                    Try
+                        BL.SalesContract.SaveDataDetailCOSubitemMultiple(drSelectedCO.Item("SCID"), listSCCO)
+                        Me.Close()
+                    Catch ex As Exception
+                        UI.usForm.frmMessageBox(ex.Message)
+                    End Try
                 Else
                     strCODetailID = .pubLUdtRow.First.Item("CODetailID")
                     txtOrderNumberSupplier.Text = .pubLUdtRow.First.Item("OrderNumberSupplier")
