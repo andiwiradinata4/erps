@@ -2322,6 +2322,9 @@
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesReturnDetItem.resx">
       <DependentUpon>frmTraSalesReturnDetItem.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesServiceDet.resx">
+      <DependentUpon>frmTraSalesServiceDet.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Sales\frmTraSalesServiceDetItem.resx">
       <DependentUpon>frmTraSalesServiceDetItem.vb</DependentUpon>
     </EmbeddedResource>

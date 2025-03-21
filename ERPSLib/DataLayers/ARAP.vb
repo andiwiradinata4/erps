@@ -603,7 +603,7 @@
 "	MC.Name AS CompanyName, 'VOUCHER BANK IN' AS HeaderName, ARI.VoucherNumber, ARI.VoucherDate,  " & vbNewLine &
 "	ARH.BPID, BP.Code AS BPCode, BP.Name AS BPName, ARI.TotalAmount, ARH.ARNumber + ' ' + ARH.ReferencesNote AS PaymentDescription,  " & vbNewLine &
 "	ARIT.OrderNumberSupplier, MIT.Description AS ItemTypeName, MI.ItemName, MI.Thick, SUM(ART.TotalWeight) AS TotalWeight, CAST('' AS VARCHAR(1000)) AS ItemDescriptions,  " & vbNewLine &
-"	MCR.Name AS CreatedBy, MCV.Name AS CheckedBy, MCA.Name AS AcknowledgedBy, MC.City, CAST('' AS VARCHAR(250)) AS LocationAndDate " & vbNewLine &
+"	MCR.Name AS CreatedBy, NULL AS CheckedBy, NULL AS AcknowledgedBy, MC.City, CAST('' AS VARCHAR(250)) AS LocationAndDate " & vbNewLine &
 "FROM traAccountReceivable ARH  " & vbNewLine &
 "INNER JOIN traARAPInvoice ARI ON  " & vbNewLine &
 "	ARH.ID=ARI.ParentID  " & vbNewLine &
@@ -622,14 +622,10 @@
 "	MI.ItemTypeID=MIT.ID  " & vbNewLine &
 "LEFT JOIN mstUser MCR ON  " & vbNewLine &
 "	ARI.CreatedBy=MCR.ID  " & vbNewLine &
-"LEFT JOIN mstUser MCV ON  " & vbNewLine &
-"	ARI.SubmitBy=MCV.ID  " & vbNewLine &
-"LEFT JOIN mstUser MCA ON  " & vbNewLine &
-"	ARI.ApprovedBy=MCA.ID  " & vbNewLine &
 "WHERE ARI.ID=@ID " & vbNewLine &
 "GROUP BY " & vbNewLine &
 "	MC.Name, ARI.VoucherNumber, ARI.VoucherDate, ARH.BPID, BP.Code, BP.Name, ARI.TotalAmount, ARH.ARNumber, ARH.ReferencesNote,  " & vbNewLine &
-"	ARIT.OrderNumberSupplier, MIT.Description, MI.ItemName, MI.Thick, MCR.Name, MCV.Name, MCA.Name, MC.City " & vbNewLine
+"	ARIT.OrderNumberSupplier, MIT.Description, MI.ItemName, MI.Thick, MCR.Name, MC.City " & vbNewLine
 
                 .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
             End With

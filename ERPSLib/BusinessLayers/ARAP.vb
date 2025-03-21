@@ -1186,6 +1186,9 @@
                 Next
                 If dtData.Rows.Count <= 2 And dtData.Rows.Count > 0 Then
                     Dim dr As DataRow = dtData.NewRow
+                    dr.BeginEdit()
+                    dr.Item("CreatedBy") = dtData.Rows(0).Item("CreatedBy")
+                    dr.EndEdit()
                     dtData.Rows.Add(dr)
                 End If
                 dtData.AcceptChanges()

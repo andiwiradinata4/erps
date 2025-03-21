@@ -35,16 +35,16 @@ Partial Class frmTraSalesServiceDetItem
         Me.txtDeliveryNumber = New ERPS.usTextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
-        Me.txtUnitPrice = New ERPS.usNumeric()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.UsNumeric1 = New ERPS.usNumeric()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.UsNumeric2 = New ERPS.usNumeric()
+        Me.txtQuantity = New ERPS.usNumericDevExpress()
+        Me.txtUnitPrice = New ERPS.usNumericDevExpress()
+        Me.txtTotalPrice = New ERPS.usNumericDevExpress()
         CType(Me.cboSource.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboDestination.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtUnitPrice, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.UsNumeric1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.UsNumeric2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtQuantity.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtUnitPrice.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtTotalPrice.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -178,19 +178,6 @@ Partial Class frmTraSalesServiceDetItem
         Me.Label14.TabIndex = 176
         Me.Label14.Text = "Jumlah"
         '
-        'txtUnitPrice
-        '
-        Me.txtUnitPrice.BackColor = System.Drawing.Color.White
-        Me.txtUnitPrice.DecimalPlaces = 2
-        Me.txtUnitPrice.Location = New System.Drawing.Point(126, 172)
-        Me.txtUnitPrice.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtUnitPrice.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.txtUnitPrice.Name = "txtUnitPrice"
-        Me.txtUnitPrice.Size = New System.Drawing.Size(160, 21)
-        Me.txtUnitPrice.TabIndex = 6
-        Me.txtUnitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtUnitPrice.ThousandsSeparator = True
-        '
         'Label6
         '
         Me.Label6.AutoSize = True
@@ -201,19 +188,6 @@ Partial Class frmTraSalesServiceDetItem
         Me.Label6.Size = New System.Drawing.Size(36, 13)
         Me.Label6.TabIndex = 179
         Me.Label6.Text = "Harga"
-        '
-        'UsNumeric1
-        '
-        Me.UsNumeric1.BackColor = System.Drawing.Color.White
-        Me.UsNumeric1.DecimalPlaces = 2
-        Me.UsNumeric1.Location = New System.Drawing.Point(126, 199)
-        Me.UsNumeric1.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.UsNumeric1.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.UsNumeric1.Name = "UsNumeric1"
-        Me.UsNumeric1.Size = New System.Drawing.Size(160, 21)
-        Me.UsNumeric1.TabIndex = 7
-        Me.UsNumeric1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.UsNumeric1.ThousandsSeparator = True
         '
         'Label8
         '
@@ -226,31 +200,59 @@ Partial Class frmTraSalesServiceDetItem
         Me.Label8.TabIndex = 182
         Me.Label8.Text = "Total Harga"
         '
-        'UsNumeric2
+        'txtQuantity
         '
-        Me.UsNumeric2.BackColor = System.Drawing.Color.Azure
-        Me.UsNumeric2.DecimalPlaces = 2
-        Me.UsNumeric2.Enabled = False
-        Me.UsNumeric2.Location = New System.Drawing.Point(126, 226)
-        Me.UsNumeric2.Maximum = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.UsNumeric2.Minimum = New Decimal(New Integer() {-1, -1, -1, -2147483648})
-        Me.UsNumeric2.Name = "UsNumeric2"
-        Me.UsNumeric2.Size = New System.Drawing.Size(160, 21)
-        Me.UsNumeric2.TabIndex = 8
-        Me.UsNumeric2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.UsNumeric2.ThousandsSeparator = True
+        Me.txtQuantity.Location = New System.Drawing.Point(126, 173)
+        Me.txtQuantity.Name = "txtQuantity"
+        Me.txtQuantity.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtQuantity.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
+        Me.txtQuantity.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtQuantity.Properties.Mask.UseMaskAsDisplayFormat = True
+        Me.txtQuantity.Properties.MaskSettings.Set("MaskManagerType", GetType(DevExpress.Data.Mask.NumericMaskManager))
+        Me.txtQuantity.Properties.MaskSettings.Set("mask", "n2")
+        Me.txtQuantity.Size = New System.Drawing.Size(160, 20)
+        Me.txtQuantity.TabIndex = 183
+        '
+        'txtUnitPrice
+        '
+        Me.txtUnitPrice.Location = New System.Drawing.Point(126, 200)
+        Me.txtUnitPrice.Name = "txtUnitPrice"
+        Me.txtUnitPrice.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtUnitPrice.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
+        Me.txtUnitPrice.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtUnitPrice.Properties.Mask.UseMaskAsDisplayFormat = True
+        Me.txtUnitPrice.Properties.MaskSettings.Set("MaskManagerType", GetType(DevExpress.Data.Mask.NumericMaskManager))
+        Me.txtUnitPrice.Properties.MaskSettings.Set("mask", "n2")
+        Me.txtUnitPrice.Size = New System.Drawing.Size(160, 20)
+        Me.txtUnitPrice.TabIndex = 184
+        '
+        'txtTotalPrice
+        '
+        Me.txtTotalPrice.Location = New System.Drawing.Point(126, 226)
+        Me.txtTotalPrice.Name = "txtTotalPrice"
+        Me.txtTotalPrice.Properties.Appearance.BackColor = System.Drawing.Color.Azure
+        Me.txtTotalPrice.Properties.Appearance.Options.UseBackColor = True
+        Me.txtTotalPrice.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtTotalPrice.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
+        Me.txtTotalPrice.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtTotalPrice.Properties.Mask.UseMaskAsDisplayFormat = True
+        Me.txtTotalPrice.Properties.MaskSettings.Set("MaskManagerType", GetType(DevExpress.Data.Mask.NumericMaskManager))
+        Me.txtTotalPrice.Properties.MaskSettings.Set("mask", "n2")
+        Me.txtTotalPrice.Properties.ReadOnly = True
+        Me.txtTotalPrice.Size = New System.Drawing.Size(160, 20)
+        Me.txtTotalPrice.TabIndex = 185
         '
         'frmTraSalesServiceDetItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(464, 276)
-        Me.Controls.Add(Me.Label8)
-        Me.Controls.Add(Me.UsNumeric2)
-        Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.UsNumeric1)
-        Me.Controls.Add(Me.Label14)
+        Me.Controls.Add(Me.txtTotalPrice)
         Me.Controls.Add(Me.txtUnitPrice)
+        Me.Controls.Add(Me.txtQuantity)
+        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.txtDeliveryNumber)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.txtPlatNumber)
@@ -269,9 +271,9 @@ Partial Class frmTraSalesServiceDetItem
         Me.Text = "Informasi Pengiriman"
         CType(Me.cboSource.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboDestination.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtUnitPrice, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.UsNumeric1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.UsNumeric2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtQuantity.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtUnitPrice.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtTotalPrice.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -289,9 +291,9 @@ Partial Class frmTraSalesServiceDetItem
     Friend WithEvents txtDeliveryNumber As ERPS.usTextBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label14 As System.Windows.Forms.Label
-    Friend WithEvents txtUnitPrice As ERPS.usNumeric
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents UsNumeric1 As ERPS.usNumeric
     Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents UsNumeric2 As ERPS.usNumeric
+    Friend WithEvents txtQuantity As usNumericDevExpress
+    Friend WithEvents txtUnitPrice As usNumericDevExpress
+    Friend WithEvents txtTotalPrice As usNumericDevExpress
 End Class
