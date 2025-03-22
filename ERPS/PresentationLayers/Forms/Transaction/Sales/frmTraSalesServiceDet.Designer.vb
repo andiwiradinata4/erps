@@ -141,7 +141,7 @@ Partial Class frmTraSalesServiceDet
         Me.pgMain.Location = New System.Drawing.Point(0, 638)
         Me.pgMain.Name = "pgMain"
         Me.pgMain.Size = New System.Drawing.Size(914, 23)
-        Me.pgMain.TabIndex = 0
+        Me.pgMain.TabIndex = 6
         '
         'StatusStrip
         '
@@ -245,7 +245,7 @@ Partial Class frmTraSalesServiceDet
         '
         Me.txtBPCode.BackColor = System.Drawing.Color.Azure
         Me.txtBPCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtBPCode.Location = New System.Drawing.Point(159, 49)
+        Me.txtBPCode.Location = New System.Drawing.Point(109, 49)
         Me.txtBPCode.MaxLength = 250
         Me.txtBPCode.Name = "txtBPCode"
         Me.txtBPCode.ReadOnly = True
@@ -256,7 +256,7 @@ Partial Class frmTraSalesServiceDet
         '
         Me.txtBPName.BackColor = System.Drawing.Color.Azure
         Me.txtBPName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtBPName.Location = New System.Drawing.Point(241, 49)
+        Me.txtBPName.Location = New System.Drawing.Point(191, 49)
         Me.txtBPName.MaxLength = 250
         Me.txtBPName.Name = "txtBPName"
         Me.txtBPName.ReadOnly = True
@@ -267,7 +267,7 @@ Partial Class frmTraSalesServiceDet
         '
         Me.txtTransNumber.BackColor = System.Drawing.Color.White
         Me.txtTransNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtTransNumber.Location = New System.Drawing.Point(159, 22)
+        Me.txtTransNumber.Location = New System.Drawing.Point(109, 22)
         Me.txtTransNumber.MaxLength = 250
         Me.txtTransNumber.Name = "txtTransNumber"
         Me.txtTransNumber.Size = New System.Drawing.Size(249, 21)
@@ -289,7 +289,7 @@ Partial Class frmTraSalesServiceDet
         Me.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatus.Enabled = False
         Me.cboStatus.FormattingEnabled = True
-        Me.cboStatus.Location = New System.Drawing.Point(159, 103)
+        Me.cboStatus.Location = New System.Drawing.Point(109, 103)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(105, 21)
         Me.cboStatus.TabIndex = 5
@@ -310,7 +310,7 @@ Partial Class frmTraSalesServiceDet
         Me.dtpTransDate.CustomFormat = "dd/MM/yyyy"
         Me.dtpTransDate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpTransDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpTransDate.Location = New System.Drawing.Point(159, 76)
+        Me.dtpTransDate.Location = New System.Drawing.Point(109, 76)
         Me.dtpTransDate.Name = "dtpTransDate"
         Me.dtpTransDate.Size = New System.Drawing.Size(105, 21)
         Me.dtpTransDate.TabIndex = 4
@@ -330,7 +330,7 @@ Partial Class frmTraSalesServiceDet
         'btnBP
         '
         Me.btnBP.ImageOptions.Image = CType(resources.GetObject("btnBP.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnBP.Location = New System.Drawing.Point(414, 48)
+        Me.btnBP.Location = New System.Drawing.Point(364, 48)
         Me.btnBP.Name = "btnBP"
         Me.btnBP.Size = New System.Drawing.Size(23, 23)
         Me.btnBP.TabIndex = 3
@@ -566,7 +566,7 @@ Partial Class frmTraSalesServiceDet
         Me.tpHistory.Location = New System.Drawing.Point(4, 25)
         Me.tpHistory.Name = "tpHistory"
         Me.tpHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpHistory.Size = New System.Drawing.Size(906, 195)
+        Me.tpHistory.Size = New System.Drawing.Size(906, 168)
         Me.tpHistory.TabIndex = 1
         Me.tpHistory.Text = "History - F3"
         Me.tpHistory.UseVisualStyleBackColor = True
@@ -591,7 +591,7 @@ Partial Class frmTraSalesServiceDet
         Me.grdStatus.Location = New System.Drawing.Point(3, 3)
         Me.grdStatus.MainView = Me.grdStatusView
         Me.grdStatus.Name = "grdStatus"
-        Me.grdStatus.Size = New System.Drawing.Size(896, 185)
+        Me.grdStatus.Size = New System.Drawing.Size(896, 158)
         Me.grdStatus.TabIndex = 13
         Me.grdStatus.UseEmbeddedNavigator = True
         Me.grdStatus.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdStatusView})
