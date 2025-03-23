@@ -65,7 +65,7 @@
                 txtPlatNumber.Text = drSelectedItem.Item("PlatNumber")
                 txtDeliveryNumber.Text = drSelectedItem.Item("DeliveryNumber")
                 txtQuantity.EditValue = drSelectedItem.Item("Quantity")
-                txtUnitPrice.EditValue = drSelectedItem.Item("UnitPrice")
+                txtUnitPrice.EditValue = drSelectedItem.Item("Price")
                 txtTotalPrice.EditValue = txtQuantity.EditValue * txtUnitPrice.EditValue
             End If
         Catch ex As Exception
@@ -105,8 +105,10 @@
                 .Item("SourceName") = cboSource.Text.Trim
                 .Item("DestinationID") = cboDestination.EditValue
                 .Item("DestinationName") = cboDestination.Text.Trim
+                .Item("PlatNumber") = txtPlatNumber.Text.Trim
+                .Item("DeliveryNumber") = txtDeliveryNumber.Text.Trim
                 .Item("Quantity") = txtQuantity.EditValue
-                .Item("UnitPrice") = txtUnitPrice.EditValue
+                .Item("Price") = txtUnitPrice.EditValue
                 .Item("TotalPrice") = txtTotalPrice.EditValue
                 .EndEdit()
             End With
@@ -120,8 +122,10 @@
                         .Item("SourceName") = cboSource.Text.Trim
                         .Item("DestinationID") = cboDestination.EditValue
                         .Item("DestinationName") = cboDestination.Text.Trim
+                        .Item("PlatNumber") = txtPlatNumber.Text.Trim
+                        .Item("DeliveryNumber") = txtDeliveryNumber.Text.Trim
                         .Item("Quantity") = txtQuantity.EditValue
-                        .Item("UnitPrice") = txtUnitPrice.EditValue
+                        .Item("Price") = txtUnitPrice.EditValue
                         .Item("TotalPrice") = txtTotalPrice.EditValue
                         .EndEdit()
                     End If
@@ -137,8 +141,10 @@
     Private Sub prvClear()
         strID = ""
         cboSource.Focus()
-        cboSource.Text = ""
-        cboDestination.Text = ""
+        cboSource.EditValue = 0
+        cboDestination.EditValue = 0
+        txtPlatNumber.Text = ""
+        txtDeliveryNumber.Text = ""
         txtQuantity.EditValue = 0
         txtUnitPrice.EditValue = 0
         txtTotalPrice.EditValue = 0

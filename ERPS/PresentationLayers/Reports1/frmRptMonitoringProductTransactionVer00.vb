@@ -96,7 +96,9 @@ Public Class frmRptMonitoringProductTransactionVer00
         UI.usForm.SetGrid(grdSCARView, "SCDetailID", "SCDetailID", 100, UI.usDefGrid.gString, False)
         UI.usForm.SetGrid(grdSCARView, "ARNumber", "Nomor Pelunasan", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdSCARView, "ARDate", "Tanggal Pelunasan", 100, UI.usDefGrid.gSmallDate)
+        UI.usForm.SetGrid(grdSCARView, "ItemCodeExternal", "Kode Barang", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdSCARView, "TotalWeight", "Total Berat", 100, UI.usDefGrid.gReal2Num)
+        grdSCARView.Columns("ARNumber").GroupIndex = 0
     End Sub
 
     Private Sub prvSetProgressBar(ByVal intMax As Integer)
@@ -307,6 +309,13 @@ Public Class frmRptMonitoringProductTransactionVer00
         If grdReceiveView.Columns("ClaimQuantity").SummaryText.Trim = "" Then grdReceiveView.Columns("ClaimQuantity").Summary.Add(SumClaimQuantitySub)
         If grdReceiveView.Columns("ClaimWeight").SummaryText.Trim = "" Then grdReceiveView.Columns("ClaimWeight").Summary.Add(SumClaimTotalWeightSub)
 
+        '# SC AR
+        Dim SumARWeight As New GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", "Total Berat [Pelunasan]: {0:#,##0.00}")
+        Dim sumGroupARWeight As New GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalWeight", grdSCARView.Columns("TotalWeight"), "Total Berat [Pelunasan]: {0:#,##0.00}")
+        If grdSCARView.Columns("TotalWeight").SummaryText.Trim = "" Then
+            grdSCARView.Columns("TotalWeight").Summary.Add(SumARWeight)
+            If grdSCARView.GroupCount > 0 Then grdSCARView.GroupSummary.Add(sumGroupARWeight)
+        End If
     End Sub
 
 #Region "Form Handle"

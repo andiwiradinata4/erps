@@ -40,6 +40,10 @@
     'Dim frmMainTraOrderRequestStock As frmTraOrderRequest
     Dim frmMainTraDeliveryStock As frmTraDelivery
 
+    '# Sales Service
+    Dim frmMainTraSalesServiceTransport As frmTraSalesService
+
+
     '## Purchase
     Dim frmMainTraPurchaseOrder As frmTraPurchaseOrder
     Dim frmMainTraConfirmationOrder As frmTraConfirmationOrder
@@ -196,6 +200,7 @@
         Me.Cursor = Cursors.Default
         pgMain.Visible = False
         mnuTransaksiPenjualanStock.Visible = False
+        mnuTransaksiPenjualanJasa.Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, -1, VO.Access.Values.ViewAccess)
     End Sub
 
 
@@ -492,6 +497,33 @@
             frmMainTraDeliveryStock.MdiParent = Me
             frmMainTraDeliveryStock.pubIsStock = True
             frmMainTraDeliveryStock.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
+    End Sub
+
+#End Region
+
+#Region "Sales Service"
+
+    Private Sub mnuTransaksiPenjualanJasaPengiriman_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanJasaPengiriman.Click
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraSalesService"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraSalesServiceTransport) Then
+            If Not frmMainTraSalesServiceTransport.IsDisposed Then
+                frmMainTraSalesServiceTransport.WindowState = FormWindowState.Normal
+                frmMainTraSalesServiceTransport.BringToFront()
+                frmMainTraSalesServiceTransport.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraSalesServiceTransport = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraSalesServiceTransport.MdiParent = Me
+                frmMainTraSalesServiceTransport.pubServiceType = VO.ServiceType.Value.Transport
+                frmMainTraSalesServiceTransport.Show()
+            End If
+        Else
+            frmMainTraSalesServiceTransport = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraSalesServiceTransport.MdiParent = Me
+            frmMainTraSalesServiceTransport.pubServiceType = VO.ServiceType.Value.Transport
+            frmMainTraSalesServiceTransport.Show()
         End If
         Me.Cursor = Cursors.Arrow
     End Sub

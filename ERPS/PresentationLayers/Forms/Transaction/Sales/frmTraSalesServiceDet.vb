@@ -70,7 +70,6 @@ Public Class frmTraSalesServiceDet
 
     Private Sub prvFillForm()
         pgMain.Value = 30
-
         Me.Cursor = Cursors.WaitCursor
         prvFillCombo()
         Try
@@ -102,7 +101,6 @@ Public Class frmTraSalesServiceDet
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-
             prvResetProgressBar()
         End Try
     End Sub
@@ -310,18 +308,11 @@ Public Class frmTraSalesServiceDet
             tcHeader.SelectedTab = tpMain
             txtBPCode.Focus()
             Exit Sub
-        ElseIf txtDeliveryNumber.Text.Trim = "" Then
-            UI.usForm.frmMessageBox("Pilih Nomor Pengiriman terlebih dahulu")
-            tcHeader.SelectedTab = tpMain
-            txtDeliveryNumber.Focus()
-            Exit Sub
         End If
         Dim frmDetail As New frmTraSalesServiceDetItem
         With frmDetail
             .pubIsNew = True
-            .pubDeliveryID = strDeliveryID
             .pubTableItem = dtItem
-            .pubIsAutoSearch = True
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
             prvSetButtonItem()
@@ -336,9 +327,7 @@ Public Class frmTraSalesServiceDet
         Dim frmDetail As New frmTraSalesServiceDetItem
         With frmDetail
             .pubIsNew = False
-            .pubDeliveryID = strDeliveryID
             .pubTableItem = dtItem
-            .pubIsAutoSearch = False
             .pubDataRowSelected = grdItemView.GetDataRow(intPos)
             .StartPosition = FormStartPosition.CenterParent
             .pubShowDialog(Me)
@@ -424,8 +413,20 @@ Public Class frmTraSalesServiceDet
         End Select
     End Sub
 
+    Private Sub ToolBarItem_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBarItem.ButtonClick
+        Select Case e.Button.Text.Trim
+            Case "Tambah" : prvAddItem()
+            Case "Edit" : prvEditItem()
+            Case "Hapus" : prvDeleteItem()
+        End Select
+    End Sub
+
     Private Sub btnBP_Click(sender As Object, e As EventArgs) Handles btnBP.Click
         prvChooseBP()
+    End Sub
+
+    Private Sub txtAmount_ValueChanged(sender As Object, e As EventArgs) Handles txtPPN.ValueChanged, txtPPH.ValueChanged
+        prvCalculate()
     End Sub
 
 #End Region

@@ -72,7 +72,6 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.grdSalesContractView.Name = "grdSalesContractView"
         Me.grdSalesContractView.OptionsView.ShowAutoFilterRow = True
         Me.grdSalesContractView.OptionsView.ShowFooter = True
-        Me.grdSalesContractView.OptionsView.ShowGroupPanel = False
         '
         'grdMain
         '
@@ -116,7 +115,6 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.grdPurchaseContractView.Name = "grdPurchaseContractView"
         Me.grdPurchaseContractView.OptionsView.ShowAutoFilterRow = True
         Me.grdPurchaseContractView.OptionsView.ShowFooter = True
-        Me.grdPurchaseContractView.OptionsView.ShowGroupPanel = False
         '
         'grdReceiveView
         '
@@ -124,12 +122,12 @@ Partial Class frmRptMonitoringProductTransactionVer00
         Me.grdReceiveView.Name = "grdReceiveView"
         Me.grdReceiveView.OptionsView.ShowAutoFilterRow = True
         Me.grdReceiveView.OptionsView.ShowFooter = True
-        Me.grdReceiveView.OptionsView.ShowGroupPanel = False
         '
         'grdSCARView
         '
         Me.grdSCARView.GridControl = Me.grdMain
         Me.grdSCARView.Name = "grdSCARView"
+        Me.grdSCARView.OptionsView.ShowFooter = True
         '
         'grdPCAPView
         '

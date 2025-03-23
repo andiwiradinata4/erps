@@ -13,7 +13,9 @@
         intCoAIDofAccountPayableTransport As Integer = 0, intCoAIDofAccountReceivableOutstandingPayment As Integer = 0, intCoAIDofAccountPayableOutstandingPayment As Integer = 0,
         intCoAIDofAccountPayableCuttingOutstandingPayment As Integer = 0, intCoAIDofAccountPayableTransportOutstandingPayment As Integer = 0,
         intCoAIDofCutting As Integer = 0, intCoAIDofTransport As Integer = 0, intCoAIDofCostRawMaterial As Integer = 0, intCoAIDofSalesReturn As Integer = 0,
-        intCoAIDofCompensasionRevenue As Integer = 0, intCoAIDofClaimCost As Integer = 0, intCoAofRounding As Integer = 0
+        intCoAIDofCompensasionRevenue As Integer = 0, intCoAIDofClaimCost As Integer = 0, intCoAofRounding As Integer = 0, intCoAIDofRevenueServiceCutting As Integer = 0,
+        intCoAIDofRevenueServiceTransport As Integer = 0, intCoAIDofAccountReceivableServiceCutting As Integer = 0, intCoAIDofAccountReceivableServiceTransport As Integer = 0,
+        intCoAIDofAccountReceivableOutstandingPaymentServiceCutting As Integer = 0, intCoAIDofAccountReceivableOutstandingPaymentServiceTransport As Integer = 0
 
     Private clsData As New VO.JournalPost
     Private Const _
@@ -786,6 +788,90 @@
                 intCoAofRounding = .pubLUdtRow.Item("ID")
                 txtCoACodeofRounding.Text = .pubLUdtRow.Item("Code")
                 txtCoANameofRounding.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAOfRevenueServiceCutting_Click(sender As Object, e As EventArgs) Handles btnCoAOfRevenueServiceCutting.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofRevenueServiceCutting = .pubLUdtRow.Item("ID")
+                txtCoACodeOfRevenueServiceCutting.Text = .pubLUdtRow.Item("Code")
+                txtCoANameOfRevenueServiceCutting.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAOfRevenueServiceTransport_Click(sender As Object, e As EventArgs) Handles btnCoAOfRevenueServiceTransport.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofRevenueServiceTransport = .pubLUdtRow.Item("ID")
+                txtCoACodeOfRevenueServiceTransport.Text = .pubLUdtRow.Item("Code")
+                txtCoANameOfRevenueServiceTransport.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAOfAccountReceivableOutstandingPaymentServiceCutting_Click(sender As Object, e As EventArgs) Handles btnCoAOfAccountReceivableOutstandingPaymentServiceCutting.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofAccountReceivableOutstandingPaymentServiceCutting = .pubLUdtRow.Item("ID")
+                txtCoACodeOfAccountReceivableOutstandingPaymentServiceCutting.Text = .pubLUdtRow.Item("Code")
+                txtCoANameOfAccountReceivableOutstandingPaymentServiceCutting.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAOfAccountReceivableOutstandingPaymentServiceTransport_Click(sender As Object, e As EventArgs) Handles btnCoAOfAccountReceivableOutstandingPaymentServiceTransport.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofAccountReceivableOutstandingPaymentServiceTransport = .pubLUdtRow.Item("ID")
+                txtCoACodeOfAccountReceivableOutstandingPaymentServiceTransport.Text = .pubLUdtRow.Item("Code")
+                txtCoANameOfAccountReceivableOutstandingPaymentServiceTransport.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAOfAccountReceivableServiceCutting_Click(sender As Object, e As EventArgs) Handles btnCoAOfAccountReceivableServiceCutting.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofAccountReceivableServiceCutting = .pubLUdtRow.Item("ID")
+                txtCoACodeOfAccountReceivableServiceCutting.Text = .pubLUdtRow.Item("Code")
+                txtCoANameOfAccountReceivableServiceCutting.Text = .pubLUdtRow.Item("Name")
+            End If
+        End With
+    End Sub
+
+    Private Sub btnCoAOfAccountReceivableServiceTransport_Click(sender As Object, e As EventArgs) Handles btnCoAOfAccountReceivableServiceTransport.Click
+        Dim frmDetail As New frmMstChartOfAccount
+        With frmDetail
+            .pubIsLookUp = True
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            If .pubIsLookUpGet Then
+                intCoAIDofAccountReceivableServiceTransport = .pubLUdtRow.Item("ID")
+                txtCoACodeOfAccountReceivableServiceTransport.Text = .pubLUdtRow.Item("Code")
+                txtCoANameOfAccountReceivableServiceTransport.Text = .pubLUdtRow.Item("Name")
             End If
         End With
     End Sub

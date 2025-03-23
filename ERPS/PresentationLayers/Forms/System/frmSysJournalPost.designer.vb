@@ -28,6 +28,10 @@ Partial Class frmSysJournalPost
         Me.BarClose = New System.Windows.Forms.ToolBarButton()
         Me.lblInfo = New System.Windows.Forms.Label()
         Me.pnlMain = New System.Windows.Forms.Panel()
+        Me.txtCoACodeofRounding = New ERPS.usTextBox()
+        Me.txtCoANameofRounding = New ERPS.usTextBox()
+        Me.btnCoAofRounding = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label37 = New System.Windows.Forms.Label()
         Me.txtCoACodeofClaimCost = New ERPS.usTextBox()
         Me.txtCoANameofClaimCost = New ERPS.usTextBox()
         Me.btnCoAofClaimCost = New DevExpress.XtraEditors.SimpleButton()
@@ -179,10 +183,30 @@ Partial Class frmSysJournalPost
         Me.ToolStripLogBy = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripLogDate = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.txtCoACodeofRounding = New ERPS.usTextBox()
-        Me.txtCoANameofRounding = New ERPS.usTextBox()
-        Me.btnCoAofRounding = New DevExpress.XtraEditors.SimpleButton()
-        Me.Label37 = New System.Windows.Forms.Label()
+        Me.txtCoACodeOfRevenueServiceCutting = New ERPS.usTextBox()
+        Me.txtCoANameOfRevenueServiceCutting = New ERPS.usTextBox()
+        Me.btnCoAOfRevenueServiceCutting = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label38 = New System.Windows.Forms.Label()
+        Me.txtCoACodeOfRevenueServiceTransport = New ERPS.usTextBox()
+        Me.txtCoANameOfRevenueServiceTransport = New ERPS.usTextBox()
+        Me.btnCoAOfRevenueServiceTransport = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceCutting = New ERPS.usTextBox()
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceCutting = New ERPS.usTextBox()
+        Me.btnCoAOfAccountReceivableOutstandingPaymentServiceCutting = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceTransport = New ERPS.usTextBox()
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceTransport = New ERPS.usTextBox()
+        Me.btnCoAOfAccountReceivableOutstandingPaymentServiceTransport = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label41 = New System.Windows.Forms.Label()
+        Me.txtCoACodeOfAccountReceivableServiceTransport = New ERPS.usTextBox()
+        Me.txtCoANameOfAccountReceivableServiceTransport = New ERPS.usTextBox()
+        Me.btnCoAOfAccountReceivableServiceTransport = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label42 = New System.Windows.Forms.Label()
+        Me.txtCoACodeOfAccountReceivableServiceCutting = New ERPS.usTextBox()
+        Me.txtCoANameOfAccountReceivableServiceCutting = New ERPS.usTextBox()
+        Me.btnCoAOfAccountReceivableServiceCutting = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label43 = New System.Windows.Forms.Label()
         Me.pnlMain.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -195,7 +219,7 @@ Partial Class frmSysJournalPost
         Me.ToolBar.Location = New System.Drawing.Point(0, 0)
         Me.ToolBar.Name = "ToolBar"
         Me.ToolBar.ShowToolTips = True
-        Me.ToolBar.Size = New System.Drawing.Size(1286, 28)
+        Me.ToolBar.Size = New System.Drawing.Size(1391, 28)
         Me.ToolBar.TabIndex = 0
         Me.ToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
@@ -219,7 +243,7 @@ Partial Class frmSysJournalPost
         Me.lblInfo.ForeColor = System.Drawing.Color.White
         Me.lblInfo.Location = New System.Drawing.Point(0, 28)
         Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(1286, 22)
+        Me.lblInfo.Size = New System.Drawing.Size(1391, 22)
         Me.lblInfo.TabIndex = 1
         Me.lblInfo.Text = "« Posting Jurnal Transaksi"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -228,6 +252,30 @@ Partial Class frmSysJournalPost
         '
         Me.pnlMain.AutoScroll = True
         Me.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlMain.Controls.Add(Me.txtCoACodeOfAccountReceivableServiceTransport)
+        Me.pnlMain.Controls.Add(Me.txtCoANameOfAccountReceivableServiceTransport)
+        Me.pnlMain.Controls.Add(Me.btnCoAOfAccountReceivableServiceTransport)
+        Me.pnlMain.Controls.Add(Me.Label42)
+        Me.pnlMain.Controls.Add(Me.txtCoACodeOfAccountReceivableServiceCutting)
+        Me.pnlMain.Controls.Add(Me.txtCoANameOfAccountReceivableServiceCutting)
+        Me.pnlMain.Controls.Add(Me.btnCoAOfAccountReceivableServiceCutting)
+        Me.pnlMain.Controls.Add(Me.Label43)
+        Me.pnlMain.Controls.Add(Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceTransport)
+        Me.pnlMain.Controls.Add(Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceTransport)
+        Me.pnlMain.Controls.Add(Me.btnCoAOfAccountReceivableOutstandingPaymentServiceTransport)
+        Me.pnlMain.Controls.Add(Me.Label41)
+        Me.pnlMain.Controls.Add(Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceCutting)
+        Me.pnlMain.Controls.Add(Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceCutting)
+        Me.pnlMain.Controls.Add(Me.btnCoAOfAccountReceivableOutstandingPaymentServiceCutting)
+        Me.pnlMain.Controls.Add(Me.Label40)
+        Me.pnlMain.Controls.Add(Me.txtCoACodeOfRevenueServiceTransport)
+        Me.pnlMain.Controls.Add(Me.txtCoANameOfRevenueServiceTransport)
+        Me.pnlMain.Controls.Add(Me.btnCoAOfRevenueServiceTransport)
+        Me.pnlMain.Controls.Add(Me.Label39)
+        Me.pnlMain.Controls.Add(Me.txtCoACodeOfRevenueServiceCutting)
+        Me.pnlMain.Controls.Add(Me.txtCoANameOfRevenueServiceCutting)
+        Me.pnlMain.Controls.Add(Me.btnCoAOfRevenueServiceCutting)
+        Me.pnlMain.Controls.Add(Me.Label38)
         Me.pnlMain.Controls.Add(Me.txtCoACodeofRounding)
         Me.pnlMain.Controls.Add(Me.txtCoANameofRounding)
         Me.pnlMain.Controls.Add(Me.btnCoAofRounding)
@@ -379,14 +427,55 @@ Partial Class frmSysJournalPost
         Me.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlMain.Location = New System.Drawing.Point(0, 50)
         Me.pnlMain.Name = "pnlMain"
-        Me.pnlMain.Size = New System.Drawing.Size(1286, 966)
+        Me.pnlMain.Size = New System.Drawing.Size(1391, 966)
         Me.pnlMain.TabIndex = 2
+        '
+        'txtCoACodeofRounding
+        '
+        Me.txtCoACodeofRounding.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeofRounding.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeofRounding.Location = New System.Drawing.Point(914, 67)
+        Me.txtCoACodeofRounding.MaxLength = 250
+        Me.txtCoACodeofRounding.Name = "txtCoACodeofRounding"
+        Me.txtCoACodeofRounding.ReadOnly = True
+        Me.txtCoACodeofRounding.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeofRounding.TabIndex = 108
+        '
+        'txtCoANameofRounding
+        '
+        Me.txtCoANameofRounding.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameofRounding.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameofRounding.Location = New System.Drawing.Point(996, 67)
+        Me.txtCoANameofRounding.MaxLength = 250
+        Me.txtCoANameofRounding.Name = "txtCoANameofRounding"
+        Me.txtCoANameofRounding.ReadOnly = True
+        Me.txtCoANameofRounding.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameofRounding.TabIndex = 109
+        '
+        'btnCoAofRounding
+        '
+        Me.btnCoAofRounding.ImageOptions.Image = CType(resources.GetObject("btnCoAofRounding.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnCoAofRounding.Location = New System.Drawing.Point(1322, 66)
+        Me.btnCoAofRounding.Name = "btnCoAofRounding"
+        Me.btnCoAofRounding.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAofRounding.TabIndex = 110
+        '
+        'Label37
+        '
+        Me.Label37.AutoSize = True
+        Me.Label37.BackColor = System.Drawing.Color.Transparent
+        Me.Label37.ForeColor = System.Drawing.Color.Black
+        Me.Label37.Location = New System.Drawing.Point(694, 71)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(96, 13)
+        Me.Label37.TabIndex = 274
+        Me.Label37.Text = "Beban Pembulatan"
         '
         'txtCoACodeofClaimCost
         '
         Me.txtCoACodeofClaimCost.BackColor = System.Drawing.Color.Azure
         Me.txtCoACodeofClaimCost.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeofClaimCost.Location = New System.Drawing.Point(818, 40)
+        Me.txtCoACodeofClaimCost.Location = New System.Drawing.Point(914, 40)
         Me.txtCoACodeofClaimCost.MaxLength = 250
         Me.txtCoACodeofClaimCost.Name = "txtCoACodeofClaimCost"
         Me.txtCoACodeofClaimCost.ReadOnly = True
@@ -397,7 +486,7 @@ Partial Class frmSysJournalPost
         '
         Me.txtCoANameofClaimCost.BackColor = System.Drawing.Color.Azure
         Me.txtCoANameofClaimCost.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameofClaimCost.Location = New System.Drawing.Point(900, 40)
+        Me.txtCoANameofClaimCost.Location = New System.Drawing.Point(996, 40)
         Me.txtCoANameofClaimCost.MaxLength = 250
         Me.txtCoANameofClaimCost.Name = "txtCoANameofClaimCost"
         Me.txtCoANameofClaimCost.ReadOnly = True
@@ -406,8 +495,8 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofClaimCost
         '
-        Me.btnCoAofClaimCost.Image = CType(resources.GetObject("btnCoAofClaimCost.Image"), System.Drawing.Image)
-        Me.btnCoAofClaimCost.Location = New System.Drawing.Point(1226, 39)
+        Me.btnCoAofClaimCost.ImageOptions.Image = CType(resources.GetObject("btnCoAofClaimCost.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnCoAofClaimCost.Location = New System.Drawing.Point(1322, 39)
         Me.btnCoAofClaimCost.Name = "btnCoAofClaimCost"
         Me.btnCoAofClaimCost.Size = New System.Drawing.Size(23, 23)
         Me.btnCoAofClaimCost.TabIndex = 107
@@ -417,7 +506,7 @@ Partial Class frmSysJournalPost
         Me.Label35.AutoSize = True
         Me.Label35.BackColor = System.Drawing.Color.Transparent
         Me.Label35.ForeColor = System.Drawing.Color.Black
-        Me.Label35.Location = New System.Drawing.Point(686, 44)
+        Me.Label35.Location = New System.Drawing.Point(694, 44)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(60, 13)
         Me.Label35.TabIndex = 270
@@ -427,7 +516,7 @@ Partial Class frmSysJournalPost
         '
         Me.txtCoACodeofCompensasionRevenue.BackColor = System.Drawing.Color.Azure
         Me.txtCoACodeofCompensasionRevenue.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeofCompensasionRevenue.Location = New System.Drawing.Point(818, 13)
+        Me.txtCoACodeofCompensasionRevenue.Location = New System.Drawing.Point(914, 13)
         Me.txtCoACodeofCompensasionRevenue.MaxLength = 250
         Me.txtCoACodeofCompensasionRevenue.Name = "txtCoACodeofCompensasionRevenue"
         Me.txtCoACodeofCompensasionRevenue.ReadOnly = True
@@ -438,7 +527,7 @@ Partial Class frmSysJournalPost
         '
         Me.txtCoANameofCompensasionRevenue.BackColor = System.Drawing.Color.Azure
         Me.txtCoANameofCompensasionRevenue.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameofCompensasionRevenue.Location = New System.Drawing.Point(900, 13)
+        Me.txtCoANameofCompensasionRevenue.Location = New System.Drawing.Point(996, 13)
         Me.txtCoANameofCompensasionRevenue.MaxLength = 250
         Me.txtCoANameofCompensasionRevenue.Name = "txtCoANameofCompensasionRevenue"
         Me.txtCoANameofCompensasionRevenue.ReadOnly = True
@@ -447,8 +536,8 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofCompensasionRevenue
         '
-        Me.btnCoAofCompensasionRevenue.Image = CType(resources.GetObject("btnCoAofCompensasionRevenue.Image"), System.Drawing.Image)
-        Me.btnCoAofCompensasionRevenue.Location = New System.Drawing.Point(1226, 12)
+        Me.btnCoAofCompensasionRevenue.ImageOptions.Image = CType(resources.GetObject("btnCoAofCompensasionRevenue.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnCoAofCompensasionRevenue.Location = New System.Drawing.Point(1322, 12)
         Me.btnCoAofCompensasionRevenue.Name = "btnCoAofCompensasionRevenue"
         Me.btnCoAofCompensasionRevenue.Size = New System.Drawing.Size(23, 23)
         Me.btnCoAofCompensasionRevenue.TabIndex = 104
@@ -458,7 +547,7 @@ Partial Class frmSysJournalPost
         Me.Label36.AutoSize = True
         Me.Label36.BackColor = System.Drawing.Color.Transparent
         Me.Label36.ForeColor = System.Drawing.Color.Black
-        Me.Label36.Location = New System.Drawing.Point(686, 17)
+        Me.Label36.Location = New System.Drawing.Point(694, 17)
         Me.Label36.Name = "Label36"
         Me.Label36.Size = New System.Drawing.Size(124, 13)
         Me.Label36.TabIndex = 269
@@ -488,7 +577,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofSalesReturn
         '
-        Me.btnCoAofSalesReturn.Image = CType(resources.GetObject("btnCoAofSalesReturn.Image"), System.Drawing.Image)
+        Me.btnCoAofSalesReturn.ImageOptions.Image = CType(resources.GetObject("btnCoAofSalesReturn.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofSalesReturn.Location = New System.Drawing.Point(627, 903)
         Me.btnCoAofSalesReturn.Name = "btnCoAofSalesReturn"
         Me.btnCoAofSalesReturn.Size = New System.Drawing.Size(23, 23)
@@ -529,7 +618,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofCostOfRawMaterial
         '
-        Me.btnCoAofCostOfRawMaterial.Image = CType(resources.GetObject("btnCoAofCostOfRawMaterial.Image"), System.Drawing.Image)
+        Me.btnCoAofCostOfRawMaterial.ImageOptions.Image = CType(resources.GetObject("btnCoAofCostOfRawMaterial.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofCostOfRawMaterial.Location = New System.Drawing.Point(627, 876)
         Me.btnCoAofCostOfRawMaterial.Name = "btnCoAofCostOfRawMaterial"
         Me.btnCoAofCostOfRawMaterial.Size = New System.Drawing.Size(23, 23)
@@ -570,7 +659,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofTransport
         '
-        Me.btnCoAofTransport.Image = CType(resources.GetObject("btnCoAofTransport.Image"), System.Drawing.Image)
+        Me.btnCoAofTransport.ImageOptions.Image = CType(resources.GetObject("btnCoAofTransport.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofTransport.Location = New System.Drawing.Point(627, 849)
         Me.btnCoAofTransport.Name = "btnCoAofTransport"
         Me.btnCoAofTransport.Size = New System.Drawing.Size(23, 23)
@@ -611,7 +700,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofCutting
         '
-        Me.btnCoAofCutting.Image = CType(resources.GetObject("btnCoAofCutting.Image"), System.Drawing.Image)
+        Me.btnCoAofCutting.ImageOptions.Image = CType(resources.GetObject("btnCoAofCutting.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofCutting.Location = New System.Drawing.Point(627, 822)
         Me.btnCoAofCutting.Name = "btnCoAofCutting"
         Me.btnCoAofCutting.Size = New System.Drawing.Size(23, 23)
@@ -652,7 +741,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofAccountPayableTransportOutstandingPayment
         '
-        Me.btnCoAofAccountPayableTransportOutstandingPayment.Image = CType(resources.GetObject("btnCoAofAccountPayableTransportOutstandingPayment.Image"), System.Drawing.Image)
+        Me.btnCoAofAccountPayableTransportOutstandingPayment.ImageOptions.Image = CType(resources.GetObject("btnCoAofAccountPayableTransportOutstandingPayment.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofAccountPayableTransportOutstandingPayment.Location = New System.Drawing.Point(627, 795)
         Me.btnCoAofAccountPayableTransportOutstandingPayment.Name = "btnCoAofAccountPayableTransportOutstandingPayment"
         Me.btnCoAofAccountPayableTransportOutstandingPayment.Size = New System.Drawing.Size(23, 23)
@@ -693,7 +782,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofAccountPayableCuttingOutstandingPayment
         '
-        Me.btnCoAofAccountPayableCuttingOutstandingPayment.Image = CType(resources.GetObject("btnCoAofAccountPayableCuttingOutstandingPayment.Image"), System.Drawing.Image)
+        Me.btnCoAofAccountPayableCuttingOutstandingPayment.ImageOptions.Image = CType(resources.GetObject("btnCoAofAccountPayableCuttingOutstandingPayment.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofAccountPayableCuttingOutstandingPayment.Location = New System.Drawing.Point(627, 768)
         Me.btnCoAofAccountPayableCuttingOutstandingPayment.Name = "btnCoAofAccountPayableCuttingOutstandingPayment"
         Me.btnCoAofAccountPayableCuttingOutstandingPayment.Size = New System.Drawing.Size(23, 23)
@@ -734,7 +823,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAOfAccountPayableOutstandingPayment
         '
-        Me.btnCoAOfAccountPayableOutstandingPayment.Image = CType(resources.GetObject("btnCoAOfAccountPayableOutstandingPayment.Image"), System.Drawing.Image)
+        Me.btnCoAOfAccountPayableOutstandingPayment.ImageOptions.Image = CType(resources.GetObject("btnCoAOfAccountPayableOutstandingPayment.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAOfAccountPayableOutstandingPayment.Location = New System.Drawing.Point(627, 741)
         Me.btnCoAOfAccountPayableOutstandingPayment.Name = "btnCoAOfAccountPayableOutstandingPayment"
         Me.btnCoAOfAccountPayableOutstandingPayment.Size = New System.Drawing.Size(23, 23)
@@ -775,7 +864,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAOfAccountReceivableOutstandingPayment
         '
-        Me.btnCoAOfAccountReceivableOutstandingPayment.Image = CType(resources.GetObject("btnCoAOfAccountReceivableOutstandingPayment.Image"), System.Drawing.Image)
+        Me.btnCoAOfAccountReceivableOutstandingPayment.ImageOptions.Image = CType(resources.GetObject("btnCoAOfAccountReceivableOutstandingPayment.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAOfAccountReceivableOutstandingPayment.Location = New System.Drawing.Point(627, 714)
         Me.btnCoAOfAccountReceivableOutstandingPayment.Name = "btnCoAOfAccountReceivableOutstandingPayment"
         Me.btnCoAOfAccountReceivableOutstandingPayment.Size = New System.Drawing.Size(23, 23)
@@ -816,7 +905,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofAccountPayableCutting3
         '
-        Me.btnCoAofAccountPayableCutting3.Image = CType(resources.GetObject("btnCoAofAccountPayableCutting3.Image"), System.Drawing.Image)
+        Me.btnCoAofAccountPayableCutting3.ImageOptions.Image = CType(resources.GetObject("btnCoAofAccountPayableCutting3.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofAccountPayableCutting3.Location = New System.Drawing.Point(627, 660)
         Me.btnCoAofAccountPayableCutting3.Name = "btnCoAofAccountPayableCutting3"
         Me.btnCoAofAccountPayableCutting3.Size = New System.Drawing.Size(23, 23)
@@ -857,7 +946,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofAccountPayableCutting2
         '
-        Me.btnCoAofAccountPayableCutting2.Image = CType(resources.GetObject("btnCoAofAccountPayableCutting2.Image"), System.Drawing.Image)
+        Me.btnCoAofAccountPayableCutting2.ImageOptions.Image = CType(resources.GetObject("btnCoAofAccountPayableCutting2.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofAccountPayableCutting2.Location = New System.Drawing.Point(627, 633)
         Me.btnCoAofAccountPayableCutting2.Name = "btnCoAofAccountPayableCutting2"
         Me.btnCoAofAccountPayableCutting2.Size = New System.Drawing.Size(23, 23)
@@ -898,7 +987,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofStockCutting3
         '
-        Me.btnCoAofStockCutting3.Image = CType(resources.GetObject("btnCoAofStockCutting3.Image"), System.Drawing.Image)
+        Me.btnCoAofStockCutting3.ImageOptions.Image = CType(resources.GetObject("btnCoAofStockCutting3.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofStockCutting3.Location = New System.Drawing.Point(627, 552)
         Me.btnCoAofStockCutting3.Name = "btnCoAofStockCutting3"
         Me.btnCoAofStockCutting3.Size = New System.Drawing.Size(23, 23)
@@ -939,7 +1028,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofStockCutting2
         '
-        Me.btnCoAofStockCutting2.Image = CType(resources.GetObject("btnCoAofStockCutting2.Image"), System.Drawing.Image)
+        Me.btnCoAofStockCutting2.ImageOptions.Image = CType(resources.GetObject("btnCoAofStockCutting2.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofStockCutting2.Location = New System.Drawing.Point(627, 525)
         Me.btnCoAofStockCutting2.Name = "btnCoAofStockCutting2"
         Me.btnCoAofStockCutting2.Size = New System.Drawing.Size(23, 23)
@@ -980,7 +1069,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofAccountPayableTransport
         '
-        Me.btnCoAofAccountPayableTransport.Image = CType(resources.GetObject("btnCoAofAccountPayableTransport.Image"), System.Drawing.Image)
+        Me.btnCoAofAccountPayableTransport.ImageOptions.Image = CType(resources.GetObject("btnCoAofAccountPayableTransport.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofAccountPayableTransport.Location = New System.Drawing.Point(627, 687)
         Me.btnCoAofAccountPayableTransport.Name = "btnCoAofAccountPayableTransport"
         Me.btnCoAofAccountPayableTransport.Size = New System.Drawing.Size(23, 23)
@@ -1021,7 +1110,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofAccountPayableCutting
         '
-        Me.btnCoAofAccountPayableCutting.Image = CType(resources.GetObject("btnCoAofAccountPayableCutting.Image"), System.Drawing.Image)
+        Me.btnCoAofAccountPayableCutting.ImageOptions.Image = CType(resources.GetObject("btnCoAofAccountPayableCutting.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofAccountPayableCutting.Location = New System.Drawing.Point(627, 606)
         Me.btnCoAofAccountPayableCutting.Name = "btnCoAofAccountPayableCutting"
         Me.btnCoAofAccountPayableCutting.Size = New System.Drawing.Size(23, 23)
@@ -1062,7 +1151,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofStockTransport
         '
-        Me.btnCoAofStockTransport.Image = CType(resources.GetObject("btnCoAofStockTransport.Image"), System.Drawing.Image)
+        Me.btnCoAofStockTransport.ImageOptions.Image = CType(resources.GetObject("btnCoAofStockTransport.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofStockTransport.Location = New System.Drawing.Point(627, 579)
         Me.btnCoAofStockTransport.Name = "btnCoAofStockTransport"
         Me.btnCoAofStockTransport.Size = New System.Drawing.Size(23, 23)
@@ -1103,7 +1192,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofStockCutting
         '
-        Me.btnCoAofStockCutting.Image = CType(resources.GetObject("btnCoAofStockCutting.Image"), System.Drawing.Image)
+        Me.btnCoAofStockCutting.ImageOptions.Image = CType(resources.GetObject("btnCoAofStockCutting.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofStockCutting.Location = New System.Drawing.Point(627, 498)
         Me.btnCoAofStockCutting.Name = "btnCoAofStockCutting"
         Me.btnCoAofStockCutting.Size = New System.Drawing.Size(23, 23)
@@ -1144,7 +1233,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofPrepaidIncomeTransport
         '
-        Me.btnCoAofPrepaidIncomeTransport.Image = CType(resources.GetObject("btnCoAofPrepaidIncomeTransport.Image"), System.Drawing.Image)
+        Me.btnCoAofPrepaidIncomeTransport.ImageOptions.Image = CType(resources.GetObject("btnCoAofPrepaidIncomeTransport.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofPrepaidIncomeTransport.Location = New System.Drawing.Point(627, 471)
         Me.btnCoAofPrepaidIncomeTransport.Name = "btnCoAofPrepaidIncomeTransport"
         Me.btnCoAofPrepaidIncomeTransport.Size = New System.Drawing.Size(23, 23)
@@ -1185,7 +1274,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofPrepaidIncomeCutting
         '
-        Me.btnCoAofPrepaidIncomeCutting.Image = CType(resources.GetObject("btnCoAofPrepaidIncomeCutting.Image"), System.Drawing.Image)
+        Me.btnCoAofPrepaidIncomeCutting.ImageOptions.Image = CType(resources.GetObject("btnCoAofPrepaidIncomeCutting.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofPrepaidIncomeCutting.Location = New System.Drawing.Point(627, 444)
         Me.btnCoAofPrepaidIncomeCutting.Name = "btnCoAofPrepaidIncomeCutting"
         Me.btnCoAofPrepaidIncomeCutting.Size = New System.Drawing.Size(23, 23)
@@ -1226,7 +1315,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofPPHPurchase
         '
-        Me.btnCoAofPPHPurchase.Image = CType(resources.GetObject("btnCoAofPPHPurchase.Image"), System.Drawing.Image)
+        Me.btnCoAofPPHPurchase.ImageOptions.Image = CType(resources.GetObject("btnCoAofPPHPurchase.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofPPHPurchase.Location = New System.Drawing.Point(627, 417)
         Me.btnCoAofPPHPurchase.Name = "btnCoAofPPHPurchase"
         Me.btnCoAofPPHPurchase.Size = New System.Drawing.Size(23, 23)
@@ -1267,7 +1356,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofPPHSales
         '
-        Me.btnCoAofPPHSales.Image = CType(resources.GetObject("btnCoAofPPHSales.Image"), System.Drawing.Image)
+        Me.btnCoAofPPHSales.ImageOptions.Image = CType(resources.GetObject("btnCoAofPPHSales.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofPPHSales.Location = New System.Drawing.Point(627, 390)
         Me.btnCoAofPPHSales.Name = "btnCoAofPPHSales"
         Me.btnCoAofPPHSales.Size = New System.Drawing.Size(23, 23)
@@ -1308,7 +1397,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAofVentureCapital
         '
-        Me.btnCoAofVentureCapital.Image = CType(resources.GetObject("btnCoAofVentureCapital.Image"), System.Drawing.Image)
+        Me.btnCoAofVentureCapital.ImageOptions.Image = CType(resources.GetObject("btnCoAofVentureCapital.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAofVentureCapital.Location = New System.Drawing.Point(627, 363)
         Me.btnCoAofVentureCapital.Name = "btnCoAofVentureCapital"
         Me.btnCoAofVentureCapital.Size = New System.Drawing.Size(23, 23)
@@ -1349,7 +1438,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAOfPurchaseTax
         '
-        Me.btnCoAOfPurchaseTax.Image = CType(resources.GetObject("btnCoAOfPurchaseTax.Image"), System.Drawing.Image)
+        Me.btnCoAOfPurchaseTax.ImageOptions.Image = CType(resources.GetObject("btnCoAOfPurchaseTax.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAOfPurchaseTax.Location = New System.Drawing.Point(627, 336)
         Me.btnCoAOfPurchaseTax.Name = "btnCoAOfPurchaseTax"
         Me.btnCoAOfPurchaseTax.Size = New System.Drawing.Size(23, 23)
@@ -1390,7 +1479,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAOfAdvancePayment
         '
-        Me.btnCoAOfAdvancePayment.Image = CType(resources.GetObject("btnCoAOfAdvancePayment.Image"), System.Drawing.Image)
+        Me.btnCoAOfAdvancePayment.ImageOptions.Image = CType(resources.GetObject("btnCoAOfAdvancePayment.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAOfAdvancePayment.Location = New System.Drawing.Point(627, 282)
         Me.btnCoAOfAdvancePayment.Name = "btnCoAOfAdvancePayment"
         Me.btnCoAOfAdvancePayment.Size = New System.Drawing.Size(23, 23)
@@ -1442,7 +1531,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAOfEquipments
         '
-        Me.btnCoAOfEquipments.Image = CType(resources.GetObject("btnCoAOfEquipments.Image"), System.Drawing.Image)
+        Me.btnCoAOfEquipments.ImageOptions.Image = CType(resources.GetObject("btnCoAOfEquipments.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAOfEquipments.Location = New System.Drawing.Point(627, 255)
         Me.btnCoAOfEquipments.Name = "btnCoAOfEquipments"
         Me.btnCoAOfEquipments.Size = New System.Drawing.Size(23, 23)
@@ -1472,7 +1561,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAOfSalesTax
         '
-        Me.btnCoAOfSalesTax.Image = CType(resources.GetObject("btnCoAOfSalesTax.Image"), System.Drawing.Image)
+        Me.btnCoAOfSalesTax.ImageOptions.Image = CType(resources.GetObject("btnCoAOfSalesTax.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAOfSalesTax.Location = New System.Drawing.Point(627, 309)
         Me.btnCoAOfSalesTax.Name = "btnCoAOfSalesTax"
         Me.btnCoAOfSalesTax.Size = New System.Drawing.Size(23, 23)
@@ -1513,7 +1602,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAOfPurchaseDiscount
         '
-        Me.btnCoAOfPurchaseDiscount.Image = CType(resources.GetObject("btnCoAOfPurchaseDiscount.Image"), System.Drawing.Image)
+        Me.btnCoAOfPurchaseDiscount.ImageOptions.Image = CType(resources.GetObject("btnCoAOfPurchaseDiscount.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAOfPurchaseDiscount.Location = New System.Drawing.Point(627, 228)
         Me.btnCoAOfPurchaseDiscount.Name = "btnCoAOfPurchaseDiscount"
         Me.btnCoAOfPurchaseDiscount.Size = New System.Drawing.Size(23, 23)
@@ -1554,7 +1643,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAOfAccountPayable
         '
-        Me.btnCoAOfAccountPayable.Image = CType(resources.GetObject("btnCoAOfAccountPayable.Image"), System.Drawing.Image)
+        Me.btnCoAOfAccountPayable.ImageOptions.Image = CType(resources.GetObject("btnCoAOfAccountPayable.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAOfAccountPayable.Location = New System.Drawing.Point(627, 201)
         Me.btnCoAOfAccountPayable.Name = "btnCoAOfAccountPayable"
         Me.btnCoAOfAccountPayable.Size = New System.Drawing.Size(23, 23)
@@ -1595,7 +1684,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAOfCashOrBank
         '
-        Me.btnCoAOfCashOrBank.Image = CType(resources.GetObject("btnCoAOfCashOrBank.Image"), System.Drawing.Image)
+        Me.btnCoAOfCashOrBank.ImageOptions.Image = CType(resources.GetObject("btnCoAOfCashOrBank.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAOfCashOrBank.Location = New System.Drawing.Point(627, 174)
         Me.btnCoAOfCashOrBank.Name = "btnCoAOfCashOrBank"
         Me.btnCoAOfCashOrBank.Size = New System.Drawing.Size(23, 23)
@@ -1636,7 +1725,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAOfStock
         '
-        Me.btnCoAOfStock.Image = CType(resources.GetObject("btnCoAOfStock.Image"), System.Drawing.Image)
+        Me.btnCoAOfStock.ImageOptions.Image = CType(resources.GetObject("btnCoAOfStock.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAOfStock.Location = New System.Drawing.Point(627, 147)
         Me.btnCoAOfStock.Name = "btnCoAOfStock"
         Me.btnCoAOfStock.Size = New System.Drawing.Size(23, 23)
@@ -1677,7 +1766,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAOfCOGS
         '
-        Me.btnCoAOfCOGS.Image = CType(resources.GetObject("btnCoAOfCOGS.Image"), System.Drawing.Image)
+        Me.btnCoAOfCOGS.ImageOptions.Image = CType(resources.GetObject("btnCoAOfCOGS.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAOfCOGS.Location = New System.Drawing.Point(627, 120)
         Me.btnCoAOfCOGS.Name = "btnCoAOfCOGS"
         Me.btnCoAOfCOGS.Size = New System.Drawing.Size(23, 23)
@@ -1718,7 +1807,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAOfPrepaidIncome
         '
-        Me.btnCoAOfPrepaidIncome.Image = CType(resources.GetObject("btnCoAOfPrepaidIncome.Image"), System.Drawing.Image)
+        Me.btnCoAOfPrepaidIncome.ImageOptions.Image = CType(resources.GetObject("btnCoAOfPrepaidIncome.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAOfPrepaidIncome.Location = New System.Drawing.Point(627, 93)
         Me.btnCoAOfPrepaidIncome.Name = "btnCoAOfPrepaidIncome"
         Me.btnCoAOfPrepaidIncome.Size = New System.Drawing.Size(23, 23)
@@ -1759,7 +1848,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAOfSalesDiscount
         '
-        Me.btnCoAOfSalesDiscount.Image = CType(resources.GetObject("btnCoAOfSalesDiscount.Image"), System.Drawing.Image)
+        Me.btnCoAOfSalesDiscount.ImageOptions.Image = CType(resources.GetObject("btnCoAOfSalesDiscount.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAOfSalesDiscount.Location = New System.Drawing.Point(627, 66)
         Me.btnCoAOfSalesDiscount.Name = "btnCoAOfSalesDiscount"
         Me.btnCoAOfSalesDiscount.Size = New System.Drawing.Size(23, 23)
@@ -1800,7 +1889,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAOfAccountReceivable
         '
-        Me.btnCoAOfAccountReceivable.Image = CType(resources.GetObject("btnCoAOfAccountReceivable.Image"), System.Drawing.Image)
+        Me.btnCoAOfAccountReceivable.ImageOptions.Image = CType(resources.GetObject("btnCoAOfAccountReceivable.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAOfAccountReceivable.Location = New System.Drawing.Point(627, 39)
         Me.btnCoAOfAccountReceivable.Name = "btnCoAOfAccountReceivable"
         Me.btnCoAOfAccountReceivable.Size = New System.Drawing.Size(23, 23)
@@ -1841,7 +1930,7 @@ Partial Class frmSysJournalPost
         '
         'btnCoAOfRevenue
         '
-        Me.btnCoAOfRevenue.Image = CType(resources.GetObject("btnCoAOfRevenue.Image"), System.Drawing.Image)
+        Me.btnCoAOfRevenue.ImageOptions.Image = CType(resources.GetObject("btnCoAOfRevenue.ImageOptions.Image"), System.Drawing.Image)
         Me.btnCoAOfRevenue.Location = New System.Drawing.Point(627, 12)
         Me.btnCoAOfRevenue.Name = "btnCoAOfRevenue"
         Me.btnCoAOfRevenue.Size = New System.Drawing.Size(23, 23)
@@ -1863,7 +1952,7 @@ Partial Class frmSysJournalPost
         Me.pgMain.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.pgMain.Location = New System.Drawing.Point(0, 1038)
         Me.pgMain.Name = "pgMain"
-        Me.pgMain.Size = New System.Drawing.Size(1286, 23)
+        Me.pgMain.Size = New System.Drawing.Size(1391, 23)
         Me.pgMain.TabIndex = 4
         '
         'StatusStrip
@@ -1872,14 +1961,14 @@ Partial Class frmSysJournalPost
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripEmpty, Me.ToolStripLogInc, Me.ToolStripLogBy, Me.ToolStripStatusLabel1, Me.ToolStripLogDate})
         Me.StatusStrip.Location = New System.Drawing.Point(0, 1016)
         Me.StatusStrip.Name = "StatusStrip"
-        Me.StatusStrip.Size = New System.Drawing.Size(1286, 22)
+        Me.StatusStrip.Size = New System.Drawing.Size(1391, 22)
         Me.StatusStrip.TabIndex = 3
         Me.StatusStrip.Text = "StatusStrip1"
         '
         'ToolStripEmpty
         '
         Me.ToolStripEmpty.Name = "ToolStripEmpty"
-        Me.ToolStripEmpty.Size = New System.Drawing.Size(1163, 17)
+        Me.ToolStripEmpty.Size = New System.Drawing.Size(1268, 17)
         Me.ToolStripEmpty.Spring = True
         '
         'ToolStripLogInc
@@ -1917,52 +2006,257 @@ Partial Class frmSysJournalPost
         Me.ToolStripLogDate.Size = New System.Drawing.Size(12, 17)
         Me.ToolStripLogDate.Text = "-"
         '
-        'txtCoACodeofRounding
+        'txtCoACodeOfRevenueServiceCutting
         '
-        Me.txtCoACodeofRounding.BackColor = System.Drawing.Color.Azure
-        Me.txtCoACodeofRounding.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoACodeofRounding.Location = New System.Drawing.Point(818, 67)
-        Me.txtCoACodeofRounding.MaxLength = 250
-        Me.txtCoACodeofRounding.Name = "txtCoACodeofRounding"
-        Me.txtCoACodeofRounding.ReadOnly = True
-        Me.txtCoACodeofRounding.Size = New System.Drawing.Size(83, 21)
-        Me.txtCoACodeofRounding.TabIndex = 108
+        Me.txtCoACodeOfRevenueServiceCutting.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeOfRevenueServiceCutting.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeOfRevenueServiceCutting.Location = New System.Drawing.Point(914, 94)
+        Me.txtCoACodeOfRevenueServiceCutting.MaxLength = 250
+        Me.txtCoACodeOfRevenueServiceCutting.Name = "txtCoACodeOfRevenueServiceCutting"
+        Me.txtCoACodeOfRevenueServiceCutting.ReadOnly = True
+        Me.txtCoACodeOfRevenueServiceCutting.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeOfRevenueServiceCutting.TabIndex = 111
         '
-        'txtCoANameofRounding
+        'txtCoANameOfRevenueServiceCutting
         '
-        Me.txtCoANameofRounding.BackColor = System.Drawing.Color.Azure
-        Me.txtCoANameofRounding.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCoANameofRounding.Location = New System.Drawing.Point(900, 67)
-        Me.txtCoANameofRounding.MaxLength = 250
-        Me.txtCoANameofRounding.Name = "txtCoANameofRounding"
-        Me.txtCoANameofRounding.ReadOnly = True
-        Me.txtCoANameofRounding.Size = New System.Drawing.Size(320, 21)
-        Me.txtCoANameofRounding.TabIndex = 109
+        Me.txtCoANameOfRevenueServiceCutting.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameOfRevenueServiceCutting.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameOfRevenueServiceCutting.Location = New System.Drawing.Point(996, 94)
+        Me.txtCoANameOfRevenueServiceCutting.MaxLength = 250
+        Me.txtCoANameOfRevenueServiceCutting.Name = "txtCoANameOfRevenueServiceCutting"
+        Me.txtCoANameOfRevenueServiceCutting.ReadOnly = True
+        Me.txtCoANameOfRevenueServiceCutting.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameOfRevenueServiceCutting.TabIndex = 112
         '
-        'btnCoAofRounding
+        'btnCoAOfRevenueServiceCutting
         '
-        Me.btnCoAofRounding.Image = CType(resources.GetObject("btnCoAofRounding.Image"), System.Drawing.Image)
-        Me.btnCoAofRounding.Location = New System.Drawing.Point(1226, 66)
-        Me.btnCoAofRounding.Name = "btnCoAofRounding"
-        Me.btnCoAofRounding.Size = New System.Drawing.Size(23, 23)
-        Me.btnCoAofRounding.TabIndex = 110
+        Me.btnCoAOfRevenueServiceCutting.ImageOptions.Image = CType(resources.GetObject("SimpleButton1.ImageOptions.Image1"), System.Drawing.Image)
+        Me.btnCoAOfRevenueServiceCutting.Location = New System.Drawing.Point(1322, 93)
+        Me.btnCoAOfRevenueServiceCutting.Name = "btnCoAOfRevenueServiceCutting"
+        Me.btnCoAOfRevenueServiceCutting.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAOfRevenueServiceCutting.TabIndex = 113
         '
-        'Label37
+        'Label38
         '
-        Me.Label37.AutoSize = True
-        Me.Label37.BackColor = System.Drawing.Color.Transparent
-        Me.Label37.ForeColor = System.Drawing.Color.Black
-        Me.Label37.Location = New System.Drawing.Point(686, 71)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(96, 13)
-        Me.Label37.TabIndex = 274
-        Me.Label37.Text = "Beban Pembulatan"
+        Me.Label38.AutoSize = True
+        Me.Label38.BackColor = System.Drawing.Color.Transparent
+        Me.Label38.ForeColor = System.Drawing.Color.Black
+        Me.Label38.Location = New System.Drawing.Point(694, 98)
+        Me.Label38.Name = "Label38"
+        Me.Label38.Size = New System.Drawing.Size(127, 13)
+        Me.Label38.TabIndex = 278
+        Me.Label38.Text = "Pendapatan Jasa Potong"
+        '
+        'txtCoACodeOfRevenueServiceTransport
+        '
+        Me.txtCoACodeOfRevenueServiceTransport.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeOfRevenueServiceTransport.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeOfRevenueServiceTransport.Location = New System.Drawing.Point(914, 121)
+        Me.txtCoACodeOfRevenueServiceTransport.MaxLength = 250
+        Me.txtCoACodeOfRevenueServiceTransport.Name = "txtCoACodeOfRevenueServiceTransport"
+        Me.txtCoACodeOfRevenueServiceTransport.ReadOnly = True
+        Me.txtCoACodeOfRevenueServiceTransport.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeOfRevenueServiceTransport.TabIndex = 114
+        '
+        'txtCoANameOfRevenueServiceTransport
+        '
+        Me.txtCoANameOfRevenueServiceTransport.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameOfRevenueServiceTransport.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameOfRevenueServiceTransport.Location = New System.Drawing.Point(996, 121)
+        Me.txtCoANameOfRevenueServiceTransport.MaxLength = 250
+        Me.txtCoANameOfRevenueServiceTransport.Name = "txtCoANameOfRevenueServiceTransport"
+        Me.txtCoANameOfRevenueServiceTransport.ReadOnly = True
+        Me.txtCoANameOfRevenueServiceTransport.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameOfRevenueServiceTransport.TabIndex = 115
+        '
+        'btnCoAOfRevenueServiceTransport
+        '
+        Me.btnCoAOfRevenueServiceTransport.ImageOptions.Image = CType(resources.GetObject("SimpleButton2.ImageOptions.Image1"), System.Drawing.Image)
+        Me.btnCoAOfRevenueServiceTransport.Location = New System.Drawing.Point(1322, 120)
+        Me.btnCoAOfRevenueServiceTransport.Name = "btnCoAOfRevenueServiceTransport"
+        Me.btnCoAOfRevenueServiceTransport.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAOfRevenueServiceTransport.TabIndex = 116
+        '
+        'Label39
+        '
+        Me.Label39.AutoSize = True
+        Me.Label39.BackColor = System.Drawing.Color.Transparent
+        Me.Label39.ForeColor = System.Drawing.Color.Black
+        Me.Label39.Location = New System.Drawing.Point(694, 125)
+        Me.Label39.Name = "Label39"
+        Me.Label39.Size = New System.Drawing.Size(140, 13)
+        Me.Label39.TabIndex = 282
+        Me.Label39.Text = "Pendapatan Jasa Transport"
+        '
+        'txtCoACodeOfAccountReceivableOutstandingPaymentServiceCutting
+        '
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceCutting.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceCutting.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceCutting.Location = New System.Drawing.Point(914, 148)
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceCutting.MaxLength = 250
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceCutting.Name = "txtCoACodeOfAccountReceivableOutstandingPaymentServiceCutting"
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceCutting.ReadOnly = True
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceCutting.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceCutting.TabIndex = 117
+        '
+        'txtCoANameOfAccountReceivableOutstandingPaymentServiceCutting
+        '
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceCutting.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceCutting.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceCutting.Location = New System.Drawing.Point(996, 148)
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceCutting.MaxLength = 250
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceCutting.Name = "txtCoANameOfAccountReceivableOutstandingPaymentServiceCutting"
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceCutting.ReadOnly = True
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceCutting.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceCutting.TabIndex = 118
+        '
+        'btnCoAOfAccountReceivableOutstandingPaymentServiceCutting
+        '
+        Me.btnCoAOfAccountReceivableOutstandingPaymentServiceCutting.ImageOptions.Image = CType(resources.GetObject("SimpleButton3.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnCoAOfAccountReceivableOutstandingPaymentServiceCutting.Location = New System.Drawing.Point(1322, 147)
+        Me.btnCoAOfAccountReceivableOutstandingPaymentServiceCutting.Name = "btnCoAOfAccountReceivableOutstandingPaymentServiceCutting"
+        Me.btnCoAOfAccountReceivableOutstandingPaymentServiceCutting.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAOfAccountReceivableOutstandingPaymentServiceCutting.TabIndex = 119
+        '
+        'Label40
+        '
+        Me.Label40.AutoSize = True
+        Me.Label40.BackColor = System.Drawing.Color.Transparent
+        Me.Label40.ForeColor = System.Drawing.Color.Black
+        Me.Label40.Location = New System.Drawing.Point(694, 152)
+        Me.Label40.Name = "Label40"
+        Me.Label40.Size = New System.Drawing.Size(204, 13)
+        Me.Label40.TabIndex = 286
+        Me.Label40.Text = "Piutang Usaha Jasa Potong Belum ditagih"
+        '
+        'txtCoACodeOfAccountReceivableOutstandingPaymentServiceTransport
+        '
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceTransport.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceTransport.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceTransport.Location = New System.Drawing.Point(914, 175)
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceTransport.MaxLength = 250
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceTransport.Name = "txtCoACodeOfAccountReceivableOutstandingPaymentServiceTransport"
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceTransport.ReadOnly = True
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceTransport.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeOfAccountReceivableOutstandingPaymentServiceTransport.TabIndex = 120
+        '
+        'txtCoANameOfAccountReceivableOutstandingPaymentServiceTransport
+        '
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceTransport.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceTransport.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceTransport.Location = New System.Drawing.Point(996, 175)
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceTransport.MaxLength = 250
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceTransport.Name = "txtCoANameOfAccountReceivableOutstandingPaymentServiceTransport"
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceTransport.ReadOnly = True
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceTransport.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameOfAccountReceivableOutstandingPaymentServiceTransport.TabIndex = 121
+        '
+        'btnCoAOfAccountReceivableOutstandingPaymentServiceTransport
+        '
+        Me.btnCoAOfAccountReceivableOutstandingPaymentServiceTransport.ImageOptions.Image = CType(resources.GetObject("SimpleButton4.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnCoAOfAccountReceivableOutstandingPaymentServiceTransport.Location = New System.Drawing.Point(1322, 174)
+        Me.btnCoAOfAccountReceivableOutstandingPaymentServiceTransport.Name = "btnCoAOfAccountReceivableOutstandingPaymentServiceTransport"
+        Me.btnCoAOfAccountReceivableOutstandingPaymentServiceTransport.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAOfAccountReceivableOutstandingPaymentServiceTransport.TabIndex = 122
+        '
+        'Label41
+        '
+        Me.Label41.AutoSize = True
+        Me.Label41.BackColor = System.Drawing.Color.Transparent
+        Me.Label41.ForeColor = System.Drawing.Color.Black
+        Me.Label41.Location = New System.Drawing.Point(694, 179)
+        Me.Label41.Name = "Label41"
+        Me.Label41.Size = New System.Drawing.Size(217, 13)
+        Me.Label41.TabIndex = 290
+        Me.Label41.Text = "Piutang Usaha Jasa Transport Belum ditagih"
+        '
+        'txtCoACodeOfAccountReceivableServiceTransport
+        '
+        Me.txtCoACodeOfAccountReceivableServiceTransport.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeOfAccountReceivableServiceTransport.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeOfAccountReceivableServiceTransport.Location = New System.Drawing.Point(914, 229)
+        Me.txtCoACodeOfAccountReceivableServiceTransport.MaxLength = 250
+        Me.txtCoACodeOfAccountReceivableServiceTransport.Name = "txtCoACodeOfAccountReceivableServiceTransport"
+        Me.txtCoACodeOfAccountReceivableServiceTransport.ReadOnly = True
+        Me.txtCoACodeOfAccountReceivableServiceTransport.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeOfAccountReceivableServiceTransport.TabIndex = 126
+        '
+        'txtCoANameOfAccountReceivableServiceTransport
+        '
+        Me.txtCoANameOfAccountReceivableServiceTransport.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameOfAccountReceivableServiceTransport.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameOfAccountReceivableServiceTransport.Location = New System.Drawing.Point(996, 229)
+        Me.txtCoANameOfAccountReceivableServiceTransport.MaxLength = 250
+        Me.txtCoANameOfAccountReceivableServiceTransport.Name = "txtCoANameOfAccountReceivableServiceTransport"
+        Me.txtCoANameOfAccountReceivableServiceTransport.ReadOnly = True
+        Me.txtCoANameOfAccountReceivableServiceTransport.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameOfAccountReceivableServiceTransport.TabIndex = 127
+        '
+        'btnCoAOfAccountReceivableServiceTransport
+        '
+        Me.btnCoAOfAccountReceivableServiceTransport.ImageOptions.Image = CType(resources.GetObject("SimpleButton1.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnCoAOfAccountReceivableServiceTransport.Location = New System.Drawing.Point(1322, 228)
+        Me.btnCoAOfAccountReceivableServiceTransport.Name = "btnCoAOfAccountReceivableServiceTransport"
+        Me.btnCoAOfAccountReceivableServiceTransport.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAOfAccountReceivableServiceTransport.TabIndex = 128
+        '
+        'Label42
+        '
+        Me.Label42.AutoSize = True
+        Me.Label42.BackColor = System.Drawing.Color.Transparent
+        Me.Label42.ForeColor = System.Drawing.Color.Black
+        Me.Label42.Location = New System.Drawing.Point(694, 233)
+        Me.Label42.Name = "Label42"
+        Me.Label42.Size = New System.Drawing.Size(151, 13)
+        Me.Label42.TabIndex = 298
+        Me.Label42.Text = "Piutang Usaha Jasa Transport"
+        '
+        'txtCoACodeOfAccountReceivableServiceCutting
+        '
+        Me.txtCoACodeOfAccountReceivableServiceCutting.BackColor = System.Drawing.Color.Azure
+        Me.txtCoACodeOfAccountReceivableServiceCutting.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoACodeOfAccountReceivableServiceCutting.Location = New System.Drawing.Point(914, 202)
+        Me.txtCoACodeOfAccountReceivableServiceCutting.MaxLength = 250
+        Me.txtCoACodeOfAccountReceivableServiceCutting.Name = "txtCoACodeOfAccountReceivableServiceCutting"
+        Me.txtCoACodeOfAccountReceivableServiceCutting.ReadOnly = True
+        Me.txtCoACodeOfAccountReceivableServiceCutting.Size = New System.Drawing.Size(83, 21)
+        Me.txtCoACodeOfAccountReceivableServiceCutting.TabIndex = 123
+        '
+        'txtCoANameOfAccountReceivableServiceCutting
+        '
+        Me.txtCoANameOfAccountReceivableServiceCutting.BackColor = System.Drawing.Color.Azure
+        Me.txtCoANameOfAccountReceivableServiceCutting.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCoANameOfAccountReceivableServiceCutting.Location = New System.Drawing.Point(996, 202)
+        Me.txtCoANameOfAccountReceivableServiceCutting.MaxLength = 250
+        Me.txtCoANameOfAccountReceivableServiceCutting.Name = "txtCoANameOfAccountReceivableServiceCutting"
+        Me.txtCoANameOfAccountReceivableServiceCutting.ReadOnly = True
+        Me.txtCoANameOfAccountReceivableServiceCutting.Size = New System.Drawing.Size(320, 21)
+        Me.txtCoANameOfAccountReceivableServiceCutting.TabIndex = 124
+        '
+        'btnCoAOfAccountReceivableServiceCutting
+        '
+        Me.btnCoAOfAccountReceivableServiceCutting.ImageOptions.Image = CType(resources.GetObject("SimpleButton2.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnCoAOfAccountReceivableServiceCutting.Location = New System.Drawing.Point(1322, 201)
+        Me.btnCoAOfAccountReceivableServiceCutting.Name = "btnCoAOfAccountReceivableServiceCutting"
+        Me.btnCoAOfAccountReceivableServiceCutting.Size = New System.Drawing.Size(23, 23)
+        Me.btnCoAOfAccountReceivableServiceCutting.TabIndex = 125
+        '
+        'Label43
+        '
+        Me.Label43.AutoSize = True
+        Me.Label43.BackColor = System.Drawing.Color.Transparent
+        Me.Label43.ForeColor = System.Drawing.Color.Black
+        Me.Label43.Location = New System.Drawing.Point(694, 206)
+        Me.Label43.Name = "Label43"
+        Me.Label43.Size = New System.Drawing.Size(138, 13)
+        Me.Label43.TabIndex = 297
+        Me.Label43.Text = "Piutang Usaha Jasa Potong"
         '
         'frmSysJournalPost
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1286, 1061)
+        Me.ClientSize = New System.Drawing.Size(1391, 1061)
         Me.Controls.Add(Me.pnlMain)
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.pgMain)
@@ -2140,4 +2434,28 @@ Partial Class frmSysJournalPost
     Friend WithEvents txtCoANameofRounding As ERPS.usTextBox
     Friend WithEvents btnCoAofRounding As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Label37 As System.Windows.Forms.Label
+    Friend WithEvents txtCoACodeOfAccountReceivableOutstandingPaymentServiceTransport As usTextBox
+    Friend WithEvents txtCoANameOfAccountReceivableOutstandingPaymentServiceTransport As usTextBox
+    Friend WithEvents btnCoAOfAccountReceivableOutstandingPaymentServiceTransport As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label41 As Label
+    Friend WithEvents txtCoACodeOfAccountReceivableOutstandingPaymentServiceCutting As usTextBox
+    Friend WithEvents txtCoANameOfAccountReceivableOutstandingPaymentServiceCutting As usTextBox
+    Friend WithEvents btnCoAOfAccountReceivableOutstandingPaymentServiceCutting As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label40 As Label
+    Friend WithEvents txtCoACodeOfRevenueServiceTransport As usTextBox
+    Friend WithEvents txtCoANameOfRevenueServiceTransport As usTextBox
+    Friend WithEvents btnCoAOfRevenueServiceTransport As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label39 As Label
+    Friend WithEvents txtCoACodeOfRevenueServiceCutting As usTextBox
+    Friend WithEvents txtCoANameOfRevenueServiceCutting As usTextBox
+    Friend WithEvents btnCoAOfRevenueServiceCutting As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label38 As Label
+    Friend WithEvents txtCoACodeOfAccountReceivableServiceTransport As usTextBox
+    Friend WithEvents txtCoANameOfAccountReceivableServiceTransport As usTextBox
+    Friend WithEvents btnCoAOfAccountReceivableServiceTransport As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label42 As Label
+    Friend WithEvents txtCoACodeOfAccountReceivableServiceCutting As usTextBox
+    Friend WithEvents txtCoANameOfAccountReceivableServiceCutting As usTextBox
+    Friend WithEvents btnCoAOfAccountReceivableServiceCutting As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Label43 As Label
 End Class

@@ -15,9 +15,9 @@ Namespace DL
                 .CommandText =
 "SELECT  " & vbNewLine &
 "	A.ID, A.ProgramID, MP.Name AS ProgramName, A.CompanyID, MC.Name AS CompanyName, A.TransNumber, A.TransDate, A.BPID, C.Code AS BPCode, C.Name AS BPName, A.ServiceType,  " & vbNewLine &
-"	A.PPN, A.PPH, A.TotalQuantity, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, A.DPAmount, A.DPAmountPPN, A.DPAmountPPH, A.ReceiveAmount, A.ReceiveAmountPPN,  " & vbNewLine &
+"	A.PPN, A.PPH, A.TotalQuantity, A.TotalDPP, A.TotalPPN, A.TotalPPH, A.RoundingManual, GrandTotal=A.TotalDPP+A.TotalPPN-A.TotalPPH+A.RoundingManual, A.DPAmount, A.DPAmountPPN, A.DPAmountPPH, A.ReceiveAmount, A.ReceiveAmountPPN,  " & vbNewLine &
 "	A.ReceiveAmountPPH, A.StatusID, StatusInfo=B.Name, A.Remarks, A.IsDeleted, A.CreatedBy, A.CreatedDate, A.LogBy, A.LogDate, A.LogInc, " & vbNewLine &
-"   CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.SubmitDate, A.JournalID " & vbNewLine &
+"   CASE WHEN A.SubmitBy='' THEN NULL ELSE A.SubmitDate END AS SubmitDate, A.SubmitBy, A.JournalID " & vbNewLine &
 "FROM traSalesService A " & vbNewLine &
 "INNER JOIN mstStatus B ON " & vbNewLine &
 "   A.StatusID=B.ID " & vbNewLine &
@@ -397,6 +397,29 @@ Namespace DL
             End Try
         End Sub
 
+        Public Shared Sub UpdateJournalID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal strID As String, ByVal strJournalID As String)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traSalesService SET " & vbNewLine &
+                    "    JournalID=@JournalID " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@JournalID", SqlDbType.VarChar, 100).Value = strJournalID
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail"
@@ -415,7 +438,7 @@ Namespace DL
 "INNER JOIN mstDeliveryLocation MLS ON  " & vbNewLine &
 "    A.SourceID=MLS.ID  " & vbNewLine &
 "INNER JOIN mstDeliveryLocation MLD ON  " & vbNewLine &
-"    A.DestinationID=MLS.ID  " & vbNewLine &
+"    A.DestinationID=MLD.ID  " & vbNewLine &
 "WHERE  " & vbNewLine &
 "	A.ParentID=@ParentID  " & vbNewLine
 

@@ -105,6 +105,7 @@
                     CreateDeliveryLocation_ID96(sqlCon, sqlTrans)
                     CreateSalesService_ID97(sqlCon, sqlTrans)
                     CreateUserConfig_ID98(sqlCon, sqlTrans)
+                    AlterTableSysJournalPost_ID99(sqlCon, sqlTrans)
                     sqlTrans.Commit()
                 Catch ex As Exception
                     sqlTrans.Rollback()
@@ -3039,6 +3040,26 @@
 "   ) " & vbNewLine &
 ") " & vbNewLine &
 " " & vbNewLine
+
+            clsData.LogBy = ERPSLib.UI.usUserApp.UserID
+            If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then
+                DL.Migration.ExecuteScripts(sqlCon, sqlTrans, clsData.Scripts)
+                DL.Migration.SaveData(sqlCon, sqlTrans, clsData)
+            End If
+        End Sub
+
+        '# ID = 99
+        Private Shared Sub AlterTableSysJournalPost_ID99(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction)
+            Dim clsData As New VO.Migration
+            clsData.ID = 99
+            clsData.Name = "Alter Table SysJournal Post"
+            clsData.Scripts =
+                "ALTER TABLE sysJournalPost ADD CoAofRevenueCutting INT NOT NULL CONSTRAINT DF_sysJournalPost_CoAofRevenueCutting DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE sysJournalPost ADD CoAofRevenueTransport INT NOT NULL CONSTRAINT DF_sysJournalPost_CoAofRevenueTransport DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE sysJournalPost ADD CoAofAccountReceivableOutstandingPaymentCutting INT NOT NULL CONSTRAINT DF_sysJournalPost_CoAofAccountReceivableOutstandingPaymentCutting DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE sysJournalPost ADD CoAofAccountReceivableCutting INT NOT NULL CONSTRAINT DF_sysJournalPost_CoAofAccountReceivableCutting DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE sysJournalPost ADD CoAofAccountReceivableOutstandingPaymentTransport INT NOT NULL CONSTRAINT DF_sysJournalPost_CoAofAccountReceivableOutstandingPaymentTransport DEFAULT ((0)) " & vbNewLine &
+                "ALTER TABLE sysJournalPost ADD CoAofAccountReceivableTransport INT NOT NULL CONSTRAINT DF_sysJournalPost_CoAofAccountReceivableTransport DEFAULT ((0)) " & vbNewLine
 
             clsData.LogBy = ERPSLib.UI.usUserApp.UserID
             If Not DL.Migration.IsIDExists(sqlCon, sqlTrans, clsData.ID) Then

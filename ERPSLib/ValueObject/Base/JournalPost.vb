@@ -157,6 +157,30 @@
         Property CoACodeofRounding As String
         Property CoANameofRounding As String
 
+        Property CoAofRevenueCutting As Integer
+        Property CoACodeofRevenueCutting As String
+        Property CoANameofRevenueCutting As String
+
+        Property CoAofRevenueTransport As Integer
+        Property CoACodeofRevenueTransport As String
+        Property CoANameofRevenueTransport As String
+
+        Property CoAofAccountReceivableOutstandingPaymentCutting As Integer
+        Property CoACodeofAccountReceivableOutstandingPaymentCutting As String
+        Property CoANameofAccountReceivableOutstandingPaymentCutting As String
+
+        Property CoAofAccountReceivableCutting As Integer
+        Property CoACodeofAccountReceivableCutting As String
+        Property CoANameofAccountReceivableCutting As String
+
+        Property CoAofAccountReceivableOutstandingPaymentTransport As Integer
+        Property CoACodeofAccountReceivableOutstandingPaymentTransport As String
+        Property CoANameofAccountReceivableOutstandingPaymentTransport As String
+
+        Property CoAofAccountReceivableTransport As Integer
+        Property CoACodeofAccountReceivableTransport As String
+        Property CoANameofAccountReceivableTransport As String
+
         Property Remarks As String
     End Class
 End Namespace
