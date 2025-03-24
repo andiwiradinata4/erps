@@ -331,6 +331,7 @@ Public Class frmTraARAP
         clsReturn.PPHPercentage = grdView.GetRowCellValue(intPos, "PPHPercentage")
         clsReturn.IsFullDP = grdView.GetRowCellValue(intPos, "IsFullDP")
         clsReturn.IsGenerate = grdView.GetRowCellValue(intPos, "IsGenerate")
+        clsReturn.GrandTotal = grdView.GetRowCellValue(intPos, "GrandTotal")
         Return clsReturn
     End Function
 
@@ -1004,7 +1005,7 @@ Public Class frmTraARAP
             For i As Integer = 0 To drInvoice.Length - 1
                 Dim strDescInvoice As String = "PAYMENT " & Format(drInvoice(i).Item("InvoiceDate"), "dd/MM")
                 decAmountInvoice = drInvoice(i).Item("TotalAmount")
-                If clsData.IsDP Or drInvoice.Length = 1 Then Continue For
+                If (clsData.IsDP) Or (drInvoice.Length = 1 And clsData.GrandTotal = decAmountInvoice) Then Continue For
                 If i = 0 Then
                     crReport.sbInvoice1.Visible = True
                     crReport.DescInvoice1.Value = strDescInvoice

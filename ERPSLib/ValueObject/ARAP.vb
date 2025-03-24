@@ -74,7 +74,7 @@
         Property InvoiceNumberBP As String = ""
         Property InvoiceDateBP As DateTime = Today.Date
         Property ReceiveDateInvoice As DateTime = Today.Date
-
+        Property GrandTotal As Decimal
         Enum ARAPTypeValue
             All
             Sales
