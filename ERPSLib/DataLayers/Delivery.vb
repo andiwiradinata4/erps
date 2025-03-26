@@ -122,6 +122,29 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDeliveryIDByCODetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                              ByVal strCODetailID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT DISTINCT " & vbNewLine &
+"	TDH.ID " & vbNewLine &
+"FROM traDelivery TDH " & vbNewLine &
+"INNER JOIN traSalesContractDetConfirmationOrder SCCO ON " & vbNewLine &
+"	TDH.SCID=SCCO.SCID " & vbNewLine &
+"WHERE " & vbNewLine &
+"	SCCO.CODetailID=@SCCODetailID " & vbNewLine &
+"	AND TDH.StatusID=@StatusID" & vbNewLine
+
+                .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                    ByVal bolNew As Boolean, ByVal clsData As VO.Delivery)
             Dim sqlCmdExecute As New SqlCommand

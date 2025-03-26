@@ -535,7 +535,7 @@
 
                     '# Update Purchase Contract Detail
                     DL.PurchaseContract.UpdatePriceItemByCODetailID(sqlCon, sqlTrans, clsData.ID, clsData.UnitPrice)
-                    
+
                     '# Update Purchase Contract Header                    
                     Dim dtPurchaseContractDet As DataTable = DL.PurchaseContract.ListDataDetailByCODetailID(sqlCon, sqlTrans, clsData.ID)
                     Dim dtPurchaseContract As DataTable = clsHelper.SelectGroupByInto("PurchaseContract", dtPurchaseContractDet, "PCID", "", "PCID")
@@ -554,7 +554,8 @@
                     Next
 
                     '# Update Sales Contract Detail
-                    DL.SalesContract.UpdatePriceItemByCODetailID(sqlCon, sqlTrans, clsData.ID, clsData.UnitPrice)
+                    DL.SalesContract.UpdatePriceItemSCCOByCODetailID(sqlCon, sqlTrans, clsData.ID, clsData.UnitPrice)
+                    DL.SalesContract.UpdatePriceItemSCByCODetailID(sqlCon, sqlTrans, clsData.ID, clsData.UnitPrice)
                     Dim dtSalesContractDet As DataTable = DL.SalesContract.ListDataDetailByCODetailID(sqlCon, sqlTrans, clsData.ID)
                     For Each dr As DataRow In dtSalesContractDet.Rows
                         DL.SalesContract.UpdateDetailGroupID(sqlCon, sqlTrans, dr.Item("ID"), dr.Item("GroupID"), clsData.UnitPrice)
@@ -574,6 +575,58 @@
                     decTotalPPH = decTotalDPP * (clsCO.PPH / 100)
 
                     DL.ConfirmationOrder.UpdateAmount(sqlCon, sqlTrans, clsData.COID, decTotalDPP, decTotalPPN, decTotalPPH)
+
+                    '====================================================================
+                    '# List Data Pengiriman yang sudah di SUBMIT berdasarkan CODetailID
+                    Dim dtDeliveryID As DataTable = DL.Delivery.ListDataDeliveryIDByCODetailID(sqlCon, sqlTrans, clsData.ID)
+
+                    '# Re-Generate Kembali Jurnal Pengiriman
+                    For Each dr As DataRow In dtDeliveryID.Rows
+                        Dim clsDelivery As VO.Delivery = DL.Delivery.GetDetail(sqlCon, sqlTrans, dr.Item("ID"))
+                        Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsDelivery.JournalID)
+
+                        '# Cancel Approve Journal Delivery
+                        BL.Journal.Unapprove(clsDelivery.JournalID.Trim, "UBAH HARGA KONFIRMASI PESANAN")
+
+                        '# Cancel Submit Journal Delivery
+                        BL.Journal.Unsubmit(clsDelivery.JournalID.Trim, "UBAH HARGA KONFIRMASI PESANAN")
+
+                        If clsDelivery.TotalDPPTransport > 0 Then
+                            '# Cancel Approve Journal Delivery Transport
+                            BL.Journal.Unapprove(clsDelivery.JournalIDTransport.Trim, "")
+
+                            '# Cancel Submit Journal Delivery Transport
+                            BL.Journal.Unsubmit(clsDelivery.JournalIDTransport.Trim, "")
+                        End If
+
+                        BL.Delivery.GenerateJournal(sqlCon, sqlTrans, clsDelivery, PrevJournal)
+                    Next
+                    '====================================================================
+
+                    '====================================================================
+                    '# List Data Penerimaan yang sudah di SUBMIT berdasarkan CODetailID
+                    DL.Receive.UpdatePriceItemByCODetailID(sqlCon, sqlTrans, clsData.ID, clsData.UnitPrice)
+                    Dim dtReceiveID As DataTable = DL.Receive.ListDataReceiveIDByCODetailID(sqlCon, sqlTrans, clsData.ID)
+                    '# Recalculate Total Price Receive
+                    For Each dr As DataRow In dtReceiveID.Rows
+
+                    Next
+
+                    '# Re-Generate Kembali Jurnal Penerimaan
+                    For Each dr As DataRow In dtReceiveID.Rows
+                        Dim clsReceive As VO.Receive = DL.Receive.GetDetail(sqlCon, sqlTrans, dr.Item("ID"))
+                        Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsReceive.JournalID)
+
+                        '# Cancel Approve Journal Receive
+                        BL.Journal.Unapprove(clsReceive.JournalID.Trim, "UBAH HARGA KONFIRMASI PESANAN")
+
+                        '# Cancel Submit Journal Receive
+                        BL.Journal.Unsubmit(clsReceive.JournalID.Trim, "UBAH HARGA KONFIRMASI PESANAN")
+
+                        'BL.Receive.GenerateJournal(sqlCon, sqlTrans, clsReceive, PrevJournal)
+                    Next
+                    '====================================================================
+
 
                     '# Save Data Status
                     BL.ConfirmationOrder.SaveDataStatus(sqlCon, sqlTrans, clsData.COID, "UBAH HARGA", ERPSLib.UI.usUserApp.UserID, "")

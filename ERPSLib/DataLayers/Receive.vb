@@ -121,6 +121,32 @@
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataReceiveIDByCODetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                             ByVal strCODetailID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT DISTINCT " & vbNewLine &
+"	RVH.ID " & vbNewLine &
+"FROM traPurchaseContractDet PCD  " & vbNewLine &
+"INNER JOIN traReceiveDet RVD ON  " & vbNewLine &
+"	PCD.ID=RVD.PCDetailID  " & vbNewLine &
+"INNER JOIN traReceive RVH ON  " & vbNewLine &
+"	RVD.ReceiveID=RVH.ID  " & vbNewLine &
+"	AND RVH.IsDeleted=0  " & vbNewLine &
+"WHERE " & vbNewLine &
+"	PCD.CODetailID=@CODetailID " & vbNewLine &
+"	AND RVH.StatusID=@StatusID" & vbNewLine
+
+                .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                    ByVal bolNew As Boolean, ByVal clsData As VO.Receive)
             Dim sqlcmdExecute As New SqlCommand
@@ -1144,6 +1170,32 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailReceiveIDByCODetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                   ByVal strCODetailID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT DISTINCT " & vbNewLine &
+"	RVD.ID " & vbNewLine &
+"FROM traPurchaseContractDet PCD  " & vbNewLine &
+"INNER JOIN traReceiveDet RVD ON  " & vbNewLine &
+"	PCD.ID=RVD.PCDetailID  " & vbNewLine &
+"INNER JOIN traReceive RVH ON  " & vbNewLine &
+"	RVD.ReceiveID=RVH.ID  " & vbNewLine &
+"	AND RVH.IsDeleted=0  " & vbNewLine &
+"WHERE " & vbNewLine &
+"	PCD.CODetailID=@CODetailID " & vbNewLine &
+"	AND RVH.StatusID=@StatusID" & vbNewLine
+
+                .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveDataDetail(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                          ByVal clsData As VO.ReceiveDet)
             Dim sqlCmdExecute As New SqlCommand
@@ -1363,6 +1415,31 @@
             End With
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
+
+        Public Shared Sub UpdatePriceItemByCODetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                      ByVal strCODetailID As String, ByVal decUnitPrice As Decimal)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandText =
+"UPDATE RVD SET " & vbNewLine &
+"	RVD.UnitPrice=@UnitPrice, " & vbNewLine &
+"	RVD.TotalPrice=@UnitPrice * (RVD.TotalWeight+RVD.RoundingWeight)" & vbNewLine &
+"FROM traReceiveDet RVD  " & vbNewLine &
+"INNER JOIN traPurchaseContractDet PCD ON " & vbNewLine &
+"	RVD.PCDetailID=PCD.ID " & vbNewLine &
+"WHERE PCD.CODetailID=@CODetailID" & vbNewLine
+
+                .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
+                .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = decUnitPrice
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
 
 #End Region
 

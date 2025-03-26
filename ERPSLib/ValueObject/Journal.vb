@@ -1,7 +1,7 @@
 Namespace VO
     Public Class Journal
         Inherits Common
-        Property ID As String
+        Property ID As String = ""
         Property JournalDate As DateTime
         Property ReferencesID As String
         Property TotalAmount As Decimal

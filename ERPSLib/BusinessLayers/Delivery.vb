@@ -374,12 +374,21 @@
             Try
                 Dim clsData As VO.Delivery = DL.Delivery.GetDetail(sqlCon, sqlTrans, strID)
                 Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
+                GenerateJournal(sqlCon, sqlTrans, clsData, PrevJournal)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub GenerateJournal(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal clsData As VO.Delivery, ByVal PrevJournal As VO.Journal)
+            Try
                 Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
 
                 '# Generate Journal
                 Dim intGroupID As Integer = 1
                 Dim decTotalAmount As Decimal = 0
-                Dim decTotalCostRawMaterial As Decimal = DL.Delivery.GetTotalCostRawMaterial(sqlCon, sqlTrans, strID)
+                Dim decTotalCostRawMaterial As Decimal = DL.Delivery.GetTotalCostRawMaterial(sqlCon, sqlTrans, clsData.ID)
                 If decTotalCostRawMaterial <= 0 Then Err.Raise(515, "", "Data tidak dapat di Proses. Dikarenakan data pengiriman tidak memiliki nilai HPP")
                 If ERPSLib.UI.usUserApp.JournalPost.CoAofRevenue < 0 Then Err.Raise(515, "", "Data tidak dapat di Proses. Dikarenakan Akun Penjualan belum ditentukan")
 

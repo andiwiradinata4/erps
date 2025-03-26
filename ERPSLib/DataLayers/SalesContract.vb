@@ -3191,18 +3191,43 @@
             End Try
         End Sub
 
-        Public Shared Sub UpdatePriceItemByCODetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
-                                                      ByVal strCODetailID As String, ByVal decUnitPrice As Decimal)
+        Public Shared Sub UpdatePriceItemSCCOByCODetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                          ByVal strCODetailID As String, ByVal decUnitPrice As Decimal)
             Dim sqlcmdExecute As New SqlCommand
             With sqlcmdExecute
                 .Connection = sqlCon
                 .Transaction = sqlTrans
-                .CommandText = _
-"UPDATE traSalesContractDetConfirmationOrder SET " & vbNewLine & _
-"	UnitPrice=@UnitPrice, " & vbNewLine & _
-"	TotalPrice=@UnitPrice * (TotalWeight + RoundingWeight) " & vbNewLine & _
-"WHERE" & vbNewLine & _
+                .CommandText =
+"UPDATE traSalesContractDetConfirmationOrder SET " & vbNewLine &
+"	UnitPrice=@UnitPrice, " & vbNewLine &
+"	TotalPrice=@UnitPrice * (TotalWeight + RoundingWeight) " & vbNewLine &
+"WHERE" & vbNewLine &
 "	CODetailID=@CODetailID " & vbNewLine
+
+                .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
+                .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = decUnitPrice
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub UpdatePriceItemSCByCODetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                        ByVal strCODetailID As String, ByVal decUnitPrice As Decimal)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandText =
+"UPDATE SCD " & vbNewLine &
+"SET SCD.UnitPriceHPP=@UnitPrice " & vbNewLine &
+"FROM traSalesContractDet SCD  " & vbNewLine &
+"INNER JOIN traSalesContractDetConfirmationOrder SCCO ON " & vbNewLine &
+"	SCD.SCID=SCCO.SCID " & vbNewLine &
+"	AND SCD.GroupID=SCCO.GroupID " & vbNewLine &
+"WHERE SCCO.CODetailID=@CODetailID" & vbNewLine
 
                 .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
                 .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = decUnitPrice
