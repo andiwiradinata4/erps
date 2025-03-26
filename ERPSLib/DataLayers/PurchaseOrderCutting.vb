@@ -1497,6 +1497,30 @@
             End Try
         End Sub
 
+        Public Shared Sub UpdatePriceItemByCODetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                      ByVal strCODetailID As String, ByVal decUnitPrice As Decimal)
+            Dim sqlcmdExecute As New SqlCommand
+            With sqlcmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandText =
+"UPDATE POCD SET " & vbNewLine &
+"	UnitPriceRawMaterial=@UnitPrice " & vbNewLine &
+"FROM traPurchaseOrderCuttingDet POCD " & vbNewLine &
+"INNER JOIN traPurchaseContractDet PCD ON " & vbNewLine &
+"	POCD.PCDetailID=PCD.ID " & vbNewLine &
+"WHERE PCD.CODetailID=@CODetailID" & vbNewLine
+
+                .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
+                .Parameters.Add("@UnitPrice", SqlDbType.Decimal).Value = decUnitPrice
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlcmdExecute, sqlTrans)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail Result"

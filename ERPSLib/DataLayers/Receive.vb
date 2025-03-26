@@ -1062,6 +1062,34 @@
             Return bolReturn
         End Function
 
+        Public Shared Sub UpdateAmount(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                       ByVal strID As String, ByVal decTotalDPP As Decimal,
+                                       ByVal decTotalPPN As Decimal, ByVal decTotalPPH As Decimal)
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+                    "UPDATE traReceive SET " & vbNewLine &
+                    "    TotalDPP=@TotalDPP, " & vbNewLine &
+                    "    TotalPPN=@TotalPPN, " & vbNewLine &
+                    "    TotalPPH=@TotalPPH " & vbNewLine &
+                    "WHERE   " & vbNewLine &
+                    "    ID=@ID " & vbNewLine
+
+                .Parameters.Add("@ID", SqlDbType.VarChar, 100).Value = strID
+                .Parameters.Add("@TotalDPP", SqlDbType.Decimal).Value = decTotalDPP
+                .Parameters.Add("@TotalPPN", SqlDbType.Decimal).Value = decTotalPPN
+                .Parameters.Add("@TotalPPH", SqlDbType.Decimal).Value = decTotalPPH
+            End With
+            Try
+                SQL.ExecuteNonQuery(sqlCmdExecute, sqlTrans)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
 #End Region
 
 #Region "Detail"
@@ -1440,6 +1468,39 @@
                 Throw ex
             End Try
         End Sub
+
+        Public Shared Function GetTotalPriceItem(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                 ByVal strReceiveID As String) As Decimal
+            Dim decTotalPrice As Decimal = 0
+            Dim sqlCmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Try
+                With sqlCmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandType = CommandType.Text
+                    .CommandText =
+                        "SELECT " & vbNewLine &
+                        "   SUM(TotalPrice) AS TotalPrice " & vbNewLine &
+                        "FROM traReceiveDet " & vbNewLine &
+                        "WHERE  " & vbNewLine &
+                        "   ReceiveID=@ReceiveID " & vbNewLine
+
+                    .Parameters.Add("@ReceiveID", SqlDbType.VarChar, 100).Value = strReceiveID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlCmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        decTotalPrice = .Item("TotalPrice")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If Not sqlrdData Is Nothing Then sqlrdData.Close()
+            End Try
+            Return decTotalPrice
+        End Function
 
 #End Region
 

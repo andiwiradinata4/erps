@@ -51,6 +51,35 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataCuttingIDByCODetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                             ByVal strCODetailID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                .CommandText =
+"SELECT DISTINCT " & vbNewLine &
+"	TCH.ID " & vbNewLine &
+"FROM traCutting TCH " & vbNewLine &
+"INNER JOIN traCuttingDet TCD ON " & vbNewLine &
+"	TCH.ID=TCD.CuttingID " & vbNewLine &
+"INNER JOIN traPurchaseOrderCuttingDet POCD ON " & vbNewLine &
+"	TCD.PODetailID=POCD.ID " & vbNewLine &
+"INNER JOIN traReceiveDet RVD ON " & vbNewLine &
+"	POCD.ReceiveDetailID=RVD.ID " & vbNewLine &
+"INNER JOIN traPurchaseContractDet PCD ON " & vbNewLine &
+"	RVD.PCDetailID=PCD.ID " & vbNewLine &
+"WHERE " & vbNewLine &
+"	PCD.CODetailID=@CODetailID" & vbNewLine &
+"	AND TCH.StatusID=@StatusID " & vbNewLine
+
+                .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
+                .Parameters.Add("@StatusID", SqlDbType.Int).Value = VO.Status.Values.Submit
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
         Public Shared Sub SaveData(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                    ByVal bolNew As Boolean, ByVal clsData As VO.Cutting)
             Dim sqlCmdExecute As New SqlCommand

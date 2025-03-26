@@ -1162,6 +1162,49 @@
             Return strReturn
         End Function
 
+        Public Shared Function GetSalesReturnNumberByCODetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                ByVal strID As String) As String
+            Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing
+            Dim strReturn As String = ""
+            Try
+                With sqlcmdExecute
+                    .Connection = sqlCon
+                    .Transaction = sqlTrans
+                    .CommandText =
+"SELECT TOP 1 " & vbNewLine &
+"	SRH.SalesReturnNumber " & vbNewLine &
+"FROM traSalesContractDetConfirmationOrder SCCO " & vbNewLine &
+"INNER JOIN traSalesContractDet SCD ON " & vbNewLine &
+"	SCCO.SCID=SCD.SCID " & vbNewLine &
+"	AND SCCO.GroupID=SCD.GroupID " & vbNewLine &
+"INNER JOIN traDeliveryDet DD ON " & vbNewLine &
+"	SCD.ID=DD.SCDetailID " & vbNewLine &
+"INNER JOIN traDelivery DH ON " & vbNewLine &
+"	DD.DeliveryID=DH.ID " & vbNewLine &
+"	AND DH.IsDeleted=0 " & vbNewLine &
+"INNER JOIN traSalesReturnDet SRD ON " & vbNewLine &
+"	DD.ID=SRD.DeliveryDetailID " & vbNewLine &
+"INNER JOIN traSalesReturn SRH ON " & vbNewLine &
+"	SRD.SalesReturnID=SRH.ID " & vbNewLine &
+"WHERE SCCO.CODetailID=@CODetailID" & vbNewLine
+
+                    .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strID
+                End With
+                sqlrdData = SQL.ExecuteReader(sqlCon, sqlcmdExecute)
+                With sqlrdData
+                    If .HasRows Then
+                        .Read()
+                        strReturn = .Item("SalesReturnNumber")
+                    End If
+                End With
+            Catch ex As Exception
+                Throw ex
+            Finally
+                If sqlrdData IsNot Nothing Then sqlrdData.Close()
+            End Try
+            Return strReturn
+        End Function
+
         Public Shared Function GetAPNumberByCODetailID(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
                                                        ByVal strID As String) As String
             Dim sqlcmdExecute As New SqlCommand, sqlrdData As SqlDataReader = Nothing

@@ -809,8 +809,10 @@
                     "	ARI.ID, ARI.ParentID, ARI.InvoiceNumber, ARI.InvoiceDate, ARI.CoAID, ISNULL(COA.Code,'') AS CoACode, ISNULL(COA.Name,'') AS CoAName, " & vbNewLine &
                     "	ARI.PPN, ARI.PPH, ARI.TotalAmount, ARI.TotalDPP, ARI.TotalPPN, ARI.TotalPPH, ARI.TaxInvoiceNumber, ARI.InvoiceNumberExternal, " & vbNewLine &
                     "	ARI.SubmitBy, ARI.SubmitDate, ARI.ApprovedBy, ARI.ApprovedDate, ARI.IsDeleted, ARI.Remarks, ARI.CreatedBy, ARI.CreatedDate, " & vbNewLine &
-                    "	ARI.LogBy, ARI.LogDate, ARI.LogInc, ARI.VoucherNumber, ARI.VoucherDate, ARI.Rounding " & vbNewLine &
+                    "	ARI.LogBy, ARI.LogDate, ARI.LogInc, ARI.VoucherNumber, ARI.VoucherDate, ARI.Rounding, ARI.StatusID, StatusInfo=MS.Name" & vbNewLine &
                     "FROM traARAPInvoice ARI " & vbNewLine &
+                    "INNER JOIN mstStatus MS ON " & vbNewLine &
+                    "	ARI.StatusID=MS.ID " & vbNewLine &
                     "LEFT JOIN mstChartOfAccount COA ON " & vbNewLine &
                     "	ARI.CoAID=COA.ID " & vbNewLine &
                     "WHERE " & vbNewLine &

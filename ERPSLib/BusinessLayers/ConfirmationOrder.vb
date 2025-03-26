@@ -521,12 +521,14 @@
             Using sqlCon As SqlConnection = DL.SQL.OpenConnection
                 Dim sqlTrans As SqlTransaction = sqlCon.BeginTransaction
                 Try
-                    Dim strReceiveNumber As String = DL.ConfirmationOrder.GetReceiveNumberByCODetailID(sqlCon, sqlTrans, clsData.ID)
-                    If strReceiveNumber.Trim <> "" Then Err.Raise(515, "", "Data tidak dapat di simpan. Dikarenakan data telah diproses penerimaan nomor " & strReceiveNumber)
-                    Dim strDeliveryNumber As String = DL.ConfirmationOrder.GetDeliveryNumberByCODetailID(sqlCon, sqlTrans, clsData.ID)
-                    If strDeliveryNumber.Trim <> "" Then Err.Raise(515, "", "Data tidak dapat di simpan. Dikarenakan data telah diproses pengiriman nomor " & strDeliveryNumber)
+                    'Dim strReceiveNumber As String = DL.ConfirmationOrder.GetReceiveNumberByCODetailID(sqlCon, sqlTrans, clsData.ID)
+                    'If strReceiveNumber.Trim <> "" Then Err.Raise(515, "", "Data tidak dapat di simpan. Dikarenakan data telah diproses penerimaan nomor " & strReceiveNumber)
+                    'Dim strDeliveryNumber As String = DL.ConfirmationOrder.GetDeliveryNumberByCODetailID(sqlCon, sqlTrans, clsData.ID)
+                    'If strDeliveryNumber.Trim <> "" Then Err.Raise(515, "", "Data tidak dapat di simpan. Dikarenakan data telah diproses pengiriman nomor " & strDeliveryNumber)
                     Dim strAPNumber As String = DL.ConfirmationOrder.GetAPNumberByCODetailID(sqlCon, sqlTrans, clsData.ID)
                     If strAPNumber.Trim <> "" Then Err.Raise(515, "", "Data tidak dapat di simpan. Dikarenakan data telah diproses pembayaran nomor " & strAPNumber)
+                    Dim strSalesReturnNumber As String = DL.ConfirmationOrder.GetSalesReturnNumberByCODetailID(sqlCon, sqlTrans, clsData.ID)
+                    If strSalesReturnNumber.Trim <> "" Then Err.Raise(515, "", "Data tidak dapat di simpan. Dikarenakan data telah diproses Retur Penjualan " & strSalesReturnNumber)
 
                     Dim clsHelper As New DataSetHelper
                     Dim decTotalDPP As Decimal = 0
@@ -586,17 +588,17 @@
                         Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsDelivery.JournalID)
 
                         '# Cancel Approve Journal Delivery
-                        BL.Journal.Unapprove(clsDelivery.JournalID.Trim, "UBAH HARGA KONFIRMASI PESANAN")
+                        BL.Journal.Unapprove(sqlCon, sqlTrans, clsDelivery.JournalID.Trim, "UBAH HARGA KONFIRMASI PESANAN")
 
                         '# Cancel Submit Journal Delivery
-                        BL.Journal.Unsubmit(clsDelivery.JournalID.Trim, "UBAH HARGA KONFIRMASI PESANAN")
+                        BL.Journal.Unsubmit(sqlCon, sqlTrans, clsDelivery.JournalID.Trim, "UBAH HARGA KONFIRMASI PESANAN")
 
                         If clsDelivery.TotalDPPTransport > 0 Then
                             '# Cancel Approve Journal Delivery Transport
-                            BL.Journal.Unapprove(clsDelivery.JournalIDTransport.Trim, "")
+                            BL.Journal.Unapprove(sqlCon, sqlTrans, clsDelivery.JournalIDTransport.Trim, "")
 
                             '# Cancel Submit Journal Delivery Transport
-                            BL.Journal.Unsubmit(clsDelivery.JournalIDTransport.Trim, "")
+                            BL.Journal.Unsubmit(sqlCon, sqlTrans, clsDelivery.JournalIDTransport.Trim, "")
                         End If
 
                         BL.Delivery.GenerateJournal(sqlCon, sqlTrans, clsDelivery, PrevJournal)
@@ -607,26 +609,34 @@
                     '# List Data Penerimaan yang sudah di SUBMIT berdasarkan CODetailID
                     DL.Receive.UpdatePriceItemByCODetailID(sqlCon, sqlTrans, clsData.ID, clsData.UnitPrice)
                     Dim dtReceiveID As DataTable = DL.Receive.ListDataReceiveIDByCODetailID(sqlCon, sqlTrans, clsData.ID)
-                    '# Recalculate Total Price Receive
-                    For Each dr As DataRow In dtReceiveID.Rows
-
-                    Next
 
                     '# Re-Generate Kembali Jurnal Penerimaan
                     For Each dr As DataRow In dtReceiveID.Rows
+                        Dim decTotalPrice As Decimal = DL.Receive.GetTotalPriceItem(sqlCon, sqlTrans, dr.Item("ID"))
                         Dim clsReceive As VO.Receive = DL.Receive.GetDetail(sqlCon, sqlTrans, dr.Item("ID"))
+                        clsReceive.TotalDPP = decTotalPrice
+                        clsReceive.TotalPPN = decTotalPrice * clsReceive.PPN / 100
+                        clsReceive.TotalPPH = decTotalPrice * clsReceive.PPH / 100
+                        DL.Receive.UpdateAmount(sqlCon, sqlTrans, clsReceive.ID, clsReceive.TotalDPP, clsReceive.TotalPPN, clsReceive.TotalPPH)
+
                         Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsReceive.JournalID)
 
                         '# Cancel Approve Journal Receive
-                        BL.Journal.Unapprove(clsReceive.JournalID.Trim, "UBAH HARGA KONFIRMASI PESANAN")
+                        BL.Journal.Unapprove(sqlCon, sqlTrans, clsReceive.JournalID.Trim, "UBAH HARGA KONFIRMASI PESANAN")
 
                         '# Cancel Submit Journal Receive
-                        BL.Journal.Unsubmit(clsReceive.JournalID.Trim, "UBAH HARGA KONFIRMASI PESANAN")
+                        BL.Journal.Unsubmit(sqlCon, sqlTrans, clsReceive.JournalID.Trim, "UBAH HARGA KONFIRMASI PESANAN")
 
-                        'BL.Receive.GenerateJournal(sqlCon, sqlTrans, clsReceive, PrevJournal)
+                        BL.Receive.GenerateJournal(sqlCon, sqlTrans, clsReceive, PrevJournal)
+
+                        BL.Receive.RecalculateStockIn(sqlCon, sqlTrans, clsReceive)
                     Next
                     '====================================================================
 
+                    '====================================================================
+                    '# List Data Proses Potong yang sudah di SUBMIT berdasarkan CODetailID
+                    DL.PurchaseOrderCutting.UpdatePriceItemByCODetailID(sqlCon, sqlTrans, clsData.ID, clsData.UnitPrice)
+                    '====================================================================
 
                     '# Save Data Status
                     BL.ConfirmationOrder.SaveDataStatus(sqlCon, sqlTrans, clsData.COID, "UBAH HARGA", ERPSLib.UI.usUserApp.UserID, "")

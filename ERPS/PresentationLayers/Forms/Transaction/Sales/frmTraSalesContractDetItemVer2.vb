@@ -335,6 +335,10 @@ Public Class frmTraSalesContractDetItemVer2
             Exit Sub
         ElseIf txtMaxTotalWeight.Value < txtTotalWeight.Value Then
             If Not UI.usForm.frmAskQuestion("Total Berat melebihi Maks. Total Berat, Apakah anda yakin ingin melanjutkannya?") Then Exit Sub
+        ElseIf txtTotalWeight.Value <> grdItemCOView.GetRowCellValue(0, "TotalWeight") Then
+            UI.usForm.frmMessageBox("Total Berat Permintaan Pesanan harus sama dengan Total Berat Konfirmasi Pesanan")
+            txtTotalWeight.Focus()
+            Exit Sub
         End If
 
         '# Item Handle

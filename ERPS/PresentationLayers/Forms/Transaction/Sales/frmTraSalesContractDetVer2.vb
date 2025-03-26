@@ -248,6 +248,11 @@ Public Class frmTraSalesContractDetVer2
             tcDetail.SelectedTab = tpConfirmationOrder
             grdItemCOView.Focus()
             Exit Sub
+        ElseIf grdItemView.Columns("TotalWeight").SummaryItem.SummaryValue <> grdItemCOView.Columns("TotalWeight").SummaryItem.SummaryValue Then
+            UI.usForm.frmMessageBox("Total Berat Keseluruhan Item harus sama dengan Total Berat Keseluruhan Konfirmasi Pesanan")
+            tcDetail.SelectedTab = tpItem
+            grdItemView.Focus()
+            Exit Sub
             'ElseIf grdPaymentTermView.RowCount = 0 Then
             '    UI.usForm.frmMessageBox("Syarat pembayaran kosong. Mohon untuk diinput syarat pembayaran terlebih dahulu")
             '    tcHeader.SelectedTab = tpPaymentTerm
@@ -452,6 +457,7 @@ Public Class frmTraSalesContractDetVer2
         Dim frmDetail As New frmMstCompanyBankAccount
         With frmDetail
             .pubIsLookUp = True
+            .pubCompanyID = pubCS.CompanyID
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
             If .pubIsLookUpGet Then

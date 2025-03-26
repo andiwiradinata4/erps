@@ -342,6 +342,16 @@
             Try
                 Dim clsData As VO.Receive = DL.Receive.GetDetail(sqlCon, sqlTrans, strID)
                 Dim PrevJournal As VO.Journal = DL.Journal.GetDetail(sqlCon, sqlTrans, clsData.JournalID)
+
+                GenerateJournal(sqlCon, sqlTrans, clsData, PrevJournal)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Shared Sub GenerateJournal(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                          ByVal clsData As VO.Receive, ByVal PrevJournal As VO.Journal)
+            Try
                 Dim bolNew As Boolean = IIf(PrevJournal.ID = "", True, False)
 
                 '# Generate Journal
@@ -400,7 +410,7 @@
             End Try
         End Sub
 
-        Private Shared Sub RecalculateStockIn(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal clsData As VO.Receive)
+        Public Shared Sub RecalculateStockIn(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal clsData As VO.Receive)
             Dim dtItem As DataTable = DL.Receive.ListDataDetail(sqlCon, sqlTrans, clsData.ID)
             Dim clsDataStockIN As New List(Of VO.StockIn)
             For Each dr As DataRow In dtItem.Rows

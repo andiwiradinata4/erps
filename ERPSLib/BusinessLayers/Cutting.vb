@@ -421,7 +421,7 @@
             End Try
         End Sub
 
-        Private Shared Sub RecalculateStockInOut(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal clsData As VO.Cutting)
+        Public Shared Sub RecalculateStockInOut(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction, ByVal clsData As VO.Cutting)
             Dim dtItem As DataTable = DL.Cutting.ListDataDetailResult(sqlCon, sqlTrans, clsData.ID)
             Dim clsDataStockIN As New List(Of VO.StockIn)
             For Each dr As DataRow In dtItem.Rows

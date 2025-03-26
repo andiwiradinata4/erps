@@ -130,13 +130,18 @@
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
                 .CommandText =
-"SELECT DISTINCT " & vbNewLine &
-"	TDH.ID " & vbNewLine &
-"FROM traDelivery TDH " & vbNewLine &
-"INNER JOIN traSalesContractDetConfirmationOrder SCCO ON " & vbNewLine &
-"	TDH.SCID=SCCO.SCID " & vbNewLine &
+"SELECT DISTINCT  " & vbNewLine &
+"	TDH.ID  " & vbNewLine &
+"FROM traDelivery TDH  " & vbNewLine &
+"INNER JOIN traDeliveryDet TDD ON " & vbNewLine &
+"	TDH.ID=TDD.DeliveryID " & vbNewLine &
+"INNER JOIN traSalesContractDet SCD ON " & vbNewLine &
+"	TDD.SCDetailID=SCD.ID " & vbNewLine &
+"INNER JOIN traSalesContractDetConfirmationOrder SCCO ON  " & vbNewLine &
+"	SCD.SCID=SCCO.SCID " & vbNewLine &
+"	AND SCD.GroupID=SCCO.GroupID" & vbNewLine &
 "WHERE " & vbNewLine &
-"	SCCO.CODetailID=@SCCODetailID " & vbNewLine &
+"	SCCO.CODetailID=@CODetailID " & vbNewLine &
 "	AND TDH.StatusID=@StatusID" & vbNewLine
 
                 .Parameters.Add("@CODetailID", SqlDbType.VarChar, 100).Value = strCODetailID
