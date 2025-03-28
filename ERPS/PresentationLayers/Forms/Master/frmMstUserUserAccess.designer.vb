@@ -31,14 +31,15 @@ Partial Class frmMstUserUserAccess
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnSave = New DevExpress.XtraEditors.SimpleButton()
         Me.btnRefresh = New DevExpress.XtraEditors.SimpleButton()
-        Me.cboModules = New ERPS.usComboBox()
         Me.lblModule = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.grdMain = New DevExpress.XtraGrid.GridControl()
         Me.grdView = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.cboModules = New ERPS.usComboBoxEdit()
         Me.pnlDetail.SuspendLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboModules.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolBar
@@ -75,16 +76,16 @@ Partial Class frmMstUserUserAccess
         'pnlDetail
         '
         Me.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlDetail.Controls.Add(Me.cboModules)
         Me.pnlDetail.Controls.Add(Me.cboProgram)
         Me.pnlDetail.Controls.Add(Me.Label2)
         Me.pnlDetail.Controls.Add(Me.btnSave)
         Me.pnlDetail.Controls.Add(Me.btnRefresh)
-        Me.pnlDetail.Controls.Add(Me.cboModules)
         Me.pnlDetail.Controls.Add(Me.lblModule)
         Me.pnlDetail.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlDetail.Location = New System.Drawing.Point(0, 50)
         Me.pnlDetail.Name = "pnlDetail"
-        Me.pnlDetail.Size = New System.Drawing.Size(927, 86)
+        Me.pnlDetail.Size = New System.Drawing.Size(927, 85)
         Me.pnlDetail.TabIndex = 2
         '
         'cboProgram
@@ -109,31 +110,21 @@ Partial Class frmMstUserUserAccess
         '
         'btnSave
         '
-        Me.btnSave.Image = CType(resources.GetObject("btnSave.Image"), System.Drawing.Image)
+        Me.btnSave.ImageOptions.Image = CType(resources.GetObject("btnSave.ImageOptions.Image"), System.Drawing.Image)
         Me.btnSave.Location = New System.Drawing.Point(645, 40)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(123, 23)
-        Me.btnSave.TabIndex = 2
+        Me.btnSave.TabIndex = 3
         Me.btnSave.Text = "Simpan"
         '
         'btnRefresh
         '
-        Me.btnRefresh.Image = CType(resources.GetObject("btnRefresh.Image"), System.Drawing.Image)
+        Me.btnRefresh.ImageOptions.Image = CType(resources.GetObject("btnRefresh.ImageOptions.Image"), System.Drawing.Image)
         Me.btnRefresh.Location = New System.Drawing.Point(774, 40)
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.Size = New System.Drawing.Size(123, 23)
-        Me.btnRefresh.TabIndex = 3
+        Me.btnRefresh.TabIndex = 4
         Me.btnRefresh.Text = "Refresh"
-        '
-        'cboModules
-        '
-        Me.cboModules.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboModules.FormattingEnabled = True
-        Me.cboModules.Location = New System.Drawing.Point(87, 40)
-        Me.cboModules.MaxDropDownItems = 100
-        Me.cboModules.Name = "cboModules"
-        Me.cboModules.Size = New System.Drawing.Size(552, 21)
-        Me.cboModules.TabIndex = 1
         '
         'lblModule
         '
@@ -152,7 +143,7 @@ Partial Class frmMstUserUserAccess
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(0, 136)
+        Me.Label1.Location = New System.Drawing.Point(0, 135)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(927, 22)
         Me.Label1.TabIndex = 3
@@ -176,10 +167,10 @@ Partial Class frmMstUserUserAccess
         Me.grdMain.EmbeddedNavigator.Buttons.PrevPage.Visible = False
         Me.grdMain.EmbeddedNavigator.Buttons.Remove.Enabled = False
         Me.grdMain.EmbeddedNavigator.Buttons.Remove.Visible = False
-        Me.grdMain.Location = New System.Drawing.Point(0, 158)
+        Me.grdMain.Location = New System.Drawing.Point(0, 157)
         Me.grdMain.MainView = Me.grdView
         Me.grdMain.Name = "grdMain"
-        Me.grdMain.Size = New System.Drawing.Size(927, 342)
+        Me.grdMain.Size = New System.Drawing.Size(927, 343)
         Me.grdMain.TabIndex = 4
         Me.grdMain.UseEmbeddedNavigator = True
         Me.grdMain.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.grdView})
@@ -193,6 +184,16 @@ Partial Class frmMstUserUserAccess
         Me.grdView.OptionsView.ColumnAutoWidth = False
         Me.grdView.OptionsView.ShowAutoFilterRow = True
         Me.grdView.OptionsView.ShowGroupPanel = False
+        '
+        'cboModules
+        '
+        Me.cboModules.Location = New System.Drawing.Point(87, 40)
+        Me.cboModules.Name = "cboModules"
+        Me.cboModules.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboModules.Properties.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.cboModules.Properties.NullText = ""
+        Me.cboModules.Size = New System.Drawing.Size(552, 20)
+        Me.cboModules.TabIndex = 1
         '
         'frmMstUserUserAccess
         '
@@ -215,6 +216,7 @@ Partial Class frmMstUserUserAccess
         Me.pnlDetail.PerformLayout()
         CType(Me.grdMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboModules.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -223,7 +225,6 @@ Partial Class frmMstUserUserAccess
     Friend WithEvents BarClose As System.Windows.Forms.ToolBarButton
     Friend WithEvents lblInfo As System.Windows.Forms.Label
     Friend WithEvents pnlDetail As System.Windows.Forms.Panel
-    Friend WithEvents cboModules As ERPS.usComboBox
     Friend WithEvents lblModule As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents grdMain As DevExpress.XtraGrid.GridControl
@@ -232,4 +233,5 @@ Partial Class frmMstUserUserAccess
     Friend WithEvents btnRefresh As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents cboProgram As ERPS.usComboBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents cboModules As usComboBoxEdit
 End Class

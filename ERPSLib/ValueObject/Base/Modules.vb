@@ -67,6 +67,58 @@ Namespace VO
             ReportBalanceSheet = 50
         End Enum
 
+        Enum Value
+            All = 0
+
+            '# Master
+            MasterProgram
+            MasterStatus
+            MasterModule
+            MasterAccess
+            MasterCompany
+            MasterUser
+            MasterUOM
+            MasterChartOfAccountType
+            MasterChartOfAccountGroup
+            MasterChartOfAccount
+            MasterItemType
+            MasterItemSpecification
+            MasterItem
+            MasterBusinessPartner
+            MasterCompanyBankAccount
+            MasterPaymentTypeCategory
+            MasterPaymentMethod
+            MasterPaymentType
+            MasterDeliveryLocation
+            MasterTransportCostType
+
+            '# Transaction
+            '# Sales
+            TransactionSalesOrderRequest
+            TransactionSalesOrderRequestDownPayment
+            TransactionSalesConfirmationOrder
+            TransactionSalesSalesContract
+            TransactionSalesSalesContractDownPayment
+            TransactionSalesSalesContractReceivePayment
+            TransactionSalesDelivery
+            TransactionSalesSalesReturn
+            TransactionSalesSalesReturnReceivePayment
+            TransactionSalesClaimRequest
+            TransactionSalesClaimConfirmation
+            TransactionSalesClaimReceivePayment
+
+            '# Purchase
+            TransactionPurchasePurchaseOrder
+            TransactionPurchaseConfirmationOrder
+
+
+
+            TransactionARAP
+            TransactionARAPInvoice
+
+
+        End Enum
+
     End Class
 End Namespace
 

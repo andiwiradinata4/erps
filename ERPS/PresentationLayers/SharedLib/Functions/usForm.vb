@@ -179,7 +179,7 @@ Namespace UI
         End Sub
 
         Public Shared Sub FillComboBoxEdit(ByRef usComboBoxEdit As usComboBoxEdit, ByVal dtSource As DataTable, ByVal valueMember As String, ByVal displayMember As String, Optional ByVal initialMember As String = "",
-                                           Optional ByVal bolSortData As Boolean = False)
+                                           Optional ByVal bolSortData As Boolean = False, Optional ByVal allColumnInfo As List(Of DevExpress.XtraEditors.Controls.LookUpColumnInfo) = Nothing)
             Dim col As DevExpress.XtraEditors.Controls.LookUpColumnInfo = New DevExpress.XtraEditors.Controls.LookUpColumnInfo(displayMember, initialMember)
             If bolSortData Then col.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending
 
@@ -188,7 +188,11 @@ Namespace UI
                 .Properties.DataSource = dtSource
                 .Properties.ValueMember = valueMember
                 .Properties.DisplayMember = displayMember
-                .Properties.Columns.Add(col)
+                If allColumnInfo Is Nothing Then
+                    .Properties.Columns.Add(col)
+                Else
+                    .Properties.Columns.AddRange(allColumnInfo.ToArray)
+                End If
                 .SelectedText = ""
             End With
         End Sub

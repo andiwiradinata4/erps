@@ -54,7 +54,7 @@
             Else
                 dtModules = dsHelper.SelectGroupByInto("Modules", ERPSLib.UI.usUserApp.AccessList, "ModulesID,ModulesName", strFilter, "ModulesID,ModulesName")
             End If
-            UI.usForm.FillComboBox(cboModules, dtModules, "ModulesID", "ModulesName", True)
+            UI.usForm.FillComboBoxEdit(cboModules, dtModules, "ModulesID", "ModulesName", "Module Name", True)
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
         Finally
@@ -69,15 +69,15 @@
 
     Private Sub prvQuery()
         If cboProgram.SelectedIndex = -1 Then Exit Sub
-        If cboModules.SelectedValue Is Nothing Then
+        If cboModules.EditValue Is Nothing Then
             Exit Sub
-        ElseIf cboModules.SelectedValue.ToString = "System.Data.DataRowView" Then
+        ElseIf cboModules.Text.Trim = "" Then
             Exit Sub
         End If
         
         Me.Cursor = Cursors.WaitCursor
         Try
-            dtData = BL.UserAccess.ListDataByModulesIDAndProgramID(pubUserID, cboProgram.SelectedValue, cboModules.SelectedValue)
+            dtData = BL.UserAccess.ListDataByModulesIDAndProgramID(pubUserID, cboProgram.SelectedValue, cboModules.EditValue)
             grdMain.DataSource = dtData
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -99,7 +99,7 @@
         For i As Integer = 0 To drPick.Count - 1
             clsData = New VO.UserAccess
             clsData.UserID = pubUserID
-            clsData.ModulesID = cboModules.SelectedValue
+            clsData.ModulesID = cboModules.EditValue
             clsData.ProgramID = cboProgram.SelectedValue
             clsData.AccessID = drPick(i).Item("AccessID")
             clsDataAll(i) = clsData
@@ -107,7 +107,7 @@
 
         Me.Cursor = Cursors.WaitCursor
         Try
-            If BL.UserAccess.SaveData(clsDataAll, cboProgram.SelectedValue, cboModules.SelectedValue, pubUserID) Then
+            If BL.UserAccess.SaveData(clsDataAll, cboProgram.SelectedValue, cboModules.EditValue, pubUserID) Then
                 UI.usForm.frmMessageBox("Simpan data berhasil")
                 prvQuery()
             End If
@@ -140,7 +140,7 @@
         prvFillCombo()
 
         AddHandler cboProgram.SelectedIndexChanged, AddressOf cboProgram_SelectedIndexChanged
-        AddHandler cboModules.SelectedIndexChanged, AddressOf cboModules_SelectedIndexChanged
+        AddHandler cboModules.EditValueChanged, AddressOf cboModules_EditValueChanged
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
@@ -161,7 +161,7 @@
         prvFillModules()
     End Sub
 
-    Private Sub cboModules_SelectedIndexChanged(sender As Object, e As EventArgs)
+    Private Sub cboModules_EditValueChanged(sender As Object, e As EventArgs)
         prvClear()
         prvQuery()
     End Sub
