@@ -107,16 +107,48 @@ Namespace VO
             TransactionSalesClaimConfirmation
             TransactionSalesClaimReceivePayment
 
+            '# Sales Service
+            TransactionSalesServiceDelivery
+            TransactionSalesServiceDeliveryReceivePayment
+            TransactionSalesServiceCutting
+            TransactionSalesServiceCuttingReceivePayment
+            TransactionSalesServiceInvoice
+
             '# Purchase
             TransactionPurchasePurchaseOrder
             TransactionPurchaseConfirmationOrder
+            TransactionPurchasePurchaseContract
+            TransactionPurchasePurchaseContractDownPayment
+            TransactionPurchasePurchaseContractReceivePayment
+            TransactionPurchaseReceive
+            TransactionPurchasePurchaseOrderCutting
+            TransactionPurchaseCutting
+            TransactionPurchaseClaimRequest
+            TransactionPurchaseClaimConfirmation
+            TransactionPurchaseClaimReceivePayment
 
+            '# Accounting
+            TransactionAccountingAR
+            TransactionAccountingAP
+            TransactionAccountingARAPInvoice
+            TransactionAccountingCost
+            TransactionAccountingTransportCost
+            TransactionAccountingCuttingCost
+            TransactionAccountingBankVoucher
+            TransactionAccountingJournal
+            TransactionAccountingJournalAutoGenerate
 
-
-            TransactionARAP
-            TransactionARAPInvoice
-
-
+            '# Reports
+            ReportPurchasePurchaseOrderCutting
+            ReportSalesConfirmationOrder
+            ReportItemTransaction
+            ReportAccountingAR
+            ReportAccountingDebtCard
+            ReportAccountingReceivableCard
+            ReportAccountingGeneralLedger
+            ReportAccountingTrialBalance
+            ReportAccountingProfitAndLoss
+            ReportAccountingBalanceSheet
         End Enum
 
     End Class

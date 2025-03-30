@@ -161,7 +161,7 @@ Partial Class frmRptSalesConfirmationOrderReportVer00
         '
         'btnBP
         '
-        Me.btnBP.Image = CType(resources.GetObject("btnBP.Image"), System.Drawing.Image)
+        Me.btnBP.ImageOptions.Image = CType(resources.GetObject("btnBP.ImageOptions.Image"), System.Drawing.Image)
         Me.btnBP.Location = New System.Drawing.Point(408, 70)
         Me.btnBP.Name = "btnBP"
         Me.btnBP.Size = New System.Drawing.Size(23, 23)
@@ -218,7 +218,7 @@ Partial Class frmRptSalesConfirmationOrderReportVer00
         Me.Label3.TabIndex = 9
         Me.Label3.Text = "-"
         '
-        'frmRptPOReport
+        'frmRptSalesConfirmationOrderReportVer00
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -228,8 +228,8 @@ Partial Class frmRptSalesConfirmationOrderReportVer00
         Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.ToolBar)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.Name = "frmRptPOReport"
-        Me.Text = "Laporan PO"
+        Me.Name = "frmRptSalesConfirmationOrderReportVer00"
+        Me.Text = "Laporan Konfirmasi Pesanan Penjualan"
         Me.pnlMain.ResumeLayout(False)
         Me.pnlMain.PerformLayout()
         CType(Me.chkIsShowSize.Properties, System.ComponentModel.ISupportInitialize).EndInit()
