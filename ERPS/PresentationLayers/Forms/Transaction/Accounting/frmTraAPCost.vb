@@ -10,6 +10,7 @@ Public Class frmTraAPCost
     Private strModules As String = ""
     Private clsCS As New VO.CS
     Private bolExport As Boolean = True
+    Private intModuleID As Integer = 0
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -102,7 +103,7 @@ Public Class frmTraAPCost
 
     Private Sub prvFillCombo()
         Try
-            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionAccountPayableBalance)
+            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(intModuleID)
             Dim dr As DataRow
             dr = dtData.NewRow
             With dr
@@ -625,14 +626,30 @@ Public Class frmTraAPCost
     End Sub
 
     Private Sub prvUserAccess()
-        Dim intModules As Integer = VO.Common.GetModuleID(strModules)
+        Dim intModuleID2 As Integer = 0
+        If strModules = VO.AccountPayable.ReceivePaymentTransport Then
+
+            intModuleID2 = VO.Modules.Value.TransactionAccountingTransportCostSetPaymentDate
+        End If
         With ToolBar.Buttons
-            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.NewAccess)
-            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.DeleteAccess)
-            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.SubmitAccess)
-            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelSubmitAccess)
-            .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.ApproveAccess)
-            .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelApproveAccess)
+            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, VO.Access.Value.NewAccess)
+            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, VO.Access.Value.DeleteAccess)
+            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, VO.Access.Value.SubmitAccess)
+            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, VO.Access.Value.CancelSubmitAccess)
+            .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, VO.Access.Value.ApproveAccess)
+            .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, VO.Access.Value.CancelApproveAccess)
+
+            If strModules = VO.AccountPayable.ReceivePaymentTransport Then
+                .Item(cSetPaymentDate).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingTransportCostSetPaymentDate, VO.Access.Value.ViewAccess)
+                .Item(cDeletePaymentDate).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingTransportCostSetPaymentDate, VO.Access.Value.ViewAccess)
+                .Item(cSetTaxInvoiceNumber).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingTransportCostSetTaxInvoiceNumber, VO.Access.Value.ViewAccess)
+            ElseIf strModules = VO.AccountPayable.ReceivePaymentCutting Then
+                .Item(cSetPaymentDate).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingCuttingCostSetPaymentDate, VO.Access.Value.ViewAccess)
+                .Item(cDeletePaymentDate).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingCuttingCostSetPaymentDate, VO.Access.Value.ViewAccess)
+                .Item(cSetTaxInvoiceNumber).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingCuttingCostSetTaxInvoiceNumber, VO.Access.Value.ViewAccess)
+            End If
+            .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, VO.Access.Value.PrintReportAccess)
+            .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, VO.Access.Value.ExportExcelAccess)
         End With
     End Sub
 
@@ -647,6 +664,7 @@ Public Class frmTraAPCost
     Private Sub frmTraAPCost_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
+        intModuleID = VO.Common.GetModuleID(strModules)
         prvFillCombo()
         prvSetGrid()
         cboStatus.SelectedValue = VO.Status.Values.All

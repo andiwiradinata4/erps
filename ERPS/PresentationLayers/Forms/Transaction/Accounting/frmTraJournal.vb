@@ -58,7 +58,7 @@ Public Class frmTraJournal
 
     Private Sub prvFillCombo()
         Try
-            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionJournal)
+            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Value.TransactionAccountingJournal)
             Dim dr As DataRow
             dr = dtData.NewRow
             With dr
@@ -352,6 +352,7 @@ Public Class frmTraJournal
                 txtCompanyName.Text = .pubLUdtRow.Item("CompanyName")
                 prvClear()
                 btnExecute.Focus()
+                prvUserAccess()
             End If
         End With
     End Sub
@@ -363,16 +364,21 @@ Public Class frmTraJournal
         End If
     End Sub
 
-    Private Sub prvUserAccess()
-        With ToolBar.Buttons
-            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionJournal, VO.Access.Values.NewAccess)
-            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionJournal, VO.Access.Values.DeleteAccess)
-        End With
-    End Sub
-
     Private Sub prvExportExcel()
         Dim dxExporter As New DX.usDXHelper
         dxExporter.DevExport(Me, grdMain, Me.Text, Me.Text, DX.usDxExportFormat.fXls, True, True, DX.usDXExportType.etDefault)
+    End Sub
+
+    Private Sub prvUserAccess()
+        With ToolBar.Buttons
+            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingJournal, VO.Access.Value.NewAccess)
+            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingJournal, VO.Access.Value.DeleteAccess)
+            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingJournal, VO.Access.Value.SubmitAccess)
+            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingJournal, VO.Access.Value.CancelSubmitAccess)
+            .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingJournal, VO.Access.Value.ApproveAccess)
+            .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingJournal, VO.Access.Value.CancelApproveAccess)
+            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingJournal, VO.Access.Value.ExportExcelAccess)
+        End With
     End Sub
 
 #Region "Form Handle"

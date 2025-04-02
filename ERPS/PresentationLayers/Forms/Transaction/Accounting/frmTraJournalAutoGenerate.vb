@@ -52,7 +52,7 @@ Public Class frmTraJournalAutoGenerate
 
     Private Sub prvFillCombo()
         Try
-            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionJournal)
+            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Value.TransactionAccountingJournalAutoGenerate)
             Dim dr As DataRow
             dr = dtData.NewRow
             With dr
@@ -167,6 +167,7 @@ Public Class frmTraJournalAutoGenerate
                 txtCompanyName.Text = .pubLUdtRow.Item("CompanyName")
                 prvClear()
                 btnExecute.Focus()
+                prvUserAccess()
             End If
         End With
     End Sub
@@ -181,6 +182,12 @@ Public Class frmTraJournalAutoGenerate
     Private Sub prvExportExcel()
         Dim dxExporter As New DX.usDXHelper
         dxExporter.DevExport(Me, grdMain, Me.Text, Me.Text, DX.usDxExportFormat.fXls, True, True, DX.usDXExportType.etDefault)
+    End Sub
+
+    Private Sub prvUserAccess()
+        With ToolBar.Buttons
+            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingJournalAutoGenerate, VO.Access.Value.ExportExcelAccess)
+        End With
     End Sub
 
 #Region "Form Handle"
@@ -201,6 +208,7 @@ Public Class frmTraJournalAutoGenerate
         dtpDateTo.Value = Today.Date
         prvDefaultFilter()
         prvQuery()
+        prvUserAccess()
         Me.WindowState = FormWindowState.Maximized
     End Sub
 

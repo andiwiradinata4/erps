@@ -150,7 +150,7 @@ Public Class frmTraARAPDetVer2
 
     Private Sub prvFillCombo()
         Try
-            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionAccountPayable), "StatusID", "StatusName")
+            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(intModuleID), "StatusID", "StatusName")
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -406,12 +406,8 @@ Public Class frmTraARAPDetVer2
         End With
     End Sub
 
-    Private Sub prvGetModuleID()
-        intModuleID = VO.Common.GetModuleID(strModules)
-    End Sub
-
     Private Sub prvUserAccess()
-        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, IIf(bolIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
+        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, IIf(bolIsNew, VO.Access.Value.NewAccess, VO.Access.Value.EditAccess))
     End Sub
 
 #Region "Item Handle"
@@ -630,7 +626,7 @@ Public Class frmTraARAPDetVer2
     End Sub
 
     Private Sub frmTraARAPDetVer2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        prvGetModuleID()
+        intModuleID = VO.Common.GetModuleID(strModules)
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         ToolBarDetail.SetIcon(Me)

@@ -11,6 +11,7 @@ Public Class frmTraConfirmationClaimDet
     Private dtItem As New DataTable
     Private intPos As Integer = 0
     Private bolIsUseSubItem As Boolean
+    Private intModuleID As Integer = 0
     Property pubID As String = ""
     Property pubIsNew As Boolean = False
     Property pubCS As New VO.CS
@@ -85,8 +86,13 @@ Public Class frmTraConfirmationClaimDet
     End Sub
 
     Private Sub prvFillCombo()
+        If intClaimType = VO.Claim.ClaimTypeValue.Sales Then
+            intModuleID = VO.Modules.Value.TransactionSalesClaimConfirmation
+        ElseIf intClaimType = VO.Claim.ClaimTypeValue.Receive Then
+            intModuleID = VO.Modules.Value.TransactionPurchaseClaimConfirmation
+        End If
         Try
-            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionSalesDelivery), "StatusID", "StatusName")
+            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(intModuleID), "StatusID", "StatusName")
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -327,7 +333,12 @@ Public Class frmTraConfirmationClaimDet
     End Sub
 
     Private Sub prvUserAccess()
-        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesDelivery, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
+        If intClaimType = VO.Claim.ClaimTypeValue.Sales Then
+            intModuleID = VO.Modules.Value.TransactionSalesClaimConfirmation
+        ElseIf intClaimType = VO.Claim.ClaimTypeValue.Receive Then
+            intModuleID = VO.Modules.Value.TransactionPurchaseClaimConfirmation
+        End If
+        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, IIf(pubIsNew, VO.Access.Value.NewAccess, VO.Access.Value.EditAccess))
     End Sub
 
     Private Sub prvSetupTools()

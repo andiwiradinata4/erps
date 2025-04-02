@@ -32,6 +32,20 @@ Namespace VO
             CancelSetupDelivery = 24
         End Enum
 
+        Enum Value
+            All = 0
+            ViewAccess = 1
+            NewAccess = 2
+            EditAccess = 3
+            DeleteAccess = 4
+            SubmitAccess = 5
+            CancelSubmitAccess = 6
+            ApproveAccess = 7
+            CancelApproveAccess = 8
+            ExportExcelAccess = 9
+            PrintReportAccess = 10
+            ExportReportAccess = 11
+        End Enum
     End Class 
 End Namespace
 

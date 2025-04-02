@@ -77,7 +77,7 @@ Public Class frmTraAPTransporterDet
 
     Private Sub prvFillCombo()
         Try
-            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionAccountPayable), "StatusID", "StatusName")
+            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Value.TransactionAccountingTransportCost), "StatusID", "StatusName")
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -404,6 +404,10 @@ Public Class frmTraAPTransporterDet
         End With
     End Sub
 
+    Private Sub prvUserAccess()
+        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingTransportCost, IIf(pubIsNew, VO.Access.Value.NewAccess, VO.Access.Value.EditAccess))
+    End Sub
+
 #Region "History Handle"
 
     Private Sub prvQueryHistory()
@@ -541,7 +545,7 @@ Public Class frmTraAPTransporterDet
         prvQueryItem()
         prvQueryHistory()
         prvQueryRemarks()
-        'prvUserAccess()
+        prvUserAccess()
 
         AddHandler txtRounding.ValueChanged, AddressOf txtRounding_ValueChanged
     End Sub

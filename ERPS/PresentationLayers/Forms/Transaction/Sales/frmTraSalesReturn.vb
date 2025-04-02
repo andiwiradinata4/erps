@@ -12,7 +12,7 @@ Public Class frmTraSalesReturn
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
-       cSep2 As Byte = 8, cReceive As Byte = 9, cReceiveTransport As Byte = 10, cSep3 As Byte = 11,
+       cSep2 As Byte = 8, cReceivePayment As Byte = 9, cReceivePaymentTransport As Byte = 10, cSep3 As Byte = 11,
        cExportExcel As Byte = 12, cSep4 As Byte = 13, cRefresh As Byte = 14, cClose As Byte = 15
 
     Private Sub prvResetProgressBar()
@@ -85,15 +85,15 @@ Public Class frmTraSalesReturn
             .Item(cCancelSubmit).Enabled = bolEnable
             .Item(cApprove).Enabled = bolEnable
             .Item(cCancelApprove).Enabled = bolEnable
-            .Item(cReceive).Enabled = bolEnable
-            .Item(cReceiveTransport).Enabled = bolEnable
+            .Item(cReceivePayment).Enabled = bolEnable
+            .Item(cReceivePaymentTransport).Enabled = bolEnable
             .Item(cExportExcel).Enabled = bolEnable
         End With
     End Sub
 
     Private Sub prvFillCombo()
         Try
-            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionSalesDelivery)
+            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Value.TransactionSalesSalesReturn)
             Dim dr As DataRow
             dr = dtData.NewRow
             With dr
@@ -527,19 +527,18 @@ Public Class frmTraSalesReturn
     End Sub
 
     Private Sub prvUserAccess()
-        'With ToolBar.Buttons
-        '    .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.NewAccess)
-        '    .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.DeleteAccess)
-        '    .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.SubmitAccess)
-        '    .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.CancelSubmitAccess)
-        '    .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.ApproveAccess)
-        '    .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.CancelApproveAccess)
-        '    .Item(cSetupDelivery).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.SetupDelivery)
-        '    .Item(cCancelSetupDelivery).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.CancelSetupDelivery)
-        '    .Item(cPrint).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.PrintReportAccess)
-        '    .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.ExportExcelAccess)
-        '    bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesContract, VO.Access.Values.ExportReportAccess)
-        'End With
+        With ToolBar.Buttons
+            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionSalesSalesReturn, VO.Access.Value.NewAccess)
+            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionSalesSalesReturn, VO.Access.Value.DeleteAccess)
+            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionSalesSalesReturn, VO.Access.Value.SubmitAccess)
+            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionSalesSalesReturn, VO.Access.Value.CancelSubmitAccess)
+            .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionSalesSalesReturn, VO.Access.Value.ApproveAccess)
+            .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionSalesSalesReturn, VO.Access.Value.CancelApproveAccess)
+            .Item(cReceivePayment).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionSalesSalesReturnReceivePayment, VO.Access.Value.ViewAccess)
+            .Item(cReceivePaymentTransport).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionSalesSalesReturnReceivePaymentTransport, VO.Access.Value.ViewAccess)
+            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionSalesSalesReturn, VO.Access.Value.ExportExcelAccess)
+            bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionSalesSalesReturn, VO.Access.Value.ExportReportAccess)
+        End With
     End Sub
 
 #Region "Form Handle"
@@ -579,8 +578,8 @@ Public Class frmTraSalesReturn
                 Case ToolBar.Buttons(cCancelSubmit).Name : prvCancelSubmit()
                 Case ToolBar.Buttons(cApprove).Name : prvApprove()
                 Case ToolBar.Buttons(cCancelApprove).Name : prvCancelApprove()
-                Case ToolBar.Buttons(cReceive).Name : prvReceivePayment()
-                Case ToolBar.Buttons(cReceiveTransport).Name : prvReceivePaymentTransport()
+                Case ToolBar.Buttons(cReceivePayment).Name : prvReceivePayment()
+                Case ToolBar.Buttons(cReceivePaymentTransport).Name : prvReceivePaymentTransport()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If

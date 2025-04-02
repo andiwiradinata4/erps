@@ -1,4 +1,6 @@
-﻿Public Class frmTraOrderRequestMapConfirmationOrder
+﻿Imports DevExpress.Data.Filtering.Helpers.SubExprHelper
+
+Public Class frmTraOrderRequestMapConfirmationOrder
 
 #Region "Properties"
 
@@ -134,6 +136,14 @@
         End With
     End Sub
 
+    Private Sub prvUserAccess()
+        If ERPSLib.UI.usUserApp.IsSuperUser Then Exit Sub
+        With ToolBar.Buttons
+            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionSalesOrderRequestMapConfirmationOrder, VO.Access.Value.NewAccess)
+            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionSalesOrderRequestMapConfirmationOrder, VO.Access.Value.DeleteAccess)
+        End With
+    End Sub
+
 #Region "Form Handle"
 
     Private Sub frmTraOrderRequestMapConfirmationOrder_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -147,6 +157,7 @@
         ToolBar.SetIcon(Me)
         prvSetGrid()
         prvQuery()
+        prvUserAccess()
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick
@@ -165,5 +176,5 @@
     End Sub
 
 #End Region
-    
+
 End Class

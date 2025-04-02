@@ -129,7 +129,7 @@
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         dtpDateTo.Value = Today.Date
-        bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.ReportBalanceSheet, VO.Access.Values.ExportReportAccess)
+        bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.ReportAccountingBalanceSheet, VO.Access.Value.ExportReportAccess)
         Me.WindowState = FormWindowState.Maximized
     End Sub
 

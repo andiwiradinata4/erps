@@ -24,7 +24,7 @@ Public Class frmTraConfirmationOrderDetVer1
 #End Region
 
     Private Const _
-       cSave As Byte = 0, cClose As Byte = 1, cSep1 As Byte = 2, cGenerateContract As Byte = 3, cChangePCNumber As Byte = 4,
+       cSave As Byte = 0, cClose As Byte = 1, cSep1 As Byte = 2, cGenerateContract As Byte = 3, cChangeContractNumber As Byte = 4,
        cAddItem As Byte = 0, cEditItem As Byte = 1, cDeleteItem As Byte = 2, cSep1Item As Byte = 3, cUpdatePriceItem As Byte = 4
 
     Private Sub prvSetTitleForm()
@@ -115,7 +115,7 @@ Public Class frmTraConfirmationOrderDetVer1
 
     Private Sub prvFillCombo()
         Try
-            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionConfirmationOrder), "StatusID", "StatusName")
+            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Value.TransactionPurchaseConfirmationOrder), "StatusID", "StatusName")
             UI.usForm.FillComboBox(cboPaymentType, BL.PaymentType.ListDataForCombo("13,14"), "ID", "Name")
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
@@ -434,7 +434,9 @@ Public Class frmTraConfirmationOrderDetVer1
     End Sub
 
     Private Sub prvUserAccess()
-        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionConfirmationOrder, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
+        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchaseConfirmationOrder, IIf(pubIsNew, VO.Access.Value.NewAccess, VO.Access.Value.EditAccess))
+        ToolBar.Buttons(cGenerateContract).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchasePurchaseContract, VO.Access.Value.NewAccess)
+        ToolBar.Buttons(cGenerateContract).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchasePurchaseContract, VO.Access.Value.EditAccess)
     End Sub
 
     Private Sub prvSetupTools()
@@ -444,7 +446,7 @@ Public Class frmTraConfirmationOrderDetVer1
             ToolBar.Buttons.Item(cGenerateContract).Enabled = False
         Else
             ToolBar.Buttons.Item(cGenerateContract).Enabled = IIf(txtPCNumber.Text.Trim = "", True, False)
-            ToolBar.Buttons.Item(cChangePCNumber).Enabled = IIf(txtPCNumber.Text.Trim = "", False, True)
+            ToolBar.Buttons.Item(cChangeContractNumber).Enabled = IIf(txtPCNumber.Text.Trim = "", False, True)
         End If
 
         For i As Integer = 0 To grdItemView.RowCount - 1

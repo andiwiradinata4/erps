@@ -65,7 +65,7 @@
 #End Region
 
     Private Const _
-       cSave As Byte = 0, cClose As Byte = 1, _
+       cSave As Byte = 0, cClose As Byte = 1,
        cCheckAll As Byte = 0, cUncheckAll As Byte = 1
 
     Private Sub prvSetTitleForm()
@@ -92,7 +92,7 @@
 
     Private Sub prvFillCombo()
         Try
-            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionAccountPayableBalance), "StatusID", "StatusName")
+            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(intModuleID), "StatusID", "StatusName")
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -254,7 +254,7 @@
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -302,12 +302,8 @@
         End With
     End Sub
 
-    Private Sub prvGetModuleID()
-        intModuleID = VO.Common.GetModuleID(strModules)
-    End Sub
-
     Private Sub prvUserAccess()
-        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, IIf(bolIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
+        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, IIf(bolIsNew, VO.Access.Value.NewAccess, VO.Access.Value.EditAccess))
     End Sub
 
     Private Sub prvCalculate()
@@ -356,7 +352,7 @@
     End Sub
 
     Private Sub frmTraDownPaymentDet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        prvGetModuleID()
+        intModuleID = VO.Common.GetModuleID(strModules)
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
         prvSetTitleForm()

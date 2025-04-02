@@ -11,7 +11,7 @@ Public Class frmTraPurchaseContract
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
        cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cApprove As Byte = 6, cCancelApprove As Byte = 7,
-       cSep2 As Byte = 8, cDownPayment As Byte = 9, cReceive As Byte = 10, cSep3 As Byte = 11,
+       cSep2 As Byte = 8, cDownPayment As Byte = 9, cReceivePayment As Byte = 10, cSep3 As Byte = 11,
        cDone As Byte = 12, cCancelDone As Byte = 13, cSep4 As Byte = 14, cPrint As Byte = 15,
        cExportExcel As Byte = 16, cSep5 As Byte = 17, cRefresh As Byte = 18, cClose As Byte = 19
 
@@ -79,7 +79,7 @@ Public Class frmTraPurchaseContract
             .Item(cApprove).Enabled = bolEnable
             .Item(cCancelApprove).Enabled = bolEnable
             .Item(cDownPayment).Enabled = bolEnable
-            .Item(cReceive).Enabled = bolEnable
+            .Item(cReceivePayment).Enabled = bolEnable
             .Item(cDone).Enabled = bolEnable
             .Item(cCancelDone).Enabled = bolEnable
             .Item(cPrint).Enabled = bolEnable
@@ -89,7 +89,7 @@ Public Class frmTraPurchaseContract
 
     Private Sub prvFillCombo()
         Try
-            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionPurchaseContract)
+            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Value.TransactionPurchasePurchaseContract)
             Dim dr As DataRow
             dr = dtData.NewRow
             With dr
@@ -118,12 +118,12 @@ Public Class frmTraPurchaseContract
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        
+
         Try
             dtData = BL.PurchaseContract.ListData(intProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue)
             grdMain.DataSource = dtData
             pgMain.Value = 80
-            
+
             prvSumGrid()
             grdView.BestFitColumns()
         Catch ex As Exception
@@ -131,7 +131,7 @@ Public Class frmTraPurchaseContract
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvSetButton()
             prvResetProgressBar()
         End Try
@@ -242,11 +242,11 @@ Public Class frmTraPurchaseContract
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
             BL.PurchaseContract.DeleteData(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            
+
             UI.usForm.frmMessageBox("Hapus data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "PCNumber"))
         Catch ex As Exception
@@ -254,7 +254,7 @@ Public Class frmTraPurchaseContract
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -268,11 +268,11 @@ Public Class frmTraPurchaseContract
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
             BL.PurchaseContract.Submit(clsData.ID, "")
             pgMain.Value = 100
-            
+
             UI.usForm.frmMessageBox("Submit data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "PCNumber"))
         Catch ex As Exception
@@ -280,7 +280,7 @@ Public Class frmTraPurchaseContract
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -305,11 +305,11 @@ Public Class frmTraPurchaseContract
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
             BL.PurchaseContract.Unsubmit(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            
+
             UI.usForm.frmMessageBox("Batal submit data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "PCNumber"))
         Catch ex As Exception
@@ -317,7 +317,7 @@ Public Class frmTraPurchaseContract
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -331,11 +331,11 @@ Public Class frmTraPurchaseContract
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
             BL.PurchaseContract.Approve(clsData.ID, "")
             pgMain.Value = 100
-            
+
             UI.usForm.frmMessageBox("Approve data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "PCNumber"))
         Catch ex As Exception
@@ -343,7 +343,7 @@ Public Class frmTraPurchaseContract
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -368,11 +368,11 @@ Public Class frmTraPurchaseContract
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
             BL.PurchaseContract.Unapprove(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            
+
             UI.usForm.frmMessageBox("Batal approve data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "PCNumber"))
         Catch ex As Exception
@@ -380,7 +380,7 @@ Public Class frmTraPurchaseContract
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -451,7 +451,7 @@ Public Class frmTraPurchaseContract
         Dim strID As String = grdView.GetRowCellValue(intPos, "ID")
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
 
         Try
             'Dim dtData As DataTable = BL.PurchaseContract.Print(intProgramID, intCompanyID, strID)
@@ -489,7 +489,7 @@ Public Class frmTraPurchaseContract
             UI.usForm.frmMessageBox(ex.Message)
         Finally
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -633,22 +633,19 @@ Public Class frmTraPurchaseContract
 
     Private Sub prvUserAccess()
         With ToolBar.Buttons
-            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.NewAccess)
-            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.DeleteAccess)
-            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.SubmitAccess)
-            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.CancelSubmitAccess)
-            .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.ApproveAccess)
-            .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.CancelApproveAccess)
-            .Item(cPrint).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.PrintReportAccess)
-            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.ExportExcelAccess)
-            bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionPurchaseContract, VO.Access.Values.ExportReportAccess)
-            .Item(cPrint).Visible = False
             .Item(cNew).Visible = False
             .Item(cDelete).Visible = False
-            .Item(cApprove).Visible = False
-            .Item(cCancelApprove).Visible = False
             .Item(cSubmit).Visible = False
             .Item(cCancelSubmit).Visible = False
+            .Item(cCancelApprove).Visible = False
+            .Item(cApprove).Visible = False
+            .Item(cDownPayment).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchasePurchaseContractDownPayment, VO.Access.Value.ViewAccess)
+            .Item(cReceivePayment).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchasePurchaseContractReceivePayment, VO.Access.Value.ViewAccess)
+            .Item(cDone).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchasePurchaseContractDone, VO.Access.Value.ViewAccess)
+            .Item(cCancelDone).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchasePurchaseContractDone, VO.Access.Value.ViewAccess)
+            .Item(cPrint).Visible = False
+            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchasePurchaseContract, VO.Access.Value.ExportExcelAccess)
+            bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchasePurchaseContract, VO.Access.Value.ExportReportAccess)
         End With
     End Sub
 
@@ -690,7 +687,7 @@ Public Class frmTraPurchaseContract
                 Case ToolBar.Buttons(cApprove).Name : prvApprove()
                 Case ToolBar.Buttons(cCancelApprove).Name : prvCancelApprove()
                 Case ToolBar.Buttons(cDownPayment).Name : prvDownPayment()
-                Case ToolBar.Buttons(cReceive).Name : prvReceivePayment()
+                Case ToolBar.Buttons(cReceivePayment).Name : prvReceivePayment()
                 Case ToolBar.Buttons(cDone).Name : prvDone()
                 Case ToolBar.Buttons(cCancelDone).Name : prvCancelDone()
                 Case ToolBar.Buttons(cPrint).Name : prvPrint()

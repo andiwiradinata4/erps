@@ -218,6 +218,11 @@ Public Class frmTraOrderRequestMapConfirmationOrderDet
         End If
     End Sub
 
+    Private Sub prvUserAccess()
+        If ERPSLib.UI.usUserApp.IsSuperUser Then Exit Sub
+        ToolBar.Buttons.Item(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionSalesOrderRequestMapConfirmationOrder, IIf(bolIsNew, VO.Access.Values.NewAccess, VO.Access.Value.EditAccess))
+    End Sub
+
 #Region "Item Handle"
 
     Private Sub prvSetButtonItem()
@@ -314,6 +319,7 @@ Public Class frmTraOrderRequestMapConfirmationOrderDet
         prvSetGrid()
         prvFillForm()
         prvQueryItem()
+        prvUserAccess()
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick

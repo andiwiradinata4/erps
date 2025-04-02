@@ -90,7 +90,7 @@ Public Class frmTraAPCuttingDet
 
     Private Sub prvFillCombo()
         Try
-            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionAccountPayable), "StatusID", "StatusName")
+            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Value.TransactionAccountingCuttingCost), "StatusID", "StatusName")
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -487,6 +487,10 @@ Public Class frmTraAPCuttingDet
         prvCalculate()
     End Sub
 
+    Private Sub prvUserAccess()
+        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingCuttingCost, IIf(pubIsNew, VO.Access.Value.NewAccess, VO.Access.Value.EditAccess))
+    End Sub
+
 #Region "History Handle"
 
     Private Sub prvQueryHistory()
@@ -624,7 +628,7 @@ Public Class frmTraAPCuttingDet
         prvQueryItem()
         prvQueryHistory()
         prvQueryRemarks()
-        'prvUserAccess()
+        prvUserAccess()
     End Sub
 
     Private Sub ToolBar_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles ToolBar.ButtonClick

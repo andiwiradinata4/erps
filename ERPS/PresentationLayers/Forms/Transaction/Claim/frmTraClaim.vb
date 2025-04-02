@@ -1,4 +1,5 @@
-﻿Imports DevExpress.XtraGrid
+﻿Imports DevExpress.Data.ODataLinq.Helpers
+Imports DevExpress.XtraGrid
 Public Class frmTraClaim
 
     Private intPos As Integer = 0
@@ -8,6 +9,7 @@ Public Class frmTraClaim
     Private dtData As New DataTable
     Private bolExport As Boolean = True
     Private intClaimType As VO.Claim.ClaimTypeValue
+    Private intModuleID As Integer = 0
 
     Public WriteOnly Property pubClaimType As VO.Claim.ClaimTypeValue
         Set(value As VO.Claim.ClaimTypeValue)
@@ -75,8 +77,13 @@ Public Class frmTraClaim
     End Sub
 
     Private Sub prvFillCombo()
+        If intClaimType = VO.Claim.ClaimTypeValue.Sales Then
+            intModuleID = VO.Modules.Value.TransactionSalesClaimRequest
+        ElseIf intClaimType = VO.Claim.ClaimTypeValue.Receive Then
+            intModuleID = VO.Modules.Value.TransactionPurchaseClaimRequest
+        End If
         Try
-            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionReceive)
+            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(intModuleID)
             Dim dr As DataRow
             dr = dtData.NewRow
             With dr
@@ -408,15 +415,19 @@ Public Class frmTraClaim
     End Sub
 
     Private Sub prvUserAccess()
+        If intClaimType = VO.Claim.ClaimTypeValue.Sales Then
+            intModuleID = VO.Modules.Value.TransactionSalesClaimRequest
+        ElseIf intClaimType = VO.Claim.ClaimTypeValue.Receive Then
+            intModuleID = VO.Modules.Value.TransactionPurchaseClaimRequest
+        End If
         With ToolBar.Buttons
-            '.Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesClaim, VO.Access.Values.NewAccess)
-            '.Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesClaim, VO.Access.Values.DeleteAccess)
-            '.Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesClaim, VO.Access.Values.SubmitAccess)
-            '.Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesClaim, VO.Access.Values.CancelSubmitAccess)
-            '.Item(cPrint).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesClaim, VO.Access.Values.PrintReportAccess)
-            '.Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesClaim, VO.Access.Values.ExportExcelAccess)
-            'bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionSalesClaim, VO.Access.Values.ExportReportAccess)
+            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, VO.Access.Value.NewAccess)
+            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, VO.Access.Value.DeleteAccess)
+            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, VO.Access.Value.SubmitAccess)
+            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, VO.Access.Value.CancelSubmitAccess)
             .Item(cPrint).Visible = False
+            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, VO.Access.Value.ExportExcelAccess)
+            bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleID, VO.Access.Value.ExportReportAccess)
         End With
     End Sub
 

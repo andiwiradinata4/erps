@@ -7,7 +7,8 @@ Public Class frmMstUser
     Private clsData As New VO.User
 
     Private Const _
-       cGet = 0, cSep1 = 1, cNew = 2, cDetail = 3, cDelete = 4, cSep2 = 5, cResetPassword = 6, cChangePassword = 7, cUserAccess = 8, cDuplicateUserAccess = 9, cSep3 = 10, cRefresh = 11, cClose = 12
+       cGet = 0, cSep1 = 1, cNew = 2, cDetail = 3, cDelete = 4, cSep2 = 5, cResetPassword = 6, cChangePassword = 7, cUserAccess = 8,
+       cDuplicateUserAccess = 9, cSep3 = 10, cRefresh = 11, cClose = 12
 
     Private Sub prvSetTitleForm()
         If pubIsLookUp Then
@@ -182,11 +183,12 @@ Public Class frmMstUser
 
     Private Sub prvUserAccess()
         With ToolBar.Buttons
-            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterAccess, VO.Access.Values.NewAccess)
-            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterAccess, VO.Access.Values.DeleteAccess)
-            .Item(cResetPassword).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterAccess, VO.Access.Values.ResetPasswordAccess)
-            .Item(cChangePassword).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterAccess, VO.Access.Values.ChangePasswordAccess)
-            .Item(cUserAccess).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.MasterAccess, VO.Access.Values.SetupUserAccessAccess)
+            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.MasterUser, VO.Access.Value.NewAccess)
+            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.MasterUser, VO.Access.Value.DeleteAccess)
+            '.Item(cResetPassword).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.MasterUser, VO.Access.Value.ResetPasswordAccess)
+            '.Item(cChangePassword).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.MasterUser, VO.Access.Value.ChangePasswordAccess)
+            '.Item(cUserAccess).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.MasterUser, VO.Access.Value.SetupUserAccess)
+            '.Item(cDuplicateUserAccess).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.MasterUser, VO.Access.Value.DuplicateUserAccess)
         End With
     End Sub
 

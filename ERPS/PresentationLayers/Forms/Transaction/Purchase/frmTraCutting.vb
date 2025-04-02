@@ -75,7 +75,7 @@ Public Class frmTraCutting
 
     Private Sub prvFillCombo()
         Try
-            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionCuttingProcess)
+            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Value.TransactionPurchaseCutting)
             Dim dr As DataRow
             dr = dtData.NewRow
             With dr
@@ -104,12 +104,12 @@ Public Class frmTraCutting
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        
+
         Try
             dtData = BL.Cutting.ListData(intProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue)
             grdMain.DataSource = dtData
             pgMain.Value = 80
-            
+
             prvSumGrid()
             grdView.BestFitColumns()
         Catch ex As Exception
@@ -117,7 +117,7 @@ Public Class frmTraCutting
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvSetButton()
             prvResetProgressBar()
         End Try
@@ -221,11 +221,11 @@ Public Class frmTraCutting
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
             BL.Cutting.DeleteData(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            
+
             UI.usForm.frmMessageBox("Hapus data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "CuttingNumber"))
         Catch ex As Exception
@@ -233,7 +233,7 @@ Public Class frmTraCutting
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -247,11 +247,11 @@ Public Class frmTraCutting
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
             BL.Cutting.Submit(clsData.ID, "")
             pgMain.Value = 100
-            
+
             UI.usForm.frmMessageBox("Submit data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "CuttingNumber"))
         Catch ex As Exception
@@ -259,7 +259,7 @@ Public Class frmTraCutting
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -284,11 +284,11 @@ Public Class frmTraCutting
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
             BL.Cutting.Unsubmit(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            
+
             UI.usForm.frmMessageBox("Batal submit data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "CuttingNumber"))
         Catch ex As Exception
@@ -296,7 +296,7 @@ Public Class frmTraCutting
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -398,14 +398,14 @@ Public Class frmTraCutting
 
     Private Sub prvUserAccess()
         With ToolBar.Buttons
-            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCuttingProcess, VO.Access.Values.NewAccess)
-            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCuttingProcess, VO.Access.Values.DeleteAccess)
-            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCuttingProcess, VO.Access.Values.SubmitAccess)
-            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCuttingProcess, VO.Access.Values.CancelSubmitAccess)
-            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCuttingProcess, VO.Access.Values.ExportExcelAccess)
-            bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCuttingProcess, VO.Access.Values.ExportReportAccess)
-
+            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchaseCutting, VO.Access.Value.NewAccess)
+            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchaseCutting, VO.Access.Value.DeleteAccess)
+            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchaseCutting, VO.Access.Value.SubmitAccess)
+            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchaseCutting, VO.Access.Value.CancelSubmitAccess)
+            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchaseCutting, VO.Access.Value.ExportExcelAccess)
             .Item(cReceive).Visible = False
+            .Item(cClaimCustomer).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchaseCuttingClaimCustomer, VO.Access.Value.ViewAccess)
+            bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchaseCutting, VO.Access.Value.ExportReportAccess)
         End With
     End Sub
 

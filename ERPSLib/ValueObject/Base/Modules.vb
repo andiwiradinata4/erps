@@ -71,84 +71,106 @@ Namespace VO
             All = 0
 
             '# Master
-            MasterProgram
-            MasterStatus
-            MasterModule
-            MasterAccess
-            MasterCompany
-            MasterUser
-            MasterUOM
-            MasterChartOfAccountType
-            MasterChartOfAccountGroup
-            MasterChartOfAccount
-            MasterItemType
-            MasterItemSpecification
-            MasterItem
-            MasterBusinessPartner
-            MasterCompanyBankAccount
-            MasterPaymentTypeCategory
-            MasterPaymentMethod
-            MasterPaymentType
-            MasterDeliveryLocation
-            MasterTransportCostType
+            MasterDefault = 1
+            MasterProgram = 2
+            MasterStatus = 3
+            MasterModule = 4
+            MasterAccess = 5
+            MasterCompany = 6
+            MasterUser = 7
+            MasterUOM = 8
+            MasterChartOfAccountType = 9
+            MasterChartOfAccountGroup = 10
+            MasterChartOfAccount = 11
+            MasterItemType = 12
+            MasterItemSpecification = 13
+            MasterItem = 14
+            MasterItemCopy = 86
+            MasterStock = 15
+            MasterBusinessPartner = 16
+            MasterBusinessPartnerBankAccount = 17
+            MasterBusinessPartnerLocation = 18
+            MasterCompanyBankAccount = 19
+            MasterPaymentTypeCategory = 20
+            MasterPaymentMethod = 21
+            MasterPaymentType = 22
+            MasterDeliveryLocation = 23
+            MasterTransportCostType = 24
 
             '# Transaction
             '# Sales
-            TransactionSalesOrderRequest
-            TransactionSalesOrderRequestDownPayment
-            TransactionSalesConfirmationOrder
-            TransactionSalesSalesContract
-            TransactionSalesSalesContractDownPayment
-            TransactionSalesSalesContractReceivePayment
-            TransactionSalesDelivery
-            TransactionSalesSalesReturn
-            TransactionSalesSalesReturnReceivePayment
-            TransactionSalesClaimRequest
-            TransactionSalesClaimConfirmation
-            TransactionSalesClaimReceivePayment
+            TransactionSalesOrderRequest = 25
+            TransactionSalesOrderRequestDownPayment = 26
+            TransactionSalesOrderRequestMapConfirmationOrder = 27
+            TransactionSalesConfirmationOrder = 28
+            TransactionSalesSalesContract = 29
+            TransactionSalesSalesContractDownPayment = 30
+            TransactionSalesSalesContractDownPaymentInvoice = 31
+            TransactionSalesSalesContractReceivePayment = 32
+            TransactionSalesSalesContractReceivePaymentInvoice = 33
+            TransactionSalesSalesContractSetupDelivery = 34
+            TransactionSalesDelivery = 35
+            TransactionSalesSalesReturn = 36
+            TransactionSalesSalesReturnReceivePayment = 37
+            TransactionSalesSalesReturnReceivePaymentTransport = 38
+            TransactionSalesClaimRequest = 39
+            TransactionSalesClaimConfirmation = 40
+            TransactionSalesClaimReceivePayment = 41
 
             '# Sales Service
-            TransactionSalesServiceDelivery
-            TransactionSalesServiceDeliveryReceivePayment
-            TransactionSalesServiceCutting
-            TransactionSalesServiceCuttingReceivePayment
-            TransactionSalesServiceInvoice
+            TransactionSalesServiceDelivery = 42
+            TransactionSalesServiceDeliveryReceivePayment = 43
+            TransactionSalesServiceCutting = 44
+            TransactionSalesServiceCuttingReceivePayment = 45
+            TransactionSalesServiceInvoice = 46
 
             '# Purchase
-            TransactionPurchasePurchaseOrder
-            TransactionPurchaseConfirmationOrder
-            TransactionPurchasePurchaseContract
-            TransactionPurchasePurchaseContractDownPayment
-            TransactionPurchasePurchaseContractReceivePayment
-            TransactionPurchaseReceive
-            TransactionPurchasePurchaseOrderCutting
-            TransactionPurchaseCutting
-            TransactionPurchaseClaimRequest
-            TransactionPurchaseClaimConfirmation
-            TransactionPurchaseClaimReceivePayment
+            TransactionPurchasePurchaseOrder = 47
+            TransactionPurchaseConfirmationOrder = 48
+            TransactionPurchasePurchaseContract = 49
+            TransactionPurchasePurchaseContractDownPayment = 50
+            TransactionPurchasePurchaseContractReceivePayment = 51
+            TransactionPurchasePurchaseContractDone = 52
+            TransactionPurchaseReceive = 53
+            TransactionPurchasePurchaseOrderCutting = 54
+            TransactionPurchaseCutting = 55
+            TransactionPurchaseCuttingReceive = 56
+            TransactionPurchaseCuttingClaimCustomer = 57
+            TransactionPurchaseClaimRequest = 58
+            TransactionPurchaseClaimConfirmation = 59
+            TransactionPurchaseClaimReceivePayment = 60
 
             '# Accounting
-            TransactionAccountingAR
-            TransactionAccountingAP
-            TransactionAccountingARAPInvoice
-            TransactionAccountingCost
-            TransactionAccountingTransportCost
-            TransactionAccountingCuttingCost
-            TransactionAccountingBankVoucher
-            TransactionAccountingJournal
-            TransactionAccountingJournalAutoGenerate
+            TransactionAccountingAR = 61
+            TransactionAccountingAP = 62
+            TransactionAccountingARAPInvoice = 63
+            TransactionAccountingARAPDueDate = 64
+            TransactionAccountingCost = 65
+            TransactionAccountingTransportCost = 66
+            TransactionAccountingTransportCostSetPaymentDate = 67
+            TransactionAccountingTransportCostSetTaxInvoiceNumber = 68
+            TransactionAccountingCuttingCost = 69
+            TransactionAccountingCuttingCostSetPaymentDate = 70
+            TransactionAccountingCuttingCostSetTaxInvoiceNumber = 71
+            TransactionAccountingBankVoucher = 72
+            TransactionAccountingJournal = 73
+            TransactionAccountingJournalAutoGenerate = 74
 
             '# Reports
-            ReportPurchasePurchaseOrderCutting
-            ReportSalesConfirmationOrder
-            ReportItemTransaction
-            ReportAccountingAR
-            ReportAccountingDebtCard
-            ReportAccountingReceivableCard
-            ReportAccountingGeneralLedger
-            ReportAccountingTrialBalance
-            ReportAccountingProfitAndLoss
-            ReportAccountingBalanceSheet
+            ReportPurchasePurchaseOrderCutting = 75
+            ReportSalesConfirmationOrder = 76
+            ReportItemTransaction = 77
+            ReportAccountingAR = 78
+            ReportAccountingDebtCard = 79
+            ReportAccountingReceivableCard = 80
+            ReportAccountingGeneralLedger = 81
+            ReportAccountingTrialBalance = 82
+            ReportAccountingProfitAndLoss = 83
+            ReportAccountingBalanceSheet = 84
+
+            '# Settings
+            SetupPostingJournalTransaction = 85
+
         End Enum
 
     End Class

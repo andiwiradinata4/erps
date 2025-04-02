@@ -7,7 +7,6 @@ Public Class frmTraCostDet
     Private clsData As VO.Cost
     Private dtItem As New DataTable
     Private intPos As Integer = 0
-    Private bolExport As Boolean = False
     Private strID As String = ""
     Private intCoAID As Integer = 0
     Property pubID As String
@@ -65,7 +64,7 @@ Public Class frmTraCostDet
 
     Private Sub prvFillCombo()
         Try
-            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionCost), "StatusID", "StatusName")
+            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Value.TransactionAccountingCost), "StatusID", "StatusName")
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -268,8 +267,7 @@ Public Class frmTraCostDet
     End Sub
 
     Private Sub prvUserAccess()
-        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, pubCS.ProgramID, VO.Modules.Values.TransactionCost, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
-        bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionCost, VO.Access.Values.ExportReportAccess)
+        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, pubCS.ProgramID, VO.Modules.Value.TransactionAccountingCost, IIf(pubIsNew, VO.Access.Value.NewAccess, VO.Access.Value.EditAccess))
     End Sub
 
 #Region "Item Handle"

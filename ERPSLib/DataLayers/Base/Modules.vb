@@ -7,12 +7,12 @@ Namespace DL
                 .Connection = sqlCon
                 .Transaction = sqlTrans
                 .CommandType = CommandType.Text
-                .CommandText = _
-                   "SELECT " & vbNewLine & _
-                   "     CAST(0 AS BIT) AS Pick, A.ID, A.Name, A.IsDeleted, A.CreatedBy, A.CreatedDate, A.LogBy,   " & vbNewLine & _
-                   "     A.LogDate, A.LogInc  " & vbNewLine & _
-                   "FROM mstModules A " & vbNewLine & _
-                   "ORDER BY A.Name ASC " & vbNewLine
+                .CommandText =
+                   "SELECT " & vbNewLine &
+                   "     CAST(0 AS BIT) AS Pick, A.ID, A.Name, A.IsDeleted, A.CreatedBy, A.CreatedDate, A.LogBy,   " & vbNewLine &
+                   "     A.LogDate, A.LogInc  " & vbNewLine &
+                   "FROM mstModules A " & vbNewLine &
+                   "ORDER BY A.ID ASC " & vbNewLine
 
             End With
             Return SQL.QueryDataTable(sqlcmdExecute, sqlTrans)

@@ -10,7 +10,7 @@ Public Class frmTraReceive
 
     Private Const _
        cNew As Byte = 0, cDetail As Byte = 1, cDelete As Byte = 2, cSep1 As Byte = 3,
-       cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cSep2 As Byte = 6, cPayment As Byte = 7, cSep3 As Byte = 8,
+       cSubmit As Byte = 4, cCancelSubmit As Byte = 5, cSep2 As Byte = 6, cReceivePayment As Byte = 7, cSep3 As Byte = 8,
        cExportExcel As Byte = 9, cSep4 As Byte = 10, cRefresh As Byte = 11, cClose As Byte = 12
 
     Private Sub prvResetProgressBar()
@@ -75,7 +75,7 @@ Public Class frmTraReceive
 
     Private Sub prvFillCombo()
         Try
-            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionReceive)
+            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Value.TransactionPurchaseReceive)
             Dim dr As DataRow
             dr = dtData.NewRow
             With dr
@@ -104,12 +104,12 @@ Public Class frmTraReceive
     Private Sub prvQuery()
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 30
-        
+
         Try
             dtData = BL.Receive.ListData(intProgramID, intCompanyID, dtpDateFrom.Value.Date, dtpDateTo.Value.Date, cboStatus.SelectedValue)
             grdMain.DataSource = dtData
             pgMain.Value = 80
-            
+
             prvSumGrid()
             grdView.BestFitColumns()
         Catch ex As Exception
@@ -117,7 +117,7 @@ Public Class frmTraReceive
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvSetButton()
             prvResetProgressBar()
         End Try
@@ -225,11 +225,11 @@ Public Class frmTraReceive
 
         Me.Cursor = Cursors.WaitCursor
         pgMain.Value = 40
-        
+
         Try
             BL.Receive.DeleteData(clsData.ID, clsData.Remarks)
             pgMain.Value = 100
-            
+
             UI.usForm.frmMessageBox("Hapus data berhasil.")
             pubRefresh(grdView.GetRowCellValue(intPos, "ReceiveNumber"))
         Catch ex As Exception
@@ -237,7 +237,7 @@ Public Class frmTraReceive
         Finally
             Me.Cursor = Cursors.Default
             pgMain.Value = 100
-            
+
             prvResetProgressBar()
         End Try
     End Sub
@@ -410,12 +410,14 @@ Public Class frmTraReceive
 
     Private Sub prvUserAccess()
         With ToolBar.Buttons
-            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionReceive, VO.Access.Values.NewAccess)
-            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionReceive, VO.Access.Values.DeleteAccess)
-            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionReceive, VO.Access.Values.SubmitAccess)
-            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionReceive, VO.Access.Values.CancelSubmitAccess)
-            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionReceive, VO.Access.Values.ExportExcelAccess)
-            bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionReceive, VO.Access.Values.ExportReportAccess)
+            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchaseReceive, VO.Access.Value.NewAccess)
+            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchaseReceive, VO.Access.Value.DeleteAccess)
+            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchaseReceive, VO.Access.Value.SubmitAccess)
+            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchaseReceive, VO.Access.Value.CancelSubmitAccess)
+            .Item(cSep2).Visible = False
+            .Item(cReceivePayment).Visible = False
+            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchaseReceive, VO.Access.Value.ExportExcelAccess)
+            bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionPurchaseReceive, VO.Access.Value.ExportReportAccess)
         End With
     End Sub
 
@@ -438,7 +440,7 @@ Public Class frmTraReceive
         prvDefaultFilter()
         prvQuery()
         prvUserAccess()
-        ToolBar.Buttons(cPayment).Visible = False
+        ToolBar.Buttons(cReceivePayment).Visible = False
         ToolBar.Buttons(cSep3).Visible = False
         Me.WindowState = FormWindowState.Maximized
     End Sub
@@ -456,7 +458,7 @@ Public Class frmTraReceive
                 Case ToolBar.Buttons(cDelete).Name : prvDelete()
                 Case ToolBar.Buttons(cSubmit).Name : prvSubmit()
                 Case ToolBar.Buttons(cCancelSubmit).Name : prvCancelSubmit()
-                Case ToolBar.Buttons(cPayment).Name : prvReceivePayment()
+                Case ToolBar.Buttons(cReceivePayment).Name : prvReceivePayment()
                 Case ToolBar.Buttons(cExportExcel).Name : prvExportExcel()
             End Select
         End If

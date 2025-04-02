@@ -82,7 +82,7 @@
 
     Private Sub prvUserAccess()
         With ToolBar.Buttons
-            .Item(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, -1, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
+            .Item(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.MasterAccess, IIf(pubIsNew, VO.Access.Value.NewAccess, VO.Access.Value.EditAccess))
         End With
     End Sub
 
@@ -91,6 +91,8 @@
     Private Sub frmMstAccessDet_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
             If UI.usForm.frmAskQuestion("Close this form?") Then Me.Close()
+        ElseIf (e.Control And e.KeyCode = Keys.S) Then
+            prvSave()
         End If
     End Sub
 

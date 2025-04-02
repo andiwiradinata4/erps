@@ -148,6 +148,12 @@ Public Class frmTraARAPVoucher
         grdView.BestFitColumns()
     End Sub
 
+    Private Sub prvUserAccess()
+        With ToolBar.Buttons
+            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingBankVoucher, VO.Access.Value.ExportExcelAccess)
+        End With
+    End Sub
+
 #Region "Form Handle"
 
     Private Sub frmTraARAPVoucher_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -166,6 +172,7 @@ Public Class frmTraARAPVoucher
         dtpDateTo.Value = Today.Date
         prvDefaultFilter()
         prvQuery()
+        prvUserAccess()
         Me.WindowState = FormWindowState.Maximized
     End Sub
 

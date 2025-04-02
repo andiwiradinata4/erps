@@ -158,7 +158,7 @@
         dtpDateFrom.Value = Today.Date.AddDays(-14)
         dtpDateTo.Value = Today.Date
         prvQuery()
-        'bolExport = BL.UserAccess.IsCanAccess(MPSLib.UI.usUserApp.UserID, MPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.ReportBukuBesar, VO.Access.Values.ExportReportAccess)
+        'bolExport = BL.UserAccess.IsCanAccess(MPSLib.UI.usUserApp.UserID, MPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.ReportBukuBesar, VO.Access.Value.ExportReportAccess)
         Me.WindowState = FormWindowState.Maximized
     End Sub
 

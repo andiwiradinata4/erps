@@ -77,7 +77,7 @@
         ToolBar.SetIcon(Me)
         dtpDateFrom.Value = Today.Date.AddDays(-14)
         dtpDateTo.Value = Today.Date
-        bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.ReportNeracaSaldo, VO.Access.Values.ExportReportAccess)
+        bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.ReportAccountingTrialBalance, VO.Access.Value.ExportReportAccess)
         Me.WindowState = FormWindowState.Maximized
     End Sub
 

@@ -7,7 +7,6 @@ Public Class frmTraJournalDet
     Private clsData As VO.Journal
     Private dtItem As New DataTable
     Private intPos As Integer = 0
-    Private bolExport As Boolean = False
     Private strID As String = ""
     Property pubID As String
     Property pubIsNew As Boolean = False
@@ -60,7 +59,7 @@ Public Class frmTraJournalDet
 
     Private Sub prvFillCombo()
         Try
-            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionJournal), "StatusID", "StatusName")
+            UI.usForm.FillComboBox(cboStatus, BL.StatusModules.ListDataByModulesID(VO.Modules.Value.TransactionAccountingJournal), "StatusID", "StatusName")
         Catch ex As Exception
             UI.usForm.frmMessageBox(ex.Message)
             Me.Close()
@@ -218,8 +217,11 @@ Public Class frmTraJournalDet
     End Sub
 
     Private Sub prvUserAccess()
-        ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, pubCS.ProgramID, VO.Modules.Values.TransactionJournal, IIf(pubIsNew, VO.Access.Values.NewAccess, VO.Access.Values.EditAccess))
-        bolExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Values.TransactionJournal, VO.Access.Values.ExportReportAccess)
+        If bolAutoGenerate Then
+            ToolBar.Buttons(cSave).Visible = False
+        Else
+            ToolBar.Buttons(cSave).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, pubCS.ProgramID, VO.Modules.Value.TransactionAccountingJournal, IIf(pubIsNew, VO.Access.Value.NewAccess, VO.Access.Value.EditAccess))
+        End If
     End Sub
 
 #Region "Item Handle"

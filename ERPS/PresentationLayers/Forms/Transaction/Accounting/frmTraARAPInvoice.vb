@@ -1,6 +1,4 @@
 ﻿Imports DevExpress.XtraGrid
-Imports Microsoft.VisualBasic.Devices
-
 Public Class frmTraARAPInvoice
 
 #Region "Properties"
@@ -11,6 +9,7 @@ Public Class frmTraARAPInvoice
     Private bolIsSave As Boolean = False
     Private intPos As Integer
     Private clsData As New VO.ARAPInvoice
+    Private boLExport As Boolean
     'Private intCompanyID As Integer
     'Private intProgramID As Integer
     'Private enumARAPType As VO.ARAP.ARAPTypeValue = ARAP.ARAPTypeValue.All
@@ -527,6 +526,21 @@ Public Class frmTraARAPInvoice
         dxExporter.DevExport(Me, grdMain, Me.Text, Me.Text, DX.usDxExportFormat.fXls, True, True, DX.usDXExportType.etDefault)
     End Sub
 
+    Private Sub prvUserAccess()
+        With ToolBar.Buttons
+            .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingARAPInvoice, VO.Access.Value.NewAccess)
+            .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingARAPInvoice, VO.Access.Value.DeleteAccess)
+            .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingARAPInvoice, VO.Access.Value.SubmitAccess)
+            .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingARAPInvoice, VO.Access.Value.CancelSubmitAccess)
+            .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingARAPInvoice, VO.Access.Value.ApproveAccess)
+            .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingARAPInvoice, VO.Access.Value.CancelApproveAccess)
+            .Item(cPrint).Visible = False
+            .Item(cPrintVoucher).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingARAPInvoice, VO.Access.Value.PrintReportAccess)
+            .Item(cExportExcel).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingARAPInvoice, VO.Access.Value.ExportExcelAccess)
+            boLExport = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingARAPInvoice, VO.Access.Value.ExportReportAccess)
+        End With
+    End Sub
+
 #Region "Form Handle"
 
     Private Sub frmTraARAPInvoice_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
@@ -540,6 +554,7 @@ Public Class frmTraARAPInvoice
         ToolBar.SetIcon(Me)
         prvSetGrid()
         prvQuery()
+        prvUserAccess()
         ToolBar.Buttons.Item(cPrint).Visible = False
     End Sub
 

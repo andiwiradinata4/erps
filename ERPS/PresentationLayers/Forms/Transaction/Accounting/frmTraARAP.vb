@@ -22,6 +22,7 @@ Public Class frmTraARAP
     Private decPPHPercentage As Decimal = 0
     Private bolIsControlARAP As Boolean = False
     Private intIsGenerate As Integer = -1
+    Private intModuleD As Integer = 0
 
     Public WriteOnly Property pubModules As String
         Set(value As String)
@@ -221,7 +222,7 @@ Public Class frmTraARAP
 
     Private Sub prvFillCombo()
         Try
-            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(VO.Modules.Values.TransactionAccountPayableBalance)
+            Dim dtData As DataTable = BL.StatusModules.ListDataByModulesID(intModuleD)
             Dim dr As DataRow
             dr = dtData.NewRow
             With dr
@@ -1258,40 +1259,6 @@ Public Class frmTraARAP
         If grdView.GroupCount > 0 Then grdView.ExpandAllGroups()
     End Sub
 
-    Private Sub prvUserAccess()
-        Dim intModules As Integer = VO.Common.GetModuleID(strModules)
-        With ToolBar.Buttons
-            .Item(cImport).Visible = strModules = VO.AccountReceivable.DownPayment
-
-            If bolIsControlARAP Then
-                .Item(cNew).Visible = False
-                .Item(cDelete).Visible = False
-                .Item(cSubmit).Visible = False
-                .Item(cCancelSubmit).Visible = False
-                .Item(cApprove).Visible = False
-                .Item(cCancelApprove).Visible = False
-            Else
-                .Item(cNew).Visible = strModules <> VO.AccountReceivable.DownPayment
-
-                '.Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.NewAccess)
-                .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.DeleteAccess)
-                .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.SubmitAccess)
-                .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelSubmitAccess)
-                .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.ApproveAccess)
-                .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelApproveAccess)
-            End If
-            .Item(cSetPaymentDate).Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.PaymentAccess)
-            .Item(cDeletePaymentDate).Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.CancelPaymentAccess)
-            .Item(cSetTaxInvoiceNumber).Visible = False 'BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.TaxInvoiceNumberAccess)
-            .Item(cSetInvoiceNumberBP).Visible = False 'enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModules, VO.Access.Values.InvoiceNumberBusinessPartner)
-            .Item(cSep3).Visible = False
-            If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase Or (enumARAPType = VO.ARAP.ARAPTypeValue.Sales And strModules = VO.AccountReceivable.ReceivePaymentSalesReturn) Then .Item(cPrintPI).Visible = False : .Item(cPrintInvoice).Visible = False
-            If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And strModules <> VO.AccountPayable.ReceivePaymentTransport Then .Item(cPrintPaymentBank).Visible = False
-            If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then .Item(cPrintPaymentBank).Visible = False
-            '.Item(cPrintPaymentBank).Visible = strModules = VO.AccountPayable.ReceivePayment Or strModules = VO.AccountPayable.DownPayment
-        End With
-    End Sub
-
     Private Sub prvInvoice()
         intPos = grdView.FocusedRowHandle
         If intPos < 0 Then Exit Sub
@@ -1363,6 +1330,40 @@ Public Class frmTraARAP
         End Try
     End Sub
 
+    Private Sub prvUserAccess()
+        With ToolBar.Buttons
+            .Item(cImport).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionSalesSalesContractDownPayment, VO.Access.Value.NewAccess) And strModules = VO.AccountReceivable.DownPayment
+
+            If bolIsControlARAP Then
+                .Item(cImport).Visible = False
+                .Item(cNew).Visible = False
+                .Item(cDelete).Visible = False
+                .Item(cSubmit).Visible = False
+                .Item(cCancelSubmit).Visible = False
+                .Item(cApprove).Visible = False
+                .Item(cCancelApprove).Visible = False
+            Else
+                .Item(cNew).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleD, VO.Access.Value.NewAccess)
+                .Item(cDelete).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleD, VO.Access.Value.DeleteAccess)
+                .Item(cSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleD, VO.Access.Value.SubmitAccess)
+                .Item(cCancelSubmit).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleD, VO.Access.Value.CancelSubmitAccess)
+                .Item(cApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleD, VO.Access.Value.ApproveAccess)
+                .Item(cCancelApprove).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, intModuleD, VO.Access.Value.CancelApproveAccess)
+            End If
+            .Item(cSetPaymentDate).Visible = False
+            .Item(cDeletePaymentDate).Visible = False
+            .Item(cSetTaxInvoiceNumber).Visible = False
+            .Item(cSetInvoiceNumberBP).Visible = False
+            .Item(cSep3).Visible = False
+            .Item(cInvoice).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingARAPInvoice, VO.Access.Value.ViewAccess)
+            .Item(cExtendDueDate).Visible = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionAccountingARAPDueDate, VO.Access.Value.ViewAccess)
+
+            If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase Or (enumARAPType = VO.ARAP.ARAPTypeValue.Sales And strModules = VO.AccountReceivable.ReceivePaymentSalesReturn) Then .Item(cPrintPI).Visible = False : .Item(cPrintInvoice).Visible = False
+            If enumARAPType = VO.ARAP.ARAPTypeValue.Purchase And strModules <> VO.AccountPayable.ReceivePaymentTransport Then .Item(cPrintPaymentBank).Visible = False
+            If enumARAPType = VO.ARAP.ARAPTypeValue.Sales Then .Item(cPrintPaymentBank).Visible = False
+        End With
+    End Sub
+
 #Region "Form Handle"
 
     Private Sub frmTraDownPayment_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -1374,6 +1375,7 @@ Public Class frmTraARAP
     Private Sub frmTraDownPayment_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UI.usForm.SetIcon(Me, "MyLogo")
         ToolBar.SetIcon(Me)
+        intModuleD = VO.Common.GetModuleID(strModules)
         prvFillCombo()
         prvSetGrid()
         cboStatus.SelectedValue = VO.Status.Values.All

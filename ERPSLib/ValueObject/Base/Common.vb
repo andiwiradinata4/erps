@@ -1,4 +1,6 @@
-﻿Namespace VO
+﻿Imports System.Runtime.Remoting.Messaging
+
+Namespace VO
     Public Class Common
         Property ProgramID As Integer
         Property ProgramName As String
@@ -69,31 +71,33 @@
 
         Public Shared Function GetModuleID(ByVal strModules As String) As Integer
             If strModules = VO.AccountPayable.PurchaseBalance Then
-                Return VO.Modules.Values.TransactionAccountPayableBalance
+                Return 0 ' VO.Modules.Value.TransactionAccountPayableBalance
             ElseIf strModules = VO.AccountPayable.DownPaymentManual Then
-                Return VO.Modules.Values.TransactionPurchaseDPManual
+                Return 0 'VO.Modules.Value.TransactionPurchaseDPManual
             ElseIf strModules = VO.AccountPayable.DownPayment Then
-                Return VO.Modules.Values.TransactionPurchaseDP
+                Return VO.Modules.Value.TransactionPurchasePurchaseContractDownPayment
             ElseIf strModules = VO.AccountPayable.ReceivePayment Then
-                Return VO.Modules.Values.TransactionAccountPayable
+                Return VO.Modules.Value.TransactionPurchasePurchaseContractReceivePayment
             ElseIf strModules = VO.AccountPayable.DownPaymentCutting Then
-                Return VO.Modules.Values.TransactionPurchaseDPCutting
+                Return 0 'VO.Modules.Value.TransactionPurchasePurchaseOrderCutting
             ElseIf strModules = VO.AccountPayable.ReceivePaymentCutting Then
-                Return VO.Modules.Values.TransactionAccountPayableCutting
+                Return VO.Modules.Value.TransactionAccountingCuttingCost
             ElseIf strModules = VO.AccountPayable.DownPaymentTransport Then
-                Return VO.Modules.Values.TransactionPurchaseDPTransport
+                Return 0 'VO.Modules.Value.TransactionPurchase
             ElseIf strModules = VO.AccountPayable.ReceivePaymentTransport Then
-                Return VO.Modules.Values.TransactionAccountPayableTransport
+                Return VO.Modules.Value.TransactionAccountingTransportCost
             ElseIf strModules = VO.AccountReceivable.SalesBalance Then
-                Return VO.Modules.Values.TransactionAccountReceivableBalance
+                Return 0 'VO.Modules.Value.TransactionAccountReceivableBalance
             ElseIf strModules = VO.AccountReceivable.DownPaymentManual Then
-                Return VO.Modules.Values.TransactionSalesDPManual
-            ElseIf strModules = VO.AccountReceivable.DownPayment Or strModules = VO.AccountReceivable.DownPaymentOrderRequest Then
-                Return VO.Modules.Values.TransactionSalesDP
+                Return 0 'VO.Modules.Value.TransactionSalesDPManual
+            ElseIf strModules = VO.AccountReceivable.DownPaymentOrderRequest Then
+                Return VO.Modules.Value.TransactionSalesOrderRequestDownPayment
+            ElseIf strModules = VO.AccountReceivable.DownPayment Then
+                Return VO.Modules.Value.TransactionSalesSalesContractDownPayment
             ElseIf strModules = VO.AccountReceivable.ReceivePayment Then
-                Return VO.Modules.Values.TransactionAccountReceivable
+                Return VO.Modules.Value.TransactionSalesSalesContractReceivePayment
             ElseIf strModules = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then
-                Return VO.Modules.Values.TransactionAccountReceivable
+                Return 0 'VO.Modules.Value.TransactionAccountReceivable
             End If
             Return 0
         End Function
