@@ -161,6 +161,11 @@
         mnuTransaksiPenjualanJasaProsesPotong.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionSalesServiceCutting, VO.Access.Value.ViewAccess)
         mnuTransaksiPenjualanJasaPelunasanPemotongan.Enabled = BL.UserAccess.IsCanAccess(ERPSLib.UI.usUserApp.UserID, ERPSLib.UI.usUserApp.ProgramID, VO.Modules.Value.TransactionSalesServiceCuttingReceivePayment, VO.Access.Value.ViewAccess)
 
+        If Not mnuTransaksiPenjualanJasaPengiriman.Enabled And Not mnuTransaksiPenjualanJasaPelunasanPengiriman.Enabled And
+            Not mnuTransaksiPenjualanJasaProsesPotong.Enabled And Not mnuTransaksiPenjualanJasaPelunasanPemotongan.Enabled Then
+            mnuTransaksiPenjualanJasa.Visible = False
+        End If
+
         '## Sales [Stock]
         mnuTransaksiPenjualanStock.Visible = False
 
