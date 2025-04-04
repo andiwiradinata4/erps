@@ -133,7 +133,7 @@
             Next
         End If
         dtItem.AcceptChanges()
-        'frmParent.grdItemView.BestFitColumns()
+        frmParent.grdItemView.BestFitColumns()
         prvClear()
         If Not bolIsNew Then Me.Close()
     End Sub

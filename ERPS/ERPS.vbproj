@@ -642,6 +642,12 @@
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer5.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer6.Designer.vb">
+      <DependentUpon>frmTraARAPDetVer6.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer6.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDPLookup.Designer.vb">
       <DependentUpon>frmTraARAPDPLookup.vb</DependentUpon>
     </Compile>
@@ -1886,6 +1892,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer5.resx">
       <DependentUpon>frmTraARAPDetVer5.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDetVer6.resx">
+      <DependentUpon>frmTraARAPDetVer6.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayers\Forms\Transaction\Accounting\frmTraARAPDPLookup.resx">
       <DependentUpon>frmTraARAPDPLookup.vb</DependentUpon>

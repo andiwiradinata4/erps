@@ -2244,6 +2244,74 @@
             Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
         End Function
 
+        Public Shared Function ListDataDetailItemReceiveWithOutstandingVer02(ByRef sqlCon As SqlConnection, ByRef sqlTrans As SqlTransaction,
+                                                                             ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                             ByVal intBPID As Integer, ByVal strARID As String) As DataTable
+            Dim sqlCmdExecute As New SqlCommand
+            With sqlCmdExecute
+                .Connection = sqlCon
+                .Transaction = sqlTrans
+                .CommandType = CommandType.Text
+                '# Sales Service
+                .CommandText +=
+                    "SELECT " & vbNewLine &
+                    "   CAST (1 AS BIT) AS Pick, A.ParentID, A.ReferencesID, A.ReferencesDetailID, C.TransNumber AS ReferencesNumber, " & vbNewLine &
+                    "   B.SourceID, DLS.Description AS SourceName, B.DestinationID, DLD.Description AS DestinationName, C.TransDate AS ReferencesDate, " & vbNewLine &
+                    "   B.PlatNumber, B.DeliveryNumber, A.TotalWeight AS Quantity, B.Price, B.TotalPrice, C.PPN AS PPNPercent, C.PPH AS PPHPercent, A.PPN, A.PPH " & vbNewLine &
+                    "FROM traARAPItem A " & vbNewLine &
+                    "INNER JOIN traSalesServiceDet B ON " & vbNewLine &
+                    "   A.ReferencesID=B.ParentID " & vbNewLine &
+                    "   And A.ReferencesDetailID=B.ID " & vbNewLine &
+                    "INNER JOIN traSalesService C ON " & vbNewLine &
+                    "   A.ReferencesID=C.ID " & vbNewLine &
+                    "INNER JOIN mstDeliveryLocation DLS ON " & vbNewLine &
+                    "   B.SourceID=DLS.ID " & vbNewLine &
+                    "INNER JOIN mstDeliveryLocation DLD ON " & vbNewLine &
+                    "   B.DestinationID=DLD.ID " & vbNewLine &
+                    "WHERE " & vbNewLine &
+                    "   A.ParentID=@ARID " & vbNewLine &
+                    "" & vbNewLine &
+                    "UNION ALL " & vbNewLine &
+                    "SELECT " & vbNewLine &
+                    "   CAST (0 AS BIT) AS Pick, CAST('' AS VARCHAR(100)) AS ParentID, A.ParentID AS ReferencesID, A.ID AS ReferencesDetailID, B.TransNumber AS ReferencesNumber, " & vbNewLine &
+                    "   A.SourceID, DLS.Description AS SourceName, A.DestinationID, DLD.Description AS DestinationName, B.TransDate AS ReferencesDate, " & vbNewLine &
+                    "   A.PlatNumber, A.DeliveryNumber, A.Quantity, A.Price, A.TotalPrice, B.PPN AS PPNPercent, B.PPH AS PPHPercent, ROUND(A.TotalPrice*B.PPN/100,2) AS PPN, ROUND(A.TotalPrice*B.PPH/100,2) AS PPH " & vbNewLine &
+                    "FROM traSalesServiceDet A " & vbNewLine &
+                    "INNER JOIN traSalesService B ON " & vbNewLine &
+                    "   A.ParentID=B.ID " & vbNewLine &
+                    "INNER JOIN mstDeliveryLocation DLS ON " & vbNewLine &
+                    "   A.SourceID=DLS.ID " & vbNewLine &
+                    "INNER JOIN mstDeliveryLocation DLD ON " & vbNewLine &
+                    "   A.DestinationID=DLD.ID " & vbNewLine &
+                    "WHERE  " & vbNewLine &
+                    "   B.BPID=@BPID " & vbNewLine &
+                    "   And B.CompanyID=@CompanyID " & vbNewLine &
+                    "   And B.ProgramID=@ProgramID " & vbNewLine &
+                    "   And B.SubmitBy<>'' " & vbNewLine &
+                    "   AND A.TotalPrice-A.AllocateDPAmount-A.ReceiveAmount>0 " & vbNewLine &
+                    "   AND A.ID NOT IN " & vbNewLine &
+                    "       ( " & vbNewLine &
+                    "           SELECT ARD.ReferencesDetailID 	" & vbNewLine &
+                    "           FROM traARAPItem ARD 	" & vbNewLine &
+                    "           INNER JOIN traAccountReceivable ARH ON 	" & vbNewLine &
+                    "	            ARD.ParentID=ARH.ID		" & vbNewLine &
+                    "           WHERE 	" & vbNewLine &
+                    "               ARH.CompanyID=@CompanyID 	" & vbNewLine &
+                    "	            AND ARH.ProgramID=@ProgramID 	" & vbNewLine &
+                    "	            AND ARH.BPID=@BPID " & vbNewLine &
+                    "	            AND ARH.IsDeleted=0	" & vbNewLine &
+                    "	            AND ARH.ID=@ARID " & vbNewLine &
+                    "       ) " & vbNewLine &
+                    "" & vbNewLine
+
+                .Parameters.Add("@ARID", SqlDbType.VarChar, 100).Value = strARID
+                .Parameters.Add("@CompanyID", SqlDbType.Int).Value = intCompanyID
+                .Parameters.Add("@ProgramID", SqlDbType.Int).Value = intProgramID
+                .Parameters.Add("@BPID", SqlDbType.Int).Value = intBPID
+            End With
+            Return SQL.QueryDataTable(sqlCmdExecute, sqlTrans)
+        End Function
+
 #End Region
 
 #Region "Status"

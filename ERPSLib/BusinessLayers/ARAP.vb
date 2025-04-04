@@ -1248,6 +1248,11 @@
             End If
         End Function
 
+        Public Shared Function ListDataDetailItemReceiveWithOutstandingVer2(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                            ByVal intBPID As Integer, ByVal strParentID As String) As DataTable
+            Return BL.AccountReceivable.ListDataDetailItemReceiveWithOutstandingVer02(intCompanyID, intProgramID, intBPID, strParentID)
+        End Function
+
 #End Region
 
 #Region "Down Payment"

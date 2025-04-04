@@ -348,6 +348,16 @@ Public Class frmTraARAP
                 .StartPosition = FormStartPosition.CenterScreen
                 .pubShowDialog(Me)
             End With
+        ElseIf strModules = VO.AccountReceivable.ReceivePaymentTransport Then
+            frmDetail = New frmTraARAPDetVer6
+            With frmDetail
+                .pubIsNew = True
+                .pubCS = prvGetCS()
+                .pubModules = strModules
+                .Text = Me.Text
+                .StartPosition = FormStartPosition.CenterScreen
+                .pubShowDialog(Me)
+            End With
         Else
             If strModules = VO.AccountPayable.DownPayment Or
                 strModules = VO.AccountPayable.DownPaymentCutting Or

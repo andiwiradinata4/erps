@@ -1935,6 +1935,14 @@ EndProcess:
             End Using
         End Function
 
+        Public Shared Function ListDataDetailItemReceiveWithOutstandingVer02(ByVal intCompanyID As Integer, ByVal intProgramID As Integer,
+                                                                             ByVal intBPID As Integer, ByVal strAPID As String) As DataTable
+            BL.Server.ServerDefault()
+            Using sqlCon As SqlConnection = DL.SQL.OpenConnection
+                Return DL.AccountReceivable.ListDataDetailItemReceiveWithOutstandingVer02(sqlCon, Nothing, intCompanyID, intProgramID, intBPID, strAPID)
+            End Using
+        End Function
+
 #End Region
 
 #Region "Status"

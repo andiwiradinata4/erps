@@ -47,7 +47,7 @@ Public Class frmTraSalesServiceDet
         UI.usForm.SetGrid(grdItemView, "PlatNumber", "Nomor Plat", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "DeliveryNumber", "Nomor Referensi", 100, UI.usDefGrid.gString)
         UI.usForm.SetGrid(grdItemView, "Quantity", "Jumlah", 100, UI.usDefGrid.gReal2Num)
-        UI.usForm.SetGrid(grdItemView, "UnitPrice", "Harga", 100, UI.usDefGrid.gReal2Num)
+        UI.usForm.SetGrid(grdItemView, "Price", "Harga", 100, UI.usDefGrid.gReal2Num)
         UI.usForm.SetGrid(grdItemView, "TotalPrice", "Total Harga", 100, UI.usDefGrid.gReal2Num)
 
         '# History

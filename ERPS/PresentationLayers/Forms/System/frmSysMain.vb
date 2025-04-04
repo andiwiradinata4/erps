@@ -71,6 +71,7 @@
     Dim frmMainTraAccountPayableReceivePaymentCutting As frmTraAPCost
     Dim frmMainTraARAPPayable As frmTraARAP
     Dim frmMainTraARAPReceivable As frmTraARAP
+    Dim frmMainTraARAPReceivableTransport As frmTraARAP
 
     'Dim frmMainTraAccountPayable As frmTraAccountPayable
 
@@ -529,6 +530,39 @@
             frmMainTraSalesServiceTransport.MdiParent = Me
             frmMainTraSalesServiceTransport.pubServiceType = VO.ServiceType.Value.Transport
             frmMainTraSalesServiceTransport.Show()
+        End If
+        Me.Cursor = Cursors.Arrow
+    End Sub
+
+    Private Sub mnuTransaksiPenjualanJasaPelunasanPengiriman_Click(sender As Object, e As EventArgs) Handles mnuTransaksiPenjualanJasaPelunasanPengiriman.Click
+        Dim s_fT As String = Me.GetType.Namespace & "." & "frmTraARAP"
+        Me.Cursor = Cursors.WaitCursor
+        If Not IsNothing(frmMainTraARAPReceivableTransport) Then
+            If Not frmMainTraARAPReceivableTransport.IsDisposed Then
+                frmMainTraARAPReceivableTransport.pubARAPType = VO.ARAP.ARAPTypeValue.Sales
+                frmMainTraARAPReceivableTransport.pubModules = VO.AccountReceivable.ReceivePaymentTransport
+                frmMainTraARAPReceivableTransport.pubIsControlARAP = False
+                frmMainTraARAPReceivableTransport.pubIsGenerate = 0
+                frmMainTraARAPReceivableTransport.WindowState = FormWindowState.Normal
+                frmMainTraARAPReceivableTransport.BringToFront()
+                frmMainTraARAPReceivableTransport.WindowState = FormWindowState.Maximized
+            Else
+                frmMainTraARAPReceivableTransport = Activator.CreateInstance(Type.GetType(s_fT))
+                frmMainTraARAPReceivableTransport.MdiParent = Me
+                frmMainTraARAPReceivableTransport.pubARAPType = VO.ARAP.ARAPTypeValue.Sales
+                frmMainTraARAPReceivableTransport.pubModules = VO.AccountReceivable.ReceivePaymentTransport
+                frmMainTraARAPReceivableTransport.pubIsControlARAP = True
+                frmMainTraARAPReceivableTransport.pubIsGenerate = 0
+                frmMainTraARAPReceivableTransport.Show()
+            End If
+        Else
+            frmMainTraARAPReceivableTransport = Activator.CreateInstance(Type.GetType(s_fT))
+            frmMainTraARAPReceivableTransport.MdiParent = Me
+            frmMainTraARAPReceivableTransport.pubARAPType = VO.ARAP.ARAPTypeValue.Sales
+            frmMainTraARAPReceivableTransport.pubModules = VO.AccountReceivable.ReceivePaymentTransport
+            frmMainTraARAPReceivableTransport.pubIsControlARAP = False
+            frmMainTraARAPReceivableTransport.pubIsGenerate = 0
+            frmMainTraARAPReceivableTransport.Show()
         End If
         Me.Cursor = Cursors.Arrow
     End Sub

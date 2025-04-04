@@ -637,7 +637,7 @@ Partial Class frmSysMain
         '
         Me.mnuLaporanPembelian.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuLaporanPembelianSPKPotong})
         Me.mnuLaporanPembelian.Name = "mnuLaporanPembelian"
-        Me.mnuLaporanPembelian.Size = New System.Drawing.Size(161, 22)
+        Me.mnuLaporanPembelian.Size = New System.Drawing.Size(180, 22)
         Me.mnuLaporanPembelian.Text = "Pembelian"
         '
         'mnuLaporanPembelianSPKPotong
@@ -650,7 +650,7 @@ Partial Class frmSysMain
         '
         Me.mnuLaporanPenjualan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuLaporanPenjualanKonfirmasiPesanan})
         Me.mnuLaporanPenjualan.Name = "mnuLaporanPenjualan"
-        Me.mnuLaporanPenjualan.Size = New System.Drawing.Size(161, 22)
+        Me.mnuLaporanPenjualan.Size = New System.Drawing.Size(180, 22)
         Me.mnuLaporanPenjualan.Text = "Penjualan"
         '
         'mnuLaporanPenjualanKonfirmasiPesanan
@@ -662,14 +662,14 @@ Partial Class frmSysMain
         'mnuLaporanTransaksiBarang
         '
         Me.mnuLaporanTransaksiBarang.Name = "mnuLaporanTransaksiBarang"
-        Me.mnuLaporanTransaksiBarang.Size = New System.Drawing.Size(161, 22)
+        Me.mnuLaporanTransaksiBarang.Size = New System.Drawing.Size(180, 22)
         Me.mnuLaporanTransaksiBarang.Text = "Transaksi Barang"
         '
         'mnuLaporanPembukuan
         '
         Me.mnuLaporanPembukuan.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuLaporanPembukuanPIPenjualan, Me.ToolStripSeparator1, Me.mnuLaporanPembukuanKartuHutang, Me.mnuLaporanPembukuanKartuPiutang, Me.mnuLaporanPembukuanBukuBesar, Me.mnuLaporanPembukuanNeracaSaldo, Me.mnuLaporanPembukuanLabaRugi, Me.mnuLaporanPembukuanNeraca})
         Me.mnuLaporanPembukuan.Name = "mnuLaporanPembukuan"
-        Me.mnuLaporanPembukuan.Size = New System.Drawing.Size(161, 22)
+        Me.mnuLaporanPembukuan.Size = New System.Drawing.Size(180, 22)
         Me.mnuLaporanPembukuan.Text = "Pembukuan"
         '
         'mnuLaporanPembukuanPIPenjualan

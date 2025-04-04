@@ -90,5 +90,6 @@
         Public Const ReceivePaymentSalesReturn As String = "SR"
         Public Const ReceivePaymentClaimPOCutting As String = "CPC"
         Public Const ReceivePaymentClaimPurchase As String = "CP1"
+        Public Const ReceivePaymentTransport As String = "TIV"
     End Class
 End Namespace

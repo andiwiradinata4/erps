@@ -53,6 +53,8 @@ Namespace VO
                 Return "Pelunasan Piutang Penjualan [Stock]"
             ElseIf strModules = VO.AccountReceivable.ReceivePaymentOrderRequestVer2 Then
                 Return "Pelunasan Piutang Penjualan"
+            ElseIf strModules = VO.AccountReceivable.ReceivePaymentTransport Then
+                Return "Pelunasan Piutang Pengiriman"
             ElseIf strModules = VO.AccountReceivable.All Then
                 Return "Semua Daftar Pelunasan"
             ElseIf strModules = VO.AccountReceivable.ReceivePaymentSalesReturn Then
@@ -98,6 +100,8 @@ Namespace VO
                 Return VO.Modules.Value.TransactionSalesSalesContractReceivePayment
             ElseIf strModules = VO.AccountReceivable.ReceivePaymentClaimPOCutting Then
                 Return 0 'VO.Modules.Value.TransactionAccountReceivable
+            ElseIf strModules = VO.AccountReceivable.ReceivePaymentTransport Then
+                Return VO.Modules.Value.TransactionSalesServiceDeliveryReceivePayment
             End If
             Return 0
         End Function
