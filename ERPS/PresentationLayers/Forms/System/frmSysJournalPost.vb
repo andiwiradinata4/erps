@@ -178,6 +178,30 @@
             txtCoACodeofRounding.Text = clsData.CoACodeofRounding
             txtCoANameofRounding.Text = clsData.CoANameofRounding
 
+            intCoAIDofRevenueServiceCutting = clsData.CoAofRevenueCutting
+            txtCoACodeOfRevenueServiceCutting.Text = clsData.CoACodeofRevenueCutting
+            txtCoANameOfRevenueServiceCutting.Text = clsData.CoANameofRevenueCutting
+
+            intCoAIDofRevenueServiceTransport = clsData.CoAofRevenueTransport
+            txtCoACodeOfRevenueServiceTransport.Text = clsData.CoACodeofRevenueTransport
+            txtCoANameOfRevenueServiceTransport.Text = clsData.CoANameofRevenueTransport
+
+            intCoAIDofAccountReceivableOutstandingPaymentServiceCutting = clsData.CoAofAccountReceivableOutstandingPaymentCutting
+            txtCoACodeOfAccountReceivableOutstandingPaymentServiceCutting.Text = clsData.CoACodeofAccountReceivableOutstandingPaymentCutting
+            txtCoANameOfAccountReceivableOutstandingPaymentServiceCutting.Text = clsData.CoANameofAccountReceivableOutstandingPaymentCutting
+
+            intCoAIDofAccountReceivableServiceCutting = clsData.CoAofAccountReceivableCutting
+            txtCoACodeOfAccountReceivableServiceCutting.Text = clsData.CoACodeofAccountReceivableCutting
+            txtCoANameOfAccountReceivableServiceCutting.Text = clsData.CoANameofAccountReceivableCutting
+
+            intCoAIDofAccountReceivableOutstandingPaymentServiceTransport = clsData.CoAofAccountReceivableOutstandingPaymentTransport
+            txtCoACodeOfAccountReceivableOutstandingPaymentServiceTransport.Text = clsData.CoACodeofAccountReceivableOutstandingPaymentTransport
+            txtCoANameOfAccountReceivableOutstandingPaymentServiceTransport.Text = clsData.CoANameofAccountReceivableOutstandingPaymentTransport
+
+            intCoAIDofAccountReceivableServiceTransport = clsData.CoAofAccountReceivableTransport
+            txtCoACodeOfAccountReceivableServiceTransport.Text = clsData.CoACodeofAccountReceivableTransport
+            txtCoANameOfAccountReceivableServiceTransport.Text = clsData.CoANameofAccountReceivableTransport
+
             ToolStripLogInc.Text = "Jumlah Edit : " & clsData.LogInc
             ToolStripLogBy.Text = "Dibuat Oleh : " & IIf(clsData.LogBy Is Nothing, ERPSLib.UI.usUserApp.UserID, clsData.LogBy)
             ToolStripLogDate.Text = Format(IIf(clsData.LogBy Is Nothing, Now(), clsData.LogDate), UI.usDefCons.DateFull)
@@ -229,6 +253,12 @@
         clsData.CoAofCompensasionRevenue = intCoAIDofCompensasionRevenue
         clsData.CoAofClaimCost = intCoAIDofClaimCost
         clsData.CoAofRounding = intCoAofRounding
+        clsData.CoAofRevenueCutting = intCoAIDofRevenueServiceCutting
+        clsData.CoAofRevenueTransport = intCoAIDofRevenueServiceTransport
+        clsData.CoAofAccountReceivableOutstandingPaymentCutting = intCoAIDofAccountReceivableOutstandingPaymentServiceCutting
+        clsData.CoAofAccountReceivableCutting = intCoAIDofAccountReceivableServiceCutting
+        clsData.CoAofAccountReceivableOutstandingPaymentTransport = intCoAIDofAccountReceivableOutstandingPaymentServiceTransport
+        clsData.CoAofAccountReceivableTransport = intCoAIDofAccountReceivableServiceTransport
         clsData.CompanyID = ERPSLib.UI.usUserApp.CompanyID
 
         Me.Cursor = Cursors.WaitCursor

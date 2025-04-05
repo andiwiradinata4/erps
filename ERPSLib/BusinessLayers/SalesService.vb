@@ -181,7 +181,7 @@ Namespace BL
                 '# Generate Journal
                 Dim intGroupID As Integer = 1
                 Dim decTotalAmount As Decimal = 0
-                If ERPSLib.UI.usUserApp.JournalPost.CoAofRevenueCutting < 0 Or ERPSLib.UI.usUserApp.JournalPost.CoAofRevenueTransport < 0 Then Err.Raise(515, "", "Data tidak dapat di Proses. Dikarenakan Akun Pendapatan Jasa belum ditentukan")
+                If ERPSLib.UI.usUserApp.JournalPost.CoAofRevenueCutting <= 0 Or ERPSLib.UI.usUserApp.JournalPost.CoAofRevenueTransport <= 0 Then Err.Raise(515, "", "Data tidak dapat di Proses. Dikarenakan Akun Pendapatan Jasa belum ditentukan")
                 Dim intCoAofRevenue As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofRevenueTransport
                 Dim intCoAofAccountReceivableOutstandingPayment As Integer = ERPSLib.UI.usUserApp.JournalPost.CoAofAccountReceivableOutstandingPaymentTransport
                 If clsData.ServiceType = VO.ServiceType.Value.Cutting Then intCoAofRevenue = ERPSLib.UI.usUserApp.JournalPost.CoAofRevenueCutting
